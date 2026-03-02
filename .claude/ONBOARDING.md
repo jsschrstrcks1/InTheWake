@@ -1,7 +1,7 @@
 # Claude Code System Onboarding — In the Wake
 
 **For:** New Claude sessions working on In the Wake
-**Date:** 2026-02-13
+**Date:** 2026-03-02
 **System Version:** ITW-Lite v3.010.305 with FOM enhancements
 
 ---
@@ -15,7 +15,7 @@ You're working on **In the Wake**, a cruise planning website with an enhanced Cl
 1. **Skills auto-activate** based on what you're doing (editing HTML triggers SEO/accessibility skills)
 2. **ITW-Lite v3.010 philosophy**: AI-first, Human-first, Google second
 3. **Theological foundation is IMMUTABLE**: Soli Deo Gloria invocation required on all pages
-4. **9 skill rules total**: 4 with dedicated directories (careful-not-clever, standards, skill-developer, frontend-dev-guidelines) + 5 rule-based triggers in skill-rules.json (seo-optimizer, accessibility-auditor, content-strategy, performance-analyzer, ship-page-validator)
+4. **10 skill rules total**: 4 with dedicated directories (careful-not-clever, standards, skill-developer, frontend-dev-guidelines) + 6 rule-based triggers in skill-rules.json (seo-optimizer, accessibility-auditor, content-strategy, voice-audit, performance-analyzer, ship-page-validator)
 5. **Read this first**: `.claude/skill-rules.json` (skill activation rules) and `new-standards/README.md` (site standards)
 
 ---
@@ -25,7 +25,7 @@ You're working on **In the Wake**, a cruise planning website with an enhanced Cl
 ### 1. Start Here - The System:
 ```bash
 .claude/INSTALLATION.md           # Complete system documentation
-.claude/skill-rules.json          # Skill activation rules (9 skills)
+.claude/skill-rules.json          # Skill activation rules (10 skills)
 FOM_STANDARDS_ALIGNMENT.md        # How FOM integration aligns with CITW standards
 ```
 
@@ -68,9 +68,9 @@ new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md  # Accessibility
 
 ---
 
-## 🛠️ The 9 Skill Rules
+## 🛠️ The 10 Skill Rules
 
-The system includes 9 skill rules defined in `.claude/skill-rules.json`. Four have dedicated skill directories with documentation (standards, skill-developer, frontend-dev-guidelines, careful-not-clever); five are rule-based triggers only.
+The system includes 10 skill rules defined in `.claude/skill-rules.json`. Four have dedicated skill directories with documentation (standards, skill-developer, frontend-dev-guidelines, careful-not-clever); six are rule-based triggers only.
 
 ### Skills with Dedicated Directories (4)
 
@@ -100,7 +100,7 @@ The system includes 9 skill rules defined in `.claude/skill-rules.json`. Four ha
 **Purpose:** HTML/CSS/JS best practices for static sites
 **Resources:** `.claude/skills/frontend-dev-guidelines/SKILL.md`
 
-### Rule-Based Triggers (5)
+### Rule-Based Triggers (6)
 
 These skills are defined as activation rules in `skill-rules.json` with guardrails and triggers, but don't have dedicated SKILL.md directories. They influence behavior through their rule definitions.
 
@@ -125,11 +125,21 @@ These skills are defined as activation rules in `skill-rules.json` with guardrai
 - ❌ REJECT: Keyword-stuffed descriptions, robotic SEO copy, removing planning guidance
 - ✅ ACCEPT: Natural descriptions, travel storytelling, faith-scented reflections
 
-#### 8. **performance-analyzer** (FOM→ITW - Medium Priority)
+#### 8. **voice-audit** (CITW Original - High Priority) ⚠️ **WITH GUARDRAILS**
+**Triggers:** "voice audit", "voice check", "authenticity check", "machine tell", pre-commit review
+**Triggers Files:** Same content paths as content-strategy (ships, ports, restaurants, solo, logbooks)
+**Purpose:** Post-draft diagnostic for content authenticity. Scans for machine tells, voice drift, promotional language, emotional register flattening.
+**Resources:** `.claude/skills/Humanization/voice-audit.md`
+**Guardrails:**
+- Fires automatically before `git commit` when content files are staged (via voice-audit-hook.sh)
+- Companion to Like-a-human (which fires during writing)
+- Pre-commit hook: `.claude/hooks/voice-audit-hook.sh`
+
+#### 9. **performance-analyzer** (FOM→ITW - Medium Priority)
 **Triggers:** performance, optimize, lighthouse, Core Web Vitals, LCP, FID, CLS
 **Purpose:** Web performance optimization
 
-#### 9. **ship-page-validator** (CITW Original - High Priority)
+#### 10. **ship-page-validator** (CITW Original - High Priority)
 **Triggers:** "ship page", "create ship", "validate ship", ship checklist
 **Triggers Files:** ships/**/*.html (excludes ships/index.html, ships.html)
 **Purpose:** Auto-validates ship pages against SHIP_PAGE_CHECKLIST_v3.010 standards
@@ -163,12 +173,14 @@ Located in `.claude/commands/`:
 
 ---
 
-## 🪝 Hooks (3 auto-activation)
+## 🪝 Hooks (5 auto-activation)
 
 Located in `.claude/hooks/`:
-1. **session-start-guardrail.sh** — **CRITICAL:** Injects CAREFUL.md guardrail into EVERY session. This hook forces all Claude sessions to see the careful-not-clever rules before any action. Pure bash, no dependencies, cannot fail silently.
-2. **post-tool-use-tracker.sh** — Tracks tool usage to optimize future loads
-3. **ship-page-validator.sh** — Auto-validates ship pages against v3.010 checklist after Write/Edit
+1. **session-start-guardrail.sh** — **CRITICAL:** Injects CAREFUL.md guardrail into EVERY session (UserPromptSubmit). Pure bash, no dependencies, cannot fail silently.
+2. **post-tool-use-tracker.sh** — Tracks tool usage to optimize future loads (PostToolUse Edit|Write)
+3. **ship-page-validator.sh** — Auto-validates ship pages against v3.010 checklist (PostToolUse Edit|Write)
+4. **port-content-voice-hook.sh** — Injects Like-a-human v2.0.0 voice guide for content writes (PostToolUse Edit|Write)
+5. **voice-audit-hook.sh** — Injects voice-audit diagnostic before git commit when content files are staged (PreToolUse Bash)
 
 **Configured in:** `.claude/settings.json`
 
@@ -194,12 +206,12 @@ InTheWake/
 ├── .claude/                    # Claude Code system (YOU ARE HERE)
 │   ├── INSTALLATION.md         # Full installation guide
 │   ├── ONBOARDING.md          # This file
-│   ├── skill-rules.json       # Skill activation rules (8 rule definitions)
+│   ├── skill-rules.json       # Skill activation rules (10 skill definitions)
 │   ├── settings.json          # Hook configuration
-│   ├── skills/                # 3 skills with directories (standards, skill-developer, frontend-dev-guidelines)
+│   ├── skills/                # 4 skills with directories (standards, skill-developer, frontend-dev-guidelines, careful-not-clever) + Humanization (Like-a-human, voice-audit)
 │   ├── plugins/               # 5 plugins (SEO, accessibility, performance)
 │   ├── commands/              # 4 commands (/commit, /create-pr, etc.)
-│   ├── hooks/                 # 3 hooks (auto-activation + ship validation)
+│   ├── hooks/                 # 5 hooks (guardrails, tracking, validation, voice)
 │   └── references/            # UI/UX pattern references
 ├── new-standards/             # CITW official standards directory
 │   ├── README.md              # Standards overview
@@ -371,7 +383,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 **What happened:**
 - FOM (Flickers of Majesty) had a 6-layer Claude Code enhancement system
 - We merged the "wheat" (cruise-relevant components) into CITW
-- Result: 9 skill rules total (2 CITW original + 6 FOM adapted)
+- Result: 10 skill rules total (4 CITW original + 6 FOM adapted)
 
 **Key adaptations:**
 - FOM-Lite v1.0 → ITW-Lite v3.010
@@ -413,6 +425,16 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 ---
 
 ## 🔄 Version History
+
+**v1.3.0** (2026-03-02) — Like-a-human v2.0.0 + voice-audit skill
+- ADDED: Like-a-human v2.0.0 — Precision Discipline (emotional/factual/experiential), Cadence section (compression, antithesis, gear shifts), Honesty Safeguards, AI vocabulary ban list, hedging discipline, anti-camouflage rule
+- ADDED: voice-audit skill — post-draft diagnostic for machine tells, voice drift, authenticity risk
+- ADDED: voice-audit-hook.sh — PreToolUse hook on Bash that fires before git commit when content files staged
+- UPDATED: settings.json — added PreToolUse hook section for voice-audit
+- UPDATED: skill-rules.json — added voice-audit skill, updated content-strategy maxLines 200→400
+- UPDATED: Skill count from 9 to 10 (4 CITW original + 6 FOM adapted)
+- UPDATED: Hook count from 3 to 5 (port-content-voice-hook.sh was already wired but undocumented; voice-audit-hook.sh is new)
+- UPDATED: CITW original skills now 4: standards, ship-page-validator, careful-not-clever, voice-audit
 
 **v1.2.0** (2026-02-06) — CRITICAL: Fixed broken hook system, added careful-not-clever guardrail
 - FIXED: skill-activation-prompt.sh was calling missing skill-activation-prompt.ts file
@@ -493,7 +515,7 @@ The careful-not-clever skill is CRITICAL priority. It means:
 
 **See:** `.claude/skills/careful-not-clever/CAREFUL.md`
 
-1. **9 skill rules** auto-activate based on context: 3 with skill directories + 6 rule-based triggers (including careful-not-clever at CRITICAL priority)
+1. **10 skill rules** auto-activate based on context: 4 with skill directories + 6 rule-based triggers (including careful-not-clever at CRITICAL priority, voice-audit at HIGH priority)
 2. **ITW-Lite v3.010**: AI-first, Human-first, Google second
 3. **Theological foundation is immutable**: Soli Deo Gloria on every page
 4. **ICP-Lite v1.4 protocol required**: ai-summary (dual-cap), last-reviewed, content-protocol meta tags
@@ -515,7 +537,7 @@ The careful-not-clever skill is CRITICAL priority. It means:
 ## Quick Reference Commands
 
 ```bash
-# View skill configuration (9 skills: 4 with directories, 5 rule-based)
+# View skill configuration (10 skills: 4 with directories, 6 rule-based)
 cat .claude/skill-rules.json | jq '.skills | keys'
 
 # Read the CRITICAL guardrail
