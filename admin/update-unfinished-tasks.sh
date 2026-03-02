@@ -1,6 +1,6 @@
 #!/bin/bash
 # Intelligent task tracker for the three-file task management system
-# Updates UNFINISHED_TASKS.md, IN_PROGRESS_TASKS.md, and COMPLETED_TASKS.md
+# Updates admin/UNFINISHED_TASKS.md, admin/IN_PROGRESS_TASKS.md, and admin/COMPLETED_TASKS.md
 # Part of the modular standards system
 # Updated: 2025-11-25
 
@@ -94,7 +94,7 @@ for FILE in "$UNFINISHED_FILE" "$IN_PROGRESS_FILE" "$COMPLETED_FILE"; do
   fi
 done
 
-# Update IN_PROGRESS_TASKS.md with thread history if it exists
+# Update admin/IN_PROGRESS_TASKS.md with thread history if it exists
 if [ -f "$IN_PROGRESS_FILE" ]; then
   # Check if this branch is already in the thread history
   if ! grep -q "$BRANCH" "$IN_PROGRESS_FILE" 2>/dev/null; then

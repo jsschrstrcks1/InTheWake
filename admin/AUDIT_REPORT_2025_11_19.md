@@ -1,7 +1,7 @@
 # COMPREHENSIVE AUDIT REPORT - InTheWake Repository
 **Audit Date:** 2025-11-19
 **Repository:** /home/user/InTheWake
-**Task List Reference:** UNFINISHED_TASKS.md (Last Updated: 2025-11-18)
+**Task List Reference:** admin/UNFINISHED_TASKS.md (Last Updated: 2025-11-18)
 
 ---
 
@@ -285,7 +285,7 @@ Checked 8 sample pages (index, ports, restaurants, 3 ships, solo, about):
 ## KEY FINDINGS & RECOMMENDATIONS
 
 ### 1. UPDATE TASK LIST IMMEDIATELY
-The UNFINISHED_TASKS.md is seriously outdated:
+The admin/UNFINISHED_TASKS.md is seriously outdated:
 - Claims 281 pages need nav fixes (actual: ~104)
 - Claims 28 logbooks complete (actual: 38)
 - Claims 22 logbooks needed (actual: ~12)

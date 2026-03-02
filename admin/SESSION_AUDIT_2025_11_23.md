@@ -98,7 +98,7 @@ nothing to commit, working tree clean ✅
 - ✅ `CACHE_HEADERS_README.md` - Cache configuration documentation
 
 ### Files Updated
-- ✅ `UNFINISHED_TASKS.md` - Added performance optimizations completion section
+- ✅ `admin/UNFINISHED_TASKS.md` - Added performance optimizations completion section
 
 ---
 

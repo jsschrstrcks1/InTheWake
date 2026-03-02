@@ -1,7 +1,7 @@
 # In-Progress Tasks
 
 **Purpose:** Thread coordination file to prevent conflicts between concurrent Claude threads.
-**Last Updated:** 2026-03-02 (consolidated — completed items moved to COMPLETED_TASKS.md)
+**Last Updated:** 2026-03-02 (consolidated — completed items moved to admin/COMPLETED_TASKS.md)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -42,7 +42,7 @@ FORMAT:
 **Files:** admin/validate-port-page-v2.js (reference), ports/*.html (387 pages)
 **Status:** 338/387 passing (87.3%) — structural batch fixes complete, content gaps remain
 
-**What's been done (moved to COMPLETED_TASKS.md 2026-03-02):**
+**What's been done (moved to admin/COMPLETED_TASKS.md 2026-03-02):**
 - Sessions 1-10: 3 → 338 passing ports
 - All batch-automatable structural fixes exhausted
 - 11 new validator checks added

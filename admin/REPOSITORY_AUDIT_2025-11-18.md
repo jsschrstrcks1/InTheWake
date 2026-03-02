@@ -9,7 +9,7 @@
 
 ### Key Discrepancies Found
 
-The UNFINISHED_TASKS.md is significantly out of date. Many tasks listed as incomplete are actually done.
+The admin/UNFINISHED_TASKS.md is significantly out of date. Many tasks listed as incomplete are actually done.
 
 ---
 
