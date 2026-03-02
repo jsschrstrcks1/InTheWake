@@ -40,17 +40,16 @@ FORMAT:
 **Thread:** `claude/port-validation-review-Zd2lY`
 **Started:** 2026-02-20
 **Files:** admin/validate-port-page-v2.js (reference), ports/*.html (387 pages)
-**Status:** 214/387 passing (55.3%) — structural batch fixes complete, content gaps remain
+**Status:** 338/387 passing (87.3%) — structural batch fixes complete, content gaps remain
 
 **What's been done (moved to COMPLETED_TASKS.md 2026-03-02):**
-- Sessions 1-10: 3 → 214 passing ports
+- Sessions 1-10: 3 → 338 passing ports
 - All batch-automatable structural fixes exhausted
 - 11 new validator checks added
 - Alaska Sprint complete (11 ports, 94-98/100)
 
 **What remains (see UNFINISHED_TASKS.md):**
-- ~129 ports at score 0 (content skeletons, need full creation)
-- 3 image-blocked ports (santos, callao, catania)
+- ~49 ports still failing (25 at score 0-48, 24 at score 50-78)
 - FAQ trimming, POI manifests, promotional language cleanup
 
 ---

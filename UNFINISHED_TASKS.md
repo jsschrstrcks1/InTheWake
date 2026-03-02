@@ -2,6 +2,7 @@
 
 **Purpose:** Active task queue. Only genuinely pending work lives here.
 **Last Consolidated:** 2026-03-02 (full audit + merge of all task files)
+**Last Verified:** 2026-03-02 (deep filesystem audit — all counts verified against actual repo)
 **Maintained by:** Claude AI
 
 > **Migration Note (2026-03-02):**
@@ -207,28 +208,28 @@ Each port's content must be **port-specific** — no generic templates. Research
 - [ ] Fix author avatar to circle (remove inline border-radius overrides)
 - [ ] Uniform version badge
 - [ ] Normalize hero sizing/positioning
-- [ ] Add missing whimsical units containers (~206 ships)
-- [ ] Add missing grid2 layout (~172 ships)
+- [ ] Add missing whimsical units containers (~181 ships)
+- [ ] Add missing grid-2 layout (~30 ships, mostly Carnival)
 
-### [G] Ship Validation — Content-Dependent Remaining Work
-**Current:** 157/295 passing (after Phases 1-5 structural fixes)
+### [G] Ship Validation — Content Quality Enhancement
+**Current:** 293/293 passing (100% — all structural validation errors resolved)
+**Remaining quality improvements (beyond validator scope):**
 - [ ] Generic review text (208 ships) — needs editorial content per ship
 - [ ] Few images (137 ships) — needs actual image files (23 ships need just 1 more)
 - [ ] FAQ too short (186 ships) — needs content expansion
-- [ ] Missing whimsical units (206 ships)
-- [ ] Missing grid2 layout (172 ships)
+- [ ] Missing whimsical units (~181 ships)
+- [ ] Missing grid-2 layout (~30 ships)
 
 ### [G] Port Validation — Remaining Work
-**Current:** 214/387 passing (55.3%)
-- [ ] ~129 ports at score 0 (content skeletons) — need full content creation
-- [ ] 3 ports image-blocked (santos, callao, catania) — need image files
+**Current:** 338/387 passing (87.3%)
+- [ ] ~49 ports still failing (25 at score 0-48, 24 at score 50-78)
 - [ ] Trim FAQ answers to 80 words (~384 ports)
 - [ ] Build POI manifests (365 ports have < 10 POIs)
 - [ ] Clean promotional drift language (~200 ports)
 
 ### [G] Port Weather — Remaining Coverage
-**Current:** ~300/387 ports have weather widgets
-- [ ] Add weather section to remaining ~87 ports
+**Current:** 351/387 ports have weather widgets
+- [ ] Add weather section to remaining ~36 ports
 
 ### [G] Technical Tasks
 - [ ] Verify WCAG 2.1 AA compliance across new pages
@@ -242,7 +243,6 @@ Each port's content must be **port-specific** — no generic templates. Research
 - [ ] Add "Size Map" scatter chart view (GT vs Passengers)
 - [ ] Add "Top 30 Largest Ships" spotlight module
 - [ ] Add ship detail drawer/modal
-- [ ] Implement data conflict display
 - [ ] Create automated coverage report
 - [ ] Add "last verified" date display per ship
 
@@ -254,15 +254,14 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 **Port page improvements:**
 - [ ] Ensure dock locations clearly marked on all port maps
 - [ ] Add dock location summary to port page intro
-- [ ] Expand DIY vs. excursion comparisons from 30 to top 50 ports
-- [ ] Expand "Real Talk" honest assessments to 75+ ports (currently 67)
+- [ ] Expand DIY vs. excursion comparisons from 38 to top 50 ports
+- [ ] Expand "Real Talk" honest assessments to 75+ ports (currently 46)
 - [ ] Include "Skip this port if..." honest guidance where appropriate
 - [ ] Add "Best for / Not ideal for" profile guidance per port
 - [ ] Evaluate PDF generation for top 20 ports
 
 **Ship page improvements:**
-- [ ] Ensure deck plan links are prominent on all ship pages
-- [ ] Verify deck plan PDFs load correctly
+- [ ] Verify deck plan PDFs load correctly (links are already prominent — verified 2026-03-02)
 - [ ] Add cabin size/amenity quick facts where missing
 - [ ] Ensure refurbishment dates are current
 - [ ] Add crew count and total deck count if missing
@@ -281,16 +280,12 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] Add affiliate article links to ~387 port pages
 
 ### [G] Quiz Remaining Fixes
-- [ ] iPhone scroll issue (dropdown has no max-height) — P1
-- [ ] Back button restarts quiz (no history state) — P2
 - [ ] Add null safety for lineData access
 - [ ] Implement 10-ship limit (user request)
 - [ ] Add Comparison Drawer from Ship Atlas
-- [ ] Regional availability filter (auto-detect user region)
 - [ ] Run edge case test personas
 
 ### [G] Data Quality
-- [ ] 8 corrupted JSON files need manual review
 - [ ] Verify quality of auto-generated seasonal data vs hand-curated
 - [ ] Verify quality of auto-generated stateroom exception files vs manually audited
 
@@ -345,18 +340,12 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] + additional ships across non-RCL lines
 
 ### [Y] DIY vs. Excursion Comparison Expansion
-**Current:** 30 ports have comparisons
+**Current:** 38 ports have comparisons
 - [ ] Expand to top 50 ports
 - [ ] Format: "Ship excursion: $X | DIY: $Y | You save: $Z"
 - [ ] Add timing/transport/admission context
 
-### [Y] Affiliate Content — Phase 2-3
-**Phase 2 (New Content):**
-- [ ] Write `/articles/cruise-duck-tradition.html`
-- [ ] Write `/articles/cruise-cabin-organization.html`
-- [ ] Write `/articles/cruise-photography-tech.html`
-
-**Phase 3 (Enhance Existing):**
+### [Y] Affiliate Content — Phase 3 (Enhance Existing)
 - [ ] Add affiliate links to `/packing-lists.html`
 - [ ] Add tech recommendations to `/internet-at-sea.html`
 
@@ -374,10 +363,10 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] Set up Google Analytics dashboard
 
 ### [Y] Dining Hero Images
-- [ ] 44 RCL ship dining hero images needed
+- [ ] 49 RCL ship dining hero images needed (all currently use generic Cordelia placeholder)
 
 ### [Y] "Coming Soon" Pages
-- [ ] ~50 pages still have placeholder "coming soon" text
+- [ ] ~172 pages still have placeholder "coming soon" text (142 ships, 18 restaurants, 7 cruise-lines, 5 other)
 
 ---
 
