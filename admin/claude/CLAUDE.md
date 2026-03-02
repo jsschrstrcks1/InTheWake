@@ -1,7 +1,7 @@
 # Claude AI Assistant Guide - In the Wake
 
-**Version:** 1.2.7
-**Last Updated:** 2026-02-14
+**Version:** 1.3.0
+**Last Updated:** 2026-03-02
 **Purpose:** Comprehensive onboarding and reference guide for Claude AI assistants working on the In the Wake codebase
 
 ---
@@ -225,7 +225,7 @@ These guardrails override all optimization concerns. A technically imperfect pag
 ## 🎨 Template & Versioning
 
 ### Current Template Version
-**v3.010.305** (deployed to 1,238 HTML pages site-wide)
+**v3.010.305** (deployed to 1,241 HTML pages site-wide; some pages at v3.010.300 or v3.010.400)
 
 ### CSS Versioning
 **CRITICAL:** Stylesheet must use version query `?v=3.010.400`:
@@ -278,10 +278,10 @@ All pages should include:
 - Cache-first strategy for images
 - Network-first for HTML/JSON
 - Current limits:
-  - `maxPages: 400` (site has 1,238 HTML pages)
+  - `maxPages: 400` (site has 1,241 HTML pages)
   - `maxAssets: 150`
-  - `maxImages: 600` (currently 669 ship images, 3,131 WebP total)
-  - `maxData: 100` (2,455 JSON files in assets/data/)
+  - `maxImages: 600` (currently 682 ship images, 4,475 WebP total)
+  - `maxData: 100` (1,310 JSON files in assets/data/)
 
 #### Caching Strategy
 ```html
@@ -462,7 +462,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 
 **Implementation Levels:**
 
-#### Level 1: Meta Tags (99.5% complete - 1,232/1,238 pages)
+#### Level 1: Meta Tags (100% complete - 1,241/1,241 pages)
 ```html
 <meta name="content-protocol" content="ICP-Lite v1.4">
 <meta name="ai-summary" content="Comprehensive guide for [topic]">
@@ -560,7 +560,7 @@ AI-first content protocol that helps AI assistants understand and cite content c
 **Current Standard:** WebP format (77% smaller than JPEG)
 
 **Status:**
-- ✅ 669 ship images in WebP format (3,131 WebP site-wide)
+- ✅ 682 ship images in WebP format (4,475 WebP site-wide)
 - ✅ 0 JPG/JPEG files remain in repository (eliminated 2026-01-31)
 - ✅ All HTML meta tags updated (og:image, twitter:image)
 - ✅ All JSON-LD schemas use .webp
@@ -760,27 +760,27 @@ JSON-LD schema. Reduces page weight and improves LCP scores.
 
 ---
 
-## 🎯 Current Priorities (Updated 2026-02-13)
+## 🎯 Current Priorities (Updated 2026-03-02)
 
 ### P0 - Critical (Do These First)
 1. ✅ ~~Port Logbook~~ COMPLETE
 2. ✅ ~~Ship Logbook~~ COMPLETE
 3. ✅ ~~Ship Cards Redesign~~ COMPLETE
-4. ✅ ~~Ships That Visit Here~~ COMPLETE (193 ships, 15 lines, 380 ports, bidirectional)
-5. ✅ ~~Port expansion~~ COMPLETE (380 pages, up from 147)
+4. ✅ ~~Ships That Visit Here~~ COMPLETE (193 ships, 15 lines, 387 ports, bidirectional)
+5. ✅ ~~Port expansion~~ COMPLETE (387 pages, up from 147)
 6. ✅ ~~ICP-Lite rollout~~ COMPLETE (100% of pages)
 7. ✅ ~~Venue audit Phase 2~~ COMPLETE (0 generic text, 0 hotdog.webp, all have menus; validator in validate.js)
-8. ⏳ **CSS consolidation (remaining)** — 25 files with `<style>` blocks (tools/admin/templates only); ~16,022 inline `style=` attributes need Phase 5 cleanup
+8. ⏳ **CSS consolidation (remaining)** — 25 files with `<style>` blocks (tools/admin/templates only); ~19,513 inline `style=` attributes need Phase 5 cleanup
 
 ### P1 - High Priority (Do These Soon)
-9. ✅ ~~Port map completion~~ ESSENTIALLY COMPLETE — 367/380 (96.6%) use standard PortMap module; 13 remaining are redirects/passages/special pages
-10. ✅ ~~Ship page CSS rollout~~ COMPLETE — `ship-page.css` linked on 292/298 ship pages (6 pages in legacy/template directories not linked)
+9. ✅ ~~Port map completion~~ ESSENTIALLY COMPLETE — 367/387 (94.8%) use standard PortMap module; 20 remaining are redirects/passages/special pages or new ports
+10. ✅ ~~Ship page CSS rollout~~ COMPLETE — `ship-page.css` linked on 292/295 ship pages (3 pages in legacy/template directories not linked)
 11. ✅ ~~Competitor gap: "From the Pier"~~ COMPLETE — 376/376 real port pages have distance/transport component (2026-02-05)
 12. ⏳ **Site-wide hero/logo standardization** — Inconsistent across hub pages
 
 ### P2 - Medium Priority
 13. ✅ ~~Service Worker v14 upgrade~~ COMPLETE — sw.js upgraded to v14.2.0
-14. ✅ ~~Port weather seasonal data~~ COMPLETE — `seasonal-guides.json` has Tier 1 data for 380 ports; port-weather.js deployed to all 380 pages; 375/376 real ports have weather guide section
+14. ✅ ~~Port weather seasonal data~~ COMPLETE — `seasonal-guides.json` has Tier 1 data for 387 ports; port-weather.js deployed to all port pages
 15. ✅ ~~Stateroom Checker~~ MASSIVELY EXPANDED — 270 exception JSON files across ALL cruise lines
 
 ### P3-P4 - Future / Requires User Decision
@@ -906,6 +906,7 @@ Before marking any task complete, verify:
 ---
 
 **Version History:**
+- v1.3.0 (2026-03-02) - Ground-truth metrics audit: total pages 1,238→1,241, ship images 669→682, WebP 3,131→4,475, port pages 380→387, JSON in assets/data/ 2,455→1,310 (previous count was repo-wide, corrected to assets/data/ only), inline styles ~16,022→~19,513, ICP-Lite 1,232/1,238→1,241/1,241 (100%), ship pages 298→295. Added Like-a-human v2.0.0 and voice-audit references. CSS version mixed across site (v3.010.300/305/400).
 - v1.2.7 (2026-02-14) - Metrics verification: ship images 661→669, ICP-Lite 1,232/1,238 (99.5%; 6 remaining are article fragments without <head>), SDG 1,235→1,238/1,238 (100%), JSON files corrected (assets/data/: 1,301; repo-wide: 2,478), updated CODEBASE_GUIDE + STANDARDS_INDEX
 - v1.2.6 (2026-02-13) - Ground-truth audit: total pages 1,241→1,238, ship images 536→661, WebP 2,998→3,131, JSON files 1,278→2,455, style blocks 18→25, inline styles 31,128→~16,022, ICP-Lite 1,231/1,238 (99.4%), SDG 1,234/1,238 (99.7%)
 - v1.2.5 (2026-02-12) - Comprehensive docs/codebase review: ship pages 292→298, ship images 444→536, WebP 2,345→2,998, total pages 1,195→1,241, ICP-Lite 1,147/1,195→1,229/1,241, CSS ?v=3.0→?v=3.010.400, template v3.010.300→v3.010.305, JSON files 76→1,278
