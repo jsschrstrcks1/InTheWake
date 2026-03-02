@@ -3357,6 +3357,110 @@ function validateSeasonalData($, html) {
   };
 }
 
+/**
+ * Validate that port page does NOT contain copy-pasted template filler.
+ * Session 12 finding: batch scripts injected identical generic paragraphs
+ * into 88 ports to pass validation. This check catches that filler and
+ * makes it a BLOCKING error so those pages correctly FAIL until real
+ * port-specific content replaces the templates.
+ *
+ * Each signature is a short, unique substring that only appears in the
+ * template text and would never appear in genuine port-specific writing.
+ */
+function validateTemplateFiller($, html) {
+  const errors = [];
+  const warnings = [];
+
+  const fullText = $('body').text();
+
+  // Template filler signatures — each is a unique phrase from the batch scripts
+  const TEMPLATE_SIGNATURES = [
+    {
+      id: 'generic_emotional_pivot',
+      pattern: 'There was a quiet moment.*standing still while the world moved around me',
+      label: 'Generic emotional pivot paragraph (copy-pasted to 34 ports)'
+    },
+    {
+      id: 'generic_excursion_booking',
+      pattern: 'Whether you book through your ship\'s excursion desk or arrange something independently',
+      label: 'Generic excursion booking paragraph (copy-pasted to 66 ports)'
+    },
+    {
+      id: 'generic_cruise_port_welcome',
+      pattern: 'welcomes cruise ships at its well-positioned terminal, offering straightforward access',
+      label: 'Generic cruise port welcome paragraph (copy-pasted to 62 ports)'
+    },
+    {
+      id: 'generic_reflection',
+      pattern: 'what matters most about this place is not what you can photograph or post online',
+      label: 'Generic reflection paragraph (copy-pasted to 20 ports)'
+    },
+    {
+      id: 'generic_accessibility_padding',
+      pattern: 'I noticed the accessibility situation varied.*some paths were smooth',
+      label: 'Generic accessibility padding paragraph (copy-pasted to 33 ports)'
+    },
+    {
+      id: 'generic_budget_line',
+      pattern: 'Budget roughly \\$40.*\\$100 per person for a full day',
+      label: 'Generic budget line (copy-pasted to 73 ports)'
+    },
+    {
+      id: 'generic_passport_advice',
+      pattern: 'Carry a photocopy of your passport rather than the original',
+      label: 'Generic passport advice (copy-pasted to 47 ports)'
+    },
+    {
+      id: 'generic_gangway_walk',
+      pattern: 'The walk from gangway to port gate typically takes 5.*15 minutes',
+      label: 'Generic gangway walk time (copy-pasted to 63 ports)'
+    },
+    {
+      id: 'generic_getting_around',
+      pattern: 'highlights are accessible on foot from the cruise terminal, though distances vary',
+      label: 'Generic Getting Around paragraph (copy-pasted to 70 ports)'
+    },
+    {
+      id: 'generic_shuttle_buses',
+      pattern: 'Some cruise lines offer shuttle buses between the port and town center, typically \\$8.*\\$15',
+      label: 'Generic shuttle bus paragraph (copy-pasted to 70 ports)'
+    },
+    {
+      id: 'generic_dock_or_anchor',
+      pattern: 'Depending on the day.*ship count.*you may dock directly or anchor offshore',
+      label: 'Generic dock-or-anchor paragraph (copy-pasted to 63 ports)'
+    }
+  ];
+
+  const matches = [];
+
+  for (const sig of TEMPLATE_SIGNATURES) {
+    const re = new RegExp(sig.pattern, 'i');
+    if (re.test(fullText)) {
+      matches.push(sig);
+    }
+  }
+
+  if (matches.length > 0) {
+    errors.push({
+      section: 'content_quality',
+      rule: 'template_filler_detected',
+      message: `Page contains ${matches.length} template filler block(s): ${matches.map(m => m.id).join(', ')}. These are identical generic paragraphs copy-pasted across dozens of ports. Replace with port-specific content or remove.`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors,
+    warnings,
+    data: {
+      template_filler_count: matches.length,
+      detected_signatures: matches.map(m => m.id)
+    }
+  };
+}
+
 async function validatePortPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const results = {
@@ -3438,6 +3542,9 @@ async function validatePortPage(filepath) {
     const mexicanNoticesResult = validateMexicanPortNotices($, html);
     const seasonalDataResult = validateSeasonalData($, html);
 
+    // Session 12 — template filler detection
+    const templateFillerResult = validateTemplateFiller($, html);
+
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
     results.blocking_errors.push(...analyticsResult.errors);
@@ -3464,6 +3571,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...weatherWidgetResult.errors);
     results.blocking_errors.push(...jsonLdGeoResult.errors);
     results.blocking_errors.push(...seasonalDataResult.errors);
+    results.blocking_errors.push(...templateFillerResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -3503,6 +3611,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...authorConsistencyResult.warnings);
     results.warnings.push(...mexicanNoticesResult.warnings);
     results.warnings.push(...seasonalDataResult.warnings);
+    results.warnings.push(...templateFillerResult.warnings);
 
     // Collect info
     results.info.push(...logbookResult.info);
@@ -3553,6 +3662,7 @@ async function validatePortPage(filepath) {
     results.author_consistency = authorConsistencyResult.data;
     results.mexican_notices = mexicanNoticesResult.data;
     results.seasonal_data = seasonalDataResult.data;
+    results.template_filler = templateFillerResult.data;
 
   } catch (error) {
     results.blocking_errors.push({
