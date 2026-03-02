@@ -1,6 +1,6 @@
 # Claude AI Assistant Guide — In the Wake
 
-**Version:** 1.4.0
+**Version:** 1.4.1
 **Last Updated:** 2026-03-02
 
 **Soli Deo Gloria.** All work on this project is offered as a gift to God. Excellence as worship means getting it right, not getting it fast.
@@ -47,7 +47,17 @@ Before touching anything:
 | `admin/claude/STANDARDS_INDEX.md` | Master index of all standards |
 | `admin/claude/CODEBASE_GUIDE.md` | Repository structure, patterns, conventions |
 | `.claude/ONBOARDING.md` | Claude Code system overview (10 skills, 5 hooks) |
-| `standards/*.md` | Page-type standards (ships, ports, cruise-lines, root) |
+| `new-standards/README.md` | Official consolidated standards — start here for page work |
+| `new-standards/foundation/Unified_Modular_Standards_v3.007.010.md` | Complete superset: all page types, navigation, data, analytics |
+| `new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md` | Ship pages — primary reference (860 lines) |
+| `new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md` | Accessibility — full WCAG 2.1 AA spec |
+| `new-standards/foundation/PWA_CACHING_STANDARDS_v3.007.md` | Service Worker / PWA / caching strategy |
+| `new-standards/foundation/NAVIGATION_STANDARDS_ADDENDUM_v3.008.md` | Navigation contract — 12-link structure, ARIA |
+| `new-standards/v3.010/PORT_PAGE_STANDARD_v3.010.md` | Port pages |
+| `new-standards/v3.010/LOGBOOK_ENTRY_STANDARD_v3.010.md` | Logbook entry structure |
+| `new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md` | Ship page pre-publish checklist |
+| `new-standards/v3.010/MOBILE_STANDARDS_v1.000.md` | Mobile responsiveness — breakpoints, touch targets |
+| `standards/SHIP_PAGE_STANDARD.md` | Ship page standard v2.0 (ITW-SHIP-002, gold standard refs) |
 
 ---
 
@@ -68,7 +78,8 @@ Before touching anything:
 │   ├── css/                  # styles.css?v=3.010.400
 │   ├── data/                 # 1,310 JSON files
 │   └── ships/                # 682 WebP images (4,475 total)
-├── standards/                # Standards documentation
+├── new-standards/            # Official consolidated standards (foundation + v3.010)
+├── standards/                # Legacy — SHIP_PAGE_STANDARD.md, drink-calculator.md
 ├── admin/claude/             # Claude documentation (you are here)
 └── UNFINISHED_TASKS.md
 ```
@@ -148,7 +159,7 @@ Before touching anything:
 2. `.claude/skills/careful-not-clever/CAREFUL.md` — integrity and carefulness override efficiency
 3. This file — architecture, never-dos, priorities
 4. `admin/claude/TECHNICAL_STANDARDS.md` — implementation patterns
-5. `standards/*.md` — page-type specifics
+5. `new-standards/` — page-type specifics
 6. `UNFINISHED_TASKS.md` — current work
 
 ---
@@ -159,6 +170,7 @@ Before touching anything:
 
 ## Version History
 
+- v1.4.1 (2026-03-02) — Fixed standards references: new-standards/ (15 files, foundation + v3.010) was completely absent from CLAUDE.md. Replaced broken `standards/*.md` glob with accurate per-file references. Updated Site Architecture tree and Need Help? section.
 - v1.4.0 (2026-03-02) — Restructured as lean navigation hub (~250 lines, down from 919). Extracted 5 subfiles: PASTORAL_GUARDRAILS.md, SKILLS_REFERENCE.md, TECHNICAL_STANDARDS.md, IMAGE_WORKFLOW.md, WORKFLOW.md. Added task tracking files to Essential Reading. Emphasized integrity and SDG throughout. Fixed session-start-guardrail.sh skill count 9→10.
 - v1.3.0 (2026-03-02) — Ground-truth metrics audit: pages 1,238→1,241, ship images 669→682, WebP 3,131→4,475, ports 380→387, JSON 2,455→1,310, inline styles ~16,022→~19,513, ICP-Lite 100%. Added Like-a-human v2.0.0 and voice-audit.
 - v1.2.7 (2026-02-14) — Metrics verification: ship images 661→669, ICP-Lite 1,232/1,238 (99.5%), SDG 100%, JSON files corrected (assets/data/: 1,301; repo-wide: 2,478)
