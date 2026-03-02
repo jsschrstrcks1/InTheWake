@@ -17,7 +17,7 @@ When sources conflict, defer in this order:
 3. `admin/claude/CLAUDE.md` — architecture, never-dos, priorities
 4. `admin/claude/TECHNICAL_STANDARDS.md` — implementation patterns
 5. `new-standards/` — page-type specifics
-6. `UNFINISHED_TASKS.md` — current work
+6. `admin/UNFINISHED_TASKS.md` — current work
 
 ---
 
@@ -97,11 +97,11 @@ When sources conflict, defer in this order:
 
 | File | Rule |
 |---|---|
-| `UNFINISHED_TASKS.md` | Master task list. Check before starting. Update when tasks change. |
-| `IN_PROGRESS_TASKS.md` | Active work in current session |
-| `COMPLETED_TASKS.md` | Log immediately when done — not later, not in batches. Now. |
+| `admin/UNFINISHED_TASKS.md` | Master task list. Check before starting. Update when tasks change. |
+| `admin/IN_PROGRESS_TASKS.md` | Active work in current session |
+| `admin/COMPLETED_TASKS.md` | Log immediately when done — not later, not in batches. Now. |
 
-**Rule:** `COMPLETED_TASKS.md` gets updated in the same session as the work. Not after. Not "I'll do it later."
+**Rule:** `admin/COMPLETED_TASKS.md` gets updated in the same session as the work. Not after. Not "I'll do it later."
 
 ---
 

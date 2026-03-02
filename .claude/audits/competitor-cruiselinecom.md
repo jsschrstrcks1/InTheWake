@@ -1,6 +1,6 @@
 # Competitor Gap Analysis: Cruiselinecom
 
-**Extracted from:** UNFINISHED_TASKS.md
+**Extracted from:** admin/UNFINISHED_TASKS.md
 **Date:** 2026-02-08
 
 ---
@@ -47,7 +47,7 @@ Cruiseline.com is a cruise review and deals aggregation platform that powers the
 ##### A4. Multi-Cruise-Line Support
 **Cruiseline.com strength:** "Works for every cruise line, not just one" — Carnival, Royal Caribbean, Norwegian, Princess, Holland America, Celebrity, Disney, MSC, and more
 **Current In The Wake state:** Primarily Royal Caribbean focused (28 ships); expanding to Carnival, Celebrity
-**Assessment:** Already in roadmap (P4 — Future Expansion in UNFINISHED_TASKS.md)
+**Assessment:** Already in roadmap (P4 — Future Expansion in admin/UNFINISHED_TASKS.md)
 **Tasks:** Already documented — continue multi-line expansion per existing roadmap
 
 ##### A5. Price Comparison & Deals

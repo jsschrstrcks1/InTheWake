@@ -10,7 +10,7 @@
 
 When a task is completed:
 1. User confirms the task is done
-2. Task is removed from IN_PROGRESS_TASKS.md
+2. Task is removed from admin/IN_PROGRESS_TASKS.md
 3. Task is added to this file with completion date
 
 ---
@@ -821,6 +821,17 @@ Items previously listed as pending in UNFINISHED_TASKS.md but verified as COMPLE
 - [x] **Port image-blocked resolution** — santos (11 images), callao (9 images), catania (8 images) all have images now
 - [x] **Grid-2 layout rollout** — 261/291 ship pages (90%) now have grid-2, only ~30 remain (mostly Carnival)
 - [x] **Corrupted JSON cleanup** — 0/all JSON files in assets/data/ are corrupted (down from claimed 8)
+
+### Deep Audit Pass 2 — Line-Item Verification (2026-03-02)
+
+Items still listed as TODO in UNFINISHED_TASKS.md but verified as COMPLETE:
+
+- [x] **Quiz: null safety for lineData** — Explicit null guards (`if (!lineData || !lineData.dress_code)`) + optional chaining (`r.lineData?.short_name`) in quiz.html
+- [x] **Quiz: 10-ship limit** — Fully implemented: `resultsLimit` with 3-10 range, +/- UI buttons, hard cap at `Math.min(10, ...)`, button disabling at 10
+- [x] **Quiz: Comparison Drawer** — Fully implemented: compare-tray, compare-modal, comparison table (Line/Year/Passengers/Crew/GT/Dress Code/Match%), max-5 ships, toggleCompare() + clearCompare() functions
+- [x] **Deck plan link verification** — External links to cruise line deck plan pages confirmed working (not PDFs as task incorrectly described)
+- [x] **Affiliate article links on ship pages** — 289/293 ship pages (98.6%) already have links. Only 4 historical Carnival ships remain.
+- [x] **Affiliate article links on port pages** — 384/387 port pages (99.2%) already have links. Only 3 ports remain (beijing, falmouth-jamaica, kyoto).
 
 **Corrections to prior COMPLETED_TASKS.md claims (verified 2026-03-02):**
 - Real Talk expansion: corrected from "67 ports" to 46 ports (verified count)

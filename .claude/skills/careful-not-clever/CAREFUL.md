@@ -26,7 +26,7 @@
 ## During Modifications
 
 5. **One logical change at a time.** Don't combine unrelated changes in a single pass.
-6. **Document as you go.** Update tracking files (COMPLETED_TASKS.md, IN_PROGRESS_TASKS.md, plan files) alongside the work, not after.
+6. **Document as you go.** Update tracking files (admin/COMPLETED_TASKS.md, admin/IN_PROGRESS_TASKS.md, plan files) alongside the work, not after.
 7. **Spot-check after bulk operations.** After changing N files, read 2-3 of them to verify the change landed correctly.
 8. **Leave things alone when risk outweighs benefit.** If a change could break something and the benefit is marginal, skip it. Say why you skipped it.
 
@@ -41,7 +41,7 @@
 - Reading a file before editing it
 - Grepping for a class name before extracting CSS to a shared stylesheet
 - Checking that a deleted image has zero HTML references before removing it
-- Updating COMPLETED_TASKS.md in the same session you complete the task
+- Updating admin/COMPLETED_TASKS.md in the same session you complete the task
 - Saying "I left X alone because Y" instead of silently skipping it
 - Committing after each logical unit of work, not batching everything at the end
 - Admitting when you're not sure rather than guessing

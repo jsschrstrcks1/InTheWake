@@ -6,13 +6,13 @@
 
 **Also read:**
 - `.claude/skills/careful-not-clever/CAREFUL.md` — Process discipline (read before editing, verify, document)
-- `CAREFUL.md` (repo root) — Technical discipline (CSS semantics, pre-commit checks)
+- `admin/CAREFUL.md` — Technical discipline (CSS semantics, pre-commit checks)
 
 ---
 
 ## Before Starting Any Task
 
-1. **Read `UNFINISHED_TASKS.md`** carefully for the specific task
+1. **Read `admin/UNFINISHED_TASKS.md`** carefully for the specific task
 2. **Check standards** relevant to the task:
    - Technical patterns → `admin/claude/TECHNICAL_STANDARDS.md`
    - Image work → `admin/claude/IMAGE_WORKFLOW.md`
@@ -88,11 +88,11 @@ Three files track project work state:
 
 | File | Purpose | When to Update |
 |---|---|---|
-| `UNFINISHED_TASKS.md` | Master task list (P0-P4). Canonical source of truth. | When tasks are added, reprioritized, or cancelled |
-| `IN_PROGRESS_TASKS.md` | Active work in current session | At session start; update as tasks move through |
-| `COMPLETED_TASKS.md` | Completed work log | Immediately when a task is done — not "later" |
+| `admin/UNFINISHED_TASKS.md` | Master task list (P0-P4). Canonical source of truth. | When tasks are added, reprioritized, or cancelled |
+| `admin/IN_PROGRESS_TASKS.md` | Active work in current session | At session start; update as tasks move through |
+| `admin/COMPLETED_TASKS.md` | Completed work log | Immediately when a task is done — not "later" |
 
-**Rule:** Update `COMPLETED_TASKS.md` in the same session you complete the task. Not after. Not at the end. Now.
+**Rule:** Update `admin/COMPLETED_TASKS.md` in the same session you complete the task. Not after. Not at the end. Now.
 
 ---
 
@@ -143,7 +143,7 @@ Before marking any task complete, verify:
 - [ ] Changes reviewed with git diff
 - [ ] No unintended files included
 - [ ] Branch name follows convention (claude/*)
-- [ ] `COMPLETED_TASKS.md` updated
+- [ ] `admin/COMPLETED_TASKS.md` updated
 
 ---
 

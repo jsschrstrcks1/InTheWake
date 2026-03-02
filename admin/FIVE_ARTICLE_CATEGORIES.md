@@ -23,7 +23,7 @@ The logbooks reference articles that don't exist. Below are the 5 core categorie
 
 ### 1. **Cruising After Loss: A Guide for Widows, Widowers, and the Bereaved**
 
-**Status:** ❌ Not created (documented in UNFINISHED_TASKS.md)
+**Status:** ❌ Not created (documented in admin/UNFINISHED_TASKS.md)
 
 **Why This Category:**
 - 20+ logbook stories feature widows/widowers

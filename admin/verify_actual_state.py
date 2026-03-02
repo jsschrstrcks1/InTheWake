@@ -2,7 +2,7 @@
 """
 Comprehensive State Verification Script
 Checks actual file existence and completion status
-Outputs: verification report for UNFINISHED_TASKS.md update
+Outputs: verification report for admin/UNFINISHED_TASKS.md update
 """
 
 import os

@@ -34,7 +34,7 @@ The skill system is defined in `.claude/skill-rules.json` and governed by hooks 
 
 **Files:**
 - `.claude/skills/careful-not-clever/CAREFUL.md` — Process guardrail (the rules)
-- `CAREFUL.md` (repo root) — Technical guardrail (CSS semantics, pre-commit checks)
+- `admin/CAREFUL.md` — Technical guardrail (CSS semantics, pre-commit checks)
 
 **The Rule:** *Be careful, not clever. Careful means: verified, documented, reversible, honest.*
 
@@ -203,7 +203,7 @@ Two files together form the careful-not-clever guardrail:
 | File | Version | Focus |
 |---|---|---|
 | `.claude/skills/careful-not-clever/CAREFUL.md` | v1.0.0 | Process discipline — read first, verify, document as you go |
-| `CAREFUL.md` (repo root) | current | Technical discipline — semantic equivalence, CSS class gotchas, pre-commit checks |
+| `admin/CAREFUL.md` | current | Technical discipline — semantic equivalence, CSS class gotchas, pre-commit checks |
 
 Both are injected into context on every prompt via `session-start-guardrail.sh`.
 
@@ -213,11 +213,11 @@ Both are injected into context on every prompt via `session-start-guardrail.sh`.
 
 Current work state is tracked across three files:
 
-- `UNFINISHED_TASKS.md` — Master task list (P0-P4 priority). Start here.
-- `IN_PROGRESS_TASKS.md` — Active work in the current session
-- `COMPLETED_TASKS.md` — Completed work log for reference
+- `admin/UNFINISHED_TASKS.md` — Master task list (P0-P4 priority). Start here.
+- `admin/IN_PROGRESS_TASKS.md` — Active work in the current session
+- `admin/COMPLETED_TASKS.md` — Completed work log for reference
 
-Before starting any task: check `UNFINISHED_TASKS.md`. After completing: update `COMPLETED_TASKS.md`.
+Before starting any task: check `admin/UNFINISHED_TASKS.md`. After completing: update `admin/COMPLETED_TASKS.md`.
 
 ---
 

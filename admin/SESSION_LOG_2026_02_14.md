@@ -30,11 +30,11 @@
   - seo-optimizer guardrails (must reject keyword stuffing, must accept technical SEO)
   - content-strategy guardrails (must reject robotic copy, must accept storytelling)
 
-- [x] `IN_PROGRESS_TASKS.md` (2026-02-05) — 98 lines, thread coordination
+- [x] `admin/IN_PROGRESS_TASKS.md` (2026-02-05) — 98 lines, thread coordination
   - Confirmed current state: competitor analysis marked "COMPLETE" (2026-02-08)
   - Other thread (claude/onboard-and-audit-PvzvO) still "IN PROGRESS"
 
-- [x] `UNFINISHED_TASKS.md` (2026-02-13) — 489 lines, comprehensive task backlog
+- [x] `admin/UNFINISHED_TASKS.md` (2026-02-13) — 489 lines, comprehensive task backlog
   - 887 total pending items across all lanes
   - P0-P4 priority framework with status
   - Cruise line parity analysis (298 ships, 472 venues, RCL-heavy)
@@ -78,7 +78,7 @@
 
 ### 3. Tracking Files Update (15:10-15:15)
 
-**Updated:** `IN_PROGRESS_TASKS.md`
+**Updated:** `admin/IN_PROGRESS_TASKS.md`
 - Changed "Competitor Analysis & AI Chorus Evaluation" from "COMPLETE" to "IN PROGRESS (Session 2)"
 - Added detailed completion checklist for THIS session
 - Documented files being modified
@@ -136,7 +136,7 @@
 
 1. ✅ **Follow careful-not-clever guardrail strictly** — Reading critical docs first, documenting everything, verifying before moving forward
 2. ✅ **Create comprehensive state document** — PROJECT_STATE_2026_02_14.md captures current reality in one place
-3. ✅ **Update tracking files in real-time** — IN_PROGRESS_TASKS.md updated as work progresses
+3. ✅ **Update tracking files in real-time** — admin/IN_PROGRESS_TASKS.md updated as work progresses
 4. ✅ **Document rationale, not just actions** — Explaining WHY things are intentional vs accidental
 
 ---
@@ -145,7 +145,7 @@
 
 ### Assumption 1: "Project is feature-complete for v3.010.305"
 **Status:** ✅ VERIFIED
-- UNFINISHED_TASKS.md shows 887 pending items, but marked as "P2-P4" (not critical path)
+- admin/UNFINISHED_TASKS.md shows 887 pending items, but marked as "P2-P4" (not critical path)
 - P0 priorities all marked "COMPLETE" (CLAUDE.md l.710-716)
 - Active thread (claude/onboard-and-audit-PvzvO) is documentation fixes, not feature blocking
 - **Conclusion:** v3.010.305 is feature-complete; remaining work is maintenance/optimization
@@ -217,13 +217,13 @@
 - [x] All critical docs read (CLAUDE.md, ONBOARDING.md, skill-rules.json)
 - [x] Metrics ground-truth verified against CLAUDE.md v1.2.7
 - [x] PROJECT_STATE_2026_02_14.md created and complete
-- [x] IN_PROGRESS_TASKS.md updated with current session status
+- [x] admin/IN_PROGRESS_TASKS.md updated with current session status
 - [x] Critical Fix #1 (aria-hidden on SDG, 224 files) committed & pushed
 - [x] Critical Fix #2 (missing /planning.html, 302 files) committed & pushed
 - [x] All claims in this log are verifiable (sources cited)
 - [x] SHIP_VALIDATION_FIX_PROGRESS_2026_02_14.md updated with Phase 2 completion
 - [ ] MEMORY.md updated with key findings (next)
-- [ ] IN_PROGRESS_TASKS.md updated with final status (next)
+- [ ] admin/IN_PROGRESS_TASKS.md updated with final status (next)
 
 ---
 

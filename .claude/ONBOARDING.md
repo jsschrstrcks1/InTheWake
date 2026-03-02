@@ -26,7 +26,7 @@ You're working on **In the Wake**, a cruise planning website with an enhanced Cl
 ```bash
 .claude/INSTALLATION.md           # Complete system documentation
 .claude/skill-rules.json          # Skill activation rules (10 skills)
-FOM_STANDARDS_ALIGNMENT.md        # How FOM integration aligns with CITW standards
+admin/FOM_STANDARDS_ALIGNMENT.md   # How FOM integration aligns with CITW standards
 ```
 
 ### 2. Understand the Standards:
@@ -221,8 +221,8 @@ InTheWake/
 ├── ships/                     # Ship entity pages
 ├── ports/                     # Port entity pages
 ├── restaurants/               # Restaurant entity pages
-├── FOM_MERGE_PLAN.md          # Merge strategy (what to keep, what to skip)
-└── FOM_STANDARDS_ALIGNMENT.md # Standards verification
+├── admin/FOM_MERGE_PLAN.md    # Merge strategy (what to keep, what to skip)
+└── admin/FOM_STANDARDS_ALIGNMENT.md # Standards verification
 
 **Current Site Version:** v3.010.305
 ```
@@ -374,7 +374,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 ### When Unsure:
 1. Ask user for clarification
 2. Consult `.claude/skill-rules.json` guardrails
-3. Check `FOM_STANDARDS_ALIGNMENT.md` for precedents
+3. Check `admin/FOM_STANDARDS_ALIGNMENT.md` for precedents
 
 ---
 
@@ -396,7 +396,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 - ❌ Workflow-heavy commands (spec-create, spec-execute)
 - ❌ Unused skills (pdf, web-artifacts-builder, frontend-design)
 
-**Read:** `FOM_MERGE_PLAN.md` for complete strategy
+**Read:** `admin/FOM_MERGE_PLAN.md` for complete strategy
 
 ---
 
@@ -456,7 +456,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 - Fixed INSTALLATION.md Layer 2: added all 3 dedicated directory skills, corrected rule-based count to 5
 - Fixed STANDARDS.md: updated ICP-Lite v1.0 references to v1.4 throughout
 - Fixed ai-breadcrumbs-spec.md: updated ICP-Lite example code from v1.0 to v1.4
-- Fixed FOM_STANDARDS_ALIGNMENT.md: updated hooks count from 2 to 3, added review note
+- Fixed admin/FOM_STANDARDS_ALIGNMENT.md: updated hooks count from 2 to 3, added review note
 - Fixed new-standards/README.md: updated site version to v3.010.305, task statuses to COMPLETE
 
 **v1.1.3** (2026-01-25) — Documentation consistency update
@@ -491,7 +491,7 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 **For standards questions:**
 - Check `new-standards/README.md`
 - Read relevant foundation document
-- Consult `FOM_STANDARDS_ALIGNMENT.md` for precedents
+- Consult `admin/FOM_STANDARDS_ALIGNMENT.md` for precedents
 
 **For theological questions:**
 - Read `.claude/skills/standards/resources/theological-foundation.md`
@@ -553,7 +553,7 @@ cat .claude/skills/standards/resources/icp-lite-protocol.md
 cat .claude/skills/standards/resources/theological-foundation.md
 
 # Verify alignment
-cat FOM_STANDARDS_ALIGNMENT.md
+cat admin/FOM_STANDARDS_ALIGNMENT.md
 
 # Validate ICP-Lite v1.4 compliance
 node admin/validate-icp-lite-v14.js <file>

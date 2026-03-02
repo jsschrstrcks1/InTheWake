@@ -184,7 +184,7 @@ All work on this project is offered as a gift to God.
 
 ---
 
-## 5. Current Task Backlog (2026-02-13 UNFINISHED_TASKS.md)
+## 5. Current Task Backlog (2026-02-13 admin/UNFINISHED_TASKS.md)
 
 ### 🟢 GREEN LANE — AI Executes Autonomously
 
@@ -269,7 +269,7 @@ All work on this project is offered as a gift to God.
 2. **.claude/ONBOARDING.md** (v1.2.0, 2026-02-06) — System overview with critical guardrail
 3. **.claude/skill-rules.json** (v1.1.0) — 9 skill activation rules
 4. **.claude/skills/careful-not-clever/CAREFUL.md** — CRITICAL: Read before editing any file
-5. `UNFINISHED_TASKS.md` — Current task priorities
+5. `admin/UNFINISHED_TASKS.md` — Current task priorities
 
 ### Standards Documents (By Priority)
 - **new-standards/v3.010/** — Current innovations (ICP-Lite v1.4, AI-breadcrumbs)
@@ -277,8 +277,8 @@ All work on this project is offered as a gift to God.
 - **.claude/skills/standards/resources/** — Theological foundation, security, ICP-Lite protocol
 
 ### Administrative References
-- **COMPLETED_TASKS.md** — Finished work archive
-- **IN_PROGRESS_TASKS.md** — Thread coordination file
+- **admin/COMPLETED_TASKS.md** — Finished work archive
+- **admin/IN_PROGRESS_TASKS.md** — Thread coordination file
 - **MAINTENANCE_TASKS.md** — Routine maintenance guide
 - **admin/VANILLA-STORIES.md** — Inventory of remaining template stories
 
@@ -389,7 +389,7 @@ All work on this project is offered as a gift to God.
 - Read all critical documentation (admin/claude/CLAUDE.md, .claude/ONBOARDING.md, skill-rules.json)
 - Create comprehensive project state summary (THIS DOCUMENT)
 - Update memory files with current status
-- Update IN_PROGRESS_TASKS.md with accurate thread tracking
+- Update admin/IN_PROGRESS_TASKS.md with accurate thread tracking
 
 ### For Next Session
 **P2 Priority Tasks (Green Lane):**
@@ -418,9 +418,9 @@ cat .claude/ONBOARDING.md
 cat .claude/skills/careful-not-clever/CAREFUL.md
 
 # Check task status
-cat UNFINISHED_TASKS.md
-cat IN_PROGRESS_TASKS.md
-cat COMPLETED_TASKS.md
+cat admin/UNFINISHED_TASKS.md
+cat admin/IN_PROGRESS_TASKS.md
+cat admin/COMPLETED_TASKS.md
 
 # Validate ICP-Lite v1.4
 node admin/validate-icp-lite-v14.js <file>
@@ -466,7 +466,7 @@ find . -name "*.html" | wc -l  # Total pages
 1. This document (PROJECT_STATE_2026_02_14.md)
 2. admin/claude/CLAUDE.md (v1.2.7)
 3. .claude/ONBOARDING.md (v1.2.0)
-4. UNFINISHED_TASKS.md (2026-02-13)
+4. admin/UNFINISHED_TASKS.md (2026-02-13)
 5. .claude/skill-rules.json (v1.1.0)
 
 **Standards Deep-Dive:**
@@ -475,8 +475,8 @@ find . -name "*.html" | wc -l  # Total pages
 - .claude/skills/standards/resources/
 
 **Historical Context:**
-- COMPLETED_TASKS.md
-- IN_PROGRESS_TASKS.md
+- admin/COMPLETED_TASKS.md
+- admin/IN_PROGRESS_TASKS.md
 - admin/VANILLA-STORIES.md
 - COMPETITOR_COMPREHENSIVE_LIST_2026_02_08.md
 - AI_CHORUS_EVALUATION_2026_02_08.md

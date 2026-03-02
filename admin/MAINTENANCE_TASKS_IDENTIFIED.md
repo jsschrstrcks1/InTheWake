@@ -276,7 +276,7 @@ python3 admin/generate_search_index.py
 
 ## Task Classification System
 
-Tasks in UNFINISHED_TASKS.md use a lane system:
+Tasks in admin/UNFINISHED_TASKS.md use a lane system:
 
 | Lane | Meaning | AI Role |
 |------|---------|---------|
@@ -295,7 +295,7 @@ Tasks in UNFINISHED_TASKS.md use a lane system:
 | Document | Location | Purpose |
 |----------|----------|---------|
 | Maintenance Tasks | `MAINTENANCE_TASKS.md` | Routine maintenance guide |
-| Unfinished Tasks | `UNFINISHED_TASKS.md` | Current work backlog |
+| Unfinished Tasks | `admin/UNFINISHED_TASKS.md` | Current work backlog |
 | Onboarding | `.claude/ONBOARDING.md` | System overview |
 | ICP-Lite Protocol | `.claude/skills/standards/resources/icp-lite-protocol.md` | AI metadata spec |
 | Ship Page Standards | `new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md` | Template |

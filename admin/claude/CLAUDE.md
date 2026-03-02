@@ -14,7 +14,7 @@
 Before touching anything:
 1. Read the pastoral guardrails — `admin/claude/PASTORAL_GUARDRAILS.md` — they override everything else
 2. Read the skills system — `admin/claude/SKILLS_REFERENCE.md` — know what's watching
-3. Check your actual task — `UNFINISHED_TASKS.md`
+3. Check your actual task — `admin/UNFINISHED_TASKS.md`
 4. Read the careful-not-clever guardrail — `.claude/skills/careful-not-clever/CAREFUL.md`
 
 ---
@@ -26,19 +26,20 @@ Before touching anything:
 |---|---|
 | `admin/claude/PASTORAL_GUARDRAILS.md` | Pastoral space first. Theological foundation. Non-negotiable. |
 | `.claude/skills/careful-not-clever/CAREFUL.md` | Process integrity — read before editing, verify, document |
-| `CAREFUL.md` (repo root) | Technical integrity — CSS semantics, pre-commit checks |
+| `admin/CAREFUL.md` | Technical integrity — CSS semantics, pre-commit checks |
 | `admin/claude/SKILLS_REFERENCE.md` | All 10 skills, both CAREFUL files, task tracking files |
 
 ### Task Management
 | File | Purpose |
 |---|---|
-| `UNFINISHED_TASKS.md` | Master task list (P0–P4). Your work queue. |
-| `IN_PROGRESS_TASKS.md` | Active work in current session |
-| `COMPLETED_TASKS.md` | Completed work log — update immediately when done, not later |
+| `admin/UNFINISHED_TASKS.md` | Master task list (P0–P4). Your work queue. |
+| `admin/IN_PROGRESS_TASKS.md` | Active work in current session |
+| `admin/COMPLETED_TASKS.md` | Completed work log — update immediately when done, not later |
 
 ### Technical Reference
 | File | Purpose |
 |---|---|
+| `admin/claude/SITE_REFERENCE.md` | Navigation gold standard, commands, page templates, date rules |
 | `admin/claude/TECHNICAL_STANDARDS.md` | Performance, caching, accessibility, SEO, security patterns |
 | `admin/claude/IMAGE_WORKFLOW.md` | Image sourcing, conversion, attribution workflow |
 | `admin/claude/WORKFLOW.md` | Dev workflow, git commit format, verification checklist |
@@ -81,7 +82,7 @@ Before touching anything:
 ├── new-standards/            # Official consolidated standards (foundation + v3.010)
 ├── standards/                # Legacy — SHIP_PAGE_STANDARD.md, drink-calculator.md
 ├── admin/claude/             # Claude documentation (you are here)
-└── UNFINISHED_TASKS.md
+└── admin/UNFINISHED_TASKS.md
 ```
 
 **Template version:** v3.010.305 (1,241 pages; some at v3.010.300 or v3.010.400)
@@ -137,7 +138,7 @@ Before touching anything:
 - 🔴 Affiliate link deployment
 - Multi-cruise-line tracker expansion
 
-**Full detail:** `UNFINISHED_TASKS.md`
+**Full detail:** `admin/UNFINISHED_TASKS.md`
 
 ---
 
@@ -160,7 +161,7 @@ Before touching anything:
 3. This file — architecture, never-dos, priorities
 4. `admin/claude/TECHNICAL_STANDARDS.md` — implementation patterns
 5. `new-standards/` — page-type specifics
-6. `UNFINISHED_TASKS.md` — current work
+6. `admin/UNFINISHED_TASKS.md` — current work
 
 ---
 

@@ -820,7 +820,7 @@ If ITW-Lite implementation causes problems:
 
 1. **Document the issue** (what broke, which page, error messages)
 2. **Roll back if critical** (user experience > AI optimization)
-3. **File in UNFINISHED_TASKS.md** with priority level
+3. **File in admin/UNFINISHED_TASKS.md** with priority level
 4. **Update protocol** with "DON'T" guidance
 
 ### Version History

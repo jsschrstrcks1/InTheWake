@@ -368,7 +368,7 @@ Before finalizing new standards:
 
 ## Related Documentation
 
-- [UNFINISHED_TASKS.md](UNFINISHED_TASKS.md) - Lines 100-283 (Standards Catastrophe & Rebuild section)
+- [admin/UNFINISHED_TASKS.md](UNFINISHED_TASKS.md) - Lines 100-283 (Standards Catastrophe & Rebuild section)
 - [admin/claude/CLAUDE.md](admin/claude/CLAUDE.md) - Claude onboarding guide
 - [admin/claude/ITW-LITE_PROTOCOL.md](admin/claude/ITW-LITE_PROTOCOL.md) - Content protocol spec
 - [admin/claude/STANDARDS_INDEX.md](admin/claude/STANDARDS_INDEX.md) - Current standards index
@@ -451,7 +451,7 @@ Before marking rebuild as complete, verify:
 
 ## Status
 
-✅ **PLANNING COMPLETE** - Doctrine established, process defined, added to UNFINISHED_TASKS.md
+✅ **PLANNING COMPLETE** - Doctrine established, process defined, added to admin/UNFINISHED_TASKS.md
 
 ✅ **REQUIREMENTS CLARIFIED:**
 - Include current /standards/ directory (outdated, pre-90% of codebase)

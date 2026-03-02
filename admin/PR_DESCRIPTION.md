@@ -73,7 +73,7 @@ Added explicit guardrail: "Faith-scented reflections are core to CITW identity. 
 
 ## Standards Alignment
 
-✅ **FULLY ALIGNED** with `new-standards/` directory (verified in FOM_STANDARDS_ALIGNMENT.md)
+✅ **FULLY ALIGNED** with `new-standards/` directory (verified in admin/FOM_STANDARDS_ALIGNMENT.md)
 
 **Verified against:**
 - ✅ Theological foundation (IMMUTABLE) - Preserved and strengthened
@@ -94,8 +94,8 @@ Added explicit guardrail: "Faith-scented reflections are core to CITW identity. 
 ### New Files Created:
 1. **`.claude/ONBOARDING.md`** - Comprehensive onboarding guide for new Claude sessions
 2. **`.claude/INSTALLATION.md`** - Complete installation documentation
-3. **`FOM_MERGE_PLAN.md`** - Merge strategy (what to keep, what to skip)
-4. **`FOM_STANDARDS_ALIGNMENT.md`** - Standards verification report
+3. **`admin/FOM_MERGE_PLAN.md`** - Merge strategy (what to keep, what to skip)
+4. **`admin/FOM_STANDARDS_ALIGNMENT.md`** - Standards verification report
 
 ### Enhanced Files:
 1. **`.claude/skill-rules.json`** - Merged 7 skills with ITW-Lite philosophy

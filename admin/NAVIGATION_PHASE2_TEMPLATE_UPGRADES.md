@@ -298,7 +298,7 @@ After applying production template:
 - Brings site from 35% to 100% navigation consistency
 - Improves user experience across all cruise lines
 - Ensures brand consistency site-wide
-- Completes UNFINISHED_TASKS.md P0 #1
+- Completes admin/UNFINISHED_TASKS.md P0 #1
 
 ---
 

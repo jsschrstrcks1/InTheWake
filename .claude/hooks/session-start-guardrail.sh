@@ -23,7 +23,7 @@ set -e
 # Get the project directory
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-$(pwd)}"
 CAREFUL_FILE="$PROJECT_DIR/.claude/skills/careful-not-clever/CAREFUL.md"
-CAREFUL_TECHNICAL="$PROJECT_DIR/CAREFUL.md"
+CAREFUL_TECHNICAL="$PROJECT_DIR/admin/CAREFUL.md"
 CLAUDE_FILE="$PROJECT_DIR/admin/claude/CLAUDE.md"
 
 # Consume stdin (required by hook protocol)

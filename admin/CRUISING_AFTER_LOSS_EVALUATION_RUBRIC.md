@@ -311,7 +311,7 @@
 5. Create meta tags
 6. Add to `/solo/articles/` directory
 7. Link from solo.html hub
-8. Update UNFINISHED_TASKS.md to mark as complete
+8. Update admin/UNFINISHED_TASKS.md to mark as complete
 
 ### If Score is B (56-62):
 1. Identify specific gaps in content coverage

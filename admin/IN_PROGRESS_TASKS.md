@@ -1,7 +1,7 @@
 # In-Progress Tasks
 
 **Purpose:** Thread coordination file to prevent conflicts between concurrent Claude threads.
-**Last Updated:** 2026-03-02 (consolidated — completed items moved to COMPLETED_TASKS.md)
+**Last Updated:** 2026-03-02 (consolidated — completed items moved to admin/COMPLETED_TASKS.md)
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -19,8 +19,8 @@
 
 ### When Complete:
 1. Remove your entry from this file
-2. Add the task to COMPLETED_TASKS.md (if user confirms completion)
-3. Or move back to UNFINISHED_TASKS.md (if incomplete/blocked)
+2. Add the task to admin/COMPLETED_TASKS.md (if user confirms completion)
+3. Or move back to admin/UNFINISHED_TASKS.md (if incomplete/blocked)
 
 ---
 
@@ -42,13 +42,13 @@ FORMAT:
 **Files:** admin/validate-port-page-v2.js (reference), ports/*.html (387 pages)
 **Status:** 338/387 passing (87.3%) — structural batch fixes complete, content gaps remain
 
-**What's been done (moved to COMPLETED_TASKS.md 2026-03-02):**
+**What's been done (moved to admin/COMPLETED_TASKS.md 2026-03-02):**
 - Sessions 1-10: 3 → 338 passing ports
 - All batch-automatable structural fixes exhausted
 - 11 new validator checks added
 - Alaska Sprint complete (11 ports, 94-98/100)
 
-**What remains (see UNFINISHED_TASKS.md):**
+**What remains (see admin/UNFINISHED_TASKS.md):**
 - ~49 ports still failing (25 at score 0-48, 24 at score 50-78)
 - FAQ trimming, POI manifests, promotional language cleanup
 
@@ -86,16 +86,16 @@ FORMAT:
 ---
 
 **Related Files:**
-- `UNFINISHED_TASKS.md` - Queue of tasks waiting to be worked on
-- `COMPLETED_TASKS.md` - Archive of finished work
+- `admin/UNFINISHED_TASKS.md` - Queue of tasks waiting to be worked on
+- `admin/COMPLETED_TASKS.md` - Archive of finished work
 
 ---
 
 > **Migration Note (2026-03-02):**
-> The following completed entries were moved to `COMPLETED_TASKS.md` under "March 2026 — Consolidation Migration":
+> The following completed entries were moved to `admin/COMPLETED_TASKS.md` under "March 2026 — Consolidation Migration":
 > - Alaska Port Sprint (COMPLETE 2026-02-24)
 > - Ship Validation Phases 1-5 (COMPLETE 2026-02-15)
 > - Mobile Standard v1.000 Phases 1-3 (COMPLETE 2026-02-19)
 > - Port Validation Sessions 1-10 structural fixes (COMPLETE)
 > - Onboard, Audit & Backlog Execution (From the Pier, audit)
-> These items retain their full history in COMPLETED_TASKS.md.
+> These items retain their full history in admin/COMPLETED_TASKS.md.

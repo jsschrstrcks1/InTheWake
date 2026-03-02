@@ -1,353 +1,186 @@
-# Claude Code Context - In the Wake
+# Claude AI Assistant Guide — In the Wake
 
-**Project:** In the Wake (cruisinginthewake.com)
-**Type:** Static cruise planning website
-**Version:** ITW-Lite v3.010.305
-**Hosting:** GitHub Pages
+**Version:** 1.4.1
+**Last Updated:** 2026-03-02
+
+**Soli Deo Gloria.** All work on this project is offered as a gift to God. Excellence as worship means getting it right, not getting it fast.
 
 ---
 
 ## Quick Start
 
-This is a static HTML/CSS/JavaScript cruise planning website with an AI-first metadata philosophy. Before making changes, understand the key principles:
+**In the Wake** is a Christ-shaped cruise planning website — for ordinary travelers, grieving widows, disabled adventurers, healing families, and exhausted caregivers. Every line of code and every word of content is stewardship.
 
-1. **Theological Foundation (IMMUTABLE):** Every HTML file MUST have Soli Deo Gloria invocation
-2. **ITW-Lite Philosophy:** AI-first → Human-first → Google second
-3. **Standards:** ICP-Lite v1.4 metadata protocol required on all pages
-4. **Last-Reviewed Dates:** Update `last-reviewed` meta AND `dateModified` JSON-LD on EVERY edit
-5. **Validation:** Run validators after edits
-
----
-
-## Essential Documents
-
-| Document | Purpose | Location |
-|----------|---------|----------|
-| **Onboarding** | Full system overview | [.claude/ONBOARDING.md](.claude/ONBOARDING.md) |
-| **Maintenance Tasks** | Routine maintenance guide | [MAINTENANCE_TASKS.md](MAINTENANCE_TASKS.md) |
-| **Standards** | Code standards reference | [.claude/skills/standards/STANDARDS.md](.claude/skills/standards/STANDARDS.md) |
-| **Skill Rules** | Auto-activation configuration | [.claude/skill-rules.json](.claude/skill-rules.json) |
-| **ICP-Lite Protocol** | AI metadata specification | [.claude/skills/standards/resources/icp-lite-protocol.md](.claude/skills/standards/resources/icp-lite-protocol.md) |
-| **Theological Foundation** | Invocation requirements | [.claude/skills/standards/resources/theological-foundation.md](.claude/skills/standards/resources/theological-foundation.md) |
-| **Ship Page Standards** | Ship page template | [new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md](new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md) |
-| **Mobile Standard** | Mobile responsiveness rules | [new-standards/v3.010/MOBILE_STANDARDS_v1.000.md](new-standards/v3.010/MOBILE_STANDARDS_v1.000.md) |
-| **Unfinished Tasks** | Current work backlog | [UNFINISHED_TASKS.md](UNFINISHED_TASKS.md) |
+Before touching anything:
+1. Read the pastoral guardrails — `admin/claude/PASTORAL_GUARDRAILS.md` — they override everything else
+2. Read the skills system — `admin/claude/SKILLS_REFERENCE.md` — know what's watching
+3. Check your actual task — `admin/UNFINISHED_TASKS.md`
+4. Read the careful-not-clever guardrail — `.claude/skills/careful-not-clever/CAREFUL.md`
 
 ---
 
-## Key Directories
+## Essential Reading
 
-```
-InTheWake/
-├── ships/              # 292 ship pages across 16 cruise lines
-├── ports/              # 380 port guide pages
-├── restaurants/        # Dining venue pages
-├── assets/             # CSS, JS, images, data
-├── admin/              # Maintenance scripts and tools
-├── new-standards/      # Site standards documentation
-├── .claude/            # Claude Code skill system
-│   ├── skills/         # 4 skill directories
-│   ├── plugins/        # 5 SEO/accessibility plugins
-│   ├── commands/       # 4 commands (/commit, /create-pr, etc.)
-│   └── hooks/          # Auto-activation hooks
-└── .github/workflows/  # CI/CD quality checks
-```
+### Integrity & Process
+| File | Purpose |
+|---|---|
+| `admin/claude/PASTORAL_GUARDRAILS.md` | Pastoral space first. Theological foundation. Non-negotiable. |
+| `.claude/skills/careful-not-clever/CAREFUL.md` | Process integrity — read before editing, verify, document |
+| `admin/CAREFUL.md` | Technical integrity — CSS semantics, pre-commit checks |
+| `admin/claude/SKILLS_REFERENCE.md` | All 10 skills, both CAREFUL files, task tracking files |
 
----
+### Task Management
+| File | Purpose |
+|---|---|
+| `admin/UNFINISHED_TASKS.md` | Master task list (P0–P4). Your work queue. |
+| `admin/IN_PROGRESS_TASKS.md` | Active work in current session |
+| `admin/COMPLETED_TASKS.md` | Completed work log — update immediately when done, not later |
 
-## Common Commands
-
-### Validation
-```bash
-# Validate ICP-Lite compliance
-node admin/validate-icp-lite-v14.js <file>
-node admin/validate-icp-lite-v14.js --all
-
-# Validate ship pages
-node admin/validate-ship-page.js ships/rcl/adventure-of-the-seas.html
-node admin/validate-ship-page.js --all-ships
-
-# Validate mobile readiness (once created — Phase 1 of Mobile Standard)
-node admin/validate-mobile-readiness.js <file>
-
-# Post-write validation
-./admin/post-write-validate.sh <file>
-```
-
-### Batch Fixes
-```bash
-# Fix stub pages
-node admin/batch-fix-stub-pages.js
-
-# Fix JSON-LD schemas
-node admin/fix-jsonld-schemas.js
-
-# WebP image audit
-python3 admin/webp_audit.py
-```
-
-### Site Generation
-```bash
-# Generate sitemap
-python3 admin/generate_sitemap.py
-
-# Generate search index
-python3 admin/generate_search_index.py
-```
+### Technical Reference
+| File | Purpose |
+|---|---|
+| `admin/claude/SITE_REFERENCE.md` | Navigation gold standard, commands, page templates, date rules |
+| `admin/claude/TECHNICAL_STANDARDS.md` | Performance, caching, accessibility, SEO, security patterns |
+| `admin/claude/IMAGE_WORKFLOW.md` | Image sourcing, conversion, attribution workflow |
+| `admin/claude/WORKFLOW.md` | Dev workflow, git commit format, verification checklist |
+| `admin/claude/ITW-LITE_PROTOCOL.md` | ICP-Lite v1.4 full specification |
+| `admin/claude/LOGBOOK_ENTRY_STANDARDS_v2.300.md` | Logbook story standards |
+| `admin/claude/STANDARDS_INDEX.md` | Master index of all standards |
+| `admin/claude/CODEBASE_GUIDE.md` | Repository structure, patterns, conventions |
+| `.claude/ONBOARDING.md` | Claude Code system overview (10 skills, 5 hooks) |
+| `new-standards/README.md` | Official consolidated standards — start here for page work |
+| `new-standards/foundation/Unified_Modular_Standards_v3.007.010.md` | Complete superset: all page types, navigation, data, analytics |
+| `new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md` | Ship pages — primary reference (860 lines) |
+| `new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md` | Accessibility — full WCAG 2.1 AA spec |
+| `new-standards/foundation/PWA_CACHING_STANDARDS_v3.007.md` | Service Worker / PWA / caching strategy |
+| `new-standards/foundation/NAVIGATION_STANDARDS_ADDENDUM_v3.008.md` | Navigation contract — 12-link structure, ARIA |
+| `new-standards/v3.010/PORT_PAGE_STANDARD_v3.010.md` | Port pages |
+| `new-standards/v3.010/LOGBOOK_ENTRY_STANDARD_v3.010.md` | Logbook entry structure |
+| `new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md` | Ship page pre-publish checklist |
+| `new-standards/v3.010/MOBILE_STANDARDS_v1.000.md` | Mobile responsiveness — breakpoints, touch targets |
+| `standards/SHIP_PAGE_STANDARD.md` | Ship page standard v2.0 (ITW-SHIP-002, gold standard refs) |
 
 ---
 
-## Guardrails
+## Site Architecture
 
-### REJECT
-- Keyword stuffing
-- Removing AI-first meta tags
-- Compromising readability for SEO
-- Modifying theological invocation
-- Generic template content
+**Production:** `https://cruisinginthewake.com` — absolute HTTPS URLs everywhere, always.
 
-### ACCEPT
-- Schema.org structured data
-- Semantic HTML
-- Natural, conversational language
-- Faith-scented reflections
-- ICP-Lite v1.4 compliance
+```
+/
+├── index.html
+├── ships/index.html          # Hub (NOT /ships.html)
+├── ships/<line>/<slug>.html  # 295 ship pages
+├── ports/                    # 387 port pages
+├── restaurants/              # Dining venue pages
+├── solo/articles/            # Solo travel articles
+├── tools/                    # Port tracker, ship tracker
+├── assets/
+│   ├── css/                  # styles.css?v=3.010.400
+│   ├── data/                 # 1,310 JSON files
+│   └── ships/                # 682 WebP images (4,475 total)
+├── new-standards/            # Official consolidated standards (foundation + v3.010)
+├── standards/                # Legacy — SHIP_PAGE_STANDARD.md, drink-calculator.md
+├── admin/claude/             # Claude documentation (you are here)
+└── admin/UNFINISHED_TASKS.md
+```
+
+**Template version:** v3.010.305 (1,241 pages; some at v3.010.300 or v3.010.400)
+**CSS query:** `?v=3.010.400` on new pages
 
 ---
 
-## CRITICAL: Last-Reviewed Date Updates
+## Critical "NEVER DO" Rules
 
-**Every time you edit ANY page, you MUST update:**
+### Integrity (INVIOLABLE)
 
-```html
-<!-- 1. Update the meta tag -->
-<meta name="last-reviewed" content="YYYY-MM-DD"/>
+**NEVER GAME THE VALIDATOR.** Do not reverse-engineer regex patterns to pass automated checks. Write for humans first. If the prose is genuine and follows the voice standard, it passes on its own merit. Violation is a **BLOCKING integrity failure** — no exceptions.
 
-<!-- 2. Update the JSON-LD (MUST match exactly) -->
-"dateModified": "YYYY-MM-DD"
-```
+**SDG invocation is IMMUTABLE.** Every HTML file must have the Soli Deo Gloria comment before line 20. This cannot be removed, shortened, or relocated — not for SEO, not for performance, not for anything.
 
-**Why this matters:**
-- Google uses `dateModified` to assess content freshness for ranking
-- AI systems use `last-reviewed` to determine information currency
-- Stale dates signal outdated content to both humans and machines
+### URLs & Navigation
+- ❌ NEVER relative URLs in production HTML — absolute HTTPS only
+- ❌ NEVER `/ships.html` — correct path is `/ships/index.html`
+- ❌ NEVER remove "Cruise Lines" from primary nav
 
-**Rule:** If you touch a page, update the date. No exceptions.
+### Images
+- ❌ NEVER placeholder images — BLOCKING ERROR, no exceptions
+- ❌ NEVER convert `logo_wake.png` to WebP (transparency required)
+- ❌ NEVER new JPEG/JPG — WebP only
+- ❌ NEVER skip attribution for Wiki Commons images
 
-**Monthly Task:** Find pages not updated in 6+ months and refresh them. See [MAINTENANCE_TASKS.md](MAINTENANCE_TASKS.md) Section 1.6 for commands.
+### Content
+- ❌ NEVER lorem ipsum or "coming soon" pages
+- ❌ NEVER remove logbook stories or grief-focused content
+- ❌ NEVER flatten the emotional pivot in a logbook story
+- ❌ NEVER rewrite a hard story into something chipper at the expense of honesty
 
----
-
-## Required Page Elements
-
-### Every HTML Page
-```html
-<!-- Soli Deo Gloria invocation (before line 20) -->
-<!--
-Soli Deo Gloria
-All work on this project is offered as a gift to God.
-"Trust in the LORD with all your heart..." — Proverbs 3:5
-"Whatever you do, work heartily..." — Colossians 3:23
--->
-
-<!-- ICP-Lite v1.4 meta tags -->
-<meta name="ai-summary" content="Brief description (max 250 chars)"/>
-<meta name="last-reviewed" content="2026-01-17"/>
-<meta name="content-protocol" content="ICP-Lite v1.4"/>
-```
-
-### Entity Pages (ships, ports, restaurants)
-```html
-<!-- AI-breadcrumbs -->
-<!-- ai-breadcrumbs
-     entity: Adventure of the Seas
-     type: Ship Information Page
-     parent: /ships.html
-     category: Royal Caribbean Fleet
-     -->
-
-<!-- JSON-LD with mainEntity -->
-<script type="application/ld+json">
-{
-  "@type": "WebPage",
-  "description": "MUST MATCH ai-summary exactly",
-  "dateModified": "MUST MATCH last-reviewed exactly",
-  "mainEntity": { "@type": "Product", "name": "Ship Name" }
-}
-</script>
-```
+### Code
+- ❌ NEVER console.log/warn in production
+- ❌ NEVER commit invalid JSON
+- ❌ NEVER break existing functionality — no regressions
+- ❌ NEVER push to main/master directly
 
 ---
 
-## Site Navigation (Gold Standard)
+## Current Priorities (Updated 2026-03-02)
 
-**IMPORTANT:** Always reference this section before modifying any navigation. The structure below is the canonical standard.
+**P0 — Complete:** Port Logbook, Ship Logbook, Ship Cards, Ships That Visit Here (387 ports), Port expansion (387 pages), ICP-Lite rollout (100%), Venue audit Phase 2
+**P0 — Active:** ⏳ CSS consolidation — 25 `<style>` blocks; ~19,513 inline `style=` attributes
 
-### Source Files
+**P1 — Complete:** Port maps (367/387), Ship CSS rollout (292/295), "From the Pier" transport (376/376)
+**P1 — Active:** ⏳ Site-wide hero/logo standardization
 
-| Component | Location | Purpose |
-|-----------|----------|---------|
-| **HTML Template** | `index.html` lines 287-376 | Gold standard navigation markup |
-| **CSS Styles** | `assets/styles.css` lines 685-914 | Navigation styling (desktop + mobile) |
-| **JavaScript** | `assets/js/dropdown.js` | Dropdown behavior + mobile hamburger menu |
+**P2 — Complete:** Service Worker v14.2.0, Port weather (387 ports), Stateroom Checker (270 JSON files)
 
-### Navigation HTML Structure
+**P3–P4 — User Decision Required:**
+- 🔴 Pastoral articles: Healing Relationships, Rest for Wounded Healers
+- 🔴 Affiliate link deployment
+- Multi-cruise-line tracker expansion
 
-```html
-<header class="hero-header" role="banner">
-  <div class="navbar">
-    <div class="brand">
-      <img src="/assets/logo_wake_256.png" srcset="..." width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-      <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
-    </div>
-    <!-- Mobile hamburger button -->
-    <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
-      <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
-    </button>
-    <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
-      <!-- Navigation items here -->
-    </nav>
-  </div>
-</header>
-```
-
-### Required Navigation Items (in order)
-
-```
-1. Home                    → /
-2. Planning (dropdown)
-   ├─ Your First Cruise    → /first-cruise.html
-   ├─ Ships                → /ships.html
-   ├─ Cruise Lines         → /cruise-lines.html
-   ├─ Ports                → /ports.html
-   ├─ Packing Lists        → /packing-lists.html
-   └─ Accessibility        → /accessibility.html
-3. Tools (dropdown)
-   ├─ Ship Quiz            → /ships/quiz.html
-   ├─ Cruise Line Quiz     → /cruise-lines/quiz.html
-   ├─ Drink Calculator     → /drink-calculator.html
-   ├─ Stateroom Check      → /stateroom-check.html
-   ├─ Port Logbook         → /tools/port-tracker.html
-   └─ Ship Logbook         → /tools/ship-tracker.html
-4. Onboard (dropdown)
-   ├─ Restaurants & Menus  → /restaurants.html
-   ├─ Drink Packages       → /drink-packages.html
-   ├─ Internet at Sea      → /internet-at-sea.html
-   └─ Articles             → /articles.html
-5. Travel (dropdown)
-   ├─ Travel (overview)    → /travel.html
-   └─ Solo                 → /solo.html
-6. Search                  → /search.html
-7. About                   → /about-us.html
-```
-
-### Dropdown HTML Pattern
-
-```html
-<div class="nav-dropdown" id="nav-planning">
-  <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-    Planning <span class="caret">&#9662;</span>
-  </button>
-  <div class="dropdown-menu" role="menu">
-    <a href="/first-cruise.html">Your First Cruise</a>
-    <a href="/ships.html">Ships</a>
-    <!-- Additional items... -->
-  </div>
-</div>
-```
-
-### Footer Structure (Gold Standard)
-
-```html
-<footer class="wrap" role="contentinfo">
-  <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-  <p class="tiny mt-05">
-    <a href="/privacy.html">Privacy</a> ·
-    <a href="/terms.html">Terms</a> ·
-    <a href="/about-us.html">About</a> ·
-    <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
-  </p>
-  <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel...</p>
-  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
-</footer>
-```
-
-### CSS Classes Reference
-
-| Class | Purpose |
-|-------|---------|
-| `.site-nav` | Main navigation container |
-| `.nav-pill` | Individual navigation button/link styling |
-| `.nav-dropdown` | Container for dropdown menus |
-| `.dropdown-menu` | Hidden dropdown panel (shown via `.open` class) |
-| `.nav-toggle` | Mobile hamburger button (hidden on desktop) |
-| `.mobile-open` | Applied to `.site-nav` when mobile menu is open |
-| `.open` | Applied to `.nav-dropdown` when dropdown is visible |
-
-### Key JavaScript Behaviors
-
-- **Dropdown toggle:** Click button to open/close, click outside to close
-- **Mobile menu:** Hamburger button toggles `.mobile-open` class
-- **Keyboard navigation:** Arrow keys navigate dropdown items, Escape closes
-- **Body scroll lock:** `document.body.style.overflow = 'hidden'` when mobile menu open
-
-### Navigation Guardrails
-
-**DO NOT:**
-- Add navigation items without updating this documentation
-- Change dropdown order without approval
-- Remove accessibility attributes (`aria-expanded`, `aria-haspopup`, `role="menu"`)
-- Modify dropdown.js without testing mobile AND desktop
-
-**ALWAYS:**
-- Use absolute paths (starting with `/`)
-- Include `&amp;` for ampersands in HTML (e.g., "Restaurants &amp; Menus")
-- Test mobile hamburger menu after any nav changes
-- Verify dropdown.js is linked: `<script src="/assets/js/dropdown.js"></script>`
+**Full detail:** `admin/UNFINISHED_TASKS.md`
 
 ---
 
-## Current Status
+## Working with the User
 
-| Metric | Value |
-|--------|-------|
-| Ship Pages | 292 (in 16 cruise line directories) |
-| Port Pages | 380 |
-| Restaurant/Venue Pages | 472 |
-| Ship pages with ship-page.css | 292/292 (100%) |
-| Ship Deployments | 193 ships, 16 cruise lines, 380 ports |
-| From the Pier component | 376/376 real ports (100%) |
-| JPG/JPEG images | 0 (eliminated 2026-01-31) |
-
-See [UNFINISHED_TASKS.md](UNFINISHED_TASKS.md) for detailed status.
+- Be concise and direct. Facts, not superlatives.
+- Disagree respectfully when necessary.
+- Ask clarifying questions rather than assume.
+- Use TodoWrite for any task with 3+ steps.
+- When stuck: read more context, ask, propose options, verify assumptions.
+- Show your work. Integrity over speed.
 
 ---
 
-## Maintenance
+## Need Help?
 
-For routine maintenance tasks, commands, and schedules, see:
-
-**[MAINTENANCE_TASKS.md](MAINTENANCE_TASKS.md)**
-
-Includes:
-- Content quality checks
-- **Last-reviewed date updates** (on every edit)
-- **Stale page audits** (6+ months old)
-- Link verification
-- Standards compliance
-- Ship page validation
-- Security checks
-- Performance optimization
+**When sources conflict, defer in this order:**
+1. `admin/claude/PASTORAL_GUARDRAILS.md` — pastoral care and theological foundation override everything
+2. `.claude/skills/careful-not-clever/CAREFUL.md` — integrity and carefulness override efficiency
+3. This file — architecture, never-dos, priorities
+4. `admin/claude/TECHNICAL_STANDARDS.md` — implementation patterns
+5. `new-standards/` — page-type specifics
+6. `admin/UNFINISHED_TASKS.md` — current work
 
 ---
 
-## Getting Help
-
-- **Skill questions:** Check `.claude/skill-rules.json`
-- **Standards questions:** Check `new-standards/README.md`
-- **Theological questions:** Check `.claude/skills/standards/resources/theological-foundation.md`
-- **ITW-Lite philosophy:** See skill-rules.json notes section
+**Soli Deo Gloria.** This site helps people process some of the hardest experiences in life. Every detail matters. Every accessibility improvement helps someone. Every logbook story might be exactly what someone needs to read today.
 
 ---
 
-*Soli Deo Gloria*
+## Version History
+
+- v1.4.1 (2026-03-02) — Fixed standards references: new-standards/ (15 files, foundation + v3.010) was completely absent from CLAUDE.md. Replaced broken `standards/*.md` glob with accurate per-file references. Updated Site Architecture tree and Need Help? section.
+- v1.4.0 (2026-03-02) — Restructured as lean navigation hub (~250 lines, down from 919). Extracted 5 subfiles: PASTORAL_GUARDRAILS.md, SKILLS_REFERENCE.md, TECHNICAL_STANDARDS.md, IMAGE_WORKFLOW.md, WORKFLOW.md. Added task tracking files to Essential Reading. Emphasized integrity and SDG throughout. Fixed session-start-guardrail.sh skill count 9→10.
+- v1.3.0 (2026-03-02) — Ground-truth metrics audit: pages 1,238→1,241, ship images 669→682, WebP 3,131→4,475, ports 380→387, JSON 2,455→1,310, inline styles ~16,022→~19,513, ICP-Lite 100%. Added Like-a-human v2.0.0 and voice-audit.
+- v1.2.7 (2026-02-14) — Metrics verification: ship images 661→669, ICP-Lite 1,232/1,238 (99.5%), SDG 100%, JSON files corrected (assets/data/: 1,301; repo-wide: 2,478)
+- v1.2.6 (2026-02-13) — Ground-truth audit: pages, ship images 536→661, WebP 2,998→3,131, JSON 1,278→2,455, style blocks 18→25, inline styles 31,128→~16,022, ICP-Lite 99.4%
+- v1.2.5 (2026-02-12) — Comprehensive docs/codebase review: ship pages, images, WebP, ICP-Lite, CSS version
+- v1.2.4 (2026-02-05) — Corrected priorities against codebase audit: maps, CSS rollout, "From the Pier" COMPLETE, SW v14.2.0
+- v1.2.3 (2026-02-01) — Updated seasonal-guides.json (1→381 ports), ship-page.css count, site page count
+- v1.2.2 (2026-01-31) — Documentation consistency: SW version, ai:summary→ai-summary, trust badge text
+- v1.2.1 (2026-01-31) — Documentation consistency: page/image counts to ground-truth
+- v1.2.0 (2026-01-31) — Updated priorities, ICP-Lite v1.0→v1.4, port count 147→380
+- v1.1.0 (2026-01-03) — Added analytics requirement, security standards, trust claim rules
+- v1.0.0 (2025-11-23) — Initial comprehensive Claude guide
