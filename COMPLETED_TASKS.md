@@ -704,8 +704,8 @@ Replaced identical boilerplate logbook entries (generic "Guests praise the quali
 
 ### "Real Talk" Honest Assessment Expansion — Phase 1 COMPLETE (2026-02-12)
 **Lane:** Green
-- [x] Expanded from 30 ports to 67 ports with "Real Talk" sections
-- [x] 22 new ports added: bermuda, bonaire, curacao, costa-maya, antigua, barbados, st-kitts, st-lucia, key-west, grand-turk, lisbon, istanbul, kusadasi, corfu, amsterdam, copenhagen, reykjavik, cabo-san-lucas, ensenada, singapore, hong-kong, sydney
+- [x] Expanded from 30 ports to 46 ports with "Real Talk" sections (verified 2026-03-02)
+- [x] Ports added include: bermuda, bonaire, curacao, costa-maya, antigua, barbados, st-kitts, st-lucia, key-west, grand-turk, lisbon, istanbul, kusadasi, corfu, amsterdam, copenhagen, reykjavik, cabo-san-lucas, ensenada, singapore, hong-kong, sydney
 
 ### Navigation Reorganization — COMPLETE (2026-01-24)
 **Lane:** Green
@@ -771,7 +771,7 @@ Replaced identical boilerplate logbook entries (generic "Guests praise the quali
 ### Port Validation Batch Fixes — Sessions 1-10 (2026-02-20 through 2026-02-28)
 **Lane:** Green
 **Source:** IN_PROGRESS_TASKS.md
-- [x] Passing ports: 3 → 214 (55.3%)
+- [x] Passing ports: 3 → 338 (87.3%) (verified 2026-03-02 via PORT_VALIDATION_PROGRESS.md)
 - [x] Fixed 1,019 dead ship links across 303 ports
 - [x] Fixed 277 Oceania filename prefixes across 106 ports
 - [x] Fixed dual h1 tags in 130 ports
@@ -786,7 +786,7 @@ Replaced identical boilerplate logbook entries (generic "Guests praise the quali
 - [x] Phase 2: Add /planning.html navigation link (302 ships)
 - [x] Phase 4: Add aria-hidden to decorative compass_rose.svg (212 files)
 - [x] Phase 5: Add noscript logbook fallback (56 ships)
-- [x] Ships passing: 23 → 157 (+134), errors: 1069 → 799 (-270)
+- [x] Ships passing: 23 → 293/293 (100%), errors: 1069 → 0 (verified 2026-03-02 via SHIP_VALIDATION_PROGRESS.md)
 
 ### Mobile Standard v1.000 — Phases 1-3 COMPLETE (2026-02-19)
 **Lane:** Green
@@ -802,6 +802,30 @@ Replaced identical boilerplate logbook entries (generic "Guests praise the quali
 - [x] Wired into 6 pages: Harmony (FOM-3, FOM-4), Majesty (FOM-1, FOM-2), Explorer (FOM-1), Oasis (FOM-8), Silver Muse (FOM-1/2/3), Cozumel port (FOM-9)
 - [x] Identified ships by reading hull names: Harmony of the Seas, Majesty of the Seas, Explorer of the Seas, Silver Muse, Oasis of the Seas
 - [x] Seabourn + Viking Star photo stored at `assets/ships/Seabourn-and-viking-FOM- - 1.webp` (not wired — no Viking Star page)
+
+### Deep Audit — Verified Completions (2026-03-02)
+**Lane:** Green
+**Source:** Filesystem verification audit against UNFINISHED_TASKS.md claims
+
+Items previously listed as pending in UNFINISHED_TASKS.md but verified as COMPLETE:
+
+- [x] **Quiz: iPhone scroll fix** — `max-height: 85vh` at line 872 of allshipquiz.html
+- [x] **Quiz: Back button fix** — `history.pushState` + `popstate` handler implemented (5 instances)
+- [x] **Quiz: Regional availability filter** — `detectUserRegion()` at line 1613, timezone auto-detect at line 2038
+- [x] **Affiliate Phase 2 articles** — All 3 exist:
+  - `articles/cruise-duck-tradition.html`
+  - `articles/cruise-cabin-organization.html`
+  - `articles/cruise-tech-photography-guide.html`
+- [x] **Ship Size Atlas: conflict display** — 9 references to "conflict" in tools/ship-size-atlas.html, includes badge-mixed badge and transparency prose
+- [x] **Deck plan links prominent on ship pages** — All sampled ships have dedicated `<section class="card" aria-labelledby="deck-plans">` with CTA buttons
+- [x] **Port image-blocked resolution** — santos (11 images), callao (9 images), catania (8 images) all have images now
+- [x] **Grid-2 layout rollout** — 261/291 ship pages (90%) now have grid-2, only ~30 remain (mostly Carnival)
+- [x] **Corrupted JSON cleanup** — 0/all JSON files in assets/data/ are corrupted (down from claimed 8)
+
+**Corrections to prior COMPLETED_TASKS.md claims (verified 2026-03-02):**
+- Real Talk expansion: corrected from "67 ports" to 46 ports (verified count)
+- Port validation sessions 1-10: corrected from "3 → 214 (55.3%)" to "3 → 338 (87.3%)"
+- Ship validation Phases 1-5: corrected from "23 → 157" to "23 → 293/293 (100%)"
 
 ---
 
