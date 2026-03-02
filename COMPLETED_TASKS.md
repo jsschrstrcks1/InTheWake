@@ -1,7 +1,7 @@
 # Completed Tasks
 
 **Purpose:** Historical archive of all completed work. Tasks are added here when marked complete by user confirmation.
-**Last Updated:** 2026-01-31
+**Last Updated:** 2026-03-02
 **Maintained by:** Claude AI (Thread tracking)
 
 ---
@@ -596,9 +596,7 @@ Replaced identical boilerplate logbook entries (generic "Guests praise the quali
 
 ---
 
-**END OF COMPLETED TASKS**
-
-This file is append-only. New completions are added at the bottom of the relevant section.
+**END OF COMPLETED TASKS (pre-March 2026)**
 
 ---
 
@@ -664,3 +662,149 @@ This file is append-only. New completions are added at the bottom of the relevan
 - [x] Uses shared whimsical-port-units.js component
 **Note:** User mentioned (2026-01-07) distance measurement JSON doesn't seem in use - may need re-verification
 
+---
+
+## March 2026 — Consolidation Migration (2026-03-02)
+
+> **Context:** All task files were consolidated into one UNFINISHED_TASKS.md.
+> Items below were marked complete in various source files but never moved here.
+> Source files: `UNFINISHED_TASKS.md`, `admin/UNFINISHED-TASKS.md`, `IN_PROGRESS_TASKS.md`
+
+### Comprehensive Print CSS for Port Pages — COMPLETE (2026-02-12)
+**Lane:** Green
+- [x] Comprehensive @media print CSS in styles.css (lines 2372-2557+)
+- [x] "Print Guide" button on all 380 port pages
+- [x] Port-specific print optimizations for transport tables, From the Pier, Real Talk, weather widgets, maps
+
+### AI-Readiness Polish — COMPLETE (2026-02-12)
+**Lane:** Green
+- [x] llms.txt reflects 9 tools, correct counts (298/380/472), Feb 2026 updates
+- [x] JSON-LD description matches ai-summary on all 8 hub pages
+- [x] Stale counts fixed on ports.html (333→380) and restaurants.html (445→472)
+- [x] AI-breadcrumbs added to 41/380 ports (10.8%), 301/315 ships (95%), 472/472 restaurants (100%)
+
+### Marketing Copy Update — COMPLETE (2026-02-12)
+**Lane:** Yellow
+- [x] about-us.html: Added Soli Deo Gloria, updated "What We Offer" with 9 tools and correct asset counts
+- [x] index.html: Fixed ship count (294→298), added 5 missing tools to homepage grid, updated FAQ
+- [x] planning.html: Added Budget Calculator, Port Day Planner, Ship Size Atlas
+- [x] ports.html: Updated counts from 333→380, removed Royal Caribbean-only framing
+- [x] restaurants.html: Updated counts from 445→472
+- [x] Nav dropdown: Added Budget Calculator, Port Day Planner, Ship Size Atlas across 1,203 pages
+
+### Vanilla Story Replacement — COMPLETE (2026-02-21)
+**Lane:** Yellow
+- [x] All 44 institutional/vanilla stories replaced across 13 ships
+- [x] Norwegian Star: 11 stories replaced
+- [x] Oceania Sirena (3), Vista (2), Costa Smeralda (3), Toscana (1)
+- [x] Costa Favolosa (2), Firenze (3), Fortuna (2), Pacifica (3)
+- [x] Explora III (3), IV (3), V (3), VI (3)
+- [x] All other cruise lines verified — ALL quality content, no vanilla remaining
+**Note:** The old admin/UNFINISHED-TASKS.md claimed "~1,570 vanilla stories needed" — this was incorrect. Actual count was 44.
+
+### "Real Talk" Honest Assessment Expansion — Phase 1 COMPLETE (2026-02-12)
+**Lane:** Green
+- [x] Expanded from 30 ports to 67 ports with "Real Talk" sections
+- [x] 22 new ports added: bermuda, bonaire, curacao, costa-maya, antigua, barbados, st-kitts, st-lucia, key-west, grand-turk, lisbon, istanbul, kusadasi, corfu, amsterdam, copenhagen, reykjavik, cabo-san-lucas, ensenada, singapore, hong-kong, sydney
+
+### Navigation Reorganization — COMPLETE (2026-01-24)
+**Lane:** Green
+**Source:** admin/UNFINISHED-TASKS.md
+- [x] Reorganized site-wide nav: Planning, Tools, Onboard, Travel dropdowns
+- [x] Updated 512 pages with new dropdown structure
+- [x] Migrated 39 port pages from old templates
+- [x] Fixed 5 broken HTML files (missing body tags)
+
+### Author Pages E-E-A-T — COMPLETE (2026-01-24)
+**Lane:** Green
+**Source:** admin/UNFINISHED-TASKS.md
+- [x] ken-baker.html: ~100→~500 words with JSON-LD Person schema
+- [x] tina-maulsby.html: ~80→~450 words with JSON-LD Person schema
+- [x] disability-at-sea.html: 50→~400 words, fixed malformed `<title>` tag
+
+### Homepage Improvement Initiative — COMPLETE (2026-01-18)
+**Lane:** Yellow
+**Source:** admin/UNFINISHED-TASKS.md
+- [x] Added intent selector ("What are you planning?")
+- [x] Created Planning Tools row
+- [x] Updated trust line
+- [x] Added Related Resources to Drink Calculator, Ship Quiz, Stateroom Check, Packing Lists
+- [x] Replaced Key Facts with Site Highlights + Search
+- [x] Standardized trust badge site-wide (958 pages)
+
+### Ship Quiz V2 Expansion — COMPLETE (2026-01-24)
+**Lane:** Green
+**Source:** admin/UNFINISHED-TASKS.md
+- [x] allshipquiz.html with all 15 cruise lines
+- [x] ship-quiz-data-v2.json with scoring weights
+- [x] Critical bugs fixed (linesToScore, "Also Like" filtering)
+- [x] Dress code question implemented
+- [x] Quiz ship link paths corrected (190/192 ships, 99%)
+
+### Stateroom Checker Data — RCL Complete (2026-01-28)
+**Lane:** Green
+**Source:** admin/UNFINISHED-TASKS.md
+- [x] All 29 RCL ships fully audited with category_overrides
+- [x] 241 baseline files created for all other cruise lines
+- [x] Total: 270 exception files covering all ships
+
+### Ships That Visit Here — COMPLETE (2026-01-25)
+**Lane:** Green
+**Source:** admin/UNFINISHED-TASKS.md
+- [x] 371/387 ports mapped, 193 ships across 15 cruise lines
+- [x] All 15 cruise lines complete (Disney excluded per owner decision)
+- [x] Scenic routes added (Inside Passage, Norwegian Fjords, Chilean Fjords, etc.)
+
+### From the Pier Distance Component — COMPLETE (2026-02-05)
+**Lane:** Green
+**Source:** admin/UNFINISHED-TASKS.md
+- [x] 376/376 real port pages have From the Pier sections
+
+### Alaska Port Sprint — COMPLETE (2026-02-24)
+**Lane:** Yellow
+**Source:** IN_PROGRESS_TASKS.md
+- [x] All 11 core Alaska ports PASS validation (94-98/100)
+- [x] 7 new Alaska ports created: wrangell, petersburg, homer, kodiak, valdez, college-fjord, misty-fjords
+- [x] Fixed tropical activities in cold-water ports, duplicate HTML IDs, section ordering
+- [x] Fact-checked Gold Rush date in Fairbanks (1898 Klondike → 1902 Felix Pedro)
+
+### Port Validation Batch Fixes — Sessions 1-10 (2026-02-20 through 2026-02-28)
+**Lane:** Green
+**Source:** IN_PROGRESS_TASKS.md
+- [x] Passing ports: 3 → 214 (55.3%)
+- [x] Fixed 1,019 dead ship links across 303 ports
+- [x] Fixed 277 Oceania filename prefixes across 106 ports
+- [x] Fixed dual h1 tags in 130 ports
+- [x] Fixed orphaned FAQ questions in 22 ports (108 Q&As → accordion)
+- [x] Batch structural fix: 1,496 files, 22,757 insertions
+- [x] Added 11 new validator checks
+
+### Ship Validation Phases 1-5 — COMPLETE (2026-02-15)
+**Lane:** Green
+**Source:** IN_PROGRESS_TASKS.md
+- [x] Phase 1: Remove aria-hidden from Soli Deo Gloria (224 ships)
+- [x] Phase 2: Add /planning.html navigation link (302 ships)
+- [x] Phase 4: Add aria-hidden to decorative compass_rose.svg (212 files)
+- [x] Phase 5: Add noscript logbook fallback (56 ships)
+- [x] Ships passing: 23 → 157 (+134), errors: 1069 → 799 (-270)
+
+### Mobile Standard v1.000 — Phases 1-3 COMPLETE (2026-02-19)
+**Lane:** Green
+**Source:** IN_PROGRESS_TASKS.md
+- [x] Created validate-mobile-readiness.js (8 checks MOB-001 through MOB-008)
+- [x] Added MOBILE HARDENING v1.000 section to styles.css
+- [x] 1454/1454 pages pass mobile validation (0 blocking)
+- [x] Fixed 4 blocking viewport meta failures
+
+### FOM Ship Photo Processing — COMPLETE (2026-03-02)
+**Lane:** Yellow
+- [x] Processed 11 user-uploaded photos (crops, rotation, exposure, WebP+JPEG)
+- [x] Wired into 6 pages: Harmony (FOM-3, FOM-4), Majesty (FOM-1, FOM-2), Explorer (FOM-1), Oasis (FOM-8), Silver Muse (FOM-1/2/3), Cozumel port (FOM-9)
+- [x] Identified ships by reading hull names: Harmony of the Seas, Majesty of the Seas, Explorer of the Seas, Silver Muse, Oasis of the Seas
+- [x] Seabourn + Viking Star photo stored at `assets/ships/Seabourn-and-viking-FOM- - 1.webp` (not wired — no Viking Star page)
+
+---
+
+**END OF COMPLETED TASKS**
+
+This file is append-only. New completions are added at the bottom of the relevant section.
