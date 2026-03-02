@@ -39,6 +39,7 @@ Before touching anything:
 ### Technical Reference
 | File | Purpose |
 |---|---|
+| `admin/claude/SITE_REFERENCE.md` | Navigation gold standard, commands, page templates, date rules |
 | `admin/claude/TECHNICAL_STANDARDS.md` | Performance, caching, accessibility, SEO, security patterns |
 | `admin/claude/IMAGE_WORKFLOW.md` | Image sourcing, conversion, attribution workflow |
 | `admin/claude/WORKFLOW.md` | Dev workflow, git commit format, verification checklist |
