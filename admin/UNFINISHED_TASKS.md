@@ -12,8 +12,8 @@
 > - `UNFINISHED_TASKS_AUDIT_2025_11_24.md` (289 lines, dated 2025-11-24)
 >
 > **Where did things go?**
-> - Completed items → `COMPLETED_TASKS.md` (appended under "March 2026 Migration")
-> - In-progress items → `IN_PROGRESS_TASKS.md` (unchanged, already tracked there)
+> - Completed items → `admin/COMPLETED_TASKS.md` (appended under "March 2026 Migration")
+> - In-progress items → `admin/IN_PROGRESS_TASKS.md` (unchanged, already tracked there)
 > - Stale files archived → `.claude/archive/`
 > - Duplicates across competitor analysis sections → deduplicated here
 >
@@ -261,7 +261,7 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] Evaluate PDF generation for top 20 ports
 
 **Ship page improvements:**
-- [ ] Verify deck plan PDFs load correctly (links are already prominent — verified 2026-03-02)
+- [x] ~~Verify deck plan links load correctly~~ (verified 2026-03-02: external links to cruise line sites, not PDFs)
 - [ ] Add cabin size/amenity quick facts where missing
 - [ ] Ensure refurbishment dates are current
 - [ ] Add crew count and total deck count if missing
@@ -274,15 +274,15 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] Market PWA install as "your offline cruise companion"
 
 ### [G] Affiliate Link Infrastructure
-**Phase 1 (Infrastructure) DONE. Remaining:**
-- [ ] Update about-us.html disclosure with Amazon Associates participation
-- [ ] Add affiliate article links to ~295 ship pages
-- [ ] Add affiliate article links to ~387 port pages
+**Phase 1 (Infrastructure) DONE. Phase 2 (Articles) DONE. Phase 3 (Site-wide) ~99% DONE.**
+- [ ] Update about-us.html "Our Promise" section to acknowledge Amazon Associates participation
+- [ ] Add affiliate article links to 4 remaining ship pages (carnival-adventure, carnivale-1956, jubilee-1986, mardi-gras-1972)
+- [ ] Add affiliate article links to 3 remaining port pages (beijing, falmouth-jamaica, kyoto)
 
 ### [G] Quiz Remaining Fixes
-- [ ] Add null safety for lineData access
-- [ ] Implement 10-ship limit (user request)
-- [ ] Add Comparison Drawer from Ship Atlas
+- [x] ~~Add null safety for lineData access~~ (verified 2026-03-02: null guards + optional chaining in quiz.html)
+- [x] ~~Implement 10-ship limit~~ (verified 2026-03-02: 3-10 range with +/- UI, hard cap at 10)
+- [x] ~~Add Comparison Drawer from Ship Atlas~~ (verified 2026-03-02: tray, modal, table, max-5 limit)
 - [ ] Run edge case test personas
 
 ### [G] Data Quality
@@ -388,7 +388,6 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 
 ## Uncategorized Pending Items
 
-- [ ] Standardize carousel markup to `<figure>` pattern across all lines
 - [ ] `staleIfErrorTimestamped` strategy for FX API caching
 - [ ] `warmCalculatorShell` predictive prefetch
 - [ ] `FORCE_DATA_REFRESH` and `GET_CACHE_STATS` message handlers
