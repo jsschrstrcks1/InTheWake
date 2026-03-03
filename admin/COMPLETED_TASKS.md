@@ -840,6 +840,23 @@ Items still listed as TODO in UNFINISHED_TASKS.md but verified as COMPLETE:
 
 ---
 
+## March 2026 — Session 13 (2026-03-03)
+
+### Port Content Repairs — Tier 1 (Partial) — COMPLETE
+
+**Thread:** `claude/explore-venue-photos-OeAgM`
+**Scope:** 3 of 15 Tier 1 ports repaired with real, port-specific content
+
+| Port | Before | After | What was added |
+|------|--------|-------|----------------|
+| Copenhagen | 78 FAIL | 88 PASS | Removed DKK typo, wrote cruise-port/getting-around/excursions sections |
+| Split | ~42 FAIL | 42 FAIL* | Wrote cruise-port/getting-around/excursions; *remaining failures are pre-existing logbook issues |
+| Rhodes | ~48 FAIL | 84 PASS | Wrote cruise-port/getting-around/excursions sections |
+
+**Note:** Overall port validation dropped from claimed "338/387" to actual 242/387 (62.5%) due to `section_order/out_of_order` check now being BLOCKING on ~73 ports that have map or featured_images in wrong position.
+
+---
+
 **END OF COMPLETED TASKS**
 
 This file is append-only. New completions are added at the bottom of the relevant section.

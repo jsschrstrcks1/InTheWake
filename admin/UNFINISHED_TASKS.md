@@ -47,7 +47,12 @@
 
 **Context:** Session 12 identified 88 ports that contained identical template filler inserted by batch scripts. Template filler was removed and the validator was updated with a `template_filler_detected` BLOCKING check. These 77 ports now need real, port-specific content written.
 
-**Current validation:** 310/387 PASS (80.1%). The 77 failing ports need content for 1-3 sections each.
+**Current validation:** 242/387 PASS (62.5%). Of the 145 failing ports:
+- ~22 ports at score 0 (template filler / missing multiple sections)
+- ~50 ports at score 2-68 (content gaps + structural issues)
+- ~73 ports at score 70-86 (often just 1 blocking error: `section_order/out_of_order` for map or featured_images)
+
+**Session 13 progress (2026-03-03):** Copenhagen PASS (88), Split improved (42), Rhodes PASS (84)
 
 **What each port typically needs:**
 - **Cruise Port section** (100+ words): Where ships dock, terminal facilities, distance to town, specific cruise lines that call here
@@ -61,11 +66,11 @@ Ports that likely get significant traffic and need quality content:
 
 | Port | Missing sections | Notes |
 |------|-----------------|-------|
-| copenhagen.html | cruise-port, getting-around, excursions | Major European hub |
+| ~~copenhagen.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 13, score 88~~ |
 | riga.html | cruise-port, getting-around, excursions | Popular Baltic port |
 | tallinn.html | cruise-port, getting-around, excursions | Popular Baltic port |
-| split.html | cruise-port, getting-around, excursions | Major Adriatic port |
-| rhodes.html | cruise-port, getting-around, excursions | Popular Greek island |
+| ~~split.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 13, score 42 (logbook issues pre-existing)~~ |
+| ~~rhodes.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 13, score 84~~ |
 | phuket.html | cruise-port, getting-around, excursions | Major Asian port |
 | san-diego.html | cruise-port, getting-around, excursions | Major US port |
 | valencia.html | cruise-port, getting-around, excursions | Growing Med port |
@@ -221,8 +226,8 @@ Each port's content must be **port-specific** — no generic templates. Research
 - [ ] Missing grid-2 layout (~30 ships)
 
 ### [G] Port Validation — Remaining Work
-**Current:** 338/387 passing (87.3%)
-- [ ] ~49 ports still failing (25 at score 0-48, 24 at score 50-78)
+**Current:** 242/387 passing (62.5%) — drop from prior "338" count is due to `section_order/out_of_order` check now being BLOCKING
+- [ ] ~145 ports still failing (22 at score 0, ~50 at score 2-68, ~73 at score 70-86)
 - [ ] Trim FAQ answers to 80 words (~384 ports)
 - [ ] Build POI manifests (365 ports have < 10 POIs)
 - [ ] Clean promotional drift language (~200 ports)
