@@ -886,6 +886,49 @@ Items still listed as TODO in UNFINISHED_TASKS.md but verified as COMPLETE:
 
 ---
 
+## March 2026 — Session 15 (2026-03-03)
+
+### Port Content Repairs — Tier 2 (16/19 ports) — COMPLETE
+
+**Thread:** `claude/explore-venue-photos-OeAgM`
+**Scope:** 16 of 19 Tier 2 medium-traffic ports repaired to PASS. 3 skipped (goa, halifax, panama-canal — need significant logbook work).
+
+**Quick wins — template filler replacement only (7 ports):**
+These ports already had cruise_port, getting_around, and excursions sections. Their only blocking error was `generic_passport_advice` template filler.
+
+| Port | Before | After | Fix applied |
+|------|--------|-------|-------------|
+| cairns | 72 FAIL | 82 PASS | Reef/stinger safety advice |
+| cannes | 76 FAIL | 86 PASS | Pickpocket warning |
+| cartagena | 78 FAIL | 88 PASS | Walled City safety note |
+| casablanca | 72 FAIL | 82 PASS | Medina guide/taxi advice |
+| charleston | 70 FAIL | 80 PASS | Heat/humidity warning |
+| corfu | 74 FAIL | 84 PASS | Summer heat advisory |
+| manila | 68 FAIL | 78 PASS | Grab app/safe areas advice |
+
+**Complex repairs — 3-section content + fixes (9 ports):**
+
+| Port | Before | After | What was added |
+|------|--------|-------|----------------|
+| osaka | 52 FAIL | 86 PASS | cruise_port (Tempozan, JPY), getting_around (subway/JR/taxi), excursions (Castle, Dotonbori, Kyoto). Fixed template filler, logbook +38 words |
+| penang | 48 FAIL | 88 PASS | cruise_port (Swettenham Pier, MYR), getting_around (Grab/CAT/trishaw), excursions (street art, Khoo Kongsi, food). Fixed section order, template filler, logbook +19 words |
+| porto | 62 FAIL | 82 PASS | cruise_port (Leixões, EUR), getting_around (metro/tram/funicular), excursions (Ribeira, cellars, Douro). Fixed "wine tasting" forbidden_drinking |
+| trieste | 62 FAIL | 92 PASS | cruise_port (Terminal Passeggeri, EUR), getting_around (walking/bus/train), excursions (Miramare, coffee, Ljubljana). Fixed section order, template filler |
+| villefranche | 6 FAIL | 76 PASS | cruise_port (tender port, EUR), getting_around (€1.50 bus), excursions (Cocteau, Nice, Monaco, Eze). Fixed template filler, forbidden_gambling, added emotional pivot + reflection |
+| warnemunde | 8 FAIL | 76 PASS | cruise_port (dedicated terminal, EUR), getting_around (Berlin train, S-Bahn), excursions (Berlin, beach, Rostock, Fischbrötchen). Added booking guidance + reflection |
+| zeebrugge | 0 FAIL | 82 PASS | cruise_port (shuttle to Bruges, EUR), getting_around (shuttle/canal/carriage), excursions (canal boat, Belfry, Holy Blood, chocolate). Logbook expanded +248 words |
+| recife | 4 FAIL | 84 PASS | cruise_port (Terminal Marítimo, BRL), getting_around (walking/Uber), excursions (Antigo, Olinda, Boa Viagem, Brennand). Fixed template filler, logbook +55 words |
+| taormina | 0 FAIL | 76 PASS | cruise_port (tender, EUR), getting_around (cable car/bus/taxi), excursions (Teatro Greco, Corso Umberto, Isola Bella, Etna). Logbook +49 words + reflection |
+
+**Skipped (3 ports — need logbook structural work):**
+- goa.html — logbook structural issues
+- halifax.html — no logbook present
+- panama-canal.html — logbook only 331/800 words
+
+**Overall validation:** 260/387 PASS (67.2%), up from 244/387 (63.0%) at session start.
+
+---
+
 **END OF COMPLETED TASKS**
 
 This file is append-only. New completions are added at the bottom of the relevant section.
