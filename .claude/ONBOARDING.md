@@ -3,6 +3,7 @@
 **For:** New Claude sessions working on In the Wake
 **Date:** 2026-03-02
 **System Version:** ITW-Lite v3.010.305 with FOM enhancements
+**ONBOARDING Version:** v1.3.1
 
 ---
 
@@ -163,17 +164,18 @@ Located in `.claude/plugins/`:
 
 ---
 
-## 🔧 Commands (4 utilities)
+## 🔧 Commands (5 utilities)
 
 Located in `.claude/commands/`:
 - `/commit` — Commit helper with message formatting
 - `/create-pr` — Pull request creation
 - `/update-docs` — Documentation updater
 - `/add-to-changelog` — Changelog entry helper
+- `/validate-ship` — Validate ship page against SHIP_PAGE_CHECKLIST_v3.010
 
 ---
 
-## 🪝 Hooks (5 auto-activation)
+## 🪝 Hooks (5 active)
 
 Located in `.claude/hooks/`:
 1. **session-start-guardrail.sh** — **CRITICAL:** Injects CAREFUL.md guardrail into EVERY session (UserPromptSubmit). Pure bash, no dependencies, cannot fail silently.
@@ -181,6 +183,8 @@ Located in `.claude/hooks/`:
 3. **ship-page-validator.sh** — Auto-validates ship pages against v3.010 checklist (PostToolUse Edit|Write)
 4. **port-content-voice-hook.sh** — Injects Like-a-human v2.0.0 voice guide for content writes (PostToolUse Edit|Write)
 5. **voice-audit-hook.sh** — Injects voice-audit diagnostic before git commit when content files are staged (PreToolUse Bash)
+
+⚠️ **skill-activation-prompt.sh** — LEGACY/DEAD. Was broken (called missing .ts file). Replaced by session-start-guardrail.sh. Not wired in settings.json. Kept for reference only.
 
 **Configured in:** `.claude/settings.json`
 
@@ -210,8 +214,8 @@ InTheWake/
 │   ├── settings.json          # Hook configuration
 │   ├── skills/                # 4 skills with directories (standards, skill-developer, frontend-dev-guidelines, careful-not-clever) + Humanization (Like-a-human, voice-audit)
 │   ├── plugins/               # 5 plugins (SEO, accessibility, performance)
-│   ├── commands/              # 4 commands (/commit, /create-pr, etc.)
-│   ├── hooks/                 # 5 hooks (guardrails, tracking, validation, voice)
+│   ├── commands/              # 5 commands (/commit, /create-pr, /validate-ship, etc.)
+│   ├── hooks/                 # 5 active hooks + 1 legacy (skill-activation-prompt.sh)
 │   └── references/            # UI/UX pattern references
 ├── new-standards/             # CITW official standards directory
 │   ├── README.md              # Standards overview
@@ -425,6 +429,8 @@ Every page MUST mirror ICP-Lite meta into Schema.org JSON-LD:
 ---
 
 ## 🔄 Version History
+
+**v1.3.1** (2026-03-02) — Accuracy fixes: commands 4→5 (added /validate-ship), noted skill-activation-prompt.sh as legacy/dead
 
 **v1.3.0** (2026-03-02) — Like-a-human v2.0.0 + voice-audit skill
 - ADDED: Like-a-human v2.0.0 — Precision Discipline (emotional/factual/experiential), Cadence section (compression, antithesis, gear shifts), Honesty Safeguards, AI vocabulary ban list, hedging discipline, anti-camouflage rule
