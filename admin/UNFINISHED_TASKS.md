@@ -83,29 +83,29 @@ Ports that likely get significant traffic and need quality content:
 | ~~port-miami.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 58 (logbook issues pre-existing)~~ |
 | ~~portland.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 72 (logbook 723/800 pre-existing)~~ |
 
-### Tier 2: Medium-traffic ports
+### Tier 2: Medium-traffic ports — 16/19 COMPLETE (Session 15)
 
-| Port | Missing sections |
-|------|-----------------|
-| cairns.html | cruise-port, getting-around, excursions |
-| cannes.html | cruise-port, getting-around, excursions |
-| cartagena.html | cruise-port, getting-around, excursions |
-| casablanca.html | cruise-port, getting-around, excursions |
-| charleston.html | cruise-port, getting-around, excursions |
-| corfu.html | cruise-port, getting-around, excursions |
-| goa.html | emotional pivot/filler removed from logbook |
-| halifax.html | excursions |
-| manila.html | cruise-port, getting-around, excursions |
-| osaka.html | cruise-port, getting-around, excursions |
-| panama-canal.html | cruise-port, getting-around, excursions |
-| penang.html | cruise-port, getting-around, excursions |
-| porto.html | cruise-port, getting-around, excursions |
-| recife.html | cruise-port, getting-around, excursions |
-| taormina.html | cruise-port, getting-around, excursions |
-| trieste.html | cruise-port, getting-around, excursions |
-| villefranche.html | cruise-port, getting-around, excursions |
-| warnemunde.html | cruise-port, getting-around, excursions |
-| zeebrugge.html | cruise-port, getting-around, excursions |
+| Port | Status | Score |
+|------|--------|-------|
+| ~~cairns.html~~ | DONE — template filler fix only | 82 |
+| ~~cannes.html~~ | DONE — template filler fix only | 86 |
+| ~~cartagena.html~~ | DONE — template filler fix only | 88 |
+| ~~casablanca.html~~ | DONE — template filler fix only | 82 |
+| ~~charleston.html~~ | DONE — template filler fix only | 80 |
+| ~~corfu.html~~ | DONE — template filler fix only | 84 |
+| goa.html | SKIPPED — needs logbook structural work | — |
+| halifax.html | SKIPPED — no logbook present | — |
+| ~~manila.html~~ | DONE — template filler fix only | 78 |
+| ~~osaka.html~~ | DONE — 3-section + template filler | 86 |
+| panama-canal.html | SKIPPED — logbook 331/800 words | — |
+| ~~penang.html~~ | DONE — 3-section + reorder + template filler | 88 |
+| ~~porto.html~~ | DONE — 3-section + forbidden_drinking fix | 82 |
+| ~~recife.html~~ | DONE — 3-section + logbook + template filler | 84 |
+| ~~taormina.html~~ | DONE — 3-section + logbook expansion | 76 |
+| ~~trieste.html~~ | DONE — 3-section + reorder + template filler | 92 |
+| ~~villefranche.html~~ | DONE — 3-section + template filler + logbook | 76 |
+| ~~warnemunde.html~~ | DONE — 3-section + logbook reflection | 76 |
+| ~~zeebrugge.html~~ | DONE — 3-section + logbook +248 words | 82 |
 
 ### Tier 3: Lower-traffic / specialized ports
 
