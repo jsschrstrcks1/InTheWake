@@ -53,6 +53,7 @@
 - ~73 ports at score 70-86 (often just 1 blocking error: `section_order/out_of_order` for map or featured_images)
 
 **Session 13 progress (2026-03-03):** Copenhagen PASS (88), Split improved (42), Rhodes PASS (84)
+**Session 14 progress (2026-03-03):** Riga (82 PASS), Tallinn (76 PASS), Phuket (56), San Diego (76), Valencia (32), Stavanger (76), Malaga (52), Victoria BC (72), St. Petersburg (72), Portland (72), Port Everglades (60), Port Miami (58)
 
 **What each port typically needs:**
 - **Cruise Port section** (100+ words): Where ships dock, terminal facilities, distance to town, specific cruise lines that call here
@@ -67,20 +68,20 @@ Ports that likely get significant traffic and need quality content:
 | Port | Missing sections | Notes |
 |------|-----------------|-------|
 | ~~copenhagen.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 13, score 88~~ |
-| riga.html | cruise-port, getting-around, excursions | Popular Baltic port |
-| tallinn.html | cruise-port, getting-around, excursions | Popular Baltic port |
+| ~~riga.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 82 PASS~~ |
+| ~~tallinn.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 76 PASS~~ |
 | ~~split.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 13, score 42 (logbook issues pre-existing)~~ |
-| ~~rhodes.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 13, score 84~~ |
-| phuket.html | cruise-port, getting-around, excursions | Major Asian port |
-| san-diego.html | cruise-port, getting-around, excursions | Major US port |
-| valencia.html | cruise-port, getting-around, excursions | Growing Med port |
-| stavanger.html | cruise-port, getting-around, excursions | Popular Norwegian port |
-| malaga.html | cruise-port, getting-around, excursions | Major Spanish port |
-| victoria-bc.html | cruise-port, getting-around, excursions | Major PNW port |
-| st-petersburg.html | cruise-port, getting-around, excursions | Major Russian port |
-| port-everglades.html | cruise-port, getting-around, excursions | Major US homeport |
-| port-miami.html | cruise-port, getting-around, excursions | Major US homeport |
-| portland.html | cruise-port, getting-around, excursions | US/Canada port |
+| ~~rhodes.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 13, score 84 PASS~~ |
+| ~~phuket.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 56 (logbook issues pre-existing)~~ |
+| ~~san-diego.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 76 (logbook issues pre-existing)~~ |
+| ~~valencia.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 32 (5 logbook errors pre-existing)~~ |
+| ~~stavanger.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 76 (logbook 696/800 pre-existing)~~ |
+| ~~malaga.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 52 (3 logbook errors pre-existing)~~ |
+| ~~victoria-bc.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 72 (emotional pivot pre-existing)~~ |
+| ~~st-petersburg.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 72 (emotional pivot pre-existing)~~ |
+| ~~port-everglades.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 60 (logbook issues pre-existing)~~ |
+| ~~port-miami.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 58 (logbook issues pre-existing)~~ |
+| ~~portland.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 72 (logbook 723/800 pre-existing)~~ |
 
 ### Tier 2: Medium-traffic ports
 
