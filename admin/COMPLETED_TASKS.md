@@ -840,6 +840,52 @@ Items still listed as TODO in UNFINISHED_TASKS.md but verified as COMPLETE:
 
 ---
 
+## March 2026 — Session 13 (2026-03-03)
+
+### Port Content Repairs — Tier 1 (Partial) — COMPLETE
+
+**Thread:** `claude/explore-venue-photos-OeAgM`
+**Scope:** 3 of 15 Tier 1 ports repaired with real, port-specific content
+
+| Port | Before | After | What was added |
+|------|--------|-------|----------------|
+| Copenhagen | 78 FAIL | 88 PASS | Removed DKK typo, wrote cruise-port/getting-around/excursions sections |
+| Split | ~42 FAIL | 42 FAIL* | Wrote cruise-port/getting-around/excursions; *remaining failures are pre-existing logbook issues |
+| Rhodes | ~48 FAIL | 84 PASS | Wrote cruise-port/getting-around/excursions sections |
+
+**Note:** Overall port validation dropped from claimed "338/387" to actual 242/387 (62.5%) due to `section_order/out_of_order` check now being BLOCKING on ~73 ports that have map or featured_images in wrong position.
+
+---
+
+## March 2026 — Session 14 (2026-03-03)
+
+### Port Content Repairs — Tier 1 (Remainder) — COMPLETE
+
+**Thread:** `claude/explore-venue-photos-OeAgM`
+**Scope:** Remaining 12 Tier 1 ports repaired with real, port-specific content (cruise_port, getting_around, excursions sections). All 15 Tier 1 ports now have content written.
+
+| Port | Before | After | What was added |
+|------|--------|-------|----------------|
+| Riga | 22 FAIL | 82 PASS | cruise_port (EUR, tram), getting_around, excursions (Art Nouveau, Central Market, Sigulda) |
+| Tallinn | 18 FAIL | 76 PASS | cruise_port (Old City Harbour), getting_around, excursions (Old Town, Kadriorg, Telliskivi) |
+| Phuket | 0 FAIL | 56 FAIL* | cruise_port, getting_around, excursions (Big Buddha, Phang Nga Bay). Fixed nightlife ref + template filler. *3 logbook errors |
+| San Diego | 26 FAIL | 76 FAIL* | cruise_port (B Street Pier), getting_around (trolley/ferry), excursions (USS Midway, Zoo, Coronado). *2 logbook errors |
+| Valencia | 0 FAIL | 32 FAIL* | cruise_port, getting_around, excursions (City of Arts & Sciences, Central Market). Fixed template filler. *5 logbook errors |
+| Stavanger | 6 FAIL | 76 FAIL* | cruise_port (NOK), getting_around, excursions (Pulpit Rock, Lysefjord). Fixed template filler. *logbook 696/800 |
+| Malaga | 0 FAIL | 52 FAIL* | cruise_port, getting_around, excursions (Alcazaba, Picasso, Granada day trip). Fixed "bar-hop" + template filler. *3 logbook errors |
+| Victoria BC | 12 FAIL | 72 FAIL* | cruise_port (Ogden Point), getting_around (CAD), excursions (Butchart Gardens, whale watching, Empress tea). *emotional pivot |
+| St. Petersburg | 12 FAIL | 72 FAIL* | cruise_port (Marine Façade, visa info), getting_around (ship excursion/tour options), excursions (Hermitage, Peterhof, Church on Spilled Blood). *emotional pivot |
+| Portland (Dorset) | 12 FAIL | 72 FAIL* | cruise_port (GBP), getting_around, excursions (Portland Bill, Chesil Beach, Jurassic Coast fossil walks). Fixed broken currency template filler. *logbook 723/800 |
+| Port Everglades | 0 FAIL | 60 FAIL* | cruise_port (29 terminals), getting_around (water taxi $35), excursions (Las Olas, Everglades airboat). Renamed "Getting to the Port" to avoid section_order conflict. *logbook 694/800 + reflection |
+| Port Miami | 2 FAIL | 58 FAIL* | cruise_port (Dodge Island, Crown of Miami), getting_around (free Metromover), excursions (South Beach, Little Havana, Wynwood, Vizcaya). Renamed sections. *logbook 693/800 + reflection |
+
+**Key patterns:**
+- All remaining FAIL scores are caused by pre-existing logbook issues (word count < 800, missing emotional pivot, missing reflection) that cannot be fixed by adding sections
+- Ports with logbook scores of 72-82 are one logbook fix away from PASS
+- Template filler (broken currency fields, generic depth-soundings) fixed in Portland, Phuket, Valencia, Stavanger, Malaga
+
+---
+
 **END OF COMPLETED TASKS**
 
 This file is append-only. New completions are added at the bottom of the relevant section.
