@@ -203,17 +203,49 @@ Commission/source more venue photos for high-traffic pages beyond the current 17
 | Pages with "Varies by venue" | 187 | 0 |
 | Pages with "Ship availability coming soon" | 18 | 0 |
 | Pages with generic "Guest Experience Summary" | ~297 | < 50 |
-| Pages with venue photos | 15 | 30+ |
-| Pages with duplicated FAQ text | 9 | 0 |
+| Pages with venue photos | 15 (17 in VENUE_IMAGES map) | 30+ |
+| Pages with duplicated FAQ text | ~~9~~ **0** ✅ | 0 |
 | Pages missing venue-tags meta | 453 | < 100 |
-| Activity venues with wrong JSON-LD type | 14 | 0 |
+| Activity venues with wrong JSON-LD type | ~~14~~ **0** ✅ | 0 |
 | Emotional Hook Test 4+/5 | ~93 (est.) | 200+ |
+
+---
+
+## Session Progress — Tier 0 Execution (2026-03-04)
+
+### Tier 0.2: Duplicated FAQ Answers — COMPLETE
+Fixed 9 files with doubled FAQ answer text in JSON-LD FAQPage structured data (line 143 in each).
+All 9 had identical duplication: `"There's a cover charge...prices.There's a cover charge...prices."` → deduplicated to single copy.
+
+**Files fixed:** celebration-table, giovannis-italian-kitchen, hooked-seafood, izumi-in-the-park, jamies-italian, lincoln-park-supper-club, sabor-taqueria, sabor, trellis-bar
+
+### Tier 0.3: Mismatched JSON-LD Types — COMPLETE
+Fixed 14 activity venue files that incorrectly used `"@type": "Restaurant"` and `"category": "Dining Venue"`.
+
+- **10 files → `SportsActivityLocation` / `"Sports & Recreation"`:** flowrider, rock-climbing, zip-line, mini-golf, ripcord, bungee-trampoline, freedom-fairways, adventure-dunes, lost-dunes, navigator-dunes
+- **4 files → `AmusementPark` / `"Entertainment & Activities"`:** laser-tag, battle-for-planet-z, splashaway-bay, thrill-island
+
+### Tier 0.1: Venue Photo Embedding — PARTIALLY COMPLETE
+- **crown-lounge:** Already embedded in `diamond-lounge.html` (same venue, renamed). Audit incorrectly flagged this because no `crown-lounge.html` exists, but the photo IS used in the Diamond Lounge page.
+- **harp-and-horn:** Added to VENUE_IMAGES map in `restaurants-dynamic.js` (shows on Explore page). No HTML page exists — needs creation in future session.
+- **the-shop:** Added to VENUE_IMAGES map in `restaurants-dynamic.js` (shows on Explore page). No HTML page exists — needs creation in future session.
+
+### Cleanup
+- Removed stray `IMG_2527.JPG` from `assets/images/restaurants/photos/venues/`.
+
+### Updated Metrics
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Pages with duplicated FAQ text | 9 | 0 |
+| Activity venues with wrong JSON-LD type | 14 | 0 |
+| Photos in VENUE_IMAGES map | 15 | 17 |
 
 ---
 
 ## Files Modified by This Audit
 
-- This file: `admin/VENUE_PAGE_AUDIT_2026_03_04.md` (new)
+- This file: `admin/VENUE_PAGE_AUDIT_2026_03_04.md` (new, updated with Tier 0 progress)
 
 ## Files Read During Audit (7 venue pages)
 
