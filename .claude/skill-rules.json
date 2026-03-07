@@ -378,6 +378,54 @@
       }
     },
 
+    "emotional-hook-test": {
+      "enabled": true,
+      "type": "guardrail",
+      "enforcement": "warn",
+      "priority": "high",
+      "description": "Pre-publication feeling-level quality gate. Evaluates reader emotional experience in 30 seconds: Clarity (0-5s), Calm (5-10s), Seen (10-15s), Confidence (15-20s), Guided (20-30s). Complements voice-audit (output quality) and Like-a-human (writing voice) with feeling-level assessment. Applied during content review.",
+      "promptTriggers": {
+        "keywords": [
+          "emotional hook",
+          "hook test",
+          "feeling test",
+          "thirty-second",
+          "30 second",
+          "reader experience",
+          "page feeling",
+          "emotional test",
+          "clarity test",
+          "calm test"
+        ],
+        "intentPatterns": [
+          "(run|apply|check|do).*?(emotional hook|hook test|feeling test)",
+          "(does|will).*?(reader|cruiser|visitor).*?feel",
+          "30.?second.*?(test|check|promise)"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/Humanization/emotional-hook-test.md",
+        "maxLines": 250,
+        "loadOnFirstFileEdit": false,
+        "note": "Loaded manually via prompt keywords or co-activated with voice-audit during pre-commit content review. Not auto-loaded on every edit — it is a quality gate, not a writing guide."
+      },
+      "activationMessage": "Emotional Hook Test activated. Evaluating reader feeling: Clarity → Calm → Seen → Confidence → Guided.",
+      "coActivation": {
+        "always_with": ["voice-audit", "content-strategy"],
+        "note": "Completes the content quality trio: Like-a-human (during writing) → voice-audit (output scan) → emotional-hook-test (feeling-level gate). All three should inform content review before publishing."
+      },
+      "perPageTargets": {
+        "home": "Trust + orientation",
+        "ship": "Personality in 60 seconds",
+        "port": "Preparation + anxiety reduction",
+        "restaurant": "Clarity + value judgment",
+        "accessibility": "Dignity + being seen",
+        "solo": "Not alone",
+        "tools": "Manageable complexity",
+        "article": "Authenticity + learning"
+      }
+    },
+
     "performance-analyzer": {
       "enabled": true,
       "type": "domain",
@@ -546,7 +594,7 @@
   "notes": {
     "project": "In the Wake - Cruise planning site (merged with FOM enhancements)",
     "protocol": "ITW-Lite v3.010 (adapted from FOM-Lite v1.0)",
-    "total_skills": 10,
+    "total_skills": 11,
     "hook_wiring": {
       "UserPromptSubmit": "session-start-guardrail.sh → injects BOTH Careful files (process v1.0 + technical root)",
       "PreToolUse_Bash": [
@@ -562,11 +610,11 @@
         "content_html_edit": ["careful-not-clever (process)", "careful-not-clever (technical)", "content-strategy/Like-a-human v2.0.0 (voice)"],
         "content_types": ["ports/**/*.html", "ships/**/*.html", "restaurants/**/*.html", "cruise-lines/**/*.html", "solo/**/*.html", "**/logbooks/**/*.json", "root content pages"],
         "ship_html_edit_extra": "ship-page-validator (in addition to above)",
-        "pre_commit_content": "voice-audit (fires before git commit when content files are staged)"
+        "pre_commit_content": "voice-audit + emotional-hook-test (fire before git commit when content files are staged)"
       }
     },
     "skill_sources": {
-      "citw_original": ["standards", "ship-page-validator", "careful-not-clever", "voice-audit"],
+      "citw_original": ["standards", "ship-page-validator", "careful-not-clever", "voice-audit", "emotional-hook-test"],
       "fom_adapted": [
         "skill-developer",
         "frontend-dev-guidelines",
