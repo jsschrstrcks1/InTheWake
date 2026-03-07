@@ -382,38 +382,6 @@
   <main id="main-content" class="wrap page-grid" role="main" aria-label="Main content">
     <!-- LEFT: welcome + top explore -->
     <section class="col-1" aria-label="Welcome and explore">
-      <!-- Duck Spotting Card - Special Callout (Dismissible) -->
-      <article id="duck-card" class="card" style="background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%); border: 3px solid #ffd700; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2); position: relative;">
-        <button type="button" onclick="document.getElementById('duck-card').style.display=\'none\'; localStorage.setItem(\'duckCardDismissed\', \'true\');"
-                style="position: absolute; top: 0.75rem; right: 0.75rem; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: #d4a017; padding: 0.25rem; line-height: 1; opacity: 0.6; transition: opacity 0.2s;"
-                onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'"
-                aria-label="Dismiss duck card">×</button>
-        <h2 style="margin: 0 0 0.5rem 0; color: #d4a017; font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
-          🦆 Found a Duck?
-        </h2>
-        <p style="margin: 0.5rem 0; font-size: 1.05rem; line-height: 1.6;">
-          Spotted one of our signature yellow ducks on your cruise? We'd love to see it!
-          <strong>Send us a picture and be featured on our website and Instagram!</strong>
-        </p>
-        <div class="actions" style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <a class="pill" href="mailto:ken@cruisinginthewake.com?subject=I%20Found%20a%20Duck!&body=Hi!%20I%20found%20a%20duck%20on%20my%20cruise.%20Here's%20my%20photo%20(please%20attach).%0A%0AShip:%20%0ADate:%20%0ALocation%20where%20I%20found%20it:%20%0A%0A"
-             style="background: #ffd700; color: #333; border-color: #d4a017; font-weight: 600; font-size: 1.05rem; padding: 0.75rem 1.5rem;">
-            📧 Send Your Duck Photo!
-          </a>
-          <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener"
-             style="background: #fff; color: #d4a017; border: 2px solid #ffd700; font-weight: 600; font-size: 1.05rem; padding: 0.75rem 1.5rem;">
-            📸 See Featured Ducks on Instagram
-          </a>
-        </div>
-      </article>
-
-      <!-- First-Timer Callout -->
-      <article class="card" style="background: linear-gradient(135deg, #e8f4f8 0%, #f0f9fb 100%); border-left: 4px solid #17a2b8;">
-        <h2 style="margin: 0 0 0.5rem; color: #0c5460; font-size: 1.25rem;">New to Cruising?</h2>
-        <p style="margin: 0 0 0.75rem; font-size: 0.95rem;">First voyage? We've got you covered with everything you need to know — from booking to disembarkation.</p>
-        <a class="pill" href="/first-cruise.html" style="background: #17a2b8; color: white; border-color: #138496;">Start Here: First Cruise Guide</a>
-      </article>
-
       <article class="card welcome">
         <h1>Welcome aboard</h1>
         <p class="motto"><em>The calmest seas are found in another's wake.</em></p>
@@ -481,6 +449,26 @@
         </div>
       </section>
 
+      <!-- First-Timer Callout (positioned after intent selector) -->
+      <article class="card" style="background: linear-gradient(135deg, #e8f4f8 0%, #f0f9fb 100%); border-left: 4px solid #17a2b8;">
+        <h2 style="margin: 0 0 0.5rem; color: #0c5460; font-size: 1.25rem;">New to Cruising?</h2>
+        <p style="margin: 0 0 0.75rem; font-size: 0.95rem;">First voyage? We've got you covered with everything you need to know — from booking to disembarkation.</p>
+        <a class="pill" href="/first-cruise.html" style="background: #17a2b8; color: white; border-color: #138496;">Start Here: First Cruise Guide</a>
+      </article>
+
+      <!-- Featured Logbook Excerpt — emotional hook -->
+      <article class="card" style="border-left: 4px solid var(--rope, #d9b382); background: #fffbf0;">
+        <h2 style="margin: 0 0 0.75rem; font-size: 1.1rem; color: #5a4a3a;">From the Logbook</h2>
+        <blockquote style="margin: 0; padding: 0; font-style: italic; line-height: 1.7; color: #3a3a3a;">
+          <p style="margin: 0 0 0.5rem;">On her bed sat a towel animal: a penguin. Tom loved penguins. It held a tiny "Merry Christmas" sign between its flippers.</p>
+          <p style="margin: 0 0 0.5rem;">It was so ridiculous and earnest that she laughed out loud — an involuntary, startled laugh. Then guilt slammed into her chest. "How can I laugh? Tom is gone."</p>
+          <p style="margin: 0;">But another thought followed — uninvited, but soft: <em>Tom would've laughed too.</em></p>
+        </blockquote>
+        <p class="tiny" style="margin-top: 0.75rem; color: #8a7a6a;">
+          From <a href="/solo/in-the-wake-of-grief.html" style="color: #0e6e8e;">In the Wake of Grief: When Loss Needs Water</a>
+        </p>
+      </article>
+
       <!-- Planning Tools Row -->
       <section class="card tools-section" aria-labelledby="tools-heading" style="background: linear-gradient(135deg, #083041 0%, #0e6e8e 100%); color: #fff;">
         <h2 id="tools-heading" style="color: #fff; margin-bottom: 0.5rem;">Planning Tools</h2>
@@ -535,6 +523,32 @@
             <span style="font-size: 2rem; margin-bottom: 0.5rem;">🧳</span>
             <strong style="font-size: 0.9rem;">Packing Lists</strong>
             <span class="tiny" style="color: rgba(255,255,255,0.7);">Bring less, enjoy more</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Audience Doorways: Solo & Accessibility (promoted for visibility) -->
+      <section class="card audience-doorways" aria-labelledby="audience-heading" style="background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); border: 2px solid #e8eef2;">
+        <h2 id="audience-heading" style="margin-bottom: 0.5rem;">Planning for...</h2>
+        <p class="tiny content-text mb-1" >Special resources for travelers with specific needs.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+          <!-- Solo Cruising -->
+          <a href="/solo.html" style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: #fff; border: 1px solid #dce5ea; border-radius: 10px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+            <span style="font-size: 2rem; flex-shrink: 0;">🧭</span>
+            <div>
+              <strong style="display: block; color: #0e6e8e; font-size: 1.1rem; margin-bottom: 0.25rem;">Solo Cruisers</strong>
+              <p class="tiny" style="margin: 0; color: #5a7a8a; line-height: 1.4;">Courage, safety, and joy when sailing on your own terms. Includes real stories from our community.</p>
+              <span class="pill" style="display: inline-block; margin-top: 0.5rem; font-size: 0.75rem; padding: 0.25rem 0.5rem;">Read Tina's Story</span>
+            </div>
+          </a>
+          <!-- Accessibility -->
+          <a href="/accessibility.html" style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: #fff; border: 1px solid #dce5ea; border-radius: 10px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+            <span style="font-size: 2rem; flex-shrink: 0;">♿</span>
+            <div>
+              <strong style="display: block; color: #0e6e8e; font-size: 1.1rem; margin-bottom: 0.25rem;">Accessibility Needs</strong>
+              <p class="tiny" style="margin: 0; color: #5a7a8a; line-height: 1.4;">Mobility, dining, and cabin access tips so every traveler can enjoy the ship with confidence and ease.</p>
+              <span class="pill" style="display: inline-block; margin-top: 0.5rem; font-size: 0.75rem; padding: 0.25rem 0.5rem;">View Accessibility Guide</span>
+            </div>
           </a>
         </div>
       </section>
@@ -600,31 +614,30 @@
         </article>
       </section>
 
-      <!-- Audience Doorways: Solo & Accessibility -->
-      <section class="card audience-doorways" aria-labelledby="audience-heading" style="background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%); border: 2px solid #e8eef2;">
-        <h2 id="audience-heading" style="margin-bottom: 0.5rem;">Planning for...</h2>
-        <p class="tiny content-text mb-1" >Special resources for travelers with specific needs.</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-          <!-- Solo Cruising -->
-          <a href="/solo.html" style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: #fff; border: 1px solid #dce5ea; border-radius: 10px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
-            <span style="font-size: 2rem; flex-shrink: 0;">🧭</span>
-            <div>
-              <strong style="display: block; color: #0e6e8e; font-size: 1.1rem; margin-bottom: 0.25rem;">Solo Cruisers</strong>
-              <p class="tiny" style="margin: 0; color: #5a7a8a; line-height: 1.4;">Courage, safety, and joy when sailing on your own terms. Includes real stories from our community.</p>
-              <span class="pill" style="display: inline-block; margin-top: 0.5rem; font-size: 0.75rem; padding: 0.25rem 0.5rem;">Read Tina's Story</span>
-            </div>
+      <!-- Duck Spotting Card (positioned after main content for returning visitors) -->
+      <article id="duck-card" class="card" style="background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%); border: 3px solid #ffd700; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2); position: relative;">
+        <button type="button" onclick="document.getElementById('duck-card').style.display='none'; localStorage.setItem('duckCardDismissed', 'true');"
+                style="position: absolute; top: 0.75rem; right: 0.75rem; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: #d4a017; padding: 0.25rem; line-height: 1; opacity: 0.6; transition: opacity 0.2s;"
+                onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'"
+                aria-label="Dismiss duck card">×</button>
+        <h2 style="margin: 0 0 0.5rem 0; color: #d4a017; font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          Found a Duck?
+        </h2>
+        <p style="margin: 0.5rem 0; font-size: 1.05rem; line-height: 1.6;">
+          Spotted one of our signature yellow ducks on your cruise? We'd love to see it!
+          <strong>Send us a picture and be featured on our website and Instagram!</strong>
+        </p>
+        <div class="actions" style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <a class="pill" href="mailto:ken@cruisinginthewake.com?subject=I%20Found%20a%20Duck!&body=Hi!%20I%20found%20a%20duck%20on%20my%20cruise.%20Here's%20my%20photo%20(please%20attach).%0A%0AShip:%20%0ADate:%20%0ALocation%20where%20I%20found%20it:%20%0A%0A"
+             style="background: #ffd700; color: #333; border-color: #d4a017; font-weight: 600; font-size: 1.05rem; padding: 0.75rem 1.5rem;">
+            Send Your Duck Photo!
           </a>
-          <!-- Accessibility -->
-          <a href="/accessibility.html" style="display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: #fff; border: 1px solid #dce5ea; border-radius: 10px; text-decoration: none; color: inherit; transition: all 0.2s ease;">
-            <span style="font-size: 2rem; flex-shrink: 0;">♿</span>
-            <div>
-              <strong style="display: block; color: #0e6e8e; font-size: 1.1rem; margin-bottom: 0.25rem;">Accessibility Needs</strong>
-              <p class="tiny" style="margin: 0; color: #5a7a8a; line-height: 1.4;">Mobility, dining, and cabin access tips so every traveler can enjoy the ship with confidence and ease.</p>
-              <span class="pill" style="display: inline-block; margin-top: 0.5rem; font-size: 0.75rem; padding: 0.25rem 0.5rem;">View Accessibility Guide</span>
-            </div>
+          <a class="pill" href="https://instagram.com/flickersofmajesty" target="_blank" rel="noopener"
+             style="background: #fff; color: #d4a017; border: 2px solid #ffd700; font-weight: 600; font-size: 1.05rem; padding: 0.75rem 1.5rem;">
+            See Featured Ducks on Instagram
           </a>
         </div>
-      </section>
+      </article>
 
       <!-- FAQ Section (ICP-Lite) - Moved from right rail for better accessibility -->
       <section class="card mt-15" aria-labelledby="faq-heading">
