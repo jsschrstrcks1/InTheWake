@@ -328,7 +328,24 @@ Soli Deo Gloria
           <li><strong>Pedicabs:</strong> $5-15 per ride depending on distance. Fun for short hops when you're hot and tired.</li>
         </ul>
         <p>For accessibility, Key West's flat terrain and paved sidewalks accommodate wheelchairs and mobility scooters remarkably well. The trolley tours are wheelchair accessible, and many attractions have accessible entrances. Scooter rentals are available near the cruise pier.</p>
-      </details><details class="port-section" id="excursions" open="">
+      </details>
+      <details class="port-section" id="map" open="">
+        <summary><h2>Key West Port Map</h2></summary>
+        <p class="map-intro">Interactive map showing the cruise pier, Duval Street, Mallory Square, and attractions. Click any marker for details.</p>
+        <div id="key-west-port-map" class="port-map-container" role="application" aria-label="Interactive map of Key West port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=24.5597&mlon=-81.8067#map=15/24.555/-81.805" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('key-west-port-map')._portMap?.fitBounds(document.getElementById('key-west-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </details>
+<details class="port-section" id="excursions" open="">
         <summary><h2>Excursions &amp; Activities</h2></summary>
 
         <h3>Top Attractions Worth Your Time</h3>
@@ -458,25 +475,7 @@ Soli Deo Gloria
       <!-- REAL TALK -->
       <p class="real-talk">On 3-4 ship days, Duval Street becomes a slow-moving wall of people and the famous bars hit capacity by noon. Skip the main drag and walk one block east to Whitehead or one block west to Simonton for the same restaurants and shops with half the crowds. Mallory Square's sunset celebration is overrated when you're competing with 8,000 other cruise passengers for a view — the Waterfront Brewery or Sunset Pier at Ocean Key House offer the same sunset with a drink in hand and a chair to sit in.</p>
 
-      <!-- MAP SECTION -->
-      <details class="port-section" id="map" open="">
-        <summary><h2>Key West Port Map</h2></summary>
-        <p class="map-intro">Interactive map showing the cruise pier, Duval Street, Mallory Square, and attractions. Click any marker for details.</p>
-        <div id="key-west-port-map" class="port-map-container" role="application" aria-label="Interactive map of Key West port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=24.5597&mlon=-81.8067#map=15/24.555/-81.805" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('key-west-port-map')._portMap?.fitBounds(document.getElementById('key-west-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-      </details>
-
-      <!-- EXCURSIONS SECTION -->
+      <!-- MAP SECTION --><!-- EXCURSIONS SECTION -->
       
 
       <!-- DEPTH SOUNDINGS SECTION -->

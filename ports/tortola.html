@@ -304,7 +304,24 @@ Soli Deo Gloria
           <li><strong>Rental cars:</strong> Available but not recommended for cruise visitors due to left-side driving, steep mountain roads, and limited parking. Better to hire a taxi or join a ship excursion.</li>
         </ul>
         <p>Accessibility note: Tortola's terrain is challenging for wheelchairs and mobility devices. The cruise terminal is accessible, but most attractions involve steep hills, uneven paths, or beach sand. The Baths require climbing over large boulders — not accessible for those with mobility limitations. Cane Garden Bay beach has easier access with gradual entry to the water.</p>
-      </details><details class="port-section" id="excursions" open="">
+      </details>
+      <details class="port-section" id="map" open="">
+        <summary><h2>Tortola Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal, beaches, and attractions mentioned in this guide. Click any marker for details and directions.</p>
+        <div id="tortola-port-map" class="port-map-container" role="application" aria-label="Interactive map of Tortola and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.4167&mlon=-64.6167#map=12/18.4167/-64.6167" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('tortola-port-map')._portMap?.fitBounds(document.getElementById('tortola-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </details>
+<details class="port-section" id="excursions" open="">
         <summary><h2>Excursions &amp; Activities</h2></summary>
 
         <h3>Top Pick: The Baths (Virgin Gorda)</h3>
@@ -414,25 +431,7 @@ Soli Deo Gloria
       <!-- GETTING AROUND SECTION -->
       
 
-      <!-- MAP SECTION -->
-      <details class="port-section" id="map" open="">
-        <summary><h2>Tortola Area Map</h2></summary>
-        <p class="map-intro">Interactive map showing cruise terminal, beaches, and attractions mentioned in this guide. Click any marker for details and directions.</p>
-        <div id="tortola-port-map" class="port-map-container" role="application" aria-label="Interactive map of Tortola and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.4167&mlon=-64.6167#map=12/18.4167/-64.6167" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('tortola-port-map')._portMap?.fitBounds(document.getElementById('tortola-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-      </details>
-
-      <!-- EXCURSIONS SECTION -->
+      <!-- MAP SECTION --><!-- EXCURSIONS SECTION -->
       
 
       <!-- DEPTH SOUNDINGS SECTION -->

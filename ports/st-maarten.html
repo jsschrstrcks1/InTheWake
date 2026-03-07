@@ -419,7 +419,24 @@ All work on this project is offered as a gift to God.
             <li><strong>Private Taxis:</strong> Available for custom itineraries and island loop tours. Negotiate fares in advance — expect $150-200 for a full island tour for up to 4 passengers.</li>
           </ul>
           <p>For most cruise visitors, a combination of walking downtown and shared taxis to Maho Beach or the French side offers the best value. Book ahead through your ship's shore excursion desk for guaranteed transportation if visiting multiple destinations.</p>
-        </details><details class="port-section" id="excursions" open="">
+        </details>
+      <details class="port-section" id="map" open="">
+            <summary><h2>St. Maarten Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal, Maho Beach, Orient Beach, and attractions on both Dutch and French sides. Click any marker for details.</p>
+        <div id="st-maarten-port-map" class="port-map-container" role="application" aria-label="Interactive map of St. Maarten and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.04&mlon=-63.05#map=12/18.04/-63.05" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('st-maarten-port-map')._portMap?.fitBounds(document.getElementById('st-maarten-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+            </details>
+<details class="port-section" id="excursions" open="">
           <summary><h2>Excursions &amp; Things to Do</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking tip: Reserve ship excursions for guaranteed return to the pier. Independent travelers should book ahead for Orient Beach clubs during peak season.</p>
 
@@ -579,29 +596,7 @@ All work on this project is offered as a gift to God.
         <p class="transport-note">No border controls between Dutch and French sides. Bus is cheapest to Maho Beach. Prices as of Jan 2026.</p>
       </aside>
 
-      <!-- Interactive Port Map -->
-      <details class="port-section" id="map" open="">
-            <summary><h2>St. Maarten Area Map</h2></summary>
-        <p class="map-intro">Interactive map showing cruise terminal, Maho Beach, Orient Beach, and attractions on both Dutch and French sides. Click any marker for details.</p>
-        <div id="st-maarten-port-map" class="port-map-container" role="application" aria-label="Interactive map of St. Maarten and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=18.04&mlon=-63.05#map=12/18.04/-63.05" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('st-maarten-port-map')._portMap?.fitBounds(document.getElementById('st-maarten-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-            </details>
-
-        
-
-        
-
-        <!-- FAQ SECTION -->
+      <!-- Interactive Port Map --><!-- FAQ SECTION -->
         
 
       

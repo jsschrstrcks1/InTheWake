@@ -391,7 +391,23 @@ Soli Deo Gloria
 
         <h3>Scooter Rentals</h3>
         <p>Scooters remain popular with visitors at around $50-80 per day. However, remember that Bermuda drives on the left side of the road, and narrow winding roads require careful navigation. Electric Twizys (small two-seater vehicles) offer a safer alternative at similar prices. Neither option is recommended for first-time left-side drivers.</p>
-      </details><details class="port-section" id="excursions" open="">
+      </details>
+      <details class="port-section" id="map" open="">
+      
+      
+        <h2>Bermuda Port Map</h2>
+        <p class="map-intro">Interactive map showing the cruise terminal, Horseshoe Bay, Hamilton, and key attractions. Click any marker for details and directions.</p>
+        <div id="bermuda-port-map" class="port-map-container" role="application" aria-label="Interactive map of Bermuda port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=32.3283&mlon=-64.8317#map=12/32.3283/-64.8317" target="_blank" rel="noopener">View on OpenStreetMap</a>.</p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('bermuda-port-map')._portMap?.fitBounds(document.getElementById('bermuda-port-map')._portMap.getBounds())">Reset View</button>
+        </div>
+      
+    </details>
+<details class="port-section" id="excursions" open="">
             <summary><h2>Shore Excursions &amp; What to See</h2></summary>
         <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Horseshoe Bay is easily reached independently via public bus. Ship excursions work well for snorkeling trips (guaranteed return to port) and island tours. Book ahead for popular activities through your ship excursion desk or local operators.</p>
 
@@ -543,24 +559,7 @@ Soli Deo Gloria
       <!-- REAL TALK -->
       <p class="real-talk">Most ships dock at the Royal Naval Dockyard, a 75-minute bus ride from Hamilton and 90 minutes from Horseshoe Bay Beach. That $2.75 bus fare sounds great until you realize the bus comes every 15-30 minutes and the last one back fills up fast on 3-ship days. The Dockyard itself is pleasant but limited — if beaches and Hamilton shopping are your priority, calculate the transit time honestly before deciding whether a taxi ($50+) or organized excursion makes more financial sense.</p>
 
-      <!-- Interactive Map Section -->
-      <details class="port-section" id="map" open="">
-      
-      
-        <h2>Bermuda Port Map</h2>
-        <p class="map-intro">Interactive map showing the cruise terminal, Horseshoe Bay, Hamilton, and key attractions. Click any marker for details and directions.</p>
-        <div id="bermuda-port-map" class="port-map-container" role="application" aria-label="Interactive map of Bermuda port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=32.3283&mlon=-64.8317#map=12/32.3283/-64.8317" target="_blank" rel="noopener">View on OpenStreetMap</a>.</p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('bermuda-port-map')._portMap?.fitBounds(document.getElementById('bermuda-port-map')._portMap.getBounds())">Reset View</button>
-        </div>
-      
-    </details>
-
-      <!-- Excursions Section -->
+      <!-- Interactive Map Section --><!-- Excursions Section -->
       
 
       <!-- Depth Soundings Section -->

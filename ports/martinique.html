@@ -419,7 +419,24 @@ Soli Deo Gloria
             <li><strong>Buses:</strong> Local buses (Texaco) serve island destinations but run on Caribbean time. Better for adventurous travelers than those on tight cruise schedules. Fares are €2-4 depending on distance.</li>
           </ul>
           <p>For most cruise visitors, a combination of walking downtown and shared taxis to beaches or Saint-Pierre offers the best value. Book ship excursions for the distillery tours to ensure transportation logistics work with port timing.</p>
-        </details><details class="port-section" id="excursions" open="">
+        </details>
+      <details class="port-section" id="map" open="">
+            <summary><h2>Martinique Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and Martinique attractions. Click any marker for details.</p>
+        <div id="martinique-port-map" class="port-map-container" role="application" aria-label="Interactive map of Martinique port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=14.6042&mlon=-61.0742#map=12/14.6042/-61.0742" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('martinique-port-map')._portMap?.fitBounds(document.getElementById('martinique-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+            </details>
+<details class="port-section" id="excursions" open="">
           <summary><h2>Excursions &amp; Things to Do</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking tip: Reserve distillery tours through the ship for reliable transportation. Share taxis to beaches with other cruise passengers. Book ahead for Saint-Pierre guided tours during peak season.</p>
 
@@ -508,30 +525,7 @@ Soli Deo Gloria
 
         
 
-      <!-- Interactive Port Map -->
-      <details class="port-section" id="map" open="">
-            <summary><h2>Martinique Area Map</h2></summary>
-        <p class="map-intro">Interactive map showing cruise terminal and Martinique attractions. Click any marker for details.</p>
-        <div id="martinique-port-map" class="port-map-container" role="application" aria-label="Interactive map of Martinique port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=14.6042&mlon=-61.0742#map=12/14.6042/-61.0742" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('martinique-port-map')._portMap?.fitBounds(document.getElementById('martinique-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-            </details>
-
-        
-
-        
-
-
-        <!-- FAQ SECTION -->
+      <!-- Interactive Port Map --><!-- FAQ SECTION -->
         
 
       

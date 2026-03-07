@@ -400,7 +400,24 @@ Soli Deo Gloria
           <li><strong>Beach shuttle:</strong> Free shuttle runs from cruise center to Governor's Beach if the walk is too far.</li>
         </ul>
         <p>For accessibility, the flat terrain accommodates wheelchairs throughout. Beach wheelchairs are sometimes available at the cruise center — ask at guest services. The cruise center itself is fully accessible with ramps and accessible restrooms.</p>
-      </details><details class="port-section" id="excursions" open="">
+      </details>
+      <details class="port-section" id="map" open="">
+        <summary><h2>Grand Turk Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and Grand Turk attractions. Click any marker for details.</p>
+        <div id="grand-turk-port-map" class="port-map-container" role="application" aria-label="Interactive map of Grand Turk port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=21.4575&mlon=-71.1419#map=12/21.4575/-71.1419" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('grand-turk-port-map')._portMap?.fitBounds(document.getElementById('grand-turk-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+      </details>
+<details class="port-section" id="excursions" open="">
         <summary><h2>Excursions &amp; Activities</h2></summary>
 
         <h3>Beach Options</h3>
@@ -529,25 +546,7 @@ Soli Deo Gloria
       <!-- REAL TALK -->
       <p class="real-talk">There isn't much to Grand Turk beyond the cruise center beach and Governor's Beach — and that's not a criticism, it's the point. The Margaritaville complex and free pool at the cruise center handle most visitors perfectly well. If you're expecting a town to explore, you'll be disappointed: Cockburn Town has a few small shops and the national museum, but it's genuinely sleepy. Bring your own snorkel gear rather than renting at the port — the markup is significant, and the wall reef is just steps from the beach.</p>
 
-      <!-- MAP SECTION -->
-      <details class="port-section" id="map" open="">
-        <summary><h2>Grand Turk Area Map</h2></summary>
-        <p class="map-intro">Interactive map showing cruise terminal and Grand Turk attractions. Click any marker for details.</p>
-        <div id="grand-turk-port-map" class="port-map-container" role="application" aria-label="Interactive map of Grand Turk port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=21.4575&mlon=-71.1419#map=12/21.4575/-71.1419" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('grand-turk-port-map')._portMap?.fitBounds(document.getElementById('grand-turk-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-      </details>
-
-      <!-- EXCURSIONS SECTION -->
+      <!-- MAP SECTION --><!-- EXCURSIONS SECTION -->
       
 
       <!-- DEPTH SOUNDINGS SECTION -->

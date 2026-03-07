@@ -333,8 +333,23 @@ Soli Deo Gloria
           <p><strong>Accessibility:</strong> Ship decks are your main venue during transit. Colón 2000 terminal is flat and wheelchair accessible. The Miraflores Visitor Center has elevator access to all four viewing floors. Casco Viejo's cobblestoned streets are challenging for wheelchairs; the waterfront Cinta Costera path is smooth and accessible.</p>
         </div>
       </details>
-
-      <details class="port-section" id="weather-guide" open="">
+            <details class="port-section port-map-section" id="port-map-section" open="">
+            <summary><h3>Panama Canal Area Map</h3></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and Panama Canal attractions. Click any marker for details.</p>
+        <div id="panama-canal-port-map" class="port-map-container" role="application" aria-label="Interactive map of Panama Canal port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=9.0800&mlon=-79.6800#map=12/9.0800/-79.6800" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('panama-canal-port-map')._portMap?.fitBounds(document.getElementById('panama-canal-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+            </details>
+<details class="port-section" id="weather-guide" open="">
             <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
               <div id="port-weather-widget" data-port-id="panama-canal" data-port-name="Panama Canal Transit Guide" data-lat="9.0000" data-lon="-79.5000" data-region="Caribbean">
             <noscript>
@@ -421,24 +436,7 @@ Soli Deo Gloria
               </div>
             </noscript>
               </div>
-            </details><details class="port-section port-map-section" id="port-map-section" open="">
-            <summary><h3>Panama Canal Area Map</h3></summary>
-        <p class="map-intro">Interactive map showing cruise terminal and Panama Canal attractions. Click any marker for details.</p>
-        <div id="panama-canal-port-map" class="port-map-container" role="application" aria-label="Interactive map of Panama Canal port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=9.0800&mlon=-79.6800#map=12/9.0800/-79.6800" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('panama-canal-port-map')._portMap?.fitBounds(document.getElementById('panama-canal-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-            </details>
-
-      <details class="port-section" id="excursions" open="">
+            </details><details class="port-section" id="excursions" open="">
         <summary><h2>Shore Excursions &amp; DIY Options</h2></summary>
         <div class="excursion-content">
           <p>If your ship docks at Colón or Fuerte Amador (rather than a non-stop transit), you have half a day to explore. Ship excursions are strongly recommended from Colón for safety. From Fuerte Amador, independent exploration is straightforward.</p>
