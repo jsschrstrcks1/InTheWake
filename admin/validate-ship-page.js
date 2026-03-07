@@ -115,6 +115,7 @@ const GOLD_NAV_ITEMS = [
 const SECTION_PATTERNS = {
   // page_intro: Match "page-intro" class/id, "intro" as standalone word (not "introduced"), or specific phrases
   page_intro: /page-intro|\bintro\b|looking for .+ planning info|what this page covers|answer-line/i,
+  who_shes_for: /who.she.?s.for|who-shes-for|personality.?callout/i,
   first_look: /first.?look|gallery|a first look/i,
   dining: /dining|restaurants?|venues?/i,
   logbook: /logbook|tales from the wake|crew.?stories/i,
@@ -133,19 +134,20 @@ const REQUIRED_SECTIONS = [
   'map', 'tracker', 'faq', 'attribution', 'recent_rail'
 ];
 
-// Expected STRICT section order per RCL gold standard (radiance-of-the-seas.html)
-// Sections must appear in this order in the main content area
-const EXPECTED_MAIN_SECTION_ORDER = [
-  'page_intro',    // ICP-Lite intro with answer-line
-  'first_look',    // A First Look carousel + stats (inside grid-2 with dining)
-  'dining',        // Dining venues (inside grid-2 with first_look)
-  'logbook',       // The Logbook - Tales From the Wake
-  'videos',        // Watch: Ship Highlights
-  'map',           // Ship Map (Deck Plans) - inside grid-2 with tracker
-  'tracker',       // Where Is Ship Right Now? - inside grid-2 with map
-  'faq',           // Frequently Asked Questions
-  'attribution'    // Image Attributions
+// Valid section orderings — pages may use EITHER layout:
+//   Legacy:         page_intro → first_look → dining → logbook → ...
+//   Emotional-hook: page_intro → who_shes_for → logbook → first_look → dining → ...
+// The emotional-hook order promotes personality content above specs/data.
+// See .claude/skills/Humanization/emotional-hook-test.md for rationale.
+const VALID_SECTION_ORDERS = [
+  // Legacy order (most existing pages — RCL gold standard radiance-of-the-seas.html)
+  ['page_intro', 'first_look', 'dining', 'logbook', 'videos', 'map', 'tracker', 'faq', 'attribution'],
+  // Emotional-hook order (personality before specs — allure-of-the-seas.html)
+  ['page_intro', 'who_shes_for', 'logbook', 'first_look', 'dining', 'videos', 'map', 'tracker', 'faq', 'attribution'],
 ];
+
+// Union of all sections that appear in any valid ordering (for filtering detected sections)
+const ALL_ORDERED_SECTIONS = [...new Set(VALID_SECTION_ORDERS.flat())];
 
 // Expected order for right rail sections
 const EXPECTED_RAIL_SECTION_ORDER = [
@@ -1117,30 +1119,54 @@ function validateSections($, isTBN, isHistoric = false) {
     });
   }
 
-  // STRICT SECTION ORDER ENFORCEMENT
-  // Filter detected sections to only those in expected order list
+  // SECTION ORDER ENFORCEMENT (supports dual valid orderings)
+  // Filter detected sections to only those in any valid ordering
   const mainSectionsDetected = sectionPositions
-    .filter(s => EXPECTED_MAIN_SECTION_ORDER.includes(s.key))
+    .filter(s => ALL_ORDERED_SECTIONS.includes(s.key))
     .map(s => s.key);
 
-  // Check if sections are in correct order
-  const outOfOrder = [];
-  let lastIndex = -1;
-  for (const section of mainSectionsDetected) {
-    const expectedIndex = EXPECTED_MAIN_SECTION_ORDER.indexOf(section);
-    if (expectedIndex < lastIndex) {
-      outOfOrder.push(section);
-    } else {
-      lastIndex = expectedIndex;
+  // Check if sections match ANY valid ordering
+  function checkOrder(detected, expected) {
+    const outOfOrder = [];
+    let lastIndex = -1;
+    for (const section of detected) {
+      const expectedIndex = expected.indexOf(section);
+      if (expectedIndex === -1) continue; // section not in this ordering, skip
+      if (expectedIndex < lastIndex) {
+        outOfOrder.push(section);
+      } else {
+        lastIndex = expectedIndex;
+      }
     }
+    return outOfOrder;
   }
 
-  if (outOfOrder.length > 0) {
+  // Try each valid ordering — page passes if it matches ANY one
+  const orderResults = VALID_SECTION_ORDERS.map(order => checkOrder(mainSectionsDetected, order));
+  const bestMatch = orderResults.reduce((best, current) =>
+    current.length < best.length ? current : best
+  );
+
+  if (bestMatch.length > 0) {
+    const orderDescriptions = VALID_SECTION_ORDERS.map(o => o.join(' → '));
     errors.push({
       section: 'sections',
       rule: 'wrong_section_order',
-      message: `Sections out of expected order: ${outOfOrder.join(', ')}. Expected order: page_intro → first_look → dining → logbook → videos → map → tracker → faq → attribution`,
+      message: `Sections out of expected order: ${bestMatch.join(', ')}. Valid orderings:\n  Legacy: ${orderDescriptions[0]}\n  Emotional-hook: ${orderDescriptions[1]}`,
       severity: 'BLOCKING'
+    });
+  }
+
+  // Emotional-hook awareness: warn if no personality-first content
+  const hasPersonalityFirst = mainSectionsDetected.includes('who_shes_for') ||
+    (mainSectionsDetected.indexOf('logbook') !== -1 &&
+     mainSectionsDetected.indexOf('logbook') < mainSectionsDetected.indexOf('first_look'));
+  if (!isTBN && !isHistoric && !hasPersonalityFirst) {
+    warnings.push({
+      section: 'sections',
+      rule: 'no_personality_first',
+      message: 'Page has no personality-first content. Consider adding a "Who She\'s For" section or promoting the logbook above the photo carousel. See emotional-hook-test.md.',
+      severity: 'WARNING'
     });
   }
 
@@ -1220,8 +1246,8 @@ function validateSections($, isTBN, isHistoric = false) {
     data: {
       detected,
       detected_order: mainSectionsDetected,
-      expected_order: EXPECTED_MAIN_SECTION_ORDER,
-      out_of_order: outOfOrder,
+      valid_orders: VALID_SECTION_ORDERS,
+      out_of_order: bestMatch,
       missing,
       hasRail,
       hasNavTop,
@@ -2835,6 +2861,9 @@ async function validateShipPage(filepath) {
     const videoResult = await validateVideos(slug, cruiseLine, isHistoric, isTBN);
     const articlesResult = await validateArticles();
     const shipImageResult = await validateShipImages(filepath, cruiseLine, slug);
+
+    // Stub: voiceQualityResult — function not yet implemented, prevent crash
+    const voiceQualityResult = { errors: [], warnings: [] };
 
     // Calculate preliminary score for discoverability checks
     const preliminaryErrors = [

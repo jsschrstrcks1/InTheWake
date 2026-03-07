@@ -523,6 +523,14 @@ check_section "Deck Plans section" 'id="deck-plans"' 'id="deck-title"'
 check_section "Live Tracker section" 'id="liveTrackHeading"' 'id="tracker-title"' 'class="tracker-frame"'
 check_section "FAQ section" 'id="faq-heading"' 'id="faq-title"' 'class="faq-item"'
 
+# Optional: "Who She's For" personality callout (emotional-hook-test.md)
+# Not required — only pages that have been through emotional-hook review have this.
+if echo "$CONTENT" | grep -qE 'id="who-shes-for"|who.she.s.for'; then
+    check_pass "Who She's For personality section present"
+else
+    check_warn "No 'Who She's For' personality section. Consider adding one (see emotional-hook-test.md)"
+fi
+
 # Check for ship-stats-fallback JSON
 if echo "$CONTENT" | grep -q 'id="ship-stats-fallback"'; then
     check_pass "Ship stats JSON fallback present"

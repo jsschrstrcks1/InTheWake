@@ -1817,6 +1817,44 @@ function validateFromThePier($) {
 }
 
 /**
+ * Emotional Hook Test awareness — port feeling target: "Preparation + anxiety reduction"
+ * Checks that anxiety-reducing content appears in the upper portion of the page,
+ * not buried below specs/data. See .claude/skills/Humanization/emotional-hook-test.md
+ */
+function validateEmotionalHook($) {
+  const warnings = [];
+
+  // Get the first ~30% of main content text (what a reader scans in 30 seconds)
+  const mainContent = $('main .col-1, main').first();
+  const allText = mainContent.text();
+  const upperThird = allText.substring(0, Math.floor(allText.length * 0.33)).toLowerCase();
+
+  // Anxiety-reducing signals: practical orientation content in upper portion
+  const anxietyReducers = [
+    /from the pier/i,
+    /walking|walk time|minutes?.walk/i,
+    /tender|shuttle|taxi/i,
+    /you('ll| will) (see|find|notice)/i,
+    /don.t worry|no need to/i,
+    /easy to|straightforward/i,
+    /tip:|local tip|insider/i,
+  ];
+
+  const foundReducers = anxietyReducers.filter(rx => rx.test(upperThird));
+
+  if (foundReducers.length === 0) {
+    warnings.push({
+      section: 'emotional_hook',
+      rule: 'no_anxiety_reduction_early',
+      message: 'No anxiety-reducing content found in the upper third of the page. Port pages should help the reader feel prepared early. Consider adding practical orientation (distances, transport, tips) before detailed content. See emotional-hook-test.md.',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors: [], warnings, data: { anxietyReducersFound: foundReducers.length } };
+}
+
+/**
  * Validate HTML structural integrity
  * Catches: mismatched heading tags, inline console.log, missing meta author,
  * stray closing tags for section/details elements
@@ -3505,6 +3543,7 @@ async function validatePortPage(filepath) {
     const lastReviewedResult = validateLastReviewedStamp($);
     const collapsibleResult = validateCollapsibleStructure($);
     const fromThePierResult = validateFromThePier($);
+    const emotionalHookResult = validateEmotionalHook($);
     const printButtonResult = validatePrintButton($, html);
     const siteIntegrationResult = await validateSiteIntegration(filepath);
     const htmlIntegrityResult = validateHTMLIntegrity($, html);
@@ -3588,6 +3627,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...authorDisclaimerResult.warnings);
     results.warnings.push(...lastReviewedResult.warnings);
     results.warnings.push(...fromThePierResult.warnings);
+    results.warnings.push(...emotionalHookResult.warnings);
     results.warnings.push(...printButtonResult.warnings);
     results.warnings.push(...htmlIntegrityResult.warnings);
     results.warnings.push(...internalLinksResult.warnings);
@@ -3644,6 +3684,7 @@ async function validatePortPage(filepath) {
     results.voice_quality = voiceQualityResult.data;
     results.unique_names = uniqueNamesResult.data;
     results.from_the_pier = fromThePierResult.data;
+    results.emotional_hook = emotionalHookResult.data;
     results.print_button = printButtonResult.data;
     results.internal_links = internalLinksResult.data;
     results.recent_stories = recentStoriesResult.data;
