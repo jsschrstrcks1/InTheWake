@@ -184,3 +184,27 @@ Before touching anything:
 - v1.2.0 (2026-01-31) — Updated priorities, ICP-Lite v1.0→v1.4, port count 147→380
 - v1.1.0 (2026-01-03) — Added analytics requirement, security standards, trust claim rules
 - v1.0.0 (2025-11-23) — Initial comprehensive Claude guide
+
+---
+
+## Multi-LLM Integration
+
+This repository has access to the multi-LLM orchestrator system. External models (GPT, Gemini, Grok) serve as **consultants only** — Claude remains lead author and decision-maker.
+
+### Available Skills
+
+| Skill | Usage | Purpose |
+|-------|-------|---------|
+| `/consult` | `/consult grok challenge "push back on this port page UX"` | Quick single-model second opinion |
+| `/orchestrate` | `/orchestrate cruising "generate Caribbean itinerary page"` | Full multi-model pipeline |
+| Cognitive Memory | Automatic on session start | Cross-session knowledge persistence |
+
+### Mode: `cruising`
+- **Lead:** Claude (standards enforcement, file access)
+- **Pipeline:** Read Standards (Claude) → Generate (Claude) → Content (GPT) → Completeness (Gemini) → UX (Grok) → Integrate (Claude)
+- **Memory scope:** `/inthewake`
+- **Orchestrator:** `/home/user/ken/orchestrator/`
+
+### Context Boundaries
+- **SEND:** Page requirements, content topics, SEO targets, general cruise data
+- **NEVER SEND:** Full codebase, internal standards (send summaries), analytics
