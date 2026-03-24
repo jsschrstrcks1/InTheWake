@@ -540,7 +540,7 @@ Dining Venues</h2>
   function initFirstLook(){
     const el=document.getElementById('photo-swiper');
     if(!el||typeof Swiper==='undefined') return;
-    new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+    new Swiper(el,{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
   </script>
@@ -569,7 +569,7 @@ Dining Venues</h2>
         if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
         else if(Array.isArray(d.videos)) vids=d.videos;
         if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
-        new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+        new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
       }).catch(()=>{});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();

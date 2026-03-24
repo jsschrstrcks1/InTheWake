@@ -530,7 +530,7 @@ Dining Venues</h2>
 <script>
 function initFirstLook(){
   if(!window.__swiperReady) return setTimeout(initFirstLook,200);
-  new Swiper('.firstlook',{loop:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
+  new Swiper('.firstlook',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
 }
 initFirstLook();
 </script>

@@ -117,12 +117,37 @@ function fixVideosSwiper(html) {
   );
 }
 
+/**
+ * BLOCKING-5
+ * Fix explicit rewind:true → rewind:false on any Swiper instance.
+ * Some Carnival pages use: new Swiper(el,{loop:false,rewind:true,...})
+ * The validator checks for rewind:false; rewind:true causes infinite scroll bug.
+ */
+function fixSwiperRewindTrue(html) {
+  return html.replace(/\brewind:true\b/g, 'rewind:false');
+}
+
+/**
+ * BLOCKING-6
+ * Fix direct-selector firstlook Swiper with loop:true.
+ * Some older pages call: new Swiper('.firstlook',{loop:true,...})
+ * rather than the initFirstLook(c,...) pattern caught by BLOCKING-2.
+ */
+function fixDirectSelectorSwiper(html) {
+  // Match new Swiper('.firstlook',{loop:true, OR new Swiper(".firstlook",{loop:true,
+  return html
+    .replace(/new Swiper\('\.firstlook',\{loop:true,/g,
+             "new Swiper('.firstlook',{loop:false,rewind:false,")
+    .replace(/new Swiper\("\.firstlook",\{loop:true,/g,
+             'new Swiper(".firstlook",{loop:false,rewind:false,');
+}
+
 // ─── main ────────────────────────────────────────────────────────────────────
 
 let totalFiles   = 0;
 let changedFiles = 0;
 let skippedFiles = 0;
-const fixCounts  = { schema: 0, swiper: 0, skipLink: 0, videosSwiper: 0 };
+const fixCounts  = { schema: 0, swiper: 0, skipLink: 0, videosSwiper: 0, rewindTrue: 0, directSelector: 0 };
 
 for (const dir of SHIP_DIRS) {
   const fullDir = path.join(ROOT, dir);
@@ -169,6 +194,16 @@ for (const dir of SHIP_DIRS) {
     if (afterVideos !== updated) { fixCounts.videosSwiper++; changed = true; }
     updated = afterVideos;
 
+    // Apply fix 5 — rewind:true → rewind:false
+    const afterRewindTrue = fixSwiperRewindTrue(updated);
+    if (afterRewindTrue !== updated) { fixCounts.rewindTrue++; changed = true; }
+    updated = afterRewindTrue;
+
+    // Apply fix 6 — direct selector .firstlook loop:true
+    const afterDirectSelector = fixDirectSelectorSwiper(updated);
+    if (afterDirectSelector !== updated) { fixCounts.directSelector++; changed = true; }
+    updated = afterDirectSelector;
+
     if (changed) {
       changedFiles++;
       if (!DRY_RUN) {
@@ -187,5 +222,7 @@ console.log(`Files excluded:      ${skippedFiles}`);
 console.log(`Files changed:       ${changedFiles}${DRY_RUN ? ' (dry run — not written)' : ''}`);
 console.log(`  BLOCKING-1 (schema):   ${fixCounts.schema} fixes`);
 console.log(`  BLOCKING-2 (swiper):   ${fixCounts.swiper} fixes`);
-console.log(`  BLOCKING-3 (skiplink):     ${fixCounts.skipLink} fixes`);
-console.log(`  BLOCKING-4 (videosSwiper): ${fixCounts.videosSwiper} fixes`);
+console.log(`  BLOCKING-3 (skiplink):       ${fixCounts.skipLink} fixes`);
+console.log(`  BLOCKING-4 (videosSwiper):   ${fixCounts.videosSwiper} fixes`);
+console.log(`  BLOCKING-5 (rewindTrue):     ${fixCounts.rewindTrue} fixes`);
+console.log(`  BLOCKING-6 (directSelector): ${fixCounts.directSelector} fixes`);

@@ -296,6 +296,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Scarlet Lady overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Scarlet Lady — Virgin Voyages | In the Wake is a Virgin Class cruise ship operated by Virgin Voyages. She entered service in 2020, measures 110,000 gross tons, and carries approximately 2,770 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Lady Class</li>
+          <li><strong>Year:</strong> 2020</li>
+          <li><strong>Tonnage:</strong> 110,000 GT</li>
+          <li><strong>Guests:</strong> 2,770</li>
+          <li><strong>IMO:</strong> TBD</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
         <strong class="section-label">Looking for Scarlet Lady planning info?</strong>
@@ -576,7 +586,7 @@ Dining on Scarlet Lady</h2>
 <script>function initDining(){const el=document.getElementById('dining-list');if(!el)return;fetch('/assets/data/dining/virgin-voyages/scarlet-lady.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.venues||[]).map(v=>`<li><strong>${v.name}</strong> — ${v.description}</li>`).join('');}). catch(()=>{});}
 </script>
 <!-- initLiveTracker — render tracking link -->
-<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:${imo}" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
+<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:TBD" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
 </script>
 <!-- initShipLogbook — logbook loader -->
 <script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/virgin-voyages/scarlet-lady.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.entries||[]).slice(0,5).map(e=>`<li>${e.date}: ${e.note}</li>`).join('');}). catch(()=>{});}

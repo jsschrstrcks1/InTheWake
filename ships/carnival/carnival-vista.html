@@ -442,6 +442,16 @@ Dining Venues on Carnival Vista</h2>
       <section class="page-intro">
         
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Carnival Vista is a Vista Class (Lead) cruise ship operated by Carnival Cruise Line. She entered service in 2016, measures 133,500 gross tons, and carries approximately 3,936 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Vista Class</li>
+          <li><strong>Year:</strong> 2016</li>
+          <li><strong>Tonnage:</strong> 133,500 GT</li>
+          <li><strong>Guests:</strong> 3,936</li>
+          <li><strong>IMO:</strong> 9692569</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
           <strong>Quick Answer:</strong> Carnival Vista is the lead Vista-class ship with first SkyRide and IMAX at sea.
@@ -560,7 +570,7 @@ Dining Venues on Carnival Vista</h2>
 function initFirstLook(){
   const el=document.getElementById('photo-swiper')||document.querySelector('.swiper.firstlook');
   if(!el||typeof Swiper==='undefined') return;
-  new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+  new Swiper(el,{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
 </script>
@@ -589,7 +599,7 @@ function initVideos(){
       if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
       else if(Array.isArray(d.videos)) vids=d.videos;
       if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
-      new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+      new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
     }).catch(()=>{});
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();

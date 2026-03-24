@@ -356,6 +356,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Silver Nova overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Silver Nova is a Nova Class cruise ship operated by Silversea Cruises. She entered service in 2023, measures 54,700 gross tons, and carries approximately 728 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Nova Class</li>
+          <li><strong>Year:</strong> 2023</li>
+          <li><strong>Tonnage:</strong> 54,700 GT</li>
+          <li><strong>Guests:</strong> 728</li>
+          <li><strong>IMO:</strong> 9892399</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
         <strong class="section-label">Looking for Silver Nova planning info?</strong>
@@ -690,7 +700,7 @@ Dining on Silver Nova</h2>
 <script>function initDining(){const el=document.getElementById('dining-list');if(!el)return;fetch('/assets/data/dining/silversea/silver-nova.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.venues||[]).map(v=>`<li><strong>${v.name}</strong> — ${v.description}</li>`).join('');}). catch(()=>{});}
 </script>
 <!-- initLiveTracker — render tracking link -->
-<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:${imo}" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
+<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:9892399" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
 </script>
 <!-- initShipLogbook — logbook loader -->
 <script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/silversea/silver-nova.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.entries||[]).slice(0,5).map(e=>`<li>${e.date}: ${e.note}</li>`).join('');}). catch(()=>{});}
