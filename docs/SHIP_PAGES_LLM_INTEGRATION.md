@@ -7,6 +7,13 @@
 
 ---
 
+## Ground Rule
+
+**Only Claude may edit HTML files directly.**
+GPT and Gemini produce JSON data files only. Claude reads their output, validates it, and integrates it. This prevents LLM-introduced regressions in markup, schema, or accessibility attributes.
+
+---
+
 ## Summary
 
 GPT and Gemini are most valuable in **Phase 5 (content uplift)** — not in the code repair phases.
@@ -19,18 +26,18 @@ Phase 5 is where LLM strengths (creative generation, structured JSON output, con
 
 | Phase | Method | Rationale |
 |-------|--------|-----------|
-| 1 — Template blockers | **Script only** | Mechanical string substitution. LLM adds hallucination risk with no gain. |
-| 2 — Validator fixes | **Script only** | Logic changes in JS files. LLMs can help *read* error patterns but should not *write* the fixes. |
-| 3 — Fleet-wide warnings | **Script only** | Title/OG tag patterns are deterministic; `og:image` path is a formula. |
-| 4 — MSC structural fixes | **Script only** | Regex + attribute moves. Zero ambiguity. |
-| 5 — Content uplift | **LLM-assisted** | Logbook stories, dining descriptions, video metadata — all generative content tasks. |
-| 6 — Validation sign-off | **Script only** | `batch-validate-ships.js` output is the ground truth. |
+| 1 — Template blockers | **Script (Claude)** | Mechanical string substitution. LLM adds hallucination risk with no gain. |
+| 2 — Validator fixes | **Script (Claude)** | Logic changes in JS files. LLMs can help *read* error patterns but should not *write* the fixes. |
+| 3 — Fleet-wide warnings | **Script (Claude)** | Title/OG tag patterns are deterministic; `og:image` path is a formula. |
+| 4 — MSC structural fixes | **Script (Claude)** | Regex + attribute moves. Zero ambiguity. |
+| 5 — Content uplift | **GPT/Gemini → JSON → Claude integrates** | LLMs generate data files only. Claude reads, validates, and writes any resulting HTML changes. |
+| 6 — Validation sign-off | **Script (Claude)** | `batch-validate-ships.js` output is the ground truth. |
 
 ---
 
 ## Phase 5 — LLM Role Assignment
 
-### GPT-4 → Narrative Content
+### GPT-4 → Narrative Content (JSON output only)
 
 GPT excels at creative text with consistent tone. Assign it:
 
@@ -38,7 +45,7 @@ GPT excels at creative text with consistent tone. Assign it:
 - **Dining venue descriptions** — Ambiance, signature dishes, USP for each venue (`name`, `cuisine`, `description`, `highlights`, `dietary_notes`).
 - **Entertainment section copy** — Shows, activities, enrichment programs in short structured entries.
 
-### Gemini → Structured Data Extraction and Expansion
+### Gemini → Structured Data Extraction and Expansion (JSON output only)
 
 Gemini performs well at synthesizing information into fixed schemas and expanding factual content. Assign it:
 
@@ -52,7 +59,7 @@ Gemini performs well at synthesizing information into fixed schemas and expandin
 
 ### Core principles
 
-1. **Generate JSON, not HTML.** LLMs should produce structured data files (`logbook/{slug}.json`, `videos/{slug}.json`). The HTML pages load these via the existing data pipeline — never ask an LLM to write or edit HTML directly.
+1. **Generate JSON, not HTML.** LLMs should produce structured data files (`logbook/{slug}.json`, `videos/{slug}.json`). The HTML pages load these via the existing data pipeline — GPT and Gemini never touch HTML.
 
 2. **Few-shot every prompt.** Provide one complete example of a passing output (e.g., the Norwegian Prima logbook JSON) as the template. This constrains format and tone.
 
@@ -112,6 +119,7 @@ Tone: warm, informative, practical. No invented prices or specific dates.
 
 ## Guardrails
 
+- **Only Claude edits HTML.** GPT and Gemini output JSON data files. Claude reads, validates, and integrates.
 - **Never feed LLMs the HTML files directly.** Pass only ship name, line, and known factual data as input.
 - **Pin a "seed" example per line.** Each cruise line should have one manually-written logbook entry that all LLM prompts use as a few-shot anchor. This prevents style drift across the fleet.
 - **Rate-limit batches.** Process one cruise line at a time. Review output before moving to the next.
