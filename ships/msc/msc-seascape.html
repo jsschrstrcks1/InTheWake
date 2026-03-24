@@ -123,7 +123,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"MSC Seascape","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Seascape is a Seaside EVO Class ship from MSC Cruises measuring 170,412 GT and hosting 4,540 guests since 2022. An evolution of the Seaside Class, she features a stunning six-deck outdoor promenade, the Robot Bar, Cliffhanger over-water swing ride, Cirque du Soleil at Sea, MSC Yacht Club, and Hola! Tacos & Cantina."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Seaside EVO ship operated by MSC Cruises.","name":"MSC Seascape","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Seascape is a Seaside EVO Class ship from MSC Cruises measuring 170,412 GT and hosting 4,540 guests since 2022. An evolution of the Seaside Class, she features a stunning six-deck outdoor promenade, the Robot Bar, Cliffhanger over-water swing ride, Cirque du Soleil at Sea, MSC Yacht Club, and Hola! Tacos & Cantina."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -247,7 +247,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -370,12 +370,12 @@ All work on this project is offered as a gift to God.
 
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
-          <h2 id="first-look">A First Look at Msc Seascape</h2>
-          <div class="swiper firstlook" aria-label="Msc Seascape photo carousel">
+          <h2 id="first-look">A First Look at MSC Seascape</h2>
+          <div class="swiper firstlook" aria-label="MSC Seascape photo carousel">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <figure>
-                  <img src="/assets/ships/Msc_Seascape_flickr_Andy2982.webp" alt="Msc Seascape exterior view" loading="lazy" decoding="async">
+                  <img src="/assets/ships/Msc_Seascape_flickr_Andy2982.webp" alt="MSC Seascape exterior view" loading="lazy" decoding="async">
                   <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/andy2982/54028088072/" target="_blank" rel="noopener">Andy2982</a> via Flickr</figcaption>
                 </figure>
               </div>
@@ -700,7 +700,7 @@ Dining on MSC Seascape</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
   <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/msc/msc-seascape.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->

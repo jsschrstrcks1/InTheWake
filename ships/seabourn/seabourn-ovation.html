@@ -123,7 +123,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Seabourn Ovation","brand":{"@type":"Organization","name":"Seabourn Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Seabourn Ovation is a 40,350-GT ship for 604 guests, delivered in 2018 with butler service, the Thomas Keller Grill, and Seabourn's signature all-inclusive luxury."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Encore Class ship operated by Seabourn.","name":"Seabourn Ovation","brand":{"@type":"Organization","name":"Seabourn Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Seabourn Ovation is a 40,350-GT ship for 604 guests, delivered in 2018 with butler service, the Thomas Keller Grill, and Seabourn's signature all-inclusive luxury."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -245,7 +245,7 @@ All work on this project is offered as a gift to God.
   </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
   <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
   <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -678,7 +678,7 @@ Dining on Seabourn Ovation</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
 </script>
 <!-- initVideos — fetch video JSON, render thumbnails -->
 <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/seabourn/seabourn-ovation.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{const vids=Object.values(data.videos||{}).flat();if(!vids.length){w.innerHTML='<p>No videos available.</p>';return;}w.innerHTML=vids.slice(0,6).map(v=>`<div class="video-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${v.videoId}?rel=0" title="${v.title}" loading="lazy" allowfullscreen></iframe></div>`).join('');}).catch(()=>{w.innerHTML='<p>Videos currently unavailable.</p>';});}

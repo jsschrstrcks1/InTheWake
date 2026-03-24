@@ -51,7 +51,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   ]
 }
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"TSS Tropicale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival's first purpose-built ship and the prototype that launched modern cruise shipbuilding with the iconic winged funnel."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A First Purpose-Built ship operated by Carnival Cruise Line.","name":"TSS Tropicale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival's first purpose-built ship and the prototype that launched modern cruise shipbuilding with the iconic winged funnel."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","jobTitle":"Cruise Travel Writer","description":"Wheelchair-accessible cruise specialist documenting the passenger experience across Carnival's fleet."}</script>
 <script type="application/ld+json">
   {
@@ -200,7 +200,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div role="status" aria-live="polite" class="sr-only"></div>
 <div role="alert" aria-live="assertive" class="sr-only"></div>
   <header class="hero-header ship-page" role="banner">
@@ -494,7 +494,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
 })();
 </script><!-- initFirstLook — Swiper for .firstlook carousel -->
-<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
 <!-- initShipLogbook — fetch logbook JSON, render entries -->
 <script>function initShipLogbook(){const el=document.getElementById('logbook-container');if(!el)return;fetch('/assets/data/logbook/carnival/tropicale-1981.json').then(r=>r.json()).then(d=>{if(d.stories)el.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h3>'+s.title+'</h3><p style="font-size:.85rem;color:#64748b;margin:.25rem 0">'+s.persona_label+'</p><div>'+s.markdown.split('\n\n').slice(0,2).map(p=>'<p>'+p.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</p>').join('')+'</div></article>').join('');}).catch(()=>{el.innerHTML='<p>Stories coming soon.</p>';});}</script>
 <!-- initVideos — fetch video JSON, render thumbnails -->

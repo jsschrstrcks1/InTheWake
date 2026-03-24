@@ -143,7 +143,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"MSC Musica","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Musica is the lead ship of the Musica Class for MSC Cruises, measuring 92,409 GT with capacity for 2,550 guests. Built in 2006 at STX Europe, she features a three-deck waterfall in the atrium, the Kaito sushi bar, Il Galeone restaurant, and the Aurea Spa with a Balinese treatment room."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Musica Class ship operated by MSC Cruises.","name":"MSC Musica","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Musica is the lead ship of the Musica Class for MSC Cruises, measuring 92,409 GT with capacity for 2,550 guests. Built in 2006 at STX Europe, she features a three-deck waterfall in the atrium, the Kaito sushi bar, Il Galeone restaurant, and the Aurea Spa with a Balinese treatment room."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -267,7 +267,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -364,7 +364,7 @@ All work on this project is offered as a gift to God.
     </div>
   </header>
 
-  <main class="wrap" id="content" role="main" data-imo="9320099">
+  <main class="wrap" id="content" role="main">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
@@ -390,12 +390,12 @@ All work on this project is offered as a gift to God.
 
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
-          <h2 id="first-look">A First Look at Msc Musica</h2>
-          <div class="swiper firstlook" aria-label="Msc Musica photo carousel">
+          <h2 id="first-look">A First Look at MSC Musica</h2>
+          <div class="swiper firstlook" aria-label="MSC Musica photo carousel">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <figure>
-                  <img src="/assets/ships/Msc_Musica_flickr_NeilPulling.webp" alt="Msc Musica exterior view" loading="lazy" decoding="async">
+                  <img src="/assets/ships/Msc_Musica_flickr_NeilPulling.webp" alt="MSC Musica exterior view" loading="lazy" decoding="async">
                   <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/27045884@N05/55025722129/" target="_blank" rel="noopener">Neil Pulling</a> via Flickr</figcaption>
                 </figure>
               </div>
@@ -567,7 +567,7 @@ Dining on MSC Musica</h2>
         </figure>
         <p><a class="btn" href="https://www.msccruises.com/" target="_blank" rel="noopener">Visit MSC Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="liveTrackHeading">
+      <section class="card" aria-labelledby="liveTrackHeading" data-imo="9320099">
         <h2 id="liveTrackHeading">Where Is MSC Musica?</h2>
         <p>Track MSC Musica's current position and upcoming itinerary.</p>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=MSC%20Musica" target="_blank" rel="noopener">Open Live Tracker</a></p>
@@ -700,7 +700,7 @@ Dining on MSC Musica</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
   <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/msc/msc-musica.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->

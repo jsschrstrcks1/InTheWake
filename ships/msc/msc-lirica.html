@@ -143,7 +143,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"MSC Lirica","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Lirica is the lead ship of the Lirica Class for MSC Cruises, measuring 65,591 GT with capacity for 1,984 guests. Built in 2003 and lengthened in 2015, she features an intimate mid-size design with La Brasserie restaurant, the Aurea Spa, a two-deck theatre, and frequently sails Asian and Middle Eastern itineraries."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Lirica Class ship operated by MSC Cruises.","name":"MSC Lirica","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Lirica is the lead ship of the Lirica Class for MSC Cruises, measuring 65,591 GT with capacity for 1,984 guests. Built in 2003 and lengthened in 2015, she features an intimate mid-size design with La Brasserie restaurant, the Aurea Spa, a two-deck theatre, and frequently sails Asian and Middle Eastern itineraries."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -267,7 +267,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -364,7 +364,7 @@ All work on this project is offered as a gift to God.
     </div>
   </header>
 
-  <main class="wrap" id="content" role="main" data-imo="9246102">
+  <main class="wrap" id="content" role="main">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
@@ -390,12 +390,12 @@ All work on this project is offered as a gift to God.
 
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
-          <h2 id="first-look">A First Look at Msc Lirica</h2>
-          <div class="swiper firstlook" aria-label="Msc Lirica photo carousel">
+          <h2 id="first-look">A First Look at MSC Lirica</h2>
+          <div class="swiper firstlook" aria-label="MSC Lirica photo carousel">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
                 <figure>
-                  <img src="/assets/ships/Msc_Lirica_flickr_EricBhm.webp" alt="Msc Lirica exterior view" loading="lazy" decoding="async">
+                  <img src="/assets/ships/Msc_Lirica_flickr_EricBhm.webp" alt="MSC Lirica exterior view" loading="lazy" decoding="async">
                   <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/36973576@N08/53113872683/" target="_blank" rel="noopener">Eric Böhm</a> via Flickr</figcaption>
                 </figure>
               </div>
@@ -567,7 +567,7 @@ Dining on MSC Lirica</h2>
         </figure>
         <p><a class="btn" href="https://www.msccruises.com/" target="_blank" rel="noopener">Visit MSC Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="liveTrackHeading">
+      <section class="card" aria-labelledby="liveTrackHeading" data-imo="9246102">
         <h2 id="liveTrackHeading">Where Is MSC Lirica?</h2>
         <p>Track MSC Lirica's current position and upcoming itinerary.</p>
         <p><a class="btn" href="https://www.cruisemapper.com/?search=MSC%20Lirica" target="_blank" rel="noopener">Open Live Tracker</a></p>
@@ -700,7 +700,7 @@ Dining on MSC Lirica</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
   <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/msc/msc-lirica.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
