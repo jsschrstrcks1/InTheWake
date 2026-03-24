@@ -101,12 +101,28 @@ function fixSkipLink(html) {
   return html.replace(/href="#main-content"/g, 'href="#content"');
 }
 
+/**
+ * BLOCKING-4
+ * Fix initVideos Swiper — missing loop:false, rewind:false.
+ * Current:  new Swiper(w,{slidesPerView:
+ * Required: new Swiper(w,{loop:false,rewind:false,slidesPerView:
+ *
+ * This is a different Swiper instance than initFirstLook (uses variable `w`
+ * rather than `c`, and is in the initVideos function).
+ */
+function fixVideosSwiper(html) {
+  return html.replace(
+    /new Swiper\(w,\{slidesPerView:/g,
+    'new Swiper(w,{loop:false,rewind:false,slidesPerView:'
+  );
+}
+
 // ─── main ────────────────────────────────────────────────────────────────────
 
 let totalFiles   = 0;
 let changedFiles = 0;
 let skippedFiles = 0;
-const fixCounts  = { schema: 0, swiper: 0, skipLink: 0 };
+const fixCounts  = { schema: 0, swiper: 0, skipLink: 0, videosSwiper: 0 };
 
 for (const dir of SHIP_DIRS) {
   const fullDir = path.join(ROOT, dir);
@@ -148,6 +164,11 @@ for (const dir of SHIP_DIRS) {
     if (afterSkip !== updated) { fixCounts.skipLink++; changed = true; }
     updated = afterSkip;
 
+    // Apply fix 4
+    const afterVideos = fixVideosSwiper(updated);
+    if (afterVideos !== updated) { fixCounts.videosSwiper++; changed = true; }
+    updated = afterVideos;
+
     if (changed) {
       changedFiles++;
       if (!DRY_RUN) {
@@ -166,4 +187,5 @@ console.log(`Files excluded:      ${skippedFiles}`);
 console.log(`Files changed:       ${changedFiles}${DRY_RUN ? ' (dry run — not written)' : ''}`);
 console.log(`  BLOCKING-1 (schema):   ${fixCounts.schema} fixes`);
 console.log(`  BLOCKING-2 (swiper):   ${fixCounts.swiper} fixes`);
-console.log(`  BLOCKING-3 (skiplink): ${fixCounts.skipLink} fixes`);
+console.log(`  BLOCKING-3 (skiplink):     ${fixCounts.skipLink} fixes`);
+console.log(`  BLOCKING-4 (videosSwiper): ${fixCounts.videosSwiper} fixes`);

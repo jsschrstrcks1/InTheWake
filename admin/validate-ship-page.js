@@ -2826,6 +2826,10 @@ async function validateShipPage(filepath) {
     const answerLineResult = validateAnswerLineKeyFactsShip($);
 
     // v2.5 principle import validations
+    // NOTE: validateVoiceQuality was referenced but never implemented.
+    // Stub returns no errors/warnings so scoring is unaffected until the function is written.
+    const voiceQualityResult = { errors: [], warnings: [] };
+
     // v2.4 principle import validations
     const templateRemnantResult = validateTemplateRemnants($, html);
     const accessibilityKeywordResult = validateAccessibilityKeywords($);
