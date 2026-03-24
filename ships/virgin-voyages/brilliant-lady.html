@@ -230,6 +230,7 @@ All work on this project is offered as a gift to God.
     addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
   })();
   </script>
+  <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </head>
 <body class="page">
 <a href="#content" class="skip-link">Skip to main content</a>
@@ -494,6 +495,8 @@ Dining on Brilliant Lady</h2>
         <h3 id="recent-rail-title">Recent Stories</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
+    
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
     </aside>
   
     <!-- Planning Resources -->
