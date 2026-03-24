@@ -3,18 +3,102 @@
 **Date:** 2026-03-24
 **Based on:** `audit-reports/ship-validation-2026-03-24.md`
 **Consulted:** GPT-4o (plan role, confidence 0.85)
-**Goal:** 287/287 ship pages pass `admin/validate-ship-page.js` with no blocking errors and no warnings. Virgin Voyages validated and included.
+**Goal:** 289/289 ship pages pass `admin/validate-ship-page.js` with no blocking errors and no warnings. Virgin Voyages included.
 
 ---
 
-## Current State
+## Execution Status — 2026-03-24
+
+| Phase | Status | Notes |
+|-------|--------|-------|
+| 1 — Template blockers | ✅ Complete | 4 blocking fixes applied (see below) |
+| 2 — Validator fixes | ✅ Complete | Virgin path, exclude list, voiceQualityResult stub |
+| 3 — Fleet-wide warnings | ⬜ Pending | |
+| 4 — MSC structural | ✅ Complete | Capitalization + data-imo move |
+| 5 — Content uplift | ⬜ Pending | Phase 3 first |
+| 6 — Validation sign-off | ⬜ Pending | |
+
+### Phase 1 — Actual Fixes Applied
+
+The original plan identified 3 fleet-wide blocking errors. Execution found a fourth.
+
+| # | Fix | Pages | Script |
+|---|-----|-------|--------|
+| BLOCKING-1 | Review schema `@type:"Vehicle"` → `@type:"Cruise"` + description | 218 | `fix-template-blockers.js` |
+| BLOCKING-2 | `initFirstLook` Swiper `loop:true` → `loop:false,rewind:false,lazy:true` | 162 | `fix-template-blockers.js` |
+| BLOCKING-3 | Skip link `href="#main-content"` → `href="#content"` | 284 | `fix-template-blockers.js` |
+| BLOCKING-4 | `initVideos` Swiper missing `loop:false,rewind:false` (not in original plan) | 139 | `fix-template-blockers.js` |
+
+### Phase 2 — Validator Fixes Applied
+
+Two bugs found in `admin/validate-ship-page.js` that were silently wrong before execution:
+
+1. **Virgin Voyages path**: `ships/virgin` → `ships/virgin-voyages` (4 ships were never being validated)
+2. **`voiceQualityResult` undefined**: Variable referenced in 4 places but never assigned. Caused a runtime crash on every ship page — the entire fleet scored 0/100 until this was patched with a documented no-op stub.
+
+> **Note on original "149 passing" figure:** This number came from a pre-execution audit. Given that the validator was crashing at runtime (voiceQualityResult), those numbers were likely from a cached or different validator version. The true pre-fix baseline cannot be recovered; 49/289 (17%) is the verified post-fix baseline.
+
+### Phase 4 — MSC Structural Fixes Applied
+
+| Fix | Pages |
+|-----|-------|
+| FIX-4.1: `"Msc "` → `"MSC "` in headings, aria-label, alt text | 22 |
+| FIX-4.2: `data-imo` moved from `<main>` to tracker `<section>` | 17 |
+| Manual: `msc-world-america.html` had 13 residual mutations in content= attributes, JSON-LD properties, HTML comments, and data-ship= — fixed via targeted string replace | 1 |
+
+### Capitalization Script Limitations (documented)
+
+`fix-msc-structural.js` used three regex passes. Known gaps:
+
+- **HTML comments** (`<!-- ... -->`): The `>([^<]*?)Msc ` text-node regex cannot reach content inside `<!-- -->` blocks. The `<!--` opener contains `<` which terminates `[^<]*?` before the comment text is reached.
+- **`content="..."` and `data-*="..."` attributes**: Only `aria-label=` and `alt=` attributes were targeted. Other attribute contexts require explicit regex patterns.
+- **JSON-LD `<script>` blocks**: Reachable by the text-node regex in theory, but only if the span from the nearest `>` to the target text contains no `<` characters. Works in practice for well-formed JSON-LD.
+
+---
+
+## Actual Baseline (Post Phase 1+2+4, 2026-03-24)
 
 | Metric | Value |
 |--------|-------|
-| Total pages | 287 (+ Virgin Voyages not yet run) |
-| Passing | 149 (52%) |
-| Failing | 138 (48%) |
-| Fleet-wide blocking errors | 3 |
+| Total pages | 289 |
+| Passing (≥80%) | **49 (17%)** |
+| Failing (<80%) | **240 (83%)** |
+| Score distribution | 0–19: 5 · 20–39: 34 · 40–59: 99 · 60–79: 102 · 80–89: 46 · 90–100: 3 |
+
+### Results by Line
+
+| Line | Ships | Passing | Failing | Avg Score |
+|------|-------|---------|---------|-----------|
+| RCL | 48 | 22 | 26 | 73.9% |
+| Carnival | 48 | 7 | 41 | 56.2% |
+| Celebrity | 29 | 10 | 19 | 64.2% |
+| Norwegian | 20 | 4 | 16 | 77.9% |
+| Princess | 17 | 2 | 15 | 76.0% |
+| Holland America | 46 | 4 | 42 | 55.7% |
+| MSC | 24 | 0 | 24 | 52.9% |
+| Costa | 9 | 0 | 9 | 45.6% |
+| Cunard | 4 | 0 | 4 | 52.5% |
+| Oceania | 8 | 0 | 8 | 56.8% |
+| Regent | 7 | 0 | 7 | 46.0% |
+| Seabourn | 7 | 0 | 7 | 44.0% |
+| Silversea | 12 | 0 | 12 | 37.7% |
+| Explora Journeys | 6 | 0 | 6 | 39.3% |
+| Virgin Voyages | 5 | 0 | 5 | 30.2% |
+
+**Highest-scoring failing lines:** Norwegian (77.9% avg) and Princess (76.0% avg) are closest to the threshold — Phase 3 or 5 content work could push them over.
+
+**Lines at 0 passing:** All 10 non-RCL/Carnival/Celebrity/Norwegian/Princess lines. Most are blocked by content gaps (images, videos, key-facts) that Phase 5 must address.
+
+---
+
+## Original State (Pre-Execution Estimate)
+
+| Metric | Value |
+|--------|-------|
+| Total pages | 287 (+ Virgin Voyages not yet validated) |
+| Passing | ~149 (52%) — *unverified, from stale audit* |
+| Failing | ~138 (48%) — *unverified* |
+| Fleet-wide blocking errors | 3 (actual: 4) |
 | Fleet-wide warnings | 7 |
 | Lines at 0% pass | 8 (MSC, Costa, Cunard, Oceania, Regent, Seabourn, Silversea, Explora) |
 
