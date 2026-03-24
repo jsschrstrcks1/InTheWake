@@ -169,6 +169,45 @@ Before touching anything:
 
 ---
 
+## Multi-LLM Integration
+
+This repository has access to the multi-LLM orchestrator system. External models (GPT, Gemini, Grok) serve as **consultants only** — Claude remains lead developer and decision-maker.
+
+### Available Skills
+
+| Skill | Usage | Purpose |
+|-------|-------|---------|
+| `/consult` | `/consult gpt structure "review this ship page layout"` | Quick single-model second opinion |
+| `/orchestrate` | `/orchestrate cruising "build a new port page for Cozumel"` | Full multi-model pipeline |
+| Cognitive Memory | Automatic on session start | Cross-session knowledge persistence |
+
+### Mode: `cruising`
+- **Lead:** Claude (standards enforcement, file access)
+- **Pipeline:** Read Standards (Claude) → Generate (Claude) → Content (GPT) → Completeness (Gemini) → UX (Grok) → Integrate (Claude)
+- **Memory scope:** `/InTheWake`
+- **Orchestrator:** `/home/user/ken/orchestrator/`
+
+### First-Time Setup (Per Session)
+
+Before first use of `/consult` or `/orchestrate` in a session, install dependencies:
+
+```bash
+pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
+```
+
+This is silent when already installed. If `/consult` or `/orchestrate` fails with `ModuleNotFoundError`, run this command first.
+
+### Context Boundaries
+- **SEND:** Page requirements, content outlines, SEO targets, general cruise/travel data
+- **NEVER SEND:** Full codebase, internal standards docs, analytics data
+
+### Constraints
+- All output must comply with ITW-Lite v3.010
+- Hero + compass pattern, right-side rail, accessibility, canonical URLs
+- careful-not-clever active on all modifications
+
+---
+
 ## Version History
 
 - v1.4.1 (2026-03-02) — Fixed standards references: new-standards/ (15 files, foundation + v3.010) was completely absent from CLAUDE.md. Replaced broken `standards/*.md` glob with accurate per-file references. Updated Site Architecture tree and Need Help? section.
