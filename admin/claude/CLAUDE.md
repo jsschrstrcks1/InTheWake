@@ -17,6 +17,15 @@ Before touching anything:
 3. Check your actual task — `admin/UNFINISHED_TASKS.md`
 4. Read the careful-not-clever guardrail — `.claude/skills/careful-not-clever/CAREFUL.md`
 
+### Multi-LLM Setup (Per Session)
+
+Before first use of `/consult` or `/orchestrate`, run:
+
+```bash
+bash /home/user/ken/orchestrator/bootstrap-env.sh 2>/dev/null
+pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
+```
+
 ---
 
 ## Essential Reading
