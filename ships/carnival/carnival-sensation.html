@@ -260,7 +260,17 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Carnival Sensation is a Fantasy Class cruise ship operated by Carnival Cruise Line. She entered service in 1993, measures 70,367 gross tons, and carries approximately 2,056 guests at double occupancy.</p>
 
-      <p class="answer-line">
+      
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Fantasy Class</li>
+          <li><strong>Year:</strong> 1993</li>
+          <li><strong>Tonnage:</strong> 70,367 GT</li>
+          <li><strong>Guests:</strong> 2,040</li>
+        </ul>
+      </div>
+<p class="answer-line">
     <strong class="section-label">Looking for Carnival Sensation planning info?</strong>
     <span>This memorial page covers the history and legacy of this retired Fantasy Class ship.</span>
   </p>
@@ -338,10 +348,6 @@ Dining Venues</h2>
   </div>
 </section>
 
-<section class="card" id="live-tracker" data-imo="8711356" aria-labelledby="liveTrackHeading">
-  <h2 id="liveTrackHeading">Ship Status</h2>
-  <p>Carnival Sensation was retired in 2022. Live tracking is no longer available.</p>
-</section>
 
     <section class="card" aria-labelledby="deck-plans">
       <h2 id="deck-plans">Carnival Sensation Deck Plans</h2>
@@ -349,6 +355,10 @@ Dining Venues</h2>
       <p><a href="https://www.carnival.com/cruise-ships/carnival-sensation" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Deck Plans →</a></p>
     </section>
 
+<section class="card" id="live-tracker" data-imo="8711356" aria-labelledby="liveTrackHeading">
+  <h2 id="liveTrackHeading">Ship Status</h2>
+  <p>Carnival Sensation was retired in 2022. Live tracking is no longer available.</p>
+</section>
 
 
 <section class="card">
@@ -551,7 +561,7 @@ function initVideos(){
     if(!w||!d.videos) return;
     var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
     w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
-    if(window.__swiperReady) new Swiper('#video-wrapper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
+    if(window.__swiperReady) new Swiper('#video-wrapper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
   }).catch(function(){});
 }
 initVideos();
@@ -578,7 +588,7 @@ function initLiveTracker(){
   if(!sec) return;
   var imo=sec.getAttribute('data-imo');
   if(!imo) return;
-  sec.querySelector('p').textContent='Carnival Sensation was retired in 2022. Live tracking is no longer available.';
+  const p=sec.querySelector('p'); if(p) p.textContent='Carnival Sensation was retired in 2022. Live tracking is no longer available.';
 }
 initLiveTracker();
 </script>
