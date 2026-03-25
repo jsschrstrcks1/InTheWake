@@ -4,6 +4,16 @@
 **Validator:** `admin/validate-port-page-v2.js` (ITC v1.1 + LOGBOOK_ENTRY_STANDARDS v2.300 + ICP-Lite v1.4)
 **Soli Deo Gloria**
 
+### Consultation Decisions (2026-03-25)
+
+**1. FAQ Answer Length (384 warnings):** VALIDATOR BUG. The FAQ parser is matching entire page sections (logbook, weather) as FAQ answers — producing "answers" of 900–3,400 words. Two fixes needed: (a) fix FAQ detection logic to stop at next Q: or section boundary, (b) raise actual FAQ answer threshold from 80 to 200 words. This eliminates the single largest warning category. **AEO rationale:** ICP-2 favors detailed, extractable FAQ answers for AI citation. Short answers reduce zero-click value.
+
+**2. Phase 4 Priority Order:** By search demand + AEO citability, NOT by current score alone. Order: (1) callao/trinidad/tobago — high score, easy wins; (2) tauranga/papeete/ushuaia/salvador — major destinations; (3) st-john-usvi/st-croix/la-spezia/zadar; (4) hub pages (tender-ports, south-pacific); (5) expedition ports; (6) special pages.
+
+**3. POI Data (290 warnings):** Separate parallel workstream. 219 ports have ZERO POI data, only 56 have 10+ POIs. Approach: (a) extract from existing page content, (b) OpenStreetMap Overpass API bulk import using existing map coordinates, (c) manual curation. High AEO value — structured map data is extractable by AI.
+
+**4. ICP-2 Migration:** During normalization, migrate port pages from ICP-Lite v1.4 to ICP-2 v2.1. Key changes: remove ai-breadcrumbs HTML comments, use `TouristDestination` schema type, relax exact-match description parity, add volatile data discipline for prices.
+
 ---
 
 ## Validation Summary
