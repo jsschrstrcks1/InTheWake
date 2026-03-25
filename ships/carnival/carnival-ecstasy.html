@@ -52,7 +52,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   ]
 }
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Ecstasy","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Ecstasy served longer than any Fantasy Class sister — 31 years of reliable service. She pioneered Charleston cruising and carried nearly 5.5 million passengers before retirement."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Fantasy Class ship operated by Carnival Cruise Line.","name":"Carnival Ecstasy","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Ecstasy served longer than any Fantasy Class sister — 31 years of reliable service. She pioneered Charleston cruising and carried nearly 5.5 million passengers before retirement."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","jobTitle":"Cruise Travel Writer","description":"Wheelchair-accessible cruise specialist documenting the passenger experience across Carnival's fleet."}</script>
 <script type="application/ld+json">
   {
@@ -202,7 +202,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
   <header class="hero-header ship-page" role="banner">
@@ -299,7 +299,17 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Carnival Ecstasy is a Fantasy Class cruise ship operated by Carnival Cruise Line. She entered service in 1991, measures 70,367 gross tons, and carries approximately 2,056 guests at double occupancy.</p>
 
-      <p class="answer-line">
+      
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Fantasy Class</li>
+          <li><strong>Year:</strong> 1991</li>
+          <li><strong>Tonnage:</strong> 70,367 GT</li>
+          <li><strong>Guests:</strong> 2,040</li>
+        </ul>
+      </div>
+<p class="answer-line">
     <strong class="section-label">Looking for Carnival Ecstasy planning info?</strong>
     <span>This memorial page covers the history and legacy of this retired Fantasy Class ship.</span>
   </p>
@@ -369,6 +379,16 @@ Dining Venues</h2>
 <div id="logbook-container"><p><em>Loading memorial stories...</em></p></div>
 </section>
 
+
+<!-- Video Highlights -->
+<section class="card" id="video-highlights" aria-labelledby="videos-title">
+  <h2 id="videos-title">Carnival Ecstasy Videos</h2>
+  <p>Archival ship tours, cabin walkthroughs, and passenger memories from Carnival Ecstasy's 31-year career.</p>
+  <div id="video-wrapper" class="swiper videos" aria-label="Video carousel">
+    <div class="swiper-wrapper"></div>
+  </div>
+</section>
+
     <section class="card" aria-labelledby="deck-plans">
       <h2 id="deck-plans">Carnival Ecstasy Deck Plans</h2>
       <p>View the official deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
@@ -380,15 +400,6 @@ Dining Venues</h2>
 <section class="card">
 <h2>Accessibility Notes</h2>
 <p>Ecstasy's 31-year evolution created exceptional wheelchair accessibility. Her crew developed institutional memory about disability accommodation that newer ships couldn't match — they knew which tables worked best for wheelchairs, which elevator patterns were most efficient, and how to welcome returning guests with invisible disabilities.</p>
-</section>
-
-<!-- Video Highlights -->
-<section class="card" id="video-highlights" aria-labelledby="videos-title">
-  <h2 id="videos-title">Carnival Ecstasy Videos</h2>
-  <p>Archival ship tours, cabin walkthroughs, and passenger memories from Carnival Ecstasy's 31-year career.</p>
-  <div id="video-wrapper" class="swiper videos" aria-label="Video carousel">
-    <div class="swiper-wrapper"></div>
-  </div>
 </section>
 
 <!-- Live Tracker (Retired) -->
@@ -572,7 +583,7 @@ Dining Venues</h2>
   function initFirstLook(){
     const el=document.getElementById('photo-swiper');
     if(!el||typeof Swiper==='undefined') return;
-    new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+    new Swiper(el,{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
   </script>
@@ -601,7 +612,7 @@ Dining Venues</h2>
         if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
         else if(Array.isArray(d.videos)) vids=d.videos;
         if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
-        new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+        new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
       }).catch(()=>{});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();

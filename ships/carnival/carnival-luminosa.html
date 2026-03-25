@@ -66,7 +66,7 @@
 </script>
 
 <!-- JSON-LD: Review -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Luminosa","brand":{"@type":"Organization","name":"Carnival Cruise Line"},"vehicleIdentificationNumber":"IMO 9398905"},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Luminosa brings European elegance to the Australian market, with unique Spirit-class hybrid design and extensive 2022 Carnival transformation.","datePublished":"2025-12-02"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Spirit-class (hybrid) ship operated by Carnival Cruise Line.","name":"Carnival Luminosa","brand":{"@type":"Organization","name":"Carnival Cruise Line"},"vehicleIdentificationNumber":"IMO 9398905"},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Luminosa brings European elegance to the Australian market, with unique Spirit-class hybrid design and extensive 2022 Carnival transformation.","datePublished":"2025-12-02"}</script>
 
 <!-- JSON-LD: Person (E-E-A-T) -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","url":"https://cruisinginthewake.com/authors/ken-baker.html","jobTitle":"Cruise Research Analyst","worksFor":{"@type":"Organization","name":"In the Wake"},"description":"Cruise analyst specializing in ship comparisons and fleet evolution.","knowsAbout":["Carnival Cruise Line","Spirit-class Ships","Australian Cruising"]}</script>
@@ -193,9 +193,10 @@
   addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
 })();
 </script>
+  <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
@@ -300,6 +301,16 @@
     <section class="page-intro" aria-label="Carnival Luminosa overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Carnival Luminosa is a Spirit Class cruise ship operated by Carnival Cruise Line. She entered service in 2009, measures 92,720 gross tons, and carries approximately 2,260 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Spirit-class (hybrid)</li>
+          <li><strong>Year:</strong> 2009</li>
+          <li><strong>Tonnage:</strong> 92,720 GT</li>
+          <li><strong>Guests:</strong> 2,260</li>
+          <li><strong>IMO:</strong> 9398905</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
         <strong class="section-label">Looking for Carnival Luminosa planning info?</strong>
@@ -711,7 +722,7 @@ Dining Venues on Carnival Luminosa <a href="/restaurants.html" style="font-size:
 function initFirstLook(){
   const el=document.getElementById('photo-swiper');
   if(!el||typeof Swiper==='undefined') return;
-  new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+  new Swiper(el,{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
 </script>
@@ -740,7 +751,7 @@ function initVideos(){
       if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
       else if(Array.isArray(d.videos)) vids=d.videos;
       if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
-      new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+      new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
     }).catch(()=>{});
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();

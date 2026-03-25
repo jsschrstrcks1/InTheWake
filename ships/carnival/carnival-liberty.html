@@ -196,10 +196,11 @@
   addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
 })();
 </script>
+  <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </head>
 
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
@@ -396,8 +397,8 @@
 
     <section class="card"><h2>Conquest-Class Sisters</h2>
       <div class="sister-grid">
-        <a href="/ships/carnival/carnival-conquest.html" class="sister-card"><img class="sister-thumb" src="/assets/ships/carnival-conquest_01.webp" alt="Carnival Conquest" loading="lazy" style="width:60px;height:40px;object-fit:cover;border-radius:4px;margin-right:0.5rem" onerror="this.style.display='none'"/><strong>Carnival Conquest</strong><br/><span class="tiny">2002 · New Orleans</span></a>
-        <a href="/ships/carnival/carnival-glory.html" class="sister-card"><img class="sister-thumb" src="/assets/ships/carnival-glory_01.webp" alt="Carnival Glory" loading="lazy" style="width:60px;height:40px;object-fit:cover;border-radius:4px;margin-right:0.5rem" onerror="this.style.display='none'"/><strong>Carnival Glory</strong><br/><span class="tiny">2003 · Norfolk</span></a>
+        <a href="/ships/carnival/carnival-conquest.html" class="sister-card"><img class="sister-thumb" src="/assets/ships/carnival-conquest_01.webp" alt="Carnival Conquest 01" loading="lazy" style="width:60px;height:40px;object-fit:cover;border-radius:4px;margin-right:0.5rem" onerror="this.style.display='none'"/><strong>Carnival Conquest</strong><br/><span class="tiny">2002 · New Orleans</span></a>
+        <a href="/ships/carnival/carnival-glory.html" class="sister-card"><img class="sister-thumb" src="/assets/ships/carnival-glory_01.webp" alt="Carnival Glory image" loading="lazy" style="width:60px;height:40px;object-fit:cover;border-radius:4px;margin-right:0.5rem" onerror="this.style.display='none'"/><strong>Carnival Glory</strong><br/><span class="tiny">2003 · Norfolk</span></a>
         <a href="/ships/carnival/carnival-valor.html" class="sister-card"><strong>Carnival Valor</strong><br/><span class="tiny">2004 · New Orleans</span></a>
         <a href="/ships/carnival/carnival-freedom.html" class="sister-card"><strong>Carnival Freedom</strong><br/><span class="tiny">2007 · Galveston</span></a>
       </div>
@@ -614,7 +615,7 @@ fetch('/assets/data/logbook/carnival/carnival-liberty.json').then(r=>r.json()).t
 function initFirstLook(){
   const el=document.getElementById('photo-swiper');
   if(!el||typeof Swiper==='undefined') return;
-  new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+  new Swiper(el,{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
 </script>
@@ -643,7 +644,7 @@ function initVideos(){
       if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
       else if(Array.isArray(d.videos)) vids=d.videos;
       if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
-      new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+      new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
     }).catch(()=>{});
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();

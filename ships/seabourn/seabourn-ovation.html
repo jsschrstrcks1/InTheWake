@@ -123,7 +123,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Seabourn Ovation","brand":{"@type":"Organization","name":"Seabourn Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Seabourn Ovation is a 40,350-GT ship for 604 guests, delivered in 2018 with butler service, the Thomas Keller Grill, and Seabourn's signature all-inclusive luxury."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Encore Class ship operated by Seabourn.","name":"Seabourn Ovation","brand":{"@type":"Organization","name":"Seabourn Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Seabourn Ovation is a 40,350-GT ship for 604 guests, delivered in 2018 with butler service, the Thomas Keller Grill, and Seabourn's signature all-inclusive upscale."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -245,7 +245,7 @@ All work on this project is offered as a gift to God.
   </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
   <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
   <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -356,6 +356,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Seabourn Ovation overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Seabourn Ovation is a Encore Class cruise ship operated by Seabourn Cruise Line. She entered service in 2018, measures 40,350 gross tons, and carries approximately 604 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Encore Class</li>
+          <li><strong>Year:</strong> 2018</li>
+          <li><strong>Tonnage:</strong> 40,350 GT</li>
+          <li><strong>Guests:</strong> 604</li>
+          <li><strong>IMO:</strong> 9763359</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
         <strong class="section-label">Looking for Seabourn Ovation planning info?</strong>
@@ -375,6 +385,12 @@ All work on this project is offered as a gift to God.
                 <figure>
                   <img src="/assets/ships/Seabourn_Ovation_flickr_rivai56.webp" alt="Seabourn Ovation exterior view" loading="lazy" decoding="async">
                   <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/rivai56/55038170271/" target="_blank" rel="noopener">rivai56</a> via Flickr</figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/assets/ships/seabourn-ovation_flickr_new.jpg" alt="Seabourn Ovation cruise ship" loading="lazy" decoding="async">
+                  <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/melillamirada/52146935819/" target="_blank" rel="noopener">Miguel</a> via Flickr (CC BY-NC)</figcaption>
                 </figure>
               </div>
             </div>
@@ -645,6 +661,8 @@ Dining on Seabourn Ovation</h2>
         <h3 id="recent-rail-title">Recent Stories</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
+    
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -678,7 +696,7 @@ Dining on Seabourn Ovation</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
 </script>
 <!-- initVideos — fetch video JSON, render thumbnails -->
 <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/seabourn/seabourn-ovation.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{const vids=Object.values(data.videos||{}).flat();if(!vids.length){w.innerHTML='<p>No videos available.</p>';return;}w.innerHTML=vids.slice(0,6).map(v=>`<div class="video-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${v.videoId}?rel=0" title="${v.title}" loading="lazy" allowfullscreen></iframe></div>`).join('');}).catch(()=>{w.innerHTML='<p>Videos currently unavailable.</p>';});}
@@ -690,7 +708,7 @@ Dining on Seabourn Ovation</h2>
 <script>function initDining(){const el=document.getElementById('dining-list');if(!el)return;fetch('/assets/data/dining/seabourn/seabourn-ovation.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.venues||[]).map(v=>`<li><strong>${v.name}</strong> — ${v.description}</li>`).join('');}). catch(()=>{});}
 </script>
 <!-- initLiveTracker — render tracking link -->
-<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:${imo}" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
+<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:9763359" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
 </script>
 <!-- initShipLogbook — logbook loader -->
 <script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/seabourn/seabourn-ovation.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.entries||[]).slice(0,5).map(e=>`<li>${e.date}: ${e.note}</li>`).join('');}). catch(()=>{});}

@@ -323,7 +323,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <body class="page ship-page">
 
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
   <div role="status" aria-live="polite" class="sr-only"></div>
   <div role="alert" aria-live="assertive" class="sr-only"></div>
 
@@ -533,6 +533,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
+
+  <div id="whimsical-units-container"></div>
 </main>
 
 <footer class="wrap" role="contentinfo">
@@ -545,7 +547,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <script>
 function initFirstLook(){
   if(!window.__swiperReady) return setTimeout(initFirstLook,200);
-  new Swiper('.firstlook',{loop:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
+  new Swiper('.firstlook',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
 }
 initFirstLook();
 </script>

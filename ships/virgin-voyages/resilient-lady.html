@@ -82,7 +82,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Resilient Lady — Virgin Voyages | In the Wake","brand":{"@type":"Organization","name":"Virgin Voyages"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Resilient Lady is Virgin Voyages' 110,000-GT third ship, hosting 2,770 adult guests since 2023 with all-included dining, Pacific routes, and Virgin's adults-only boutique ethos."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Lady Class ship operated by Virgin Voyages.","name":"Resilient Lady — Virgin Voyages | In the Wake","brand":{"@type":"Organization","name":"Virgin Voyages"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Resilient Lady is Virgin Voyages' 110,000-GT third ship, hosting 2,770 adult guests since 2023 with all-included dining, Pacific routes, and Virgin's adults-only boutique ethos."}</script>
   <!-- JSON-LD: WebSite + SearchAction -->
   <script type="application/ld+json">
   {
@@ -230,9 +230,10 @@ All work on this project is offered as a gift to God.
     addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
   })();
   </script>
+  <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
   <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
   <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -280,7 +281,13 @@ All work on this project is offered as a gift to God.
   <a class="nav-pill" href="/about-us.html">About</a>
 </nav>
     </div>
-  </header>
+
+      <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline">A Cruise Traveler's Logbook</div>
+      </header>
 
   <main class="wrap" id="content" role="main">
     <nav class="breadcrumb">
@@ -296,6 +303,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Resilient Lady overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Resilient Lady — Virgin Voyages | In the Wake is a Virgin Class cruise ship operated by Virgin Voyages. She entered service in 2023, measures 110,000 gross tons, and carries approximately 2,770 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Lady Class</li>
+          <li><strong>Year:</strong> 2023</li>
+          <li><strong>Tonnage:</strong> 110,000 GT</li>
+          <li><strong>Guests:</strong> 2,770</li>
+          <li><strong>IMO:</strong> TBD</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
         <strong class="section-label">Looking for Resilient Lady planning info?</strong>
@@ -315,6 +332,12 @@ All work on this project is offered as a gift to God.
                 <figure>
                   <img src="/assets/ships/Resilient_Lady_flickr_lorablong.webp" alt="Resilient Lady exterior view" loading="eager" fetchpriority="high" decoding="async">
                   <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/lorablong/55076171872/" target="_blank" rel="noopener">lorablong</a> via Flickr</figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/assets/ships/resilient-lady_flickr_new.jpg" alt="Resilient Lady cruise ship" loading="lazy" decoding="async">
+                  <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/dalecruse/54469999079/" target="_blank" rel="noopener">Dale Cruse - 11M SF views</a> via Flickr (CC BY)</figcaption>
                 </figure>
               </div>
             </div>
@@ -353,6 +376,13 @@ Dining on Resilient Lady</h2>
 
     <p><a href="/ships/virgin-voyages/" class="btn">Back to Virgin Voyages Fleet</a></p>
   
+    <!-- Logbook Section -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">The Logbook: Resilient Lady</h2>
+      <div id="logbook-container" data-ship="resilient-lady" data-line="virgin-voyages">
+        <p class="placeholder">Stories and insights from cruisers who have sailed on Resilient Lady will appear here.</p>
+      </div>
+    </section>
     <!-- Videos -->
     <section class="card" aria-labelledby="video-highlights">
       <h2 id="video-highlights">Watch: Resilient Lady Highlights</h2>
@@ -385,6 +415,7 @@ Dining on Resilient Lady</h2>
 <section class="card" aria-labelledby="deck-plans">
         <h2 id="deck-plans">Resilient Lady — Virgin Voyages | In the Wake Deck Plans</h2>
         <div id="ship-map" data-ship="resilient-lady">
+          <img src="/assets/ship-map.png" alt="Resilient Lady simplified deck plan preview" loading="lazy" style="max-width:100%;height:auto;"/>
           <p>Interactive deck plans for Resilient Lady — Virgin Voyages | In the Wake are available on the cruise line's official website.</p>
         </div>
       </section>
@@ -451,14 +482,7 @@ Dining on Resilient Lady</h2>
 
     <!-- Attribution Section -->
     
-    <!-- Logbook Section -->
-    <section class="card note-kens-logbook" aria-labelledby="logbook">
-      <h2 id="logbook">The Logbook: Resilient Lady</h2>
-      <div id="logbook-container" data-ship="resilient-lady" data-line="virgin-voyages">
-        <p class="placeholder">Stories and insights from cruisers who have sailed on Resilient Lady will appear here.</p>
-      </div>
-    </section>
-    <!-- FAQ Section -->
+    <!-- FAQ Section -->    <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Resilient Lady — Virgin Voyages | In the Wake</h2>
 
@@ -538,6 +562,8 @@ Dining on Resilient Lady</h2>
         <h3 id="recent-rail-title">Recent Stories</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
+    
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -564,7 +590,7 @@ Dining on Resilient Lady</h2>
     <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
 </script>
 <!-- initVideos — fetch video JSON, render thumbnails -->
 <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/virgin-voyages/resilient-lady.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{const vids=Object.values(data.videos||{}).flat();if(!vids.length){w.innerHTML='<p>No videos available.</p>';return;}w.innerHTML=vids.slice(0,6).map(v=>`<div class="video-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${v.videoId}?rel=0" title="${v.title}" loading="lazy" allowfullscreen></iframe></div>`).join('');}).catch(()=>{w.innerHTML='<p>Videos currently unavailable.</p>';});}
@@ -576,7 +602,7 @@ Dining on Resilient Lady</h2>
 <script>function initDining(){const el=document.getElementById('dining-list');if(!el)return;fetch('/assets/data/dining/virgin-voyages/resilient-lady.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.venues||[]).map(v=>`<li><strong>${v.name}</strong> — ${v.description}</li>`).join('');}). catch(()=>{});}
 </script>
 <!-- initLiveTracker — render tracking link -->
-<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:${imo}" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
+<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:TBD" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
 </script>
 <!-- initShipLogbook — logbook loader -->
 <script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/virgin-voyages/resilient-lady.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.entries||[]).slice(0,5).map(e=>`<li>${e.date}: ${e.note}</li>`).join('');}). catch(()=>{});}

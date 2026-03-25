@@ -49,7 +49,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     {"@type":"ListItem","position":4,"name":"MS Jubilee (1986)"}
   ]
 }</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"MS Jubilee","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"The Swedish-built middle sister of the Holiday Class that proved Nordic shipbuilding excellence."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Holiday Class ship operated by Carnival Cruise Line.","name":"MS Jubilee","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"The Swedish-built middle sister of the Holiday Class that proved Nordic shipbuilding excellence."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","jobTitle":"Cruise Travel Writer","description":"Wheelchair-accessible cruise specialist documenting the passenger experience across Carnival's fleet."}</script>
 <script type="application/ld+json">
   {
@@ -162,7 +162,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div role="status" aria-live="polite" class="sr-only"></div>
 <div role="alert" aria-live="assertive" class="sr-only"></div>
   <header class="hero-header ship-page" role="banner">
@@ -246,13 +246,22 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <p style="margin-top:1rem;font-size:1.1rem">The Middle Sister</p>
 </header>
 
-<main class="wrap page-grid" id="main-content" role="main" data-imo="0" data-ship="Jubilee 1986">
+<main class="wrap page-grid" id="main-content" role="main" data-ship="Jubilee 1986">
 <section class="col-1" aria-label="Ship details">
 
     <!-- ICP-Lite: Page Intro -->
     <section class="page-intro" aria-label="MS Jubilee overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">MS Jubilee is a Holiday Class cruise ship operated by Carnival Cruise Line. She entered service in 1986, measures 47,262 gross tons, and carries approximately 1,486 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Holiday Class</li>
+          <li><strong>Year:</strong> 1986</li>
+          <li><strong>Tonnage:</strong> 47,262 GT</li>
+          <li><strong>Guests:</strong> 1,486</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
         <strong class="section-label">Looking for MS Jubilee info?</strong>
@@ -327,7 +336,7 @@ Dining on MS Jubilee</h2>
   <p>Historical deck plans for MS Jubilee are preserved in maritime archives.</p>
 </section>
 
-<section class="card" id="live-tracker" data-imo="0" aria-labelledby="liveTrackHeading">
+<section class="card" id="live-tracker" aria-labelledby="liveTrackHeading">
   <h2 id="liveTrackHeading">Ship Status</h2>
   <p>MS Jubilee was scrapped in 2017. Live tracking is not available for this historic vessel.</p>
 </section>
@@ -460,12 +469,12 @@ Dining on MS Jubilee</h2>
 </script>
 
 <!-- ===== Ship-page JS modules ===== -->
-<script>function initFirstLook(){if(!window.__swiperReady)return setTimeout(initFirstLook,200);new Swiper('.firstlook',{loop:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});}initFirstLook();</script>
+<script>function initFirstLook(){if(!window.__swiperReady)return setTimeout(initFirstLook,200);new Swiper('.firstlook',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});}initFirstLook();</script>
 <script>function initShipLogbook(){fetch('/assets/data/logbook/carnival/jubilee-1986.json').then(function(r){return r.json();}).then(function(d){var c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(function(s){return '<article class="logbook-entry"><h3>'+s.title+'</h3><p>'+s.markdown.split('\\n\\n').slice(0,2).join('</p><p>')+'</p></article>';}).join('');}).catch(function(){});}initShipLogbook();</script>
-<script>function initVideos(){fetch('/assets/data/videos/carnival/jubilee-1986.json').then(function(r){return r.json();}).then(function(d){var w=document.querySelector('#video-wrapper .swiper-wrapper');if(!w||!d.videos)return;var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');if(window.__swiperReady)new Swiper('#video-wrapper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});}).catch(function(){});}initVideos();</script>
+<script>function initVideos(){fetch('/assets/data/videos/carnival/jubilee-1986.json').then(function(r){return r.json();}).then(function(d){var w=document.querySelector('#video-wrapper .swiper-wrapper');if(!w||!d.videos)return;var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');if(window.__swiperReady)new Swiper('#video-wrapper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});}).catch(function(){});}initVideos();</script>
 <script>function initStats(){var fb=document.getElementById('ship-stats-fallback');if(!fb)return;try{var d=JSON.parse(fb.textContent);console.log('Stats loaded:',d.name);}catch(e){}}initStats();</script>
 <script>function initDining(){fetch('/assets/data/dining/carnival/jubilee-1986.json').then(function(r){return r.json();}).then(function(d){console.log('Dining data loaded for MS Jubilee');}).catch(function(){});}initDining();</script>
-<script>function initLiveTracker(){var sec=document.getElementById('live-tracker');if(!sec)return;sec.querySelector('p').textContent='MS Jubilee was scrapped in 2017. Live tracking is not available for this historic vessel.';}initLiveTracker();</script>
+<script>function initLiveTracker(){var sec=document.getElementById('live-tracker');if(!sec)return;const _p=sec.querySelector('p'); if(_p) _p.textContent='MS Jubilee was scrapped in 2017. Live tracking is not available for this historic vessel.';}initLiveTracker();</script>
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>

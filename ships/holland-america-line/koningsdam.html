@@ -76,7 +76,7 @@ All work on this project is offered as a gift to God.
     "name": "Koningsdam • Holland America Line • In The Wake",
     "url": "https://cruisinginthewake.com/ships/holland-america-line/koningsdam.html",
     "description": "Koningsdam is Holland America Line's flagship Pinnacle Class ship, launched in 2016. At 99,500 GT with 2,650 guests, she features Music Walk entertainment, World Stage shows, and exceptional dining including Pinnacle Grill and Tamarind.",
-    "dateModified": "2026-02-23",
+    "dateModified": "2026-02-21",
     "mainEntity": {
       "@type": "Thing",
       "name": "Koningsdam Active",
@@ -185,7 +185,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Koningsdam","brand":{"@type":"Organization","name":"Holland America Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Koningsdam is Holland America Line's flagship Pinnacle Class ship, measuring 99,500 GT and accommodating 2,650 guests. Launched in 2016, she introduced the revolutionary Music Walk entertainment promenade, World Stage, and an exceptional dining lineup including Pinnacle Grill, Tamarind, and Grand Dutch Cafe."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Pinnacle Class ship operated by Holland America Line.","name":"Koningsdam","brand":{"@type":"Organization","name":"Holland America Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Koningsdam is Holland America Line's flagship Pinnacle Class ship, measuring 99,500 GT and accommodating 2,650 guests. Launched in 2016, she introduced the revolutionary Music Walk entertainment promenade, World Stage, and an exceptional dining lineup including Pinnacle Grill, Tamarind, and Grand Dutch Cafe."}</script>
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -272,7 +272,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
@@ -467,7 +467,7 @@ All work on this project is offered as a gift to God.
         <p>Dining aboard Koningsdam showcases Holland America's culinary excellence with the elegant Dining Room for traditional service, plus specialty restaurants including Pinnacle Grill steakhouse, Tamarind for Pan-Asian fusion, and Sel de Mer for French seafood. The Grand Dutch Cafe celebrates the line's heritage with Dutch treats including stroopwafels, bitterballen, and jenever throughout the day.</p>
         <p>Accommodations range from comfortable Inside staterooms to the luxurious Pinnacle Suite with its wraparound veranda and whirlpool. Neptune and Signature Suites offer exclusive access to the Neptune Lounge, featuring private concierge services, complimentary laundry, and exclusive shore excursion briefings. All staterooms feature Mariner's Dream beds with plush Euro-top mattresses.</p>
         <p>The Greenhouse Spa & Salon offers comprehensive wellness services including thermal suites, hydrotherapy pools, and treatment rooms overlooking the sea. The ship features an extensive art collection valued at over $4 million, including pieces by contemporary artists and a massive Murano glass sculpture in the atrium created by Italian artist Cristiano Bianchin.</p>
-        <p>Koningsdam sails diverse itineraries throughout the year, including popular Caribbean, Alaska, and European sailings. Her longer Alaska cruises showcase the line's heritage of exploration, while Mediterranean voyages allow guests to experience the ship's sophisticated atmosphere paired with world-class destinations.</p>
+        <p>Koningsdam sails diverse itineraries throughout the year, including popular Caribbean, Alaska, and European sailings. Her longer Alaska cruises showcase the line's heritage of exploration, while Mediterranean voyages allow guests to experience the ship's sophisticated atmosphere paired with exceptional destinations.</p>
       </div>
       <div id="ship-stats" class="stats-grid" data-slug="koningsdam"></div>
     </section>
@@ -673,9 +673,9 @@ All work on this project is offered as a gift to God.
 </main>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
-  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/holland-america-line/koningsdam.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/holland-america-line/koningsdam.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
   <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
   <!-- initDining — fetch dining JSON -->

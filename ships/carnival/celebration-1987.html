@@ -49,7 +49,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     {"@type":"ListItem","position":4,"name":"MS Celebration (1987)"}
   ]
 }</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"MS Celebration","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"The final Holiday Class ship and last survivor of the trio, famous for the 1989 rescue operation."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Holiday Class ship operated by Carnival Cruise Line.","name":"MS Celebration","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"The final Holiday Class ship and last survivor of the trio, famous for the 1989 rescue operation."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","jobTitle":"Cruise Travel Writer","description":"Wheelchair-accessible cruise specialist documenting the passenger experience across Carnival's fleet."}</script>
 <script type="application/ld+json">
   {
@@ -162,7 +162,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div role="status" aria-live="polite" class="sr-only"></div>
 <div role="alert" aria-live="assertive" class="sr-only"></div>
   <header class="hero-header ship-page" role="banner">
@@ -246,13 +246,22 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <p style="margin-top:1rem;font-size:1.1rem">The Last Survivor</p>
 </header>
 
-<main class="wrap page-grid" id="main-content" role="main" data-imo="0" data-ship="Celebration 1987">
+<main class="wrap page-grid" id="main-content" role="main" data-ship="Celebration 1987">
 <section class="col-1" aria-label="Ship details">
 
     <!-- ICP-Lite: Page Intro -->
     <section class="page-intro" aria-label="MS Celebration overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">MS Celebration is a Holiday Class cruise ship operated by Carnival Cruise Line. She entered service in 1987, measures 47,262 gross tons, and carries approximately 1,486 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Holiday Class</li>
+          <li><strong>Year:</strong> 1987</li>
+          <li><strong>Tonnage:</strong> 47,262 GT</li>
+          <li><strong>Guests:</strong> 1,486</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
         <strong class="section-label">Looking for MS Celebration info?</strong>
@@ -326,7 +335,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   <p>Historical deck plans for MS Celebration are preserved in maritime archives.</p>
 </section>
 
-<section class="card" id="live-tracker" data-imo="0" aria-labelledby="liveTrackHeading">
+<section class="card" id="live-tracker" aria-labelledby="liveTrackHeading">
   <h2 id="liveTrackHeading">Ship Status</h2>
   <p>MS Celebration was scrapped in January 2021. Live tracking is not available for this historic vessel.</p>
 </section>
@@ -460,7 +469,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <script>
 function initFirstLook(){
   if(!window.__swiperReady) return setTimeout(initFirstLook,200);
-  new Swiper('.firstlook',{loop:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
+  new Swiper('.firstlook',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
 }
 initFirstLook();
 </script>
@@ -481,7 +490,7 @@ function initVideos(){
     if(!w||!d.videos) return;
     var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
     w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
-    if(window.__swiperReady) new Swiper('#video-wrapper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
+    if(window.__swiperReady) new Swiper('#video-wrapper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
   }).catch(function(){});
 }
 initVideos();
@@ -506,7 +515,7 @@ initDining();
 function initLiveTracker(){
   var sec=document.getElementById('live-tracker');
   if(!sec) return;
-  sec.querySelector('p').textContent='MS Celebration was scrapped in January 2021. Live tracking is not available for this historic vessel.';
+  const _p=sec.querySelector('p'); if(_p) _p.textContent='MS Celebration was scrapped in January 2021. Live tracking is not available for this historic vessel.';
 }
 initLiveTracker();
 </script>

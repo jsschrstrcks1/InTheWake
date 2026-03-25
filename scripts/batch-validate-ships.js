@@ -23,8 +23,14 @@ const CRUISE_LINE_DIRS = {
   'seabourn': 'ships/seabourn',
   'silversea': 'ships/silversea',
   'explora': 'ships/explora-journeys',
-  'virgin': 'ships/virgin'
+  'virgin': 'ships/virgin-voyages'
 };
+
+// Files that are not ship pages and must be excluded from validation
+const EXCLUDE_FILES = new Set([
+  'ships/rcl/venues.html',
+  'ships/rcl/legend-of-the-seas-1995-built.html',
+]);
 
 const THRESHOLD = 80;
 const results = {
@@ -66,6 +72,13 @@ for (const [lineKey, dir] of Object.entries(CRUISE_LINE_DIRS)) {
 
   for (const file of files) {
     const filePath = `${dir}/${file}`;
+
+    // Skip non-ship pages
+    if (EXCLUDE_FILES.has(filePath)) {
+      console.log(`  [EXCL] ${file}`);
+      continue;
+    }
+
     const slug = file.replace('.html', '');
     totalShips++;
 

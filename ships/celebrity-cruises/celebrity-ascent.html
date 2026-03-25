@@ -165,7 +165,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Celebrity Ascent","brand":{"@type":"Organization","name":"Celebrity Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Celebrity Ascent launched in December 2023 as the fourth Edge Class ship at 140,600 GT, featuring the Magic Carpet, Le Voyage by Daniel Boulud, and refined infinite veranda staterooms."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Edge Class ship operated by Celebrity.","name":"Celebrity Ascent","brand":{"@type":"Organization","name":"Celebrity Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Celebrity Ascent launched in December 2023 as the fourth Edge Class ship at 140,600 GT, featuring the Magic Carpet, Le Voyage by Daniel Boulud, and refined infinite veranda staterooms."}</script>
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -253,7 +253,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
@@ -446,7 +446,7 @@ All work on this project is offered as a gift to God.
       </div>
       <div style="margin-top: 1.5rem;">
         <p>Celebrity Ascent is the fourth ship in Celebrity Cruises' acclaimed Edge Class, debuting in December 2023. As the newest member of this revolutionary fleet, Ascent combines the best elements of Edge, Apex, and Beyond while introducing refined touches and enhanced guest experiences that represent the pinnacle of Edge Class evolution.</p>
-        <p>At 140,600 gross tons and accommodating 3,260 guests, Celebrity Ascent shares the stretched hull design introduced on Beyond, providing exceptional space for guests. The ship features Le Voyage, the world-class restaurant by Michelin-starred chef Daniel Boulud, along with all the signature Edge Class venues including Eden, the Rooftop Garden, and the Magic Carpet cantilever platform.</p>
+        <p>At 140,600 gross tons and accommodating 3,260 guests, Celebrity Ascent shares the stretched hull design introduced on Beyond, providing exceptional space for guests. The ship features Le Voyage, the exceptional restaurant by Michelin-starred chef Daniel Boulud, along with all the signature Edge Class venues including Eden, the Rooftop Garden, and the Magic Carpet cantilever platform.</p>
         <p>The Retreat suite-class experience on Ascent offers the expanded Sundeck with private cabanas, a dedicated plunge pool, and the exclusive Luminae restaurant. Infinite Veranda staterooms provide the innovative transformation from enclosed cabin to open-air balcony at the touch of a button, while the ship's outward-facing design philosophy ensures guests feel connected to the sea throughout their voyage.</p>
       </div>
       <div id="ship-stats" class="stats-grid" data-slug="celebrity-ascent"></div>
@@ -711,9 +711,9 @@ All work on this project is offered as a gift to God.
 </main>
 
 <!-- initFirstLook — Swiper for .firstlook carousel -->
-<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
 <!-- initVideos — fetch video JSON, render thumbnails -->
-<script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/celebrity-cruises/celebrity-ascent.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+<script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/celebrity-cruises/celebrity-ascent.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
 <!-- initStats — parse ship-stats-fallback JSON -->
 <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
 <!-- initDining — fetch dining JSON -->

@@ -241,7 +241,7 @@
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/carnival-tropicale.jpg"/>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Tropicale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Tropicale is a Excel-class vessel from Carnival Cruise Line, offering memorable cruise experiences with excellent amenities and service."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Excel-class ship operated by Carnival Cruise Line.","name":"Carnival Tropicale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Tropicale is a Excel-class vessel from Carnival Cruise Line, offering memorable cruise experiences with excellent amenities and service."}</script>
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -330,14 +330,14 @@
 </head>
 <body class="page">
   <!-- Skip Link for Accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions for Dynamic Updates -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
   <!-- Site Header -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#content" class="skip-link">Skip to main content</a>
 
   <header class="hero-header" role="banner">
     <nav class="navbar" aria-label="Main navigation">
@@ -428,6 +428,12 @@
     <section class="page-intro" aria-label="Carnival Tropicale overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Carnival Tropicale is a Unknown Class cruise ship operated by Carnival Cruise Line.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Excel-class</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
         <strong class="section-label">Looking for Carnival Tropicale planning info?</strong>
@@ -904,7 +910,7 @@
 <script>
 function initFirstLook(){
   if(!window.__swiperReady) return setTimeout(initFirstLook,200);
-  new Swiper('.firstlook',{loop:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
+  new Swiper('.firstlook',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
 }
 initFirstLook();
 </script>
