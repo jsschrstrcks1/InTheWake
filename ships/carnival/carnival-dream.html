@@ -718,7 +718,7 @@ fetch('/assets/data/logbook/carnival/carnival-dream.json').then(r=>r.json()).the
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
     }
-    fetchVideoData().then(data=>{ if(data) renderVideos(data.videos||data); });
+    fetchVideoData().then(data=>{if(data){const v=data.videos||data;renderVideos(Array.isArray(v)?v:Object.values(v).flat());}});
   })();
   </script>
 

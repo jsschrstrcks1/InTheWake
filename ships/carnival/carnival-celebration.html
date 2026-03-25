@@ -825,7 +825,7 @@ Dining Venues on Carnival Celebration</h2>
       }
     }
     fetch(abs('/assets/data/videos/carnival/carnival-celebration.json'),{cache:'no-store'})
-      .then(r=>r.ok?r.json():null).then(data=>{ if(data) renderVideos(data.videos||data); }).catch(()=>{});
+      .then(r=>r.ok?r.json():null).then(data=>{if(data){const v=data.videos||data;renderVideos(Array.isArray(v)?v:Object.values(v).flat());}}).catch(()=>{});
   })();
   </script>
 
