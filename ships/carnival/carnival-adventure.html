@@ -408,6 +408,23 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h1>Carnival Adventure</h1>
       <p class="ship-class">Grand Class (Ex-Princess) · Carnival Cruise Line</p>
 
+      <!-- Page Intro -->
+      <section class="page-intro">
+        <p class="answer-line"><strong>Quick Answer:</strong> Carnival Adventure is a Grand Class ship (108,865 GT, 2,600 guests, launched 2001 as Golden Princess) featuring Movies Under the Stars, multiple pools, and family-friendly amenities — now sailing Carnival itineraries from Mobile and Sydney.</p>
+        <div class="key-facts">
+          <h3>Key Facts</h3>
+          <ul>
+            <li><strong>Cruise Line:</strong> Carnival Cruise Line</li>
+            <li><strong>Class:</strong> Grand Class (Ex-Princess)</li>
+            <li><strong>Gross Tonnage:</strong> 108,865 GT</li>
+            <li><strong>Guests:</strong> ~2,600 (double occupancy)</li>
+            <li><strong>Entered Service:</strong> 2001 (as Golden Princess)</li>
+            <li><strong>Homeports:</strong> Mobile, AL; Sydney, Australia</li>
+          </ul>
+        </div>
+        <p>Carnival Adventure was built by Fincantieri in Monfalcone, Italy in 2001. She sailed as <em>Golden Princess</em> for Princess Cruises before transferring to P&amp;O Cruises Australia as <em>Pacific Adventure</em> in 2021. In March 2025, she joined Carnival Cruise Line, bringing Grand Class elegance — including a full Movies Under the Stars LED screen, multiple pool decks, and a diverse dining lineup — to Carnival's mid-market fleet. At 108,865 gross tons across 17 decks, she offers a mid-sized cruising experience with broad destination flexibility.</p>
+      </section>
+
       <!-- First Look -->
       <section class="card" aria-labelledby="first-look">
         <h2 id="first-look">A First Look at Carnival Adventure</h2>
@@ -415,9 +432,24 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <figure>
-                <img src="/assets/ships/Carnival_Adventure_flickr_StephenMarcus.webp" alt="Carnival Adventure exterior view" loading="lazy" decoding="async">
+                <img src="/assets/ships/Carnival_Adventure_flickr_StephenMarcus.webp" alt="Carnival Adventure exterior view" loading="eager" decoding="async">
                 <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/16826897@N07/54860453218/" target="_blank" rel="noopener">Stephen Marcus</a> via Flickr</figcaption>
               </figure>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/Carnival_Conquest_3.jpg" alt="Carnival Conquest — Grand Class fleet sister" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/Carnival_Dream_2.jpg" alt="Carnival Dream — similar Grand Class vessel" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/Carnival_Horizon_(cropped).jpg" alt="Carnival Horizon at sea" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ships/Carnival_Breeze_001.jpg" alt="Carnival Breeze — Carnival fleet" loading="lazy"/>
+            </div>
+            <div class="swiper-slide">
+              <img src="/assets/ship-map.png" alt="Carnival Adventure simplified deck plan overview" loading="lazy"/>
             </div>
           </div>
           <div class="swiper-pagination" aria-hidden="true"></div>
@@ -527,6 +559,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </ul>
       </section>
     </article>
+
+    <!-- Recent Stories Rail -->
+    <section class="card recent-rail" aria-label="recent stories">
+      <h2>Recent Stories from the Logbook</h2>
+      <p class="tiny">Real cruising experiences, practical guides, and heartfelt reflections from our community. <a href="/logbook.html">Browse all stories →</a></p>
+      <nav id="recent-rail-nav-top" aria-label="Article pagination"></nav>
+      <div id="recent-rail" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" aria-label="Article pagination"></nav>
+      <p id="recent-rail-fallback" class="tiny loading-text">Loading articles…</p>
+    </section>
+
     <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-adventure","name":"Carnival Adventure","cruise_line":"Carnival Cruise Line","class":"Grand Class (Ex-Princess)","entered_service":2001,"gt":"108,865 GT","guests":"2,600"}</script>
     <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
@@ -568,7 +611,7 @@ function initVideos(){
     if(!w||!d.videos) return;
     var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
     w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
-    if(window.__swiperReady) new Swiper('#video-wrapper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
+    if(window.__swiperReady) new Swiper('#video-wrapper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
   }).catch(function(){});
 }
 initVideos();
