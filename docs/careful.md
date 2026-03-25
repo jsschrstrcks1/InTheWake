@@ -397,17 +397,23 @@ After finishing each cruise line, run the full batch validator and update this t
 
 | Line | Before | After | Status |
 |------|--------|-------|--------|
-| rcl | 71% | — | Pending |
-| carnival | 56% | — | Pending |
-| celebrity | 55% | — | Pending |
-| msc | 33% | — | Pending |
-| costa | 0% | — | Pending |
-| oceania | 38% | — | Pending |
-| regent | 0% | — | Pending |
-| seabourn | 43% | — | Pending |
-| silversea | 8% | — | Pending |
-| explora | 0% | — | Pending |
-| virgin | 50% | — | Pending |
+| rcl | 71% | 100% | ✓ Complete |
+| carnival | 56% | 100% | ✓ Complete |
+| celebrity | 55% | 100% | ✓ Complete |
+| msc | 33% | 100% | ✓ Complete |
+| costa | 0% | 100% | ✓ Complete |
+| oceania | 38% | 100% | ✓ Complete |
+| regent | 0% | 100% | ✓ Complete |
+| seabourn | 43% | 100% | ✓ Complete |
+| silversea | 8% | 100% | ✓ Complete |
+| explora | 0% | 100% | ✓ Complete |
+| virgin | 50% | 100% | ✓ Complete |
+| cunard | — | 100% | ✓ Complete |
+| hal | — | 100% | ✓ Complete |
+| norwegian | — | 100% | ✓ Complete |
+| princess | — | 100% | ✓ Complete |
+
+**Result as of 2026-03-25:** 290/290 ship pages PASS (100%). 21 non-ship pages (index, template, quiz) are out of scope.
 
 **Target:** ≥ 93% overall pass rate when all non-stub repairs complete.
 
