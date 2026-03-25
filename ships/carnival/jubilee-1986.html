@@ -246,7 +246,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <p style="margin-top:1rem;font-size:1.1rem">The Middle Sister</p>
 </header>
 
-<main class="wrap page-grid" id="main-content" role="main" data-imo="0" data-ship="Jubilee 1986">
+<main class="wrap page-grid" id="main-content" role="main" data-ship="Jubilee 1986">
 <section class="col-1" aria-label="Ship details">
 
     <!-- ICP-Lite: Page Intro -->
@@ -336,7 +336,7 @@ Dining on MS Jubilee</h2>
   <p>Historical deck plans for MS Jubilee are preserved in maritime archives.</p>
 </section>
 
-<section class="card" id="live-tracker" data-imo="0" aria-labelledby="liveTrackHeading">
+<section class="card" id="live-tracker" aria-labelledby="liveTrackHeading">
   <h2 id="liveTrackHeading">Ship Status</h2>
   <p>MS Jubilee was scrapped in 2017. Live tracking is not available for this historic vessel.</p>
 </section>
@@ -471,10 +471,10 @@ Dining on MS Jubilee</h2>
 <!-- ===== Ship-page JS modules ===== -->
 <script>function initFirstLook(){if(!window.__swiperReady)return setTimeout(initFirstLook,200);new Swiper('.firstlook',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});}initFirstLook();</script>
 <script>function initShipLogbook(){fetch('/assets/data/logbook/carnival/jubilee-1986.json').then(function(r){return r.json();}).then(function(d){var c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(function(s){return '<article class="logbook-entry"><h3>'+s.title+'</h3><p>'+s.markdown.split('\\n\\n').slice(0,2).join('</p><p>')+'</p></article>';}).join('');}).catch(function(){});}initShipLogbook();</script>
-<script>function initVideos(){fetch('/assets/data/videos/carnival/jubilee-1986.json').then(function(r){return r.json();}).then(function(d){var w=document.querySelector('#video-wrapper .swiper-wrapper');if(!w||!d.videos)return;var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');if(window.__swiperReady)new Swiper('#video-wrapper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});}).catch(function(){});}initVideos();</script>
+<script>function initVideos(){fetch('/assets/data/videos/carnival/jubilee-1986.json').then(function(r){return r.json();}).then(function(d){var w=document.querySelector('#video-wrapper .swiper-wrapper');if(!w||!d.videos)return;var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');if(window.__swiperReady)new Swiper('#video-wrapper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});}).catch(function(){});}initVideos();</script>
 <script>function initStats(){var fb=document.getElementById('ship-stats-fallback');if(!fb)return;try{var d=JSON.parse(fb.textContent);console.log('Stats loaded:',d.name);}catch(e){}}initStats();</script>
 <script>function initDining(){fetch('/assets/data/dining/carnival/jubilee-1986.json').then(function(r){return r.json();}).then(function(d){console.log('Dining data loaded for MS Jubilee');}).catch(function(){});}initDining();</script>
-<script>function initLiveTracker(){var sec=document.getElementById('live-tracker');if(!sec)return;sec.querySelector('p').textContent='MS Jubilee was scrapped in 2017. Live tracking is not available for this historic vessel.';}initLiveTracker();</script>
+<script>function initLiveTracker(){var sec=document.getElementById('live-tracker');if(!sec)return;const _p=sec.querySelector('p'); if(_p) _p.textContent='MS Jubilee was scrapped in 2017. Live tracking is not available for this historic vessel.';}initLiveTracker();</script>
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>

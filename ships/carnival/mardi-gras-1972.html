@@ -251,7 +251,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <p style="margin-top:1rem;font-size:1.1rem">The Ship That Launched an Empire</p>
 </header>
 
-<main class="wrap page-grid" id="main-content" role="main" data-imo="0" data-ship="Mardi Gras 1972">
+<main class="wrap page-grid" id="main-content" role="main" data-ship="Mardi Gras 1972">
 <section class="col-1" aria-label="Ship details">
 
     <!-- ICP-Lite: Page Intro -->
@@ -341,7 +341,7 @@ Dining on TSS Mardi Gras</h2>
   <p>Historical deck plans for TSS Mardi Gras are preserved in maritime archives. The ship featured a classic ocean liner layout converted for Caribbean cruise service.</p>
 </section>
 
-<section class="card" id="live-tracker" data-imo="0" aria-labelledby="liveTrackHeading">
+<section class="card" id="live-tracker" aria-labelledby="liveTrackHeading">
   <h2 id="liveTrackHeading">Ship Status</h2>
   <p>TSS Mardi Gras was scrapped in 1997. Live tracking is not available for this historic vessel.</p>
 </section>
@@ -499,7 +499,7 @@ function initVideos(){
     if(!w||!d.videos) return;
     var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
     w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
-    if(window.__swiperReady) new Swiper('#video-wrapper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
+    if(window.__swiperReady) new Swiper('#video-wrapper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
   }).catch(function(){});
 }
 initVideos();
@@ -524,7 +524,7 @@ initDining();
 function initLiveTracker(){
   var sec=document.getElementById('live-tracker');
   if(!sec) return;
-  sec.querySelector('p').textContent='TSS Mardi Gras was scrapped in 1997. Live tracking is not available for this historic vessel.';
+  const _p=sec.querySelector('p'); if(_p) _p.textContent='TSS Mardi Gras was scrapped in 1997. Live tracking is not available for this historic vessel.';
 }
 initLiveTracker();
 </script>
