@@ -993,7 +993,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     if(!card) return;
     const imo=card.getAttribute('data-imo');
     const container=document.getElementById('vf-tracker-container');
-    if(!imo||!container) return;
+    if(!imo||imo==='TBD'||imo==='0000000'||!container) return;
     const wrapper = document.createElement('div');
     wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
     const iframe = document.createElement('iframe');
