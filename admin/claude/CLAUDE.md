@@ -17,6 +17,15 @@ Before touching anything:
 3. Check your actual task — `admin/UNFINISHED_TASKS.md`
 4. Read the careful-not-clever guardrail — `.claude/skills/careful-not-clever/CAREFUL.md`
 
+### Multi-LLM Setup (Per Session)
+
+Before first use of `/consult` or `/orchestrate`, run:
+
+```bash
+bash /home/user/ken/orchestrator/bootstrap-env.sh 2>/dev/null
+pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
+```
+
 ---
 
 ## Essential Reading
@@ -204,6 +213,17 @@ This repository has access to the multi-LLM orchestrator system. External models
 - **Pipeline:** Read Standards (Claude) → Generate (Claude) → Content (GPT) → Completeness (Gemini) → UX (Grok) → Integrate (Claude)
 - **Memory scope:** `/inthewake`
 - **Orchestrator:** `/home/user/ken/orchestrator/`
+
+### First-Time Setup (Per Session)
+
+Before first use of `/consult` or `/orchestrate` in a session, install dependencies:
+
+```bash
+bash /home/user/ken/orchestrator/bootstrap-env.sh 2>/dev/null
+pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
+```
+
+This is silent when already installed. If `/consult` or `/orchestrate` fails with `ModuleNotFoundError`, run this command first.
 
 ### Context Boundaries
 - **SEND:** Page requirements, content topics, SEO targets, general cruise data
