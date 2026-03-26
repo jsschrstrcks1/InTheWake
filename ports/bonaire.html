@@ -314,7 +314,23 @@ Soli Deo Gloria
           <li><strong>Salt Pyramids:</strong> Southern coast, massive white mounds at the solar salt works (free to photograph)</li>
           <li><strong>Marine Park:</strong> Entire coastline protected since 1979, $25/year snorkeler fee or $45/year diver fee</li>
         </ul>
-      </details><details class="port-section" id="excursions" open="">
+      </details>
+<details class="port-section" id="map" open="">
+        <summary><h2>Bonaire Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing Kralendijk cruise pier, Klein Bonaire, 1000 Steps Beach, and snorkeling spots. Click any marker for details.</p>
+        <div id="bonaire-port-map" class="port-map-container" role="application" aria-label="Interactive map of Bonaire port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=12.144&mlon=-68.266#map=12/12.144/-68.266" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('bonaire-port-map')._portMap?.fitBounds(document.getElementById('bonaire-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+            </details><details class="port-section" id="excursions" open="">
         <summary><h2>Shore Excursions &amp; Independent Options</h2></summary>
         <p>Bonaire offers excellent choices whether you prefer a ship excursion or going independent. The island's compact size and easy navigation make independent exploration particularly rewarding here, but ship-organized tours provide guaranteed return to the vessel if you're concerned about timing.</p>
 
@@ -451,23 +467,6 @@ Soli Deo Gloria
       <p class="real-talk">Bonaire's entire economy runs on diving and snorkeling, which means non-divers may find a full port day stretching thin. The flamingo sanctuary and salt flats are genuinely worth seeing, but you can cover both in under two hours. Shore power and WiFi are limited outside Kralendijk, and most restaurants and shops close early. Bring cash — many local vendors don't accept cards, and the few ATMs in town charge hefty fees.</p>
 
       <!-- MAP SECTION -->
-      <details class="port-section" id="map" open="">
-        <summary><h2>Bonaire Area Map</h2></summary>
-        <p class="map-intro">Interactive map showing Kralendijk cruise pier, Klein Bonaire, 1000 Steps Beach, and snorkeling spots. Click any marker for details.</p>
-        <div id="bonaire-port-map" class="port-map-container" role="application" aria-label="Interactive map of Bonaire port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=12.144&mlon=-68.266#map=12/12.144/-68.266" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('bonaire-port-map')._portMap?.fitBounds(document.getElementById('bonaire-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-            </details>
-
       <!-- EXCURSIONS SECTION -->
       
 
