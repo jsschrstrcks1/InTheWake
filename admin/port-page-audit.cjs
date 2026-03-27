@@ -322,6 +322,66 @@ function detectImageReuse(html, file) {
   return issues;
 }
 
+function detectUSDOnNonUSDPort(html, file) {
+  const issues = [];
+  const slug = path.basename(file, '.html');
+  // Ports that use USD as primary currency
+  const usdPorts = new Set([
+    'st-thomas', 'st-john-usvi', 'st-croix', 'san-juan', 'bermuda',
+    'cococay', 'labadee', 'harvest-caye', 'amber-cove', 'key-west',
+    'tampa', 'miami', 'galveston', 'mobile', 'jacksonville', 'port-canaveral',
+    'ft-lauderdale', 'new-orleans', 'baltimore', 'norfolk', 'charleston',
+    'bar-harbor', 'portland-maine', 'boston', 'newport', 'new-york',
+    'san-francisco', 'los-angeles', 'san-diego', 'seattle', 'homer',
+    'juneau', 'ketchikan', 'skagway', 'sitka', 'seward', 'kodiak',
+    'anchorage', 'haines', 'hilo', 'honolulu', 'nawiliwili', 'maui',
+    'tortola', 'virgin-gorda', 'freeport', 'nassau', 'bimini',
+    'grand-turk', 'bonaire', 'curacao', 'aruba',
+    'cabo-san-lucas', 'puerto-vallarta', // USD widely accepted
+    'belize', // BZD pegged to USD, USD accepted everywhere
+    'royal-beach-club-antigua', 'royal-beach-club-cozumel', 'royal-beach-club-nassau',
+    'cape-liberty', 'port-everglades', 'port-miami', 'port-canaveral',
+  ]);
+
+  if (!usdPorts.has(slug)) {
+    // Check Depth Soundings and FAQ for USD pricing patterns that should be local currency
+    const depthMatch = html.match(/id="depth[_-]soundings"[\s\S]*?<\/details>/i);
+    const faqMatch = html.match(/id="faq"[\s\S]*?<\/details>/i);
+    const sectionsToCheck = [depthMatch?.[0] || '', faqMatch?.[0] || ''].join(' ');
+
+    const usdPrices = (sectionsToCheck.match(/\$\d+/g) || []).length;
+    if (usdPrices >= 3) {
+      issues.push({ code: 'B3', file, message: `Depth Soundings/FAQ uses USD pricing (${usdPrices} "$" amounts) on non-USD port — should use local currency`, severity: 'HIGH' });
+    }
+  }
+  return issues;
+}
+
+function detectUnvisitedFirstPerson(html, file) {
+  const issues = [];
+  const hasUnvisitedNote = /soundings in another's wake|have not yet visited|haven't visited|not yet sailed/i.test(html);
+  if (!hasUnvisitedNote) return issues;
+
+  // Check if the logbook section has dense first-person content
+  const logbookMatch = html.match(/id="logbook"[\s\S]*?(?=id="(?:cruise|weather|getting))/i);
+  if (!logbookMatch) return issues;
+
+  const logbookText = logbookMatch[0];
+  const firstPersonCount = (logbookText.match(/\bI\b/g) || []).length;
+  const wordCount = logbookText.replace(/<[^>]+>/g, '').split(/\s+/).length;
+  const iPer100 = wordCount > 0 ? (firstPersonCount / wordCount) * 100 : 0;
+
+  // If >3 "I" per 100 words in a logbook marked as unvisited, it's likely fabricated
+  if (iPer100 > 3 && firstPersonCount > 10) {
+    issues.push({
+      code: 'C4', file,
+      message: `Unvisited port has dense first-person logbook (${firstPersonCount} "I" in ${wordCount} words = ${iPer100.toFixed(1)}/100) — likely AI-fabricated first-person for unvisited port`,
+      severity: 'CRITICAL'
+    });
+  }
+  return issues;
+}
+
 // ══════════════════════════════════════════════════════════════════════
 // MAIN
 // ══════════════════════════════════════════════════════════════════════
@@ -341,6 +401,8 @@ function auditFile(filePath) {
     ...detectTemplateBookingGuidance(html, file),
     ...detectGenericCatchesAndPacking(html, file),
     ...detectAuthorNoteContradiction(html, file),
+    ...detectUnvisitedFirstPerson(html, file),
+    ...detectUSDOnNonUSDPort(html, file),
     ...detectEmotionalRepetition(html, file),
     ...detectPortGuideString(html, file),
     ...detectForbiddenContent(html, file),
