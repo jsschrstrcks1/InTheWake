@@ -301,6 +301,29 @@ function detectMissingH1(html, file) {
   return issues;
 }
 
+function detectGenericSocialImage(html, file) {
+  const issues = [];
+  const ogImage = html.match(/property="og:image"\s+content="([^"]+)"/i);
+  if (ogImage && /port-hero\.jpg|placeholder/i.test(ogImage[1])) {
+    issues.push({ code: 'B4', file, message: `Generic social share image: ${path.basename(ogImage[1])} — should be port-specific`, severity: 'MEDIUM' });
+  }
+  return issues;
+}
+
+function detectFutureLastReviewed(html, file) {
+  const issues = [];
+  const lrMatch = html.match(/name="last-reviewed"\s+content="(\d{4}-\d{2}-\d{2})"/i);
+  if (lrMatch) {
+    const reviewDate = new Date(lrMatch[1]);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (reviewDate > today) {
+      issues.push({ code: 'C1', file, message: `last-reviewed date (${lrMatch[1]}) is in the future`, severity: 'MEDIUM' });
+    }
+  }
+  return issues;
+}
+
 function detectForbiddenContent(html, file) {
   const issues = [];
   const patterns = {
@@ -484,6 +507,8 @@ function auditFile(filePath) {
     ...detectDisclaimerMismatch(html, file),
     ...detectUSDOnNonUSDPort(html, file),
     ...detectMissingH1(html, file),
+    ...detectGenericSocialImage(html, file),
+    ...detectFutureLastReviewed(html, file),
     ...detectEmotionalRepetition(html, file),
     ...detectPortGuideString(html, file),
     ...detectForbiddenContent(html, file),
