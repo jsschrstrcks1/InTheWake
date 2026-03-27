@@ -136,6 +136,16 @@ function detectBrokenPaths(html, file) {
   if (/src="\/images\//i.test(html)) {
     issues.push({ code: 'A5', file, message: 'Old image path pattern /images/ (should be /assets/ or /ports/img/)', severity: 'MEDIUM' });
   }
+  // Check canonical URL consistency
+  const canonicalMatch = html.match(/rel="canonical"\s+href="([^"]+)"/i) || html.match(/href="([^"]+)"\s+rel="canonical"/i);
+  if (canonicalMatch && /\/ports\/[a-z][\w-]+"/.test(canonicalMatch[0]) && !canonicalMatch[1].endsWith('.html')) {
+    issues.push({ code: 'A5', file, message: `Canonical URL missing .html extension: ${canonicalMatch[1]}`, severity: 'HIGH' });
+  }
+  // Check og:image for old /images/ path
+  const ogImageMatch = html.match(/property="og:image"\s+content="([^"]+)"/i);
+  if (ogImageMatch && /\/images\//.test(ogImageMatch[1])) {
+    issues.push({ code: 'A5', file, message: `OG image uses old /images/ path: ${ogImageMatch[1]}`, severity: 'MEDIUM' });
+  }
   // Check for nearby port links missing .html (exclude img, css, js directories)
   const portLinkRe = /href="\/ports\/([a-z][\w-]+)"/gi;
   const nonPortPaths = new Set(['img', 'css', 'js', 'assets', 'fonts', 'data']);
@@ -232,7 +242,9 @@ function detectTemplateBookingGuidance(html, file) {
 function detectGenericCatchesAndPacking(html, file) {
   const issues = [];
   // The generic 5-bullet "Catches Visitors Off Guard" list
-  if (/Weather can change quickly.*Peak season means more crowds.*Sun can be intense even on cloudy days/is.test(html)) {
+  // Use a 2000-char window to avoid matching across unrelated sections (dotall was too greedy)
+  const catchesMatch = html.match(/Weather can change quickly[\s\S]{0,2000}?Peak season means more crowds/i);
+  if (catchesMatch) {
     issues.push({ code: 'B2', file, message: 'Generic "Catches Visitors Off Guard" list (identical across many pages)', severity: 'MEDIUM' });
   }
   return issues;
@@ -276,10 +288,23 @@ function detectPortGuideString(html, file) {
   const issues = [];
   const slug = path.basename(file, '.html');
   const portName = slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-  const portGuideRe = new RegExp(`${portName}\\s+Port\\s+Guide`, 'gi');
+  // Escape regex special chars in port name (e.g., "St." has a period)
+  const escaped = portName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  // Match both "Port Guide" and "Cruise Port Guide" variants
+  const portGuideRe = new RegExp(`${escaped}\\s+(?:Cruise\\s+)?Port\\s+Guide`, 'gi');
   const matches = html.match(portGuideRe);
   if (matches && matches.length > 0) {
-    issues.push({ code: 'C1', file, message: `"${portName} Port Guide" used as proper noun (${matches.length} times) — template artifact`, severity: 'MEDIUM' });
+    issues.push({ code: 'C1', file, message: `"${matches[0]}" used as proper noun (${matches.length} times) — template artifact`, severity: 'MEDIUM' });
+  }
+  return issues;
+}
+
+function detectMissingH1(html, file) {
+  const issues = [];
+  const htmlOnly = stripNonHTML(html);
+  const h1Count = (htmlOnly.match(/<h1[\s>]/gi) || []).length;
+  if (h1Count === 0) {
+    issues.push({ code: 'A2', file, message: 'No <h1> tag found on page — critical for SEO and accessibility', severity: 'HIGH' });
   }
   return issues;
 }
@@ -403,6 +428,7 @@ function auditFile(filePath) {
     ...detectAuthorNoteContradiction(html, file),
     ...detectUnvisitedFirstPerson(html, file),
     ...detectUSDOnNonUSDPort(html, file),
+    ...detectMissingH1(html, file),
     ...detectEmotionalRepetition(html, file),
     ...detectPortGuideString(html, file),
     ...detectForbiddenContent(html, file),
