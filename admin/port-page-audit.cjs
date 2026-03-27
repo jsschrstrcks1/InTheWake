@@ -17,16 +17,29 @@ const path = require('path');
 
 const PORTS_DIR = path.join(__dirname, '..', 'ports');
 
+/**
+ * Strip <script>, <style>, and HTML comments from content.
+ * Used by detectors that should only match HTML element attributes,
+ * not JSON-LD schema fields or CSS selectors.
+ */
+function stripNonHTML(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<!--[\s\S]*?-->/g, '');
+}
+
 // ══════════════════════════════════════════════════════════════════════
 // CATEGORY A: AUTO-FIX-NOW (structural, low-risk, scriptable)
 // ══════════════════════════════════════════════════════════════════════
 
 function detectDuplicateIDs(html, file) {
   const issues = [];
+  const htmlOnly = stripNonHTML(html);
   const ids = {};
   const re = /\bid="([^"]+)"/g;
   let m;
-  while ((m = re.exec(html)) !== null) {
+  while ((m = re.exec(htmlOnly)) !== null) {
     const id = m[1];
     if (!ids[id]) ids[id] = [];
     ids[id].push(m.index);
