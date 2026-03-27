@@ -351,6 +351,25 @@ const CONTENT_PURITY_BANS = [
   { pattern: /\b(YOLO|living my best life)\b/i, category: 'hype' }
 ];
 
+// Per-port allowlist for legitimate place names, landmarks, and metaphors
+// that trigger content purity bans but are factually correct.
+const CONTENT_PURITY_ALLOWLIST = {
+  'rotorua':          [{ match: /hell'?s?\s*gate/i, category: 'profanity' }],
+  'grand-cayman':     [{ match: /\bhell\b/i, category: 'profanity' }],
+  'nosy-be':          [{ match: /hell-ville/i, category: 'profanity' }],
+  'monte-carlo':      [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
+  'monaco':           [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
+  'cannes':           [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
+  // Metaphorical uses — literary language, not gambling promotion
+  'cape-horn':        [{ match: /betting\s+everything\s+on\s+hope/i, category: 'gambling' }],
+  'ellis-island':     [{ match: /betting\s+everything\s+on\s+hope/i, category: 'gambling' }],
+  // Metalworking terminology — "hammered" as a craft technique
+  '*': [
+    { match: /hammered\s+(pewter|bronze|silver|copper|brass|iron|gold|metal|tin)/i, category: 'drinking' },
+    { match: /nothing\s+wasted/i, category: 'drinking' },
+  ],
+};
+
 // Stewardship framing positive markers
 const STEWARDSHIP_MARKERS = [
   /\bworth\b/i,
@@ -559,63 +578,83 @@ function validateICPLite($, html) {
   const warnings = [];
   const info = [];
 
+  // ==========================================================================
+  // ICP-2 v2.1 — Human-First SEO & AEO Validation
+  // Upgraded from ICP-Lite v1.4. Accepts both protocol versions during migration.
+  // ==========================================================================
+
   const aiSummary = $('meta[name="ai-summary"]').attr('content') || '';
   const lastReviewed = $('meta[name="last-reviewed"]').attr('content') || '';
+  const description = $('meta[name="description"]').attr('content') || '';
   const protocol = $('meta[name="content-protocol"]').attr('content') || '';
 
-  if (protocol !== 'ICP-Lite v1.4') {
+  // --- Protocol version (accept both during migration) ---
+  const ACCEPTED_PROTOCOLS = ['ICP-Lite v1.4', 'ICP-2', 'ICP-2 v2.1'];
+  if (!ACCEPTED_PROTOCOLS.includes(protocol)) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'protocol_version',
-      message: `Invalid content-protocol. Expected "ICP-Lite v1.4", found "${protocol}"`,
+      message: `Invalid content-protocol. Expected one of: ${ACCEPTED_PROTOCOLS.join(', ')}. Found "${protocol}"`,
       severity: 'BLOCKING'
     });
   }
 
+  // --- ai-summary meta tag ---
   if (!aiSummary) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'ai_summary_missing',
       message: 'ai-summary meta tag is missing or empty',
       severity: 'BLOCKING'
     });
   } else if (aiSummary.length > 250) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'ai_summary_length',
       message: `ai-summary exceeds 250 characters (${aiSummary.length} chars)`,
       severity: 'BLOCKING'
     });
   } else if (aiSummary.length < 150) {
     warnings.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'ai_summary_length',
       message: `ai-summary is short (${aiSummary.length} chars), recommended 150-250`,
       severity: 'WARNING'
     });
   }
 
+  // --- description meta tag (ICP-2 v2.1: required) ---
+  if (!description) {
+    errors.push({
+      section: 'icp',
+      rule: 'description_missing',
+      message: 'meta description tag is missing or empty',
+      severity: 'BLOCKING'
+    });
+  }
+
+  // --- last-reviewed meta tag ---
   if (!lastReviewed) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'last_reviewed_missing',
       message: 'last-reviewed meta tag is missing',
       severity: 'BLOCKING'
     });
   } else if (!/^\d{4}-\d{2}-\d{2}$/.test(lastReviewed)) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'last_reviewed_format',
       message: `last-reviewed must be YYYY-MM-DD format, found "${lastReviewed}"`,
       severity: 'BLOCKING'
     });
   } else {
-    // Staleness detection (cross-pollinated from venue validator W05)
+    // Staleness detection
     const reviewed = new Date(lastReviewed);
     const daysDiff = (new Date() - reviewed) / (1000 * 60 * 60 * 24);
     if (daysDiff > 180) {
       warnings.push({
-        section: 'icp_lite',
+        section: 'icp',
         rule: 'stale_review',
         message: `last-reviewed date is ${Math.floor(daysDiff)} days old (${lastReviewed}) — content may be stale`,
         severity: 'WARNING'
@@ -623,34 +662,77 @@ function validateICPLite($, html) {
     }
   }
 
+  // --- Canonical URL (ICP-2 v2.1: required) ---
+  const canonical = $('link[rel="canonical"]').attr('href') || '';
+  if (!canonical) {
+    errors.push({
+      section: 'icp',
+      rule: 'missing_canonical',
+      message: 'Missing <link rel="canonical"> — required for SEO',
+      severity: 'BLOCKING'
+    });
+  }
+
+  // --- Anti-patterns (ICP-2 v2.1: forbidden SEO/AEO theater) ---
+  if ($('meta[name="keywords"]').length > 0) {
+    warnings.push({
+      section: 'icp',
+      rule: 'forbidden_meta_keywords',
+      message: 'meta keywords tag is SEO theater — remove it (dead since 2009)',
+      severity: 'WARNING'
+    });
+  }
+  if ($('meta[name="geo.region"]').length > 0 || $('meta[name="geo.placename"]').length > 0) {
+    warnings.push({
+      section: 'icp',
+      rule: 'forbidden_geo_meta',
+      message: 'geo.region/geo.placename meta tags are irrelevant — remove them',
+      severity: 'WARNING'
+    });
+  }
+  if (html.includes('ai-breadcrumbs')) {
+    warnings.push({
+      section: 'icp',
+      rule: 'forbidden_ai_breadcrumbs',
+      message: 'ai-breadcrumbs HTML comments are not read by any crawler — remove them',
+      severity: 'WARNING'
+    });
+  }
+
+  // --- JSON-LD structured data ---
   const jsonldScripts = $('script[type="application/ld+json"]');
-  let hasWebPage = false;
+  let hasPageSchema = false;  // WebPage or TouristDestination
   let hasFAQPage = false;
   let hasBreadcrumbs = false;
-  let webPageDateModified = '';
-  let webPageDescription = '';
+  let schemaDateModified = '';
+  let schemaDescription = '';
   let hasMainEntity = false;
+  let schemaType = '';
 
   jsonldScripts.each((i, elem) => {
     try {
       const content = $(elem).html();
       const data = JSON.parse(content);
 
-      if (data['@type'] === 'WebPage') {
-        hasWebPage = true;
-        webPageDateModified = data.dateModified || '';
-        webPageDescription = data.description || '';
+      // Accept WebPage or TouristDestination (ICP-2 prefers specific types)
+      if (data['@type'] === 'WebPage' || data['@type'] === 'TouristDestination') {
+        hasPageSchema = true;
+        schemaType = data['@type'];
+        schemaDateModified = data.dateModified || '';
+        schemaDescription = data.description || '';
         hasMainEntity = !!data.mainEntity;
       }
       if (data['@type'] === 'FAQPage') {
         hasFAQPage = true;
+        // FAQPage with mainEntity also counts
+        if (data.mainEntity) hasMainEntity = true;
       }
       if (data['@type'] === 'BreadcrumbList') {
         hasBreadcrumbs = true;
       }
     } catch (e) {
       errors.push({
-        section: 'icp_lite',
+        section: 'icp',
         rule: 'jsonld_parse',
         message: `Failed to parse JSON-LD script: ${e.message}`,
         severity: 'BLOCKING'
@@ -658,17 +740,17 @@ function validateICPLite($, html) {
     }
   });
 
-  if (!hasWebPage) {
+  if (!hasPageSchema) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'missing_webpage',
-      message: 'Missing WebPage JSON-LD schema',
+      message: 'Missing WebPage or TouristDestination JSON-LD schema',
       severity: 'BLOCKING'
     });
   }
   if (!hasFAQPage) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'missing_faqpage',
       message: 'Missing FAQPage JSON-LD schema',
       severity: 'BLOCKING'
@@ -676,39 +758,68 @@ function validateICPLite($, html) {
   }
   if (!hasBreadcrumbs) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'missing_breadcrumbs',
       message: 'Missing BreadcrumbList JSON-LD schema',
       severity: 'BLOCKING'
     });
   }
 
-  if (!hasMainEntity) {
+  if (!hasMainEntity && hasPageSchema) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'missing_mainentity',
-      message: 'WebPage JSON-LD must have mainEntity of type "Place" for port pages',
+      message: 'Page schema JSON-LD must have mainEntity (Place for ports, FAQPage for FAQ)',
       severity: 'BLOCKING'
     });
   }
 
-  if (webPageDateModified !== lastReviewed) {
+  // --- dateModified parity (still exact match per ICP-2 v2.1) ---
+  if (hasPageSchema && schemaDateModified !== lastReviewed) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'datemodified_mismatch',
-      message: `WebPage dateModified (${webPageDateModified}) must match last-reviewed (${lastReviewed})`,
+      message: `Schema dateModified (${schemaDateModified}) must match last-reviewed (${lastReviewed})`,
       severity: 'BLOCKING'
     });
   }
 
-  const normalizedSummary = aiSummary.replace(/\s+/g, ' ').trim();
-  const normalizedDescription = webPageDescription.replace(/\s+/g, ' ').trim();
-  if (normalizedDescription !== normalizedSummary) {
+  // --- Description consistency (ICP-2 v2.1: relaxed from exact-match) ---
+  // JSON-LD description must be "consistent with" ai-summary — same key facts,
+  // not necessarily character-identical. We check that they share significant words.
+  if (hasPageSchema && aiSummary && schemaDescription) {
+    const summaryWords = new Set(aiSummary.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 3));
+    const descWords = new Set(schemaDescription.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 3));
+    // Count overlapping significant words
+    let overlap = 0;
+    for (const w of summaryWords) { if (descWords.has(w)) overlap++; }
+    const overlapRatio = summaryWords.size > 0 ? overlap / summaryWords.size : 0;
+    if (overlapRatio < 0.3) {
+      errors.push({
+        section: 'icp',
+        rule: 'description_mismatch',
+        message: `JSON-LD description has low consistency with ai-summary (${Math.round(overlapRatio * 100)}% word overlap). Must convey same key facts.`,
+        severity: 'BLOCKING'
+      });
+    }
+  } else if (hasPageSchema && aiSummary && !schemaDescription) {
     errors.push({
-      section: 'icp_lite',
+      section: 'icp',
       rule: 'description_mismatch',
-      message: 'WebPage description must match ai-summary meta tag',
+      message: 'JSON-LD schema is missing description field',
       severity: 'BLOCKING'
+    });
+  }
+
+  // --- Answer-first body structure (ICP-2 v2.1) ---
+  // First paragraph in main content should directly address what this port is
+  const firstParagraph = $('main article p, main p').first().text().trim();
+  if (firstParagraph && firstParagraph.length < 20) {
+    info.push({
+      section: 'icp',
+      rule: 'answer_first_weak',
+      message: 'First paragraph is very short — consider leading with a direct answer about this port',
+      severity: 'INFO'
     });
   }
 
@@ -719,8 +830,10 @@ function validateICPLite($, html) {
     info,
     data: {
       protocol_version: protocol,
+      schema_type: schemaType,
       ai_summary_length: aiSummary.length,
       last_reviewed: lastReviewed,
+      has_canonical: !!canonical,
       has_mainEntity: hasMainEntity
     }
   };
@@ -1586,7 +1699,7 @@ function validateLogbookNarrative($) {
 /**
  * Validate content purity (hard bans on sin tourism, profanity, gambling, etc.)
  */
-function validateContentPurity($) {
+function validateContentPurity($, portSlug) {
   const errors = [];
   const warnings = [];
   const info = [];
@@ -1594,14 +1707,26 @@ function validateContentPurity($) {
   const fullText = $('body').text();
   const violations = [];
 
+  // Build allowlist for this port (port-specific + global '*' entries)
+  const portAllowlist = [
+    ...(CONTENT_PURITY_ALLOWLIST[portSlug] || []),
+    ...(CONTENT_PURITY_ALLOWLIST['*'] || [])
+  ];
+
   // Check for forbidden content
   for (const ban of CONTENT_PURITY_BANS) {
     const matches = fullText.match(ban.pattern);
     if (matches) {
-      violations.push({
-        category: ban.category,
-        match: matches[0]
-      });
+      // Check if this match is allowlisted for this port
+      const allowed = portAllowlist.some(
+        a => a.category === ban.category && a.match.test(matches[0])
+      );
+      if (!allowed) {
+        violations.push({
+          category: ban.category,
+          match: matches[0]
+        });
+      }
     }
   }
 
@@ -3497,7 +3622,9 @@ async function validatePortPage(filepath) {
     const portImagesResult = await validatePortImages(filepath);
     const rubricResult = validateRubric($);
     const logbookResult = validateLogbookNarrative($);
-    const contentPurityResult = validateContentPurity($);
+    // Extract port slug from filepath (e.g., ports/rotorua.html → rotorua)
+    const portSlug = basename(filepath, '.html');
+    const contentPurityResult = validateContentPurity($, portSlug);
     const voiceQualityResult = validateVoiceQuality($('body').text());
     const uniqueNamesResult = validateUniqueNames($);
     const authorDisclaimerResult = validateAuthorDisclaimer($);
