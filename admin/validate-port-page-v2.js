@@ -351,6 +351,25 @@ const CONTENT_PURITY_BANS = [
   { pattern: /\b(YOLO|living my best life)\b/i, category: 'hype' }
 ];
 
+// Per-port allowlist for legitimate place names, landmarks, and metaphors
+// that trigger content purity bans but are factually correct.
+const CONTENT_PURITY_ALLOWLIST = {
+  'rotorua':          [{ match: /hell'?s?\s*gate/i, category: 'profanity' }],
+  'grand-cayman':     [{ match: /\bhell\b/i, category: 'profanity' }],
+  'nosy-be':          [{ match: /hell-ville/i, category: 'profanity' }],
+  'monte-carlo':      [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
+  'monaco':           [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
+  'cannes':           [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
+  // Metaphorical uses — literary language, not gambling promotion
+  'cape-horn':        [{ match: /betting\s+everything\s+on\s+hope/i, category: 'gambling' }],
+  'ellis-island':     [{ match: /betting\s+everything\s+on\s+hope/i, category: 'gambling' }],
+  // Metalworking terminology — "hammered" as a craft technique
+  '*': [
+    { match: /hammered\s+(pewter|bronze|silver|copper|brass|iron|gold|metal|tin)/i, category: 'drinking' },
+    { match: /nothing\s+wasted/i, category: 'drinking' },
+  ],
+};
+
 // Stewardship framing positive markers
 const STEWARDSHIP_MARKERS = [
   /\bworth\b/i,
@@ -1586,7 +1605,7 @@ function validateLogbookNarrative($) {
 /**
  * Validate content purity (hard bans on sin tourism, profanity, gambling, etc.)
  */
-function validateContentPurity($) {
+function validateContentPurity($, portSlug) {
   const errors = [];
   const warnings = [];
   const info = [];
@@ -1594,14 +1613,26 @@ function validateContentPurity($) {
   const fullText = $('body').text();
   const violations = [];
 
+  // Build allowlist for this port (port-specific + global '*' entries)
+  const portAllowlist = [
+    ...(CONTENT_PURITY_ALLOWLIST[portSlug] || []),
+    ...(CONTENT_PURITY_ALLOWLIST['*'] || [])
+  ];
+
   // Check for forbidden content
   for (const ban of CONTENT_PURITY_BANS) {
     const matches = fullText.match(ban.pattern);
     if (matches) {
-      violations.push({
-        category: ban.category,
-        match: matches[0]
-      });
+      // Check if this match is allowlisted for this port
+      const allowed = portAllowlist.some(
+        a => a.category === ban.category && a.match.test(matches[0])
+      );
+      if (!allowed) {
+        violations.push({
+          category: ban.category,
+          match: matches[0]
+        });
+      }
     }
   }
 
@@ -3497,7 +3528,9 @@ async function validatePortPage(filepath) {
     const portImagesResult = await validatePortImages(filepath);
     const rubricResult = validateRubric($);
     const logbookResult = validateLogbookNarrative($);
-    const contentPurityResult = validateContentPurity($);
+    // Extract port slug from filepath (e.g., ports/rotorua.html → rotorua)
+    const portSlug = basename(filepath, '.html');
+    const contentPurityResult = validateContentPurity($, portSlug);
     const voiceQualityResult = validateVoiceQuality($('body').text());
     const uniqueNamesResult = validateUniqueNames($);
     const authorDisclaimerResult = validateAuthorDisclaimer($);
