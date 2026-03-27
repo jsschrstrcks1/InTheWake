@@ -1,5 +1,5 @@
 # robots.txt for https://cruisinginthewake.com/
-# Last updated: 2026-01-07
+# Last updated: 2026-03-27
 # Purpose: Allow full indexing of public content while preventing crawl of
 #          internal assets, admin pages, and development files.
 
@@ -93,16 +93,18 @@ Allow: /sitemap*.json
 Sitemap: https://cruisinginthewake.com/sitemap.xml
 
 # Notes:
-# - All 380 port pages are indexed (updated 2026-01-31)
-# - All cruise line ship pages are indexed (15 cruise lines, 297 ships):
+# - All 387 port pages are indexed (updated 2026-03-27)
+# - All cruise line ship pages are indexed (15 cruise lines, 295 ships):
 #   Carnival, Celebrity, Costa, Cunard, Explora Journeys, HAL,
 #   MSC, Norwegian, Oceania, Princess, RCL, Regent, Seabourn,
 #   Silversea, Virgin Voyages
-# - 404 restaurant/venue pages indexed
+# - 472 restaurant/venue pages indexed (RCL root + NCL + Virgin + Carnival + MSC subdirs)
 # - Solo main pages indexed, but /solo/articles/ fragments blocked
-# - Tools (port tracker, ship tracker, ship size atlas) are indexed
+# - Tools (port tracker, ship tracker, ship size atlas, budget calculator, port day planner) indexed
 # - Asset directories (ships/*/assets/, /videos/) blocked to prevent JSON indexing
 # - Updated 2026-01-03: Expanded to 15 cruise lines, 372 ports, 294 ships
 # - Updated 2026-01-07: Added blocks for legacy carnival-cruise-line path, stub pages,
 #   and other phantom paths causing 404 errors in Google Search Console
 # - Updated 2026-01-31: Updated counts (380 ports, 297 ships, 404 restaurants, 1,154 sitemap URLs)
+# - Updated 2026-03-27: GSC audit — added 7 Alaska ports, 68 Carnival/MSC restaurants,
+#   2 tools to sitemap (1,150 → 1,227 URLs). Updated counts to match actual repo.

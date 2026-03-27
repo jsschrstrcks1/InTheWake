@@ -26,6 +26,61 @@
 
 ---
 
+## Google Search Console Audit (2026-03-27)
+
+**Source:** GSC data pulled 2026-03-23
+**Session:** claude/explore-repos-docs-YYFnR
+
+### Issues Found & Actions Taken
+
+| GSC Issue | Count | Root Cause | Action | Status |
+|-----------|-------|------------|--------|--------|
+| Crawled, not indexed | 369 | Thin content (Gen1 restaurant stubs, incomplete port pages) | See content quality plan below | Documented |
+| Page with redirect | 365 | 42 .htaccess rules catching old URLs (Carnival paths, renames, phantoms) | Audited — no chains, working as designed | DONE |
+| Not found (404) | 193 | 77 pages missing from sitemap; phantom URLs from URL restructuring | Added 77 entries to sitemap.xml (1,150 → 1,227) | DONE |
+| Blocked by robots.txt | 111 | Intentional: /assets/, /images/, /js/, /css/, /data/, *.json | Correct — no action needed | DONE |
+| Alternate canonical | 25 | Normal duplicate handling | No action needed | DONE |
+| Noindex tag | 2 | Redirect stubs (drinks.html, packing.html) | Working as designed | DONE |
+| Redirect error | 1 | Unknown specific URL — no chains found in .htaccess audit | Monitor | DONE |
+| Duplicate without canonical | 1 | Unknown specific URL | Needs GSC URL inspection | Pending |
+
+### Sitemap Update (DONE — 2026-03-27)
+
+Added 77 missing URLs to sitemap.xml:
+- **7 Alaska port pages:** college-fjord, homer, kodiak, misty-fjords, petersburg, valdez, wrangell
+- **23 Carnival restaurant pages:** alchemy-bar through the-deli
+- **45 MSC restaurant pages:** atelier-bistrot through zanzibar-buffet
+- **2 tool pages:** cruise-budget-calculator, port-day-planner
+
+Updated robots.txt comments with accurate counts (387 ports, 295 ships, 472 restaurants, 1,227 sitemap URLs).
+
+### Crawled-Not-Indexed: Content Quality Plan
+
+The 369 "crawled, not indexed" pages are primarily thin content that Google deprioritizes:
+
+| Category | Est. Count | Problem | Lane |
+|----------|-----------|---------|------|
+| Gen1 restaurant stubs | ~200+ | "Varies by venue" pricing (187), "coming soon" (18), generic reviews | Yellow |
+| Incomplete port pages | ~45 Tier 3 | Template filler removed but real content not yet written | Green/Yellow |
+| Redirect stubs | 5 | drinks.html, packing.html, falmouth-jamaica, beijing, kyoto | Done (noindex) |
+| Misc thin pages | ~10-20 | Various | TBD |
+
+**Priority actions for crawled-not-indexed:**
+1. [ ] Continue Tier 3 port content repair (45 ports in queue below)
+2. [ ] Upgrade Gen1 restaurant pages — replace "Varies by venue" with real pricing (187 pages)
+3. [ ] Remove "coming soon" placeholder text from 18 restaurant pages
+4. [ ] Replace generic "Guest Experience Summary" with authentic reviews on Gen1 pages
+
+**Solo articles — potential indexing opportunity (flagged for review):**
+7 articles in `/solo/articles/` are blocked by robots.txt as "fragments" but 3 are full-length pages:
+- `accessible-cruising.html` (44 KB)
+- `in-the-wake-of-grief.html` (33 KB)
+- `visiting-the-united-states-before-your-cruise.html` (32 KB)
+
+**Decision needed:** Are these fragments loaded into solo.html, or standalone pages that should be indexed? If standalone, they should be unblocked in robots.txt and added to sitemap.
+
+---
+
 ## Codebase Status (verified 2026-03-02)
 
 | Asset | Count |
@@ -364,7 +419,7 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] Individual ship images rendering issues
 
 ### [Y] SEO External Tools Setup
-- [ ] Set up Google Search Console
+- [x] ~~Set up Google Search Console~~ (active — GSC audit 2026-03-27, see top of file)
 - [ ] Set up Bing Webmaster Tools
 - [ ] Set up Google Analytics dashboard
 
