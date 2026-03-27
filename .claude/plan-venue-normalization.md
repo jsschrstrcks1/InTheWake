@@ -7,6 +7,54 @@
 
 ---
 
+## Anti-Model Analysis (2026-03-27)
+
+**Method:** Deep-read `the-palladium.html` (15.7KB, Gen1 entertainment stub) vs `two70.html`
+(48.5KB, Gen2 gold standard). Then sampled 38 Gen1 stubs (10%) across all 5 cruise lines.
+
+### The 8 Failure Patterns (Validated Fleet-Wide)
+
+| # | Failure | Gen1 (stub) | Gen2 (gold) | Fleet prevalence |
+|---|---------|-------------|-------------|-----------------|
+| 1 | **No venue-tags meta** | Missing | 15–25 keywords | 0/37 sampled have tags |
+| 2 | **Generic review title** | "Guest Experience Summary" | "{Venue} Review: {Specific}" | 100% NCL/Virgin/Carnival, ~50% RCL |
+| 3 | **No ship + date** | "composite account from multiple guest experiences" | "Quantum of the Seas, Sep 2024" | 0/37 have ship+date |
+| 4 | **No first-person voice** | "Grand theater design that creates an impressive atmosphere" | "you feel the vibrations in your chest" | 0/37 |
+| 5 | **"Varies by venue" pricing** | Present | Specific price or "Complimentary" | 100% NCL/Virgin/Carnival, ~50% RCL |
+| 6 | **1-sentence FAQ answers** | "Yes, complimentary." | 3–4 sentences with technical detail | 100% |
+| 7 | **No internal cross-links** | 0 ship/venue links in content | Links to ships, related venues | 0/37 |
+| 8 | **Wrong JSON-LD @type** | `"Restaurant"` for entertainment/activity venues | Should be `PerformingArtsTheater`, `SportsActivityLocation` | Widespread (fixed for 14, more remain) |
+
+### Key Insight
+
+The Palladium is not an outlier — it IS the template. Every Gen1 page is the same
+skeleton with different venue names plugged in. The failures are structural, not
+per-page. This means fixes can be systematic.
+
+### Orchestra Feedback (GPT + Grok, 2026-03-27, $0.05)
+
+**Adopted:**
+- Add feedback loop after each phase (check GSC indexing rate before scaling)
+- Prioritize internal linking alongside content upgrades (Grok, 0.8 confidence)
+- Add QA step after Phase 0 batch scripting
+
+**Considered but deferred:**
+- "Phase -1" diagnostic batch (Grok, 0.9 confidence): The 10% sample already
+  confirms the root cause is thin content + no voice + no specificity. We don't
+  need 2–4 weeks of testing to confirm what we can see. But we WILL check GSC
+  after Phase 0 before scaling Phase 1.
+- De-indexing low-value stubs (Grok, 0.7 confidence): Not yet. The pastoral
+  mission includes niche venues that serve specific travelers. We'll evaluate
+  after Phase 2 if any pages still refuse to index despite real content.
+
+**Blind spot acknowledged:**
+- Grok raised site-wide technical SEO (crawl budget, architecture) as a potential
+  root cause beyond page-level quality. We already addressed the technical layer
+  in the GSC audit (sitemap gaps fixed, no redirect chains, robots.txt clean).
+  But we should monitor crawl stats after Phase 0 to confirm.
+
+---
+
 ## Current State
 
 | Metric | Count | % of 472 |
