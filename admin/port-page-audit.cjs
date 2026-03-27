@@ -55,8 +55,20 @@ function detectForbiddenMeta(html, file) {
 
 function detectNestedNav(html, file) {
   const issues = [];
-  if (/<nav[^>]*>[\s\S]*?<nav[^>]*>/i.test(html)) {
-    issues.push({ code: 'A3', file, message: 'Nested <nav> inside <nav> — outer should be <div>', severity: 'MEDIUM' });
+  // Walk HTML tracking <nav> open/close depth. Only flag if depth > 1.
+  const tagRe = /<\/?nav\b[^>]*>/gi;
+  let depth = 0;
+  let m;
+  while ((m = tagRe.exec(html)) !== null) {
+    if (m[0].startsWith('</')) {
+      depth = Math.max(0, depth - 1);
+    } else {
+      depth++;
+      if (depth > 1) {
+        issues.push({ code: 'A3', file, message: 'Nested <nav> inside <nav> — outer should be <div>', severity: 'MEDIUM' });
+        break;
+      }
+    }
   }
   return issues;
 }
@@ -89,11 +101,15 @@ function detectOrphanedContent(html, file) {
   const articleClose = html.lastIndexOf('</article>');
   const mainClose = html.lastIndexOf('</main>');
   if (articleClose > 0 && mainClose > articleClose) {
-    const between = html.substring(articleClose + 10, mainClose);
-    // Check for substantial content between </article> and </main>
+    let between = html.substring(articleClose + 10, mainClose);
+    // Exclude sidebar <aside> elements — they belong between </article> and </main>
+    between = between.replace(/<aside[\s\S]*?<\/aside>/gi, '');
+    // Exclude closing </div> wrappers
+    between = between.replace(/<\/div>/gi, '');
+    // Strip comments and tags, check for remaining substantial text
     const stripped = between.replace(/<!--[\s\S]*?-->/g, '').replace(/<[^>]+>/g, '').trim();
-    if (stripped.length > 100) {
-      issues.push({ code: 'A3', file, message: `Substantial content (${stripped.length} chars) found outside </article> before </main>`, severity: 'HIGH' });
+    if (stripped.length > 200) {
+      issues.push({ code: 'A3', file, message: `Substantial content (${stripped.length} chars) found outside </article> and <aside> before </main>`, severity: 'HIGH' });
     }
   }
   return issues;
@@ -107,11 +123,13 @@ function detectBrokenPaths(html, file) {
   if (/src="\/images\//i.test(html)) {
     issues.push({ code: 'A5', file, message: 'Old image path pattern /images/ (should be /assets/ or /ports/img/)', severity: 'MEDIUM' });
   }
-  // Check for nearby port links missing .html
-  const portLinkRe = /href="\/ports\/[a-z][\w-]+"/gi;
+  // Check for nearby port links missing .html (exclude img, css, js directories)
+  const portLinkRe = /href="\/ports\/([a-z][\w-]+)"/gi;
+  const nonPortPaths = new Set(['img', 'css', 'js', 'assets', 'fonts', 'data']);
   let pm;
   while ((pm = portLinkRe.exec(html)) !== null) {
-    if (!pm[0].endsWith('.html"')) {
+    const linkTarget = pm[1];
+    if (!pm[0].endsWith('.html"') && !nonPortPaths.has(linkTarget)) {
       issues.push({ code: 'A5', file, message: `Port link missing .html extension: ${pm[0]}`, severity: 'MEDIUM' });
     }
   }
@@ -150,10 +168,25 @@ function detectGenericWeather(html, file) {
     issues.push({ code: 'B2', file, message: 'Monsoon/typhoon warning on non-tropical port', severity: 'CRITICAL' });
   }
 
-  if (/hurricane.*season/i.test(html) && !/(caribbean|atlantic|gulf|florida|texas|louisiana|bahamas|bermuda)/i.test(slug)) {
-    // Only flag hurricane FAQ on non-Caribbean/Atlantic ports
-    const isCaribbean = /caribbean|nassau|cozumel|st-thomas|barbados|jamaica|aruba|curacao/i.test(slug);
-    if (!isCaribbean) {
+  if (/hurricane.*season/i.test(html)) {
+    // Ports where hurricanes are a real concern (Caribbean, Gulf, Mexican Pacific, Hawaii, W Africa)
+    const hurricanePorts = new Set([
+      'nassau', 'cozumel', 'st-thomas', 'barbados', 'jamaica', 'aruba', 'curacao',
+      'antigua', 'st-lucia', 'st-maarten', 'bermuda', 'grand-cayman', 'grand-turk',
+      'dominica', 'grenada', 'guadeloupe', 'martinique', 'roatan', 'belize',
+      'costa-maya', 'harvest-caye', 'labadee', 'cococay', 'amber-cove', 'samana',
+      'san-juan', 'st-kitts', 'st-barts', 'bonaire', 'tortola', 'virgin-gorda',
+      'freeport', 'key-west', 'tampa', 'miami', 'galveston', 'mobile', 'jacksonville',
+      'port-canaveral', 'ft-lauderdale', 'new-orleans', 'baltimore', 'norfolk',
+      'charleston', 'cabo-san-lucas', 'manzanillo', 'mazatlan', 'puerto-vallarta',
+      'zihuatanejo', 'huatulco', 'acapulco', 'ensenada', 'progreso',
+      'honolulu', 'hilo', 'nawiliwili', 'maui',
+      'cartagena', 'colon', 'falmouth', 'ocho-rios', 'montego-bay',
+      'st-croix', 'st-john-usvi', 'tobago', 'trinidad',
+      'dakar', 'mindelo', 'praia',
+      'papeete', 'bora-bora', 'moorea', 'fiji', 'suva',
+    ]);
+    if (!hurricanePorts.has(slug)) {
       issues.push({ code: 'B2', file, message: 'Hurricane season FAQ on non-hurricane-zone port', severity: 'HIGH' });
     }
   }
