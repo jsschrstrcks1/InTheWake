@@ -552,26 +552,46 @@ async function validateSiteIntegration(filepath) {
 }
 
 /**
- * Validate ICP-Lite v1.4 compliance
+ * Validate ICP-2 v2.1 compliance (upgraded from ICP-Lite v1.4)
+ *
+ * Key changes from ICP-Lite v1.4:
+ * - Protocol: accepts both "ICP-Lite v1.4" (migration) and "ICP-2"
+ * - JSON-LD description: relaxed from exact match to consistent meaning
+ * - Added: meta description, canonical URL, OpenGraph validation
+ * - Added: forbidden pattern checks (meta keywords, ai-breadcrumbs, geo tags)
+ * - Added: static HTML content check, volatile data discipline
+ * - Changed: mainEntity type from "Place" to "TouristDestination" for ports
  */
-function validateICPLite($, html) {
+function validateICP2($, html) {
   const errors = [];
   const warnings = [];
   const info = [];
 
+  // ── A. Required Head Meta Tags ──────────────────────────────────────
   const aiSummary = $('meta[name="ai-summary"]').attr('content') || '';
   const lastReviewed = $('meta[name="last-reviewed"]').attr('content') || '';
   const protocol = $('meta[name="content-protocol"]').attr('content') || '';
+  const metaDescription = $('meta[name="description"]').attr('content') || '';
 
-  if (protocol !== 'ICP-Lite v1.4') {
+  // Protocol: accept both during migration, warn on old version
+  if (protocol && protocol !== 'ICP-2' && protocol !== 'ICP-Lite v1.4') {
     errors.push({
       section: 'icp_lite',
       rule: 'protocol_version',
-      message: `Invalid content-protocol. Expected "ICP-Lite v1.4", found "${protocol}"`,
+      message: `Invalid content-protocol. Expected "ICP-2" or "ICP-Lite v1.4" (migration), found "${protocol}"`,
       severity: 'BLOCKING'
     });
   }
+  if (protocol === 'ICP-Lite v1.4') {
+    info.push({
+      section: 'icp_lite',
+      rule: 'protocol_migration',
+      message: 'Page uses ICP-Lite v1.4 — update to ICP-2 when next editing this page',
+      severity: 'INFO'
+    });
+  }
 
+  // ai-summary validation (unchanged from v1.4)
   if (!aiSummary) {
     errors.push({
       section: 'icp_lite',
@@ -595,6 +615,17 @@ function validateICPLite($, html) {
     });
   }
 
+  // meta description validation (NEW in ICP-2)
+  if (!metaDescription) {
+    warnings.push({
+      section: 'icp_lite',
+      rule: 'missing_meta_description',
+      message: 'meta description tag is missing — required by ICP-2',
+      severity: 'WARNING'
+    });
+  }
+
+  // last-reviewed validation (unchanged from v1.4)
   if (!lastReviewed) {
     errors.push({
       section: 'icp_lite',
@@ -610,7 +641,6 @@ function validateICPLite($, html) {
       severity: 'BLOCKING'
     });
   } else {
-    // Staleness detection (cross-pollinated from venue validator W05)
     const reviewed = new Date(lastReviewed);
     const daysDiff = (new Date() - reviewed) / (1000 * 60 * 60 * 24);
     if (daysDiff > 180) {
@@ -623,6 +653,66 @@ function validateICPLite($, html) {
     }
   }
 
+  // ── B. Canonical URL (NEW in ICP-2) ─────────────────────────────────
+  const canonical = $('link[rel="canonical"]').attr('href') || '';
+  if (!canonical) {
+    warnings.push({
+      section: 'icp_lite',
+      rule: 'missing_canonical',
+      message: 'Missing canonical URL — required by ICP-2',
+      severity: 'WARNING'
+    });
+  }
+
+  // ── C. OpenGraph Tags (NEW in ICP-2, required for public sites) ─────
+  const ogTitle = $('meta[property="og:title"]').attr('content') || '';
+  const ogDescription = $('meta[property="og:description"]').attr('content') || '';
+  const ogUrl = $('meta[property="og:url"]').attr('content') || '';
+  if (!ogTitle || !ogDescription || !ogUrl) {
+    const missing = [];
+    if (!ogTitle) missing.push('og:title');
+    if (!ogDescription) missing.push('og:description');
+    if (!ogUrl) missing.push('og:url');
+    warnings.push({
+      section: 'icp_lite',
+      rule: 'missing_opengraph',
+      message: `Missing OpenGraph tags: ${missing.join(', ')} — required by ICP-2 for public sites`,
+      severity: 'WARNING'
+    });
+  }
+
+  // ── D. Forbidden Patterns (NEW in ICP-2) ────────────────────────────
+  const metaKeywords = $('meta[name="keywords"]').attr('content');
+  if (metaKeywords !== undefined) {
+    warnings.push({
+      section: 'icp_lite',
+      rule: 'forbidden_meta_keywords',
+      message: 'meta keywords tag is present — forbidden by ICP-2 (dead since 2009, remove it)',
+      severity: 'WARNING'
+    });
+  }
+
+  const geoRegion = $('meta[name="geo.region"]').attr('content');
+  const geoPlacename = $('meta[name="geo.placename"]').attr('content');
+  if (geoRegion !== undefined || geoPlacename !== undefined) {
+    warnings.push({
+      section: 'icp_lite',
+      rule: 'forbidden_geo_meta',
+      message: 'geo.region/geo.placename meta tags are present — forbidden by ICP-2 (irrelevant, remove them)',
+      severity: 'WARNING'
+    });
+  }
+
+  if (html.includes('<!-- ai-breadcrumb')) {
+    warnings.push({
+      section: 'icp_lite',
+      rule: 'forbidden_ai_breadcrumbs',
+      message: 'ai-breadcrumbs HTML comments found — forbidden by ICP-2 (no crawler reads them)',
+      severity: 'WARNING'
+    });
+  }
+
+  // ── E. JSON-LD Structured Data ──────────────────────────────────────
   const jsonldScripts = $('script[type="application/ld+json"]');
   let hasWebPage = false;
   let hasFAQPage = false;
@@ -630,6 +720,7 @@ function validateICPLite($, html) {
   let webPageDateModified = '';
   let webPageDescription = '';
   let hasMainEntity = false;
+  let mainEntityType = '';
 
   jsonldScripts.each((i, elem) => {
     try {
@@ -640,7 +731,10 @@ function validateICPLite($, html) {
         hasWebPage = true;
         webPageDateModified = data.dateModified || '';
         webPageDescription = data.description || '';
-        hasMainEntity = !!data.mainEntity;
+        if (data.mainEntity) {
+          hasMainEntity = true;
+          mainEntityType = data.mainEntity['@type'] || '';
+        }
       }
       if (data['@type'] === 'FAQPage') {
         hasFAQPage = true;
@@ -675,24 +769,42 @@ function validateICPLite($, html) {
     });
   }
   if (!hasBreadcrumbs) {
-    errors.push({
+    warnings.push({
       section: 'icp_lite',
       rule: 'missing_breadcrumbs',
-      message: 'Missing BreadcrumbList JSON-LD schema',
-      severity: 'BLOCKING'
+      message: 'Missing BreadcrumbList JSON-LD schema — recommended by ICP-2',
+      severity: 'WARNING'
     });
   }
 
+  // mainEntity: accept both "Place" (migration) and "TouristDestination" (ICP-2)
   if (!hasMainEntity) {
     errors.push({
       section: 'icp_lite',
       rule: 'missing_mainentity',
-      message: 'WebPage JSON-LD must have mainEntity of type "Place" for port pages',
+      message: 'WebPage JSON-LD must have mainEntity (TouristDestination for port pages)',
       severity: 'BLOCKING'
+    });
+  } else if (mainEntityType && mainEntityType !== 'TouristDestination' && mainEntityType !== 'Place') {
+    warnings.push({
+      section: 'icp_lite',
+      rule: 'mainentity_type',
+      message: `mainEntity @type is "${mainEntityType}" — ICP-2 recommends "TouristDestination" for port pages`,
+      severity: 'WARNING'
+    });
+  } else if (mainEntityType === 'Place') {
+    info.push({
+      section: 'icp_lite',
+      rule: 'mainentity_migration',
+      message: 'mainEntity uses "Place" — update to "TouristDestination" when next editing',
+      severity: 'INFO'
     });
   }
 
-  if (webPageDateModified !== lastReviewed) {
+  // ── F. Cross-Validation ─────────────────────────────────────────────
+
+  // dateModified must still exactly match last-reviewed (data integrity)
+  if (hasWebPage && webPageDateModified && webPageDateModified !== lastReviewed) {
     errors.push({
       section: 'icp_lite',
       rule: 'datemodified_mismatch',
@@ -701,15 +813,58 @@ function validateICPLite($, html) {
     });
   }
 
-  const normalizedSummary = aiSummary.replace(/\s+/g, ' ').trim();
-  const normalizedDescription = webPageDescription.replace(/\s+/g, ' ').trim();
-  if (normalizedDescription !== normalizedSummary) {
-    errors.push({
+  // ICP-2 v2.1: RELAXED from exact match to consistent meaning
+  // Check that ai-summary and JSON-LD description share key facts
+  if (hasWebPage && aiSummary && webPageDescription) {
+    const summaryWords = extractKeyFacts(aiSummary);
+    const descriptionWords = extractKeyFacts(webPageDescription);
+
+    // Check that at least 40% of key facts from ai-summary appear in description
+    const overlap = summaryWords.filter(w => descriptionWords.includes(w));
+    const overlapRatio = summaryWords.length > 0 ? overlap.length / summaryWords.length : 1;
+
+    if (overlapRatio < 0.4) {
+      errors.push({
+        section: 'icp_lite',
+        rule: 'description_mismatch',
+        message: `WebPage description is inconsistent with ai-summary (${Math.round(overlapRatio * 100)}% fact overlap, need 40%+)`,
+        severity: 'BLOCKING'
+      });
+    } else if (overlapRatio < 0.6) {
+      warnings.push({
+        section: 'icp_lite',
+        rule: 'description_weak_consistency',
+        message: `WebPage description has weak consistency with ai-summary (${Math.round(overlapRatio * 100)}% overlap)`,
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // ── G. Static HTML Content Check (NEW in ICP-2) ─────────────────────
+  // Check that key content is not behind JS rendering
+  const jsOnlyContent = $('template, [v-if], [ng-if], [x-show]');
+  if (jsOnlyContent.length > 5) {
+    warnings.push({
       section: 'icp_lite',
-      rule: 'description_mismatch',
-      message: 'WebPage description must match ai-summary meta tag',
-      severity: 'BLOCKING'
+      rule: 'js_hidden_content',
+      message: `${jsOnlyContent.length} elements use JS-conditional rendering — ICP-2 requires key content in static HTML`,
+      severity: 'WARNING'
     });
+  }
+
+  // ── H. Volatile Data Discipline (NEW in ICP-2) ──────────────────────
+  const hasVolatilePrices = /\$\d+|\€\d+|£\d+/i.test(html);
+  if (hasVolatilePrices) {
+    const hasAsOfDate = /as of \d{4}-\d{2}-\d{2}/i.test(html);
+    const hasSubjectToChange = /subject to change/i.test(html);
+    if (!hasAsOfDate && !hasSubjectToChange) {
+      warnings.push({
+        section: 'icp_lite',
+        rule: 'volatile_data_undated',
+        message: 'Page contains price data but no "as of YYYY-MM-DD" or "subject to change" disclaimer — ICP-2 volatile data discipline',
+        severity: 'WARNING'
+      });
+    }
   }
 
   return {
@@ -718,12 +873,39 @@ function validateICPLite($, html) {
     warnings,
     info,
     data: {
-      protocol_version: protocol,
+      protocol_version: protocol || 'ICP-2',
       ai_summary_length: aiSummary.length,
       last_reviewed: lastReviewed,
-      has_mainEntity: hasMainEntity
+      has_mainEntity: hasMainEntity,
+      mainEntity_type: mainEntityType,
+      has_canonical: !!canonical,
+      has_opengraph: !!(ogTitle && ogDescription && ogUrl)
     }
   };
+}
+
+/**
+ * Extract key facts (nouns, numbers, proper names) from a text string
+ * for consistent-meaning comparison. Strips stop words and returns
+ * lowercase significant words.
+ */
+function extractKeyFacts(text) {
+  const stopWords = new Set(['a', 'an', 'the', 'is', 'are', 'was', 'were', 'be',
+    'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would',
+    'shall', 'should', 'may', 'might', 'must', 'can', 'could', 'of', 'in', 'to',
+    'for', 'with', 'on', 'at', 'from', 'by', 'about', 'as', 'into', 'through',
+    'during', 'before', 'after', 'above', 'below', 'between', 'and', 'but', 'or',
+    'nor', 'not', 'so', 'yet', 'both', 'either', 'neither', 'each', 'every',
+    'all', 'any', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'only',
+    'own', 'same', 'than', 'too', 'very', 'just', 'also', 'its', 'it', 'this',
+    'that', 'these', 'those', 'i', 'we', 'you', 'he', 'she', 'they', 'me', 'us',
+    'him', 'her', 'them', 'my', 'our', 'your', 'his', 'their', 'what', 'which',
+    'who', 'whom', 'how', 'when', 'where', 'why', 'here', 'there', 'up', 'out']);
+
+  return text.toLowerCase()
+    .replace(/[^\w\s$€£]/g, ' ')
+    .split(/\s+/)
+    .filter(w => w.length > 2 && !stopWords.has(w));
 }
 
 /**
@@ -3135,7 +3317,7 @@ function validateJsonLdGeoCoordinates($) {
 
       checkGeo(data, 'root');
     } catch (e) {
-      // Parse errors already caught by validateICPLite — skip here
+      // Parse errors already caught by validateICP2 — skip here
     }
   });
 
@@ -3490,7 +3672,7 @@ async function validatePortPage(filepath) {
 
     // Run all validations
     const analyticsResult = validateAnalytics($, html);
-    const icpResult = validateICPLite($, html);
+    const icpResult = validateICP2($, html);
     const sectionResult = validateSectionOrder($);
     const wordResult = validateWordCounts($);
     const imageResult = validateImages($);
