@@ -176,20 +176,21 @@ function fixCanonicalHtml(html, file) {
 }
 
 function fixOgImagePath(html, file) {
-  // Fix old /images/ paths in og:image to /assets/social/
+  // Fix old /images/ paths in og:image to the existing generic social image
+  // All passing pages use /assets/social/port-hero.jpg
   let fixed = html;
   let changed = false;
 
   fixed = fixed.replace(
-    /(property="og:image"\s+content=")[^"]*\/images\/([^"]+)"/gi,
-    (match, prefix, filename) => {
+    /(property="og:image"\s+content=")[^"]*\/images\/[^"]+"/gi,
+    (match, prefix) => {
       changed = true;
-      return `${prefix}/assets/social/${filename}"`;
+      return `${prefix}https://cruisinginthewake.com/assets/social/port-hero.jpg"`;
     }
   );
 
   if (changed) {
-    log(file, 2, 'Fixed OG image path from /images/ to /assets/social/');
+    log(file, 2, 'Fixed OG image path from broken /images/ to /assets/social/port-hero.jpg');
   }
   return fixed;
 }
