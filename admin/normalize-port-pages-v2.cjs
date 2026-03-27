@@ -58,7 +58,10 @@ const OUT_OF_ORDER_PAGES = new Set([
   'kagoshima.html', 'cococay.html', 'picton.html', 'sharm-el-sheikh.html',
   'doha.html', 'trinidad.html', 'tobago.html', 'st-john-usvi.html',
   'santa-marta.html', 'tauranga.html', 'rotorua.html', 'papeete.html',
-  'torshavn.html'
+  'torshavn.html', 'ponta-delgada.html', 'port-elizabeth.html',
+  'punta-del-este.html', 'ravenna.html', 'saguenay.html', 'scotland.html',
+  'st-croix.html', 'sydney-ns.html', 'tangier.html', 'tunis.html',
+  'vigo.html', 'waterford.html'
 ]);
 
 // Pages with template filler
