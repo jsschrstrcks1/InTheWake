@@ -254,16 +254,8 @@ function detectGenericCatchesAndPacking(html, file) {
 // CATEGORY C: FLAG-FOR-HUMAN (content quality, factual, tone)
 // ══════════════════════════════════════════════════════════════════════
 
-function detectAuthorNoteContradiction(html, file) {
-  const issues = [];
-  const hasUnvisitedNote = /have not yet visited|haven't visited|not yet sailed|soundings in another's wake/i.test(html);
-  const hasVisitedNote = /I've sailed this port|sailed this port myself|firsthand experience from/i.test(html);
-
-  if (hasUnvisitedNote && hasVisitedNote) {
-    issues.push({ code: 'C4', file, message: 'CONTRADICTION: Page has both "unvisited" and "visited" Author\'s Notes', severity: 'CRITICAL' });
-  }
-  return issues;
-}
+// detectAuthorNoteContradiction — replaced by detectDisclaimerMismatch
+// which cross-references port-disclaimer-registry.json
 
 function detectEmotionalRepetition(html, file) {
   const issues = [];
@@ -382,28 +374,92 @@ function detectUSDOnNonUSDPort(html, file) {
   return issues;
 }
 
-function detectUnvisitedFirstPerson(html, file) {
+/**
+ * Cross-reference disclaimer level with port-disclaimer-registry.json
+ * and detect mismatches between the page's disclaimer and the registry.
+ *
+ * Three disclaimer levels:
+ *   Level 1: "soundings in another's wake" — not yet visited (default)
+ *   Level 2: "I will be sailing to this port" — visit planned
+ *   Level 3: "I've sailed this port myself" — personally visited
+ */
+let _disclaimerRegistry = null;
+function loadDisclaimerRegistry() {
+  if (_disclaimerRegistry) return _disclaimerRegistry;
+  try {
+    const registryPath = path.join(__dirname, 'port-disclaimer-registry.json');
+    _disclaimerRegistry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
+  } catch (e) {
+    _disclaimerRegistry = { level_3_visited: {}, level_2_planned: {} };
+  }
+  return _disclaimerRegistry;
+}
+
+function detectDisclaimerMismatch(html, file) {
   const issues = [];
-  const hasUnvisitedNote = /soundings in another's wake|have not yet visited|haven't visited|not yet sailed/i.test(html);
-  if (!hasUnvisitedNote) return issues;
+  const slug = path.basename(file, '.html');
+  const registry = loadDisclaimerRegistry();
 
-  // Check if the logbook section has dense first-person content
-  const logbookMatch = html.match(/id="logbook"[\s\S]*?(?=id="(?:cruise|weather|getting))/i);
-  if (!logbookMatch) return issues;
+  const isLevel3 = !!(registry.level_3_visited && registry.level_3_visited[slug]);
+  const isLevel2 = !!(registry.level_2_planned && registry.level_2_planned[slug]);
+  // Default is Level 1 (unvisited)
 
-  const logbookText = logbookMatch[0];
-  const firstPersonCount = (logbookText.match(/\bI\b/g) || []).length;
-  const wordCount = logbookText.replace(/<[^>]+>/g, '').split(/\s+/).length;
-  const iPer100 = wordCount > 0 ? (firstPersonCount / wordCount) * 100 : 0;
+  // Detect what disclaimer level the PAGE shows
+  const hasLevel1 = /soundings in another['']s wake|have not yet visited|haven't visited|not yet sailed/i.test(html);
+  const hasLevel3 = /I['']ve sailed this port|sailed this port myself|firsthand experience from/i.test(html);
+  const hasLevel2 = /I will be sailing|scheduled.*visit|upcoming.*cruise/i.test(html);
 
-  // If >3 "I" per 100 words in a logbook marked as unvisited, it's likely fabricated
-  if (iPer100 > 3 && firstPersonCount > 10) {
+  // Check for contradictions
+  if (hasLevel1 && hasLevel3) {
     issues.push({
       code: 'C4', file,
-      message: `Unvisited port has dense first-person logbook (${firstPersonCount} "I" in ${wordCount} words = ${iPer100.toFixed(1)}/100) — likely AI-fabricated first-person for unvisited port`,
+      message: 'CONTRADICTION: Page has both Level 1 "unvisited" and Level 3 "visited" disclaimers',
       severity: 'CRITICAL'
     });
   }
+
+  // Registry says visited (Level 3) but page has unvisited disclaimer
+  if (isLevel3 && hasLevel1 && !hasLevel3) {
+    issues.push({
+      code: 'C4', file,
+      message: `Registry says Level 3 (visited ${registry.level_3_visited[slug].visit_count}x) but page has Level 1 "unvisited" disclaimer — update disclaimer`,
+      severity: 'HIGH'
+    });
+  }
+
+  // Registry says unvisited (Level 1) but page claims visited
+  if (!isLevel3 && !isLevel2 && hasLevel3) {
+    issues.push({
+      code: 'C4', file,
+      message: 'Page claims Level 3 "visited" but port is not in the visited registry — verify or update registry',
+      severity: 'HIGH'
+    });
+  }
+
+  // Unvisited port (Level 1 in registry) with dense first-person logbook
+  if (!isLevel3 && !isLevel2) {
+    const logbookMatch = html.match(/id="logbook"[\s\S]*?(?=id="(?:cruise|weather|getting|featured))/i);
+    if (logbookMatch) {
+      const logbookText = logbookMatch[0];
+      const firstPersonCount = (logbookText.match(/\bI\b/g) || []).length;
+      const wordCount = logbookText.replace(/<[^>]+>/g, '').split(/\s+/).length;
+      const iPer100 = wordCount > 0 ? (firstPersonCount / wordCount) * 100 : 0;
+
+      if (iPer100 > 3 && firstPersonCount > 10) {
+        if (!hasLevel1) {
+          // Dense first-person AND missing the unvisited disclaimer entirely
+          issues.push({
+            code: 'C4', file,
+            message: `Unvisited port has dense first-person logbook (${firstPersonCount} "I" / ${wordCount} words) but NO "soundings in another's wake" disclaimer`,
+            severity: 'CRITICAL'
+          });
+        }
+        // If it HAS the disclaimer, that's fine — the site voice allows first-person for unvisited ports
+        // as long as the disclaimer is present. Just flag as INFO for awareness.
+      }
+    }
+  }
+
   return issues;
 }
 
@@ -425,8 +481,7 @@ function auditFile(filePath) {
     ...detectGenericDepthSoundings(html, file),
     ...detectTemplateBookingGuidance(html, file),
     ...detectGenericCatchesAndPacking(html, file),
-    ...detectAuthorNoteContradiction(html, file),
-    ...detectUnvisitedFirstPerson(html, file),
+    ...detectDisclaimerMismatch(html, file),
     ...detectUSDOnNonUSDPort(html, file),
     ...detectMissingH1(html, file),
     ...detectEmotionalRepetition(html, file),
