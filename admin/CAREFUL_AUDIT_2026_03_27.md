@@ -1,7 +1,7 @@
 # Port Page Normalization — Careful-Not-Clever Audit
 
 **Date:** 2026-03-27
-**Auditor:** Claude (self-audit, post-session)
+**Auditor:** Claude (self-audit + deep agent audit, post-session)
 **Session work:** 337 → 369 valid (87.1% → 95.3% after main merge)
 
 ---
@@ -10,14 +10,59 @@
 
 | Category | Status | Details |
 |----------|--------|---------|
-| HTML Structural Integrity | **PASS** | All 10 sampled pages have balanced tags |
+| HTML Structural Integrity | **FAIL** | Vigo has duplicate sections; S. Shetland has broken CSS + missing summary tags |
 | Forbidden Content | **PASS** | No forbidden words introduced by our work |
-| Factual Accuracy | **CONCERN** | AI-generated content not independently verified |
+| Factual Accuracy | **CONCERN** | Several questionable claims (Saguenay fjord, Torres del Paine distance, Pardo title) |
 | Voice Consistency | **PASS** | Content matches existing first-person cruise tone |
-| Template Duplication | **FAIL** | 31 pages have identical booking guidance paragraph |
+| Template Duplication | **FAIL** | 31 pages identical booking guidance + generic Depth Soundings/FAQ boilerplate |
 | Emotional Marker Diversity | **CONCERN** | Same phrases overused across pages |
 | ICP-2 Upgrade | **LOST** | Overwritten by main merge (needs re-application) |
 | Validator Compliance | **PASS** | 369/387 valid post-merge |
+
+---
+
+## CRITICAL ISSUES (Immediate Action Required)
+
+### 1. Vigo — Duplicate Sections
+The page has TWO Cruise Port sections, TWO Getting Around sections, TWO Excursions
+sections. Agent-added content was appended without removing originals. Also has
+inconsistent oyster pricing (€1 vs €3 in different sections of the same page).
+
+### 2. South Shetland Islands — Structural Bugs
+- **Broken CSS path**: `/assets/assets/styles.css` (double "assets" — page renders unstyled)
+- Multiple `<details>` elements missing required `<summary>` child tags
+- FAQ section misplaced inside sidebar `<aside>`
+- Title says "2025" instead of "2026"
+- Luis Pardo incorrectly called "pilot" (should be "naval officer/captain")
+
+### 3. Punta Arenas — Duplicate Cruise Port
+Two separate Cruise Port sections (`id="cruise-port"` and `id="cruise_port"`).
+
+### 4. Generic Template Content in Wrong Ports
+- Saguenay and Saint John weather templates list "Snorkeling" as an activity
+  (nonsensical for sub-Arctic/Maritime Canada)
+- Generic Depth Soundings boilerplate ("Tap water safety varies by destination")
+  used on Punta Arenas where tap water is perfectly safe
+
+---
+
+## Deep Audit Results (6-Page Sample)
+
+| Page | Factual | Structure | Voice | Forbidden | Duplicates | **Verdict** |
+|------|---------|-----------|-------|-----------|------------|-------------|
+| Kusadasi | PASS | PASS | PASS | PASS | Minor | **PASS** |
+| Saguenay | CONCERN | CONCERN | PASS | PASS | Template | **CONCERN** |
+| Saint John | PASS | Minor | PASS | PASS | Template | **PASS** |
+| Vigo | CONCERN | FAIL | PASS | PASS | SEVERE | **FAIL** |
+| Punta Arenas | CONCERN | CONCERN | PASS | PASS | Template | **CONCERN** |
+| S. Shetland | CONCERN | FAIL | PASS | PASS | Minor | **FAIL** |
+
+### Factual Concerns Found
+- Saguenay: "North America's only navigable fjord" — questionable (Alaska has navigable fjords)
+- Saguenay: Jacques Cartier "sailed [the Saguenay] in 1535" — conflates St. Lawrence exploration
+- Saguenay: Graben "200 million years ago" — closer to 175 million (Jurassic)
+- Punta Arenas: Torres del Paine "250 km north" — actually ~350 km by road
+- S. Shetland: Luis Pardo called "pilot" — was a naval captain
 
 ---
 
