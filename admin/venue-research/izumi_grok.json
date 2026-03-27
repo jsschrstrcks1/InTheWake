@@ -1,0 +1,21 @@
+{
+  "analysis": {
+    "logical_flow": "The content is a straightforward request for verified facts about Izumi Sushi and Hibachi on Royal Caribbean, presented in a clear and direct manner. The structure of the request is logical, with specific fields outlined for the response, ensuring clarity in expectations.",
+    "organization": "The request is well-organized, listing required fields in a systematic way (e.g., venue_name, price, hours, etc.). However, it lacks an introductory context or explanation of why the information is needed, which could provide additional clarity for the responder. The instruction to respond only in JSON is clear but could be better integrated into the flow of the request to avoid seeming abrupt.",
+    "coherence": "The content is coherent, with each part of the request aligning with the overall purpose of gathering specific information. The use of terms like 'UNSURE' for uncertain data and the prohibition on inventing facts adds to the coherence by setting strict boundaries for the response. However, the abrupt transition to the JSON-only instruction slightly disrupts the tone and flow.",
+    "structural_weaknesses": [
+      "Lack of contextual introduction: The request dives directly into the demand for information without providing background or purpose, which might make it feel incomplete or overly directive.",
+      "Abrupt tone in JSON instruction: The 'Respond ONLY with valid JSON' directive, while clear, feels disconnected from the rest of the text and could be softened or better integrated.",
+      "No prioritization of fields: The request lists multiple fields but does not indicate if some are more critical than others, which could help focus the response."
+    ]
+  },
+  "proposed_update": {
+    "revised_content": "I am seeking verified facts about Izumi Sushi and Hibachi on Royal Caribbean for a project/report/review. Below are the specific fields I need information on. Please respond only in valid JSON format (no markdown or extra text) with the following fields: 'venue_name', 'price' (exact USD cover charge or surcharge, or 'Included' or 'Complimentary'), 'price_confidence' (HIGH/MEDIUM/LOW), 'hours' (meal periods), 'dress_code', 'reservations' (required/recommended/walk-in), 'cuisine_type', 'ships_available' (list of specific ship names), 'ships_confidence' (HIGH/MEDIUM/LOW), 'signature_dishes' (2-3 items), 'what_makes_it_unique' (1-2 sentences), 'warnings' (list any facts you are uncertain about). If unsure about any field, please write 'UNSURE' for that field. Do not invent facts.",
+    "rationale": "Adding a brief introductory sentence provides context and purpose, improving the tone and flow of the request. Integrating the JSON instruction into the main body of the text makes it feel less abrupt. The structure remains unchanged to maintain clarity, but the tone is softened for better engagement."
+  },
+  "risks": [
+    "Adding context might slightly increase the length of the request, potentially diluting the directness that the original structure provides.",
+    "If the responder is strictly focused on brevity, the added introduction might be seen as unnecessary."
+  ],
+  "confidence": 0.85
+}
