@@ -3629,7 +3629,42 @@ async function validatePortPage(filepath) {
       return results;
     }
 
-    // Run all validations
+    // Skip port-specific validation for non-port pages (hub, regional-overview, scenic-passage)
+    // These pages live in /ports/ but aren't individual port destinations.
+    // Per orchestra review (GPT+Gemini+Grok): reclassify, don't force port validation.
+    const pageType = $('meta[name="page-type"]').attr('content') || 'port';
+    if (pageType !== 'port') {
+      results.info.push({
+        section: 'page_type',
+        rule: 'non_port_page',
+        message: `Non-port page (type: ${pageType}) — port-specific validation skipped. Basic checks only.`,
+        severity: 'INFO'
+      });
+      // Run only basic checks: analytics, ICP, content purity
+      const analyticsResult = validateAnalytics($, html);
+      const icpResult = validateICPLite($, html);
+      const portSlug = basename(filepath, '.html');
+      const contentPurityResult = validateContentPurity($, portSlug);
+
+      // Collect errors from basic checks only
+      for (const result of [analyticsResult, icpResult, contentPurityResult]) {
+        if (result.errors) {
+          for (const e of result.errors) {
+            if (e.severity === 'BLOCKING') {
+              results.blocking_errors.push(e);
+              results.score = Math.max(0, results.score - 10);
+            }
+          }
+        }
+        if (result.warnings) results.warnings.push(...result.warnings);
+      }
+
+      results.valid = results.blocking_errors.length === 0;
+      results.icp_lite = icpResult.data;
+      return results;
+    }
+
+    // Run all validations (port pages only)
     const analyticsResult = validateAnalytics($, html);
     const icpResult = validateICPLite($, html);
     const sectionResult = validateSectionOrder($);
