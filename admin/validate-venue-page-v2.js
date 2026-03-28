@@ -33,6 +33,9 @@
  *   W03  Missing author card / right rail
  *   W04  Missing OG/Twitter image tags
  *   W05  Stale last-reviewed date (>180 days)
+ *   W06  Missing ship+date attribution in logbook
+ *   W07  Missing Pro Tips section
+ *   W08  Generic "Guest Experience Summary" review title
  *
  * Usage:
  *   node admin/validate-venue-page-v2.js <path-to-venue.html>
@@ -867,6 +870,7 @@ class VenueValidator {
 
     // Voice quality (Like-a-Human)
     this.checkVoiceQuality();             // V01-V06
+    this.checkContentDepth();             // W06-W08
 
     // Quality warnings
     this.checkVenueSpecificImages();      // W01
@@ -919,6 +923,32 @@ class VenueValidator {
         this.warn(w.rule, w.message);
       }
     }
+  }
+
+  // ── W06-W08: Content Depth Checks (added 2026-03-28) ────────────────────
+  checkContentDepth() {
+    // W06: Missing ship+date attribution in logbook
+    const logbookMatch = this.html.match(/id="logbook"[\s\S]*?<\/section>/);
+    if (logbookMatch) {
+      const logbook = logbookMatch[0];
+      const hasShipDate = /(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+20\d{2}/.test(logbook);
+      if (hasShipDate)
+        this.pass('W06', 'Ship+date attribution present in logbook');
+      else
+        this.warn('W06', 'No ship+date attribution in logbook (e.g., "Symphony of the Seas · Oct 2024")');
+    }
+
+    // W07: No Pro Tips
+    if (this.has('Pro Tip'))
+      this.pass('W07', 'Pro Tips section present');
+    else
+      this.warn('W07', 'No Pro Tips found — add 3-5 venue-specific tips');
+
+    // W08: Generic "Guest Experience Summary" in JSON-LD
+    if (this.has('Guest Experience Summary'))
+      this.warn('W08', 'Generic "Guest Experience Summary" title — replace with venue-specific review title');
+    else
+      this.pass('W08', 'Review title is venue-specific');
   }
 
   // ── Output ───────────────────────────────────────────────────────────────

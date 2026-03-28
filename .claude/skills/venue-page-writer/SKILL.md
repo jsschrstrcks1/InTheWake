@@ -174,9 +174,21 @@ over spin. Anxious travelers trust us BECAUSE we tell them what to watch out for
 
 ## Quality Standard
 
-The gold standard is `restaurants/two70.html` (48KB). The anti-model is
-`restaurants/the-palladium.html` (16KB). Every logbook we write must
-clear the gap between these two.
+**Tiered Gold Standard** *(updated from two-sample orchestra analysis)*
+
+Our upgraded pages outperform the original Gen2 gold standard on every metric.
+New tiered targets by venue complexity:
+
+| Tier | Venue Type | Target Size | Logbook Words | Pro Tips | Sensory Details |
+|------|-----------|-------------|---------------|----------|-----------------|
+| **Platinum** | Specialty dining, entertainment | 35-50KB | 400-600 | 4-5 | 4-5 |
+| **Gold** | Complimentary dining, buffets | 25-35KB | 250-350 | 3-4 | 2-3 |
+| **Silver** | Bars, coffee, dessert, activities | 18-25KB | 100-200 | 2-3 | 1-2 |
+
+Reference pages:
+- **Platinum:** `restaurants/ncl/cagneys-steakhouse.html` (601w logbook, 5 sensory, 4 tips)
+- **Gold:** `restaurants/two70.html` (464w logbook, 3 sensory, show-card format)
+- **Silver target:** compact but ship-dated with 2-3 specific tips
 
 **Emotional Hook Test — all 5 must pass:**
 1. **CLARITY** — Can the reader find what they need in 10 seconds?
