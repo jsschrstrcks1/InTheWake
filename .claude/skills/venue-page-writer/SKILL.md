@@ -1,0 +1,155 @@
+---
+name: venue-page-writer
+description: "Researches and writes authentic logbook entries for cruise venue pages. Handles review research, negative flips, fact verification, voice consistency, and authenticity checks across 5 cruise lines (RCL, NCL, Virgin, MSC, Carnival). Fires when editing restaurant/venue pages or writing logbook content."
+version: 1.0.0
+---
+
+# Venue Page Writer
+
+> Every venue page helps someone decide where to eat, drink, or play tonight.
+
+## Purpose
+
+Researches real guest experiences and writes authentic, fact-verified logbook entries
+for cruise venue pages. Replaces generic "Guest Experience Summary" stubs with
+specific, ship-dated, sensory-rich content that passes both Google quality signals
+and a human gut-check.
+
+## When to Fire
+
+- Editing any file in `restaurants/**/*.html`
+- Writing or upgrading logbook sections
+- Keywords: venue, logbook, restaurant review, dining review, venue upgrade
+- On `/venue` or `/logbook` command
+
+## The Process (Per Venue)
+
+### Step 1: Research
+
+Use web search to find real guest reviews. Target sources:
+- Cruise Critic forums and reviews
+- Cruise line official sites and press releases
+- Cruise blogs (royalcaribbeanblog.com, shinecruise.com, cruisehive.com)
+- Points Guy / travel review sites
+
+Extract from reviews:
+- **Top 3 praised items** (specific dishes, atmosphere details, service moments)
+- **Top 2-3 complaints** (with frequency — is this one person or a pattern?)
+- **Sensory details** (what does it look, sound, smell, taste like?)
+- **Specific facts** (deck location, capacity, hours, reservation policy)
+
+### Step 2: Consult (When Needed)
+
+Use `/consult gemini structure` for venue-specific details when web search
+is insufficient. **Never trust GPT for pricing** (84% vs 64% accuracy —
+see `admin/VENUE_RESEARCH_REPORT_2026_03_27.md`).
+
+Cross-reference any AI claim with web search before using it.
+
+### Step 3: Write the Logbook
+
+**Structure:**
+```html
+<h3>{Venue} Review: {Unique Evocative Descriptor}</h3>
+<p class="tiny muted">{Ship Name} · {Month Year} · {Context}</p>
+```
+
+**Voice by cruise line:**
+
+| Line | Core Voice | Example Phrasing |
+|------|-----------|------------------|
+| RCL | Warm family adventure | "we discovered...", "what surprised us..." |
+| NCL | Freestyle independence | "we chose...", "the freedom to..." |
+| Virgin | Edgy youthful discovery | "we didn't expect...", "the vibe hit..." |
+| MSC | Elegant international | "the Mediterranean influence...", "a quiet sophistication..." |
+| Carnival | Fun unpretentious joy | "honestly, for free...", "the kind of place where..." |
+
+**Required elements:**
+- Named ship + month/year (verify ship has this venue)
+- One sensory detail unique to THIS venue
+- One specific menu item / show / feature by name
+- One honest limitation, flipped gracefully (see Negative Flip Playbook)
+- 3-5 Pro Tips (at least 1 requires ship layout knowledge)
+- Rating X.X/5 with specific summary (never generic "impressive venue")
+
+**Uniqueness rules (pattern recognition defense):**
+- Every review title must be structurally different (vary: question, metaphor, direct, emotional)
+- Vary paragraph openings across venues (never start 3 in a row with "The...")
+- Vary the position of the honest limitation (sometimes paragraph 1, sometimes paragraph 2)
+- Use different sensory channels across venues (sight for one, sound for another, taste for a third)
+- Name different crew roles where relevant (sommelier, chef, bartender, host)
+- Reference different times of day / meal contexts
+- Each venue's Pro Tips should have a different lead tip pattern
+
+### Step 4: Verify
+
+**Fact checklist:**
+- [ ] Ship name exists and has this venue (cross-ref venue JSON + fleet data)
+- [ ] Menu items mentioned are real (web search or menu data)
+- [ ] Price matches `admin/venue-research-verified-prices.json`
+- [ ] Deck/location is accurate for named ship
+- [ ] Hours and reservation policy are current
+- [ ] Alternative venues suggested exist on the same ship
+- [ ] No sensory claims contradict known layout (e.g., "ocean views" in interior venue)
+
+**Authenticity stress test:**
+- [ ] No "Whether you're..." or "From... to..." sentence openers
+- [ ] No "nestled", "curated", "elevate your experience", "a testament to"
+- [ ] Sensory details are specific ("char on the ribeye") not generic ("delicious flavors")
+- [ ] At least one honest limitation mentioned (using flip pattern)
+- [ ] Pro Tips include at least one that requires ship layout knowledge
+- [ ] Review title is specific to THIS venue, not swappable with another
+- [ ] Could a human pattern-match this against 10 other logbooks and find it unique?
+
+### Step 5: Update Metadata
+
+After writing the logbook, also update:
+- `last-reviewed` meta tag to today's date
+- `dateModified` in JSON-LD to match
+- FAQPage schema if FAQ answers were expanded
+- Review schema `ratingValue` to match new rating
+
+## Negative Flip Playbook
+
+| Complaint Pattern | Flip Strategy |
+|-------------------|---------------|
+| Crowded / long wait | Name the popularity; give specific timing workaround |
+| Not worth the price | Name the price honestly; point to standout dish; offer budget alternative |
+| Slow service | Reframe as "deliberate pacing"; add what to do while waiting |
+| Noisy / kids | Call it "energy"; suggest quieter alternative venue |
+| Limited menu | Reframe as "focused"; name the best item; point to variety alternative |
+| Not as good as land version | Acknowledge gap; add unique at-sea advantage; name the dish that delivers |
+| Dated decor | Call it "classic"; find warmth in history; name one specific visual |
+
+**Full playbook with examples:** `admin/claude/LOGBOOK_WRITING_GUIDE.md`
+
+## Data Sources
+
+| File | Purpose |
+|------|---------|
+| `admin/venue-research-verified-prices.json` | Web-verified prices (287 venues) |
+| `assets/data/venues-v2.json` | RCL venue metadata (325 venues) |
+| `assets/data/ncl-venues.json` | NCL venue metadata (78 venues) |
+| `assets/data/carnival-venues.json` | Carnival venue metadata (23 venues) |
+| `assets/data/msc-venues.json` | MSC venue metadata (45 venues) |
+| `assets/data/virgin-venues.json` | Virgin venue metadata (46 venues) |
+| `new-standards/foundation/VENUE_PAGE_STANDARDS_v3.010.md` | Full venue page standard |
+| `.claude/plan-venue-normalization.md` | Normalization plan + anti-model analysis |
+| `admin/VENUE_RESEARCH_REPORT_2026_03_27.md` | Model accuracy report |
+
+## Quality Standard
+
+The gold standard is `restaurants/two70.html` (48KB). The anti-model is
+`restaurants/the-palladium.html` (16KB). Every logbook we write must
+clear the gap between these two.
+
+**Emotional Hook Test — all 5 must pass:**
+1. **CLARITY** — Can the reader find what they need in 10 seconds?
+2. **CALM** — Does the tone reassure rather than sell?
+3. **SEEN** — Does the reader feel the writer has actually been here?
+4. **CONFIDENCE** — Does the reader get actionable answers?
+5. **GUIDED** — Does the reader know what to do next?
+
+---
+
+*Soli Deo Gloria*

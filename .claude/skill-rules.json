@@ -590,6 +590,61 @@
         "philosophy": "Integrity over speed. Verified over assumed. Documented over remembered. Careful over clever."
       }
     },
+    "venue-page-writer": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Researches and writes authentic logbook entries for cruise venue pages. Handles review research, negative flips, fact verification, voice consistency across 5 cruise lines. Uses web search + Gemini for research, with authenticity stress testing.",
+      "promptTriggers": {
+        "keywords": [
+          "venue",
+          "logbook",
+          "restaurant review",
+          "dining review",
+          "venue upgrade",
+          "venue normalization",
+          "write logbook",
+          "upgrade logbook",
+          "Guest Experience Summary",
+          "venue page",
+          "negative flip"
+        ],
+        "intentPatterns": [
+          "(write|create|upgrade|improve|fix).*?(logbook|venue|restaurant review)",
+          "(research|investigate).*?(venue|restaurant|dining)",
+          "venue.*?(normalization|upgrade|improvement)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "restaurants/**/*.html",
+          "restaurants/*.html"
+        ],
+        "contentPatterns": [
+          "id=\"logbook\"",
+          "Guest Experience Summary",
+          "Traveler's Logbook"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/venue-page-writer/SKILL.md",
+        "maxLines": 500,
+        "loadOnFirstFileEdit": true
+      },
+      "activationMessage": "Venue page writer active. Research real reviews, write authentic logbooks, verify every fact.",
+      "coActivation": {
+        "always_with": [
+          "careful-not-clever",
+          "content-strategy"
+        ],
+        "optional_with": [
+          "voice-audit",
+          "consult"
+        ],
+        "note": "Logbook writing fires careful-not-clever (process) + content-strategy/Like-a-human (voice). Voice-audit fires before commit."
+      }
+    },
     "icp-2": {
       "enabled": true,
       "type": "guardrail",
@@ -625,7 +680,7 @@
   "notes": {
     "project": "In the Wake - Cruise planning site (merged with FOM enhancements)",
     "protocol": "ITW-Lite v3.010 (adapted from FOM-Lite v1.0)",
-    "total_skills": 12,
+    "total_skills": 13,
     "hook_wiring": {
       "UserPromptSubmit": "session-start-guardrail.sh \u2192 injects BOTH Careful files (process v1.0 + technical root)",
       "PreToolUse_Bash": [
