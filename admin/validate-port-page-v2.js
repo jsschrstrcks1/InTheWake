@@ -3791,6 +3791,11 @@ async function validatePortPage(filepath) {
     results.warnings.push(...seasonalDataResult.warnings);
     results.warnings.push(...templateFillerResult.warnings);
 
+    // Gold standard gap detection (only included with --gold-standard flag)
+    // Per orchestra: separate mode to avoid alert fatigue on the 100% pass rate
+    const goldStandardResult = validateGoldStandard($, html);
+    results.gold_standard_gaps = goldStandardResult.warnings;
+
     // Collect info
     results.info.push(...logbookResult.info);
     if (contentPurityResult.info) results.info.push(...contentPurityResult.info);
@@ -3994,11 +3999,82 @@ function printResults(results, options) {
 /**
  * Main execution
  */
+/**
+ * Gold standard gap detection — quality checks beyond ITC v1.1 requirements
+ * Based on comparison against dubai.html (score 96, 16 images, 15 h2s, 3686 words)
+ * Per orchestra review: 4 checks as warnings, separate --gold-standard mode
+ */
+function validateGoldStandard($, html) {
+  const warnings = [];
+
+  // 1. Missing content sections (food, notices, practical, credits)
+  // These aren't required by ITC v1.1 but the best pages have them
+  const qualitySections = {
+    food: /\bfood\b|\bdining\b|\brestaurants?\b|\bcuisine\b/i,
+    notices: /(special )?notices?|warnings?|alerts?|important|know before/i,
+    practical: /practical (information|info)|quick reference|at a glance|summary/i,
+    credits: /(image |photo )?credits?|attributions?|photo sources?/i,
+  };
+  const missingSections = [];
+  for (const [name, pattern] of Object.entries(qualitySections)) {
+    const found = $('h2, h3').toArray().some(el => pattern.test($(el).text()));
+    const foundById = $(`#${name}, [id="${name}"]`).length > 0;
+    if (!found && !foundById) missingSections.push(name);
+  }
+  if (missingSections.length > 0) {
+    warnings.push({
+      section: 'gold_standard',
+      rule: 'gs_missing_quality_sections',
+      message: `Gold standard gap: missing quality sections: ${missingSections.join(', ')}`,
+      severity: 'WARNING'
+    });
+  }
+
+  // 2. Missing photo credits in gallery images
+  const galleryImages = $('figure img, .gallery-item img, .gallery-grid img');
+  let missingCredits = 0;
+  galleryImages.each((i, el) => {
+    const figure = $(el).closest('figure');
+    if (figure.length && !figure.find('.photo-credit').length) missingCredits++;
+  });
+  if (missingCredits > 0) {
+    warnings.push({
+      section: 'gold_standard',
+      rule: 'gs_missing_photo_credits',
+      message: `Gold standard gap: ${missingCredits} gallery image(s) without photo-credit attribution`,
+      severity: 'WARNING'
+    });
+  }
+
+  // 3. Missing breadcrumb navigation
+  if (!$('nav[aria-label="Breadcrumb"], [aria-label="Breadcrumb"]').length) {
+    warnings.push({
+      section: 'gold_standard',
+      rule: 'gs_missing_breadcrumb',
+      message: 'Gold standard gap: missing breadcrumb navigation (aria-label="Breadcrumb")',
+      severity: 'WARNING'
+    });
+  }
+
+  // 4. Missing Twitter Card meta tags
+  if (!$('meta[name="twitter:card"]').length) {
+    warnings.push({
+      section: 'gold_standard',
+      rule: 'gs_missing_twitter_cards',
+      message: 'Gold standard gap: missing Twitter Card meta tags',
+      severity: 'WARNING'
+    });
+  }
+
+  return { warnings };
+}
+
 async function main() {
   const args = process.argv.slice(2);
 
   const options = {
     allPorts: args.includes('--all-ports'),
+    goldStandard: args.includes('--gold-standard'),
     jsonOutput: args.includes('--json-output'),
     quiet: args.includes('--quiet'),
     files: args.filter(arg => !arg.startsWith('--'))
@@ -4063,6 +4139,25 @@ async function main() {
 
       console.log('═'.repeat(90));
       console.log(`Total: ${results.length} | ${colors.green}Passed: ${passed}${colors.reset} | ${colors.red}Failed: ${failed}${colors.reset}`);
+
+      // Gold standard report (only with --gold-standard flag)
+      if (options.goldStandard) {
+        const gsResults = results.filter(r => r.gold_standard_gaps && r.gold_standard_gaps.length > 0);
+        console.log();
+        console.log(`${colors.bold}${colors.magenta}Gold Standard Gaps (vs dubai.html)${colors.reset}`);
+        console.log('─'.repeat(90));
+        let totalGaps = 0;
+        for (const r of gsResults) {
+          totalGaps += r.gold_standard_gaps.length;
+          console.log(`  ${r.file}: ${r.gold_standard_gaps.length} gap(s)`);
+          for (const g of r.gold_standard_gaps) {
+            console.log(`    ${colors.yellow}⚠${colors.reset} ${g.message}`);
+          }
+        }
+        console.log('─'.repeat(90));
+        console.log(`  Gold standard: ${gsResults.length}/${results.length} pages have gaps (${totalGaps} total)`);
+        console.log(`  Pages matching gold standard: ${results.length - gsResults.length}`);
+      }
       console.log();
     }
 
