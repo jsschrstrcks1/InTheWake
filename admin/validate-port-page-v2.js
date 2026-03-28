@@ -3847,6 +3847,18 @@ async function validatePortPage(filepath) {
     results.seasonal_data = seasonalDataResult.data;
     results.template_filler = templateFillerResult.data;
 
+    // Check for unfilled generator markers (<!-- FILL --> tags that should have been replaced)
+    const fillMarkers = (html.match(/<!-- FILL[^>]*-->/gi) || []).length;
+    if (fillMarkers > 0) {
+      results.blocking_errors.push({
+        section: 'content_quality',
+        rule: 'unfilled_template_markers',
+        message: `Page has ${fillMarkers} unfilled <!-- FILL --> marker(s) from template generator. All markers must be replaced with real content before publishing.`,
+        severity: 'BLOCKING'
+      });
+      results.score = Math.max(0, results.score - fillMarkers * 5);
+    }
+
   } catch (error) {
     results.blocking_errors.push({
       section: 'parse',
