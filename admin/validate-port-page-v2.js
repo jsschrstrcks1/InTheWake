@@ -354,19 +354,34 @@ const CONTENT_PURITY_BANS = [
 // Per-port allowlist for legitimate place names, landmarks, and metaphors
 // that trigger content purity bans but are factually correct.
 const CONTENT_PURITY_ALLOWLIST = {
+  // Place names containing "Hell"
   'rotorua':          [{ match: /hell'?s?\s*gate/i, category: 'profanity' }],
+  'tauranga':         [
+    { match: /hell'?s?\s*gate/i, category: 'profanity' },
+    { match: /don'?t\s+gamble\s+on/i, category: 'gambling' },
+    { match: /(entry|time|mud\s+bath)\s+slots?/i, category: 'gambling' },
+  ],
   'grand-cayman':     [{ match: /\bhell\b/i, category: 'profanity' }],
   'nosy-be':          [{ match: /hell-ville/i, category: 'profanity' }],
+  // Place names containing "Casino"
   'monte-carlo':      [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
   'monaco':           [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
   'cannes':           [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
+  'port-elizabeth':   [{ match: /boardwalk\s+casino/i, category: 'gambling' }],
   // Metaphorical uses — literary language, not gambling promotion
   'cape-horn':        [{ match: /betting\s+everything\s+on\s+hope/i, category: 'gambling' }],
   'ellis-island':     [{ match: /betting\s+everything\s+on\s+hope/i, category: 'gambling' }],
+  'ravenna':          [{ match: /this\s+a\s+gamble/i, category: 'gambling' }],
   // Metalworking terminology — "hammered" as a craft technique
   '*': [
     { match: /hammered\s+(pewter|bronze|silver|copper|brass|iron|gold|metal|tin)/i, category: 'drinking' },
     { match: /nothing\s+wasted/i, category: 'drinking' },
+    // "slots" as time slots / booking slots (not slot machines)
+    { match: /slots?\s+(fill|sell|can\s+sell|book|avail|open|remain)/i, category: 'gambling' },
+    { match: /(time|booking|entry|timed|walk-in|club|castle|beach)\s+slots?/i, category: 'gambling' },
+    // Figurative "gamble" = risk
+    { match: /\b(a|this|make\s+this)\s+a\s+gamble\b/i, category: 'gambling' },
+    { match: /don'?t\s+gamble\s+on/i, category: 'gambling' },
   ],
 };
 
@@ -1718,8 +1733,9 @@ function validateContentPurity($, portSlug) {
     const matches = fullText.match(ban.pattern);
     if (matches) {
       // Check if this match is allowlisted for this port
+      // Test allowlist against FULL TEXT (not just matched word) for context matching
       const allowed = portAllowlist.some(
-        a => a.category === ban.category && a.match.test(matches[0])
+        a => a.category === ban.category && a.match.test(fullText)
       );
       if (!allowed) {
         violations.push({
