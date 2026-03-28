@@ -95,11 +95,26 @@ Cross-reference any AI claim with web search before using it.
 **Authenticity stress test:**
 - [ ] No "Whether you're..." or "From... to..." sentence openers
 - [ ] No "nestled", "curated", "elevate your experience", "a testament to"
+- [ ] No "truly", "simply", "undeniably", "remarkably" — empty intensifiers
 - [ ] Sensory details are specific ("char on the ribeye") not generic ("delicious flavors")
-- [ ] At least one honest limitation mentioned (using flip pattern)
+- [ ] At least one honest limitation mentioned (using flip pattern or transparency threshold)
 - [ ] Pro Tips include at least one that requires ship layout knowledge
 - [ ] Review title is specific to THIS venue, not swappable with another
 - [ ] Could a human pattern-match this against 10 other logbooks and find it unique?
+- [ ] Named ship actually carries this venue (verify against fleet data)
+
+**Cultural sensitivity check** *(adopted from Grok, HIGH confidence)*:
+For MSC, international venues, and cuisine from non-Western traditions:
+- [ ] No Western-centric food assumptions ("exotic" is not a descriptor)
+- [ ] Cuisine descriptions respect the tradition (don't call teppanyaki "hibachi show")
+- [ ] Crew/staff descriptions avoid stereotyping by nationality
+- [ ] Price comparisons don't assume USD as baseline for non-US-based lines
+
+**Attribution honesty:**
+The logbook attribution line currently reads "composite account from multiple guest
+experiences." This is honest — the content synthesizes real review data, verified
+facts, and the site author's knowledge. It must NOT claim to be a single person's
+first-person experience if it isn't. The pastoral mission demands this transparency.
 
 ### Step 5: Update Metadata
 
@@ -108,6 +123,16 @@ After writing the logbook, also update:
 - `dateModified` in JSON-LD to match
 - FAQPage schema if FAQ answers were expanded
 - Review schema `ratingValue` to match new rating
+
+### Step 6: Post-Launch Monitoring (Ongoing)
+
+*(Adopted from orchestra debate — Grok + Gemini, unanimous)*
+
+- Quarterly spot-check 10% of upgraded pages for factual drift
+- Prioritize high-risk venues (specialty dining with changing menus/prices)
+- Use `content-freshness` skill for staleness detection
+- Ad-hoc reviews triggered by: price changes on cruise line sites, user reports,
+  or seasonal menu rotations
 
 ## Negative Flip Playbook
 
@@ -120,6 +145,16 @@ After writing the logbook, also update:
 | Limited menu | Reframe as "focused"; name the best item; point to variety alternative |
 | Not as good as land version | Acknowledge gap; add unique at-sea advantage; name the dish that delivers |
 | Dated decor | Call it "classic"; find warmth in history; name one specific visual |
+
+**Transparency threshold** *(adopted from Grok challenge)*:
+Some flaws cannot and should not be flipped. If a complaint involves:
+- Safety concerns (food allergy handling, accessibility failures)
+- Consistent quality failures (>50% of reviews mention the same problem)
+- Price that genuinely isn't worth it for the experience
+
+State it directly: "Fair warning — [specific issue]. If that matters to you,
+[alternative venue] might be a better fit." The pastoral mission demands honesty
+over spin. Anxious travelers trust us BECAUSE we tell them what to watch out for.
 
 **Full playbook with examples:** `admin/claude/LOGBOOK_WRITING_GUIDE.md`
 
