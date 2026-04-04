@@ -1,0 +1,18 @@
+{
+  "analysis": {
+    "logical_flow": "The content is presented in a straightforward request format, focusing on specific information about Guy's Burger Joint on Carnival Cruise Line. The logical flow is clear as it lists required fields and constraints for the response. However, the structure could be improved by breaking down the request into thematic sections (e.g., pricing, availability, unique features) to enhance readability and ensure no aspect is overlooked.",
+    "organization": "The organization is functional but lacks hierarchical grouping. The list of fields is presented in a single block without prioritization or categorization, which might make it harder to process systematically. Additionally, the instructions for handling uncertainty ('UNSURE') and avoiding invented facts are mixed with field definitions, which could lead to confusion.",
+    "coherence": "The content is coherent in intent, with a clear goal of obtaining verified facts. However, the repetition of constraints (e.g., 'ONLY with valid JSON', 'Do NOT invent facts') could be streamlined to avoid redundancy. The lack of examples or templates for the expected JSON response might lead to misinterpretation of format or detail level."
+  },
+  "proposed_update": {
+    "revised_structure": "Restructure the request into categorized sections for clarity. For example: 1) Venue Basics (venue_name, price, hours, dress_code, reservations); 2) Menu and Style (cuisine_type, signature_dishes, what_makes_it_unique); 3) Availability (ships_available, ships_confidence); 4) Metadata (price_confidence, warnings). Provide a brief introductory sentence for each section to guide the responder.",
+    "streamlined_instructions": "Consolidate instructions into a single upfront paragraph, e.g., 'Respond ONLY with valid JSON. Do not invent facts. If unsure about any field, write \"UNSURE\". Include no extra text or markdown outside the JSON structure.' This reduces redundancy and improves focus.",
+    "example_response": "Include a sample JSON snippet to illustrate the expected format and level of detail, ensuring consistency in responses. For instance, provide a partial example with dummy data for a few fields like 'venue_name' and 'price'."
+  },
+  "risks": {
+    "misinterpretation": "Without categorized sections or examples, the responder might overlook certain fields or misinterpret the required depth of information, leading to incomplete or inconsistent responses.",
+    "overload": "The current single-block format may overwhelm the responder, increasing the chance of errors or omissions in the JSON output.",
+    "uncertainty_handling": "While the instruction to use 'UNSURE' is clear, without explicit prioritization of fields, the responder might overuse 'UNSURE' for less critical information, reducing the response's utility."
+  },
+  "confidence": 0.85
+}
