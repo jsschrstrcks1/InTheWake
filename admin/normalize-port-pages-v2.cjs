@@ -61,7 +61,10 @@ const OUT_OF_ORDER_PAGES = new Set([
   'torshavn.html', 'ponta-delgada.html', 'port-elizabeth.html',
   'punta-del-este.html', 'ravenna.html', 'saguenay.html', 'scotland.html',
   'st-croix.html', 'sydney-ns.html', 'tangier.html', 'tunis.html',
-  'vigo.html', 'waterford.html'
+  'vigo.html', 'waterford.html',
+  'san-diego.html', 'glacier-alley.html', 'south-shetland-islands.html',
+  'la-spezia.html', 'tender-ports.html', 'royal-beach-club-antigua.html',
+  'south-pacific.html', 'torshavn.html'
 ]);
 
 // Pages with template filler
@@ -78,7 +81,9 @@ const FILLER_PAGES = new Set([
 ]);
 
 function classifyElement(id, className, headingText) {
-  const combined = `${headingText || ''} ${id || ''} ${className || ''}`.toLowerCase();
+  // Normalize underscore/hyphen variants for fuzzy matching
+  const normalizedId = (id || '').replace(/_/g, '-');
+  const combined = `${headingText || ''} ${normalizedId} ${id || ''} ${className || ''}`.toLowerCase();
   for (const [key, pattern] of Object.entries(SECTION_PATTERNS)) {
     if (pattern.test(combined)) return key;
   }
@@ -136,19 +141,28 @@ function extractTopLevelElement(html, startPos) {
 }
 
 function reorderSections(content, filename) {
-  // Find the article.card container inside main — this is where port sections live
-  // Structure: <main> > <div> > <article class="card"> > sections
-  // Fall back to <main> if no article.card found
+  // Find the article container inside main — multiple class patterns supported
+  // Tries: article.card, article.port-content, bare article, then falls back to <main>
   let containerStart, containerEnd, containerOpenEnd;
 
-  const articleMatch = content.match(/<article\s+class="card"[^>]*>/);
-  if (articleMatch) {
-    containerStart = content.indexOf(articleMatch[0]);
-    containerOpenEnd = containerStart + articleMatch[0].length;
-    // Find matching </article>
-    const result = extractTopLevelElement(content, containerStart);
-    if (result) {
-      containerEnd = result.end - '</article>'.length;
+  // Try multiple article patterns in order of specificity
+  const articlePatterns = [
+    /<article\s+class="card"[^>]*>/,
+    /<article\s+class="port-content"[^>]*>/,
+    /<article\s+class="card\s+port-content"[^>]*>/,
+    /<article[^>]*>/,
+  ];
+
+  for (const pattern of articlePatterns) {
+    const articleMatch = content.match(pattern);
+    if (articleMatch) {
+      containerStart = content.indexOf(articleMatch[0]);
+      containerOpenEnd = containerStart + articleMatch[0].length;
+      const result = extractTopLevelElement(content, containerStart);
+      if (result) {
+        containerEnd = result.end - '</article>'.length;
+        break;
+      }
     }
   }
 

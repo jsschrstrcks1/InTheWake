@@ -1,0 +1,22 @@
+{
+  "analysis": {
+    "logical_flow": "The provided content is a request for verified information about the FlowRider Surf Simulator on Royal Caribbean ships. The structure is clear as a query with specific fields to be filled in a JSON format. However, it lacks context or background information about the FlowRider, which might be necessary for a comprehensive response. The flow is logical as a straightforward request but does not provide a framework for handling incomplete or unverified data beyond marking fields as 'UNSURE'.",
+    "organization": "The organization of the request is well-structured with predefined fields in a JSON format, ensuring clarity in the expected response. Each field (e.g., venue_name, price, hours) is clearly defined with specific instructions, which aids in maintaining focus. However, there is no prioritization of fields or guidance on how to handle conflicting information if it arises during research.",
+    "coherence": "The content is coherent as a data request, with each field logically connected to the overall purpose of gathering verified facts about the FlowRider Surf Simulator. There are no contradictions within the request itself. However, the instruction to mark fields as 'UNSURE' if uncertain could lead to incomplete responses without a mechanism to explain or qualify the uncertainty beyond a simple label."
+  },
+  "proposed_update": {
+    "structural_improvements": [
+      "Add a brief introductory context about the FlowRider Surf Simulator to provide background for the responder, ensuring a common understanding of the subject (e.g., 'FlowRider is a surf simulator attraction featured on select Royal Caribbean cruise ships.').",
+      "Include a field or instruction for additional notes or sources to support the confidence levels (e.g., 'Provide a brief note or source for price_confidence and ships_confidence ratings.').",
+      "Introduce a prioritization mechanism for fields, such as marking critical fields (e.g., venue_name, ships_available) as mandatory to be researched thoroughly, while optional fields (e.g., signature_dishes for a non-dining venue) could be marked as 'N/A' if irrelevant.",
+      "Expand the 'warnings' field instruction to allow for detailed explanations of uncertainty or potential discrepancies in data (e.g., 'Include specific reasons or conflicting information if any field is marked as UNSURE.')."
+    ],
+    "revised_structure_example": "I need VERIFIED facts about FlowRider Surf Simulator on Royal Caribbean. Context: FlowRider is a surf simulator attraction featured on select Royal Caribbean cruise ships. Respond ONLY with valid JSON (no markdown code blocks, no extra text). Fields: 'venue_name', 'price' (exact USD cover charge or surcharge, or 'Included' or 'Complimentary'), 'price_confidence' (HIGH/MEDIUM/LOW, with a brief source or note), 'hours' (operational periods), 'dress_code', 'reservations' (required/recommended/walk-in), 'activity_type', 'ships_available' (list of specific ship names), 'ships_confidence' (HIGH/MEDIUM/LOW, with a brief source or note), 'key_features' (2-3 items), 'what_makes_it_unique' (1-2 sentences), 'warnings' (list any facts you are uncertain about with detailed reasons for uncertainty). If UNSURE about ANY field, write 'UNSURE' and explain why in 'warnings'. Do NOT invent facts."
+  },
+  "risks": [
+    "Without context, responders might misinterpret the nature of FlowRider (e.g., confusing it with a dining venue or another attraction), leading to irrelevant or incorrect data.",
+    "The lack of a mechanism to detail uncertainty beyond 'UNSURE' may result in incomplete or vague responses, reducing the usefulness of the data.",
+    "Absence of source or note requirements for confidence ratings could lead to subjective assessments without substantiation, undermining reliability."
+  ],
+  "confidence": 0.85
+}
