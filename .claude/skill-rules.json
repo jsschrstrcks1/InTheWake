@@ -455,6 +455,43 @@
         "checklist_reference": "new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md"
       }
     },
+    "investigate": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Deep multi-LLM research pipeline that produces validated ship and port pages. 4 phases: reconnaissance \u2192 triage \u2192 deep research \u2192 synthesis \u2192 page generation.",
+      "promptTriggers": {
+        "keywords": [
+          "investigate",
+          "investigation",
+          "deep research",
+          "research ship",
+          "research port"
+        ],
+        "intentPatterns": [
+          "(investigate|investigation|deep research).*?(ship|port|cruise|destination)",
+          "investigate\\s+\\w+"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/investigate/SKILL.md",
+        "maxLines": 200,
+        "loadOnFirstFileEdit": false
+      },
+      "activationMessage": "Investigation pipeline ready. Specify a ship name or port to research and build a validated page.",
+      "coActivation": {
+        "always_with": [
+          "careful-not-clever"
+        ],
+        "optional_with": [
+          "ship-page-validator",
+          "content-strategy",
+          "standards"
+        ],
+        "note": "Investigation output feeds into page generation. Ship-page-validator fires automatically on ship page writes. Voice hooks enforce Like-a-human on all content."
+      }
+    },
     "orchestrate": {
       "enabled": true,
       "type": "domain",
