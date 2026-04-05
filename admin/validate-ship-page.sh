@@ -794,6 +794,107 @@ else
 fi
 
 # ============================================================================
+# Section 9i: Noscript Fallbacks (AI readability)
+# ============================================================================
+section_header "Section 9i: Noscript Fallbacks (AI/no-JS readability)"
+
+# JS-dependent sections that MUST have noscript fallbacks
+# AI crawlers don't execute JavaScript — empty divs = invisible content
+NOSCRIPT_SECTIONS=(
+    "ship-stats"
+    "dining-content"
+    "featuredVideos"
+    "vf-tracker-container"
+    "recent-rail"
+    "authors-rail"
+    "whimsical-units-container"
+    "logbook-stories"
+)
+
+NOSCRIPT_LABELS=(
+    "Ship Stats"
+    "Dining Venues"
+    "Video Carousel"
+    "Live Tracker"
+    "Recent Articles"
+    "Authors Rail"
+    "Whimsical Units"
+    "Logbook"
+)
+
+NOSCRIPT_MISSING=0
+for i in "${!NOSCRIPT_SECTIONS[@]}"; do
+    SEC_ID="${NOSCRIPT_SECTIONS[$i]}"
+    SEC_LABEL="${NOSCRIPT_LABELS[$i]}"
+    # Check if the element exists on the page
+    if echo "$CONTENT" | grep -q "id=\"$SEC_ID\""; then
+        # Extract the block from the id to its closing tag and check for noscript
+        if echo "$CONTENT" | tr '\n' ' ' | grep -oP "id=\"$SEC_ID\".*?</(?:div|section)>" | grep -q '<noscript'; then
+            check_pass "$SEC_LABEL has noscript fallback"
+        else
+            check_warn "$SEC_LABEL (id=$SEC_ID) has NO noscript fallback — AI crawlers see empty content"
+            NOSCRIPT_MISSING=$((NOSCRIPT_MISSING + 1))
+        fi
+    fi
+done
+if [ "$NOSCRIPT_MISSING" -eq 0 ]; then
+    check_pass "All JS-dependent sections have noscript fallbacks"
+fi
+
+# ============================================================================
+# Section 9j: Compass Rose Mobile Sizing
+# ============================================================================
+section_header "Section 9j: Compass Rose Mobile"
+
+# Check global CSS for compass mobile override
+STYLES_CSS="${REPO_ROOT}/assets/styles.css"
+if [ -f "$STYLES_CSS" ]; then
+    # Look for a media query that targets hero-compass
+    if grep -A3 'max-width.*600\|max-width.*480\|max-width.*768' "$STYLES_CSS" | grep -q 'hero-compass'; then
+        check_pass "Compass rose has mobile media query override"
+    else
+        check_warn "Compass rose has no mobile override — may overwhelm content on small screens (86px = ~23% of 375px iPhone)"
+    fi
+else
+    check_warn "styles.css not found at $STYLES_CSS"
+fi
+
+# ============================================================================
+# Section 9k: Article Thumbnail Existence
+# ============================================================================
+section_header "Section 9k: Article Thumbnail Paths"
+
+ARTICLES_JSON="${REPO_ROOT}/assets/data/articles/index.json"
+if [ -f "$ARTICLES_JSON" ]; then
+    THUMB_MISSING=0
+    THUMB_CHECKED=0
+    while IFS= read -r thumb_path; do
+        [ -z "$thumb_path" ] && continue
+        CLEAN=$(echo "$thumb_path" | sed 's/\?.*$//')
+        THUMB_CHECKED=$((THUMB_CHECKED + 1))
+        if [ ! -f "${REPO_ROOT}${CLEAN}" ]; then
+            check_fail "Article thumbnail missing: $CLEAN"
+            THUMB_MISSING=$((THUMB_MISSING + 1))
+        fi
+    done <<< "$(python3 -c "
+import json,sys
+try:
+    d=json.load(open('$ARTICLES_JSON'))
+    for a in d.get('articles',[]):
+        t=a.get('thumbnail','')
+        if t: print(t)
+except: pass
+" 2>/dev/null)"
+    if [ "$THUMB_MISSING" -eq 0 ] && [ "$THUMB_CHECKED" -gt 0 ]; then
+        check_pass "All $THUMB_CHECKED article thumbnails exist on disk"
+    elif [ "$THUMB_CHECKED" -eq 0 ]; then
+        check_warn "No article thumbnails to verify"
+    fi
+else
+    check_warn "articles/index.json not found"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
