@@ -764,6 +764,36 @@ elif [ -z "$MAIN_ID" ]; then
 fi
 
 # ============================================================================
+# Section 9g: Swiper Lazy Loading Consistency
+# ============================================================================
+section_header "Section 9g: Swiper Lazy Loading"
+
+# If Swiper init uses lazy:true, images must use data-src (not src)
+# If images use native loading="lazy" with src, Swiper must use lazy:false
+SWIPER_LAZY=$(echo "$CONTENT" | grep -oP "Swiper\('.swiper.firstlook'[^)]*lazy:\s*\Ktrue" | head -1)
+NATIVE_LAZY_IN_CAROUSEL=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p' | grep -c 'loading="lazy"' || echo "0")
+if [ "$SWIPER_LAZY" = "true" ] && [ "$NATIVE_LAZY_IN_CAROUSEL" -gt 0 ]; then
+    check_fail "Swiper lazy:true conflicts with native loading=\"lazy\" — images after slide 1 won't load. Use lazy:false or switch to data-src"
+elif [ "$SWIPER_LAZY" = "true" ]; then
+    check_pass "Swiper lazy:true with data-src pattern (OK)"
+else
+    check_pass "Swiper lazy:false with native lazy loading (OK)"
+fi
+
+# ============================================================================
+# Section 9h: Whimsical Units Script Type
+# ============================================================================
+section_header "Section 9h: Whimsical Units"
+
+if echo "$CONTENT" | grep -q 'whimsical-port-units\.js'; then
+    check_warn "Ship page loads whimsical-port-units.js — should use whimsical-ship-units.js for ship-specific measurements"
+elif echo "$CONTENT" | grep -q 'whimsical-ship-units\.js'; then
+    check_pass "Ship page uses ship-specific whimsical units"
+else
+    check_warn "No whimsical units script found"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
