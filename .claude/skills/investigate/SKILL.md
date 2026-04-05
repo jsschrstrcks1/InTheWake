@@ -57,11 +57,53 @@ cd /home/user/ken/orchestrator && python3 investigate.py cruising "<subject>"
 
 Claude reads `state/investigate.json` — the structured output with all findings, citations, and cross-thread analysis.
 
+### Step 3.5: Existing Page Check (CRITICAL)
+
+**Before generating anything, check if the page already exists.**
+
+```
+Does ships/[line]/[slug].html exist?
+  → YES: Path B — Merge Mode (enrich existing page)
+  → NO:  Path A — New Page (build from reference template)
+```
+
+**Path B — Merge Mode (existing page):**
+
+Read the existing page and extract everything that must be preserved:
+
+1. **First Look carousel images** — NEVER drop user-curated photos. Copy every `<div class="swiper-slide">` block verbatim.
+2. **Logbook noscript entries** — These are authentic voices from real people. Preserve as-is. New investigation-sourced entries may be ADDED alongside, never replace.
+3. **Restaurant/venue links** — Existing internal links to `/restaurants/*.html` are already wired. Preserve them. Only add new ones if the investigation found venues that are both real AND have pages.
+4. **Sister ships list** — The existing page may include sisters the investigation didn't surface. Preserve the full list from ai-breadcrumbs siblings, pill links, and FAQ answers.
+5. **Class pill ordering** — Curated by the author. Preserve.
+6. **Attribution section** — Photo credits are legal obligations. Preserve verbatim.
+7. **Image onerror fallback chains** — These are hand-tuned. Preserve.
+
+Then diff investigation findings against existing content:
+
+- **Update** stats, FAQ answers, metadata where investigation found fresher/corrected data
+- **Add** new content (e.g., amplification details) that the existing page lacks
+- **Flag conflicts** — "Existing says X, investigation found Y" — don't silently overwrite
+- **Run `validate-ship-page.sh`** after merge to catch any inconsistencies
+
+**Path A — New Page (no existing page):**
+
+Build from reference template + investigation output. But still run these pre-generation checks:
+
+### Step 3.6: Pre-Generation Verification
+
+Before writing ANY page (new or merge), verify:
+
+1. **Image existence** — Every `src="/assets/..."` path must resolve to a real file on disk. Run: `ls -la [path]`. No phantom references.
+2. **Venue database** — Check `assets/data/venues.json` for the ship slug. If FAQ mentions a venue (150 Central Park, Johnny Rockets, Bionic Bar, etc.) that isn't in the database, flag it as a warning — the dining loader won't render it.
+3. **Sister ships completeness** — Cross-reference the investigation's class data against existing ship pages in `/ships/[line]/`. If a sister exists as a page but wasn't in the investigation output, include it anyway.
+4. **Skip link consistency** — Skip link `href` must match `<main>` element's `id`.
+
 ### Step 4: Generate the Page
 
 **Ship pages** — follow `new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md`:
 - Reference: `ships/rcl/radiance-of-the-seas.html`
-- Create `assets/data/ships/[line]/[slug].page.json`
+- Create/update `assets/data/ships/[line]/[slug].page.json`
 - Required sections: Page Intro, First Look, Ship Stats, Sister Ships, Dining Venues, Logbook, Video Highlights, Deck Plans, Live Tracker (needs IMO), FAQ (5+), Attributions
 - 7 JSON-LD schemas: Organization, WebSite, BreadcrumbList, Review, Person, WebPage, FAQPage
 - AI-breadcrumbs with entity, type, parent, category, cruise-line, ship-class, answer-first
@@ -76,7 +118,15 @@ Claude reads `state/investigate.json` — the structured output with all finding
 
 ### Step 5: Validation
 
-- **Ship pages:** `ship-page-validator` hook fires automatically on Write/Edit — checks SDG invocation, AI-breadcrumbs, ICP-Lite, SEO, JSON-LD, WCAG, images, performance, required sections
+Run `admin/validate-ship-page.sh` after generation. The validator now checks (v3.010.301+):
+- **9b:** First Look carousel must have actual images (CRITICAL error if empty)
+- **9c:** Sister ships consistency — breadcrumb siblings must match pill links AND FAQ answers
+- **9d:** All image src/srcset paths must resolve to real files on disk
+- **9e:** Dining venue database — warns if FAQ mentions venues not in venues.json
+- **9f:** Skip link target must match main element's ID
+
+Plus all existing checks: SDG invocation, AI-breadcrumbs, ICP-Lite, JSON-LD, WCAG, images, performance, required sections.
+
 - **Port pages:** Manual standards check against PORT_PAGE_STANDARD
 - **Voice:** `port-content-voice-hook` injects Like-a-human guide on every Edit/Write
 - **Pre-commit:** `voice-audit-hook` reminds to audit voice before committing

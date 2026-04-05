@@ -570,6 +570,200 @@ if echo "$CONTENT" | grep -q "status: Retired Ship"; then
 fi
 
 # ============================================================================
+# Section 9b: First Look Carousel Images
+# ============================================================================
+section_header "Section 9b: First Look Carousel Images"
+
+# Count actual images inside the firstlook swiper (not in scripts)
+FIRSTLOOK_IMGS=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p' | grep -cE '<img ' || echo "0")
+if [ "$FIRSTLOOK_IMGS" -ge 1 ]; then
+    check_pass "First Look carousel has $FIRSTLOOK_IMGS image(s)"
+else
+    check_fail "First Look carousel has NO images — carousel will render empty"
+fi
+
+# ============================================================================
+# Section 9c: Sister Ships Completeness
+# ============================================================================
+section_header "Section 9c: Sister Ships Consistency"
+
+# Extract siblings from ai-breadcrumbs
+BREADCRUMB_SIBLINGS=$(echo "$CONTENT" | grep -oP 'siblings:\s*\K.*' | head -1 | tr ',' '\n' | sed 's/^ *//;s/ *$//' | grep -c '\.html' || echo "0")
+
+# Count sister ship pills in the HTML
+SISTER_PILLS=$(echo "$CONTENT" | sed -n '/related-ships/,/See All Ships/p' | grep -c 'class="pill"' || echo "0")
+
+if [ "$BREADCRUMB_SIBLINGS" -gt 0 ] && [ "$SISTER_PILLS" -gt 0 ]; then
+    if [ "$BREADCRUMB_SIBLINGS" -eq "$SISTER_PILLS" ]; then
+        check_pass "Sister ships match: $BREADCRUMB_SIBLINGS in breadcrumbs, $SISTER_PILLS in pills"
+    else
+        check_fail "Sister ship MISMATCH: $BREADCRUMB_SIBLINGS in ai-breadcrumbs vs $SISTER_PILLS in pill links"
+    fi
+elif [ "$BREADCRUMB_SIBLINGS" -gt 0 ] && [ "$SISTER_PILLS" -eq 0 ]; then
+    check_fail "ai-breadcrumbs lists $BREADCRUMB_SIBLINGS siblings but no pill links found"
+elif [ "$SISTER_PILLS" -gt 0 ] && [ "$BREADCRUMB_SIBLINGS" -eq 0 ]; then
+    check_warn "$SISTER_PILLS sister pill links but no siblings in ai-breadcrumbs"
+fi
+
+# Check that FAQ answer about same-class ships mentions all siblings from breadcrumbs
+if [ "$BREADCRUMB_SIBLINGS" -gt 0 ]; then
+    SIBLINGS_LIST=$(echo "$CONTENT" | grep -oP 'siblings:\s*\K.*' | head -1)
+    FAQ_CLASS_ANSWER=$(echo "$CONTENT" | tr '\n' ' ' | grep -oP 'Which ships are in the same class.*?</details>' | head -1)
+    MISSING_IN_FAQ=0
+    while IFS= read -r sibling_url; do
+        [ -z "$sibling_url" ] && continue
+        SIBLING_SLUG=$(echo "$sibling_url" | grep -oP '[^/]+\.html' | sed 's/\.html//')
+        [ -z "$SIBLING_SLUG" ] && continue
+        if ! echo "$FAQ_CLASS_ANSWER" | grep -qi "$SIBLING_SLUG"; then
+            # Convert slug to readable name for display
+            READABLE=$(echo "$SIBLING_SLUG" | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g')
+            check_warn "FAQ 'same class' answer may be missing sister: $READABLE"
+            MISSING_IN_FAQ=$((MISSING_IN_FAQ + 1))
+        fi
+    done <<< "$(echo "$SIBLINGS_LIST" | tr ',' '\n' | sed 's/^ *//;s/ *$//')"
+    if [ "$MISSING_IN_FAQ" -eq 0 ]; then
+        check_pass "FAQ 'same class' answer mentions all sisters from breadcrumbs"
+    fi
+fi
+
+# ============================================================================
+# Section 9d: Image File Existence
+# ============================================================================
+section_header "Section 9d: Image File Existence (all src paths)"
+
+# Get repo root (walk up from the file being validated)
+REPO_ROOT=$(cd "$(dirname "$FILE")" && git rev-parse --show-toplevel 2>/dev/null || echo "$(cd "$(dirname "$FILE")/../.." && pwd)")
+
+MISSING_IMG_COUNT=0
+CHECKED_IMG_COUNT=0
+while IFS= read -r img_path; do
+    [ -z "$img_path" ] && continue
+    # Strip query strings
+    CLEAN_PATH=$(echo "$img_path" | sed 's/\?.*$//')
+    FULL="${REPO_ROOT}${CLEAN_PATH}"
+    CHECKED_IMG_COUNT=$((CHECKED_IMG_COUNT + 1))
+    if [ ! -f "$FULL" ]; then
+        check_fail "Image not found on disk: $CLEAN_PATH"
+        MISSING_IMG_COUNT=$((MISSING_IMG_COUNT + 1))
+    fi
+done <<< "$(echo "$CONTENT" | grep -oP 'src="/assets/[^"]+\.(webp|jpg|jpeg|png|svg)(\?[^"]*)?"' | sed 's/src="//;s/"$//' | sort -u)"
+
+# Also check srcset paths
+while IFS= read -r img_path; do
+    [ -z "$img_path" ] && continue
+    CLEAN_PATH=$(echo "$img_path" | sed 's/\?.*$//')
+    FULL="${REPO_ROOT}${CLEAN_PATH}"
+    CHECKED_IMG_COUNT=$((CHECKED_IMG_COUNT + 1))
+    if [ ! -f "$FULL" ]; then
+        check_fail "srcset image not found on disk: $CLEAN_PATH"
+        MISSING_IMG_COUNT=$((MISSING_IMG_COUNT + 1))
+    fi
+done <<< "$(echo "$CONTENT" | grep -oP 'srcset="/assets/[^"]+\.(webp|jpg|jpeg|png|svg)(\?[^"]*)?"' | sed 's/srcset="//;s/"$//' | sort -u)"
+
+if [ "$MISSING_IMG_COUNT" -eq 0 ] && [ "$CHECKED_IMG_COUNT" -gt 0 ]; then
+    check_pass "All $CHECKED_IMG_COUNT image paths verified on disk"
+elif [ "$CHECKED_IMG_COUNT" -eq 0 ]; then
+    check_warn "No /assets/ image paths found to verify"
+fi
+
+# ============================================================================
+# Section 9e: Dining Venue Database Check
+# ============================================================================
+section_header "Section 9e: Dining Venue Database"
+
+# Get the ship slug from the dining card
+SHIP_SLUG=$(echo "$CONTENT" | grep -oP 'data-slug="[^"]+' | head -1 | sed 's/data-slug="//')
+if [ -z "$SHIP_SLUG" ]; then
+    SHIP_SLUG=$(echo "$CONTENT" | grep -oP '"ship_slug":"[^"]+' | head -1 | sed 's/"ship_slug":"//')
+fi
+
+VENUES_JSON="${REPO_ROOT}/assets/data/venues.json"
+if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_JSON" ]; then
+    # Check if ship exists in venues.json
+    VENUE_COUNT=$(python3 -c "
+import json,sys
+try:
+    d=json.load(open('$VENUES_JSON'))
+    ship=d.get('ships',{}).get('$SHIP_SLUG',{})
+    venues=ship.get('venues',[])
+    print(len(venues))
+except:
+    print('0')
+" 2>/dev/null || echo "0")
+
+    SPECIALTY_COUNT=$(python3 -c "
+import json,sys
+try:
+    d=json.load(open('$VENUES_JSON'))
+    ship=d.get('ships',{}).get('$SHIP_SLUG',{})
+    venue_slugs=ship.get('venues',[])
+    venues_db={v['slug']:v for v in d.get('venues',[])}
+    specialties=[s for s in venue_slugs if venues_db.get(s,{}).get('category')=='specialty']
+    print(len(specialties))
+except:
+    print('0')
+" 2>/dev/null || echo "0")
+
+    if [ "$VENUE_COUNT" -gt 0 ]; then
+        check_pass "Ship '$SHIP_SLUG' has $VENUE_COUNT venues in venues.json ($SPECIALTY_COUNT specialty)"
+    else
+        check_fail "Ship '$SHIP_SLUG' has NO venues in venues.json — dining section will render empty"
+    fi
+
+    # Check if FAQ mentions venues not in the database
+    FAQ_DINING_ANSWER=$(echo "$CONTENT" | tr '\n' ' ' | grep -oP 'What dining options.*?</details>' | head -1)
+    if [ -n "$FAQ_DINING_ANSWER" ]; then
+        MENTIONED_VENUES=0
+        NOT_IN_DB=0
+        for venue_name in "150 Central Park" "Johnny Rockets" "Bionic Bar" "Pesky Parrot" "Boleros"; do
+            if echo "$FAQ_DINING_ANSWER" | grep -qi "$venue_name"; then
+                MENTIONED_VENUES=$((MENTIONED_VENUES + 1))
+                # Check if this venue exists in the database (by searching all venue names)
+                FOUND_IN_DB=$(python3 -c "
+import json
+d=json.load(open('$VENUES_JSON'))
+name='$venue_name'.lower()
+found=any(name in v.get('name','').lower() for v in d.get('venues',[]))
+print('yes' if found else 'no')
+" 2>/dev/null || echo "no")
+                if [ "$FOUND_IN_DB" = "no" ]; then
+                    check_warn "FAQ mentions '$venue_name' but it's not in venues.json — dining loader won't render it"
+                    NOT_IN_DB=$((NOT_IN_DB + 1))
+                fi
+            fi
+        done
+        if [ "$MENTIONED_VENUES" -gt 0 ] && [ "$NOT_IN_DB" -eq 0 ]; then
+            check_pass "All FAQ-mentioned premium venues exist in the database"
+        fi
+    fi
+else
+    if [ -z "$SHIP_SLUG" ]; then
+        check_warn "Could not detect ship slug for venue database check"
+    elif [ ! -f "$VENUES_JSON" ]; then
+        check_warn "venues.json not found at $VENUES_JSON"
+    fi
+fi
+
+# ============================================================================
+# Section 9f: Skip Link Target Consistency
+# ============================================================================
+section_header "Section 9f: Skip Link Target"
+
+SKIP_TARGET=$(echo "$CONTENT" | grep -oP 'href="#[^"]+[^>]*class="skip-link"|class="skip-link"[^>]*href="#[^"]+"' | grep -oP '#[a-zA-Z0-9_-]+' | head -1)
+MAIN_ID=$(echo "$CONTENT" | grep -oP '<main[^>]+id="[^"]+' | grep -oP 'id="[^"]+' | sed 's/id="//' | head -1)
+if [ -n "$SKIP_TARGET" ] && [ -n "$MAIN_ID" ]; then
+    if [ "$SKIP_TARGET" = "#$MAIN_ID" ]; then
+        check_pass "Skip link target ($SKIP_TARGET) matches main element ID"
+    else
+        check_fail "Skip link target ($SKIP_TARGET) does NOT match main element ID (#$MAIN_ID)"
+    fi
+elif [ -z "$SKIP_TARGET" ]; then
+    check_warn "Skip link href not detected"
+elif [ -z "$MAIN_ID" ]; then
+    check_warn "Main element ID not detected"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"

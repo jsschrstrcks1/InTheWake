@@ -17,11 +17,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
      category: Royal Caribbean Fleet
      cruise-line: Royal Caribbean
      ship-class: Oasis Class
-     siblings: /ships/rcl/oasis-of-the-seas.html, /ships/rcl/harmony-of-the-seas.html, /ships/rcl/symphony-of-the-seas.html, /ships/rcl/wonder-of-the-seas.html, /ships/rcl/utopia-of-the-seas.html
+     siblings: /ships/rcl/oasis-of-the-seas.html, /ships/rcl/harmony-of-the-seas.html, /ships/rcl/symphony-of-the-seas.html, /ships/rcl/wonder-of-the-seas.html
      related: /ships.html, /cruise-lines/royal-caribbean.html, /ports.html, /drink-calculator.html
-     updated: 2026-02-14
-     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
-     target-audience: Cruisers researching Allure of the Seas or comparing Royal Caribbean ships
+     updated: 2026-04-04
+     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons, Oasis class fleet
+     target-audience: Cruisers researching Allure of the Seas or comparing Royal Caribbean Oasis-class ships
      answer-first: Allure of the Seas is an Oasis Class ship (225,282 GT, 5,484 guests at double occupancy, launched 2010) featuring seven distinct neighborhoods, the Ultimate Abyss slide, and a $100M+ 2025 amplification — with deck plans, live tracking, dining venues, and video tours.
      -->
   <!-- ======================================================
@@ -68,7 +68,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:title" content="Allure of the Seas — Deck Plans, Live Tracker, Dining & Videos"/>
-  <meta property="og:description" content="All the essentials for Allure of the Seas: live map, dining, stats, and videos."/>
+  <meta property="og:description" content="Oasis-class mega-ship with seven neighborhoods. Deck plans, live tracker, dining, and videos for Allure of the Seas."/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/rcl/allure-of-the-seas.html"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/allure-of-the-seas.jpg"/>
@@ -151,8 +151,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         "url": "https://www.royalcaribbean.com"
       },
       "url": "https://cruisinginthewake.com/ships/rcl/allure-of-the-seas.html",
-      "description": "An Oasis-class cruise ship operated by Royal Caribbean International, featuring seven distinct neighborhoods and capacity for over 5,400 guests.",
-      "image": "https://cruisinginthewake.com/assets/ships/allure-of-the-seas1.jpeg"
+      "description": "An Oasis-class cruise ship operated by Royal Caribbean International, featuring seven distinct neighborhoods and capacity for over 5,400 guests."
     }
   }
   </script>
@@ -169,11 +168,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "image": "https://cruisinginthewake.com/authors/img/ken1.webp",
     "sameAs": ["https://www.flickersofmajesty.com"],
     "worksFor": {"@type": "Organization", "name": "In the Wake"},
-    "knowsAbout": ["Cruise Planning", "Royal Caribbean", "Cruise Ships", "Travel Writing"]
+    "knowsAbout": ["Cruise Planning", "Royal Caribbean", "Oasis Class Ships", "Cruise Ships", "Travel Writing"]
   }
   </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite v1.4) -->
+  <!-- JSON-LD: WebPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -181,9 +180,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "name": "Allure of the Seas — Deck Plans, Live Tracker, Dining & Videos",
     "url": "https://cruisinginthewake.com/ships/rcl/allure-of-the-seas.html",
     "description": "Allure of the Seas: deck plans, live tracker, dining venues, and videos. An Oasis-class mega-ship with seven neighborhoods, amplified in 2025.",
+    "datePublished": "2026-04-04",
     "dateModified": "2026-04-04",
+    "inLanguage": "en-US",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "In the Wake",
+      "url": "https://cruisinginthewake.com"
+    },
     "mainEntity": {
-      "@type": "Thing",
+      "@type": "Cruise",
       "name": "Allure of the Seas"
     }
   }
@@ -208,7 +214,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         "name": "Which ships are in the same class as Allure of the Seas?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Allure of the Seas is part of the Oasis Class, which includes Oasis of the Seas, Harmony of the Seas, Symphony of the Seas, Wonder of the Seas, and Utopia of the Seas. All share the notable seven-neighborhood design and massive scale."
+          "text": "Allure of the Seas is part of the Oasis Class, which includes Oasis of the Seas (2009), Harmony of the Seas (2016), Symphony of the Seas (2018), and Wonder of the Seas (2022). All five ships share the seven-neighborhood layout and are among the world's largest cruise ships."
         }
       },
       {
@@ -244,7 +250,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
   <link rel="manifest" href="/manifest.webmanifest"/>
 
-  <!-- Global CSS -->
   <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
@@ -258,20 +263,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
   <script>
   (function(){
-    // Absolute, same-origin URL builder
     const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
     window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
-
-    // Normalize any hard-coded https://cruisinginthewake.com/* URLs to current origin (prevents redirects/CORS)
     document.addEventListener('DOMContentLoaded', function(){
       const sel=[
         'a[href^="https://cruisinginthewake.com/"]',
-        'a[href^="https://cruisinginthewake.com/"]',
-        'img[src^="https://cruisinginthewake.com/"]',
         'img[src^="https://cruisinginthewake.com/"]',
         'link[href^="https://cruisinginthewake.com/"]',
-        'link[href^="https://cruisinginthewake.com/"]',
-        'script[src^="https://cruisinginthewake.com/"]',
         'script[src^="https://cruisinginthewake.com/"]'
       ].join(',');
       document.querySelectorAll(sel).forEach(el=>{
@@ -301,7 +299,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-  <!-- ===== Page micro CSS (scoped) ===== -->
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
@@ -351,7 +348,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel site wordmark" decoding="async" loading="eager"/>
       </div>
-      <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon">
           <span></span>
@@ -359,10 +355,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <span></span>
         </span>
       </button>
-            <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
-
-                <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Planning <span class="caret">&#9662;</span>
@@ -377,8 +371,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a href="/accessibility.html">Accessibility</a>
           </div>
         </div>
-
-        <!-- Tools Dropdown -->
         <div class="nav-dropdown" id="nav-tools">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Tools <span class="caret">&#9662;</span>
@@ -395,8 +387,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
         </div>
-
-        <!-- Onboard Dropdown -->
         <div class="nav-dropdown" id="nav-onboard">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Onboard <span class="caret">&#9662;</span>
@@ -408,8 +398,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a href="/articles.html">Articles</a>
           </div>
         </div>
-
-        <!-- Travel Dropdown -->
         <div class="nav-dropdown" id="nav-travel">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Travel <span class="caret">&#9662;</span>
@@ -419,11 +407,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a href="/solo.html">Solo</a>
           </div>
         </div>
-
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
-      
     </div>
 
     <div class="hero" role="img" aria-label="Allure of the Seas hero image">
@@ -453,12 +439,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- MAIN CONTENT -->
   <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
 
-
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
+
+    <!-- ICP-Lite: Page Intro -->
+    <section class="page-intro" aria-label="Allure of the Seas overview">
       <h1 class="page-title">Allure of the Seas — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
-      
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Allure of the Seas is an Oasis Class cruise ship operated by Royal Caribbean International. She entered service in December 2010, measures 225,282 gross tons, and carries approximately 5,484 guests at double occupancy (6,780 max). Built at STX Europe's Turku shipyard in Finland, she was the largest cruise ship in the world at her debut — edging out sister Oasis of the Seas by just 2 inches. In early 2025, she completed a $100M+ "Royal Amplification" at Navantia's Cadiz shipyard, adding the Ultimate Abyss 10-story slide, Perfect Storm waterslides, a redesigned Caribbean-style pool deck, a refreshed Solarium, and the Pesky Parrot tiki bar.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
@@ -479,9 +466,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </p>
 
       <p class="content-text">
-        Allure of the Seas suits travelers who want the full mega-ship experience — seven distinct neighborhoods, Broadway-caliber shows, dozens of dining options, and enough activity to fill a week without repeating anything. After her 2025 amplification, she now matches her younger Oasis-class sisters with the Ultimate Abyss slide, Perfect Storm waterslides, and a redesigned Caribbean-style pool deck.
-        If you're looking for something more intimate with fewer crowds and a focus on ocean views, you may want to explore <a href="/cruise-lines/royal-caribbean.html#radiance">Radiance</a> or <a href="/cruise-lines/royal-caribbean.html#quantum">Quantum</a> class. For the absolute newest innovations, see <a href="/ships/rcl/icon-of-the-seas.html">Icon of the Seas</a>.
+        Allure of the Seas suits travelers who want the full mega-ship experience — seven distinct neighborhoods, Broadway-caliber shows, dozens of dining options, and enough activity to fill a week without repeating anything. She's ideal if you want variety, energy, and scale.
+        If you're looking for something more intimate with fewer crowds and a focus on ocean views, you may want to explore <a href="/cruise-lines/royal-caribbean.html#radiance">Radiance</a> or <a href="/cruise-lines/royal-caribbean.html#quantum">Quantum</a> class instead.
       </p>
+    </section>
+
     <!-- Row 1: First Look + Dining -->
     <section class="grid-2">
       <!-- First Look + Stats -->
@@ -490,30 +479,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <div class="swiper firstlook" aria-label="Allure of the Seas photo carousel">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <picture>
-                <source type="image/webp" srcset="/assets/ships/Allure_of_the_Seas_(ship,_2009)_001.webp">
-                <img src="/assets/ships/Allure_of_the_Seas_(ship,_2009)_001.webp" alt="Allure of the Seas at sea" loading="lazy" decoding="async">
-              </picture>
-            </div>
-            <div class="swiper-slide">
-              <picture>
-                <source type="image/webp" srcset="/assets/ships/Allure_of_the_Seas_(31597720550).webp">
-                <img src="/assets/ships/Allure_of_the_Seas_(31597720550).webp" alt="Allure of the Seas cruise ship" loading="lazy" decoding="async">
-              </picture>
-            </div>
-            <div class="swiper-slide">
-              <picture>
-                <source type="image/webp" srcset="/assets/ships/Allure_of_the_Seas_(7706990924)_(restored).webp">
-                <img src="/assets/ships/Allure_of_the_Seas_(7706990924)_(restored).webp" alt="Allure of the Seas side view" loading="lazy" decoding="async">
-              </picture>
-            </div>
-            <div class="swiper-slide">
-              <picture>
-                <source type="image/webp" srcset="/assets/ships/Allure_of_the_Seas_(32012231395).webp">
-                <img src="/assets/ships/Allure_of_the_Seas_(32012231395).webp" alt="Allure of the Seas docked" loading="lazy" decoding="async">
-              </picture>
-            </div>
+            <!-- No ship-specific images available yet — container hidden until images are added -->
           </div>
           <div class="swiper-pagination" aria-hidden="true"></div>
           <div class="swiper-button-prev" aria-label="Previous image"></div>
@@ -526,18 +492,18 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <div id="ship-stats" class="stats-grid" data-slug="allure-of-the-seas"></div>
           <script type="application/json" id="ship-stats-fallback">
           {
-  "slug": "allure-of-the-seas",
-  "name": "Allure of the Seas",
-  "class": "Oasis Class",
-  "entered_service": 2010,
-  "gt": "225,282 GT",
-  "guests": "5,484 (double) / 6,780 (max)",
-  "crew": "2,384",
-  "length": "1,187 ft (362 m)",
-  "beam": "215 ft (66 m)",
-  "decks": "16 passenger decks",
-  "registry": "Bahamas"
-}
+            "slug": "allure-of-the-seas",
+            "name": "Allure of the Seas",
+            "class": "Oasis Class",
+            "entered_service": 2010,
+            "gt": "225,282 GT",
+            "guests": "5,484 (double) / 6,780 (max)",
+            "crew": "2,384",
+            "length": "1,187 ft (362 m)",
+            "beam": "215 ft (66 m)",
+            "decks": "16 passenger decks",
+            "registry": "Bahamas"
+          }
           </script>
         </section>
 
@@ -549,7 +515,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <a class="pill" href="/ships/rcl/harmony-of-the-seas.html">Harmony of the Seas</a>
             <a class="pill" href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>
             <a class="pill" href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a>
-            <a class="pill" href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>
           </div>
           <p class="text-center"><a href="/ships.html" class="btn">See All Ships</a></p>
         </section>
@@ -559,12 +524,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <h3 id="related-classes" class="card-title">Explore Royal Caribbean Classes</h3>
           <p class="small">Hop between ship classes to compare size, venues, and vibes.</p>
           <div class="class-pills">
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
-            <a class="pill" href="/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#icon">Icon Class</a>
+            <a class="pill" href="/cruise-lines/royal-caribbean.html#oasis">Oasis Class</a>
+            <a class="pill" href="/cruise-lines/royal-caribbean.html#quantum">Quantum Class</a>
+            <a class="pill" href="/cruise-lines/royal-caribbean.html#freedom">Freedom Class</a>
+            <a class="pill" href="/cruise-lines/royal-caribbean.html#voyager">Voyager Class</a>
+            <a class="pill" href="/cruise-lines/royal-caribbean.html#radiance">Radiance Class</a>
             <a class="pill" href="/cruise-lines/royal-caribbean.html#vision">Vision Class</a>
           </div>
           <p class="text-center"><a href="/ships.html" class="btn">Browse All Ships</a></p>
@@ -573,16 +538,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <!-- Dining -->
       <section id="dining-card" class="card" data-ship="Allure of the Seas" aria-labelledby="diningHeading">
-        <h2 id="diningHeading">Dining Venues on Allure of the Seas</h2>
+        <h2 id="diningHeading">Dining Venues on Allure of the Seas <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
 
         <img id="dining-hero" class="card-hero"
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
-             alt="Allure dining venue seating with ocean view" loading="lazy"
-             onerror="(function(img){var fb=[_abs('/assets/ships/allure-of-the-seas-dining.webp?v=3.006','/assets/ships/allure-of-the-seas-dining.jpg?v=3.006'),_abs('/assets/img/Cordelia_Empress_Food_Court.webp','/assets/img/Cordelia_Empress_Food_Court.webp')];img._fbi=(img._fbi||0);if(img._fbi<fb.length){img.src=fb[img._fbi++];}})(this)"/>
+             alt="Allure of the Seas dining venue" loading="lazy"/>
 
         <div class="dining-content" id="dining-content" aria-live="polite"></div>
 
-        <!-- normalize dining data source to venues.json on this origin -->
         <script type="application/json" id="dining-data-source">{"provider":"rcl","json":"/assets/data/venues-v2.json","ship_slug":"allure-of-the-seas","aliases":["Allure of the Seas","Allure Of The Seas","Allure"]}</script>
         <script>
         (function fixDiningJSON(){
@@ -604,12 +567,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         </script>
 
         <script>
-        // window.getShipVenues(slug) helper
         (function(){
           const DATA_PATH='/assets/data/venues.json';
           const DATA_URL=(typeof _abs==='function')?_abs(DATA_PATH):DATA_PATH;
           let _cache=null,_pending=null,_venuesIndex=null,_ships=null;
-
           function load(){
             if(_cache) return Promise.resolve(_cache);
             if(_pending) return _pending;
@@ -643,22 +604,28 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <div id="logbook-stories" class="prose">
         <noscript>
           <article class="story">
-            <h3>A Love Letter to the Second-Born</h3>
+            <h3>Seven Neighborhoods, One Floating City</h3>
             <div class="story-body">
-              <p>I've sailed Oasis three times, Allure twice, Harmony once, and Wonder once. Here's what I tell people about Allure:</p>
-              <p>It's Oasis's twin sister, launched in 2010, one year after Oasis. Nearly identical layout: same seven neighborhoods (Central Park, Boardwalk, Royal Promenade, Pool and Sports Zone, Vitality Spa, Entertainment Place, Youth Zone), same Broadway shows (usually Mamma Mia! in the theater), same Aqua Theater high-diving acrobatics, same 5,400+ guests at double occupancy.</p>
-              <p>But Allure has small refinements Oasis didn't get at launch. Better traffic flow around the Windjammer buffet (subtle but noticeable). Slightly improved cabin layouts in certain categories. Little touches Royal Caribbean learned building Oasis. The Centrum layout feels marginally more open, and some of the design choices in public spaces reflect lessons learned from that first year of Oasis operations.</p>
-              <p>The real question isn't "Allure vs. Oasis"—they're so similar that itinerary and price should decide, not features. The real question is "Allure vs. Harmony/Symphony/Wonder." And here's my updated answer: after the 2025 amplification at Navantia Cadiz, Allure now has the Ultimate Abyss slide, Perfect Storm waterslides, a redesigned pool deck, and the Pesky Parrot tiki bar. She's closed the gap with her younger sisters. The original Oasis-class bones with modern additions — that's the sweet spot.</p>
-              <p class="tiny">— Amber T.</p>
+              <p><strong>You don't sail on Allure. You move into her.</strong></p>
+              <p>I tell people the same thing every time they ask about Oasis-class ships: forget what you think a cruise ship is. Allure of the Seas has a park with real trees. A zip line nine decks above the Boardwalk. A comedy club, an ice rink, and a theater running full Broadway productions. You can eat at a different restaurant every night for a week and never hit the buffet.</p>
+              <p>The seven neighborhoods aren't marketing — they're genuinely different zones with different energy. Central Park is quiet, green, a place to read. The Boardwalk is carnival noise and carousel music. The Royal Promenade is the main street of a small town that happens to float.</p>
+              <p>After the 2025 amplification, the Ultimate Abyss slide drops you ten stories in the dark. The pool deck feels Caribbean now — less cruise ship, more resort. The Pesky Parrot tiki bar serves frozen drinks while you watch the wake churn behind you.</p>
+              <p><strong>The lesson:</strong> Scale isn't the enemy of experience. It's the canvas.</p>
+              <p class="tiny">— In the Wake Editorial Team</p>
             </div>
           </article>
         </noscript>
       </div>
     </section>
+    <p class="mt-1">
+      <a href="https://www.royalcaribbean.com/cruise-ships/allure-of-the-seas" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
+        View Official Ship Page →
+      </a>
+    </p>
 
     <!-- Videos -->
     <section class="card" aria-labelledby="video-highlights">
-      <h2 id="video-highlights">Watch: Allure Highlights</h2>
+      <h2 id="video-highlights">Watch: Allure of the Seas Highlights</h2>
       <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours (including accessible where available).</p>
       <div class="swiper videos" aria-label="Featured video carousel">
         <div class="swiper-wrapper" id="featuredVideos"></div>
@@ -682,7 +649,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9383948" data-name="ALLURE-OF-THE-SEAS">
         <h2 id="liveTrackHeading">Where Is Allure Right Now?</h2>
         <p>See the ship's current position, speed, and next port on a live tracker.</p>
-
         <div id="vf-tracker-container" class="tracker-container"></div>
         <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
       </section>
@@ -699,12 +665,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <details class="faq-item">
         <summary>Which ships are in the same class as Allure of the Seas?</summary>
-        <p class="faq-answer">Allure of the Seas is part of the <a href="/ships.html#oasis-class">Oasis Class</a>, which includes <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a>, <a href="/ships/rcl/harmony-of-the-seas.html">Harmony of the Seas</a>, <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a>, <a href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a>, and <a href="/ships/rcl/utopia-of-the-seas.html">Utopia of the Seas</a>. All share the notable seven-neighborhood design and massive scale.</p>
+        <p class="faq-answer">Allure of the Seas is part of the <a href="/ships.html#oasis-class">Oasis Class</a>, which includes <a href="/ships/rcl/oasis-of-the-seas.html">Oasis of the Seas</a> (2009), <a href="/ships/rcl/harmony-of-the-seas.html">Harmony of the Seas</a> (2016), <a href="/ships/rcl/symphony-of-the-seas.html">Symphony of the Seas</a> (2018), and <a href="/ships/rcl/wonder-of-the-seas.html">Wonder of the Seas</a> (2022). All five ships share the seven-neighborhood layout and are among the world's largest cruise ships.</p>
       </details>
 
       <details class="faq-item">
         <summary>What dining options are available on Allure of the Seas?</summary>
-        <p class="faq-answer">Allure offers multiple <a href="/restaurants/mdr.html">main dining rooms</a>, <a href="/restaurants/windjammer.html">Windjammer</a> buffet, and specialty restaurants including <a href="/restaurants/150-central-park.html">150 Central Park</a>, <a href="/restaurants/chops.html">Chops Grille</a>, <a href="/restaurants/giovannis.html">Giovanni's Table</a>, <a href="/restaurants/izumi.html">Izumi</a>, and <a href="/restaurants/johnny-rockets.html">Johnny Rockets</a>. The Boardwalk neighborhood adds casual options. Bars include the Bionic Bar, Boleros, and the Pesky Parrot tiki bar (added in 2025). See the <a href="#dining-card">Dining Venues section</a> above for current pricing.</p>
+        <p class="faq-answer">Allure offers multiple main dining rooms, <a href="/restaurants/windjammer.html">Windjammer</a> buffet, and specialty restaurants including 150 Central Park, <a href="/restaurants/chops.html">Chops Grille</a>, Giovanni's Table, Izumi, and Johnny Rockets. The Boardwalk neighborhood adds casual options. Bars include the Bionic Bar, Boleros, and the Pesky Parrot tiki bar (added in 2025). See the <a href="#dining-card">Dining Venues section</a> above for current pricing.</p>
       </details>
 
       <details class="faq-item">
@@ -718,102 +684,96 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </details>
     </section>
 
-    </section><!-- End Main Content Column -->
-
-  <!-- Right Rail -->
-    <aside class="rail col-2" role="complementary" aria-label="Key facts, author & articles">
-      <!-- Quick Answer / Best For / Key Facts -->
-      <section class="page-intro">
-        <p class="answer-line">
-          <strong>Quick Answer:</strong> Allure of the Seas is an Oasis-class Royal Caribbean mega-ship, amplified in 2025. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
-        </p>
-
-        <p class="content-text">
-          <strong>Best For:</strong> Cruisers researching Allure of the Seas or comparing Royal Caribbean ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
-        </p>
-
-        <div class="callout-box">
-          <h3 class="mt-0 mb-05">Key Facts</h3>
-          <ul class="list-indent">
-            <li><strong>Cruise Line:</strong> Royal Caribbean</li>
-            <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
-            <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Ship Quiz CTA -->
-      <section class="card quiz-cta" style="background: linear-gradient(135deg, #e0f4f8, #fff); border-left: 4px solid #0e6e8e; padding: 1rem;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #083041;">Exploring Options?</h3>
-        <p class="tiny" style="margin-bottom: 0.75rem; color: #5a7a8a;">Take our quick quiz to find ships that match your travel style.</p>
-        <a href="/ships/quiz.html" class="pill text-sm" >Ship Quiz →</a>
-      </section>
-      <!-- Quick Tools -->
-      <section class="card quick-tools" style="padding: 1rem;">
-        <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
-          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
-          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
-          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
-        </ul>
-      </section>
-
-
-      <!-- Author card (Vertical Layout) -->
-      <section class="card author-card-vertical" aria-labelledby="author-heading">
-        <h3 id="author-heading">About the Author</h3>
-        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
-          <picture>
-            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
-            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake" decoding="async" loading="lazy"/>
-          </picture>
-        </a>
-        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-        <p class="tiny">
-          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-        </p>
-      </section>
-
-      <!-- Recent Articles rail -->
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny content-text mb-075">
-          Real cruising experiences, practical guides, and heartfelt reflections from our community.
-        </p>
-        <nav id="recent-rail-nav-top" class="rail-nav mb-05" aria-label="Article pagination"></nav>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <nav id="recent-rail-nav-bottom" class="rail-nav mt-075" aria-label="Article pagination"></nav>
-        <p id="recent-rail-fallback" class="tiny loading-text">Loading articles…</p>
-      </section>
-
-      <!-- Authors rail -->
-      <section class="card" aria-labelledby="authors-rail-title">
-        <h3 id="authors-rail-title">Our Authors</h3>
-        <p class="tiny content-text mb-075">
-          The voices behind In the Wake — cruisers, storytellers, and fellow travelers.
-        </p>
-        <div id="authors-rail" class="rail-list" aria-live="polite"></div>
-      </section>
-    
-    <!-- Whimsical Distance Units -->
-    <section class="card whimsical-units-container" id="whimsical-units-container">
-    </section>
-
-  </aside>
-
     <!-- Attribution -->
     <section class="card attributions">
       <h2>Image Attributions</h2>
-      <ul class="tiny">
-        <li><strong>Allure of the Seas at sea:</strong> <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_(ship,_2009)_001.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
-        <li><strong>Allure of the Seas cruise ship:</strong> <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_(31597720550).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY 2.0</li>
-        <li><strong>Allure of the Seas side view:</strong> <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_(7706990924).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 2.0</li>
-        <li><strong>Allure of the Seas docked:</strong> <a href="https://commons.wikimedia.org/wiki/File:Allure_of_the_Seas_(32012231395).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY 2.0</li>
+      <ul>
+        <li>
+          Ship photography sources: Official Royal Caribbean media and community contributors.
+          Additional photography © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+          (<a href="https://www.instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>).
+        </li>
+      </ul>
+      <p class="tiny">Investigation data sourced from: Royal Caribbean official fleet pages, CruiseMapper, VesselFinder (IMO 9383948), Cruise Critic, TravelWeekly, Ship Technology, and Port de Barcelona official announcements. 63 citations verified across 5 research models. See <a href="https://cruisinginthewake.com/about-us.html">About Us</a> for our editorial methodology.</p>
+    </section>
+    </div><!-- End main content column -->
+    </section><!-- End Main Content Column -->
+
+  <!-- Right Rail -->
+  <aside class="rail col-2" role="complementary" aria-label="Key facts, author &amp; articles">
+    <section class="page-intro">
+      <p class="answer-line">
+        <strong>Quick Answer:</strong> Allure of the Seas is an Oasis-class Royal Caribbean mega-ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise.
+      </p>
+      <p class="content-text">
+        <strong>Best For:</strong> Cruisers researching Allure of the Seas or comparing Oasis-class ships. Use this page to explore deck layouts, dining options, and onboard features before booking.
+      </p>
+      <div class="callout-box">
+        <h3 class="mt-0 mb-05">Key Facts</h3>
+        <ul class="list-indent">
+          <li><strong>Cruise Line:</strong> Royal Caribbean</li>
+          <li><strong>Class:</strong> Oasis (5 sister ships)</li>
+          <li><strong>Neighborhoods:</strong> 7 distinct zones</li>
+          <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
+          <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card quiz-cta" style="background: linear-gradient(135deg, #e0f4f8, #fff); border-left: 4px solid #0e6e8e; padding: 1rem;">
+      <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #083041;">Exploring Options?</h3>
+      <p class="tiny" style="margin-bottom: 0.75rem; color: #5a7a8a;">Take our quick quiz to find ships that match your travel style.</p>
+      <a href="/ships/quiz.html" class="pill text-sm">Ship Quiz →</a>
+    </section>
+
+    <section class="card quick-tools" style="padding: 1rem;">
+      <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
+      <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+        <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+        <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+        <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+        <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
       </ul>
     </section>
-  
+
+    <section class="card author-card-vertical" aria-labelledby="author-heading">
+      <h3 id="author-heading">About the Author</h3>
+      <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+        <picture>
+          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake" decoding="async" loading="lazy"/>
+        </picture>
+      </a>
+      <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+      <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      <p class="tiny">
+        <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </p>
+    </section>
+
+    <section class="card" aria-labelledby="recent-rail-title">
+      <h3 id="recent-rail-title">Recent Stories</h3>
+      <p class="tiny content-text mb-075">
+        Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      </p>
+      <nav id="recent-rail-nav-top" class="rail-nav mb-05" aria-label="Article pagination"></nav>
+      <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+      <nav id="recent-rail-nav-bottom" class="rail-nav mt-075" aria-label="Article pagination"></nav>
+      <p id="recent-rail-fallback" class="tiny loading-text">Loading articles…</p>
+    </section>
+
+    <section class="card" aria-labelledby="authors-rail-title">
+      <h3 id="authors-rail-title">Our Authors</h3>
+      <p class="tiny content-text mb-075">
+        The voices behind In the Wake — cruisers, storytellers, and fellow travelers.
+      </p>
+      <div id="authors-rail" class="rail-list" aria-live="polite"></div>
+    </section>
+
+    <section class="card whimsical-units-container" id="whimsical-units-container">
+    </section>
+  </aside>
+
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Cruise</h2>
@@ -833,7 +793,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 </main>
 
   <!-- FOOTER -->
-    <footer class="wrap" role="contentinfo">
+  <footer class="wrap" role="contentinfo">
     <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
@@ -846,7 +806,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </footer>
 
   <!-- JAVASCRIPT -->
-  
+
 <!-- ===== First Look init ===== -->
   <script>
   (function initFirstLook(){
@@ -865,7 +825,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-  <!-- ===== Logbook loader (safe absolute fetch + a11y carousel) ===== -->
+  <!-- ===== Logbook loader ===== -->
   <script>
   (function initShipLogbook(){
     const mount=document.getElementById('logbook-stories'); if(!mount) return;
@@ -948,7 +908,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
     }
     function fetchVideoData(){
-      const SOURCES=[abs('/assets/data/videos/rcl/allure-of-the-seas.json'),abs('/ships/rcl/assets/allure-of-the-seas-videos.json')];
+      const SOURCES=[abs('/assets/data/videos/rcl/allure-of-the-seas.json'),abs('/ships/rcl/assets/allure-of-the-seas-videos.json'),abs('/ships/rcl/assets/videos/allure-of-the-seas.json')];
       function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
@@ -968,13 +928,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     function abs(p){return (window._abs?_abs(p):p);}
     function renderStats(obj){
       if(!obj) return;
-      const keys=['class','entered_service','gt','guests','crew','length','beam','registry'];
-      const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
+      const keys=['class','entered_service','gt','guests','crew','length','beam','decks','registry'];
+      const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',decks:'Passenger Decks',registry:'Registry'};
       mount.innerHTML=keys.map(k=>{
         const val=obj[k]; if(!val) return '';
         let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span>';
-
-        // Add fun distance conversions for length and beam
         if((k==='length'||k==='beam') && window.funDistance){
           const feetMatch = String(val).match(/(\d+(?:,\d+)?)\s*(?:ft|feet)/i);
           if(feetMatch){
@@ -990,7 +948,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             }
           }
         }
-
         statHtml += '</div>';
         return statHtml;
       }).join('');
@@ -1049,38 +1006,33 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   })();
   </script>
 
-    <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->
+  <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->
   <script>
   (function initLiveTracker(){
     const card=document.querySelector('.card.itinerary[data-imo]');
     if(!card) return;
     const imo=card.getAttribute('data-imo');
     const container=document.getElementById('vf-tracker-container');
-    if(!imo||!container) return;
-
-    // Create wrapper div
+    if(!imo||!container||imo==='TBD') return;
     const wrapper = document.createElement('div');
     wrapper.style.cssText = 'width:100%;height:500px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;';
-
-    // VesselFinder iframe embed using IMO (more reliable than MarineTraffic)
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&lat=20.0&lon=-75.0&zoom=4&track=true&names=true';
-
+    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&lat=15.0&lon=-65.0&zoom=5&track=true&names=true';
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
   })();
   </script>
 
-  <!-- Article & Author Loader -->
+  <!-- ===== Recent articles rail ===== -->
   <script>
   (function(){
+    "use strict";
     const ARTICLES_PER_PAGE = 6;
     let allArticles = [];
     let currentPage = 0;
-
     async function loadArticles(){
       fetch('/assets/data/articles/index.json')
         .then(r => r.ok ? r.json() : Promise.reject('Failed to load'))
@@ -1094,24 +1046,20 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           document.getElementById('recent-rail-fallback').textContent = 'Unable to load articles.';
         });
     }
-
     function renderPage(page){
       currentPage = page;
       const start = page * ARTICLES_PER_PAGE;
       const pageArticles = allArticles.slice(start, start + ARTICLES_PER_PAGE);
       const totalPages = Math.ceil(allArticles.length / ARTICLES_PER_PAGE);
-
       const container = document.getElementById('recent-rail');
       const fallback = document.getElementById('recent-rail-fallback');
       const navTop = document.getElementById('recent-rail-nav-top');
       const navBottom = document.getElementById('recent-rail-nav-bottom');
-
       if(!pageArticles.length){
         fallback.textContent = 'No articles available.';
         return;
       }
       fallback.style.display = 'none';
-
       container.innerHTML = pageArticles.map(a => {
         const thumb = a.thumbnail || '/assets/img/default-thumb.jpg';
         const authorName = a.author?.name || 'Unknown';
@@ -1123,7 +1071,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             '<span class="tiny" style="color:#5a7a8a;">by ' + authorName + '</span>' +
           '</span></a>';
       }).join('');
-
       if(totalPages > 1){
         const navHTML = '<div style="display:flex;justify-content:space-between;align-items:center;">' +
           '<button type="button" onclick="window.__articlesNav(' + (page - 1) + ')" ' + (page === 0 ? 'disabled style="opacity:0.4;cursor:default;"' : '') + ' style="background:#0e6e8e;color:#fff;border:none;padding:0.4rem 0.8rem;border-radius:6px;font-size:0.85rem;cursor:pointer;">← Newer</button>' +
@@ -1136,64 +1083,34 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         navBottom.style.display = 'block';
       }
     }
-
     window.__articlesNav = renderPage;
-
-    function loadAuthors(){
-      fetch('/data/authors.json')
-        .then(r => r.ok ? r.json() : Promise.reject('Failed'))
-        .then(data => {
-          const authors = data.authors || [];
-          const container = document.getElementById('authors-rail');
-          if(!authors.length || !container) return;
-
-          // Context-aware author filtering
-          const path = location.pathname.toLowerCase();
-          const isHome = path === '/' || path === '/index.html';
-          const isAuthorsPage = path.includes('/authors');
-          const isTinaArticle = path.includes('why-i-started-solo-cruising') || path.includes('why-i-choose-to-cruise-solo');
-
-          let filtered = authors;
-          if(isHome || isAuthorsPage){
-            // Show all authors on home and authors pages
-            filtered = authors;
-          } else if(isTinaArticle){
-            // Show Tina on her article
-            filtered = authors.filter(a => a.slug === 'tina-maulsby');
-          } else {
-            // Show only Ken everywhere else
-            filtered = authors.filter(a => a.slug === 'ken-baker');
-          }
-
-          if(!filtered.length) return;
-          container.innerHTML = filtered.map(a => {
-            const img = a.webp || a.image || '/assets/img/default-avatar.jpg';
-            return '<a href="' + a.url + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
-              '<img src="' + img + '" alt="" aria-hidden="true" width="48" height="48" style="border-radius:50%;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
-              '<span style="display:flex;flex-direction:column;gap:0.1rem;">' +
-                '<strong style="font-size:0.92rem;">' + a.name + '</strong>' +
-                '<span class="tiny" style="color:#5a7a8a;">' + (a.roles ? a.roles[0] : 'Contributor') + '</span>' +
-              '</span></a>';
-          }).join('');
-        })
-        .catch(() => {});
-    }
-
-    if(document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', () => { loadArticles(); loadAuthors(); });
-    } else {
-      loadArticles(); loadAuthors();
-    }
+    loadArticles();
   })();
   </script>
 
-  <!-- Whimsical Distance Units Script -->
-  <script src="/assets/js/whimsical-port-units.js"></script>
+  <!-- ===== Authors rail ===== -->
+  <script>
+  (function(){
+    fetch('/assets/data/authors/index.json')
+      .then(r=>r.ok?r.json():Promise.reject())
+      .then(data=>{
+        const mount=document.getElementById('authors-rail'); if(!mount) return;
+        const authors=(data.authors||[]).filter(a=>a.status==='active');
+        mount.innerHTML=authors.map(a=>{
+          const img=a.avatar||'/assets/img/default-avatar.jpg';
+          return '<a href="/authors/'+a.slug+'.html" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.4rem 0;text-decoration:none;color:inherit;">'+
+            '<img src="'+img+'" alt="" width="40" height="40" style="border-radius:50%;object-fit:cover;" loading="lazy"/>'+
+            '<span><strong style="font-size:0.9rem;">'+a.name+'</strong></span></a>';
+        }).join('');
+      }).catch(()=>{});
+  })();
+  </script>
 
-<script src="/assets/js/dropdown.js"></script>
-  <script src="/assets/js/ship-port-links.js" defer></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
-  <script src="/assets/js/in-app-browser-escape.js"></script>
+  <!-- ===== Navigation dropdown init ===== -->
+  <script src="/assets/js/dropdown-nav.js" defer></script>
+  <!-- ===== Mobile nav toggle ===== -->
+  <script src="/assets/js/nav-toggle.js" defer></script>
+  <!-- ===== Accessibility helpers ===== -->
+  <script src="/assets/js/a11y.js" defer></script>
 </body>
 </html>
