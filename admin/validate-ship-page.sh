@@ -1940,6 +1940,47 @@ else
 fi
 
 # ============================================================================
+# Section 9ax: Rendering Artifact "50+" (#1206)
+# ============================================================================
+section_header "Section 9ax: Rendering Artifacts"
+
+# Check for "50+" or similar numeric artifacts appearing as visible text
+# Strip scripts, styles, and noscript blocks first, then look for orphaned "50+"
+VISIBLE_TEXT=$(echo "$CONTENT" | sed 's/<script[^>]*>.*<\/script>//g' | sed 's/<style[^>]*>.*<\/style>//g' | sed 's/<[^>]*>//g')
+ARTIFACT_50=$(echo "$VISIBLE_TEXT" | grep -cP '(?<!\d)50\+(?!\d)' || true)
+if [ "$ARTIFACT_50" -gt 0 ]; then
+    # Check if it's in a reasonable context (e.g., "50+ dining venues" is fine)
+    BARE_50=$(echo "$VISIBLE_TEXT" | grep -P '(?<!\d)50\+(?!\d)' | grep -cvP 'dining|venue|restaurant|activit|feature|deck|pool|bar|lounge|show|shop|port|destination|excursion' || true)
+    if [ "$BARE_50" -gt 0 ]; then
+        check_warn "Found $BARE_50 possible '50+' rendering artifact(s) — may be a template variable that didn't resolve (#1206)"
+    else
+        check_pass "All '50+' occurrences appear in valid content context"
+    fi
+else
+    check_pass "No '50+' rendering artifacts detected"
+fi
+
+# ============================================================================
+# Section 9ay: Fleet Page Ship Count Accuracy (#1335)
+# ============================================================================
+section_header "Section 9ay: Fleet Page Cross-Check"
+
+# Only runs when validating a ship page — checks if this ship appears in ships.html
+if [ -n "$SHIP_SLUG" ] && [ -f "${REPO_ROOT}/ships.html" ]; then
+    if grep -q "$SHIP_SLUG" "${REPO_ROOT}/ships.html"; then
+        check_pass "Ship '$SHIP_SLUG' found in fleet listing (ships.html)"
+    else
+        if [ "$IS_RETIRED" -eq 1 ]; then
+            check_pass "Retired ship not expected in active fleet listing"
+        else
+            check_warn "Ship '$SHIP_SLUG' NOT found in fleet listing (ships.html) — may be missing from fleet table (#1335)"
+        fi
+    fi
+else
+    check_pass "Fleet cross-check skipped"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
