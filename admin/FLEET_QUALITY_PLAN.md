@@ -34,7 +34,7 @@ The issues aren't random. They come from **3 root causes**:
 | **Regent** | 8 | Unknown | 0 | Untested |
 | **Explora** | 7 | 1 | 0 (but same MSC-era issues) | Audited — 6/6 fail (1e 19w), placeholder sections, no faq-answer class, no favicon |
 | **Virgin** | 5 | Unknown | 0 | Untested |
-| **Cunard** | 5 | Unknown | 0 | Untested |
+| **Cunard** | 5 | 1 (MSC-era + QM2 variant) | 0 (but GT/guest discrepancies, grammar, broken carousel) | Audited — 4/4 fail, QM2 carousel class mismatch, triple guest counts on Victoria |
 
 ---
 
@@ -96,6 +96,28 @@ MSC (24 pages, 2 templates) and Explora (6 pages, 1 template) share the same gen
 **MSC fleet summary:** 24/24 fail. Static copyright 23/24. Zero noscript 24/24. Swiper version mismatch 24/24. "exceptional" raw class on 3 World Class pages. Guest count triple-inconsistency confirmed on World Europa.
 
 **Explora fleet summary:** 6/6 identical (1e 19w each). Same template. 4 placeholder sections per page. No `faq-answer` class. No favicon. No robots meta. Stats JSON complete (no TBDs). Guest counts consistent (922). `CruiseShip` JSON-LD schema present (not on RCL).
+
+### 1E-extra. Cunard audit findings
+
+4 ships, 1 template (MSC-era), QM2 has a variant.
+
+| Ship | Errors | Warnings | Unique Issues |
+|------|--------|----------|---------------|
+| Queen Anne | 1 | 16 | Clean data |
+| Queen Elizabeth | 2 | 16 | GT: 90,900 vs 90,901. Guests: 2,068 vs 2,081. 1 TBD field. |
+| Queen Mary 2 | 2 | 17 | GT: 149,215 vs 148,528. Guests: 2,691 vs 2,695. "A Ocean Liner" (6x). Carousel uses `photo-carousel` class instead of `firstlook` — **initFirstLook() JS can't find it**, carousel is broken. Empty carousel error is a false alarm — images exist but wrong class. |
+| Queen Victoria | 1 | 16 | **3 different guest counts:** 2,014 / 2,061 / 2,081 |
+
+**Cunard-specific new issues:**
+
+| Issue | Impact | New Check? |
+|-------|--------|-----------|
+| Carousel class mismatch (`photo-carousel` vs `firstlook`) | Carousel JS can't initialize — images exist but Swiper never starts | **9ce**: Detect carousel container that doesn't match the init JS selector |
+| "A Ocean Liner" grammar (6 occurrences on QM2) | "Ocean" starts with vowel | Expand 9ar with `Ocean` |
+| Triple guest count (Queen Victoria: 2,014 / 2,061 / 2,081) | 3 conflicting numbers destroy trust | Extend 9bu to catch >2 unique guest counts |
+| GT off-by-one (Queen Elizabeth: 90,900 vs 90,901) | Subtle but visible | Already caught by 9au for fleet table; need intra-page 9bu for GT too |
+| "QM2 Class" as class name | Not a real class designation — should be "Ocean Liner" or "Queen Mary 2 Class" | Same pattern as MSC "exceptional" — 9bs covers it |
+| All 4 pages use `class="list-indent"` not `class="faq-answer"` | Same as Explora — FAQ checks can't find answers | Broaden FAQ detection |
 
 ### 1E. Cross-line universal checks (new)
 
