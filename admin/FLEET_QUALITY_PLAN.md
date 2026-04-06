@@ -31,7 +31,7 @@ The issues aren't random. They come from **3 root causes**:
 | **Costa** | 10 | Unknown | 0 | Untested |
 | **Oceania** | 9 | Unknown | 0 | Untested |
 | **Seabourn** | 8 | Unknown | 0 | Untested |
-| **Regent** | 8 | Unknown | 0 | Untested |
+| **Regent** | 8 | 1 (MSC-era) | 0 (but GT double-val on 3 ships, guest count mismatches, dup deck plans, Prestige class triple-mismatch) | Audited — 8/8 fail, Explorer/Grandeur/Splendor have 55,254 vs 55,500 GT, Prestige has Explorer vs Nova Class |
 | **Explora** | 7 | 1 | 0 (but same MSC-era issues) | Audited — 6/6 fail (1e 19w), placeholder sections, no faq-answer class, no favicon |
 | **Virgin** | 5 | 1 | 0 (but page title leaks into ship name, class mismatch) | Audited — 4/4 fail (1e 18w), `<title>` suffix "| In the Wake" used as ship name in fact-block/stats/review 9x per page, Lady Class vs Virgin Class |
 | **Cunard** | 5 | 1 (MSC-era + QM2 variant) | 0 (but GT/guest discrepancies, grammar, broken carousel) | Audited — 4/4 fail, QM2 carousel class mismatch, triple guest counts on Victoria |
@@ -93,6 +93,32 @@ MSC (24 pages, 2 templates) and Explora (6 pages, 1 template) share the same gen
 | **9ce** | Carousel class vs init JS mismatch | Carousel container class doesn't match init script selector (Cunard QM2: `photo-carousel` vs `.firstlook`) |
 | **9cf** | Page title leaking into ship name | Site name suffix (e.g., "| In the Wake") used as part of ship name in stats JSON, fact-block, review schema. Virgin: 9x per page |
 | **9cg** | Entered service date accuracy | Flag disputed dates (Virgin Scarlet Lady: delivered 2020 vs revenue service 2021) |
+| **9ch** | Class name triple-mismatch | 3+ different class names on same page (Regent Prestige: breadcrumbs=Explorer, stats=Explorer, fact-block=Nova) |
+
+### 1F. Regent audit findings
+
+8 ships, 1 template (MSC-era). All 8 fail.
+
+| Ship | Errors | Warnings | Unique Issues |
+|------|--------|----------|---------------|
+| Prestige | 1 | 21 | Class triple-mismatch (Explorer Class in breadcrumbs/stats, Nova Class in fact-block). Missing GT in fact-block. "a Explorer" grammar. |
+| Explorer | 1 | 17 | GT: 55,254 vs 55,500 (4 unique GT values on page). "a Explorer" grammar (9x). Duplicate Deck Plans sections. |
+| Grandeur | 1 | 17 | GT: 55,254 vs 55,500. Guests: 746 vs 750. Same pattern as Explorer. |
+| Splendor | 1 | 17 | GT: 55,254 vs 55,500. Guests: 732 vs 750. Same pattern. |
+| Mariner | 1 | 19 | Standard MSC-era issues only. |
+| Navigator | 1 | 19 | Standard MSC-era issues only. |
+| Voyager | 1 | 19 | Standard MSC-era issues only. |
+
+**Regent-specific patterns:**
+- GT split: 55,254 in fact-block/Key Facts/Review vs 55,500 in meta/specs/prose (Explorer, Grandeur, Splendor)
+- Guest count split: specific number (732/746/750) in detail vs round 750 in meta (Grandeur, Splendor)
+- Prestige class confusion: Probably was Explorer Class at announcement, renamed to Nova Class later — template didn't update all locations
+- All 8 pages have duplicate Deck Plans sections (same as MSC/Cunard)
+- All 8 use `list-indent` not `faq-answer` (same as MSC/Explora/Cunard/Virgin)
+- FAQ answers are generic boilerplate (same as MSC/Explora/Cunard)
+- Swiper @10/@11 version mismatch on all 8 (same as MSC/Cunard)
+- No title leak (unlike Virgin)
+- No `CruiseShip` JSON-LD on Prestige (others have it)
 
 **Explora-specific finding:** FAQ answers use `class="list-indent"` instead of `class="faq-answer"` — validator FAQ checks don't find them. Need to broaden FAQ answer detection to include both classes.
 
