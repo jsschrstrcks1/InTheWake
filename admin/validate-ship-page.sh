@@ -607,6 +607,61 @@ if [ "$SLIDE_OPENS" -gt 0 ]; then
     fi
 fi
 
+# Check for swiper-slides outside swiper-wrapper by comparing nesting depth
+# Strategy: after the swiper-wrapper opening div, track depth. When depth returns to 0,
+# we've exited swiper-wrapper. Any swiper-slide after that is orphaned.
+SLIDES_OUTSIDE=$(echo "$CONTENT" | python3 -c "
+import sys, re
+content = sys.stdin.read()
+m = re.search(r'swiper firstlook.*?swiper-pagination', content, re.DOTALL)
+if not m:
+    print(0); sys.exit(0)
+block = m.group()
+# Find swiper-wrapper open, then track depth
+idx = block.find('swiper-wrapper')
+if idx < 0:
+    print(0); sys.exit(0)
+depth = 1
+pos = block.find('>', idx) + 1
+orphans = 0
+while pos < len(block):
+    next_open = block.find('<div', pos)
+    next_close = block.find('</div>', pos)
+    if next_close < 0:
+        break
+    if next_open >= 0 and next_open < next_close:
+        depth += 1
+        pos = block.find('>', next_open) + 1
+    else:
+        depth -= 1
+        pos = next_close + 6
+        if depth == 0:
+            # We've exited swiper-wrapper. Count remaining swiper-slides
+            remaining = block[pos:]
+            orphans = len(re.findall(r'swiper-slide', remaining))
+            break
+print(orphans)
+" 2>/dev/null)
+SLIDES_OUTSIDE=${SLIDES_OUTSIDE:-0}
+if [ "$SLIDES_OUTSIDE" -gt 0 ]; then
+    check_fail "Carousel has $SLIDES_OUTSIDE swiper-slide(s) OUTSIDE swiper-wrapper — they won't display"
+else
+    check_pass "All carousel slides are inside swiper-wrapper"
+fi
+
+# ============================================================================
+# Section 9b1: Stray HTML Tags in Text Content
+# ============================================================================
+section_header "Section 9b1: Stray HTML Tags in Text"
+
+# Check for HTML tags appearing mid-sentence in visible text (corruption indicator)
+STRAY_TAGS=$(echo "$CONTENT" | grep -cP '[a-z] </?(div|span|section|article|p)>[a-z0-9$]' || true)
+if [ "$STRAY_TAGS" -gt 0 ]; then
+    check_fail "Found $STRAY_TAGS likely corrupted HTML tag(s) inside text content — check for broken tags mid-sentence"
+else
+    check_pass "No stray HTML tags detected in text content"
+fi
+
 # ============================================================================
 # Section 9c: Sister Ships Completeness
 # ============================================================================
@@ -1437,6 +1492,159 @@ except Exception as e:
     fi
 else
     check_pass "Price coverage check skipped (no slug or venues file)"
+fi
+
+# ============================================================================
+# Section 9ae: Review Schema Class Name
+# ============================================================================
+section_header "Section 9ae: Review Schema Class Name"
+
+# The JSON-LD Review schema should reference the correct ship class, not "[ShipName]-class"
+# Look for description near itemReviewed (may be many lines apart in nested JSON)
+REVIEW_BLOCK=$(echo "$CONTENT" | sed -n '/"itemReviewed"/,/"reviewBody"/p' | head -30)
+REVIEW_DESC=$(echo "$REVIEW_BLOCK" | grep -oP '"description"\s*:\s*"\K[^"]+' | head -1)
+if [ -n "$REVIEW_DESC" ]; then
+    # Extract the class claim from the review description
+    REVIEW_CLASS=$(echo "$REVIEW_DESC" | grep -oiP '(A|An) \K\S+-class' | head -1)
+    if [ -n "$REVIEW_CLASS" ]; then
+        # Check if it matches the actual ship class from ai-breadcrumbs
+        BREADCRUMB_CLASS=$(echo "$CONTENT" | grep -oP 'ship-class:\s*\K.*' | head -1 | sed 's/[[:space:]]*$//')
+        REVIEW_CLASS_CLEAN=$(echo "$REVIEW_CLASS" | sed 's/-class$//')
+        if echo "$BREADCRUMB_CLASS" | grep -qi "$REVIEW_CLASS_CLEAN"; then
+            check_pass "Review schema class matches breadcrumbs ('$REVIEW_CLASS')"
+        else
+            check_fail "Review schema says '$REVIEW_CLASS' but ship-class is '$BREADCRUMB_CLASS' — likely copy-paste error"
+        fi
+    else
+        check_pass "Review schema uses non-class description (OK)"
+    fi
+else
+    check_pass "No review schema description found (N/A)"
+fi
+
+# ============================================================================
+# Section 9af: FAQ Text Quality (Garbled Sentences)
+# ============================================================================
+section_header "Section 9af: FAQ Text Quality"
+
+# Check for garbled FAQ text: capital letter mid-sentence after ship name, fragments
+FAQ_GARBLED=0
+# Pattern: lowercase word followed by space then Capitalized word that should be lowercase
+# Common garble: "fleet Entered service", "ship Built in", "seas Launched in"
+GARBLE_HITS=$(echo "$CONTENT" | grep -oP 'faq-answer|"text"\s*:\s*"' | wc -l)
+if [ "$GARBLE_HITS" -gt 0 ]; then
+    # Extract FAQ text and check for mid-sentence capitals after common words
+    FAQ_TEXT=$(echo "$CONTENT" | grep -oP '"text"\s*:\s*"\K[^"]+' || true)
+    FAQ_HTML=$(echo "$CONTENT" | grep -oP 'class="faq-answer">\K[^<]+' || true)
+    ALL_FAQ="${FAQ_TEXT} ${FAQ_HTML}"
+    GARBLE_COUNT=$(echo "$ALL_FAQ" | grep -cP '(fleet|ship|seas|service|Caribbean)\s+[A-Z][a-z]+\s+(service|in|from|to|with)\b' || true)
+    if [ "$GARBLE_COUNT" -gt 0 ]; then
+        check_warn "FAQ text contains $GARBLE_COUNT likely garbled sentence(s) — check for copy-paste fragments with wrong capitalization"
+    else
+        check_pass "FAQ text has no obvious garbled sentences"
+    fi
+else
+    check_pass "No FAQ text found to check (N/A)"
+fi
+
+# ============================================================================
+# Section 9ag: datePublished Placeholder Detection
+# ============================================================================
+section_header "Section 9ag: datePublished Placeholder"
+
+if echo "$CONTENT" | grep -q '"datePublished"\s*:\s*"2024-01-01"'; then
+    check_warn "WebPage schema has placeholder datePublished '2024-01-01' — remove or set to actual publish date"
+elif echo "$CONTENT" | grep -q '"datePublished"'; then
+    check_pass "datePublished present (non-placeholder)"
+else
+    check_pass "No datePublished in schema (matches reference pattern)"
+fi
+
+# ============================================================================
+# Section 9ah: dateModified Consistency Across Schemas
+# ============================================================================
+section_header "Section 9ah: dateModified Consistency"
+
+DATE_MODS=$(echo "$CONTENT" | grep -oP '"dateModified"\s*:\s*"\K[^"]+' | sort -u)
+DATE_MOD_COUNT=$(echo "$DATE_MODS" | grep -c '[0-9]' || true)
+if [ "$DATE_MOD_COUNT" -gt 1 ]; then
+    DATES_LIST=$(echo "$DATE_MODS" | tr '\n' ', ' | sed 's/, $//')
+    check_warn "Multiple different dateModified values in JSON-LD schemas: $DATES_LIST — should be consistent"
+elif [ "$DATE_MOD_COUNT" -eq 1 ]; then
+    check_pass "dateModified consistent across schemas ($(echo "$DATE_MODS" | head -1))"
+else
+    check_pass "No dateModified found (N/A)"
+fi
+
+# ============================================================================
+# Section 9ai: Logbook Guest Count vs Page Stats
+# ============================================================================
+section_header "Section 9ai: Logbook Guest Count Consistency"
+
+if [ -n "$SHIP_SLUG" ]; then
+    # Get guest count from stats JSON (first number)
+    STATS_GUESTS_FIRST=$(echo "$CONTENT" | grep -oP '"guests"\s*:\s*"\K[\d,]+' | head -1 | tr -d ',')
+    # Check logbook noscript and JSON for different guest counts
+    LOGBOOK_NOSCRIPT=$(echo "$CONTENT" | sed -n '/id="logbook-stories"/,/<\/noscript>/p')
+    if [ -n "$STATS_GUESTS_FIRST" ] && [ -n "$LOGBOOK_NOSCRIPT" ]; then
+        # Find guest counts in logbook text
+        LOGBOOK_GUESTS=$(echo "$LOGBOOK_NOSCRIPT" | grep -oP '[\d,]+ guests' | grep -oP '[\d,]+' | tr -d ',' | sort -u)
+        MISMATCH=0
+        for lg in $LOGBOOK_GUESTS; do
+            if [ "$lg" != "$STATS_GUESTS_FIRST" ] && [ "$lg" -gt 500 ] 2>/dev/null; then
+                # Allow max capacity variants (roughly 1.2-1.5x double occupancy)
+                MAX_PLAUSIBLE=$((STATS_GUESTS_FIRST * 3 / 2))
+                if [ "$lg" -gt "$MAX_PLAUSIBLE" ] || [ "$lg" -lt "$((STATS_GUESTS_FIRST * 8 / 10))" ]; then
+                    check_fail "Logbook mentions '$lg guests' but stats JSON says '$STATS_GUESTS_FIRST' — likely wrong data in story"
+                    MISMATCH=1
+                fi
+            fi
+        done
+        if [ "$MISMATCH" -eq 0 ]; then
+            check_pass "Logbook guest counts consistent with page stats"
+        fi
+    else
+        check_pass "Logbook guest count check skipped (insufficient data)"
+    fi
+else
+    check_pass "No ship slug — logbook check skipped"
+fi
+
+# ============================================================================
+# Section 9aj: Image Symlink Integrity
+# ============================================================================
+section_header "Section 9aj: Image Symlink Integrity"
+
+BROKEN_SYMLINKS=0
+while IFS= read -r img_path; do
+    [ -z "$img_path" ] && continue
+    [[ "$img_path" == http* ]] && continue
+    FULL_PATH="${REPO_ROOT}/${img_path#/}"
+    if [ -L "$FULL_PATH" ]; then
+        # It's a symlink — check if target exists and filename makes sense
+        TARGET=$(readlink -f "$FULL_PATH" 2>/dev/null)
+        if [ ! -f "$TARGET" ]; then
+            check_fail "Broken image symlink: $img_path → target does not exist"
+            BROKEN_SYMLINKS=$((BROKEN_SYMLINKS + 1))
+        else
+            # Check if symlink target contains a different ship name
+            TARGET_BASE=$(basename "$TARGET")
+            SRC_BASE=$(basename "$img_path")
+            # Extract ship names from both — use full "Name_of_the_Seas" pattern
+            SRC_SHIP=$(echo "$SRC_BASE" | grep -oiP '^[A-Za-z_]+_of_the_[A-Za-z]+' | head -1)
+            TGT_SHIP=$(echo "$TARGET_BASE" | grep -oiP '^[A-Za-z_]+_of_the_[A-Za-z]+' | head -1)
+            # Fallback: if no "of the" pattern, use first word before underscore+digit
+            [ -z "$SRC_SHIP" ] && SRC_SHIP=$(echo "$SRC_BASE" | grep -oiP '^[A-Za-z]+(?=_)' | head -1)
+            [ -z "$TGT_SHIP" ] && TGT_SHIP=$(echo "$TARGET_BASE" | grep -oiP '^[A-Za-z]+(?=_)' | head -1)
+            if [ -n "$SRC_SHIP" ] && [ -n "$TGT_SHIP" ] && [ "$SRC_SHIP" != "$TGT_SHIP" ]; then
+                check_fail "Image symlink cross-ship: $SRC_BASE → $TARGET_BASE (different ships)"
+                BROKEN_SYMLINKS=$((BROKEN_SYMLINKS + 1))
+            fi
+        fi
+    fi
+done <<< "$(echo "$CONTENT" | grep -oP 'src="(/[^"]+\.(jpg|jpeg|png|webp|gif))"' | grep -oP '/[^"]+' || true)"
+if [ "$BROKEN_SYMLINKS" -eq 0 ]; then
+    check_pass "No broken or cross-ship image symlinks"
 fi
 
 # ============================================================================
