@@ -244,15 +244,19 @@ else
     check_pass "No duplicate class attributes"
 fi
 
-# Check footer copyright year is current
+# Check footer copyright year is current (accepts both static and dynamic JS)
 CURRENT_YEAR=$(date +%Y)
-FOOTER_YEAR=$(echo "$CONTENT" | grep -oE '©\s*[0-9]{4}|&copy;\s*[0-9]{4}' | grep -oE '[0-9]{4}' | tail -1)
-if [ -z "$FOOTER_YEAR" ]; then
-    check_warn "No copyright year found in footer"
-elif [ "$FOOTER_YEAR" -lt "$CURRENT_YEAR" ]; then
-    check_warn "Footer copyright year ($FOOTER_YEAR) is out of date — should be $CURRENT_YEAR"
+if echo "$CONTENT" | grep -qP '©\s*<script>.*getFullYear'; then
+    check_pass "Footer copyright year is dynamic (JS getFullYear)"
 else
-    check_pass "Footer copyright year is current ($FOOTER_YEAR)"
+    FOOTER_YEAR=$(echo "$CONTENT" | grep -oE '©\s*[0-9]{4}|&copy;\s*[0-9]{4}' | grep -oE '[0-9]{4}' | tail -1)
+    if [ -z "$FOOTER_YEAR" ]; then
+        check_warn "No copyright year found in footer"
+    elif [ "$FOOTER_YEAR" -lt "$CURRENT_YEAR" ]; then
+        check_warn "Footer copyright year ($FOOTER_YEAR) is out of date — should be $CURRENT_YEAR"
+    else
+        check_pass "Footer copyright year is current ($FOOTER_YEAR)"
+    fi
 fi
 
 # ============================================================================
