@@ -33,7 +33,7 @@ The issues aren't random. They come from **3 root causes**:
 | **Seabourn** | 8 | Unknown | 0 | Untested |
 | **Regent** | 8 | Unknown | 0 | Untested |
 | **Explora** | 7 | 1 | 0 (but same MSC-era issues) | Audited — 6/6 fail (1e 19w), placeholder sections, no faq-answer class, no favicon |
-| **Virgin** | 5 | Unknown | 0 | Untested |
+| **Virgin** | 5 | 1 | 0 (but page title leaks into ship name, class mismatch) | Audited — 4/4 fail (1e 18w), `<title>` suffix "| In the Wake" used as ship name in fact-block/stats/review 9x per page, Lady Class vs Virgin Class |
 | **Cunard** | 5 | 1 (MSC-era + QM2 variant) | 0 (but GT/guest discrepancies, grammar, broken carousel) | Audited — 4/4 fail, QM2 carousel class mismatch, triple guest counts on Victoria |
 
 ---
@@ -90,6 +90,9 @@ MSC (24 pages, 2 templates) and Explora (6 pages, 1 template) share the same gen
 | **9cb** | Duplicate stats sections | Ship Specs + Ship Stats on same page |
 | **9cc** | Placeholder section text | "coming soon", "will appear here" |
 | **9cd** | Missing LCP preload hints | No `<link rel="preload">` for hero images |
+| **9ce** | Carousel class vs init JS mismatch | Carousel container class doesn't match init script selector (Cunard QM2: `photo-carousel` vs `.firstlook`) |
+| **9cf** | Page title leaking into ship name | Site name suffix (e.g., "| In the Wake") used as part of ship name in stats JSON, fact-block, review schema. Virgin: 9x per page |
+| **9cg** | Entered service date accuracy | Flag disputed dates (Virgin Scarlet Lady: delivered 2020 vs revenue service 2021) |
 
 **Explora-specific finding:** FAQ answers use `class="list-indent"` instead of `class="faq-answer"` — validator FAQ checks don't find them. Need to broaden FAQ answer detection to include both classes.
 
