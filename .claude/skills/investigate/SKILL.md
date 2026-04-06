@@ -86,6 +86,15 @@ Then diff investigation findings against existing content:
 - **Flag conflicts** — "Existing says X, investigation found Y" — don't silently overwrite
 - **Run `validate-ship-page.sh`** after merge to catch any inconsistencies
 
+**Cross-field consistency rules (the validator checks these, but the merge must set them correctly):**
+
+1. **Guest count must be identical** in: stats fallback JSON, noscript stats, fact-block, key-facts, FAQ answer, JSON-LD FAQ answer, ai-breadcrumbs answer-first. Use the investigation-confirmed number. If the existing page has a different number in even ONE of these locations, it was copy-pasted from another ship — fix all of them.
+2. **MDR name** — if the investigation found the ship's named MDR (e.g., "Minstrel Dining Room"), use it in the noscript dining, FAQ answer, JSON-LD FAQ, and anywhere else "main dining room" appears generically.
+3. **ai-breadcrumbs `related:` field** — must be present. Standard set: `/ships.html, /cruise-lines/royal-caribbean.html, /ports.html, /drink-calculator.html`
+4. **Dining heading** must have an inline "→ Browse All" link to `/restaurants.html` (per Radiance reference)
+5. **Deck Plans CTA** — a `btn-deck-plans` link to the official ship page must appear between the Logbook and Video sections
+6. **Itinerary/deployment** — FAQ "Where does X sail?" must reflect CURRENT year deployment, not generic "Alaska, Caribbean, Australia" unless all are current
+
 **Path A — New Page (no existing page):**
 
 Build from reference template + investigation output. But still run these pre-generation checks:

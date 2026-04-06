@@ -481,7 +481,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <section class="card" aria-labelledby="video-highlights">
       <h2 id="video-highlights">Watch: Oasis VII Highlights</h2>
       <p class="small">Video content will be available as Royal Caribbean releases footage of this future ship.</p>
-      <div id="videoFallback" class="tiny">Videos will appear once our sources sync for this ship.</div>
+      <div id="videoFallback" class="tiny">Video content will be added closer to the ship entering service.</div>
     </section>
 
     <!-- Deck Plans -->
@@ -665,7 +665,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- FOOTER -->
     <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
@@ -919,8 +919,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         const title=String(v.title||'Oasis Class Ship TBN 2028').replace(/</g,'&lt;');
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
-      if(mount.children.length&&window.__swiperReady&&window.Swiper){
-        setTimeout(()=>{
+      function initSwiper(){
+        if(mount.children.length&&window.Swiper){
           try{
             new Swiper('.swiper.videos',{
               loop:false,rewind:false,lazy:true,watchOverflow:true,
@@ -929,8 +929,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
               a11y:{enabled:true}
             });
           }catch(_){}
-        },150);
+        }else if(mount.children.length){
+          if(!initSwiper._t) initSwiper._t=0;
+          if(initSwiper._t++<20) setTimeout(initSwiper,300);
+          else if(fallback) fallback.classList.remove('hidden');
+        }
       }
+      if(mount.children.length) setTimeout(initSwiper,150);
     }
     function fetchVideoData(){
       const SOURCES=[abs('/assets/data/videos/rcl/oasis-class-ship-tbn-2028.json'),abs('/ships/rcl/assets/oasis-class-ship-tbn-2028-videos.json')];
@@ -955,12 +960,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
       const byCategory={};
       venues.forEach(v=>{
-        const cat=v.category||'other';
+        let cat=v.category||'other';
+        if(cat==='dining'&&v.subcategory){cat=v.subcategory==='specialty'?'specialty':v.subcategory==='complimentary'?'mdr':cat;}
         if(!byCategory[cat]) byCategory[cat]=[];
         byCategory[cat].push(v);
       });
       const catOrder=['mdr','specialty','casual','bar'];
-      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
+      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',dining:'Dining',other:'Other Venues'};
       let html='';
       catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
         const arr=byCategory[cat]; if(!arr) return;

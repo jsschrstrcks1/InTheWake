@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================================
-# Ship Page Validator — v3.010.301
+# Ship Page Validator — v3.010.400
 #
 # Validates ship pages against SHIP_PAGE_CHECKLIST_v3.010.md standards.
 # Usage: ./admin/validate-ship-page.sh <path-to-ship-page.html>
@@ -53,7 +53,7 @@ for EXCL in $EXCLUDED_FILES; do
 done
 
 echo "============================================================================"
-echo "  Ship Page Validator — v3.010.301"
+echo "  Ship Page Validator — v3.010.400"
 echo "  File: $FILE"
 echo "============================================================================"
 echo ""
@@ -244,15 +244,19 @@ else
     check_pass "No duplicate class attributes"
 fi
 
-# Check footer copyright year is current
+# Check footer copyright year is current (accepts both static and dynamic JS)
 CURRENT_YEAR=$(date +%Y)
-FOOTER_YEAR=$(echo "$CONTENT" | grep -oE '©\s*[0-9]{4}|&copy;\s*[0-9]{4}' | grep -oE '[0-9]{4}' | tail -1)
-if [ -z "$FOOTER_YEAR" ]; then
-    check_warn "No copyright year found in footer"
-elif [ "$FOOTER_YEAR" -lt "$CURRENT_YEAR" ]; then
-    check_warn "Footer copyright year ($FOOTER_YEAR) is out of date — should be $CURRENT_YEAR"
+if echo "$CONTENT" | grep -qP '©\s*<script>.*getFullYear'; then
+    check_pass "Footer copyright year is dynamic (JS getFullYear)"
 else
-    check_pass "Footer copyright year is current ($FOOTER_YEAR)"
+    FOOTER_YEAR=$(echo "$CONTENT" | grep -oE '©\s*[0-9]{4}|&copy;\s*[0-9]{4}' | grep -oE '[0-9]{4}' | tail -1)
+    if [ -z "$FOOTER_YEAR" ]; then
+        check_warn "No copyright year found in footer"
+    elif [ "$FOOTER_YEAR" -lt "$CURRENT_YEAR" ]; then
+        check_warn "Footer copyright year ($FOOTER_YEAR) is out of date — should be $CURRENT_YEAR"
+    else
+        check_pass "Footer copyright year is current ($FOOTER_YEAR)"
+    fi
 fi
 
 # ============================================================================
@@ -785,6 +789,71 @@ elif [ -z "$MAIN_ID" ]; then
 fi
 
 # ============================================================================
+# Section 9f2: Guest Count Consistency
+# ============================================================================
+section_header "Section 9f2: Guest Count Consistency"
+
+# Extract guest count from the stats fallback JSON (source of truth)
+STATS_GUESTS=$(echo "$CONTENT" | grep -oP '"guests":\s*"\K[^"]+' | head -1)
+if [ -n "$STATS_GUESTS" ]; then
+    # Extract the double-occupancy number (first number in the guests field)
+    DOUBLE_OCC=$(echo "$STATS_GUESTS" | grep -oP '^[0-9,]+' | head -1)
+    if [ -n "$DOUBLE_OCC" ]; then
+        # Check if any FAQ answer uses a DIFFERENT guest count
+        FAQ_GUESTS=$(echo "$CONTENT" | grep -oP 'about \K[0-9,]+ guests at double' | head -1 | grep -oP '^[0-9,]+')
+        if [ -n "$FAQ_GUESTS" ] && [ "$FAQ_GUESTS" != "$DOUBLE_OCC" ]; then
+            check_fail "Guest count MISMATCH: stats says $DOUBLE_OCC but FAQ says $FAQ_GUESTS — likely copy-pasted from another ship"
+        elif [ -n "$FAQ_GUESTS" ]; then
+            check_pass "Guest count consistent: $DOUBLE_OCC in stats and FAQ"
+        fi
+
+        # Check ai-breadcrumbs answer-first
+        BREADCRUMB_GUESTS=$(echo "$CONTENT" | grep 'answer-first:' | grep -oP '[0-9,]+(?= guests)' | head -1)
+        if [ -n "$BREADCRUMB_GUESTS" ] && [ "$BREADCRUMB_GUESTS" != "$DOUBLE_OCC" ]; then
+            check_fail "Guest count MISMATCH: stats says $DOUBLE_OCC but ai-breadcrumbs says $BREADCRUMB_GUESTS"
+        elif [ -n "$BREADCRUMB_GUESTS" ]; then
+            check_pass "Guest count consistent in ai-breadcrumbs"
+        fi
+    fi
+fi
+
+# ============================================================================
+# Section 9f3: ai-breadcrumbs 'related:' field
+# ============================================================================
+section_header "Section 9f3: ai-breadcrumbs Related Field"
+
+if echo "$CONTENT" | grep -qP '^\s+related:.*\.html'; then
+    check_pass "ai-breadcrumbs has 'related:' field with page links"
+else
+    check_warn "ai-breadcrumbs missing 'related:' field — should list related pages (ships.html, cruise-lines, ports, tools)"
+fi
+
+# ============================================================================
+# Section 9f4: Dining Heading Browse All Link
+# ============================================================================
+section_header "Section 9f4: Dining Heading"
+
+DINING_H2=$(echo "$CONTENT" | grep 'id="diningHeading"' | head -1)
+if echo "$DINING_H2" | grep -q 'Browse All\|restaurants.html'; then
+    check_pass "Dining heading has '→ Browse All' link to restaurants"
+else
+    check_warn "Dining heading missing '→ Browse All' link — Radiance reference page has inline link to /restaurants.html"
+fi
+
+# ============================================================================
+# Section 9f5: Deck Plans CTA After Logbook
+# ============================================================================
+section_header "Section 9f5: Deck Plans CTA"
+
+# Check for a deck plans button/link between the logbook and video sections
+BETWEEN_LOG_VID=$(echo "$CONTENT" | sed -n '/id="logbook"/,/id="video-highlights"/p')
+if echo "$BETWEEN_LOG_VID" | grep -q 'btn-deck-plans\|View Official.*Deck\|View Official.*Ship'; then
+    check_pass "Deck Plans CTA present after logbook section"
+else
+    check_warn "No Deck Plans CTA between logbook and videos — Radiance reference has 'View Official Deck Plans →' link"
+fi
+
+# ============================================================================
 # Section 9g0: Attributions placement (must be inside col-1, before aside)
 # ============================================================================
 section_header "Section 9g0: Attributions Placement"
@@ -941,6 +1010,433 @@ except: pass
     fi
 else
     check_warn "articles/index.json not found"
+fi
+
+# ============================================================================
+# Section 9l: ICP-Lite Comment Version Match
+# ============================================================================
+section_header "Section 9l: ICP-Lite Comment Version"
+
+# The HTML comment should match the meta tag version
+ICP_COMMENT=$(echo "$CONTENT" | grep -oP '<!-- ICP-Lite v\K[0-9.]+' | head -1)
+ICP_META=$(echo "$CONTENT" | grep -oP 'content="ICP-Lite v\K[0-9.]+' | head -1)
+if [ -n "$ICP_COMMENT" ] && [ -n "$ICP_META" ]; then
+    if [ "$ICP_COMMENT" = "$ICP_META" ]; then
+        check_pass "ICP-Lite comment (v$ICP_COMMENT) matches meta tag (v$ICP_META)"
+    else
+        check_warn "ICP-Lite comment says v$ICP_COMMENT but meta tag says v$ICP_META"
+    fi
+fi
+
+# ============================================================================
+# Section 9m: Stats Heading Format
+# ============================================================================
+section_header "Section 9m: Stats Heading Format"
+
+# Stats heading should follow the pattern "Key Facts About [Ship Name]"
+STATS_H3=$(echo "$CONTENT" | grep 'id="statsHeading"' | head -1)
+if echo "$STATS_H3" | grep -q 'Key Facts About'; then
+    check_pass "Stats heading follows 'Key Facts About [Ship Name]' pattern"
+else
+    ACTUAL_HEADING=$(echo "$STATS_H3" | sed 's/.*<h3[^>]*>//' | sed 's/<\/h3>//')
+    check_warn "Stats heading is '$ACTUAL_HEADING' — expected 'Key Facts About [Ship Name]' pattern"
+fi
+
+# ============================================================================
+# Section 9n: Fact-Block Completeness
+# ============================================================================
+section_header "Section 9n: Fact-Block Content"
+
+FACT_BLOCK=$(echo "$CONTENT" | grep 'class="fact-block"' | head -1)
+if [ -n "$FACT_BLOCK" ]; then
+    # Check for crew mention
+    if echo "$FACT_BLOCK" | grep -qi 'crew'; then
+        check_pass "Fact-block mentions crew count"
+    else
+        check_warn "Fact-block does not mention crew count — add crew size for AI readability"
+    fi
+    # Check for year
+    if echo "$FACT_BLOCK" | grep -qP '\b(19|20)\d{2}\b'; then
+        check_pass "Fact-block mentions year of service"
+    else
+        check_warn "Fact-block does not mention year of service"
+    fi
+    # Check for GT
+    if echo "$FACT_BLOCK" | grep -qi 'gross tons\|GT'; then
+        check_pass "Fact-block mentions gross tonnage"
+    else
+        check_warn "Fact-block does not mention gross tonnage"
+    fi
+fi
+
+# ============================================================================
+# Section 9o: page.json Data File
+# ============================================================================
+section_header "Section 9o: page.json Data File"
+
+# Ship pages should have a companion page.json in assets/data/ships/[line]/
+PAGE_JSON="${REPO_ROOT}/assets/data/ships/$(echo "$FILE" | grep -oP 'ships/\K[^/]+')/${SHIP_SLUG}.page.json"
+if [ -n "$SHIP_SLUG" ] && [ -f "$PAGE_JSON" ]; then
+    check_pass "page.json data file exists at $(echo "$PAGE_JSON" | sed "s|$REPO_ROOT/||")"
+else
+    if [ -n "$SHIP_SLUG" ]; then
+        check_warn "No page.json at assets/data/ships/$(echo "$FILE" | grep -oP 'ships/\K[^/]+')/${SHIP_SLUG}.page.json — drives prefetching, tracker config, dining sources"
+    fi
+fi
+
+# ============================================================================
+# Section 9p: Logbook Data File Existence
+# ============================================================================
+section_header "Section 9p: Logbook Data Files"
+
+# Check if at least one of the logbook data sources exists
+if [ -n "$SHIP_SLUG" ]; then
+    LINE_DIR=$(echo "$FILE" | grep -oP 'ships/\K[^/]+')
+    SHORT_SLUG=$(echo "$SHIP_SLUG" | sed 's/-of-the-seas//' | sed 's/-of-the-//')
+    LOGBOOK_FOUND=0
+    LOGBOOK_PATHS=(
+        "${REPO_ROOT}/ships/${LINE_DIR}/assets/${SHIP_SLUG}.json"
+        "${REPO_ROOT}/ships/${LINE_DIR}/assets/${SHORT_SLUG}.json"
+        "${REPO_ROOT}/assets/data/logbook/${LINE_DIR}/${SHIP_SLUG}.json"
+        "${REPO_ROOT}/assets/data/ships/${LINE_DIR}/${SHIP_SLUG}.json"
+    )
+    for lpath in "${LOGBOOK_PATHS[@]}"; do
+        if [ -f "$lpath" ]; then
+            LOGBOOK_FOUND=$((LOGBOOK_FOUND + 1))
+        fi
+    done
+    if [ "$LOGBOOK_FOUND" -gt 0 ]; then
+        check_pass "Logbook data: $LOGBOOK_FOUND of 4 source paths exist"
+    else
+        check_warn "No logbook data files found — logbook section will show noscript fallback only"
+    fi
+fi
+
+# ============================================================================
+# Section 9q: Dining v2 Category Handling
+# ============================================================================
+section_header "Section 9q: Dining v2 Category Handling"
+
+# Check if inline renderVenues uses catLabels without a "dining" key
+INLINE_DINING=$(echo "$CONTENT" | grep -c 'catLabels' || true)
+if [ "$INLINE_DINING" -gt 0 ]; then
+    if echo "$CONTENT" | grep -q 'catLabels' && ! echo "$CONTENT" | grep -qP 'dining\s*[:=].*["\x27]Dining["\x27]'; then
+        check_fail "Inline renderVenues uses catLabels without 'dining' key — venues with category='dining' will render as 'undefined' heading (#1308)"
+    else
+        check_pass "Inline dining loader handles v2 'dining' category"
+    fi
+else
+    check_pass "No inline catLabels found (may use external dining-card.js)"
+fi
+
+# ============================================================================
+# Section 9r: Video Swiper Initialization
+# ============================================================================
+section_header "Section 9r: Video Swiper Initialization"
+
+if echo "$CONTENT" | grep -q 'id="video-highlights"\|id="videos"'; then
+    if echo "$CONTENT" | grep -q '__swiperReady\|initSwiper.*tries\|setTimeout.*[Ss]wiper'; then
+        check_pass "Video section has Swiper retry/poll logic"
+    else
+        check_warn "Video section exists but has no retry/poll logic for Swiper readiness — videos may not render if Swiper loads late (#1311)"
+    fi
+else
+    check_pass "No video section found (N/A)"
+fi
+
+# ============================================================================
+# Section 9s: Video Fallback Text for Retired Ships
+# ============================================================================
+section_header "Section 9s: Video Fallback Text for Retired Ships"
+
+IS_RETIRED=0
+if echo "$CONTENT" | grep -qi 'retired\|no longer in service\|sold to\|withdrawn from\|scrapped\|decommissioned'; then
+    IS_RETIRED=1
+fi
+
+if [ "$IS_RETIRED" -eq 1 ]; then
+    if echo "$CONTENT" | grep -q 'will appear once.*sources sync\|will appear once.*sync'; then
+        check_warn "Retired ship video fallback says 'will appear once sources sync' — should say 'No video content available' for retired ships (#1311)"
+    else
+        check_pass "No misleading video fallback text on retired ship"
+    fi
+else
+    check_pass "Ship not retired (N/A)"
+fi
+
+# ============================================================================
+# Section 9t: Passenger Count Consistency
+# ============================================================================
+section_header "Section 9t: Passenger Count Consistency"
+
+if [ -n "$SHIP_SLUG" ]; then
+    # Extract guest count from ship-stats-fallback JSON
+    STATS_GUESTS_RAW=$(echo "$CONTENT" | grep -oP '"guests"\s*:\s*"[^"]*"' | head -1 | grep -oP ':\s*"\K[^"]+')
+    # Extract first number from stats guests (handles "5,484 (double) / 6,780 (max)" → "5,484")
+    STATS_GUESTS=$(echo "$STATS_GUESTS_RAW" | grep -oP '^[\d,]+' | head -1)
+    # Extract guest count from ai-breadcrumbs answer-first
+    BREADCRUMB_GUESTS=$(echo "$CONTENT" | grep -A1 'answer-first:' | grep -oP '[\d,]+ guests' | head -1 | grep -oP '[\d,]+')
+    if [ -n "$STATS_GUESTS" ] && [ -n "$BREADCRUMB_GUESTS" ]; then
+        # Normalize: strip commas for comparison
+        STATS_NUM=$(echo "$STATS_GUESTS" | tr -d ',')
+        BREAD_NUM=$(echo "$BREADCRUMB_GUESTS" | tr -d ',')
+        if [ "$STATS_NUM" = "$BREAD_NUM" ]; then
+            check_pass "Guest count consistent: stats JSON ($STATS_GUESTS) matches ai-breadcrumbs ($BREADCRUMB_GUESTS)"
+        else
+            check_warn "Guest count mismatch: stats JSON says '$STATS_GUESTS' but ai-breadcrumbs says '$BREADCRUMB_GUESTS' (#1309)"
+        fi
+    else
+        check_pass "Guest count cross-check skipped (insufficient data)"
+    fi
+else
+    check_pass "No ship slug — guest count check skipped"
+fi
+
+# ============================================================================
+# Section 9u: Ship Class Consistency
+# ============================================================================
+section_header "Section 9u: Ship Class Consistency"
+
+if [ -n "$SHIP_SLUG" ]; then
+    BREADCRUMB_CLASS=$(echo "$CONTENT" | grep -oP 'ship-class:\s*\K.*' | head -1 | sed 's/[[:space:]]*$//')
+    STATS_CLASS=$(echo "$CONTENT" | grep -oP '"class"\s*:\s*"[^"]*"' | head -1 | grep -oP ':\s*"\K[^"]+')
+    KEY_FACTS_CLASS=$(echo "$CONTENT" | grep -oP '<strong>Class:</strong>\s*\K[^<]+' | head -1 | sed 's/[[:space:]]*$//')
+    if [ -n "$BREADCRUMB_CLASS" ] && [ -n "$STATS_CLASS" ]; then
+        if [ "$BREADCRUMB_CLASS" = "$STATS_CLASS" ]; then
+            check_pass "Ship class consistent: ai-breadcrumbs and stats JSON both say '$BREADCRUMB_CLASS'"
+        else
+            check_warn "Ship class mismatch: ai-breadcrumbs says '$BREADCRUMB_CLASS' but stats JSON says '$STATS_CLASS' (#1310)"
+        fi
+    else
+        check_pass "Ship class cross-check skipped (insufficient data)"
+    fi
+else
+    check_pass "No ship slug — class check skipped"
+fi
+
+# ============================================================================
+# Section 9v: Stats TBD Detection
+# ============================================================================
+section_header "Section 9v: Stats TBD Detection"
+
+# Extract the stats JSON block (multi-line between entered_service and registry)
+STATS_JSON=$(echo "$CONTENT" | sed -n '/"entered_service"/,/"registry"/p')
+if [ -n "$STATS_JSON" ]; then
+    TBD_COUNT=$(echo "$STATS_JSON" | grep -oi '"TBD"' | wc -l)
+    if [ "$TBD_COUNT" -gt 0 ]; then
+        # Check if this is a TBN (to-be-named) or future ship
+        if echo "$CONTENT" | grep -qiP '(?<![-/])to be named|(?<![a-z-])TBN(?![a-z.])|under construction|not yet delivered'; then
+            check_pass "Stats contain TBD but ship is TBN/under construction (acceptable)"
+        else
+            check_fail "Ship stats JSON contains $TBD_COUNT 'TBD' field(s) on a non-TBN page — populate with actual data (#1320)"
+        fi
+    else
+        check_pass "No TBD values in ship stats JSON"
+    fi
+else
+    check_pass "No stats JSON block found to check (N/A)"
+fi
+
+# ============================================================================
+# Section 9w: FAQ Factual Freshness (Superlatives)
+# ============================================================================
+section_header "Section 9w: FAQ Factual Freshness"
+
+# Extract FAQ answers from both JSON-LD and HTML faq-answer elements
+FAQ_ANSWERS=$(echo "$CONTENT" | grep -oP 'class="faq-answer">[^<]+' | sed 's/class="faq-answer">//' || true)
+FAQ_ANSWERS_JSONLD=$(echo "$CONTENT" | grep -oP '"text"\s*:\s*"[^"]*"' || true)
+FAQ_ALL="${FAQ_ANSWERS}${FAQ_ANSWERS_JSONLD}"
+if [ -n "$FAQ_ALL" ]; then
+    STALE_SUPERLATIVES=$(echo "$FAQ_ALL" | grep -oiP '\b(newest|largest|first|most recent|latest|biggest)\b' | wc -l)
+    if [ "$STALE_SUPERLATIVES" -gt 0 ]; then
+        # Check if any superlative lacks a date qualifier nearby
+        if echo "$FAQ_ALL" | grep -qP '(newest|largest|first|most recent|latest|biggest).{0,80}(20[0-9]{2}|as of)'; then
+            check_pass "FAQ superlatives have date qualifiers"
+        else
+            check_warn "FAQ answers contain $STALE_SUPERLATIVES superlative(s) (newest/largest/first) without date qualifier — these go stale (#1319)"
+        fi
+    else
+        check_pass "No superlatives in FAQ answers"
+    fi
+else
+    check_pass "No FAQ answers found (N/A)"
+fi
+
+# ============================================================================
+# Section 9x: Retired Ship Booking CTA
+# ============================================================================
+section_header "Section 9x: Retired Ship Booking CTA"
+
+if [ "$IS_RETIRED" -eq 1 ]; then
+    if echo "$CONTENT" | grep -qi 'Book via cruise line\|Book via travel\|Reservations.*Book'; then
+        check_warn "Retired ship has booking CTA — replace with retirement status notice (#1313)"
+    else
+        check_pass "No booking CTA on retired ship page"
+    fi
+else
+    check_pass "Ship not retired — booking CTA is appropriate"
+fi
+
+# ============================================================================
+# Section 9y: Attribution Artist Names
+# ============================================================================
+section_header "Section 9y: Attribution Artist Names"
+
+ATTR_SECTION=$(echo "$CONTENT" | grep -c 'class="card attributions"' || true)
+if [ "$ATTR_SECTION" -gt 0 ]; then
+    # Check if any attribution <li> includes "by " or "photo by" or photographer name
+    ATTR_BLOCK=$(echo "$CONTENT" | sed -n '/class="card attributions"/,/<\/section>/p')
+    ATTR_LI_COUNT=$(echo "$ATTR_BLOCK" | grep -c '<li>' || true)
+    ATTR_BY_COUNT=$(echo "$ATTR_BLOCK" | grep -ciP 'by [A-Z]|photo by|image by|photographer' || true)
+    if [ "$ATTR_LI_COUNT" -gt 0 ] && [ "$ATTR_BY_COUNT" -eq 0 ]; then
+        # Cross-reference with .attr.json if it exists
+        LINE_DIR_ATTR=$(echo "$FILE" | grep -oP 'ships/\K[^/]+')
+        ATTR_JSON="${REPO_ROOT}/ships/${LINE_DIR_ATTR}/assets/${SHIP_SLUG}.attr.json"
+        if [ -f "$ATTR_JSON" ]; then
+            ARTIST=$(grep -oP '"artist"\s*:\s*"\K[^"]+' "$ATTR_JSON" | head -1)
+            if [ -n "$ARTIST" ]; then
+                check_warn "Attributions section has $ATTR_LI_COUNT item(s) but no photographer names — .attr.json has artist: '$ARTIST'. CC licenses require author attribution (#1317)"
+            else
+                check_warn "Attributions section has $ATTR_LI_COUNT item(s) but no photographer names and .attr.json has no artist field (#1317)"
+            fi
+        else
+            check_warn "Attributions section has $ATTR_LI_COUNT item(s) but no photographer names — no .attr.json found to cross-reference (#1317)"
+        fi
+    else
+        check_pass "Attribution items include photographer names ($ATTR_BY_COUNT of $ATTR_LI_COUNT)"
+    fi
+else
+    check_pass "No attributions section (N/A)"
+fi
+
+# ============================================================================
+# Section 9z: Logbook Title Sensitivity (INFO-level)
+# ============================================================================
+section_header "Section 9z: Logbook Title Sensitivity"
+
+# Flag logbook titles that lead with a medical diagnosis — INFO only, not error
+LOGBOOK_TITLES=$(echo "$CONTENT" | grep -oP '<h3[^>]*>[^<]*</h3>' | sed 's/<[^>]*>//g' || true)
+SENSITIVE_TITLE=$(echo "$LOGBOOK_TITLES" | grep -iP '^The (Bipolar|Autistic|Diabetic|ADHD|Anxious|Depressed|OCD|Schizophren)' || true)
+if [ -n "$SENSITIVE_TITLE" ]; then
+    check_pass "INFO: Logbook title leads with medical identity — '$SENSITIVE_TITLE' — editorial review recommended (#1318)"
+else
+    check_pass "No sensitivity flags in logbook titles"
+fi
+
+# ============================================================================
+# Section 9aa: Copyright Year Dynamic
+# ============================================================================
+section_header "Section 9aa: Copyright Year Dynamic"
+
+if echo "$CONTENT" | grep -qP '©\s*<script>.*getFullYear'; then
+    check_pass "Footer copyright uses dynamic JS year"
+elif echo "$CONTENT" | grep -qP '©\s*20[0-9]{2}\s*In the Wake'; then
+    check_warn "Footer has hardcoded copyright year — replace with dynamic document.write(new Date().getFullYear()) (#1316)"
+else
+    check_pass "Copyright check skipped (no standard pattern found)"
+fi
+
+# ============================================================================
+# Section 9ab: Venue Data Existence
+# ============================================================================
+section_header "Section 9ab: Venue Data Existence"
+
+VENUES_FILE="${REPO_ROOT}/assets/data/venues-v2.json"
+if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_FILE" ]; then
+    # Check if ship slug exists in venues-v2.json ships index
+    if grep -q "\"$SHIP_SLUG\"" "$VENUES_FILE"; then
+        check_pass "Ship '$SHIP_SLUG' found in venues-v2.json"
+    else
+        if [ "$IS_RETIRED" -eq 1 ]; then
+            check_pass "Retired ship '$SHIP_SLUG' not in venues-v2.json (acceptable)"
+        else
+            check_warn "Ship '$SHIP_SLUG' not found in venues-v2.json — dining section will have no data (#1321)"
+        fi
+    fi
+else
+    check_pass "Venue data check skipped (no slug or venues file)"
+fi
+
+# ============================================================================
+# Section 9ac: Venue Data Freshness
+# ============================================================================
+section_header "Section 9ac: Venue Data Freshness"
+
+if [ -f "$VENUES_FILE" ]; then
+    VENUES_UPDATED=$(grep -oP '"updated"\s*:\s*"\K[0-9-]+' "$VENUES_FILE" | head -1)
+    if [ -n "$VENUES_UPDATED" ]; then
+        # Calculate days since update
+        VENUES_EPOCH=$(date -d "$VENUES_UPDATED" +%s 2>/dev/null || echo "0")
+        NOW_EPOCH=$(date +%s)
+        if [ "$VENUES_EPOCH" -gt 0 ]; then
+            DAYS_OLD=$(( (NOW_EPOCH - VENUES_EPOCH) / 86400 ))
+            if [ "$DAYS_OLD" -gt 90 ]; then
+                check_warn "venues-v2.json last updated $VENUES_UPDATED ($DAYS_OLD days ago) — consider refreshing (#1321)"
+            else
+                check_pass "venues-v2.json is $DAYS_OLD days old (within 90-day threshold)"
+            fi
+        else
+            check_pass "Could not parse venues-v2.json date (skipped)"
+        fi
+    else
+        check_warn "venues-v2.json has no 'updated' field in meta"
+    fi
+else
+    check_pass "No venues-v2.json found (skipped)"
+fi
+
+# ============================================================================
+# Section 9ad: Venue Price Coverage (INFO-level)
+# ============================================================================
+section_header "Section 9ad: Venue Price Coverage"
+
+if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_FILE" ]; then
+    # Use python for JSON parsing — bash can't reliably parse nested JSON
+    PRICE_STATS=$(python3 -c "
+import json, sys
+try:
+    with open('$VENUES_FILE') as f:
+        d = json.load(f)
+    ships = d.get('ships', {})
+    ship = ships.get('$SHIP_SLUG', {})
+    venue_slugs = ship.get('venues', [])
+    if not venue_slugs:
+        print('none')
+        sys.exit(0)
+    venues_by_slug = {v['slug']: v for v in d.get('venues', [])}
+    total = 0
+    with_price = 0
+    for vs in venue_slugs:
+        slug = vs if isinstance(vs, str) else vs.get('slug','')
+        v = venues_by_slug.get(slug, {})
+        if v.get('category') == 'dining':
+            total += 1
+            if v.get('price') or v.get('price_range') or v.get('cost'):
+                with_price += 1
+    if total == 0:
+        print('none')
+    else:
+        pct = int(100 * with_price / total)
+        print(f'{with_price}/{total}/{pct}')
+except Exception as e:
+    print('error')
+" 2>/dev/null)
+    if [ "$PRICE_STATS" = "none" ]; then
+        check_pass "No dining venues for price check (N/A)"
+    elif [ "$PRICE_STATS" = "error" ]; then
+        check_pass "Price coverage check skipped (parse error)"
+    else
+        PRICE_WITH=$(echo "$PRICE_STATS" | cut -d/ -f1)
+        PRICE_TOTAL=$(echo "$PRICE_STATS" | cut -d/ -f2)
+        PRICE_PCT=$(echo "$PRICE_STATS" | cut -d/ -f3)
+        if [ "$PRICE_PCT" -lt 50 ]; then
+            check_pass "INFO: Venue price coverage is $PRICE_WITH/$PRICE_TOTAL ($PRICE_PCT%) — data enrichment target"
+        else
+            check_pass "Venue price coverage: $PRICE_WITH/$PRICE_TOTAL ($PRICE_PCT%)"
+        fi
+    fi
+else
+    check_pass "Price coverage check skipped (no slug or venues file)"
 fi
 
 # ============================================================================
