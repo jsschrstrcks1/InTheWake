@@ -78,3 +78,13 @@ Same template issues as Nova and Cloud:
 15. **"Muse Class" — this one is correct**. Silversea does call Silver Muse/Moon/Dawn the "Muse Class" or more formally the "Evolution-class."
 16. **Siblings only lists Moon and Muse** (line 19). Silver Dawn is Muse Class, so Moon and Muse are correct sisters. But the breadcrumbs don't list the broader fleet.
 17. **Dining hero image is Cordelia Empress Food Court** (line 407) — a completely different cruise line (Cordelia Cruises, India). This generic dining image appears on every non-RCL ship page. A user looking at a luxury Silversea page sees a budget Indian cruise line's food court.
+
+### Silver Endeavour (ships/silversea/silver-endeavour.html)
+Read: 2026-04-06 (lines 1-695, complete)
+
+1. **GT mismatch — 20,449 vs 23,500**: Meta/description/ai-summary/twitter/WebPage desc/Quick Answer/Specifications (lines 42, 43, 56, 83, 194, 419, 429) say 20,449. Review/fact-block/Key Facts/Stats JSON/Ship Statistics (lines 126, 358, 364, 466, 519) say 23,500. Same two-group split as Silver Cloud.
+2. **Class name triple-mismatch**: Breadcrumbs (line 18): "Expedition Class." Answer-first (line 23): "Endeavour Class." Description (lines 42, 56, 83, 194): "Endeavour Class." Review (line 126): "Expedition Class." CruiseShip schema (line 72): "Endeavour Class." Fact-block (line 358): "Expedition Class." Stats JSON (line 466): "Expedition Class." Two names used interchangeably — neither may be the official Silversea designation.
+3. **"A Endeavour" grammar**: Lines 42, 56, 72, 83, 194 — "A Endeavour Class" should be "An Endeavour Class" or "An Expedition Class."
+4. **Review says 2021 but this ship was originally Crystal Endeavor** (Crystal Cruises) delivered 2021, acquired by Silversea in 2022 when Crystal went bankrupt. The entered_service date of 2021 reflects Crystal, not Silversea. Should note the acquisition.
+5. Same template issues as all Silversea: duplicate Deck Plans, no page-grid, no no-js, Swiper @10/@11, static copyright, no retry, zero noscript, generic FAQ, wrong content text ("budgets"), Cordelia dining image, all placeholders, orphaned Planning Resources, no related: field.
+6. **Siblings lists Silver Origin only** (line 19). Silver Endeavour is a one-of-a-kind acquired ship — it has no true sisters in the Silversea fleet. Silver Origin is an expedition ship but a completely different design. Listing it as a sibling is misleading.
