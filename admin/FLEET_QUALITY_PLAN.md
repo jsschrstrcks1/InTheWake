@@ -22,15 +22,15 @@ The issues aren't random. They come from **3 root causes**:
 |------|-------|-------------------|-------------|-------------------|
 | **RCL** | 51 | 1 (v3.010) | 26 | Full (~160 checks) |
 | **Carnival** | 49 | 4 (A/B/C/D) | 14 | Partial (RCL checks run but miss Carnival-specific bugs) |
-| **Holland America** | 47 | Unknown | 0 | Untested |
+| **Holland America** | 47 | 1 (Celebrity mid-gen) | 0 (42 historic/retired, 4 active; 36 TBD stats on historic ships) | Audited — 46/46 fail, active ships 1-3e, historic 4-6e. Skip link wrong on all. Celebrity-era template with page-grid but no noscript |
 | **Celebrity** | 30 | 1 (newer than MSC-era: has page-grid, col-1, dynamic copyright) | 0 (but 3 broken carousels, 13 TBD stats, 17 attributions outside col-1) | Audited — 23/23 fail (2-5e, 14-21w), skip link #content vs #main-content on all, duplicate recent-rail-title ID |
 | **MSC** | 25 | 2 (A: 23, B: 1) | 0 (but 12 new categories found) | Audited — 24/24 fail, Swiper mismatch, duplicate sections, raw class names |
 | **Norwegian** | 21 | 3 (A/B/C) | 9 | Partial |
-| **Princess** | 18 | Unknown | 0 | Untested |
-| **Silversea** | 13 | Unknown | 0 | Untested |
-| **Costa** | 10 | Unknown | 0 | Untested |
-| **Oceania** | 9 | Unknown | 0 | Untested |
-| **Seabourn** | 8 | Unknown | 0 | Untested |
+| **Princess** | 18 | 1 (MSC-era) | 0 (but 4 ships with cross-ship image symlinks, 11 TBD stats) | Audited — 17/17 fail (1-10e), Star Princess 7 images → Star of the Seas, Coral/Island/Royal also have cross-line symlinks. MSC-era template. |
+| **Silversea** | 13 | 1 (MSC-era) | 0 (GT double-value on sample) | Audited — 12/12 fail (1-2e), MSC-era. Skip link correct (#content matches). GT 16,800 vs 16,927 on Silver Cloud. |
+| **Costa** | 10 | 1 (MSC-era) | 0 (guest count double on sample) | Audited — 9/9 fail (1-2e), MSC-era. Guests 2,260 vs 2,826 on Deliziosa. |
+| **Oceania** | 9 | 1 (MSC-era) | 0 (GT double on sample, 5 TBD stats) | Audited — 8/8 fail (1-2e), MSC-era. |
+| **Seabourn** | 8 | 1 (MSC-era) | 0 (guest count 600 vs 604 on Encore, 3 TBD stats) | Audited — 7/7 fail (1-2e), MSC-era. |
 | **Regent** | 8 | 1 (MSC-era) | 0 (but GT double-val on 3 ships, guest count mismatches, dup deck plans, Prestige class triple-mismatch) | Audited — 8/8 fail, Explorer/Grandeur/Splendor have 55,254 vs 55,500 GT, Prestige has Explorer vs Nova Class |
 | **Explora** | 7 | 1 | 0 (but same MSC-era issues) | Audited — 6/6 fail (1e 19w), placeholder sections, no faq-answer class, no favicon |
 | **Virgin** | 5 | 1 | 0 (but page title leaks into ship name, class mismatch) | Audited — 4/4 fail (1e 18w), `<title>` suffix "| In the Wake" used as ship name in fact-block/stats/review 9x per page, Lady Class vs Virgin Class |
