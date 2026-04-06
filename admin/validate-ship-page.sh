@@ -581,7 +581,7 @@ fi
 section_header "Section 9b: First Look Carousel Images"
 
 # Count actual images inside the firstlook swiper (not in scripts)
-FIRSTLOOK_IMGS=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p' | grep -cE '<img[ >]|<img$' || echo "0")
+FIRSTLOOK_IMGS=$(echo "$CONTENT" | sed -n '/swiper firstlook\|photo-carousel swiper/,/swiper-pagination/p' | grep -cE '<img[ >]|<img$' || echo "0")
 if [ "$FIRSTLOOK_IMGS" -ge 1 ]; then
     check_pass "First Look carousel has $FIRSTLOOK_IMGS image(s)"
 else
@@ -591,7 +591,7 @@ fi
 # Check carousel HTML structure — every swiper-slide must have a closing </div>
 # Strategy: inside the firstlook carousel, count slide opens vs all </div> tags,
 # then subtract 2 for the swiper-wrapper close and the pagination self-close.
-CAROUSEL_HTML=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p')
+CAROUSEL_HTML=$(echo "$CONTENT" | sed -n '/swiper firstlook\|photo-carousel swiper/,/swiper-pagination/p')
 SLIDE_OPENS=$(echo "$CAROUSEL_HTML" | grep -c 'class="swiper-slide"' || echo "0")
 ALL_DIV_CLOSES=$(echo "$CAROUSEL_HTML" | grep -c '</div>' || echo "0")
 # Subtract: 1 for swiper-wrapper </div>, 1 for pagination <div.../></div>
@@ -613,7 +613,7 @@ fi
 SLIDES_OUTSIDE=$(echo "$CONTENT" | python3 -c "
 import sys, re
 content = sys.stdin.read()
-m = re.search(r'swiper firstlook.*?swiper-pagination', content, re.DOTALL)
+m = re.search(r'(?:swiper firstlook|photo-carousel swiper).*?swiper-pagination', content, re.DOTALL)
 if not m:
     print(0); sys.exit(0)
 block = m.group()
@@ -944,7 +944,7 @@ section_header "Section 9g: Swiper Lazy Loading"
 # If Swiper init uses lazy:true, images must use data-src (not src)
 # If images use native loading="lazy" with src, Swiper must use lazy:false
 SWIPER_LAZY=$(echo "$CONTENT" | grep -oP "Swiper\('.swiper.firstlook'[^)]*lazy:\s*\Ktrue" | head -1)
-NATIVE_LAZY_IN_CAROUSEL=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p' | grep -c 'loading="lazy"' || echo "0")
+NATIVE_LAZY_IN_CAROUSEL=$(echo "$CONTENT" | sed -n '/swiper firstlook\|photo-carousel swiper/,/swiper-pagination/p' | grep -c 'loading="lazy"' || echo "0")
 if [ "$SWIPER_LAZY" = "true" ] && [ "$NATIVE_LAZY_IN_CAROUSEL" -gt 0 ]; then
     check_fail "Swiper lazy:true conflicts with native loading=\"lazy\" — images after slide 1 won't load. Use lazy:false or switch to data-src"
 elif [ "$SWIPER_LAZY" = "true" ]; then
@@ -1297,8 +1297,8 @@ fi
 # ============================================================================
 section_header "Section 9w: FAQ Factual Freshness"
 
-# Extract FAQ answers from both JSON-LD and HTML faq-answer elements
-FAQ_ANSWERS=$(echo "$CONTENT" | grep -oP 'class="faq-answer">[^<]+' | sed 's/class="faq-answer">//' || true)
+# Extract FAQ answers from both JSON-LD and HTML (faq-answer or list-indent class)
+FAQ_ANSWERS=$(echo "$CONTENT" | grep -oP 'class="(?:faq-answer|list-indent)">[^<]+' | sed 's/class="[^"]*">//' || true)
 FAQ_ANSWERS_JSONLD=$(echo "$CONTENT" | grep -oP '"text"\s*:\s*"[^"]*"' || true)
 FAQ_ALL="${FAQ_ANSWERS}${FAQ_ANSWERS_JSONLD}"
 if [ -n "$FAQ_ALL" ]; then
@@ -1531,11 +1531,11 @@ section_header "Section 9af: FAQ Text Quality"
 FAQ_GARBLED=0
 # Pattern: lowercase word followed by space then Capitalized word that should be lowercase
 # Common garble: "fleet Entered service", "ship Built in", "seas Launched in"
-GARBLE_HITS=$(echo "$CONTENT" | grep -oP 'faq-answer|"text"\s*:\s*"' | wc -l)
+GARBLE_HITS=$(echo "$CONTENT" | grep -oP 'faq-answer|list-indent|"text"\s*:\s*"' | wc -l)
 if [ "$GARBLE_HITS" -gt 0 ]; then
     # Extract FAQ text and check for mid-sentence capitals after common words
     FAQ_TEXT=$(echo "$CONTENT" | grep -oP '"text"\s*:\s*"\K[^"]+' || true)
-    FAQ_HTML=$(echo "$CONTENT" | grep -oP 'class="faq-answer">\K[^<]+' || true)
+    FAQ_HTML=$(echo "$CONTENT" | grep -oP 'class="(?:faq-answer|list-indent)">\K[^<]+' || true)
     ALL_FAQ="${FAQ_TEXT} ${FAQ_HTML}"
     GARBLE_COUNT=$(echo "$ALL_FAQ" | grep -cP '(fleet|ship|seas|service|Caribbean)\s+[A-Z][a-z]+\s+(service|in|from|to|with)\b' || true)
     if [ "$GARBLE_COUNT" -gt 0 ]; then
