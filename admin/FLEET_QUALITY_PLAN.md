@@ -23,7 +23,7 @@ The issues aren't random. They come from **3 root causes**:
 | **RCL** | 51 | 1 (v3.010) | 26 | Full (~160 checks) |
 | **Carnival** | 49 | 4 (A/B/C/D) | 14 | Partial (RCL checks run but miss Carnival-specific bugs) |
 | **Holland America** | 47 | Unknown | 0 | Untested |
-| **Celebrity** | 30 | Unknown | 0 | Untested |
+| **Celebrity** | 30 | 1 (newer than MSC-era: has page-grid, col-1, dynamic copyright) | 0 (but 3 broken carousels, 13 TBD stats, 17 attributions outside col-1) | Audited — 23/23 fail (2-5e, 14-21w), skip link #content vs #main-content on all, duplicate recent-rail-title ID |
 | **MSC** | 25 | 2 (A: 23, B: 1) | 0 (but 12 new categories found) | Audited — 24/24 fail, Swiper mismatch, duplicate sections, raw class names |
 | **Norwegian** | 21 | 3 (A/B/C) | 9 | Partial |
 | **Princess** | 18 | Unknown | 0 | Untested |
@@ -94,6 +94,39 @@ MSC (24 pages, 2 templates) and Explora (6 pages, 1 template) share the same gen
 | **9cf** | Page title leaking into ship name | Site name suffix (e.g., "| In the Wake") used as part of ship name in stats JSON, fact-block, review schema. Virgin: 9x per page |
 | **9cg** | Entered service date accuracy | Flag disputed dates (Virgin Scarlet Lady: delivered 2020 vs revenue service 2021) |
 | **9ch** | Class name triple-mismatch | 3+ different class names on same page (Regent Prestige: breadcrumbs=Explorer, stats=Explorer, fact-block=Nova) |
+| **9ci** | Duplicate non-section IDs | Same `id=` on non-section elements (Celebrity: `recent-rail-title` appears twice) |
+
+### 1G. Celebrity audit findings
+
+23 ship pages, 1 template (newer generation than MSC-era — has `page-grid`, `col-1`, dynamic copyright, Swiper @11 only). All 23 fail.
+
+**Error distribution:**
+
+| Error Type | Count | Pages |
+|------------|-------|-------|
+| No venues in venues.json | 23/23 | All |
+| Skip link #content vs #main-content | 23/23 | All |
+| Attributions outside col-1 | 17/23 | Century, Compass, Constellation, Eclipse, Equinox, Flora, Galaxy, Infinity, Mercury, Reflection, Seeker, Silhouette, Summit, Xcel, Xpedition, Xperience, Xploration |
+| TBD stats on operational ships | 13/23 | Century, Compass, Eclipse, Equinox, Galaxy, Mercury, Reflection, Seeker, Silhouette, Solstice, Xpedition, Xperience, Xploration |
+| Broken carousel (missing `</div>`) | 3/23 | Compass, Seeker, Xperience |
+| Duplicate `recent-rail-title` ID | 23/23 | All |
+
+**Celebrity template characteristics:**
+- Has `page-grid` + `col-1` (unlike MSC-era)
+- Has dynamic copyright (unlike MSC-era)
+- Has Swiper @11 only (no version mismatch)
+- Uses `list-indent` not `faq-answer` (same as all non-RCL)
+- No `no-js` class on `<html>`
+- No title leak
+- Guest counts consistent per page
+- GT consistent per page
+- No CruiseShip JSON-LD
+- Photo credit pill in hero (different from RCL/MSC attribution pattern)
+
+**3 template generations identified across fleet:**
+1. **RCL v3.010** — most mature (page-grid, col-1, noscript, dynamic copyright, faq-answer class, Swiper @11 with retry)
+2. **Celebrity** — mid-generation (page-grid, col-1, dynamic copyright, but no noscript, list-indent FAQ, skip link wrong)
+3. **MSC-era** — oldest (no page-grid, no col-1, static copyright, Swiper @10/@11 mismatch, placeholder sections). Used by MSC, Explora, Cunard, Virgin, Regent.
 
 ### 1F. Regent audit findings
 
