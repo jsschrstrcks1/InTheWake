@@ -6,6 +6,29 @@
 
 ---
 
+## Honesty Check: What I Have and Haven't Done
+
+**Pages I actually read line-by-line this session:**
+- RCL: Allure, Adventure, Icon (partial), Radiance (partial), Enchantment, Grandeur (partial via agent)
+- Explora: Explora I
+- Cunard: QM2 (structure only, not every line)
+- Princess: Sun Princess
+
+That's ~10 pages out of 306. Everything else is validator output, grep patterns, or agent reports I reviewed but didn't verify myself.
+
+**What I called "audited" that was actually just validator runs:**
+- Celebrity (23 pages) — ran validator, grep-checked 3 pages for structure
+- Holland America (46 pages) — ran validator, grep-checked 2 pages
+- Regent (8 pages) — ran validator, data-grepped all 8
+- Silversea, Costa, Oceania, Seabourn — ran validator on one sample each. Called it "audited." It wasn't.
+
+**What I haven't touched at all:**
+- Carnival: Read the GitHub issues but never opened a single page
+- Norwegian: Same — issues only, no pages read
+- Holland America historic ships: 42 pages untouched
+
+---
+
 ## The Real Problem
 
 The issues aren't random. They come from **3 root causes**:
@@ -18,23 +41,30 @@ The issues aren't random. They come from **3 root causes**:
 
 ## Fleet Inventory
 
-| Line | Pages | Template Variants | Issues Filed | Validator Coverage |
-|------|-------|-------------------|-------------|-------------------|
-| **RCL** | 51 | 1 (v3.010) | 26 | Full (~160 checks) |
-| **Carnival** | 49 | 4 (A/B/C/D) | 14 | Partial (RCL checks run but miss Carnival-specific bugs) |
-| **Holland America** | 47 | 1 (Celebrity mid-gen) | 0 (42 historic/retired, 4 active; 36 TBD stats on historic ships) | Audited — 46/46 fail, active ships 1-3e, historic 4-6e. Skip link wrong on all. Celebrity-era template with page-grid but no noscript |
-| **Celebrity** | 30 | 1 (newer than MSC-era: has page-grid, col-1, dynamic copyright) | 0 (but 3 broken carousels, 13 TBD stats, 17 attributions outside col-1) | Audited — 23/23 fail (2-5e, 14-21w), skip link #content vs #main-content on all, duplicate recent-rail-title ID |
-| **MSC** | 25 | 2 (A: 23, B: 1) | 0 (but 12 new categories found) | Audited — 24/24 fail, Swiper mismatch, duplicate sections, raw class names |
-| **Norwegian** | 21 | 3 (A/B/C) | 9 | Partial |
-| **Princess** | 18 | 1 (MSC-era) | 0 (but 4 ships with cross-ship image symlinks, 11 TBD stats) | Audited — 17/17 fail (1-10e), Star Princess 7 images → Star of the Seas, Coral/Island/Royal also have cross-line symlinks. MSC-era template. |
-| **Silversea** | 13 | 1 (MSC-era) | 0 (GT double-value on sample) | Audited — 12/12 fail (1-2e), MSC-era. Skip link correct (#content matches). GT 16,800 vs 16,927 on Silver Cloud. |
-| **Costa** | 10 | 1 (MSC-era) | 0 (guest count double on sample) | Audited — 9/9 fail (1-2e), MSC-era. Guests 2,260 vs 2,826 on Deliziosa. |
-| **Oceania** | 9 | 1 (MSC-era) | 0 (GT double on sample, 5 TBD stats) | Audited — 8/8 fail (1-2e), MSC-era. |
-| **Seabourn** | 8 | 1 (MSC-era) | 0 (guest count 600 vs 604 on Encore, 3 TBD stats) | Audited — 7/7 fail (1-2e), MSC-era. |
-| **Regent** | 8 | 1 (MSC-era) | 0 (but GT double-val on 3 ships, guest count mismatches, dup deck plans, Prestige class triple-mismatch) | Audited — 8/8 fail, Explorer/Grandeur/Splendor have 55,254 vs 55,500 GT, Prestige has Explorer vs Nova Class |
-| **Explora** | 7 | 1 | 0 (but same MSC-era issues) | Audited — 6/6 fail (1e 19w), placeholder sections, no faq-answer class, no favicon |
-| **Virgin** | 5 | 1 | 0 (but page title leaks into ship name, class mismatch) | Audited — 4/4 fail (1e 18w), `<title>` suffix "| In the Wake" used as ship name in fact-block/stats/review 9x per page, Lady Class vs Virgin Class |
-| **Cunard** | 5 | 1 (MSC-era + QM2 variant) | 0 (but GT/guest discrepancies, grammar, broken carousel) | Audited — 4/4 fail, QM2 carousel class mismatch, triple guest counts on Victoria |
+### What "audited" means in this table
+
+- **Deep read**: I read the full HTML source of at least one page, line by line
+- **Validator run**: I ran the validator on every page in the line
+- **Validator only**: I ran the validator but didn't read the pages
+- **Sample only**: I ran the validator on one sample page and grep-checked a few patterns — NOT a real audit
+
+| Line | Pages | Audit Level | What I Actually Found |
+|------|-------|-------------|----------------------|
+| **RCL** | 51 | Deep read (6 pages) + validator (all 51) + deep-dive agent audits (6 pages) | Most mature template. 5 pages fully repaired. Dining v2 fix applied to 48. Copyright fix to all. Video retry to 48. |
+| **Carnival** | 49 | Issues read from GitHub only. No pages read. | 14 GitHub issues describe 4 template variants. I have not personally verified any of this. |
+| **Holland America** | 47 | Validator run (all 46) + structure grep on 1 active + 1 historic page | 42 are historic/retired. 4 active. Has `page-grid`+`col-1`. Skip link wrong (`#content` vs `#main-content`). 36 TBD stats (mostly historic). Did NOT deep read any page. |
+| **Celebrity** | 30 | Validator run (all 23) + structure grep on 3 pages | Has `page-grid`, dynamic copyright. Skip link wrong on all 23. 3 broken carousels, 13 TBD stats, 17 attributions outside col-1. Did NOT deep read any page. |
+| **MSC** | 25 | Agent deep audit (World Europa) + validator run (all 24) | Agent found 12 new issue categories. "exceptional" raw class name. Swiper @10/@11 mismatch. Triple GT/guest inconsistency on World Europa. I reviewed the agent's findings but did NOT personally read MSC pages. |
+| **Norwegian** | 21 | Issues read from GitHub only. No pages read. | 9 GitHub issues filed. I have not personally verified any of this. |
+| **Princess** | 18 | Deep read (Sun Princess only) + validator run (all 17) + symlink check (all 17) | Sun Princess: MSC-era template. Crew 1,697 vs 1,600 discrepancy. Carousel class mismatch. IMO TBD on operational ship. 4 ships have cross-line image symlinks (Star Princess → Star of the Seas). |
+| **Silversea** | 13 | Sample only (1 page grep) | Validator says 1-2 errors per page. GT double-value on Silver Cloud (16,800 vs 16,927). Skip link correct. I did NOT read any page. |
+| **Costa** | 10 | Sample only (1 page grep) | Validator says 1-2 errors. Guest count double on Deliziosa (2,260 vs 2,826). I did NOT read any page. |
+| **Oceania** | 9 | Sample only (1 page grep) | Validator says 1-2 errors. 5 TBD stats. I did NOT read any page. |
+| **Seabourn** | 8 | Sample only (1 page grep) | Validator says 1-2 errors. Guest 600 vs 604 on Encore. 3 TBD stats. I did NOT read any page. |
+| **Regent** | 8 | Validator run (all 8) + data grep (all 8) | Explorer/Grandeur/Splendor have GT 55,254 vs 55,500. Prestige has class mismatch (Explorer in breadcrumbs, Nova in fact-block). Did NOT deep read any page. |
+| **Explora** | 7 | Deep read (Explora I) + validator run (all 6) | All 6 identical. FAQ uses `list-indent` not `faq-answer`. 4 placeholder sections. No favicon. I read Explora I line by line. |
+| **Virgin** | 5 | Validator run (all 4) + structure/data grep (all 4) | Page title "In the Wake" leaks into ship name (9x per page). Lady Class vs Virgin Class mismatch. I did NOT deep read any page but did verify the title leak pattern across all 4. |
+| **Cunard** | 5 | Validator run (all 4) + data grep (all 4) + deep read (QM2 structure) | QM2 carousel class mismatch (`photo-carousel` vs `firstlook`). Queen Victoria has 3 guest counts. QM2 has GT 149,215 vs 148,528. I read QM2's structure but not the full page. |
 
 ---
 
@@ -159,7 +189,36 @@ MSC (24 pages, 2 templates) and Explora (6 pages, 1 template) share the same gen
 
 **Explora fleet summary:** 6/6 identical (1e 19w each). Same template. 4 placeholder sections per page. No `faq-answer` class. No favicon. No robots meta. Stats JSON complete (no TBDs). Guest counts consistent (922). `CruiseShip` JSON-LD schema present (not on RCL).
 
-### 1E-extra. Cunard audit findings
+### 1E-extra. Princess deep-read findings (Sun Princess)
+
+I read the full source of `ships/princess/sun-princess.html` line by line on 2026-04-06.
+
+**Template: MSC-era.** No `page-grid`, no `col-1`, no `no-js`. Swiper @10 CSS + @11 JS. Static copyright 2025. `list-indent` FAQ class.
+
+**Specific findings:**
+
+| Finding | Lines | Severity |
+|---------|-------|----------|
+| **Crew count: 3 values on one page** — Specifications says 1,697 (line 466), Ship Statistics says 1,600 (line 566), Stats JSON says 1,600 (line 480) | 466, 566, 480 | High — intra-page data conflict |
+| **IMO: "TBD"** on an operational ship (sailed since Feb 2024). IMO 9872428 is publicly available. | 367, 589 | High — should be populated |
+| **Carousel class mismatch** — uses `photo-carousel swiper` (line 390) but `initFirstLook()` targets `.firstlook .swiper`. 8 real photos with captions exist but Swiper never initializes. | 390, JS section | High — carousel is broken |
+| **Duplicate stats sections** — "Ship Specifications" (lines 441-469) and "Ship Statistics" (lines 561-569) show the same data in two formats with different crew values. | 441, 561 | Medium — redundant + inconsistent |
+| **Video loader has no retry** — old single-check `if(window.Swiper)` pattern (line 525) without the retry loop we added to RCL pages. | 525 | Medium |
+| **FAQ is 100% boilerplate** — all 5 answers are generic ("Specialty restaurants vary by ship", "Ship deployments vary by season"). But the Review schema (line 126) specifically names "Discovery Dining, Crown Grill, Sabatini's, and the Dome at Sea." The Review knows the ship; the FAQ doesn't. | 138, 154, 126 | High — internal contradiction |
+| **Dining: "coming soon"** with no noscript fallback and no venue data in venues-v2.json. | 477 | Medium |
+| **Planning Resources section orphaned** — sits between `</aside>` (line 685) and `</main>` (line 703), outside the grid layout. | 688-697 | Low — renders OK due to flat layout |
+| **4 placeholder sections** — Dining "coming soon" (477), Logbook "will appear here" (486), Video fallback (505), Entertainment "coming soon" (492) | Various | Medium |
+| **Content text is pure template boilerplate** — "The ship offers a range of dining options..." (line 376) could describe any ship. | 376 | Medium |
+
+**Cross-ship image symlinks (from validator run, not deep read):**
+- Star Princess: 7 images → Star of the Seas (RCL) — **wrong cruise line entirely**
+- Coral Princess: 7 cross-ship symlinks
+- Island Princess: 7 cross-ship symlinks
+- Royal Princess: 5 cross-ship symlinks
+
+**What I did NOT check on Princess:** I did not read any page other than Sun Princess. The cross-ship symlink counts came from validator runs, not from reading. I don't know what specific ships those symlinks point to for Coral/Island/Royal.
+
+### 1E-extra2. Cunard audit findings
 
 4 ships, 1 template (MSC-era), QM2 has a variant.
 
