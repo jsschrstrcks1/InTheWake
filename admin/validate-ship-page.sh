@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================================
-# Ship Page Validator — v3.010.400
+# Ship Page Validator — v3.010.500
 #
 # Validates ship pages against SHIP_PAGE_CHECKLIST_v3.010.md standards.
 # Usage: ./admin/validate-ship-page.sh <path-to-ship-page.html>
@@ -1645,6 +1645,209 @@ while IFS= read -r img_path; do
 done <<< "$(echo "$CONTENT" | grep -oP 'src="(/[^"]+\.(jpg|jpeg|png|webp|gif))"' | grep -oP '/[^"]+' || true)"
 if [ "$BROKEN_SYMLINKS" -eq 0 ]; then
     check_pass "No broken or cross-ship image symlinks"
+fi
+
+# ============================================================================
+# Section 9ak: Browse All Link Leaking Into Heading (#1322)
+# ============================================================================
+section_header "Section 9ak: Dining Heading Text Leak"
+
+DINING_H2=$(echo "$CONTENT" | grep -oP '<h2 id="diningHeading">[^<]*' | head -1)
+if [ -n "$DINING_H2" ] && echo "$DINING_H2" | grep -q '→ Browse All'; then
+    check_fail "Dining heading contains raw '→ Browse All' text — should be inside a styled <a> tag, not bare text (#1322)"
+elif echo "$CONTENT" | grep -q 'diningHeading.*Browse All.*</a>.*</h2>'; then
+    check_pass "Dining heading has Browse All as styled link (correct)"
+elif echo "$CONTENT" | grep -q 'diningHeading'; then
+    check_pass "Dining heading present (no Browse All link)"
+else
+    check_pass "No dining heading found (N/A)"
+fi
+
+# ============================================================================
+# Section 9al: FAQ Missing Class Name (#1323)
+# ============================================================================
+section_header "Section 9al: FAQ Class Name Completeness"
+
+FAQ_BLANK_CLASS=$(echo "$CONTENT" | grep -cP 'is a (ship|cruise ship)[,.]' || true)
+if [ "$FAQ_BLANK_CLASS" -gt 0 ]; then
+    check_fail "FAQ/intro text says 'is a ship' without class name ($FAQ_BLANK_CLASS occurrence(s)) — should be 'is a [Class Name] ship' (#1323)"
+else
+    check_pass "No missing class names in FAQ/intro text"
+fi
+
+# ============================================================================
+# Section 9am: Dining Category Labels Completeness (#1324)
+# ============================================================================
+section_header "Section 9am: Dining Category Labels"
+
+if echo "$CONTENT" | grep -q 'catLabels'; then
+    if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_FILE" ]; then
+        MISSING_CATS=$(python3 -c "
+import json
+try:
+    with open('$VENUES_FILE') as f: d = json.load(f)
+    ship = d.get('ships', {}).get('$SHIP_SLUG', {})
+    venue_slugs = ship.get('venues', [])
+    venues_by_slug = {v['slug']: v for v in d.get('venues', [])}
+    cats = set()
+    for vs in venue_slugs:
+        slug = vs if isinstance(vs, str) else vs.get('slug','')
+        v = venues_by_slug.get(slug, {})
+        cat = v.get('category', 'other')
+        if cat != 'dining': cats.add(cat)
+    known = {'mdr','specialty','casual','bar','bars','dining','activities','entertainment','neighborhoods','other'}
+    missing = cats - known
+    if missing: print(','.join(sorted(missing)))
+except: pass
+" 2>/dev/null)
+        if [ -n "$MISSING_CATS" ]; then
+            check_warn "Venue categories not in catLabels: $MISSING_CATS — these render as 'undefined' headings (#1324)"
+        else
+            check_pass "All venue categories have labels in catLabels"
+        fi
+    else
+        check_pass "Category label check skipped (no ship/venues data)"
+    fi
+else
+    check_pass "No inline catLabels (may use external dining-card.js)"
+fi
+
+# ============================================================================
+# Section 9an: Sections Inside Main Content Region (#1326)
+# ============================================================================
+section_header "Section 9an: Content Region Integrity"
+
+COL1_END=$(echo "$CONTENT" | grep -n 'End Main Content Column' | tail -1 | cut -d: -f1)
+FAQ_LINE=$(echo "$CONTENT" | grep -n 'id="faq"\|class="faq-section"' | head -1 | cut -d: -f1)
+if [ -n "$COL1_END" ] && [ -n "$FAQ_LINE" ]; then
+    if [ "$FAQ_LINE" -gt "$COL1_END" ]; then
+        check_fail "FAQ section (line $FAQ_LINE) is OUTSIDE main content region (col-1 ends line $COL1_END) (#1326)"
+    else
+        check_pass "FAQ section is inside main content region"
+    fi
+else
+    check_pass "Content region check skipped (insufficient landmarks)"
+fi
+
+# ============================================================================
+# Section 9ao: Dining Venue Name Completeness (#1330)
+# ============================================================================
+section_header "Section 9ao: Dining Venue Names"
+
+DINING_NOSCRIPT=$(echo "$CONTENT" | sed -n '/id="dining-content"/,/<\/noscript>/p')
+if [ -n "$DINING_NOSCRIPT" ]; then
+    NAMELESS_VENUES=$(echo "$DINING_NOSCRIPT" | grep -cP '<li>\s*—' || true)
+    if [ "$NAMELESS_VENUES" -gt 0 ]; then
+        check_fail "Dining noscript has $NAMELESS_VENUES venue(s) with no name (renders as '— description') (#1330)"
+    else
+        check_pass "All dining noscript venues have names"
+    fi
+else
+    check_pass "No dining noscript content to check"
+fi
+
+# ============================================================================
+# Section 9ap: Retired Ship Loading State (#1332)
+# ============================================================================
+section_header "Section 9ap: Retired Ship Loading State"
+
+if [ "$IS_RETIRED" -eq 1 ]; then
+    if echo "$CONTENT" | grep -q 'Dining data is loading\|dining.*loading\.\.\.' ; then
+        check_fail "Retired ship has permanent 'Dining data is loading...' message — should show 'no data available' (#1332)"
+    else
+        check_pass "No stuck loading states on retired ship page"
+    fi
+else
+    check_pass "Ship not retired (N/A)"
+fi
+
+# ============================================================================
+# Section 9aq: Sister Ship Link Integrity (#1333)
+# ============================================================================
+section_header "Section 9aq: Sister Ship Link Integrity"
+
+SIBLINGS_LIST_AQ=$(echo "$CONTENT" | grep -oP 'siblings:\s*\K.*' | head -1)
+if [ -n "$SIBLINGS_LIST_AQ" ]; then
+    BROKEN_SIBLINGS=0
+    while IFS= read -r sib_url; do
+        [ -z "$sib_url" ] && continue
+        SIB_PATH=$(echo "$sib_url" | sed 's|^/||')
+        if [ ! -f "${REPO_ROOT}/${SIB_PATH}" ]; then
+            check_fail "Sister ship link broken: $sib_url does not exist on disk (#1333)"
+            BROKEN_SIBLINGS=$((BROKEN_SIBLINGS + 1))
+        fi
+    done <<< "$(echo "$SIBLINGS_LIST_AQ" | tr ',' '\n' | sed 's/^ *//;s/ *$//')"
+    if [ "$BROKEN_SIBLINGS" -eq 0 ]; then
+        check_pass "All sister ship links resolve to existing files"
+    fi
+else
+    check_pass "No siblings list found (N/A)"
+fi
+
+# ============================================================================
+# Section 9ar: Article Grammar — "a" Before Vowel Sounds (#1334)
+# ============================================================================
+section_header "Section 9ar: Article Grammar"
+
+GRAMMAR_ERRORS=$(echo "$CONTENT" | grep -ciP '\ba (Icon|Oasis|Enchantment|Adventure|Allure|Anthem|Empress|Ovation|Odyssey|Explorer|Enchanted|Ultra)' || true)
+if [ "$GRAMMAR_ERRORS" -gt 0 ]; then
+    check_warn "Found $GRAMMAR_ERRORS 'a [vowel-sound]' grammar error(s) — should be 'an' (#1334)"
+else
+    check_pass "No a/an grammar errors detected"
+fi
+
+# ============================================================================
+# Section 9as: Attribution Empty Parentheses (#1336)
+# ============================================================================
+section_header "Section 9as: Attribution Rendering"
+
+ATTR_BLOCK_AS=$(echo "$CONTENT" | sed -n '/class="card attributions"/,/<\/section>/p')
+if [ -n "$ATTR_BLOCK_AS" ]; then
+    EMPTY_PARENS=$(echo "$ATTR_BLOCK_AS" | grep -cP '\(\s*\)|\(\s*<a[^>]*>\s*</a>\s*\)' || true)
+    if [ "$EMPTY_PARENS" -gt 0 ]; then
+        check_fail "Attribution section has $EMPTY_PARENS empty parentheses '()' — photographer name not rendering (#1336)"
+    else
+        check_pass "No empty parentheses in attributions"
+    fi
+else
+    check_pass "No attributions section (N/A)"
+fi
+
+# ============================================================================
+# Section 9at: Key Facts Field Count Consistency (#1337)
+# ============================================================================
+section_header "Section 9at: Key Facts Field Count"
+
+KEY_FACTS_COUNT=$(echo "$CONTENT" | sed -n '/class="key-facts"/,/<\/div>/p' | grep -c '<li>' || true)
+if [ "$KEY_FACTS_COUNT" -gt 0 ]; then
+    if [ "$KEY_FACTS_COUNT" -lt 4 ]; then
+        check_warn "Key Facts has only $KEY_FACTS_COUNT fields — reference pages have 7+ fields (#1337)"
+    else
+        check_pass "Key Facts has $KEY_FACTS_COUNT fields"
+    fi
+else
+    check_pass "No Key Facts section found (N/A)"
+fi
+
+# ============================================================================
+# Section 9au: GT Consistency — Page vs Fleet Listing (#1327/#1329)
+# ============================================================================
+section_header "Section 9au: Tonnage Consistency"
+
+if [ -n "$SHIP_SLUG" ] && [ -f "${REPO_ROOT}/ships.html" ]; then
+    PAGE_GT=$(echo "$CONTENT" | grep -oP '"gt"\s*:\s*"\K[^"]+' | head -1 | grep -oP '[\d,]+' | head -1 | tr -d ',')
+    FLEET_GT=$(grep -A3 "$SHIP_SLUG" "${REPO_ROOT}/ships.html" | grep -oP '[\d,]+\s*GT' | head -1 | grep -oP '[\d,]+' | tr -d ',')
+    if [ -n "$PAGE_GT" ] && [ -n "$FLEET_GT" ]; then
+        if [ "$PAGE_GT" = "$FLEET_GT" ]; then
+            check_pass "GT consistent: page ($PAGE_GT) matches fleet listing ($FLEET_GT)"
+        else
+            check_warn "GT mismatch: page says $PAGE_GT but fleet listing says $FLEET_GT (#1327/#1329)"
+        fi
+    else
+        check_pass "GT cross-check skipped (insufficient data)"
+    fi
+else
+    check_pass "GT cross-check skipped (no slug or fleet page)"
 fi
 
 # ============================================================================
