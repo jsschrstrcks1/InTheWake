@@ -88,3 +88,49 @@ Read: 2026-04-06 (lines 1-695, complete)
 4. **Review says 2021 but this ship was originally Crystal Endeavor** (Crystal Cruises) delivered 2021, acquired by Silversea in 2022 when Crystal went bankrupt. The entered_service date of 2021 reflects Crystal, not Silversea. Should note the acquisition.
 5. Same template issues as all Silversea: duplicate Deck Plans, no page-grid, no no-js, Swiper @10/@11, static copyright, no retry, zero noscript, generic FAQ, wrong content text ("budgets"), Cordelia dining image, all placeholders, orphaned Planning Resources, no related: field.
 6. **Siblings lists Silver Origin only** (line 19). Silver Endeavour is a one-of-a-kind acquired ship — it has no true sisters in the Silversea fleet. Silver Origin is an expedition ship but a completely different design. Listing it as a sibling is misleading.
+
+### Silver Moon (ships/silversea/silver-moon.html)
+Read: 2026-04-06 (data scan + spot-read of key sections)
+
+**Data is internally consistent.** GT 40,700 everywhere. Guests 596 everywhere. Crew 411 in Specs (line 449), Stats JSON (line 529), and Ship Statistics (line 544). Class "Muse Class" everywhere. No mismatches. Same clean pattern as Silver Dawn.
+
+Same template issues as all Silversea (duplicate Deck Plans, no page-grid, no no-js, Swiper @10/@11, static copyright, no retry, zero noscript, generic FAQ, wrong content text, Cordelia dining image, all placeholders, orphaned Planning Resources, no related: field).
+
+1. **Content text wrong**: Line 375 "to suit different travel styles and budgets" — all-suite luxury ship.
+2. **Siblings: Silver Muse and Silver Dawn** (line 19). Correct — these are the three Muse Class ships.
+
+### Silver Muse (ships/silversea/silver-muse.html)
+Data scan: 2026-04-06. **All data consistent.** GT 40,700. Guests 596. Crew 411. Class "Muse Class" everywhere. No grammar errors. Same template issues as all Silversea.
+
+### Silver Origin (ships/silversea/silver-origin.html)
+Data scan: 2026-04-06.
+1. **Class mismatch**: Breadcrumbs "Expedition Class", answer-first "Origin Class", Review "Expedition Class". Two names.
+2. **"A Origin" / "A Expedition" grammar**: 6 occurrences of "A" before vowel.
+3. **Same template issues.** GT 5,800 consistent. Guests 100 consistent. Crew 96 consistent.
+4. **Siblings lists Silver Endeavour only** (from breadcrumbs file). Both are expedition ships but completely different designs.
+
+### Silver Ray (ships/silversea/silver-ray.html)
+Data scan: 2026-04-06.
+1. **Crew mismatch**: Specs says 554, Stats JSON says 586, Ship Statistics says 554. Same mismatch as Silver Nova (sister ship). Template likely copied the wrong crew number into JSON.
+2. GT 54,700 consistent. Guests 728 consistent. Class "Nova Class" consistent. Same template issues.
+
+### Silver Shadow (ships/silversea/silver-shadow.html)
+Data scan: 2026-04-06.
+1. **Class mismatch**: Breadcrumbs "Shadow Class", answer-first "Whisper Class", Review "Shadow Class". Shadow and Whisper are sister ships — the answer-first grabbed the wrong class name.
+2. **Crew mismatch**: Specs 302, Stats JSON 295, Ship Statistics 302.
+3. GT 28,258 consistent. Guests 382 consistent. Same template issues.
+
+### Silver Spirit (ships/silversea/silver-spirit.html)
+Data scan: 2026-04-06. **All data consistent.** GT 36,009. Guests 540. Crew 376. Class "Spirit Class" everywhere. Same template issues.
+
+### Silver Whisper (ships/silversea/silver-whisper.html)
+Data scan: 2026-04-06.
+1. **Class mismatch**: Breadcrumbs "Shadow Class" (WRONG — this is Silver Whisper, not Shadow), answer-first "Whisper Class", Review "Shadow Class". The breadcrumbs and Review have the wrong ship's class.
+2. **Crew mismatch**: Specs 302, Stats JSON 295, Ship Statistics 302. Same as Shadow — likely copied.
+3. GT 28,258 consistent (same as Shadow — they're sisters). Guests 382 consistent. Same template issues.
+4. **This is the mirror of Silver Shadow's error** — Shadow says "Whisper Class" in answer-first, Whisper says "Shadow Class" in breadcrumbs. The two pages have each other's class names swapped.
+
+### Silver Wind (ships/silversea/silver-wind.html)
+Data scan: 2026-04-06.
+1. **Guest count mismatch**: Two values — 274 and 296. Need to read page to find where each appears.
+2. GT 17,400 consistent. Crew 222 consistent. Class "Wind Class" everywhere. Same template issues.
