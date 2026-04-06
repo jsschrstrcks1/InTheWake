@@ -764,6 +764,34 @@ elif [ -z "$MAIN_ID" ]; then
 fi
 
 # ============================================================================
+# Section 9g0: Attributions placement (must be inside col-1, before aside)
+# ============================================================================
+section_header "Section 9g0: Attributions Placement"
+
+# Attributions must appear BEFORE </aside>, not after it.
+# If attributions appears after the aside closes, it renders parallel to the
+# sidebar instead of stacked in the main content column.
+ATTRIB_LINE=$(echo "$CONTENT" | grep -n 'class="card attributions"' | head -1 | cut -d: -f1)
+ASIDE_CLOSE_LINE=$(echo "$CONTENT" | grep -n '</aside>' | tail -1 | cut -d: -f1)
+COL1_CLOSE_LINE=$(echo "$CONTENT" | grep -n 'End Main Content Column\|End main content column' | head -1 | cut -d: -f1)
+
+if [ -n "$ATTRIB_LINE" ] && [ -n "$COL1_CLOSE_LINE" ]; then
+    if [ "$ATTRIB_LINE" -lt "$COL1_CLOSE_LINE" ]; then
+        check_pass "Attributions is inside col-1 (line $ATTRIB_LINE, col-1 closes line $COL1_CLOSE_LINE)"
+    else
+        check_fail "Attributions is OUTSIDE col-1 — renders parallel to sidebar instead of stacked. Move it before the col-1 closing tag"
+    fi
+elif [ -n "$ATTRIB_LINE" ] && [ -n "$ASIDE_CLOSE_LINE" ]; then
+    if [ "$ATTRIB_LINE" -lt "$ASIDE_CLOSE_LINE" ]; then
+        check_pass "Attributions appears before aside (correct placement)"
+    else
+        check_fail "Attributions is AFTER </aside> — renders parallel to sidebar. Move it inside col-1"
+    fi
+elif [ -z "$ATTRIB_LINE" ]; then
+    check_warn "No attributions section found"
+fi
+
+# ============================================================================
 # Section 9g: Swiper Lazy Loading Consistency
 # ============================================================================
 section_header "Section 9g: Swiper Lazy Loading"
