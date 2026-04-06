@@ -23,6 +23,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
      expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
      target-audience: Adventure of the Seas cruisers, Voyager Class researchers, ship comparison shoppers
      answer-first: Adventure of the Seas is a Voyager Class ship (137,276 GT, 3,114 guests) featuring the signature Royal Promenade indoor boulevard, ice skating rink, rock climbing wall, and diverse worldwide itineraries.
+     related: /ships.html, /cruise-lines/royal-caribbean.html, /restaurants.html
      -->
   <!-- ======================================================
        In the Wake — Adventure of the Seas • Royal Caribbean
@@ -51,7 +52,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="author" content="In the Wake"/>
   <meta name="publisher" content="In the Wake"/>
 
-  <!-- ICP-Lite v1.0 Meta Tags -->
+  <!-- ICP-Lite v1.4 Meta Tags -->
   <meta name="ai-summary" content="Adventure of the Seas is a Voyager Class ship (137,276 GT, 3,114 guests, launched 2001) featuring the notable Royal Promenade, ice skating rink, rock climbing wall, and worldwide itineraries."/>
   <meta name="last-reviewed" content="2026-02-14"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
@@ -201,7 +202,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   }
   </script>
 
-  <!-- JSON-LD: FAQPage (ICP-Lite v1.0) -->
+  <!-- JSON-LD: FAQPage (ICP-Lite v1.4) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -253,6 +254,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Adventure of the Seas sails year-round itineraries from ports around the world, including Caribbean sailings from Galveston, Texas, and seasonal deployments to Alaska, Australia, New Zealand, and Southeast Asia. Check the live tracker on this page for her current position and upcoming port calls."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which ships are in the same class as Adventure of the Seas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Adventure of the Seas is part of the Voyager Class, which includes Voyager of the Seas, Explorer of the Seas, Navigator of the Seas, and Mariner of the Seas. All five ships share the signature Royal Promenade, ice skating rink, and rock climbing wall."
         }
       }
     ]
@@ -360,7 +369,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <body class="page">
   <!-- Skip Link -->
-  <a href="#content" class="skip-link">Skip to main content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -481,7 +490,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h1 class="page-title">Adventure of the Seas — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
       
-      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Adventure of the Seas is a Voyager Class cruise ship operated by Royal Caribbean. She entered service in 2001, measures 137,276 gross tons, and carries approximately 3,114 guests at double occupancy.</p>
+      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Adventure of the Seas is a Voyager Class cruise ship operated by Royal Caribbean. She entered service in 2001, measures 137,276 gross tons, and carries approximately 3,114 guests at double occupancy with a crew of 1,185.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
         <ul style="margin: 0; padding-left: 1.25rem;">
@@ -578,8 +587,19 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <!-- Stats -->
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
-          <h3 id="statsHeading">Adventure at a Glance</h3>
-          <div id="ship-stats" class="stats-grid" data-slug="adventure-of-the-seas"></div>
+          <h3 id="statsHeading">Key Facts About Adventure of the Seas</h3>
+          <div id="ship-stats" class="stats-grid" data-slug="adventure-of-the-seas">
+            <noscript>
+              <div class="stat-line"><span class="stat-key">Class</span><span class="stat-val">Voyager Class</span></div>
+              <div class="stat-line"><span class="stat-key">Entered Service</span><span class="stat-val">2001</span></div>
+              <div class="stat-line"><span class="stat-key">Gross Tonnage</span><span class="stat-val">137,276 GT</span></div>
+              <div class="stat-line"><span class="stat-key">Guests</span><span class="stat-val">3,114 (double occupancy)</span></div>
+              <div class="stat-line"><span class="stat-key">Crew</span><span class="stat-val">1,185</span></div>
+              <div class="stat-line"><span class="stat-key">Length</span><span class="stat-val">311 m (1,020 ft)</span></div>
+              <div class="stat-line"><span class="stat-key">Beam</span><span class="stat-val">48 m (157 ft)</span></div>
+              <div class="stat-line"><span class="stat-key">Registry</span><span class="stat-val">Bahamas</span></div>
+            </noscript>
+          </div>
           <script type="application/json" id="ship-stats-fallback">
           {
   "slug": "adventure-of-the-seas",
@@ -627,14 +647,30 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       <!-- Dining -->
       <section id="dining-card" class="card" data-ship="Adventure of the Seas" aria-labelledby="diningHeading">
-        <h2 id="diningHeading">Dining Venues on Adventure of the Seas</h2>
+        <h2 id="diningHeading">Dining Venues on Adventure of the Seas <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
 
         <img id="dining-hero" class="card-hero"
              src="/assets/img/Cordelia_Empress_Food_Court.webp"
              alt="Adventure dining venue seating with ocean view" loading="lazy"
              onerror="(function(img){var fb=[_abs('/assets/ships/adventure-of-the-seas-dining.webp?v=3.006','/assets/ships/adventure-of-the-seas-dining.jpg?v=3.006'),_abs('/assets/img/Cordelia_Empress_Food_Court.webp','/assets/img/Cordelia_Empress_Food_Court.webp')];img._fbi=(img._fbi||0);if(img._fbi<fb.length){img.src=fb[img._fbi++];}})(this)"/>
 
-        <div class="dining-content" id="dining-content" aria-live="polite"></div>
+        <div class="dining-content" id="dining-content" aria-live="polite">
+          <noscript>
+            <h3>Main Dining</h3>
+            <ul>
+              <li><strong><a href="/restaurants/mdr.html">Main Dining Room</a></strong> — Multi-course dinner with rotating menus</li>
+              <li><strong><a href="/restaurants/windjammer.html">Windjammer Marketplace</a></strong> — Casual buffet with global stations</li>
+              <li><strong>Café Promenade</strong> — Quick-service on the Royal Promenade</li>
+            </ul>
+            <h3>Specialty Dining</h3>
+            <ul>
+              <li><strong><a href="/restaurants/chops.html">Chops Grille</a></strong> — Royal Caribbean's signature steakhouse</li>
+              <li><strong><a href="/restaurants/giovannis.html">Giovanni's Table</a></strong> — Family-style Italian</li>
+              <li><strong><a href="/restaurants/izumi.html">Izumi</a></strong> — Sushi and sashimi</li>
+              <li><strong>Johnny Rockets</strong> — Classic American diner</li>
+            </ul>
+          </noscript>
+        </div>
 
         <!-- normalize dining data source to venues.json on this origin -->
         <script type="application/json" id="dining-data-source">{"provider":"rcl","json":"/assets/data/venues-v2.json","ship_slug":"adventure-of-the-seas","aliases":["Adventure of the Seas","Adventure Of The Seas","Adventure"]}</script>
@@ -731,7 +767,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h2 id="video-highlights">Watch: Adventure Highlights</h2>
       <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours (including accessible where available).</p>
       <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-wrapper" id="featuredVideos">
+          <noscript>
+            <p>Video walkthroughs and stateroom tours for Adventure of the Seas are available on YouTube. Search for "Adventure of the Seas ship tour" to find current content.</p>
+          </noscript>
+        </div>
         <div class="swiper-pagination" aria-hidden="true"></div>
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
@@ -753,12 +793,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <h2 id="liveTrackHeading">Where Is Adventure Right Now?</h2>
         <p>See the ship's current position, speed, and next port on a live tracker.</p>
 
-        <div id="vf-tracker-container" class="tracker-container"></div>
+        <div id="vf-tracker-container" class="tracker-container">
+          <noscript>
+            <p>Live tracking requires JavaScript. You can track Adventure of the Seas (IMO 9167227) directly at <a href="https://www.vesselfinder.com/vessels/ADVENTURE-OF-THE-SEAS-IMO-9167227" target="_blank" rel="noopener">VesselFinder</a>.</p>
+          </noscript>
+        </div>
         <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
       </section>
     </section>
 
-    <!-- ICP-Lite v1.0: FAQ Section -->
+    <!-- ICP-Lite v1.4: FAQ Section -->
     <section class="card faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Adventure of the Seas</h2>
 
@@ -791,8 +835,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <summary>Where does Adventure of the Seas sail?</summary>
         <p>Adventure of the Seas sails year-round itineraries from ports around the world, including Caribbean sailings from Galveston, Texas, and seasonal deployments to Alaska, Australia, New Zealand, and Southeast Asia. Check the <a href="#liveTrackHeading">live tracker</a> on this page for her current position and upcoming port calls.</p>
       </details>
+
+      <details>
+        <summary>Which ships are in the same class as Adventure of the Seas?</summary>
+        <p class="faq-answer">Adventure of the Seas is part of the <a href="/ships.html#voyager-class">Voyager Class</a>, which includes <a href="/ships/rcl/voyager-of-the-seas.html">Voyager of the Seas</a>, <a href="/ships/rcl/explorer-of-the-seas.html">Explorer of the Seas</a>, <a href="/ships/rcl/navigator-of-the-seas.html">Navigator of the Seas</a>, and <a href="/ships/rcl/mariner-of-the-seas.html">Mariner of the Seas</a>. All five ships share the signature Royal Promenade, ice skating rink, and rock climbing wall.</p>
+      </details>
     </section>
-    </div><!-- End Main Content Column -->
 
     <!-- Attribution -->
     <section class="card attributions">
@@ -869,7 +917,15 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
         <nav id="recent-rail-nav-top" class="rail-nav mb-05" aria-label="Article pagination"></nav>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <div id="recent-rail" class="rail-list" aria-live="polite">
+          <noscript>
+            <ul style="list-style:none;padding:0;">
+              <li><a href="/solo/solo-cruising-practical-guide.html">Solo in the Wake: The Practical Guide to Cruising Alone</a></li>
+              <li><a href="/solo/freedom-of-your-own-wake.html">Freedom of Your Own Wake</a></li>
+              <li><a href="/solo/why-i-started-solo-cruising.html">Why I Started Solo Cruising</a></li>
+            </ul>
+          </noscript>
+        </div>
         <nav id="recent-rail-nav-bottom" class="rail-nav mt-075" aria-label="Article pagination"></nav>
         <p id="recent-rail-fallback" class="tiny loading-text">Loading articles…</p>
       </section>
@@ -880,11 +936,24 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p class="tiny content-text mb-075">
           The voices behind In the Wake — cruisers, storytellers, and fellow travelers.
         </p>
-        <div id="authors-rail" class="rail-list" aria-live="polite"></div>
+        <div id="authors-rail" class="rail-list" aria-live="polite">
+          <noscript>
+            <p><a href="/authors/ken-baker.html">Ken Baker</a> — Founder and Editor</p>
+            <p><a href="/about-us.html">Meet all our authors →</a></p>
+          </noscript>
+        </div>
       </section>
     
     <!-- Whimsical Distance Units -->
     <section class="card whimsical-units-container" id="whimsical-units-container">
+      <noscript>
+        <h3 style="margin:0 0 0.75rem;font-size:1rem;color:#083041;">Measuring in Whimsy</h3>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li style="font-size:0.88rem;color:#345;margin-bottom:0.5rem;"><strong style="color:#0e6e8e;">Adventure of the Seas is 1,020 ft long</strong><br><span class="tiny" style="color:#5a7a8a;">That's about 12 blue whales end to end</span></li>
+          <li style="font-size:0.88rem;color:#345;margin-bottom:0.5rem;"><strong style="color:#0e6e8e;">Adventure of the Seas is 157 ft wide</strong><br><span class="tiny" style="color:#5a7a8a;">Roughly 2 bowling alleys side by side</span></li>
+          <li style="font-size:0.88rem;color:#345;"><strong style="color:#0e6e8e;">3,114 guests at double occupancy</strong><br><span class="tiny" style="color:#5a7a8a;">That's roughly the population of a small town</span></li>
+        </ul>
+      </noscript>
     </section>
 
   </aside>
@@ -1266,7 +1335,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </script>
 
   <!-- Whimsical Distance Units Script -->
-  <script src="/assets/js/whimsical-port-units.js"></script>
+  <script src="/assets/js/whimsical-ship-units.js"></script>
 
 <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
