@@ -575,7 +575,7 @@ fi
 section_header "Section 9b: First Look Carousel Images"
 
 # Count actual images inside the firstlook swiper (not in scripts)
-FIRSTLOOK_IMGS=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p' | grep -cE '<img ' || echo "0")
+FIRSTLOOK_IMGS=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p' | grep -cE '<img[ >]|<img$' || echo "0")
 if [ "$FIRSTLOOK_IMGS" -ge 1 ]; then
     check_pass "First Look carousel has $FIRSTLOOK_IMGS image(s)"
 else

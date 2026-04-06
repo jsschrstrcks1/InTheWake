@@ -147,19 +147,15 @@ Conflicts documented, not silently resolved.
 
 ## Focused Agent Briefs
 
-Never say "search for information about X." Give each model specific queries:
+Never say "search for information about X." Give each model specific queries.
 
-**Ship investigation example:**
-```
-Perplexity: "Search for [SHIP] gross tonnage, guest capacity, crew count,
-             year built, IMO number, registry, last refurbishment.
-             Check CruiseMapper and official cruise line fleet page."
-You.com:    "Search for [SHIP] dining venues — specialty restaurants,
-             complimentary dining, buffet. Check Cruise Critic reviews
-             and official cruise line dining page."
-Gemini:     "What sister ships does [SHIP] have? What class? When were
-             they built? Any notable differences between sisters?"
-```
+**The pipeline now injects required queries automatically** via `ship_required_queries` in `cruising.yaml`. Each research model (Perplexity, You.com, Gemini) receives mandatory research tasks covering:
+
+- **Perplexity:** Specs (GT, capacity, IMO, dimensions, class, sisters), dining (every named MDR, specialty, casual, bar), entertainment (named shows, attractions), refurbishment history
+- **You.com:** Dining verification (current venues, closed/renamed), staterooms (categories, unique features), itineraries (deployment, home ports), recent passenger reviews
+- **Gemini:** Sister ships (every ship in class with differences), dining cross-reference, build history, accessibility features
+
+These are not optional — they fire on every ship investigation to prevent gaps like missing venue names or stale dining data.
 
 **Port investigation example:**
 ```
