@@ -1009,6 +1009,106 @@ else
 fi
 
 # ============================================================================
+# Section 9l: ICP-Lite Comment Version Match
+# ============================================================================
+section_header "Section 9l: ICP-Lite Comment Version"
+
+# The HTML comment should match the meta tag version
+ICP_COMMENT=$(echo "$CONTENT" | grep -oP '<!-- ICP-Lite v\K[0-9.]+' | head -1)
+ICP_META=$(echo "$CONTENT" | grep -oP 'content="ICP-Lite v\K[0-9.]+' | head -1)
+if [ -n "$ICP_COMMENT" ] && [ -n "$ICP_META" ]; then
+    if [ "$ICP_COMMENT" = "$ICP_META" ]; then
+        check_pass "ICP-Lite comment (v$ICP_COMMENT) matches meta tag (v$ICP_META)"
+    else
+        check_warn "ICP-Lite comment says v$ICP_COMMENT but meta tag says v$ICP_META"
+    fi
+fi
+
+# ============================================================================
+# Section 9m: Stats Heading Format
+# ============================================================================
+section_header "Section 9m: Stats Heading Format"
+
+# Stats heading should follow the pattern "Key Facts About [Ship Name]"
+STATS_H3=$(echo "$CONTENT" | grep 'id="statsHeading"' | head -1)
+if echo "$STATS_H3" | grep -q 'Key Facts About'; then
+    check_pass "Stats heading follows 'Key Facts About [Ship Name]' pattern"
+else
+    ACTUAL_HEADING=$(echo "$STATS_H3" | sed 's/.*<h3[^>]*>//' | sed 's/<\/h3>//')
+    check_warn "Stats heading is '$ACTUAL_HEADING' — expected 'Key Facts About [Ship Name]' pattern"
+fi
+
+# ============================================================================
+# Section 9n: Fact-Block Completeness
+# ============================================================================
+section_header "Section 9n: Fact-Block Content"
+
+FACT_BLOCK=$(echo "$CONTENT" | grep 'class="fact-block"' | head -1)
+if [ -n "$FACT_BLOCK" ]; then
+    # Check for crew mention
+    if echo "$FACT_BLOCK" | grep -qi 'crew'; then
+        check_pass "Fact-block mentions crew count"
+    else
+        check_warn "Fact-block does not mention crew count — add crew size for AI readability"
+    fi
+    # Check for year
+    if echo "$FACT_BLOCK" | grep -qP '\b(19|20)\d{2}\b'; then
+        check_pass "Fact-block mentions year of service"
+    else
+        check_warn "Fact-block does not mention year of service"
+    fi
+    # Check for GT
+    if echo "$FACT_BLOCK" | grep -qi 'gross tons\|GT'; then
+        check_pass "Fact-block mentions gross tonnage"
+    else
+        check_warn "Fact-block does not mention gross tonnage"
+    fi
+fi
+
+# ============================================================================
+# Section 9o: page.json Data File
+# ============================================================================
+section_header "Section 9o: page.json Data File"
+
+# Ship pages should have a companion page.json in assets/data/ships/[line]/
+PAGE_JSON="${REPO_ROOT}/assets/data/ships/$(echo "$FILE" | grep -oP 'ships/\K[^/]+')/${SHIP_SLUG}.page.json"
+if [ -n "$SHIP_SLUG" ] && [ -f "$PAGE_JSON" ]; then
+    check_pass "page.json data file exists at $(echo "$PAGE_JSON" | sed "s|$REPO_ROOT/||")"
+else
+    if [ -n "$SHIP_SLUG" ]; then
+        check_warn "No page.json at assets/data/ships/$(echo "$FILE" | grep -oP 'ships/\K[^/]+')/${SHIP_SLUG}.page.json — drives prefetching, tracker config, dining sources"
+    fi
+fi
+
+# ============================================================================
+# Section 9p: Logbook Data File Existence
+# ============================================================================
+section_header "Section 9p: Logbook Data Files"
+
+# Check if at least one of the logbook data sources exists
+if [ -n "$SHIP_SLUG" ]; then
+    LINE_DIR=$(echo "$FILE" | grep -oP 'ships/\K[^/]+')
+    SHORT_SLUG=$(echo "$SHIP_SLUG" | sed 's/-of-the-seas//' | sed 's/-of-the-//')
+    LOGBOOK_FOUND=0
+    LOGBOOK_PATHS=(
+        "${REPO_ROOT}/ships/${LINE_DIR}/assets/${SHIP_SLUG}.json"
+        "${REPO_ROOT}/ships/${LINE_DIR}/assets/${SHORT_SLUG}.json"
+        "${REPO_ROOT}/assets/data/logbook/${LINE_DIR}/${SHIP_SLUG}.json"
+        "${REPO_ROOT}/assets/data/ships/${LINE_DIR}/${SHIP_SLUG}.json"
+    )
+    for lpath in "${LOGBOOK_PATHS[@]}"; do
+        if [ -f "$lpath" ]; then
+            LOGBOOK_FOUND=$((LOGBOOK_FOUND + 1))
+        fi
+    done
+    if [ "$LOGBOOK_FOUND" -gt 0 ]; then
+        check_pass "Logbook data: $LOGBOOK_FOUND of 4 source paths exist"
+    else
+        check_warn "No logbook data files found — logbook section will show noscript fallback only"
+    fi
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
