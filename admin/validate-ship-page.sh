@@ -1851,6 +1851,95 @@ else
 fi
 
 # ============================================================================
+# Section 9av: Dining Data Available But Noscript Empty (#1325)
+# ============================================================================
+section_header "Section 9av: Dining Noscript vs Data Availability"
+
+if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_FILE" ]; then
+    HAS_VENUE_DATA=$(python3 -c "
+import json
+with open('$VENUES_FILE') as f: d = json.load(f)
+ship = d.get('ships', {}).get('$SHIP_SLUG', {})
+venues = ship.get('venues', [])
+print(len(venues))
+" 2>/dev/null)
+    HAS_VENUE_DATA=${HAS_VENUE_DATA:-0}
+    DINING_NS=$(echo "$CONTENT" | sed -n '/id="dining-content"/,/<\/noscript>/p')
+    DINING_NS_ITEMS=$(echo "$DINING_NS" | grep -c '<li>' || true)
+    if [ "$HAS_VENUE_DATA" -gt 0 ] && [ "$DINING_NS_ITEMS" -eq 0 ]; then
+        check_warn "Ship has $HAS_VENUE_DATA venues in venues-v2.json but dining noscript fallback is empty — no-JS users see nothing (#1325)"
+    elif [ "$HAS_VENUE_DATA" -eq 0 ] && [ "$DINING_NS_ITEMS" -gt 0 ] && [ "$IS_RETIRED" -eq 0 ]; then
+        check_warn "Dining noscript has $DINING_NS_ITEMS items but ship has 0 venues in venues-v2.json — noscript may show stale/generic data"
+    else
+        check_pass "Dining noscript and venue data availability are consistent"
+    fi
+else
+    check_pass "Dining data availability check skipped"
+fi
+
+# ============================================================================
+# Section 9aw: Noscript Dining Matches Ship's Actual Venues (#1338)
+# ============================================================================
+section_header "Section 9aw: Noscript Dining Accuracy"
+
+if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_FILE" ]; then
+    MISMATCH_RESULT=$(python3 -c "
+import json, re
+try:
+    with open('$VENUES_FILE') as f: d = json.load(f)
+    ship = d.get('ships', {}).get('$SHIP_SLUG', {})
+    venue_slugs = ship.get('venues', [])
+    if not venue_slugs:
+        print('skip'); exit()
+    venues_by_slug = {v['slug']: v for v in d.get('venues', [])}
+    # Get actual venue names for this ship
+    actual_names = set()
+    for vs in venue_slugs:
+        slug = vs if isinstance(vs, str) else vs.get('slug','')
+        v = venues_by_slug.get(slug, {})
+        name = v.get('name', '')
+        if name and v.get('category') == 'dining':
+            actual_names.add(name.lower().strip())
+    if not actual_names:
+        print('skip'); exit()
+    # Read noscript dining content from stdin
+    import sys
+    html = sys.stdin.read()
+    m = re.search(r'id=\"dining-content\".*?</noscript>', html, re.DOTALL)
+    if not m:
+        print('skip'); exit()
+    noscript = m.group()
+    # Extract venue names from <strong> tags in noscript
+    ns_names = set()
+    for match in re.finditer(r'<strong[^>]*>(?:<a[^>]*>)?([^<]+)', noscript):
+        ns_names.add(match.group(1).lower().strip())
+    if not ns_names:
+        print('skip'); exit()
+    # Check if noscript names are a subset of actual names
+    missing_from_data = ns_names - actual_names
+    # Filter out generic labels like 'main dining', 'specialty dining'
+    generic = {'main dining', 'specialty dining', 'bars & lounges', 'casual dining'}
+    missing_real = missing_from_data - generic
+    if len(missing_real) > len(ns_names) * 0.5:
+        print('generic:{}'.format(len(missing_real)))
+    else:
+        print('ok')
+except Exception as e:
+    print('skip')
+" <<< "$CONTENT" 2>/dev/null)
+    if echo "$MISMATCH_RESULT" | grep -q '^generic:'; then
+        GENERIC_COUNT=$(echo "$MISMATCH_RESULT" | cut -d: -f2)
+        check_warn "Noscript dining has $GENERIC_COUNT venue(s) not in this ship's venues-v2.json data — may be generic template (#1338)"
+    elif [ "$MISMATCH_RESULT" = "ok" ]; then
+        check_pass "Noscript dining venues match ship's actual venue data"
+    else
+        check_pass "Noscript dining accuracy check skipped"
+    fi
+else
+    check_pass "Noscript dining accuracy check skipped"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
