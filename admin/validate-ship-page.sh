@@ -236,7 +236,8 @@ else
 fi
 
 # Check for duplicate class attributes on same element (v2.3 external review)
-DUPE_CLASS_COUNT=$(echo "$CONTENT" | grep -cE 'class="[^"]*"[^>]*class="' || echo "0")
+DUPE_CLASS_COUNT=$(echo "$CONTENT" | grep -cE 'class="[^"]*"[^>]*class="' 2>/dev/null | tail -1 || echo "0")
+DUPE_CLASS_COUNT=${DUPE_CLASS_COUNT:-0}
 if [ "$DUPE_CLASS_COUNT" -gt 0 ]; then
     check_warn "$DUPE_CLASS_COUNT element(s) have duplicate class attributes — second class is silently ignored"
 else
@@ -425,7 +426,8 @@ else
 fi
 
 # Check for images without alt (join lines to handle multiline img tags)
-IMG_WITHOUT_ALT=$(echo "$CONTENT" | tr '\n' ' ' | grep -oE '<img [^>]+>' | grep -cv 'alt=' || echo "0")
+IMG_WITHOUT_ALT=$(echo "$CONTENT" | tr '\n' ' ' | grep -oE '<img [^>]+>' | grep -cv 'alt=' 2>/dev/null | tail -1 || echo "0")
+IMG_WITHOUT_ALT=${IMG_WITHOUT_ALT:-0}
 if [ "$IMG_WITHOUT_ALT" -gt 0 ]; then
     check_warn "$IMG_WITHOUT_ALT image(s) missing alt attributes"
 else
