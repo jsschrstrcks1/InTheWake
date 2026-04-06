@@ -683,7 +683,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
-      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+      <div id="videoFallback" class="tiny hidden">No video content is available for this ship.</div>
     </section>
 
     <!-- Row: Deck Plans + Live Tracker -->
@@ -960,8 +960,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         const title=String(v.title||'Majesty of the Seas').replace(/</g,'&lt;');
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
-      if(mount.children.length&&window.__swiperReady&&window.Swiper){
-        setTimeout(()=>{
+      function initSwiper(){
+        if(mount.children.length&&window.Swiper){
           try{
             new Swiper('.swiper.videos',{
               loop:false,rewind:false,lazy:true,watchOverflow:true,
@@ -970,8 +970,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
               a11y:{enabled:true}
             });
           }catch(_){}
-        },150);
+        }else if(mount.children.length){
+          if(!initSwiper._t) initSwiper._t=0;
+          if(initSwiper._t++<20) setTimeout(initSwiper,300);
+          else if(fallback) fallback.classList.remove('hidden');
+        }
       }
+      if(mount.children.length) setTimeout(initSwiper,150);
     }
     function fetchVideoData(){
       const SOURCES=[abs('/assets/data/videos/rcl/majesty-of-the-seas.json'),abs('/ships/rcl/assets/majesty-of-the-seas-videos.json')];

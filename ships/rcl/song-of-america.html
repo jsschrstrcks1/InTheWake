@@ -534,7 +534,7 @@ Dining on Song of America</h2>
       <section class="card" aria-labelledby="video-highlights">
         <h2 id="video-highlights">Watch: Song of America Highlights</h2>
         <p class="small">Historic footage and retrospectives of Song of America, when available, will appear here.</p>
-        <div id="videoFallback" class="tiny">Videos will appear once our sources sync for this ship.</div>
+        <div id="videoFallback" class="tiny">No video content is available for this ship.</div>
       </section>
 
       <!-- Live Tracker -->
@@ -882,8 +882,8 @@ Dining on Song of America</h2>
         const title=String(v.title||'Song of America').replace(/</g,'&lt;');
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
-      if(mount.children.length&&window.__swiperReady&&window.Swiper){
-        setTimeout(()=>{
+      function initSwiper(){
+        if(mount.children.length&&window.Swiper){
           try{
             new Swiper('.swiper.videos',{
               loop:false,rewind:false,lazy:true,watchOverflow:true,
@@ -892,8 +892,13 @@ Dining on Song of America</h2>
               a11y:{enabled:true}
             });
           }catch(_){}
-        },150);
+        }else if(mount.children.length){
+          if(!initSwiper._t) initSwiper._t=0;
+          if(initSwiper._t++<20) setTimeout(initSwiper,300);
+          else if(fallback) fallback.classList.remove('hidden');
+        }
       }
+      if(mount.children.length) setTimeout(initSwiper,150);
     }
     function fetchVideoData(){
       const SOURCES=[abs('/assets/data/videos/rcl/song-of-america.json'),abs('/ships/rcl/assets/song-of-america-videos.json')];

@@ -481,7 +481,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <section class="card" aria-labelledby="video-highlights">
       <h2 id="video-highlights">Watch: Oasis VII Highlights</h2>
       <p class="small">Video content will be available as Royal Caribbean releases footage of this future ship.</p>
-      <div id="videoFallback" class="tiny">Videos will appear once our sources sync for this ship.</div>
+      <div id="videoFallback" class="tiny">Video content will be added closer to the ship entering service.</div>
     </section>
 
     <!-- Deck Plans -->
@@ -919,8 +919,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         const title=String(v.title||'Oasis Class Ship TBN 2028').replace(/</g,'&lt;');
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
-      if(mount.children.length&&window.__swiperReady&&window.Swiper){
-        setTimeout(()=>{
+      function initSwiper(){
+        if(mount.children.length&&window.Swiper){
           try{
             new Swiper('.swiper.videos',{
               loop:false,rewind:false,lazy:true,watchOverflow:true,
@@ -929,8 +929,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
               a11y:{enabled:true}
             });
           }catch(_){}
-        },150);
+        }else if(mount.children.length){
+          if(!initSwiper._t) initSwiper._t=0;
+          if(initSwiper._t++<20) setTimeout(initSwiper,300);
+          else if(fallback) fallback.classList.remove('hidden');
+        }
       }
+      if(mount.children.length) setTimeout(initSwiper,150);
     }
     function fetchVideoData(){
       const SOURCES=[abs('/assets/data/videos/rcl/oasis-class-ship-tbn-2028.json'),abs('/ships/rcl/assets/oasis-class-ship-tbn-2028-videos.json')];
