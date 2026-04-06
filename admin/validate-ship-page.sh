@@ -785,6 +785,71 @@ elif [ -z "$MAIN_ID" ]; then
 fi
 
 # ============================================================================
+# Section 9f2: Guest Count Consistency
+# ============================================================================
+section_header "Section 9f2: Guest Count Consistency"
+
+# Extract guest count from the stats fallback JSON (source of truth)
+STATS_GUESTS=$(echo "$CONTENT" | grep -oP '"guests":\s*"\K[^"]+' | head -1)
+if [ -n "$STATS_GUESTS" ]; then
+    # Extract the double-occupancy number (first number in the guests field)
+    DOUBLE_OCC=$(echo "$STATS_GUESTS" | grep -oP '^[0-9,]+' | head -1)
+    if [ -n "$DOUBLE_OCC" ]; then
+        # Check if any FAQ answer uses a DIFFERENT guest count
+        FAQ_GUESTS=$(echo "$CONTENT" | grep -oP 'about \K[0-9,]+ guests at double' | head -1 | grep -oP '^[0-9,]+')
+        if [ -n "$FAQ_GUESTS" ] && [ "$FAQ_GUESTS" != "$DOUBLE_OCC" ]; then
+            check_fail "Guest count MISMATCH: stats says $DOUBLE_OCC but FAQ says $FAQ_GUESTS — likely copy-pasted from another ship"
+        elif [ -n "$FAQ_GUESTS" ]; then
+            check_pass "Guest count consistent: $DOUBLE_OCC in stats and FAQ"
+        fi
+
+        # Check ai-breadcrumbs answer-first
+        BREADCRUMB_GUESTS=$(echo "$CONTENT" | grep 'answer-first:' | grep -oP '[0-9,]+(?= guests)' | head -1)
+        if [ -n "$BREADCRUMB_GUESTS" ] && [ "$BREADCRUMB_GUESTS" != "$DOUBLE_OCC" ]; then
+            check_fail "Guest count MISMATCH: stats says $DOUBLE_OCC but ai-breadcrumbs says $BREADCRUMB_GUESTS"
+        elif [ -n "$BREADCRUMB_GUESTS" ]; then
+            check_pass "Guest count consistent in ai-breadcrumbs"
+        fi
+    fi
+fi
+
+# ============================================================================
+# Section 9f3: ai-breadcrumbs 'related:' field
+# ============================================================================
+section_header "Section 9f3: ai-breadcrumbs Related Field"
+
+if echo "$CONTENT" | grep -qP '^\s+related:.*\.html'; then
+    check_pass "ai-breadcrumbs has 'related:' field with page links"
+else
+    check_warn "ai-breadcrumbs missing 'related:' field — should list related pages (ships.html, cruise-lines, ports, tools)"
+fi
+
+# ============================================================================
+# Section 9f4: Dining Heading Browse All Link
+# ============================================================================
+section_header "Section 9f4: Dining Heading"
+
+DINING_H2=$(echo "$CONTENT" | grep 'id="diningHeading"' | head -1)
+if echo "$DINING_H2" | grep -q 'Browse All\|restaurants.html'; then
+    check_pass "Dining heading has '→ Browse All' link to restaurants"
+else
+    check_warn "Dining heading missing '→ Browse All' link — Radiance reference page has inline link to /restaurants.html"
+fi
+
+# ============================================================================
+# Section 9f5: Deck Plans CTA After Logbook
+# ============================================================================
+section_header "Section 9f5: Deck Plans CTA"
+
+# Check for a deck plans button/link between the logbook and video sections
+BETWEEN_LOG_VID=$(echo "$CONTENT" | sed -n '/id="logbook"/,/id="video-highlights"/p')
+if echo "$BETWEEN_LOG_VID" | grep -q 'btn-deck-plans\|View Official.*Deck\|View Official.*Ship'; then
+    check_pass "Deck Plans CTA present after logbook section"
+else
+    check_warn "No Deck Plans CTA between logbook and videos — Radiance reference has 'View Official Deck Plans →' link"
+fi
+
+# ============================================================================
 # Section 9g0: Attributions placement (must be inside col-1, before aside)
 # ============================================================================
 section_header "Section 9g0: Attributions Placement"
