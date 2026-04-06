@@ -582,6 +582,25 @@ else
     check_fail "First Look carousel has NO images — carousel will render empty"
 fi
 
+# Check carousel HTML structure — every swiper-slide must have a closing </div>
+# Strategy: inside the firstlook carousel, count slide opens vs all </div> tags,
+# then subtract 2 for the swiper-wrapper close and the pagination self-close.
+CAROUSEL_HTML=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p')
+SLIDE_OPENS=$(echo "$CAROUSEL_HTML" | grep -c 'class="swiper-slide"' || echo "0")
+ALL_DIV_CLOSES=$(echo "$CAROUSEL_HTML" | grep -c '</div>' || echo "0")
+# Subtract: 1 for swiper-wrapper </div>, 1 for pagination <div.../></div>
+SLIDE_CLOSES=$((ALL_DIV_CLOSES - 2))
+if [ "$SLIDE_OPENS" -gt 0 ]; then
+    if [ "$SLIDE_OPENS" -eq "$SLIDE_CLOSES" ]; then
+        check_pass "Carousel HTML: $SLIDE_OPENS slides, all properly closed"
+    elif [ "$SLIDE_OPENS" -gt "$SLIDE_CLOSES" ]; then
+        MISSING=$((SLIDE_OPENS - SLIDE_CLOSES))
+        check_fail "Carousel HTML BROKEN: $SLIDE_OPENS slides opened but $MISSING missing </div> — slides will nest incorrectly"
+    else
+        check_warn "Carousel has more </div> ($SLIDE_CLOSES) than slides ($SLIDE_OPENS) — possible extra closing tags"
+    fi
+fi
+
 # ============================================================================
 # Section 9c: Sister Ships Completeness
 # ============================================================================

@@ -99,6 +99,25 @@ Before writing ANY page (new or merge), verify:
 3. **Sister ships completeness** — Cross-reference the investigation's class data against existing ship pages in `/ships/[line]/`. If a sister exists as a page but wasn't in the investigation output, include it anyway.
 4. **Skip link consistency** — Skip link `href` must match `<main>` element's `id`.
 
+### Step 4.5: Validate BEFORE Committing (MANDATORY)
+
+**After every edit — before `git add` — run the validator:**
+```bash
+bash admin/validate-ship-page.sh ships/[line]/[slug].html
+```
+
+**Do NOT commit if the validator reports errors.** Fix first, then commit.
+
+This catches:
+- Broken carousel HTML (missing `</div>` on slides, orphaned slides outside swiper-wrapper)
+- Swiper lazy:true conflicting with native loading="lazy"
+- Missing noscript fallbacks (AI crawlers see empty content)
+- Wrong skip link targets
+- Attributions outside col-1
+- Missing images, stale venue references, sister ship mismatches
+
+**The validator is the last gate.** No matter how confident you are in a regex/Python fix, the validator catches what you miss. A broken carousel that looks fine in the Edit tool will render as a wall of overlapping images in a browser.
+
 ### Step 4: Generate the Page
 
 **Ship pages** — follow `new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md`:
