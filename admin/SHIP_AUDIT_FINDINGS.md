@@ -6,6 +6,12 @@ Rule: No validator runs. No batch processing. Read the page. Write down what's w
 
 ---
 
+## Cross-Fleet Finding
+
+**291 of 295 ship pages use `/assets/img/Cordelia_Empress_Food_Court.webp` as the dining section hero image.** Cordelia Cruises is a budget Indian cruise line. This photo appears as the dining hero on luxury lines like Silversea, Regent, Seabourn, and Cunard — where it is completely inappropriate and damages credibility. Even on mainstream lines (Princess, Celebrity, NCL) it's a wrong-line image.
+
+---
+
 ## Silversea
 
 ### Silver Nova (ships/silversea/silver-nova.html)
@@ -48,3 +54,27 @@ Read: 2026-04-06 (lines 1-695, complete)
 15. **No related: field in ai-breadcrumbs**.
 16. **Siblings list incomplete**: Line 16 lists 5 siblings (Dawn, Endeavour, Moon, Muse, Nova) but omits Ray, Origin, Shadow, Spirit, Whisper, Wind. Silversea has 12 ships. Only some are listed.
 17. **"Cloud Class" may not be a real class name**: Silversea doesn't typically use "Cloud Class" as a designation. This ship is just Silver Cloud. The class field appears to be auto-generated from the ship name.
+
+### Silver Dawn (ships/silversea/silver-dawn.html)
+Read: 2026-04-06 (lines 1-695, complete)
+
+**Data is internally consistent.** GT 40,700 everywhere. Guests 596 everywhere. Crew 411 in both Specs and Stats JSON. No GT split like Silver Cloud. No crew mismatch like Silver Nova. This is the cleanest Silversea page so far.
+
+Same template issues as Nova and Cloud:
+1. **Duplicate Deck Plans**: Lines 549-553 and 555-563.
+2. **No page-grid, no col-1**: Line 345.
+3. **No no-js class**: Line 9.
+4. **Swiper @10/@11 mismatch**: Line 106 vs 240.
+5. **Static copyright 2025**.
+6. **Video loader no retry**: Line 495.
+7. **Zero noscript fallbacks**.
+8. **All 5 FAQ answers generic boilerplate**. Review (line 126) mentions "S.A.L.T. culinary programming and butler service" — FAQ doesn't.
+9. **Content text wrong for luxury**: Line 375 "to suit different travel styles and budgets."
+10. **Dining placeholder**: Line 409.
+11. **Logbook placeholder**: Line 460.
+12. **Entertainment placeholder**: Line 533.
+13. **Planning Resources orphaned**.
+14. **No related: field**.
+15. **"Muse Class" — this one is correct**. Silversea does call Silver Muse/Moon/Dawn the "Muse Class" or more formally the "Evolution-class."
+16. **Siblings only lists Moon and Muse** (line 19). Silver Dawn is Muse Class, so Moon and Muse are correct sisters. But the breadcrumbs don't list the broader fleet.
+17. **Dining hero image is Cordelia Empress Food Court** (line 407) — a completely different cruise line (Cordelia Cruises, India). This generic dining image appears on every non-RCL ship page. A user looking at a luxury Silversea page sees a budget Indian cruise line's food court.
