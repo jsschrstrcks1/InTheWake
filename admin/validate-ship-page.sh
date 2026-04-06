@@ -607,6 +607,61 @@ if [ "$SLIDE_OPENS" -gt 0 ]; then
     fi
 fi
 
+# Check for swiper-slides outside swiper-wrapper by comparing nesting depth
+# Strategy: after the swiper-wrapper opening div, track depth. When depth returns to 0,
+# we've exited swiper-wrapper. Any swiper-slide after that is orphaned.
+SLIDES_OUTSIDE=$(echo "$CONTENT" | python3 -c "
+import sys, re
+content = sys.stdin.read()
+m = re.search(r'swiper firstlook.*?swiper-pagination', content, re.DOTALL)
+if not m:
+    print(0); sys.exit(0)
+block = m.group()
+# Find swiper-wrapper open, then track depth
+idx = block.find('swiper-wrapper')
+if idx < 0:
+    print(0); sys.exit(0)
+depth = 1
+pos = block.find('>', idx) + 1
+orphans = 0
+while pos < len(block):
+    next_open = block.find('<div', pos)
+    next_close = block.find('</div>', pos)
+    if next_close < 0:
+        break
+    if next_open >= 0 and next_open < next_close:
+        depth += 1
+        pos = block.find('>', next_open) + 1
+    else:
+        depth -= 1
+        pos = next_close + 6
+        if depth == 0:
+            # We've exited swiper-wrapper. Count remaining swiper-slides
+            remaining = block[pos:]
+            orphans = len(re.findall(r'swiper-slide', remaining))
+            break
+print(orphans)
+" 2>/dev/null)
+SLIDES_OUTSIDE=${SLIDES_OUTSIDE:-0}
+if [ "$SLIDES_OUTSIDE" -gt 0 ]; then
+    check_fail "Carousel has $SLIDES_OUTSIDE swiper-slide(s) OUTSIDE swiper-wrapper — they won't display"
+else
+    check_pass "All carousel slides are inside swiper-wrapper"
+fi
+
+# ============================================================================
+# Section 9b1: Stray HTML Tags in Text Content
+# ============================================================================
+section_header "Section 9b1: Stray HTML Tags in Text"
+
+# Check for HTML tags appearing mid-sentence in visible text (corruption indicator)
+STRAY_TAGS=$(echo "$CONTENT" | grep -cP '[a-z] </?(div|span|section|article|p)>[a-z0-9$]' || true)
+if [ "$STRAY_TAGS" -gt 0 ]; then
+    check_fail "Found $STRAY_TAGS likely corrupted HTML tag(s) inside text content — check for broken tags mid-sentence"
+else
+    check_pass "No stray HTML tags detected in text content"
+fi
+
 # ============================================================================
 # Section 9c: Sister Ships Completeness
 # ============================================================================
