@@ -1862,30 +1862,58 @@ else
 fi
 
 # ============================================================================
-# Section 9av: Dining Data Available But Noscript Empty (#1325)
+# Section 9av: Venue Data vs Noscript Coverage (#1325)
 # ============================================================================
-section_header "Section 9av: Dining Noscript vs Data Availability"
+section_header "Section 9av: Venue Noscript Coverage"
 
 if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_FILE" ]; then
-    HAS_VENUE_DATA=$(python3 -c "
-import json
+    VENUE_COVERAGE=$(python3 -c "
+import json, re, sys
 with open('$VENUES_FILE') as f: d = json.load(f)
 ship = d.get('ships', {}).get('$SHIP_SLUG', {})
-venues = ship.get('venues', [])
-print(len(venues))
-" 2>/dev/null)
-    HAS_VENUE_DATA=${HAS_VENUE_DATA:-0}
-    DINING_NS=$(echo "$CONTENT" | sed -n '/id="dining-content"/,/<\/noscript>/p')
-    DINING_NS_ITEMS=$(echo "$DINING_NS" | grep -c '<li>' || true)
-    if [ "$HAS_VENUE_DATA" -gt 0 ] && [ "$DINING_NS_ITEMS" -eq 0 ]; then
-        check_warn "Ship has $HAS_VENUE_DATA venues in venues-v2.json but dining noscript fallback is empty — no-JS users see nothing (#1325)"
-    elif [ "$HAS_VENUE_DATA" -eq 0 ] && [ "$DINING_NS_ITEMS" -gt 0 ] && [ "$IS_RETIRED" -eq 0 ]; then
-        check_warn "Dining noscript has $DINING_NS_ITEMS items but ship has 0 venues in venues-v2.json — noscript may show stale/generic data"
-    else
-        check_pass "Dining noscript and venue data availability are consistent"
-    fi
+venue_slugs = ship.get('venues', [])
+vbs = {v['slug']: v for v in d.get('venues', [])}
+# Count venues by category
+cats = {}
+for vs in venue_slugs:
+    slug = vs if isinstance(vs, str) else vs.get('slug','')
+    v = vbs.get(slug, {})
+    cat = v.get('category', 'other')
+    cats[cat] = cats.get(cat, 0) + 1
+total = sum(cats.values())
+# Check noscript content
+html = sys.stdin.read()
+ns = re.search(r'id=\"dining-content\".*?</noscript>', html, re.DOTALL)
+ns_items = len(re.findall(r'<li>', ns.group())) if ns else 0
+# Report
+if total == 0:
+    print('none')
+elif ns_items == 0:
+    print('empty|{}'.format(total))
+elif ns_items < total * 0.5:
+    print('partial|{}|{}'.format(ns_items, total))
+else:
+    print('ok|{}|{}'.format(ns_items, total))
+" <<< "$CONTENT" 2>/dev/null)
+    case "$VENUE_COVERAGE" in
+        none)
+            check_pass "No venue data for this ship (N/A)" ;;
+        empty*)
+            DB_TOTAL=$(echo "$VENUE_COVERAGE" | cut -d'|' -f2)
+            check_warn "Ship has $DB_TOTAL venues in database but noscript is empty — no-JS users see nothing" ;;
+        partial*)
+            NS_COUNT=$(echo "$VENUE_COVERAGE" | cut -d'|' -f2)
+            DB_TOTAL=$(echo "$VENUE_COVERAGE" | cut -d'|' -f3)
+            check_warn "Noscript has $NS_COUNT items but database has $DB_TOTAL venues — missing categories (bars, entertainment, activities?)" ;;
+        ok*)
+            NS_COUNT=$(echo "$VENUE_COVERAGE" | cut -d'|' -f2)
+            DB_TOTAL=$(echo "$VENUE_COVERAGE" | cut -d'|' -f3)
+            check_pass "Noscript covers $NS_COUNT of $DB_TOTAL venues" ;;
+        *)
+            check_pass "Venue coverage check skipped" ;;
+    esac
 else
-    check_pass "Dining data availability check skipped"
+    check_pass "Venue coverage check skipped"
 fi
 
 # ============================================================================
