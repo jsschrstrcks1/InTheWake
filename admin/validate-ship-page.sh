@@ -1636,7 +1636,15 @@ while IFS= read -r img_path; do
             # Fallback: if no "of the" pattern, use first word before underscore+digit
             [ -z "$SRC_SHIP" ] && SRC_SHIP=$(echo "$SRC_BASE" | grep -oiP '^[A-Za-z]+(?=_)' | head -1)
             [ -z "$TGT_SHIP" ] && TGT_SHIP=$(echo "$TARGET_BASE" | grep -oiP '^[A-Za-z]+(?=_)' | head -1)
-            if [ -n "$SRC_SHIP" ] && [ -n "$TGT_SHIP" ] && [ "$SRC_SHIP" != "$TGT_SHIP" ]; then
+            # Normalize: lowercase, strip trailing s/es for fuzzy match
+            SRC_NORM=$(echo "$SRC_SHIP" | tr 'A-Z' 'a-z' | sed 's/_*$//')
+            TGT_NORM=$(echo "$TGT_SHIP" | tr 'A-Z' 'a-z' | sed 's/_*$//')
+            # Check if one starts with the other (handles "Sea" vs "Seas")
+            SHIPS_MATCH=0
+            [ "$SRC_NORM" = "$TGT_NORM" ] && SHIPS_MATCH=1
+            echo "$SRC_NORM" | grep -q "^${TGT_NORM}" && SHIPS_MATCH=1
+            echo "$TGT_NORM" | grep -q "^${SRC_NORM}" && SHIPS_MATCH=1
+            if [ -n "$SRC_SHIP" ] && [ -n "$TGT_SHIP" ] && [ "$SHIPS_MATCH" -eq 0 ]; then
                 check_fail "Image symlink cross-ship: $SRC_BASE → $TARGET_BASE (different ships)"
                 BROKEN_SYMLINKS=$((BROKEN_SYMLINKS + 1))
             fi
