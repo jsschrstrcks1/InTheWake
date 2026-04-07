@@ -594,28 +594,81 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <div class="dining-content" id="dining-content" aria-live="polite">
           <noscript>
-            <h3>Main Dining</h3>
+            <h3>Complimentary Dining</h3>
             <ul>
-              <li><strong><a href="/restaurants/mdr.html">Main Dining Room</a></strong> — Three-level MDR with rotating menus</li>
-              <li><strong><a href="/restaurants/windjammer.html">Windjammer Marketplace</a></strong> — Casual buffet with global stations</li>
-              <li><strong>Park Café</strong> — Casual quick-service in Central Park</li>
-              <li><strong>Solarium Bistro</strong> — Light fare in the adults-only Solarium</li>
+              <li><strong>Main Dining Room (MDR)</strong></li>
+              <li><strong>Windjammer Marketplace</strong></li>
+              <li><strong>Park Café</strong></li>
+              <li><strong>Solarium Bistro</strong></li>
+              <li><strong>Café Promenade</strong></li>
+              <li><strong>El Loco Fresh</strong></li>
+              <li><strong>Sorrento's</strong></li>
+              <li><strong>American Icon Grill</strong></li>
+              <li><strong>The Grande</strong></li>
+              <li><strong>Silk</strong></li>
             </ul>
             <h3>Specialty Dining</h3>
             <ul>
-              <li><strong><a href="/restaurants/chops.html">Chops Grille</a></strong> — Royal Caribbean's signature steakhouse</li>
-              <li><strong><a href="/restaurants/giovannis.html">Giovanni's Table</a></strong> — Family-style Italian</li>
-              <li><strong><a href="/restaurants/izumi.html">Izumi</a></strong> — Sushi, sashimi, and hibachi</li>
-              <li><strong><a href="/restaurants/chefs-table.html">Chef's Table</a></strong> — Multi-course tasting menu</li>
-              <li><strong>150 Central Park</strong> — Upscale farm-to-table overlooking Central Park</li>
-              <li><strong>Johnny Rockets</strong> — Classic American diner</li>
+              <li><strong>Johnny Rockets</strong></li>
+              <li><strong>Wonderland</strong></li>
+              <li><strong>Izumi Sushi &amp; Hibachi</strong></li>
+              <li><strong>Chops Grille</strong></li>
+              <li><strong>Giovanni's Table</strong></li>
+              <li><strong>Chef's Table</strong></li>
+              <li><strong>Coastal Kitchen</strong></li>
+              <li><strong>Trellis Bar</strong></li>
+            </ul>
+            <h3>Dining</h3>
+            <ul>
+              <li><strong>Boardwalk Dog House</strong></li>
+              <li><strong>150 Central Park</strong></li>
             </ul>
             <h3>Bars &amp; Lounges</h3>
             <ul>
-              <li><strong>Schooner Bar</strong> — Piano bar with nautical ambiance</li>
-              <li><strong>Bionic Bar</strong> — Robotic bartenders mix custom cocktails</li>
-              <li><strong>Boleros</strong> — Latin-themed lounge with live music</li>
-              <li><strong>Pesky Parrot</strong> — Tiki bar added during 2025 amplification</li>
+              <li><strong>Boleros</strong></li>
+              <li><strong>Bionic Bar</strong></li>
+              <li><strong>The Lime &amp; Coconut</strong></li>
+              <li><strong>Schooner Bar</strong></li>
+              <li><strong>Vintages</strong></li>
+              <li><strong>Rising Tide Bar</strong></li>
+              <li><strong>Pool Bar</strong></li>
+              <li><strong>Pesky Parrot</strong></li>
+              <li><strong>Globe &amp; Atlas Pub</strong></li>
+              <li><strong>Diamond Club</strong></li>
+              <li><strong>Suite Lounge</strong></li>
+              <li><strong>Playmakers Sports Bar &amp; Arcade</strong></li>
+              <li><strong>Café Latte-tudes</strong></li>
+              <li><strong>Champagne Bar</strong></li>
+            </ul>
+            <h3>Entertainment</h3>
+            <ul>
+              <li><strong>On Air Club</strong></li>
+              <li><strong>Royal Theater</strong></li>
+              <li><strong>AquaTheater</strong></li>
+              <li><strong>Studio B</strong></li>
+              <li><strong>Music Hall</strong></li>
+              <li><strong>The Attic</strong></li>
+            </ul>
+            <h3>Activities</h3>
+            <ul>
+              <li><strong>Casino Royale</strong></li>
+              <li><strong>Ultimate Abyss</strong></li>
+              <li><strong>The Perfect Storm</strong></li>
+              <li><strong>Zip Line</strong></li>
+              <li><strong>FlowRider</strong></li>
+              <li><strong>Rock Climbing Wall</strong></li>
+              <li><strong>Mini Golf</strong></li>
+              <li><strong>Vitality Spa</strong></li>
+              <li><strong>Arcade</strong></li>
+              <li><strong>Adventure Ocean</strong></li>
+              <li><strong>Whirlpools</strong></li>
+            </ul>
+            <h3>Neighborhoods</h3>
+            <ul>
+              <li><strong>Solarium</strong></li>
+              <li><strong>Boardwalk</strong></li>
+              <li><strong>Central Park</strong></li>
+              <li><strong>Royal Promenade</strong></li>
             </ul>
           </noscript>
         </div>
@@ -1101,7 +1154,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         byCategory[cat].push(v);
       });
       const catOrder=['mdr','specialty','casual','bar'];
-      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',dining:'Dining',other:'Other Venues'};
+      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',bars:'Bars & Lounges',dining:'Dining',activities:'Activities',entertainment:'Entertainment',neighborhoods:'Neighborhoods',other:'Other Venues'};
       let html='';
       catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
         const arr=byCategory[cat]; if(!arr) return;

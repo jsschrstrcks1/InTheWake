@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================================
-# Ship Page Validator — v3.010.400
+# Ship Page Validator — v3.010.600
 #
 # Validates ship pages against SHIP_PAGE_CHECKLIST_v3.010.md standards.
 # Usage: ./admin/validate-ship-page.sh <path-to-ship-page.html>
@@ -581,7 +581,7 @@ fi
 section_header "Section 9b: First Look Carousel Images"
 
 # Count actual images inside the firstlook swiper (not in scripts)
-FIRSTLOOK_IMGS=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p' | grep -cE '<img[ >]|<img$' || echo "0")
+FIRSTLOOK_IMGS=$(echo "$CONTENT" | sed -n '/swiper firstlook\|photo-carousel swiper/,/swiper-pagination/p' | grep -cE '<img[ >]|<img$' || echo "0")
 if [ "$FIRSTLOOK_IMGS" -ge 1 ]; then
     check_pass "First Look carousel has $FIRSTLOOK_IMGS image(s)"
 else
@@ -591,7 +591,7 @@ fi
 # Check carousel HTML structure — every swiper-slide must have a closing </div>
 # Strategy: inside the firstlook carousel, count slide opens vs all </div> tags,
 # then subtract 2 for the swiper-wrapper close and the pagination self-close.
-CAROUSEL_HTML=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p')
+CAROUSEL_HTML=$(echo "$CONTENT" | sed -n '/swiper firstlook\|photo-carousel swiper/,/swiper-pagination/p')
 SLIDE_OPENS=$(echo "$CAROUSEL_HTML" | grep -c 'class="swiper-slide"' || echo "0")
 ALL_DIV_CLOSES=$(echo "$CAROUSEL_HTML" | grep -c '</div>' || echo "0")
 # Subtract: 1 for swiper-wrapper </div>, 1 for pagination <div.../></div>
@@ -613,7 +613,7 @@ fi
 SLIDES_OUTSIDE=$(echo "$CONTENT" | python3 -c "
 import sys, re
 content = sys.stdin.read()
-m = re.search(r'swiper firstlook.*?swiper-pagination', content, re.DOTALL)
+m = re.search(r'(?:swiper firstlook|photo-carousel swiper).*?swiper-pagination', content, re.DOTALL)
 if not m:
     print(0); sys.exit(0)
 block = m.group()
@@ -944,7 +944,7 @@ section_header "Section 9g: Swiper Lazy Loading"
 # If Swiper init uses lazy:true, images must use data-src (not src)
 # If images use native loading="lazy" with src, Swiper must use lazy:false
 SWIPER_LAZY=$(echo "$CONTENT" | grep -oP "Swiper\('.swiper.firstlook'[^)]*lazy:\s*\Ktrue" | head -1)
-NATIVE_LAZY_IN_CAROUSEL=$(echo "$CONTENT" | sed -n '/swiper firstlook/,/swiper-pagination/p' | grep -c 'loading="lazy"' || echo "0")
+NATIVE_LAZY_IN_CAROUSEL=$(echo "$CONTENT" | sed -n '/swiper firstlook\|photo-carousel swiper/,/swiper-pagination/p' | grep -c 'loading="lazy"' || echo "0")
 if [ "$SWIPER_LAZY" = "true" ] && [ "$NATIVE_LAZY_IN_CAROUSEL" -gt 0 ]; then
     check_fail "Swiper lazy:true conflicts with native loading=\"lazy\" — images after slide 1 won't load. Use lazy:false or switch to data-src"
 elif [ "$SWIPER_LAZY" = "true" ]; then
@@ -1297,8 +1297,8 @@ fi
 # ============================================================================
 section_header "Section 9w: FAQ Factual Freshness"
 
-# Extract FAQ answers from both JSON-LD and HTML faq-answer elements
-FAQ_ANSWERS=$(echo "$CONTENT" | grep -oP 'class="faq-answer">[^<]+' | sed 's/class="faq-answer">//' || true)
+# Extract FAQ answers from both JSON-LD and HTML (faq-answer or list-indent class)
+FAQ_ANSWERS=$(echo "$CONTENT" | grep -oP 'class="(?:faq-answer|list-indent)">[^<]+' | sed 's/class="[^"]*">//' || true)
 FAQ_ANSWERS_JSONLD=$(echo "$CONTENT" | grep -oP '"text"\s*:\s*"[^"]*"' || true)
 FAQ_ALL="${FAQ_ANSWERS}${FAQ_ANSWERS_JSONLD}"
 if [ -n "$FAQ_ALL" ]; then
@@ -1342,7 +1342,7 @@ if [ "$ATTR_SECTION" -gt 0 ]; then
     # Check if any attribution <li> includes "by " or "photo by" or photographer name
     ATTR_BLOCK=$(echo "$CONTENT" | sed -n '/class="card attributions"/,/<\/section>/p')
     ATTR_LI_COUNT=$(echo "$ATTR_BLOCK" | grep -c '<li>' || true)
-    ATTR_BY_COUNT=$(echo "$ATTR_BLOCK" | grep -ciP 'by [A-Z]|photo by|image by|photographer' || true)
+    ATTR_BY_COUNT=$(echo "$ATTR_BLOCK" | grep -ciP 'by [A-Z<]|photo by|image by|photographer|photography by' || true)
     if [ "$ATTR_LI_COUNT" -gt 0 ] && [ "$ATTR_BY_COUNT" -eq 0 ]; then
         # Cross-reference with .attr.json if it exists
         LINE_DIR_ATTR=$(echo "$FILE" | grep -oP 'ships/\K[^/]+')
@@ -1531,11 +1531,11 @@ section_header "Section 9af: FAQ Text Quality"
 FAQ_GARBLED=0
 # Pattern: lowercase word followed by space then Capitalized word that should be lowercase
 # Common garble: "fleet Entered service", "ship Built in", "seas Launched in"
-GARBLE_HITS=$(echo "$CONTENT" | grep -oP 'faq-answer|"text"\s*:\s*"' | wc -l)
+GARBLE_HITS=$(echo "$CONTENT" | grep -oP 'faq-answer|list-indent|"text"\s*:\s*"' | wc -l)
 if [ "$GARBLE_HITS" -gt 0 ]; then
     # Extract FAQ text and check for mid-sentence capitals after common words
     FAQ_TEXT=$(echo "$CONTENT" | grep -oP '"text"\s*:\s*"\K[^"]+' || true)
-    FAQ_HTML=$(echo "$CONTENT" | grep -oP 'class="faq-answer">\K[^<]+' || true)
+    FAQ_HTML=$(echo "$CONTENT" | grep -oP 'class="(?:faq-answer|list-indent)">\K[^<]+' || true)
     ALL_FAQ="${FAQ_TEXT} ${FAQ_HTML}"
     GARBLE_COUNT=$(echo "$ALL_FAQ" | grep -cP '(fleet|ship|seas|service|Caribbean)\s+[A-Z][a-z]+\s+(service|in|from|to|with)\b' || true)
     if [ "$GARBLE_COUNT" -gt 0 ]; then
@@ -1636,7 +1636,15 @@ while IFS= read -r img_path; do
             # Fallback: if no "of the" pattern, use first word before underscore+digit
             [ -z "$SRC_SHIP" ] && SRC_SHIP=$(echo "$SRC_BASE" | grep -oiP '^[A-Za-z]+(?=_)' | head -1)
             [ -z "$TGT_SHIP" ] && TGT_SHIP=$(echo "$TARGET_BASE" | grep -oiP '^[A-Za-z]+(?=_)' | head -1)
-            if [ -n "$SRC_SHIP" ] && [ -n "$TGT_SHIP" ] && [ "$SRC_SHIP" != "$TGT_SHIP" ]; then
+            # Normalize: lowercase, strip trailing s/es for fuzzy match
+            SRC_NORM=$(echo "$SRC_SHIP" | tr 'A-Z' 'a-z' | sed 's/_*$//')
+            TGT_NORM=$(echo "$TGT_SHIP" | tr 'A-Z' 'a-z' | sed 's/_*$//')
+            # Check if one starts with the other (handles "Sea" vs "Seas")
+            SHIPS_MATCH=0
+            [ "$SRC_NORM" = "$TGT_NORM" ] && SHIPS_MATCH=1
+            echo "$SRC_NORM" | grep -q "^${TGT_NORM}" && SHIPS_MATCH=1
+            echo "$TGT_NORM" | grep -q "^${SRC_NORM}" && SHIPS_MATCH=1
+            if [ -n "$SRC_SHIP" ] && [ -n "$TGT_SHIP" ] && [ "$SHIPS_MATCH" -eq 0 ]; then
                 check_fail "Image symlink cross-ship: $SRC_BASE → $TARGET_BASE (different ships)"
                 BROKEN_SYMLINKS=$((BROKEN_SYMLINKS + 1))
             fi
@@ -1645,6 +1653,620 @@ while IFS= read -r img_path; do
 done <<< "$(echo "$CONTENT" | grep -oP 'src="(/[^"]+\.(jpg|jpeg|png|webp|gif))"' | grep -oP '/[^"]+' || true)"
 if [ "$BROKEN_SYMLINKS" -eq 0 ]; then
     check_pass "No broken or cross-ship image symlinks"
+fi
+
+# ============================================================================
+# Section 9ak: Browse All Link Leaking Into Heading (#1322)
+# ============================================================================
+section_header "Section 9ak: Dining Heading Text Leak"
+
+DINING_H2=$(echo "$CONTENT" | grep -oP '<h2 id="diningHeading">[^<]*' | head -1)
+if [ -n "$DINING_H2" ] && echo "$DINING_H2" | grep -q '→ Browse All'; then
+    check_fail "Dining heading contains raw '→ Browse All' text — should be inside a styled <a> tag, not bare text (#1322)"
+elif echo "$CONTENT" | grep -q 'diningHeading.*Browse All.*</a>.*</h2>'; then
+    check_pass "Dining heading has Browse All as styled link (correct)"
+elif echo "$CONTENT" | grep -q 'diningHeading'; then
+    check_pass "Dining heading present (no Browse All link)"
+else
+    check_pass "No dining heading found (N/A)"
+fi
+
+# ============================================================================
+# Section 9al: FAQ Missing Class Name (#1323)
+# ============================================================================
+section_header "Section 9al: FAQ Class Name Completeness"
+
+FAQ_BLANK_CLASS=$(echo "$CONTENT" | grep -cP 'is a (ship|cruise ship)[,.]' || true)
+if [ "$FAQ_BLANK_CLASS" -gt 0 ]; then
+    check_fail "FAQ/intro text says 'is a ship' without class name ($FAQ_BLANK_CLASS occurrence(s)) — should be 'is a [Class Name] ship' (#1323)"
+else
+    check_pass "No missing class names in FAQ/intro text"
+fi
+
+# ============================================================================
+# Section 9am: Dining Category Labels Completeness (#1324)
+# ============================================================================
+section_header "Section 9am: Dining Category Labels"
+
+if echo "$CONTENT" | grep -q 'catLabels'; then
+    if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_FILE" ]; then
+        MISSING_CATS=$(python3 -c "
+import json
+try:
+    with open('$VENUES_FILE') as f: d = json.load(f)
+    ship = d.get('ships', {}).get('$SHIP_SLUG', {})
+    venue_slugs = ship.get('venues', [])
+    venues_by_slug = {v['slug']: v for v in d.get('venues', [])}
+    cats = set()
+    for vs in venue_slugs:
+        slug = vs if isinstance(vs, str) else vs.get('slug','')
+        v = venues_by_slug.get(slug, {})
+        cat = v.get('category', 'other')
+        if cat != 'dining': cats.add(cat)
+    known = {'mdr','specialty','casual','bar','bars','dining','activities','entertainment','neighborhoods','other'}
+    missing = cats - known
+    if missing: print(','.join(sorted(missing)))
+except: pass
+" 2>/dev/null)
+        if [ -n "$MISSING_CATS" ]; then
+            check_warn "Venue categories not in catLabels: $MISSING_CATS — these render as 'undefined' headings (#1324)"
+        else
+            check_pass "All venue categories have labels in catLabels"
+        fi
+    else
+        check_pass "Category label check skipped (no ship/venues data)"
+    fi
+else
+    check_pass "No inline catLabels (may use external dining-card.js)"
+fi
+
+# ============================================================================
+# Section 9an: Sections Inside Main Content Region (#1326)
+# ============================================================================
+section_header "Section 9an: Content Region Integrity"
+
+COL1_END=$(echo "$CONTENT" | grep -n 'End Main Content Column' | tail -1 | cut -d: -f1)
+FAQ_LINE=$(echo "$CONTENT" | grep -n 'id="faq"\|class="faq-section"' | head -1 | cut -d: -f1)
+if [ -n "$COL1_END" ] && [ -n "$FAQ_LINE" ]; then
+    if [ "$FAQ_LINE" -gt "$COL1_END" ]; then
+        check_fail "FAQ section (line $FAQ_LINE) is OUTSIDE main content region (col-1 ends line $COL1_END) (#1326)"
+    else
+        check_pass "FAQ section is inside main content region"
+    fi
+else
+    check_pass "Content region check skipped (insufficient landmarks)"
+fi
+
+# ============================================================================
+# Section 9ao: Dining Venue Name Completeness (#1330)
+# ============================================================================
+section_header "Section 9ao: Dining Venue Names"
+
+DINING_NOSCRIPT=$(echo "$CONTENT" | sed -n '/id="dining-content"/,/<\/noscript>/p')
+if [ -n "$DINING_NOSCRIPT" ]; then
+    NAMELESS_VENUES=$(echo "$DINING_NOSCRIPT" | grep -cP '<li>\s*—' || true)
+    if [ "$NAMELESS_VENUES" -gt 0 ]; then
+        check_fail "Dining noscript has $NAMELESS_VENUES venue(s) with no name (renders as '— description') (#1330)"
+    else
+        check_pass "All dining noscript venues have names"
+    fi
+else
+    check_pass "No dining noscript content to check"
+fi
+
+# ============================================================================
+# Section 9ap: Retired Ship Loading State (#1332)
+# ============================================================================
+section_header "Section 9ap: Retired Ship Loading State"
+
+if [ "$IS_RETIRED" -eq 1 ]; then
+    if echo "$CONTENT" | grep -q 'Dining data is loading\|dining.*loading\.\.\.' ; then
+        check_fail "Retired ship has permanent 'Dining data is loading...' message — should show 'no data available' (#1332)"
+    else
+        check_pass "No stuck loading states on retired ship page"
+    fi
+else
+    check_pass "Ship not retired (N/A)"
+fi
+
+# ============================================================================
+# Section 9aq: Sister Ship Link Integrity (#1333)
+# ============================================================================
+section_header "Section 9aq: Sister Ship Link Integrity"
+
+SIBLINGS_LIST_AQ=$(echo "$CONTENT" | grep -oP 'siblings:\s*\K.*' | head -1)
+if [ -n "$SIBLINGS_LIST_AQ" ]; then
+    BROKEN_SIBLINGS=0
+    while IFS= read -r sib_url; do
+        [ -z "$sib_url" ] && continue
+        SIB_PATH=$(echo "$sib_url" | sed 's|^/||')
+        if [ ! -f "${REPO_ROOT}/${SIB_PATH}" ]; then
+            check_fail "Sister ship link broken: $sib_url does not exist on disk (#1333)"
+            BROKEN_SIBLINGS=$((BROKEN_SIBLINGS + 1))
+        fi
+    done <<< "$(echo "$SIBLINGS_LIST_AQ" | tr ',' '\n' | sed 's/^ *//;s/ *$//')"
+    if [ "$BROKEN_SIBLINGS" -eq 0 ]; then
+        check_pass "All sister ship links resolve to existing files"
+    fi
+else
+    check_pass "No siblings list found (N/A)"
+fi
+
+# ============================================================================
+# Section 9ar: Article Grammar — "a" Before Vowel Sounds (#1334)
+# ============================================================================
+section_header "Section 9ar: Article Grammar"
+
+GRAMMAR_ERRORS=$(echo "$CONTENT" | grep -ciP '\b[Aa] [AEIOU][a-z]' || true)
+# Subtract false positives: "a URL", "a UK", normal prose
+FALSE_POS=$(echo "$CONTENT" | grep -ciP '\ba (URL|UK|US|EU)\b' || true)
+GRAMMAR_ERRORS=$((GRAMMAR_ERRORS - FALSE_POS))
+if [ "$GRAMMAR_ERRORS" -gt 0 ]; then
+    check_warn "Found $GRAMMAR_ERRORS 'a [vowel-sound]' grammar error(s) — should be 'an' (#1334)"
+else
+    check_pass "No a/an grammar errors detected"
+fi
+
+# ============================================================================
+# Section 9as: Attribution Empty Parentheses (#1336)
+# ============================================================================
+section_header "Section 9as: Attribution Rendering"
+
+ATTR_BLOCK_AS=$(echo "$CONTENT" | sed -n '/class="card attributions"/,/<\/section>/p')
+if [ -n "$ATTR_BLOCK_AS" ]; then
+    EMPTY_PARENS=$(echo "$ATTR_BLOCK_AS" | grep -cP '\(\s*\)|\(\s*<a[^>]*>\s*</a>\s*\)' || true)
+    if [ "$EMPTY_PARENS" -gt 0 ]; then
+        check_fail "Attribution section has $EMPTY_PARENS empty parentheses '()' — photographer name not rendering (#1336)"
+    else
+        check_pass "No empty parentheses in attributions"
+    fi
+else
+    check_pass "No attributions section (N/A)"
+fi
+
+# ============================================================================
+# Section 9at: Key Facts Field Count Consistency (#1337)
+# ============================================================================
+section_header "Section 9at: Key Facts Field Count"
+
+KEY_FACTS_COUNT=$(echo "$CONTENT" | sed -n '/class="key-facts"/,/<\/div>/p' | grep -c '<li>' || true)
+if [ "$KEY_FACTS_COUNT" -gt 0 ]; then
+    if [ "$KEY_FACTS_COUNT" -lt 4 ]; then
+        check_warn "Key Facts has only $KEY_FACTS_COUNT fields — reference pages have 7+ fields (#1337)"
+    else
+        check_pass "Key Facts has $KEY_FACTS_COUNT fields"
+    fi
+else
+    check_pass "No Key Facts section found (N/A)"
+fi
+
+# ============================================================================
+# Section 9au: GT Consistency — Page vs Fleet Listing (#1327/#1329)
+# ============================================================================
+section_header "Section 9au: Tonnage Consistency"
+
+if [ -n "$SHIP_SLUG" ] && [ -f "${REPO_ROOT}/ships.html" ]; then
+    PAGE_GT=$(echo "$CONTENT" | grep -oP '"gt"\s*:\s*"\K[^"]+' | head -1 | grep -oP '[\d,]+' | head -1 | tr -d ',')
+    FLEET_GT=$(grep -A3 "$SHIP_SLUG" "${REPO_ROOT}/ships.html" | grep -oP '[\d,]+\s*GT' | head -1 | grep -oP '[\d,]+' | tr -d ',')
+    if [ -n "$PAGE_GT" ] && [ -n "$FLEET_GT" ]; then
+        if [ "$PAGE_GT" = "$FLEET_GT" ]; then
+            check_pass "GT consistent: page ($PAGE_GT) matches fleet listing ($FLEET_GT)"
+        else
+            check_warn "GT mismatch: page says $PAGE_GT but fleet listing says $FLEET_GT (#1327/#1329)"
+        fi
+    else
+        check_pass "GT cross-check skipped (insufficient data)"
+    fi
+else
+    check_pass "GT cross-check skipped (no slug or fleet page)"
+fi
+
+# ============================================================================
+# Section 9av: Venue Data vs Noscript Coverage (#1325)
+# ============================================================================
+section_header "Section 9av: Venue Noscript Coverage"
+
+if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_FILE" ]; then
+    VENUE_COVERAGE=$(python3 -c "
+import json, re, sys
+with open('$VENUES_FILE') as f: d = json.load(f)
+ship = d.get('ships', {}).get('$SHIP_SLUG', {})
+venue_slugs = ship.get('venues', [])
+vbs = {v['slug']: v for v in d.get('venues', [])}
+# Count venues by category
+cats = {}
+for vs in venue_slugs:
+    slug = vs if isinstance(vs, str) else vs.get('slug','')
+    v = vbs.get(slug, {})
+    cat = v.get('category', 'other')
+    cats[cat] = cats.get(cat, 0) + 1
+total = sum(cats.values())
+# Check noscript content
+html = sys.stdin.read()
+ns = re.search(r'id=\"dining-content\".*?</noscript>', html, re.DOTALL)
+ns_items = len(re.findall(r'<li>', ns.group())) if ns else 0
+# Report
+if total == 0:
+    print('none')
+elif ns_items == 0:
+    print('empty|{}'.format(total))
+elif ns_items < total * 0.5:
+    print('partial|{}|{}'.format(ns_items, total))
+else:
+    print('ok|{}|{}'.format(ns_items, total))
+" <<< "$CONTENT" 2>/dev/null)
+    case "$VENUE_COVERAGE" in
+        none)
+            check_pass "No venue data for this ship (N/A)" ;;
+        empty*)
+            DB_TOTAL=$(echo "$VENUE_COVERAGE" | cut -d'|' -f2)
+            check_warn "Ship has $DB_TOTAL venues in database but noscript is empty — no-JS users see nothing" ;;
+        partial*)
+            NS_COUNT=$(echo "$VENUE_COVERAGE" | cut -d'|' -f2)
+            DB_TOTAL=$(echo "$VENUE_COVERAGE" | cut -d'|' -f3)
+            check_warn "Noscript has $NS_COUNT items but database has $DB_TOTAL venues — missing categories (bars, entertainment, activities?)" ;;
+        ok*)
+            NS_COUNT=$(echo "$VENUE_COVERAGE" | cut -d'|' -f2)
+            DB_TOTAL=$(echo "$VENUE_COVERAGE" | cut -d'|' -f3)
+            check_pass "Noscript covers $NS_COUNT of $DB_TOTAL venues" ;;
+        *)
+            check_pass "Venue coverage check skipped" ;;
+    esac
+else
+    check_pass "Venue coverage check skipped"
+fi
+
+# ============================================================================
+# Section 9aw: Noscript Dining Matches Ship's Actual Venues (#1338)
+# ============================================================================
+section_header "Section 9aw: Noscript Dining Accuracy"
+
+if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_FILE" ]; then
+    MISMATCH_RESULT=$(python3 -c "
+import json, re
+try:
+    with open('$VENUES_FILE') as f: d = json.load(f)
+    ship = d.get('ships', {}).get('$SHIP_SLUG', {})
+    venue_slugs = ship.get('venues', [])
+    if not venue_slugs:
+        print('skip'); exit()
+    venues_by_slug = {v['slug']: v for v in d.get('venues', [])}
+    # Get actual venue names for this ship
+    actual_names = set()
+    for vs in venue_slugs:
+        slug = vs if isinstance(vs, str) else vs.get('slug','')
+        v = venues_by_slug.get(slug, {})
+        name = v.get('name', '')
+        if name and v.get('category') == 'dining':
+            actual_names.add(name.lower().strip())
+    if not actual_names:
+        print('skip'); exit()
+    # Read noscript dining content from stdin
+    import sys
+    html = sys.stdin.read()
+    m = re.search(r'id=\"dining-content\".*?</noscript>', html, re.DOTALL)
+    if not m:
+        print('skip'); exit()
+    noscript = m.group()
+    # Extract venue names from <strong> tags in noscript
+    ns_names = set()
+    for match in re.finditer(r'<strong[^>]*>(?:<a[^>]*>)?([^<]+)', noscript):
+        ns_names.add(match.group(1).lower().strip())
+    if not ns_names:
+        print('skip'); exit()
+    # Check if noscript names are a subset of actual names
+    missing_from_data = ns_names - actual_names
+    # Filter out generic labels like 'main dining', 'specialty dining'
+    generic = {'main dining', 'specialty dining', 'bars & lounges', 'casual dining'}
+    missing_real = missing_from_data - generic
+    if len(missing_real) > len(ns_names) * 0.5:
+        print('generic:{}'.format(len(missing_real)))
+    else:
+        print('ok')
+except Exception as e:
+    print('skip')
+" <<< "$CONTENT" 2>/dev/null)
+    if echo "$MISMATCH_RESULT" | grep -q '^generic:'; then
+        GENERIC_COUNT=$(echo "$MISMATCH_RESULT" | cut -d: -f2)
+        check_warn "Noscript dining has $GENERIC_COUNT venue(s) not in this ship's venues-v2.json data — may be generic template (#1338)"
+    elif [ "$MISMATCH_RESULT" = "ok" ]; then
+        check_pass "Noscript dining venues match ship's actual venue data"
+    else
+        check_pass "Noscript dining accuracy check skipped"
+    fi
+else
+    check_pass "Noscript dining accuracy check skipped"
+fi
+
+# ============================================================================
+# Section 9ax: Rendering Artifact "50+" (#1206)
+# ============================================================================
+section_header "Section 9ax: Rendering Artifacts"
+
+# Check for "50+" or similar numeric artifacts appearing as visible text
+# Strip scripts, styles, and noscript blocks first, then look for orphaned "50+"
+VISIBLE_TEXT=$(echo "$CONTENT" | sed 's/<script[^>]*>.*<\/script>//g' | sed 's/<style[^>]*>.*<\/style>//g' | sed 's/<[^>]*>//g')
+ARTIFACT_50=$(echo "$VISIBLE_TEXT" | grep -cP '(?<!\d)50\+(?!\d)' || true)
+if [ "$ARTIFACT_50" -gt 0 ]; then
+    # Check if it's in a reasonable context (e.g., "50+ dining venues" is fine)
+    BARE_50=$(echo "$VISIBLE_TEXT" | grep -P '(?<!\d)50\+(?!\d)' | grep -cvP 'dining|venue|restaurant|activit|feature|deck|pool|bar|lounge|show|shop|port|destination|excursion' || true)
+    if [ "$BARE_50" -gt 0 ]; then
+        check_warn "Found $BARE_50 possible '50+' rendering artifact(s) — may be a template variable that didn't resolve (#1206)"
+    else
+        check_pass "All '50+' occurrences appear in valid content context"
+    fi
+else
+    check_pass "No '50+' rendering artifacts detected"
+fi
+
+# ============================================================================
+# Section 9ay: Fleet Page Ship Count Accuracy (#1335)
+# ============================================================================
+section_header "Section 9ay: Fleet Page Cross-Check"
+
+# Only runs when validating a ship page — checks if this ship appears in ships.html
+if [ -n "$SHIP_SLUG" ] && [ -f "${REPO_ROOT}/ships.html" ]; then
+    if grep -q "$SHIP_SLUG" "${REPO_ROOT}/ships.html"; then
+        check_pass "Ship '$SHIP_SLUG' found in fleet listing (ships.html)"
+    else
+        if [ "$IS_RETIRED" -eq 1 ]; then
+            check_pass "Retired ship not expected in active fleet listing"
+        else
+            check_warn "Ship '$SHIP_SLUG' NOT found in fleet listing (ships.html) — may be missing from fleet table (#1335)"
+        fi
+    fi
+else
+    check_pass "Fleet cross-check skipped"
+fi
+
+# ============================================================================
+# Section 9az: Crew Count Consistency (#3 in master list)
+# ============================================================================
+section_header "Section 9az: Crew Count Consistency"
+
+SPEC_CREW=$(echo "$CONTENT" | grep -A2 'spec-label.*Crew\|spec-label">Crew' | grep -oP '[\d,]+' | head -1 | tr -d ',')
+JSON_CREW=$(echo "$CONTENT" | grep -oP '"crew"\s*:\s*"\K[^"]+' | head -1 | tr -d ',~')
+STAT_CREW=$(echo "$CONTENT" | grep -A1 'label">Crew\|label.*>Crew' | grep -oP '[\d,]+' | head -1 | tr -d ',')
+CREWS=""
+[ -n "$SPEC_CREW" ] && CREWS="$SPEC_CREW"
+[ -n "$JSON_CREW" ] && [ "$JSON_CREW" != "$SPEC_CREW" ] && CREWS="$CREWS $JSON_CREW"
+[ -n "$STAT_CREW" ] && [ "$STAT_CREW" != "$SPEC_CREW" ] && [ "$STAT_CREW" != "$JSON_CREW" ] && CREWS="$CREWS $STAT_CREW"
+CREW_UNIQUE=$(echo $CREWS | tr ' ' '\n' | sort -u | grep -c '[0-9]')
+if [ "$CREW_UNIQUE" -gt 1 ]; then
+    check_warn "Crew count mismatch: specs=$SPEC_CREW json=$JSON_CREW stats=$STAT_CREW"
+else
+    check_pass "Crew count consistent"
+fi
+
+# ============================================================================
+# Section 9ba: Cordelia Dining Image (#7)
+# ============================================================================
+section_header "Section 9ba: Dining Hero Image"
+
+if echo "$CONTENT" | grep -q 'Cordelia_Empress_Food_Court'; then
+    check_warn "Dining hero uses Cordelia Empress Food Court image — wrong cruise line for this ship"
+else
+    check_pass "No Cordelia dining image detected"
+fi
+
+# ============================================================================
+# Section 9bb: Generic FAQ Boilerplate (#8)
+# ============================================================================
+section_header "Section 9bb: FAQ Specificity"
+
+GENERIC_FAQ=$(echo "$CONTENT" | grep -cP 'Specialty restaurants vary by ship|Ship deployments vary by season|planning resources and community insights' || true)
+if [ "$GENERIC_FAQ" -ge 3 ]; then
+    check_warn "FAQ answers are generic boilerplate ($GENERIC_FAQ template phrases) — no ship-specific dining/itinerary information"
+else
+    check_pass "FAQ answers appear ship-specific"
+fi
+
+# ============================================================================
+# Section 9bc: Luxury Line Content Mismatch (#9)
+# ============================================================================
+section_header "Section 9bc: Content Appropriate for Line"
+
+CRUISE_LINE=$(echo "$CONTENT" | grep -oP 'cruise-line:\s*\K.*' | head -1 | sed 's/[[:space:]]*$//')
+IS_LUXURY=0
+case "$CRUISE_LINE" in
+    *Silversea*|*Seabourn*|*Regent*|*Oceania*|*Cunard*|*Explora*) IS_LUXURY=1 ;;
+esac
+if [ "$IS_LUXURY" -eq 1 ] && echo "$CONTENT" | grep -q 'different travel styles and budgets'; then
+    check_warn "Content says 'different travel styles and budgets' — inappropriate for luxury line $CRUISE_LINE"
+else
+    check_pass "Content appropriate for cruise line"
+fi
+
+# ============================================================================
+# Section 9bd: Swiper Version Mismatch (#11)
+# ============================================================================
+section_header "Section 9bd: Swiper Version Consistency"
+
+SWIPER_CSS_VER=$(echo "$CONTENT" | grep -oP 'swiper@\K\d+' | head -1)
+SWIPER_JS_VER=$(echo "$CONTENT" | grep -oP 'swiper@\K\d+' | tail -1)
+if [ -n "$SWIPER_CSS_VER" ] && [ -n "$SWIPER_JS_VER" ] && [ "$SWIPER_CSS_VER" != "$SWIPER_JS_VER" ]; then
+    check_warn "Swiper version mismatch: CSS loads @$SWIPER_CSS_VER, JS fallback loads @$SWIPER_JS_VER"
+else
+    check_pass "Swiper versions consistent"
+fi
+
+# ============================================================================
+# Section 9be: Page Grid Layout (#12)
+# ============================================================================
+section_header "Section 9be: Page Grid Layout"
+
+if echo "$CONTENT" | grep -q 'class=".*page-grid'; then
+    check_pass "Main element has page-grid class (2-column layout)"
+else
+    check_warn "Main element missing page-grid class — 2-column layout won't activate"
+fi
+
+# ============================================================================
+# Section 9bf: Progressive Enhancement (#13)
+# ============================================================================
+section_header "Section 9bf: Progressive Enhancement"
+
+if echo "$CONTENT" | grep -q 'class="no-js"\|class=.*no-js'; then
+    check_pass "HTML element has no-js class for progressive enhancement"
+else
+    check_warn "HTML element missing no-js class — progressive enhancement CSS won't work"
+fi
+
+# ============================================================================
+# Section 9bg: Duplicate Section IDs (#15)
+# ============================================================================
+section_header "Section 9bg: Duplicate Section IDs"
+
+DUP_IDS=$(echo "$CONTENT" | grep -oP 'id="[^"]+' | sort | uniq -d)
+if [ -n "$DUP_IDS" ]; then
+    DUP_COUNT=$(echo "$DUP_IDS" | wc -l)
+    DUP_LIST=$(echo "$DUP_IDS" | tr '\n' ', ' | sed 's/, $//')
+    check_fail "Found $DUP_COUNT duplicate ID(s): $DUP_LIST"
+else
+    check_pass "No duplicate IDs"
+fi
+
+# ============================================================================
+# Section 9bh: Placeholder Sections (#17)
+# ============================================================================
+section_header "Section 9bh: Placeholder Content"
+
+PLACEHOLDER_COUNT=$(echo "$CONTENT" | grep -ciP 'coming soon\.|will appear here\.|details coming soon\.|information coming soon\.' || true)
+if [ "$PLACEHOLDER_COUNT" -gt 0 ]; then
+    check_warn "Found $PLACEHOLDER_COUNT placeholder section(s) with 'coming soon' / 'will appear here' text"
+else
+    check_pass "No placeholder sections detected"
+fi
+
+# ============================================================================
+# Section 9bi: Page Title Leak Into Ship Name (#21)
+# ============================================================================
+section_header "Section 9bi: Title Leak Into Ship Name"
+
+if echo "$CONTENT" | grep -q 'In the Wake.*cruise ship\|In the Wake.*Class.*ship\|In the Wake.*operated'; then
+    check_fail "Site name 'In the Wake' appears in ship description — page title leaking into ship name"
+else
+    check_pass "No title leak detected"
+fi
+
+# ============================================================================
+# Section 9bj: H1 Value Proposition (#24)
+# ============================================================================
+section_header "Section 9bj: H1 Value Proposition"
+
+H1_TEXT=$(echo "$CONTENT" | grep -oP '<h1[^>]*>\K[^<]+' | head -1)
+if [ -n "$H1_TEXT" ]; then
+    if echo "$H1_TEXT" | grep -qP '—|–|:|\|'; then
+        check_pass "H1 has value proposition subtitle: '$H1_TEXT'"
+    else
+        check_warn "H1 is bare ship name ('$H1_TEXT') — add subtitle like 'Deck Plans, Live Tracker, Dining & Videos'"
+    fi
+else
+    check_pass "H1 check skipped (not found)"
+fi
+
+# ============================================================================
+# Section 9bk: Embedded Live Tracker (#25)
+# ============================================================================
+section_header "Section 9bk: Embedded Live Tracker"
+
+if echo "$CONTENT" | grep -q 'vesselfinder\|marinetraffic\|iframe.*track\|vf-tracker-container'; then
+    check_pass "Embedded live tracker present"
+elif echo "$CONTENT" | grep -q 'liveTrackHeading\|Live.*Tracker\|Where Is'; then
+    check_warn "Live tracker section exists but has no embedded iframe — external link only"
+else
+    check_pass "No tracker section (N/A)"
+fi
+
+# ============================================================================
+# Section 9bl: Ports / Itinerary Section (#26)
+# ============================================================================
+section_header "Section 9bl: Ports Section"
+
+if echo "$CONTENT" | grep -qi 'id="ports"\|portsHeading\|Ports on\|Itinerary\|itineraryHeading'; then
+    check_pass "Ports/itinerary section present"
+else
+    check_warn "No ports or itinerary section — users can't see where the ship sails"
+fi
+
+# ============================================================================
+# Section 9bm: Sister Ships Section (#27)
+# ============================================================================
+section_header "Section 9bm: Sister Ships Section"
+
+if echo "$CONTENT" | grep -qi 'related-ships\|Sister Ships\|class.*ships\|related-pills'; then
+    check_pass "Sister ships / class explorer section present"
+else
+    check_warn "No sister ships or class explorer section — no cross-navigation to fleet siblings"
+fi
+
+# ============================================================================
+# Section 9bn: FAQ Truncation (#30)
+# ============================================================================
+section_header "Section 9bn: FAQ Sentence Completeness"
+
+TRUNC_FAQ=$(echo "$CONTENT" | grep -cP 'departure ports for \.' || true)
+if [ "$TRUNC_FAQ" -gt 0 ]; then
+    check_fail "FAQ answer truncated: 'departure ports for .' — ship name missing from sentence"
+else
+    check_pass "No FAQ truncation detected"
+fi
+
+# ============================================================================
+# Section 9bo: Future Ship Status (#34)
+# ============================================================================
+section_header "Section 9bo: Future Ship Status"
+
+ENTERED=$(echo "$CONTENT" | grep -oP '"entered_service"\s*:\s*\K\d+' | head -1)
+CURRENT_YEAR=$(date +%Y)
+if [ -n "$ENTERED" ] && [ "$ENTERED" -ge "$CURRENT_YEAR" ]; then
+    if echo "$CONTENT" | grep -qi 'coming soon\|future\|expected\|TBN\|not yet\|under construction'; then
+        check_pass "Future ship ($ENTERED) has appropriate status indicators"
+    else
+        check_warn "Ship enters service $ENTERED (future) but page presents it as if currently sailing"
+    fi
+else
+    check_pass "Ship is current or past service"
+fi
+
+# ============================================================================
+# Section 9bp: Year Built Consistency (#35)
+# ============================================================================
+section_header "Section 9bp: Year Built Consistency"
+
+YEAR_SPEC=$(echo "$CONTENT" | grep -A2 'spec-label.*Year\|spec-label">Year' | grep -oP '20\d\d\|19\d\d' | head -1)
+YEAR_JSON=$(echo "$CONTENT" | grep -oP '"entered_service"\s*:\s*\K\d+' | head -1)
+YEAR_FACT=$(echo "$CONTENT" | grep 'fact-block' | grep -oP 'entered service in \K\d+' | head -1)
+if [ -n "$YEAR_SPEC" ] && [ -n "$YEAR_JSON" ] && [ "$YEAR_SPEC" != "$YEAR_JSON" ]; then
+    check_warn "Year built mismatch: specs=$YEAR_SPEC vs json=$YEAR_JSON"
+elif [ -n "$YEAR_FACT" ] && [ -n "$YEAR_JSON" ] && [ "$YEAR_FACT" != "$YEAR_JSON" ]; then
+    check_warn "Year built mismatch: fact-block=$YEAR_FACT vs json=$YEAR_JSON"
+else
+    check_pass "Year built consistent"
+fi
+
+# ============================================================================
+# Section 9bq: Duplicate Stats Blocks (#38)
+# ============================================================================
+section_header "Section 9bq: Duplicate Stats Blocks"
+
+SPECS_COUNT=$(echo "$CONTENT" | grep -c 'specsHeading\|Specifications' || true)
+STATS_COUNT=$(echo "$CONTENT" | grep -c 'ship-stats-title\|Ship Statistics' || true)
+if [ "$SPECS_COUNT" -gt 0 ] && [ "$STATS_COUNT" -gt 0 ]; then
+    check_warn "Page has both Ship Specifications and Ship Statistics sections — redundant data with potential inconsistencies"
+else
+    check_pass "No duplicate stats blocks"
+fi
+
+# ============================================================================
+# Section 9br: Construction Banner (#37)
+# ============================================================================
+section_header "Section 9br: Construction Banner"
+
+if echo "$CONTENT" | grep -qi 'under construction\|page under construction'; then
+    check_warn "Page has 'Under Construction' banner visible to users"
+else
+    check_pass "No construction banner"
 fi
 
 # ============================================================================
