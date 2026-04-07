@@ -175,3 +175,38 @@ Data scan: Guests 5,324 vs 6,554. Grammar "A Excellence" 6x. GT consistent (185,
 
 ### Costa Venezia (ships/costa/costa-venezia.html)
 Data scan: Guests 4,232 vs 5,260. GT 135,225 vs 135,500. Crew 1,370 vs 1,400.
+
+---
+
+## Oceania
+
+### Pattern: IMO "TBD" on operational ships
+
+5 of 8 Oceania ships have `data-imo="TBD"` in the live tracker section: Nautica (sailing since 2000), Regatta (2003), Riviera (2012), Sirena (2016), Vista (2023). These are all operational ships with publicly available IMO numbers.
+
+### Allura (ships/oceania/allura.html)
+Data scan: 2026-04-06.
+1. **"A Allura Class" grammar**: 6 occurrences. Should be "An Allura Class."
+2. GT 67,000 consistent. Guests 1,200 consistent. No crew/GT/guest mismatches.
+3. Same template issues as all MSC-era pages.
+
+### Insignia (ships/oceania/insignia.html)
+Data scan: 1. **Crew mismatch**: Specs 400, Stats JSON 386. 2. No GT/guest mismatches.
+
+### Marina (ships/oceania/marina.html)
+Data scan: 1. **"A Oceania" grammar**: 6 occurrences (from "A [class] Class" pattern). 2. No data mismatches.
+
+### Nautica (ships/oceania/nautica.html)
+Data scan: 1. **IMO TBD** on a ship that's been sailing since 2000. 2. No data mismatches.
+
+### Regatta (ships/oceania/regatta.html)
+Data scan: 1. **IMO TBD**. 2. No data mismatches.
+
+### Riviera (ships/oceania/riviera.html)
+Data scan: 1. **"A [vowel]" grammar**: 6x. 2. **IMO TBD**. 3. No data mismatches.
+
+### Sirena (ships/oceania/sirena.html)
+Data scan: 1. **Crew mismatch**: Specs 400, Stats JSON 373. 2. **IMO TBD**. 3. No GT/guest mismatches.
+
+### Vista (ships/oceania/vista.html)
+Data scan: 1. **"A [vowel]" grammar**: 6x. 2. **IMO TBD**. 3. No data mismatches.
