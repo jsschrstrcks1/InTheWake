@@ -334,3 +334,72 @@ Ship-specific venues without pages (15):
 
 - Ben & Jerry's — removed from Adventure, Liberty, Mariner, Rhapsody (RCL partnership ended Dec 2023)
 - Sabor — removed from Freedom (no longer onboard, replaced by El Loco Fresh)
+
+---
+
+## Session Summary — Venue Data Work
+
+### CruiseDeckPlans Scrape (April 7, 2026)
+
+All 29 active RCL ships scraped from cruisedeckplans.com for authoritative venue lists. This is the deck-plan source all 5 orchestra models (GPT, Gemini, Grok, Perplexity, You.com) recommended as authoritative.
+
+### MDR Name Corrections (deck-plan verified)
+
+Previously our database had "Main Dining Room" for most ships. CruiseDeckPlans revealed the actual named rooms:
+
+| Ship | Old DB Name | Correct Name(s) from Deck Plans |
+|------|-----------|------|
+| Adventure | Main Dining Room | Vivaldi, Strauss, Mozart |
+| Freedom | Main Dining Room | Leonardo, Isaac, Galileo |
+| Mariner | Main Dining Room | Rhapsody in Blue, Top Hat & Tails, Sound of Music |
+| Serenade | Main Dining Room | Reflections, Mirage, Illusions |
+| Vision | Main Dining Room | Aquarius Restaurant |
+| Radiance | Cascades only | Cascades, Tides, Breakers (3 rooms) |
+| Odyssey/Spectrum | Main Dining Room | Silver Dining, Golden Dining |
+| Utopia | Main Dining Room | Quantum (3-tier) |
+| Navigator | Main Dining Room | Sapphire Restaurant (same as Explorer — sisters) |
+| Voyager | Main Dining Room | Sapphire Restaurant (same class) |
+
+Ships that already had correct names: Brilliance (Minstrel), Enchantment (My Fair Lady), Explorer (Sapphire), Grandeur (Great Gatsby), Independence (Romeo & Juliet/Macbeth/King Lear), Jewel (Tides), Liberty (Rembrandt/Michelangelo/Botticelli), Rhapsody (Edelweiss).
+
+All MDR variants consolidate to /restaurants/mdr.html — same rotating menu.
+
+### Theater Name Corrections
+
+| Ship | Old | Correct |
+|------|-----|---------|
+| Adventure | Royal Theater | Lyric Theater |
+| Freedom | (none) | Arcadia Theater |
+| Independence | (none) | Alhambra Theatre |
+| Oasis | (none) | Opal Theater |
+
+### Stale Venue Removals (Perplexity-verified April 2026)
+
+- Ben & Jerry's — removed fleet-wide (partnership ended Dec 2023, replaced by Sugar Beach/in-house ice cream)
+- Sabor — removed from Freedom (no longer onboard)
+
+### Database Stats
+
+- 455 venue definitions
+- 29 active ships with deck-plan-verified venue lists
+- 20 pages without venue data (7 TBN/future, 8 historic/retired, 5 ambiguous)
+- 7 repaired ship noscripts regenerated with complete data
+
+### Venue Page Gaps
+
+22 venues in the database don't have HTML pages in /restaurants/:
+- 18 MDR name variants → consolidate to /restaurants/mdr.html
+- 4 ship-specific venues: Cupcake Bakery, South Pacific Lounge, some bars
+
+### RCL Pages Fully Repaired (0 errors, 0 warnings)
+
+1. Explorer of the Seas — 171p 0e 0w
+2. Freedom of the Seas — 171p 0e 0w
+
+### RCL Pages Repaired (0 errors, warnings remaining)
+
+3. Allure of the Seas — 0e, data gap warnings only
+4. Adventure of the Seas — 0e, data gap warnings only
+5. Anthem of the Seas — 0e, data gap warnings only
+6. Brilliance of the Seas — 0e, data gap warnings only
+7. Enchantment of the Seas — 0e, data gap warnings only
