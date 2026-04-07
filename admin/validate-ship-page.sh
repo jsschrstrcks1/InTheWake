@@ -1342,7 +1342,7 @@ if [ "$ATTR_SECTION" -gt 0 ]; then
     # Check if any attribution <li> includes "by " or "photo by" or photographer name
     ATTR_BLOCK=$(echo "$CONTENT" | sed -n '/class="card attributions"/,/<\/section>/p')
     ATTR_LI_COUNT=$(echo "$ATTR_BLOCK" | grep -c '<li>' || true)
-    ATTR_BY_COUNT=$(echo "$ATTR_BLOCK" | grep -ciP 'by [A-Z]|photo by|image by|photographer' || true)
+    ATTR_BY_COUNT=$(echo "$ATTR_BLOCK" | grep -ciP 'by [A-Z<]|photo by|image by|photographer|photography by' || true)
     if [ "$ATTR_LI_COUNT" -gt 0 ] && [ "$ATTR_BY_COUNT" -eq 0 ]; then
         # Cross-reference with .attr.json if it exists
         LINE_DIR_ATTR=$(echo "$FILE" | grep -oP 'ships/\K[^/]+')
