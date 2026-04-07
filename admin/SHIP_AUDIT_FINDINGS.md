@@ -282,3 +282,55 @@ Data scan: Guests 450 vs 458. Grammar 6x. IMO TBD.
 
 ### Seabourn Venture (ships/seabourn/seabourn-venture.html)
 Data scan: Crew 248 vs 250. Grammar 1x. No guest/GT mismatch.
+
+---
+
+## Venue Audit — Full RCL Fleet
+
+### MDR Name Mapping (all serve the same rotating menu → /restaurants/mdr.html)
+
+| Ship | MDR Name(s) |
+|------|------------|
+| Adventure | Main Dining Room |
+| Allure | American Icon Grill, The Grande, Silk |
+| Anthem | American Icon Grill, Chic, The Grande, Silk |
+| Brilliance | Minstrel Dining Room |
+| Enchantment | My Fair Lady Dining Room |
+| Explorer | Sapphire Dining Room |
+| Freedom | Main Dining Room |
+| Grandeur | Great Gatsby Dining Room |
+| Harmony | American Icon Grill, The Grande, Silk |
+| Icon | Main Dining Room |
+| Independence | Romeo & Juliet, Macbeth, King Lear |
+| Jewel | Tides Dining Room |
+| Liberty | Rembrandt, Michelangelo, Botticelli |
+| Radiance | Cascades Dining Room |
+| Rhapsody | Edelweiss Dining Room |
+| All others | Main Dining Room (generic) |
+
+### Venues Without HTML Pages (22)
+
+MDR variants (7) — consolidate to /restaurants/mdr.html:
+- Botticelli, King Lear, Macbeth, Main Dining Room, Michelangelo, Rembrandt, Romeo & Juliet
+
+Ship-specific venues without pages (15):
+- 19th Hole (Explorer) — sports bar
+- Bombay Billiard Club (Brilliance) — pool tables bar
+- Carousel Lounge (Enchantment) — entertainment
+- Centrum (Brilliance) — atrium entertainment
+- Cloud Nine (Explorer) — Deck 14 lounge
+- Club Twenty (Explorer) — lounge
+- Crow's Nest (Explorer) — Deck 14 lounge
+- Dizzy's (Explorer) — jazz bar
+- Imperial Lounge (Adventure) — entertainment/dancing
+- King & Country (Brilliance) — English pub
+- Outdoor Movie Screen (Enchantment) — poolside
+- Seven Hearts (Explorer) — bar
+- Singapore Sling's (Brilliance) — cocktail bar
+- Solarium Bistro Restaurant (Anthem) — Mediterranean dining
+- The Tavern (Explorer) — sports bar
+
+### Stale Venues Removed (Perplexity-verified April 2026)
+
+- Ben & Jerry's — removed from Adventure, Liberty, Mariner, Rhapsody (RCL partnership ended Dec 2023)
+- Sabor — removed from Freedom (no longer onboard, replaced by El Loco Fresh)
