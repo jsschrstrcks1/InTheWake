@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================================
-# Ship Page Validator — v3.010.500
+# Ship Page Validator — v3.010.600
 #
 # Validates ship pages against SHIP_PAGE_CHECKLIST_v3.010.md standards.
 # Usage: ./admin/validate-ship-page.sh <path-to-ship-page.html>
@@ -1789,7 +1789,10 @@ fi
 # ============================================================================
 section_header "Section 9ar: Article Grammar"
 
-GRAMMAR_ERRORS=$(echo "$CONTENT" | grep -ciP '\ba (Icon|Oasis|Enchantment|Adventure|Allure|Anthem|Empress|Ovation|Odyssey|Explorer|Enchanted|Ultra)' || true)
+GRAMMAR_ERRORS=$(echo "$CONTENT" | grep -ciP '\b[Aa] [AEIOU][a-z]' || true)
+# Subtract false positives: "a URL", "a UK", normal prose
+FALSE_POS=$(echo "$CONTENT" | grep -ciP '\ba (URL|UK|US|EU)\b' || true)
+GRAMMAR_ERRORS=$((GRAMMAR_ERRORS - FALSE_POS))
 if [ "$GRAMMAR_ERRORS" -gt 0 ]; then
     check_warn "Found $GRAMMAR_ERRORS 'a [vowel-sound]' grammar error(s) — should be 'an' (#1334)"
 else
@@ -1978,6 +1981,256 @@ if [ -n "$SHIP_SLUG" ] && [ -f "${REPO_ROOT}/ships.html" ]; then
     fi
 else
     check_pass "Fleet cross-check skipped"
+fi
+
+# ============================================================================
+# Section 9az: Crew Count Consistency (#3 in master list)
+# ============================================================================
+section_header "Section 9az: Crew Count Consistency"
+
+SPEC_CREW=$(echo "$CONTENT" | grep -A2 'spec-label.*Crew\|spec-label">Crew' | grep -oP '[\d,]+' | head -1 | tr -d ',')
+JSON_CREW=$(echo "$CONTENT" | grep -oP '"crew"\s*:\s*"\K[^"]+' | head -1 | tr -d ',~')
+STAT_CREW=$(echo "$CONTENT" | grep -A1 'label">Crew\|label.*>Crew' | grep -oP '[\d,]+' | head -1 | tr -d ',')
+CREWS=""
+[ -n "$SPEC_CREW" ] && CREWS="$SPEC_CREW"
+[ -n "$JSON_CREW" ] && [ "$JSON_CREW" != "$SPEC_CREW" ] && CREWS="$CREWS $JSON_CREW"
+[ -n "$STAT_CREW" ] && [ "$STAT_CREW" != "$SPEC_CREW" ] && [ "$STAT_CREW" != "$JSON_CREW" ] && CREWS="$CREWS $STAT_CREW"
+CREW_UNIQUE=$(echo $CREWS | tr ' ' '\n' | sort -u | grep -c '[0-9]')
+if [ "$CREW_UNIQUE" -gt 1 ]; then
+    check_warn "Crew count mismatch: specs=$SPEC_CREW json=$JSON_CREW stats=$STAT_CREW"
+else
+    check_pass "Crew count consistent"
+fi
+
+# ============================================================================
+# Section 9ba: Cordelia Dining Image (#7)
+# ============================================================================
+section_header "Section 9ba: Dining Hero Image"
+
+if echo "$CONTENT" | grep -q 'Cordelia_Empress_Food_Court'; then
+    check_warn "Dining hero uses Cordelia Empress Food Court image — wrong cruise line for this ship"
+else
+    check_pass "No Cordelia dining image detected"
+fi
+
+# ============================================================================
+# Section 9bb: Generic FAQ Boilerplate (#8)
+# ============================================================================
+section_header "Section 9bb: FAQ Specificity"
+
+GENERIC_FAQ=$(echo "$CONTENT" | grep -cP 'Specialty restaurants vary by ship|Ship deployments vary by season|planning resources and community insights' || true)
+if [ "$GENERIC_FAQ" -ge 3 ]; then
+    check_warn "FAQ answers are generic boilerplate ($GENERIC_FAQ template phrases) — no ship-specific dining/itinerary information"
+else
+    check_pass "FAQ answers appear ship-specific"
+fi
+
+# ============================================================================
+# Section 9bc: Luxury Line Content Mismatch (#9)
+# ============================================================================
+section_header "Section 9bc: Content Appropriate for Line"
+
+CRUISE_LINE=$(echo "$CONTENT" | grep -oP 'cruise-line:\s*\K.*' | head -1 | sed 's/[[:space:]]*$//')
+IS_LUXURY=0
+case "$CRUISE_LINE" in
+    *Silversea*|*Seabourn*|*Regent*|*Oceania*|*Cunard*|*Explora*) IS_LUXURY=1 ;;
+esac
+if [ "$IS_LUXURY" -eq 1 ] && echo "$CONTENT" | grep -q 'different travel styles and budgets'; then
+    check_warn "Content says 'different travel styles and budgets' — inappropriate for luxury line $CRUISE_LINE"
+else
+    check_pass "Content appropriate for cruise line"
+fi
+
+# ============================================================================
+# Section 9bd: Swiper Version Mismatch (#11)
+# ============================================================================
+section_header "Section 9bd: Swiper Version Consistency"
+
+SWIPER_CSS_VER=$(echo "$CONTENT" | grep -oP 'swiper@\K\d+' | head -1)
+SWIPER_JS_VER=$(echo "$CONTENT" | grep -oP 'swiper@\K\d+' | tail -1)
+if [ -n "$SWIPER_CSS_VER" ] && [ -n "$SWIPER_JS_VER" ] && [ "$SWIPER_CSS_VER" != "$SWIPER_JS_VER" ]; then
+    check_warn "Swiper version mismatch: CSS loads @$SWIPER_CSS_VER, JS fallback loads @$SWIPER_JS_VER"
+else
+    check_pass "Swiper versions consistent"
+fi
+
+# ============================================================================
+# Section 9be: Page Grid Layout (#12)
+# ============================================================================
+section_header "Section 9be: Page Grid Layout"
+
+if echo "$CONTENT" | grep -q 'class=".*page-grid'; then
+    check_pass "Main element has page-grid class (2-column layout)"
+else
+    check_warn "Main element missing page-grid class — 2-column layout won't activate"
+fi
+
+# ============================================================================
+# Section 9bf: Progressive Enhancement (#13)
+# ============================================================================
+section_header "Section 9bf: Progressive Enhancement"
+
+if echo "$CONTENT" | grep -q 'class="no-js"\|class=.*no-js'; then
+    check_pass "HTML element has no-js class for progressive enhancement"
+else
+    check_warn "HTML element missing no-js class — progressive enhancement CSS won't work"
+fi
+
+# ============================================================================
+# Section 9bg: Duplicate Section IDs (#15)
+# ============================================================================
+section_header "Section 9bg: Duplicate Section IDs"
+
+DUP_IDS=$(echo "$CONTENT" | grep -oP 'id="[^"]+' | sort | uniq -d)
+if [ -n "$DUP_IDS" ]; then
+    DUP_COUNT=$(echo "$DUP_IDS" | wc -l)
+    DUP_LIST=$(echo "$DUP_IDS" | tr '\n' ', ' | sed 's/, $//')
+    check_fail "Found $DUP_COUNT duplicate ID(s): $DUP_LIST"
+else
+    check_pass "No duplicate IDs"
+fi
+
+# ============================================================================
+# Section 9bh: Placeholder Sections (#17)
+# ============================================================================
+section_header "Section 9bh: Placeholder Content"
+
+PLACEHOLDER_COUNT=$(echo "$CONTENT" | grep -ciP 'coming soon\.|will appear here\.|details coming soon\.|information coming soon\.' || true)
+if [ "$PLACEHOLDER_COUNT" -gt 0 ]; then
+    check_warn "Found $PLACEHOLDER_COUNT placeholder section(s) with 'coming soon' / 'will appear here' text"
+else
+    check_pass "No placeholder sections detected"
+fi
+
+# ============================================================================
+# Section 9bi: Page Title Leak Into Ship Name (#21)
+# ============================================================================
+section_header "Section 9bi: Title Leak Into Ship Name"
+
+if echo "$CONTENT" | grep -q 'In the Wake.*cruise ship\|In the Wake.*Class.*ship\|In the Wake.*operated'; then
+    check_fail "Site name 'In the Wake' appears in ship description — page title leaking into ship name"
+else
+    check_pass "No title leak detected"
+fi
+
+# ============================================================================
+# Section 9bj: H1 Value Proposition (#24)
+# ============================================================================
+section_header "Section 9bj: H1 Value Proposition"
+
+H1_TEXT=$(echo "$CONTENT" | grep -oP '<h1[^>]*>\K[^<]+' | head -1)
+if [ -n "$H1_TEXT" ]; then
+    if echo "$H1_TEXT" | grep -qP '—|–|:|\|'; then
+        check_pass "H1 has value proposition subtitle: '$H1_TEXT'"
+    else
+        check_warn "H1 is bare ship name ('$H1_TEXT') — add subtitle like 'Deck Plans, Live Tracker, Dining & Videos'"
+    fi
+else
+    check_pass "H1 check skipped (not found)"
+fi
+
+# ============================================================================
+# Section 9bk: Embedded Live Tracker (#25)
+# ============================================================================
+section_header "Section 9bk: Embedded Live Tracker"
+
+if echo "$CONTENT" | grep -q 'vesselfinder\|marinetraffic\|iframe.*track\|vf-tracker-container'; then
+    check_pass "Embedded live tracker present"
+elif echo "$CONTENT" | grep -q 'liveTrackHeading\|Live.*Tracker\|Where Is'; then
+    check_warn "Live tracker section exists but has no embedded iframe — external link only"
+else
+    check_pass "No tracker section (N/A)"
+fi
+
+# ============================================================================
+# Section 9bl: Ports / Itinerary Section (#26)
+# ============================================================================
+section_header "Section 9bl: Ports Section"
+
+if echo "$CONTENT" | grep -qi 'id="ports"\|portsHeading\|Ports on\|Itinerary\|itineraryHeading'; then
+    check_pass "Ports/itinerary section present"
+else
+    check_warn "No ports or itinerary section — users can't see where the ship sails"
+fi
+
+# ============================================================================
+# Section 9bm: Sister Ships Section (#27)
+# ============================================================================
+section_header "Section 9bm: Sister Ships Section"
+
+if echo "$CONTENT" | grep -qi 'related-ships\|Sister Ships\|class.*ships\|related-pills'; then
+    check_pass "Sister ships / class explorer section present"
+else
+    check_warn "No sister ships or class explorer section — no cross-navigation to fleet siblings"
+fi
+
+# ============================================================================
+# Section 9bn: FAQ Truncation (#30)
+# ============================================================================
+section_header "Section 9bn: FAQ Sentence Completeness"
+
+TRUNC_FAQ=$(echo "$CONTENT" | grep -cP 'departure ports for \.' || true)
+if [ "$TRUNC_FAQ" -gt 0 ]; then
+    check_fail "FAQ answer truncated: 'departure ports for .' — ship name missing from sentence"
+else
+    check_pass "No FAQ truncation detected"
+fi
+
+# ============================================================================
+# Section 9bo: Future Ship Status (#34)
+# ============================================================================
+section_header "Section 9bo: Future Ship Status"
+
+ENTERED=$(echo "$CONTENT" | grep -oP '"entered_service"\s*:\s*\K\d+' | head -1)
+CURRENT_YEAR=$(date +%Y)
+if [ -n "$ENTERED" ] && [ "$ENTERED" -ge "$CURRENT_YEAR" ]; then
+    if echo "$CONTENT" | grep -qi 'coming soon\|future\|expected\|TBN\|not yet\|under construction'; then
+        check_pass "Future ship ($ENTERED) has appropriate status indicators"
+    else
+        check_warn "Ship enters service $ENTERED (future) but page presents it as if currently sailing"
+    fi
+else
+    check_pass "Ship is current or past service"
+fi
+
+# ============================================================================
+# Section 9bp: Year Built Consistency (#35)
+# ============================================================================
+section_header "Section 9bp: Year Built Consistency"
+
+YEAR_SPEC=$(echo "$CONTENT" | grep -A2 'spec-label.*Year\|spec-label">Year' | grep -oP '20\d\d\|19\d\d' | head -1)
+YEAR_JSON=$(echo "$CONTENT" | grep -oP '"entered_service"\s*:\s*\K\d+' | head -1)
+YEAR_FACT=$(echo "$CONTENT" | grep 'fact-block' | grep -oP 'entered service in \K\d+' | head -1)
+if [ -n "$YEAR_SPEC" ] && [ -n "$YEAR_JSON" ] && [ "$YEAR_SPEC" != "$YEAR_JSON" ]; then
+    check_warn "Year built mismatch: specs=$YEAR_SPEC vs json=$YEAR_JSON"
+elif [ -n "$YEAR_FACT" ] && [ -n "$YEAR_JSON" ] && [ "$YEAR_FACT" != "$YEAR_JSON" ]; then
+    check_warn "Year built mismatch: fact-block=$YEAR_FACT vs json=$YEAR_JSON"
+else
+    check_pass "Year built consistent"
+fi
+
+# ============================================================================
+# Section 9bq: Duplicate Stats Blocks (#38)
+# ============================================================================
+section_header "Section 9bq: Duplicate Stats Blocks"
+
+SPECS_COUNT=$(echo "$CONTENT" | grep -c 'specsHeading\|Specifications' || true)
+STATS_COUNT=$(echo "$CONTENT" | grep -c 'ship-stats-title\|Ship Statistics' || true)
+if [ "$SPECS_COUNT" -gt 0 ] && [ "$STATS_COUNT" -gt 0 ]; then
+    check_warn "Page has both Ship Specifications and Ship Statistics sections — redundant data with potential inconsistencies"
+else
+    check_pass "No duplicate stats blocks"
+fi
+
+# ============================================================================
+# Section 9br: Construction Banner (#37)
+# ============================================================================
+section_header "Section 9br: Construction Banner"
+
+if echo "$CONTENT" | grep -qi 'under construction\|page under construction'; then
+    check_warn "Page has 'Under Construction' banner visible to users"
+else
+    check_pass "No construction banner"
 fi
 
 # ============================================================================
