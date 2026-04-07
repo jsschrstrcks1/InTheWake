@@ -134,3 +134,44 @@ Data scan: 2026-04-06.
 Data scan: 2026-04-06.
 1. **Guest count mismatch**: Two values — 274 and 296. Need to read page to find where each appears.
 2. GT 17,400 consistent. Crew 222 consistent. Class "Wind Class" everywhere. Same template issues.
+
+---
+
+## Costa
+
+### Pattern: Every Costa ship has guest count double-values
+
+The meta/description/OG/Twitter/specs sections use one number (likely double occupancy). The Review/fact-block/Key Facts/Stats JSON use a different number (likely max capacity). Neither labels which is which. A user sees two conflicting "guests" numbers with no explanation.
+
+This is the same double-value pattern seen on Silversea (Silver Cloud GT, Silver Wind guests) but on Costa it hits every single ship.
+
+### Costa Smeralda (ships/costa/costa-smeralda.html)
+Read: 2026-04-06 (key sections read, full data scan)
+
+1. **Guest count split: 5,224 vs 6,554**. Meta/OG/Twitter/CruiseShip/Quick Answer/Specs say 5,224. Review/fact-block/Key Facts/Stats JSON/Ship Statistics say 6,554. Neither labeled.
+2. **"A Excellence Class" grammar**: At least 6 occurrences. Should be "An Excellence Class."
+3. **Same template issues** as all MSC-era pages (no page-grid, Swiper @10/@11, static copyright, Cordelia dining image, generic FAQ, "budgets" text, all placeholders, zero noscript).
+
+### Costa Deliziosa (ships/costa/costa-deliziosa.html)
+Data scan: Guests 2,260 vs 2,826. No crew/GT mismatch. No grammar errors.
+
+### Costa Diadema (ships/costa/costa-diadema.html)
+Data scan: Guests 3,724 vs 4,947. No crew/GT mismatch. No grammar errors.
+
+### Costa Fascinosa (ships/costa/costa-fascinosa.html)
+Data scan: Guests 3,012 vs 3,800. GT 114,289 vs 114,500. Crew 1,100 vs 1,110.
+
+### Costa Favolosa (ships/costa/costa-favolosa.html)
+Data scan: Guests 3,012 vs 3,800. GT 114,289 vs 114,500. Crew 1,100 vs 1,110. Same as Fascinosa — sister ships with identical issues.
+
+### Costa Firenze (ships/costa/costa-firenze.html)
+Data scan: Guests 4,232 vs 5,260. Crew 1,370 vs 1,400. GT consistent.
+
+### Costa Pacifica (ships/costa/costa-pacifica.html)
+Data scan: Guests 3,012 vs 3,780. GT 114,147 vs 114,500. Crew 1,100 vs 1,110.
+
+### Costa Toscana (ships/costa/costa-toscana.html)
+Data scan: Guests 5,324 vs 6,554. Grammar "A Excellence" 6x. GT consistent (185,010). Sister of Smeralda — same class issues.
+
+### Costa Venezia (ships/costa/costa-venezia.html)
+Data scan: Guests 4,232 vs 5,260. GT 135,225 vs 135,500. Crew 1,370 vs 1,400.
