@@ -137,6 +137,53 @@ Data scan: 2026-04-06.
 
 ---
 
+## Master Issue List — Deduplicated from All 56 GitHub Issues + My Readings
+
+### Issues I've personally verified by reading pages:
+1. Guest count double-value (meta vs fact-block) — every Costa ship, Silver Cloud, Silver Wind, Seabourn fleet
+2. GT double-value (meta/specs vs fact-block/stats JSON) — Silver Cloud, Silver Endeavour, Costa Fascinosa/Favolosa/Pacifica/Venezia
+3. Crew mismatch (specs vs stats JSON) — Silver Nova, Silver Ray, Silver Shadow, Silver Whisper, Costa Fascinosa/Favolosa/Pacifica/Firenze/Venezia, Oceania Insignia/Sirena, Seabourn Pursuit/Venture, Princess Sun Princess
+4. Class name mismatch/swap — Silver Shadow↔Whisper swapped, Silver Endeavour (Expedition/Endeavour), Regent Prestige (Explorer/Nova)
+5. "A [vowel]" grammar — Costa Smeralda/Toscana, Oceania Allura/Marina/Riviera/Vista, Seabourn 5 ships, Silver Origin, Cunard QM2
+6. IMO TBD on operational ships — Oceania 5 ships, Seabourn 3 ships, Princess Sun Princess
+7. Cordelia Empress Food Court dining hero image — 291 of 295 pages
+8. Generic FAQ boilerplate — every non-RCL page
+9. Content text "to suit different travel styles and budgets" wrong for luxury/expedition — all Silversea, Seabourn, Regent, Oceania, Cunard
+10. Static copyright 2025 — every MSC-era page
+11. Swiper @10 CSS / @11 JS version mismatch — every MSC-era page
+12. No page-grid / no col-1 layout — every MSC-era page
+13. No no-js class on html — every MSC-era page
+14. Zero noscript fallbacks — every non-RCL page
+15. Duplicate Deck Plans sections — every MSC-era page
+16. Video loader no retry — every non-RCL page
+17. All placeholders (dining, logbook, entertainment) — every MSC-era page
+18. Planning Resources section orphaned after aside — every MSC-era page
+19. No related: field in ai-breadcrumbs — every MSC-era page
+20. Fabricated class names (Cloud Class, Wind Class, QM2 Class) — multiple lines
+21. Page title "In the Wake" leaking into ship name — all 4 Virgin ships
+22. Cross-ship image symlinks — Princess Star/Coral/Island/Royal, RCL Splendour
+23. Silver Endeavour historical ownership (Crystal Cruises 2021, not Silversea)
+
+### New issues from GitHub Full Crawl Audits (#1365-#1373) not yet in my findings:
+24. **H1 bare — no value proposition** — every non-RCL ship. RCL says "Icon of the Seas — Deck Plans, Live Tracker, Dining & Videos". Others say just "Costa Deliziosa."
+25. **No embedded live tracker** — MSC-era pages have a text link only, no VesselFinder iframe
+26. **No ports section** — MSC-era pages have no itinerary/ports information at all
+27. **No sister ships / class explorer section** — MSC-era pages have no cross-navigation to fleet siblings
+28. **Photo carousel prev/next are generic elements not buttons** — WCAG 2.1 SC 4.1.2 failure on MSC-era Template A
+29. **Photo slide missing CC license info** — attribution absent on first carousel slide
+30. **FAQ Q3 truncation** — "departure ports for ." (sentence ends with period after "for") on Seabourn Odyssey/Ovation/Pursuit
+31. **Raw Flickr user ID as photographer name** — instead of human-readable name
+32. **Sidebar empty** — "Recent Stories" heading with no content on every MSC-era page
+33. **Video fallback visible alongside populated video list** — both show simultaneously
+34. **Future ship presented as if in service** — Regent Prestige (2026), no "coming soon" status
+35. **Year built conflict** — Specs vs Intro/JSON on 1 Costa ship
+36. **Page title pattern differs from RCL** — RCL: "Ship — Deck Plans, Live Tracker..." vs others: "Ship — [Line] Ship Guide"
+37. **"Page Under Construction" banner visible** — Virgin Voyages (all 4 ships)
+38. **Two separate stats blocks with inconsistent data** — Virgin "Key Facts" + "Quick Facts" overlap
+39. **Explora V and VI hydrogen ships have different class/tonnage** conflicting with Explora I-IV data
+
+---
+
 ## Costa
 
 ### Pattern: Every Costa ship has guest count double-values
