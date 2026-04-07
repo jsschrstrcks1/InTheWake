@@ -45,3 +45,28 @@ Historic ships had simpler venue structures. Most had:
 - Basic pool deck
 - Casino (on most)
 - Limited activities vs modern fleet
+
+## Ship-by-Ship Verification Results (Perplexity April 2026)
+
+### Verified Ships — Gap Counts
+
+| Ship | DB Venues | Perplexity Venues | Missing |
+|------|-----------|-------------------|---------|
+| Adventure | 31 | ~38 | Blue Moon, Viking Crown, Jester's, The Chamber, Lyric Theatre, Broadway Melodies, Shall We Dance, Splashaway Bay, Basketball |
+| Allure | 55 | ~44 | Amber Theater, Blaze Comedy Club, H2O Zone, Sabor Bar (stale?) |
+| Anthem | 44 | ~50 | English Pub, Chapel, Jamboree, H2O Zone, neighborhoods |
+| Brilliance | 33 | ~43 | Jakarta Lounge, Cinema, Concierge Club, Golf Simulators, Hair Salon, Main Pool, Photo Gallery |
+| Enchantment | 27 | ~32 | Centrum (confirmed), Island Bar, Fuel Teen, Art Gallery, Photo Gallery |
+| Explorer | 37 | ~46 | Connoisseur Cigar Club, Living Room Teen, Star Lounge (shows), many Deck 14 bars already added |
+| Freedom | 32 | ~45 | Crown Lounge, Cupcake Cupboard, Olive or Twist, Library, Casitas |
+
+### Decision Needed: Generic vs Named Venues
+
+Perplexity counts generic facilities (Fitness Center, Jogging Track, Main Pool, Hair Salon, Photo Gallery, Art Gallery, Library) as venues. Our database currently doesn't include these for most ships because they exist on every ship and aren't distinctive.
+
+Options:
+1. Add generic facilities to every ship (inflates venue counts, provides completeness)
+2. Only add named/distinctive venues (keeps data focused, matches restaurant page structure)
+3. Add generics to a "common facilities" list that applies to all ships
+
+Recommendation: Option 3 — a common facilities section on every ship page that doesn't need per-ship database entries.
