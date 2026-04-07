@@ -210,3 +210,28 @@ Data scan: 1. **Crew mismatch**: Specs 400, Stats JSON 373. 2. **IMO TBD**. 3. N
 
 ### Vista (ships/oceania/vista.html)
 Data scan: 1. **"A [vowel]" grammar**: 6x. 2. **IMO TBD**. 3. No data mismatches.
+
+---
+
+## Seabourn
+
+### Seabourn Encore (ships/seabourn/seabourn-encore.html)
+Data scan: Guests 600 vs 604. Grammar 6x. IMO TBD.
+
+### Seabourn Odyssey (ships/seabourn/seabourn-odyssey.html)
+Data scan: Guests 450 vs 458. Grammar 6x. No TBD.
+
+### Seabourn Ovation (ships/seabourn/seabourn-ovation.html)
+Data scan: Guests 600 vs 604. Grammar 6x. No TBD.
+
+### Seabourn Pursuit (ships/seabourn/seabourn-pursuit.html)
+Data scan: Crew 248 vs 250. Grammar 1x. No guest/GT mismatch.
+
+### Seabourn Quest (ships/seabourn/seabourn-quest.html)
+Data scan: Guests 450 vs 458. Grammar 6x. IMO TBD.
+
+### Seabourn Sojourn (ships/seabourn/seabourn-sojourn.html)
+Data scan: Guests 450 vs 458. Grammar 6x. IMO TBD.
+
+### Seabourn Venture (ships/seabourn/seabourn-venture.html)
+Data scan: Crew 248 vs 250. Grammar 1x. No guest/GT mismatch.
