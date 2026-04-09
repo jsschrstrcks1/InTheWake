@@ -128,6 +128,8 @@ const REQUIRED = {
 };
 
 const VALID_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+// Special values for activities that don't apply to a port (e.g., City Walking on a remote island)
+const VALID_SPECIAL_VALUES = ['N/A', 'None', '-'];
 
 // ============================================================================
 // UTILITY FUNCTIONS
@@ -325,7 +327,7 @@ class PortWeatherValidator {
     spans.forEach(s => {
       const ms = s.replace(/class="(activity|season)-months">|</g, '');
       ms.split(/,\s*/).forEach(m => {
-        if (m.trim() && !VALID_MONTHS.includes(m.trim())) {
+        if (m.trim() && !VALID_MONTHS.includes(m.trim()) && !VALID_SPECIAL_VALUES.includes(m.trim())) {
           this.log('error', 'D_MONTH', `Invalid month: "${m.trim()}"`);
           ok = false;
         }
