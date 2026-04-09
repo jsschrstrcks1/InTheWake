@@ -3863,6 +3863,79 @@ function validatePOICoordinates(filepath) {
   return { valid: errors.length === 0, errors, warnings };
 }
 
+/**
+ * Run the mobile readiness validator as a subprocess
+ * BLOCKING: pages must be mobile-responsive (viewport, touch targets, no overflow)
+ */
+function validateMobileReadinessSubValidator(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const mobileScript = join(PROJECT_ROOT, 'admin', 'validate-mobile-readiness.js');
+  if (!existsSync(mobileScript)) {
+    warnings.push({ section: 'mobile_sub', rule: 'mobile_validator_not_found', message: 'Mobile readiness validator not found, skipping', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  try {
+    const result = spawnSync('node', [mobileScript, filepath], {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 30000
+    });
+
+    if (result.status === 1) {
+      errors.push({
+        section: 'mobile_sub',
+        rule: 'mobile_validation_failed',
+        message: 'Mobile readiness validation failed (BLOCKING) — run: node admin/validate-mobile-readiness.js <file> for details',
+        severity: 'BLOCKING'
+      });
+    }
+    // Exit code 2 = warnings only (not blocking)
+  } catch (err) {
+    warnings.push({ section: 'mobile_sub', rule: 'mobile_validator_error', message: `Mobile validator threw: ${err.message}`, severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Run the recent articles/stories pattern validator as a subprocess
+ * BLOCKING: Recent Rail must use dynamic pattern, not hardcoded links
+ */
+function validateRecentArticlesSubValidator(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const articlesScript = join(PROJECT_ROOT, 'admin', 'validate-recent-articles.js');
+  if (!existsSync(articlesScript)) {
+    warnings.push({ section: 'articles_sub', rule: 'articles_validator_not_found', message: 'Recent articles validator not found, skipping', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  try {
+    const result = spawnSync('node', [articlesScript, filepath], {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 30000
+    });
+
+    if (result.status === 1) {
+      errors.push({
+        section: 'articles_sub',
+        rule: 'recent_articles_validation_failed',
+        message: 'Recent articles/stories pattern validation failed (BLOCKING) — run: node admin/validate-recent-articles.js <file> for details',
+        severity: 'BLOCKING'
+      });
+    }
+  } catch (err) {
+    warnings.push({ section: 'articles_sub', rule: 'articles_validator_error', message: `Recent articles validator threw: ${err.message}`, severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
 async function validatePortPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const results = {
@@ -3994,6 +4067,8 @@ async function validatePortPage(filepath) {
     const imageRefsResult = validateImageReferences($, filepath);
     const weatherSubResult = validateWeatherSubValidator(filepath);
     const poiCoordsResult = validatePOICoordinates(filepath);
+    const mobileResult = validateMobileReadinessSubValidator(filepath);
+    const articlesResult = validateRecentArticlesSubValidator(filepath);
 
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
@@ -4027,6 +4102,8 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...imageRefsResult.errors);
     results.blocking_errors.push(...weatherSubResult.errors);
     results.blocking_errors.push(...poiCoordsResult.errors);
+    results.blocking_errors.push(...mobileResult.errors);
+    results.blocking_errors.push(...articlesResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -4073,6 +4150,8 @@ async function validatePortPage(filepath) {
     results.warnings.push(...imageRefsResult.warnings);
     results.warnings.push(...weatherSubResult.warnings);
     results.warnings.push(...poiCoordsResult.warnings);
+    results.warnings.push(...mobileResult.warnings);
+    results.warnings.push(...articlesResult.warnings);
 
     // Gold standard gap detection (only included with --gold-standard flag)
     // Per orchestra: separate mode to avoid alert fatigue on the 100% pass rate
