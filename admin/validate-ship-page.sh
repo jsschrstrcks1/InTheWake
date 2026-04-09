@@ -114,59 +114,22 @@ else
 fi
 
 # ============================================================================
-# Section 2: AI-Breadcrumbs
+# Section 2: ICP-2 v2.1 — AI-Breadcrumbs Removal Check
 # ============================================================================
-section_header "Section 2: AI-Breadcrumbs"
+section_header "Section 2: ICP-2 AI-Breadcrumbs (should be removed)"
 
 if echo "$CONTENT" | grep -q "<!-- ai-breadcrumbs"; then
-    check_pass "AI-breadcrumbs comment block present"
+    check_warn "ai-breadcrumbs HTML comment still present — ICP-2 v2.1 says remove (no crawler reads HTML comments)"
 else
-    check_fail "AI-breadcrumbs comment block MISSING"
+    check_pass "No ai-breadcrumbs HTML comment (ICP-2 compliant)"
 fi
 
-# Check required fields
-if echo "$CONTENT" | grep -q "entity:"; then
-    # entity: Ship is CORRECT per spec (name: field carries the ship name)
-    check_pass "entity field present"
-else
-    check_fail "entity field MISSING (required)"
-fi
-
-if echo "$CONTENT" | grep -q "type:"; then
-    if echo "$CONTENT" | grep -q "type: Ship Information Page"; then
-        check_pass "type field is 'Ship Information Page'"
-    else
-        check_warn "type field present but may not be 'Ship Information Page'"
-    fi
-else
-    check_fail "type field MISSING (required)"
-fi
-
-if echo "$CONTENT" | grep -q "parent:"; then
-    check_pass "parent field present"
-else
-    check_fail "parent field MISSING (required)"
-fi
-
-if echo "$CONTENT" | grep -q "category:"; then
-    check_pass "category field present"
-else
-    check_fail "category field MISSING (required)"
-fi
-
-# Optional but recommended
-for field in "cruise-line:" "ship-class:" "siblings:" "updated:" "answer-first:"; do
-    if echo "$CONTENT" | grep -q "$field"; then
-        check_pass "$field field present"
-    else
-        check_warn "$field field missing (recommended)"
-    fi
-done
+# (ICP-2: ai-breadcrumbs field checks removed — no crawler reads HTML comments)
 
 # ============================================================================
-# Section 3: ICP-Lite v1.0 Protocol
+# Section 3: ICP-2 Protocol
 # ============================================================================
-section_header "Section 3: ICP-Lite v1.0 Protocol"
+section_header "Section 3: ICP-2 Protocol"
 
 if echo "$CONTENT" | grep -q 'name="ai-summary"'; then
     AI_SUMMARY=$(echo "$CONTENT" | grep -o 'name="ai-summary" content="[^"]*"' | sed 's/.*content="\([^"]*\)".*/\1/')
@@ -190,10 +153,12 @@ else
     check_fail "last-reviewed meta tag MISSING (required)"
 fi
 
-if echo "$CONTENT" | grep -qE 'content="ICP-Lite v1\.(0|4)"'; then
-    check_pass "content-protocol is ICP-Lite v1.x"
+if echo "$CONTENT" | grep -q 'content="ICP-2"'; then
+    check_pass "content-protocol is ICP-2"
+elif echo "$CONTENT" | grep -qE 'content="ICP-Lite v1\.(0|4)"'; then
+    check_warn "content-protocol is ICP-Lite v1.x — should be upgraded to ICP-2"
 else
-    check_fail "content-protocol meta tag MISSING or incorrect (required)"
+    check_fail "content-protocol meta tag MISSING or incorrect (should be ICP-2)"
 fi
 
 # ============================================================================
@@ -667,42 +632,27 @@ fi
 # ============================================================================
 section_header "Section 9c: Sister Ships Consistency"
 
-# Extract siblings from ai-breadcrumbs
-BREADCRUMB_SIBLINGS=$(echo "$CONTENT" | grep -oP 'siblings:\s*\K.*' | head -1 | tr ',' '\n' | sed 's/^ *//;s/ *$//' | grep -c '\.html' || echo "0")
-
 # Count sister ship pills in the HTML
 SISTER_PILLS=$(echo "$CONTENT" | sed -n '/related-ships/,/See All Ships/p' | grep -c 'class="pill"' || echo "0")
 
-if [ "$BREADCRUMB_SIBLINGS" -gt 0 ] && [ "$SISTER_PILLS" -gt 0 ]; then
-    if [ "$BREADCRUMB_SIBLINGS" -eq "$SISTER_PILLS" ]; then
-        check_pass "Sister ships match: $BREADCRUMB_SIBLINGS in breadcrumbs, $SISTER_PILLS in pills"
-    else
-        check_fail "Sister ship MISMATCH: $BREADCRUMB_SIBLINGS in ai-breadcrumbs vs $SISTER_PILLS in pill links"
-    fi
-elif [ "$BREADCRUMB_SIBLINGS" -gt 0 ] && [ "$SISTER_PILLS" -eq 0 ]; then
-    check_fail "ai-breadcrumbs lists $BREADCRUMB_SIBLINGS siblings but no pill links found"
-elif [ "$SISTER_PILLS" -gt 0 ] && [ "$BREADCRUMB_SIBLINGS" -eq 0 ]; then
-    check_warn "$SISTER_PILLS sister pill links but no siblings in ai-breadcrumbs"
-fi
+if [ "$SISTER_PILLS" -gt 0 ]; then
+    check_pass "Sister ship pills present: $SISTER_PILLS ships linked"
 
-# Check that FAQ answer about same-class ships mentions all siblings from breadcrumbs
-if [ "$BREADCRUMB_SIBLINGS" -gt 0 ]; then
-    SIBLINGS_LIST=$(echo "$CONTENT" | grep -oP 'siblings:\s*\K.*' | head -1)
+    # Cross-check FAQ about same-class ships mentions all pill-linked sisters
     FAQ_CLASS_ANSWER=$(echo "$CONTENT" | tr '\n' ' ' | grep -oP 'Which ships are in the same class.*?</details>' | head -1)
     MISSING_IN_FAQ=0
-    while IFS= read -r sibling_url; do
-        [ -z "$sibling_url" ] && continue
-        SIBLING_SLUG=$(echo "$sibling_url" | grep -oP '[^/]+\.html' | sed 's/\.html//')
+    while IFS= read -r pill_href; do
+        [ -z "$pill_href" ] && continue
+        SIBLING_SLUG=$(echo "$pill_href" | grep -oP '[^/]+\.html' | sed 's/\.html//')
         [ -z "$SIBLING_SLUG" ] && continue
-        if ! echo "$FAQ_CLASS_ANSWER" | grep -qi "$SIBLING_SLUG"; then
-            # Convert slug to readable name for display
+        if [ -n "$FAQ_CLASS_ANSWER" ] && ! echo "$FAQ_CLASS_ANSWER" | grep -qi "$SIBLING_SLUG"; then
             READABLE=$(echo "$SIBLING_SLUG" | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g')
             check_warn "FAQ 'same class' answer may be missing sister: $READABLE"
             MISSING_IN_FAQ=$((MISSING_IN_FAQ + 1))
         fi
-    done <<< "$(echo "$SIBLINGS_LIST" | tr ',' '\n' | sed 's/^ *//;s/ *$//')"
-    if [ "$MISSING_IN_FAQ" -eq 0 ]; then
-        check_pass "FAQ 'same class' answer mentions all sisters from breadcrumbs"
+    done <<< "$(echo "$CONTENT" | sed -n '/related-ships/,/See All Ships/p' | grep -oP 'href="/[^"]*\.html"' | sed 's/href="//;s/"//')"
+    if [ "$MISSING_IN_FAQ" -eq 0 ] && [ -n "$FAQ_CLASS_ANSWER" ]; then
+        check_pass "FAQ 'same class' answer mentions all linked sister ships"
     fi
 fi
 
@@ -862,26 +812,11 @@ if [ -n "$STATS_GUESTS" ]; then
             check_pass "Guest count consistent: $DOUBLE_OCC in stats and FAQ"
         fi
 
-        # Check ai-breadcrumbs answer-first
-        BREADCRUMB_GUESTS=$(echo "$CONTENT" | grep 'answer-first:' | grep -oP '[0-9,]+(?= guests)' | head -1)
-        if [ -n "$BREADCRUMB_GUESTS" ] && [ "$BREADCRUMB_GUESTS" != "$DOUBLE_OCC" ]; then
-            check_fail "Guest count MISMATCH: stats says $DOUBLE_OCC but ai-breadcrumbs says $BREADCRUMB_GUESTS"
-        elif [ -n "$BREADCRUMB_GUESTS" ]; then
-            check_pass "Guest count consistent in ai-breadcrumbs"
-        fi
+        # (ICP-2: ai-breadcrumbs guest cross-check removed — ai-breadcrumbs no longer used)
     fi
 fi
 
-# ============================================================================
-# Section 9f3: ai-breadcrumbs 'related:' field
-# ============================================================================
-section_header "Section 9f3: ai-breadcrumbs Related Field"
-
-if echo "$CONTENT" | grep -qP '^\s+related:.*\.html'; then
-    check_pass "ai-breadcrumbs has 'related:' field with page links"
-else
-    check_warn "ai-breadcrumbs missing 'related:' field — should list related pages (ships.html, cruise-lines, ports, tools)"
-fi
+# (Section 9f3 removed — ai-breadcrumbs related field no longer used per ICP-2 v2.1)
 
 # ============================================================================
 # Section 9f4: Dining Heading Browse All Link
@@ -1068,19 +1003,15 @@ else
 fi
 
 # ============================================================================
-# Section 9l: ICP-Lite Comment Version Match
+# Section 9l: ICP Version Check
 # ============================================================================
-section_header "Section 9l: ICP-Lite Comment Version"
+section_header "Section 9l: ICP Version"
 
-# The HTML comment should match the meta tag version
-ICP_COMMENT=$(echo "$CONTENT" | grep -oP '<!-- ICP-Lite v\K[0-9.]+' | head -1)
-ICP_META=$(echo "$CONTENT" | grep -oP 'content="ICP-Lite v\K[0-9.]+' | head -1)
-if [ -n "$ICP_COMMENT" ] && [ -n "$ICP_META" ]; then
-    if [ "$ICP_COMMENT" = "$ICP_META" ]; then
-        check_pass "ICP-Lite comment (v$ICP_COMMENT) matches meta tag (v$ICP_META)"
-    else
-        check_warn "ICP-Lite comment says v$ICP_COMMENT but meta tag says v$ICP_META"
-    fi
+# ICP-2 v2.1: content-protocol should be "ICP-2", no ICP-Lite comments needed
+if echo "$CONTENT" | grep -q 'content="ICP-2"'; then
+    check_pass "ICP-2 protocol detected"
+elif echo "$CONTENT" | grep -qE 'content="ICP-Lite'; then
+    check_warn "Still on ICP-Lite — upgrade to ICP-2"
 fi
 
 # ============================================================================
