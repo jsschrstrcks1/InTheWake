@@ -253,7 +253,8 @@ class PortWeatherValidator {
   }
 
   validateNoscript() {
-    const m = this.content.match(/id="port-weather-widget"[\s\S]*?<\/section>/);
+    // Match from widget container to its closing </div> — port pages use <details> not <section>
+    const m = this.content.match(/id="port-weather-widget"[\s\S]*?<\/noscript>\s*<\/div>/);
     if (m) {
       const c = (m[0].match(/<noscript>/g) || []).length;
       if (c === 0) this.log('error', 'S_NOSCRIPT', 'Missing noscript fallback');
