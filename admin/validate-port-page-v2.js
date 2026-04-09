@@ -4016,7 +4016,7 @@ function validateRecentArticlesSubValidator(filepath) {
       errors.push({
         section: 'articles_sub',
         rule: 'recent_articles_validation_failed',
-        message: 'Recent articles/stories pattern validation failed (BLOCKING) — run: node admin/validate-recent-articles.js <file> for details',
+        message: 'Recent articles/stories pattern validation failed (BLOCKING) — needs nav-top, nav-bottom, loader script. See: admin/NOSCRIPT_REPAIR_GUIDE.md §2b. Details: node admin/validate-recent-articles.js <file>',
         severity: 'BLOCKING'
       });
     }

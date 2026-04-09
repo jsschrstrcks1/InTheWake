@@ -61,6 +61,31 @@
 
 **Note:** Use the same articles across all ports — this is a site-wide "recent stories" section, not port-specific content. Update the articles when publishing new content.
 
+### 2b. Recent Rail — Navigation + Loader Pattern
+
+The Recent Rail also needs pagination nav elements and an article loader script reference for the `validate-recent-articles.js` validator to pass.
+
+**Required elements around `#recent-rail`:**
+```html
+<nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
+<div id="recent-rail" class="rail-list" aria-live="polite">
+  <noscript><!-- static article links from §2 above --></noscript>
+</div>
+<nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
+<p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
+```
+
+**Required script:** The page must include `article-rail.js`:
+```html
+<script src="/assets/js/article-rail.js"></script>
+```
+This is typically already present. If missing, add it before `</body>`.
+
+**The validator checks for:**
+1. `#recent-rail-nav-top` — pagination container (hidden by default, JS populates)
+2. `#recent-rail-nav-bottom` — pagination container
+3. Article loader — either `async function loadArticles` inline, `fetchJSONWithFallback`, or `article-rail.js` external script
+
 ---
 
 ## 3. Photo Gallery — Noscript Fallback
