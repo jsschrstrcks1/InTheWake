@@ -51,6 +51,7 @@ Ports validated with consolidated v2 + truth-checked via external LLM (Perplexit
 |------|:------:|:-----:|-------------------|-------------|-------------|
 | abu-dhabi | 66 | 76 | recent_articles (fleet-wide) | Perplexity (92%) | Grand Mosque hours updated; Louvre price 63→60 AED |
 | acapulco | 74 | 86 | recent_articles (fleet-wide) | You.com (88%) | Elvis date 1950s→1963; La Quebrada admission 50→100 MXN; Fort San Diego 80→65-75 MXN; hurricane season June→mid-May; show times updated; Revolution Day notice added; 2 weather FAQs added; FAQ schema synced to 8 |
+| adelaide | 68 | 78 | recent_articles (fleet-wide) | You.com (86%) | **Major:** Removed monsoon/typhoon template (Adelaide has no tropical weather); replaced with summer heatwave hazard. Fixed region Pacific→South Australia. Fixed data-port-name "Adelaide Port Guide"→"Adelaide". Rewrote all 5 template-filler weather FAQs with real Adelaide-specific answers. Summer temp claim corrected (avg 26-29°C, not "regularly exceed 40°C"). |
 
 **Fleet-wide blocker:** `recent_articles_validation_failed` — all ports (including cozumel gold standard) lack `#recent-rail-nav-top`, `#recent-rail-nav-bottom`, and article loader script. Needs fleet deployment, not per-port fix.
 
