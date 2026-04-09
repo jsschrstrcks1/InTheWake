@@ -354,6 +354,56 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 
 ## YELLOW LANE — AI Proposes, Human Approves
 
+### [Y] Port Call Reliability Tracker (NEW — 2026-04-09)
+**Status:** Not started — research + design needed
+**Priority:** P2 — high user value, no API available
+**Source:** User experience — "Costa Maybe" (Costa Maya), Bay of Islands NZ, and other ports that get cancelled frequently due to weather, tender conditions, or operational issues
+
+**Problem:** Passengers book excursions and plan days around ports that may get cancelled. No cruise line publishes cancellation rates. Ports like Costa Maya, Bar Harbor (fog), Bermuda (wind), Bay of Islands (swell), and many tender ports have significantly higher skip rates than docked ports, but this information lives only in cruise forum folklore.
+
+**Why it matters:** A disabled traveler who books a wheelchair-accessible excursion at a tender port that gets cancelled 30% of the time deserves to know that before booking. A grieving widow planning a meaningful shore visit doesn't need the added disappointment of discovering at 6am that the port was skipped.
+
+**Data sources (no line API needed):**
+- [ ] **Cruise forum scraping** — CruiseCritic, Reddit r/cruise, Facebook cruise groups have years of "our port was cancelled" posts. A structured scrape + NLP could extract port name + date + reason + ship name
+- [ ] **Ship tracking history** — MarineTraffic, VesselFinder, and CruiseMapper show historical ship positions. Compare scheduled itinerary vs actual track to detect skipped ports (ship that was supposed to stop at Costa Maya but went straight to Cozumel)
+- [ ] **Weather correlation** — Cross-reference NOAA/weather data with known cancellation patterns. If wind > 25kt at a tender port, it's probably cancelled. Build a model per port
+- [ ] **Port authority data** — Some ports publish annual ship call statistics (actual vs scheduled). Caribbean ports especially may have tourism board data
+- [ ] **Cruise line schedule changes** — Monitor cruise line websites for itinerary changes. When "Costa Maya" disappears from a sailing and gets replaced with "Cozumel" or "sea day," that's a data point
+- [ ] **Community-sourced** — Add a simple "Did your ship actually stop here?" yes/no on each port page. Aggregate over time
+
+**Implementation ideas:**
+- [ ] Design a "Port Reliability" indicator for each port page (e.g., "Reliability: High / Moderate / Weather-Dependent")
+- [ ] Add "This port is tender-only — cancellations are more common in rough weather" notice to all tender ports
+- [ ] Create a seasonal reliability calendar per port (e.g., "Bay of Islands: Jan-Mar reliable, Apr-May weather-dependent, Jun-Aug often cancelled")
+- [ ] Consider a `/tools/port-reliability.html` dashboard showing all ports ranked by estimated reliability
+- [ ] Track tender vs dock — tender ports inherently less reliable
+
+**Known unreliable ports (from user experience + cruise forums):**
+- Costa Maya, Mexico ("Costa Maybe") — weather cancellations, especially fall
+- Bay of Islands, New Zealand — swell-dependent tender, frequently cancelled
+- Bar Harbor, Maine — fog cancellations, tender port
+- Bermuda (some berths) — wind-dependent
+- Many Greek island tender ports (Santorini, Mykonos) — meltemi wind season
+- Glacier Bay, Alaska — weather/visibility
+- Antarctica expedition ports — weather-dependent by nature
+
+### [Y] Port Day Disruption Factors (NEW — 2026-04-09)
+**Status:** Research in progress (2026-04-09 session)
+**Priority:** P1 — directly affects port page notices sections
+
+Comprehensive factors that can disrupt a passenger's port day, to be integrated into each port's notices section:
+
+- [ ] **Religious dress codes** — mosque, temple, church requirements by port (specific rules, not vague "dress modestly")
+- [ ] **Religious holidays** — Ramadan restaurant closures, Shabbat in Israel, Friday mosque closures, Hindu festivals
+- [ ] **National holidays** — Revolution Day (Mexico), Carnival (Caribbean/Brazil), bank holidays closing attractions
+- [ ] **Street closures** — parades, festivals, protests that block transit routes (user encountered this in a Mexican port)
+- [ ] **Weather extremes** — not just cancellations but dangerous heat (Middle East summer), monsoon downpours, etc.
+- [ ] **Accessibility barriers** — cobblestones, steep hills, tender-only limitations, heat + mobility dangers
+- [ ] **Port-to-town distance** — docks far from attractions, misleading "walking distance" claims
+- [ ] **Taxi/transport issues** — known scam ports, metered vs negotiated, surge pricing during events
+- [ ] **Time zone changes** — ship time vs local time confusion
+- [ ] **Multiple dock locations** — which berth will your ship use? (affects planning)
+
 ### [Y] "What Can I Eat?" Dining Search Tool (NEW — 2026-02-22)
 **Status:** Not started — design needed
 **Priority:** P1 — new tool, high user value
