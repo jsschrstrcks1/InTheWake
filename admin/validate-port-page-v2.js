@@ -3864,6 +3864,97 @@ function validatePOICoordinates(filepath) {
 }
 
 /**
+ * Validate noscript fallbacks for JS-dependent features
+ * Ref: admin/NOSCRIPT_REPAIR_GUIDE.md for repair procedures
+ *
+ * ICP-2 v2.1 Section E: "Key content must be in static HTML."
+ * Pastoral mandate: site serves users on hospital WiFi, stripped browsers, NoScript.
+ */
+function validateNoscriptFallbacks($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // 1. Weather noscript — must have full static seasonal guide, not just "Enable JavaScript"
+  const weatherWidget = $('#port-weather-widget');
+  if (weatherWidget.length > 0) {
+    const weatherNoscript = weatherWidget.find('noscript').html() || '';
+    if (weatherNoscript.length === 0) {
+      errors.push({
+        section: 'noscript',
+        rule: 'missing_weather_noscript',
+        message: 'Weather widget has NO noscript fallback — noscript users see nothing. See: admin/NOSCRIPT_REPAIR_GUIDE.md §4',
+        severity: 'BLOCKING'
+      });
+    } else if (!weatherNoscript.includes('seasonal-guide') && !weatherNoscript.includes('glance-label')) {
+      warnings.push({
+        section: 'noscript',
+        rule: 'placeholder_weather_noscript',
+        message: 'Weather noscript is just a placeholder ("Enable JavaScript") — should have full static seasonal guide. See: admin/NOSCRIPT_REPAIR_GUIDE.md §4',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // 2. Gallery noscript — swiper galleries must have static image fallback
+  const swiperGallery = $('.swiper.gallery-swiper, .gallery-swiper');
+  if (swiperGallery.length > 0) {
+    const galleryNoscript = swiperGallery.find('noscript').length;
+    if (galleryNoscript === 0) {
+      warnings.push({
+        section: 'noscript',
+        rule: 'missing_gallery_noscript',
+        message: 'Photo gallery has no noscript image fallback — noscript users see blank gallery. See: admin/NOSCRIPT_REPAIR_GUIDE.md §3',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // 3. Ships visiting noscript
+  const shipsSection = $('.ships-visiting');
+  if (shipsSection.length > 0) {
+    const shipsNoscript = shipsSection.find('noscript').length;
+    if (shipsNoscript === 0) {
+      warnings.push({
+        section: 'noscript',
+        rule: 'missing_ships_noscript',
+        message: 'Ships Visiting section has no noscript fallback — noscript users see empty section. See: admin/NOSCRIPT_REPAIR_GUIDE.md §1',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // 4. Recent stories noscript
+  const recentRail = $('#recent-rail');
+  if (recentRail.length > 0) {
+    const railNoscript = recentRail.find('noscript').length;
+    if (railNoscript === 0) {
+      warnings.push({
+        section: 'noscript',
+        rule: 'missing_stories_noscript',
+        message: 'Recent Stories rail has no noscript fallback — noscript users see empty section. See: admin/NOSCRIPT_REPAIR_GUIDE.md §2',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // 5. Map noscript — check for text-based location list, not just "Enable JavaScript"
+  const mapContainer = $('[id$="-port-map"], .port-map-container');
+  if (mapContainer.length > 0) {
+    const mapNoscript = mapContainer.find('noscript').html() || '';
+    if (mapNoscript.length > 0 && !mapNoscript.includes('<ul') && !mapNoscript.includes('<li')) {
+      warnings.push({
+        section: 'noscript',
+        rule: 'placeholder_map_noscript',
+        message: 'Map noscript is just a placeholder — should include text-based location list. See: admin/NOSCRIPT_REPAIR_GUIDE.md §5',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
  * Run the mobile readiness validator as a subprocess
  * BLOCKING: pages must be mobile-responsive (viewport, touch targets, no overflow)
  */
@@ -3925,7 +4016,7 @@ function validateRecentArticlesSubValidator(filepath) {
       errors.push({
         section: 'articles_sub',
         rule: 'recent_articles_validation_failed',
-        message: 'Recent articles/stories pattern validation failed (BLOCKING) — run: node admin/validate-recent-articles.js <file> for details',
+        message: 'Recent articles/stories pattern validation failed (BLOCKING) — needs nav-top, nav-bottom, loader script. See: admin/NOSCRIPT_REPAIR_GUIDE.md §2b. Details: node admin/validate-recent-articles.js <file>',
         severity: 'BLOCKING'
       });
     }
@@ -4069,6 +4160,7 @@ async function validatePortPage(filepath) {
     const poiCoordsResult = validatePOICoordinates(filepath);
     const mobileResult = validateMobileReadinessSubValidator(filepath);
     const articlesResult = validateRecentArticlesSubValidator(filepath);
+    const noscriptResult = validateNoscriptFallbacks($, html);
 
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
@@ -4104,6 +4196,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...poiCoordsResult.errors);
     results.blocking_errors.push(...mobileResult.errors);
     results.blocking_errors.push(...articlesResult.errors);
+    results.blocking_errors.push(...noscriptResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -4152,6 +4245,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...poiCoordsResult.warnings);
     results.warnings.push(...mobileResult.warnings);
     results.warnings.push(...articlesResult.warnings);
+    results.warnings.push(...noscriptResult.warnings);
 
     // Gold standard gap detection (only included with --gold-standard flag)
     // Per orchestra: separate mode to avoid alert fatigue on the 100% pass rate
