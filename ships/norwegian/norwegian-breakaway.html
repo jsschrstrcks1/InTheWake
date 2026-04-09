@@ -123,7 +123,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Norwegian Breakaway","brand":{"@type":"Organization","name":"Norwegian Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Norwegian Breakaway (Breakaway Class, 145,655 GT, 3,963 guests, 2013) features The Waterfront boardwalk, Ocean Tunnels waterslides, Spice H2O outdoor retreat, Howl at the Moon dueling pianos, Manhattan Room dining, and The Haven ship-within-a-ship luxury enclave."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Breakaway Class ship operated by Norwegian Cruise Line.","name":"Norwegian Breakaway","brand":{"@type":"Organization","name":"Norwegian Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Norwegian Breakaway (Breakaway Class, 145,655 GT, 3,963 guests, 2013) features The Waterfront boardwalk, Ocean Tunnels waterslides, Spice H2O outdoor retreat, Howl at the Moon dueling pianos, Manhattan Room dining, and The Haven ship-within-a-ship upscale enclave."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -246,7 +246,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -357,6 +357,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Norwegian Breakaway overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Norwegian Breakaway is a Breakaway Class cruise ship operated by Norwegian Cruise Line. She entered service in 2013, measures 145,655 gross tons, and carries approximately 3,963 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Breakaway Class</li>
+          <li><strong>Year:</strong> 2013</li>
+          <li><strong>Tonnage:</strong> 145,655 GT</li>
+          <li><strong>Guests:</strong> 3,963</li>
+          <li><strong>IMO:</strong> TBD</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Norwegian Breakaway (145,655 GT, 3,963 guests, 2013) is the first Breakaway Class ship — the design that introduced NCL's Waterfront promenade, The Haven suite complex, and Aqua Park water slides. This page covers deck plans, live tracking, dining venues, and videos.
@@ -622,7 +632,7 @@ All work on this project is offered as a gift to God.
 
       <details  class="section-divider">
         <summary>What makes Norwegian Breakaway unique?</summary>
-        <p  class="list-indent">Norwegian Breakaway introduced the Waterfront outdoor promenade with oceanfront dining and bars. The ship features The Haven luxury suite complex, Aqua Park water slides, and the first Cirque Dreams dinner show at sea. Broadway entertainment includes Rock of Ages.</p>
+        <p  class="list-indent">Norwegian Breakaway introduced the Waterfront outdoor promenade with oceanfront dining and bars. The ship features The Haven upscale suite complex, Aqua Park water slides, and the first Cirque Dreams dinner show at sea. Broadway entertainment includes Rock of Ages.</p>
       </details>
 
       <details  class="section-divider">
@@ -686,6 +696,8 @@ All work on this project is offered as a gift to God.
         <h3 id="recent-rail-title">Recent Stories</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
+    
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -719,9 +731,9 @@ All work on this project is offered as a gift to God.
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
-  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/norwegian/norwegian-breakaway.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/norwegian/norwegian-breakaway.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
   <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
   <!-- initDining — fetch dining JSON -->

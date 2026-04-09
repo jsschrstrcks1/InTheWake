@@ -49,7 +49,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     {"@type":"ListItem","position":4,"name":"TSS Carnivale (1956)"}
   ]
 }</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"TSS Carnivale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"TSS Carnivale proved that Carnival's Fun Ship model could scale. The second ship confirmed the first wasn't a fluke, building foundation for the world's largest cruise company."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Converted Ocean Liner ship operated by Carnival Cruise Line.","name":"TSS Carnivale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"TSS Carnivale proved that Carnival's Fun Ship model could scale. The second ship confirmed the first wasn't a fluke, building foundation for the world's largest cruise company."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","jobTitle":"Cruise Travel Writer","description":"Wheelchair-accessible cruise specialist documenting the passenger experience across Carnival's fleet."}</script>
 <script type="application/ld+json">
   {
@@ -162,7 +162,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div role="status" aria-live="polite" class="sr-only"></div>
 <div role="alert" aria-live="assertive" class="sr-only"></div>
   <header class="hero-header ship-page" role="banner">
@@ -251,13 +251,22 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <p style="margin-top:1rem;font-size:1.1rem">The Silver Sister That Proved the Model</p>
 </header>
 
-<main class="wrap page-grid" id="main-content" role="main" data-imo="0" data-ship="Carnivale 1956">
+<main class="wrap page-grid" id="main-content" role="main" data-ship="Carnivale 1956">
 <section class="col-1" aria-label="Ship details">
 
     <!-- ICP-Lite: Page Intro -->
     <section class="page-intro" aria-label="TSS Carnivale overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">TSS Carnivale is a Fun Ship cruise ship operated by Carnival Cruise Line. She entered service in 1975, measures 27,250 gross tons, and carries approximately 950 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Converted Ocean Liner</li>
+          <li><strong>Year:</strong> 1975</li>
+          <li><strong>Tonnage:</strong> 27,250 GT</li>
+          <li><strong>Guests:</strong> 950</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> TSS Carnivale (27,250 GT | 950 guests | 1975) was one of Carnival's original three ships — a converted ocean liner that helped launch the Fun Ship era alongside Mardi Gras and Festivale. This page covers historical ship details.
@@ -334,7 +343,7 @@ Dining on TSS Carnivale</h2>
   <p>Historical deck plans for TSS Carnivale are preserved in maritime archives.</p>
 </section>
 
-<section class="card" id="live-tracker" data-imo="0" aria-labelledby="liveTrackHeading">
+<section class="card" id="live-tracker" aria-labelledby="liveTrackHeading">
   <h2 id="liveTrackHeading">Ship Status</h2>
   <p>TSS Carnivale was scrapped in 2008. Live tracking is not available for this historic vessel.</p>
 </section>
@@ -471,7 +480,7 @@ Dining on TSS Carnivale</h2>
 <script>
 function initFirstLook(){
   if(!window.__swiperReady) return setTimeout(initFirstLook,200);
-  new Swiper('.firstlook',{loop:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
+  new Swiper('.firstlook',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},a11y:{prevSlideMessage:'Previous image',nextSlideMessage:'Next image'}});
 }
 initFirstLook();
 </script>
@@ -492,7 +501,7 @@ function initVideos(){
     if(!w||!d.videos) return;
     var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
     w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
-    if(window.__swiperReady) new Swiper('#video-wrapper',{slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
+    if(window.__swiperReady) new Swiper('#video-wrapper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
   }).catch(function(){});
 }
 initVideos();
@@ -517,7 +526,7 @@ initDining();
 function initLiveTracker(){
   var sec=document.getElementById('live-tracker');
   if(!sec) return;
-  sec.querySelector('p').textContent='TSS Carnivale was scrapped in 2008. Live tracking is not available for this historic vessel.';
+  const _p=sec.querySelector('p'); if(_p) _p.textContent='TSS Carnivale was scrapped in 2008. Live tracking is not available for this historic vessel.';
 }
 initLiveTracker();
 </script>

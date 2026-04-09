@@ -73,7 +73,7 @@ Soli Deo Gloria
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <header class="hero-header" role="banner">
-    <nav class="navbar" aria-label="Main navigation">
+    <div class="navbar" aria-label="Main navigation">
       <div class="brand">
         <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async">
       </div>
@@ -109,7 +109,7 @@ Soli Deo Gloria
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
-    </nav>
+    </div>
   </header>
 
   <main class="wrap page-grid" id="main-content" role="main">
@@ -118,17 +118,121 @@ Soli Deo Gloria
     </nav>
 
     <div style="grid-column: 1; grid-row: 1;">
-      <article class="port-guide">
-      <section class="port-hero" aria-label="Cartagena hero section">
+      <article class="port-guide"><section class="port-hero" aria-label="Cartagena hero section">
         <img src="/ports/img/cartagena/cartagena-hero.webp" alt="Colorful colonial balconies with bougainvillea in Cartagena walled city under blue Caribbean sky" class="hero-image" width="1200" height="600" loading="eager" fetchpriority="high">
         <div class="hero-overlay"><p class="hero-subtitle">Colombia's Walled City Jewel</p></div>
         <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
       <div class="port-hero-overlay" style="position:absolute;bottom:0;left:0;right:0;padding:1.5rem;background:linear-gradient(transparent,rgba(0,0,0,0.6));"><h1 class="port-hero-title" style="color:#fff;margin:0;font-size:clamp(1.5rem,5vw,3rem);">Cartagena</h1></div></section>
-
-      <p class="last-reviewed">Last reviewed: February 2026</p>
-      <div id="logbook-btn-container"></div>
-
-      <details class="port-section logbook" open="">
+<div id="logbook-btn-container"></div>
+<details class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit" open="">
+        <details class="section-collapse" open="">
+          <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
+          <div class="collapse-body">
+            <div id="port-weather-widget" data-port-id="cartagena" data-port-name="Cartagena" data-lat="10.391" data-lon="-75.4794" data-region="Caribbean">
+              <noscript><p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions, seasonal guide, and 48-hour forecast.</em></p></noscript>
+            </div>
+          </div>
+        </details>
+      </details>
+<details class="port-section cruise-port" open="">
+        <summary><h2>Cruise Port</h2></summary>
+        <img src="/ports/img/cartagena/cartagena-harbor.webp" alt="Cartagena cruise terminal with large ships docked and modern Bocagrande skyline in background" loading="lazy">
+        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+        <p><strong>Terminal Location:</strong> The Cartagena cruise terminal sits in the modern port area, separate from the walled city. You cannot walk to attractions — the terminal is approximately 10-15 minutes by taxi from the historic center. Official yellow taxis and cruise shuttle services wait at the terminal.</p>
+        <p><strong>Terminal Facilities:</strong> The terminal has basic amenities including restrooms, tourist information, and money exchange (rates better in town). WiFi available but unreliable. Arrange transportation before leaving the terminal — it is easier than finding transport later.</p>
+        <p><strong>Getting to the Walled City:</strong> Taxis cost approximately $10,000-$15,000 COP ($2.50-$4 USD) one way. Negotiate before departing. Ship-organized shuttles are more expensive but may be more convenient for first-timers. Uber works but drivers sometimes cannot access the terminal.</p>
+      </details>
+<details class="port-section getting-around" open="">
+        <summary><h2>Getting Around</h2></summary>
+        <img src="/ports/img/cartagena/cartagena-street.webp" alt="Narrow cobblestone street with colorful colonial buildings and wooden balconies in Cartagena walled city" loading="lazy">
+        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+        <p><strong>Walking:</strong> Once inside the walled city, everything is walkable. The old town is compact — you can cross it in 20 minutes — but plan to wander slowly and get deliberately lost in the beautiful maze. Cobblestones are uneven; wear sturdy, comfortable shoes. The walls themselves offer a walking path with spectacular views. Moderate stamina level due to heat and humidity; go slow and stay hydrated. Wheelchair access limited in the historic center due to cobblestones and curbs.</p>
+        <p><strong>Castillo San Felipe:</strong> Located outside the walls, about a 15-minute walk or short taxi ($5,000-$8,000 COP, $1.50-$2 USD) from the clock tower. The climb to the top is steep and hot — high stamina level. Worth every step for the views and tunnel exploration.</p>
+        <p><strong>Getsemani:</strong> Adjacent to the walled city, just outside the walls through Plaza de la Trinidad. Easy walking distance from the historic center. Lower stamina level — flat streets, more shade. Safe during the day; exercise caution after dark in less-trafficked areas.</p>
+        <p><strong>Taxis:</strong> Official yellow taxis are safe and inexpensive. Always negotiate the fare before departing — most rides within the tourist areas cost $8,000-$15,000 COP ($2-$4 USD). Drivers speak limited English; have your destination written down.</p>
+        <p><strong>Heat Strategy:</strong> Cartagena is hot and humid year-round. Explore in the morning, find shade and air conditioning during midday, and return to walking in late afternoon. Carry water constantly. The best light for photography is golden hour before sunset.</p>
+      </details>
+<details class="port-section map" open="">
+        <summary><h2>Port Map</h2></summary>
+        <div id="port-map" style="height: 400px; border-radius: 8px;"></div>
+        <p class="map-intro">Interactive map showing cruise terminal, walled city, Castillo San Felipe, Getsemani, and key attractions.</p>
+      </details>
+<details class="port-section excursions" open="">
+        <summary><h2>Shore Excursions</h2></summary>
+        <img src="/ports/img/cartagena/cartagena-hero.webp" alt="Castillo San Felipe de Barajas stone fortress walls and ramps under Caribbean sun" loading="lazy">
+        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+        <h3>Walled City Walking Tour</h3>
+        <p>Essential Cartagena experience. Walk through the clock tower gate, explore colonial plazas, visit the cathedral, and discover hidden courtyards. Guides explain 500 years of stories — conquistadors, pirates, independence struggles. Ship excursions $50-$80 USD; independent guides at the clock tower charge $20-$40 USD for 2-3 hour tours. Go independent for flexibility and personal attention. Book ahead not required — guides available at the clock tower. Moderate stamina level due to heat and cobblestones. Allow 2-3 hours minimum.</p>
+        <h3>Castillo San Felipe de Barajas</h3>
+        <p>The largest Spanish colonial fortress in the Americas. Explore tunnels designed for acoustic surveillance, climb to panoramic viewpoints, and understand the engineering that made this fortress unconquerable. Entry $25,000 COP (about $6 USD). Guided tours available at the entrance add significant context ($20,000-$30,000 COP additional). Ship excursions combine with city tour for $80-$120 USD. Go independent for better value. Book ahead not required. High stamina level — steep ramps, hot sun, limited shade. Allow 1.5-2 hours. Bring water.</p>
+        <h3>Getsemani Street Art Tour</h3>
+        <p>Cartagena's bohemian neighborhood outside the walls. Discover murals celebrating Afro-Colombian heritage, visit artisan workshops, and experience the creative soul of modern Cartagena. Some ship excursions include this; independent walking is free and rewarding. Best combined with afternoon Plaza de la Trinidad atmosphere. Go independent for authentic experience. Low-moderate stamina level. Allow 1-2 hours.</p>
+        <h3>Museums and Culture</h3>
+        <p>The Gold Museum (Museo del Oro Zenu) displays pre-Columbian artifacts — free admission. The Palace of the Inquisition offers dark history with original instruments and local context — $10,000 COP entry (about $2.50 USD). Both located within the walled city. Go independent — easy to visit between wandering. Low stamina level in air-conditioned museums. Allow 30-45 minutes each.</p>
+        <h3>Rosario Islands Day Trip</h3>
+        <p>Caribbean island escape for swimming and snorkeling. Boats depart from the tourist pier inside the walled city. Full-day trips $80,000-$150,000 COP ($20-$40 USD) including lunch and snorkel equipment. Ship excursions charge $120-$180 USD for similar experiences. Go independent with boat operators at the pier. Book ahead recommended during peak season. Low-moderate stamina level — mostly relaxing on the water. Requires full port day commitment — 8-10 hours. Only choose this option if your ship has a full port day — the walled city deserves your attention on shorter stops.</p>
+        <h3>Horse-Drawn Carriage Tour</h3>
+        <p>Classic way to see the walled city if walking is challenging. Carriages depart from Plaza de los Coches. Negotiate price before boarding — expect $80,000-$120,000 COP ($20-$30 USD) for a 45-minute circuit. Romantic at night. Low stamina level. No advance booking required.</p>
+      </details>
+<details class="port-section food" open="">
+        <summary><h2>Local Flavors</h2></summary>
+        <img src="/ports/img/cartagena/cartagena-landmark.webp" alt="Fresh Caribbean ceviche with lime and coconut lemonade at Cartagena restaurant" loading="lazy">
+        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+        <p><strong>Ceviche:</strong> Fresh Caribbean seafood in citrus marinade. La Cevicheria (made famous by Anthony Bourdain) serves excellent octopus and shrimp preparations — $50,000-$80,000 COP ($12-$20 USD) per plate. Multiple quality options throughout the walled city.</p>
+        <p><strong>Arepas:</strong> Grilled corn cakes served with cheese, meat, or egg. Street vendors offer them for $3,000-$8,000 COP ($0.75-$2 USD). Essential Colombian street food.</p>
+        <p><strong>Coconut Lemonade:</strong> Limonada de coco — fresh lime juice with coconut milk, served ice cold. The perfect antidote to Caribbean heat. $5,000-$10,000 COP ($1.25-$2.50 USD).</p>
+        <p><strong>Fried Fish:</strong> Fresh-caught whole fish, fried crispy and served with coconut rice and patacones (fried plantains). $30,000-$50,000 COP ($8-$12 USD) at local restaurants.</p>
+        <p><strong>Cafe del Mar:</strong> Legendary bar on the city walls. Mojitos, sunset views, and Caribbean atmosphere. Drinks $25,000-$40,000 COP ($6-$10 USD). Worth the premium for the location and experience.</p>
+      </details>
+<details class="port-section notices" open="">
+        <summary><h2>Important Notices</h2></summary>
+        <p><strong>Safety:</strong> The walled city and Getsemani are safe for tourists during the day with normal precautions. Use official yellow taxis, keep valuables secure, and stay aware of surroundings. Avoid deserted streets after dark outside the main tourist areas.</p>
+        <p><strong>Heat and Hydration:</strong> Cartagena is hot and humid year-round (28-32C / 82-90F). Carry water constantly, wear sunscreen and a hat, and take breaks in shade or air conditioning. Heat exhaustion is a real risk.</p>
+        <p><strong>Street Vendors:</strong> Palenqueras and other vendors may be persistent. A polite "no gracias" works; engaging may lead to extended interactions and requests for tips. Photography tips expected if you take pictures of palenqueras.</p>
+        <p><strong>Return Timing:</strong> Traffic between the walled city and cruise terminal can be unpredictable. Allow 30-45 minutes to return to the ship — do not cut it close.</p>
+      </details>
+<details class="port-section depth-soundings" open="">
+        <summary><h2>Depth Soundings</h2></summary>
+        <img src="/ports/img/cartagena/cartagena-street.webp" alt="Cartagena city walls at sunset with cannons overlooking Caribbean Sea" loading="lazy">
+        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
+        <p>Cartagena was founded in 1533 by Pedro de Heredia on the site of an indigenous Calamari settlement. Within decades, it became the Spanish Empire's most critical New World port — the departure point for galleons laden with Andean gold and silver bound for Seville. This wealth attracted every pirate in the Caribbean. Sir Francis Drake sacked the city in 1586, demanding and receiving an enormous ransom. The Spanish responded by building the most extensive fortifications in South America — walls that took two centuries to complete.</p>
+        <p>The fortress of San Felipe de Barajas, completed in its current form by 1657, represented the pinnacle of military engineering. Its tunnels were designed so that defenders could hear approaching footsteps; its walls angled to deflect cannonballs. British Admiral Edward Vernon arrived in 1741 with a massive amphibious assault force — 186 ships and 27,000 men — and was repulsed by Spanish commander Blas de Lezo with only 6 ships and 3,000 defenders. The siege failed so completely that Vernon retreated in disgrace. Cartagena's walls had proven themselves.</p>
+        <p>Independence came in 1811, but not easily. The city endured a brutal siege by Spanish royalists in 1815 that left thousands dead from starvation. Yet Cartagena persisted. Gabriel Garcia Marquez drew on this history for his magical realism, setting parts of "Love in the Time of Cholera" within these walls. Today the city balances preservation with progress, its UNESCO status protecting the colonial core while modern Bocagrande rises along the peninsula. The layers remain visible: pre-Columbian roots beneath Spanish colonial grandeur beneath Caribbean creativity. Five centuries of stories, all walking these same cobblestones.</p>
+      </details>
+<details class="port-section" id="practical" open="">
+        <summary><h2>Practical Information</h2></summary>
+        <p><strong>Currency:</strong> Colombian Peso (COP). USD accepted at some tourist establishments but at poor rates. ATMs throughout the walled city dispense pesos. Credit cards widely accepted at restaurants and shops.</p>
+        <p><strong>Language:</strong> Spanish. English spoken at tourist sites, hotels, and restaurants in the walled city. Basic Spanish phrases appreciated and helpful for taxis and vendors.</p>
+        <p><strong>Weather:</strong> Tropical climate, hot and humid year-round. Dry season December-April offers slightly less humidity. Rainy season May-November brings afternoon showers that typically clear quickly.</p>
+        <p><strong>Accessibility:</strong> The walled city cobblestone streets challenge wheelchairs and strollers. Some restaurants and museums have stepped entrances. Castillo San Felipe has steep ramps. Getsemani offers somewhat easier terrain. Communicate needs when booking tours.</p>
+        <p><strong>Communications:</strong> WiFi available at restaurants and cafes. Colombian SIM cards sold at shops throughout the city. Cell coverage excellent in tourist areas.</p>
+      </details>
+<details class="port-section gallery" id="gallery">
+        <summary><h2>Photo Gallery</h2></summary>
+        <div class="gallery-grid">
+          <figure><img src="/ports/img/cartagena/cartagena-attraction-1.webp" alt="Bocagrande modern high-rise skyline at sunset in Cartagena, Colombia" loading="lazy"><figcaption>Bocagrande skyline at sunset<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
+          <figure><img src="/ports/img/cartagena/cartagena-street.webp" alt="Colonial street with colorful balconies and bougainvillea in Cartagena old town" loading="lazy"><figcaption>Colonial streets and colorful balconies<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
+          <figure><img src="/ports/img/cartagena/cartagena-landmark.webp" alt="Cartagena Cathedral dome and bell tower rising above colonial rooftops" loading="lazy"><figcaption>Cathedral dominating the skyline<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
+          <figure><img src="/ports/img/cartagena/cartagena-hero.webp" alt="View from Castillo San Felipe showing Cartagena cityscape and Caribbean Sea" loading="lazy"><figcaption>Views from Castillo San Felipe<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
+          <figure><img src="/ports/img/cartagena/cartagena-attraction-3.webp" alt="Lighthouse with palm trees at sunset on the Cartagena waterfront" loading="lazy"><figcaption>Cartagena lighthouse at sunset<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
+          <figure><img src="/ports/img/cartagena/cartagena-food.webp" alt="Plaza de la Trinidad in Getsemani with evening crowds and colonial church" loading="lazy"><figcaption>Plaza de la Trinidad at dusk<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
+          <figure><img src="/ports/img/cartagena/cartagena-hero.webp" alt="Stone tunnel interior inside Castillo San Felipe de Barajas fortress" loading="lazy"><figcaption>Acoustic tunnels of San Felipe<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
+          <figure><img src="/ports/img/cartagena/cartagena-hero.webp" alt="Sunset over Caribbean Sea from Cartagena city walls with cannon silhouette" loading="lazy"><figcaption>Sunset from the city walls<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
+          <figure><img src="/ports/img/cartagena/cartagena-hero.webp" alt="Hidden colonial courtyard with fountain and tropical plants in walled city" loading="lazy"><figcaption>Hidden courtyards throughout the city<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
+          <figure><img src="/ports/img/cartagena/cartagena-hero.webp" alt="Modern Bocagrande skyline from harbor with cruise ship in foreground" loading="lazy"><figcaption>Modern Bocagrande from the harbor<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
+        </div>
+      </details>
+<details class="port-section faq" id="faq">
+        <summary><h2>Frequently Asked Questions</h2></summary>
+        <p><strong>Q: Is Cartagena worth visiting on a cruise?</strong><br>A: Emphatically yes. Cartagena ranks among the Western Hemisphere's most striking cruise ports. The UNESCO walled city, Castillo San Felipe, and Getsemani offer extraordinary experiences that consistently surprise visitors.</p>
+        <p><strong>Q: How much time do you need?</strong><br>A: A full port day (6-8 hours) allows thorough exploration of the walled city and Castillo San Felipe. Many visitors wish they had overnight to experience the city at night when the plazas come alive with music and dancing.</p>
+        <p><strong>Q: Is Cartagena safe?</strong><br>A: The walled city and Getsemani are safe for tourists during daylight with normal precautions. Use official taxis, stay aware of your surroundings, and keep valuables secure. Like any major city, exercise caution in unfamiliar areas after dark.</p>
+        <p><strong>Q: Can you walk from the cruise port?</strong><br>A: No. The terminal is too far from attractions, and the route passes through non-tourist areas. Take a taxi ($2-$4 USD) or ship shuttle.</p>
+        <p><strong>Q: What should I wear?</strong><br>A: Light, breathable clothing for the heat. Comfortable walking shoes essential for cobblestones. Sun hat and sunscreen critical. Modest dress appropriate for churches if you plan to enter.</p>
+        <p><strong>Q: Should I book a ship excursion or go independent?</strong><br>A: Go independent. Cartagena is easily navigated, guides are available at the clock tower, and taxis are inexpensive. Ship excursions are significantly more expensive for essentially the same experience.</p>
+      </details>
+<p class="last-reviewed">Last reviewed: February 2026</p>
+<details class="port-section logbook" open="">
         <summary><h2>Captain's Logbook</h2></summary>
         <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
       <nav class="from-the-pier" id="from-the-pier" aria-label="Travel times from Cartagena Colombia cruise terminal">
@@ -155,139 +259,20 @@ Soli Deo Gloria
         </div>
     </details>
       </details>
-
-      <details class="port-section cruise-port" open="">
-        <summary><h2>Cruise Port</h2></summary>
-        <img src="/ports/img/cartagena/cartagena-harbor.webp" alt="Cartagena cruise terminal with large ships docked and modern Bocagrande skyline in background" loading="lazy">
-        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
-        <p><strong>Terminal Location:</strong> The Cartagena cruise terminal sits in the modern port area, separate from the walled city. You cannot walk to attractions — the terminal is approximately 10-15 minutes by taxi from the historic center. Official yellow taxis and cruise shuttle services wait at the terminal.</p>
-        <p><strong>Terminal Facilities:</strong> The terminal has basic amenities including restrooms, tourist information, and money exchange (rates better in town). WiFi available but unreliable. Arrange transportation before leaving the terminal — it is easier than finding transport later.</p>
-        <p><strong>Getting to the Walled City:</strong> Taxis cost approximately $10,000-$15,000 COP ($2.50-$4 USD) one way. Negotiate before departing. Ship-organized shuttles are more expensive but may be more convenient for first-timers. Uber works but drivers sometimes cannot access the terminal.</p>
-      </details>
-
-      <details class="port-section getting-around" open="">
-        <summary><h2>Getting Around</h2></summary>
-        <img src="/ports/img/cartagena/cartagena-street.webp" alt="Narrow cobblestone street with colorful colonial buildings and wooden balconies in Cartagena walled city" loading="lazy">
-        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
-        <p><strong>Walking:</strong> Once inside the walled city, everything is walkable. The old town is compact — you can cross it in 20 minutes — but plan to wander slowly and get deliberately lost in the beautiful maze. Cobblestones are uneven; wear sturdy, comfortable shoes. The walls themselves offer a walking path with spectacular views. Moderate stamina level due to heat and humidity; go slow and stay hydrated. Wheelchair access limited in the historic center due to cobblestones and curbs.</p>
-        <p><strong>Castillo San Felipe:</strong> Located outside the walls, about a 15-minute walk or short taxi ($5,000-$8,000 COP, $1.50-$2 USD) from the clock tower. The climb to the top is steep and hot — high stamina level. Worth every step for the views and tunnel exploration.</p>
-        <p><strong>Getsemani:</strong> Adjacent to the walled city, just outside the walls through Plaza de la Trinidad. Easy walking distance from the historic center. Lower stamina level — flat streets, more shade. Safe during the day; exercise caution after dark in less-trafficked areas.</p>
-        <p><strong>Taxis:</strong> Official yellow taxis are safe and inexpensive. Always negotiate the fare before departing — most rides within the tourist areas cost $8,000-$15,000 COP ($2-$4 USD). Drivers speak limited English; have your destination written down.</p>
-        <p><strong>Heat Strategy:</strong> Cartagena is hot and humid year-round. Explore in the morning, find shade and air conditioning during midday, and return to walking in late afternoon. Carry water constantly. The best light for photography is golden hour before sunset.</p>
-      </details>
-
-      <details class="port-section map" open="">
-        <summary><h2>Port Map</h2></summary>
-        <div id="port-map" style="height: 400px; border-radius: 8px;"></div>
-        <p class="map-intro">Interactive map showing cruise terminal, walled city, Castillo San Felipe, Getsemani, and key attractions.</p>
-      </details>
-
-      <details class="port-section excursions" open="">
-        <summary><h2>Shore Excursions</h2></summary>
-        <img src="/ports/img/cartagena/cartagena-hero.webp" alt="Castillo San Felipe de Barajas stone fortress walls and ramps under Caribbean sun" loading="lazy">
-        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
-        <h3>Walled City Walking Tour</h3>
-        <p>Essential Cartagena experience. Walk through the clock tower gate, explore colonial plazas, visit the cathedral, and discover hidden courtyards. Guides explain 500 years of stories — conquistadors, pirates, independence struggles. Ship excursions $50-$80 USD; independent guides at the clock tower charge $20-$40 USD for 2-3 hour tours. Go independent for flexibility and personal attention. Book ahead not required — guides available at the clock tower. Moderate stamina level due to heat and cobblestones. Allow 2-3 hours minimum.</p>
-        <h3>Castillo San Felipe de Barajas</h3>
-        <p>The largest Spanish colonial fortress in the Americas. Explore tunnels designed for acoustic surveillance, climb to panoramic viewpoints, and understand the engineering that made this fortress unconquerable. Entry $25,000 COP (about $6 USD). Guided tours available at the entrance add significant context ($20,000-$30,000 COP additional). Ship excursions combine with city tour for $80-$120 USD. Go independent for better value. Book ahead not required. High stamina level — steep ramps, hot sun, limited shade. Allow 1.5-2 hours. Bring water.</p>
-        <h3>Getsemani Street Art Tour</h3>
-        <p>Cartagena's bohemian neighborhood outside the walls. Discover murals celebrating Afro-Colombian heritage, visit artisan workshops, and experience the creative soul of modern Cartagena. Some ship excursions include this; independent walking is free and rewarding. Best combined with afternoon Plaza de la Trinidad atmosphere. Go independent for authentic experience. Low-moderate stamina level. Allow 1-2 hours.</p>
-        <h3>Museums and Culture</h3>
-        <p>The Gold Museum (Museo del Oro Zenu) displays pre-Columbian artifacts — free admission. The Palace of the Inquisition offers dark history with original instruments and local context — $10,000 COP entry (about $2.50 USD). Both located within the walled city. Go independent — easy to visit between wandering. Low stamina level in air-conditioned museums. Allow 30-45 minutes each.</p>
-        <h3>Rosario Islands Day Trip</h3>
-        <p>Caribbean island escape for swimming and snorkeling. Boats depart from the tourist pier inside the walled city. Full-day trips $80,000-$150,000 COP ($20-$40 USD) including lunch and snorkel equipment. Ship excursions charge $120-$180 USD for similar experiences. Go independent with boat operators at the pier. Book ahead recommended during peak season. Low-moderate stamina level — mostly relaxing on the water. Requires full port day commitment — 8-10 hours. Only choose this option if your ship has a full port day — the walled city deserves your attention on shorter stops.</p>
-        <h3>Horse-Drawn Carriage Tour</h3>
-        <p>Classic way to see the walled city if walking is challenging. Carriages depart from Plaza de los Coches. Negotiate price before boarding — expect $80,000-$120,000 COP ($20-$30 USD) for a 45-minute circuit. Romantic at night. Low stamina level. No advance booking required.</p>
-      </details>
-
-      <details class="port-section food" open="">
-        <summary><h2>Local Flavors</h2></summary>
-        <img src="/ports/img/cartagena/cartagena-landmark.webp" alt="Fresh Caribbean ceviche with lime and coconut lemonade at Cartagena restaurant" loading="lazy">
-        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
-        <p><strong>Ceviche:</strong> Fresh Caribbean seafood in citrus marinade. La Cevicheria (made famous by Anthony Bourdain) serves excellent octopus and shrimp preparations — $50,000-$80,000 COP ($12-$20 USD) per plate. Multiple quality options throughout the walled city.</p>
-        <p><strong>Arepas:</strong> Grilled corn cakes served with cheese, meat, or egg. Street vendors offer them for $3,000-$8,000 COP ($0.75-$2 USD). Essential Colombian street food.</p>
-        <p><strong>Coconut Lemonade:</strong> Limonada de coco — fresh lime juice with coconut milk, served ice cold. The perfect antidote to Caribbean heat. $5,000-$10,000 COP ($1.25-$2.50 USD).</p>
-        <p><strong>Fried Fish:</strong> Fresh-caught whole fish, fried crispy and served with coconut rice and patacones (fried plantains). $30,000-$50,000 COP ($8-$12 USD) at local restaurants.</p>
-        <p><strong>Cafe del Mar:</strong> Legendary bar on the city walls. Mojitos, sunset views, and Caribbean atmosphere. Drinks $25,000-$40,000 COP ($6-$10 USD). Worth the premium for the location and experience.</p>
-      </details>
-
-      <details class="port-section notices" open="">
-        <summary><h2>Important Notices</h2></summary>
-        <p><strong>Safety:</strong> The walled city and Getsemani are safe for tourists during the day with normal precautions. Use official yellow taxis, keep valuables secure, and stay aware of surroundings. Avoid deserted streets after dark outside the main tourist areas.</p>
-        <p><strong>Heat and Hydration:</strong> Cartagena is hot and humid year-round (28-32C / 82-90F). Carry water constantly, wear sunscreen and a hat, and take breaks in shade or air conditioning. Heat exhaustion is a real risk.</p>
-        <p><strong>Street Vendors:</strong> Palenqueras and other vendors may be persistent. A polite "no gracias" works; engaging may lead to extended interactions and requests for tips. Photography tips expected if you take pictures of palenqueras.</p>
-        <p><strong>Return Timing:</strong> Traffic between the walled city and cruise terminal can be unpredictable. Allow 30-45 minutes to return to the ship — do not cut it close.</p>
-      </details>
-
-      <details class="port-section depth-soundings" open="">
-        <summary><h2>Depth Soundings</h2></summary>
-        <img src="/ports/img/cartagena/cartagena-street.webp" alt="Cartagena city walls at sunset with cannons overlooking Caribbean Sea" loading="lazy">
-        <div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div>
-        <p>Cartagena was founded in 1533 by Pedro de Heredia on the site of an indigenous Calamari settlement. Within decades, it became the Spanish Empire's most critical New World port — the departure point for galleons laden with Andean gold and silver bound for Seville. This wealth attracted every pirate in the Caribbean. Sir Francis Drake sacked the city in 1586, demanding and receiving an enormous ransom. The Spanish responded by building the most extensive fortifications in South America — walls that took two centuries to complete.</p>
-        <p>The fortress of San Felipe de Barajas, completed in its current form by 1657, represented the pinnacle of military engineering. Its tunnels were designed so that defenders could hear approaching footsteps; its walls angled to deflect cannonballs. British Admiral Edward Vernon arrived in 1741 with a massive amphibious assault force — 186 ships and 27,000 men — and was repulsed by Spanish commander Blas de Lezo with only 6 ships and 3,000 defenders. The siege failed so completely that Vernon retreated in disgrace. Cartagena's walls had proven themselves.</p>
-        <p>Independence came in 1811, but not easily. The city endured a brutal siege by Spanish royalists in 1815 that left thousands dead from starvation. Yet Cartagena persisted. Gabriel Garcia Marquez drew on this history for his magical realism, setting parts of "Love in the Time of Cholera" within these walls. Today the city balances preservation with progress, its UNESCO status protecting the colonial core while modern Bocagrande rises along the peninsula. The layers remain visible: pre-Columbian roots beneath Spanish colonial grandeur beneath Caribbean creativity. Five centuries of stories, all walking these same cobblestones.</p>
-      </details>
-
-      <details class="port-section" id="practical" open="">
-        <summary><h2>Practical Information</h2></summary>
-        <p><strong>Currency:</strong> Colombian Peso (COP). USD accepted at some tourist establishments but at poor rates. ATMs throughout the walled city dispense pesos. Credit cards widely accepted at restaurants and shops.</p>
-        <p><strong>Language:</strong> Spanish. English spoken at tourist sites, hotels, and restaurants in the walled city. Basic Spanish phrases appreciated and helpful for taxis and vendors.</p>
-        <p><strong>Weather:</strong> Tropical climate, hot and humid year-round. Dry season December-April offers slightly less humidity. Rainy season May-November brings afternoon showers that typically clear quickly.</p>
-        <p><strong>Accessibility:</strong> The walled city cobblestone streets challenge wheelchairs and strollers. Some restaurants and museums have stepped entrances. Castillo San Felipe has steep ramps. Getsemani offers somewhat easier terrain. Communicate needs when booking tours.</p>
-        <p><strong>Communications:</strong> WiFi available at restaurants and cafes. Colombian SIM cards sold at shops throughout the city. Cell coverage excellent in tourist areas.</p>
-      </details>
-
-      
-
-      <details class="port-section" id="weather-guide" aria-label="Weather and Best Time to Visit" open="">
-        <details class="section-collapse" open="">
-          <summary><h2>Weather &amp; Best Time to Visit</h2></summary>
-          <div class="collapse-body">
-            <div id="port-weather-widget" data-port-id="cartagena" data-port-name="Cartagena" data-lat="10.391" data-lon="-75.4794" data-region="Caribbean">
-              <noscript><p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions, seasonal guide, and 48-hour forecast.</em></p></noscript>
-            </div>
-          </div>
-        </details>
-      </details>
-
-      <details class="port-section" id="depth-soundings" open="">
+<details class="port-section" id="depth-soundings" open="">
       <summary><h2>Depth Soundings</h2></summary>
       <p><strong>Money:</strong> The local currency is Colombian Peso (COP). ATMs are generally available near the port area, though fees vary. Credit cards are widely accepted at tourist-oriented establishments, but carry some local cash for markets, street food, and smaller vendors. Your ship's exchange rate is typically unfavorable — withdraw from a bank ATM instead. Budget $30–$80 per person for a comfortable day including lunch, transport, and a few entry fees.</p>
       <p><strong>Timing:</strong> Start early if your ship arrives at dawn — the first hours offer pleasant conditions and smaller crowds. Allow at least 30 minutes buffer before all-aboard time. Set a phone alarm as backup. Most port visits allow 8–10 hours on shore, which is enough to see the highlights without rushing if you prioritize well.</p>
       <p><strong>Safety:</strong> Standard port-town awareness applies — keep valuables close and stick to well-traveled areas during daylight. Your ship's ID card is your most important item — losing it creates a genuine headache at the gangway. Stay in the Walled City, Getsemaní, and Bocagrande — these well-patrolled tourist areas are generally safe and walkable.</p>
       <p><strong>Communication:</strong> Wi-Fi is often available at cafés and restaurants near the port. Consider downloading offline maps before disembarking — cellular data roaming charges can be substantial and surprising. Google Maps offline mode or Maps.me work well for navigation without data.</p>
       <p><strong>Food &amp; Water:</strong> Tap water safety varies by destination — ask locally or buy bottled water to be safe. The best food often comes from busy local restaurants rather than tourist-facing spots near the port. Lunch at a popular local place typically costs $8–$20 per person. Street food can be excellent value if you choose busy stalls with high turnover.</p>
-    </details><details class="port-section gallery" id="gallery">
-        <summary><h2>Photo Gallery</h2></summary>
-        <div class="gallery-grid">
-          <figure><img src="/ports/img/cartagena/cartagena-attraction-1.webp" alt="Bocagrande modern high-rise skyline at sunset in Cartagena, Colombia" loading="lazy"><figcaption>Bocagrande skyline at sunset<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
-          <figure><img src="/ports/img/cartagena/cartagena-street.webp" alt="Colonial street with colorful balconies and bougainvillea in Cartagena old town" loading="lazy"><figcaption>Colonial streets and colorful balconies<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
-          <figure><img src="/ports/img/cartagena/cartagena-landmark.webp" alt="Cartagena Cathedral dome and bell tower rising above colonial rooftops" loading="lazy"><figcaption>Cathedral dominating the skyline<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
-          <figure><img src="/ports/img/cartagena/cartagena-hero.webp" alt="View from Castillo San Felipe showing Cartagena cityscape and Caribbean Sea" loading="lazy"><figcaption>Views from Castillo San Felipe<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
-          <figure><img src="/ports/img/cartagena/cartagena-attraction-3.webp" alt="Lighthouse with palm trees at sunset on the Cartagena waterfront" loading="lazy"><figcaption>Cartagena lighthouse at sunset<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
-          <figure><img src="/ports/img/cartagena/cartagena-food.webp" alt="Plaza de la Trinidad in Getsemani with evening crowds and colonial church" loading="lazy"><figcaption>Plaza de la Trinidad at dusk<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
-          <figure><img src="/ports/img/cartagena/cartagena-hero.webp" alt="Stone tunnel interior inside Castillo San Felipe de Barajas fortress" loading="lazy"><figcaption>Acoustic tunnels of San Felipe<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
-          <figure><img src="/ports/img/cartagena/cartagena-hero.webp" alt="Sunset over Caribbean Sea from Cartagena city walls with cannon silhouette" loading="lazy"><figcaption>Sunset from the city walls<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
-          <figure><img src="/ports/img/cartagena/cartagena-hero.webp" alt="Hidden colonial courtyard with fountain and tropical plants in walled city" loading="lazy"><figcaption>Hidden courtyards throughout the city<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
-          <figure><img src="/ports/img/cartagena/cartagena-hero.webp" alt="Modern Bocagrande skyline from harbor with cruise ship in foreground" loading="lazy"><figcaption>Modern Bocagrande from the harbor<div class="photo-credit">Photo: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a></div></figcaption></figure>
-        </div>
-      </details><details class="port-section faq" id="faq">
-        <summary><h2>Frequently Asked Questions</h2></summary>
-        <p><strong>Q: Is Cartagena worth visiting on a cruise?</strong><br>A: Emphatically yes. Cartagena ranks among the Western Hemisphere's most striking cruise ports. The UNESCO walled city, Castillo San Felipe, and Getsemani offer extraordinary experiences that consistently surprise visitors.</p>
-        <p><strong>Q: How much time do you need?</strong><br>A: A full port day (6-8 hours) allows thorough exploration of the walled city and Castillo San Felipe. Many visitors wish they had overnight to experience the city at night when the plazas come alive with music and dancing.</p>
-        <p><strong>Q: Is Cartagena safe?</strong><br>A: The walled city and Getsemani are safe for tourists during daylight with normal precautions. Use official taxis, stay aware of your surroundings, and keep valuables secure. Like any major city, exercise caution in unfamiliar areas after dark.</p>
-        <p><strong>Q: Can you walk from the cruise port?</strong><br>A: No. The terminal is too far from attractions, and the route passes through non-tourist areas. Take a taxi ($2-$4 USD) or ship shuttle.</p>
-        <p><strong>Q: What should I wear?</strong><br>A: Light, breathable clothing for the heat. Comfortable walking shoes essential for cobblestones. Sun hat and sunscreen critical. Modest dress appropriate for churches if you plan to enter.</p>
-        <p><strong>Q: Should I book a ship excursion or go independent?</strong><br>A: Go independent. Cartagena is easily navigated, guides are available at the clock tower, and taxis are inexpensive. Ship excursions are significantly more expensive for essentially the same experience.</p>
-      </details>
-
-      <aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
+    </details>
+<aside class="card" style="background:#fffbf0;border-left:4px solid #d4a574;">
         <h3>Author's Note</h3>
         <p class="tiny" style="line-height:1.6;color:#5a4a3a;">I have sailed this port myself, walked these walls, and these notes come from my own wake. The details reflect what I found on the ground, though ports change — always verify current conditions for your voyage.</p>
       </aside>
-
-      <p class="mt-2"><a href="/ports.html">← Back to Ports Guide</a></p>
-      </article>
+<p class="mt-2"><a href="/ports.html">← Back to Ports Guide</a></p>
+</article>
     </div>
 
     <aside class="rail" style="grid-column: 2; grid-row: 1; align-self: start;">
@@ -395,7 +380,7 @@ Soli Deo Gloria
 </main>
 
   <footer class="site-footer">
-    <p>© 2025 In the Wake. All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake. All rights reserved.</p>
     <nav aria-label="Footer navigation"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/about-us.html">About</a></nav>
     <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>

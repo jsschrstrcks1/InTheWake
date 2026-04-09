@@ -352,7 +352,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <body class="page">
   <!-- Skip Link -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -473,6 +473,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Majesty of the Seas was a Sovereign Class cruise ship operated by Royal Caribbean from 1992 to 2020. She entered service in April 1992, measured 73,941 gross tons, and carried approximately 2,350 guests at double occupancy.</p>
+
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Sovereign Class</li>
+          <li><strong>Year:</strong> 1992</li>
+          <li><strong>Tonnage:</strong> 73,941 GT</li>
+          <li><strong>Guests:</strong> 2,350</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
         <strong class="section-label">Looking for Majesty of the Seas info?</strong>
@@ -673,7 +683,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
-      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+      <div id="videoFallback" class="tiny hidden">No video content is available for this ship.</div>
     </section>
 
     <!-- Row: Deck Plans + Live Tracker -->
@@ -850,7 +860,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- FOOTER -->
     <footer class="wrap" role="contentinfo">
-    <p>© 2026 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
@@ -950,8 +960,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         const title=String(v.title||'Majesty of the Seas').replace(/</g,'&lt;');
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
-      if(mount.children.length&&window.__swiperReady&&window.Swiper){
-        setTimeout(()=>{
+      function initSwiper(){
+        if(mount.children.length&&window.Swiper){
           try{
             new Swiper('.swiper.videos',{
               loop:false,rewind:false,lazy:true,watchOverflow:true,
@@ -960,8 +970,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
               a11y:{enabled:true}
             });
           }catch(_){}
-        },150);
+        }else if(mount.children.length){
+          if(!initSwiper._t) initSwiper._t=0;
+          if(initSwiper._t++<20) setTimeout(initSwiper,300);
+          else if(fallback) fallback.classList.remove('hidden');
+        }
       }
+      if(mount.children.length) setTimeout(initSwiper,150);
     }
     function fetchVideoData(){
       const SOURCES=[abs('/assets/data/videos/rcl/majesty-of-the-seas.json'),abs('/ships/rcl/assets/majesty-of-the-seas-videos.json')];
@@ -969,7 +984,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
     }
-    fetchVideoData().then(data=>{ if(data) renderVideos(data.videos||data); });
+    fetchVideoData().then(data=>{if(data){const v=data.videos||data;renderVideos(Array.isArray(v)?v:Object.values(v).flat());}});
   })();
   </script>
 
@@ -1034,12 +1049,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
       const byCategory={};
       venues.forEach(v=>{
-        const cat=v.category||'other';
+        let cat=v.category||'other';
+        if(cat==='dining'&&v.subcategory){cat=v.subcategory==='specialty'?'specialty':v.subcategory==='complimentary'?'mdr':cat;}
         if(!byCategory[cat]) byCategory[cat]=[];
         byCategory[cat].push(v);
       });
       const catOrder=['mdr','specialty','casual','bar'];
-      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
+      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',bars:'Bars & Lounges',dining:'Dining',activities:'Activities',entertainment:'Entertainment',neighborhoods:'Neighborhoods',other:'Other Venues'};
       let html='';
       catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
         const arr=byCategory[cat]; if(!arr) return;

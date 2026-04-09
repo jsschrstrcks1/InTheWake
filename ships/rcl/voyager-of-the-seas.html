@@ -145,7 +145,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         "url": "https://www.royalcaribbean.com"
       },
       "url": "https://cruisinginthewake.com/ships/rcl/voyager-of-the-seas.html",
-      "description": "A Voyager-class ship operated by Royal Caribbean International, offering worldwide itineraries and panoramic ocean views.",
+      "description": "A Voyager Class ship operated by Royal Caribbean International, offering worldwide itineraries and panoramic ocean views.",
       "image": "https://cruisinginthewake.com/assets/ships/voyager-of-the-seas1.jpeg"
     }
   }
@@ -347,7 +347,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <body class="page">
   <!-- Skip Link -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -468,6 +468,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Voyager of the Seas is a Voyager Class cruise ship operated by Royal Caribbean. She entered service in 1999, measures 138,194 gross tons, and carries approximately 3,286 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Voyager Class</li>
+          <li><strong>Year:</strong> 1999</li>
+          <li><strong>Tonnage:</strong> 138,194 GT</li>
+          <li><strong>Guests:</strong> 3,286</li>
+          <li><strong>IMO:</strong> 9161716</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Voyager of the Seas (138,194 GT | 3,286 guests | 1999) is the original Voyager Class ship that introduced the Royal Promenade — the first cruise ship with an interior boulevard, rock-climbing wall, and ice-skating rink. This page covers deck plans, live tracking, dining venues, and videos.
@@ -478,7 +488,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </p>
 
       <p class="content-text">
-        Voyager of the Seas tends to suit travelers who prefer mid-sized ships with the iconic Royal Promenade, ice skating rink, and rock climbing wall that revolutionized cruising.
+        Voyager of the Seas tends to suit travelers who prefer mid-sized ships with the notable Royal Promenade, ice skating rink, and rock climbing wall that revolutionized cruising.
         It's ideal if you want Royal Caribbean's signature service and entertainment without the massive scale of mega-ships like Oasis or Icon class.
         If you're looking for the absolute newest venues, cutting-edge technology, or neighborhood layouts, you may want to explore Quantum, Oasis, or Icon class instead.
       </p>
@@ -875,7 +885,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- FOOTER -->
     <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
@@ -975,8 +985,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         const title=String(v.title||'Voyager of the Seas').replace(/</g,'&lt;');
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
-      if(mount.children.length&&window.__swiperReady&&window.Swiper){
-        setTimeout(()=>{
+      function initSwiper(){
+        if(mount.children.length&&window.Swiper){
           try{
             new Swiper('.swiper.videos',{
               loop:false,rewind:false,lazy:true,watchOverflow:true,
@@ -985,8 +995,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
               a11y:{enabled:true}
             });
           }catch(_){}
-        },150);
+        }else if(mount.children.length){
+          if(!initSwiper._t) initSwiper._t=0;
+          if(initSwiper._t++<20) setTimeout(initSwiper,300);
+          else if(fallback) fallback.classList.remove('hidden');
+        }
       }
+      if(mount.children.length) setTimeout(initSwiper,150);
     }
     function fetchVideoData(){
       const SOURCES=[abs('/assets/data/videos/rcl/voyager-of-the-seas.json'),abs('/ships/rcl/assets/voyager-of-the-seas-videos.json')];
@@ -994,7 +1009,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
     }
-    fetchVideoData().then(data=>{ if(data) renderVideos(data.videos||data); });
+    fetchVideoData().then(data=>{if(data){const v=data.videos||data;renderVideos(Array.isArray(v)?v:Object.values(v).flat());}});
   })();
   </script>
 
@@ -1059,12 +1074,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
       const byCategory={};
       venues.forEach(v=>{
-        const cat=v.category||'other';
+        let cat=v.category||'other';
+        if(cat==='dining'&&v.subcategory){cat=v.subcategory==='specialty'?'specialty':v.subcategory==='complimentary'?'mdr':cat;}
         if(!byCategory[cat]) byCategory[cat]=[];
         byCategory[cat].push(v);
       });
       const catOrder=['mdr','specialty','casual','bar'];
-      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
+      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',bars:'Bars & Lounges',dining:'Dining',activities:'Activities',entertainment:'Entertainment',neighborhoods:'Neighborhoods',other:'Other Venues'};
       let html='';
       catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
         const arr=byCategory[cat]; if(!arr) return;
@@ -1105,7 +1121,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&zoom=10&track=true&names=true';
+    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&lat=-30.0&lon=148.0&zoom=5&track=true&names=true';
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
   })();

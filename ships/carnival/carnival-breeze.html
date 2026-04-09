@@ -70,7 +70,7 @@
 </script>
 
 <!-- JSON-LD: Review -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Breeze","brand":{"@type":"Organization","name":"Carnival Cruise Line"},"vehicleIdentificationNumber":"IMO 9548450"},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Breeze perfected the Dream-class formula for Texas cruisers. Her Galveston homeport makes Caribbean cruising accessible to millions while delivering the full Fun Ship experience.","datePublished":"2025-12-03"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Dream-class ship operated by Carnival Cruise Line.","name":"Carnival Breeze","brand":{"@type":"Organization","name":"Carnival Cruise Line"},"vehicleIdentificationNumber":"IMO 9548450"},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Breeze perfected the Dream-class formula for Texas cruisers. Her Galveston homeport makes Caribbean cruising accessible to millions while delivering the full Fun Ship experience.","datePublished":"2025-12-03"}</script>
 
 <!-- JSON-LD: Person (E-E-A-T) -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","url":"https://cruisinginthewake.com/authors/ken-baker.html","jobTitle":"Cruise Research Analyst","worksFor":{"@type":"Organization","name":"In the Wake"},"description":"Cruise analyst specializing in ship comparisons and fleet evolution.","knowsAbout":["Carnival Cruise Line","Dream-class Ships","Texas Cruising"]}</script>
@@ -199,9 +199,10 @@
     addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
   })();
   </script>
+  <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
   <header class="hero-header ship-page" role="banner">
@@ -602,7 +603,7 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" class="section-labe
 
 <footer role="contentinfo">
   <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
-  <p>© 2025 In the Wake. All rights reserved.</p>
+  <p>© <script>document.write(new Date().getFullYear())</script> In the Wake. All rights reserved.</p>
   <p class="mt-1"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/accessibility.html">Accessibility</a></p>
   <p class="hidden">Soli Deo Gloria</p>
   <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
@@ -776,7 +777,7 @@ document.addEventListener('DOMContentLoaded',function(){
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
     }
-    fetchVideoData().then(data=>{ if(data) renderVideos(data.videos||data); });
+    fetchVideoData().then(data=>{if(data){const v=data.videos||data;renderVideos(Array.isArray(v)?v:Object.values(v).flat());}});
   })();
   </script>
 
@@ -878,7 +879,7 @@ document.addEventListener('DOMContentLoaded',function(){
     iframe.style.cssText = 'width:100%;height:100%;border:0;';
     iframe.title = 'Live ship tracker for ' + card.getAttribute('data-name');
     iframe.setAttribute('loading', 'lazy');
-    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&zoom=10&track=true&names=true';
+    iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&lat=20.0&lon=-75.0&zoom=4&track=true&names=true';
     wrapper.appendChild(iframe);
     container.appendChild(wrapper);
   })();

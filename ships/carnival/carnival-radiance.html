@@ -290,14 +290,15 @@
   addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
 })();
 </script>
+  <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </head>
 <body class="page">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
   <!-- ARIA Live Regions for Accessibility -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
   <header class="hero-header ship-page" role="banner">
     <div class="navbar">
       <div class="brand">
@@ -404,6 +405,16 @@
     <section class="page-intro" aria-label="Carnival Radiance overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Carnival Radiance is a Sunshine Class cruise ship operated by Carnival Cruise Line. She entered service in 2022, measures 102,000 gross tons, and carries approximately 2,984 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Destiny-class</li>
+          <li><strong>Year:</strong> 2022</li>
+          <li><strong>Tonnage:</strong> 102,000 GT</li>
+          <li><strong>Guests:</strong> 2,984</li>
+          <li><strong>IMO:</strong> 9362223</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Carnival Radiance (102,000 GT | 2,984 guests | 2022) is a fully transformed ship (formerly Carnival Victory) with a new name and complete interior overhaul — the latest Sunshine-class conversion with modern Carnival dining and bars. This page covers deck plans, live tracking, dining venues, and videos.
@@ -768,7 +779,7 @@ Features & Dining</h2>
 
   <footer role="contentinfo">
     <p><strong>In the Wake</strong> — A Cruise Encyclopedia & Planning Guide</p>
-    <p class="tiny">© 2025 In the Wake. All rights reserved. Not affiliated with Carnival Corporation.</p>
+    <p class="tiny">© <script>document.write(new Date().getFullYear())</script> In the Wake. All rights reserved. Not affiliated with Carnival Corporation.</p>
     <p class="tiny" style="margin-top: 0.75rem;">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
@@ -809,7 +820,7 @@ Features & Dining</h2>
   function initFirstLook(){
     const el=document.getElementById('photo-swiper');
     if(!el||typeof Swiper==='undefined') return;
-    new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+    new Swiper(el,{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
   </script>
@@ -838,7 +849,7 @@ Features & Dining</h2>
         if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
         else if(Array.isArray(d.videos)) vids=d.videos;
         if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
-        new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+        new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
       }).catch(()=>{});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();

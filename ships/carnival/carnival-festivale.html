@@ -198,7 +198,7 @@ if ('serviceWorker' in navigator) {
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/carnival-festivale.jpg"/>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Carnival Festivale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Festivale is a Excel Class vessel from Carnival Cruise Line, offering memorable cruise experiences with excellent amenities and service."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Excel Class ship operated by Carnival Cruise Line.","name":"Carnival Festivale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival Festivale is a Excel Class vessel from Carnival Cruise Line, offering memorable cruise experiences with excellent amenities and service."}</script>
 
   
   <!-- Google Analytics -->
@@ -275,7 +275,7 @@ if ('serviceWorker' in navigator) {
 </head>
 
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 
 <!-- ARIA Live Regions for Accessibility -->
 <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -288,7 +288,7 @@ if ('serviceWorker' in navigator) {
         <img src="/assets/logo_wake_256.png"
              srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x"
              width="256" height="259"
-             alt="In the Wake - Home"
+             alt="In the Wake - Home image"
              decoding="async" loading="eager" fetchpriority="high"/>
       </a>
 </div>
@@ -397,6 +397,18 @@ if ('serviceWorker' in navigator) {
     <section class="card" aria-labelledby="overview-title">
       <h2 id="overview-title">Ship Overview</h2>
 
+      <p class="answer-line"><strong>Looking for Carnival Festivale info?</strong> Carnival Festivale is an upcoming Excel-class mega-ship (2027) reviving a beloved Carnival name with LNG power and BOLT coaster.</p>
+
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Excel Class</li>
+          <li><strong>Year:</strong> 2027 (TBN)</li>
+          <li><strong>Tonnage:</strong> ~182,800 GT</li>
+          <li><strong>Guests:</strong> ~5,300</li>
+        </ul>
+      </div>
+
       <p><strong>Carnival Festivale</strong> will be the fourth Excel-class mega-ship in Carnival Cruise Line's fleet, scheduled to debut in <strong>2027</strong>. The name pays homage to one of Carnival's original "Fun Ships" — the first Festivale served from 1977 to 1996 and helped establish Carnival's identity as the pioneer of fun, affordable cruising.</p>
 
       <p>As an Excel-class vessel, Festivale will feature <strong>LNG (liquefied natural gas) propulsion</strong> for cleaner operations, the <strong>BOLT: Ultimate Sea Coaster</strong>, and an array of dining, entertainment, and accommodation options that have made her sister ships industry leaders.</p>
@@ -416,7 +428,7 @@ if ('serviceWorker' in navigator) {
            loading="lazy"
            style="width:100%;border-radius:8px;margin:1rem 0;"
            onerror="this.style.display='none'"/>
-      <p>As an Excel-class vessel, Carnival Festivale is expected to feature over <strong>20 dining venues</strong> spanning casual eateries, specialty restaurants, and world-class partnerships. Look for favorites from Guy Fieri, Emeril Lagasse, and Shaquille O'Neal's Big Chicken, alongside classic Carnival dining options like the main dining room, Lido Marketplace, and Ji Ji Asian Kitchen.</p>
+      <p>As an Excel-class vessel, Carnival Festivale is expected to feature over <strong>20 dining venues</strong> spanning casual eateries, specialty restaurants, and exceptional partnerships. Look for favorites from Guy Fieri, Emeril Lagasse, and Shaquille O'Neal's Big Chicken, alongside classic Carnival dining options like the main dining room, Lido Marketplace, and Ji Ji Asian Kitchen.</p>
       <p>Final restaurant lineup and menus will be confirmed closer to the ship's 2027 debut.</p>
     </section>
 <script type="application/json" id="dining-data-source">{"provider":"carnival","json":"/assets/data/venues-v2.json","ship_slug":"carnival-festivale","aliases":["Carnival Festivale"]}</script>
@@ -468,7 +480,7 @@ if ('serviceWorker' in navigator) {
       <div class="sister-grid">
         <a href="/ships/carnival/carnival-mardi-gras.html" class="sister-card">
           <img src="/assets/ships/carnival-mardi-gras-thumb.webp"
-               alt="Mardi Gras at sea"
+               alt="Carnival Mardi Gras Thumb"
                loading="lazy"
               />
           <strong>Mardi Gras</strong>
@@ -822,7 +834,7 @@ if ('serviceWorker' in navigator) {
 
 <footer role="contentinfo">
   <p><strong>In the Wake</strong> — A Cruise Traveler's Logbook</p>
-  <p class="tiny">© 2025 In the Wake · All rights reserved.</p>
+  <p class="tiny">© <script>document.write(new Date().getFullYear())</script> In the Wake · All rights reserved.</p>
   <p class="tiny">
     <a href="/privacy.html">Privacy</a> ·
     <a href="/terms.html">Terms</a> ·
@@ -885,7 +897,7 @@ if ('serviceWorker' in navigator) {
 function initFirstLook(){
   const el=document.getElementById('photo-swiper');
   if(!el||typeof Swiper==='undefined') return;
-  new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+  new Swiper(el,{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
 </script>
@@ -914,7 +926,7 @@ function initVideos(){
       if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
       else if(Array.isArray(d.videos)) vids=d.videos;
       if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
-      new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+      new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
     }).catch(()=>{});
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();

@@ -176,6 +176,8 @@
     'two70': '/assets/images/restaurants/photos/venues/two70-720w.webp',
     'diamond-lounge': '/assets/images/restaurants/photos/venues/crown-lounge-720w.webp',
     'the-grande': '/assets/images/restaurants/photos/venues/grande-720w.webp',
+    'harp-and-horn': '/assets/images/restaurants/photos/venues/harp-and-horn-720w.webp',
+    'the-shop': '/assets/images/restaurants/photos/venues/the-shop-720w.webp',
     '_default': '/assets/images/restaurants/photos/formal-dining.webp'
   };
 

@@ -8,7 +8,6 @@
       "enforcement": "suggest",
       "description": "Standards enforcement system - auto-activates when modifying code files",
       "priority": "high",
-
       "fileTriggers": {
         "pathPatterns": [
           "*.html",
@@ -31,7 +30,6 @@
           "*.min.css"
         ]
       },
-
       "keywords": [
         "fix",
         "update",
@@ -54,19 +52,16 @@
         "lint",
         "eslint"
       ],
-
       "toolTriggers": [
         "Edit",
         "Write",
         "MultiEdit"
       ],
-
       "autoLoad": {
         "mainFile": ".claude/skills/standards/STANDARDS.md",
         "maxLines": 500,
         "loadOnFirstFileEdit": true
       },
-
       "contextualResources": {
         "html": ".claude/skills/standards/resources/html-standards.md",
         "javascript": ".claude/skills/standards/resources/javascript-standards.md",
@@ -77,22 +72,18 @@
         "ai-breadcrumbs": ".claude/skills/standards/resources/ai-breadcrumbs-spec.md",
         "wcag": ".claude/skills/standards/resources/wcag-aa-checklist.md"
       },
-
-      "activationMessage": "📋 Standards skill activated. Review standards before writing code.",
-
+      "activationMessage": "\ud83d\udccb Standards skill activated. Review standards before writing code.",
       "preWriteAction": {
         "script": "./admin/pre-write-standards.sh",
         "runAutomatically": false,
         "description": "Show relevant standards before modifying files"
       },
-
       "postWriteAction": {
         "script": "./admin/post-write-validate.sh",
         "runAutomatically": false,
         "description": "Validate files after modifications"
       }
     },
-
     "skill-developer": {
       "enabled": true,
       "type": "domain",
@@ -117,7 +108,6 @@
         ]
       }
     },
-
     "frontend-dev-guidelines": {
       "enabled": true,
       "type": "guardrail",
@@ -161,13 +151,12 @@
         ]
       }
     },
-
     "seo-optimizer": {
-      "enabled": true,
+      "enabled": false,
       "type": "domain",
       "enforcement": "suggest",
       "priority": "high",
-      "description": "SEO optimization that SUPPORTS ITW-Lite v3.010 philosophy: AI-first, Human-first, Google second. Focuses on technical SEO (schema.org, semantic HTML, meta tags) that benefits AI + humans + search engines simultaneously. MUST NOT suggest keyword stuffing, readability compromises, or removal of AI-helpful elements.",
+      "description": "DEPRECATED \u2014 superseded by ICP-2. SEO optimization that SUPPORTS ITW-Lite v3.010 philosophy: AI-first, Human-first, Google second. Focuses on technical SEO (schema.org, semantic HTML, meta tags) that benefits AI + humans + search engines simultaneously. MUST NOT suggest keyword stuffing, readability compromises, or removal of AI-helpful elements.",
       "guardrails": {
         "must_reject": [
           "Keyword stuffing or unnatural keyword density",
@@ -226,7 +215,6 @@
         ]
       }
     },
-
     "accessibility-auditor": {
       "enabled": true,
       "type": "domain",
@@ -265,7 +253,6 @@
         ]
       }
     },
-
     "content-strategy": {
       "enabled": true,
       "type": "domain",
@@ -335,13 +322,14 @@
         "maxLines": 400,
         "loadOnFirstFileEdit": true
       },
-      "activationMessage": "✒️ Like-a-human v2.0.0 voice guide activated. Window Pane + Precision Discipline + Cadence in effect.",
+      "activationMessage": "\u2712\ufe0f Like-a-human v2.0.0 voice guide activated. Window Pane + Precision Discipline + Cadence in effect.",
       "coActivation": {
-        "always_with": ["careful-not-clever"],
+        "always_with": [
+          "careful-not-clever"
+        ],
         "note": "ALL content edits (ports, ships, restaurants, logbooks, root pages) fire both Careful and Like-a-human. Careful governs HOW we work. Like-a-human governs HOW IT READS. Voice-audit fires before commits."
       }
     },
-
     "voice-audit": {
       "enabled": true,
       "type": "guardrail",
@@ -371,9 +359,11 @@
         "loadOnFirstFileEdit": false,
         "note": "Loaded via voice-audit-hook.sh on PreToolUse Bash when git commit is detected with content files staged. Can also be loaded manually via prompt keywords."
       },
-      "activationMessage": "🔍 Voice audit diagnostic activated. Scanning for machine tells and voice drift.",
+      "activationMessage": "\ud83d\udd0d Voice audit diagnostic activated. Scanning for machine tells and voice drift.",
       "coActivation": {
-        "always_with": ["content-strategy"],
+        "always_with": [
+          "content-strategy"
+        ],
         "note": "Voice-audit is the post-draft companion to Like-a-human. Like-a-human fires during writing. Voice-audit fires before committing."
       }
     },
@@ -492,7 +482,6 @@
         ]
       }
     },
-
     "ship-page-validator": {
       "enabled": true,
       "type": "guardrail",
@@ -539,7 +528,7 @@
         "maxLines": 800,
         "loadOnFirstFileEdit": true
       },
-      "activationMessage": "🚢 Ship page validator activated. Will auto-check compliance after modifications.",
+      "activationMessage": "\ud83d\udea2 Ship page validator activated. Will auto-check compliance after modifications.",
       "guardrails": {
         "must_have": [
           "Soli Deo Gloria invocation (IMMUTABLE)",
@@ -548,20 +537,129 @@
           "7 JSON-LD blocks (Organization, WebSite, BreadcrumbList, Review, Person, WebPage, FAQPage)",
           "WCAG accessibility (skip link, ARIA live regions, landmark roles)",
           "All required content sections (First Look, Stats, Dining, Logbook, Videos, Deck Plans, Live Tracker, FAQ, Attribution)",
-          "NO placeholder images (BLOCKING ERROR — omit image or hide container if no real image available)"
+          "NO placeholder images (BLOCKING ERROR \u2014 omit image or hide container if no real image available)"
         ],
         "validation_script": "./admin/validate-ship-page.sh",
         "checklist_reference": "new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md"
       }
     },
-
+    "investigate": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Deep multi-LLM research pipeline that produces validated ship and port pages. 4 phases: reconnaissance \u2192 triage \u2192 deep research \u2192 synthesis \u2192 page generation.",
+      "promptTriggers": {
+        "keywords": [
+          "investigate",
+          "investigation",
+          "deep research",
+          "research ship",
+          "research port"
+        ],
+        "intentPatterns": [
+          "(investigate|investigation|deep research).*?(ship|port|cruise|destination)",
+          "investigate\\s+\\w+"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/investigate/SKILL.md",
+        "maxLines": 200,
+        "loadOnFirstFileEdit": false
+      },
+      "activationMessage": "Investigation pipeline ready. Specify a ship name or port to research and build a validated page.",
+      "coActivation": {
+        "always_with": [
+          "careful-not-clever"
+        ],
+        "optional_with": [
+          "ship-page-validator",
+          "content-strategy",
+          "standards"
+        ],
+        "note": "Investigation output feeds into page generation. Ship-page-validator fires automatically on ship page writes. Voice hooks enforce Like-a-human on all content."
+      }
+    },
+    "orchestrate": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Full multi-LLM pipeline orchestration. Runs the cruising pipeline (Read Standards \u2192 Generate \u2192 Content Review \u2192 Completeness Check \u2192 UX Challenge \u2192 Integrate) coordinating GPT, Gemini, and Grok as consultants while Claude remains lead developer.",
+      "promptTriggers": {
+        "keywords": [
+          "orchestrate",
+          "pipeline",
+          "multi-model",
+          "multi-llm",
+          "full pipeline",
+          "run pipeline",
+          "cruising pipeline"
+        ],
+        "intentPatterns": [
+          "(orchestrate|run pipeline|full pipeline).*?(page|content|ship|port)",
+          "(coordinate|consult).*?(multiple|all).*?model"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/orchestrate/SKILL.md",
+        "maxLines": 200,
+        "loadOnFirstFileEdit": false
+      },
+      "activationMessage": "Orchestrator active. Claude leads \u2014 external models consult.",
+      "coActivation": {
+        "always_with": [
+          "careful-not-clever"
+        ],
+        "optional_with": [
+          "content-strategy",
+          "standards"
+        ],
+        "note": "Orchestration output feeds into page generation pipeline. All standards enforced on integrated output."
+      }
+    },
+    "consult": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Quick multi-LLM second opinion. Sends a single prompt to GPT, Gemini, or Grok with a role-based system prompt and returns structured feedback.",
+      "promptTriggers": {
+        "keywords": [
+          "consult",
+          "second opinion",
+          "ask gpt",
+          "ask gemini",
+          "ask grok",
+          "challenge this",
+          "expand this",
+          "get feedback"
+        ],
+        "intentPatterns": [
+          "(consult|ask|query).*?(gpt|gemini|grok)",
+          "(second opinion|outside perspective|another model)",
+          "(challenge|expand|critique|structure).*?(with|using|from).*?(gpt|gemini|grok)"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/consult/SKILL.md",
+        "maxLines": 100,
+        "loadOnFirstFileEdit": false
+      },
+      "activationMessage": "Consultation ready. One model, one question, structured feedback.",
+      "coActivation": {
+        "always_with": [
+          "careful-not-clever"
+        ],
+        "note": "All consultation feedback must be verified before incorporation."
+      }
+    },
     "careful-not-clever": {
       "enabled": true,
       "type": "guardrail",
       "enforcement": "warn",
       "priority": "critical",
-      "description": "Integrity guardrail: enforces careful, verified, documented work over clever shortcuts. Two layers: (1) Process discipline — read before editing, verify, document. (2) Technical discipline — semantic equivalence, pattern verification, pre-commit checks. Both fire on every write via session-start-guardrail.sh.",
-
+      "description": "Integrity guardrail: enforces careful, verified, documented work over clever shortcuts. Two layers: (1) Process discipline \u2014 read before editing, verify, document. (2) Technical discipline \u2014 semantic equivalence, pattern verification, pre-commit checks. Both fire on every write via session-start-guardrail.sh.",
       "fileTriggers": {
         "pathPatterns": [
           "**/*.html",
@@ -575,13 +673,11 @@
           ".git/**"
         ]
       },
-
       "toolTriggers": [
         "Edit",
         "Write",
         "MultiEdit"
       ],
-
       "autoLoad": {
         "mainFile": ".claude/skills/careful-not-clever/CAREFUL.md",
         "supplementaryFile": "admin/CAREFUL.md",
@@ -589,9 +685,7 @@
         "loadOnFirstFileEdit": true,
         "note": "Process guardrail (mainFile) + Technical guardrail (supplementaryFile) both injected via session-start-guardrail.sh on every prompt"
       },
-
       "activationMessage": "Careful, not clever. Both guardrails active: process discipline + technical verification.",
-
       "guardrails": {
         "before_modify": [
           "Have you READ this file in the current session?",
@@ -616,44 +710,144 @@
           "Making improvements the user didn't ask for",
           "Silently skipping problems instead of reporting them",
           "Updating metrics in one file but not others",
-          "Using placeholder images on ANY page (BLOCKING ERROR — no exceptions)"
+          "Using placeholder images on ANY page (BLOCKING ERROR \u2014 no exceptions)"
         ],
         "philosophy": "Integrity over speed. Verified over assumed. Documented over remembered. Careful over clever."
       }
+    },
+    "venue-page-writer": {
+      "enabled": true,
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Researches and writes authentic logbook entries for cruise venue pages. Handles review research, negative flips, fact verification, voice consistency across 5 cruise lines. Uses web search + Gemini for research, with authenticity stress testing.",
+      "promptTriggers": {
+        "keywords": [
+          "venue",
+          "logbook",
+          "restaurant review",
+          "dining review",
+          "venue upgrade",
+          "venue normalization",
+          "write logbook",
+          "upgrade logbook",
+          "Guest Experience Summary",
+          "venue page",
+          "negative flip"
+        ],
+        "intentPatterns": [
+          "(write|create|upgrade|improve|fix).*?(logbook|venue|restaurant review)",
+          "(research|investigate).*?(venue|restaurant|dining)",
+          "venue.*?(normalization|upgrade|improvement)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "restaurants/**/*.html",
+          "restaurants/*.html"
+        ],
+        "contentPatterns": [
+          "id=\"logbook\"",
+          "Guest Experience Summary",
+          "Traveler's Logbook"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/venue-page-writer/SKILL.md",
+        "maxLines": 500,
+        "loadOnFirstFileEdit": true
+      },
+      "activationMessage": "Venue page writer active. Research real reviews, write authentic logbooks, verify every fact.",
+      "coActivation": {
+        "always_with": [
+          "careful-not-clever",
+          "content-strategy"
+        ],
+        "optional_with": [
+          "voice-audit",
+          "consult"
+        ],
+        "note": "Logbook writing fires careful-not-clever (process) + content-strategy/Like-a-human (voice). Voice-audit fires before commit."
+      }
+    },
+    "icp-2": {
+      "enabled": true,
+      "type": "guardrail",
+      "enforcement": "block",
+      "priority": "critical",
+      "description": "ICP-2 \u2014 Human-First SEO & AEO standard for 2026. Supersedes ICP-Lite v1.4 and seo-optimizer. Blocks HTML edits that don't meet ICP-2 compliance.",
+      "fileTriggers": {
+        "pathPatterns": [
+          "*.html",
+          "**/*.html"
+        ],
+        "exclude": [
+          "node_modules/**",
+          ".git/**",
+          "dist/**",
+          "build/**"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/icp-2/SKILL.md",
+        "maxLines": 500,
+        "loadOnFirstFileEdit": true
+      },
+      "activationMessage": "ICP-2 guardrail active. HTML edits will be validated for SEO/AEO compliance. Non-compliance is a blocking error."
     }
   },
-
   "globalSettings": {
     "enableAutoActivation": true,
     "verboseLogging": false,
     "cacheSkillContext": true,
     "maxConcurrentSkills": 3
   },
-
   "notes": {
     "project": "In the Wake - Cruise planning site (merged with FOM enhancements)",
     "protocol": "ITW-Lite v3.010 (adapted from FOM-Lite v1.0)",
-    "total_skills": 12,
+    "total_skills": 17,
     "hook_wiring": {
-      "UserPromptSubmit": "session-start-guardrail.sh → injects BOTH Careful files (process v1.0 + technical root)",
+      "UserPromptSubmit": "session-start-guardrail.sh \u2192 injects BOTH Careful files (process v1.0 + technical root)",
       "PreToolUse_Bash": [
-        "voice-audit-hook.sh → injects voice-audit diagnostic before git commit when content files are staged"
+        "voice-audit-hook.sh \u2192 injects voice-audit diagnostic before git commit when content files are staged"
       ],
       "PostToolUse_Edit_Write": [
-        "post-tool-use-tracker.sh → tracks edited files/repos",
-        "ship-page-validator.sh → validates ship pages",
-        "port-content-voice-hook.sh → injects Like-a-human v2.0.0 voice guide for ALL content writes"
+        "post-tool-use-tracker.sh \u2192 tracks edited files/repos",
+        "ship-page-validator.sh \u2192 validates ship pages",
+        "port-content-voice-hook.sh \u2192 injects Like-a-human v2.0.0 voice guide for ALL content writes"
       ],
       "activation_matrix": {
-        "any_file_edit": ["careful-not-clever (process)", "careful-not-clever (technical)"],
-        "content_html_edit": ["careful-not-clever (process)", "careful-not-clever (technical)", "content-strategy/Like-a-human v2.0.0 (voice)"],
-        "content_types": ["ports/**/*.html", "ships/**/*.html", "restaurants/**/*.html", "cruise-lines/**/*.html", "solo/**/*.html", "**/logbooks/**/*.json", "root content pages"],
+        "any_file_edit": [
+          "careful-not-clever (process)",
+          "careful-not-clever (technical)"
+        ],
+        "content_html_edit": [
+          "careful-not-clever (process)",
+          "careful-not-clever (technical)",
+          "content-strategy/Like-a-human v2.0.0 (voice)"
+        ],
+        "content_types": [
+          "ports/**/*.html",
+          "ships/**/*.html",
+          "restaurants/**/*.html",
+          "cruise-lines/**/*.html",
+          "solo/**/*.html",
+          "**/logbooks/**/*.json",
+          "root content pages"
+        ],
         "ship_html_edit_extra": "ship-page-validator (in addition to above)",
         "pre_commit_content": "voice-audit + emotional-hook-test (fire before git commit when content files are staged)"
       }
     },
     "skill_sources": {
-      "citw_original": ["standards", "ship-page-validator", "careful-not-clever", "voice-audit", "emotional-hook-test", "cognitive-memory"],
+      "citw_original": [
+        "standards",
+        "ship-page-validator",
+        "careful-not-clever",
+        "voice-audit",
+        "emotional-hook-test",
+        "cognitive-memory"
+      ],
       "fom_adapted": [
         "skill-developer",
         "frontend-dev-guidelines",

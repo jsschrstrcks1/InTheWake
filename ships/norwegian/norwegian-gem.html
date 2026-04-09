@@ -123,7 +123,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Norwegian Gem","brand":{"@type":"Organization","name":"Norwegian Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Norwegian Gem (Jewel Class, 93,531 GT, 2,394 guests, 2007) features Cagney's Steakhouse, Garden Café buffet, Spinnaker Lounge, Bingo! bar, outdoor pool deck with waterslide, and an expansive entertainment complex with casino and theater."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Jewel Class ship operated by Norwegian Cruise Line.","name":"Norwegian Gem","brand":{"@type":"Organization","name":"Norwegian Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Norwegian Gem (Jewel Class, 93,531 GT, 2,394 guests, 2007) features Cagney's Steakhouse, Garden Café buffet, Spinnaker Lounge, Bingo! bar, outdoor pool deck with waterslide, and an expansive entertainment complex with casino and theater."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -246,7 +246,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -357,6 +357,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Norwegian Gem overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Norwegian Gem is a Jewel Class cruise ship operated by Norwegian Cruise Line. She entered service in 2007, measures 93,530 gross tons, and carries approximately 2,394 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Jewel Class</li>
+          <li><strong>Year:</strong> 2007</li>
+          <li><strong>Tonnage:</strong> 93,530 GT</li>
+          <li><strong>Guests:</strong> 2,394</li>
+          <li><strong>IMO:</strong> 9355232</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Norwegian Gem (93,530 GT, 2,394 guests, 2007) is a Jewel Class mid-size ship — the last of four sisters, offering NCL's Freestyle Cruising with a Bliss Ultra Lounge and multiple specialty restaurants. This page covers deck plans, live tracking, dining venues, and videos.
@@ -400,8 +410,8 @@ All work on this project is offered as a gift to God.
           </div>
           <div class="swiper-slide">
             <figure>
-              <img src="/assets/ships/norwegian-gem_03.webp" alt="Norwegian Gem The Haven luxury suites courtyard" loading="lazy">
-              <figcaption class="tiny">The Haven luxury suite complex</figcaption>
+              <img src="/assets/ships/norwegian-gem_03.webp" alt="Norwegian Gem The Haven upscale suites courtyard" loading="lazy">
+              <figcaption class="tiny">The Haven upscale suite complex</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
@@ -441,7 +451,7 @@ All work on this project is offered as a gift to God.
       </div>
       <div style="margin-top: 1.5rem;">
         <p>Norwegian Gem is a Jewel Class vessel that launched in October 2007, bringing Norwegian Cruise Line's freestyle cruising concept to new heights. At 93,530 gross tons and carrying 2,394 guests, she offers an intimate yet feature-rich cruise experience with year-round sailings from the Northeast United States.</p>
-        <p>The ship underwent an extensive refurbishment that introduced The Haven, NCL's luxury ship-within-a-ship concept featuring exclusive suites with private courtyard, restaurant, and dedicated concierge service. Entertainment options include the Stardust Theater, multiple lounges, and a variety of bars throughout the ship.</p>
+        <p>The ship underwent an extensive refurbishment that introduced The Haven, NCL's upscale ship-within-a-ship concept featuring exclusive suites with private courtyard, restaurant, and dedicated concierge service. Entertainment options include the Stardust Theater, multiple lounges, and a variety of bars throughout the ship.</p>
         <p>Dining aboard Norwegian Gem showcases NCL's commitment to variety with numerous specialty restaurants including Le Bistro French cuisine, Cagney's Steakhouse, and Moderno Churrascaria. The ship's freestyle dining philosophy lets guests eat where and when they choose, with no fixed dining times or assigned seating.</p>
       </div>
       <div id="ship-stats" class="stats-grid" data-slug="norwegian-gem"></div>
@@ -746,9 +756,9 @@ Dining on Norwegian Gem</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
-  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/norwegian/norwegian-gem.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/norwegian/norwegian-gem.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
   <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
   <!-- initDining — fetch dining JSON -->

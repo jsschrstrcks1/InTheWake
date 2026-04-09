@@ -17,6 +17,15 @@ Before touching anything:
 3. Check your actual task — `admin/UNFINISHED_TASKS.md`
 4. Read the careful-not-clever guardrail — `.claude/skills/careful-not-clever/CAREFUL.md`
 
+### Multi-LLM Setup (Per Session)
+
+Before first use of `/consult` or `/orchestrate`, run:
+
+```bash
+bash /home/user/ken/orchestrator/bootstrap-env.sh 2>/dev/null
+pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
+```
+
 ---
 
 ## Essential Reading
@@ -184,3 +193,38 @@ Before touching anything:
 - v1.2.0 (2026-01-31) — Updated priorities, ICP-Lite v1.0→v1.4, port count 147→380
 - v1.1.0 (2026-01-03) — Added analytics requirement, security standards, trust claim rules
 - v1.0.0 (2025-11-23) — Initial comprehensive Claude guide
+
+---
+
+## Multi-LLM Integration
+
+This repository has access to the multi-LLM orchestrator system. External models (GPT, Gemini, Grok) serve as **consultants only** — Claude remains lead author and decision-maker.
+
+### Available Skills
+
+| Skill | Usage | Purpose |
+|-------|-------|---------|
+| `/consult` | `/consult grok challenge "push back on this port page UX"` | Quick single-model second opinion |
+| `/orchestrate` | `/orchestrate cruising "generate Caribbean itinerary page"` | Full multi-model pipeline |
+| Cognitive Memory | Automatic on session start | Cross-session knowledge persistence |
+
+### Mode: `cruising`
+- **Lead:** Claude (standards enforcement, file access)
+- **Pipeline:** Read Standards (Claude) → Generate (Claude) → Content (GPT) → Completeness (Gemini) → UX (Grok) → Integrate (Claude)
+- **Memory scope:** `/inthewake`
+- **Orchestrator:** `/home/user/ken/orchestrator/`
+
+### First-Time Setup (Per Session)
+
+Before first use of `/consult` or `/orchestrate` in a session, install dependencies:
+
+```bash
+bash /home/user/ken/orchestrator/bootstrap-env.sh 2>/dev/null
+pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
+```
+
+This is silent when already installed. If `/consult` or `/orchestrate` fails with `ModuleNotFoundError`, run this command first.
+
+### Context Boundaries
+- **SEND:** Page requirements, content topics, SEO targets, general cruise data
+- **NEVER SEND:** Full codebase, internal standards (send summaries), analytics

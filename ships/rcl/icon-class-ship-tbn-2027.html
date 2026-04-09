@@ -351,7 +351,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <body class="page">
   <!-- Skip Link -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -471,7 +471,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <section class="page-intro" aria-label="Icon Class Ship TBN 2027 overview">
       <h1 id="ship-name">Icon Class Ship (TBN 2027)</h1>
       
-      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Icon Class Ship (TBN 2027) is a Icon Class cruise ship operated by Royal Caribbean. She entered service in TBD, measures TBD gross tons, and carries approximately TBD guests at double occupancy.</p>
+      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Icon Class Ship (TBN 2027) is an Icon Class cruise ship operated by Royal Caribbean. She entered service in TBD, measures TBD gross tons, and carries approximately TBD guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Icon Class</li>
+          <li><strong>IMO:</strong> TBD</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
       <span class="answer-q">What this page covers</span>
@@ -506,7 +513,18 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <div class="swiper firstlook" aria-label="Icon Class Ship (TBN 2027) photo carousel">
           <div class="swiper-wrapper">
-
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/Icon_of_the_Seas_(cropped).webp" alt="Icon of the Seas — Icon Class reference ship" loading="lazy" decoding="async">
+              <figcaption class="tiny">Icon Class reference ship Icon of the Seas. Photo via Wikimedia Commons, public domain</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/Icon_and_Mariner_Cozumel_Mexico_2024.webp" alt="Icon of the Seas in Cozumel — Icon Class vessel" loading="lazy" decoding="async">
+              <figcaption class="tiny">Icon Class at port in Cozumel. Photo via Wikimedia Commons, public domain</figcaption>
+            </figure>
+          </div>
           </div>
           <div class="swiper-pagination" aria-hidden="true"></div>
           <div class="swiper-button-prev" aria-label="Previous image"></div>
@@ -655,7 +673,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
-      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+      <div id="videoFallback" class="tiny hidden">Video content will be added closer to the ship entering service.</div>
     </section>
 
     <!-- Row: Deck Plans + Live Tracker -->
@@ -669,7 +687,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </section>
 
       <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="RADIANCE-OF-THE-SEAS">
-        <h2 id="liveTrackHeading">Where Is Icon Class Ship (TBN 2027) Right Now?</h2>
+        <h2 id="liveTrackHeading">Where Is Icon Class Ship Tbn 2027 Right Now?</h2>
         <p>See the ship's current position, speed, and next port on a live tracker.</p>
 
         <div id="vf-tracker-container" class="tracker-container"></div>
@@ -807,7 +825,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- FOOTER -->
     <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
@@ -907,8 +925,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         const title=String(v.title||'Icon Class Ship (TBN 2027)').replace(/</g,'&lt;');
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
-      if(mount.children.length&&window.__swiperReady&&window.Swiper){
-        setTimeout(()=>{
+      function initSwiper(){
+        if(mount.children.length&&window.Swiper){
           try{
             new Swiper('.swiper.videos',{
               loop:false,rewind:false,lazy:true,watchOverflow:true,
@@ -917,8 +935,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
               a11y:{enabled:true}
             });
           }catch(_){}
-        },150);
+        }else if(mount.children.length){
+          if(!initSwiper._t) initSwiper._t=0;
+          if(initSwiper._t++<20) setTimeout(initSwiper,300);
+          else if(fallback) fallback.classList.remove('hidden');
+        }
       }
+      if(mount.children.length) setTimeout(initSwiper,150);
     }
     function fetchVideoData(){
       const SOURCES=[abs('/assets/data/videos/icon-class-ship-tbn-2027.json'),abs('/ships/rcl/assets/icon-class-ship-tbn-2027-videos.json')];
@@ -926,7 +949,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
       return tryFetch();
     }
-    fetchVideoData().then(data=>{ if(data) renderVideos(data.videos||data); });
+    fetchVideoData().then(data=>{if(data){const v=data.videos||data;renderVideos(Array.isArray(v)?v:Object.values(v).flat());}});
   })();
   </script>
 
@@ -991,12 +1014,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
       const byCategory={};
       venues.forEach(v=>{
-        const cat=v.category||'other';
+        let cat=v.category||'other';
+        if(cat==='dining'&&v.subcategory){cat=v.subcategory==='specialty'?'specialty':v.subcategory==='complimentary'?'mdr':cat;}
         if(!byCategory[cat]) byCategory[cat]=[];
         byCategory[cat].push(v);
       });
       const catOrder=['mdr','specialty','casual','bar'];
-      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
+      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',bars:'Bars & Lounges',dining:'Dining',activities:'Activities',entertainment:'Entertainment',neighborhoods:'Neighborhoods',other:'Other Venues'};
       let html='';
       catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
         const arr=byCategory[cat]; if(!arr) return;

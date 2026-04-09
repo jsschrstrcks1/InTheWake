@@ -18,17 +18,6 @@ Soli Deo Gloria
   <meta property="og:url" content="https://cruisinginthewake.com/ports/st-kitts.html">
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg">
 
-  <!-- ai-breadcrumbs
-     entity: St. Kitts
-     type: Port Guide
-     parent: /ports.html
-     category: Caribbean
-     updated: 2026-02-12
-     expertise: Cruise travel, port guides
-     target-audience: Cruise travelers, vacation planners
-     answer-first: St. Kitts was the first West Indian island colonized by Europeans (1623). Experience Brimstone Hill UNESCO fortress, Cockleshell Beach with Killer Bee rum punch, and the historic 1912 Scenic Railway.
-     -->
-
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
   <!-- Service Worker Registration -->
   <script>
@@ -409,7 +398,23 @@ Soli Deo Gloria
             <li><strong>Rental Cars:</strong> Available but not necessary for cruise visitors. Driving is on the left (British style). Roads to attractions are winding and mountainous. Local temporary permits required (~$24 USD).</li>
           </ul>
           <p>For most cruise visitors, a combination of walking downtown and shared taxis to beaches and attractions offers the best value. Book the Scenic Railway in advance during peak season as it frequently sells out.</p>
-        </details><details class="port-section" id="excursions" open="">
+        </details>
+<details class="port-section" id="map" open="">
+            <summary><h2>St. Kitts Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and St. Kitts attractions. Click any marker for details.</p>
+        <div id="st-kitts-port-map" class="port-map-container" role="application" aria-label="Interactive map of St. Kitts port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=17.3026&mlon=-62.7177#map=12/17.3026/-62.7177" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('st-kitts-port-map')._portMap?.fitBounds(document.getElementById('st-kitts-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+            </details><details class="port-section" id="excursions" open="">
           <summary><h2>Excursions &amp; Things to Do</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking tip: Ship excursion packages for the Scenic Railway offer guaranteed return to the ship and priority seating. Independent operators run similar tours for less. Book ahead during peak season — the railway sells out. Shared taxis to beaches offer excellent value.</p>
 
@@ -523,23 +528,6 @@ Soli Deo Gloria
       <p class="real-talk">The choice between Brimstone Hill Fortress and a beach day is real — you can't comfortably do both on a standard port call. Brimstone Hill sits 30 minutes from port by taxi ($40 round trip) and needs 60-90 minutes to explore properly. South Frigate Bay's strip of beach bars is the easier call for relaxation, but it's not a naturally stunning beach by Caribbean standards. Timothy Beach has calmer water and fewer crowds than South Frigate Bay.</p>
 
       <!-- Interactive Port Map -->
-      <details class="port-section" id="map" open="">
-            <summary><h2>St. Kitts Area Map</h2></summary>
-        <p class="map-intro">Interactive map showing cruise terminal and St. Kitts attractions. Click any marker for details.</p>
-        <div id="st-kitts-port-map" class="port-map-container" role="application" aria-label="Interactive map of St. Kitts port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=17.3026&mlon=-62.7177#map=12/17.3026/-62.7177" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('st-kitts-port-map')._portMap?.fitBounds(document.getElementById('st-kitts-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-            </details>
-
         
 
         
@@ -746,7 +734,7 @@ Soli Deo Gloria
   </button>
 </main>
     <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·

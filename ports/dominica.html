@@ -413,7 +413,23 @@ Soli Deo Gloria
             <li><strong>Walking:</strong> Downtown Roseau is walkable from the pier, but attractions require transportation. Water shoes are essential for river activities.</li>
           </ul>
           <p>For most cruise visitors, a taxi or organized tour is essential and well worth the investment. The Trafalgar Falls and Ti Tou Gorge combo can be done in half a day. Add Champagne Reef for a full-day adventure. The Kalinago Territory and Boiling Lake require dedicated trips — challenging on a single port day.</p>
-        </details><details class="port-section" id="excursions" open="">
+        </details>
+<details class="port-section" id="map" open="">
+            <summary><h2>Dominica Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and Dominica attractions. Click any marker for details.</p>
+        <div id="dominica-port-map" class="port-map-container" role="application" aria-label="Interactive map of Dominica port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=15.3017&mlon=-61.3881#map=12/15.3017/-61.3881" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('dominica-port-map')._portMap?.fitBounds(document.getElementById('dominica-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+            </details><details class="port-section" id="excursions" open="">
           <summary><h2>Excursions &amp; Things to Do</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Ship excursion packages offer guaranteed return to port and run $120–180. Independent operators charge less ($60–100) with more flexibility and smaller groups. Book ahead for Trafalgar Falls and Ti Tou Gorge tours during peak season — these fill up when multiple ships are in port. Water shoes are essential for river activities.</p>
 
@@ -513,23 +529,6 @@ Soli Deo Gloria
         
 
       <!-- Interactive Port Map -->
-      <details class="port-section" id="map" open="">
-            <summary><h2>Dominica Area Map</h2></summary>
-        <p class="map-intro">Interactive map showing cruise terminal and Dominica attractions. Click any marker for details.</p>
-        <div id="dominica-port-map" class="port-map-container" role="application" aria-label="Interactive map of Dominica port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=15.3017&mlon=-61.3881#map=12/15.3017/-61.3881" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('dominica-port-map')._portMap?.fitBounds(document.getElementById('dominica-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-            </details>
-
         
 
         
@@ -706,7 +705,7 @@ Soli Deo Gloria
   </button>
 </main>
     <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·

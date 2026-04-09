@@ -417,7 +417,23 @@ Soli Deo Gloria
             <li><strong>Rental Cars:</strong> Available but not necessary for cruise visitors. Driving is on the left (British style). Roads are narrow and winding with occasional potholes. Local temporary permits required (~$12 USD).</li>
           </ul>
           <p>For most cruise visitors, a combination of taxi and water taxi works perfectly. The taxi to Grand Anse, water taxi return is a popular and scenic option. For island exploration, a full-day taxi tour covers Concord Falls, Belmont Estate, and the nutmeg processing station comfortably.</p>
-        </details><details class="port-section" id="excursions" open="">
+        </details>
+<details class="port-section" id="map" open="">
+            <summary><h2>Grenada Area Map</h2></summary>
+        <p class="map-intro">Interactive map showing cruise terminal and Grenada attractions. Click any marker for details.</p>
+        <div id="grenada-port-map" class="port-map-container" role="application" aria-label="Interactive map of Grenada port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">
+              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=12.0525&mlon=-61.7516#map=12/12.0525/-61.7516" target="_blank" rel="noopener">View on OpenStreetMap</a>.
+            </p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('grenada-port-map')._portMap?.fitBounds(document.getElementById('grenada-port-map')._portMap.getBounds())">
+            Reset View
+          </button>
+        </div>
+            </details><details class="port-section" id="excursions" open="">
           <summary><h2>Excursions &amp; Things to Do</h2></summary>
           <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking tip: Independent taxi tours offer excellent value ($50-80 for full-day). Book ahead for Belmont Estate chocolate tours during peak season. Reserve beach chairs at Grand Anse through hotels if you want guaranteed seating.</p>
 
@@ -513,23 +529,6 @@ Soli Deo Gloria
         
 
       <!-- Interactive Port Map -->
-      <details class="port-section" id="map" open="">
-            <summary><h2>Grenada Area Map</h2></summary>
-        <p class="map-intro">Interactive map showing cruise terminal and Grenada attractions. Click any marker for details.</p>
-        <div id="grenada-port-map" class="port-map-container" role="application" aria-label="Interactive map of Grenada port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">
-              Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=12.0525&mlon=-61.7516#map=12/12.0525/-61.7516" target="_blank" rel="noopener">View on OpenStreetMap</a>.
-            </p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('grenada-port-map')._portMap?.fitBounds(document.getElementById('grenada-port-map')._portMap.getBounds())">
-            Reset View
-          </button>
-        </div>
-            </details>
-
         
 
         
@@ -696,7 +695,7 @@ Soli Deo Gloria
   </button>
 </main>
     <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·

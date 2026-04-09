@@ -123,7 +123,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Mardi Gras","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Mardi Gras is Carnival's first Excel Class ship and the first cruise ship in North America to feature a roller coaster at sea — BOLT. At 180,800 GT with 5,200 guests, she introduced Carnival's zone-based layout with six themed areas. Her LNG propulsion and innovative design set a new benchmark for the fleet."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Excel Class ship operated by Carnival Cruise Line.","name":"Mardi Gras","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Mardi Gras is Carnival's first Excel Class ship and the first cruise ship in North America to feature a roller coaster at sea — BOLT. At 180,800 GT with 5,200 guests, she introduced Carnival's zone-based layout with six themed areas. Her LNG propulsion and innovative design set a new benchmark for the fleet."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -247,7 +247,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page" data-ship="Mardi Gras" data-imo="9817296">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
@@ -358,6 +358,13 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Mardi Gras overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Mardi Gras is a Unknown Class cruise ship operated by Carnival Cruise Line.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Excel Class</li>
+          <li><strong>IMO:</strong> 9817296</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Mardi Gras was Carnival's very first ship — the vessel that launched the Fun Ship revolution in 1972 and established Carnival Cruise Line as a force in the cruise industry. This page covers historical ship details and fleet origins.
@@ -377,6 +384,12 @@ All work on this project is offered as a gift to God.
                 <figure>
                   <img src="/assets/ships/Mardi_Gras_flickr_jpcrr.webp" alt="Mardi Gras exterior view" loading="lazy" decoding="async">
                   <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/202319100@N06/54706887764/" target="_blank" rel="noopener">jpcrr</a> via Flickr</figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/assets/ships/carnival-mardi-gras_01.webp" alt="Carnival Mardi Gras at sea" loading="lazy" decoding="async">
+                  <figcaption class="tiny">Photo: via Wikimedia Commons</figcaption>
                 </figure>
               </div>
             </div>
@@ -644,6 +657,8 @@ Dining on Mardi Gras</h2>
         <h3 id="recent-rail-title">Recent Stories</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
+    
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -681,7 +696,7 @@ Dining on Mardi Gras</h2>
   function initFirstLook(){
     const el=document.getElementById('photo-swiper');
     if(!el||typeof Swiper==='undefined') return;
-    new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+    new Swiper(el,{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
   </script>
@@ -710,7 +725,7 @@ Dining on Mardi Gras</h2>
         if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
         else if(Array.isArray(d.videos)) vids=d.videos;
         if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
-        new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+        new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
       }).catch(()=>{});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();

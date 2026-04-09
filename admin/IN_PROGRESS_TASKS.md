@@ -42,13 +42,39 @@ FORMAT:
 **Completed:** 2026-03-03
 **Files:** 31 ports in ports/*.html
 **Status:** Tier 1 (15 ports) and Tier 2 (16/19 ports) complete. 3 Tier 2 ports skipped (goa, halifax, panama-canal — need logbook work).
-
-**Session 15 Tier 2 Results (16 ports to PASS):**
-- Template filler quick wins (7): cairns (82), cannes (86), cartagena (88), casablanca (82), charleston (80), corfu (84), manila (78)
-- Complex 3-section repairs (9): osaka (86), penang (88), porto (82), trieste (92), villefranche (76), warnemunde (76), zeebrugge (82), recife (84), taormina (76)
-- Overall validation: 260/387 PASS (67.2%), up from 244/387 (63.0%)
-
 **Next:** Tier 3 ports, or logbook repairs for remaining FAIL ports
+
+### Port Page Normalization — Phase 1 COMPLETE, Phases 2-5 PENDING
+**Thread:** `claude/normalize-port-pages-RbCra`
+**Started:** 2026-03-25
+**Files:** 63 ports in ports/*.html, scripts/reorder-port-sections.js, admin/PORT_NORMALIZATION_PLAN.md, admin/POI_LAND_VALIDATION_PLAN.md
+**Status:** Phase 1 section reordering complete (63/68 Tier 1 pages fixed via automated script)
+
+**Phase 1 Results:**
+- Built `scripts/reorder-port-sections.js` — targeted character-offset extraction, dry-run by default, backup+restore on failure, self-verification
+- 63 pages: map/featured_images sections moved to correct ITC v1.1 order
+- 5 pages need manual fixes: sharm-el-sheikh (food, no ID), picton (featured_images is `<div>`), kagoshima (map is `<section>`), doha (cultural, no ID), cococay (logbook out of order)
+
+**Commits (branch: claude/normalize-port-pages-RbCra):**
+1. `6b7838f4` — Add port page normalization plan with full v2 validator results
+2. `e9991f12` — Add consultation decisions to normalization plan
+3. `3039d9b3` — Phase 1: Reorder sections on 63 port pages + add reorder script
+4. `da4aeaf3` — Add POI land-validation plan for 1,477 POIs across 168 ports
+
+**Pending Phases:**
+- Phase 1 manual fixes (5 pages): sharm-el-sheikh, picton, kagoshima, doha, cococay
+- Phase 2: Template filler removal (5 blocking + ~25 warning pages with generic_passport_advice)
+- Phase 3: Moderate narrative/image fixes (sihanoukville, santos, kusadasi, falmouth, catania)
+- Phase 4: Content expansion for 35 pages (prioritized by search demand/AEO citability)
+- Phase 5: Warning remediation across all 387 pages
+- FAQ validator bug fix: detection logic + raise threshold from 80 to 200 words
+- POI land-validation: 3-layer strategy per admin/POI_LAND_VALIDATION_PLAN.md
+- ICP-2 migration: ICP-Lite v1.4 → ICP-2 v2.1 during normalization
+
+**Key Documents:**
+- `admin/PORT_NORMALIZATION_PLAN.md` — Master plan with tiers, phases, consultation decisions
+- `admin/POI_LAND_VALIDATION_PLAN.md` — 3-layer POI coordinate validation strategy
+- `admin/port-validation-results-2026-03-25.json` — Raw v2 validator JSON for all 387 pages
 
 ---
 
@@ -62,6 +88,7 @@ FORMAT:
 
 | Thread ID | Task | Status | Date |
 |-----------|------|--------|------|
+| claude/normalize-port-pages-RbCra | Port page normalization (Phase 1 complete, Phases 2-5 pending) | IN PROGRESS | 2026-03-25 |
 | claude/explore-repo-structure-T6nVA | ICP elements for 7 root pages (articles, restaurants, disability, ports, ships, solo, travel) | COMPLETE | 2026-03-09 |
 | claude/explore-venue-photos-OeAgM | FOM ship photos + task consolidation + port content repairs | IN PROGRESS | 2026-03-03 |
 | claude/port-validation-review-Zd2lY | Port validation sessions 1-10 | COMPLETE (structural) | 2026-02-28 |

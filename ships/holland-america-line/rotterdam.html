@@ -76,7 +76,7 @@ All work on this project is offered as a gift to God.
     "name": "Rotterdam • Holland America Line • In The Wake",
     "url": "https://cruisinginthewake.com/ships/holland-america-line/rotterdam.html",
     "description": "Rotterdam is Holland America Line's newest Pinnacle Class ship, launched in 2021 as the seventh ship to bear this historic name. At 99,500 GT with 2,668 guests, she features Music Walk entertainment, World Stage shows, and exceptional dining.",
-    "dateModified": "2026-02-23",
+    "dateModified": "2026-02-21",
     "mainEntity": {
       "@type": "Thing",
       "name": "Rotterdam Historical",
@@ -185,7 +185,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Rotterdam","brand":{"@type":"Organization","name":"Holland America Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Rotterdam is Holland America Line's third Pinnacle Class ship, measuring 99,500 GT and accommodating 2,668 guests. Launched in 2021 as the seventh ship to bear this historic name, she features Music Walk entertainment, World Stage, and Rudi's Sel de Mer French seafood."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Pinnacle Class ship operated by Holland America Line.","name":"Rotterdam","brand":{"@type":"Organization","name":"Holland America Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Rotterdam is Holland America Line's third Pinnacle Class ship, measuring 99,500 GT and accommodating 2,668 guests. Launched in 2021 as the seventh ship to bear this historic name, she features Music Walk entertainment, World Stage, and Rudi's Sel de Mer French seafood."}</script>
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -272,7 +272,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
@@ -491,7 +491,7 @@ All work on this project is offered as a gift to God.
   </section>
 
     <footer class="wrap" role="contentinfo">
-    <p>© 2026 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
@@ -730,9 +730,9 @@ All work on this project is offered as a gift to God.
 </main>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
-  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/holland-america-line/rotterdam.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/holland-america-line/rotterdam.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
   <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
   <!-- initDining — fetch dining JSON -->

@@ -135,26 +135,11 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 -->
 <html lang="en" class="no-js">
 <head>
-<!-- ai-breadcrumbs
-     entity: Ship
-     name: {Ship Name}
-     type: Ship Information Page
-     parent: /ships.html
-     category: {Cruise Line} Fleet
-     cruise-line: {Cruise Line}
-     ship-class: {Ship Class}
-     siblings: {comma-separated sibling ship URLs}
-     related: /ships.html, /cruise-lines/{cruise-line}.html
-     updated: {YYYY-MM-DD}
-     expertise: Ship reviews, deck plans, dining analysis
-     target-audience: Cruisers researching {Ship Name}
-     answer-first: {One-sentence summary with key specs}
-     -->
-
-  <!-- ICP-Lite v1.4: AI-First Metadata -->
-  <meta name="ai-summary" content="{Ship Name}: deck plans, live tracker, dining venues, and stateroom videos..."/>
+  <!-- ICP-2 v2.1: AI-First Metadata -->
+  <!-- NOTE: ai-breadcrumbs HTML comments are REMOVED per ICP-2 v2.1 — no crawler reads them -->
+  <meta name="ai-summary" content="{Ship Name} is a {Class} cruise ship ({GT} GT, {guests} guests) sailing {deployment}. Deck plans, live tracker, dining venues, and videos."/>
   <meta name="last-reviewed" content="{YYYY-MM-DD}"/>
-  <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="content-protocol" content="ICP-2"/>
 
   <!-- Required JSON-LD Schemas (7 total) -->
   <!-- 1. Organization -->
@@ -174,7 +159,7 @@ Sections MUST appear in this exact order within `<main class="wrap">`:
 ```html
 <main class="wrap" id="main-content" role="main" tabindex="-1">
 
-  <!-- 1. Page Introduction (ICP-Lite) -->
+  <!-- 1. Page Introduction (ICP-2) -->
   <section class="page-intro" aria-label="{Ship Name} overview">
     <p class="answer-line">
       <strong class="section-label">Looking for {Ship Name} planning info?</strong>
@@ -308,7 +293,7 @@ Sections MUST appear in this exact order within `<main class="wrap">`:
   "ship_class": "{Ship Class}",
   "cruise_line": "{Cruise Line}",
   "last_updated": "{YYYY-MM-DD}",
-  "content_protocol": "ICP-Lite v1.4",
+  "content_protocol": "ICP-2",
   "stories": [
     {
       "title": "Story Title",
@@ -472,7 +457,7 @@ node admin/validate-ship-page.js --all-ships --json-output
 
 **Blocking Errors (must fix):**
 - Missing Soli Deo Gloria dedication
-- Missing/invalid ICP-Lite metadata
+- Missing/invalid ICP-2 metadata
 - Missing required JSON-LD schemas
 - Missing required sections
 - Sections in wrong order
@@ -537,8 +522,8 @@ This script:
 
 - [ ] Create `ships/{cruise-line}/{ship-slug}.html`
 - [ ] Add Soli Deo Gloria comment at top
-- [ ] Add ai-breadcrumbs comment
-- [ ] Add ICP-Lite meta tags (ai-summary, last-reviewed, content-protocol)
+- [ ] Add ICP-2 meta tags (ai-summary, last-reviewed, content-protocol="ICP-2")
+- [ ] Ensure NO ai-breadcrumbs HTML comment (removed per ICP-2 v2.1)
 - [ ] Add all 7 JSON-LD schemas
 - [ ] Add all required sections in correct order
 - [ ] Add data-ship and data-imo attributes

@@ -18,17 +18,6 @@ Soli Deo Gloria
   <meta property="og:url" content="https://cruisinginthewake.com/ports/bermuda.html">
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg">
 
-  <!-- ai-breadcrumbs
-     entity: Bermuda
-     type: Port Guide
-     parent: /ports.html
-     category: Caribbean
-     updated: 2026-02-12
-     expertise: Cruise travel, port guides
-     target-audience: Cruise travelers, vacation planners
-     answer-first: Bermuda offers Royal Naval Dockyard, pink sand Horseshoe Bay, Hamilton ferries, rum swizzles, British-Caribbean charm, and practical visitor information.
-     -->
-
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
   <script>
   if('serviceWorker' in navigator){
@@ -261,7 +250,7 @@ Soli Deo Gloria
 
           <figure class="logbook-image float-right">
             <img src="/ports/img/bermuda/bermuda-1.webp" alt="Royal Naval Dockyard fortress walls and clocktower with cruise ship berthed alongside historic limestone fortifications" loading="lazy">
-            <figcaption>Royal Naval Dockyard — <a href="https://commons.wikimedia.org/w/index.php?search=Bermuda+Royal+Naval+Dockyard&amp;title=Special:MediaSearch&amp;type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA)</figcaption>
+            <figcaption>Royal Naval Dockyard — <a href="https://commons.wikimedia.org/w/index.php?search=Bermuda+Royal+Naval+Dockyard&amp;title=Special:MediaSearch&amp;type=image" target="_blank" rel="noopener">WikiMedia Commons</a> (CC BY-SA) <span class="photo-credit">Photo © <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a></span></figcaption>
           </figure>
 
           <p>The Dockyard itself fascinated me more than I expected. I stepped off the gangway directly into a 19th-century naval fortress—actual stone ramparts and cannons surrounding shops and restaurants. Walking those limestone walls, I felt the weight of centuries beneath my feet. Britain built this place after losing the American colonies in 1783, needing a strategic naval base between Halifax and the West Indies. For over 150 years, the Royal Navy called this the "Gibraltar of the West." Though the navy finally departed in 1951, the impressive fortress remains remarkably intact today. Yet what struck me most was learning about the human cost: enslaved laborers and convicts carved this entire complex from solid coral rock. The Bermudian sun was warm on my shoulders, but that knowledge cast a longer shadow.</p>
@@ -391,7 +380,22 @@ Soli Deo Gloria
 
         <h3>Scooter Rentals</h3>
         <p>Scooters remain popular with visitors at around $50-80 per day. However, remember that Bermuda drives on the left side of the road, and narrow winding roads require careful navigation. Electric Twizys (small two-seater vehicles) offer a safer alternative at similar prices. Neither option is recommended for first-time left-side drivers.</p>
-      </details><details class="port-section" id="excursions" open="">
+      </details>
+<details class="port-section" id="map" open="">
+      
+      
+        <h2>Bermuda Port Map</h2>
+        <p class="map-intro">Interactive map showing the cruise terminal, Horseshoe Bay, Hamilton, and key attractions. Click any marker for details and directions.</p>
+        <div id="bermuda-port-map" class="port-map-container" role="application" aria-label="Interactive map of Bermuda port and points of interest">
+          <noscript>
+            <p style="padding: 2rem; text-align: center; color: #678;">Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=32.3283&mlon=-64.8317#map=12/32.3283/-64.8317" target="_blank" rel="noopener">View on OpenStreetMap</a>.</p>
+          </noscript>
+        </div>
+        <div class="port-map-actions">
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('bermuda-port-map')._portMap?.fitBounds(document.getElementById('bermuda-port-map')._portMap.getBounds())">Reset View</button>
+        </div>
+      
+    </details><details class="port-section" id="excursions" open="">
             <summary><h2>Shore Excursions &amp; What to See</h2></summary>
         <p class="tiny" style="margin-bottom: 0.75rem; font-style: italic; color: #678;">Booking guidance: Horseshoe Bay is easily reached independently via public bus. Ship excursions work well for snorkeling trips (guaranteed return to port) and island tours. Book ahead for popular activities through your ship excursion desk or local operators.</p>
 
@@ -544,22 +548,6 @@ Soli Deo Gloria
       <p class="real-talk">Most ships dock at the Royal Naval Dockyard, a 75-minute bus ride from Hamilton and 90 minutes from Horseshoe Bay Beach. That $2.75 bus fare sounds great until you realize the bus comes every 15-30 minutes and the last one back fills up fast on 3-ship days. The Dockyard itself is pleasant but limited — if beaches and Hamilton shopping are your priority, calculate the transit time honestly before deciding whether a taxi ($50+) or organized excursion makes more financial sense.</p>
 
       <!-- Interactive Map Section -->
-      <details class="port-section" id="map" open="">
-      
-      
-        <h2>Bermuda Port Map</h2>
-        <p class="map-intro">Interactive map showing the cruise terminal, Horseshoe Bay, Hamilton, and key attractions. Click any marker for details and directions.</p>
-        <div id="bermuda-port-map" class="port-map-container" role="application" aria-label="Interactive map of Bermuda port and points of interest">
-          <noscript>
-            <p style="padding: 2rem; text-align: center; color: #678;">Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=32.3283&mlon=-64.8317#map=12/32.3283/-64.8317" target="_blank" rel="noopener">View on OpenStreetMap</a>.</p>
-          </noscript>
-        </div>
-        <div class="port-map-actions">
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('bermuda-port-map')._portMap?.fitBounds(document.getElementById('bermuda-port-map')._portMap.getBounds())">Reset View</button>
-        </div>
-      
-    </details>
-
       <!-- Excursions Section -->
       
 
@@ -743,7 +731,7 @@ Soli Deo Gloria
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·

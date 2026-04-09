@@ -82,7 +82,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Brilliant Lady — Virgin Voyages | In the Wake","brand":{"@type":"Organization","name":"Virgin Voyages"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Brilliant Lady is Virgin Voyages' 110,000-GT newest ship, hosting 2,770 adult guests since 2025 with all-included dining, no kids, and Virgin's distinctive boutique ocean travel."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Lady Class ship operated by Virgin Voyages.","name":"Brilliant Lady — Virgin Voyages | In the Wake","brand":{"@type":"Organization","name":"Virgin Voyages"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Brilliant Lady is Virgin Voyages' 110,000-GT newest ship, hosting 2,770 adult guests since 2025 with all-included dining, no kids, and Virgin's distinctive boutique ocean travel."}</script>
   <!-- JSON-LD: WebSite + SearchAction -->
   <script type="application/ld+json">
   {
@@ -230,9 +230,10 @@ All work on this project is offered as a gift to God.
     addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
   })();
   </script>
+  <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
   <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
   <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -280,7 +281,13 @@ All work on this project is offered as a gift to God.
   <a class="nav-pill" href="/about-us.html">About</a>
 </nav>
     </div>
-  </header>
+
+      <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
+      <div class="hero-title">
+        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline">A Cruise Traveler's Logbook</div>
+      </header>
 
   <main class="wrap" id="content" role="main" data-imo="9817331">
     <nav class="breadcrumb">
@@ -296,6 +303,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Brilliant Lady overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Brilliant Lady — Virgin Voyages | In the Wake is a Virgin Class cruise ship operated by Virgin Voyages. She entered service in 2025, measures 110,000 gross tons, and carries approximately 2,770 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Lady Class</li>
+          <li><strong>Year:</strong> 2025</li>
+          <li><strong>Tonnage:</strong> 110,000 GT</li>
+          <li><strong>Guests:</strong> 2,770</li>
+          <li><strong>IMO:</strong> 9817331</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Brilliant Lady is Virgin Voyages' fourth and newest ship — 110,000 GT, 2,770 guests, launching in 2025. Adults-only (18+), she will sail Caribbean and Mediterranean itineraries with all dining included. This page covers deck plans, live tracking, dining venues, and videos.
@@ -329,6 +346,13 @@ All work on this project is offered as a gift to God.
                 <figure>
                   <img src="/assets/ships/Brilliant_Lady_flickr_JoeMarcone58MillionV.webp" alt="Brilliant Lady exterior view" loading="eager" fetchpriority="high" decoding="async">
                   <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/sixsigmaman/54783773666/" target="_blank" rel="noopener">Joe Marcone (5.8 Million Views)</a> via Flickr</figcaption>
+                </figure>
+              </div>
+            
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/assets/ships/Scarlet_Lady_flickr_PelicanPete.webp" alt="Scarlet Lady — fleet sister of Brilliant Lady" loading="lazy" decoding="async">
+                  <figcaption class="tiny">Sister ship Scarlet Lady. Photo: <a href="https://www.flickr.com/photos/pelicanpete/" target="_blank" rel="noopener">PelicanPete</a> via Flickr</figcaption>
                 </figure>
               </div>
             </div>
@@ -376,7 +400,6 @@ Dining on Brilliant Lady</h2>
       </div>
     </section>
     <!-- Ship Statistics -->
-    <div class="grid-2">
     <section class="card" aria-labelledby="ship-stats-title">
       <h2 id="ship-stats-title">Ship Statistics</h2>
       <div id="ship-stats" class="stats-grid" data-slug="brilliant-lady">
@@ -387,15 +410,6 @@ Dining on Brilliant Lady</h2>
         <div class="stat-item"><div class="label">Class</div><div class="value">Virgin Class</div></div>
       </div>
     </section>
-
-    <section class="card" aria-labelledby="deck-plans">
-      <h2 id="deck-plans">Brilliant Lady Deck Plans</h2>
-      <div id="ship-map" data-ship="brilliant-lady">
-        <p>Interactive deck plans for Brilliant Lady are available on the cruise line's official website.</p>
-      </div>
-      <p><a href="https://www.virginvoyages.com" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Deck Plans →</a></p>
-    </section>
-    </div>
 
     <!-- Videos -->
     <section class="card" aria-labelledby="video-highlights">
@@ -410,12 +424,22 @@ Dining on Brilliant Lady</h2>
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
+    <div class="grid-2">
+    <section class="card" aria-labelledby="deck-plans">
+      <h2 id="deck-plans">Brilliant Lady Deck Plans</h2>
+      <div id="ship-map" data-ship="brilliant-lady">
+        <img src="/assets/ship-map.png" alt="Brilliant Lady simplified deck plan preview" loading="lazy" style="max-width:100%;height:auto;"/>
+        <p>Interactive deck plans for Brilliant Lady are available on the cruise line's official website.</p>
+      </div>
+      <p><a href="https://www.virginvoyages.com" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Deck Plans →</a></p>
+    </section>
     <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="0" data-name="BRILLIANTLADY">
       <h2 id="liveTrackHeading">Live Ship Tracker</h2>
       <div id="ship-tracker-container">
         <p>Track Brilliant Lady's current position and voyage details.</p>
       </div>
     </section>
+    </div>
     <!-- Attribution Section -->
     
     <!-- FAQ Section -->
@@ -498,6 +522,8 @@ Dining on Brilliant Lady</h2>
         <h3 id="recent-rail-title">Recent Stories</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
+    
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -524,7 +550,7 @@ Dining on Brilliant Lady</h2>
     <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
 </script>
 <!-- initVideos — fetch video JSON, render thumbnails -->
 <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/virgin-voyages/brilliant-lady.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{const vids=Object.values(data.videos||{}).flat();if(!vids.length){w.innerHTML='<p>No videos available.</p>';return;}w.innerHTML=vids.slice(0,6).map(v=>`<div class="video-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${v.videoId}?rel=0" title="${v.title}" loading="lazy" allowfullscreen></iframe></div>`).join('');}).catch(()=>{w.innerHTML='<p>Videos currently unavailable.</p>';});}
@@ -536,7 +562,7 @@ Dining on Brilliant Lady</h2>
 <script>function initDining(){const el=document.getElementById('dining-list');if(!el)return;fetch('/assets/data/dining/virgin-voyages/brilliant-lady.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.venues||[]).map(v=>`<li><strong>${v.name}</strong> — ${v.description}</li>`).join('');}). catch(()=>{});}
 </script>
 <!-- initLiveTracker — render tracking link -->
-<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:${imo}" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
+<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:9817331" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
 </script>
 <!-- initShipLogbook — logbook loader -->
 <script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/virgin-voyages/brilliant-lady.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.entries||[]).slice(0,5).map(e=>`<li>${e.date}: ${e.note}</li>`).join('');}). catch(()=>{});}

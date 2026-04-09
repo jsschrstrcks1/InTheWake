@@ -123,7 +123,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Emerald Princess","brand":{"@type":"Organization","name":"Princess Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Emerald Princess (Grand Class, 113,561 GT, 3,082 guests, 2007) is Princess Cruises' Grand Class ship featuring Crown Grill, Sabatini's, Horizon Court, and the International Dining Room — delivering warm Princess service on worldwide itineraries."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Grand Class ship operated by Princess Cruises.","name":"Emerald Princess","brand":{"@type":"Organization","name":"Princess Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Emerald Princess (Grand Class, 113,561 GT, 3,082 guests, 2007) is Princess Cruises' Grand Class ship featuring Crown Grill, Sabatini's, Horizon Court, and the International Dining Room — delivering warm Princess service on worldwide itineraries."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -246,7 +246,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -357,6 +357,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Emerald Princess overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Emerald Princess is a Grand Class cruise ship operated by Princess Cruises. She entered service in 2007, measures 113,561 gross tons, and carries approximately 3,082 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Grand Class</li>
+          <li><strong>Year:</strong> 2007</li>
+          <li><strong>Tonnage:</strong> 113,561 GT</li>
+          <li><strong>Guests:</strong> 3,082</li>
+          <li><strong>IMO:</strong> TBD</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Emerald Princess (113,561 GT, 3,082 guests, 2007) is a Grand Class ship — a proven mid-size workhorse with MedallionClass technology, Movies Under the Stars, and a wide range of itineraries. This page covers deck plans, live tracking, dining venues, and videos.
@@ -466,6 +476,12 @@ Dining on Emerald Princess</h2>
                  loading="lazy"
                  onerror="this.onerror=null;this.src='/assets/ships/placeholder-ship.svg'"/>
           </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/assets/ships/emerald-princess_flickr_new.jpg" alt="Emerald Princess cruise ship" loading="lazy" decoding="async">
+                  <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/joshfriedmantravel/5191142828/" target="_blank" rel="noopener">Josh Friedman</a> via Flickr (CC BY-ND)</figcaption>
+                </figure>
+              </div>
         </div>
         <div class="swiper-pagination" ></div>
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
@@ -525,6 +541,7 @@ Dining on Emerald Princess</h2>
 <section class="card" aria-labelledby="deck-plans">
         <h2 id="deck-plans">Emerald Princess Deck Plans</h2>
         <div id="ship-map" data-ship="emerald-princess">
+          <img src="/assets/ship-map.png" alt="Emerald Princess simplified deck plan preview" loading="lazy" style="max-width:100%;height:auto;"/>
           <p>Interactive deck plans for Emerald Princess are available on the cruise line's official website.</p>
         </div>
       </section>
@@ -673,6 +690,8 @@ Dining on Emerald Princess</h2>
         <h3 id="recent-rail-title">Recent Stories</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
+    
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -706,9 +725,9 @@ Dining on Emerald Princess</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
-  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/princess/emerald-princess.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/princess/emerald-princess.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
   <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
   <!-- initDining — fetch dining JSON -->

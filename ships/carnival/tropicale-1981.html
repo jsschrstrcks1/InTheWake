@@ -51,7 +51,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   ]
 }
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"TSS Tropicale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival's first purpose-built ship and the prototype that launched modern cruise shipbuilding with the iconic winged funnel."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A First Purpose-Built ship operated by Carnival Cruise Line.","name":"TSS Tropicale","brand":{"@type":"Organization","name":"Carnival Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Carnival's first purpose-built ship and the prototype that launched modern cruise shipbuilding with the iconic winged funnel."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ken Baker","jobTitle":"Cruise Travel Writer","description":"Wheelchair-accessible cruise specialist documenting the passenger experience across Carnival's fleet."}</script>
 <script type="application/ld+json">
   {
@@ -200,7 +200,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div role="status" aria-live="polite" class="sr-only"></div>
 <div role="alert" aria-live="assertive" class="sr-only"></div>
   <header class="hero-header ship-page" role="banner">
@@ -284,13 +284,22 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
 <p style="margin-top:1rem;font-size:1.1rem">The Prototype That Changed Everything</p>
 </header>
 
-<main class="wrap page-grid" id="main-content" role="main" data-ship="Tropicale 1981" data-imo="0">
+<main class="wrap page-grid" id="main-content" role="main" data-ship="Tropicale 1981">
 <section class="col-1" aria-label="Ship details">
 
     <!-- ICP-Lite: Page Intro -->
     <section class="page-intro" aria-label="TSS Tropicale overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">TSS Tropicale is a Tropicale Class cruise ship operated by Carnival Cruise Line. She entered service in 1982, measures 36,674 gross tons, and carries approximately 1,022 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> First Purpose-Built</li>
+          <li><strong>Year:</strong> 1982</li>
+          <li><strong>Tonnage:</strong> 36,674 GT</li>
+          <li><strong>Guests:</strong> 1,022</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> TSS Tropicale (36,674 GT | 1,022 guests | 1982) was Carnival's first newbuild — the ship that bridged the gap between the converted-liner era and purpose-built cruise ships, featuring the signature whale-tail funnel. This page covers historical ship details.
@@ -369,7 +378,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   <p>Historical deck plans for TSS Tropicale are preserved in maritime archives.</p>
 </section>
 
-<section class="card" id="live-tracker" data-imo="0" aria-labelledby="liveTrackHeading">
+<section class="card" id="live-tracker" aria-labelledby="liveTrackHeading">
   <h2 id="liveTrackHeading">Ship Status</h2>
   <p>TSS Tropicale was scrapped in 2021. Live tracking is not available for this historic vessel.</p>
 </section>
@@ -494,11 +503,11 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   }).catch(()=>{if(fb)fb.textContent='Could not load articles.';});
 })();
 </script><!-- initFirstLook — Swiper for .firstlook carousel -->
-<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
 <!-- initShipLogbook — fetch logbook JSON, render entries -->
 <script>function initShipLogbook(){const el=document.getElementById('logbook-container');if(!el)return;fetch('/assets/data/logbook/carnival/tropicale-1981.json').then(r=>r.json()).then(d=>{if(d.stories)el.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h3>'+s.title+'</h3><p style="font-size:.85rem;color:#64748b;margin:.25rem 0">'+s.persona_label+'</p><div>'+s.markdown.split('\n\n').slice(0,2).map(p=>'<p>'+p.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</p>').join('')+'</div></article>').join('');}).catch(()=>{el.innerHTML='<p>Stories coming soon.</p>';});}</script>
 <!-- initVideos — fetch video JSON, render thumbnails -->
-<script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/carnival/tropicale-1981.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+<script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/carnival/tropicale-1981.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
 <!-- initStats — parse ship-stats-fallback JSON -->
 <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
 <!-- initDining — fetch dining JSON -->

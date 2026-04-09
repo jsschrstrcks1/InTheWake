@@ -309,7 +309,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page" data-ship="Unnamed Project Ace 2">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
@@ -416,7 +416,7 @@ All work on this project is offered as a gift to God.
   </div>
 </header>
 
-<main class="grid grid--2" id="main-content" role="main" data-imo="0" data-ship="Unnamed Project Ace 2">
+<main class="grid grid--2" id="main-content" role="main" data-imo="TBD" data-ship="Unnamed Project Ace 2">
 
     <!-- Main Content Column -->
     <section class="col-1" aria-label="Ship details">
@@ -471,7 +471,7 @@ All work on this project is offered as a gift to God.
 
   <section class="card" id="logbook" aria-labelledby="logbook-title">
     <h2 id="logbook-title">From the Logbook</h2>
-    <div id="logbook-container"><p>Logbook entries will be available once the ship enters service.</p></div>
+    <div id="logbook-container" data-ship="unnamed-project-ace-2" data-line="carnival"></div>
   </section>
 
   <section class="card" id="video-highlights" aria-labelledby="videos-title">
@@ -484,6 +484,8 @@ All work on this project is offered as a gift to God.
 
   <section class="card" aria-labelledby="deck-plans">
     <h2 id="deck-plans">Deck Plans</h2>
+    
+      <p>Project Ace represents Carnival's next-generation large ship platform, expected to enter service around 2027-2028. Following the Excel Class success, the Project Ace ships are expected to deliver expanded dining concepts, refined waterpark infrastructure, enhanced entertainment technology, and improved cabin design efficiency. Carnival Cruise Line has positioned these ships as the evolution of its most successful large-ship formula, building on the operational learnings from Mardi Gras, Carnival Celebration, and Carnival Jubilee to deliver a refined and expanded experience for families and all traveler types. The Project Ace class is expected to maintain Carnival's value-oriented pricing model while delivering meaningful improvements across all guest touchpoints from embarkation to disembarkation.</p>
     <p>Deck plans for Project Ace 2 will be published closer to the ship's delivery date.</p>
   </section>
 
@@ -503,8 +505,30 @@ All work on this project is offered as a gift to God.
 
   <section class="card">
     <header><h2>Image Gallery</h2></header>
-    <div class="content">
+    <div class="content swiper firstlook" aria-label="Project Ace 2 photo gallery">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><figure><img src="/assets/ships/Carnival_Celebration,_Nassau_(cropped).jpg" alt="Carnival Celebration — Carnival Excel Class reference ship" loading="lazy" decoding="async"><figcaption class="tiny">Carnival Excel Class reference ship Carnival Celebration</figcaption></figure></div>
+        <div class="swiper-slide"><figure><img src="/assets/ships/Carnival_Jubilee_Panorama_Cozumel_2024.jpg" alt="Carnival Jubilee — Carnival Excel Class reference ship" loading="lazy" decoding="async"><figcaption class="tiny">Excel Class reference ship Carnival Jubilee. Photo via Wikimedia Commons, CC BY-SA 4.0</figcaption></figure></div>
+        <div class="swiper-slide"><figure><img src="/assets/ships/carnival-venezia_01.webp" alt="Carnival Venezia — Carnival Contemporary Class" loading="lazy" decoding="async"><figcaption class="tiny">Carnival fleet reference ship Carnival Venezia</figcaption></figure></div>
+      </div>
+      <div class="swiper-pagination"></div>
     </div>
+  </section>
+
+  <!-- Image Attribution -->
+  <section class="card" id="image-credits" aria-labelledby="attribution-heading">
+    <h2 id="attribution-heading">Image Credits</h2>
+    <p class="tiny">Reference images show Carnival Excel Class ships (Carnival Celebration, Carnival Jubilee) as class representatives. Carnival Jubilee photo by Nacho Corné (CC BY-SA 4.0) via Wikimedia Commons. All reference to Project Ace 2 specifications based on Carnival Cruise Line announcements.</p>
+  </section>
+
+  <!-- Recently Updated Ships -->
+  <section class="card recent-rail" id="recent-ships" aria-labelledby="recent-heading">
+    <h2 id="recent-heading">More Carnival Ships</h2>
+    <ul class="ship-links">
+      <li><a href="/ships/carnival/mardi-gras.html">Mardi Gras</a></li>
+      <li><a href="/ships/carnival/carnival-celebration.html">Carnival Celebration</a></li>
+      <li><a href="/ships/carnival/carnival-jubilee.html">Carnival Jubilee</a></li>
+    </ul>
   </section>
 
     <!-- ICP-Lite FAQ Section -->
@@ -606,7 +630,7 @@ All work on this project is offered as a gift to God.
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
@@ -618,11 +642,11 @@ All work on this project is offered as a gift to God.
   </footer>
 
 <!-- initFirstLook — Swiper for .firstlook carousel -->
-<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
 <!-- initShipLogbook — fetch logbook JSON, render entries -->
 <script>function initShipLogbook(){const el=document.getElementById('logbook-container');if(!el)return;fetch('/assets/data/logbook/carnival/unnamed-project-ace-2.json').then(r=>r.json()).then(d=>{if(d.stories)el.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h3>'+s.title+'</h3><p style="font-size:.85rem;color:#64748b;margin:.25rem 0">'+s.persona_label+'</p><div>'+s.markdown.split('\n\n').slice(0,2).map(p=>'<p>'+p.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</p>').join('')+'</div></article>').join('');}).catch(()=>{});}</script>
 <!-- initVideos — fetch video JSON, render thumbnails -->
-<script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/carnival/unnamed-project-ace-2.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+<script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/carnival/unnamed-project-ace-2.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
 <!-- initStats — parse ship-stats-fallback JSON -->
 <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
 <!-- initDining — fetch dining JSON -->

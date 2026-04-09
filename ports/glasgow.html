@@ -22,8 +22,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <meta property="og:description" content="Ships dock at Greenock Ocean Terminal, 40 minutes from Glasgow by train. Scotland's largest city offers free museums including Kelvingrove Art Gallery, Glasgow Cathedral, Riverside Museum, and Charles Rennie Mackintosh architecture.">
   <meta property="og:url" content="https://cruisinginthewake.com/ports/glasgow.html">
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg">
-  <meta name="keywords" content="Glasgow cruise port, Greenock, Scotland cruise, Loch Lomond, Edinburgh day trip, whisky tours">
-
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
   <link rel="stylesheet" href="/assets/styles.css">
@@ -90,7 +88,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <header class="hero-header" role="banner">
-    <nav class="navbar" aria-label="Main navigation">
+    <div class="navbar" aria-label="Main navigation">
       <div class="brand">
         <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async">
       </div>
@@ -160,7 +158,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
-    </nav>
+    </div>
   </header>
 
 <main class="wrap page-grid" id="main-content" role="main">
@@ -266,6 +264,17 @@ ITW-Lite v3.010 | ICP-Lite v1.4
           <p><strong>Buses:</strong> First Glasgow operates an extensive bus network across the city. The hop-on hop-off sightseeing bus costs about £17 and covers major attractions including the cathedral, George Square, and the West End. Standard city buses accept contactless payment.</p>
           <p><strong>Walking:</strong> Glasgow city centre is walkable, though hillier than it appears on maps. From Glasgow Central station to Kelvingrove is about 25 minutes on foot through the park. Comfortable shoes are essential as pavements mix flagstone, cobbles, and modern concrete. Rain gear is non-negotiable regardless of forecast.</p>
           <p><strong>Taxis:</strong> Black cabs are plentiful in Glasgow and use meters. A ride from Glasgow Central to Kelvingrove costs roughly £6-8. Uber also operates in the city. From Greenock terminal to Glasgow city centre, expect to pay £45-55 each way by taxi.</p>
+        </div>
+      </details>
+    </details>
+<details class="port-section port-map-section" id="map" open="">
+      <details class="section-collapse" open="">
+        <summary><h2>Glasgow Port Map</h2></summary>
+        <div class="collapse-body">
+          <p class="map-intro">Interactive map showing Greenock Ocean Terminal, Glasgow city centre attractions, and key points of interest.</p>
+          <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Glasgow cruise port and points of interest">
+            <noscript><p>Enable JavaScript to view the interactive map.</p></noscript>
+          </div>
         </div>
       </details>
     </details><details class="port-section" id="excursions" open="">
@@ -387,18 +396,6 @@ ITW-Lite v3.010 | ICP-Lite v1.4
     
 
     <!-- MAP SECTION -->
-    <details class="port-section port-map-section" id="map" open="">
-      <details class="section-collapse" open="">
-        <summary><h2>Glasgow Port Map</h2></summary>
-        <div class="collapse-body">
-          <p class="map-intro">Interactive map showing Greenock Ocean Terminal, Glasgow city centre attractions, and key points of interest.</p>
-          <div id="port-map" class="port-map-container" role="application" aria-label="Interactive map of Glasgow cruise port and points of interest">
-            <noscript><p>Enable JavaScript to view the interactive map.</p></noscript>
-          </div>
-        </div>
-      </details>
-    </details>
-
     <!-- EXCURSIONS SECTION -->
     
 
@@ -604,7 +601,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook</p>
     <p class="tiny"><a href="/privacy.html">Privacy</a> · <a href="/about-us.html">About</a></p>
     <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>

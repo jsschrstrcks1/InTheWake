@@ -277,7 +277,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Discovery Class Ship (TBN)","brand":{"@type":"Organization","name":"Royal Caribbean International"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Discovery Class Ship (TBN) is a Discovery Class vessel from Royal Caribbean International, offering memorable cruise experiences with excellent amenities and service."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Discovery Class ship operated by Royal Caribbean.","name":"Discovery Class Ship (TBN)","brand":{"@type":"Organization","name":"Royal Caribbean International"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Discovery Class Ship (TBN) is a Discovery Class vessel from Royal Caribbean International, offering memorable cruise experiences with excellent amenities and service."}</script>
 
   <!-- Swiper loader -->
   <script>
@@ -328,7 +328,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <body class="page">
   <!-- Skip Link -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -451,6 +451,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h1 id="ship-name">Discovery Class Ship (TBN)</h1>
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Discovery Class Ship (TBN) is a Unknown Class cruise ship operated by Royal Caribbean International.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Discovery Class</li>
+          <li><strong>IMO:</strong> TBD</li>
+        </ul>
+      </div>
 
       <p class="answer-line">
       <span class="answer-q">What this page covers</span>
@@ -464,7 +471,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p>As a future-focused ship class, the Discovery Class will likely incorporate lessons learned from Royal Caribbean's newest vessels while introducing fresh innovations tailored to evolving guest preferences. We'll update this page with deck plans, dining options, and amenities as soon as Royal Caribbean makes official announcements.</p>
       </section>
 <script type="application/json" id="dining-data-source">{"provider":"rcl","json":"/assets/data/venues-v2.json","ship_slug":"discovery-class-ship-tbn","aliases":["Discovery Class Ship (TBN)"]}</script>
-        <script type="application/json" id="ship-stats-fallback">{"slug":"discovery-class-ship-tbn","name":"Discovery Class Ship (TBN)","cruise_line":"Royal Caribbean International","class":"Discovery Class","entered_service":0,"gt":"TBD","guests":"TBD"}</script>
+        <script type="application/json" id="ship-stats-fallback">{"slug":"discovery-class-ship-tbn","name":"Discovery Class Ship (TBN)","cruise_line":"Royal Caribbean International","class":"Discovery Class","entered_service":"TBD","gt":"TBD","guests":"TBD"}</script>
     </section><!-- end .page-intro -->
 
     <section class="key-facts card" data-ship="Discovery Class Ship (TBN)">
@@ -549,7 +556,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <section class="card" aria-labelledby="video-highlights">
       <h2 id="video-highlights">Watch: Discovery Class Highlights</h2>
       <p class="small">Video content will be available once Royal Caribbean reveals more about the Discovery Class.</p>
-      <div id="videoFallback" class="tiny">Videos will appear once our sources sync for this ship.</div>
+      <div id="videoFallback" class="tiny">Video content will be added closer to the ship entering service.</div>
     </section>
 
     
@@ -627,6 +634,31 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
       <h2 id="first-look">A First Look at Discovery Class Ship (TBN)</h2>
+      <div class="swiper firstlook" aria-label="A First Look at Discovery Class Ship (TBN) photo carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/Wonder_of_the_Seas_Jan_30_2025.webp" alt="Wonder of the Seas — Royal Caribbean flagship" loading="lazy" decoding="async">
+              <figcaption class="tiny">Royal Caribbean flagship Wonder of the Seas. Photo via Wikimedia Commons, CC BY-SA 4.0</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/Utopia-of-the-seas-FOM- - 1.webp" alt="Utopia of the Seas — Royal Caribbean fleet" loading="lazy" decoding="async">
+              <figcaption class="tiny">Royal Caribbean Utopia of the Seas</figcaption>
+            </figure>
+          </div>
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ships/Icon_of_the_Seas_(cropped).webp" alt="Icon of the Seas — Royal Caribbean fleet" loading="lazy" decoding="async">
+              <figcaption class="tiny">Royal Caribbean Icon of the Seas. Photo via Wikimedia Commons, public domain</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
       <div class="grid-2" style="gap: 1.5rem;">
         <div>
           <p>Discovery Class Ship (TBN) offers a memorable cruise experience with Royal Caribbean International. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
@@ -714,7 +746,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- FOOTER -->
     <footer class="wrap" role="contentinfo">
-    <p>© 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·

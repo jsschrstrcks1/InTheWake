@@ -124,7 +124,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Ruby Princess","brand":{"@type":"Organization","name":"Princess Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Ruby Princess (Grand Class, 113,561 GT, 3,082 guests, 2008) is Princess Cruises' Grand Class ship featuring Crown Grill, Sabatini's, Horizon Court, and the International Dining Room — a popular choice for Alaska and Caribbean sailings."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Grand Class ship operated by Princess Cruises.","name":"Ruby Princess","brand":{"@type":"Organization","name":"Princess Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Ruby Princess (Grand Class, 113,561 GT, 3,082 guests, 2008) is Princess Cruises' Grand Class ship featuring Crown Grill, Sabatini's, Horizon Court, and the International Dining Room — a popular choice for Alaska and Caribbean sailings."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -246,7 +246,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 <div role="status" aria-live="polite" aria-atomic="true" class="visually-hidden"></div>
@@ -359,6 +359,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Ruby Princess overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Ruby Princess is a Grand Class cruise ship operated by Princess Cruises. She entered service in 2008, measures 113,561 gross tons, and carries approximately 3,082 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Grand Class</li>
+          <li><strong>Year:</strong> 2008</li>
+          <li><strong>Tonnage:</strong> 113,561 GT</li>
+          <li><strong>Guests:</strong> 3,082</li>
+          <li><strong>IMO:</strong> 9378462</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Ruby Princess (113,561 GT, 3,082 guests, 2008) is the last Grand Class ship — the most refined version with MedallionClass technology, Movies Under the Stars, and Princess's specialty dining lineup. This page covers deck plans, live tracking, dining venues, and videos.
@@ -392,6 +402,12 @@ All work on this project is offered as a gift to God.
                 <figure>
                   <img src="/assets/ships/Ruby_Princess_flickr_rejwa1.webp" alt="Ruby Princess exterior view" loading="lazy" decoding="async">
                   <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/rejwa1/55089816608/" target="_blank" rel="noopener">rejwa1</a> via Flickr</figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/assets/ships/princess/ruby-princess-exterior.jpg" alt="Ruby Princess departing Port of Los Angeles" loading="lazy" decoding="async">
+                  <figcaption class="tiny">Photo: <a href="https://commons.wikimedia.org/wiki/File:Cruise_Ship_Departing_Port_of_Los_Angeles_-_panoramio.jpg" target="_blank" rel="noopener">Shane Smith</a> via Wikimedia Commons (CC BY-SA 3.0)</figcaption>
                 </figure>
               </div>
             </div>
@@ -644,6 +660,8 @@ Dining on Ruby Princess</h2>
         <h3 id="recent-rail-title">Recent Stories</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
+    
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -677,9 +695,9 @@ Dining on Ruby Princess</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
-  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/princess/ruby-princess.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/princess/ruby-princess.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
   <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
   <!-- initDining — fetch dining JSON -->

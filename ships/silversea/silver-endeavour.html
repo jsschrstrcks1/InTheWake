@@ -123,7 +123,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Silver Endeavour","brand":{"@type":"Organization","name":"Silversea Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Silver Endeavour is a 23,500-GT polar expedition ship hosting 200 guests, launched in 2021 with PC6 ice-class certification and expert naturalist staff for remote destination discovery."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Expedition Class ship operated by Silversea Cruises.","name":"Silver Endeavour","brand":{"@type":"Organization","name":"Silversea Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Silver Endeavour is a 23,500-GT polar expedition ship hosting 200 guests, launched in 2021 with PC6 ice-class certification and expert naturalist staff for remote destination discovery."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -245,7 +245,7 @@ All work on this project is offered as a gift to God.
   </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
   <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
   <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -356,6 +356,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Silver Endeavour overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Silver Endeavour is a Expedition Class cruise ship operated by Silversea Cruises. She entered service in 2021, measures 23,500 gross tons, and carries approximately 200 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Expedition Class</li>
+          <li><strong>Year:</strong> 2021</li>
+          <li><strong>Tonnage:</strong> 23,500 GT</li>
+          <li><strong>Guests:</strong> 200</li>
+          <li><strong>IMO:</strong> TBD</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Silver Endeavour (23,500 GT, 200 guests, 2021) is Silversea's ultra-luxury expedition flagship — a PC6 Polar Class ship with 20 Zodiac inflatable boats, a fleet of kayaks, and the highest ice-class rating in the fleet. This page covers deck plans, live tracking, dining venues, and videos.
@@ -389,6 +399,12 @@ All work on this project is offered as a gift to God.
                 <figure>
                   <img src="/assets/ships/Silver_Endeavour_flickr_DStanley.webp" alt="Silver Endeavour exterior view" loading="lazy" decoding="async">
                   <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/davidstanleytravel/54079205743/" target="_blank" rel="noopener">D-Stanley</a> via Flickr</figcaption>
+                </figure>
+              </div>
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/assets/ships/silver-endeavour_flickr_new.jpg" alt="Silver Endeavour cruise ship" loading="lazy" decoding="async">
+                  <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/davidstanleytravel/54079205743/" target="_blank" rel="noopener">David Stanley</a> via Flickr (CC BY)</figcaption>
                 </figure>
               </div>
             </div>
@@ -676,6 +692,8 @@ Dining on Silver Endeavour</h2>
         <h3 id="recent-rail-title">Recent Stories</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
+    
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -709,7 +727,7 @@ Dining on Silver Endeavour</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
+<script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
 </script>
 <!-- initVideos — fetch video JSON, render thumbnails -->
 <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/silversea/silver-endeavour.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{const vids=Object.values(data.videos||{}).flat();if(!vids.length){w.innerHTML='<p>No videos available.</p>';return;}w.innerHTML=vids.slice(0,6).map(v=>`<div class="video-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${v.videoId}?rel=0" title="${v.title}" loading="lazy" allowfullscreen></iframe></div>`).join('');}).catch(()=>{w.innerHTML='<p>Videos currently unavailable.</p>';});}
@@ -721,7 +739,7 @@ Dining on Silver Endeavour</h2>
 <script>function initDining(){const el=document.getElementById('dining-list');if(!el)return;fetch('/assets/data/dining/silversea/silver-endeavour.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.venues||[]).map(v=>`<li><strong>${v.name}</strong> — ${v.description}</li>`).join('');}). catch(()=>{});}
 </script>
 <!-- initLiveTracker — render tracking link -->
-<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:${imo}" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
+<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:TBD" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
 </script>
 <!-- initShipLogbook — logbook loader -->
 <script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/silversea/silver-endeavour.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.entries||[]).slice(0,5).map(e=>`<li>${e.date}: ${e.note}</li>`).join('');}). catch(()=>{});}

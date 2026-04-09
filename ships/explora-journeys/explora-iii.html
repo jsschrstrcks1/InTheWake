@@ -143,7 +143,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Explora III","brand":{"@type":"Organization","name":"Explora Journeys"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Explora III is an Explora Class ship from Explora Journeys, measuring 63,900 GT and accommodating 922 guests. Expected to enter service in 2026, she continues the ultra-luxury brand's fleet expansion with ocean-front suites and destination-rich itineraries."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Explora Class ship operated by Explora Journeys.","name":"Explora III","brand":{"@type":"Organization","name":"Explora Journeys"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Explora III is an Explora Class ship from Explora Journeys, measuring 63,900 GT and accommodating 922 guests. Expected to enter service in 2026, she continues the ultra-upscale brand's fleet expansion with ocean-front suites and destination-rich itineraries."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -266,7 +266,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
@@ -364,7 +364,7 @@ All work on this project is offered as a gift to God.
     </div>
   </header>
 
-  <main class="wrap" id="content" role="main" data-imo="0">
+  <main class="wrap" id="content" role="main" data-imo="TBD">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
@@ -378,6 +378,15 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Explora III overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Explora III is a Explora Class cruise ship operated by Explora Journeys. She entered service in 2026, measures 63,900 gross tons, and carries approximately 922 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Explora Class</li>
+          <li><strong>Year:</strong> 2026</li>
+          <li><strong>Tonnage:</strong> 63,900 GT</li>
+          <li><strong>Guests:</strong> 922</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Explora III is the third ship from Explora Journeys — 63,900 GT, 922 guests, entering service in 2026. Another Explora Class sister with all ocean-front suites and butler service. This page covers deck plans, live tracking, dining venues, and videos.
@@ -411,6 +420,13 @@ All work on this project is offered as a gift to God.
                 <figure>
                   <img src="/assets/ships/Explora_III_flickr_gabry92g.webp" alt="Explora III exterior view" loading="lazy" decoding="async">
                   <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/204100680@N06/55088659064/" target="_blank" rel="noopener">gabry.92g</a> via Flickr</figcaption>
+                </figure>
+              </div>
+            
+              <div class="swiper-slide">
+                <figure>
+                  <img src="/assets/ships/Explora_Ii_flickr_JamesHenton.webp" alt="Explora II — sister ship of Explora III" loading="lazy" decoding="async">
+                  <figcaption class="tiny">Sister ship Explora II. Photo: <a href="https://www.flickr.com/photos/jameshenton/" target="_blank" rel="noopener">James Henton</a> via Flickr</figcaption>
                 </figure>
               </div>
             </div>
@@ -676,6 +692,8 @@ Dining on Explora III</h2>
         <h3 id="recent-rail-title">Recent Stories</h3>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
       </section>
+    
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -709,9 +727,9 @@ Dining on Explora III</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
-  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/explora-journeys/explora-iii.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/explora-journeys/explora-iii.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
   <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
   <!-- initDining — fetch dining JSON -->

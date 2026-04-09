@@ -123,7 +123,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Vehicle","name":"Norwegian Escape","brand":{"@type":"Organization","name":"Norwegian Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Norwegian Escape (Breakaway Plus Class, 164,600 GT, 4,266 guests, 2015) features The Waterfront outdoor promenade, Aqua Park waterslides, Margaritaville at Sea, Syd Norman's Pour House, Vibe Beach Club, and The Haven ship-within-a-ship."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Breakaway Plus ship operated by Norwegian Cruise Line.","name":"Norwegian Escape","brand":{"@type":"Organization","name":"Norwegian Cruise Line"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Norwegian Escape (Breakaway Plus Class, 164,600 GT, 4,266 guests, 2015) features The Waterfront outdoor promenade, Aqua Park waterslides, Margaritaville at Sea, Syd Norman's Pour House, Vibe Beach Club, and The Haven ship-within-a-ship."}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -246,7 +246,7 @@ All work on this project is offered as a gift to God.
 </script>
 </head>
 <body class="page">
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#content" class="skip-link">Skip to main content</a>
 <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
@@ -357,6 +357,16 @@ All work on this project is offered as a gift to God.
     <section class="page-intro" aria-label="Norwegian Escape overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Norwegian Escape is a Breakaway Plus cruise ship operated by Norwegian Cruise Line. She entered service in 2015, measures 164,600 gross tons, and carries approximately 4,266 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Breakaway Plus</li>
+          <li><strong>Year:</strong> 2015</li>
+          <li><strong>Tonnage:</strong> 164,600 GT</li>
+          <li><strong>Guests:</strong> 4,266</li>
+          <li><strong>IMO:</strong> 9677076</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Norwegian Escape (164,600 GT, 4,266 guests, 2015) is the first Breakaway Plus ship — NCL's first to feature a multi-story go-kart race track, Jimmy Buffett's Margaritaville at sea, and an expanded Waterfront promenade. This page covers deck plans, live tracking, dining venues, and videos.
@@ -419,7 +429,7 @@ All work on this project is offered as a gift to God.
           <div class="swiper-slide">
             <figure>
               <img src="/assets/ships/norwegian-escape_06.webp" alt="Norwegian Escape Broadway theater showroom" loading="lazy">
-              <figcaption class="tiny">Broadway-style theater for world-class shows</figcaption>
+              <figcaption class="tiny">Broadway-style theater for exceptional shows</figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
@@ -441,8 +451,8 @@ All work on this project is offered as a gift to God.
       </div>
       <div style="margin-top: 1.5rem;">
         <p>Norwegian Escape is the lead ship of Norwegian Cruise Line's Breakaway Plus Class, launching in October 2015 as the line's first vessel purpose-built for year-round Caribbean cruising from Miami. At 164,600 gross tons and carrying 4,266 guests, she introduced many innovations that defined NCL's next generation of cruise experiences.</p>
-        <p>The ship features The Haven, NCL's exclusive ship-within-a-ship concept offering luxury suites with private pool, sundeck, and restaurant. Entertainment highlights include Tony Award-winning Broadway shows like "After Midnight," the thrilling Aqua Park with five multi-story waterslides, and the three-story Ropes Course adventure attraction suspended above the deck.</p>
-        <p>Dining aboard Norwegian Escape offers unparalleled variety with over 25 dining options. From specialty restaurants like Le Bistro French cuisine and Cagney's Steakhouse to unique concepts like Food Republic's fusion small plates, guests enjoy freestyle dining that lets them eat where and when they want. The Observation Lounge offers panoramic views while enjoying cocktails and light fare.</p>
+        <p>The ship features The Haven, NCL's exclusive ship-within-a-ship concept offering upscale suites with private pool, sundeck, and restaurant. Entertainment highlights include Tony Award-winning Broadway shows like "After Midnight," the thrilling Aqua Park with five multi-story waterslides, and the three-story Ropes Course adventure attraction suspended above the deck.</p>
+        <p>Dining aboard Norwegian Escape offers exceptional variety with over 25 dining options. From specialty restaurants like Le Bistro French cuisine and Cagney's Steakhouse to unique concepts like Food Republic's fusion small plates, guests enjoy freestyle dining that lets them eat where and when they want. The Observation Lounge offers panoramic views while enjoying cocktails and light fare.</p>
       </div>
       <div id="ship-stats" class="stats-grid" data-slug="norwegian-escape"></div>
     </section>
@@ -746,9 +756,9 @@ Dining on Norwegian Escape</h2>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
-  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
   <!-- initVideos — fetch video JSON, render thumbnails -->
-  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/norwegian/norwegian-escape.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/norwegian/norwegian-escape.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
   <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
   <!-- initDining — fetch dining JSON -->

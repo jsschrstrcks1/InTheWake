@@ -346,7 +346,7 @@
 </head>
 <body class="page">
   <!-- Skip Link for Accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions for Dynamic Updates -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -357,7 +357,7 @@
     <div class="navbar">
       <div class="brand">
         <a href="/">
-          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home" decoding="async" loading="eager">
+          <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake - Home image" decoding="async" loading="eager">
         </a>
 </div>
       <nav class="site-nav" aria-label="Main navigation">
@@ -427,6 +427,16 @@
     <section class="page-intro" aria-label="Carnival Venezia overview">
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Carnival Venezia is a Spirit Class cruise ship operated by Carnival Cruise Line. She entered service in 2023, measures 86,000 gross tons, and carries approximately 2,680 guests at double occupancy.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Vista-class (Italian heritage)</li>
+          <li><strong>Year:</strong> 2023</li>
+          <li><strong>Tonnage:</strong> 86,000 GT</li>
+          <li><strong>Guests:</strong> 2,680</li>
+          <li><strong>IMO:</strong> 9319466</li>
+        </ul>
+      </div>
 
       <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
         <strong>Quick Answer:</strong> Carnival Venezia (86,000 GT | 2,680 guests | 2023) is a former Costa ship (Costa Venezia) reimagined as a Carnival "Fun Italian Style" experience — blending Italian design with Carnival entertainment and dining. This page covers deck plans, live tracking, dining venues, and videos.
@@ -973,7 +983,7 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
   function initFirstLook(){
     const el=document.getElementById('photo-swiper');
     if(!el||typeof Swiper==='undefined') return;
-    new Swiper(el,{loop:false,rewind:true,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
+    new Swiper(el,{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
   </script>
@@ -1002,7 +1012,7 @@ Dining Venues on Carnival Venezia <a href="/restaurants.html" style="font-size: 
         if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
         else if(Array.isArray(d.videos)) vids=d.videos;
         if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
-        new Swiper('#video-swiper',{loop:false,rewind:true,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
+        new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
       }).catch(()=>{});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initVideos); else initVideos();
