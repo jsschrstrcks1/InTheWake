@@ -58,6 +58,13 @@ Ports validated with consolidated v2 + truth-checked via external LLM (Perplexit
 
 **Fleet-wide blocker:** `recent_articles_validation_failed` — all ports (including cozumel gold standard) lack `#recent-rail-nav-top`, `#recent-rail-nav-bottom`, and article loader script. Needs fleet deployment, not per-port fix.
 
+**Noscript remediation (2026-04-09):** Added noscript fallbacks to all 6 ports:
+- Ships Visiting: static ship lists with links (all 6)
+- Recent Stories: static article links (all 6)
+- Photo Gallery: static image grids (4 ports with galleries)
+- Map: text-based location list from "From the Pier" data (all 6)
+- Remaining: weather noscript needs Yellow Lane content work on 5 ports
+
 ---
 
 ## Ports Validated and Repaired
