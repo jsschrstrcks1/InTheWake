@@ -3808,6 +3808,61 @@ function validateWeatherSubValidator(filepath) {
   return { valid: errors.length === 0, errors, warnings };
 }
 
+/**
+ * Run the POI coordinate validator for a specific port
+ * BLOCKING: POIs in water indicate bad data that will mislead travelers
+ *
+ * Uses Nominatim reverse geocoding with 1.1s rate limiting per POI.
+ * For a typical port (~8 POIs) this adds ~9 seconds.
+ */
+function validatePOICoordinates(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const portSlug = basename(filepath, '.html');
+  const poiScript = join(PROJECT_ROOT, 'admin', 'validate-poi-coordinates.js');
+
+  if (!existsSync(poiScript)) {
+    warnings.push({ section: 'poi_coords', rule: 'poi_validator_not_found', message: 'POI coordinate validator not found, skipping', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  // Check if this port has POIs before spawning (avoid unnecessary API calls)
+  const poiIndexPath = join(PROJECT_ROOT, 'assets', 'data', 'maps', 'poi-index.json');
+  if (!existsSync(poiIndexPath)) {
+    return { valid: true, errors, warnings };
+  }
+
+  try {
+    const poiIndex = JSON.parse(readFileSync(poiIndexPath, 'utf8'));
+    const portPOIs = Object.entries(poiIndex)
+      .filter(([key, val]) => key !== '_meta' && val.port === portSlug);
+
+    if (portPOIs.length === 0) {
+      return { valid: true, errors, warnings };
+    }
+
+    const result = spawnSync('node', [poiScript, `--port=${portSlug}`, '--no-report', '-q'], {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 120000 // 2 minutes — generous for ports with many POIs
+    });
+
+    if (result.status !== 0) {
+      errors.push({
+        section: 'poi_coords',
+        rule: 'poi_in_water',
+        message: `POI coordinate validation failed for ${portSlug} (${portPOIs.length} POIs) — run: node admin/validate-poi-coordinates.js --port=${portSlug}`,
+        severity: 'BLOCKING'
+      });
+    }
+  } catch (err) {
+    warnings.push({ section: 'poi_coords', rule: 'poi_validator_error', message: `POI validator threw: ${err.message}`, severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
 async function validatePortPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const results = {
@@ -3938,6 +3993,7 @@ async function validatePortPage(filepath) {
     const tenderPortResult = validateTenderPortIndicator($, filepath);
     const imageRefsResult = validateImageReferences($, filepath);
     const weatherSubResult = validateWeatherSubValidator(filepath);
+    const poiCoordsResult = validatePOICoordinates(filepath);
 
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
@@ -3970,6 +4026,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...tenderPortResult.errors);
     results.blocking_errors.push(...imageRefsResult.errors);
     results.blocking_errors.push(...weatherSubResult.errors);
+    results.blocking_errors.push(...poiCoordsResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -4015,6 +4072,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...tenderPortResult.warnings);
     results.warnings.push(...imageRefsResult.warnings);
     results.warnings.push(...weatherSubResult.warnings);
+    results.warnings.push(...poiCoordsResult.warnings);
 
     // Gold standard gap detection (only included with --gold-standard flag)
     // Per orchestra: separate mode to avoid alert fatigue on the 100% pass rate
