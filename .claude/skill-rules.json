@@ -367,6 +367,94 @@
         "note": "Voice-audit is the post-draft companion to Like-a-human. Like-a-human fires during writing. Voice-audit fires before committing."
       }
     },
+
+    "emotional-hook-test": {
+      "enabled": true,
+      "type": "guardrail",
+      "enforcement": "warn",
+      "priority": "high",
+      "description": "Pre-publication feeling-level quality gate. Evaluates reader emotional experience in 30 seconds: Clarity (0-5s), Calm (5-10s), Seen (10-15s), Confidence (15-20s), Guided (20-30s). Complements voice-audit (output quality) and Like-a-human (writing voice) with feeling-level assessment. Applied during content review.",
+      "promptTriggers": {
+        "keywords": [
+          "emotional hook",
+          "hook test",
+          "feeling test",
+          "thirty-second",
+          "30 second",
+          "reader experience",
+          "page feeling",
+          "emotional test",
+          "clarity test",
+          "calm test"
+        ],
+        "intentPatterns": [
+          "(run|apply|check|do).*?(emotional hook|hook test|feeling test)",
+          "(does|will).*?(reader|cruiser|visitor).*?feel",
+          "30.?second.*?(test|check|promise)"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/Humanization/emotional-hook-test.md",
+        "maxLines": 250,
+        "loadOnFirstFileEdit": false,
+        "note": "Loaded manually via prompt keywords or co-activated with voice-audit during pre-commit content review. Not auto-loaded on every edit — it is a quality gate, not a writing guide."
+      },
+      "activationMessage": "Emotional Hook Test activated. Evaluating reader feeling: Clarity → Calm → Seen → Confidence → Guided.",
+      "coActivation": {
+        "always_with": ["voice-audit", "content-strategy"],
+        "note": "Completes the content quality trio: Like-a-human (during writing) → voice-audit (output scan) → emotional-hook-test (feeling-level gate). All three should inform content review before publishing."
+      },
+      "perPageTargets": {
+        "home": "Trust + orientation",
+        "ship": "Personality in 60 seconds",
+        "port": "Preparation + anxiety reduction",
+        "restaurant": "Clarity + value judgment",
+        "accessibility": "Dignity + being seen",
+        "solo": "Not alone",
+        "tools": "Manageable complexity",
+        "article": "Authenticity + learning"
+      }
+    },
+
+    "cognitive-memory": {
+      "enabled": true,
+      "type": "utility",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Cross-repository cognitive memory system. Persists knowledge across sessions using remember, recall, tree, extract, and forget operations. Memory store at ~/.memory/memory.json. Not a database — a reasoning layer that encodes selectively, consolidates contradictions, and forgets intentionally.",
+      "promptTriggers": {
+        "keywords": [
+          "memory",
+          "remember",
+          "recall",
+          "forget",
+          "what do we know",
+          "last session",
+          "previous session",
+          "what was",
+          "do you remember"
+        ],
+        "intentPatterns": [
+          "(recall|remember|store|persist).*?(context|knowledge|fact|session)",
+          "(what|do you).*(know|remember).*?(about|from)",
+          "(last|previous|earlier).*?session"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/cognitive-memory/SKILL.md",
+        "maxLines": 100,
+        "loadOnFirstFileEdit": false,
+        "note": "Loaded via prompt keywords or session-start event. Not loaded on file edits."
+      },
+      "activationMessage": "Cognitive memory activated. Use remember/recall/tree/forget via: python3 /home/user/.memory/memory_ops.py <command>",
+      "operations": {
+        "remember": "python3 /home/user/.memory/memory_ops.py remember \"FACT\" --scope /inthewake/DOMAIN --importance 0.0-1.0 --confidence high|medium|low",
+        "recall": "python3 /home/user/.memory/memory_ops.py recall \"QUERY\" --scope /inthewake --limit 10",
+        "tree": "python3 /home/user/.memory/memory_ops.py tree /inthewake",
+        "forget": "python3 /home/user/.memory/memory_ops.py forget --scope /inthewake --older-than 90 --dry-run"
+      }
+    },
+
     "performance-analyzer": {
       "enabled": true,
       "type": "domain",
@@ -717,7 +805,7 @@
   "notes": {
     "project": "In the Wake - Cruise planning site (merged with FOM enhancements)",
     "protocol": "ITW-Lite v3.010 (adapted from FOM-Lite v1.0)",
-    "total_skills": 13,
+    "total_skills": 17,
     "hook_wiring": {
       "UserPromptSubmit": "session-start-guardrail.sh \u2192 injects BOTH Careful files (process v1.0 + technical root)",
       "PreToolUse_Bash": [
@@ -748,7 +836,7 @@
           "root content pages"
         ],
         "ship_html_edit_extra": "ship-page-validator (in addition to above)",
-        "pre_commit_content": "voice-audit (fires before git commit when content files are staged)"
+        "pre_commit_content": "voice-audit + emotional-hook-test (fire before git commit when content files are staged)"
       }
     },
     "skill_sources": {
@@ -756,7 +844,9 @@
         "standards",
         "ship-page-validator",
         "careful-not-clever",
-        "voice-audit"
+        "voice-audit",
+        "emotional-hook-test",
+        "cognitive-memory"
       ],
       "fom_adapted": [
         "skill-developer",

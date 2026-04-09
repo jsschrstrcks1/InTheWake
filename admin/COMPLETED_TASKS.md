@@ -929,6 +929,24 @@ These ports already had cruise_port, getting_around, and excursions sections. Th
 
 ---
 
+## March 2026 Completions
+
+### ICP Elements — 7 Root Pages - COMPLETE (2026-03-09)
+**Status:** COMPLETE
+**Thread:** `claude/explore-repo-structure-T6nVA`
+**Lane:** 🟢 Green (content structure)
+- [x] Added `.fit-guidance` and `.key-facts:not(table)` CSS rules to styles.css
+- [x] articles.html: Added missing H1, answer-line, fit-guidance, key-facts, CTA, page-specific FAQ
+- [x] restaurants.html: Added answer-line, fit-guidance (wrapping existing how-to list), key-facts
+- [x] disability-at-sea.html: Added answer-line, fit-guidance, key-facts, CTA to /accessibility.html, FAQ
+- [x] ports.html: Added answer-line, fit-guidance, key-facts in main column
+- [x] ships.html: Added answer-line, fit-guidance, key-facts in main column
+- [x] solo.html: Added ICP to main column, page-specific FAQ, upgraded sidebar key-facts (prose preserved)
+- [x] travel.html: Fixed title tag, added ICP block, built 20-item TOC nav using existing section IDs
+**Result:** All 7 pages now have answer-line + fit-guidance + key-facts. 3 pages got page-specific FAQs (replacing boilerplate). 2 pages got CTA callouts. Copyright dates updated where needed.
+
+---
+
 **END OF COMPLETED TASKS**
 
 This file is append-only. New completions are added at the bottom of the relevant section.
