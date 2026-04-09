@@ -3,7 +3,7 @@
 **Purpose:** Single source of truth for port page validation and repair status.
 **Validator:** `admin/validate-port-page-v2.js` (authoritative — all sub-validators consolidated)
 **Created:** 2026-04-09
-**Last Updated:** 2026-04-09
+**Last Updated:** 2026-04-09 (Session: claude/review-docs-explore-IYuJ6)
 
 > **This document replaces all previous port validation tracking files.**
 > See "Deprecated Documents" section at bottom for archived files.
@@ -40,6 +40,19 @@ v2 is the single authoritative port validator. It runs internally and orchestrat
 | 2026-03-25 | v2 + normalization | — | Phase 1 complete (63/68 Tier 1 section reordering) |
 | 2026-03-02 | v2 (Session 12) | 242/387 (62.5%) | Template filler detection added |
 | 2026-02-14 | v2 (Session 11) | 267/380 (70.3%) | Pre-normalization |
+
+---
+
+## Current Session Repairs (2026-04-09)
+
+Ports validated with consolidated v2 + truth-checked via external LLM (Perplexity/You.com).
+
+| Port | Before | After | Blockers Remaining | Truth Check | Corrections |
+|------|:------:|:-----:|-------------------|-------------|-------------|
+| abu-dhabi | 66 | 76 | recent_articles (fleet-wide) | Perplexity (92%) | Grand Mosque hours updated; Louvre price 63→60 AED |
+| acapulco | 74 | 86 | recent_articles (fleet-wide) | You.com (88%) | Elvis date 1950s→1963; La Quebrada admission 50→100 MXN; Fort San Diego 80→65-75 MXN; hurricane season June→mid-May; show times updated; Revolution Day notice added; 2 weather FAQs added; FAQ schema synced to 8 |
+
+**Fleet-wide blocker:** `recent_articles_validation_failed` — all ports (including cozumel gold standard) lack `#recent-rail-nav-top`, `#recent-rail-nav-bottom`, and article loader script. Needs fleet deployment, not per-port fix.
 
 ---
 

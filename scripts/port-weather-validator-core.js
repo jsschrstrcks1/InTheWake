@@ -347,7 +347,10 @@ class PortWeatherValidator {
     else {
       this.log('pass', 'FAQ_SCHEMA', 'FAQPage schema present');
       const sq = this.count(/"@type":\s*"Question"/);
-      const vq = this.count(/<p><strong>Q:|<strong>Q:/);
+      // Support multiple FAQ formats: Q: prefix (inline/collapsible) and <summary> (details accordion)
+      const qPrefixed = this.count(/<p><strong>Q:|<strong>Q:|<summary[^>]*>Q:/);
+      const summaryFAQs = this.count(/<details class="faq-item"><summary>/);
+      const vq = Math.max(qPrefixed, summaryFAQs);
       if (sq !== vq) this.log('error', 'FAQ_COUNT', `FAQ count mismatch`, `Schema: ${sq}, Page: ${vq}`);
       else this.log('pass', 'FAQ_COUNT', `FAQ count: ${sq}`);
     }
