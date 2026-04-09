@@ -14,6 +14,7 @@
 
 import { readFile, readdir, stat } from 'fs/promises';
 import { existsSync, readFileSync } from 'fs';
+import { spawnSync } from 'child_process';
 import { createHash } from 'crypto';
 import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
@@ -227,7 +228,7 @@ const REQUIRED_SECTIONS = [
 
 // Sections that MUST be collapsible
 const COLLAPSIBLE_REQUIRED = [
-  'logbook', 'cruise_port', 'getting_around', 'excursions',
+  'logbook', 'cruise_port', 'getting_around', 'map', 'beaches', 'excursions',
   'history', 'cultural', 'shopping', 'food', 'notices',
   'depth_soundings', 'practical', 'faq', 'gallery', 'credits'
 ];
@@ -3640,6 +3641,173 @@ function validateTemplateFiller($, html) {
   };
 }
 
+// =============================================================================
+// V1 PARITY CHECKS — ported from scripts/validate-port.js to enable deprecation
+// =============================================================================
+
+/**
+ * Validate basic HTML structure (charset, viewport, title, main-content, skip-link)
+ * Ported from validate-port.js validateBasicStructure()
+ */
+function validateBasicHTML($, html) {
+  const errors = [];
+  const warnings = [];
+
+  if (!html.includes('<meta charset="')) {
+    errors.push({ section: 'basic_html', rule: 'missing_charset', message: 'Missing <meta charset=""> tag', severity: 'BLOCKING' });
+  }
+  if (!html.includes('<meta name="viewport"')) {
+    errors.push({ section: 'basic_html', rule: 'missing_viewport', message: 'Missing <meta name="viewport"> tag', severity: 'BLOCKING' });
+  }
+  if ($('title').length === 0 || $('title').text().trim() === '') {
+    errors.push({ section: 'basic_html', rule: 'missing_title', message: 'Missing or empty <title> tag', severity: 'BLOCKING' });
+  }
+  if ($('#main-content').length === 0) {
+    errors.push({ section: 'basic_html', rule: 'missing_main_content', message: 'Missing id="main-content" section', severity: 'BLOCKING' });
+  }
+  if (!html.includes('skip-link')) {
+    warnings.push({ section: 'basic_html', rule: 'missing_skip_link', message: 'Missing skip link (recommended for accessibility)', severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Validate tender port indicator against port-registry.json
+ * Ported from validate-port.js validateTenderPortIndicator()
+ * BLOCKING: tender ports MUST have indicator; non-tender ports MUST NOT
+ */
+function validateTenderPortIndicator($, filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const portSlug = basename(filepath, '.html');
+  const registryPath = join(PROJECT_ROOT, 'assets', 'data', 'ports', 'port-registry.json');
+
+  if (!existsSync(registryPath)) {
+    warnings.push({ section: 'tender_port', rule: 'registry_not_found', message: 'Port registry not found, skipping tender port validation', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  try {
+    const registryData = JSON.parse(readFileSync(registryPath, 'utf8'));
+    const registry = registryData.ports || registryData;
+
+    if (!registry[portSlug]) {
+      return { valid: true, errors, warnings };
+    }
+
+    const portData = registry[portSlug];
+    const isTenderPort = portData.tenderPort === true;
+    const hasIndicator = $('.tender-port-indicator').length > 0;
+
+    if (isTenderPort && !hasIndicator) {
+      errors.push({ section: 'tender_port', rule: 'missing_tender_indicator', message: `BLOCKING: Port "${portData.name || portSlug}" is a tender port but MISSING tender-port-indicator element`, severity: 'BLOCKING' });
+    } else if (!isTenderPort && hasIndicator) {
+      errors.push({ section: 'tender_port', rule: 'false_tender_indicator', message: `Port "${portData.name || portSlug}" is NOT a tender port but has tender-port-indicator element`, severity: 'BLOCKING' });
+    }
+
+    if (isTenderPort && hasIndicator && !$('img[src*="tender-boat.svg"]').length) {
+      warnings.push({ section: 'tender_port', rule: 'missing_tender_icon', message: 'Tender indicator missing tender-boat.svg icon', severity: 'WARNING' });
+    }
+  } catch (err) {
+    warnings.push({ section: 'tender_port', rule: 'registry_parse_error', message: `Could not parse port registry: ${err.message}`, severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Validate that all <img src> references resolve to files on disk
+ * Ported from validate-port.js validateImages()
+ * BLOCKING: hallucinated image paths must not pass validation
+ */
+function validateImageReferences($, filepath) {
+  const errors = [];
+  const warnings = [];
+  const portDir = dirname(filepath);
+
+  const imgSrcs = [];
+  $('img').each((i, elem) => {
+    const src = $(elem).attr('src');
+    if (src) imgSrcs.push(src);
+  });
+
+  if (imgSrcs.length === 0) {
+    warnings.push({ section: 'image_refs', rule: 'no_images', message: 'No images found in page', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  const missingImages = [];
+  for (let srcPath of imgSrcs) {
+    // Skip external URLs and data URIs
+    if (srcPath.startsWith('http://') || srcPath.startsWith('https://') || srcPath.startsWith('data:')) {
+      continue;
+    }
+
+    // Strip query strings (cache busting)
+    const queryIndex = srcPath.indexOf('?');
+    if (queryIndex > -1) srcPath = srcPath.substring(0, queryIndex);
+
+    // Resolve path
+    const resolvedPath = srcPath.startsWith('/')
+      ? join(PROJECT_ROOT, srcPath)
+      : join(portDir, srcPath);
+
+    if (!existsSync(resolvedPath)) {
+      missingImages.push(srcPath);
+    }
+  }
+
+  if (missingImages.length > 0) {
+    errors.push({
+      section: 'image_refs',
+      rule: 'missing_image_file',
+      message: `${missingImages.length} image(s) referenced in HTML but not found on disk: ${missingImages.slice(0, 5).join(', ')}${missingImages.length > 5 ? ` (+${missingImages.length - 5} more)` : ''}`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Run the weather sub-validator (validate-port-weather.js) as a subprocess
+ * Ported from validate-port.js runSubValidator() pattern
+ * BLOCKING: weather validator must pass with zero errors
+ */
+function validateWeatherSubValidator(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const weatherScript = join(PROJECT_ROOT, 'scripts', 'validate-port-weather.js');
+  if (!existsSync(weatherScript)) {
+    warnings.push({ section: 'weather_sub', rule: 'weather_validator_not_found', message: 'Weather sub-validator script not found, skipping', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  try {
+    const result = spawnSync('node', [weatherScript, filepath], {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 30000
+    });
+
+    if (result.status !== 0) {
+      errors.push({
+        section: 'weather_sub',
+        rule: 'weather_validation_failed',
+        message: 'Weather sub-validator failed (BLOCKING) — run node scripts/validate-port-weather.js on this file for details',
+        severity: 'BLOCKING'
+      });
+    }
+  } catch (err) {
+    warnings.push({ section: 'weather_sub', rule: 'weather_validator_error', message: `Weather sub-validator threw: ${err.message}`, severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
 async function validatePortPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const results = {
@@ -3667,10 +3835,13 @@ async function validatePortPage(filepath) {
       return results;
     }
 
-    // Skip port-specific validation for non-port pages (hub, regional-overview, scenic-passage)
+    // Skip port-specific validation for non-port pages (hub, regional-overview, scenic-passage, index)
     // These pages live in /ports/ but aren't individual port destinations.
     // Per orchestra review (GPT+Gemini+Grok): reclassify, don't force port validation.
-    const pageType = $('meta[name="page-type"]').attr('content') || 'port';
+    // Also supports data-page-type attribute on <body> (Issue #1384 — tender-ports.html)
+    const bodyPageType = $('body').attr('data-page-type');
+    const metaPageType = $('meta[name="page-type"]').attr('content');
+    const pageType = bodyPageType || metaPageType || 'port';
     if (pageType !== 'port') {
       results.info.push({
         section: 'page_type',
@@ -3762,6 +3933,12 @@ async function validatePortPage(filepath) {
     // Session 12 — template filler detection
     const templateFillerResult = validateTemplateFiller($, html);
 
+    // V1 parity checks — ported from scripts/validate-port.js
+    const basicHTMLResult = validateBasicHTML($, html);
+    const tenderPortResult = validateTenderPortIndicator($, filepath);
+    const imageRefsResult = validateImageReferences($, filepath);
+    const weatherSubResult = validateWeatherSubValidator(filepath);
+
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
     results.blocking_errors.push(...analyticsResult.errors);
@@ -3789,6 +3966,10 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...jsonLdGeoResult.errors);
     results.blocking_errors.push(...seasonalDataResult.errors);
     results.blocking_errors.push(...templateFillerResult.errors);
+    results.blocking_errors.push(...basicHTMLResult.errors);
+    results.blocking_errors.push(...tenderPortResult.errors);
+    results.blocking_errors.push(...imageRefsResult.errors);
+    results.blocking_errors.push(...weatherSubResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -3830,6 +4011,10 @@ async function validatePortPage(filepath) {
     results.warnings.push(...mexicanNoticesResult.warnings);
     results.warnings.push(...seasonalDataResult.warnings);
     results.warnings.push(...templateFillerResult.warnings);
+    results.warnings.push(...basicHTMLResult.warnings);
+    results.warnings.push(...tenderPortResult.warnings);
+    results.warnings.push(...imageRefsResult.warnings);
+    results.warnings.push(...weatherSubResult.warnings);
 
     // Gold standard gap detection (only included with --gold-standard flag)
     // Per orchestra: separate mode to avoid alert fatigue on the 100% pass rate
