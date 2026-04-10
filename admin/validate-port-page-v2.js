@@ -2905,8 +2905,14 @@ function validateFAQAnswerLength($) {
   if (faqSection.length === 0) {
     return { valid: true, errors, warnings };
   }
-  // Look for faq-item class or nested details inside the FAQ section
-  const faqDetails = faqSection.find('details.faq-item, details');
+  // Only count true FAQ items (details.faq-item). The bare "details" fallback
+  // previously swept in the outer <details class="section-collapse"> wrapper
+  // that many ports use around the whole FAQ accordion — its .text() returned
+  // every Q&A concatenated into one ~600+ word block and produced a false
+  // "answer too long" warning. Real FAQ items use the .faq-item class
+  // (enforced by the weather sub-validator's visible-FAQ counter), so the
+  // fallback selector was adding nothing but noise.
+  const faqDetails = faqSection.find('details.faq-item');
   let longAnswers = 0;
   const longAnswerDetails = [];
 
