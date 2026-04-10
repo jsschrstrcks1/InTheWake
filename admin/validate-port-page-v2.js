@@ -2899,8 +2899,14 @@ function validateFAQAnswerLength($) {
   const errors = [];
   const warnings = [];
 
-  const faqSection = $('details').closest('section[id*="faq"], details');
-  const faqDetails = $('details');
+  // Only check details INSIDE the FAQ section — not the logbook, cruise-port, or other
+  // collapsible sections that legitimately contain long narrative content.
+  const faqSection = $('#faq, [id*="faq"]').first();
+  if (faqSection.length === 0) {
+    return { valid: true, errors, warnings };
+  }
+  // Look for faq-item class or nested details inside the FAQ section
+  const faqDetails = faqSection.find('details.faq-item, details');
   let longAnswers = 0;
   const longAnswerDetails = [];
 
