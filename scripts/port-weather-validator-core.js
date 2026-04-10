@@ -119,11 +119,16 @@ const REQUIRED = {
     { label: 'Low Season', css: 'cruise-season-low' }
   ],
   activities: ['Beach', 'Snorkeling', 'Hiking', 'City Walking', 'Low Crowds'],
+  // Topic patterns are tested against extracted visible FAQ question text
+  // (see extractVisibleFAQQuestions), NOT the whole document, so matches from
+  // JSON-LD schema, notices, and narrative prose do not count as duplicates.
+  // Patterns are deliberately broad to cover tropical + subarctic ports and
+  // the three question formats used in the repo.
   faqTopics: [
-    { pattern: /best time.*year.*visit|when.*visit/i, name: 'Best time to visit' },
-    { pattern: /hurricane|cyclone|storm season/i, name: 'Hurricane/storm season' },
-    { pattern: /pack.*weather|what.*pack/i, name: 'Packing for weather' },
-    { pattern: /rain.*ruin|afternoon.*rain/i, name: 'Rain concerns' }
+    { pattern: /best time[^<]*(?:visit|go|cruise)|when[^<]*(?:visit|go|cruise)/i, name: 'Best time to visit' },
+    { pattern: /hurricane|cyclone|typhoon|storm season|severe weather|bad weather|weather[^<]*(?:bad|severe|stormy|concern)/i, name: 'Hurricane/storm season' },
+    { pattern: /pack[^<]*(?:weather|clothes|clothing|jacket|layer)|what[^<]*(?:pack|bring|wear)|how[^<]*(?:dress|pack)/i, name: 'Packing for weather' },
+    { pattern: /rain[^<]*(?:ruin|cancel|affect|stop)|will[^<]*rain|weather[^<]*ruin/i, name: 'Rain concerns' }
   ]
 };
 
@@ -344,9 +349,31 @@ class PortWeatherValidator {
     if (ok) this.log('pass', 'D_MONTHS', 'All months valid');
   }
 
+  // Extract visible FAQ question text from all three formats the repo uses:
+  //   1) <details class="faq-item"><summary>question</summary>        (acapulco style, no Q: prefix)
+  //   2) <details class="faq-item"><summary>Q: question</summary>      (college-fjord style)
+  //   3) <p><strong>Q: question</strong><br>A: ...</p>                 (anchorage inline style)
+  // Returns an array of question strings with leading "Q:" stripped and
+  // whitespace trimmed. Used by validateFAQ so topic checks only see what a
+  // visitor would actually read, not schema / narrative / notices text.
+  extractVisibleFAQQuestions() {
+    const questions = [];
+    const detailsRe = /<details[^>]*class="faq-item"[^>]*>\s*<summary[^>]*>([\s\S]*?)<\/summary>/gi;
+    let m;
+    while ((m = detailsRe.exec(this.content)) !== null) {
+      questions.push(m[1].replace(/<[^>]+>/g, '').replace(/^\s*Q:\s*/i, '').trim());
+    }
+    const inlineRe = /<strong>\s*Q:\s*([\s\S]*?)\s*<\/strong>/gi;
+    while ((m = inlineRe.exec(this.content)) !== null) {
+      questions.push(m[1].replace(/<[^>]+>/g, '').trim());
+    }
+    return questions;
+  }
+
   validateFAQ() {
+    const visibleQuestions = this.extractVisibleFAQQuestions();
     REQUIRED.faqTopics.forEach(f => {
-      const c = this.count(f.pattern);
+      const c = visibleQuestions.filter(q => f.pattern.test(q)).length;
       if (c === 0) this.log('error', `FAQ_${f.name.toUpperCase().replace(/\s/g, '_')}`, `Missing FAQ: ${f.name}`);
       else if (c > 1) this.log('error', `FAQ_DUP`, `Duplicate FAQ: ${f.name}`, `Found ${c}`);
       else this.log('pass', `FAQ_${f.name.toUpperCase().replace(/\s/g, '_')}`, `FAQ: ${f.name}`);
