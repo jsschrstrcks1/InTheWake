@@ -257,6 +257,77 @@ Each port's content must be **port-specific** — no generic templates. Research
 
 ## GREEN LANE — AI Executes Autonomously
 
+### [G] Noscript Remediation — Port Pages (NEW — 2026-04-09)
+**Status:** Not started — plan ready, scripts needed
+**Priority:** P1 — accessibility and pastoral mandate (exhausted caregivers on hospital WiFi, privacy-conscious travelers using NoScript, disabled users on stripped-down browsers)
+**Source:** Audit found 4 features completely invisible without JavaScript on port pages
+
+**Current state:**
+- Port logbook narratives: ✅ Static HTML (works without JS)
+- Port content sections: ✅ Static HTML (works without JS)
+- FAQs: ✅ Static HTML (works without JS)
+- Weather guide: ⚠️ 273/387 have static fallback, 100 have "Enable JavaScript" placeholder, 14 have nothing
+- Maps: ⚠️ 330/337 have text placeholder, 0 have static map image or location list
+- Ships visiting: ❌ 370 ports, 0 noscript fallbacks (empty div)
+- Recent stories: ❌ 377 ports, 0 noscript fallbacks (empty div)
+- Photo gallery: ❌ 143 ports with swiper, 0 noscript image fallbacks
+
+**Phase 1 — Green Lane (fully scriptable, no content decisions needed):**
+
+**1a. Ships Visiting noscript fallback**
+- [ ] Write `scripts/inject-ships-visiting-noscript.js`
+- [ ] Read port-registry.json + ship schedule data to get ships per port
+- [ ] Inject `<noscript>` block inside ships-visiting container with static list: ship name + cruise line + link to ship page
+- [ ] Target: all 370 ports with ships-visiting section
+- [ ] Template: `<noscript><ul class="ships-list-static">` with `<li><a href="/ships/...">Ship Name</a> (Line)</li>`
+- [ ] Run once, verify 3 ports, commit
+
+**1b. Recent Stories noscript fallback**
+- [ ] Write `scripts/inject-recent-stories-noscript.js`
+- [ ] Read articles/index.json to get 5 most recent articles
+- [ ] Inject `<noscript>` block inside recent-rail container with static links
+- [ ] These are site-wide (not port-specific), so same 5 articles on all ports
+- [ ] Template: `<noscript><ul class="stories-static">` with `<li><a href="/solo/articles/...">Title</a></li>`
+- [ ] Run once, verify, commit
+
+**1c. Photo Gallery noscript fallback**
+- [ ] Write `scripts/inject-gallery-noscript.js`
+- [ ] Read ports/img/{slug}/ directory to get first 4-6 images
+- [ ] Inject `<noscript>` block inside swiper container with static `<figure>` + `<img>` + `<figcaption>`
+- [ ] Include alt text from existing image alt attributes
+- [ ] Target: all 143 ports with swiper galleries
+- [ ] Template: `<noscript><div class="gallery-static">` with `<figure><img src="..." alt="..." loading="lazy"></figure>`
+- [ ] Run once, verify, commit
+
+**Phase 2 — Yellow Lane (needs content/design decisions):**
+
+**2a. Weather noscript (100 placeholder-only ports)**
+- [ ] These 100 ports have weather widgets but only "Enable JavaScript" in noscript
+- [ ] Need to build full static seasonal guide HTML (At a Glance, Best Time, Catches, Packing, Hazards)
+- [ ] Data source: the weather widget JSON data files or research per port
+- [ ] Can template from the 273 ports that already have full noscript
+- [ ] Decision needed: generate from data programmatically or hand-write?
+
+**2b. Weather noscript (14 ports with NO noscript at all)**
+- [ ] These 14 ports have weather widgets with zero noscript content
+- [ ] Same fix as 2a but includes adding the `<noscript>` tags themselves
+
+**2c. Map noscript improvement**
+- [ ] Current: 330 ports have "Enable JavaScript to view map" placeholder
+- [ ] Options:
+  - Option A: Generate static map images via Mapbox/OSM Static API (best UX, costs money/API calls)
+  - Option B: Inject text-based location list from POI manifest data (free, useful, not visual)
+  - Option C: Both — static image with text list below
+- [ ] Decision needed: which option?
+
+**Estimated effort:**
+- Phase 1: ~2 hours (3 scripts, batch inject, verify)
+- Phase 2a: ~4-8 hours (100 ports × weather research or data generation)
+- Phase 2b: ~1 hour (14 ports, same approach as 2a)
+- Phase 2c: Depends on design decision
+
+**The ICP-2 v2.1 connection:** Section E requires "Key content must be in static HTML, not behind JavaScript rendering." Ships visiting, recent stories, and gallery images are content — they should be in the static HTML with JS enhancing (not replacing) the experience.
+
 ### [G] CSS Consolidation — Inline Style Reduction
 - [ ] Decide canonical `.page-grid` definition (styles.css vs inline)
 - [ ] Remove redundant `.page-grid` from remaining `<style>` blocks
@@ -353,6 +424,56 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 ---
 
 ## YELLOW LANE — AI Proposes, Human Approves
+
+### [Y] Port Call Reliability Tracker (NEW — 2026-04-09)
+**Status:** Not started — research + design needed
+**Priority:** P2 — high user value, no API available
+**Source:** User experience — "Costa Maybe" (Costa Maya), Bay of Islands NZ, and other ports that get cancelled frequently due to weather, tender conditions, or operational issues
+
+**Problem:** Passengers book excursions and plan days around ports that may get cancelled. No cruise line publishes cancellation rates. Ports like Costa Maya, Bar Harbor (fog), Bermuda (wind), Bay of Islands (swell), and many tender ports have significantly higher skip rates than docked ports, but this information lives only in cruise forum folklore.
+
+**Why it matters:** A disabled traveler who books a wheelchair-accessible excursion at a tender port that gets cancelled 30% of the time deserves to know that before booking. A grieving widow planning a meaningful shore visit doesn't need the added disappointment of discovering at 6am that the port was skipped.
+
+**Data sources (no line API needed):**
+- [ ] **Cruise forum scraping** — CruiseCritic, Reddit r/cruise, Facebook cruise groups have years of "our port was cancelled" posts. A structured scrape + NLP could extract port name + date + reason + ship name
+- [ ] **Ship tracking history** — MarineTraffic, VesselFinder, and CruiseMapper show historical ship positions. Compare scheduled itinerary vs actual track to detect skipped ports (ship that was supposed to stop at Costa Maya but went straight to Cozumel)
+- [ ] **Weather correlation** — Cross-reference NOAA/weather data with known cancellation patterns. If wind > 25kt at a tender port, it's probably cancelled. Build a model per port
+- [ ] **Port authority data** — Some ports publish annual ship call statistics (actual vs scheduled). Caribbean ports especially may have tourism board data
+- [ ] **Cruise line schedule changes** — Monitor cruise line websites for itinerary changes. When "Costa Maya" disappears from a sailing and gets replaced with "Cozumel" or "sea day," that's a data point
+- [ ] **Community-sourced** — Add a simple "Did your ship actually stop here?" yes/no on each port page. Aggregate over time
+
+**Implementation ideas:**
+- [ ] Design a "Port Reliability" indicator for each port page (e.g., "Reliability: High / Moderate / Weather-Dependent")
+- [ ] Add "This port is tender-only — cancellations are more common in rough weather" notice to all tender ports
+- [ ] Create a seasonal reliability calendar per port (e.g., "Bay of Islands: Jan-Mar reliable, Apr-May weather-dependent, Jun-Aug often cancelled")
+- [ ] Consider a `/tools/port-reliability.html` dashboard showing all ports ranked by estimated reliability
+- [ ] Track tender vs dock — tender ports inherently less reliable
+
+**Known unreliable ports (from user experience + cruise forums):**
+- Costa Maya, Mexico ("Costa Maybe") — weather cancellations, especially fall
+- Bay of Islands, New Zealand — swell-dependent tender, frequently cancelled
+- Bar Harbor, Maine — fog cancellations, tender port
+- Bermuda (some berths) — wind-dependent
+- Many Greek island tender ports (Santorini, Mykonos) — meltemi wind season
+- Glacier Bay, Alaska — weather/visibility
+- Antarctica expedition ports — weather-dependent by nature
+
+### [Y] Port Day Disruption Factors (NEW — 2026-04-09)
+**Status:** Research in progress (2026-04-09 session)
+**Priority:** P1 — directly affects port page notices sections
+
+Comprehensive factors that can disrupt a passenger's port day, to be integrated into each port's notices section:
+
+- [ ] **Religious dress codes** — mosque, temple, church requirements by port (specific rules, not vague "dress modestly")
+- [ ] **Religious holidays** — Ramadan restaurant closures, Shabbat in Israel, Friday mosque closures, Hindu festivals
+- [ ] **National holidays** — Revolution Day (Mexico), Carnival (Caribbean/Brazil), bank holidays closing attractions
+- [ ] **Street closures** — parades, festivals, protests that block transit routes (user encountered this in a Mexican port)
+- [ ] **Weather extremes** — not just cancellations but dangerous heat (Middle East summer), monsoon downpours, etc.
+- [ ] **Accessibility barriers** — cobblestones, steep hills, tender-only limitations, heat + mobility dangers
+- [ ] **Port-to-town distance** — docks far from attractions, misleading "walking distance" claims
+- [ ] **Taxi/transport issues** — known scam ports, metered vs negotiated, surge pricing during events
+- [ ] **Time zone changes** — ship time vs local time confusion
+- [ ] **Multiple dock locations** — which berth will your ship use? (affects planning)
 
 ### [Y] "What Can I Eat?" Dining Search Tool (NEW — 2026-02-22)
 **Status:** Not started — design needed

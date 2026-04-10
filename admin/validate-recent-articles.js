@@ -423,9 +423,9 @@ function validateJavaScript($, html) {
     }
   }
 
-  // Check 10: Has required script pattern (loadArticles or similar)
+  // Check 10: Has required script pattern (loadArticles inline, fetchJSONWithFallback, or article-rail.js external)
   const hasRecentRail = html.includes('id="recent-rail"');
-  const hasLoader = loadArticlesCount > 0 || html.includes('fetchJSONWithFallback');
+  const hasLoader = loadArticlesCount > 0 || html.includes('fetchJSONWithFallback') || html.includes('article-rail.js');
   if (hasRecentRail && !hasLoader && loadArticlesCount === 0) {
     errors.push({
       section: 'javascript',

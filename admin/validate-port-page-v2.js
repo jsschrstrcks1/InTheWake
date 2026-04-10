@@ -14,6 +14,7 @@
 
 import { readFile, readdir, stat } from 'fs/promises';
 import { existsSync, readFileSync } from 'fs';
+import { spawnSync } from 'child_process';
 import { createHash } from 'crypto';
 import { join, dirname, relative, basename } from 'path';
 import { fileURLToPath } from 'url';
@@ -227,7 +228,7 @@ const REQUIRED_SECTIONS = [
 
 // Sections that MUST be collapsible
 const COLLAPSIBLE_REQUIRED = [
-  'logbook', 'cruise_port', 'getting_around', 'excursions',
+  'logbook', 'cruise_port', 'getting_around', 'map', 'beaches', 'excursions',
   'history', 'cultural', 'shopping', 'food', 'notices',
   'depth_soundings', 'practical', 'faq', 'gallery', 'credits'
 ];
@@ -1958,6 +1959,44 @@ function validateFromThePier($) {
 }
 
 /**
+ * Emotional Hook Test awareness — port feeling target: "Preparation + anxiety reduction"
+ * Checks that anxiety-reducing content appears in the upper portion of the page,
+ * not buried below specs/data. See .claude/skills/Humanization/emotional-hook-test.md
+ */
+function validateEmotionalHook($) {
+  const warnings = [];
+
+  // Get the first ~30% of main content text (what a reader scans in 30 seconds)
+  const mainContent = $('main .col-1, main').first();
+  const allText = mainContent.text();
+  const upperThird = allText.substring(0, Math.floor(allText.length * 0.33)).toLowerCase();
+
+  // Anxiety-reducing signals: practical orientation content in upper portion
+  const anxietyReducers = [
+    /from the pier/i,
+    /walking|walk time|minutes?.walk/i,
+    /tender|shuttle|taxi/i,
+    /you('ll| will) (see|find|notice)/i,
+    /don.t worry|no need to/i,
+    /easy to|straightforward/i,
+    /tip:|local tip|insider/i,
+  ];
+
+  const foundReducers = anxietyReducers.filter(rx => rx.test(upperThird));
+
+  if (foundReducers.length === 0) {
+    warnings.push({
+      section: 'emotional_hook',
+      rule: 'no_anxiety_reduction_early',
+      message: 'No anxiety-reducing content found in the upper third of the page. Port pages should help the reader feel prepared early. Consider adding practical orientation (distances, transport, tips) before detailed content. See emotional-hook-test.md.',
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: true, errors: [], warnings, data: { anxietyReducersFound: foundReducers.length } };
+}
+
+/**
  * Validate HTML structural integrity
  * Catches: mismatched heading tags, inline console.log, missing meta author,
  * stray closing tags for section/details elements
@@ -2307,18 +2346,23 @@ function validateClimateActivities($, html) {
   }
 
   // Activity labels may be inside <noscript> which cheerio doesn't parse as DOM.
-  // Use regex on raw HTML to extract activity labels from the weather widget.
-  const activityLabelRegex = /class="activity-label">([^<]+)</g;
-  const activityLabels = [];
+  // Use regex on raw HTML to extract activity labels + months from the weather widget.
+  // Capture label + following activity-months value so we can ignore N/A activities.
+  const activityRegex = /class="activity-label">([^<]+)<\/span>\s*<span class="activity-months">([^<]+)</g;
+  const activeLabels = [];
   let match;
-  while ((match = activityLabelRegex.exec(html)) !== null) {
-    activityLabels.push(match[1].trim());
+  while ((match = activityRegex.exec(html)) !== null) {
+    const label = match[1].trim();
+    const months = match[2].trim();
+    // Skip activities explicitly marked as not applicable
+    if (['N/A', 'None', '-', ''].includes(months)) continue;
+    activeLabels.push(label);
   }
 
   // Check for tropical activities in cold-water ports
   if (COLD_WATER_SLUGS.has(slug)) {
     const TROPICAL_ACTIVITIES = ['Beach', 'Snorkeling', 'Surfing', 'Scuba'];
-    const badActivities = activityLabels.filter(a =>
+    const badActivities = activeLabels.filter(a =>
       TROPICAL_ACTIVITIES.some(t => a.toLowerCase().includes(t.toLowerCase()))
     );
 
@@ -2341,7 +2385,7 @@ function validateClimateActivities($, html) {
     'doubtful-sound', 'milford-sound', 'gatun-lake',
   ]);
 
-  if (SCENIC_ONLY_SLUGS.has(slug) && activityLabels.includes('City Walking')) {
+  if (SCENIC_ONLY_SLUGS.has(slug) && activeLabels.includes('City Walking')) {
     warnings.push({
       section: 'weather_activities',
       rule: 'city_walking_in_non_city',
@@ -2350,7 +2394,7 @@ function validateClimateActivities($, html) {
     });
   }
 
-  return { valid: true, errors, warnings, data: { slug, activities: activityLabels } };
+  return { valid: true, errors, warnings, data: { slug, activities: activeLabels } };
 }
 
 // =============================================================================
@@ -2855,8 +2899,14 @@ function validateFAQAnswerLength($) {
   const errors = [];
   const warnings = [];
 
-  const faqSection = $('details').closest('section[id*="faq"], details');
-  const faqDetails = $('details');
+  // Only check details INSIDE the FAQ section — not the logbook, cruise-port, or other
+  // collapsible sections that legitimately contain long narrative content.
+  const faqSection = $('#faq, [id*="faq"]').first();
+  if (faqSection.length === 0) {
+    return { valid: true, errors, warnings };
+  }
+  // Look for faq-item class or nested details inside the FAQ section
+  const faqDetails = faqSection.find('details.faq-item, details');
   let longAnswers = 0;
   const longAnswerDetails = [];
 
@@ -3602,6 +3652,392 @@ function validateTemplateFiller($, html) {
   };
 }
 
+// =============================================================================
+// V1 PARITY CHECKS — ported from scripts/validate-port.js to enable deprecation
+// =============================================================================
+
+/**
+ * Validate basic HTML structure (charset, viewport, title, main-content, skip-link)
+ * Ported from validate-port.js validateBasicStructure()
+ */
+function validateBasicHTML($, html) {
+  const errors = [];
+  const warnings = [];
+
+  if (!html.includes('<meta charset="')) {
+    errors.push({ section: 'basic_html', rule: 'missing_charset', message: 'Missing <meta charset=""> tag', severity: 'BLOCKING' });
+  }
+  if (!html.includes('<meta name="viewport"')) {
+    errors.push({ section: 'basic_html', rule: 'missing_viewport', message: 'Missing <meta name="viewport"> tag', severity: 'BLOCKING' });
+  }
+  if ($('title').length === 0 || $('title').text().trim() === '') {
+    errors.push({ section: 'basic_html', rule: 'missing_title', message: 'Missing or empty <title> tag', severity: 'BLOCKING' });
+  }
+  if ($('#main-content').length === 0) {
+    errors.push({ section: 'basic_html', rule: 'missing_main_content', message: 'Missing id="main-content" section', severity: 'BLOCKING' });
+  }
+  if (!html.includes('skip-link')) {
+    warnings.push({ section: 'basic_html', rule: 'missing_skip_link', message: 'Missing skip link (recommended for accessibility)', severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Validate tender port indicator against port-registry.json
+ * Ported from validate-port.js validateTenderPortIndicator()
+ * BLOCKING: tender ports MUST have indicator; non-tender ports MUST NOT
+ */
+function validateTenderPortIndicator($, filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const portSlug = basename(filepath, '.html');
+  const registryPath = join(PROJECT_ROOT, 'assets', 'data', 'ports', 'port-registry.json');
+
+  if (!existsSync(registryPath)) {
+    warnings.push({ section: 'tender_port', rule: 'registry_not_found', message: 'Port registry not found, skipping tender port validation', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  try {
+    const registryData = JSON.parse(readFileSync(registryPath, 'utf8'));
+    const registry = registryData.ports || registryData;
+
+    if (!registry[portSlug]) {
+      return { valid: true, errors, warnings };
+    }
+
+    const portData = registry[portSlug];
+    const isTenderPort = portData.tenderPort === true;
+    const hasIndicator = $('.tender-port-indicator').length > 0;
+
+    if (isTenderPort && !hasIndicator) {
+      errors.push({ section: 'tender_port', rule: 'missing_tender_indicator', message: `BLOCKING: Port "${portData.name || portSlug}" is a tender port but MISSING tender-port-indicator element`, severity: 'BLOCKING' });
+    } else if (!isTenderPort && hasIndicator) {
+      errors.push({ section: 'tender_port', rule: 'false_tender_indicator', message: `Port "${portData.name || portSlug}" is NOT a tender port but has tender-port-indicator element`, severity: 'BLOCKING' });
+    }
+
+    if (isTenderPort && hasIndicator && !$('img[src*="tender-boat.svg"]').length) {
+      warnings.push({ section: 'tender_port', rule: 'missing_tender_icon', message: 'Tender indicator missing tender-boat.svg icon', severity: 'WARNING' });
+    }
+  } catch (err) {
+    warnings.push({ section: 'tender_port', rule: 'registry_parse_error', message: `Could not parse port registry: ${err.message}`, severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Validate that all <img src> references resolve to files on disk
+ * Ported from validate-port.js validateImages()
+ * BLOCKING: hallucinated image paths must not pass validation
+ */
+function validateImageReferences($, filepath) {
+  const errors = [];
+  const warnings = [];
+  const portDir = dirname(filepath);
+
+  const imgSrcs = [];
+  $('img').each((i, elem) => {
+    const src = $(elem).attr('src');
+    if (src) imgSrcs.push(src);
+  });
+
+  if (imgSrcs.length === 0) {
+    warnings.push({ section: 'image_refs', rule: 'no_images', message: 'No images found in page', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  const missingImages = [];
+  for (let srcPath of imgSrcs) {
+    // Skip external URLs and data URIs
+    if (srcPath.startsWith('http://') || srcPath.startsWith('https://') || srcPath.startsWith('data:')) {
+      continue;
+    }
+
+    // Strip query strings (cache busting)
+    const queryIndex = srcPath.indexOf('?');
+    if (queryIndex > -1) srcPath = srcPath.substring(0, queryIndex);
+
+    // Resolve path
+    const resolvedPath = srcPath.startsWith('/')
+      ? join(PROJECT_ROOT, srcPath)
+      : join(portDir, srcPath);
+
+    if (!existsSync(resolvedPath)) {
+      missingImages.push(srcPath);
+    }
+  }
+
+  if (missingImages.length > 0) {
+    errors.push({
+      section: 'image_refs',
+      rule: 'missing_image_file',
+      message: `${missingImages.length} image(s) referenced in HTML but not found on disk: ${missingImages.slice(0, 5).join(', ')}${missingImages.length > 5 ? ` (+${missingImages.length - 5} more)` : ''}`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Run the weather sub-validator (validate-port-weather.js) as a subprocess
+ * Ported from validate-port.js runSubValidator() pattern
+ * BLOCKING: weather validator must pass with zero errors
+ */
+function validateWeatherSubValidator(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const weatherScript = join(PROJECT_ROOT, 'scripts', 'validate-port-weather.js');
+  if (!existsSync(weatherScript)) {
+    warnings.push({ section: 'weather_sub', rule: 'weather_validator_not_found', message: 'Weather sub-validator script not found, skipping', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  try {
+    const result = spawnSync('node', [weatherScript, filepath], {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 30000
+    });
+
+    if (result.status !== 0) {
+      errors.push({
+        section: 'weather_sub',
+        rule: 'weather_validation_failed',
+        message: 'Weather sub-validator failed (BLOCKING) — run node scripts/validate-port-weather.js on this file for details',
+        severity: 'BLOCKING'
+      });
+    }
+  } catch (err) {
+    warnings.push({ section: 'weather_sub', rule: 'weather_validator_error', message: `Weather sub-validator threw: ${err.message}`, severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Run the POI coordinate validator for a specific port
+ * BLOCKING: POIs in water indicate bad data that will mislead travelers
+ *
+ * Uses Nominatim reverse geocoding with 1.1s rate limiting per POI.
+ * For a typical port (~8 POIs) this adds ~9 seconds.
+ */
+function validatePOICoordinates(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const portSlug = basename(filepath, '.html');
+  const poiScript = join(PROJECT_ROOT, 'admin', 'validate-poi-coordinates.js');
+
+  if (!existsSync(poiScript)) {
+    warnings.push({ section: 'poi_coords', rule: 'poi_validator_not_found', message: 'POI coordinate validator not found, skipping', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  // Check if this port has POIs before spawning (avoid unnecessary API calls)
+  const poiIndexPath = join(PROJECT_ROOT, 'assets', 'data', 'maps', 'poi-index.json');
+  if (!existsSync(poiIndexPath)) {
+    return { valid: true, errors, warnings };
+  }
+
+  try {
+    const poiIndex = JSON.parse(readFileSync(poiIndexPath, 'utf8'));
+    const portPOIs = Object.entries(poiIndex)
+      .filter(([key, val]) => key !== '_meta' && val.port === portSlug);
+
+    if (portPOIs.length === 0) {
+      return { valid: true, errors, warnings };
+    }
+
+    const result = spawnSync('node', [poiScript, `--port=${portSlug}`, '--no-report', '-q'], {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 120000 // 2 minutes — generous for ports with many POIs
+    });
+
+    if (result.status !== 0) {
+      errors.push({
+        section: 'poi_coords',
+        rule: 'poi_in_water',
+        message: `POI coordinate validation failed for ${portSlug} (${portPOIs.length} POIs) — run: node admin/validate-poi-coordinates.js --port=${portSlug}`,
+        severity: 'BLOCKING'
+      });
+    }
+  } catch (err) {
+    warnings.push({ section: 'poi_coords', rule: 'poi_validator_error', message: `POI validator threw: ${err.message}`, severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Validate noscript fallbacks for JS-dependent features
+ * Ref: admin/NOSCRIPT_REPAIR_GUIDE.md for repair procedures
+ *
+ * ICP-2 v2.1 Section E: "Key content must be in static HTML."
+ * Pastoral mandate: site serves users on hospital WiFi, stripped browsers, NoScript.
+ */
+function validateNoscriptFallbacks($, html) {
+  const errors = [];
+  const warnings = [];
+
+  // 1. Weather noscript — must have full static seasonal guide, not just "Enable JavaScript"
+  const weatherWidget = $('#port-weather-widget');
+  if (weatherWidget.length > 0) {
+    const weatherNoscript = weatherWidget.find('noscript').html() || '';
+    if (weatherNoscript.length === 0) {
+      errors.push({
+        section: 'noscript',
+        rule: 'missing_weather_noscript',
+        message: 'Weather widget has NO noscript fallback — noscript users see nothing. See: admin/NOSCRIPT_REPAIR_GUIDE.md §4',
+        severity: 'BLOCKING'
+      });
+    } else if (!weatherNoscript.includes('seasonal-guide') && !weatherNoscript.includes('glance-label')) {
+      warnings.push({
+        section: 'noscript',
+        rule: 'placeholder_weather_noscript',
+        message: 'Weather noscript is just a placeholder ("Enable JavaScript") — should have full static seasonal guide. See: admin/NOSCRIPT_REPAIR_GUIDE.md §4',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // 2. Gallery noscript — swiper galleries must have static image fallback
+  const swiperGallery = $('.swiper.gallery-swiper, .gallery-swiper');
+  if (swiperGallery.length > 0) {
+    const galleryNoscript = swiperGallery.find('noscript').length;
+    if (galleryNoscript === 0) {
+      warnings.push({
+        section: 'noscript',
+        rule: 'missing_gallery_noscript',
+        message: 'Photo gallery has no noscript image fallback — noscript users see blank gallery. See: admin/NOSCRIPT_REPAIR_GUIDE.md §3',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // 3. Ships visiting noscript
+  const shipsSection = $('.ships-visiting');
+  if (shipsSection.length > 0) {
+    const shipsNoscript = shipsSection.find('noscript').length;
+    if (shipsNoscript === 0) {
+      warnings.push({
+        section: 'noscript',
+        rule: 'missing_ships_noscript',
+        message: 'Ships Visiting section has no noscript fallback — noscript users see empty section. See: admin/NOSCRIPT_REPAIR_GUIDE.md §1',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // 4. Recent stories noscript
+  const recentRail = $('#recent-rail');
+  if (recentRail.length > 0) {
+    const railNoscript = recentRail.find('noscript').length;
+    if (railNoscript === 0) {
+      warnings.push({
+        section: 'noscript',
+        rule: 'missing_stories_noscript',
+        message: 'Recent Stories rail has no noscript fallback — noscript users see empty section. See: admin/NOSCRIPT_REPAIR_GUIDE.md §2',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // 5. Map noscript — check for text-based location list, not just "Enable JavaScript"
+  const mapContainer = $('[id$="-port-map"], .port-map-container');
+  if (mapContainer.length > 0) {
+    const mapNoscript = mapContainer.find('noscript').html() || '';
+    if (mapNoscript.length > 0 && !mapNoscript.includes('<ul') && !mapNoscript.includes('<li')) {
+      warnings.push({
+        section: 'noscript',
+        rule: 'placeholder_map_noscript',
+        message: 'Map noscript is just a placeholder — should include text-based location list. See: admin/NOSCRIPT_REPAIR_GUIDE.md §5',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Run the mobile readiness validator as a subprocess
+ * BLOCKING: pages must be mobile-responsive (viewport, touch targets, no overflow)
+ */
+function validateMobileReadinessSubValidator(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const mobileScript = join(PROJECT_ROOT, 'admin', 'validate-mobile-readiness.js');
+  if (!existsSync(mobileScript)) {
+    warnings.push({ section: 'mobile_sub', rule: 'mobile_validator_not_found', message: 'Mobile readiness validator not found, skipping', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  try {
+    const result = spawnSync('node', [mobileScript, filepath], {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 30000
+    });
+
+    if (result.status === 1) {
+      errors.push({
+        section: 'mobile_sub',
+        rule: 'mobile_validation_failed',
+        message: 'Mobile readiness validation failed (BLOCKING) — run: node admin/validate-mobile-readiness.js <file> for details',
+        severity: 'BLOCKING'
+      });
+    }
+    // Exit code 2 = warnings only (not blocking)
+  } catch (err) {
+    warnings.push({ section: 'mobile_sub', rule: 'mobile_validator_error', message: `Mobile validator threw: ${err.message}`, severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Run the recent articles/stories pattern validator as a subprocess
+ * BLOCKING: Recent Rail must use dynamic pattern, not hardcoded links
+ */
+function validateRecentArticlesSubValidator(filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const articlesScript = join(PROJECT_ROOT, 'admin', 'validate-recent-articles.js');
+  if (!existsSync(articlesScript)) {
+    warnings.push({ section: 'articles_sub', rule: 'articles_validator_not_found', message: 'Recent articles validator not found, skipping', severity: 'WARNING' });
+    return { valid: true, errors, warnings };
+  }
+
+  try {
+    const result = spawnSync('node', [articlesScript, filepath], {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 30000
+    });
+
+    if (result.status === 1) {
+      errors.push({
+        section: 'articles_sub',
+        rule: 'recent_articles_validation_failed',
+        message: 'Recent articles/stories pattern validation failed (BLOCKING) — needs nav-top, nav-bottom, loader script. See: admin/NOSCRIPT_REPAIR_GUIDE.md §2b. Details: node admin/validate-recent-articles.js <file>',
+        severity: 'BLOCKING'
+      });
+    }
+  } catch (err) {
+    warnings.push({ section: 'articles_sub', rule: 'articles_validator_error', message: `Recent articles validator threw: ${err.message}`, severity: 'WARNING' });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
 async function validatePortPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const results = {
@@ -3629,10 +4065,13 @@ async function validatePortPage(filepath) {
       return results;
     }
 
-    // Skip port-specific validation for non-port pages (hub, regional-overview, scenic-passage)
+    // Skip port-specific validation for non-port pages (hub, regional-overview, scenic-passage, index)
     // These pages live in /ports/ but aren't individual port destinations.
     // Per orchestra review (GPT+Gemini+Grok): reclassify, don't force port validation.
-    const pageType = $('meta[name="page-type"]').attr('content') || 'port';
+    // Also supports data-page-type attribute on <body> (Issue #1384 — tender-ports.html)
+    const bodyPageType = $('body').attr('data-page-type');
+    const metaPageType = $('meta[name="page-type"]').attr('content');
+    const pageType = bodyPageType || metaPageType || 'port';
     if (pageType !== 'port') {
       results.info.push({
         section: 'page_type',
@@ -3683,6 +4122,7 @@ async function validatePortPage(filepath) {
     const lastReviewedResult = validateLastReviewedStamp($);
     const collapsibleResult = validateCollapsibleStructure($);
     const fromThePierResult = validateFromThePier($);
+    const emotionalHookResult = validateEmotionalHook($);
     const printButtonResult = validatePrintButton($, html);
     const siteIntegrationResult = await validateSiteIntegration(filepath);
     const htmlIntegrityResult = validateHTMLIntegrity($, html);
@@ -3723,6 +4163,16 @@ async function validatePortPage(filepath) {
     // Session 12 — template filler detection
     const templateFillerResult = validateTemplateFiller($, html);
 
+    // V1 parity checks — ported from scripts/validate-port.js
+    const basicHTMLResult = validateBasicHTML($, html);
+    const tenderPortResult = validateTenderPortIndicator($, filepath);
+    const imageRefsResult = validateImageReferences($, filepath);
+    const weatherSubResult = validateWeatherSubValidator(filepath);
+    const poiCoordsResult = validatePOICoordinates(filepath);
+    const mobileResult = validateMobileReadinessSubValidator(filepath);
+    const articlesResult = validateRecentArticlesSubValidator(filepath);
+    const noscriptResult = validateNoscriptFallbacks($, html);
+
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
     results.blocking_errors.push(...analyticsResult.errors);
@@ -3750,6 +4200,14 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...jsonLdGeoResult.errors);
     results.blocking_errors.push(...seasonalDataResult.errors);
     results.blocking_errors.push(...templateFillerResult.errors);
+    results.blocking_errors.push(...basicHTMLResult.errors);
+    results.blocking_errors.push(...tenderPortResult.errors);
+    results.blocking_errors.push(...imageRefsResult.errors);
+    results.blocking_errors.push(...weatherSubResult.errors);
+    results.blocking_errors.push(...poiCoordsResult.errors);
+    results.blocking_errors.push(...mobileResult.errors);
+    results.blocking_errors.push(...articlesResult.errors);
+    results.blocking_errors.push(...noscriptResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -3766,6 +4224,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...authorDisclaimerResult.warnings);
     results.warnings.push(...lastReviewedResult.warnings);
     results.warnings.push(...fromThePierResult.warnings);
+    results.warnings.push(...emotionalHookResult.warnings);
     results.warnings.push(...printButtonResult.warnings);
     results.warnings.push(...htmlIntegrityResult.warnings);
     results.warnings.push(...internalLinksResult.warnings);
@@ -3790,6 +4249,14 @@ async function validatePortPage(filepath) {
     results.warnings.push(...mexicanNoticesResult.warnings);
     results.warnings.push(...seasonalDataResult.warnings);
     results.warnings.push(...templateFillerResult.warnings);
+    results.warnings.push(...basicHTMLResult.warnings);
+    results.warnings.push(...tenderPortResult.warnings);
+    results.warnings.push(...imageRefsResult.warnings);
+    results.warnings.push(...weatherSubResult.warnings);
+    results.warnings.push(...poiCoordsResult.warnings);
+    results.warnings.push(...mobileResult.warnings);
+    results.warnings.push(...articlesResult.warnings);
+    results.warnings.push(...noscriptResult.warnings);
 
     // Gold standard gap detection (only included with --gold-standard flag)
     // Per orchestra: separate mode to avoid alert fatigue on the 100% pass rate
@@ -3827,6 +4294,7 @@ async function validatePortPage(filepath) {
     results.voice_quality = voiceQualityResult.data;
     results.unique_names = uniqueNamesResult.data;
     results.from_the_pier = fromThePierResult.data;
+    results.emotional_hook = emotionalHookResult.data;
     results.print_button = printButtonResult.data;
     results.internal_links = internalLinksResult.data;
     results.recent_stories = recentStoriesResult.data;
