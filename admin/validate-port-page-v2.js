@@ -2346,18 +2346,23 @@ function validateClimateActivities($, html) {
   }
 
   // Activity labels may be inside <noscript> which cheerio doesn't parse as DOM.
-  // Use regex on raw HTML to extract activity labels from the weather widget.
-  const activityLabelRegex = /class="activity-label">([^<]+)</g;
-  const activityLabels = [];
+  // Use regex on raw HTML to extract activity labels + months from the weather widget.
+  // Capture label + following activity-months value so we can ignore N/A activities.
+  const activityRegex = /class="activity-label">([^<]+)<\/span>\s*<span class="activity-months">([^<]+)</g;
+  const activeLabels = [];
   let match;
-  while ((match = activityLabelRegex.exec(html)) !== null) {
-    activityLabels.push(match[1].trim());
+  while ((match = activityRegex.exec(html)) !== null) {
+    const label = match[1].trim();
+    const months = match[2].trim();
+    // Skip activities explicitly marked as not applicable
+    if (['N/A', 'None', '-', ''].includes(months)) continue;
+    activeLabels.push(label);
   }
 
   // Check for tropical activities in cold-water ports
   if (COLD_WATER_SLUGS.has(slug)) {
     const TROPICAL_ACTIVITIES = ['Beach', 'Snorkeling', 'Surfing', 'Scuba'];
-    const badActivities = activityLabels.filter(a =>
+    const badActivities = activeLabels.filter(a =>
       TROPICAL_ACTIVITIES.some(t => a.toLowerCase().includes(t.toLowerCase()))
     );
 
@@ -2380,7 +2385,7 @@ function validateClimateActivities($, html) {
     'doubtful-sound', 'milford-sound', 'gatun-lake',
   ]);
 
-  if (SCENIC_ONLY_SLUGS.has(slug) && activityLabels.includes('City Walking')) {
+  if (SCENIC_ONLY_SLUGS.has(slug) && activeLabels.includes('City Walking')) {
     warnings.push({
       section: 'weather_activities',
       rule: 'city_walking_in_non_city',
@@ -2389,7 +2394,7 @@ function validateClimateActivities($, html) {
     });
   }
 
-  return { valid: true, errors, warnings, data: { slug, activities: activityLabels } };
+  return { valid: true, errors, warnings, data: { slug, activities: activeLabels } };
 }
 
 // =============================================================================
