@@ -211,7 +211,7 @@ fi
 
 # Check footer copyright year is current (accepts both static and dynamic JS)
 CURRENT_YEAR=$(date +%Y)
-if echo "$CONTENT" | grep -qP '©\s*<script>.*getFullYear'; then
+if echo "$CONTENT" | grep -qP '(©|&copy;)\s*<script>.*getFullYear'; then
     check_pass "Footer copyright year is dynamic (JS getFullYear)"
 else
     FOOTER_YEAR=$(echo "$CONTENT" | grep -oE '©\s*[0-9]{4}|&copy;\s*[0-9]{4}' | grep -oE '[0-9]{4}' | tail -1)
@@ -707,7 +707,9 @@ if [ -z "$SHIP_SLUG" ]; then
     SHIP_SLUG=$(echo "$CONTENT" | grep -oP '"ship_slug":"[^"]+' | head -1 | sed 's/"ship_slug":"//')
 fi
 
-VENUES_JSON="${REPO_ROOT}/assets/data/venues.json"
+# Prefer venues-v2.json (current), fall back to venues.json (legacy)
+VENUES_JSON="${REPO_ROOT}/assets/data/venues-v2.json"
+[ ! -f "$VENUES_JSON" ] && VENUES_JSON="${REPO_ROOT}/assets/data/venues.json"
 if [ -n "$SHIP_SLUG" ] && [ -f "$VENUES_JSON" ]; then
     # Check if ship exists in venues.json
     VENUE_COUNT=$(python3 -c "
@@ -1314,7 +1316,7 @@ fi
 # ============================================================================
 section_header "Section 9aa: Copyright Year Dynamic"
 
-if echo "$CONTENT" | grep -qP '©\s*<script>.*getFullYear'; then
+if echo "$CONTENT" | grep -qP '(©|&copy;)\s*<script>.*getFullYear'; then
     check_pass "Footer copyright uses dynamic JS year"
 elif echo "$CONTENT" | grep -qP '©\s*20[0-9]{2}\s*In the Wake'; then
     check_warn "Footer has hardcoded copyright year — replace with dynamic document.write(new Date().getFullYear()) (#1316)"
