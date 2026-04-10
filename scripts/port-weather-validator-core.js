@@ -198,7 +198,15 @@ class PortWeatherValidator {
   }
 
   count(p) {
-    const r = typeof p === 'string' ? new RegExp(p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g') : p;
+    let r;
+    if (typeof p === 'string') {
+      r = new RegExp(p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+    } else if (p instanceof RegExp) {
+      // Ensure global flag so match() returns all occurrences, not just the first
+      r = p.flags.includes('g') ? p : new RegExp(p.source, p.flags + 'g');
+    } else {
+      return 0;
+    }
     return (this.content.match(r) || []).length;
   }
 
