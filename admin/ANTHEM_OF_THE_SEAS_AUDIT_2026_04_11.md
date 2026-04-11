@@ -1364,3 +1364,93 @@ destination.
 (This is also the same phantom author credited in the Anthem Review JSON-LD on line 142:
 `"author": {"name": "In the Wake Editorial Team"}`.)
 
+
+---
+
+## DEEPER DIVE — Batch 7: orphaned/template/test content publicly deployed + more data drift
+
+### `ships/template.html` — unfilled template deployed publicly
+
+```html
+<title>{{SHIP_NAME}} — Royal Caribbean Review & Guide (v2.245)</title>
+...
+<section id="dining-card" class="card" data-ship="{{SHIP_NAME}}" ...>
+```
+
+A 715-line Royal Caribbean ship page template with literal `{{SHIP_NAME}}` placeholder
+text throughout. **It is publicly deployed** on GitHub Pages via `static.yml`'s
+`path: '.'`. Any user hitting `https://cruisinginthewake.com/ships/template.html` sees
+the page titled literally "{{SHIP_NAME}} — Royal Caribbean Review & Guide (v2.245)".
+
+Not blocked by `robots.txt`. Not excluded from static deploy. No canonical rewrite.
+Google may or may not index it.
+
+### `ships/rcl/test/allure-of-the-seas.html` — test copy also deployed publicly
+
+738 lines diff from the production `ships/rcl/allure-of-the-seas.html`. Likely a
+pre-refactor test copy that was never cleaned up. Also publicly accessible.
+
+Neither `ships/template.html` nor the test directory is:
+- Mentioned in robots.txt
+- Excluded from static.yml
+- Listed in sitemap.xml (correct — these shouldn't be indexed)
+
+But because `static.yml` uploads `path: '.'`, they're served. Sitemap absence doesn't
+prevent direct-URL access.
+
+### `solo/articles/*.html` — 7 duplicate article files, shadow copies
+
+`robots.txt` has `Disallow: /solo/articles/    # article fragments, not full pages`, so
+crawlers aren't meant to index them. But they are still publicly served. Each has a
+top-level counterpart at `solo/<slug>.html`:
+
+| File | Lines |
+|---|---|
+| `solo/accessible-cruising.html` | 293 |
+| `solo/articles/accessible-cruising.html` | **817** (different version!) |
+| `solo/solo-cruising-practical-guide.html` | ... |
+| `solo/articles/solo-cruising-practical-guide.html` | ... (also different) |
+
+The `solo/articles/*` versions are **larger** than the top-level ones — suggesting the
+"fragments" directory actually contains the full articles, not smaller fragments. The
+naming and robots.txt comment are inverted from reality, or the copies are out of sync.
+
+### Sitemap vs disk: 14 HTML pages on disk not in sitemap
+
+- `drinks.html` — redirect stub (OK to exclude)
+- `offline.html` — SW fallback (OK to exclude)
+- `admin/reports/articles.html` + `admin/reports/sw-health.html` — internal (OK to exclude)
+- `ships/rcl/index.html` — fleet index page (**SHOULD be indexed** — SEO gap)
+- `ships/template.html` — template (SHOULD be removed entirely, not just un-indexed)
+- `ships/rcl/test/allure-of-the-seas.html` — test (SHOULD be removed)
+- 7× `solo/articles/*.html` — shadow copies (should be consolidated or removed)
+
+### RCL fleet-wide issue matrix (scanned across all 51 RCL HTML files)
+
+| Issue | Count | % of 51 |
+|---|---:|---:|
+| `sw-bridge.js` NOT loaded | **51** | 100% |
+| `site-cache.js` NOT loaded | **51** | 100% |
+| Swiper vendor 404 path | **49** | 96% |
+| Missing apple-touch-icon refs | **49** | 96% |
+| Missing `reviewRating` in Review JSON-LD | **49** | 96% |
+| Stats loader SOURCES dead paths | **48** | 94% |
+| "Photo by Flickers of Majesty — Instagram" label mismatch | **48** | 94% |
+| Wrong Schema.org `Cruise` type (should be `CruiseShip`) | **47** | 92% |
+| Generic `ship-map.png` deck plan preview | **44** | 86% |
+| `fixDiningJSON` override to legacy `venues.json` | **43** | 84% |
+| ICP-Lite v1.x still in content-protocol | **40** | 78% |
+| `ai-breadcrumbs` HTML comment still present | **38** | 75% |
+| Broken JSON-LD Review `image` refs | **35** | 69% |
+| First carousel slide uses `loading="lazy"` | **6** | 12% |
+
+These are systematic issues from the current template, not one-off regressions.
+
+### Items still to audit (promised to the user)
+
+- [ ] The Wikimedia source URLs in each `.attr.json` — are they still live?
+- [ ] `drink-calculator.html` — is the calculator integration linked correctly from ship pages?
+- [ ] Inline CSS version drift (3.010.300 vs 3.010.400)
+- [ ] The video embeds — do they actually play?
+- [ ] `ship-port-links.js` port injection for Quantum-class ships (since they're missing from ships.json, port links may silently fail)
+
