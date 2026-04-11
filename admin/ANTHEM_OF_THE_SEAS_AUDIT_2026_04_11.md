@@ -1199,3 +1199,97 @@ the user actually sees at runtime, you have to read 4 files to figure out which 
 loads. No authoritative source-of-truth comment anywhere explains what the current desired
 path is.
 
+
+---
+
+## DEEPER DIVE — Batch 5: the actual CSS/Swiper chain that produces the symptom
+
+The site's own `assets/styles.css` defines these firstlook rules at lines 520-567:
+
+```css
+.swiper.firstlook {
+  aspect-ratio: 16/9;
+  min-height: 220px;
+  max-height: 500px;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+.swiper.firstlook .swiper-wrapper { display: flex; overflow: hidden; }
+.swiper.firstlook .swiper-slide { flex: 0 0 100%; max-width: 100%; }
+.swiper.firstlook img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+The comment on line 562 literally says: *"Swiper fallback (no JS) - show first slide only"*.
+So the layout is **deliberately designed to clip all slides except the first** when Swiper
+is missing. Slides 2-8 are pushed to the right in a flex row; `overflow: hidden` clips them.
+
+Now here's the critical gap: **the site has NO CSS for the firstlook carousel's navigation
+buttons or pagination**. Grep for `.swiper-button-prev`/`.swiper-button-next`/
+`.swiper-pagination` under `.swiper.firstlook` in `assets/styles.css`:
+
+```
+(no matches)
+```
+
+The only `.swiper-button-*` rules are at lines 565-567 (which *hide* them for fallback) and
+lines 612-613 (which style them for `.swiper.videos` — not `.swiper.firstlook`).
+
+So the firstlook arrows and dots rely **entirely on Swiper's bundled CSS** to render. That
+CSS is loaded from:
+
+1. **Primary**: `https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css` — **404**
+   (the file does not exist in the repo)
+2. **Fallback**: `https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css` — loads async,
+   no load-event coordination with the JS init
+
+If the jsdelivr fallback is slow, blocked, or races with the JS init:
+- **The nav arrows are invisible** (no size, no icons, no positioning)
+- **The pagination dots are invisible**
+- **The user has no visible way to navigate past slide 1**
+
+Combine with:
+- All slides have `loading="lazy"`
+- Slides 2-8 are off-screen due to `flex: 0 0 100%` + `overflow: hidden`
+- Browser native lazy-load defers their fetch
+- No page-side script seeds them into SW cache (sw-bridge.js not loaded)
+- SW precache doesn't include ship images
+- Even if fetched, `isShipImage()` returns false so they get the wrong cache strategy
+
+**This is the complete, end-to-end explanation of "only the first image in the carousel
+loads."** It's not one bug; it's a cascade where the CSS fallback deliberately hides
+slides 2-8 until JS is ready, and then JS either races or fails to render the navigation
+that would let the user trigger the image fetches.
+
+### Fix options (cheapest to most thorough)
+
+1. **Self-host Swiper at `/vendor/swiper/`** — the primary URL is already referenced,
+   just copy the files from `node_modules/swiper/` or jsdelivr into the repo. This removes
+   the 404 and the race.
+2. **Remove the primary URL** — edit `ships/rcl/anthem-of-the-seas.html` line 295-296 to
+   skip the primary and go straight to jsdelivr. Keeps the CDN dependency but eliminates
+   the dead-path round trip.
+3. **Add site-level CSS rules for `.swiper.firstlook .swiper-button-*`** — so the buttons
+   render even if Swiper CSS is delayed. Plus a simple `>` / `<` glyph fallback.
+4. **Replace Swiper entirely** with a simpler CSS scroll-snap carousel — removes the
+   library dependency and all its race conditions. Browser lazy-loading works reliably
+   with scroll-snap.
+5. **Remove `loading="lazy"` from ALL firstlook img tags** — ensures all 8 images load
+   regardless of Swiper state. Costs ~11 MB per page load (even with cache), but fixes
+   the visible-content bug immediately.
+6. **Preload slide 1 with `fetchpriority="high"`** — fixes LCP for the first image and
+   removes the `loading="lazy"` anti-pattern on the LCP element.
+7. **Load `sw-bridge.js`** on ship pages — enables the existing scanAndSeed mechanism to
+   warm the SW cache in the background for slides 2-8, independent of Swiper.
+8. **Fix `isShipImage()` regex** in sw.js to match `/assets/ships/...` as well.
+
+Any ONE of #1-#5 individually fixes the visible symptom. Doing all of them (plus #6, #7, #8)
+is the complete fix.
+
