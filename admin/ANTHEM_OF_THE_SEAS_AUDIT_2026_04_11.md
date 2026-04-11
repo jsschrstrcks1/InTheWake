@@ -198,53 +198,82 @@ Not a functional bug (deduped by the DOM) but sloppy.
 
 ### 🚨 CONTENT INTEGRITY — SITE-WIDE (most serious finding)
 
-**The Logbook "first-person testimonials" are fabricated persona content.**
+**The Logbook persona testimonials are allowed by the standard, but the standard's required
+disclosure is missing from 99% of them.**
 
-`authors.json` has exactly **2 real authors**: Ken Baker and Tina Maulsby.
+The logbook standard is at `new-standards/v3.010/LOGBOOK_ENTRY_STANDARD_v3.010.md`.
 
-The logbook JSON files contain 2,000+ first-person "testimonials" from hundreds of fake
-cruiser names with fake home towns, attributed as if they were real guest contributions:
+**Section 2 — Required Disclosure (Always First)** defines three opening disclosures that
+every entry MUST include:
+- **Disclosure A** — "Personal Wake Entry" (author personally sailed)
+- **Disclosure B** — "Aggregate Soundings" (curated verified guest accounts)
+- **Disclosure C** — "Under Watch" (neither firsthand nor vetted aggregate)
 
-| Cruise line | Logbook files | Persona testimonials |
-|-------------|---------------|-----|
-| RCL | 49 | **425** |
-| Carnival | 48 | **496** |
-| MSC | 24 | **347** |
-| Norwegian | 20 | **314** |
-| Celebrity | 29 | **268** |
-| Princess | 17 | **221** |
-| Virgin Voyages | 4 | **55** |
-| **Running total** | **191 files** | **2,126+** |
+> "The disclosure establishes epistemic honesty. No entry proceeds without it. (This is not
+> optional and is never rewritten casually.)"
 
-(Not yet audited: Costa, Holland America, Cunard, Oceania, Regent, Seabourn, Silversea, Explora Journeys)
+**Section 3.A** requires the first markdown heading of every entry to be `## Full disclosure`,
+followed by 6 more named sections in order:
+1. `## Full disclosure`
+2. `## The Crew and Staff`
+3. `## Embarkation & Disembarkation`
+4. `## The Real Talk`
+5. `## Accessibility on the Seas`
+6. `## A Female Crewmate's Perspective`
+7. `## Closing Thoughts`
 
-Each entry has an `author` field like `{"name": "Harold M.", "location": "Cleveland, OH"}`
-and a `persona_label` like "Solo Grief Journey". Anthem's logbook alone has 10 persona
-testimonials:
-1. Albert G. (Boston, MA) — Entertainment Review
-2. Ethan E. (Philadelphia, PA) — Family Adventure
-3. Ruth S. (London, UK) — Itinerary Deep Dive
-4. Harold M. (Cleveland, OH) — **Solo Grief Journey** — opens with "Margaret died eight months before I booked Anthem." This is a fabricated widower story presented as a real testimonial.
-5. Patricia K. (Portland, OR) — Solo Traveler's Paradise
-6. Jennifer W. (Dallas, TX) — Multigenerational Joy
-7. Michael & Sarah T. (Chicago, IL) — Newlywed Adventure
-8. Dorothy P. (Sarasota, FL) — Senior's Tech Success
-9. Captain James R. (Ret.) (Norfolk, VA) — Veteran's Perspective
-10. Amanda L. (Charlotte, NC) — First-Timer's Success
+**Section 7** explicitly permits fictional composite personas — so the persona format is not
+itself the problem. The problem is compliance.
 
-The HTML page renders these as if they were authentic reader contributions. The Anthem
-noscript fallback even bylines the Two70 story as "— Albert G., Boston, MA" — no disclosure
-that the author is persona-generated.
+#### Fleet-wide compliance audit — 1% pass rate
 
-**Searched for disclaimers** in `terms.html`, `privacy.html`, `about-us.html`, `authors/ken-baker.html`,
-and the Anthem page itself. No mention of "persona," "fictional," "composite," "AI-generated,"
-or "editorial voice." The site footer claims "No ads. Minimal analytics. Independent of cruise
-lines." That independence framing + fabricated-but-unacknowledged first-person memoir is the
-kind of thing readers notice and don't forgive.
+| Cruise line | Files | Stories | With disclosure | With ANY `##` heading |
+|---|---|---|---|---|
+| RCL | 49 | 425 | **1 (0%)** | **1 (0%)** |
+| MSC | 24 | 347 | 0 (0%) | 0 (0%) |
+| Virgin Voyages | 4 | 55 | 0 (0%) | 0 (0%) |
+| Carnival | 48 | 496 | 0 (0%) | 0 (0%) |
+| Celebrity | 29 | 268 | **20 (7%)** | 20 (7%) |
+| Norwegian | 20 | 314 | 0 (0%) | 0 (0%) |
+| Princess | 17 | 221 | 0 (0%) | 0 (0%) |
+| **Total** | **191** | **2,126** | **21 (1%)** | **21 (1%)** |
 
-**This is the single most important finding of this audit.** It dwarfs every other Anthem
-issue. It probably was not what the user "noticed" (they would have said so explicitly if
-so), but any careful audit has to surface it.
+Only 2 fleet-wide logbook files are fully standard-compliant:
+- `assets/data/logbook/celebrity-cruises/celebrity-constellation.json` — 10 of 10 stories
+- `assets/data/logbook/celebrity-cruises/celebrity-infinity.json` — 10 of 10 stories
+
+These are the **gold-standard reference entries**.
+
+In RCL, exactly one compliant story exists across 425 entries:
+- `assets/data/logbook/rcl/legend-of-the-seas.json` story 6: "Three Generations on Deck: A Family Cruise that Ac..."
+
+**Anthem's 10 stories have zero `##` headings each.** The full 2,239-char Two70 story opens:
+
+> "I'm not easily impressed by cruise ship tech. Robot bartenders? Gimmick..."
+
+— straight into first-person narrative, no disclosure at all, no structural spine.
+
+#### What the Celebrity Constellation compliant entry looks like (for reference)
+
+> `## Full disclosure`
+> I have not yet sailed Celebrity Constellation. Until I do, this Logbook is an aggregate of
+> vetted guest soundings, taken in their own wake, trimmed and edited to our standards.
+>
+> `## The Crew and Staff`
+> Maren's waiter in San Marco — a veteran of 13 years with Celebrity — gave quiet
+> recommendations...
+
+That's Disclosure B, followed by the structured spine. This is what every logbook entry is
+supposed to look like.
+
+#### Repair scope implication
+
+2,105 stories across 189 files need either:
+- A disclosure added and retro-fitted to the 7-section spine, OR
+- Acknowledgment that the standard is aspirational and the current state is pre-standard content.
+
+The audit note ends here — this is not a "fix it right now" action without user direction on
+scope. But the gap is documented.
 
 ---
 
@@ -313,3 +342,189 @@ label as "Quantum Class (2nd of 5; Spectrum & Odyssey are Quantum Ultra sub-clas
 - GCaptain (float out 21 Feb 2015): <https://gcaptain.com/anthem-seas-float-meyer-werft-videos/>
 - Cruise Critic Quantum class overview: <https://www.cruisecritic.com/articles/royal-caribbeans-quantum-class-ships>
 - Cruise Industry News / Gangwaze / Cruise Deck Plans — venue verifications above
+
+---
+
+## 🚨 GITHUB PAGES + IMAGE CAROUSEL — the deep issue
+
+**Host:** GitHub Pages (CNAME `cruisinginthewake.com`, `.nojekyll` present, no `.gitattributes`
+/ no Git LFS). GitHub Pages has documented limits that are directly relevant to how this
+carousel is built:
+
+- **Repo size soft warning at 1 GB**, hard failure at 10 GB
+- **Individual file warning at 50 MB**, hard block at 100 MB (Git LFS required above that)
+- **Pages bandwidth soft limit: 100 GB/month** — throttles / warnings begin near this cap
+
+### Fleet totals
+
+| Directory | Size |
+|---|---|
+| `assets/ships/` (full fleet) | **1,263 MB (~1.26 GB)** — past GitHub's 1 GB soft warning |
+| `assets/ships/rcl/` | 243 MB |
+
+70 individual image files exceed 5 MB. The top 10 worst (all RCL ship exterior heroes):
+
+| Ship | File size | Dimensions |
+|---|---|---|
+| Serenade of the Seas | **29.8 MB** | 8064 × 5176 (42 MP, drone original) |
+| Jewel of the Seas | 21.7 MB | — |
+| Vision of the Seas | 21.7 MB | — |
+| **Voyager of the Seas** | **20.6 MB** | 7215 × 4107 (and this is **the WRONG SHIP** — Regent Seven Seas Voyager) |
+| Allure of the Seas | 17.3 MB | — |
+| Oasis of the Seas | 17.0 MB | — |
+| Navigator of the Seas | 16.5 MB | — |
+| Quantum of the Seas | 11.5 MB | — |
+| **Mariner of the Seas** | **11.4 MB** | — (and this is **the WRONG SHIP** — Regent Seven Seas Mariner) |
+| Grandeur of the Seas | 8.6 MB | — |
+
+### Anthem's carousel weight per page view
+
+| Slide | Size | Format | Preload? |
+|---|---|---|---|
+| 1. `anthem-of-the-seas-exterior.jpg` (the LCP image, actually Nassau docked AFT) | **3.02 MB** | JPG | `loading="lazy"` — **wrong, this is the LCP image** |
+| 2. Liverpool 2021-6.jpg | 1.84 MB | JPG (3840×2335) | lazy |
+| 3. Liverpool 2021-3.jpg | 1.60 MB | JPG | lazy |
+| 4. Liverpool 2021-4.jpg | 1.81 MB | JPG | lazy |
+| 5. Liverpool 2021-5.jpg | 1.39 MB | JPG | lazy |
+| 6. `(cropped).webp` | 0.36 MB | WebP | lazy |
+| 7. Nassau 16-9.webp | 0.66 MB | WebP | lazy |
+| 8. 0310.webp | 0.60 MB | WebP | lazy |
+| **TOTAL** | **11.28 MB** | | |
+
+11.28 MB per page view for hero imagery alone. On GitHub Pages' 100 GB/month bandwidth cap,
+**a page like this can be served to ~8,850 visitors/month from the hero image alone** before
+the site blows the bandwidth budget. Add the rest of the fleet pages and any blog/article
+traffic, and the budget disappears quickly.
+
+### The WebP conversion pipeline exists but wasn't run on these files
+
+The repo has:
+- `admin/convert_to_webp.py` — Python + Pillow WebP converter (quality=85)
+- `admin/download-ship-images.py` — Docstring explicitly says *"Downloads images from
+  Wikimedia Commons, converts to webp, and updates HTML files to use local paths"*
+
+But the `.attr.json` sidecar files show the RCL ship exterior images were downloaded
+**2026-01-21** and none of them got converted. All 26 ship-exterior hero images are raw
+JPEGs. Every `.attr.json` alongside them records the source Wikimedia URL and CC license,
+so the download step worked — the WebP conversion step was either skipped, failed silently,
+or bypassed.
+
+For Anthem specifically, the 3 images that ARE WebP (`(cropped)`, `Nassau 16-9`, `0310`)
+were converted by an older run of the pipeline. The 4 Liverpool 2021 JPGs and the new
+`-exterior.jpg` were added later without going through the converter.
+
+### No responsive image sources
+
+None of the hero images use `<picture>` + `<source type="image/webp">`, and none use
+`srcset`/`sizes` for responsive loading. Mobile users on cellular pull the full desktop
+resolution images. Every user pays the same 11.28 MB bill.
+
+### No Git LFS
+
+There is no `.gitattributes` file in the repo. All these large image files live in Git
+history as normal blobs. Every time any of them is changed, a new full copy is stored in
+Git history. Over time this inflates the repo dramatically and makes `git clone` slow.
+
+### The "first slide is lazy-loaded" bug makes this worse
+
+Even with the massive file, a proper LCP element would be `fetchpriority="high"` and
+`loading="eager"`. Anthem's first slide is the opposite: lazy, no fetchpriority, no
+explicit dimensions (so the browser can't reserve layout space). Core Web Vitals LCP on
+this page is going to be terrible on mobile cellular.
+
+Worse: the two `<link rel="preload" as="image">` lines on lines 306-307 preload the brand
+logo and compass rose — **completely wrong LCP hints** — so browsers prioritize assets
+that aren't the LCP element while the real hero is deferred.
+
+### Why this matters for Anthem specifically
+
+Ken (the site owner) is boarding Anthem in June 2026 from Seattle for Alaska. Someone
+planning an Anthem Alaska trip will:
+1. Open Anthem's page on mobile while traveling or on Wi-Fi sharing networks
+2. Wait several seconds while 11.28 MB of hero imagery loads
+3. See a Cape Liberty / Northeast US / Caribbean deployment framing that's wrong
+4. Read fabricated first-person testimonials with no disclosure
+5. Maybe never reach the actual useful content
+
+Any of the above are individually bad, but the image-weight issue is the one that's:
+- **Measurable** (Core Web Vitals, page weight, bandwidth)
+- **Specific to GitHub Pages hosting** (the bandwidth cap)
+- **Fixable with tools already in the repo** (`convert_to_webp.py`)
+
+---
+
+## Logbook disclosure gap (fleet-wide)
+
+**Standard:** `new-standards/v3.010/LOGBOOK_ENTRY_STANDARD_v3.010.md`, Sections 2 and 3.A.
+
+Every logbook entry is required to open with `## Full disclosure` followed by the 6 other
+named sections (Crew and Staff / Embarkation & Disembarkation / The Real Talk / Accessibility
+on the Seas / A Female Crewmate's Perspective / Closing Thoughts). Section 7 explicitly
+permits fictional composite personas — so the persona format is compliant **as long as**
+the disclosure is present.
+
+Compliance audit:
+
+| Line | Files | Stories | With `## Full disclosure` | With ANY `##` heading |
+|---|---|---|---|---|
+| RCL | 49 | 425 | **1 (0%)** | 1 (0%) |
+| MSC | 24 | 347 | 0 (0%) | 0 (0%) |
+| Virgin Voyages | 4 | 55 | 0 (0%) | 0 (0%) |
+| Carnival | 48 | 496 | 0 (0%) | 0 (0%) |
+| Celebrity | 29 | 268 | **20 (7%)** | 20 (7%) |
+| Norwegian | 20 | 314 | 0 (0%) | 0 (0%) |
+| Princess | 17 | 221 | 0 (0%) | 0 (0%) |
+| **Total** | **191** | **2,126** | **21 (1%)** | **21 (1%)** |
+
+Only 2 logbook JSON files in the repo are fully compliant with the standard:
+- `assets/data/logbook/celebrity-cruises/celebrity-constellation.json` — 10/10 stories
+- `assets/data/logbook/celebrity-cruises/celebrity-infinity.json` — 10/10 stories
+
+Ground-truth reference (first lines of a compliant story from Constellation):
+
+```markdown
+## Full disclosure
+I have not yet sailed Celebrity Constellation. Until I do, this Logbook is an aggregate
+of vetted guest soundings, taken in their own wake, trimmed and edited to our standards.
+
+## The Crew and Staff
+Maren's waiter in San Marco — a veteran of 13 years with Celebrity — gave quiet
+recommendations that never missed...
+```
+
+**Anthem's 10 stories open with raw prose**, no disclosure, no structural spine. The
+persona content is allowed by the standard; the missing disclosure violates it. All 2,105
+other non-compliant stories across the site need either the disclosure added and retro-fit
+to the 7-section spine, or removal.
+
+---
+
+## Flickers of Majesty link — duplicate error across 49 RCL pages
+
+The hero photo credit pill on the Anthem page:
+
+```html
+<a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
+  Photo by Flickers of Majesty — Instagram
+</a>
+```
+
+The label says "Instagram" but the `href` points to the **website** (`flickersofmajesty.com`).
+**49 RCL ship pages share this same wrong label.**
+
+The correct pattern used on Carnival Mardi Gras and a few other ships has **two separate
+links** — one to the website, one to Instagram — with both labeled clearly:
+
+```html
+<a href="https://www.flickersofmajesty.com">Flickers of Majesty</a>
+(<a href="https://www.instagram.com/flickersofmajesty">@flickersofmajesty</a>)
+```
+
+Fleet-wide RCL gap: **43 of 51 RCL pages are missing the Instagram link entirely**, and
+the 49 that have the (broken) pill label it "Instagram" while linking to the website.
+
+Also: the author card on the Anthem page (lines 902-903) links only to `flickersofmajesty.com`
+with no Instagram alternate, while Carnival ships have `"sameAs": ["https://instagram.com/flickersofmajesty"]`
+in their Organization JSON-LD. The `Person` schema on Anthem (line 170) lists `flickersofmajesty.com`
+as a sole `sameAs` entry — inconsistent cross-fleet structured data.
+
