@@ -1454,3 +1454,98 @@ These are systematic issues from the current template, not one-off regressions.
 - [ ] The video embeds — do they actually play?
 - [ ] `ship-port-links.js` port injection for Quantum-class ships (since they're missing from ships.json, port links may silently fail)
 
+
+---
+
+## DEEPER DIVE — Batch 8: `_headers` is a dead Netlify config + more inconsistencies
+
+### Netlify `_headers` file deployed to GitHub Pages (dormant)
+
+The repo has a 55-line `_headers` file with comment "# Netlify Headers Configuration".
+It defines 17 Cache-Control rules for `/assets/*.{css,js,webp,png,jpg,svg}`, JSON data,
+HTML pages, and images:
+
+```
+/assets/*.css
+  Cache-Control: public, max-age=31536000, immutable
+/assets/*.js
+  Cache-Control: public, max-age=31536000, immutable
+...
+```
+
+**GitHub Pages does not honor `_headers` files**. This is a Netlify-specific convention.
+On GitHub Pages, every header rule in `_headers` is dead — GitHub Pages sends its own
+default Cache-Control (usually `max-age=600, must-revalidate` for HTML and
+`max-age=600` for assets).
+
+Impact:
+- Versioned assets are re-fetched far more often than `immutable` would allow
+- CDN-level caching at Fastly (GitHub Pages' backing CDN) uses GitHub's policy, not this file
+- Every performance optimization in the file is ineffective
+
+Fix options:
+1. Delete the file (stop misleading future contributors)
+2. Migrate the hosting to Netlify (would honor the file) or Cloudflare Pages
+   (different `_headers` format but supported)
+3. Keep the file and add a comment explaining it's aspirational / intended for future migration
+
+### No CSP, HSTS, X-Frame-Options, Referrer-Policy anywhere
+
+Neither the HTML `<meta http-equiv>` tags nor the (dormant) `_headers` file set any of:
+- `Content-Security-Policy`
+- `Strict-Transport-Security` (GitHub Pages enables HSTS by default for custom domains on
+  opt-in — need to verify)
+- `X-Frame-Options` (clickjacking defense)
+- `Referrer-Policy` (controls what referrer info the browser sends)
+- `Permissions-Policy` (controls access to device features)
+
+For a content-only static site this is lower priority, but no defense-in-depth means:
+- The VesselFinder iframe could be a clickjacking vector
+- Third-party scripts (jsdelivr, umami, google) can load freely without CSP allow-lists
+
+### RCL fleet content freshness — 3 ships last reviewed in 2025
+
+```
+2025-12-27: ships/rcl/mariner-of-the-seas.html      (NB: this one also has the WRONG-SHIP
+                                                      Seven Seas Mariner hero image)
+2025-12-27: ships/rcl/navigator-of-the-seas.html
+2025-12-27: ships/rcl/splendour-of-the-seas.html    (historical archive page — 1996-2017,
+                                                      acceptable staleness)
+```
+
+And fleet-wide: **33 ship pages have pre-2026 last-reviewed dates**, 20+ of which are
+active Carnival ships (2025-12-01 through 2025-12-03). Over 4 months stale for active
+ships.
+
+### 43 pages credit phantom "In the Wake Editorial Team" as Review author
+
+```
+$ grep -rl '"In the Wake Editorial Team"' ships/rcl/*.html | wc -l
+43
+```
+
+`data/authors.json` lists exactly 2 authors: Ken Baker and Tina Maulsby. There is no
+profile page at `/authors/editorial-team.html`. The "Editorial Team" is a phantom
+collective byline used on 43 RCL ship page Review JSON-LDs and in the articles index for
+one article (`top-20-first-cruise-questions`). Any reader clicking through the Review
+author in structured data sees nothing resolvable.
+
+This also undermines the site's trust stance. The footer says "No ads. Minimal analytics.
+Independent of cruise lines." but 43 out of 49 active ship reviews are attributed to a
+collective author that doesn't exist as a person and isn't labeled as AI or template.
+
+### No preconnect / dns-prefetch hints for 6 external domains
+
+The Anthem page loads resources from:
+- `cdn.jsdelivr.net` (Swiper CSS/JS fallback)
+- `cloud.umami.is` (analytics)
+- `www.googletagmanager.com` (GA4)
+- `www.youtube-nocookie.com` (video embeds)
+- `www.vesselfinder.com` (live tracker iframe)
+- `player.vimeo.com` (video embeds)
+
+Not a single `<link rel="preconnect">` or `<link rel="dns-prefetch">` hint is in the
+head. Each external domain triggers a fresh DNS + TLS handshake on-demand, adding
+100-300ms per connection on mobile cellular. Preconnect hints would shave measurable
+milliseconds off initial load for each of these resources.
+
