@@ -1696,3 +1696,88 @@ The bare `legend-of-the-seas.html` is ambiguous. Search engines and users landin
 don't know which version they get. The bare slug should probably be a disambiguation page
 or a redirect to the currently-sailing ship.
 
+
+---
+
+## DEEPER DIVE — Batch 11: boilerplate meta descriptions + precache mismatches
+
+### Meta descriptions are boilerplate across 51 RCL ships
+
+```
+Unique meta descriptions across RCL fleet (after normalizing ship name): 20
+```
+
+Of those 20, only 5 are actually distinct — the rest are minor variations. The dominant
+template used by **28+ RCL ships** (including Anthem) is:
+
+```
+"{SHIP}: deck plans, live tracker, dining venues, and stateroom videos.
+ Plan your Royal Caribbean cruise with In the Wake."
+```
+
+Zero unique keywords. No mention of:
+- Ship class (Quantum)
+- Signature venues (North Star, RipCord iFly, Two70, SeaPlex, Bionic Bar, Wonderland)
+- Year built / entered service
+- Current deployment
+- Capacity / tonnage
+
+A better Anthem description (same 160-char budget):
+
+> "Anthem of the Seas — 168,666 GT Quantum Class Royal Caribbean ship, 4,180 guests.
+> North Star, RipCord iFly, SeaPlex. Summer 2026 Alaska from Seattle."
+
+SEO opportunity cost: zero keyword differentiation on 49+ RCL ship pages. Google's algorithm
+treats them as near-duplicate content for snippet generation.
+
+### Precache manifest includes assets no ship page uses
+
+The SW precaches 19 assets including:
+- `ships-dynamic.js` — loaded only by `/ships.html`, never by individual ship pages. OK for
+  fast back-to-fleet navigation, but that's an opportunity cost if the user never clicks
+  back.
+- `restaurants-dynamic.js` — loaded only by `/restaurants.html`
+- `calculator-*.js` (5 files) — only loaded by `/drink-calculator.html`
+- `stateroom-check.js` — only loaded by `/stateroom-check.html`
+- `share-bar.js` — loaded by some pages
+- `sw-bridge.js` — **precached but loaded by ZERO HTML files** (including zero ship pages)
+
+The precache burns 19 asset slots warming calculators, search, and bridges that no ship
+page will use unless the user navigates away. For a first-time visitor who only views a
+single ship page, most of the precache is wasted bandwidth.
+
+### Meta description template on the Article JSON-LD is also boilerplate
+
+The `Article` JSON-LD `description` on Anthem (line 316):
+
+```
+"Anthem of the Seas: deck plans, live tracker, dining venues, and stateroom videos.
+ Plan your Royal Caribbean cruise with In the Wake."
+```
+
+— same boilerplate. Duplicated across `<meta name="description">` and `Article.description`
+and `WebPage.description`. Three copies of the same generic text in the head.
+
+### validated-ships.json scoring: Anthem gets 90% but is clearly broken
+
+`data/validated-ships.json` records:
+```json
+{"slug": "anthem-of-the-seas", "score": 90, "file": "ships/rcl/anthem-of-the-seas.html"}
+```
+
+90% — threshold is 80 — "passing". But per this audit doc, Anthem has:
+- Stale deployment narrative (Cape Liberty when she's in Sydney/Alaska)
+- 9 broken fragment links
+- 49 broken image anchors (attribution mismatch)
+- Wrong Schema.org type
+- Missing reviewRating
+- Half-escape XSS risk
+- Stale logbook stories (all 10 fabricated, 0 with required disclosure)
+- 44 other items in this audit doc
+
+The validator scores structure. It doesn't score correctness. A page can score 90% on
+structural compliance while being riddled with content bugs.
+
+This is worth fixing — either the validator should check more things, or the validation
+score shouldn't be used as a proxy for "page is good" in the fleet aggregator.
+
