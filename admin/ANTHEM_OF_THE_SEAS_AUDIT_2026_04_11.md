@@ -1621,3 +1621,78 @@ sort order is by `published` date descending, so the article that shows in the r
 depends on the publication dates. If `top-20-first-cruise-questions` is in the first 6
 sorted entries, its broken link is visible on every page load of Anthem.
 
+
+---
+
+## DEEPER DIVE — Batch 10: RCL fleet page drift + 380 broken fragment resolution
+
+### `cruise-lines/royal-caribbean.html` — 8 class sections with NO `id=` attributes
+
+The class-section divs are all missing `id="<class>"`:
+
+```
+Icon Class              no id
+Oasis Class             no id
+Quantum Ultra Class     no id
+Quantum Class           no id
+Freedom Class           no id
+Voyager Class           no id
+Radiance Class          no id
+Vision Class            no id
+```
+
+Every link from any RCL ship page to `cruise-lines/royal-caribbean.html#<class>` is
+broken because the anchors don't exist. Fix: add `id="icon"`, `id="oasis"`, etc. to each
+`<div class="class-section">`.
+
+**This is the specific cause of 306 broken fragment links fleet-wide** (48 ships × 7 class
+pills minus broken combinations). The other 74 broken fragments are from
+`ships.html#<class>-class` which also has no anchors.
+
+### RCL fleet page drift: 22 of 50 ships not listed (44% undiscoverable)
+
+Directory `ships/rcl/` has 50 ship HTML pages. `cruise-lines/royal-caribbean.html` lists
+only **28**. The 22 missing:
+
+| File | Status |
+|---|---|
+| `discovery-class-ship-tbn.html` | Future ship (acceptable to omit) |
+| `icon-class-ship-tbn-2027.html` | Future (acceptable to omit) |
+| `icon-class-ship-tbn-2028.html` | Future (acceptable to omit) |
+| `legend-of-the-seas.html` | **In service? Ambiguous — add it** |
+| `legend-of-the-seas-1995-built.html` | Historical archive |
+| `legend-of-the-seas-icon-class-entering-service-in-2026.html` | **New 2026 ship — SHOULD be on fleet page** |
+| `majesty-of-the-seas.html` | Historical archive |
+| `monarch-of-the-seas.html` | Historical archive |
+| `nordic-empress.html`, `nordic-prince.html` | Historical archive |
+| `oasis-class-ship-tbn-2028.html` | Future (acceptable) |
+| `quantum-ultra-class-ship-tbn-2028.html`, `-2029.html` | Future (acceptable) |
+| **`rhapsody-of-the-seas.html`** | **IN SERVICE, Vision class — MISSING from fleet page** |
+| `song-of-america.html`, `song-of-norway.html`, `sun-viking.html`, `viking-serenade.html` | Historical archive |
+| `sovereign-of-the-seas.html` | Historical archive |
+| `splendour-of-the-seas.html` | Historical archive (1996-2017) |
+| `star-class-ship-tbn-2028.html` | Future (acceptable) |
+| `venues.html` | Not a ship page — this is "Royal Caribbean Dining Venues by Ship Class" index |
+
+**Critical gaps**:
+1. **Rhapsody of the Seas** is actively in service (Vision Class, currently Mediterranean)
+   but MISSING from the fleet page. The Vision Class section on the fleet page lists only
+   3 ships (Vision, Enchantment, Grandeur) when it has 4 (add Rhapsody).
+2. **Legend of the Seas (Icon Class 2026)** is a new-build ship entering service in 2026 —
+   should be on the fleet page under Icon Class.
+3. Historical ships have pages but no navigation path to them from the fleet page — only
+   discoverable via direct URL.
+4. `ships/rcl/venues.html` is a "Royal Caribbean Dining Venues by Ship Class" index page
+   that exists but isn't linked from the fleet page or the restaurants hub.
+
+### Legend of the Seas — ambiguous slug
+
+Three Legend of the Seas HTML files exist:
+- `legend-of-the-seas.html` (ambiguous — which one?)
+- `legend-of-the-seas-1995-built.html` (explicit historical)
+- `legend-of-the-seas-icon-class-entering-service-in-2026.html` (explicit new build)
+
+The bare `legend-of-the-seas.html` is ambiguous. Search engines and users landing there
+don't know which version they get. The bare slug should probably be a disambiguation page
+or a redirect to the currently-sailing ship.
+
