@@ -1549,3 +1549,75 @@ head. Each external domain triggers a fresh DNS + TLS handshake on-demand, addin
 100-300ms per connection on mobile cellular. Preconnect hints would shave measurable
 milliseconds off initial load for each of these resources.
 
+
+---
+
+## DEEPER DIVE — Batch 9: data file duplication + logbook staleness
+
+### Duplicate data files at multiple paths with schema drift
+
+```
+data/fleets.json                    MD5: 69663183b6dcbc69305045d9bed6af1d  ← duplicate of
+assets/data/fleets.json             MD5: 69663183b6dcbc69305045d9bed6af1d  ← ...this one
+```
+
+Both `fleets.json` files are byte-identical (same MD5). Two publicly-deployed copies of
+the same file, doubled bandwidth on install-time SW precache.
+
+```
+data/ship_pages.json                MD5: 8694974f0336c4562dd00fd132da0ef5
+                                    Schema: {"_meta": {...}, "by_slug": {...}}
+                                    10 ships
+
+assets/data/ship_pages.json         MD5: 2be3d92059d050d6aaa2413478a53149
+                                    Schema: flat map "Ship Name": "filename.html"
+                                    28 ships
+
+ships/ship_pages.json               MD5: (not checked)  10 ships  (same schema as data/)
+```
+
+Three copies of `ship_pages.json` at three paths with **two different schemas and
+different content**. Any script loading `/assets/data/ship_pages.json` gets 28 ships in a
+flat map; a script loading `/data/ship_pages.json` gets 10 ships in a structured
+`by_slug` layout. Which path is used depends on which script is running.
+
+### Logbook metadata quality
+
+Across 49 RCL logbook files:
+- **1 file missing `last_updated`** field entirely
+- **1 file missing `content_protocol`** field entirely
+- **7 files last updated 2025-11-16** (5 months stale)
+- **2 files last updated 2025-11-23**
+- **All 49 files are on ICP-Lite (either v1.4 or v1.0)** — zero on ICP-2
+- **9 files on ICP-Lite v1.0** — an older ICP-Lite version than the rest
+- Two different ICP-Lite versions coexist
+
+### Video categorization bug on Anthem
+
+The Anthem videos JSON has these entries under the "balcony" category:
+
+```
+[balcony] Anthem of the Seas, Royal Caribbean Interior with Virtual Balcony Cabin Tour
+[balcony] Anthem of the Seas | Interior Virtual Balcony Stateroom Tour & Review 4K
+[balcony] Royal Caribbean. Anthem of the Seas. Virtual Balcony #shorts
+[balcony] Cabin Tour. INSIDE. Anthem of the Seas. Virtual Balcony. #Shorts
+```
+
+Virtual Balcony cabins are **interior** cabins with a wall-mounted LCD showing a live
+outside feed. They're in the "Interior with Virtual Balcony" category in Royal Caribbean's
+own cabin taxonomy, NOT in "Balcony". The video titles literally say "Interior with
+Virtual Balcony" but they're filed under `balcony`. Users browsing the balcony videos get
+interior cabin tours instead.
+
+### RCL video library totals
+
+- 984 unique videos across RCL ships (no duplicates — good)
+- 56 videos for Anthem alone across 8 categories
+
+### Articles index has 7 published articles but right-rail shows first 6 — so the broken one may or may not be visible depending on page number
+
+The articles loader's `ARTICLES_PER_PAGE = 6` and renders the first page on load. Its
+sort order is by `published` date descending, so the article that shows in the rail
+depends on the publication dates. If `top-20-first-cruise-questions` is in the first 6
+sorted entries, its broken link is visible on every page load of Anthem.
+
