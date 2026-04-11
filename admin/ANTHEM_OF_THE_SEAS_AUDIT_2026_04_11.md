@@ -671,3 +671,303 @@ None of the above is definitively "the issue" the user noticed. Candidates so fa
 18. **Length off by 2 ft** (1,141 or 1,142 ft on HTML vs 1,139 ft per Meyer Werft).
 19. **Right-rail placeholder filler block** duplicating the main column with generic copy.
 
+
+---
+
+## DEEPER DIVE — Service worker & PWA integration gap (the root cause of "only first image loads")
+
+**User's confirmed symptom**: "ONLY the first image in the carousel loads, not the rest of them."
+**User's next hint**: "AND the service worker isn't warming those images up i'm sure either."
+
+Full trace of why the carousel appears broken:
+
+### The mechanism for warming images EXISTS in the repo but is never wired up
+
+`assets/js/sw-bridge.js` has a `scanAndSeed()` function (lines 186-261) that:
+
+1. Walks the DOM for `img[src]`, `source[srcset]`, and `[style*="background-image"]`
+2. Collects all same-origin WebP/JPG/PNG URLs
+3. Posts `{type: 'SEED_URLS', urls: imageUrls, priority: 'low'}` to the active service worker
+4. The SW's message handler then fetches those URLs in the background and stores them in `CACHES.IMAGES`
+
+Comment at lines 179-184:
+
+> *"After each page load, scan for same-origin links and key images, then send them to the SW
+> for background caching. This means every page the user visits progressively caches linked
+> pages — ports link ships, ships link tools, tools link ports. By the time a cruiser boards,
+> most of the site is available offline."*
+
+The intent is clear: **every page is supposed to proactively warm its own images into the SW
+cache**. But:
+
+| Script | Loaded by | Purpose |
+|---|---|---|
+| `sw-bridge.js` | **0 HTML files** | scanAndSeed images on every page load |
+| `site-cache.js` | 12 aggregator pages (ships.html, cruise-lines/*, tools/*) | network-aware hover prefetch for links |
+
+**Zero ship pages** load either. The SW is registered on every ship page (`sw.js`), but nothing
+coordinates with it. The carousel's 7 hidden slides (2 through 8) are never seeded, never
+requested, never cached, and — because their `loading="lazy"` attribute plus Swiper's CSS-
+transform navigation inside `overflow: hidden` — they may never fire browser lazy-load either.
+
+Result: the user sees a carousel that visually only ever shows slide 1. Clicking next arrows
+either reveals blank slides or broken image icons.
+
+### `isShipImage()` regex bug — 837 ship images fall through to the wrong strategy
+
+`sw.js` line 977:
+
+```javascript
+function isShipImage(url) {
+  return /^\/ships\/.*\.(avif|webp|jpg|jpeg|png)(\?.*)?$/i.test(url.pathname);
+}
+```
+
+The regex requires the path to start with `/ships/`. But **every single Anthem carousel image
+— and every ship image site-wide — lives at `/assets/ships/...`**, not `/ships/...`. The
+regex returns `False` for all of them:
+
+```
+False  /assets/ships/rcl/anthem-of-the-seas-exterior.jpg
+False  /assets/ships/Anthem_of_the_Seas_(cropped).webp
+False  /assets/ships/Anthem_of_the_Seas_(ship,_2015)_at_Liverpool_2021-6.jpg
+```
+
+Counts: 383 `.jpg` + 454 `.webp` = **837 ship images in `/assets/ships/`** that the SW
+mis-identifies. The fetch handler lines 148-155:
+
+```javascript
+if (destination === 'image' || isImageURL(url)) {
+  if (isShipImage(url)) {
+    event.respondWith(cacheFirstStrategy(request, CACHES.IMAGES, CONFIG.maxImages));
+  } else {
+    event.respondWith(staleWhileRevalidate(request, CACHES.IMAGES, CONFIG.maxImages));
+  }
+}
+```
+
+So every ship carousel image that DOES get fetched goes to `staleWhileRevalidate` — which
+**always hits the network first**, revalidating in background. That's the wrong strategy for
+ship images which "rarely change" (per comment on line 149). Ship images should be `cache-
+first` so repeat visits don't re-download.
+
+### Precache manifest has 3 images — none of them ship images
+
+`precache-manifest.json` is fetched by the SW on `install` and warms `CACHES.PRECACHE`:
+
+```json
+"images": [
+  {"url": "/assets/index_hero.jpg", "priority": "high"},
+  {"url": "/authors/img/ken1.jpg", "priority": "normal"},
+  {"url": "/authors/img/tina3.webp", "priority": "normal"}
+]
+```
+
+Three. Site-wide. None of them are ship carousel images. No ship-specific precache strategy
+exists. The SW `maxImages: 600` — there's room for 597 more in the cache, completely unused.
+
+### Swiper vendor path 404 (again, in this context)
+
+Adding this to the SW chain: the Anthem page loads Swiper from
+`https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.{css,js}` — which 404s because
+`vendor/swiper/` does not exist in the repo. The fallback loads from jsdelivr. When the
+fallback JS succeeds, `window.__swiperReady = true` fires immediately, but the fallback CSS
+is loaded via a separate `<link>` injection and has no load-event coordination. Result: a
+race where Swiper may initialize before its CSS is applied, causing slides to mis-position on
+first paint.
+
+### Full chain of failures that produce "only first image loads"
+
+1. Page loads, HTML parses, 8 `<img>` elements are in DOM
+2. Slide 1 is above-the-fold, `loading="lazy"` allows initial load → **slide 1 fetches**
+3. Slides 2-8 are in `.swiper-slide` divs inside `.swiper-wrapper` — all off-screen
+4. Swiper tries to init, but its CSS may be racing the fallback `<link>` insertion
+5. Even if Swiper inits cleanly, slides 2-8 are translated via CSS `transform` — their
+   bounding boxes are outside the container's `overflow: hidden` viewport
+6. Native `loading="lazy"` IntersectionObserver: slides 2-8 are not "in viewport" → defer
+7. User clicks next arrow — Swiper animates a transform → slide 2's bounding rect enters
+   viewport → IntersectionObserver may or may not fire (depending on Chrome version and
+   animation timing)
+8. **No page-side script is sending SEED_URLS to the SW** (sw-bridge.js not loaded)
+9. Service worker has zero ship images in precache
+10. `isShipImage()` returns false for the image path, so even if it WAS fetched, it'd use the
+    wrong cache strategy
+11. The user sees an empty slide 2. They may conclude the carousel is broken.
+
+**All 5 failure layers combine** to produce exactly the observed symptom.
+
+### The fix is a handful of small edits
+
+1. **Remove `loading="lazy"`** from the first slide image (LCP should be eager)
+2. **Remove `loading="lazy"`** from slides 2-8 OR wire up Swiper's native `lazyLoading`
+   option with `loadOnTransitionStart: true`
+3. **Load `sw-bridge.js`** on ship pages — add `<script src="/assets/js/sw-bridge.js" defer>`
+4. **Fix `isShipImage()` in sw.js** to match `/assets/ships/...` in addition to `/ships/...`
+5. **Fix the `<link rel="preload">` hints** (lines 306-307) to preload the first hero image
+   with `fetchpriority="high"`, not the brand logo and compass rose
+6. **Populate precache-manifest.json** with a per-line ship image list, or have
+   `download-ship-images.py` write the list as a build step
+7. **Also consider**: sv-hosted Swiper at `/vendor/swiper/` OR remove the dead primary URL and
+   use jsdelivr as the primary
+
+---
+
+## DEEPER DIVE — SEO / indexing issues on the image carousel
+
+`robots.txt` line-by-line shows these disallows:
+- `Disallow: /assets/`
+
+**That blocks every image in the repo from Google Image search indexing.** For a travel
+planning site, image search traffic ("Anthem of the Seas photo", "Quantum class cruise ship
+North Star") is a major organic source. Blocking `/assets/` globally kills that traffic at
+the source.
+
+`sitemap.xml` has:
+- 1,227 `<url>` entries (HTML pages only)
+- **Zero `<image:image>` entries** (no image sitemap extension)
+
+Anthem's entry:
+```xml
+<loc>https://cruisinginthewake.com/ships/rcl/anthem-of-the-seas.html</loc>
+<lastmod>2026-01-31</lastmod>
+```
+
+Sitemap `<lastmod>` is **2026-01-31**, but the page's HTML `<meta name="last-reviewed">` is
+**2026-02-14**. Sitemap is ~2 weeks stale vs page, and both are ~2 months stale vs today
+(2026-04-11).
+
+**Image SEO gap**: even if `/assets/` were allowed, there's no image sitemap extension
+pointing at the carousel images. Google has no signal that `anthem-of-the-seas-exterior.jpg`
+is worth indexing. Combined with `loading="lazy"` on the LCP image, Google's crawler may not
+see any of the ship images.
+
+---
+
+## DEEPER DIVE — content issues I found skimming the carousel section one more time
+
+- **The first slide bypasses the `<figure>` wrapper** that slides 2-5 use, so it has no
+  `<figcaption>` — it's the only slide without a caption. Visual inconsistency.
+- **Slides 6-8 also bypass `<figure>`** for the same inconsistency.
+- **Slide 1 `<img>` is missing `decoding="async"`** (all others have it).
+- **Slide 1 `<img>` is missing `width`/`height`** attributes — causes CLS because the
+  browser can't reserve layout space.
+- **Slide 3's alt text "Bow view at Liverpool"** and slide 4's alt text "View from the bow
+  at Liverpool" describe the same angle twice. Either one is wrong or they're the same.
+- **Slides 2-5 figcaptions** say *"Photo served locally (attribution in page footer)"* but
+  the page footer attribution section does NOT list any of the Liverpool 2021 files.
+  The figcaption text is a lie — readers following it to the attribution section find
+  nothing, which is both a UX bug AND a CC BY-SA 4.0 license compliance gap.
+- **Slide 1 and Slides 7's files are the same ship event** — both are March 14, 2024 Nassau
+  docked photos from different Wikimedia contributors (Kiran891 AFT + Acabashi 16-9). Having
+  two photos from the exact same moment in the same carousel is redundant.
+
+
+---
+
+## DEEPER DIVE — Batch 2 findings
+
+### PWA icon chain: 3 of 4 icon references are broken
+
+Line 243: `<link rel="icon" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>` ✓ exists
+Line 244: `<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>` **✗ file doesn't exist** (correct file would be `in_the_wake_icon_180x180.png`)
+Line 245: `<link rel="manifest" href="/manifest.webmanifest"/>` → manifest references:
+- `/assets/icons/icon-192.png?v=14.2.0` **✗ file doesn't exist**
+- `/assets/icons/icon-512-maskable.png?v=14.2.0` **✗ file doesn't exist**
+
+What DOES exist in `assets/icons/`: `in_the_wake_icon_{16,24,32,48,64,72,96,128,152,180,192,256,512}x{…}.png` plus `.webp`. The filenames don't match any manifest reference.
+
+**120 HTML files** reference the missing `/assets/icons/apple-touch-icon.png`. iOS home-screen
+installs of any of those pages get iOS's default icon, not the In the Wake logo.
+
+PWA installability:
+- Android adaptive icons need a maskable variant — **no maskable icon exists anywhere in the repo**
+- The `/manifest.webmanifest` lists "maskable" as a purpose on icon-512-maskable.png, but that file doesn't exist
+- Chrome's Lighthouse PWA audit will flag this as "Does not have a maskable icon"
+
+`manifest.json` and `manifest.webmanifest` are TWO different files for TWO different PWAs:
+- `manifest.json` claims the app is "Stateroom Sanity Check" with `start_url: /stateroom-check.html`
+- `manifest.webmanifest` claims it's "In the Wake — Cruise Planning & Port Guides" with `start_url: /`
+
+Anthem's HTML loads `manifest.webmanifest`. The `manifest.json` is orphaned/shadow — only the stateroom-check page should reference it.
+
+### Review JSON-LD `image` field references a non-existent file (fleet-wide pattern)
+
+Line 155 on Anthem:
+```json
+"image": "https://cruisinginthewake.com/assets/ships/anthem-of-the-seas1.jpeg"
+```
+
+`anthem-of-the-seas1.jpeg` does not exist. Counterpart files `.jpeg` with numeric suffix
+don't exist in `assets/ships/` at all. This is a templated pattern from older page generation
+that was never replaced with real file paths.
+
+Fleet-wide: **36 RCL ship pages have broken JSON-LD Review `image` references** with the
+`<slug>1.jpeg` pattern. Radiance of the Seas has 2 additional broken refs (`<slug>2.jpg`,
+`<slug>3.jpg`). Search engines crawling structured data see these as broken-image signals,
+potentially disqualifying the pages from rich snippets.
+
+Ships affected include:
+- adventure, allure, anthem, explorer, freedom, harmony, icon, independence, icon-class-tbn,
+  legend, liberty, mariner, monarch, navigator, nordic-empress, oasis, odyssey, ovation,
+  quantum, quantum-ultra-tbn, radiance (×3), song-of-norway, sovereign, spectrum, splendour,
+  star-class-tbn, star, symphony, utopia, voyager, wonder
+
+### Generic deck-plan preview on 188 ship pages
+
+Line 774 uses `/assets/ship-map.png` (a generic 830×363 PNG) with alt text
+`"Anthem of the Seas simplified deck plan preview"`. The same generic image is reused on
+**188 ship pages** fleet-wide, each time with alt text claiming it's the specific ship's
+deck plan preview. It isn't. The alt text lies on every page.
+
+Actual deck plan images exist for only 2 ships (`Caribbean_Princess_deck.jpg`,
+`Star_Princess_deck.jpg`). Every other ship falls back to the generic placeholder.
+
+### Heading hierarchy has an H1→H3 skip
+
+Line 461: `<h1 class="page-title">Anthem of the Seas — ...` (H1)
+Line 467: `<h3 ...>Key Facts</h3>` (inside intro fact-block) — **skips H2**
+
+Screen readers announcing this hierarchy will say: "Heading level 1, Anthem of the Seas…
+Heading level 3, Key Facts" — leaving listeners wondering what the implicit H2 was. WCAG
+2.1 SC 1.3.1 (Info and Relationships) failure for heading-level skipping.
+
+Separately, the page has **3 different "Key Facts" headings**:
+- Line 467 in main intro fact-block
+- Line 543 as `<h3 id="statsHeading">` before the stats grid
+- Line 864 in the right-rail callout
+
+All three have the label "Key Facts" (or "Key Facts About Anthem of the Seas"). Screen
+reader navigation by heading will hit three near-identical "Key Facts" entries.
+
+### Version string inconsistency across asset loads
+
+- Line 255: `styles.css?v=3.010.400`
+- Line 256: `ship-page.css?v=3.010.300`
+- Line 307: `compass_rose.svg?v=3.010.400`
+- Line 895: `ken1.webp?v=3.010.400`
+- SW: `VERSION = '14.2.0'`
+- Manifest: icons versioned `?v=14.2.0`
+
+Two different cache-busting schemes side by side. `ship-page.css` is pinned to an older
+`.300` version while `styles.css` is on `.400` — if those files have any conflicting rules,
+browsers cache them independently and users can get a mismatched-rule render.
+
+### Apple-touch-icon missing on 120 HTML files
+
+`<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>`
+appears on 120 HTML files site-wide. On all 120, the referenced file doesn't exist.
+
+### Everything assembled: "why does only the first image load" has a 9-step explanation
+
+1. `loading="lazy"` on slide 1 is wrong for LCP but happens to render because it's above-fold
+2. Slides 2-8 also `loading="lazy"` — they're off-screen so defer
+3. Swiper uses CSS `transform` navigation inside `overflow: hidden`
+4. Browser's IntersectionObserver may or may not fire when Swiper shifts slide bounds
+5. `sw-bridge.js` (which would scan-and-seed images to the SW) is **not loaded** on any ship page
+6. Precache manifest has **0 ship images**
+7. `isShipImage()` regex doesn't match `/assets/ships/*` — wrong cache strategy even if fetched
+8. Swiper primary vendor path 404s; race with jsdelivr CSS fallback can mis-position slides
+9. Native `<link rel="preload">` hints target logo + compass rose, not the actual LCP hero
+
+**This is, end-to-end, the root cause of the user-reported symptom.**
+
