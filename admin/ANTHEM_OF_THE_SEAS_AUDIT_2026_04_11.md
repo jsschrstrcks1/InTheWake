@@ -1293,3 +1293,74 @@ that would let the user trigger the image fetches.
 Any ONE of #1-#5 individually fixes the visible symptom. Doing all of them (plus #6, #7, #8)
 is the complete fix.
 
+
+---
+
+## DEEPER DIVE — Batch 6: broken fragment navigation + article index drift + precache gaps
+
+### 9 of 12 fragment links on Anthem are broken (75% fail rate)
+
+Anthem has 12 internal `href="...#..."` links. Nine point at fragment identifiers that
+**do not exist** on the target page:
+
+| Link | Status |
+|---|---|
+| `ships.html#quantum-class` | ✗ fragment missing |
+| `ships.html#oasis-class` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#radiance` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#voyager` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#freedom` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#quantum` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#oasis` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#icon` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#vision` | ✗ fragment missing |
+
+The entire "Explore Royal Caribbean Classes" pill row (lines 585-598) is 7 dead anchors.
+The `#quantum-class` and `#oasis-class` references in the intro content-text (line 487)
+also go nowhere. Users clicking any pill just jump to the top of the target page.
+
+### Fleet-wide: 380 broken fragment links across 49 of 51 RCL ship pages
+
+Scan across `ships/rcl/*.html`:
+- **49 of 51 pages** have at least one broken fragment link
+- **380 total broken fragments** across the fleet
+- Worst offenders: adventure-of-the-seas (11), allure (10), anthem (9), brilliance (9)
+
+The "Explore Royal Caribbean Classes" template propagated the bad links to essentially
+every ship. Nobody ever added the `id="<class>"` sections on `royal-caribbean.html`.
+
+### precache-manifest.json references a missing file
+
+Line 75: `"sitemaps": ["/sitemap.xml", "/sitemap.json"]`
+
+- `/sitemap.xml` ✓ exists (1,227 URLs)
+- `/sitemap.json` ✗ **does not exist in the repo**
+
+`warmPrecache()` in the SW will fail silently on the 404 (the fetch result has `ok=false`
+so it's skipped). Wasted round-trip per SW install. Also, `site-cache.js` line 60 includes
+`/sitemap.json` in its BASE_SEEDS list — same wasted fetch on every page load for the 12
+pages that load site-cache.js.
+
+### Articles index drift — one indexed article doesn't exist, one existing article isn't indexed
+
+`assets/data/articles/index.json` lists 7 published articles. `solo/` has 7 html files.
+But they don't match:
+
+| Indexed | On disk |
+|---|---|
+| `top-20-first-cruise-questions` | **NOT on disk** → any rail link 404s |
+| `solo-cruisers-companion` (on disk) | **NOT indexed** → no way to discover it from the rail |
+
+Anthem's right-rail "Recent Stories" uses `/solo/<slug>.html` as the link target. When the
+rail renders the first 6 articles, one of them 404s on click.
+
+### Articles index has a phantom author
+
+`top-20-first-cruise-questions` has `author: "In the Wake Editorial Team"`. The file
+`data/authors.json` lists only Ken Baker and Tina Maulsby. "Editorial Team" is not a real
+author and has no profile page, so the "by Editorial Team" byline in the rail has no
+destination.
+
+(This is also the same phantom author credited in the Anthem Review JSON-LD on line 142:
+`"author": {"name": "In the Wake Editorial Team"}`.)
+
