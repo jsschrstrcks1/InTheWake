@@ -1113,3 +1113,89 @@ The same figcaption text is also used on many other ship pages:
 
 (That's how many pages have the figcaption lie; each one needs either a real
 attribution or the misleading caption removed.)
+
+---
+
+## DEEPER DIVE — Batch 4 findings
+
+### JavaScript safety — half-escape pattern in render functions (XSS defense-in-depth)
+
+Multiple inline render functions use a half-escape pattern that only replaces `<` → `&lt;`:
+
+- Line 1027 (logbook `renderOne`): `const title=String(p.title||...).replace(/</g,'&lt;');`
+- Line 1071 (video `renderVideos`): `const title=String(v.title||'Anthem...').replace(/</g,'&lt;');`
+- Line 1117 (stats `renderStats`): `statHtml += '<span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span>';`
+
+Half-escape is worse than nothing:
+- `>` not replaced — closing tags from user data still break out
+- `&` not replaced — double-encoding ambiguity
+- `"` not replaced — attribute-quote injection possible
+- For values written into `href="..."` contexts (as done in the dining loader on line 1179),
+  a value containing `"` breaks out of the attribute and the rest is parsed as HTML attrs
+
+The `mdToHtml` function on line 1024 does MORE:
+```javascript
+html.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>')
+```
+It writes user-supplied content directly into `href="..."` with ZERO sanitization. A
+markdown link `[click me](javascript:alert(1))` becomes:
+```html
+<a href="javascript:alert(1)">click me</a>
+```
+Which would fire XSS on click. Because the page writes the result via
+`mount.innerHTML = html` (line 1041), the script would execute.
+
+**Data sources are local JSON files** (same-origin, no user input), so the risk is
+supply-chain only — an attacker who can modify a logbook JSON can execute arbitrary JS in
+the page. Still a defense-in-depth gap: all innerHTML writes from JSON should use safe
+DOM construction or full HTML escaping (`<`, `>`, `&`, `"`, `'`).
+
+### Load-order bug: whimsical-ship-units.js depends on fun-distance-units.js but runs first
+
+- Line 1103: `<script src="/assets/js/fun-distance-units.js" defer></script>`
+- Line 1329: `<script src="/assets/js/whimsical-ship-units.js"></script>` (no defer)
+
+`defer` scripts execute AFTER parsing, in order, before DOMContentLoaded. Non-defer scripts
+at the end of body execute AS the parser encounters them. So:
+1. Parser hits line 1103 → queues fun-distance-units.js for deferred execution
+2. Parser hits line 1329 → **executes whimsical-ship-units.js immediately**
+3. whimsical checks `if (!window.funDistance) { setTimeout(init, 200); return; }`
+4. `window.funDistance` is undefined (fun-distance not loaded yet)
+5. whimsical sets a 200ms timer, then re-checks
+6. Meanwhile fun-distance's deferred execution happens at DOMContentLoaded time
+7. On first retry, `window.funDistance` IS available → whimsical renders
+
+Result: the "Measuring in Whimsy" card has a ~200ms delayed render on every page load.
+Works eventually but is janky. Fix: add `defer` to whimsical-ship-units.js OR load it AFTER
+fun-distance with explicit order.
+
+### Pre-commit security hook is not installed
+
+`admin/hooks/pre-commit` is an 11,153-byte executable bash script that performs:
+- Forbidden file type checks (`.env`, `.pem`, `.key`, etc.)
+- Secret scanning
+- Other security-related validation
+
+**It is NOT installed** at `.git/hooks/pre-commit`. The file only exists at
+`.git/hooks/pre-commit.sample` (git's default placeholder). So the security hook is
+dormant — its checks never run on commits. Whoever set up the repo started to add a
+security gate, then never wired it up.
+
+### 38 RCL pages still have `ai-breadcrumbs` HTML comment + 40 still on ICP-Lite
+
+- **38 of 51 RCL pages** have the legacy `<!-- ai-breadcrumbs ... -->` HTML comment block.
+  ICP-2 v2.1 says remove these — crawlers don't read HTML comments, so they're dead code.
+- **40 of 51 RCL pages** still have `content="ICP-Lite v1.x"` as their content-protocol.
+- Only **13 RCL pages** are on ICP-2. The migration was started but stalled.
+
+(By comparison, MSC and Virgin fleet repairs I did earlier are at 100% ICP-2.)
+
+### Even the bug-fixed fields have inconsistent casing
+
+`v2` = `venues-v2.json` but the JS sometimes uses `venues.json`, sometimes `venues-v2.json`,
+sometimes via the mistake in `fixDiningJSON`. The inline `dining-data-source` JSON says
+one thing; the script overrides to another at runtime. If you are trying to trace what data
+the user actually sees at runtime, you have to read 4 files to figure out which one actually
+loads. No authoritative source-of-truth comment anywhere explains what the current desired
+path is.
+
