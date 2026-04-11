@@ -528,3 +528,146 @@ with no Instagram alternate, while Carnival ships have `"sameAs": ["https://inst
 in their Organization JSON-LD. The `Person` schema on Anthem (line 170) lists `flickersofmajesty.com`
 as a sole `sameAs` entry — inconsistent cross-fleet structured data.
 
+
+---
+
+## CORRECTION — the 11.28 MB figure was wrong
+
+Earlier this doc claimed "11.28 MB per page view" for the Anthem hero carousel. That is
+wrong. **Every slide image uses `loading="lazy"`**, and subsequent slides are hidden from
+the initial viewport. Only the first image (`anthem-of-the-seas-exterior.jpg`, **3.02 MB**)
+loads on initial page view. Subsequent slides would only load if the browser decides
+they've entered the viewport — and because Swiper navigates via CSS transforms inside an
+`overflow: hidden` container, browsers may or may not fire the lazy-load at all. This is a
+common Swiper + `loading="lazy"` interaction bug and is the likely reason "the anthem
+carousel only loads the first image."
+
+So the true per-page-view cost is about **3 MB of image bandwidth**, not 11 MB. That's
+still huge for a hero image, and the downstream problems still hold:
+- 3 MB for a single LCP image on GitHub Pages cellular mobile is terrible
+- First slide still has `loading="lazy"` (which is an anti-pattern for the LCP element)
+- Preload hints on lines 306-307 target the brand logo + compass rose, not the hero image
+- 7 of 8 images may never load at all, which means the carousel *appears broken* to anyone
+  who clicks next — they see blank slides because lazy-load didn't fire
+- Total repo size is still 4.4 GB (2.1 GB `.git` + 2.3 GB working tree)
+
+---
+
+## Repo size + GitHub Pages exposure (NEW, bigger-picture)
+
+Total repo size: **4.4 GB** (per `du -sh .`). Breakdown:
+- `.git/` history: **2.1 GB** — bloated from committing large image files
+- `assets/`: **1.4 GB**
+- `ports/`: 718 MB (port guides)
+- `admin/`: 93 MB (internal docs)
+- `Reprocessed/`: 40 MB (legacy)
+- `ships/`: 31 MB (ship HTML pages)
+- `images/`: 23 MB
+
+GitHub repo-size soft warning is at **1 GB**. The working tree alone (2.3 GB) is over that,
+and `.git` adds another 2.1 GB.
+
+### `.github/workflows/static.yml` deploys EVERYTHING publicly
+
+```yaml
+- name: Upload artifact
+  uses: actions/upload-pages-artifact@v3
+  with:
+    # Upload entire repository
+    path: '.'
+```
+
+`path: '.'` means the entire working tree gets uploaded and served by GitHub Pages. That
+makes these directories publicly accessible on `cruisinginthewake.com`:
+
+- `admin/` — 93 MB of internal docs, including:
+  - `admin/ANTHEM_OF_THE_SEAS_AUDIT_2026_04_11.md` (this file!)
+  - `admin/GRIEF_STORIES_LOGBOOK_INVENTORY.md`
+  - `admin/PROJECT_STATE_2026_02_14.md`
+  - `admin/CAREFUL_AUDIT_2026_03_27.md`
+  - Standards rebuild docs, competitor audits, unfinished tasks lists, etc.
+- `Reprocessed/` — 40 MB legacy content
+- Any other top-level directory not explicitly filtered
+
+`.md` files don't get rendered by GitHub Pages when `.nojekyll` is present — they're served
+as `text/plain` or similar. But they're still readable by anyone who guesses the URL,
+including search engines that crawl them.
+
+**Information disclosure**: my audit doc, which names the logbook persona fabrications and
+calls specific content "hallucinations" and "license violations," is publicly accessible at
+`https://cruisinginthewake.com/admin/ANTHEM_OF_THE_SEAS_AUDIT_2026_04_11.md` as soon as the
+next static.yml deploy runs. That's the opposite of what an internal audit doc should be.
+
+### Mitigation options
+1. Move `admin/` out of the published path (exclude in static.yml)
+2. Or move internal docs to a separate private repo
+3. Or add a robots.txt disallow (doesn't hide from direct access, just from indexing)
+4. Preferred: update static.yml to use an artifact upload that explicitly lists what should
+   be public, excluding admin/, Reprocessed/, and other non-public dirs
+
+---
+
+## Swiper vendor path 404 (fleet-wide)
+
+Lines 295-300 of `anthem-of-the-seas.html` set up a Swiper loader with a primary path and a
+jsdelivr fallback:
+
+```javascript
+const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+addCSS(primaryCSS);
+addJS(primaryJS, ok, function(){ addCSS(cdnCSS); addJS(cdnJS, ok); });
+```
+
+**There is no `vendor/swiper/` directory anywhere in the repo** (`find . -iname "swiper*"`
+returns nothing). So:
+1. `primaryCSS` `<link>` 404s silently
+2. `primaryJS` 404s → fallback runs → loads `cdnCSS` + `cdnJS` from jsdelivr
+3. Every Anthem page load wastes 2 round-trip requests before the fallback kicks in
+4. Load order race: `cdnCSS` and `cdnJS` are both added together, but `window.__swiperReady`
+   fires on `cdnJS.onload` regardless of whether the CSS has finished loading
+5. Swiper init can run before the Swiper CSS is applied → slides may not be positioned
+   correctly on first paint
+
+The Swiper library was clearly *supposed* to be self-hosted under `/vendor/swiper/` but
+someone removed (or never added) the actual files. 45+ ship pages are using the jsdelivr
+fallback on every load.
+
+---
+
+## Still-open questions
+
+None of the above is definitively "the issue" the user noticed. Candidates so far:
+
+1. **Dangling attribution + missing Kiran891 credit + missing Liverpool 2021 credits** —
+   license-compliance issue visible to any careful reader.
+2. **Flickers of Majesty pill label says "Instagram" but links to website**, and Instagram
+   link is missing entirely (43 RCL pages without Instagram link).
+3. **`loading="lazy"` on the LCP element** + carousel slides 2-8 may never load, so anyone
+   trying to see photos 2-8 gets blank slides.
+4. **Swiper vendor path 404** on every load.
+5. **assets/ships/ is 1.26 GB + repo total is 4.4 GB** — over GitHub's 1 GB soft warning,
+   eats bandwidth.
+6. **admin/ internal docs publicly exposed** via static.yml `path: '.'`.
+7. **3.02 MB LCP image** with wrong preload hints and lazy loading.
+8. **Stale deployment narrative** ("year-round New York Cape Liberty") while she's in Sydney.
+9. **Fabricated logbook personas without the standard's required disclosure** (1% fleet-wide
+   compliance).
+10. **Stats loader SOURCES paths don't exist** — page.json is dead data at runtime (45 RCL
+    pages affected).
+11. **Live tracker iframe hardcoded to NW Atlantic lat/lon** (stale for her Sydney and
+    Alaska 2026 seasons).
+12. **2 ships have wrong-ship hero images** (Seven Seas Mariner → Mariner of the Seas;
+    Seven Seas Voyager → Voyager of the Seas — different brand, 3x size difference).
+13. **ICP-Lite v1.4 protocol** instead of ICP-2.
+14. **ai-breadcrumbs HTML comment** still present.
+15. **"Dynamic Dining" in Review JSON-LD** — stale 2015 Quantum marketing, abandoned ~2017.
+16. **Review JSON-LD author** says "In the Wake Editorial Team" while everything else says
+    Ken Baker.
+17. **4 venue hallucinations** (Giovanni's Table, Brass & Bock, Café Latte-tudes, Champagne
+    Bar) and 1 rename needed (Diamond Club → Diamond Lounge).
+18. **Length off by 2 ft** (1,141 or 1,142 ft on HTML vs 1,139 ft per Meyer Werft).
+19. **Right-rail placeholder filler block** duplicating the main column with generic copy.
+
