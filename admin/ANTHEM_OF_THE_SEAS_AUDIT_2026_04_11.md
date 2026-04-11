@@ -971,3 +971,145 @@ appears on 120 HTML files site-wide. On all 120, the referenced file doesn't exi
 
 **This is, end-to-end, the root cause of the user-reported symptom.**
 
+
+---
+
+## DEEPER DIVE — Batch 3 findings
+
+### Structured data: wrong Schema.org type on 47 RCL pages
+
+Anthem's Review JSON-LD uses:
+```json
+"itemReviewed": {
+  "@type": "Cruise",     // ← WRONG
+  "name": "Anthem of the Seas",
+  ...
+}
+```
+
+Schema.org defines these distinct types:
+- **`Cruise`** — a subclass of `Trip` representing a cruise **voyage or itinerary** (a booking/travel product)
+- **`CruiseShip`** — a subclass of `Vehicle` representing a **physical cruise ship**
+
+Anthem of the Seas is a ship, not a voyage. The correct type is `CruiseShip`. **47 of 51 RCL
+ship pages have this same wrong type**. Google parses structured data strictly; marking a
+ship as a travel itinerary is a semantic mismatch that can prevent the page from appearing
+in `CruiseShip`-oriented knowledge graph queries.
+
+(The MSC and Virgin Voyages fleet repairs I did earlier use `CruiseShip` correctly. Only RCL
+ship pages have this bug.)
+
+### Review JSON-LD missing `reviewRating` on 49 of 49 RCL pages with Review schema
+
+Schema.org's `Review` type accepts a `reviewRating` sub-object. Google's Rich Results
+guidelines **require** it for the page to be eligible for review rich snippets. Anthem's
+Review block has no `reviewRating`, no `ratingValue`, no `bestRating`, no `worstRating` —
+the whole rating sub-tree is absent. Every RCL ship page with a Review block has the same
+gap.
+
+Also, the current `Review.author` is `"In the Wake Editorial Team"` while the page's
+Article and Person schemas attribute authorship to "Ken Baker". Inconsistent authorship
+across JSON-LD types.
+
+### 3 render-blocking scripts at bottom of body
+
+Lines 1329-1335 load these with neither `async` nor `defer`:
+- `/assets/js/whimsical-ship-units.js`
+- `/assets/js/dropdown.js`
+- `/assets/js/in-app-browser-escape.js`
+
+Because they're at the END of body, they don't block the initial paint, but they DO block
+`DOMContentLoaded` from firing until they've executed. Every page load pays for three
+sequential synchronous script loads after the HTML streams in.
+
+### All 8 carousel images missing `width`/`height` attributes (CLS hit)
+
+Lines 500, 504, 510, 516, 522, 527, 530, 533 — every hero carousel `<img>` lacks explicit
+dimensions. The browser can't reserve layout space for them. When the 3 MB hero image
+finally loads, the entire page layout shifts down by its rendered height — a **Cumulative
+Layout Shift (CLS) hit**. Core Web Vitals CLS should be < 0.1; an unannounced hero image
+push can send it over 0.25.
+
+The In the Wake logo (lines 353, 446) DOES have width/height. Ken Baker's author avatar
+(line 896) has width/height. The fix pattern is known — it just wasn't applied to carousel
+slides.
+
+### `assets/data/ships.json` missing the entire Quantum class
+
+`ship-port-links.js` line 18: `SHIPS_URL = '/assets/data/ships.json'` — used to look up ship
+metadata for bidirectional ship-port linking. But `assets/data/ships.json` has only **25
+entries**:
+
+```
+icon-of-the-seas, star-of-the-seas, oasis-of-the-seas, allure-of-the-seas,
+harmony-of-the-seas, symphony-of-the-seas, wonder-of-the-seas, utopia-of-the-seas,
+freedom-of-the-seas, liberty-of-the-seas, independence-of-the-seas,
+voyager-of-the-seas, explorer-of-the-seas, adventure-of-the-seas,
+navigator-of-the-seas, mariner-of-the-seas, radiance-of-the-seas,
+brilliance-of-the-seas, serenade-of-the-seas, jewel-of-the-seas,
+vision-of-the-seas, rhapsody-of-the-seas, enchantment-of-the-seas,
+grandeur-of-the-seas, majesty-of-the-seas (archive)
+```
+
+**Missing**: Anthem, Quantum, Ovation, Spectrum, Odyssey — **the entire Quantum class**.
+Plus all other cruise lines' ships (MSC, Virgin, Carnival, Celebrity, Norwegian, Princess,
+HAL, Cunard, etc.). The file is RCL-only and 50% incomplete.
+
+Fleet-wide data-source fragmentation: I found 8 candidate files, all containing some
+version of ship data, none of which are canonical:
+- `assets/data/ships.json` (25 entries, Quantum missing)
+- `assets/data/fleets.json` (top-level `groups` empty, nested `Quantum Class` has ships)
+- `assets/data/ship_pages.json` (indexed by name, has Anthem)
+- `data/fleets.json` (duplicate of assets/data/fleets.json?)
+- `data/fleets_index.json`
+- `data/ship_pages.json`
+- `ships/fleets.json`
+- `ships/ship_pages.json`
+
+The same data is duplicated across 8 files with drift. `ship-port-links.js` reads the ONE
+file that's incomplete, so Quantum-class ship-port linking is silently broken.
+
+### Stale sitemap.xml `lastmod`
+
+Anthem's sitemap entry:
+```xml
+<loc>https://cruisinginthewake.com/ships/rcl/anthem-of-the-seas.html</loc>
+<lastmod>2026-01-31</lastmod>
+```
+
+Today is 2026-04-11. `lastmod` is ~10 weeks stale. The page itself has
+`<meta name="last-reviewed" content="2026-02-14">` — also stale but less so. And the
+Article JSON-LD `dateModified: "2026-02-14"`. Three date signals, three different answers,
+none of them current.
+
+### "Minimal analytics" trust badge vs two analytics scripts
+
+Footer (line 982): `✓ No ads. Minimal analytics. Independent of cruise lines.`
+
+Actual analytics loaded on the page:
+- Line 83: Google Analytics 4 (gtag.js) — property `G-WZP891PZXJ`
+- Line 92: Umami (cloud.umami.is) — website-id `9661a449-3ba9-49ea-88e8-4493363578d2`
+
+Two analytics providers is "minimal" compared to the commercial web, but "minimal
+analytics" + Google Analytics is a claim that trust-sensitive readers may flag.
+
+### GitHub deployment is uploading `.git/` unintentionally? Let me verify
+
+`upload-pages-artifact@v3` with `path: '.'` — per the action's documentation, it honors
+standard excludes for `.git/`, so .git is not deployed. OK, so the 2.1 GB Git history
+doesn't go out over the wire per deploy, but the 2.3 GB working tree (including `admin/`,
+`Reprocessed/`, `old-files-extracted/`-not-in-.gitignore, and everything else) IS uploaded.
+
+### The "Photo served locally (attribution in page footer)" figcaption lie
+
+Appears 4 times on the Anthem page (slides 2-5, Liverpool 2021 figures), each saying
+*"Photo served locally (attribution in page footer)."* But the footer attribution section
+does NOT list any Liverpool 2021 images. Any reader clicking through looking for the
+attribution finds nothing.
+
+The same figcaption text is also used on many other ship pages:
+
+36 ship pages use this figcaption
+
+(That's how many pages have the figcaption lie; each one needs either a real
+attribution or the misleading caption removed.)
