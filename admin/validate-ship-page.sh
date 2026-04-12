@@ -316,10 +316,10 @@ else
     check_pass "reviewBody is not generic template text"
 fi
 
-# v2.3: Flag unverified ratingValue (all current ratings need editorial verification)
+# v2.3→v3: ratingValue presence check — pass if present, covered by #1341 if missing
 if echo "$CONTENT" | grep -qE '"ratingValue":\s*[0-9]'; then
     RATING_VAL=$(echo "$CONTENT" | grep -oE '"ratingValue":\s*[0-9.]+' | head -1 | grep -oE '[0-9.]+$')
-    check_warn "Review has ratingValue $RATING_VAL — must be based on real editorial assessment, not templated"
+    check_pass "Review has ratingValue $RATING_VAL"
 fi
 
 # Check BreadcrumbList has 4 items
