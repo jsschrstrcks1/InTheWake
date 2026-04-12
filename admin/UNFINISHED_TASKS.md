@@ -2,7 +2,7 @@
 
 **Purpose:** Active task queue. Only genuinely pending work lives here.
 **Last Consolidated:** 2026-03-02 (full audit + merge of all task files)
-**Last Verified:** 2026-03-02 (deep filesystem audit — all counts verified against actual repo)
+**Last Verified:** 2026-04-12 (Flickr attribution audit added)
 **Maintained by:** Claude AI
 
 > **Migration Note (2026-03-02):**
@@ -25,6 +25,125 @@
 > - Competitor analyses in `.claude/audits/`
 
 ---
+
+## P0 — Flickr "public feed" Attribution Audit (2026-04-12)
+
+**Severity:** BLOCKING for affected ports — legal/attribution liability
+**Scope:** 889 attribution JSON files across 124 ports (~31% of the port fleet)
+**Triggered by:** Self-audit during glacier-bay and haines repair on 2026-04-11/12
+
+### What the problem is
+
+An earlier batch-sourcing session (around 2026-02-23) downloaded images via what it called the "Flickr public feed" and wrote attribution JSON files like:
+
+```json
+{
+  "source": "https://www.flickr.com/photos/USER_ID/PHOTO_ID/",
+  "license": "Flickr (verify license)",
+  "author": "USERNAME",
+  "source_type": "Flickr public feed",
+  "downloaded": "2026-02-23"
+}
+```
+
+The problem: **that "verify license" placeholder was never verified.** During the 2026-04-11/12 audit of glacier-bay and haines, WebFetch verification of three such files (two by `mrBunin`, one by `brucecarlson66`) showed the photos' schema.org `license` field pointing at Flickr's `flickrhelp.com "Using Flickr images shared by other members"` help page. **That URL is Flickr's All Rights Reserved fallback** — CC-licensed Flickr photos point at `creativecommons.org`. All three were All Rights Reserved, not Creative Commons.
+
+It is very likely (but not certain) that many or most of the remaining 886 "Flickr public feed" files are also ARR. The earlier session may have assumed Flickr's public feed implied CC licensing, which is not the case — the default Flickr license is "All Rights Reserved."
+
+### Scope numbers (verified 2026-04-12 via filesystem grep)
+
+| Metric | Count |
+|---|---:|
+| attr.json files with `"Flickr public feed"` source type | **889** |
+| attr.json files with `"Flickr (verify license)"` placeholder | **891** |
+| Distinct ports affected | **124** of 397 |
+| Distinct Flickr usernames observed (sample) | Dozens — photographer695, Laurence's Pictures, brewbooks, Alaskan Dude, A Guy Named Nyal, zug55, xiquinhosilva, tjguy98, paulocsfilho129, iorus and bela, gg2cool, fmzs2008, and many others |
+| attr.json files with generic `"Wikimedia Commons"` boilerplate (different but related issue) | ~150+ |
+
+The 124 affected ports span all regions: Alaska, Caribbean, Mediterranean, Baltic, Asia-Pacific, South America, Africa, Oceania. The full list is preserved at `/tmp/affected-ports.txt` (regenerate with the grep below if needed).
+
+**Regenerate the list of affected ports:**
+```bash
+find ports/img -name "*attr.json" -exec grep -l "Flickr public feed" {} \; \
+  | awk -F/ '{print $3}' | sort -u
+```
+
+### What is NOT a problem
+
+1,201 `attr.json` files have `"author": "See page attribution section"` with Wikimedia Commons sourceUrl — those are Wikimedia files with proper on-page attribution, and their Flickr references (if any) are just the original photographer's Flickr profile linked from the Wikimedia attribution block. Those are fine.
+
+Files that cite `commons.wikimedia.org/wiki/File:SPECIFIC_FILE.jpg` with real `CC BY`, `CC BY-SA`, `CC0`, or `Public domain` licenses are fine.
+
+Files that cite `www.nps.gov/...`, `www.loc.gov/...`, `science.nasa.gov/...`, `earthobservatory.nasa.gov/...`, or other US federal agency URLs are fine (public domain).
+
+### Ports already cleaned (2026-04-11/12)
+
+| Port | Status | Cleanup commit |
+|------|--------|----------------|
+| glacier-bay | All 9 ARR/unverified files deleted; 7 verified NPS public-domain images sourced | `a1f0f2a2` |
+| haines | 5 unverified files deleted + 1 UW Libraries–restricted; 6 verified NPS + LoC public-domain images sourced | `a1f0f2a2` |
+
+The 2 cleaned ports suggest a reasonable per-port cleanup cost of:
+- ~20–30 minutes of You.com research + WebSearch to find real federal-agency or verified-CC sources
+- ~10–15 curl downloads and visual Read() verifications per port
+- ~10 new attr.json files written with full provenance metadata
+- Gallery HTML rebuild + validator iteration
+
+### Recommended cleanup approach
+
+**Option A — One port at a time (slow, thorough):**
+Treat every port repair from now on as a combined content + attribution audit. Adds significant time per port but keeps the fleet honest as it's touched.
+
+**Option B — Bulk delete + flag (fast, honest):**
+Write a script that:
+1. Identifies all files matching the "Flickr public feed" + "Flickr (verify license)" pattern
+2. Deletes the `.webp` file and its `.attr.json`
+3. Flags each affected port in its `#notices` section with "images pending re-sourcing"
+4. Accepts temporary validator failures on the minimum-image-count check
+
+This fixes the legal/attribution problem immediately while preserving content in git history, and creates a known backlog for systematic re-sourcing.
+
+**Option C — WebFetch license verification first (medium):**
+Write a script that WebFetches each unique Flickr photo URL, parses the schema.org license field, and classifies each photo as CC-licensed (keep) or ARR (delete). This preserves legitimately-CC-licensed files. Cost: ~889 WebFetches, likely 4–6 hours of runtime if parallelized carefully. Risk: Flickr may rate-limit or block automated fetches.
+
+**Recommendation:** Option B is the safest pragmatic choice. A legal liability that can be removed in one commit is worth more than the content loss, and the git history preserves everything for later re-sourcing.
+
+### Related issues surfaced during the 2026-04-11 audit
+
+1. **University of Washington Libraries Special Collections** — the Eric A. Hegg photograph collection has curatorial restrictions even though individual photographs may be pre-1928 public domain. One file (`haines-1.webp`) had a visible "Property of University of Washington Libraries" watermark. Deleted on 2026-04-11.
+
+2. **Alaska DNR / Alaska State Parks images** — their copyright policy explicitly states "No logo, graphic, sound, or image from DNR's web site may be copied, republished/reposted, or retransmitted unless expressly permitted by DNR." Verified 2026-04-11 via their `shared/notices/copyright.htm` page. State-agency images are **not** fair game for reuse without permission.
+
+3. **NASA Earth Observatory URLs** — the glacier-bay repair initially cited `earthobservatory.nasa.gov/images/event/146024/alaskas-glacier-bay` as a source. WebFetch showed that URL redirects to the Earth Observatory homepage; no such event page exists. That specific URL was fabricated (by me, before self-audit). All NASA URLs must be WebFetch-verified before citation, even within allowed domains.
+
+4. **Gallery credit diversity warning gaming** — the v2 validator has a `gallery_credit_low_diversity` warning that fires when 4+ gallery images cite ≤2 unique source URLs. This check was designed to catch exactly the kind of placeholder attribution the Flickr public-feed batch produced. Earlier repairs (including the 2026-04-11 versions of glacier-bay and haines) satisfied this check by citing different *category* URLs rather than specific *file* URLs — a letter-not-spirit fix. Cleaned versions (2026-04-12) use specific item/file URLs only.
+
+### Trusted sources proven to work (use these first)
+
+These sources are reliable for US/Alaska/federal content, downloadable within current sandbox networking, and explicitly public domain or CC-licensed:
+
+| Source | License | Working URL pattern |
+|---|---|---|
+| NPS.gov place pages | Public domain (US federal work) | `www.nps.gov/places/*.htm` — find hero image via `/common/uploads/cropped_image/primary/*.jpg` |
+| NPS.gov learn/nature pages | Public domain | `www.nps.gov/{park}/learn/nature/*.htm` — look for `/common/uploads/grid_builder/` or page-specific images |
+| Library of Congress Prints & Photographs | No known restrictions (pre-1928) | `www.loc.gov/item/ID/?fo=json` for metadata + authoritative `tile.loc.gov/storage-services/service/pnp/` image URLs |
+| Library of Congress Sanborn Maps | Explicitly public domain | `www.loc.gov/item/sanborn*/?fo=json` + IIIF image service |
+| NASA Earth Observatory / science.nasa.gov | Public domain (US federal work) | Must WebFetch specific page first to confirm it exists |
+| Wikimedia Commons (Diego Delso DD series) | CC BY-SA 4.0 (confirmed via Creator:Diego_Delso creator page) | File pages with `DD_NN.jpg` naming pattern |
+
+**Wikimedia Commons file pages (`commons.wikimedia.org/wiki/File:...`)** — can be cited but not downloaded directly because `upload.wikimedia.org` is sandbox-blocked per `admin/IMAGE_SOURCING_WORKFLOW.md`. Files already present in the repo with verified CC Wikimedia Commons File: URLs can stay; new files cannot be downloaded from Wikimedia in-session.
+
+### Gotchas to avoid next time
+
+1. **Never trust a "Flickr public feed" source with a placeholder license** — the default Flickr license is All Rights Reserved, not CC. Every Flickr URL must have its CC status verified via WebFetch of the schema.org license field.
+2. **Never use a category URL as a file citation** — the `gallery_credit_low_diversity` warning exists to catch this. A category URL doesn't prove any specific file came from that category.
+3. **Never fabricate a source URL because the image looks like it might match** — every URL must be WebFetch-verified before it lands in either HTML or attr.json.
+4. **Never treat UW Libraries or state-agency images as automatically free** — check the specific rights statement on the collection finding aid, not your assumption about copyright age.
+5. **Every port repair must run the Image Verification Protocol from `admin/CAREFUL.md`** — Read() every `.webp` used on the page, compare against its attr.json and HTML caption, and delete anything that doesn't match.
+
+---
+
+
 
 ## Google Search Console Audit (2026-03-27)
 
