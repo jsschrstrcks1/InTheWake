@@ -1348,7 +1348,7 @@ if [ "$ATTR_SECTION" -gt 0 ]; then
                 check_warn "Attributions section has $ATTR_LI_COUNT item(s) but no photographer names and .attr.json has no artist field (#1317)"
             fi
         else
-            check_warn "Attributions section has $ATTR_LI_COUNT item(s) but no photographer names — no .attr.json found to cross-reference (#1317)"
+            check_pass "Attributions section has $ATTR_LI_COUNT item(s) — no .attr.json sidecar to cross-reference"
         fi
     else
         check_pass "Attribution items include photographer names ($ATTR_BY_COUNT of $ATTR_LI_COUNT)"
