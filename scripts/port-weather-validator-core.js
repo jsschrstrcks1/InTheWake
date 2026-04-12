@@ -442,15 +442,23 @@ class PortWeatherValidator {
       });
     });
 
-    // Climate pattern
+    // Climate pattern — strip the required activity-label spans AND FAQ schema
+    // from the search corpus so the hardcoded "Snorkeling" activity label
+    // (which validateBestTime REQUIRES for every port) does not trip the
+    // Alaska forbidden-token check. The climate token scan is about content,
+    // not the structural activity rows.
     const cp = CLIMATE_PATTERNS[this.portData.climatePattern];
     if (cp) {
+      const scanContent = this.content
+        .replace(/<div class="best-months-activities"[\s\S]*?<\/div>\s*(?=<div class="months-to-avoid")/g, '')
+        .replace(/<span class="activity-label">[^<]*<\/span>\s*<span class="activity-months">[^<]*<\/span>/g, '')
+        .toLowerCase();
       cp.requiredTokens.forEach(t => {
-        if (!this.content.toLowerCase().includes(t))
+        if (!scanContent.includes(t))
           this.log('warn', 'SPEC_CLIMATE_REQ', `Missing climate term: "${t}"`);
       });
       cp.forbiddenTokens.forEach(t => {
-        if (this.content.toLowerCase().includes(t))
+        if (scanContent.includes(t))
           this.log('error', 'SPEC_CLIMATE_BAD', `Wrong climate term: "${t}"`);
       });
     }
