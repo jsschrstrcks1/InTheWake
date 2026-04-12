@@ -1172,7 +1172,16 @@ fi
 section_header "Section 9s: Video Fallback Text for Retired Ships"
 
 IS_RETIRED=0
-if echo "$CONTENT" | grep -qi 'retired\|no longer in service\|sold to\|withdrawn from\|scrapped\|decommissioned'; then
+# Check title for year range (1996-2017) or explicit retirement markers — NOT content
+# because logbook stories mention "a retired engineer" etc. which triggers false positives
+SHIP_TITLE=$(echo "$CONTENT" | grep -oP '<title>\K[^<]+' | head -1)
+if echo "$SHIP_TITLE" | grep -qP '\(\d{4}-\d{4}\)'; then
+    IS_RETIRED=1
+elif echo "$SHIP_TITLE" | grep -qiP '\b(Historical|Legacy|Retired)\b'; then
+    IS_RETIRED=1
+elif echo "$CONTENT" | grep -qiP '<h1[^>]*>.*\b(Historical|Legacy)\b'; then
+    IS_RETIRED=1
+elif echo "$CONTENT" | grep -qiP '"retired"\s*:\s*true'; then
     IS_RETIRED=1
 fi
 
@@ -1932,13 +1941,13 @@ try:
     if not venue_slugs:
         print('skip'); exit()
     venues_by_slug = {v['slug']: v for v in d.get('venues', [])}
-    # Get actual venue names for this ship
+    # Get actual venue names for this ship (ALL categories, not just dining)
     actual_names = set()
     for vs in venue_slugs:
         slug = vs if isinstance(vs, str) else vs.get('slug','')
         v = venues_by_slug.get(slug, {})
         name = v.get('name', '')
-        if name and v.get('category') == 'dining':
+        if name:
             actual_names.add(name.lower().strip())
     if not actual_names:
         print('skip'); exit()
@@ -2277,7 +2286,9 @@ fi
 # ============================================================================
 section_header "Section 9br: Construction Banner + Unfilled Templates"
 
-if echo "$CONTENT" | grep -qi 'under construction\|page under construction'; then
+if echo "$CONTENT" | grep -qiP '<h[1-6][^>]*>.*under construction|<p[^>]*>.*page under construction'; then
+    check_warn "Page has 'Under Construction' banner visible to users"
+elif echo "$CONTENT" | grep -qiP '>\s*Page Under Construction\s*<'; then
     check_warn "Page has 'Under Construction' banner visible to users"
 else
     check_pass "No construction banner"
