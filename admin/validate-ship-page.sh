@@ -2461,8 +2461,8 @@ section_header "Section 9cb: Figcaption Attribution Promise"
 
 if echo "$CONTENT" | grep -qi 'attribution in page footer'; then
     # Check if there's a real attributions section with <li> entries
-    ATTR_LI_COUNT=$(echo "$CONTENT" | grep -c 'class="attributions"' || true)
-    ATTR_ITEMS=$(echo "$CONTENT" | sed -n '/class="attributions"/,/<\/section>/p' | grep -c '<li>' || true)
+    ATTR_LI_COUNT=$(echo "$CONTENT" | grep -c 'class=".*attributions' || true)
+    ATTR_ITEMS=$(echo "$CONTENT" | sed -n '/class=".*attributions/,/<\/section>/p' | grep -c '<li>' || true)
     FIGCAP_COUNT=$(echo "$CONTENT" | grep -ci 'attribution in page footer' || true)
     if [ "$ATTR_ITEMS" -lt "$FIGCAP_COUNT" ]; then
         check_warn "Figcaptions promise 'attribution in page footer' ($FIGCAP_COUNT times) but attribution section has only $ATTR_ITEMS items — some images uncredited (#1349)"
