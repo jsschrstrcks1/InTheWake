@@ -567,8 +567,13 @@ fi
 CAROUSEL_HTML=$(echo "$CONTENT" | sed -n '/swiper firstlook\|photo-carousel swiper/,/swiper-pagination/p')
 SLIDE_OPENS=$(echo "$CAROUSEL_HTML" | grep -c 'class="swiper-slide"' || echo "0")
 ALL_DIV_CLOSES=$(echo "$CAROUSEL_HTML" | grep -c '</div>' || echo "0")
-# Subtract: 1 for swiper-wrapper </div>, 1 for pagination <div.../></div>
-SLIDE_CLOSES=$((ALL_DIV_CLOSES - 2))
+# Subtract non-slide </div> tags: wrapper, button-prev, button-next, figure wrappers, etc.
+# Only count slide-level closes: total </div> minus non-slide structural divs
+NON_SLIDE_DIVS=$(echo "$CAROUSEL_HTML" | grep -cE 'swiper-wrapper|swiper-button-|swiper-pagination' || true)
+NON_SLIDE_DIVS=${NON_SLIDE_DIVS:-0}
+SLIDE_CLOSES=$((ALL_DIV_CLOSES - NON_SLIDE_DIVS))
+# Ensure non-negative
+[ "$SLIDE_CLOSES" -lt 0 ] && SLIDE_CLOSES=0
 if [ "$SLIDE_OPENS" -gt 0 ]; then
     if [ "$SLIDE_OPENS" -eq "$SLIDE_CLOSES" ]; then
         check_pass "Carousel HTML: $SLIDE_OPENS slides, all properly closed"

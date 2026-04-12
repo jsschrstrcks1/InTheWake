@@ -128,7 +128,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Lirica Class ship operated by MSC Cruises.","name":"MSC Armonia","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Armonia is a Lirica Class MSC Cruises ship measuring 65,542 GT with capacity for 1,950 guests at double occupancy (2,658 maximum) and a crew of 721. Originally delivered in 2001 by Chantiers de l'Atlantique (Saint-Nazaire) as MS European Vision for Festival Cruises, she joined MSC Cruises in 2004 following Festival's bankruptcy and was cut in half and lengthened by a 25-metre midsection at Fincantieri Palermo in 2014 under MSC's Renaissance Program. Dining is built around the Marco Polo Restaurant (main dining on Deck 5) and La Pergola Restaurant (Deck 6, reserved for Aurea and Fantastica suite guests), with La Brasserie buffet and the alfresco Il Girasole (pizza, pasta, and grill), Caffè San Marco, The Italian Ice Cream Bar, and The Vitamin Bar for casual meals. Entertainment centres on Teatro La Fenice, with bars and lounges including Bar del Duomo, The White Lion Pub, The Red Bar piano lounge, Armonia Bar, Il Lido Bar, Starlight Disco, Palm Beach Casino, Cigar Club, and the MSC Voyagers Club loyalty lounge. In summer 2026 she sails Eastern Mediterranean itineraries from Venice (Marghera); on 1 November 2026 she repositions via Suez for a debut South Africa season based in Durban, shifting to Cape Town for Walvis Bay cruises from 8 March 2027 before returning to Europe in April 2027."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Lirica Class ship operated by MSC Cruises.","name":"MSC Armonia","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Armonia is a Lirica Class MSC Cruises ship measuring 65,542 GT with capacity for 1,950 guests at double occupancy (2,658 maximum) and a crew of 721. Originally delivered in 2001 by Chantiers de l'Atlantique (Saint-Nazaire) as MS European Vision for Festival Cruises, she joined MSC Cruises in 2004 following Festival's bankruptcy and was cut in half and lengthened by a 25-metre midsection at Fincantieri Palermo in 2014 under MSC's Renaissance Program. Dining is built around the Marco Polo Restaurant (main dining on Deck 5) and La Pergola Restaurant (Deck 6, reserved for Aurea and Fantastica suite guests), with La Brasserie buffet and the alfresco Il Girasole (pizza, pasta, and grill), Caffè San Marco, The Italian Ice Cream Bar, and The Vitamin Bar for casual meals. Entertainment centres on Teatro La Fenice, with bars and lounges including Bar del Duomo, The White Lion Pub, The Red Bar piano lounge, Armonia Bar, Il Lido Bar, Starlight Disco, Palm Beach Casino, Cigar Club, and the MSC Voyagers Club loyalty lounge. In summer 2026 she sails Eastern Mediterranean itineraries from Venice (Marghera); on 1 November 2026 she repositions via Suez for a debut South Africa season based in Durban, shifting to Cape Town for Walvis Bay cruises from 8 March 2027 before returning to Europe in April 2027.","reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5}}</script>
   <!-- JSON-LD: FAQPage (ICP-2) -->
   <script type="application/ld+json">
   {
@@ -242,8 +242,8 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
   const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
   const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
   addCSS(primaryCSS);
@@ -364,7 +364,7 @@ All work on this project is offered as a gift to God.
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">MSC Armonia is a Lirica Class cruise ship operated by MSC Cruises. Originally delivered in 2001 as MS European Vision for Festival Cruises by Chantiers de l'Atlantique (Saint-Nazaire, France), she was acquired by MSC in 2004 after Festival's bankruptcy. In 2014 she returned to the yard at Fincantieri Palermo and was cut in half and lengthened by a 25-metre midsection (MSC's Renaissance Program), growing to 65,542 gross tons and 274.9 metres in length. She carries 1,950 guests at double occupancy (2,658 maximum) with a crew of 721, and flies the Panamanian flag from Colón. Summer 2026 she sails Eastern Mediterranean itineraries from Marghera (Venice); from November 2026 through March 2027 she operates MSC's debut South Africa season based initially in Durban and later in Cape Town.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> Lirica Class</li>
           <li><strong>Delivered:</strong> 2001 (joined MSC 2004; lengthened 25m in 2014)</li>
@@ -529,7 +529,7 @@ All work on this project is offered as a gift to God.
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
         mount.innerHTML=arr.slice(0,12).map(v=>{
           const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'MSC Armonia').replace(/</g,'&lt;');
+          const title=String(v.title||'MSC Armonia').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
         }).join('');
         if(mount.children.length&&window.Swiper){
@@ -598,7 +598,7 @@ All work on this project is offered as a gift to God.
       <h2 id="deck-plans">MSC Armonia Deck Plans</h2>
       <p>MSC Armonia's deck plan after the 2014 Renaissance lengthening covers 13 decks with 976 cabins. Deck 5 houses the Marco Polo main dining room; Deck 6 holds La Pergola (suite-only) and Teatro La Fenice; public rooms, bars, and the Bar del Duomo atrium run through Decks 6 and 7; pools, Il Girasole alfresco dining, La Brasserie buffet, the MSC Aurea Spa, and the gym are on Decks 10–12.</p>
       <figure>
-        <img src="/assets/ship-map.png" alt="MSC Armonia simplified deck plan preview" loading="lazy"/>
+        <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
         <figcaption class="tiny">Simplified deck layout overview</figcaption>
       </figure>
       <p><a href="https://www.msccruises.com/en-us/cruise-ships/msc-armonia.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official MSC Armonia Deck Plans →</a></p>
@@ -769,5 +769,6 @@ All work on this project is offered as a gift to God.
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
 <script src="/assets/js/whimsical-ship-units.js" defer></script>
+<script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>

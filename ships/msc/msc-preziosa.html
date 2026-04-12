@@ -108,7 +108,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Fantasia Class ship operated by MSC Cruises.","name":"MSC Preziosa","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Preziosa is the fourth and final ship of MSC Cruises' Fantasia Class at 139,072 GT with capacity for 3,502 guests at double occupancy (4,345 maximum). Delivered on 14 March 2013 by STX France at Saint-Nazaire and christened nine days later in Genoa by Sophia Loren, she is the last of the Fantasia-class quartet alongside MSC Fantasia, MSC Splendida, and MSC Divina. Her signature venues include the L'Arabesque and The Golden Lobster main dining rooms, the 1,645-seat Platinum Theatre, the stern-top Galaxy Restaurant (which converts to a disco and serves as the ship's sushi venue), the Phoenician Plaza atrium square, the Safari Lounge, and the iconic 120-metre Vertigo waterslide from Deck 18 to Deck 15 with a transparent tube section over the sea. Her forward MSC Yacht Club enclave has been aboard from delivery and includes the Top Sail Lounge, The One Pool on Deck 18, and the Moroccan-themed La Palmeraie restaurant — distinct from sister-ships' L'Olivo."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Fantasia Class ship operated by MSC Cruises.","name":"MSC Preziosa","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Preziosa is the fourth and final ship of MSC Cruises' Fantasia Class at 139,072 GT with capacity for 3,502 guests at double occupancy (4,345 maximum). Delivered on 14 March 2013 by STX France at Saint-Nazaire and christened nine days later in Genoa by Sophia Loren, she is the last of the Fantasia-class quartet alongside MSC Fantasia, MSC Splendida, and MSC Divina. Her signature venues include the L'Arabesque and The Golden Lobster main dining rooms, the 1,645-seat Platinum Theatre, the stern-top Galaxy Restaurant (which converts to a disco and serves as the ship's sushi venue), the Phoenician Plaza atrium square, the Safari Lounge, and the iconic 120-metre Vertigo waterslide from Deck 18 to Deck 15 with a transparent tube section over the sea. Her forward MSC Yacht Club enclave has been aboard from delivery and includes the Top Sail Lounge, The One Pool on Deck 18, and the Moroccan-themed La Palmeraie restaurant — distinct from sister-ships' L'Olivo.","reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5}}</script>
   <!-- JSON-LD: FAQPage (ICP-2) -->
   <script type="application/ld+json">
   {
@@ -222,8 +222,8 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
   const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
   const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
   addCSS(primaryCSS);
@@ -344,7 +344,7 @@ All work on this project is offered as a gift to God.
 
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">MSC Preziosa is the fourth and final ship of MSC Cruises' Fantasia Class, delivered on 14 March 2013 at Saint-Nazaire by STX France and christened nine days later on 23 March 2013 in Genoa by Sophia Loren. She measures 139,072 gross tons and 333.30 metres in length, carries 3,502 guests at double occupancy (4,345 maximum) across 1,751 cabins with a crew of approximately 1,388, and flies the Panamanian flag from Colón. Her 18-deck layout includes the L'Arabesque and The Golden Lobster main dining rooms, the 1,645-seat Platinum Theatre, the stern-top Galaxy Restaurant / Lounge / Disco, the 120-metre Vertigo waterslide, and a forward MSC Yacht Club enclave that has been aboard since delivery. In summer 2026 she runs Northern Europe round-trips from Hamburg; in winter 2026-27 she remains in Western Europe from the same home port.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> Fantasia Class (fourth and final; sisters MSC Fantasia, MSC Splendida, MSC Divina)</li>
           <li><strong>Delivered:</strong> 14 March 2013, Saint-Nazaire (STX France)</li>
@@ -521,7 +521,7 @@ All work on this project is offered as a gift to God.
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
         mount.innerHTML=arr.slice(0,12).map(v=>{
           const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'MSC Preziosa').replace(/</g,'&lt;');
+          const title=String(v.title||'MSC Preziosa').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
         }).join('');
         if(mount.children.length&&window.Swiper){
@@ -594,7 +594,7 @@ All work on this project is offered as a gift to God.
       <h2 id="deck-plans">MSC Preziosa Deck Plans</h2>
       <p>MSC Preziosa's 18-deck layout uses gemstone-themed deck names: Corallo (5), Diamante (6), Rubino (7), Smeraldo (14), Cristallo (15), Acquamarina (16), and Topazio (18) are the primary public decks. Deck 5 Corallo holds the atrium and The Golden Lobster lower level; Deck 6 Diamante is the main public-room axis with the L'Arabesque Restaurant, Diamond Bar &amp; Library, Phoenician Plaza, Millennium Star Casino, and the lower Platinum Theatre. Deck 7 Rubino is the dining and entertainment spine with Butcher's Cut, El Dorado Piano Bar, La Locanda, Safari Lounge, The Green Sax Jazz Bar, Sports Bar &amp; Bowling, Il Cappuccino, and La Cantina di Bacco. Deck 14 Smeraldo is the pool deck with Inca and Maya buffets, the Aquapark and the covered La Playa Preciosa Pool, the Saphir, Turquoise, La Playa Preciosa and Spa bars, and the MSC Aurea Spa. Deck 15 Cristallo has The Garden Pool and Garden Bar aft, and forward holds the MSC Yacht Club with Top Sail Lounge and La Palmeraie restaurant. Deck 16 Acquamarina carries Galaxy Restaurant / Disco at the stern and the Doremi Castle Aquapark. Deck 18 Topazio tops the ship with the Vertigo waterslide entrance, The One Pool and One Bar, and the Top 18 Exclusive Solarium.</p>
       <figure>
-        <img src="/assets/ship-map.png" alt="MSC Preziosa simplified deck plan preview" loading="lazy"/>
+        <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
         <figcaption class="tiny">Simplified deck layout overview</figcaption>
       </figure>
       <p><a href="https://www.msccruises.com/en-us/cruise-ships/msc-preziosa.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official MSC Preziosa Deck Plans →</a></p>
@@ -767,5 +767,6 @@ All work on this project is offered as a gift to God.
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
 <script src="/assets/js/whimsical-ship-units.js" defer></script>
+<script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>
