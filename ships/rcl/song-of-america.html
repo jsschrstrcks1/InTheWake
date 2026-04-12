@@ -9,22 +9,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 -->
 <html lang="en" class="no-js">
 <head>
-<!-- ai-breadcrumbs
-     name: Song of America
-     entity: Ship
-     type: Ship Information Page
-     parent: /ships.html
-     siblings: /ships/rcl/adventure-of-the-seas.html, /ships/rcl/allure-of-the-seas.html, /ships/rcl/anthem-of-the-seas.html, /ships/rcl/brilliance-of-the-seas.html, /ships/rcl/discovery-class-ship-tbn.html
-     category: Royal Caribbean Fleet
-     cruise-line: Royal Caribbean
-     ship-class: Song of America Class
-     status: Retired Ship (1982-1999)
-     updated: 2025-12-29
-     expertise: Royal Caribbean ship reviews, historical ships, cruise ship history
-     target-audience: Royal Caribbean historians, cruise enthusiasts, ship researchers
-     answer-first: Song of America was a Royal Caribbean ship that served from 1982 to 1999, one of the largest cruise ships in the world when built at 37,584 gross tons.
-     -->
-  <!-- ======================================================
+<!-- ======================================================
        In the Wake — Song of America — Royal Caribbean
        Version: 3.010.300  |  Soli Deo Gloria
        ====================================================== -->
@@ -45,10 +30,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="version" content="3.010.300"/>
   <meta name="author" content="In the Wake"/>
 
-  <!-- ICP-Lite v1.4: AI-First Metadata -->
+  <!-- ICP-2: AI-First Metadata -->
   <meta name="ai-summary" content="Song of America: Royal Caribbean historic ship (1982-1999), 37,584 GT, one of the largest cruise ships when built. Sold to Sun Cruises, later Pullmantur and Thomson. Scrapped 2015."/>
   <meta name="last-reviewed" content="2026-02-14"/>
-  <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="content-protocol" content="ICP-2"/>
 
   <!-- Title & SEO -->
   <title>Song of America (1982-1999) — Historic Royal Caribbean Ship | In the Wake</title>
@@ -84,7 +69,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   }
   </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite) -->
+  <!-- JSON-LD: WebPage (ICP-2) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -107,7 +92,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   }
   </script>
 
-  <!-- JSON-LD: FAQPage (ICP-Lite) -->
+  <!-- JSON-LD: FAQPage (ICP-2) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -174,10 +159,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 
   <!-- LCP Optimization -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/ships/Song_Of_America_flickr_neuphin.webp" fetchpriority="high"/>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Song of America Class ship operated by Royal Caribbean.","name":"Song of America","brand":{"@type":"Organization","name":"Royal Caribbean International"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Song of America is a Song of America Class vessel from Royal Caribbean International, offering memorable cruise experiences with excellent amenities and service."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"CruiseShip","description":"A Song of America Class ship operated by Royal Caribbean.","name":"Song of America","brand":{"@type":"Organization","name":"Royal Caribbean International"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Song of America is a Song of America Class vessel from Royal Caribbean International, offering memorable cruise experiences with excellent amenities and service.","reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5}}</script>
   <!-- JSON-LD: WebSite + SearchAction -->
   <script type="application/ld+json">
   {
@@ -264,18 +249,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Swiper loader -->
   <script>
-  (function(){
-    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-    function addJS(src, ok, fail){
-      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
-    }
-    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    addCSS(primaryCSS);
-    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
-  })();
+  (function ensureSwiper(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
+})();
   </script>
 </head>
 
@@ -399,7 +382,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Song of America is a Song of America Class cruise ship operated by Royal Caribbean International. She entered service in 1982, measures 37,584 gross tons, and carries approximately 1,402 guests at double occupancy.</p>
 
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> Song of America Class</li>
           <li><strong>Year:</strong> 1982</li>
@@ -835,7 +818,7 @@ Dining on Song of America</h2>
       html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
-    function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');
+    function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;').replace(/>/g,'&gt;');
       const body=String(p.markdown||p.body||p.content||p.html||p.text||p.story||p.notes||'').trim(); if(!body) return '';
       return '<article class="story" aria-live="polite"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';}
     function ensureNav(){
@@ -879,7 +862,7 @@ Dining on Song of America</h2>
       if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
       mount.innerHTML=arr.map(v=>{
         const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-        const title=String(v.title||'Song of America').replace(/</g,'&lt;');
+        const title=String(v.title||'Song of America').replace(/</g,'&lt;').replace(/>/g,'&gt;');
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
       function initSwiper(){
@@ -922,7 +905,7 @@ Dining on Song of America</h2>
       const labels={class:'Class',entered_service:'Entered Service',retired:'Retired',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
       mount.innerHTML=keys.map(k=>{
         const val=obj[k]; if(!val) return '';
-        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span>';
+        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</span>';
         if((k==='length'||k==='beam') && window.funDistance){
           const feetMatch = String(val).match(/(\d+(?:,\d+)?)\s*(?:ft|feet)/i);
           if(feetMatch){
@@ -975,10 +958,10 @@ Dining on Song of America</h2>
         const arr=byCategory[cat]; if(!arr) return;
         html+='<h3>'+catLabels[cat]+'</h3><ul class="venues-list">';
         arr.forEach(v=>{
-          const name=String(v.name||v.slug).replace(/</g,'&lt;');
-          const desc=String(v.description||'').replace(/</g,'&lt;');
+          const name=String(v.name||v.slug).replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          const desc=String(v.description||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           const price=(v.price||v.cost)?'<span class="venue-price">'+(v.price||v.cost)+'</span>':'';
-          const slug=v.slug?String(v.slug).replace(/</g,'&lt;'):'';
+          const slug=v.slug?String(v.slug).replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
           const nameLink=slug?'<a href="'+abs('/restaurants/'+slug+'.html')+'">'+name+'</a>':name;
           html+='<li><strong>'+nameLink+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
         });
@@ -1018,5 +1001,6 @@ Dining on Song of America</h2>
   <!-- Whimsical Distance Units Script -->
   <script src="/assets/js/whimsical-port-units.js"></script>
 
+  <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>
