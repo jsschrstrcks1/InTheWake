@@ -1258,6 +1258,11 @@ if [ -n "$STATS_JSON" ]; then
         echo "$TBD_PAGE_TITLE" | grep -qiP '\b(Historic|Legacy|Historical)\b' && IS_TBN_OR_RETIRED_TBD=1
         echo "$CONTENT" | grep -qP '"retired"\s*:' && IS_TBN_OR_RETIRED_TBD=1
         echo "$CONTENT" | grep -qiP '<h1[^>]*>.*\b(Historic|Legacy|Historical)\b' && IS_TBN_OR_RETIRED_TBD=1
+        # Content mentions preserving history/legacy or entered service before 2000
+        echo "$CONTENT" | grep -qiP "preserves the ship.s history|ship.s history and legacy" && IS_TBN_OR_RETIRED_TBD=1
+        echo "$CONTENT" | grep -qP 'entered service in 19[0-9]{2}' && IS_TBN_OR_RETIRED_TBD=1
+        # TBN ships: slug contains "tbn"
+        [ -n "$SHIP_SLUG" ] && echo "$SHIP_SLUG" | grep -qi "tbn" && IS_TBN_OR_RETIRED_TBD=1
 
         if [ "$IS_TBN_OR_RETIRED_TBD" -eq 1 ]; then
             check_warn "Stats contain $TBD_COUNT TBD field(s) — acceptable for TBN/future/retired ship"
