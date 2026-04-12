@@ -43,7 +43,7 @@ if [ ! -f "$FILE" ]; then
 fi
 
 # Exclusion list: files that live in ships/ but are NOT ship pages
-EXCLUDED_FILES="ships/rcl/venues.html"
+EXCLUDED_FILES="ships/rcl/venues.html ships/rcl/index.html"
 BASENAME=$(echo "$FILE" | sed 's|.*/ships/|ships/|')
 for EXCL in $EXCLUDED_FILES; do
     if [ "$BASENAME" = "$EXCL" ]; then
@@ -1517,6 +1517,19 @@ else
     check_pass "No dateModified found (N/A)"
 fi
 
+# Staleness check — warn if dateModified or last-reviewed is > 90 days old
+STALE_DATE=$(echo "$CONTENT" | grep -oP '"dateModified"\s*:\s*"\K[0-9]{4}-[0-9]{2}-[0-9]{2}' | sort | tail -1)
+REVIEWED_DATE=$(echo "$CONTENT" | grep -oP 'last-reviewed"\s+content="\K[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -1)
+NEWEST_DATE=$(printf "%s\n%s\n" "$STALE_DATE" "$REVIEWED_DATE" | sort | tail -1)
+if [ -n "$NEWEST_DATE" ]; then
+    DAYS_OLD=$(( ( $(date +%s) - $(date -d "$NEWEST_DATE" +%s 2>/dev/null || echo 0) ) / 86400 ))
+    if [ "$DAYS_OLD" -gt 90 ]; then
+        check_warn "Page last reviewed/modified $DAYS_OLD days ago ($NEWEST_DATE) — >90 day stale (#1337)"
+    elif [ "$DAYS_OLD" -gt 0 ]; then
+        check_pass "Last reviewed/modified $DAYS_OLD days ago ($NEWEST_DATE)"
+    fi
+fi
+
 # ============================================================================
 # Section 9ai: Logbook Guest Count vs Page Stats
 # ============================================================================
@@ -1984,10 +1997,23 @@ fi
 # ============================================================================
 section_header "Section 9ba: Dining Hero Image"
 
-if echo "$CONTENT" | grep -q 'Cordelia_Empress_Food_Court'; then
-    check_warn "Dining hero uses Cordelia Empress Food Court image — wrong cruise line for this ship"
-else
-    check_pass "No Cordelia dining image detected"
+# List of known cross-line image filenames that have been accidentally used as
+# dining hero on the wrong cruise line's pages. Extend as new cases appear.
+WRONG_LINE_IMAGES=(
+    "Cordelia_Empress_Food_Court"
+    "Carnival_Dream_"
+    "Norwegian_Joy_"
+    "MSC_Meraviglia_"
+)
+DINING_HERO_BAD=0
+for BAD in "${WRONG_LINE_IMAGES[@]}"; do
+    if echo "$CONTENT" | grep -q "${BAD}.*dining-hero\|dining-hero.*${BAD}"; then
+        check_warn "Dining hero uses $BAD image — wrong cruise line for this ship"
+        DINING_HERO_BAD=$((DINING_HERO_BAD + 1))
+    fi
+done
+if [ "$DINING_HERO_BAD" -eq 0 ]; then
+    check_pass "No cross-line dining hero image detected"
 fi
 
 # ============================================================================
@@ -2202,12 +2228,416 @@ fi
 # ============================================================================
 # Section 9br: Construction Banner (#37)
 # ============================================================================
-section_header "Section 9br: Construction Banner"
+section_header "Section 9br: Construction Banner + Unfilled Templates"
 
 if echo "$CONTENT" | grep -qi 'under construction\|page under construction'; then
     check_warn "Page has 'Under Construction' banner visible to users"
 else
     check_pass "No construction banner"
+fi
+
+# Unfilled template placeholders {{LIKE_THIS}} — should never ship
+TEMPLATE_TOKENS=$(echo "$CONTENT" | grep -oP '\{\{[A-Z_][A-Z0-9_]*\}\}' | sort -u)
+if [ -n "$TEMPLATE_TOKENS" ]; then
+    TOKEN_LIST=$(echo "$TEMPLATE_TOKENS" | tr '\n' ' ')
+    check_fail "Unfilled template placeholders present: $TOKEN_LIST (#1336)"
+else
+    check_pass "No unfilled {{TEMPLATE}} placeholders"
+fi
+
+# ============================================================================
+# Section 9bs: Schema.org itemReviewed Type (#1340)
+# ============================================================================
+section_header "Section 9bs: Schema itemReviewed Type"
+
+# Ship pages should use @type: CruiseShip (vehicle), not Cruise (trip/booking).
+# 47 of 51 RCL pages had this wrong per the Anthem audit.
+if echo "$CONTENT" | grep -qP '"itemReviewed"'; then
+    if echo "$CONTENT" | grep -qP '"@type"\s*:\s*"CruiseShip"' || echo "$CONTENT" | grep -qP '"@type":"CruiseShip"'; then
+        check_pass "Review itemReviewed uses correct @type CruiseShip"
+    elif echo "$CONTENT" | grep -qP '"@type"\s*:\s*"Cruise"' || echo "$CONTENT" | grep -qP '"@type":"Cruise"'; then
+        check_warn "Review itemReviewed uses @type 'Cruise' (a Trip subtype) — should be 'CruiseShip' (a Vehicle subtype) (#1340)"
+    else
+        check_pass "Review itemReviewed type check skipped (non-standard type)"
+    fi
+else
+    check_pass "No itemReviewed block (N/A)"
+fi
+
+# ============================================================================
+# Section 9bt: Review reviewRating for Rich Snippets (#1341)
+# ============================================================================
+section_header "Section 9bt: Review reviewRating"
+
+if echo "$CONTENT" | grep -qP '"@type"\s*:\s*"Review"|"@type":"Review"'; then
+    if echo "$CONTENT" | grep -qP '"reviewRating"'; then
+        check_pass "Review JSON-LD has reviewRating (eligible for rich snippets)"
+    else
+        check_warn "Review JSON-LD MISSING reviewRating — page is ineligible for Google review rich snippets (#1341)"
+    fi
+else
+    check_pass "No Review schema (N/A)"
+fi
+
+# ============================================================================
+# Section 9bu: Review JSON-LD Image File Exists (#1342)
+# ============================================================================
+section_header "Section 9bu: Review Image File"
+
+REVIEW_IMG=$(echo "$CONTENT" | grep -oP '"itemReviewed"[^}]*"image"\s*:\s*"[^"]*' | grep -oP '"image"\s*:\s*"\K[^"]+' | head -1)
+if [ -n "$REVIEW_IMG" ]; then
+    # Strip domain to get path
+    REVIEW_IMG_PATH=$(echo "$REVIEW_IMG" | sed 's|https\?://[^/]*/|/|')
+    REVIEW_IMG_FILE="${REPO_ROOT}$(echo "$REVIEW_IMG_PATH" | sed 's/\?.*$//')"
+    if [ -f "$REVIEW_IMG_FILE" ]; then
+        check_pass "Review itemReviewed.image file exists"
+    else
+        check_fail "Review itemReviewed.image file MISSING: $REVIEW_IMG_PATH (#1342)"
+    fi
+else
+    check_pass "No Review image field (N/A)"
+fi
+
+# ============================================================================
+# Section 9bv: PWA Icon Integrity (#1343)
+# ============================================================================
+section_header "Section 9bv: PWA Icon Integrity"
+
+APPLE_ICON=$(echo "$CONTENT" | grep -oP 'rel="apple-touch-icon"[^>]*href="\K[^"]+' | head -1)
+if [ -n "$APPLE_ICON" ]; then
+    APPLE_ICON_PATH="${REPO_ROOT}$(echo "$APPLE_ICON" | sed 's/\?.*$//')"
+    if [ -f "$APPLE_ICON_PATH" ]; then
+        check_pass "apple-touch-icon file exists"
+    else
+        check_fail "apple-touch-icon file MISSING: $APPLE_ICON — iOS home-screen installs get default icon (#1343)"
+    fi
+fi
+
+# Check manifest icons
+MANIFEST_HREF=$(echo "$CONTENT" | grep -oP 'rel="manifest"[^>]*href="\K[^"]+' | head -1)
+if [ -n "$MANIFEST_HREF" ]; then
+    MANIFEST_FILE="${REPO_ROOT}$(echo "$MANIFEST_HREF" | sed 's/\?.*$//')"
+    if [ -f "$MANIFEST_FILE" ]; then
+        MISSING_ICONS=$(python3 -c "
+import json, os, sys
+try:
+    m = json.load(open('$MANIFEST_FILE'))
+    icons = m.get('icons', [])
+    missing = []
+    for ic in icons:
+        src = ic.get('src','').split('?')[0]
+        if src and not os.path.exists('${REPO_ROOT}' + src):
+            missing.append(src)
+    if missing:
+        print('missing:' + '|'.join(missing))
+    else:
+        print('ok')
+except: print('skip')
+" 2>/dev/null)
+        if echo "$MISSING_ICONS" | grep -q '^missing:'; then
+            ICONS_LIST=$(echo "$MISSING_ICONS" | sed 's/^missing://' | tr '|' ', ')
+            check_fail "Web app manifest icons MISSING: $ICONS_LIST — PWA install shows broken/default icons (#1343)"
+        elif [ "$MISSING_ICONS" = "ok" ]; then
+            check_pass "Web app manifest icons all exist"
+        fi
+    fi
+fi
+
+# ============================================================================
+# Section 9bw: First Carousel Slide LCP Anti-Pattern (#1344)
+# ============================================================================
+section_header "Section 9bw: First Carousel Slide LCP"
+
+FIRST_SLIDE_IMG=$(echo "$CONTENT" | grep -oP 'class="swiper firstlook".*?swiper-slide[^>]*>\s*(<figure[^>]*>\s*)?<img[^>]+' | head -1)
+if [ -n "$FIRST_SLIDE_IMG" ]; then
+    if echo "$FIRST_SLIDE_IMG" | grep -q 'loading="lazy"'; then
+        check_warn "First carousel slide uses loading=\"lazy\" — this is the LCP element and should be eager (#1344)"
+    else
+        check_pass "First carousel slide is not lazy-loaded"
+    fi
+    # Check for width/height (CLS)
+    if echo "$FIRST_SLIDE_IMG" | grep -qP 'width="\d+"\s+height="\d+"'; then
+        check_pass "First carousel slide has width/height dimensions"
+    else
+        check_warn "First carousel slide MISSING width/height — causes CLS (Cumulative Layout Shift) (#1344)"
+    fi
+else
+    check_pass "No firstlook carousel detected (N/A)"
+fi
+
+# ============================================================================
+# Section 9bx: Carousel Image Dimensions (CLS) (#1345)
+# ============================================================================
+section_header "Section 9bx: Carousel Image Dimensions"
+
+CAROUSEL_IMGS=$(echo "$CONTENT" | grep -oP 'class="swiper firstlook"[\s\S]*?</div>\s*<div class="swiper-pagination"' | grep -oP '<img[^>]+>' || true)
+if [ -n "$CAROUSEL_IMGS" ]; then
+    TOTAL_CAROUSEL=$(echo "$CAROUSEL_IMGS" | wc -l)
+    NO_DIMS=$(echo "$CAROUSEL_IMGS" | grep -cvP 'width="\d+"' || true)
+    if [ "$NO_DIMS" -gt 0 ]; then
+        check_warn "$NO_DIMS of $TOTAL_CAROUSEL carousel images missing width/height — CLS risk (#1345)"
+    else
+        check_pass "All $TOTAL_CAROUSEL carousel images have dimensions"
+    fi
+fi
+
+# ============================================================================
+# Section 9by: Heading Hierarchy — No Level Skipping (#1346)
+# ============================================================================
+section_header "Section 9by: Heading Hierarchy"
+
+HEADING_SKIP=$(python3 -c "
+import re, sys
+html = sys.stdin.read()
+headings = re.findall(r'<h([1-6])', html)
+last = 0
+skips = 0
+for h in headings:
+    level = int(h)
+    if last > 0 and level > last + 1:
+        skips += 1
+    last = level
+print(skips)
+" <<< "$CONTENT" 2>/dev/null)
+if [ "$HEADING_SKIP" -gt 0 ]; then
+    check_warn "Heading hierarchy has $HEADING_SKIP level-skip(s) (e.g. H1→H3) — WCAG 1.3.1 (#1346)"
+else
+    check_pass "Heading hierarchy has no level-skipping"
+fi
+
+# ============================================================================
+# Section 9bz: Flickers of Majesty Link Label vs Href (#1347)
+# ============================================================================
+section_header "Section 9bz: Link Label vs Href Mismatch"
+
+if echo "$CONTENT" | grep -qP 'flickersofmajesty\.com[^"]*"[^>]*>[^<]*Instagram'; then
+    check_warn "Link text says 'Instagram' but href points to flickersofmajesty.com website, not instagram.com (#1347)"
+else
+    check_pass "No Instagram-vs-website label mismatch detected"
+fi
+
+# ============================================================================
+# Section 9ca: Hero Image Attribution Sidecar (#1348)
+# ============================================================================
+section_header "Section 9ca: Hero Image Attribution"
+
+# For each carousel exterior image with a sidecar .attr.json, the artist name should
+# appear somewhere in the HTML (usually the attributions section). Missing = CC BY-SA
+# license violation risk.
+if [ -n "$REPO_ROOT" ]; then
+    HERO_IMG=$(echo "$CONTENT" | grep -oP 'class="swiper firstlook".*?swiper-slide[^>]*>\s*(<figure[^>]*>\s*)?<img[^>]*src="\K[^"?]+' | head -1)
+    if [ -n "$HERO_IMG" ]; then
+        ATTR_JSON="${REPO_ROOT}$(echo "$HERO_IMG" | sed 's/\.[^.]*$/.attr.json/')"
+        if [ -f "$ATTR_JSON" ]; then
+            ARTIST=$(python3 -c "import json; print(json.load(open('$ATTR_JSON')).get('artist',''))" 2>/dev/null)
+            if [ -n "$ARTIST" ] && [ "$ARTIST" != "None" ]; then
+                if echo "$CONTENT" | grep -qi "$ARTIST"; then
+                    check_pass "Hero image photographer '$ARTIST' credited in HTML"
+                else
+                    check_warn "Hero image photographer '$ARTIST' (from .attr.json) NOT credited in HTML — CC license compliance risk (#1348)"
+                fi
+                # Also check if sidecar title matches ship name (wrong-ship detection)
+                ATTR_TITLE=$(python3 -c "import json; print(json.load(open('$ATTR_JSON')).get('title',''))" 2>/dev/null)
+                SHIP_NAME=$(echo "$CONTENT" | grep -oP '<h1[^>]*>\K[^<]+' | head -1 | sed 's/ —.*//;s/ [-–].*//;s/^ *//;s/ *$//')
+                if [ -n "$ATTR_TITLE" ] && [ -n "$SHIP_NAME" ]; then
+                    SHIP_FIRST_WORD=$(echo "$SHIP_NAME" | awk '{print $1}')
+                    if echo "$ATTR_TITLE" | grep -qi "$SHIP_FIRST_WORD"; then
+                        check_pass "Hero image sidecar title matches ship name"
+                    else
+                        check_fail "Hero image may be WRONG SHIP — sidecar title '$ATTR_TITLE' does not contain '$SHIP_FIRST_WORD' (#1348)"
+                    fi
+                fi
+            fi
+        else
+            check_pass "No .attr.json sidecar for hero image (N/A)"
+        fi
+    fi
+fi
+
+# ============================================================================
+# Section 9cb: Figcaption Attribution Promise (#1349)
+# ============================================================================
+section_header "Section 9cb: Figcaption Attribution Promise"
+
+if echo "$CONTENT" | grep -qi 'attribution in page footer'; then
+    # Check if there's a real attributions section with <li> entries
+    ATTR_LI_COUNT=$(echo "$CONTENT" | grep -c 'class=".*attributions' || true)
+    ATTR_ITEMS=$(echo "$CONTENT" | sed -n '/class=".*attributions/,/<\/section>/p' | grep -c '<li>' || true)
+    FIGCAP_COUNT=$(echo "$CONTENT" | grep -ci 'attribution in page footer' || true)
+    if [ "$ATTR_ITEMS" -lt "$FIGCAP_COUNT" ]; then
+        check_warn "Figcaptions promise 'attribution in page footer' ($FIGCAP_COUNT times) but attribution section has only $ATTR_ITEMS items — some images uncredited (#1349)"
+    else
+        check_pass "Figcaption attribution promises appear satisfied"
+    fi
+else
+    check_pass "No 'attribution in page footer' promises"
+fi
+
+# ============================================================================
+# Section 9cc: Generic Deck Plan Preview Alt Text (#1350)
+# ============================================================================
+section_header "Section 9cc: Generic Deck Plan Preview"
+
+if echo "$CONTENT" | grep -qP '/assets/ship-map\.png.*alt="[^"]*deck plan preview'; then
+    check_warn "Generic /assets/ship-map.png used with ship-specific alt text — alt text claims it is this ship's deck plan, but the image is a shared placeholder (#1350)"
+else
+    check_pass "No generic deck-plan alt lie detected"
+fi
+
+# ============================================================================
+# Section 9cd: SW-Bridge Integration (#1351)
+# ============================================================================
+section_header "Section 9cd: Service Worker Bridge"
+
+if echo "$CONTENT" | grep -q "serviceWorker.register\|'serviceWorker' in navigator"; then
+    if echo "$CONTENT" | grep -q "sw-bridge\.js"; then
+        check_pass "Service worker registered AND sw-bridge.js loaded (image seeding enabled)"
+    else
+        check_warn "Service worker registered but sw-bridge.js NOT loaded — carousel images won't be warmed into cache (#1351)"
+    fi
+else
+    check_pass "No service worker registration (N/A)"
+fi
+
+# ============================================================================
+# Section 9ce: Swiper Vendor Path (#1352)
+# ============================================================================
+section_header "Section 9ce: Swiper Vendor Path"
+
+SWIPER_PRIMARY=$(echo "$CONTENT" | grep -oP 'cruisinginthewake\.com/vendor/swiper/[^"]+' | head -1)
+if [ -n "$SWIPER_PRIMARY" ]; then
+    SWIPER_PATH="${REPO_ROOT}/vendor/swiper/$(echo "$SWIPER_PRIMARY" | sed 's|.*/vendor/swiper/||;s/\?.*$//')"
+    if [ -f "$SWIPER_PATH" ]; then
+        check_pass "Swiper vendor file exists at $SWIPER_PATH"
+    else
+        check_warn "Swiper vendor path referenced but file MISSING — every page load 404s then falls back to CDN (#1352)"
+    fi
+else
+    check_pass "No self-hosted Swiper vendor path (uses CDN directly)"
+fi
+
+# ============================================================================
+# Section 9cf: Preconnect Hints for External Domains (#1353)
+# ============================================================================
+section_header "Section 9cf: Preconnect Hints"
+
+EXT_DOMAINS=$(echo "$CONTENT" | grep -oP 'https://[a-z0-9.-]+\.(com|net|org|io)' | grep -v cruisinginthewake | sort -u)
+PRECONNECTS=$(echo "$CONTENT" | grep -oP 'rel="preconnect"[^>]*href="[^"]+"' | grep -oP 'href="\K[^"]+' || true)
+DNS_PREFETCH=$(echo "$CONTENT" | grep -oP 'rel="dns-prefetch"[^>]*href="[^"]+"' | grep -oP 'href="\K[^"]+' || true)
+ALL_HINTS="$PRECONNECTS $DNS_PREFETCH"
+EXT_COUNT=$(echo "$EXT_DOMAINS" | grep -c '.' || true)
+HINT_COUNT=$(echo "$ALL_HINTS" | grep -c '.' || true)
+if [ "$EXT_COUNT" -gt 0 ] && [ "$HINT_COUNT" -eq 0 ]; then
+    check_warn "Page loads from $EXT_COUNT external domains but has NO preconnect/dns-prefetch hints (#1353)"
+elif [ "$EXT_COUNT" -gt 0 ]; then
+    check_pass "Page has $HINT_COUNT preconnect/dns-prefetch hint(s) for $EXT_COUNT external domains"
+else
+    check_pass "No external domains (N/A)"
+fi
+
+# ============================================================================
+# Section 9cg: LCP Preload Targets Hero (#1354)
+# ============================================================================
+section_header "Section 9cg: LCP Preload Targets"
+
+PRELOAD_IMGS=$(echo "$CONTENT" | grep -oP '<link[^>]*rel="preload"[^>]*as="image"[^>]*href="\K[^"]+')
+if [ -n "$PRELOAD_IMGS" ]; then
+    # Check if any preload target is a ship/carousel image (not a brand logo or compass rose)
+    if echo "$PRELOAD_IMGS" | grep -qP 'assets/ships/|firstlook'; then
+        check_pass "LCP preload targets a ship/carousel image"
+    elif echo "$PRELOAD_IMGS" | grep -qP 'logo_wake|compass_rose'; then
+        check_warn "LCP preload targets brand chrome (logo/compass) instead of the hero ship image — wrong LCP hint (#1354)"
+    else
+        check_pass "LCP preload targets checked"
+    fi
+else
+    check_pass "No image preload hints (N/A)"
+fi
+
+# ============================================================================
+# Section 9ch: Phantom Author in JSON-LD (#1355)
+# ============================================================================
+section_header "Section 9ch: Phantom Author"
+
+AUTHORS_JSON="${REPO_ROOT}/data/authors.json"
+if [ -f "$AUTHORS_JSON" ]; then
+    # Extract all author names from JSON-LD on this page
+    PAGE_AUTHORS=$(echo "$CONTENT" | grep -oP '"author"\s*:\s*\{[^}]*"name"\s*:\s*"\K[^"]+' | sort -u)
+    if [ -n "$PAGE_AUTHORS" ]; then
+        KNOWN_AUTHORS=$(python3 -c "
+import json
+d = json.load(open('$AUTHORS_JSON'))
+for a in d.get('authors', []):
+    print(a.get('name',''))
+" 2>/dev/null)
+        while IFS= read -r AUTHOR; do
+            [ -z "$AUTHOR" ] && continue
+            if echo "$KNOWN_AUTHORS" | grep -qF "$AUTHOR"; then
+                check_pass "Author '$AUTHOR' exists in authors.json"
+            else
+                check_warn "Author '$AUTHOR' in JSON-LD NOT found in authors.json — phantom byline (#1355)"
+            fi
+        done <<< "$PAGE_AUTHORS"
+    fi
+fi
+
+# ============================================================================
+# Section 9ci: Fragment Link Integrity (#1356)
+# ============================================================================
+section_header "Section 9ci: Fragment Link Integrity"
+
+FRAG_BROKEN=0
+FRAG_TOTAL=0
+while IFS= read -r FRAG_LINK; do
+    [ -z "$FRAG_LINK" ] && continue
+    FRAG_TOTAL=$((FRAG_TOTAL + 1))
+    if echo "$FRAG_LINK" | grep -q '^#'; then
+        # Same-page fragment
+        FRAG_ID="${FRAG_LINK#\#}"
+        if ! echo "$CONTENT" | grep -qP "id=\"$FRAG_ID\""; then
+            FRAG_BROKEN=$((FRAG_BROKEN + 1))
+        fi
+    else
+        # Cross-page fragment
+        TARGET_FILE=$(echo "$FRAG_LINK" | sed 's/#.*//' | sed 's|^/||')
+        FRAG_ID=$(echo "$FRAG_LINK" | sed 's/.*#//')
+        FULL_PATH="${REPO_ROOT}/${TARGET_FILE}"
+        if [ -f "$FULL_PATH" ]; then
+            if ! grep -qP "id=\"$FRAG_ID\"" "$FULL_PATH"; then
+                FRAG_BROKEN=$((FRAG_BROKEN + 1))
+            fi
+        fi
+    fi
+done <<< "$(echo "$CONTENT" | grep -oP 'href="([^"]*#[^"]+)"' | sed 's/href="//;s/"$//' | sort -u)"
+
+if [ "$FRAG_BROKEN" -gt 0 ]; then
+    check_warn "$FRAG_BROKEN of $FRAG_TOTAL fragment link(s) point to non-existent anchors (#1356)"
+else
+    if [ "$FRAG_TOTAL" -gt 0 ]; then
+        check_pass "All $FRAG_TOTAL fragment links resolve to real anchors"
+    else
+        check_pass "No fragment links (N/A)"
+    fi
+fi
+
+# ============================================================================
+# Section 9cj: Stale last-reviewed (#1357)
+# Already handled in 9ah above — this is the companion check from audit batch 8
+# ============================================================================
+
+# ============================================================================
+# Section 9ck: Half-Escape XSS Pattern (#1358)
+# ============================================================================
+section_header "Section 9ck: Inline JS Escape Completeness"
+
+# Flag the common half-escape pattern: .replace(/</g,'&lt;') without the companion
+# .replace(/>/g,'&gt;') — a defense-in-depth gap in inline render functions.
+HALF_ESCAPES=$(echo "$CONTENT" | grep -cP "\.replace\(/</g,\s*['\"]&lt;['\"]\)" || true)
+FULL_ESCAPES=$(echo "$CONTENT" | grep -cP "\.replace\(/>/g,\s*['\"]&gt;['\"]\)" || true)
+if [ "$HALF_ESCAPES" -gt 0 ] && [ "$FULL_ESCAPES" -eq 0 ]; then
+    check_warn "$HALF_ESCAPES inline JS replace(s) escape '<' but not '>' — defense-in-depth gap (#1358)"
+else
+    check_pass "No half-escape pattern detected"
 fi
 
 # ============================================================================

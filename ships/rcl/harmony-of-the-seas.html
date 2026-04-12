@@ -9,22 +9,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 -->
 <html lang="en" class="no-js">
 <head>
-<!-- ai-breadcrumbs
-     entity: Ship
-     name: Harmony of the Seas
-     type: Ship Information Page
-     parent: /ships.html
-     category: Royal Caribbean Fleet
-     cruise-line: Royal Caribbean
-     ship-class: Oasis Class
-     siblings: /ships/rcl/oasis-of-the-seas.html, /ships/rcl/allure-of-the-seas.html, /ships/rcl/symphony-of-the-seas.html, /ships/rcl/wonder-of-the-seas.html, /ships/rcl/utopia-of-the-seas.html
-     updated: 2026-04-07
-     expertise: Royal Caribbean ship reviews, deck plans, dining analysis, cabin comparisons
-     target-audience: Cruisers researching Harmony of the Seas or comparing Royal Caribbean ships
-     answer-first: Harmony of the Seas is an Oasis Class Royal Caribbean ship (226,963 GT, 5,479 guests at double occupancy, launched 2016) featuring seven neighborhoods, the Ultimate Abyss slide, and Central Park with live trees.
-     related: /ships.html, /cruise-lines/royal-caribbean.html, /restaurants.html
-     -->
-  <!-- ======================================================
+<!-- ======================================================
        In the Wake — Harmony of the Seas • Royal Caribbean
        Version: 3.010.300  |  Soli Deo Gloria ✝️
 
@@ -54,10 +39,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="author" content="In the Wake"/>
   <meta name="publisher" content="In the Wake"/>
 
-  <!-- ICP-Lite v1.4: AI-First Metadata -->
+  <!-- ICP-2: AI-First Metadata -->
   <meta name="ai-summary" content="Harmony of the Seas: deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise with In the Wake."/>
   <meta name="last-reviewed" content="2026-04-07"/>
-  <meta name="content-protocol" content="ICP-Lite v1.4"/>
+  <meta name="content-protocol" content="ICP-2"/>
 
   <!-- Title & SEO -->
   <title>Harmony of the Seas — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
@@ -141,9 +126,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       "@type": "Person",
       "name": "In the Wake Editorial Team"
     },
-    "reviewBody": "Harmony of the Seas is one of the world's largest cruise ships at 226,963 GT, featuring seven distinct neighborhoods including Central Park with live trees, the Ultimate Abyss ten-story slide, and extensive dining across 20+ venues.",
+    "reviewBody": "Harmony of the Seas is one of the world's largest cruise ships at 226,963 GT, featuring seven distinct neighborhoods including Central Park with live trees, the Ultimate Abyss ten-story slide, and extensive dining across 20+ venues.","reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},
     "itemReviewed": {
-      "@type": "Cruise",
+      "@type": "CruiseShip",
       "name": "Harmony of the Seas",
       "provider": {
         "@type": "Organization",
@@ -173,7 +158,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   }
   </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite v1.4) -->
+  <!-- JSON-LD: WebPage (ICP-2) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -195,7 +180,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   }
   </script>
 
-  <!-- JSON-LD: FAQPage (ICP-Lite) -->
+  <!-- JSON-LD: FAQPage (ICP-2) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -294,22 +279,20 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- ===== Swiper (primary + CDN fallback) ===== -->
   <script>
   (function ensureSwiper(){
-    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-    function addJS(src, ok, fail){
-      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
-    }
-    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    addCSS(primaryCSS);
-    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
-  })();
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  }
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
+})();
   </script>
 
   <!-- ===== Page micro CSS (scoped) ===== -->
   <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/ships/Harmony-of-the-seas-FOM- - 1.webp" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
 
   <!-- JSON-LD: Article (editorial content signal) -->
@@ -452,7 +435,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </div>
       <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
-        <a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo by Flickers of Majesty — Instagram</a>
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        <a class="pill" href="https://www.instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
       </div>
     </div></header>
 
@@ -467,7 +451,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Harmony of the Seas is an Oasis Class cruise ship operated by Royal Caribbean. She entered service in 2016, measures 226,963 gross tons, and carries approximately 5,479 guests at double occupancy with a crew of 2,394.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> Oasis Class</li>
           <li><strong>Year:</strong> 2016</li>
@@ -792,7 +776,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <h2 id="deck-plans">Harmony of the Seas Deck Plans</h2>
         <p><a class="btn" href="https://www.royalcaribbean.com/cruise-ships/harmony-of-the-seas/deck-plans" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
         <figure>
-          <img src="/assets/ship-map.png" alt="Harmony of the Seas simplified deck plan preview" loading="lazy"/>
+          <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
         </figure>
       </section>
 
@@ -807,7 +791,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </section>
     </section>
 
-    <!-- FAQ Section (ICP-Lite) -->
+    <!-- FAQ Section (ICP-2) -->
     <section class="card faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Harmony of the Seas</h2>
 
@@ -1024,7 +1008,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       html=html.replace(/^###?\s+(.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
       html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html.replace(/^<p>\s*<\/p>/,'');}
     const state={i:0,items:[]};
-    function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;');
+    function renderOne(p){const title=String(p.title||p.persona_label||p.heading||'Guest Perspective').replace(/</g,'&lt;').replace(/>/g,'&gt;');
       const body=String(p.markdown||p.body||p.content||p.html||p.text||p.story||p.notes||'').trim(); if(!body) return '';
       return '<article class="story" aria-live="polite"><h3 tabindex="0">'+title+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';}
     function ensureNav(){
@@ -1068,7 +1052,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
       mount.innerHTML=arr.map(v=>{
         const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-        const title=String(v.title||'Harmony of the Seas').replace(/</g,'&lt;');
+        const title=String(v.title||'Harmony of the Seas').replace(/</g,'&lt;').replace(/>/g,'&gt;');
         return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
       }).join('');
       function initSwiper(){
@@ -1114,7 +1098,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
       mount.innerHTML=keys.map(k=>{
         const val=obj[k]; if(!val) return '';
-        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span>';
+        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</span>';
 
         // Add fun distance conversions for length and beam
         if((k==='length'||k==='beam') && window.funDistance){
@@ -1172,10 +1156,10 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         const arr=byCategory[cat]; if(!arr) return;
         html+='<h3>'+catLabels[cat]+'</h3><ul class="venues-list">';
         arr.forEach(v=>{
-          const name=String(v.name||v.slug).replace(/</g,'&lt;');
-          const desc=String(v.description||'').replace(/</g,'&lt;');
+          const name=String(v.name||v.slug).replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          const desc=String(v.description||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           const price=(v.price||v.cost)?'<span class="venue-price">'+(v.price||v.cost)+'</span>':'';
-          const slug=v.slug?String(v.slug).replace(/</g,'&lt;'):'';
+          const slug=v.slug?String(v.slug).replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
           const nameLink=slug?'<a href="'+abs('/restaurants/'+slug+'.html')+'">'+name+'</a>':name;
           html+='<li><strong>'+nameLink+'</strong>'+price+(desc?' — '+desc:'')+'</li>';
         });
@@ -1337,5 +1321,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
+  <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>

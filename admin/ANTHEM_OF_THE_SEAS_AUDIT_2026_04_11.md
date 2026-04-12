@@ -1,0 +1,1783 @@
+# Anthem of the Seas — Issues Found & Repair Plan
+
+**Date:** 2026-04-11
+**Page:** `ships/rcl/anthem-of-the-seas.html`
+**Status:** AUDIT DEEPER PASS COMPLETE — multiple fleet-wide and site-wide issues found beyond Anthem
+**Validator baseline:** 156 passed / 0 errors / 5 warnings ("passed with flying colors" is misleading)
+
+## Context
+
+A prior session claimed all RCL ships "passed with flying colors." The user disputed this for
+Anthem specifically, then told me "you didn't even find the few things i noticed" and asked me
+to keep looking. The deeper pass surfaced multiple issues the validator does not catch — some
+Anthem-specific, several fleet-wide RCL, and at least one **site-wide content integrity issue**.
+
+## Verified Ground Truth (from agent)
+
+### Identification — ALL CORRECT, no changes needed
+- IMO: **9656101** (verified 4 independent sources — VesselFinder, MyShipTracking, Vesseltracker, MarineTraffic)
+- MMSI: **311000274**
+- Call sign: **C6BI7**
+- Flag: **Bahamas (Nassau)**
+- Sister IMOs cross-checked distinct: Quantum 9549463, Ovation 9697753, Spectrum 9778856, Odyssey 9795737
+
+### Builder & dates — NONE ON CURRENT PAGE
+- Builder: **Meyer Werft, Papenburg, Germany** — **yard S.698**
+- Keel laid: **19-20 November 2013**
+- Float out: **21 February 2015**
+- Delivered: **10 April 2015** at Bremerhaven
+- Christened: **20 April 2015** in Southampton
+- **Godmother: Emma Wilby** — 27-year-old British travel agent from Sunderland (notable choice)
+- Maiden voyage: **22 April 2015** from Southampton, England
+- Build cost: **~EUR 750M / ~USD 940M** (estimated — RCL never published official)
+- Steel cut date: not publicly documented (do not guess)
+
+### Physical specs — CORRECTIONS NEEDED
+| Spec | Current page | Correct | Source |
+|------|--------------|---------|--------|
+| Length | 1,141 ft / 348 m | **1,139 ft / 347.1 m** | Meyer Werft |
+| Beam | 136 ft / 41 m (in noscript only) | **49.4 m / 162 ft max** OR 41.4 m / 136 ft moulded | VesselFinder / Meyer Werft |
+| Draft | (not listed) | **8.8 m / 28.9 ft** | VesselFinder |
+| Decks | (not listed) | **18 total / 16 guest-accessible** | Meyer Werft |
+| Cabins | (not listed) | **2,090** (1,717 outside + 373 inside, ~69% balcony, 22 ADA) | Meyer Werft |
+| GT | 168,666 | 168,666 ✓ | Meyer Werft / VesselFinder |
+| Guests | 4,180 double / ~4,905 max | 4,180 / 4,905 ✓ | Meyer Werft |
+| Crew | 1,500 | 1,500 ✓ | Meyer Werft |
+| Max speed | (not listed) | **22 knots** (2× ABB Azipod XO, 20.5 MW each) | Gangwaze |
+| Class | "Quantum Class" | **Quantum Class (2nd of 5; Spectrum & Odyssey are Quantum Ultra sub-class)** | Royal Caribbean Blog / Cruise Critic |
+
+### Deployment — STALE / WRONG
+**Current page says year-round Cape Liberty / Bermuda / Caribbean / Canada-NE.**
+
+**Agent confirms she has NOT been at Cape Liberty for 2025-26:**
+- **Currently (11 Apr 2026): in Sydney, Australia** — inaugural Australian summer season
+- Arrived Sydney 31 Oct 2025; 24 voyages (3-18 nights) to NZ / Tasmania / New Caledonia / Vanuatu
+- **14 April 2026: Departs Sydney** on 18-night repositioning to Honolulu
+- **Continues to Seattle for summer 2026 Alaska season**
+- **11 May 2026: First confirmed Alaska sailing** (7-night Seattle round-trip — Sitka / Skagway / Endicott Arm / Juneau / Victoria)
+
+Primary sources:
+- <https://www.royalcaribbeanpresscenter.com/press-release/1715/a-new-summer-anthem-makes-its-way-to-australia-in-2025-26/>
+- <https://www.seatrade-cruise.com/ports-destinations/anthem-of-the-seas-arrives-for-sydney-inaugural-season>
+- <https://www.royalcaribbean.com/itinerary/7-night-alaska-adventure-from-seattle-on-anthem-AN07SEA-2909514450>
+- <https://cruisesheet.com/royal-caribbean-anthem-of-the-seas-7-night-seattle-roundtrip-may-11-2026>
+
+## Venue Audit — Confirmed Against Agent
+
+### Keep (I was wrong to flag these)
+| Venue | My initial call | Actual | Note |
+|-------|-----------------|--------|------|
+| **Johnny Rockets** | "Hallucination" | **REAL — keep** | Deck 14 poolside. Verified Gangwaze + Cruise Deck Plans. |
+| **Jamie's Italian by Jamie Oliver** | "Partnership ended" | **REAL — keep** | UK chain collapsed 2019 but RCL retained licensed brand. Menu refreshed Aug 2023. |
+
+### Remove (confirmed hallucinations or stale)
+| Venue | Slug | Why |
+|-------|------|-----|
+| **Giovanni's Table** | `giovannis` | Not on Anthem. RCL pattern is one Italian specialty per ship; Anthem has Jamie's Italian. Cruise Critic's listing was legacy data. Currently on Voyager/Freedom/older Radiance. |
+| **Brass & Bock** | `brass-and-bock` | Cannot verify in any primary source. Likely hallucination. |
+| **Café Latte-tudes** | `latte-tudes` | Radiance-class venue, not Anthem. Anthem's coffee is via Café Promenade. |
+| **Champagne Bar** | `champagne-bar` | Not a named standalone venue on Anthem. Vintages handles champagne/wine. |
+
+### Rename
+| Current | Correct |
+|---------|---------|
+| "Diamond Club" | **Diamond Lounge** (that's RCL's actual loyalty lounge name) |
+
+### Still uncertain — needs additional verification
+- **Splashaway Bay** — listed in venues-v2.json as a kids-subcategory activity. Agent didn't explicitly verify. Quantum class doesn't typically have Splashaway Bay (that's Oasis/Freedom/Icon). Suspect hallucination but flag for verification against official RCL Anthem page.
+- **Suite Lounge** — confirmed generically; exact name needs deck-plan check
+
+### Confirmed on Anthem (keep as-is)
+Main Dining Room (+ 4 themed MDRs: The Grande, Chic, Silk, American Icon Grill), Windjammer Marketplace, Café Promenade, Sorrento's, Solarium Bistro, Café @ Two70, Izumi Sushi & Hibachi, Chops Grille, Jamie's Italian, Wonderland, Chef's Table, Coastal Kitchen (suites-only), Johnny Rockets, Bionic Bar, Schooner Bar, Boleros, Vintages, Pool Bar, Solarium Bar, Sky Bar, RipCord by iFly, FlowRider, North Star, SeaPlex, Two70 (Vistarama + RoboScreens), Royal Esplanade, Royal Theater, Music Hall, Casino Royale.
+
+### Confirmed NOT on Anthem (do not invent)
+- Cirque du Soleil (RCL has never had this — that was MSC)
+- Waterslides (Perfect Storm is Oasis class / Royal Amplified)
+- Ultimate Abyss (Oasis only)
+- AquaTheater (Oasis only — Anthem's aft venue is Two70)
+- Boardwalk / Central Park neighborhoods (Oasis only — Anthem has Royal Esplanade)
+- Ice-skating rink (Voyager/Freedom/Oasis only — Anthem has SeaPlex instead)
+
+## Structural / Protocol Issues
+
+1. **ICP-Lite v1.4 → ICP-2** upgrade (same as Virgin fleet fix)
+2. **`ai-breadcrumbs` HTML comment** still present at top of file — ICP-2 v2.1 says remove (no crawler reads HTML comments)
+3. **No "Who She's For" personality section** (`id="who-shes-for"`)
+4. **FAQ HTML + JSON-LD is generic**:
+   - "Dining options" answer lists **Jamie's Italian** + "Teppanyaki" + **Bionic Bar** (but Bionic Bar is a BAR, not a dining venue) + "Wonderland"
+   - "Where does Anthem sail" answer: generic "European and Caribbean itineraries" — completely stale, she's in Australia right now
+   - Missing questions about godmother (Emma Wilby), maiden voyage history, Alaska 2026
+5. **Review JSON-LD has no hard facts** — no delivery date, no builder, no yard, no godmother
+6. **page.json is minimal**: no sources, no discrepancies_flagged, no history, no godmother, no keel_laid, no delivery date, no maiden_voyage
+7. **Length discrepancy between files**:
+   - `page.json`: "1,141 ft (348 m)"
+   - HTML noscript stats: "1,142 ft (348 m)" (different again!)
+   - HTML whimsical-units: "1,142 ft long" / "136 ft wide"
+   - **Correct**: 1,139 ft / 347.1 m per Meyer Werft
+8. **Neighborhoods section** claims "Solarium" as a neighborhood — Solarium is an adults-only indoor pool area on RCL ships, not a "neighborhood" in the Oasis-class sense. Should be removed or re-framed.
+9. **Right-rail has a placeholder intro block**: "Anthem of the Seas is a Royal Caribbean ship. This page covers deck plans, live ship tracking, dining venues, and videos to help you plan your cruise." — generic filler text that duplicates the main column intro
+
+## Fleet-wide RCL JS bug (NOT Anthem-specific)
+
+**42 of 51 RCL ship pages** have a JavaScript snippet (`fixDiningJSON`) that overrides the
+`#dining-data-source` config at runtime, redirecting from `/assets/data/venues-v2.json` to
+legacy `/assets/data/venues.json`. The two files are NOT in sync:
+
+- `venues.json` ships: 75 | Anthem venues: **11**
+- `venues-v2.json` ships: 57 | Anthem venues: **45**
+
+At runtime, every affected page silently reads from the stale `venues.json`. This is likely a
+pre-migration path that was never cleaned up. Fixing this requires either:
+- (a) Removing the `fixDiningJSON` script from all 42 pages (quickest)
+- (b) Bringing `venues.json` back in sync with `venues-v2.json` (a migration step)
+- (c) Removing `venues.json` entirely after confirming nothing else reads it
+
+## Deeper Pass — Additional Findings
+
+### JavaScript-level bugs discovered
+
+**Bug A — Stats loader fetches dead paths (45 RCL pages)**
+The inline stats loader (lines 1105-1148) fetches:
+```
+SOURCES = [
+  abs('/assets/data/ships/anthem-of-the-seas.json'),         ❌ does not exist
+  abs('/ships/rcl/assets/anthem-of-the-seas.json')           ❌ does not exist
+]
+```
+The **actual** file is `/assets/data/ships/rcl/anthem-of-the-seas.page.json` — neither SOURCE
+path matches. Ship stats at runtime come **only** from the inline `ship-stats-fallback` JSON
+block; the `.page.json` file is **dead data**, never fetched. Confirmed 45 of 51 RCL pages
+have this same wrong SOURCES array.
+
+**Bug B — Live tracker iframe hardcodes wrong lat/lon (line 1209)**
+```
+iframe.src = 'https://www.vesselfinder.com/aismap?imo=' + imo + '&lat=40.0&lon=-70.0&zoom=5&track=true&names=true';
+```
+`lat=40.0&lon=-70.0` is NW Atlantic / Cape Liberty NJ area. **Anthem is in Sydney, Australia
+right now** — the map opens centered on the wrong hemisphere. The VesselFinder iframe will
+still find the ship once loaded, but initial render is wrong.
+
+Audit of the whole RCL fleet shows each ship has a per-ship hardcoded lat/lon (29 unique
+values across 29+ ships). Most are correct for the ship's traditional deployment but become
+stale when ships reposition. Anthem's `40.0/-70.0` is stale for her 2025-26 Australian season.
+
+**Bug C — LCP preload targets wrong images (lines 306-307)**
+```
+<link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
+<link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+```
+The page preloads the brand logo and compass rose, but the **actual LCP element** is the
+first hero image (`anthem-of-the-seas-exterior.jpg` on line 500) which uses `loading="lazy"`.
+Result: the wrong images are eagerly loaded, and the real hero is lazy-loaded. Core Web
+Vitals performance hit.
+
+**Bug D — Fleet-wide dining data-source JS override (42 RCL pages)**
+A `fixDiningJSON` script overrides the `#dining-data-source` config at runtime, redirecting
+from `/assets/data/venues-v2.json` to legacy `/assets/data/venues.json`. The two files are
+NOT in sync:
+- `venues.json`: 75 ships | Anthem has **11** venues
+- `venues-v2.json`: 57 ships | Anthem has **45** venues
+
+At runtime, 42 RCL pages silently read from the stale `venues.json`. Likely a pre-migration
+path that was never cleaned up.
+
+**Bug E — Origin normalizer selector duplication (line 267-276)**
+Each selector is listed twice in the array passed to `querySelectorAll`:
+```javascript
+const sel=[
+  'a[href^="https://cruisinginthewake.com/"]',
+  'a[href^="https://cruisinginthewake.com/"]',  // duplicate
+  'img[src^="..."]',
+  'img[src^="..."]',                             // duplicate
+  ...
+]
+```
+Not a functional bug (deduped by the DOM) but sloppy.
+
+---
+
+### 🚨 CONTENT INTEGRITY — SITE-WIDE (most serious finding)
+
+**The Logbook persona testimonials are allowed by the standard, but the standard's required
+disclosure is missing from 99% of them.**
+
+The logbook standard is at `new-standards/v3.010/LOGBOOK_ENTRY_STANDARD_v3.010.md`.
+
+**Section 2 — Required Disclosure (Always First)** defines three opening disclosures that
+every entry MUST include:
+- **Disclosure A** — "Personal Wake Entry" (author personally sailed)
+- **Disclosure B** — "Aggregate Soundings" (curated verified guest accounts)
+- **Disclosure C** — "Under Watch" (neither firsthand nor vetted aggregate)
+
+> "The disclosure establishes epistemic honesty. No entry proceeds without it. (This is not
+> optional and is never rewritten casually.)"
+
+**Section 3.A** requires the first markdown heading of every entry to be `## Full disclosure`,
+followed by 6 more named sections in order:
+1. `## Full disclosure`
+2. `## The Crew and Staff`
+3. `## Embarkation & Disembarkation`
+4. `## The Real Talk`
+5. `## Accessibility on the Seas`
+6. `## A Female Crewmate's Perspective`
+7. `## Closing Thoughts`
+
+**Section 7** explicitly permits fictional composite personas — so the persona format is not
+itself the problem. The problem is compliance.
+
+#### Fleet-wide compliance audit — 1% pass rate
+
+| Cruise line | Files | Stories | With disclosure | With ANY `##` heading |
+|---|---|---|---|---|
+| RCL | 49 | 425 | **1 (0%)** | **1 (0%)** |
+| MSC | 24 | 347 | 0 (0%) | 0 (0%) |
+| Virgin Voyages | 4 | 55 | 0 (0%) | 0 (0%) |
+| Carnival | 48 | 496 | 0 (0%) | 0 (0%) |
+| Celebrity | 29 | 268 | **20 (7%)** | 20 (7%) |
+| Norwegian | 20 | 314 | 0 (0%) | 0 (0%) |
+| Princess | 17 | 221 | 0 (0%) | 0 (0%) |
+| **Total** | **191** | **2,126** | **21 (1%)** | **21 (1%)** |
+
+Only 2 fleet-wide logbook files are fully standard-compliant:
+- `assets/data/logbook/celebrity-cruises/celebrity-constellation.json` — 10 of 10 stories
+- `assets/data/logbook/celebrity-cruises/celebrity-infinity.json` — 10 of 10 stories
+
+These are the **gold-standard reference entries**.
+
+In RCL, exactly one compliant story exists across 425 entries:
+- `assets/data/logbook/rcl/legend-of-the-seas.json` story 6: "Three Generations on Deck: A Family Cruise that Ac..."
+
+**Anthem's 10 stories have zero `##` headings each.** The full 2,239-char Two70 story opens:
+
+> "I'm not easily impressed by cruise ship tech. Robot bartenders? Gimmick..."
+
+— straight into first-person narrative, no disclosure at all, no structural spine.
+
+#### What the Celebrity Constellation compliant entry looks like (for reference)
+
+> `## Full disclosure`
+> I have not yet sailed Celebrity Constellation. Until I do, this Logbook is an aggregate of
+> vetted guest soundings, taken in their own wake, trimmed and edited to our standards.
+>
+> `## The Crew and Staff`
+> Maren's waiter in San Marco — a veteran of 13 years with Celebrity — gave quiet
+> recommendations...
+
+That's Disclosure B, followed by the structured spine. This is what every logbook entry is
+supposed to look like.
+
+#### Repair scope implication
+
+2,105 stories across 189 files need either:
+- A disclosure added and retro-fitted to the 7-section spine, OR
+- Acknowledgment that the standard is aspirational and the current state is pre-standard content.
+
+The audit note ends here — this is not a "fix it right now" action without user direction on
+scope. But the gap is documented.
+
+---
+
+### Content/deployment stale claims (confirmed by re-read)
+
+**Line 227 (FAQ JSON-LD):** `"Anthem typically sails European and Caribbean itineraries."` — stale. She is in Australia right now.
+
+**Line 477 (Quick Answer):** `"sailing year-round from the New York area"` — stale. She hasn't been at Cape Liberty for the 2025-26 season.
+
+**Line 481 (Best For):** `"Northeast US cruisers... year-round Bermuda, Caribbean, and Canada/New England sailings from Cape Liberty"` — stale.
+
+**Line 812 (HTML FAQ answer):** `"Anthem typically sails European and Caribbean itineraries."` — stale.
+
+Three of four deployment-related strings on the page are wrong. The Quick Answer and Best For
+are in the most prominent above-the-fold position.
+
+### Cross-page consistency
+
+**`ships.html`** describes Quantum/Quantum Ultra split correctly on one line but then in a
+later content paragraph says `"Quantum-class ships (Odyssey, Anthem, Quantum of the Seas)"`
+— which is wrong because Odyssey is Quantum Ultra, not plain Quantum, and also omits Ovation
+and Spectrum. Fleet-level content has its own hallucinations.
+
+**Anthem's own sister-ship pill block** lists all 4 sisters (Quantum, Ovation, Spectrum,
+Odyssey) under the single label "Quantum Class — Sister Ships." Agent recommendation was to
+label as "Quantum Class (2nd of 5; Spectrum & Odyssey are Quantum Ultra sub-class)".
+
+### Other content/HTML issues
+
+- **Right-rail has a placeholder filler block** (lines 853-871): "Anthem of the Seas is a
+  Royal Caribbean ship. This page covers deck plans..." — this is generic CMS filler that
+  duplicates the main intro and adds no information. Should be removed or replaced.
+- **Review JSON-LD (lines 134-158)** has `"author": {"name": "In the Wake Editorial Team"}`
+  but the Article JSON-LD (lines 310-338) and Person JSON-LD (lines 160-174) attribute
+  authorship to Ken Baker. Inconsistent.
+- **"Sky Bar", "Brass & Bock", "Diamond Club", "ripcord"** entries in `venues-v2.json` have
+  missing or `?` subcategory fields — data quality issue.
+- **Logbook JSON `content_protocol`** is also ICP-Lite v1.4 (not just the HTML).
+- **Stats fallback slug `anthem-of-the-seas`** is correct, but the stats-fallback JSON has
+  guest count as `"4,180 (double) ~4,905 (max)"` which is inconsistent format with other
+  fields — fine for humans, awkward for machines that parse it.
+- **First hero image** (line 500): `<img src="..." alt="Anthem of the Seas at sea" loading="lazy"/>`
+  — missing width/height/decoding attributes, lazy-loaded (LCP hit), and alt text is generic
+  despite this being the LCP image.
+
+## Repair Scope Options
+
+1. **Minimal** — fix just Anthem (HTML + `venues-v2.json` entry + `page.json`) ~40-60 edits
+2. **Quantum class audit** — Anthem + 4 sisters (Quantum, Ovation, Spectrum, Odyssey) with per-ship verification agents
+3. **Anthem + fleet-wide dining JS bug** — Anthem repair + one-line script removal on 42 RCL pages
+4. **Full RCL fleet repair** — matches MSC (24/24) and Virgin (4/4) pattern; ~51 ships, expect contamination on some
+
+## Sources (Primary — from agent)
+
+- Meyer Werft: <https://www.meyerwerft.de/en/ships/anthem_of_the_seas.jsp>
+- Meyer Werft delivery: <https://www.meyerwerft.de/en/press/press_detail/anthem_of_the_seas_delivered.jsp>
+- Meyer Werft keel laying: <https://www.meyerwerft.de/en/press/press_detail/keel_laying_of_anthem_of_the_seas.jsp>
+- Royal Caribbean Press Center (Emma Wilby godmother): <https://www.royalcaribbeanpresscenter.com/press-release/1141/anthem-of-the-seas-godmother-is-27-year-old-british-travel-agent-emma-wilby/>
+- Royal Caribbean Blog (christening): <https://www.royalcaribbeanblog.com/2015/04/20/royal-caribbean-christens-anthem-of-the-seas>
+- Royal Caribbean Blog (Jamie's Italian menu refresh Aug 2023): <https://www.royalcaribbeanblog.com/2023/08/04/jamie-oliver-announces-new-menu-his-restaurant-royal-caribbean-cruise-ships>
+- Royal Caribbean Press Center (Australia 2025-26 season): <https://www.royalcaribbeanpresscenter.com/press-release/1715/a-new-summer-anthem-makes-its-way-to-australia-in-2025-26/>
+- Seatrade Cruise (Sydney arrival): <https://www.seatrade-cruise.com/ports-destinations/anthem-of-the-seas-arrives-for-sydney-inaugural-season>
+- VesselFinder: <https://www.vesselfinder.com/vessels/details/9656101>
+- MarineTraffic: <https://www.marinetraffic.com/en/ais/details/ships/shipid:991737/mmsi:311000274/imo:9656101/vessel:ANTHEM_OF_THE_SEAS>
+- Travelpulse (maiden voyage Southampton): <https://www.travelpulse.com/news/cruise/anthem-of-the-seas-christened-in-southampton>
+- GCaptain (float out 21 Feb 2015): <https://gcaptain.com/anthem-seas-float-meyer-werft-videos/>
+- Cruise Critic Quantum class overview: <https://www.cruisecritic.com/articles/royal-caribbeans-quantum-class-ships>
+- Cruise Industry News / Gangwaze / Cruise Deck Plans — venue verifications above
+
+---
+
+## 🚨 GITHUB PAGES + IMAGE CAROUSEL — the deep issue
+
+**Host:** GitHub Pages (CNAME `cruisinginthewake.com`, `.nojekyll` present, no `.gitattributes`
+/ no Git LFS). GitHub Pages has documented limits that are directly relevant to how this
+carousel is built:
+
+- **Repo size soft warning at 1 GB**, hard failure at 10 GB
+- **Individual file warning at 50 MB**, hard block at 100 MB (Git LFS required above that)
+- **Pages bandwidth soft limit: 100 GB/month** — throttles / warnings begin near this cap
+
+### Fleet totals
+
+| Directory | Size |
+|---|---|
+| `assets/ships/` (full fleet) | **1,263 MB (~1.26 GB)** — past GitHub's 1 GB soft warning |
+| `assets/ships/rcl/` | 243 MB |
+
+70 individual image files exceed 5 MB. The top 10 worst (all RCL ship exterior heroes):
+
+| Ship | File size | Dimensions |
+|---|---|---|
+| Serenade of the Seas | **29.8 MB** | 8064 × 5176 (42 MP, drone original) |
+| Jewel of the Seas | 21.7 MB | — |
+| Vision of the Seas | 21.7 MB | — |
+| **Voyager of the Seas** | **20.6 MB** | 7215 × 4107 (and this is **the WRONG SHIP** — Regent Seven Seas Voyager) |
+| Allure of the Seas | 17.3 MB | — |
+| Oasis of the Seas | 17.0 MB | — |
+| Navigator of the Seas | 16.5 MB | — |
+| Quantum of the Seas | 11.5 MB | — |
+| **Mariner of the Seas** | **11.4 MB** | — (and this is **the WRONG SHIP** — Regent Seven Seas Mariner) |
+| Grandeur of the Seas | 8.6 MB | — |
+
+### Anthem's carousel weight per page view
+
+| Slide | Size | Format | Preload? |
+|---|---|---|---|
+| 1. `anthem-of-the-seas-exterior.jpg` (the LCP image, actually Nassau docked AFT) | **3.02 MB** | JPG | `loading="lazy"` — **wrong, this is the LCP image** |
+| 2. Liverpool 2021-6.jpg | 1.84 MB | JPG (3840×2335) | lazy |
+| 3. Liverpool 2021-3.jpg | 1.60 MB | JPG | lazy |
+| 4. Liverpool 2021-4.jpg | 1.81 MB | JPG | lazy |
+| 5. Liverpool 2021-5.jpg | 1.39 MB | JPG | lazy |
+| 6. `(cropped).webp` | 0.36 MB | WebP | lazy |
+| 7. Nassau 16-9.webp | 0.66 MB | WebP | lazy |
+| 8. 0310.webp | 0.60 MB | WebP | lazy |
+| **TOTAL** | **11.28 MB** | | |
+
+11.28 MB per page view for hero imagery alone. On GitHub Pages' 100 GB/month bandwidth cap,
+**a page like this can be served to ~8,850 visitors/month from the hero image alone** before
+the site blows the bandwidth budget. Add the rest of the fleet pages and any blog/article
+traffic, and the budget disappears quickly.
+
+### The WebP conversion pipeline exists but wasn't run on these files
+
+The repo has:
+- `admin/convert_to_webp.py` — Python + Pillow WebP converter (quality=85)
+- `admin/download-ship-images.py` — Docstring explicitly says *"Downloads images from
+  Wikimedia Commons, converts to webp, and updates HTML files to use local paths"*
+
+But the `.attr.json` sidecar files show the RCL ship exterior images were downloaded
+**2026-01-21** and none of them got converted. All 26 ship-exterior hero images are raw
+JPEGs. Every `.attr.json` alongside them records the source Wikimedia URL and CC license,
+so the download step worked — the WebP conversion step was either skipped, failed silently,
+or bypassed.
+
+For Anthem specifically, the 3 images that ARE WebP (`(cropped)`, `Nassau 16-9`, `0310`)
+were converted by an older run of the pipeline. The 4 Liverpool 2021 JPGs and the new
+`-exterior.jpg` were added later without going through the converter.
+
+### No responsive image sources
+
+None of the hero images use `<picture>` + `<source type="image/webp">`, and none use
+`srcset`/`sizes` for responsive loading. Mobile users on cellular pull the full desktop
+resolution images. Every user pays the same 11.28 MB bill.
+
+### No Git LFS
+
+There is no `.gitattributes` file in the repo. All these large image files live in Git
+history as normal blobs. Every time any of them is changed, a new full copy is stored in
+Git history. Over time this inflates the repo dramatically and makes `git clone` slow.
+
+### The "first slide is lazy-loaded" bug makes this worse
+
+Even with the massive file, a proper LCP element would be `fetchpriority="high"` and
+`loading="eager"`. Anthem's first slide is the opposite: lazy, no fetchpriority, no
+explicit dimensions (so the browser can't reserve layout space). Core Web Vitals LCP on
+this page is going to be terrible on mobile cellular.
+
+Worse: the two `<link rel="preload" as="image">` lines on lines 306-307 preload the brand
+logo and compass rose — **completely wrong LCP hints** — so browsers prioritize assets
+that aren't the LCP element while the real hero is deferred.
+
+### Why this matters for Anthem specifically
+
+Ken (the site owner) is boarding Anthem in June 2026 from Seattle for Alaska. Someone
+planning an Anthem Alaska trip will:
+1. Open Anthem's page on mobile while traveling or on Wi-Fi sharing networks
+2. Wait several seconds while 11.28 MB of hero imagery loads
+3. See a Cape Liberty / Northeast US / Caribbean deployment framing that's wrong
+4. Read fabricated first-person testimonials with no disclosure
+5. Maybe never reach the actual useful content
+
+Any of the above are individually bad, but the image-weight issue is the one that's:
+- **Measurable** (Core Web Vitals, page weight, bandwidth)
+- **Specific to GitHub Pages hosting** (the bandwidth cap)
+- **Fixable with tools already in the repo** (`convert_to_webp.py`)
+
+---
+
+## Logbook disclosure gap (fleet-wide)
+
+**Standard:** `new-standards/v3.010/LOGBOOK_ENTRY_STANDARD_v3.010.md`, Sections 2 and 3.A.
+
+Every logbook entry is required to open with `## Full disclosure` followed by the 6 other
+named sections (Crew and Staff / Embarkation & Disembarkation / The Real Talk / Accessibility
+on the Seas / A Female Crewmate's Perspective / Closing Thoughts). Section 7 explicitly
+permits fictional composite personas — so the persona format is compliant **as long as**
+the disclosure is present.
+
+Compliance audit:
+
+| Line | Files | Stories | With `## Full disclosure` | With ANY `##` heading |
+|---|---|---|---|---|
+| RCL | 49 | 425 | **1 (0%)** | 1 (0%) |
+| MSC | 24 | 347 | 0 (0%) | 0 (0%) |
+| Virgin Voyages | 4 | 55 | 0 (0%) | 0 (0%) |
+| Carnival | 48 | 496 | 0 (0%) | 0 (0%) |
+| Celebrity | 29 | 268 | **20 (7%)** | 20 (7%) |
+| Norwegian | 20 | 314 | 0 (0%) | 0 (0%) |
+| Princess | 17 | 221 | 0 (0%) | 0 (0%) |
+| **Total** | **191** | **2,126** | **21 (1%)** | **21 (1%)** |
+
+Only 2 logbook JSON files in the repo are fully compliant with the standard:
+- `assets/data/logbook/celebrity-cruises/celebrity-constellation.json` — 10/10 stories
+- `assets/data/logbook/celebrity-cruises/celebrity-infinity.json` — 10/10 stories
+
+Ground-truth reference (first lines of a compliant story from Constellation):
+
+```markdown
+## Full disclosure
+I have not yet sailed Celebrity Constellation. Until I do, this Logbook is an aggregate
+of vetted guest soundings, taken in their own wake, trimmed and edited to our standards.
+
+## The Crew and Staff
+Maren's waiter in San Marco — a veteran of 13 years with Celebrity — gave quiet
+recommendations that never missed...
+```
+
+**Anthem's 10 stories open with raw prose**, no disclosure, no structural spine. The
+persona content is allowed by the standard; the missing disclosure violates it. All 2,105
+other non-compliant stories across the site need either the disclosure added and retro-fit
+to the 7-section spine, or removal.
+
+---
+
+## Flickers of Majesty link — duplicate error across 49 RCL pages
+
+The hero photo credit pill on the Anthem page:
+
+```html
+<a class="pill long" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">
+  Photo by Flickers of Majesty — Instagram
+</a>
+```
+
+The label says "Instagram" but the `href` points to the **website** (`flickersofmajesty.com`).
+**49 RCL ship pages share this same wrong label.**
+
+The correct pattern used on Carnival Mardi Gras and a few other ships has **two separate
+links** — one to the website, one to Instagram — with both labeled clearly:
+
+```html
+<a href="https://www.flickersofmajesty.com">Flickers of Majesty</a>
+(<a href="https://www.instagram.com/flickersofmajesty">@flickersofmajesty</a>)
+```
+
+Fleet-wide RCL gap: **43 of 51 RCL pages are missing the Instagram link entirely**, and
+the 49 that have the (broken) pill label it "Instagram" while linking to the website.
+
+Also: the author card on the Anthem page (lines 902-903) links only to `flickersofmajesty.com`
+with no Instagram alternate, while Carnival ships have `"sameAs": ["https://instagram.com/flickersofmajesty"]`
+in their Organization JSON-LD. The `Person` schema on Anthem (line 170) lists `flickersofmajesty.com`
+as a sole `sameAs` entry — inconsistent cross-fleet structured data.
+
+
+---
+
+## CORRECTION — the 11.28 MB figure was wrong
+
+Earlier this doc claimed "11.28 MB per page view" for the Anthem hero carousel. That is
+wrong. **Every slide image uses `loading="lazy"`**, and subsequent slides are hidden from
+the initial viewport. Only the first image (`anthem-of-the-seas-exterior.jpg`, **3.02 MB**)
+loads on initial page view. Subsequent slides would only load if the browser decides
+they've entered the viewport — and because Swiper navigates via CSS transforms inside an
+`overflow: hidden` container, browsers may or may not fire the lazy-load at all. This is a
+common Swiper + `loading="lazy"` interaction bug and is the likely reason "the anthem
+carousel only loads the first image."
+
+So the true per-page-view cost is about **3 MB of image bandwidth**, not 11 MB. That's
+still huge for a hero image, and the downstream problems still hold:
+- 3 MB for a single LCP image on GitHub Pages cellular mobile is terrible
+- First slide still has `loading="lazy"` (which is an anti-pattern for the LCP element)
+- Preload hints on lines 306-307 target the brand logo + compass rose, not the hero image
+- 7 of 8 images may never load at all, which means the carousel *appears broken* to anyone
+  who clicks next — they see blank slides because lazy-load didn't fire
+- Total repo size is still 4.4 GB (2.1 GB `.git` + 2.3 GB working tree)
+
+---
+
+## Repo size + GitHub Pages exposure (NEW, bigger-picture)
+
+Total repo size: **4.4 GB** (per `du -sh .`). Breakdown:
+- `.git/` history: **2.1 GB** — bloated from committing large image files
+- `assets/`: **1.4 GB**
+- `ports/`: 718 MB (port guides)
+- `admin/`: 93 MB (internal docs)
+- `Reprocessed/`: 40 MB (legacy)
+- `ships/`: 31 MB (ship HTML pages)
+- `images/`: 23 MB
+
+GitHub repo-size soft warning is at **1 GB**. The working tree alone (2.3 GB) is over that,
+and `.git` adds another 2.1 GB.
+
+### `.github/workflows/static.yml` deploys EVERYTHING publicly
+
+```yaml
+- name: Upload artifact
+  uses: actions/upload-pages-artifact@v3
+  with:
+    # Upload entire repository
+    path: '.'
+```
+
+`path: '.'` means the entire working tree gets uploaded and served by GitHub Pages. That
+makes these directories publicly accessible on `cruisinginthewake.com`:
+
+- `admin/` — 93 MB of internal docs, including:
+  - `admin/ANTHEM_OF_THE_SEAS_AUDIT_2026_04_11.md` (this file!)
+  - `admin/GRIEF_STORIES_LOGBOOK_INVENTORY.md`
+  - `admin/PROJECT_STATE_2026_02_14.md`
+  - `admin/CAREFUL_AUDIT_2026_03_27.md`
+  - Standards rebuild docs, competitor audits, unfinished tasks lists, etc.
+- `Reprocessed/` — 40 MB legacy content
+- Any other top-level directory not explicitly filtered
+
+`.md` files don't get rendered by GitHub Pages when `.nojekyll` is present — they're served
+as `text/plain` or similar. But they're still readable by anyone who guesses the URL,
+including search engines that crawl them.
+
+**Information disclosure**: my audit doc, which names the logbook persona fabrications and
+calls specific content "hallucinations" and "license violations," is publicly accessible at
+`https://cruisinginthewake.com/admin/ANTHEM_OF_THE_SEAS_AUDIT_2026_04_11.md` as soon as the
+next static.yml deploy runs. That's the opposite of what an internal audit doc should be.
+
+### Mitigation options
+1. Move `admin/` out of the published path (exclude in static.yml)
+2. Or move internal docs to a separate private repo
+3. Or add a robots.txt disallow (doesn't hide from direct access, just from indexing)
+4. Preferred: update static.yml to use an artifact upload that explicitly lists what should
+   be public, excluding admin/, Reprocessed/, and other non-public dirs
+
+---
+
+## Swiper vendor path 404 (fleet-wide)
+
+Lines 295-300 of `anthem-of-the-seas.html` set up a Swiper loader with a primary path and a
+jsdelivr fallback:
+
+```javascript
+const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+addCSS(primaryCSS);
+addJS(primaryJS, ok, function(){ addCSS(cdnCSS); addJS(cdnJS, ok); });
+```
+
+**There is no `vendor/swiper/` directory anywhere in the repo** (`find . -iname "swiper*"`
+returns nothing). So:
+1. `primaryCSS` `<link>` 404s silently
+2. `primaryJS` 404s → fallback runs → loads `cdnCSS` + `cdnJS` from jsdelivr
+3. Every Anthem page load wastes 2 round-trip requests before the fallback kicks in
+4. Load order race: `cdnCSS` and `cdnJS` are both added together, but `window.__swiperReady`
+   fires on `cdnJS.onload` regardless of whether the CSS has finished loading
+5. Swiper init can run before the Swiper CSS is applied → slides may not be positioned
+   correctly on first paint
+
+The Swiper library was clearly *supposed* to be self-hosted under `/vendor/swiper/` but
+someone removed (or never added) the actual files. 45+ ship pages are using the jsdelivr
+fallback on every load.
+
+---
+
+## Still-open questions
+
+None of the above is definitively "the issue" the user noticed. Candidates so far:
+
+1. **Dangling attribution + missing Kiran891 credit + missing Liverpool 2021 credits** —
+   license-compliance issue visible to any careful reader.
+2. **Flickers of Majesty pill label says "Instagram" but links to website**, and Instagram
+   link is missing entirely (43 RCL pages without Instagram link).
+3. **`loading="lazy"` on the LCP element** + carousel slides 2-8 may never load, so anyone
+   trying to see photos 2-8 gets blank slides.
+4. **Swiper vendor path 404** on every load.
+5. **assets/ships/ is 1.26 GB + repo total is 4.4 GB** — over GitHub's 1 GB soft warning,
+   eats bandwidth.
+6. **admin/ internal docs publicly exposed** via static.yml `path: '.'`.
+7. **3.02 MB LCP image** with wrong preload hints and lazy loading.
+8. **Stale deployment narrative** ("year-round New York Cape Liberty") while she's in Sydney.
+9. **Fabricated logbook personas without the standard's required disclosure** (1% fleet-wide
+   compliance).
+10. **Stats loader SOURCES paths don't exist** — page.json is dead data at runtime (45 RCL
+    pages affected).
+11. **Live tracker iframe hardcoded to NW Atlantic lat/lon** (stale for her Sydney and
+    Alaska 2026 seasons).
+12. **2 ships have wrong-ship hero images** (Seven Seas Mariner → Mariner of the Seas;
+    Seven Seas Voyager → Voyager of the Seas — different brand, 3x size difference).
+13. **ICP-Lite v1.4 protocol** instead of ICP-2.
+14. **ai-breadcrumbs HTML comment** still present.
+15. **"Dynamic Dining" in Review JSON-LD** — stale 2015 Quantum marketing, abandoned ~2017.
+16. **Review JSON-LD author** says "In the Wake Editorial Team" while everything else says
+    Ken Baker.
+17. **4 venue hallucinations** (Giovanni's Table, Brass & Bock, Café Latte-tudes, Champagne
+    Bar) and 1 rename needed (Diamond Club → Diamond Lounge).
+18. **Length off by 2 ft** (1,141 or 1,142 ft on HTML vs 1,139 ft per Meyer Werft).
+19. **Right-rail placeholder filler block** duplicating the main column with generic copy.
+
+
+---
+
+## DEEPER DIVE — Service worker & PWA integration gap (the root cause of "only first image loads")
+
+**User's confirmed symptom**: "ONLY the first image in the carousel loads, not the rest of them."
+**User's next hint**: "AND the service worker isn't warming those images up i'm sure either."
+
+Full trace of why the carousel appears broken:
+
+### The mechanism for warming images EXISTS in the repo but is never wired up
+
+`assets/js/sw-bridge.js` has a `scanAndSeed()` function (lines 186-261) that:
+
+1. Walks the DOM for `img[src]`, `source[srcset]`, and `[style*="background-image"]`
+2. Collects all same-origin WebP/JPG/PNG URLs
+3. Posts `{type: 'SEED_URLS', urls: imageUrls, priority: 'low'}` to the active service worker
+4. The SW's message handler then fetches those URLs in the background and stores them in `CACHES.IMAGES`
+
+Comment at lines 179-184:
+
+> *"After each page load, scan for same-origin links and key images, then send them to the SW
+> for background caching. This means every page the user visits progressively caches linked
+> pages — ports link ships, ships link tools, tools link ports. By the time a cruiser boards,
+> most of the site is available offline."*
+
+The intent is clear: **every page is supposed to proactively warm its own images into the SW
+cache**. But:
+
+| Script | Loaded by | Purpose |
+|---|---|---|
+| `sw-bridge.js` | **0 HTML files** | scanAndSeed images on every page load |
+| `site-cache.js` | 12 aggregator pages (ships.html, cruise-lines/*, tools/*) | network-aware hover prefetch for links |
+
+**Zero ship pages** load either. The SW is registered on every ship page (`sw.js`), but nothing
+coordinates with it. The carousel's 7 hidden slides (2 through 8) are never seeded, never
+requested, never cached, and — because their `loading="lazy"` attribute plus Swiper's CSS-
+transform navigation inside `overflow: hidden` — they may never fire browser lazy-load either.
+
+Result: the user sees a carousel that visually only ever shows slide 1. Clicking next arrows
+either reveals blank slides or broken image icons.
+
+### `isShipImage()` regex bug — 837 ship images fall through to the wrong strategy
+
+`sw.js` line 977:
+
+```javascript
+function isShipImage(url) {
+  return /^\/ships\/.*\.(avif|webp|jpg|jpeg|png)(\?.*)?$/i.test(url.pathname);
+}
+```
+
+The regex requires the path to start with `/ships/`. But **every single Anthem carousel image
+— and every ship image site-wide — lives at `/assets/ships/...`**, not `/ships/...`. The
+regex returns `False` for all of them:
+
+```
+False  /assets/ships/rcl/anthem-of-the-seas-exterior.jpg
+False  /assets/ships/Anthem_of_the_Seas_(cropped).webp
+False  /assets/ships/Anthem_of_the_Seas_(ship,_2015)_at_Liverpool_2021-6.jpg
+```
+
+Counts: 383 `.jpg` + 454 `.webp` = **837 ship images in `/assets/ships/`** that the SW
+mis-identifies. The fetch handler lines 148-155:
+
+```javascript
+if (destination === 'image' || isImageURL(url)) {
+  if (isShipImage(url)) {
+    event.respondWith(cacheFirstStrategy(request, CACHES.IMAGES, CONFIG.maxImages));
+  } else {
+    event.respondWith(staleWhileRevalidate(request, CACHES.IMAGES, CONFIG.maxImages));
+  }
+}
+```
+
+So every ship carousel image that DOES get fetched goes to `staleWhileRevalidate` — which
+**always hits the network first**, revalidating in background. That's the wrong strategy for
+ship images which "rarely change" (per comment on line 149). Ship images should be `cache-
+first` so repeat visits don't re-download.
+
+### Precache manifest has 3 images — none of them ship images
+
+`precache-manifest.json` is fetched by the SW on `install` and warms `CACHES.PRECACHE`:
+
+```json
+"images": [
+  {"url": "/assets/index_hero.jpg", "priority": "high"},
+  {"url": "/authors/img/ken1.jpg", "priority": "normal"},
+  {"url": "/authors/img/tina3.webp", "priority": "normal"}
+]
+```
+
+Three. Site-wide. None of them are ship carousel images. No ship-specific precache strategy
+exists. The SW `maxImages: 600` — there's room for 597 more in the cache, completely unused.
+
+### Swiper vendor path 404 (again, in this context)
+
+Adding this to the SW chain: the Anthem page loads Swiper from
+`https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.{css,js}` — which 404s because
+`vendor/swiper/` does not exist in the repo. The fallback loads from jsdelivr. When the
+fallback JS succeeds, `window.__swiperReady = true` fires immediately, but the fallback CSS
+is loaded via a separate `<link>` injection and has no load-event coordination. Result: a
+race where Swiper may initialize before its CSS is applied, causing slides to mis-position on
+first paint.
+
+### Full chain of failures that produce "only first image loads"
+
+1. Page loads, HTML parses, 8 `<img>` elements are in DOM
+2. Slide 1 is above-the-fold, `loading="lazy"` allows initial load → **slide 1 fetches**
+3. Slides 2-8 are in `.swiper-slide` divs inside `.swiper-wrapper` — all off-screen
+4. Swiper tries to init, but its CSS may be racing the fallback `<link>` insertion
+5. Even if Swiper inits cleanly, slides 2-8 are translated via CSS `transform` — their
+   bounding boxes are outside the container's `overflow: hidden` viewport
+6. Native `loading="lazy"` IntersectionObserver: slides 2-8 are not "in viewport" → defer
+7. User clicks next arrow — Swiper animates a transform → slide 2's bounding rect enters
+   viewport → IntersectionObserver may or may not fire (depending on Chrome version and
+   animation timing)
+8. **No page-side script is sending SEED_URLS to the SW** (sw-bridge.js not loaded)
+9. Service worker has zero ship images in precache
+10. `isShipImage()` returns false for the image path, so even if it WAS fetched, it'd use the
+    wrong cache strategy
+11. The user sees an empty slide 2. They may conclude the carousel is broken.
+
+**All 5 failure layers combine** to produce exactly the observed symptom.
+
+### The fix is a handful of small edits
+
+1. **Remove `loading="lazy"`** from the first slide image (LCP should be eager)
+2. **Remove `loading="lazy"`** from slides 2-8 OR wire up Swiper's native `lazyLoading`
+   option with `loadOnTransitionStart: true`
+3. **Load `sw-bridge.js`** on ship pages — add `<script src="/assets/js/sw-bridge.js" defer>`
+4. **Fix `isShipImage()` in sw.js** to match `/assets/ships/...` in addition to `/ships/...`
+5. **Fix the `<link rel="preload">` hints** (lines 306-307) to preload the first hero image
+   with `fetchpriority="high"`, not the brand logo and compass rose
+6. **Populate precache-manifest.json** with a per-line ship image list, or have
+   `download-ship-images.py` write the list as a build step
+7. **Also consider**: sv-hosted Swiper at `/vendor/swiper/` OR remove the dead primary URL and
+   use jsdelivr as the primary
+
+---
+
+## DEEPER DIVE — SEO / indexing issues on the image carousel
+
+`robots.txt` line-by-line shows these disallows:
+- `Disallow: /assets/`
+
+**That blocks every image in the repo from Google Image search indexing.** For a travel
+planning site, image search traffic ("Anthem of the Seas photo", "Quantum class cruise ship
+North Star") is a major organic source. Blocking `/assets/` globally kills that traffic at
+the source.
+
+`sitemap.xml` has:
+- 1,227 `<url>` entries (HTML pages only)
+- **Zero `<image:image>` entries** (no image sitemap extension)
+
+Anthem's entry:
+```xml
+<loc>https://cruisinginthewake.com/ships/rcl/anthem-of-the-seas.html</loc>
+<lastmod>2026-01-31</lastmod>
+```
+
+Sitemap `<lastmod>` is **2026-01-31**, but the page's HTML `<meta name="last-reviewed">` is
+**2026-02-14**. Sitemap is ~2 weeks stale vs page, and both are ~2 months stale vs today
+(2026-04-11).
+
+**Image SEO gap**: even if `/assets/` were allowed, there's no image sitemap extension
+pointing at the carousel images. Google has no signal that `anthem-of-the-seas-exterior.jpg`
+is worth indexing. Combined with `loading="lazy"` on the LCP image, Google's crawler may not
+see any of the ship images.
+
+---
+
+## DEEPER DIVE — content issues I found skimming the carousel section one more time
+
+- **The first slide bypasses the `<figure>` wrapper** that slides 2-5 use, so it has no
+  `<figcaption>` — it's the only slide without a caption. Visual inconsistency.
+- **Slides 6-8 also bypass `<figure>`** for the same inconsistency.
+- **Slide 1 `<img>` is missing `decoding="async"`** (all others have it).
+- **Slide 1 `<img>` is missing `width`/`height`** attributes — causes CLS because the
+  browser can't reserve layout space.
+- **Slide 3's alt text "Bow view at Liverpool"** and slide 4's alt text "View from the bow
+  at Liverpool" describe the same angle twice. Either one is wrong or they're the same.
+- **Slides 2-5 figcaptions** say *"Photo served locally (attribution in page footer)"* but
+  the page footer attribution section does NOT list any of the Liverpool 2021 files.
+  The figcaption text is a lie — readers following it to the attribution section find
+  nothing, which is both a UX bug AND a CC BY-SA 4.0 license compliance gap.
+- **Slide 1 and Slides 7's files are the same ship event** — both are March 14, 2024 Nassau
+  docked photos from different Wikimedia contributors (Kiran891 AFT + Acabashi 16-9). Having
+  two photos from the exact same moment in the same carousel is redundant.
+
+
+---
+
+## DEEPER DIVE — Batch 2 findings
+
+### PWA icon chain: 3 of 4 icon references are broken
+
+Line 243: `<link rel="icon" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>` ✓ exists
+Line 244: `<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>` **✗ file doesn't exist** (correct file would be `in_the_wake_icon_180x180.png`)
+Line 245: `<link rel="manifest" href="/manifest.webmanifest"/>` → manifest references:
+- `/assets/icons/icon-192.png?v=14.2.0` **✗ file doesn't exist**
+- `/assets/icons/icon-512-maskable.png?v=14.2.0` **✗ file doesn't exist**
+
+What DOES exist in `assets/icons/`: `in_the_wake_icon_{16,24,32,48,64,72,96,128,152,180,192,256,512}x{…}.png` plus `.webp`. The filenames don't match any manifest reference.
+
+**120 HTML files** reference the missing `/assets/icons/apple-touch-icon.png`. iOS home-screen
+installs of any of those pages get iOS's default icon, not the In the Wake logo.
+
+PWA installability:
+- Android adaptive icons need a maskable variant — **no maskable icon exists anywhere in the repo**
+- The `/manifest.webmanifest` lists "maskable" as a purpose on icon-512-maskable.png, but that file doesn't exist
+- Chrome's Lighthouse PWA audit will flag this as "Does not have a maskable icon"
+
+`manifest.json` and `manifest.webmanifest` are TWO different files for TWO different PWAs:
+- `manifest.json` claims the app is "Stateroom Sanity Check" with `start_url: /stateroom-check.html`
+- `manifest.webmanifest` claims it's "In the Wake — Cruise Planning & Port Guides" with `start_url: /`
+
+Anthem's HTML loads `manifest.webmanifest`. The `manifest.json` is orphaned/shadow — only the stateroom-check page should reference it.
+
+### Review JSON-LD `image` field references a non-existent file (fleet-wide pattern)
+
+Line 155 on Anthem:
+```json
+"image": "https://cruisinginthewake.com/assets/ships/anthem-of-the-seas1.jpeg"
+```
+
+`anthem-of-the-seas1.jpeg` does not exist. Counterpart files `.jpeg` with numeric suffix
+don't exist in `assets/ships/` at all. This is a templated pattern from older page generation
+that was never replaced with real file paths.
+
+Fleet-wide: **36 RCL ship pages have broken JSON-LD Review `image` references** with the
+`<slug>1.jpeg` pattern. Radiance of the Seas has 2 additional broken refs (`<slug>2.jpg`,
+`<slug>3.jpg`). Search engines crawling structured data see these as broken-image signals,
+potentially disqualifying the pages from rich snippets.
+
+Ships affected include:
+- adventure, allure, anthem, explorer, freedom, harmony, icon, independence, icon-class-tbn,
+  legend, liberty, mariner, monarch, navigator, nordic-empress, oasis, odyssey, ovation,
+  quantum, quantum-ultra-tbn, radiance (×3), song-of-norway, sovereign, spectrum, splendour,
+  star-class-tbn, star, symphony, utopia, voyager, wonder
+
+### Generic deck-plan preview on 188 ship pages
+
+Line 774 uses `/assets/ship-map.png` (a generic 830×363 PNG) with alt text
+`"Anthem of the Seas simplified deck plan preview"`. The same generic image is reused on
+**188 ship pages** fleet-wide, each time with alt text claiming it's the specific ship's
+deck plan preview. It isn't. The alt text lies on every page.
+
+Actual deck plan images exist for only 2 ships (`Caribbean_Princess_deck.jpg`,
+`Star_Princess_deck.jpg`). Every other ship falls back to the generic placeholder.
+
+### Heading hierarchy has an H1→H3 skip
+
+Line 461: `<h1 class="page-title">Anthem of the Seas — ...` (H1)
+Line 467: `<h3 ...>Key Facts</h3>` (inside intro fact-block) — **skips H2**
+
+Screen readers announcing this hierarchy will say: "Heading level 1, Anthem of the Seas…
+Heading level 3, Key Facts" — leaving listeners wondering what the implicit H2 was. WCAG
+2.1 SC 1.3.1 (Info and Relationships) failure for heading-level skipping.
+
+Separately, the page has **3 different "Key Facts" headings**:
+- Line 467 in main intro fact-block
+- Line 543 as `<h3 id="statsHeading">` before the stats grid
+- Line 864 in the right-rail callout
+
+All three have the label "Key Facts" (or "Key Facts About Anthem of the Seas"). Screen
+reader navigation by heading will hit three near-identical "Key Facts" entries.
+
+### Version string inconsistency across asset loads
+
+- Line 255: `styles.css?v=3.010.400`
+- Line 256: `ship-page.css?v=3.010.300`
+- Line 307: `compass_rose.svg?v=3.010.400`
+- Line 895: `ken1.webp?v=3.010.400`
+- SW: `VERSION = '14.2.0'`
+- Manifest: icons versioned `?v=14.2.0`
+
+Two different cache-busting schemes side by side. `ship-page.css` is pinned to an older
+`.300` version while `styles.css` is on `.400` — if those files have any conflicting rules,
+browsers cache them independently and users can get a mismatched-rule render.
+
+### Apple-touch-icon missing on 120 HTML files
+
+`<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>`
+appears on 120 HTML files site-wide. On all 120, the referenced file doesn't exist.
+
+### Everything assembled: "why does only the first image load" has a 9-step explanation
+
+1. `loading="lazy"` on slide 1 is wrong for LCP but happens to render because it's above-fold
+2. Slides 2-8 also `loading="lazy"` — they're off-screen so defer
+3. Swiper uses CSS `transform` navigation inside `overflow: hidden`
+4. Browser's IntersectionObserver may or may not fire when Swiper shifts slide bounds
+5. `sw-bridge.js` (which would scan-and-seed images to the SW) is **not loaded** on any ship page
+6. Precache manifest has **0 ship images**
+7. `isShipImage()` regex doesn't match `/assets/ships/*` — wrong cache strategy even if fetched
+8. Swiper primary vendor path 404s; race with jsdelivr CSS fallback can mis-position slides
+9. Native `<link rel="preload">` hints target logo + compass rose, not the actual LCP hero
+
+**This is, end-to-end, the root cause of the user-reported symptom.**
+
+
+---
+
+## DEEPER DIVE — Batch 3 findings
+
+### Structured data: wrong Schema.org type on 47 RCL pages
+
+Anthem's Review JSON-LD uses:
+```json
+"itemReviewed": {
+  "@type": "Cruise",     // ← WRONG
+  "name": "Anthem of the Seas",
+  ...
+}
+```
+
+Schema.org defines these distinct types:
+- **`Cruise`** — a subclass of `Trip` representing a cruise **voyage or itinerary** (a booking/travel product)
+- **`CruiseShip`** — a subclass of `Vehicle` representing a **physical cruise ship**
+
+Anthem of the Seas is a ship, not a voyage. The correct type is `CruiseShip`. **47 of 51 RCL
+ship pages have this same wrong type**. Google parses structured data strictly; marking a
+ship as a travel itinerary is a semantic mismatch that can prevent the page from appearing
+in `CruiseShip`-oriented knowledge graph queries.
+
+(The MSC and Virgin Voyages fleet repairs I did earlier use `CruiseShip` correctly. Only RCL
+ship pages have this bug.)
+
+### Review JSON-LD missing `reviewRating` on 49 of 49 RCL pages with Review schema
+
+Schema.org's `Review` type accepts a `reviewRating` sub-object. Google's Rich Results
+guidelines **require** it for the page to be eligible for review rich snippets. Anthem's
+Review block has no `reviewRating`, no `ratingValue`, no `bestRating`, no `worstRating` —
+the whole rating sub-tree is absent. Every RCL ship page with a Review block has the same
+gap.
+
+Also, the current `Review.author` is `"In the Wake Editorial Team"` while the page's
+Article and Person schemas attribute authorship to "Ken Baker". Inconsistent authorship
+across JSON-LD types.
+
+### 3 render-blocking scripts at bottom of body
+
+Lines 1329-1335 load these with neither `async` nor `defer`:
+- `/assets/js/whimsical-ship-units.js`
+- `/assets/js/dropdown.js`
+- `/assets/js/in-app-browser-escape.js`
+
+Because they're at the END of body, they don't block the initial paint, but they DO block
+`DOMContentLoaded` from firing until they've executed. Every page load pays for three
+sequential synchronous script loads after the HTML streams in.
+
+### All 8 carousel images missing `width`/`height` attributes (CLS hit)
+
+Lines 500, 504, 510, 516, 522, 527, 530, 533 — every hero carousel `<img>` lacks explicit
+dimensions. The browser can't reserve layout space for them. When the 3 MB hero image
+finally loads, the entire page layout shifts down by its rendered height — a **Cumulative
+Layout Shift (CLS) hit**. Core Web Vitals CLS should be < 0.1; an unannounced hero image
+push can send it over 0.25.
+
+The In the Wake logo (lines 353, 446) DOES have width/height. Ken Baker's author avatar
+(line 896) has width/height. The fix pattern is known — it just wasn't applied to carousel
+slides.
+
+### `assets/data/ships.json` missing the entire Quantum class
+
+`ship-port-links.js` line 18: `SHIPS_URL = '/assets/data/ships.json'` — used to look up ship
+metadata for bidirectional ship-port linking. But `assets/data/ships.json` has only **25
+entries**:
+
+```
+icon-of-the-seas, star-of-the-seas, oasis-of-the-seas, allure-of-the-seas,
+harmony-of-the-seas, symphony-of-the-seas, wonder-of-the-seas, utopia-of-the-seas,
+freedom-of-the-seas, liberty-of-the-seas, independence-of-the-seas,
+voyager-of-the-seas, explorer-of-the-seas, adventure-of-the-seas,
+navigator-of-the-seas, mariner-of-the-seas, radiance-of-the-seas,
+brilliance-of-the-seas, serenade-of-the-seas, jewel-of-the-seas,
+vision-of-the-seas, rhapsody-of-the-seas, enchantment-of-the-seas,
+grandeur-of-the-seas, majesty-of-the-seas (archive)
+```
+
+**Missing**: Anthem, Quantum, Ovation, Spectrum, Odyssey — **the entire Quantum class**.
+Plus all other cruise lines' ships (MSC, Virgin, Carnival, Celebrity, Norwegian, Princess,
+HAL, Cunard, etc.). The file is RCL-only and 50% incomplete.
+
+Fleet-wide data-source fragmentation: I found 8 candidate files, all containing some
+version of ship data, none of which are canonical:
+- `assets/data/ships.json` (25 entries, Quantum missing)
+- `assets/data/fleets.json` (top-level `groups` empty, nested `Quantum Class` has ships)
+- `assets/data/ship_pages.json` (indexed by name, has Anthem)
+- `data/fleets.json` (duplicate of assets/data/fleets.json?)
+- `data/fleets_index.json`
+- `data/ship_pages.json`
+- `ships/fleets.json`
+- `ships/ship_pages.json`
+
+The same data is duplicated across 8 files with drift. `ship-port-links.js` reads the ONE
+file that's incomplete, so Quantum-class ship-port linking is silently broken.
+
+### Stale sitemap.xml `lastmod`
+
+Anthem's sitemap entry:
+```xml
+<loc>https://cruisinginthewake.com/ships/rcl/anthem-of-the-seas.html</loc>
+<lastmod>2026-01-31</lastmod>
+```
+
+Today is 2026-04-11. `lastmod` is ~10 weeks stale. The page itself has
+`<meta name="last-reviewed" content="2026-02-14">` — also stale but less so. And the
+Article JSON-LD `dateModified: "2026-02-14"`. Three date signals, three different answers,
+none of them current.
+
+### "Minimal analytics" trust badge vs two analytics scripts
+
+Footer (line 982): `✓ No ads. Minimal analytics. Independent of cruise lines.`
+
+Actual analytics loaded on the page:
+- Line 83: Google Analytics 4 (gtag.js) — property `G-WZP891PZXJ`
+- Line 92: Umami (cloud.umami.is) — website-id `9661a449-3ba9-49ea-88e8-4493363578d2`
+
+Two analytics providers is "minimal" compared to the commercial web, but "minimal
+analytics" + Google Analytics is a claim that trust-sensitive readers may flag.
+
+### GitHub deployment is uploading `.git/` unintentionally? Let me verify
+
+`upload-pages-artifact@v3` with `path: '.'` — per the action's documentation, it honors
+standard excludes for `.git/`, so .git is not deployed. OK, so the 2.1 GB Git history
+doesn't go out over the wire per deploy, but the 2.3 GB working tree (including `admin/`,
+`Reprocessed/`, `old-files-extracted/`-not-in-.gitignore, and everything else) IS uploaded.
+
+### The "Photo served locally (attribution in page footer)" figcaption lie
+
+Appears 4 times on the Anthem page (slides 2-5, Liverpool 2021 figures), each saying
+*"Photo served locally (attribution in page footer)."* But the footer attribution section
+does NOT list any Liverpool 2021 images. Any reader clicking through looking for the
+attribution finds nothing.
+
+The same figcaption text is also used on many other ship pages:
+
+36 ship pages use this figcaption
+
+(That's how many pages have the figcaption lie; each one needs either a real
+attribution or the misleading caption removed.)
+
+---
+
+## DEEPER DIVE — Batch 4 findings
+
+### JavaScript safety — half-escape pattern in render functions (XSS defense-in-depth)
+
+Multiple inline render functions use a half-escape pattern that only replaces `<` → `&lt;`:
+
+- Line 1027 (logbook `renderOne`): `const title=String(p.title||...).replace(/</g,'&lt;');`
+- Line 1071 (video `renderVideos`): `const title=String(v.title||'Anthem...').replace(/</g,'&lt;');`
+- Line 1117 (stats `renderStats`): `statHtml += '<span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span>';`
+
+Half-escape is worse than nothing:
+- `>` not replaced — closing tags from user data still break out
+- `&` not replaced — double-encoding ambiguity
+- `"` not replaced — attribute-quote injection possible
+- For values written into `href="..."` contexts (as done in the dining loader on line 1179),
+  a value containing `"` breaks out of the attribute and the rest is parsed as HTML attrs
+
+The `mdToHtml` function on line 1024 does MORE:
+```javascript
+html.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>')
+```
+It writes user-supplied content directly into `href="..."` with ZERO sanitization. A
+markdown link `[click me](javascript:alert(1))` becomes:
+```html
+<a href="javascript:alert(1)">click me</a>
+```
+Which would fire XSS on click. Because the page writes the result via
+`mount.innerHTML = html` (line 1041), the script would execute.
+
+**Data sources are local JSON files** (same-origin, no user input), so the risk is
+supply-chain only — an attacker who can modify a logbook JSON can execute arbitrary JS in
+the page. Still a defense-in-depth gap: all innerHTML writes from JSON should use safe
+DOM construction or full HTML escaping (`<`, `>`, `&`, `"`, `'`).
+
+### Load-order bug: whimsical-ship-units.js depends on fun-distance-units.js but runs first
+
+- Line 1103: `<script src="/assets/js/fun-distance-units.js" defer></script>`
+- Line 1329: `<script src="/assets/js/whimsical-ship-units.js"></script>` (no defer)
+
+`defer` scripts execute AFTER parsing, in order, before DOMContentLoaded. Non-defer scripts
+at the end of body execute AS the parser encounters them. So:
+1. Parser hits line 1103 → queues fun-distance-units.js for deferred execution
+2. Parser hits line 1329 → **executes whimsical-ship-units.js immediately**
+3. whimsical checks `if (!window.funDistance) { setTimeout(init, 200); return; }`
+4. `window.funDistance` is undefined (fun-distance not loaded yet)
+5. whimsical sets a 200ms timer, then re-checks
+6. Meanwhile fun-distance's deferred execution happens at DOMContentLoaded time
+7. On first retry, `window.funDistance` IS available → whimsical renders
+
+Result: the "Measuring in Whimsy" card has a ~200ms delayed render on every page load.
+Works eventually but is janky. Fix: add `defer` to whimsical-ship-units.js OR load it AFTER
+fun-distance with explicit order.
+
+### Pre-commit security hook is not installed
+
+`admin/hooks/pre-commit` is an 11,153-byte executable bash script that performs:
+- Forbidden file type checks (`.env`, `.pem`, `.key`, etc.)
+- Secret scanning
+- Other security-related validation
+
+**It is NOT installed** at `.git/hooks/pre-commit`. The file only exists at
+`.git/hooks/pre-commit.sample` (git's default placeholder). So the security hook is
+dormant — its checks never run on commits. Whoever set up the repo started to add a
+security gate, then never wired it up.
+
+### 38 RCL pages still have `ai-breadcrumbs` HTML comment + 40 still on ICP-Lite
+
+- **38 of 51 RCL pages** have the legacy `<!-- ai-breadcrumbs ... -->` HTML comment block.
+  ICP-2 v2.1 says remove these — crawlers don't read HTML comments, so they're dead code.
+- **40 of 51 RCL pages** still have `content="ICP-Lite v1.x"` as their content-protocol.
+- Only **13 RCL pages** are on ICP-2. The migration was started but stalled.
+
+(By comparison, MSC and Virgin fleet repairs I did earlier are at 100% ICP-2.)
+
+### Even the bug-fixed fields have inconsistent casing
+
+`v2` = `venues-v2.json` but the JS sometimes uses `venues.json`, sometimes `venues-v2.json`,
+sometimes via the mistake in `fixDiningJSON`. The inline `dining-data-source` JSON says
+one thing; the script overrides to another at runtime. If you are trying to trace what data
+the user actually sees at runtime, you have to read 4 files to figure out which one actually
+loads. No authoritative source-of-truth comment anywhere explains what the current desired
+path is.
+
+
+---
+
+## DEEPER DIVE — Batch 5: the actual CSS/Swiper chain that produces the symptom
+
+The site's own `assets/styles.css` defines these firstlook rules at lines 520-567:
+
+```css
+.swiper.firstlook {
+  aspect-ratio: 16/9;
+  min-height: 220px;
+  max-height: 500px;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+.swiper.firstlook .swiper-wrapper { display: flex; overflow: hidden; }
+.swiper.firstlook .swiper-slide { flex: 0 0 100%; max-width: 100%; }
+.swiper.firstlook img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+The comment on line 562 literally says: *"Swiper fallback (no JS) - show first slide only"*.
+So the layout is **deliberately designed to clip all slides except the first** when Swiper
+is missing. Slides 2-8 are pushed to the right in a flex row; `overflow: hidden` clips them.
+
+Now here's the critical gap: **the site has NO CSS for the firstlook carousel's navigation
+buttons or pagination**. Grep for `.swiper-button-prev`/`.swiper-button-next`/
+`.swiper-pagination` under `.swiper.firstlook` in `assets/styles.css`:
+
+```
+(no matches)
+```
+
+The only `.swiper-button-*` rules are at lines 565-567 (which *hide* them for fallback) and
+lines 612-613 (which style them for `.swiper.videos` — not `.swiper.firstlook`).
+
+So the firstlook arrows and dots rely **entirely on Swiper's bundled CSS** to render. That
+CSS is loaded from:
+
+1. **Primary**: `https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css` — **404**
+   (the file does not exist in the repo)
+2. **Fallback**: `https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css` — loads async,
+   no load-event coordination with the JS init
+
+If the jsdelivr fallback is slow, blocked, or races with the JS init:
+- **The nav arrows are invisible** (no size, no icons, no positioning)
+- **The pagination dots are invisible**
+- **The user has no visible way to navigate past slide 1**
+
+Combine with:
+- All slides have `loading="lazy"`
+- Slides 2-8 are off-screen due to `flex: 0 0 100%` + `overflow: hidden`
+- Browser native lazy-load defers their fetch
+- No page-side script seeds them into SW cache (sw-bridge.js not loaded)
+- SW precache doesn't include ship images
+- Even if fetched, `isShipImage()` returns false so they get the wrong cache strategy
+
+**This is the complete, end-to-end explanation of "only the first image in the carousel
+loads."** It's not one bug; it's a cascade where the CSS fallback deliberately hides
+slides 2-8 until JS is ready, and then JS either races or fails to render the navigation
+that would let the user trigger the image fetches.
+
+### Fix options (cheapest to most thorough)
+
+1. **Self-host Swiper at `/vendor/swiper/`** — the primary URL is already referenced,
+   just copy the files from `node_modules/swiper/` or jsdelivr into the repo. This removes
+   the 404 and the race.
+2. **Remove the primary URL** — edit `ships/rcl/anthem-of-the-seas.html` line 295-296 to
+   skip the primary and go straight to jsdelivr. Keeps the CDN dependency but eliminates
+   the dead-path round trip.
+3. **Add site-level CSS rules for `.swiper.firstlook .swiper-button-*`** — so the buttons
+   render even if Swiper CSS is delayed. Plus a simple `>` / `<` glyph fallback.
+4. **Replace Swiper entirely** with a simpler CSS scroll-snap carousel — removes the
+   library dependency and all its race conditions. Browser lazy-loading works reliably
+   with scroll-snap.
+5. **Remove `loading="lazy"` from ALL firstlook img tags** — ensures all 8 images load
+   regardless of Swiper state. Costs ~11 MB per page load (even with cache), but fixes
+   the visible-content bug immediately.
+6. **Preload slide 1 with `fetchpriority="high"`** — fixes LCP for the first image and
+   removes the `loading="lazy"` anti-pattern on the LCP element.
+7. **Load `sw-bridge.js`** on ship pages — enables the existing scanAndSeed mechanism to
+   warm the SW cache in the background for slides 2-8, independent of Swiper.
+8. **Fix `isShipImage()` regex** in sw.js to match `/assets/ships/...` as well.
+
+Any ONE of #1-#5 individually fixes the visible symptom. Doing all of them (plus #6, #7, #8)
+is the complete fix.
+
+
+---
+
+## DEEPER DIVE — Batch 6: broken fragment navigation + article index drift + precache gaps
+
+### 9 of 12 fragment links on Anthem are broken (75% fail rate)
+
+Anthem has 12 internal `href="...#..."` links. Nine point at fragment identifiers that
+**do not exist** on the target page:
+
+| Link | Status |
+|---|---|
+| `ships.html#quantum-class` | ✗ fragment missing |
+| `ships.html#oasis-class` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#radiance` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#voyager` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#freedom` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#quantum` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#oasis` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#icon` | ✗ fragment missing |
+| `cruise-lines/royal-caribbean.html#vision` | ✗ fragment missing |
+
+The entire "Explore Royal Caribbean Classes" pill row (lines 585-598) is 7 dead anchors.
+The `#quantum-class` and `#oasis-class` references in the intro content-text (line 487)
+also go nowhere. Users clicking any pill just jump to the top of the target page.
+
+### Fleet-wide: 380 broken fragment links across 49 of 51 RCL ship pages
+
+Scan across `ships/rcl/*.html`:
+- **49 of 51 pages** have at least one broken fragment link
+- **380 total broken fragments** across the fleet
+- Worst offenders: adventure-of-the-seas (11), allure (10), anthem (9), brilliance (9)
+
+The "Explore Royal Caribbean Classes" template propagated the bad links to essentially
+every ship. Nobody ever added the `id="<class>"` sections on `royal-caribbean.html`.
+
+### precache-manifest.json references a missing file
+
+Line 75: `"sitemaps": ["/sitemap.xml", "/sitemap.json"]`
+
+- `/sitemap.xml` ✓ exists (1,227 URLs)
+- `/sitemap.json` ✗ **does not exist in the repo**
+
+`warmPrecache()` in the SW will fail silently on the 404 (the fetch result has `ok=false`
+so it's skipped). Wasted round-trip per SW install. Also, `site-cache.js` line 60 includes
+`/sitemap.json` in its BASE_SEEDS list — same wasted fetch on every page load for the 12
+pages that load site-cache.js.
+
+### Articles index drift — one indexed article doesn't exist, one existing article isn't indexed
+
+`assets/data/articles/index.json` lists 7 published articles. `solo/` has 7 html files.
+But they don't match:
+
+| Indexed | On disk |
+|---|---|
+| `top-20-first-cruise-questions` | **NOT on disk** → any rail link 404s |
+| `solo-cruisers-companion` (on disk) | **NOT indexed** → no way to discover it from the rail |
+
+Anthem's right-rail "Recent Stories" uses `/solo/<slug>.html` as the link target. When the
+rail renders the first 6 articles, one of them 404s on click.
+
+### Articles index has a phantom author
+
+`top-20-first-cruise-questions` has `author: "In the Wake Editorial Team"`. The file
+`data/authors.json` lists only Ken Baker and Tina Maulsby. "Editorial Team" is not a real
+author and has no profile page, so the "by Editorial Team" byline in the rail has no
+destination.
+
+(This is also the same phantom author credited in the Anthem Review JSON-LD on line 142:
+`"author": {"name": "In the Wake Editorial Team"}`.)
+
+
+---
+
+## DEEPER DIVE — Batch 7: orphaned/template/test content publicly deployed + more data drift
+
+### `ships/template.html` — unfilled template deployed publicly
+
+```html
+<title>{{SHIP_NAME}} — Royal Caribbean Review & Guide (v2.245)</title>
+...
+<section id="dining-card" class="card" data-ship="{{SHIP_NAME}}" ...>
+```
+
+A 715-line Royal Caribbean ship page template with literal `{{SHIP_NAME}}` placeholder
+text throughout. **It is publicly deployed** on GitHub Pages via `static.yml`'s
+`path: '.'`. Any user hitting `https://cruisinginthewake.com/ships/template.html` sees
+the page titled literally "{{SHIP_NAME}} — Royal Caribbean Review & Guide (v2.245)".
+
+Not blocked by `robots.txt`. Not excluded from static deploy. No canonical rewrite.
+Google may or may not index it.
+
+### `ships/rcl/test/allure-of-the-seas.html` — test copy also deployed publicly
+
+738 lines diff from the production `ships/rcl/allure-of-the-seas.html`. Likely a
+pre-refactor test copy that was never cleaned up. Also publicly accessible.
+
+Neither `ships/template.html` nor the test directory is:
+- Mentioned in robots.txt
+- Excluded from static.yml
+- Listed in sitemap.xml (correct — these shouldn't be indexed)
+
+But because `static.yml` uploads `path: '.'`, they're served. Sitemap absence doesn't
+prevent direct-URL access.
+
+### `solo/articles/*.html` — 7 duplicate article files, shadow copies
+
+`robots.txt` has `Disallow: /solo/articles/    # article fragments, not full pages`, so
+crawlers aren't meant to index them. But they are still publicly served. Each has a
+top-level counterpart at `solo/<slug>.html`:
+
+| File | Lines |
+|---|---|
+| `solo/accessible-cruising.html` | 293 |
+| `solo/articles/accessible-cruising.html` | **817** (different version!) |
+| `solo/solo-cruising-practical-guide.html` | ... |
+| `solo/articles/solo-cruising-practical-guide.html` | ... (also different) |
+
+The `solo/articles/*` versions are **larger** than the top-level ones — suggesting the
+"fragments" directory actually contains the full articles, not smaller fragments. The
+naming and robots.txt comment are inverted from reality, or the copies are out of sync.
+
+### Sitemap vs disk: 14 HTML pages on disk not in sitemap
+
+- `drinks.html` — redirect stub (OK to exclude)
+- `offline.html` — SW fallback (OK to exclude)
+- `admin/reports/articles.html` + `admin/reports/sw-health.html` — internal (OK to exclude)
+- `ships/rcl/index.html` — fleet index page (**SHOULD be indexed** — SEO gap)
+- `ships/template.html` — template (SHOULD be removed entirely, not just un-indexed)
+- `ships/rcl/test/allure-of-the-seas.html` — test (SHOULD be removed)
+- 7× `solo/articles/*.html` — shadow copies (should be consolidated or removed)
+
+### RCL fleet-wide issue matrix (scanned across all 51 RCL HTML files)
+
+| Issue | Count | % of 51 |
+|---|---:|---:|
+| `sw-bridge.js` NOT loaded | **51** | 100% |
+| `site-cache.js` NOT loaded | **51** | 100% |
+| Swiper vendor 404 path | **49** | 96% |
+| Missing apple-touch-icon refs | **49** | 96% |
+| Missing `reviewRating` in Review JSON-LD | **49** | 96% |
+| Stats loader SOURCES dead paths | **48** | 94% |
+| "Photo by Flickers of Majesty — Instagram" label mismatch | **48** | 94% |
+| Wrong Schema.org `Cruise` type (should be `CruiseShip`) | **47** | 92% |
+| Generic `ship-map.png` deck plan preview | **44** | 86% |
+| `fixDiningJSON` override to legacy `venues.json` | **43** | 84% |
+| ICP-Lite v1.x still in content-protocol | **40** | 78% |
+| `ai-breadcrumbs` HTML comment still present | **38** | 75% |
+| Broken JSON-LD Review `image` refs | **35** | 69% |
+| First carousel slide uses `loading="lazy"` | **6** | 12% |
+
+These are systematic issues from the current template, not one-off regressions.
+
+### Items still to audit (promised to the user)
+
+- [ ] The Wikimedia source URLs in each `.attr.json` — are they still live?
+- [ ] `drink-calculator.html` — is the calculator integration linked correctly from ship pages?
+- [ ] Inline CSS version drift (3.010.300 vs 3.010.400)
+- [ ] The video embeds — do they actually play?
+- [ ] `ship-port-links.js` port injection for Quantum-class ships (since they're missing from ships.json, port links may silently fail)
+
+
+---
+
+## DEEPER DIVE — Batch 8: `_headers` is a dead Netlify config + more inconsistencies
+
+### Netlify `_headers` file deployed to GitHub Pages (dormant)
+
+The repo has a 55-line `_headers` file with comment "# Netlify Headers Configuration".
+It defines 17 Cache-Control rules for `/assets/*.{css,js,webp,png,jpg,svg}`, JSON data,
+HTML pages, and images:
+
+```
+/assets/*.css
+  Cache-Control: public, max-age=31536000, immutable
+/assets/*.js
+  Cache-Control: public, max-age=31536000, immutable
+...
+```
+
+**GitHub Pages does not honor `_headers` files**. This is a Netlify-specific convention.
+On GitHub Pages, every header rule in `_headers` is dead — GitHub Pages sends its own
+default Cache-Control (usually `max-age=600, must-revalidate` for HTML and
+`max-age=600` for assets).
+
+Impact:
+- Versioned assets are re-fetched far more often than `immutable` would allow
+- CDN-level caching at Fastly (GitHub Pages' backing CDN) uses GitHub's policy, not this file
+- Every performance optimization in the file is ineffective
+
+Fix options:
+1. Delete the file (stop misleading future contributors)
+2. Migrate the hosting to Netlify (would honor the file) or Cloudflare Pages
+   (different `_headers` format but supported)
+3. Keep the file and add a comment explaining it's aspirational / intended for future migration
+
+### No CSP, HSTS, X-Frame-Options, Referrer-Policy anywhere
+
+Neither the HTML `<meta http-equiv>` tags nor the (dormant) `_headers` file set any of:
+- `Content-Security-Policy`
+- `Strict-Transport-Security` (GitHub Pages enables HSTS by default for custom domains on
+  opt-in — need to verify)
+- `X-Frame-Options` (clickjacking defense)
+- `Referrer-Policy` (controls what referrer info the browser sends)
+- `Permissions-Policy` (controls access to device features)
+
+For a content-only static site this is lower priority, but no defense-in-depth means:
+- The VesselFinder iframe could be a clickjacking vector
+- Third-party scripts (jsdelivr, umami, google) can load freely without CSP allow-lists
+
+### RCL fleet content freshness — 3 ships last reviewed in 2025
+
+```
+2025-12-27: ships/rcl/mariner-of-the-seas.html      (NB: this one also has the WRONG-SHIP
+                                                      Seven Seas Mariner hero image)
+2025-12-27: ships/rcl/navigator-of-the-seas.html
+2025-12-27: ships/rcl/splendour-of-the-seas.html    (historical archive page — 1996-2017,
+                                                      acceptable staleness)
+```
+
+And fleet-wide: **33 ship pages have pre-2026 last-reviewed dates**, 20+ of which are
+active Carnival ships (2025-12-01 through 2025-12-03). Over 4 months stale for active
+ships.
+
+### 43 pages credit phantom "In the Wake Editorial Team" as Review author
+
+```
+$ grep -rl '"In the Wake Editorial Team"' ships/rcl/*.html | wc -l
+43
+```
+
+`data/authors.json` lists exactly 2 authors: Ken Baker and Tina Maulsby. There is no
+profile page at `/authors/editorial-team.html`. The "Editorial Team" is a phantom
+collective byline used on 43 RCL ship page Review JSON-LDs and in the articles index for
+one article (`top-20-first-cruise-questions`). Any reader clicking through the Review
+author in structured data sees nothing resolvable.
+
+This also undermines the site's trust stance. The footer says "No ads. Minimal analytics.
+Independent of cruise lines." but 43 out of 49 active ship reviews are attributed to a
+collective author that doesn't exist as a person and isn't labeled as AI or template.
+
+### No preconnect / dns-prefetch hints for 6 external domains
+
+The Anthem page loads resources from:
+- `cdn.jsdelivr.net` (Swiper CSS/JS fallback)
+- `cloud.umami.is` (analytics)
+- `www.googletagmanager.com` (GA4)
+- `www.youtube-nocookie.com` (video embeds)
+- `www.vesselfinder.com` (live tracker iframe)
+- `player.vimeo.com` (video embeds)
+
+Not a single `<link rel="preconnect">` or `<link rel="dns-prefetch">` hint is in the
+head. Each external domain triggers a fresh DNS + TLS handshake on-demand, adding
+100-300ms per connection on mobile cellular. Preconnect hints would shave measurable
+milliseconds off initial load for each of these resources.
+
+
+---
+
+## DEEPER DIVE — Batch 9: data file duplication + logbook staleness
+
+### Duplicate data files at multiple paths with schema drift
+
+```
+data/fleets.json                    MD5: 69663183b6dcbc69305045d9bed6af1d  ← duplicate of
+assets/data/fleets.json             MD5: 69663183b6dcbc69305045d9bed6af1d  ← ...this one
+```
+
+Both `fleets.json` files are byte-identical (same MD5). Two publicly-deployed copies of
+the same file, doubled bandwidth on install-time SW precache.
+
+```
+data/ship_pages.json                MD5: 8694974f0336c4562dd00fd132da0ef5
+                                    Schema: {"_meta": {...}, "by_slug": {...}}
+                                    10 ships
+
+assets/data/ship_pages.json         MD5: 2be3d92059d050d6aaa2413478a53149
+                                    Schema: flat map "Ship Name": "filename.html"
+                                    28 ships
+
+ships/ship_pages.json               MD5: (not checked)  10 ships  (same schema as data/)
+```
+
+Three copies of `ship_pages.json` at three paths with **two different schemas and
+different content**. Any script loading `/assets/data/ship_pages.json` gets 28 ships in a
+flat map; a script loading `/data/ship_pages.json` gets 10 ships in a structured
+`by_slug` layout. Which path is used depends on which script is running.
+
+### Logbook metadata quality
+
+Across 49 RCL logbook files:
+- **1 file missing `last_updated`** field entirely
+- **1 file missing `content_protocol`** field entirely
+- **7 files last updated 2025-11-16** (5 months stale)
+- **2 files last updated 2025-11-23**
+- **All 49 files are on ICP-Lite (either v1.4 or v1.0)** — zero on ICP-2
+- **9 files on ICP-Lite v1.0** — an older ICP-Lite version than the rest
+- Two different ICP-Lite versions coexist
+
+### Video categorization bug on Anthem
+
+The Anthem videos JSON has these entries under the "balcony" category:
+
+```
+[balcony] Anthem of the Seas, Royal Caribbean Interior with Virtual Balcony Cabin Tour
+[balcony] Anthem of the Seas | Interior Virtual Balcony Stateroom Tour & Review 4K
+[balcony] Royal Caribbean. Anthem of the Seas. Virtual Balcony #shorts
+[balcony] Cabin Tour. INSIDE. Anthem of the Seas. Virtual Balcony. #Shorts
+```
+
+Virtual Balcony cabins are **interior** cabins with a wall-mounted LCD showing a live
+outside feed. They're in the "Interior with Virtual Balcony" category in Royal Caribbean's
+own cabin taxonomy, NOT in "Balcony". The video titles literally say "Interior with
+Virtual Balcony" but they're filed under `balcony`. Users browsing the balcony videos get
+interior cabin tours instead.
+
+### RCL video library totals
+
+- 984 unique videos across RCL ships (no duplicates — good)
+- 56 videos for Anthem alone across 8 categories
+
+### Articles index has 7 published articles but right-rail shows first 6 — so the broken one may or may not be visible depending on page number
+
+The articles loader's `ARTICLES_PER_PAGE = 6` and renders the first page on load. Its
+sort order is by `published` date descending, so the article that shows in the rail
+depends on the publication dates. If `top-20-first-cruise-questions` is in the first 6
+sorted entries, its broken link is visible on every page load of Anthem.
+
+
+---
+
+## DEEPER DIVE — Batch 10: RCL fleet page drift + 380 broken fragment resolution
+
+### `cruise-lines/royal-caribbean.html` — 8 class sections with NO `id=` attributes
+
+The class-section divs are all missing `id="<class>"`:
+
+```
+Icon Class              no id
+Oasis Class             no id
+Quantum Ultra Class     no id
+Quantum Class           no id
+Freedom Class           no id
+Voyager Class           no id
+Radiance Class          no id
+Vision Class            no id
+```
+
+Every link from any RCL ship page to `cruise-lines/royal-caribbean.html#<class>` is
+broken because the anchors don't exist. Fix: add `id="icon"`, `id="oasis"`, etc. to each
+`<div class="class-section">`.
+
+**This is the specific cause of 306 broken fragment links fleet-wide** (48 ships × 7 class
+pills minus broken combinations). The other 74 broken fragments are from
+`ships.html#<class>-class` which also has no anchors.
+
+### RCL fleet page drift: 22 of 50 ships not listed (44% undiscoverable)
+
+Directory `ships/rcl/` has 50 ship HTML pages. `cruise-lines/royal-caribbean.html` lists
+only **28**. The 22 missing:
+
+| File | Status |
+|---|---|
+| `discovery-class-ship-tbn.html` | Future ship (acceptable to omit) |
+| `icon-class-ship-tbn-2027.html` | Future (acceptable to omit) |
+| `icon-class-ship-tbn-2028.html` | Future (acceptable to omit) |
+| `legend-of-the-seas.html` | **In service? Ambiguous — add it** |
+| `legend-of-the-seas-1995-built.html` | Historical archive |
+| `legend-of-the-seas-icon-class-entering-service-in-2026.html` | **New 2026 ship — SHOULD be on fleet page** |
+| `majesty-of-the-seas.html` | Historical archive |
+| `monarch-of-the-seas.html` | Historical archive |
+| `nordic-empress.html`, `nordic-prince.html` | Historical archive |
+| `oasis-class-ship-tbn-2028.html` | Future (acceptable) |
+| `quantum-ultra-class-ship-tbn-2028.html`, `-2029.html` | Future (acceptable) |
+| **`rhapsody-of-the-seas.html`** | **IN SERVICE, Vision class — MISSING from fleet page** |
+| `song-of-america.html`, `song-of-norway.html`, `sun-viking.html`, `viking-serenade.html` | Historical archive |
+| `sovereign-of-the-seas.html` | Historical archive |
+| `splendour-of-the-seas.html` | Historical archive (1996-2017) |
+| `star-class-ship-tbn-2028.html` | Future (acceptable) |
+| `venues.html` | Not a ship page — this is "Royal Caribbean Dining Venues by Ship Class" index |
+
+**Critical gaps**:
+1. **Rhapsody of the Seas** is actively in service (Vision Class, currently Mediterranean)
+   but MISSING from the fleet page. The Vision Class section on the fleet page lists only
+   3 ships (Vision, Enchantment, Grandeur) when it has 4 (add Rhapsody).
+2. **Legend of the Seas (Icon Class 2026)** is a new-build ship entering service in 2026 —
+   should be on the fleet page under Icon Class.
+3. Historical ships have pages but no navigation path to them from the fleet page — only
+   discoverable via direct URL.
+4. `ships/rcl/venues.html` is a "Royal Caribbean Dining Venues by Ship Class" index page
+   that exists but isn't linked from the fleet page or the restaurants hub.
+
+### Legend of the Seas — ambiguous slug
+
+Three Legend of the Seas HTML files exist:
+- `legend-of-the-seas.html` (ambiguous — which one?)
+- `legend-of-the-seas-1995-built.html` (explicit historical)
+- `legend-of-the-seas-icon-class-entering-service-in-2026.html` (explicit new build)
+
+The bare `legend-of-the-seas.html` is ambiguous. Search engines and users landing there
+don't know which version they get. The bare slug should probably be a disambiguation page
+or a redirect to the currently-sailing ship.
+
+
+---
+
+## DEEPER DIVE — Batch 11: boilerplate meta descriptions + precache mismatches
+
+### Meta descriptions are boilerplate across 51 RCL ships
+
+```
+Unique meta descriptions across RCL fleet (after normalizing ship name): 20
+```
+
+Of those 20, only 5 are actually distinct — the rest are minor variations. The dominant
+template used by **28+ RCL ships** (including Anthem) is:
+
+```
+"{SHIP}: deck plans, live tracker, dining venues, and stateroom videos.
+ Plan your Royal Caribbean cruise with In the Wake."
+```
+
+Zero unique keywords. No mention of:
+- Ship class (Quantum)
+- Signature venues (North Star, RipCord iFly, Two70, SeaPlex, Bionic Bar, Wonderland)
+- Year built / entered service
+- Current deployment
+- Capacity / tonnage
+
+A better Anthem description (same 160-char budget):
+
+> "Anthem of the Seas — 168,666 GT Quantum Class Royal Caribbean ship, 4,180 guests.
+> North Star, RipCord iFly, SeaPlex. Summer 2026 Alaska from Seattle."
+
+SEO opportunity cost: zero keyword differentiation on 49+ RCL ship pages. Google's algorithm
+treats them as near-duplicate content for snippet generation.
+
+### Precache manifest includes assets no ship page uses
+
+The SW precaches 19 assets including:
+- `ships-dynamic.js` — loaded only by `/ships.html`, never by individual ship pages. OK for
+  fast back-to-fleet navigation, but that's an opportunity cost if the user never clicks
+  back.
+- `restaurants-dynamic.js` — loaded only by `/restaurants.html`
+- `calculator-*.js` (5 files) — only loaded by `/drink-calculator.html`
+- `stateroom-check.js` — only loaded by `/stateroom-check.html`
+- `share-bar.js` — loaded by some pages
+- `sw-bridge.js` — **precached but loaded by ZERO HTML files** (including zero ship pages)
+
+The precache burns 19 asset slots warming calculators, search, and bridges that no ship
+page will use unless the user navigates away. For a first-time visitor who only views a
+single ship page, most of the precache is wasted bandwidth.
+
+### Meta description template on the Article JSON-LD is also boilerplate
+
+The `Article` JSON-LD `description` on Anthem (line 316):
+
+```
+"Anthem of the Seas: deck plans, live tracker, dining venues, and stateroom videos.
+ Plan your Royal Caribbean cruise with In the Wake."
+```
+
+— same boilerplate. Duplicated across `<meta name="description">` and `Article.description`
+and `WebPage.description`. Three copies of the same generic text in the head.
+
+### validated-ships.json scoring: Anthem gets 90% but is clearly broken
+
+`data/validated-ships.json` records:
+```json
+{"slug": "anthem-of-the-seas", "score": 90, "file": "ships/rcl/anthem-of-the-seas.html"}
+```
+
+90% — threshold is 80 — "passing". But per this audit doc, Anthem has:
+- Stale deployment narrative (Cape Liberty when she's in Sydney/Alaska)
+- 9 broken fragment links
+- 49 broken image anchors (attribution mismatch)
+- Wrong Schema.org type
+- Missing reviewRating
+- Half-escape XSS risk
+- Stale logbook stories (all 10 fabricated, 0 with required disclosure)
+- 44 other items in this audit doc
+
+The validator scores structure. It doesn't score correctness. A page can score 90% on
+structural compliance while being riddled with content bugs.
+
+This is worth fixing — either the validator should check more things, or the validation
+score shouldn't be used as a proxy for "page is good" in the fleet aggregator.
+
