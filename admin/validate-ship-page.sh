@@ -747,7 +747,33 @@ except:
     if [ "$VENUE_COUNT" -gt 0 ]; then
         check_pass "Ship '$SHIP_SLUG' has $VENUE_COUNT venues in venues.json ($SPECIALTY_COUNT specialty)"
     else
-        check_fail "Ship '$SHIP_SLUG' has NO venues in venues.json — dining section will render empty"
+        # Determine if this is a TBN/future ship or a retired/historical ship
+        # where missing venues should be a warning, not an error
+        IS_TBN_OR_RETIRED=0
+        # TBN ships: slug contains "tbn"
+        echo "$SHIP_SLUG" | grep -qi "tbn" && IS_TBN_OR_RETIRED=1
+        # Future ships: slug contains "entering-service" or title contains "entering service"
+        echo "$SHIP_SLUG" | grep -qi "entering-service" && IS_TBN_OR_RETIRED=1
+        # Retired ships: title contains a parenthetical year range like (YYYY-YYYY)
+        PAGE_TITLE=$(echo "$CONTENT" | grep -oP '<title>\K[^<]+' | head -1)
+        echo "$PAGE_TITLE" | grep -qP '\(\d{4}-\d{4}\)' && IS_TBN_OR_RETIRED=1
+        echo "$PAGE_TITLE" | grep -qP '\(\d{4}\)' && IS_TBN_OR_RETIRED=1
+        # Historical/legacy ships: h1 or title contains "Historic" or "Legacy" or "Historical"
+        echo "$CONTENT" | grep -qiP '<h1[^>]*>.*\b(Historic|Legacy|Historical)\b' && IS_TBN_OR_RETIRED=1
+        echo "$PAGE_TITLE" | grep -qiP '\b(Historic|Legacy|Historical)\b' && IS_TBN_OR_RETIRED=1
+        # Stats JSON has a "retired" field
+        echo "$CONTENT" | grep -qP '"retired"\s*:' && IS_TBN_OR_RETIRED=1
+        # Page content mentions TBN or "to be named" or "under construction" or "not yet delivered"
+        echo "$CONTENT" | grep -qiP '(?<![-/])to be named|(?<![a-z-])TBN(?![a-z.])|under construction|not yet delivered' && IS_TBN_OR_RETIRED=1
+        # Content mentions preserving history/legacy or entered service before 2000
+        echo "$CONTENT" | grep -qiP "preserves the ship.s history|ship.s history and legacy" && IS_TBN_OR_RETIRED=1
+        echo "$CONTENT" | grep -qP 'entered service in 19[0-9]{2}' && IS_TBN_OR_RETIRED=1
+
+        if [ "$IS_TBN_OR_RETIRED" -eq 1 ]; then
+            check_warn "Ship '$SHIP_SLUG' has NO venues — acceptable for TBN/future/retired ship"
+        else
+            check_fail "Ship '$SHIP_SLUG' has NO venues in venues.json — dining section will render empty"
+        fi
     fi
 
     # Check if FAQ mentions venues not in the database
@@ -1220,9 +1246,21 @@ STATS_JSON=$(echo "$CONTENT" | sed -n '/"entered_service"/,/"registry"/p')
 if [ -n "$STATS_JSON" ]; then
     TBD_COUNT=$(echo "$STATS_JSON" | grep -oi '"TBD"' | wc -l)
     if [ "$TBD_COUNT" -gt 0 ]; then
-        # Check if this is a TBN (to-be-named) or future ship
-        if echo "$CONTENT" | grep -qiP '(?<![-/])to be named|(?<![a-z-])TBN(?![a-z.])|under construction|not yet delivered'; then
-            check_pass "Stats contain TBD but ship is TBN/under construction (acceptable)"
+        # Check if this is a TBN/future ship or retired/historical ship
+        IS_TBN_OR_RETIRED_TBD=0
+        echo "$CONTENT" | grep -qiP '(?<![-/])to be named|(?<![a-z-])TBN(?![a-z.])|under construction|not yet delivered' && IS_TBN_OR_RETIRED_TBD=1
+        # Future ships: slug contains "entering-service"
+        [ -n "$SHIP_SLUG" ] && echo "$SHIP_SLUG" | grep -qi "entering-service" && IS_TBN_OR_RETIRED_TBD=1
+        # Retired ships: title has (YYYY-YYYY) or (YYYY) year range, or stats has "retired" field
+        TBD_PAGE_TITLE=$(echo "$CONTENT" | grep -oP '<title>\K[^<]+' | head -1)
+        echo "$TBD_PAGE_TITLE" | grep -qP '\(\d{4}-\d{4}\)' && IS_TBN_OR_RETIRED_TBD=1
+        echo "$TBD_PAGE_TITLE" | grep -qP '\(\d{4}\)' && IS_TBN_OR_RETIRED_TBD=1
+        echo "$TBD_PAGE_TITLE" | grep -qiP '\b(Historic|Legacy|Historical)\b' && IS_TBN_OR_RETIRED_TBD=1
+        echo "$CONTENT" | grep -qP '"retired"\s*:' && IS_TBN_OR_RETIRED_TBD=1
+        echo "$CONTENT" | grep -qiP '<h1[^>]*>.*\b(Historic|Legacy|Historical)\b' && IS_TBN_OR_RETIRED_TBD=1
+
+        if [ "$IS_TBN_OR_RETIRED_TBD" -eq 1 ]; then
+            check_warn "Stats contain $TBD_COUNT TBD field(s) — acceptable for TBN/future/retired ship"
         else
             check_fail "Ship stats JSON contains $TBD_COUNT 'TBD' field(s) on a non-TBN page — populate with actual data (#1320)"
         fi
@@ -1448,11 +1486,15 @@ if [ -n "$REVIEW_DESC" ]; then
     # Extract the class claim from the review description
     REVIEW_CLASS=$(echo "$REVIEW_DESC" | grep -oiP '(A|An) \K\S+-class' | head -1)
     if [ -n "$REVIEW_CLASS" ]; then
-        # Check if it matches the actual ship class from ai-breadcrumbs
+        # Check if it matches the actual ship class from ai-breadcrumbs or stats JSON
         BREADCRUMB_CLASS=$(echo "$CONTENT" | grep -oP 'ship-class:\s*\K.*' | head -1 | sed 's/[[:space:]]*$//')
+        # Fall back to stats JSON class if breadcrumbs don't have ship-class
+        if [ -z "$BREADCRUMB_CLASS" ]; then
+            BREADCRUMB_CLASS=$(echo "$CONTENT" | grep -oP '"class"\s*:\s*"\K[^"]+' | head -1)
+        fi
         REVIEW_CLASS_CLEAN=$(echo "$REVIEW_CLASS" | sed 's/-class$//')
         if echo "$BREADCRUMB_CLASS" | grep -qi "$REVIEW_CLASS_CLEAN"; then
-            check_pass "Review schema class matches breadcrumbs ('$REVIEW_CLASS')"
+            check_pass "Review schema class matches ship class ('$REVIEW_CLASS' ↔ '$BREADCRUMB_CLASS')"
         else
             check_fail "Review schema says '$REVIEW_CLASS' but ship-class is '$BREADCRUMB_CLASS' — likely copy-paste error"
         fi

@@ -1067,7 +1067,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     let config={};
     try{ config=JSON.parse(sourceEl.textContent||'{}'); }catch(_){}
     function renderVenues(ship,venues){
-      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
+      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining venue records for this vessel are not available.</p>'; return; }
       const byCategory={};
       venues.forEach(v=>{
         let cat=v.category||'other';
