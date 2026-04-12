@@ -306,7 +306,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <body class="page">
   <!-- Skip Link -->
-  <a href="#content" class="skip-link">Skip to main content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -611,6 +611,13 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </section>
 
       <p class="mt-2"><a href="/ships.html">&larr; Back to Ships</a></p>
+
+    <!-- Attribution Section -->
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
+
     </section><!-- End Main Content Column -->
 
     <!-- Right Rail -->
@@ -687,13 +694,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <section class="card whimsical-units-container" id="whimsical-units-container">
       </section>
     </aside>
-  
-
-    <!-- Attribution Section -->
-    <section class="card attributions">
-      <h3>Sources & Attribution</h3>
-      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
-    </section>
   
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
@@ -1006,7 +1006,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     let config={};
     try{ config=JSON.parse(sourceEl.textContent||'{}'); }catch(_){}
     function renderVenues(ship,venues){
-      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
+      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining venue records for this vessel are not available.</p>'; return; }
       const byCategory={};
       venues.forEach(v=>{
         let cat=v.category||'other';

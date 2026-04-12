@@ -335,7 +335,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <body class="page">
   <!-- Skip Link -->
-  <a href="#content" class="skip-link">Skip to main content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -722,6 +722,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p>No, Majesty of the Seas is no longer in service with Royal Caribbean. She left the fleet in March 2020 when operations were suspended due to COVID-19. In December 2020, she was sold to <a href="https://en.wikipedia.org/wiki/Seajets" target="_blank" rel="noopener">Seajets</a>, a Greek ferry operator, and renamed <em>Majesty of the Oceans</em>. She never resumed passenger service and remains laid up in the Gulf of Elefsina, Greece — the only surviving Sovereign-class ship. This page preserves her history and legacy.</p>
       </details>
     </section>
+
+    <!-- Attribution -->
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <ul>
+        <li>
+          Images sourced from Wikimedia Commons under Creative Commons licenses.
+        </li>
+      </ul>
+    </section>
+
     </section><!-- End Main Content Column -->
 
   <!-- Right Rail -->
@@ -813,17 +824,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </section>
 
   </aside>
-
-    <!-- Attribution -->
-    <section class="card attributions">
-      <h2>Image Attributions</h2>
-      <ul>
-        <li>
-          Images sourced from Wikimedia Commons under Creative Commons licenses.
-        </li>
-      </ul>
-    </section>
-  
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Cruise</h2>
@@ -1030,7 +1030,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     let config={};
     try{ config=JSON.parse(sourceEl.textContent||'{}'); }catch(_){}
     function renderVenues(ship,venues){
-      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
+      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining venue records for this vessel are not available.</p>'; return; }
       const byCategory={};
       venues.forEach(v=>{
         let cat=v.category||'other';

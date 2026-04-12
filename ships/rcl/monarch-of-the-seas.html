@@ -329,7 +329,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <body class="page">
   <!-- Skip Link -->
-  <a href="#content" class="skip-link">Skip to main content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -690,6 +690,17 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p class="faq-answer">No, Monarch of the Seas is no longer in service. The ship left the Royal Caribbean fleet in 2013 when it was transferred to Pullmantur Cruises. Pullmantur ceased operations in 2020, and Monarch was subsequently scrapped. This page preserves the ship's history and legacy for those who sailed aboard or are researching Royal Caribbean's fleet evolution.</p>
       </details>
     </section>
+
+    <!-- Attribution -->
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <ul>
+        <li><strong>Monarch of the Seas:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Monarch_of_the_Seas_(ship,_1991)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
+        <li><strong>Monarch cruise ship:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Monarch_of_the_Seas_(ship,_1991)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY 2.0</li>
+        <li><strong>Monarch and Majesty:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Monarch_of_the_Seas_(ship,_1991)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
+      </ul>
+    </section>
+
     </section><!-- End Main Content Column -->
 
   <!-- Right Rail -->
@@ -780,17 +791,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </section>
 
   </aside>
-
-    <!-- Attribution -->
-    <section class="card attributions">
-      <h2>Image Attributions</h2>
-      <ul>
-        <li><strong>Monarch of the Seas:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Monarch_of_the_Seas_(ship,_1991)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
-        <li><strong>Monarch cruise ship:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Monarch_of_the_Seas_(ship,_1991)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY 2.0</li>
-        <li><strong>Monarch and Majesty:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Monarch_of_the_Seas_(ship,_1991)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
-      </ul>
-    </section>
-  
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Cruise</h2>
@@ -997,7 +997,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     let config={};
     try{ config=JSON.parse(sourceEl.textContent||'{}'); }catch(_){}
     function renderVenues(ship,venues){
-      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
+      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining venue records for this vessel are not available.</p>'; return; }
       const byCategory={};
       venues.forEach(v=>{
         let cat=v.category||'other';

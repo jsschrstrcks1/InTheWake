@@ -329,7 +329,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
 <body class="page">
   <!-- Skip Link -->
-  <a href="#content" class="skip-link">Skip to main content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ARIA Live Regions -->
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
@@ -707,6 +707,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p class="faq-answer">Splendour of the Seas is no longer in service with Royal Caribbean. The ship was sold to TUI Cruises in 2017 and now operates as Marella Discovery. This page preserves the ship's Royal Caribbean history and legacy for those who sailed aboard during its RCI years (1996-2017).</p>
       </details>
     </section>
+
+    <!-- Attribution -->
+    <section class="card attributions">
+      <h2>Image Attributions</h2>
+      <ul>
+        <li><strong>Splendour at Split:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Splendour_of_the_Seas_(ship,_1996)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
+        <li><strong>Splendour in Las Palmas:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Splendour_of_the_Seas_(ship,_1996)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY 2.0</li>
+      </ul>
+    </section>
+
     </section><!-- End Main Content Column -->
 
   <!-- Right Rail -->
@@ -797,16 +807,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </section>
 
   </aside>
-
-    <!-- Attribution -->
-    <section class="card attributions">
-      <h2>Image Attributions</h2>
-      <ul>
-        <li><strong>Splendour at Split:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Splendour_of_the_Seas_(ship,_1996)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY-SA 3.0</li>
-        <li><strong>Splendour in Las Palmas:</strong> <a href="https://commons.wikimedia.org/wiki/Category:Splendour_of_the_Seas_(ship,_1996)" target="_blank" rel="noopener">Wikimedia Commons</a>, CC BY 2.0</li>
-      </ul>
-    </section>
-  
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
       <h2 id="planning-resources">Plan Your Cruise</h2>
@@ -1013,7 +1013,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     let config={};
     try{ config=JSON.parse(sourceEl.textContent||'{}'); }catch(_){}
     function renderVenues(ship,venues){
-      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining data is loading...</p>'; return; }
+      if(!venues||!venues.length){ mount.innerHTML='<p class="tiny">Dining venue records for this vessel are not available.</p>'; return; }
       const byCategory={};
       venues.forEach(v=>{
         let cat=v.category||'other';
