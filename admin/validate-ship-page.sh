@@ -2838,6 +2838,139 @@ else
 fi
 
 # ============================================================================
+# Section 9cq: GitHub Pages Asset References (#1365)
+# ============================================================================
+section_header "Section 9cq: Asset Source Integrity"
+
+GH_PAGES_REFS=$(grep -c 'jsschrstrcks1.github.io' "$FILE" || true)
+if [ "$GH_PAGES_REFS" -gt 0 ]; then
+    check_fail "Page loads $GH_PAGES_REFS asset(s) from GitHub Pages (jsschrstrcks1.github.io) instead of relative paths — breaks on production domain (#1365)"
+else
+    check_pass "No GitHub Pages asset references"
+fi
+
+# ============================================================================
+# Section 9cr: Inline Style Blocks (#1366)
+# ============================================================================
+section_header "Section 9cr: Inline Style Blocks"
+
+INLINE_STYLE_BLOCKS=$(grep -c '<style' "$FILE" || true)
+if [ "$INLINE_STYLE_BLOCKS" -gt 0 ]; then
+    check_warn "Page has $INLINE_STYLE_BLOCKS inline <style> block(s) — should be in external CSS (#1366)"
+else
+    check_pass "No inline style blocks"
+fi
+
+# ============================================================================
+# Section 9cs: Version Number in Title (#1367)
+# ============================================================================
+section_header "Section 9cs: Title Hygiene"
+
+TITLE_VERSION=$(grep -oP '<title>[^<]*</title>' "$FILE" | grep -cP 'v\d+\.\d+' || true)
+if [ "$TITLE_VERSION" -gt 0 ]; then
+    check_fail "Page title contains a version number (e.g. v2.201) — visitors shouldn't see internal versioning (#1367)"
+else
+    check_pass "Title clean of version numbers"
+fi
+
+# ============================================================================
+# Section 9ct: Empty or Stub Meta Description (#1368)
+# ============================================================================
+section_header "Section 9ct: Meta Description Quality"
+
+META_DESC=$(grep -oP '<meta name="description" content="\K[^"]*' "$FILE" | head -1)
+META_DESC_LEN=${#META_DESC}
+if [ "$META_DESC_LEN" -lt 50 ]; then
+    check_fail "Meta description is too short ($META_DESC_LEN chars) or stub content — needs real description for SEO (#1368)"
+elif echo "$META_DESC" | grep -qP 'v\d+\.\d+'; then
+    check_warn "Meta description contains version number — remove internal versioning (#1368)"
+else
+    check_pass "Meta description has adequate content ($META_DESC_LEN chars)"
+fi
+
+# ============================================================================
+# Section 9cu: Empty og:url (#1369)
+# ============================================================================
+section_header "Section 9cu: OpenGraph URL"
+
+OG_URL=$(grep -oP 'og:url" content="\K[^"]*' "$FILE" | head -1)
+if [ -z "$OG_URL" ]; then
+    check_fail "og:url is empty — must be set to canonical URL (#1369)"
+elif [ "$OG_URL" = '""' ] || [ "$OG_URL" = "" ]; then
+    check_fail "og:url is empty string — must be set to canonical URL (#1369)"
+else
+    check_pass "og:url is set"
+fi
+
+# ============================================================================
+# Section 9cv: Content After Aside (#1370)
+# ============================================================================
+section_header "Section 9cv: Content After Aside"
+
+# Check if there are content sections that SHOULD be inside col-1
+# (attributions, dining, logbook, stats) that ended up after </aside>.
+# Planning resources and print button are intentionally full-width after the grid.
+AFTER_ASIDE_BAD=$(sed -n '/<\/aside>/,/<\/main>/p' "$FILE" | grep -cP 'class="card attributions|class="card faq|id="dining|id="logbook|id="ship-stats"' || true)
+if [ "$AFTER_ASIDE_BAD" -gt 0 ]; then
+    check_fail "Found $AFTER_ASIDE_BAD content section(s) after </aside> that belong inside col-1 — broken grid layout (#1370)"
+else
+    check_pass "No content sections after aside"
+fi
+
+# ============================================================================
+# Section 9cw: Duplicate Attributions (#1371)
+# ============================================================================
+section_header "Section 9cw: Duplicate Sections"
+
+ATTRIB_COUNT=$(grep -c 'class="card attributions' "$FILE" || true)
+if [ "$ATTRIB_COUNT" -gt 1 ]; then
+    check_fail "Page has $ATTRIB_COUNT attribution sections — should have exactly 1 (#1371)"
+else
+    check_pass "Single attributions section (or none)"
+fi
+
+# ============================================================================
+# Section 9cx: Missing Robots Directives (#1372)
+# ============================================================================
+section_header "Section 9cx: SEO Robots Directives"
+
+HAS_ROBOTS=$(grep -c 'name="robots"' "$FILE" || true)
+if [ "$HAS_ROBOTS" -eq 0 ]; then
+    check_warn "Missing <meta name=\"robots\"> directive — search engines use defaults but explicit is better (#1372)"
+else
+    check_pass "Robots meta directive present"
+fi
+
+# ============================================================================
+# Section 9cy: Person JSON-LD Author URL (#1373)
+# ============================================================================
+section_header "Section 9cy: Author URL Consistency"
+
+PERSON_URL=$(grep -oP '"@type"\s*:\s*"Person"[^}]*"url"\s*:\s*"\K[^"]+' "$FILE" | head -1)
+if [ -n "$PERSON_URL" ]; then
+    if echo "$PERSON_URL" | grep -q '/about/'; then
+        check_warn "Person JSON-LD uses /about/ URL — should be /authors/ to match site structure (#1373)"
+    else
+        check_pass "Person JSON-LD author URL uses /authors/ path"
+    fi
+else
+    check_pass "Person URL check skipped (no Person schema found)"
+fi
+
+# ============================================================================
+# Section 9cz: Embedded VesselFinder Tracker (#1374)
+# ============================================================================
+section_header "Section 9cz: Live Tracker Embed"
+
+HAS_TRACKER_SECTION=$(grep -c 'liveTrackHeading' "$FILE" || true)
+HAS_VF_IFRAME=$(grep -c 'vesselfinder.com/aismap' "$FILE" || true)
+if [ "$HAS_TRACKER_SECTION" -gt 0 ] && [ "$HAS_VF_IFRAME" -eq 0 ]; then
+    check_warn "Live tracker section exists but has no embedded VesselFinder iframe — external link only (#1374)"
+else
+    check_pass "Live tracker either embedded or not present"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
