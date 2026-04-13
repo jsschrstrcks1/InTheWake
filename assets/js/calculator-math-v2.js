@@ -441,21 +441,23 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const coffeeCards = clamp(inputs.coffeeCards || 0, 0, 10);
   const coffeePunches = clamp(inputs.coffeePunches || 0, 0, 5);
 
-  const pkgSoda = toNum(economics.pkg?.soda || 10.99);
-  const pkgRefresh = toNum(economics.pkg?.refresh || 34.0);
-  const pkgDeluxe = toNum(economics.pkg?.deluxe || 85.0);
-  const coffeeCardPrice = toNum(economics.pkg?.coffee || 31.0); // CRITICAL FIX v1.003.002
-  const grat = toNum(economics.grat || gratuity);
-  const cap = toNum(economics.deluxeCap || deluxeCap);
+  // v2 FIX: Use ?? instead of || so 0 is a valid price (defensive for future lines)
+  const pkgSoda = toNum(economics.pkg?.soda ?? 10.99);
+  const pkgRefresh = toNum(economics.pkg?.refresh ?? 34.0);
+  const pkgDeluxe = toNum(economics.pkg?.deluxe ?? 85.0);
+  // v2 FIX: Use ?? instead of || so that 0 is valid (Carnival has no coffee card, price=0)
+  const coffeeCardPrice = toNum(economics.pkg?.coffee ?? 31.0);
+  const grat = toNum(economics.grat ?? gratuity);
+  const cap = toNum(economics.deluxeCap ?? deluxeCap);
 
   const drinkList = Object.keys(inputs.drinks || {}).map(key => [key, toNum(inputs.drinks[key])]);
   const weighted = applyWeight(drinkList, days, seaDays, seaApply, seaWeight);
 
   // CRITICAL FIX v1.006.000: Voucher application - most expensive drinks first!
   // v2: Max vouchers per day from line config (RCL Pinnacle = 6)
-  const voucherMaxPerDay = lineConfig?.loyalty?.tiers
-    ? Math.max(...lineConfig.loyalty.tiers.map(t => t.vouchersPerDay || 0))
-    : 6;
+  // FIX: Guard against empty tiers array (Math.max(...[]) = -Infinity)
+  const tierVouchers = (lineConfig?.loyalty?.tiers || []).map(t => t.vouchersPerDay || 0);
+  const voucherMaxPerDay = tierVouchers.length > 0 ? Math.max(...tierVouchers) : 6;
   let totalVouchersPerDay = 0;
   let actualVoucherSavings = 0; // Track actual savings for accurate reporting
 
@@ -473,7 +475,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
   if (totalVouchersPerDay > 0) {
     // CRITICAL FIX: Apply vouchers to MOST EXPENSIVE drinks first (up to deluxe cap)
-    // Vouchers only work on drinks ≤ $14 (deluxe beverage package cap)
+    // Vouchers only work on drinks ≤ cap (RCL $14, Carnival $20, etc.)
 
     // Step 1: Add prices to weighted drinks and filter to voucherable drinks only
     const withPrices = weighted.map(([id, qty]) => {
@@ -528,7 +530,8 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
   // CRITICAL FIX v1.003.003: Calculate total coffee punches from small (1 punch) and large (2 punches)
   // v2: Coffee card punches from line config (RCL = 15, other lines may differ)
-  const COFFEE_CARD_PUNCHES = lineConfig?.coffeeCard?.punches || 15;
+  // v2 FIX: Use ?? so 0 is valid (disabled coffee card = 0 punches, not fallback 15)
+  const COFFEE_CARD_PUNCHES = lineConfig?.coffeeCard?.punches ?? 15;
   const coffeeSmallQty = categoryRows.find(r => r.id === 'coffeeSmall')?.qty || 0;
   const coffeeLargeQty = categoryRows.find(r => r.id === 'coffeeLarge')?.qty || 0;
 
@@ -536,7 +539,10 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const totalPunchesNeeded = (coffeeSmallQty * 1 + coffeeLargeQty * 2) * days;
 
   // Calculate how many cards are actually used (can't use more cards than you bought)
-  const cardsUsed = Math.min(coffeeCards, Math.floor(totalPunchesNeeded / COFFEE_CARD_PUNCHES));
+  // v2 FIX: Guard against division by zero when coffee card is disabled (0 punches)
+  const cardsUsed = COFFEE_CARD_PUNCHES > 0
+    ? Math.min(coffeeCards, Math.floor(totalPunchesNeeded / COFFEE_CARD_PUNCHES))
+    : 0;
 
   // Manual punches (from "Avg punches/day" field) can supplement cards
   const punchesUsed = Math.min(coffeePunches * days, Math.max(0, totalPunchesNeeded - cardsUsed * COFFEE_CARD_PUNCHES));

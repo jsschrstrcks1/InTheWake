@@ -1015,18 +1015,21 @@
     if (!lc) return;
 
     // Update economics from new line config
+    // v2 FIX: Use explicit null/undefined check before num() so that 0 is a valid value
+    // (e.g., Carnival coffee card price = 0, not "use RCL fallback of $31")
     const economics = safeClone(store.get('economics'));
     if (lc.packages) {
+      const safeNum = (v, fallback) => (v !== null && v !== undefined) ? num(v) : fallback;
       economics.pkg = {
-        soda: num(lc.packages.soda?.priceMid) || economics.pkg.soda,
-        refresh: num(lc.packages.refreshment?.priceMid) || economics.pkg.refresh,
-        deluxe: num(lc.packages.deluxe?.priceMid) || economics.pkg.deluxe,
-        coffee: num(lc.coffeeCard?.price) || economics.pkg.coffee
+        soda: safeNum(lc.packages.soda?.priceMid, economics.pkg.soda),
+        refresh: safeNum(lc.packages.refreshment?.priceMid, economics.pkg.refresh),
+        deluxe: safeNum(lc.packages.deluxe?.priceMid, economics.pkg.deluxe),
+        coffee: safeNum(lc.coffeeCard?.price, economics.pkg.coffee)
       };
     }
     if (lc.rules) {
-      economics.grat = num(lc.rules.gratuity) || economics.grat;
-      economics.deluxeCap = num(lc.rules.deluxeCap) || economics.deluxeCap;
+      economics.grat = (lc.rules.gratuity !== null && lc.rules.gratuity !== undefined) ? num(lc.rules.gratuity) : economics.grat;
+      economics.deluxeCap = (lc.rules.deluxeCap !== null && lc.rules.deluxeCap !== undefined) ? num(lc.rules.deluxeCap) : economics.deluxeCap;
     }
     store.patch('economics', economics);
 
