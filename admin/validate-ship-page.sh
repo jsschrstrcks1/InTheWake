@@ -2735,6 +2735,57 @@ else
 fi
 
 # ============================================================================
+# Section 9cl: Meta vs Body Guest Count Consistency (#1360)
+# ============================================================================
+section_header "Section 9cl: Meta vs Body Guest Count"
+
+META_GUESTS=$(grep '<meta name="description"' "$FILE" | head -1 | grep -oP '[\d,]+(?= guests)' | head -1)
+BODY_GUESTS=$(grep 'class="fact-block"' "$FILE" | head -1 | grep -oP '[\d,]+(?= guests)' | head -1)
+if [ -n "$META_GUESTS" ] && [ -n "$BODY_GUESTS" ]; then
+    if [ "$META_GUESTS" = "$BODY_GUESTS" ]; then
+        check_pass "Guest count consistent: meta ($META_GUESTS) matches body ($BODY_GUESTS)"
+    else
+        check_warn "Guest count mismatch: meta description says $META_GUESTS guests but body says $BODY_GUESTS guests — pick one authoritative number (#1360)"
+    fi
+else
+    check_pass "Guest count cross-check skipped (insufficient data)"
+fi
+
+# ============================================================================
+# Section 9cm: Ship Class Internal Consistency (#1361)
+# ============================================================================
+section_header "Section 9cm: Class Name Consistency"
+
+# Extract class from fact-block and from subtitle/at-a-glance
+FACTBLOCK_CLASS=$(grep -oP 'is a \K[A-Za-z ]+(?= cruise ship)' "$FILE" | head -1)
+SUBTITLE_CLASS=$(grep -oP 'Norwegian Cruise Line &bull; \K[^<]+' "$FILE" | head -1 | sed 's/ *$//')
+if [ -n "$FACTBLOCK_CLASS" ] && [ -n "$SUBTITLE_CLASS" ]; then
+    # Normalize for comparison (strip trailing "Class" from both)
+    FB_NORM=$(echo "$FACTBLOCK_CLASS" | sed 's/ Class$//')
+    SUB_NORM=$(echo "$SUBTITLE_CLASS" | sed 's/ Class$//')
+    if [ "$FB_NORM" = "$SUB_NORM" ]; then
+        check_pass "Ship class consistent: fact-block ($FACTBLOCK_CLASS) matches subtitle ($SUBTITLE_CLASS)"
+    else
+        check_warn "Ship class mismatch: fact-block says '$FACTBLOCK_CLASS' but subtitle says '$SUBTITLE_CLASS' — internal inconsistency (#1361)"
+    fi
+else
+    check_pass "Class consistency check skipped (insufficient data)"
+fi
+
+# ============================================================================
+# Section 9cn: Broken Superlative Date Insertion (#1362)
+# ============================================================================
+section_header "Section 9cn: Superlative Grammar"
+
+# Catch broken patterns like "first (as of 2026)-ever" or "largest (as of 2026)-class"
+BROKEN_SUPERLATIVE=$(grep -oP '\(as of \d{4}\)-[a-z]' "$FILE" | head -3)
+if [ -n "$BROKEN_SUPERLATIVE" ]; then
+    check_warn "Broken superlative date insertion: '$BROKEN_SUPERLATIVE' — grammar error from mechanical regex (#1362)"
+else
+    check_pass "No broken superlative date patterns detected"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
