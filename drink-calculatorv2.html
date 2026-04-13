@@ -293,6 +293,8 @@
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
   <link rel="stylesheet" href="/assets/css/calculator.css?v=3.010.300"/>
+  <!-- v2: Print overrides for cruise line selector -->
+  <style media="print">#line-selector { display: none !important; }</style>
   
   <!-- ✅ Accessibility Styles -->
   <!-- LCP Optimization: Preload critical hero images -->
@@ -300,7 +302,8 @@
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 <body class="page">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
+  <noscript><div style="background:#fff3e0;border:2px solid #f57c00;padding:1.5rem;margin:1rem;border-radius:8px;text-align:center;"><strong>JavaScript Required</strong><p>This calculator requires JavaScript to function. Please enable JavaScript in your browser settings and reload the page.</p></div></noscript>
 
   <!-- ai-breadcrumbs
        entity: Royal Caribbean Drink Package Calculator

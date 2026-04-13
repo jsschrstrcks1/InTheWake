@@ -839,7 +839,9 @@
     try {
       const state = store.get();
       const { inputs, economics } = state;
-      SafeStorage.set(CONFIG.STORAGE_KEYS.state, { inputs, economics, version: VERSION });
+      // PERSONA FIX: Also save active cruise line ID for restoration on return
+      const activeLineId = window.ITW_LINE_CONFIG?.id || 'royal-caribbean';
+      SafeStorage.set(CONFIG.STORAGE_KEYS.state, { inputs, economics, version: VERSION, lineId: activeLineId });
     } catch (e) {
 
     }
@@ -1691,11 +1693,19 @@
       announce('Loaded shared configuration');
     }
 
-    // v2: load cruise line config first (use URL line if shared link specified one)
+    // v2: load cruise line config first
+    // Priority: URL param > localStorage > default
     const urlLineId = window._itwUrlLineId || null;
-    await loadLineConfig(urlLineId);
-    if (urlLineId && window.ITW_LINE_CONFIG?.id === urlLineId) {
-      await switchCruiseLine(urlLineId);
+    const storedLineId = (() => {
+      try {
+        const stored = SafeStorage.get(CONFIG.STORAGE_KEYS.state);
+        return stored?.lineId || null;
+      } catch (e) { return null; }
+    })();
+    const targetLineId = urlLineId || storedLineId || null;
+    await loadLineConfig(targetLineId);
+    if (targetLineId && window.ITW_LINE_CONFIG?.id === targetLineId && targetLineId !== 'royal-caribbean') {
+      await switchCruiseLine(targetLineId);
     }
     await loadFXRates();
     setupCurrencySelector();
