@@ -1040,7 +1040,34 @@
       const dataset = safeClone(store.get('dataset'));
       dataset.prices = prices;
       if (lc.sets) dataset.sets = lc.sets;
+      // v2 FIX: Also patch dataset.rules so adaptDataset() gets correct gratuity/cap
+      if (lc.rules) {
+        dataset.rules = dataset.rules || {};
+        dataset.rules.gratuity = num(lc.rules.gratuity);
+        dataset.rules.deluxeCap = num(lc.rules.deluxeCap);
+        if (dataset.rules.caps) dataset.rules.caps.deluxeAlcohol = num(lc.rules.deluxeCap);
+      }
       store.patch('dataset', dataset);
+    }
+
+    // v2 FIX: Reset voucher inputs when switching to a line without loyalty
+    if (!lc.loyalty || !lc.loyalty.enabled) {
+      store.patch('inputs.voucherAdult', 0);
+      store.patch('inputs.voucherMinor', 0);
+      const voucherAdultInput = document.querySelector('[data-input="voucher-adult"]');
+      const voucherMinorInput = document.querySelector('[data-input="voucher-minor"]');
+      if (voucherAdultInput) voucherAdultInput.value = '0';
+      if (voucherMinorInput) voucherMinorInput.value = '0';
+    }
+
+    // v2 FIX: Reset coffee card inputs when switching to a line without coffee cards
+    if (!lc.coffeeCard || !lc.coffeeCard.enabled) {
+      store.patch('inputs.coffeeCards', 0);
+      store.patch('inputs.coffeePunches', 0);
+      const coffeeCardsInput = document.querySelector('[data-input="coffee-cards"]');
+      const coffeePunchesInput = document.querySelector('[data-input="coffee-punches"]');
+      if (coffeeCardsInput) coffeeCardsInput.value = '0';
+      if (coffeePunchesInput) coffeePunchesInput.value = '0';
     }
 
     // Dispatch event for UI layer to update labels, FAQ, policies, etc.
@@ -1201,7 +1228,7 @@
       vouchers: hasVouchers ? {
         adultCountPerDay: inputs.voucherAdult || 0,
         minorCountPerDay: inputs.voucherMinor || 0,
-        perVoucherValue: economics.deluxeCap || 14.0
+        perVoucherValue: economics.deluxeCap ?? 14.0
       } : null,
       forcedPackage: ui?.forcedPackage || null  // ✅ NEW: Package forcing feature
     };
