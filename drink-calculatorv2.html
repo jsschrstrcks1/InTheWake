@@ -433,7 +433,7 @@
           <select id="cruise-line-select" style="padding: 0.5rem 1rem; border: 2px solid #0e6e8e; border-radius: 6px; font-size: 0.95rem; background: #fff; cursor: pointer;" aria-label="Select cruise line for drink package comparison">
             <option value="royal-caribbean" selected>Royal Caribbean</option>
           </select>
-          <span id="line-selector-status" class="tiny" style="color: #678;"></span>
+          <span id="line-selector-status" class="tiny" style="color: #555;"></span>
         </div>
         <script>
         // ═══════════════════════════════════════════════════════════
@@ -455,6 +455,14 @@
           function setHTML(id, html) {
             var el = typeof id === 'string' ? document.getElementById(id) : id;
             if (el) el.innerHTML = html;
+          }
+
+          // Helper: escape config strings before innerHTML (XSS prevention)
+          function esc(text) {
+            if (!text) return '';
+            var d = document.createElement('div');
+            d.textContent = String(text);
+            return d.innerHTML;
           }
 
           // ── Line Selector Population ──
@@ -512,10 +520,10 @@
             if (!el) return;
             var qa = lc.quickAnswer || 'Use the calculator below to find your personal break-even point.';
             setHTML(el, '<p style="margin:0 0 0.75rem 0;font-size:1.125rem;line-height:1.6;color:#01579b;">' +
-              '<strong>\u26A1 Quick Answer:</strong> ' + qa + '</p>' +
+              '<strong>\u26A1 Quick Answer:</strong> ' + esc(qa) + '</p>' +
               '<p style="margin:0;font-size:1rem;line-height:1.5;color:#0277bd;">' +
               '\uD83D\uDCA1 Use the calculator below to find <em>your exact break-even point</em> based on your drinking habits' +
-              (lc.loyalty && lc.loyalty.enabled ? ', ' + lc.loyalty.programName + ' vouchers,' : '') +
+              (lc.loyalty && lc.loyalty.enabled ? ', ' + esc(lc.loyalty.programName) + ' vouchers,' : '') +
               ' and trip length.</p>');
           }
 
@@ -534,15 +542,15 @@
             lc.policies.forEach(function(p) {
               if (p.severity === 'critical') {
                 html += '<h3 style="color:#e65100;margin-top:0;font-size:1.25rem;display:flex;align-items:center;gap:0.5rem;">' +
-                  (p.icon || '\uD83D\uDEA8') + ' ' + p.title + '</h3>' +
+                  esc(p.icon || '\uD83D\uDEA8') + ' ' + esc(p.title) + '</h3>' +
                   '<div style="background:#fff;border-left:5px solid #ff5722;padding:1.25rem;margin:1rem 0;border-radius:4px;">' +
-                  '<p style="font-size:1.125rem;line-height:1.7;margin:0;color:#212121;">' + p.text + '</p></div>';
+                  '<p style="font-size:1.125rem;line-height:1.7;margin:0;color:#212121;">' + esc(p.text) + '</p></div>';
               } else if (p.severity === 'warning') {
                 html += '<div style="background:#fff;border-left:4px solid #ff9800;padding:1rem;margin:1rem 0;border-radius:4px;">' +
-                  '<p style="margin:0;color:#212121;"><strong>' + (p.icon || '\u26A0\uFE0F') + ' ' + (p.title || 'Policy Note') + ':</strong> ' + p.text + '</p></div>';
+                  '<p style="margin:0;color:#212121;"><strong>' + esc(p.icon || '\u26A0\uFE0F') + ' ' + esc(p.title || 'Policy Note') + ':</strong> ' + esc(p.text) + '</p></div>';
               } else {
                 html += '<div style="background:#e3f2fd;border-left:4px solid #2196f3;padding:1rem;margin:1rem 0;border-radius:4px;">' +
-                  '<p style="margin:0;color:#0d47a1;"><strong>' + (p.icon || '\uD83D\uDCA1') + ' ' + (p.title || 'Tip') + ':</strong> ' + p.text + '</p></div>';
+                  '<p style="margin:0;color:#0d47a1;"><strong>' + esc(p.icon || '\uD83D\uDCA1') + ' ' + esc(p.title || 'Tip') + ':</strong> ' + esc(p.text) + '</p></div>';
               }
             });
             el.innerHTML = html;
@@ -559,7 +567,7 @@
             section.style.display = '';
             var summary = section.querySelector('summary');
             if (summary) {
-              summary.innerHTML = '\uD83D\uDC51 ' + lc.loyalty.programName + ' Vouchers <span class="badge-gold">Loyalty Members</span>';
+              summary.innerHTML = '\uD83D\uDC51 ' + esc(lc.loyalty.programName) + ' Vouchers <span class="badge-gold">Loyalty Members</span>';
             }
             var tiersContainer = document.getElementById('v2-loyalty-tiers');
             if (!tiersContainer) return;
@@ -573,7 +581,7 @@
                 var dailySave = tier.vouchersPerDay * voucherVal;
                 var weeklySave = dailySave * 7;
                 html += '<div class="cna-tier"><div class="tier-header">' +
-                  '<span class="tier-icon">\uD83D\uDC8E</span> <strong>' + tier.name + '</strong>' +
+                  '<span class="tier-icon">\uD83D\uDC8E</span> <strong>' + esc(tier.name) + '</strong>' +
                   ' <span class="tiny muted">(' + tier.nightsMin + '-' + (tier.nightsMax >= 99999 ? '\u221E' : tier.nightsMax) + ' nights)</span></div>' +
                   '<p class="small"><strong>' + tier.vouchersPerDay + ' drink vouchers per day</strong>, loaded on your card</p>' +
                   '<p class="tiny muted">= $' + dailySave.toFixed(0) + '/day in free drinks ($' + weeklySave.toFixed(0) + '/week cruise)</p></div>';
@@ -581,7 +589,7 @@
             });
             html += '</div>';
             if (lc.loyalty.voucherNote) {
-              html += '<div class="cna-tip"><p class="tiny muted">' + lc.loyalty.voucherNote + '</p></div>';
+              html += '<div class="cna-tip"><p class="tiny muted">' + esc(lc.loyalty.voucherNote) + '</p></div>';
             }
             tiersContainer.innerHTML = html;
 
@@ -633,10 +641,10 @@
               if (!pkg) return;
               var be = pkg.breakEvenDrink;
               html += '<tr>' +
-                '<td style="' + tdStyle + '"><strong>' + pkg.name + '</strong></td>' +
+                '<td style="' + tdStyle + '"><strong>' + esc(pkg.name) + '</strong></td>' +
                 '<td style="' + tdStyle + '">~$' + pkg.priceMid.toFixed(0) + '</td>' +
-                '<td style="' + tdStyle + '">' + pkg.includes + '</td>' +
-                '<td style="' + tdStyle + ' text-align: center;">' + (be && be.price > 0 ? Math.ceil(pkg.priceMid * (1 + (lc.rules.gratuity || 0.18)) / be.price) + ' ' + be.name : '-') + '</td>' +
+                '<td style="' + tdStyle + '">' + esc(pkg.includes) + '</td>' +
+                '<td style="' + tdStyle + ' text-align: center;">' + (be && be.price > 0 ? Math.ceil(pkg.priceMid * (1 + (lc.rules.gratuity || 0.18)) / be.price) + ' ' + esc(be.name) : '-') + '</td>' +
                 '</tr>';
             });
             // Coffee card row
@@ -658,8 +666,8 @@
             if (!section || !lc.faq || lc.faq.length === 0) return;
             var html = '<h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>';
             lc.faq.forEach(function(item) {
-              html += '<details class="section-divider"><summary>' + item.question + '</summary>' +
-                '<p class="list-indent">' + item.answer + '</p></details>';
+              html += '<details class="section-divider"><summary>' + esc(item.question) + '</summary>' +
+                '<p class="list-indent">' + esc(item.answer) + '</p></details>';
             });
             section.innerHTML = html;
           }
@@ -698,16 +706,16 @@
           function updateRailContent(lc) {
             var answerLine = document.querySelector('.answer-line');
             if (answerLine) {
-              answerLine.innerHTML = '<strong>Quick Answer:</strong> Compare ' + lc.name +
+              answerLine.innerHTML = '<strong>Quick Answer:</strong> Compare ' + esc(lc.name) +
                 ' drink packages to \u00E0-la-carte pricing based on what you actually drink. Enter your habits, cruise length, and we\'ll calculate whether a package saves you money\u2014or not.';
             }
             var fitGuidance = document.querySelector('.fit-guidance');
             if (fitGuidance) {
               var pkgNames = [];
-              if (lc.packages.deluxe) pkgNames.push(lc.packages.deluxe.shortName + ' Package');
-              if (lc.packages.refreshment) pkgNames.push(lc.packages.refreshment.shortName + ' Package');
+              if (lc.packages.deluxe) pkgNames.push(esc(lc.packages.deluxe.shortName) + ' Package');
+              if (lc.packages.refreshment) pkgNames.push(esc(lc.packages.refreshment.shortName) + ' Package');
               fitGuidance.innerHTML = '<strong>Best For:</strong> Cruisers deciding between the ' +
-                pkgNames.join(', ') + ', or paying per drink. Works for any ' + lc.name + ' ship.';
+                pkgNames.join(', ') + ', or paying per drink. Works for any ' + esc(lc.name) + ' ship.';
             }
           }
 
@@ -800,9 +808,9 @@
             var refreshName = lc.packages && lc.packages.refreshment ? lc.packages.refreshment.name : 'Refreshment Package';
             var ruleDiv = el.querySelector('.family-rule p');
             if (ruleDiv) {
-              ruleDiv.innerHTML = 'When adults purchase the <strong style="color:#2e7d32;">' + deluxeName + '</strong>, ' +
-                lc.name + ' <strong style="color:#2e7d32;">requires all minors</strong> (under ' + (lc.rules.adultAge || 21) + ') in the ' +
-                'stateroom to purchase the <strong style="color:#2e7d32;">' + refreshName + '</strong>.';
+              ruleDiv.innerHTML = 'When adults purchase the <strong style="color:#2e7d32;">' + esc(deluxeName) + '</strong>, ' +
+                esc(lc.name) + ' <strong style="color:#2e7d32;">requires all minors</strong> (under ' + (lc.rules.adultAge || 21) + ') in the ' +
+                'stateroom to purchase the <strong style="color:#2e7d32;">' + esc(refreshName) + '</strong>.';
             }
           }
 
@@ -812,7 +820,7 @@
             if (!note) return;
             if (!lc.coffeeCard || !lc.coffeeCard.enabled) return;
             var noteText = lc.coffeeCard.note || 'Unused punches expire at cruise end.';
-            note.innerHTML = '\u23F0 <strong style="color:#f57c00;">Note:</strong> ' + noteText;
+            note.innerHTML = '\u23F0 <strong style="color:#f57c00;">Note:</strong> ' + esc(noteText);
           }
 
           // ── Static JSON-LD: WebApplication + WebPage ──
@@ -1493,7 +1501,7 @@
         <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
-        <p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>
+        <p id="recent-rail-fallback" class="tiny" style="color: #555;">Loading articles…</p>
       </section>
 
       <!-- Authors rail -->
@@ -1917,7 +1925,7 @@
           style="padding: 0.35rem 0.75rem; font-size: 0.8rem; border: 1px solid #cde; border-radius: 6px; background: ${currentPage === 0 ? '#f5f5f5' : '#fff'}; cursor: ${currentPage === 0 ? 'default' : 'pointer'}; color: ${currentPage === 0 ? '#999' : '#0e6e8e'};">
           ← Newer
         </button>
-        <span style="font-size: 0.75rem; color: #666; margin: 0 0.5rem;">${currentPage + 1} / ${totalPages}</span>
+        <span style="font-size: 0.75rem; color: #555; margin: 0 0.5rem;">${currentPage + 1} / ${totalPages}</span>
         <button type="button" class="rail-nav-btn" data-dir="next" ${currentPage >= totalPages - 1 ? 'disabled' : ''}
           style="padding: 0.35rem 0.75rem; font-size: 0.8rem; border: 1px solid #cde; border-radius: 6px; background: ${currentPage >= totalPages - 1 ? '#f5f5f5' : '#fff'}; cursor: ${currentPage >= totalPages - 1 ? 'default' : 'pointer'}; color: ${currentPage >= totalPages - 1 ? '#999' : '#0e6e8e'};">
           Older →
@@ -1953,7 +1961,7 @@
       const pageArticles = allArticles.slice(start, start + ARTICLES_PER_PAGE);
       const totalPages = Math.ceil(allArticles.length / ARTICLES_PER_PAGE);
       if (pageArticles.length === 0) {
-        rail.innerHTML = '<p class="tiny" style="color: #999;">No articles available.</p>';
+        rail.innerHTML = '<p class="tiny" style="color: #777;">No articles available.</p>';
         fallback.style.display = 'none';
         renderNav(0);
         return;
@@ -2006,7 +2014,7 @@
         const data = await response.json();
         const authors = Array.isArray(data) ? data : (data.authors || []);
         if (authors.length === 0) {
-          rail.innerHTML = '<p class="tiny" style="color: #999;">No authors available.</p>';
+          rail.innerHTML = '<p class="tiny" style="color: #777;">No authors available.</p>';
           return;
         }
         rail.innerHTML = authors.map(author => {
@@ -2027,7 +2035,7 @@
         }).join('');
       } catch (err) {
         console.log('Could not load authors:', err);
-        rail.innerHTML = '<p class="tiny" style="color: #999;">Unable to load authors.</p>';
+        rail.innerHTML = '<p class="tiny" style="color: #777;">Unable to load authors.</p>';
       }
     }
 

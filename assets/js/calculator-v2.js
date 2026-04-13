@@ -1015,7 +1015,13 @@
   async function switchCruiseLine(lineId) {
     await loadLineConfig(lineId);
     const lc = window.ITW_LINE_CONFIG;
-    if (!lc) return;
+    if (!lc) {
+      // Bug 4 FIX: Show error instead of silent failure
+      const status = document.getElementById('line-selector-status');
+      if (status) { status.textContent = 'Unable to load \u2014 try refreshing'; status.style.color = '#c62828'; }
+      announce('Unable to switch cruise line. Please try refreshing the page.');
+      return;
+    }
 
     // Update economics from new line config
     // v2 FIX: Use explicit null/undefined check before num() so that 0 is a valid value
@@ -1069,6 +1075,17 @@
       store.patch('dataset', dataset);
     }
 
+    // Bug 5 FIX: Save current line's voucher/coffee inputs before resetting
+    window._itwLineInputs = window._itwLineInputs || {};
+    const prevLineId = window._itwPrevLineId || 'royal-caribbean';
+    window._itwLineInputs[prevLineId] = {
+      voucherAdult: store.get('inputs').voucherAdult || 0,
+      voucherMinor: store.get('inputs').voucherMinor || 0,
+      coffeeCards: store.get('inputs').coffeeCards || 0,
+      coffeePunches: store.get('inputs').coffeePunches || 0
+    };
+    window._itwPrevLineId = lineId;
+
     // v2 FIX: Reset voucher inputs when switching to a line without loyalty
     if (!lc.loyalty || !lc.loyalty.enabled) {
       store.patch('inputs.voucherAdult', 0);
@@ -1089,8 +1106,28 @@
       if (coffeePunchesInput) coffeePunchesInput.value = '0';
     }
 
+    // Bug 5 FIX: Restore saved inputs for the new line (if any)
+    const savedInputs = window._itwLineInputs?.[lineId];
+    if (savedInputs) {
+      if (lc.loyalty?.enabled && savedInputs.voucherAdult > 0) {
+        store.patch('inputs.voucherAdult', savedInputs.voucherAdult);
+        store.patch('inputs.voucherMinor', savedInputs.voucherMinor);
+        const va = document.querySelector('[data-input="voucher-adult"]');
+        const vm = document.querySelector('[data-input="voucher-minor"]');
+        if (va) va.value = String(savedInputs.voucherAdult);
+        if (vm) vm.value = String(savedInputs.voucherMinor);
+      }
+      if (lc.coffeeCard?.enabled && savedInputs.coffeeCards > 0) {
+        store.patch('inputs.coffeeCards', savedInputs.coffeeCards);
+        store.patch('inputs.coffeePunches', savedInputs.coffeePunches);
+        const cc = document.querySelector('[data-input="coffee-cards"]');
+        const cp = document.querySelector('[data-input="coffee-punches"]');
+        if (cc) cc.value = String(savedInputs.coffeeCards);
+        if (cp) cp.value = String(savedInputs.coffeePunches);
+      }
+    }
+
     // PERSONA FIX: Clear forced package selection when switching lines
-    // (stale forced package from old line shouldn't affect new line)
     store.patch('ui.forcedPackage', null);
     if (window.PackageSelection?.resetToRecommendation) {
       window.PackageSelection.resetToRecommendation();
@@ -1100,6 +1137,10 @@
     window.dispatchEvent(new CustomEvent('itw:line-changed', { detail: { lineId, config: lc } }));
 
     scheduleCalculation();
+    // Bug 4 FIX: Clear any previous error message
+    const switchStatus = document.getElementById('line-selector-status');
+    if (switchStatus) { switchStatus.textContent = ''; switchStatus.style.color = ''; }
+
     announce(`Switched to ${lc.name}`);
     console.log(`[Core v2] Switched to ${lc.name}`);
   }
@@ -1196,6 +1237,7 @@
   let calcWorker = null;
   let workerReady = false;
   let calculationInProgress = false;
+  let calculationPending = false; // Bug 3 FIX: queue instead of drop
 
   function initializeWorker() {
     if (!CONFIG.WORKER.enabled) return false;
@@ -1216,6 +1258,7 @@
         if (type === 'result') {
           store.patch('results', payload);
           calculationInProgress = false;
+          if (calculationPending) { calculationPending = false; scheduleCalculation(); }
           document.dispatchEvent(new CustomEvent('itw:calc-updated'));
         }
 
@@ -1223,6 +1266,7 @@
         if (type === 'error') {
           console.warn('[Worker] Calculation error:', payload?.error || 'unknown');
           calculationInProgress = false;
+          if (calculationPending) { calculationPending = false; scheduleCalculation(); }
         }
       };
 
@@ -1253,7 +1297,7 @@
     console.log('[Calc] scheduleCalculation() called');
 
     if (calculationInProgress) {
-
+      calculationPending = true; // Bug 3 FIX: queue for retry
       return;
     }
 
@@ -1314,13 +1358,15 @@
 
       store.patch('results', results);
       calculationInProgress = false;
-
+      // Bug 3 FIX: Retry if a calculation was queued during this one
+      if (calculationPending) { calculationPending = false; scheduleCalculation(); }
 
       document.dispatchEvent(new CustomEvent('itw:calc-updated'));
     } catch (error) {
 
       store.patch('results', initialState.results);
       calculationInProgress = false;
+      if (calculationPending) { calculationPending = false; scheduleCalculation(); }
     }
   }
 
