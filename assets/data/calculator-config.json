@@ -205,6 +205,204 @@
         "policyDate": "Stateroom beverage package uniformity enforced August 1, 2025",
         "gratuityChange": "RCL gratuity raised from 18% to 20% in 2025"
       }
+    },
+
+    "carnival": {
+      "id": "carnival",
+      "name": "Carnival Cruise Line",
+      "shortName": "Carnival",
+      "slug": "carnival",
+      "pageUrl": "/cruise-lines/carnival.html",
+      "color": "#004B8D",
+
+      "packages": {
+        "soda": {
+          "name": "Bottomless Bubbles",
+          "shortName": "Bubbles",
+          "emoji": "🥤",
+          "priceMid": 11.99,
+          "priceMin": 9.50,
+          "priceMax": 14.39,
+          "priceNote": "$11.99/day adults, $6.95/day kids (+20% service charge)",
+          "includes": "Unlimited Coca-Cola fountain sodas and juice for the entire cruise",
+          "includesList": [
+            "Unlimited Coca-Cola fountain sodas",
+            "Juice",
+            "Refillable souvenir cup"
+          ],
+          "breakEvenDrink": { "name": "sodas", "price": 2.75 }
+        },
+        "refreshment": {
+          "name": "CHEERS! Zero Proof",
+          "shortName": "Zero Proof",
+          "emoji": "☕",
+          "priceMid": 29.99,
+          "priceMin": 25.00,
+          "priceMax": 35.00,
+          "priceNote": "$29.99/day pre-cruise (+20% service charge)",
+          "includes": "Sodas, specialty coffee, tea, juice, mocktails, energy drinks, milkshakes, bottled water, NA beer, NA sparkling wine",
+          "includesList": [
+            "All sodas and juice",
+            "Premium coffees and teas",
+            "Handcrafted zero-proof cocktails (Lyre's spirits)",
+            "Non-alcoholic beer",
+            "Non-alcoholic sparkling wine",
+            "Milkshakes",
+            "Energy drinks",
+            "Bottled water"
+          ],
+          "breakEvenDrink": { "name": "specialty coffees", "price": 3.50 }
+        },
+        "deluxe": {
+          "name": "CHEERS! Beverage Program",
+          "shortName": "CHEERS!",
+          "emoji": "🍸",
+          "priceMid": 69.95,
+          "priceMin": 59.95,
+          "priceMax": 79.95,
+          "priceNote": "$69.95/day pre-cruise, $74.95 onboard (+20% service charge)",
+          "includes": "Beer, wine, cocktails, spirits up to $20/drink + all non-alcoholic beverages. 15 alcoholic drinks/day limit.",
+          "includesList": [
+            "All CHEERS! Zero Proof items",
+            "Beer, wine, champagne by the glass",
+            "Cocktails and spirits up to $20 per drink",
+            "15 alcoholic drinks per day maximum",
+            "Pay difference for drinks above $20 cap"
+          ],
+          "breakEvenDrink": { "name": "cocktails", "price": 11.00 }
+        }
+      },
+
+      "coffeeCard": {
+        "enabled": false,
+        "name": "Coffee Card",
+        "price": 0,
+        "punches": 0
+      },
+
+      "rules": {
+        "gratuity": 0.20,
+        "deluxeCap": 20.00,
+        "allAdultsSamePackage": true,
+        "allAdultsPolicyNote": "All adults must purchase CHEERS! if one does. Bottomless Bubbles and Zero Proof do NOT require all adults to buy.",
+        "minorsForceRefreshment": false,
+        "adultAge": 21,
+        "alcoholAge": 21,
+        "usPortAlcoholRestriction": true,
+        "deluxeDailyLimit": 15
+      },
+
+      "loyalty": {
+        "enabled": false,
+        "programName": "VIFP Club / Carnival Rewards",
+        "voucherValue": 0,
+        "voucherNote": "Carnival's loyalty program does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor. VIFP offers occasional free drinks at loyalty parties.",
+        "tiers": []
+      },
+
+      "drinks": [
+        { "id": "soda",         "name": "Soda",             "label": "Soda (fountain)",          "price": 2.75,  "rangeMin": 2.75, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "🥤" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Specialty Coffee",         "price": 3.50,  "rangeMin": 2.95, "rangeMax": 4.25,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",              "price": 3.50,  "rangeMin": 2.95, "rangeMax": 4.25,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice",              "price": 4.50,  "rangeMin": 3.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "🧃" },
+        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",      "price": 8.00,  "rangeMin": 6.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
+        { "id": "energy",       "name": "Energy Drink",      "label": "Energy Drink",             "price": 4.00,  "rangeMin": 3.50, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "⚡" },
+        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",                "price": 6.95,  "rangeMin": 4.95, "rangeMax": 8.95,  "category": "non-alcoholic", "icon": "🥛" },
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",            "price": 1.50,  "rangeMin": 1.50, "rangeMax": 2.00,  "category": "non-alcoholic", "icon": "💧" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer (draft/bottle)",      "price": 7.25,  "rangeMin": 6.25, "rangeMax": 8.50,  "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",             "price": 10.50, "rangeMin": 9.50, "rangeMax": 14.00, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                 "price": 11.00, "rangeMin": 9.95, "rangeMax": 13.50, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",           "price": 9.00,  "rangeMin": 7.50, "rangeMax": 12.00, "category": "alcoholic",     "icon": "🥃" }
+      ],
+
+      "sets": {
+        "soda": ["soda"],
+        "refreshment": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater"],
+        "deluxe": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
+        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+      },
+
+      "policies": [
+        {
+          "id": "all-adults-cheers",
+          "severity": "critical",
+          "icon": "🚨",
+          "title": "Carnival CHEERS! Package Policy",
+          "text": "If ANY adult (21+) in your stateroom purchases the CHEERS! Beverage Program, ALL adults in that stateroom must purchase it. This rule does NOT apply to Bottomless Bubbles or CHEERS! Zero Proof — those can be purchased individually."
+        },
+        {
+          "id": "drink-limit",
+          "severity": "warning",
+          "icon": "⚠️",
+          "title": "15-Drink Daily Limit",
+          "text": "The CHEERS! package limits alcoholic drinks to 15 per person per day. Non-alcoholic drinks are unlimited. Drinks must be ordered one at a time."
+        },
+        {
+          "id": "pre-cruise-savings",
+          "severity": "info",
+          "icon": "💡",
+          "title": "Pre-Cruise Savings",
+          "text": "Save $5/day per person by purchasing CHEERS! before your cruise. Pre-cruise: $69.95/day. Onboard: $74.95/day. Both plus 20% service charge."
+        }
+      ],
+
+      "faq": [
+        {
+          "question": "How do I calculate if the Carnival CHEERS! package is worth it?",
+          "answer": "Enter the number of drinks you expect per day by type (cocktails, beer, wine, soda, coffee). The calculator multiplies each by its average price, then compares your daily spending to the CHEERS! cost of $69.95/day + 20% service charge ($83.94 total). If your spending exceeds the package price, CHEERS! saves money."
+        },
+        {
+          "question": "What is the break-even point for Carnival CHEERS!?",
+          "answer": "At $83.94/day (pre-cruise with service charge), you typically break even at 7-8 drinks per day depending on what you order. Cocktails at $11 break even at about 8 drinks. Beer at $7.25 needs about 12 drinks. Mix of cocktails, beer, and wine typically breaks even around 7-8 drinks."
+        },
+        {
+          "question": "What's included in the Carnival CHEERS! Beverage Program?",
+          "answer": "Beer, wine, champagne by the glass, cocktails, and spirits priced at $20 or less per serving. Also includes unlimited non-alcoholic beverages: sodas, specialty coffee, tea, juice, energy drinks, milkshakes, bottled water, and zero-proof cocktails. Limited to 15 alcoholic drinks per day."
+        },
+        {
+          "question": "Do all guests in my cabin need to buy CHEERS!?",
+          "answer": "For the CHEERS! (alcohol) package: yes — all adults (21+) in the same stateroom must purchase it if one person does. However, Bottomless Bubbles (soda) and CHEERS! Zero Proof can be purchased individually without requiring all adults to buy."
+        },
+        {
+          "question": "What is the CHEERS! Zero Proof package?",
+          "answer": "A non-alcoholic alternative at $29.99/day (+ 20% service charge). Includes premium coffee, tea, sodas, juice, energy drinks, milkshakes, bottled water, non-alcoholic beer, NA sparkling wine, and handcrafted zero-proof cocktails made with Lyre's spirits. Unlike CHEERS!, it does NOT require all adults to purchase."
+        },
+        {
+          "question": "What is the $20 drink cap on CHEERS!?",
+          "answer": "The CHEERS! package covers drinks up to $20 per serving. If you order a drink that costs more than $20 (like premium champagne or top-shelf spirits), you pay the difference between $20 and the actual price, plus the service charge on the difference. Most standard cocktails, beers, and wines fall under the $20 cap."
+        },
+        {
+          "question": "Should I buy CHEERS! pre-cruise or onboard?",
+          "answer": "Always buy pre-cruise. You save $5/day per person compared to onboard pricing. Pre-cruise: $69.95/day ($83.94 with service charge). Onboard: $74.95/day ($89.94 with service charge). For a 7-night cruise with 2 adults, that's $70 in savings."
+        },
+        {
+          "question": "Does Carnival have loyalty drink vouchers like Royal Caribbean?",
+          "answer": "No. Carnival's VIFP Club (transitioning to Carnival Rewards in 2026) does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor program. VIFP members may receive occasional free drinks at loyalty parties, but there are no daily vouchers that offset package value."
+        }
+      ],
+
+      "quickAnswer": "Most cruisers break even on CHEERS! at 7-8 drinks per day (mix of cocktails, beer, and wine). The Zero Proof package breaks even at ~8 specialty drinks/day. Use the calculator below to find your personal break-even point.",
+
+      "meta": {
+        "title": "Carnival CHEERS! Drink Package Calculator 2026 | Is It Worth It?",
+        "description": "Compare CHEERS!, Zero Proof, and Bottomless Bubbles vs à-la-carte with live break-even chart. Free Carnival drink calculator with 2026 pricing.",
+        "ogTitle": "Carnival CHEERS! Drink Package Calculator 2026"
+      },
+
+      "_sources": {
+        "note": "Prices verified April 2026 via web research",
+        "references": [
+          "carnival.com/drink-packages",
+          "help.carnival.com (CHEERS! Q&A)",
+          "cruisebestie.com/carnival-drink-packages",
+          "eatsleepcruise.com (Carnival drink packages guide)",
+          "candidcruisetravel.com (Carnival drink prices)",
+          "shinecruise.com (Carnival drink menus)",
+          "cruise.blog (Carnival drink menu and prices)"
+        ],
+        "pricingDate": "Bottomless Bubbles price increase to $11.99/day effective April 2, 2026",
+        "gratuityNote": "Carnival charges 20% service charge on all beverage packages"
+      }
     }
   }
 }
