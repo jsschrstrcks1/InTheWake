@@ -2971,6 +2971,96 @@ else
 fi
 
 # ============================================================================
+# Section 9da: Person E-E-A-T Schema (#1375)
+# ============================================================================
+section_header "Section 9da: Person E-E-A-T Schema"
+
+HAS_PERSON_SCHEMA=$(grep -cP '"@type"\s*:\s*"Person"' "$FILE" || true)
+if [ "$HAS_PERSON_SCHEMA" -eq 0 ]; then
+    check_warn "Missing Person JSON-LD schema — E-E-A-T signal for Google (#1375)"
+else
+    check_pass "Person JSON-LD schema present"
+fi
+
+# ============================================================================
+# Section 9db: Charset Position (#1376)
+# ============================================================================
+section_header "Section 9db: Charset Position"
+
+# Charset must appear in the first 1024 bytes. If analytics scripts come
+# before charset, browsers may re-parse. Check that charset comes before
+# any <script> tag.
+CHARSET_LINE=$(grep -n 'meta charset' "$FILE" | head -1 | cut -d: -f1)
+FIRST_SCRIPT_LINE=$(grep -n '<script' "$FILE" | head -1 | cut -d: -f1)
+if [ -n "$CHARSET_LINE" ] && [ -n "$FIRST_SCRIPT_LINE" ]; then
+    if [ "$CHARSET_LINE" -gt "$FIRST_SCRIPT_LINE" ]; then
+        check_warn "Charset declared at line $CHARSET_LINE but first <script> at line $FIRST_SCRIPT_LINE — charset should come first (#1376)"
+    else
+        check_pass "Charset declared before first script"
+    fi
+else
+    check_pass "Charset position check skipped"
+fi
+
+# ============================================================================
+# Section 9dc: LCP Preload Hints (#1377)
+# ============================================================================
+section_header "Section 9dc: LCP Preload Hints"
+
+HAS_PRELOAD=$(grep -c 'rel="preload".*as="image"' "$FILE" || true)
+if [ "$HAS_PRELOAD" -eq 0 ]; then
+    check_warn "No image preload hints — consider preloading hero/LCP images for performance (#1377)"
+else
+    check_pass "Found $HAS_PRELOAD image preload hint(s)"
+fi
+
+# ============================================================================
+# Section 9dd: Favicon and PWA (#1378)
+# ============================================================================
+section_header "Section 9dd: Favicon and PWA"
+
+HAS_FAVICON=$(grep -c 'rel="icon"' "$FILE" || true)
+HAS_MANIFEST=$(grep -c 'rel="manifest"' "$FILE" || true)
+HAS_APPLE_ICON=$(grep -c 'apple-touch-icon' "$FILE" || true)
+FAVICON_MISSING=0
+if [ "$HAS_FAVICON" -eq 0 ]; then FAVICON_MISSING=$((FAVICON_MISSING+1)); fi
+if [ "$HAS_MANIFEST" -eq 0 ]; then FAVICON_MISSING=$((FAVICON_MISSING+1)); fi
+if [ "$HAS_APPLE_ICON" -eq 0 ]; then FAVICON_MISSING=$((FAVICON_MISSING+1)); fi
+if [ "$FAVICON_MISSING" -gt 0 ]; then
+    check_warn "Missing $FAVICON_MISSING of 3 PWA/favicon links (icon, apple-touch-icon, manifest) (#1378)"
+else
+    check_pass "All PWA/favicon links present"
+fi
+
+# ============================================================================
+# Section 9de: CSS Version Currency (#1379)
+# ============================================================================
+section_header "Section 9de: CSS Version"
+
+CSS_VERSION=$(grep -oP 'styles\.css\?v=\K[\d.]+' "$FILE" | head -1)
+if [ -n "$CSS_VERSION" ]; then
+    if [ "$CSS_VERSION" != "3.010.400" ]; then
+        check_warn "CSS version is $CSS_VERSION — current production is 3.010.400 (#1379)"
+    else
+        check_pass "CSS version matches current production (3.010.400)"
+    fi
+else
+    check_pass "CSS version check skipped (no versioned styles.css found)"
+fi
+
+# ============================================================================
+# Section 9df: STANDARDS Comment (#1380)
+# ============================================================================
+section_header "Section 9df: STANDARDS Comment"
+
+HAS_STANDARDS=$(grep -c 'STANDARDS:' "$FILE" || true)
+if [ "$HAS_STANDARDS" -eq 0 ]; then
+    check_warn "Missing STANDARDS comment line in header — reference pages have version + compliance markers (#1380)"
+else
+    check_pass "STANDARDS comment present"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
