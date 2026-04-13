@@ -139,9 +139,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "@type": "WebPage",
     "name": "Viking Serenade — Historical Information & Legacy",
     "url": "https://cruisinginthewake.com/ships/rcl/viking-serenade.html",
-    "description": "viking-serenade: historical information, legacy, and ship details from Royal Caribbean.",
-    "datePublished": "2024-01-01",
-    "dateModified": "2026-02-14",
+    "description": "viking-serenade: historical information, legacy, and ship details from Royal Caribbean.", "dateModified": "2026-02-14",
     "inLanguage": "en-US",
     "isPartOf": {
       "@type": "WebSite",
@@ -435,7 +433,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h1 class="page-title">Viking Serenade — Historic Royal Caribbean Ship</h1>
 
       
-      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Viking Serenade is a Viking Serenade Class cruise ship operated by Royal Caribbean. She entered service in 1990 (RCL), measures 40,132 gross tons, and carries approximately 1,870 guests at double occupancy.</p>
+      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Viking Serenade is a Viking Serenade Class cruise ship operated by Royal Caribbean. She entered service in 1990 (RCL), measures 40,132 gross tons, and carries approximately 1,870 guests at double occupancy, with a crew of 615.</p>
 
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
@@ -503,8 +501,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
         <!-- Stats -->
         <section class="ship-stats card mini" aria-labelledby="statsHeading">
-          <h3 id="statsHeading">Viking Serenade at a Glance</h3>
-          <div id="ship-stats" class="stats-grid" data-slug="viking-serenade"></div>
+          <h3 id="statsHeading">Key Facts About Viking Serenade</h3>
+          <div id="ship-stats" class="stats-grid" data-slug="viking-serenade">
+        <noscript><p>Ship statistics are available with JavaScript enabled.</p></noscript></div>
           <script type="application/json" id="ship-stats-fallback">
           {
             "slug": "viking-serenade",
@@ -555,11 +554,12 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
     <!-- Dining -->
     <section id="dining-card" class="card" data-ship="Viking Serenade" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining Venues on Viking Serenade</h2>
+      <h2 id="diningHeading">Dining Venues on Viking Serenade <a href="/restaurants.html" style="font-size:1rem;font-weight:400;text-decoration:none;color:var(--accent);opacity:0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
       <img id="dining-hero" class="card-hero"
            src="/assets/img/Cordelia_Empress_Food_Court.webp"
            alt="Cruise ship dining venue" loading="lazy"/>
       <div class="dining-content" id="dining-content" aria-live="polite">
+          <noscript><p>Dining venue information available with JavaScript enabled.</p></noscript>
         <p>Viking Serenade offered standard dining options for Royal Caribbean ships of the 1990s, including a main dining room with traditional assigned seating, a casual buffet area, and poolside snack options. Detailed venue records for this historic vessel are limited.</p>
       </div>
     </section>
@@ -568,7 +568,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">Ken's Logbook: Viking Serenade</h2>
       <div id="logbook-container" data-ship="viking-serenade" data-line="rcl">
-        <p class="placeholder">Stories and insights from cruisers who have sailed on Viking Serenade will appear here.</p>
+        <noscript><p class="tiny">Content loads with JavaScript enabled.</p></noscript>
       </div>
     </section>
 
@@ -670,7 +670,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             Check Your Stateroom →
           </a>
         </p>
-      </section>
+      
+
+    <!-- Who She's For -->
+    <section class="card" id="who-shes-for" aria-labelledby="whoshesfor-heading">
+      <h2 id="whoshesfor-heading">Who Viking Serenade Was For</h2>
+      <p><strong>Cruisers who loved Viking Serenade:</strong> those who appreciated Royal Caribbean's newest innovations when this ship enters service.</p>
+      <p><strong>This ship is no longer in active service.</strong> This page preserves her history and legacy for those who sailed aboard or are researching Royal Caribbean's fleet evolution.</p>
+    </section>
+
+    </section>
 
     <!-- First Look Section -->
     <section class="card" aria-labelledby="first-look">
@@ -680,7 +689,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <p>Viking Serenade offers a memorable cruise experience with Royal Caribbean International. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
           <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
         </div>
-        <div id="ship-stats" class="stats-grid" data-slug=""></div>
+        <div id="ship-stats-summary" class="stats-grid" data-slug="viking-serenade"></div>
       </div>
     </section>
 <script type="application/json" id="dining-data-source">{"provider":"rcl","json":"/assets/data/venues-v2.json","ship_slug":"viking-serenade","aliases":["Viking Serenade"]}</script>
@@ -726,7 +735,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           Real cruising experiences, practical guides, and heartfelt reflections from our community.
         </p>
         <nav id="recent-rail-nav-top" class="rail-nav mb-05" aria-label="Article pagination"></nav>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <div id="recent-rail" class="rail-list" aria-live="polite">
+          <noscript><ul style="list-style:none;padding:0;"><li><a href="/solo/solo-cruising-practical-guide.html">Solo Cruising Guide</a></li></ul></noscript></div>
         <nav id="recent-rail-nav-bottom" class="rail-nav mt-075" aria-label="Article pagination"></nav>
         <p id="recent-rail-fallback" class="tiny loading-text">Loading articles…</p>
       </section>
@@ -741,7 +751,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       </section>
     
     <!-- Whimsical Distance Units -->
-    <section class="card whimsical-units-container" id="whimsical-units-container">
+    <section class="card whimsical-units-container" id="whimsical-units-container"><noscript><p class="tiny">Ship size comparisons available with JavaScript enabled.</p></noscript>
     </section>
 
   </aside>
@@ -1113,7 +1123,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </script>
 
   <!-- Whimsical Distance Units Script -->
-  <script src="/assets/js/whimsical-port-units.js"></script>
+  <script src="/assets/js/whimsical-ship-units.js"></script>
 
 <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>

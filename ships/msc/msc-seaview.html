@@ -108,7 +108,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Seaside Class ship operated by MSC Cruises.","name":"MSC Seaview","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Seaview is the second and final ship of MSC Cruises' original Seaside Class at 153,516 GT with capacity for 4,134 guests at double occupancy (5,331 maximum). Delivered by Fincantieri at Monfalcone on 4 June 2018 (hull 6257) and christened at the Port of Genoa five days later on 9 June 2018 by Sophia Loren, she is the only direct sister of MSC Seaside. While she shares the Seaside hull and its signature features — the outdoor Waterfront Boardwalk on Deck 8, the glass-floored Bridge of Sighs, the Infinity Bridge stern walkway, twin 120-metre ziplines over Deck 19, the Forest Aquaventure Park waterpark, and the Asian Market Kitchen by Roy Yamaguchi chef collaboration — Seaview uses completely different interior names: the Silver Dolphin and Golden Sand main dining rooms, the Odeon Theatre, the Platinum Casino, and the Seaview Bar atrium. Her main pool is the Panorama Pool on Deck 16 with a retractable Magrodome roof. She also carries the class-wide MSC Yacht Club ship-within-a-ship enclave from her 2018 delivery."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Seaside Class ship operated by MSC Cruises.","name":"MSC Seaview","brand":{"@type":"Organization","name":"MSC Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"MSC Seaview is the second and final ship of MSC Cruises' original Seaside Class at 153,516 GT with capacity for 4,134 guests at double occupancy (5,331 maximum). Delivered by Fincantieri at Monfalcone on 4 June 2018 (hull 6257) and christened at the Port of Genoa five days later on 9 June 2018 by Sophia Loren, she is the only direct sister of MSC Seaside. While she shares the Seaside hull and its signature features — the outdoor Waterfront Boardwalk on Deck 8, the glass-floored Bridge of Sighs, the Infinity Bridge stern walkway, twin 120-metre ziplines over Deck 19, the Forest Aquaventure Park waterpark, and the Asian Market Kitchen by Roy Yamaguchi chef collaboration — Seaview uses completely different interior names: the Silver Dolphin and Golden Sand main dining rooms, the Odeon Theatre, the Platinum Casino, and the Seaview Bar atrium. Her main pool is the Panorama Pool on Deck 16 with a retractable Magrodome roof. She also carries the class-wide MSC Yacht Club ship-within-a-ship enclave from her 2018 delivery.","reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5}}</script>
   <!-- JSON-LD: FAQPage (ICP-2) -->
   <script type="application/ld+json">
   {
@@ -222,8 +222,8 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
   const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
   const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
   addCSS(primaryCSS);
@@ -344,7 +344,7 @@ All work on this project is offered as a gift to God.
 
       <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">MSC Seaview is the second and final ship of MSC Cruises' original Seaside Class, delivered on 4 June 2018 at Monfalcone, Italy by Fincantieri (yard hull 6257) and christened five days later on 9 June 2018 at the Port of Genoa by Sophia Loren. She measures 153,516 gross tons and 323 metres in length, carries 4,134 guests at double occupancy (5,331 maximum) across 2,066 cabins with a crew of 1,413, and flies the Maltese flag from Valletta. Her 18-passenger-deck layout shares Seaside's 'Miami Beach condo' aesthetic — the outdoor wrap-around Waterfront Boardwalk on Deck 8, the glass-floored Bridge of Sighs on Deck 16, twin 120-metre ziplines across Deck 19, the Forest Aquaventure waterpark, and a full MSC Yacht Club enclave — but uses completely different interior names from her sister. Seaview's two main dining rooms are the Silver Dolphin and Golden Sand, her main theatre is the Odeon Theatre, her casino is the Platinum Casino, and her signature pool is the Panorama Pool with a retractable Magrodome roof. Her 2026 deployment splits between a winter South America season from Santos (Brazil) and a summer Mediterranean season, with MSC announcing in April 2026 that she will return to Brazil and Argentina for winter 2026-27.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> Seaside Class (2nd of 2 original; sister MSC Seaside)</li>
           <li><strong>Delivered:</strong> 4 June 2018, Monfalcone (Fincantieri, hull 6257)</li>
@@ -539,7 +539,7 @@ All work on this project is offered as a gift to God.
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
         mount.innerHTML=arr.slice(0,12).map(v=>{
           const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'MSC Seaview').replace(/</g,'&lt;');
+          const title=String(v.title||'MSC Seaview').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
         }).join('');
         if(mount.children.length&&window.Swiper){
@@ -612,7 +612,7 @@ All work on this project is offered as a gift to God.
       <h2 id="deck-plans">MSC Seaview Deck Plans</h2>
       <p>MSC Seaview's 18-passenger-deck layout runs from Deck 4 through Deck 20. Deck 5 holds the Golden Sand Restaurant (one of two MDRs), the Seaview Bar atrium, and the Emotions Immersive Gallery. Deck 6 adds the Silver Dolphin Restaurant, the Venchi 1878 Chocolate Bar, the Shine Bar, the Piazza Grande plaza, and the lower Odeon Theatre. Deck 7 is the indoor entertainment axis with the Platinum Casino, Champagne Bar, Haven Lounge, The Billiard Room, Garage Club disco, the Interactive XD Cinema, MSC Formula Racer, Bowling &amp; Arcade, and the outdoor Sunset Beach Pool and Bar. Deck 8 is the signature outdoor Waterfront Boardwalk level with the Marketplace Restaurant &amp; Buffet, L'Atelier Bistrot, Seaside Lounge, Sports Bar, The Piazza, the 2,410 m² MSC Aurea Spa, the Infinity Bridge glass walkway, and the aft Infinity Bar. Deck 16 is the specialty-dining cluster with the Asian Market Kitchen by Roy Yamaguchi, Butcher's Cut, Ocean Cay Restaurant, Ocean Point Restaurant &amp; Buffet, Wine &amp; Cocktails, the glass-floored Bridge of Sighs, the Panorama Pool (with retractable Magrodome roof), the Panorama Bar, and the forward MSC Yacht Club Concierge Area and Top Sail Lounge. Deck 18 Playa Paraiso carries the Jungle Pool Lounge, Jungle Beach Bar, and the MSC Yacht Club Restaurant. Deck 19 Biarritz has the Forest Aquaventure waterpark, the twin 120-metre ziplines, the Top 19 Exclusive Solarium, the Aurea and Miramar bars, and the private MSC Yacht Club Pool and Grill &amp; Bar. Deck 20 is the topmost Sun Deck with the MSC Sports Arena and Adventure Trail.</p>
       <figure>
-        <img src="/assets/ship-map.png" alt="MSC Seaview simplified deck plan preview" loading="lazy"/>
+        <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
         <figcaption class="tiny">Simplified deck layout overview</figcaption>
       </figure>
       <p><a href="https://www.msccruises.com/en-us/cruise-ships/msc-seaview.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official MSC Seaview Deck Plans →</a></p>
@@ -784,5 +784,6 @@ All work on this project is offered as a gift to God.
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
 <script src="/assets/js/whimsical-ship-units.js" defer></script>
+<script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>
