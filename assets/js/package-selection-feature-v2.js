@@ -1,15 +1,48 @@
 /**
- * Royal Caribbean Drink Calculator — Package Selection Feature
- * Version: 1.005.000
+ * Drink Calculator v2 — Package Selection Feature (Config-Driven)
+ * Version: 2.000.000 (Multi-Cruise-Line Architecture)
+ * Based on: v1.005.000
+ *
+ * "Whatever you do, work at it with all your heart, as working for the Lord"
+ * — Colossians 3:23
+ *
+ * ═══════════════════════════════════════════════════════════════
+ * v2 ARCHITECTURE: CONFIG-DRIVEN MULTI-CRUISE-LINE SUPPORT
+ * ═══════════════════════════════════════════════════════════════
+ *
+ * This file is a DUPLICATE of package-selection-feature.js with
+ * one targeted modification for config-driven break-even messaging.
+ * The original v1 file is UNTOUCHED.
+ *
+ * v2 CHANGE (1 modification):
+ *
+ * 1. BREAK-EVEN DRINK PRICES: From config instead of hardcoded
+ *    - Lines 373-378: calculateBreakEvenHTML() now reads drink prices
+ *      from window.ITW_LINE_CONFIG.packages.{soda,refreshment,deluxe}.breakEvenDrink
+ *    - Was: hardcoded { soda: 3.50, refresh: 4.50, deluxe: 13.00 }
+ *    - Now: config-driven with fallback to RCL defaults
+ *    - This is the ONLY change in this file
+ *
+ * WHAT DID NOT CHANGE:
+ * - Package card click handling
+ * - Forced package selection logic
+ * - Delta comparison calculations
+ * - Cost breakdown display
+ * - All DOM manipulation and event wiring
+ *
+ * DATA SOURCE:
+ *   window.ITW_LINE_CONFIG?.packages?.{key}?.breakEvenDrink
+ *   Returns { name: string, price: number } for break-even messaging
+ *
+ * ═══════════════════════════════════════════════════════════════
+ * ORIGINAL v1 DOCUMENTATION (preserved for reference):
+ * ═══════════════════════════════════════════════════════════════
  *
  * FEATURES:
  * - Interactive clickable package cards
  * - Delta comparison vs recommended package
  * - Break-even drink count messaging
  * - Transparent cost breakdown (fixed package + uncovered drinks)
- *
- * "Whatever you do, work at it with all your heart, as working for the Lord"
- * — Colossians 3:23
  */
 
 (function(window) {

@@ -1,11 +1,76 @@
 /**
- * Royal Caribbean Drink Calculator - Unified Core Engine
- * Version: 1.003.000
+ * Drink Calculator v2 - Unified Core Engine (Config-Driven)
+ * Version: 2.000.000 (Multi-Cruise-Line Architecture)
+ * Based on: v1.003.000
  *
  * "Whatever you do, work heartily, as for the Lord and not for men"
  * - Colossians 3:23
  *
  * Soli Deo Gloria ✝️
+ *
+ * ═══════════════════════════════════════════════════════════════
+ * v2 ARCHITECTURE: CONFIG-DRIVEN MULTI-CRUISE-LINE SUPPORT
+ * ═══════════════════════════════════════════════════════════════
+ *
+ * This file is a DUPLICATE of calculator.js with additions to
+ * support multiple cruise lines via calculator-config.json.
+ * The original v1 file is UNTOUCHED.
+ *
+ * v2 CHANGES (4 modifications):
+ *
+ * 1. CONFIG API ENDPOINT: Added calculatorConfig URL to CONFIG.API
+ *    - In CONFIG.API block: calculatorConfig: '/assets/data/calculator-config.json'
+ *    - New endpoint alongside existing brands.json and FX APIs
+ *
+ * 2. NEW FUNCTION: loadLineConfig(lineId)
+ *    - In "LINE CONFIG (v2)" section: fetches calculator-config.json,
+ *      parses it, stores the active cruise line config on window globals:
+ *      * window.ITW_CALC_CONFIG — full config (all lines)
+ *      * window.ITW_LINE_CONFIG — active line config object
+ *    - Called during initialize() BEFORE loadDataset()
+ *    - Fallback: if fetch fails, sets both globals to null
+ *      (all downstream code has null-safe fallbacks)
+ *
+ * 3. NEW FUNCTION: switchCruiseLine(lineId)
+ *    - In "LINE CONFIG (v2)" section: runtime cruise line switching
+ *    - Reloads config for the new line
+ *    - Updates Store economics (pkg prices, gratuity, deluxeCap)
+ *    - Rebuilds dataset prices from config drinks
+ *    - Fires 'itw:line-changed' CustomEvent for UI layer
+ *    - Triggers recalculation
+ *    - Exposed globally: window.ITW_switchCruiseLine
+ *
+ * 4. COMPUTE CALL: Passes lineConfig as 6th argument
+ *    - In scheduleCalculation(): ITW_MATH.compute(..., window.ITW_LINE_CONFIG)
+ *    - Math engine uses this for coffee card punches and voucher max
+ *
+ * 5. INIT SEQUENCE: loadLineConfig() added before loadFXRates()
+ *    - In initialize(): await loadLineConfig() as first async call
+ *    - Ensures config is available before any calculations
+ *
+ * WHAT DID NOT CHANGE:
+ * - Store architecture (state, patch, get, subscribe)
+ * - loadDataset() — still fetches brands.json + line JSON
+ * - loadBrandConfig() — still resolves brand from brands.json
+ * - wireInputs(), wireButtons() — unchanged
+ * - Worker integration — unchanged
+ * - URL state sharing — unchanged
+ * - Currency/FX system — unchanged
+ * - All validation, debouncing, storage — unchanged
+ *
+ * GLOBAL INTERFACE (new in v2):
+ *   window.ITW_CALC_CONFIG  — full calculator-config.json contents
+ *   window.ITW_LINE_CONFIG  — active cruise line's config object
+ *   window.ITW_switchCruiseLine(lineId) — switch cruise line at runtime
+ *
+ * EVENT (new in v2):
+ *   'itw:line-changed' on window — { detail: { lineId, config } }
+ *   Fired when switchCruiseLine() completes. UI layer listens for this
+ *   to update labels, FAQ, policies, comparison table, page title.
+ *
+ * ═══════════════════════════════════════════════════════════════
+ * ORIGINAL v1 DOCUMENTATION (preserved for reference):
+ * ═══════════════════════════════════════════════════════════════
  *
  * PHASE 1 COMPLETE - All 12 Items:
  * ✅ #1  safeClone() replaces fake structuredClone
