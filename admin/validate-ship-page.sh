@@ -3555,6 +3555,68 @@ else
 fi
 
 # ============================================================================
+# Section 9ej: Duplicate HTML Tags (#1410)
+# ============================================================================
+section_header "Section 9ej: HTML Tag Integrity"
+
+HEADER_COUNT=$(grep -c '<header' "$FILE" || true)
+MAIN_COUNT=$(grep -c '<main' "$FILE" || true)
+FOOTER_COUNT=$(grep -c '<footer' "$FILE" || true)
+TAG_ISSUES=0
+if [ "$HEADER_COUNT" -gt 1 ]; then
+    check_fail "Found $HEADER_COUNT <header> opening tags — should have exactly 1. Broken HTML nesting (#1410)"
+    TAG_ISSUES=1
+fi
+if [ "$MAIN_COUNT" -gt 1 ]; then
+    check_fail "Found $MAIN_COUNT <main> opening tags — should have exactly 1 (#1410)"
+    TAG_ISSUES=1
+fi
+if [ "$FOOTER_COUNT" -gt 1 ]; then
+    check_fail "Found $FOOTER_COUNT <footer> opening tags — should have exactly 1 (#1410)"
+    TAG_ISSUES=1
+fi
+if [ "$TAG_ISSUES" -eq 0 ]; then
+    check_pass "Single header, main, and footer tags"
+fi
+
+# ============================================================================
+# Section 9ek: Person knowsAbout Cruise Line Match (#1411)
+# ============================================================================
+section_header "Section 9ek: Person knowsAbout Accuracy"
+
+# Extract the cruise line from the page (from breadcrumb or data attributes)
+PAGE_LINE=$(grep -oP 'cruise-line:\s*\K.*' "$FILE" | head -1 | sed 's/ *$//')
+if [ -z "$PAGE_LINE" ]; then
+    PAGE_LINE=$(grep -oP 'class="breadcrumb".*?cruise-lines/\K[^"/.]+' "$FILE" | head -1)
+fi
+
+# Check if knowsAbout mentions a DIFFERENT cruise line
+HAS_KNOWS_ABOUT=$(grep -c 'knowsAbout' "$FILE" || true)
+HAS_RC_REF=$(grep -c '"Royal Caribbean"' "$FILE" || true)
+IS_RCL_PAGE=0
+echo "$FILE" | grep -q '/rcl/' && IS_RCL_PAGE=1
+
+if [ "$HAS_KNOWS_ABOUT" -gt 0 ] && [ "$HAS_RC_REF" -gt 0 ] && [ "$IS_RCL_PAGE" -eq 0 ]; then
+    check_fail "Person knowsAbout mentions 'Royal Caribbean' but this is NOT an RCL page — template contamination (#1411)"
+elif [ "$HAS_KNOWS_ABOUT" -gt 0 ] && [ "$HAS_RC_REF" -gt 0 ] && [ "$IS_RCL_PAGE" -eq 1 ]; then
+    check_pass "knowsAbout correctly mentions Royal Caribbean on RCL page"
+else
+    check_pass "knowsAbout cruise line check passed (or no knowsAbout found)"
+fi
+
+# ============================================================================
+# Section 9el: Swiper Vendor Path (#1412)
+# ============================================================================
+section_header "Section 9el: Swiper Vendor Path"
+
+VENDOR_SWIPER=$(grep -c 'cruisinginthewake.com/vendor/swiper\|/assets/vendor/swiper' "$FILE" || true)
+if [ "$VENDOR_SWIPER" -gt 0 ]; then
+    check_warn "Page references self-hosted Swiper vendor path ($VENDOR_SWIPER refs) — Anthem uses CDN-only (#1412)"
+else
+    check_pass "No self-hosted Swiper vendor references"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
