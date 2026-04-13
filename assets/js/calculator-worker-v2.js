@@ -277,7 +277,8 @@ function validatePayload(payload) {
 
   // Validate forcedPackage if present
   if (payload.forcedPackage !== undefined && payload.forcedPackage !== null) {
-    const validPackages = ['soda', 'refresh', 'deluxe'];
+    // RT-5 FIX: Add 'coffee' as valid forced package (coffee card can win)
+    const validPackages = ['soda', 'refresh', 'deluxe', 'coffee'];
     if (!validPackages.includes(payload.forcedPackage)) {
       throw new Error('Invalid forcedPackage value: ' + payload.forcedPackage);
     }

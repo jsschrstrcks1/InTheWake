@@ -222,7 +222,7 @@ function adaptDataset(dataset) {
   const alcoholic = Array.isArray(sets.alcohol) ? sets.alcohol : (sets.alcoholic || []);
 
   const rules = dataset?.rules || {};
-  const gratuity = Number.isFinite(rules.gratuity) ? rules.gratuity : 0.18;
+  const gratuity = Number.isFinite(rules.gratuity) ? rules.gratuity : 0.20; // RT-10 FIX: 0.18→0.20
   const deluxeCap = Number.isFinite(rules.caps?.deluxeAlcohol)
     ? rules.caps.deluxeAlcohol
     : (Number.isFinite(rules.deluxeCap) ? rules.deluxeCap : 14.0);
@@ -735,22 +735,29 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // FIXED v1.003.000: Correct Royal Caribbean policy messaging
   // Policy triggers when Deluxe is the winner AND there are multiple adults
   const showDeluxePolicy = (winners.adultWinner === 'deluxe' && adults > 1);
+  // RT-6 FIX: Use config names instead of hardcoded "Royal Caribbean"
+  const lineName = lineConfig?.name || 'Cruise Line';
+  const pkgNames = {
+    deluxe: lineConfig?.packages?.deluxe?.shortName || 'Deluxe',
+    refresh: lineConfig?.packages?.refreshment?.shortName || 'Refreshment',
+    soda: lineConfig?.packages?.soda?.shortName || 'Soda',
+    coffee: 'Coffee Card',
+    alc: 'À la carte'
+  };
+  const getLabelForPkg = (key) => pkgNames[key] || key;
+
   const policyNote = showDeluxePolicy
-    ? 'Royal Caribbean Policy: If ANY adult in your stateroom purchases Deluxe, ALL adults must purchase it. No exceptions.'
+    ? lineName + ' Policy: If ANY adult in your stateroom purchases ' + pkgNames.deluxe + ', ALL adults must purchase it. No exceptions.'
     : null;
 
-  // CRITICAL FIX v1.006.000: Use actual voucher savings, not assumed cocktail prices
-  // actualVoucherSavings is per-day, multiply by days for total cruise savings
   const voucherSavings = actualVoucherSavings * days;
 
-  // ENHANCED v1.003.000: Group rows show minor forced status
-  const adultPackageName = winners.adultWinner === 'deluxe' ? 'Deluxe' :
-    winners.adultWinner === 'refresh' ? 'Refreshment' :
-      winners.adultWinner === 'soda' ? 'Soda' : 'À la carte';
+  // RT-7 FIX: Config-driven package names in results
+  const adultPackageName = getLabelForPkg(winners.adultWinner);
 
-  const minorPackageName = winners.minorForced ? 'Refreshment (Required)' :
-    winners.minorWinner === 'refresh' ? 'Refreshment' :
-      winners.minorWinner === 'soda' ? 'Soda' : 'À la carte';
+  const minorPackageName = winners.minorForced ? pkgNames.refresh + ' (Required)' :
+    winners.minorWinner === 'refresh' ? pkgNames.refresh :
+      getLabelForPkg(winners.minorWinner);
 
   const groupRows = [
     {
@@ -784,12 +791,14 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
   const healthNote = calculateHealthNote(inputs, {});
 
+  // RT-7 FIX: Config-driven package labels for results, aria, groupRows
   const getLabelForPackage = (key) => {
     const labels = {
       alc: 'À la carte',
-      soda: 'Soda Package',
-      refresh: 'Refreshment Package',
-      deluxe: 'Deluxe Package'
+      soda: (lineConfig?.packages?.soda?.name || 'Soda') + ' Package',
+      refresh: (lineConfig?.packages?.refreshment?.name || 'Refreshment') + ' Package',
+      deluxe: (lineConfig?.packages?.deluxe?.name || 'Deluxe') + ' Package',
+      coffee: lineConfig?.coffeeCard?.name || 'Coffee Card'
     };
     return labels[key] || 'À la carte';
   };

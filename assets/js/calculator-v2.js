@@ -1044,7 +1044,18 @@
       }
       const dataset = safeClone(store.get('dataset'));
       dataset.prices = prices;
-      if (lc.sets) dataset.sets = lc.sets;
+      if (lc.sets) {
+        dataset.sets = safeClone(lc.sets);
+        // RT-1 FIX: Math engine uses coffeeSmall/coffeeLarge but config sets only have 'coffee'
+        // Add coffeeSmall/coffeeLarge to any set that contains 'coffee'
+        for (const setKey of Object.keys(dataset.sets)) {
+          const arr = dataset.sets[setKey];
+          if (Array.isArray(arr) && arr.includes('coffee')) {
+            if (!arr.includes('coffeeSmall')) arr.push('coffeeSmall');
+            if (!arr.includes('coffeeLarge')) arr.push('coffeeLarge');
+          }
+        }
+      }
       // v2 FIX: Also patch dataset.rules so adaptDataset() gets correct gratuity/cap
       if (lc.rules) {
         dataset.rules = dataset.rules || {};
@@ -1110,27 +1121,37 @@
         data.sets.alcoholic = data.sets.alcohol;
       }
 
-      store.patch('dataset', data);
+      // RT-2 FIX: If a non-default cruise line is already active (e.g., loaded from URL),
+      // don't let loadDataset() overwrite its economics/dataset with RCL values.
+      // switchCruiseLine() already set the correct values for that line.
+      const activeLineId = window.ITW_LINE_CONFIG?.id;
+      const isNonDefaultLine = activeLineId && activeLineId !== 'royal-caribbean';
 
-      // v2 FIX (EC-6/7/30): Use ?? not || so 0 is valid (e.g., free package, 0% gratuity)
-      const economics = safeClone(store.get('economics'));
-      if (data.packages) {
-        const getPkgPrice = (pkg) => { const p = num(pkg?.priceMid ?? pkg?.price); return p !== undefined ? p : null; };
-        const s = (v, fb) => (v !== null && v !== undefined) ? v : fb;
-        economics.pkg = {
-          soda: s(getPkgPrice(data.packages.soda), economics.pkg.soda),
-          refresh: s(getPkgPrice(data.packages.refreshment ?? data.packages.refresh), economics.pkg.refresh),
-          deluxe: s(getPkgPrice(data.packages.deluxe), economics.pkg.deluxe)
-        };
+      if (!isNonDefaultLine) {
+        store.patch('dataset', data);
+
+        // v2 FIX (EC-6/7/30): Use ?? not || so 0 is valid
+        const economics = safeClone(store.get('economics'));
+        if (data.packages) {
+          const getPkgPrice = (pkg) => { const p = num(pkg?.priceMid ?? pkg?.price); return p !== undefined ? p : null; };
+          const s = (v, fb) => (v !== null && v !== undefined) ? v : fb;
+          // RT-3 FIX: Preserve coffee key (loadDataset doesn't have coffee package data)
+          economics.pkg = {
+            soda: s(getPkgPrice(data.packages.soda), economics.pkg.soda),
+            refresh: s(getPkgPrice(data.packages.refreshment ?? data.packages.refresh), economics.pkg.refresh),
+            deluxe: s(getPkgPrice(data.packages.deluxe), economics.pkg.deluxe),
+            coffee: economics.pkg.coffee ?? 31.0
+          };
+        }
+
+        if (data.rules) {
+          economics.grat = (data.rules.gratuity !== null && data.rules.gratuity !== undefined) ? num(data.rules.gratuity) : economics.grat;
+          const capVal = data.rules.caps?.deluxeAlcohol ?? data.rules.deluxeCap;
+          economics.deluxeCap = (capVal !== null && capVal !== undefined) ? num(capVal) : economics.deluxeCap;
+        }
+
+        store.patch('economics', economics);
       }
-
-      if (data.rules) {
-        economics.grat = (data.rules.gratuity !== null && data.rules.gratuity !== undefined) ? num(data.rules.gratuity) : economics.grat;
-        const capVal = data.rules.caps?.deluxeAlcohol ?? data.rules.deluxeCap;
-        economics.deluxeCap = (capVal !== null && capVal !== undefined) ? num(capVal) : economics.deluxeCap;
-      }
-
-      store.patch('economics', economics);
       announce('Pricing data loaded');
 
     } catch (error) {
@@ -1186,6 +1207,12 @@
           store.patch('results', payload);
           calculationInProgress = false;
           document.dispatchEvent(new CustomEvent('itw:calc-updated'));
+        }
+
+        // RT-9 FIX: Handle worker error messages so calculationInProgress doesn't freeze
+        if (type === 'error') {
+          console.warn('[Worker] Calculation error:', payload?.error || 'unknown');
+          calculationInProgress = false;
         }
       };
 
@@ -1496,12 +1523,12 @@
     if (state.inputs.coffeeCards > 0) params.set('coffeeCards', state.inputs.coffeeCards);
     if (state.inputs.coffeePunches > 0) params.set('coffeePunches', state.inputs.coffeePunches);
 
-    // Vouchers if any
-    if (state.inputs.vouchers?.adultCountPerDay > 0) {
-      params.set('voucherAdult', state.inputs.vouchers.adultCountPerDay);
+    // RT-4 FIX: State uses flat voucherAdult/voucherMinor, not nested vouchers object
+    if (state.inputs.voucherAdult > 0) {
+      params.set('voucherAdult', state.inputs.voucherAdult);
     }
-    if (state.inputs.vouchers?.minorCountPerDay > 0) {
-      params.set('voucherMinor', state.inputs.vouchers.minorCountPerDay);
+    if (state.inputs.voucherMinor > 0) {
+      params.set('voucherMinor', state.inputs.voucherMinor);
     }
 
     const baseURL = location.origin + location.pathname;
@@ -1562,17 +1589,14 @@
       hasChanges = true;
     }
 
-    // Vouchers
-    if (params.has('voucherAdult') || params.has('voucherMinor')) {
-      state.inputs.vouchers = state.inputs.vouchers || {};
-      if (params.has('voucherAdult')) {
-        state.inputs.vouchers.adultCountPerDay = parseFloat(params.get('voucherAdult')) || 0;
-        hasChanges = true;
-      }
-      if (params.has('voucherMinor')) {
-        state.inputs.vouchers.minorCountPerDay = parseFloat(params.get('voucherMinor')) || 0;
-        hasChanges = true;
-      }
+    // RT-4 FIX: State uses flat voucherAdult/voucherMinor keys
+    if (params.has('voucherAdult')) {
+      state.inputs.voucherAdult = parseFloat(params.get('voucherAdult')) || 0;
+      hasChanges = true;
+    }
+    if (params.has('voucherMinor')) {
+      state.inputs.voucherMinor = parseFloat(params.get('voucherMinor')) || 0;
+      hasChanges = true;
     }
 
     if (hasChanges) {
