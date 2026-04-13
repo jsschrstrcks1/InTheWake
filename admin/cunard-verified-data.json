@@ -1,0 +1,102 @@
+{
+  "_meta": {
+    "purpose": "Verified Cunard fleet data for ship page repairs",
+    "created": "2026-04-13",
+    "sources": {
+      "tier1_official": "cunard.com (fetched 2026-04-13) — limited specs available",
+      "tier2_maritime": "VesselFinder, MarineTraffic, CruiseMapper (verified 2026-04-13)",
+      "tier3_compiled": "CruiseRadio, World of Cruising, Chris Frame's Cunard Page, Wikipedia",
+      "methodology": "Each IMO verified from VesselFinder + at least one additional source. GT from VesselFinder. Guest/crew from World of Cruising cross-referenced with Wikipedia."
+    }
+  },
+  "ships": {
+    "queen-anne": {
+      "name": "Queen Anne",
+      "imo": "9839399",
+      "imo_source": "VesselFinder + MarineTraffic + CruiseMapper + 5 other sources (unanimous)",
+      "imo_page_current": "9930928",
+      "imo_discrepancy": "WRONG: Page has 9930928, correct is 9839399. No maritime source lists 9930928.",
+      "gt": 113000,
+      "gt_source": "VesselFinder + CruiseMapper + Ship-Technology (agree)",
+      "guests": 2996,
+      "guests_source": "CruiseMapper + Chris Frame (agree on ~2996-3000)",
+      "year": 2024,
+      "class": "Queen Anne",
+      "crew": 1225,
+      "crew_source": "VesselFinder + World of Cruising (agree)"
+    },
+    "queen-elizabeth": {
+      "name": "Queen Elizabeth",
+      "imo": "9477438",
+      "imo_source": "VesselFinder + MarineTraffic (confirmed)",
+      "imo_page_current": "TBD",
+      "imo_discrepancy": "Page has TBD — ship has sailed since 2010",
+      "gt": 90901,
+      "gt_source": "VesselFinder (90,901). Page says 90,900. CruiseRadio says 90,400. Using VesselFinder as Tier 2.",
+      "gt_page_current": 90900,
+      "gt_discrepancy": "Page 90,900 vs VesselFinder 90,901 — 1 GT difference, likely rounding. LEAVE AS-IS.",
+      "guests": 2081,
+      "guests_source": "World of Cruising (2,081) + CruiseRadio (2,092). Page has 2,081. LEAVE AS-IS — matches one authoritative source.",
+      "year": 2010,
+      "class": "Vista",
+      "crew": 911,
+      "crew_source": "World of Cruising. Page says 1,005 — DISCREPANCY. World of Cruising says 911. Need third source.",
+      "crew_page_current": 1005,
+      "crew_note": "Page 1,005 vs World of Cruising 911 — significant gap. Do NOT change without third verification source."
+    },
+    "queen-mary-2": {
+      "name": "Queen Mary 2",
+      "imo": "9241061",
+      "imo_source": "VesselFinder (confirmed)",
+      "imo_page_current": "9241061",
+      "imo_discrepancy": "None — correct",
+      "gt": 149215,
+      "gt_source": "VesselFinder + multiple sources (agree)",
+      "guests": 2695,
+      "guests_source": "World of Cruising + Chris Frame (agree at 2,695). Page says 2,695. Correct.",
+      "year": 2004,
+      "class": "QM2",
+      "crew": 1253,
+      "crew_source": "World of Cruising + Chris Frame (agree)"
+    },
+    "queen-victoria": {
+      "name": "Queen Victoria",
+      "imo": "9320556",
+      "imo_source": "VesselFinder (confirmed)",
+      "imo_page_current": "9320556",
+      "imo_discrepancy": "None — correct",
+      "gt": 90049,
+      "gt_source": "VesselFinder + Wikipedia (agree)",
+      "guests": 2061,
+      "guests_source": "Wikipedia + World of Cruising (agree at 2,061). Page says 2,081 — DISCREPANCY.",
+      "guests_page_current": 2081,
+      "guests_discrepancy": "Page 2,081 vs sources 2,061 — 20 guest difference. Sources agree. Will fix.",
+      "year": 2007,
+      "class": "Vista",
+      "crew": 913,
+      "crew_source": "Wikipedia (913). Page says 981. DISCREPANCY — but Wikipedia is Tier 4. Need better source.",
+      "crew_page_current": 981,
+      "crew_note": "Page 981 vs Wikipedia 913. Do NOT change crew without Tier 1-2 verification."
+    }
+  },
+  "discrepancy_summary": {
+    "wrong_imo": [
+      "queen-anne: page=9930928, correct=9839399 (unanimous from 7+ sources)"
+    ],
+    "missing_imo": [
+      "queen-elizabeth: TBD → 9477438"
+    ],
+    "guest_discrepancies": [
+      "queen-victoria: page=2,081, sources=2,061 (20 guest difference)"
+    ],
+    "crew_discrepancies_UNRESOLVED": [
+      "queen-elizabeth: page=1,005, World of Cruising=911 — NOT changing without third source",
+      "queen-victoria: page=981, Wikipedia=913 — NOT changing without Tier 1-2 source"
+    ],
+    "deliberate_non_changes": [
+      "queen-elizabeth GT: page 90,900 vs VesselFinder 90,901 — 1 GT rounding difference, left as-is",
+      "queen-elizabeth crew: left at page value 1,005 pending third-source verification",
+      "queen-victoria crew: left at page value 981 pending Tier 1-2 verification"
+    ]
+  }
+}
