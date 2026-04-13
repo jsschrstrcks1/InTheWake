@@ -1272,7 +1272,12 @@ function renderCategoryTable(categoryRows) {
   tbody.innerHTML = '';
 
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
-  const labels = window.ITW_CONFIG?.DRINK_LABELS || {};
+  // v2: Build labels from line config drinks, fallback to CONFIG.DRINK_LABELS
+  const configDrinkLabels = {};
+  if (window.ITW_LINE_CONFIG?.drinks) {
+    window.ITW_LINE_CONFIG.drinks.forEach(d => { configDrinkLabels[d.id] = d.label || d.name; });
+  }
+  const labels = Object.keys(configDrinkLabels).length > 0 ? configDrinkLabels : (window.ITW_CONFIG?.DRINK_LABELS || {});
 
   if (!Array.isArray(categoryRows)) return;
 

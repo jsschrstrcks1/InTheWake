@@ -105,7 +105,9 @@
   }
   </script>
 
-  <!-- JSON-LD: FAQPage (Rich Snippet Eligibility) -->
+  <!-- v2: FAQPage JSON-LD is now generated dynamically by renderFromConfig() -->
+  <!-- Original static version removed — see calculator-config.json for FAQ data -->
+  <!--
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -178,6 +180,7 @@
     ]
   }
   </script>
+  -->
 
   <!-- JSON-LD: WebApplication (Tool Classification) -->
   <script type="application/ld+json">
@@ -427,58 +430,390 @@
           <span id="line-selector-status" class="tiny" style="color: #678;"></span>
         </div>
         <script>
-        // v2: Populate line selector from config and handle switching
-        document.addEventListener('DOMContentLoaded', function() {
-          const select = document.getElementById('cruise-line-select');
-          if (!select) return;
+        // ═══════════════════════════════════════════════════════════
+        // v2: Unified Config-Driven Dynamic Rendering
+        // Handles: line selector, page title, quick answer, policies,
+        // loyalty tiers, coffee card, FAQ, comparison table, meta,
+        // JSON-LD, brand colors, and all "Royal Caribbean" text refs
+        // ═══════════════════════════════════════════════════════════
+        (function() {
+          'use strict';
 
-          // Populate options from config once it loads
-          function populateLines() {
-            const config = window.ITW_CALC_CONFIG;
-            if (!config || !config.lines) return;
+          // Helper: safely set textContent
+          function setText(id, text) {
+            var el = typeof id === 'string' ? document.getElementById(id) : id;
+            if (el) el.textContent = text;
+          }
+
+          // Helper: safely set innerHTML
+          function setHTML(id, html) {
+            var el = typeof id === 'string' ? document.getElementById(id) : id;
+            if (el) el.innerHTML = html;
+          }
+
+          // ── Line Selector Population ──
+          function populateLineSelector(config) {
+            var select = document.getElementById('cruise-line-select');
+            if (!select || !config || !config.lines) return;
             select.innerHTML = '';
-            for (const [id, line] of Object.entries(config.lines)) {
-              const opt = document.createElement('option');
+            for (var id in config.lines) {
+              var opt = document.createElement('option');
               opt.value = id;
-              opt.textContent = line.name;
+              opt.textContent = config.lines[id].name;
               if (id === (config.defaultLine || 'royal-caribbean')) opt.selected = true;
               select.appendChild(opt);
             }
-            // Show status if only one line
-            const status = document.getElementById('line-selector-status');
+            var status = document.getElementById('line-selector-status');
             if (Object.keys(config.lines).length === 1 && status) {
               status.textContent = 'More cruise lines coming soon';
             }
           }
 
-          // Wait for config to load, then populate
-          const checkConfig = setInterval(function() {
-            if (window.ITW_CALC_CONFIG) {
-              clearInterval(checkConfig);
-              populateLines();
-            }
-          }, 100);
+          // ── Brand Colors ──
+          function applyBrandColor(lc) {
+            var color = lc.color || '#0e6e8e';
+            var root = document.documentElement;
+            root.style.setProperty('--brand-color', color);
+            root.style.setProperty('--brand-color-light', color + '18');
+            root.style.setProperty('--brand-color-dark', darkenHex(color, 30));
 
-          // Handle line switching
-          select.addEventListener('change', function() {
-            if (window.ITW_switchCruiseLine) {
-              window.ITW_switchCruiseLine(select.value);
-            }
-          });
+            // Update the line selector border
+            var select = document.getElementById('cruise-line-select');
+            if (select) select.style.borderColor = color;
 
-          // Update page title when line changes
-          window.addEventListener('itw:line-changed', function(e) {
-            const lc = e.detail?.config;
+            // Update theme-color meta
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', color);
+          }
+
+          function darkenHex(hex, amount) {
+            hex = hex.replace('#', '');
+            var r = Math.max(0, parseInt(hex.substr(0, 2), 16) - amount);
+            var g = Math.max(0, parseInt(hex.substr(2, 2), 16) - amount);
+            var b = Math.max(0, parseInt(hex.substr(4, 2), 16) - amount);
+            return '#' + r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
+          }
+
+          // ── Page Title ──
+          function updatePageTitle(lc) {
+            setText('calc-page-title', lc.name + ' Drink Package Calculator');
+            document.title = (lc.meta && lc.meta.title ? lc.meta.title : lc.name + ' Drink Package Calculator 2026') + ' | In the Wake';
+          }
+
+          // ── Quick Answer ──
+          function updateQuickAnswer(lc) {
+            var el = document.getElementById('v2-quick-answer');
+            if (!el) return;
+            var qa = lc.quickAnswer || 'Use the calculator below to find your personal break-even point.';
+            setHTML(el, '<p style="margin:0 0 0.75rem 0;font-size:1.125rem;line-height:1.6;color:#01579b;">' +
+              '<strong>\u26A1 Quick Answer:</strong> ' + qa + '</p>' +
+              '<p style="margin:0;font-size:1rem;line-height:1.5;color:#0277bd;">' +
+              '\uD83D\uDCA1 Use the calculator below to find <em>your exact break-even point</em> based on your drinking habits' +
+              (lc.loyalty && lc.loyalty.enabled ? ', ' + lc.loyalty.programName + ' vouchers,' : '') +
+              ' and trip length.</p>');
+          }
+
+          // ── Gratuity Label ──
+          function updateGratuityLabel(lc) {
+            var gratPct = lc.rules && lc.rules.gratuity ? Math.round(lc.rules.gratuity * 100) : 18;
+            var el = document.querySelector('#totals + small');
+            if (el) el.textContent = ' \u2014 includes ' + gratPct + '% gratuity';
+          }
+
+          // ── Policy Warning ──
+          function updatePolicyWarning(lc) {
+            var el = document.getElementById('v2-policy-content');
+            if (!el || !lc.policies) return;
+            var html = '';
+            lc.policies.forEach(function(p) {
+              if (p.severity === 'critical') {
+                html += '<h3 style="color:#e65100;margin-top:0;font-size:1.25rem;display:flex;align-items:center;gap:0.5rem;">' +
+                  (p.icon || '\uD83D\uDEA8') + ' ' + p.title + '</h3>' +
+                  '<div style="background:#fff;border-left:5px solid #ff5722;padding:1.25rem;margin:1rem 0;border-radius:4px;">' +
+                  '<p style="font-size:1.125rem;line-height:1.7;margin:0;color:#212121;">' + p.text + '</p></div>';
+              } else if (p.severity === 'warning') {
+                html += '<div style="background:#fff;border-left:4px solid #ff9800;padding:1rem;margin:1rem 0;border-radius:4px;">' +
+                  '<p style="margin:0;color:#212121;"><strong>' + (p.icon || '\u26A0\uFE0F') + ' ' + (p.title || 'Policy Note') + ':</strong> ' + p.text + '</p></div>';
+              } else {
+                html += '<div style="background:#e3f2fd;border-left:4px solid #2196f3;padding:1rem;margin:1rem 0;border-radius:4px;">' +
+                  '<p style="margin:0;color:#0d47a1;"><strong>' + (p.icon || '\uD83D\uDCA1') + ' ' + (p.title || 'Tip') + ':</strong> ' + p.text + '</p></div>';
+              }
+            });
+            el.innerHTML = html;
+          }
+
+          // ── Loyalty Tiers ──
+          function updateLoyaltyTiers(lc) {
+            var section = document.getElementById('cna-vouchers');
+            if (!section) return;
+            if (!lc.loyalty || !lc.loyalty.enabled) {
+              section.style.display = 'none';
+              return;
+            }
+            section.style.display = '';
+            var summary = section.querySelector('summary');
+            if (summary) {
+              summary.innerHTML = '\uD83D\uDC51 ' + lc.loyalty.programName + ' Vouchers <span class="badge-gold">Loyalty Members</span>';
+            }
+            var tiersContainer = document.getElementById('v2-loyalty-tiers');
+            if (!tiersContainer) return;
+
+            var voucherVal = lc.loyalty.voucherValue || 14;
+            var html = '<h4 style="margin-top:0;color:#a67c00;">\uD83D\uDC8E Loyalty Drink Vouchers</h4>';
+            html += '<p class="small"><strong>Got loyalty status?</strong> These vouchers add up FAST.</p>';
+            html += '<div class="cna-tiers">';
+            lc.loyalty.tiers.forEach(function(tier) {
+              if (tier.vouchersPerDay > 0) {
+                var dailySave = tier.vouchersPerDay * voucherVal;
+                var weeklySave = dailySave * 7;
+                html += '<div class="cna-tier"><div class="tier-header">' +
+                  '<span class="tier-icon">\uD83D\uDC8E</span> <strong>' + tier.name + '</strong>' +
+                  ' <span class="tiny muted">(' + tier.nightsMin + '-' + (tier.nightsMax >= 99999 ? '\u221E' : tier.nightsMax) + ' nights)</span></div>' +
+                  '<p class="small"><strong>' + tier.vouchersPerDay + ' drink vouchers per day</strong>, loaded on your card</p>' +
+                  '<p class="tiny muted">= $' + dailySave.toFixed(0) + '/day in free drinks ($' + weeklySave.toFixed(0) + '/week cruise)</p></div>';
+              }
+            });
+            html += '</div>';
+            if (lc.loyalty.voucherNote) {
+              html += '<div class="cna-tip"><p class="tiny muted">' + lc.loyalty.voucherNote + '</p></div>';
+            }
+            tiersContainer.innerHTML = html;
+
+            // Update voucher input label
+            var label = document.querySelector('label[for="input-voucher-adult"] .tiny');
+            if (label) {
+              var tierNames = lc.loyalty.tiers.filter(function(t) { return t.vouchersPerDay > 0; })
+                .map(function(t) { return t.vouchersPerDay + ' for ' + t.name; }).join(', ');
+              label.textContent = '(' + tierNames + ')';
+            }
+          }
+
+          // ── Coffee Card ──
+          function updateCoffeeCard(lc) {
+            var section = document.getElementById('coffee-card-section');
+            if (!section) return;
+            if (!lc.coffeeCard || !lc.coffeeCard.enabled) {
+              section.style.display = 'none';
+              return;
+            }
+            section.style.display = '';
+            var explainer = section.querySelector('.coffee-card-explainer h4');
+            if (explainer) explainer.textContent = '\u2615 ' + lc.coffeeCard.name;
+            var desc = section.querySelector('.coffee-card-explainer > p');
+            if (desc) desc.textContent = 'Prepaid punch card for ' + lc.coffeeCard.punches + ' specialty coffees at ~$' + lc.coffeeCard.price.toFixed(0) + ' + gratuity';
+            if (lc.coffeeCard.note) {
+              var noteEl = section.querySelector('.coffee-card-note');
+              if (noteEl) setHTML(noteEl, '\u23F0 <strong style="color:#f57c00;">Note:</strong> ' + lc.coffeeCard.note);
+            }
+          }
+
+          // ── Package Comparison Table (static, SEO-crawlable) ──
+          function updateComparisonTable(lc) {
+            var section = document.getElementById('package-comparison');
+            if (!section) return;
+            var title = section.querySelector('h2');
+            if (title) title.textContent = lc.name + ' Drink Package Comparison 2026';
+            var table = section.querySelector('table');
+            if (table) table.setAttribute('aria-label', lc.name + ' drink package comparison chart 2026');
+
+            var tbody = section.querySelector('tbody');
+            if (!tbody || !lc.packages) return;
+            var gratPct = lc.rules && lc.rules.gratuity ? Math.round(lc.rules.gratuity * 100) : 18;
+            var html = '';
+            var tdStyle = 'padding: 0.75rem; border-bottom: 1px solid #e8eef2;';
+            var pkgOrder = ['soda', 'refreshment', 'deluxe'];
+            pkgOrder.forEach(function(key) {
+              var pkg = lc.packages[key];
+              if (!pkg) return;
+              var be = pkg.breakEvenDrink;
+              html += '<tr>' +
+                '<td style="' + tdStyle + '"><strong>' + pkg.name + '</strong></td>' +
+                '<td style="' + tdStyle + '">~$' + pkg.priceMid.toFixed(0) + '</td>' +
+                '<td style="' + tdStyle + '">' + pkg.includes + '</td>' +
+                '<td style="' + tdStyle + ' text-align: center;">' + (be ? Math.ceil(pkg.priceMid * (1 + (lc.rules.gratuity || 0.18)) / be.price) + ' ' + be.name : '-') + '</td>' +
+                '</tr>';
+            });
+            // Coffee card row
+            if (lc.coffeeCard && lc.coffeeCard.enabled) {
+              html += '<tr>' +
+                '<td style="' + tdStyle + '"><strong>' + lc.coffeeCard.name + '</strong></td>' +
+                '<td style="' + tdStyle + '">~$' + lc.coffeeCard.price.toFixed(0) + ' (' + lc.coffeeCard.punches + ' drinks)</td>' +
+                '<td style="' + tdStyle + '">Specialty coffees — lattes, cappuccinos, espresso drinks</td>' +
+                '<td style="' + tdStyle + ' text-align: center;">2 coffees/day (7-night)</td></tr>';
+            }
+            tbody.innerHTML = html;
+            var note = section.querySelector('.tiny.muted');
+            if (note) note.textContent = 'Prices are approximate pre-cruise rates as of 2026. Onboard pricing is typically 20-30% higher. All packages add ' + gratPct + '% gratuity. Use the calculator above for your personalized break-even analysis.';
+          }
+
+          // ── FAQ Section ──
+          function updateFAQ(lc) {
+            var section = document.getElementById('faq');
+            if (!section || !lc.faq || lc.faq.length === 0) return;
+            var html = '<h2 style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions</h2>';
+            lc.faq.forEach(function(item) {
+              html += '<details class="section-divider"><summary>' + item.question + '</summary>' +
+                '<p class="list-indent">' + item.answer + '</p></details>';
+            });
+            section.innerHTML = html;
+          }
+
+          // ── JSON-LD: FAQPage ──
+          function updateFAQJsonLd(lc) {
+            var existing = document.getElementById('v2-faq-jsonld');
+            if (existing) existing.remove();
+            if (!lc.faq || lc.faq.length === 0) return;
+            var faqEntities = lc.faq.map(function(item) {
+              return { '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } };
+            });
+            var script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.id = 'v2-faq-jsonld';
+            script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqEntities });
+            document.head.appendChild(script);
+          }
+
+          // ── JSON-LD: WebApplication ──
+          function updateWebAppJsonLd(lc) {
+            var existing = document.getElementById('v2-webapp-jsonld');
+            if (existing) existing.remove();
+            var script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.id = 'v2-webapp-jsonld';
+            script.textContent = JSON.stringify({
+              '@context': 'https://schema.org', '@type': 'WebApplication',
+              name: lc.name + ' Drink Package Calculator',
+              description: lc.meta && lc.meta.description ? lc.meta.description : 'Interactive break-even calculator for ' + lc.name + ' drink packages.',
+              applicationCategory: 'UtilityApplication', isAccessibleForFree: true, inLanguage: 'en-US'
+            });
+            document.head.appendChild(script);
+          }
+
+          // ── Meta Tags ──
+          function updateMetaTags(lc) {
+            var meta = lc.meta || {};
+            var desc = meta.description || 'Compare drink packages to \u00E0-la-carte pricing for ' + lc.name + '.';
+            var ogTitle = meta.ogTitle || lc.name + ' Drink Package Calculator 2026';
+            var setMeta = function(sel, attr, val) {
+              var el = document.querySelector(sel);
+              if (el) el.setAttribute(attr, val);
+            };
+            setMeta('meta[name="description"]', 'content', desc);
+            setMeta('meta[name="ai-summary"]', 'content', desc);
+            setMeta('meta[property="og:title"]', 'content', ogTitle);
+            setMeta('meta[property="og:description"]', 'content', desc);
+          }
+
+          // ── Right Rail Quick Answer ──
+          function updateRailContent(lc) {
+            var answerLine = document.querySelector('.answer-line');
+            if (answerLine) {
+              answerLine.innerHTML = '<strong>Quick Answer:</strong> Compare ' + lc.name +
+                ' drink packages to \u00E0-la-carte pricing based on what you actually drink. Enter your habits, cruise length, and we\'ll calculate whether a package saves you money\u2014or not.';
+            }
+            var fitGuidance = document.querySelector('.fit-guidance');
+            if (fitGuidance) {
+              var pkgNames = [];
+              if (lc.packages.deluxe) pkgNames.push(lc.packages.deluxe.shortName + ' Package');
+              if (lc.packages.refreshment) pkgNames.push(lc.packages.refreshment.shortName + ' Package');
+              fitGuidance.innerHTML = '<strong>Best For:</strong> Cruisers deciding between the ' +
+                pkgNames.join(', ') + ', or paying per drink. Works for any ' + lc.name + ' ship.';
+            }
+          }
+
+          // ── Package Cards (right rail) ──
+          function updatePackageCards(lc) {
+            if (!lc.packages) return;
+            var cardMap = { soda: 'soda', refresh: 'refreshment', deluxe: 'deluxe' };
+            for (var cardKey in cardMap) {
+              var card = document.querySelector('[data-card="' + cardKey + '"]');
+              if (!card) continue;
+              var pkg = lc.packages[cardMap[cardKey]];
+              if (!pkg) { card.style.display = 'none'; continue; }
+              card.style.display = '';
+              var h4 = card.querySelector('h4');
+              if (h4) h4.textContent = pkg.shortName || pkg.name;
+              var desc = card.querySelector('.tiny.muted');
+              if (desc) desc.textContent = pkg.includes ? pkg.includes.substring(0, 80) : '';
+            }
+            // Coffee card
+            var coffeeCard = document.querySelector('[data-card="coffee"]');
+            if (coffeeCard) {
+              if (lc.coffeeCard && lc.coffeeCard.enabled) {
+                coffeeCard.style.display = '';
+                var ch4 = coffeeCard.querySelector('h4');
+                if (ch4) ch4.textContent = '\u2615 ' + lc.coffeeCard.name;
+                var cdesc = coffeeCard.querySelector('p.small');
+                if (cdesc) cdesc.textContent = lc.coffeeCard.punches + ' punches (~$' + (lc.coffeeCard.price / lc.coffeeCard.punches).toFixed(2) + '/punch)';
+              } else {
+                coffeeCard.style.display = 'none';
+              }
+            }
+          }
+
+          // ── Deluxe cap badge ──
+          function updateCapBadge(lc) {
+            var badge = document.getElementById('cap-badge');
+            if (badge && lc.rules) {
+              badge.textContent = '$' + (lc.rules.deluxeCap || 14).toFixed(2);
+            }
+          }
+
+          // ══════════════════════════════════════════
+          // Master render function — called on init and on line switch
+          // ══════════════════════════════════════════
+          function renderFromConfig(lc) {
             if (!lc) return;
-            const title = document.getElementById('calc-page-title');
-            if (title) title.textContent = lc.name + ' Drink Package Calculator';
-            document.title = (lc.meta?.title || lc.name + ' Drink Package Calculator 2026') + ' | In the Wake';
+            applyBrandColor(lc);
+            updatePageTitle(lc);
+            updateQuickAnswer(lc);
+            updateGratuityLabel(lc);
+            updatePolicyWarning(lc);
+            updateLoyaltyTiers(lc);
+            updateCoffeeCard(lc);
+            updateComparisonTable(lc);
+            updateFAQ(lc);
+            updateFAQJsonLd(lc);
+            updateWebAppJsonLd(lc);
+            updateMetaTags(lc);
+            updateRailContent(lc);
+            updatePackageCards(lc);
+            updateCapBadge(lc);
+          }
+
+          // ── Wire Events ──
+          document.addEventListener('DOMContentLoaded', function() {
+            var select = document.getElementById('cruise-line-select');
+
+            // Wait for config, then do initial render
+            var checkConfig = setInterval(function() {
+              if (window.ITW_CALC_CONFIG && window.ITW_LINE_CONFIG) {
+                clearInterval(checkConfig);
+                populateLineSelector(window.ITW_CALC_CONFIG);
+                renderFromConfig(window.ITW_LINE_CONFIG);
+              }
+            }, 100);
+
+            // Handle dropdown change
+            if (select) {
+              select.addEventListener('change', function() {
+                if (window.ITW_switchCruiseLine) {
+                  window.ITW_switchCruiseLine(select.value);
+                }
+              });
+            }
+
+            // Re-render on line switch
+            window.addEventListener('itw:line-changed', function(e) {
+              var lc = e.detail && e.detail.config;
+              if (lc) renderFromConfig(lc);
+            });
           });
-        });
+        })();
         </script>
 
         <!-- Quick Answer Section (AI-First SEO + Answer-First Philosophy) -->
-        <div class="quick-answer" role="region" aria-label="Quick answer" style="background:linear-gradient(135deg, #e3f2fd 0%, #e1f5fe 100%);border-left:5px solid #0277bd;padding:1.25rem 1.5rem;margin:1.25rem 0;border-radius:8px;">
+        <div id="v2-quick-answer" class="quick-answer" role="region" aria-label="Quick answer" style="background:linear-gradient(135deg, #e3f2fd 0%, #e1f5fe 100%);border-left:5px solid #0277bd;padding:1.25rem 1.5rem;margin:1.25rem 0;border-radius:8px;">
           <p style="margin:0 0 0.75rem 0;font-size:1.125rem;line-height:1.6;color:#01579b;">
             <strong>⚡ Quick Answer:</strong> Most cruisers break even on the Deluxe Beverage Package at <strong>6-7 drinks per day</strong> (mix of cocktails, beer, specialty coffee).
             The Soda Package breaks even at ~4 sodas/day, and the Refreshment Package at ~5 specialty drinks/day.
@@ -550,15 +885,11 @@
             <span id="fx-note" class="tiny muted"></span>
           </div>
           
-          <div class="controls-inline" style="margin-top:0.75rem">
+          <!-- v2: Old brand-select hidden — replaced by #cruise-line-select at top -->
+          <div class="controls-inline" style="margin-top:0.75rem;display:none;">
             <label for="brand-select">Cruise line</label>
             <select id="brand-select" aria-label="Select cruise line">
-              <option value="royal-caribbean" selected>⚓ Royal Caribbean</option>
-              <option value="celebrity" disabled>🚢 Celebrity Cruises (coming soon)</option>
-              <option value="carnival" disabled>🎉 Carnival (coming soon)</option>
-              <option value="princess" disabled>👑 Princess (coming soon)</option>
-              <option value="norwegian" disabled>🌊 Norwegian (coming soon)</option>
-              <option value="msc" disabled>🌍 MSC Cruises (coming soon)</option>
+              <option value="royal-caribbean" selected>Royal Caribbean</option>
             </select>
             <span id="brand-note" class="tiny muted"></span>
           </div>
@@ -646,46 +977,9 @@
               <span class="badge-gold">Diamond+ Members</span>
             </summary>
             
-            <div class="cna-explainer">
-              <h4 style="margin-top:0;color:#a67c00;">💎 Loyalty Drink Vouchers</h4>
-              <p class="small"><strong>Got 80+ cruise nights?</strong> You're probably Diamond or higher! These vouchers add up FAST.</p>
-              
-              <div class="cna-tiers">
-                <div class="cna-tier">
-                  <div class="tier-header">
-                    <span class="tier-icon">💎</span>
-                    <strong>Diamond</strong>
-                    <span class="tiny muted">(80-174 nights)</span>
-                  </div>
-                  <p class="small"><strong>4 drink vouchers per day</strong>, loaded on your SeaPass</p>
-                  <p class="tiny muted">= $56/day in free drinks ($392/week cruise)</p>
-                </div>
-                
-                <div class="cna-tier">
-                  <div class="tier-header">
-                    <span class="tier-icon">💎💎</span>
-                    <strong>Diamond Plus</strong>
-                    <span class="tiny muted">(175-699 nights)</span>
-                  </div>
-                  <p class="small"><strong>5 drink vouchers per day</strong>, loaded on your SeaPass</p>
-                  <p class="tiny muted">= $70/day in free drinks ($490/week cruise)</p>
-                </div>
-                
-                <div class="cna-tier">
-                  <div class="tier-header">
-                    <span class="tier-icon">👑</span>
-                    <strong>Pinnacle</strong>
-                    <span class="tiny muted">(700+ nights)</span>
-                  </div>
-                  <p class="small"><strong>6 drink vouchers per day</strong>, loaded on your SeaPass</p>
-                  <p class="tiny muted">= $84/day in free drinks ($588/week cruise)</p>
-                </div>
-              </div>
-              
-              <div class="cna-tip">
-                <p class="small"><strong>💡 Pro tip:</strong> If you're not sure whether you're Diamond, you're probably not (yet!). Check your Crown & Anchor number on royalcaribbean.com or the app.</p>
-                <p class="tiny muted">Each voucher = <strong>$14.00</strong> toward any beverage (alcoholic or non-alcoholic). Vouchers work as FREE DRINKS, not dollar credits.</p>
-              </div>
+            <!-- v2: Loyalty tiers rendered dynamically from config -->
+            <div id="v2-loyalty-tiers" class="cna-explainer">
+              <!-- Populated by renderFromConfig() -->
             </div>
             
             <div class="row">
@@ -891,53 +1185,11 @@
           </div>
           
           <!-- ✅ UPDATED: Absolute Policy Warning -->
+          <!-- v2: Policy content rendered dynamically from config -->
           <div id="policy-note" class="policy-alert critical" role="alert" aria-live="assertive" style="display:none;background:linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);border:3px solid #f57c00;border-radius:12px;padding:1.5rem;margin:2rem 0;box-shadow:0 4px 12px rgba(245, 124, 0, 0.2);">
-            <h3 style="color:#e65100;margin-top:0;font-size:1.25rem;display:flex;align-items:center;gap:0.5rem;">🚨 Royal Caribbean Policy (No Exceptions Since August 1, 2025)</h3>
-            
-            <div class="policy-mandate" style="background:#fff;border-left:5px solid #ff5722;padding:1.25rem;margin:1rem 0;border-radius:4px;">
-              <p class="policy-rule" style="font-size:1.125rem;line-height:1.7;margin:0;color:#212121;">
-                If <strong style="color:#d84315;font-weight:700;">ANY adult (21+)</strong> in your stateroom purchases the 
-                <strong style="color:#d84315;font-weight:700;">Deluxe Beverage Package</strong>, <strong style="color:#d84315;font-weight:700;">ALL adults</strong> 
-                in that stateroom <strong style="color:#d84315;font-weight:700;">MUST purchase it.</strong>
-              </p>
+            <div id="v2-policy-content">
+              <!-- Populated by renderFromConfig() -->
             </div>
-            
-            <details class="policy-details" open style="margin:1.5rem 0;border:2px solid #ff9800;border-radius:8px;overflow:hidden;">
-              <summary style="cursor:pointer;font-weight:700;color:#e65100;padding:1rem;background:#fff3e0;border-bottom:2px solid #ff9800;user-select:none;"><strong>NO EXCEPTIONS</strong> — Click to see what's NOT exempt ▼</summary>
-              <div class="exceptions-content" style="padding:1.25rem;background:#fff;">
-                <p class="exceptions-intro" style="font-weight:600;color:#212121;margin-bottom:0.75rem;">
-                  Royal Caribbean does <strong>NOT</strong> grant exceptions for:
-                </p>
-                <ul class="no-exceptions-list" style="list-style:none;padding-left:0;margin:1rem 0;">
-                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ Pregnant women</li>
-                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ Medical conditions or medications</li>
-                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ Religious reasons</li>
-                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ Recovery from addiction</li>
-                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ Personal preference ("I don't drink alcohol")</li>
-                  <li style="padding:0.5rem 0.75rem;font-weight:500;font-size:1rem;color:#424242;border-left:3px solid #ff5722;margin:0.5rem 0;background:#fafafa;">❌ One person "doesn't want it"</li>
-                </ul>
-                <p class="policy-consequence" style="background:#ffebee;border:2px solid #f44336;border-radius:6px;padding:1rem;margin-top:1rem;color:#212121;">
-                  <strong style="color:#c62828;">If you cannot afford packages for all adults:</strong><br>
-                  Your only option is to <strong>skip drink packages entirely</strong> and pay per drink à la carte.
-                </p>
-              </div>
-            </details>
-            
-            <div class="policy-enforcement" style="background:#fff;border-radius:6px;padding:1rem;margin:1rem 0;border-left:4px solid #ff9800;">
-              <p style="margin:0;color:#212121;">
-                <strong style="color:#e65100;">⚖️ Strictly Enforced:</strong> This policy is enforced by Royal Caribbean at booking and <strong>cannot be changed onboard</strong>.
-              </p>
-            </div>
-            
-            <p class="policy-source" style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(0,0,0,0.1);color:#757575;font-size:0.875rem;">
-              Policy change effective August 1, 2025. 
-              <a href="https://www.royalcaribbeanblog.com/2025/08/02/royal-caribbean-drops-drink-package-exception-rule" 
-                 target="_blank" 
-                 rel="noopener noreferrer"
-                 style="color:#ff5722;text-decoration:none;font-weight:600;">
-                Source: Royal Caribbean Blog ↗
-              </a>
-            </p>
           </div>
           
           <!-- ✅ NEW: Family Policy Note (Minors + Deluxe) -->
