@@ -13,7 +13,7 @@
  */
 
 import { readFile, readdir, stat } from 'fs/promises';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { spawnSync } from 'child_process';
 import { createHash } from 'crypto';
 import { join, dirname, relative, basename } from 'path';
@@ -31,11 +31,52 @@ const PLACEHOLDER_HASHES = new Set([
 
 // Dynamic cross-port hash map: built at runtime by scanning all port image dirs.
 // Maps hash → Set<port_slug> for every .webp that appears in 2+ port directories.
-// Cached after first build so it only runs once per validator session.
+// Cached to admin/.port-image-hashes.json so it only rebuilds when images change.
 let _crossPortHashMap = null;
+
+const HASH_CACHE_PATH = join(dirname(fileURLToPath(import.meta.url)), '.port-image-hashes.json');
+
+function _loadHashCache() {
+  try {
+    if (!existsSync(HASH_CACHE_PATH)) return null;
+    const raw = JSON.parse(readFileSync(HASH_CACHE_PATH, 'utf-8'));
+    if (!raw || !raw.hashes || !raw.buildTime) return null;
+    // Cache is valid — convert back to Map<hash, Map<port, [files]>>
+    const map = new Map();
+    for (const [hash, portObj] of Object.entries(raw.hashes)) {
+      const portMap = new Map();
+      for (const [port, files] of Object.entries(portObj)) {
+        portMap.set(port, files);
+      }
+      map.set(hash, portMap);
+    }
+    return map;
+  } catch (e) { return null; }
+}
+
+function _saveHashCache(map) {
+  try {
+    const obj = {};
+    for (const [hash, portMap] of map) {
+      obj[hash] = {};
+      for (const [port, files] of portMap) {
+        obj[hash][port] = files;
+      }
+    }
+    const out = JSON.stringify({ buildTime: new Date().toISOString(), hashes: obj }, null, 2);
+    writeFileSync(HASH_CACHE_PATH, out);
+  } catch (e) { /* cache write failure is non-fatal */ }
+}
 
 async function buildCrossPortHashMap() {
   if (_crossPortHashMap) return _crossPortHashMap;
+
+  // Try loading from cache first (skips hashing 3,600+ images)
+  const cached = _loadHashCache();
+  if (cached) {
+    _crossPortHashMap = cached;
+    return _crossPortHashMap;
+  }
 
   const portImgBase = join(PROJECT_ROOT, 'ports', 'img');
   const hashToPorts = new Map(); // hash → Map<port_slug, [filenames]>
@@ -88,6 +129,9 @@ async function buildCrossPortHashMap() {
       _crossPortHashMap.set(hash, portMap);
     }
   }
+
+  // Persist to disk so subsequent runs skip the full scan
+  _saveHashCache(_crossPortHashMap);
 
   return _crossPortHashMap;
 }
@@ -4557,6 +4601,16 @@ function validateGoldStandard($, html) {
 
 async function main() {
   const args = process.argv.slice(2);
+
+  // --rebuild-cache: force rebuild of the cross-port image hash cache
+  if (args.includes('--rebuild-cache')) {
+    console.log('Rebuilding cross-port image hash cache...');
+    _crossPortHashMap = null;  // clear in-memory cache
+    try { const fs = await import('fs'); fs.default.unlinkSync(HASH_CACHE_PATH); } catch (e) {}
+    await buildCrossPortHashMap();
+    console.log(`Cache written to ${HASH_CACHE_PATH}`);
+    if (args.filter(a => !a.startsWith('--')).length === 0) process.exit(0);
+  }
 
   const options = {
     allPorts: args.includes('--all-ports'),

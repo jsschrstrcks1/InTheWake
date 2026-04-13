@@ -1,0 +1,210 @@
+{
+  "schemaVersion": "1.0",
+  "lastUpdated": "2026-04-13",
+  "defaultLine": "royal-caribbean",
+  "lines": {
+    "royal-caribbean": {
+      "id": "royal-caribbean",
+      "name": "Royal Caribbean",
+      "shortName": "Royal Caribbean",
+      "slug": "royal-caribbean",
+      "pageUrl": "/cruise-lines/royal-caribbean.html",
+      "color": "#0072CE",
+
+      "packages": {
+        "soda": {
+          "name": "Classic Soda Package",
+          "shortName": "Soda",
+          "emoji": "🥤",
+          "priceMid": 10.99,
+          "priceMin": 8.99,
+          "priceMax": 15.00,
+          "priceNote": "$8.99–$15/day (+20% gratuity)",
+          "includes": "Unlimited fountain soda & Coca-Cola Freestyle, souvenir cup",
+          "includesList": [
+            "Unlimited fountain soda & Coca-Cola Freestyle",
+            "Souvenir cup"
+          ],
+          "breakEvenDrink": { "name": "sodas", "price": 3.50 }
+        },
+        "refreshment": {
+          "name": "Refreshment Package",
+          "shortName": "Refreshment",
+          "emoji": "☕",
+          "priceMid": 34.50,
+          "priceMin": 28.00,
+          "priceMax": 48.00,
+          "priceNote": "$28–$48/day (+20% gratuity)",
+          "includes": "Soda + specialty coffee + tea + juice + mocktails + energy drinks + water — no alcohol",
+          "includesList": [
+            "All soda items",
+            "Premium coffees/teas (excl. Starbucks)",
+            "Fresh-squeezed juices & smoothies",
+            "Mocktails / zero-proof cocktails",
+            "Energy drinks (e.g., Red Bull)",
+            "Milkshakes at Johnny Rockets",
+            "Bottled still/sparkling water"
+          ],
+          "breakEvenDrink": { "name": "specialty coffees", "price": 4.50 }
+        },
+        "deluxe": {
+          "name": "Deluxe Beverage Package",
+          "shortName": "Deluxe",
+          "emoji": "🍸",
+          "priceMid": 89.00,
+          "priceMin": 69.00,
+          "priceMax": 115.00,
+          "priceNote": "$69–$115/day (+20% gratuity)",
+          "includes": "Everything in Refreshment + cocktails, wine, beer, spirits (up to $14/drink)",
+          "includesList": [
+            "All Refreshment items",
+            "Beer, wine, cocktails & spirits up to $14 each",
+            "Pay difference for drinks above cap",
+            "40% off select bottled wines"
+          ],
+          "breakEvenDrink": { "name": "cocktails", "price": 13.00 }
+        }
+      },
+
+      "coffeeCard": {
+        "enabled": true,
+        "name": "Coffee Card",
+        "emoji": "☕",
+        "price": 31.00,
+        "punches": 15,
+        "punchesPerSmall": 1,
+        "punchesPerLarge": 2,
+        "shareable": true,
+        "note": "Not valid at licensed Starbucks locations. Unused punches expire at cruise end."
+      },
+
+      "rules": {
+        "gratuity": 0.20,
+        "deluxeCap": 14.00,
+        "allAdultsSamePackage": true,
+        "allAdultsPolicyDate": "August 1, 2025",
+        "minorsForceRefreshment": true,
+        "adultAge": 21,
+        "alcoholAge": 21,
+        "usPortAlcoholRestriction": true,
+        "deluxeDailyLimit": 15
+      },
+
+      "loyalty": {
+        "enabled": true,
+        "programName": "Crown & Anchor Society",
+        "voucherValue": 14.00,
+        "voucherNote": "Each voucher = one drink up to $14. Applied to most expensive drinks first. Loaded automatically onto SeaPass card.",
+        "tiers": [
+          { "name": "Gold", "nightsMin": 1, "nightsMax": 29, "vouchersPerDay": 0 },
+          { "name": "Platinum", "nightsMin": 30, "nightsMax": 54, "vouchersPerDay": 0 },
+          { "name": "Emerald", "nightsMin": 55, "nightsMax": 79, "vouchersPerDay": 0 },
+          { "name": "Diamond", "nightsMin": 80, "nightsMax": 174, "vouchersPerDay": 4 },
+          { "name": "Diamond Plus", "nightsMin": 175, "nightsMax": 699, "vouchersPerDay": 5 },
+          { "name": "Pinnacle", "nightsMin": 700, "nightsMax": 99999, "vouchersPerDay": 6 }
+        ]
+      },
+
+      "drinks": [
+        { "id": "soda",         "name": "Soda",             "label": "Soda (can/fountain)",     "price": 3.50,  "rangeMin": 3.50, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "🥤" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Premium Coffee",          "price": 4.50,  "rangeMin": 4.25, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Specialty Tea",           "price": 4.50,  "rangeMin": 4.00, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh-Squeezed Juice",    "price": 8.25,  "rangeMin": 4.75, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🧃" },
+        { "id": "mocktail",     "name": "Mocktail",          "label": "Mocktail",                "price": 9.00,  "rangeMin": 7.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
+        { "id": "energy",       "name": "Energy Drink",      "label": "Energy Drink",            "price": 4.00,  "rangeMin": 4.00, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "⚡" },
+        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 9.00,  "rangeMin": 4.99, "rangeMax": 14.00, "category": "non-alcoholic", "icon": "🥛" },
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water (500 ml)",  "price": 3.25,  "rangeMin": 2.25, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "💧" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer",                    "price": 7.99,  "rangeMin": 7.49, "rangeMax": 9.50,  "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 11.00, "rangeMin": 8.00, "rangeMax": 14.00, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 14.00, "rangeMin": 11.00,"rangeMax": 14.00, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot (+mixer)", "price": 11.00, "rangeMin": 9.99, "rangeMax": 13.99, "category": "alcoholic",     "icon": "🥃" }
+      ],
+
+      "sets": {
+        "soda": ["soda"],
+        "refreshment": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater"],
+        "deluxe": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
+        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+      },
+
+      "policies": [
+        {
+          "id": "all-adults-same",
+          "severity": "critical",
+          "icon": "🚨",
+          "title": "Royal Caribbean Policy (No Exceptions Since August 1, 2025)",
+          "text": "ALL adults (21+) in the same stateroom MUST purchase the same adult beverage package. There are absolutely NO EXCEPTIONS — not for pregnancy, medical conditions, religious reasons, recovery, or designated drivers. This is strictly enforced at booking and cannot be changed onboard."
+        },
+        {
+          "id": "minors-forced",
+          "severity": "warning",
+          "icon": "⚠️",
+          "title": "Minor Package Requirement",
+          "text": "When adults purchase the Deluxe Beverage Package, all minors (under 21) in the same stateroom must purchase the Refreshment Package. Minors cannot purchase Deluxe."
+        },
+        {
+          "id": "pre-cruise-pricing",
+          "severity": "info",
+          "icon": "💡",
+          "title": "Pre-Cruise Pricing",
+          "text": "Always buy drink packages pre-cruise for the best price. Pre-cruise pricing is typically 20-30% cheaper than onboard. Watch for sales during Wave Season (January-March) and Black Friday."
+        }
+      ],
+
+      "faq": [
+        {
+          "question": "How do I calculate if the Royal Caribbean drink package is worth it?",
+          "answer": "Enter the number of drinks you expect per day by type (cocktails, beer, wine, soda, coffee). The calculator multiplies each by its average price, then compares your daily spending to the package cost. If your total exceeds the package price plus 20% gratuity, the package saves money."
+        },
+        {
+          "question": "What is the break-even point for Royal Caribbean drink packages?",
+          "answer": "For the Deluxe Beverage Package at approximately $89/day (pre-cruise pricing), you break even at 6-7 drinks per day when factoring in the 20% automatic gratuity. The exact break-even point depends on your drink preferences — cocktails break even faster than soda."
+        },
+        {
+          "question": "What's included in the Royal Caribbean Deluxe Beverage Package?",
+          "answer": "Cocktails, wine by the glass, beer, spirits, soda, specialty coffee, tea, fresh juice, mocktails, energy drinks, milkshakes, and bottled water. Drinks up to $14.00 per serving (before 20% gratuity) are included. Excludes bottles of wine, souvenir cups, and specialty shots over the cap."
+        },
+        {
+          "question": "Do I have to buy a drink package for everyone in my stateroom?",
+          "answer": "Yes. Royal Caribbean requires ALL adults (21+) in the same stateroom to purchase the same adult beverage package. There are absolutely no exceptions. If adults purchase Deluxe, all minors must purchase Refreshment."
+        },
+        {
+          "question": "Should I buy the drink package pre-cruise or onboard?",
+          "answer": "Always buy pre-cruise. Pre-cruise pricing is typically 20-30% cheaper than onboard. You can usually cancel or modify up until a few days before sailing. Watch for sales during Wave Season (January-March) and Black Friday."
+        },
+        {
+          "question": "What are Crown & Anchor drink vouchers?",
+          "answer": "Crown & Anchor loyalty members at Diamond level (80-174 nights) get 4 free drink vouchers per day. Diamond Plus (175-699 nights) gets 5, and Pinnacle (700+ nights) gets 6. Each voucher covers one drink up to $14. If you have vouchers, the calculator adjusts your break-even point."
+        },
+        {
+          "question": "What is the Refreshment Package vs. the Deluxe?",
+          "answer": "The Refreshment Package (~$34.50/day) covers non-alcoholic drinks: soda, specialty coffee, fresh juice, mocktails, water, and energy drinks. The Deluxe Beverage Package (~$89/day) includes everything in Refreshment plus all alcoholic beverages up to $14/drink."
+        },
+        {
+          "question": "How does sea day vs. port day weighting work?",
+          "answer": "Sea days typically mean more onboard drinks (lounging by the pool), while port days mean fewer (you're off exploring). The calculator adjusts estimates: sea days increase by your chosen percentage (default 20%), port days decrease by the same."
+        }
+      ],
+
+      "quickAnswer": "Most cruisers break even on the Deluxe Beverage Package at 6-7 drinks per day. Use the calculator below to find your personal break-even point.",
+
+      "meta": {
+        "title": "Royal Caribbean Drink Package Calculator 2026 | Is It Worth It?",
+        "description": "Compare Soda, Refreshment, Deluxe, and Coffee Card vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support.",
+        "ogTitle": "Royal Caribbean Drink Package Calculator 2026"
+      },
+
+      "_sources": {
+        "note": "Prices verified 2026-01-31",
+        "references": [
+          "royalcaribbeanblog.com",
+          "eatsleepcruise.com",
+          "shinecruise.com",
+          "cruisespotlight.com"
+        ],
+        "policyDate": "Stateroom beverage package uniformity enforced August 1, 2025",
+        "gratuityChange": "RCL gratuity raised from 18% to 20% in 2025"
+      }
+    }
+  }
+}

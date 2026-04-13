@@ -47,7 +47,7 @@
   <!-- Title & SEO -->
   <title>Royal Caribbean Drink Package Calculator 2026 | Is It Worth It?</title>
   <meta name="description" content="Compare Soda, Refreshment, Deluxe, and Coffee Card vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support."/>
-  <link rel="canonical" href="https://cruisinginthewake.com/drink-calculator.html"/>
+  <link rel="canonical" href="https://cruisinginthewake.com/drink-calculatorv2.html"/>
   
   <!-- OpenGraph / Twitter -->
   <meta property="og:type" content="website"/>
@@ -416,7 +416,66 @@
       
       <!-- Calculator App -->
       <section id="calculator-app" style="display:none;">
-        <h1>Royal Caribbean Drink Package Calculator</h1>
+        <h1 id="calc-page-title">Royal Caribbean Drink Package Calculator</h1>
+
+        <!-- v2: Cruise Line Selector -->
+        <div id="line-selector" style="margin: 0.75rem 0 1.25rem; padding: 0.75rem 1rem; background: #f0f5f7; border-radius: 8px; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+          <label for="cruise-line-select" style="font-weight: 600; font-size: 0.95rem; color: #083041;">Cruise Line:</label>
+          <select id="cruise-line-select" style="padding: 0.5rem 1rem; border: 2px solid #0e6e8e; border-radius: 6px; font-size: 0.95rem; background: #fff; cursor: pointer;" aria-label="Select cruise line for drink package comparison">
+            <option value="royal-caribbean" selected>Royal Caribbean</option>
+          </select>
+          <span id="line-selector-status" class="tiny" style="color: #678;"></span>
+        </div>
+        <script>
+        // v2: Populate line selector from config and handle switching
+        document.addEventListener('DOMContentLoaded', function() {
+          const select = document.getElementById('cruise-line-select');
+          if (!select) return;
+
+          // Populate options from config once it loads
+          function populateLines() {
+            const config = window.ITW_CALC_CONFIG;
+            if (!config || !config.lines) return;
+            select.innerHTML = '';
+            for (const [id, line] of Object.entries(config.lines)) {
+              const opt = document.createElement('option');
+              opt.value = id;
+              opt.textContent = line.name;
+              if (id === (config.defaultLine || 'royal-caribbean')) opt.selected = true;
+              select.appendChild(opt);
+            }
+            // Show status if only one line
+            const status = document.getElementById('line-selector-status');
+            if (Object.keys(config.lines).length === 1 && status) {
+              status.textContent = 'More cruise lines coming soon';
+            }
+          }
+
+          // Wait for config to load, then populate
+          const checkConfig = setInterval(function() {
+            if (window.ITW_CALC_CONFIG) {
+              clearInterval(checkConfig);
+              populateLines();
+            }
+          }, 100);
+
+          // Handle line switching
+          select.addEventListener('change', function() {
+            if (window.ITW_switchCruiseLine) {
+              window.ITW_switchCruiseLine(select.value);
+            }
+          });
+
+          // Update page title when line changes
+          window.addEventListener('itw:line-changed', function(e) {
+            const lc = e.detail?.config;
+            if (!lc) return;
+            const title = document.getElementById('calc-page-title');
+            if (title) title.textContent = lc.name + ' Drink Package Calculator';
+            document.title = (lc.meta?.title || lc.name + ' Drink Package Calculator 2026') + ' | In the Wake';
+          });
+        });
+        </script>
 
         <!-- Quick Answer Section (AI-First SEO + Answer-First Philosophy) -->
         <div class="quick-answer" role="region" aria-label="Quick answer" style="background:linear-gradient(135deg, #e3f2fd 0%, #e1f5fe 100%);border-left:5px solid #0277bd;padding:1.25rem 1.5rem;margin:1.25rem 0;border-radius:8px;">
@@ -1335,7 +1394,7 @@
   
   <!-- JAVASCRIPT - LOAD ORDER CRITICAL -->
   <!-- Math engine FIRST -->
-  <script src="/assets/js/calculator-math.js?v=3.010.300"></script>
+  <script src="/assets/js/calculator-math-v2.js?v=3.010.300"></script>
   
   <!-- Verify math loaded -->
   <script>
@@ -1347,12 +1406,12 @@
   </script>
   
   <!-- Core engine SECOND -->
-  <script src="/assets/js/calculator.js?v=3.010.300" defer></script>
+  <script src="/assets/js/calculator-v2.js?v=3.010.300" defer></script>
   
   <!-- UI layer THIRD -->
-  <script src="/assets/js/calculator-ui.js?v=3.010.300" defer></script>
+  <script src="/assets/js/calculator-ui-v2.js?v=3.010.300" defer></script>
   <!-- ✅ NEW: Package Selection Feature -->
-  <script src="/assets/js/package-selection-feature.js?v=3.010.300" defer></script>
+  <script src="/assets/js/package-selection-feature-v2.js?v=3.010.300" defer></script>
   
   <!-- Optional: Share bar -->
   <script src="/assets/js/share-bar.js?v=3.010.300" defer></script>
