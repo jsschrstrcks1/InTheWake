@@ -2786,6 +2786,58 @@ else
 fi
 
 # ============================================================================
+# Section 9co: Page Grid Structural Integrity (#1363)
+# ============================================================================
+section_header "Section 9co: Page Grid Structure"
+
+# If <main> has page-grid class, the content MUST be wrapped in col-1
+# and the sidebar aside MUST have col-2. Without this, the CSS grid
+# activates but content doesn't flow into columns — broken layout.
+HAS_PAGE_GRID=$(grep -c 'page-grid' "$FILE")
+HAS_COL1=$(grep -cP 'class="col-1|class="page-intro col-1' "$FILE")
+HAS_ASIDE_RAIL=$(grep -c 'class="rail' "$FILE")
+HAS_COL2=$(grep -cP 'rail col-2|col-2.*rail' "$FILE")
+
+if [ "$HAS_PAGE_GRID" -gt 0 ]; then
+    if [ "$HAS_COL1" -eq 0 ]; then
+        check_fail "page-grid on <main> but NO col-1 wrapper — two-column layout is visually broken. Content floats loose in grid. (#1363)"
+    else
+        check_pass "page-grid has col-1 content wrapper"
+    fi
+
+    if [ "$HAS_ASIDE_RAIL" -gt 0 ] && [ "$HAS_COL2" -eq 0 ]; then
+        check_warn "Sidebar aside has class=\"rail\" but missing col-2 — may not position correctly in page-grid (#1363)"
+    elif [ "$HAS_ASIDE_RAIL" -gt 0 ]; then
+        check_pass "Sidebar aside has both rail and col-2 classes"
+    fi
+else
+    check_pass "No page-grid — structural check N/A"
+fi
+
+# ============================================================================
+# Section 9cp: Content Inside col-1 Completeness (#1364)
+# ============================================================================
+section_header "Section 9cp: col-1 Content Completeness"
+
+if [ "$HAS_PAGE_GRID" -gt 0 ] && [ "$HAS_COL1" -gt 0 ]; then
+    # Check that key content sections are INSIDE col-1, not floating outside it
+    # Extract everything between col-1 open and col-1 close
+    COL1_CONTENT=$(sed -n '/class="col-1/,/End.*col-1\|<\/section><!-- col-1\|<aside.*col-2/p' "$FILE" | head -200)
+
+    # Check if critical sections exist in the file but outside col-1
+    HAS_FAQ_IN_FILE=$(grep -c 'id="faq"' "$FILE")
+    HAS_FAQ_IN_COL1=$(echo "$COL1_CONTENT" | grep -c 'id="faq"' 2>/dev/null || echo 0)
+
+    if [ "$HAS_FAQ_IN_FILE" -gt 0 ] && [ "$HAS_FAQ_IN_COL1" -eq 0 ]; then
+        check_warn "FAQ section may be outside col-1 — verify it renders in the main content column (#1364)"
+    else
+        check_pass "Content sections appear inside col-1"
+    fi
+else
+    check_pass "col-1 completeness check skipped (no page-grid or no col-1)"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
