@@ -3061,6 +3061,208 @@ else
 fi
 
 # ============================================================================
+# Section 9dg: Duplicate Deck Plans Sections (#1381)
+# ============================================================================
+section_header "Section 9dg: Duplicate Deck Plans"
+
+DECK_PLAN_SECTIONS=$(grep -cP 'id="deck-plans"|id="deckPlansHeading"|Deck Plans</h2' "$FILE" || true)
+if [ "$DECK_PLAN_SECTIONS" -gt 1 ]; then
+    check_fail "Found $DECK_PLAN_SECTIONS deck plan headings/sections — should have exactly 1 (#1381)"
+else
+    check_pass "Single deck plans section (or none)"
+fi
+
+# ============================================================================
+# Section 9dh: Duplicate Tracker Sections (#1382)
+# ============================================================================
+section_header "Section 9dh: Duplicate Tracker Sections"
+
+# Only count actual heading elements, not section labels or FAQ references
+TRACKER_SECTIONS=$(grep -cP '<h2 id="liveTrackHeading"|<h2 id="trackingHeading"' "$FILE" || true)
+if [ "$TRACKER_SECTIONS" -gt 1 ]; then
+    check_fail "Found $TRACKER_SECTIONS tracker headings/sections — should have exactly 1 (#1382)"
+else
+    check_pass "Single tracker section (or none)"
+fi
+
+# ============================================================================
+# Section 9di: Duplicate Deck Plans CTA (#1383)
+# ============================================================================
+section_header "Section 9di: Duplicate Deck Plans CTA"
+
+# Count actual btn-deck-plans elements (not multi-line text)
+DECK_CTA_COUNT=$(grep -c 'class="btn-deck-plans"' "$FILE" || true)
+if [ "$DECK_CTA_COUNT" -gt 1 ]; then
+    check_warn "Found $DECK_CTA_COUNT Deck Plans CTA buttons — should have exactly 1 (#1383)"
+else
+    check_pass "Single Deck Plans CTA (or none)"
+fi
+
+# ============================================================================
+# Section 9dj: Redundant Quick Answer Section (#1384)
+# ============================================================================
+section_header "Section 9dj: Quick Answer Duplication"
+
+HAS_QUICK_ANSWER=$(grep -c 'class="quick-answer"' "$FILE" || true)
+HAS_ANSWER_LINE=$(grep -c 'class="answer-line"' "$FILE" || true)
+if [ "$HAS_QUICK_ANSWER" -gt 0 ] && [ "$HAS_ANSWER_LINE" -gt 0 ]; then
+    check_warn "Page has both a quick-answer section AND an answer-line — redundant duplication (#1384)"
+elif [ "$HAS_QUICK_ANSWER" -gt 0 ]; then
+    check_pass "Quick answer section present (no duplication)"
+else
+    check_pass "No redundant quick answer"
+fi
+
+# ============================================================================
+# Section 9dk: Standalone Entertainment Section (#1385)
+# ============================================================================
+section_header "Section 9dk: Entertainment Section"
+
+HAS_ENTERTAINMENT=$(grep -c 'entertainmentHeading' "$FILE" || true)
+if [ "$HAS_ENTERTAINMENT" -gt 0 ]; then
+    check_warn "Standalone Entertainment section present — Anthem reference integrates entertainment into page-intro or logbook (#1385)"
+else
+    check_pass "No standalone entertainment section"
+fi
+
+# ============================================================================
+# Section 9dl: Explore More / Related Links Section (#1386)
+# ============================================================================
+section_header "Section 9dl: Related Links Section"
+
+HAS_EXPLORE_MORE=$(grep -cP '>Explore More<|>Related Links<' "$FILE" || true)
+if [ "$HAS_EXPLORE_MORE" -gt 0 ]; then
+    check_warn "Standalone 'Explore More' / 'Related Links' section — sidebar handles navigation in reference template (#1386)"
+else
+    check_pass "No standalone related links section"
+fi
+
+# ============================================================================
+# Section 9dm: Section Ordering (#1387)
+# ============================================================================
+section_header "Section 9dm: Section Ordering"
+
+# Reference order: page-intro → first-look → dining → logbook → videos → deck-plans → tracker → faq → attributions
+# Check that first-look comes before dining, dining before logbook, logbook before faq
+FL_LINE=$(grep -n 'id="first-look"' "$FILE" | head -1 | cut -d: -f1)
+DIN_LINE=$(grep -n 'id="diningHeading"\|id="dining-card"' "$FILE" | head -1 | cut -d: -f1)
+LOG_LINE=$(grep -n 'id="logbook"' "$FILE" | head -1 | cut -d: -f1)
+FAQ_LINE=$(grep -n 'id="faq"\|id="faq-heading"' "$FILE" | head -1 | cut -d: -f1)
+ORDER_OK=1
+if [ -n "$FL_LINE" ] && [ -n "$DIN_LINE" ] && [ "$FL_LINE" -gt "$DIN_LINE" ]; then
+    ORDER_OK=0
+fi
+if [ -n "$DIN_LINE" ] && [ -n "$LOG_LINE" ] && [ "$DIN_LINE" -gt "$LOG_LINE" ]; then
+    ORDER_OK=0
+fi
+if [ -n "$LOG_LINE" ] && [ -n "$FAQ_LINE" ] && [ "$LOG_LINE" -gt "$FAQ_LINE" ]; then
+    ORDER_OK=0
+fi
+if [ "$ORDER_OK" -eq 0 ]; then
+    check_warn "Section ordering differs from reference (first-look → dining → logbook → faq) (#1387)"
+else
+    check_pass "Section ordering follows reference pattern"
+fi
+
+# ============================================================================
+# Section 9dn: Grid-2 Uses div Instead of section (#1388)
+# ============================================================================
+section_header "Section 9dn: Grid-2 Element Type"
+
+DIV_GRID2=$(grep -c '<div class="grid-2"' "$FILE" || true)
+if [ "$DIV_GRID2" -gt 0 ]; then
+    check_warn "Found $DIV_GRID2 <div class=\"grid-2\"> — should use <section class=\"grid-2\"> for consistency (#1388)"
+else
+    check_pass "All grid-2 containers use <section> (or none present)"
+fi
+
+# ============================================================================
+# Section 9do: Hero Lat-Lon Grid aria-hidden (#1389)
+# ============================================================================
+section_header "Section 9do: Hero Accessibility"
+
+HAS_LATLON=$(grep -c 'class="latlon-grid"' "$FILE" || true)
+if [ "$HAS_LATLON" -gt 0 ]; then
+    LATLON_HIDDEN=$(grep 'class="latlon-grid"' "$FILE" | grep -c 'aria-hidden' || true)
+    if [ "$LATLON_HIDDEN" -eq 0 ]; then
+        check_warn "latlon-grid missing aria-hidden=\"true\" — decorative SVG announced to screen readers (#1389)"
+    else
+        check_pass "latlon-grid has aria-hidden"
+    fi
+else
+    check_pass "No latlon-grid present"
+fi
+
+# ============================================================================
+# Section 9dp: Print Button SVG aria-hidden (#1390)
+# ============================================================================
+section_header "Section 9dp: Print Button Accessibility"
+
+HAS_PRINT_BTN=$(grep -c 'print-guide-btn' "$FILE" || true)
+if [ "$HAS_PRINT_BTN" -gt 0 ]; then
+    PRINT_SVG_HIDDEN=$(grep -A2 'print-guide-btn' "$FILE" | grep -c 'aria-hidden' || true)
+    if [ "$PRINT_SVG_HIDDEN" -eq 0 ]; then
+        check_warn "Print button SVG missing aria-hidden=\"true\" — icon announced to screen readers (#1390)"
+    else
+        check_pass "Print button SVG has aria-hidden"
+    fi
+else
+    check_pass "No print button present"
+fi
+
+# ============================================================================
+# Section 9dq: Hero Credit Attribution (#1391)
+# ============================================================================
+section_header "Section 9dq: Hero Credit"
+
+HAS_HERO=$(grep -c 'class="hero"' "$FILE" || true)
+HAS_HERO_CREDIT=$(grep -c 'hero-credit' "$FILE" || true)
+if [ "$HAS_HERO" -gt 0 ] && [ "$HAS_HERO_CREDIT" -eq 0 ]; then
+    check_warn "Hero section has no hero-credit attribution — reference pages credit the photographer (#1391)"
+else
+    check_pass "Hero credit present (or no hero section)"
+fi
+
+# ============================================================================
+# Section 9dr: Main tabindex for Skip Link Focus (#1392)
+# ============================================================================
+section_header "Section 9dr: Main tabindex"
+
+HAS_MAIN_TABINDEX=$(grep '<main' "$FILE" | grep -c 'tabindex="-1"' || true)
+if [ "$HAS_MAIN_TABINDEX" -eq 0 ]; then
+    check_warn "Main element missing tabindex=\"-1\" — skip link focus may not work in all browsers (#1392)"
+else
+    check_pass "Main has tabindex=\"-1\" for skip link focus"
+fi
+
+# ============================================================================
+# Section 9ds: Duplicate Key Facts Boxes (#1393)
+# ============================================================================
+section_header "Section 9ds: Duplicate Key Facts"
+
+KEY_FACTS_COUNT=$(grep -c 'class="key-facts"' "$FILE" || true)
+if [ "$KEY_FACTS_COUNT" -gt 1 ]; then
+    check_warn "Found $KEY_FACTS_COUNT key-facts boxes — Anthem reference has 1. Redundant data risks inconsistency (#1393)"
+else
+    check_pass "Single key-facts box (or none)"
+fi
+
+# ============================================================================
+# Section 9dt: Footer Separator Consistency (#1394)
+# ============================================================================
+section_header "Section 9dt: Footer Consistency"
+
+FOOTER_MIDDOT=$(sed -n '/<footer/,/<\/footer>/p' "$FILE" | grep -c '&middot;' || true)
+FOOTER_DOT=$(sed -n '/<footer/,/<\/footer>/p' "$FILE" | grep -c ' · ' || true)
+if [ "$FOOTER_MIDDOT" -gt 0 ] && [ "$FOOTER_DOT" -gt 0 ]; then
+    check_warn "Footer mixes &middot; and · separators — pick one for consistency (#1394)"
+elif [ "$FOOTER_MIDDOT" -gt 0 ]; then
+    check_warn "Footer uses &middot; — Anthem reference uses · (literal middle dot) (#1394)"
+else
+    check_pass "Footer separator consistent"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
