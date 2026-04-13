@@ -422,6 +422,8 @@
         upgradeItem = drinkPrices.soda;
       }
 
+      // v2 FIX (EC-16): Guard against division by zero if break-even drink price is 0
+      if (!upgradeItem || !upgradeItem.price || upgradeItem.price <= 0) return '';
       const drinksNeeded = Math.ceil(delta / upgradeItem.price);
       const drinksPerDay = (drinksNeeded / days).toFixed(1);
 
@@ -503,13 +505,15 @@
     /**
      * Format package name for display
      */
+    // RT-8 FIX: Config-driven package names
     formatPackageName: function(type) {
+      const lc = window.ITW_LINE_CONFIG;
       const names = {
         'alc': 'À la carte (no package)',
-        'coffee': 'Coffee Card only',
-        'soda': 'Soda Package',
-        'refresh': 'Refreshment Package',
-        'deluxe': 'Deluxe Beverage Package'
+        'coffee': (lc?.coffeeCard?.name || 'Coffee Card') + ' only',
+        'soda': (lc?.packages?.soda?.name || 'Soda') + ' Package',
+        'refresh': (lc?.packages?.refreshment?.name || 'Refreshment') + ' Package',
+        'deluxe': (lc?.packages?.deluxe?.name || 'Deluxe Beverage') + ' Package'
       };
       return names[type] || escapeHtml(type);
     },

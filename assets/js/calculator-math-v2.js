@@ -222,7 +222,7 @@ function adaptDataset(dataset) {
   const alcoholic = Array.isArray(sets.alcohol) ? sets.alcohol : (sets.alcoholic || []);
 
   const rules = dataset?.rules || {};
-  const gratuity = Number.isFinite(rules.gratuity) ? rules.gratuity : 0.18;
+  const gratuity = Number.isFinite(rules.gratuity) ? rules.gratuity : 0.20; // RT-10 FIX: 0.18→0.20
   const deluxeCap = Number.isFinite(rules.caps?.deluxeAlcohol)
     ? rules.caps.deluxeAlcohol
     : (Number.isFinite(rules.deluxeCap) ? rules.deluxeCap : 14.0);
@@ -346,7 +346,8 @@ function calculateHealthNote(inputs, results) {
  * When adults choose Deluxe, minors are FORCED to Refreshment (Royal Caribbean policy)
  * This is enforced even if Soda would be cheaper for minors
  */
-function determineWinners(costs, minors) {
+// v2: Accept lineConfig to check minorsForceRefreshment policy
+function determineWinners(costs, minors, lineConfig) {
   const adultOptions = [
     { key: 'alc', cost: costs.alc },
     { key: 'soda', cost: costs.soda },
@@ -372,15 +373,17 @@ function determineWinners(costs, minors) {
     };
   }
 
-  // CRITICAL FIX: If adults choose Deluxe, minors MUST choose Refreshment
-  if (adultWinner.key === 'deluxe') {
+  // CRITICAL FIX: If adults choose Deluxe AND line enforces minorsForceRefreshment
+  // v2 FIX (EC-23): Read policy from config instead of hardcoding (Carnival = false)
+  const forceMinorsRefresh = lineConfig?.rules?.minorsForceRefreshment !== false; // default true for backward compat
+  if (adultWinner.key === 'deluxe' && forceMinorsRefresh) {
     console.log('[Math Engine] POLICY ENFORCED: Minors forced to Refreshment (adults buying Deluxe)');
     return {
       adultWinner: 'deluxe',
       minorWinner: 'refresh',
       showTwoWinners: true,
-      minorForced: true, // Flag that minors are forced, not choosing cheapest
-      minorForcedReason: 'Required when adults purchase Deluxe'
+      minorForced: true,
+      minorForcedReason: 'Required when adults purchase ' + (lineConfig?.packages?.deluxe?.shortName || 'Deluxe')
     };
   }
 
@@ -441,21 +444,23 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const coffeeCards = clamp(inputs.coffeeCards || 0, 0, 10);
   const coffeePunches = clamp(inputs.coffeePunches || 0, 0, 5);
 
-  const pkgSoda = toNum(economics.pkg?.soda || 10.99);
-  const pkgRefresh = toNum(economics.pkg?.refresh || 34.0);
-  const pkgDeluxe = toNum(economics.pkg?.deluxe || 85.0);
-  const coffeeCardPrice = toNum(economics.pkg?.coffee || 31.0); // CRITICAL FIX v1.003.002
-  const grat = toNum(economics.grat || gratuity);
-  const cap = toNum(economics.deluxeCap || deluxeCap);
+  // v2 FIX: Use ?? instead of || so 0 is a valid price (defensive for future lines)
+  const pkgSoda = toNum(economics.pkg?.soda ?? 10.99);
+  const pkgRefresh = toNum(economics.pkg?.refresh ?? 34.0);
+  const pkgDeluxe = toNum(economics.pkg?.deluxe ?? 85.0);
+  // v2 FIX: Use ?? instead of || so that 0 is valid (Carnival has no coffee card, price=0)
+  const coffeeCardPrice = toNum(economics.pkg?.coffee ?? 31.0);
+  const grat = toNum(economics.grat ?? gratuity);
+  const cap = toNum(economics.deluxeCap ?? deluxeCap);
 
   const drinkList = Object.keys(inputs.drinks || {}).map(key => [key, toNum(inputs.drinks[key])]);
   const weighted = applyWeight(drinkList, days, seaDays, seaApply, seaWeight);
 
   // CRITICAL FIX v1.006.000: Voucher application - most expensive drinks first!
   // v2: Max vouchers per day from line config (RCL Pinnacle = 6)
-  const voucherMaxPerDay = lineConfig?.loyalty?.tiers
-    ? Math.max(...lineConfig.loyalty.tiers.map(t => t.vouchersPerDay || 0))
-    : 6;
+  // FIX: Guard against empty tiers array (Math.max(...[]) = -Infinity)
+  const tierVouchers = (lineConfig?.loyalty?.tiers || []).map(t => t.vouchersPerDay || 0);
+  const voucherMaxPerDay = tierVouchers.length > 0 ? Math.max(...tierVouchers) : 6;
   let totalVouchersPerDay = 0;
   let actualVoucherSavings = 0; // Track actual savings for accurate reporting
 
@@ -473,7 +478,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
   if (totalVouchersPerDay > 0) {
     // CRITICAL FIX: Apply vouchers to MOST EXPENSIVE drinks first (up to deluxe cap)
-    // Vouchers only work on drinks ≤ $14 (deluxe beverage package cap)
+    // Vouchers only work on drinks ≤ cap (RCL $14, Carnival $20, etc.)
 
     // Step 1: Add prices to weighted drinks and filter to voucherable drinks only
     const withPrices = weighted.map(([id, qty]) => {
@@ -528,7 +533,8 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
   // CRITICAL FIX v1.003.003: Calculate total coffee punches from small (1 punch) and large (2 punches)
   // v2: Coffee card punches from line config (RCL = 15, other lines may differ)
-  const COFFEE_CARD_PUNCHES = lineConfig?.coffeeCard?.punches || 15;
+  // v2 FIX: Use ?? so 0 is valid (disabled coffee card = 0 punches, not fallback 15)
+  const COFFEE_CARD_PUNCHES = lineConfig?.coffeeCard?.punches ?? 15;
   const coffeeSmallQty = categoryRows.find(r => r.id === 'coffeeSmall')?.qty || 0;
   const coffeeLargeQty = categoryRows.find(r => r.id === 'coffeeLarge')?.qty || 0;
 
@@ -536,7 +542,10 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const totalPunchesNeeded = (coffeeSmallQty * 1 + coffeeLargeQty * 2) * days;
 
   // Calculate how many cards are actually used (can't use more cards than you bought)
-  const cardsUsed = Math.min(coffeeCards, Math.floor(totalPunchesNeeded / COFFEE_CARD_PUNCHES));
+  // v2 FIX: Guard against division by zero when coffee card is disabled (0 punches)
+  const cardsUsed = COFFEE_CARD_PUNCHES > 0
+    ? Math.min(coffeeCards, Math.floor(totalPunchesNeeded / COFFEE_CARD_PUNCHES))
+    : 0;
 
   // Manual punches (from "Avg punches/day" field) can supplement cards
   const punchesUsed = Math.min(coffeePunches * days, Math.max(0, totalPunchesNeeded - cardsUsed * COFFEE_CARD_PUNCHES));
@@ -685,12 +694,12 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
     // Handle minors with forced package
     if (minors > 0) {
-      if (forcedPackage === 'deluxe') {
-        // Deluxe policy: minors must have Refreshment
+      if (forcedPackage === 'deluxe' && (lineConfig?.rules?.minorsForceRefreshment !== false)) {
+        // v2 FIX (EC-23): Only force minors to Refreshment if policy requires it
         winners.minorWinner = 'refresh';
         winners.showTwoWinners = true;
         winners.minorForced = true;
-        winners.minorForcedReason = 'Required when adults purchase Deluxe';
+        winners.minorForcedReason = 'Required when adults purchase ' + (lineConfig?.packages?.deluxe?.shortName || 'Deluxe');
         console.log('[Math Engine] POLICY ENFORCED: Minors forced to Refreshment (adults forced Deluxe)');
       } else if (forcedPackage === 'coffee') {
         // Coffee cards: minors choose cheapest between Soda and Refreshment
@@ -720,28 +729,35 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
       costs.coffee = coffeeCardTotal;
     }
 
-    winners = determineWinners(costs, minors);
+    winners = determineWinners(costs, minors, lineConfig);
   }
 
   // FIXED v1.003.000: Correct Royal Caribbean policy messaging
   // Policy triggers when Deluxe is the winner AND there are multiple adults
   const showDeluxePolicy = (winners.adultWinner === 'deluxe' && adults > 1);
+  // RT-6 FIX: Use config names instead of hardcoded "Royal Caribbean"
+  const lineName = lineConfig?.name || 'Cruise Line';
+  const pkgNames = {
+    deluxe: lineConfig?.packages?.deluxe?.shortName || 'Deluxe',
+    refresh: lineConfig?.packages?.refreshment?.shortName || 'Refreshment',
+    soda: lineConfig?.packages?.soda?.shortName || 'Soda',
+    coffee: 'Coffee Card',
+    alc: 'À la carte'
+  };
+  const getLabelForPkg = (key) => pkgNames[key] || key;
+
   const policyNote = showDeluxePolicy
-    ? 'Royal Caribbean Policy: If ANY adult in your stateroom purchases Deluxe, ALL adults must purchase it. No exceptions.'
+    ? lineName + ' Policy: If ANY adult in your stateroom purchases ' + pkgNames.deluxe + ', ALL adults must purchase it. No exceptions.'
     : null;
 
-  // CRITICAL FIX v1.006.000: Use actual voucher savings, not assumed cocktail prices
-  // actualVoucherSavings is per-day, multiply by days for total cruise savings
   const voucherSavings = actualVoucherSavings * days;
 
-  // ENHANCED v1.003.000: Group rows show minor forced status
-  const adultPackageName = winners.adultWinner === 'deluxe' ? 'Deluxe' :
-    winners.adultWinner === 'refresh' ? 'Refreshment' :
-      winners.adultWinner === 'soda' ? 'Soda' : 'À la carte';
+  // RT-7 FIX: Config-driven package names in results
+  const adultPackageName = getLabelForPkg(winners.adultWinner);
 
-  const minorPackageName = winners.minorForced ? 'Refreshment (Required)' :
-    winners.minorWinner === 'refresh' ? 'Refreshment' :
-      winners.minorWinner === 'soda' ? 'Soda' : 'À la carte';
+  const minorPackageName = winners.minorForced ? pkgNames.refresh + ' (Required)' :
+    winners.minorWinner === 'refresh' ? pkgNames.refresh :
+      getLabelForPkg(winners.minorWinner);
 
   const groupRows = [
     {
@@ -775,12 +791,14 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
   const healthNote = calculateHealthNote(inputs, {});
 
+  // RT-7 FIX: Config-driven package labels for results, aria, groupRows
   const getLabelForPackage = (key) => {
     const labels = {
       alc: 'À la carte',
-      soda: 'Soda Package',
-      refresh: 'Refreshment Package',
-      deluxe: 'Deluxe Package'
+      soda: (lineConfig?.packages?.soda?.name || 'Soda') + ' Package',
+      refresh: (lineConfig?.packages?.refreshment?.name || 'Refreshment') + ' Package',
+      deluxe: (lineConfig?.packages?.deluxe?.name || 'Deluxe') + ' Package',
+      coffee: lineConfig?.coffeeCard?.name || 'Coffee Card'
     };
     return labels[key] || 'À la carte';
   };

@@ -117,7 +117,7 @@
       PKG_PRICE_MIN: 5, PKG_PRICE_MAX: 150 // ✅ #5 inline editing
     }),
     RULES: Object.freeze({
-      GRATUITY: 0.18, DELUXE_CAP_FALLBACK: 14.0,
+      GRATUITY: 0.20, DELUXE_CAP_FALLBACK: 14.0, // v2 FIX (EC-39): updated from 0.18 to 0.20 (RCL raised gratuity in 2025)
       DELUXE_DAILY_LIMIT: 15, CALC_DEBOUNCE_MS: 120,
       STORAGE_MAX_AGE_DAYS: 90 // ✅ #7 TTL limit
     }),
@@ -135,8 +135,9 @@
       fx: 'itw:fx:v10', brands: 'itw:brands:v10'
     }),
     CURRENCIES: Object.freeze(['USD', 'GBP', 'EUR', 'CAD', 'AUD']),
+    // PERSONA FIX (Blocker): Added coffeeSmall/coffeeLarge so split-coffee inputs get patched to store
     DRINK_KEYS: Object.freeze([
-      'soda', 'coffee', 'teaprem', 'freshjuice', 'mocktail', 'energy',
+      'soda', 'coffee', 'coffeeSmall', 'coffeeLarge', 'teaprem', 'freshjuice', 'mocktail', 'energy',
       'milkshake', 'bottledwater', 'beer', 'wine', 'cocktail', 'spirits'
     ]),
     DRINK_LABELS: Object.freeze({
@@ -148,12 +149,12 @@
     }),
     WORKER: Object.freeze({
       enabled: true, // ✅ RE-ENABLED: Fixed worker validation (hasOwnProperty vs 'in' operator)
-      url: `/assets/js/calculator-worker.js?v=${VERSION}`,
+      url: `/assets/js/calculator-worker-v2.js?v=${VERSION}`, // v2 FIX (EC-25): use v2 worker
       timeout: 5000
     }),
     FALLBACK_DATASET: Object.freeze({
       version: VERSION,
-      rules: { gratuity: 0.18, deluxeCap: 14.0 },
+      rules: { gratuity: 0.20, deluxeCap: 14.0 }, // v2 FIX (EC-39): 0.18→0.20
       packages: {
         soda: { priceMid: 10.99 },
         refreshment: { priceMid: 34.0 },
@@ -759,7 +760,7 @@
     },
     economics: {
       pkg: { soda: 10.99, refresh: 34.0, deluxe: 85.0, coffee: 31.0 },
-      grat: 0.18,
+      grat: 0.20, // v2 FIX (EC-39): 0.18→0.20
       deluxeCap: CONFIG.RULES.DELUXE_CAP_FALLBACK
     },
     results: {
@@ -838,7 +839,9 @@
     try {
       const state = store.get();
       const { inputs, economics } = state;
-      SafeStorage.set(CONFIG.STORAGE_KEYS.state, { inputs, economics, version: VERSION });
+      // PERSONA FIX: Also save active cruise line ID for restoration on return
+      const activeLineId = window.ITW_LINE_CONFIG?.id || 'royal-caribbean';
+      SafeStorage.set(CONFIG.STORAGE_KEYS.state, { inputs, economics, version: VERSION, lineId: activeLineId });
     } catch (e) {
 
     }
@@ -1015,18 +1018,21 @@
     if (!lc) return;
 
     // Update economics from new line config
+    // v2 FIX: Use explicit null/undefined check before num() so that 0 is a valid value
+    // (e.g., Carnival coffee card price = 0, not "use RCL fallback of $31")
     const economics = safeClone(store.get('economics'));
     if (lc.packages) {
+      const safeNum = (v, fallback) => (v !== null && v !== undefined) ? num(v) : fallback;
       economics.pkg = {
-        soda: num(lc.packages.soda?.priceMid) || economics.pkg.soda,
-        refresh: num(lc.packages.refreshment?.priceMid) || economics.pkg.refresh,
-        deluxe: num(lc.packages.deluxe?.priceMid) || economics.pkg.deluxe,
-        coffee: num(lc.coffeeCard?.price) || economics.pkg.coffee
+        soda: safeNum(lc.packages.soda?.priceMid, economics.pkg.soda),
+        refresh: safeNum(lc.packages.refreshment?.priceMid, economics.pkg.refresh),
+        deluxe: safeNum(lc.packages.deluxe?.priceMid, economics.pkg.deluxe),
+        coffee: safeNum(lc.coffeeCard?.price, economics.pkg.coffee)
       };
     }
     if (lc.rules) {
-      economics.grat = num(lc.rules.gratuity) || economics.grat;
-      economics.deluxeCap = num(lc.rules.deluxeCap) || economics.deluxeCap;
+      economics.grat = (lc.rules.gratuity !== null && lc.rules.gratuity !== undefined) ? num(lc.rules.gratuity) : economics.grat;
+      economics.deluxeCap = (lc.rules.deluxeCap !== null && lc.rules.deluxeCap !== undefined) ? num(lc.rules.deluxeCap) : economics.deluxeCap;
     }
     store.patch('economics', economics);
 
@@ -1034,10 +1040,60 @@
     if (lc.drinks) {
       const prices = {};
       lc.drinks.forEach(d => { prices[d.id] = num(d.price); });
+      // v2 FIX (EC-45): Math engine uses coffeeSmall/coffeeLarge but config only has 'coffee'
+      if (prices.coffee !== undefined && prices.coffeeSmall === undefined) {
+        prices.coffeeSmall = prices.coffee;
+        prices.coffeeLarge = prices.coffee;
+      }
       const dataset = safeClone(store.get('dataset'));
       dataset.prices = prices;
-      if (lc.sets) dataset.sets = lc.sets;
+      if (lc.sets) {
+        dataset.sets = safeClone(lc.sets);
+        // RT-1 FIX: Math engine uses coffeeSmall/coffeeLarge but config sets only have 'coffee'
+        // Add coffeeSmall/coffeeLarge to any set that contains 'coffee'
+        for (const setKey of Object.keys(dataset.sets)) {
+          const arr = dataset.sets[setKey];
+          if (Array.isArray(arr) && arr.includes('coffee')) {
+            if (!arr.includes('coffeeSmall')) arr.push('coffeeSmall');
+            if (!arr.includes('coffeeLarge')) arr.push('coffeeLarge');
+          }
+        }
+      }
+      // v2 FIX: Also patch dataset.rules so adaptDataset() gets correct gratuity/cap
+      if (lc.rules) {
+        dataset.rules = dataset.rules || {};
+        dataset.rules.gratuity = num(lc.rules.gratuity);
+        dataset.rules.deluxeCap = num(lc.rules.deluxeCap);
+        if (dataset.rules.caps) dataset.rules.caps.deluxeAlcohol = num(lc.rules.deluxeCap);
+      }
       store.patch('dataset', dataset);
+    }
+
+    // v2 FIX: Reset voucher inputs when switching to a line without loyalty
+    if (!lc.loyalty || !lc.loyalty.enabled) {
+      store.patch('inputs.voucherAdult', 0);
+      store.patch('inputs.voucherMinor', 0);
+      const voucherAdultInput = document.querySelector('[data-input="voucher-adult"]');
+      const voucherMinorInput = document.querySelector('[data-input="voucher-minor"]');
+      if (voucherAdultInput) voucherAdultInput.value = '0';
+      if (voucherMinorInput) voucherMinorInput.value = '0';
+    }
+
+    // v2 FIX: Reset coffee card inputs when switching to a line without coffee cards
+    if (!lc.coffeeCard || !lc.coffeeCard.enabled) {
+      store.patch('inputs.coffeeCards', 0);
+      store.patch('inputs.coffeePunches', 0);
+      const coffeeCardsInput = document.querySelector('[data-input="coffee-cards"]');
+      const coffeePunchesInput = document.querySelector('[data-input="coffee-punches"]');
+      if (coffeeCardsInput) coffeeCardsInput.value = '0';
+      if (coffeePunchesInput) coffeePunchesInput.value = '0';
+    }
+
+    // PERSONA FIX: Clear forced package selection when switching lines
+    // (stale forced package from old line shouldn't affect new line)
+    store.patch('ui.forcedPackage', null);
+    if (window.PackageSelection?.resetToRecommendation) {
+      window.PackageSelection.resetToRecommendation();
     }
 
     // Dispatch event for UI layer to update labels, FAQ, policies, etc.
@@ -1075,24 +1131,37 @@
         data.sets.alcoholic = data.sets.alcohol;
       }
 
-      store.patch('dataset', data);
+      // RT-2 FIX: If a non-default cruise line is already active (e.g., loaded from URL),
+      // don't let loadDataset() overwrite its economics/dataset with RCL values.
+      // switchCruiseLine() already set the correct values for that line.
+      const activeLineId = window.ITW_LINE_CONFIG?.id;
+      const isNonDefaultLine = activeLineId && activeLineId !== 'royal-caribbean';
 
-      const economics = safeClone(store.get('economics'));
-      if (data.packages) {
-        const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
-        economics.pkg = {
-          soda: getPkgPrice(data.packages.soda) || economics.pkg.soda,
-          refresh: getPkgPrice(data.packages.refreshment || data.packages.refresh) || economics.pkg.refresh,
-          deluxe: getPkgPrice(data.packages.deluxe) || economics.pkg.deluxe
-        };
+      if (!isNonDefaultLine) {
+        store.patch('dataset', data);
+
+        // v2 FIX (EC-6/7/30): Use ?? not || so 0 is valid
+        const economics = safeClone(store.get('economics'));
+        if (data.packages) {
+          const getPkgPrice = (pkg) => { const p = num(pkg?.priceMid ?? pkg?.price); return p !== undefined ? p : null; };
+          const s = (v, fb) => (v !== null && v !== undefined) ? v : fb;
+          // RT-3 FIX: Preserve coffee key (loadDataset doesn't have coffee package data)
+          economics.pkg = {
+            soda: s(getPkgPrice(data.packages.soda), economics.pkg.soda),
+            refresh: s(getPkgPrice(data.packages.refreshment ?? data.packages.refresh), economics.pkg.refresh),
+            deluxe: s(getPkgPrice(data.packages.deluxe), economics.pkg.deluxe),
+            coffee: economics.pkg.coffee ?? 31.0
+          };
+        }
+
+        if (data.rules) {
+          economics.grat = (data.rules.gratuity !== null && data.rules.gratuity !== undefined) ? num(data.rules.gratuity) : economics.grat;
+          const capVal = data.rules.caps?.deluxeAlcohol ?? data.rules.deluxeCap;
+          economics.deluxeCap = (capVal !== null && capVal !== undefined) ? num(capVal) : economics.deluxeCap;
+        }
+
+        store.patch('economics', economics);
       }
-
-      if (data.rules) {
-        economics.grat = num(data.rules.gratuity) || economics.grat;
-        economics.deluxeCap = num(data.rules.caps?.deluxeAlcohol ?? data.rules.deluxeCap) || economics.deluxeCap;
-      }
-
-      store.patch('economics', economics);
       announce('Pricing data loaded');
 
     } catch (error) {
@@ -1100,19 +1169,20 @@
       const fallback = CONFIG.FALLBACK_DATASET;
       store.patch('dataset', fallback);
 
+      // v2 FIX: Same ?? pattern for fallback path
       const economics = safeClone(store.get('economics'));
       if (fallback.packages) {
         const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
         economics.pkg = {
-          soda: getPkgPrice(fallback.packages.soda) || 10.99,
-          refresh: getPkgPrice(fallback.packages.refreshment) || 34.0,
-          deluxe: getPkgPrice(fallback.packages.deluxe) || 85.0
+          soda: getPkgPrice(fallback.packages.soda) ?? 10.99,
+          refresh: getPkgPrice(fallback.packages.refreshment) ?? 34.0,
+          deluxe: getPkgPrice(fallback.packages.deluxe) ?? 85.0
         };
       }
 
       if (fallback.rules) {
-        economics.grat = num(fallback.rules.gratuity) || 0.18;
-        economics.deluxeCap = num(fallback.rules.deluxeCap) || 14.0;
+        economics.grat = num(fallback.rules.gratuity) ?? 0.18;
+        economics.deluxeCap = num(fallback.rules.deluxeCap) ?? 14.0;
       }
 
       store.patch('economics', economics);
@@ -1147,6 +1217,12 @@
           store.patch('results', payload);
           calculationInProgress = false;
           document.dispatchEvent(new CustomEvent('itw:calc-updated'));
+        }
+
+        // RT-9 FIX: Handle worker error messages so calculationInProgress doesn't freeze
+        if (type === 'error') {
+          console.warn('[Worker] Calculation error:', payload?.error || 'unknown');
+          calculationInProgress = false;
         }
       };
 
@@ -1198,9 +1274,10 @@
       vouchers: hasVouchers ? {
         adultCountPerDay: inputs.voucherAdult || 0,
         minorCountPerDay: inputs.voucherMinor || 0,
-        perVoucherValue: economics.deluxeCap || 14.0
+        perVoucherValue: economics.deluxeCap ?? 14.0
       } : null,
-      forcedPackage: ui?.forcedPackage || null  // ✅ NEW: Package forcing feature
+      forcedPackage: ui?.forcedPackage || null,  // ✅ NEW: Package forcing feature
+      lineConfig: window.ITW_LINE_CONFIG || null  // v2 FIX (EC-25): pass to worker
     };
 
     const canUseWorker = initializeWorker() && workerReady;
@@ -1432,6 +1509,12 @@
     const state = store.get();
     const params = new URLSearchParams();
 
+    // v2 FIX (EC-46): Include active cruise line in shared URL
+    const activeLineId = window.ITW_LINE_CONFIG?.id;
+    if (activeLineId && activeLineId !== 'royal-caribbean') {
+      params.set('line', activeLineId);
+    }
+
     // Core inputs
     if (state.inputs.days !== 7) params.set('days', state.inputs.days);
     if (state.inputs.adults !== 1) params.set('adults', state.inputs.adults);
@@ -1450,12 +1533,12 @@
     if (state.inputs.coffeeCards > 0) params.set('coffeeCards', state.inputs.coffeeCards);
     if (state.inputs.coffeePunches > 0) params.set('coffeePunches', state.inputs.coffeePunches);
 
-    // Vouchers if any
-    if (state.inputs.vouchers?.adultCountPerDay > 0) {
-      params.set('voucherAdult', state.inputs.vouchers.adultCountPerDay);
+    // RT-4 FIX: State uses flat voucherAdult/voucherMinor, not nested vouchers object
+    if (state.inputs.voucherAdult > 0) {
+      params.set('voucherAdult', state.inputs.voucherAdult);
     }
-    if (state.inputs.vouchers?.minorCountPerDay > 0) {
-      params.set('voucherMinor', state.inputs.vouchers.minorCountPerDay);
+    if (state.inputs.voucherMinor > 0) {
+      params.set('voucherMinor', state.inputs.voucherMinor);
     }
 
     const baseURL = location.origin + location.pathname;
@@ -1472,6 +1555,11 @@
     const params = new URLSearchParams(location.search);
 
     if (params.toString() === '') return false; // No params to load
+
+    // v2 FIX (EC-46): Stash cruise line from URL for later application
+    if (params.has('line')) {
+      window._itwUrlLineId = params.get('line');
+    }
 
     const state = safeClone(store.get());
     let hasChanges = false;
@@ -1511,17 +1599,14 @@
       hasChanges = true;
     }
 
-    // Vouchers
-    if (params.has('voucherAdult') || params.has('voucherMinor')) {
-      state.inputs.vouchers = state.inputs.vouchers || {};
-      if (params.has('voucherAdult')) {
-        state.inputs.vouchers.adultCountPerDay = parseFloat(params.get('voucherAdult')) || 0;
-        hasChanges = true;
-      }
-      if (params.has('voucherMinor')) {
-        state.inputs.vouchers.minorCountPerDay = parseFloat(params.get('voucherMinor')) || 0;
-        hasChanges = true;
-      }
+    // RT-4 FIX: State uses flat voucherAdult/voucherMinor keys
+    if (params.has('voucherAdult')) {
+      state.inputs.voucherAdult = parseFloat(params.get('voucherAdult')) || 0;
+      hasChanges = true;
+    }
+    if (params.has('voucherMinor')) {
+      state.inputs.voucherMinor = parseFloat(params.get('voucherMinor')) || 0;
+      hasChanges = true;
     }
 
     if (hasChanges) {
@@ -1608,7 +1693,20 @@
       announce('Loaded shared configuration');
     }
 
-    await loadLineConfig(); // v2: load cruise line config first
+    // v2: load cruise line config first
+    // Priority: URL param > localStorage > default
+    const urlLineId = window._itwUrlLineId || null;
+    const storedLineId = (() => {
+      try {
+        const stored = SafeStorage.get(CONFIG.STORAGE_KEYS.state);
+        return stored?.lineId || null;
+      } catch (e) { return null; }
+    })();
+    const targetLineId = urlLineId || storedLineId || null;
+    await loadLineConfig(targetLineId);
+    if (targetLineId && window.ITW_LINE_CONFIG?.id === targetLineId && targetLineId !== 'royal-caribbean') {
+      await switchCruiseLine(targetLineId);
+    }
     await loadFXRates();
     setupCurrencySelector();
     await loadBrandConfig();

@@ -182,7 +182,8 @@
   </script>
   -->
 
-  <!-- JSON-LD: WebApplication (Tool Classification) -->
+  <!-- v2: WebApplication JSON-LD is now generated dynamically by updateStaticJsonLd() -->
+  <!--
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -239,8 +240,9 @@
     "inLanguage": "en-US"
   }
   </script>
+  -->
 
-  <!-- Favicon / PWA -->
+  <!-- v2: WebPage JSON-LD is now generated dynamically by updateStaticJsonLd() -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
   <link rel="manifest" href="/manifest.webmanifest"/>
   
@@ -270,17 +272,18 @@
   });
   </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite v1.4) -->
+  <!--
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Royal Caribbean Drink Package Calculator 2026",
-    "url": "https://cruisinginthewake.com/drink-calculator.html",
-    "description": "Compare Soda, Refreshment, Deluxe, and Coffee Card vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support.",
-    "dateModified": "2025-11-19"
+    "url": "https://cruisinginthewake.com/drink-calculatorv2.html",
+    "description": "Compare drink packages vs à-la-carte pricing.",
+    "dateModified": "2026-04-13"
   }
-  </script><!-- Styles -->
+  </script>
+  -->
   <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
@@ -290,6 +293,8 @@
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.300"/>
   <link rel="stylesheet" href="/assets/css/calculator.css?v=3.010.300"/>
+  <!-- v2: Print overrides for cruise line selector -->
+  <style media="print">#line-selector { display: none !important; }</style>
   
   <!-- ✅ Accessibility Styles -->
   <!-- LCP Optimization: Preload critical hero images -->
@@ -297,7 +302,8 @@
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
 </head>
 <body class="page">
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <a href="#content" class="skip-link">Skip to main content</a>
+  <noscript><div style="background:#fff3e0;border:2px solid #f57c00;padding:1.5rem;margin:1rem;border-radius:8px;text-align:center;"><strong>JavaScript Required</strong><p>This calculator requires JavaScript to function. Please enable JavaScript in your browser settings and reload the page.</p></div></noscript>
 
   <!-- ai-breadcrumbs
        entity: Royal Caribbean Drink Package Calculator
@@ -630,7 +636,7 @@
                 '<td style="' + tdStyle + '"><strong>' + pkg.name + '</strong></td>' +
                 '<td style="' + tdStyle + '">~$' + pkg.priceMid.toFixed(0) + '</td>' +
                 '<td style="' + tdStyle + '">' + pkg.includes + '</td>' +
-                '<td style="' + tdStyle + ' text-align: center;">' + (be ? Math.ceil(pkg.priceMid * (1 + (lc.rules.gratuity || 0.18)) / be.price) + ' ' + be.name : '-') + '</td>' +
+                '<td style="' + tdStyle + ' text-align: center;">' + (be && be.price > 0 ? Math.ceil(pkg.priceMid * (1 + (lc.rules.gratuity || 0.18)) / be.price) + ' ' + be.name : '-') + '</td>' +
                 '</tr>';
             });
             // Coffee card row
@@ -670,22 +676,6 @@
             script.type = 'application/ld+json';
             script.id = 'v2-faq-jsonld';
             script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqEntities });
-            document.head.appendChild(script);
-          }
-
-          // ── JSON-LD: WebApplication ──
-          function updateWebAppJsonLd(lc) {
-            var existing = document.getElementById('v2-webapp-jsonld');
-            if (existing) existing.remove();
-            var script = document.createElement('script');
-            script.type = 'application/ld+json';
-            script.id = 'v2-webapp-jsonld';
-            script.textContent = JSON.stringify({
-              '@context': 'https://schema.org', '@type': 'WebApplication',
-              name: lc.name + ' Drink Package Calculator',
-              description: lc.meta && lc.meta.description ? lc.meta.description : 'Interactive break-even calculator for ' + lc.name + ' drink packages.',
-              applicationCategory: 'UtilityApplication', isAccessibleForFree: true, inLanguage: 'en-US'
-            });
             document.head.appendChild(script);
           }
 
@@ -744,7 +734,7 @@
                 var ch4 = coffeeCard.querySelector('h4');
                 if (ch4) ch4.textContent = '\u2615 ' + lc.coffeeCard.name;
                 var cdesc = coffeeCard.querySelector('p.small');
-                if (cdesc) cdesc.textContent = lc.coffeeCard.punches + ' punches (~$' + (lc.coffeeCard.price / lc.coffeeCard.punches).toFixed(2) + '/punch)';
+                if (cdesc) cdesc.textContent = lc.coffeeCard.punches + ' punches' + (lc.coffeeCard.punches > 0 ? ' (~$' + (lc.coffeeCard.price / lc.coffeeCard.punches).toFixed(2) + '/punch)' : '');
               } else {
                 coffeeCard.style.display = 'none';
               }
@@ -759,6 +749,114 @@
             }
           }
 
+          // ── Drink Price Labels (input fields) ──
+          function updateDrinkPriceLabels(lc) {
+            if (!lc.drinks) return;
+            var priceMap = {};
+            lc.drinks.forEach(function(d) { priceMap[d.id] = d.price; });
+            // Map input data-input attributes to drink IDs
+            var inputMap = {
+              'soda': 'soda', 'teaprem': 'teaprem', 'coffeeSmall': 'coffee',
+              'coffeeLarge': 'coffee', 'freshjuice': 'freshjuice', 'mocktail': 'mocktail',
+              'energy': 'energy', 'milkshake': 'milkshake', 'bottledwater': 'bottledwater',
+              'beer': 'beer', 'wine': 'wine', 'cocktail': 'cocktail', 'spirits': 'spirits'
+            };
+            for (var inputKey in inputMap) {
+              var input = document.querySelector('[data-input="' + inputKey + '"]');
+              if (!input) continue;
+              var label = input.closest('.row, .row-split-item');
+              if (!label) continue;
+              var priceSpan = label.querySelector('.drink-price');
+              if (!priceSpan) continue;
+              var drinkId = inputMap[inputKey];
+              var price = priceMap[drinkId];
+              if (price !== undefined && price !== null) {
+                priceSpan.textContent = '$' + price.toFixed(2);
+              }
+            }
+          }
+
+          // ── Chart Help Text (gratuity %) ──
+          function updateChartHelp(lc) {
+            var el = document.querySelector('.chart-help');
+            if (!el) return;
+            var gratPct = lc.rules && lc.rules.gratuity ? Math.round(lc.rules.gratuity * 100) : 18;
+            el.innerHTML = '<strong>\uD83D\uDCA1 How to read:</strong> Blue bar = your actual drinking cost per day (including ' + gratPct + '% gratuity). ' +
+              'Gray bars = what you\'d pay for each package. <strong>Lower = better value.</strong> ' +
+              'Hover over bars to see exact dollar amounts.';
+          }
+
+          // ── Family Policy Note (minors + deluxe) ──
+          function updateFamilyPolicy(lc) {
+            var el = document.querySelector('.family-note');
+            if (!el) return;
+            if (!lc.rules || !lc.rules.minorsForceRefreshment) {
+              el.style.display = 'none';
+              return;
+            }
+            // PERSONA FIX: Actually show the family-note (was display:none and never toggled)
+            el.style.display = '';
+            var deluxeName = lc.packages && lc.packages.deluxe ? lc.packages.deluxe.name : 'Deluxe Beverage Package';
+            var refreshName = lc.packages && lc.packages.refreshment ? lc.packages.refreshment.name : 'Refreshment Package';
+            var ruleDiv = el.querySelector('.family-rule p');
+            if (ruleDiv) {
+              ruleDiv.innerHTML = 'When adults purchase the <strong style="color:#2e7d32;">' + deluxeName + '</strong>, ' +
+                lc.name + ' <strong style="color:#2e7d32;">requires all minors</strong> (under ' + (lc.rules.adultAge || 21) + ') in the ' +
+                'stateroom to purchase the <strong style="color:#2e7d32;">' + refreshName + '</strong>.';
+            }
+          }
+
+          // ── Coffee Card Note (line name reference) ──
+          function updateCoffeeCardNote(lc) {
+            var note = document.querySelector('.coffee-card-note');
+            if (!note) return;
+            if (!lc.coffeeCard || !lc.coffeeCard.enabled) return;
+            var noteText = lc.coffeeCard.note || 'Unused punches expire at cruise end.';
+            note.innerHTML = '\u23F0 <strong style="color:#f57c00;">Note:</strong> ' + noteText;
+          }
+
+          // ── Static JSON-LD: WebApplication + WebPage ──
+          function updateStaticJsonLd(lc) {
+            // Remove old static ones if we tagged them
+            ['v2-webapp-static', 'v2-webpage-static'].forEach(function(id) {
+              var old = document.getElementById(id);
+              if (old) old.remove();
+            });
+
+            // WebApplication
+            var waScript = document.createElement('script');
+            waScript.type = 'application/ld+json';
+            waScript.id = 'v2-webapp-static';
+            var gratPct = lc.rules && lc.rules.gratuity ? Math.round(lc.rules.gratuity * 100) : 18;
+            var pkgNames = [];
+            if (lc.packages.soda) pkgNames.push(lc.packages.soda.name);
+            if (lc.packages.refreshment) pkgNames.push(lc.packages.refreshment.name);
+            if (lc.packages.deluxe) pkgNames.push(lc.packages.deluxe.name);
+            waScript.textContent = JSON.stringify({
+              '@context': 'https://schema.org', '@type': 'WebApplication',
+              name: lc.name + ' Drink Package Calculator',
+              url: 'https://cruisinginthewake.com/drink-calculatorv2.html',
+              description: 'Interactive break-even calculator for ' + lc.name + ' drink packages. Compare ' + pkgNames.join(', ') + ' vs \u00E0-la-carte pricing.',
+              applicationCategory: 'UtilityApplication',
+              operatingSystem: 'Any (Web-based)',
+              isAccessibleForFree: true, inLanguage: 'en-US',
+              offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+            });
+            document.head.appendChild(waScript);
+
+            // WebPage
+            var wpScript = document.createElement('script');
+            wpScript.type = 'application/ld+json';
+            wpScript.id = 'v2-webpage-static';
+            wpScript.textContent = JSON.stringify({
+              '@context': 'https://schema.org', '@type': 'WebPage',
+              name: lc.meta && lc.meta.title ? lc.meta.title : lc.name + ' Drink Package Calculator 2026',
+              url: 'https://cruisinginthewake.com/drink-calculatorv2.html',
+              description: lc.meta && lc.meta.description ? lc.meta.description : 'Compare drink packages for ' + lc.name + '.'
+            });
+            document.head.appendChild(wpScript);
+          }
+
           // ══════════════════════════════════════════
           // Master render function — called on init and on line switch
           // ══════════════════════════════════════════
@@ -771,26 +869,38 @@
             updatePolicyWarning(lc);
             updateLoyaltyTiers(lc);
             updateCoffeeCard(lc);
+            updateCoffeeCardNote(lc);
             updateComparisonTable(lc);
             updateFAQ(lc);
             updateFAQJsonLd(lc);
-            updateWebAppJsonLd(lc);
+            updateStaticJsonLd(lc);
             updateMetaTags(lc);
             updateRailContent(lc);
             updatePackageCards(lc);
             updateCapBadge(lc);
+            updateDrinkPriceLabels(lc);
+            updateChartHelp(lc);
+            updateFamilyPolicy(lc);
           }
 
           // ── Wire Events ──
           document.addEventListener('DOMContentLoaded', function() {
             var select = document.getElementById('cruise-line-select');
 
-            // Wait for config, then do initial render
+            // Wait for config, then do initial render (timeout after 10s to avoid infinite poll)
+            var configPollCount = 0;
             var checkConfig = setInterval(function() {
+              configPollCount++;
               if (window.ITW_CALC_CONFIG && window.ITW_LINE_CONFIG) {
                 clearInterval(checkConfig);
                 populateLineSelector(window.ITW_CALC_CONFIG);
                 renderFromConfig(window.ITW_LINE_CONFIG);
+                // PERSONA FIX: Sync dropdown to actual active line (handles URL ?line= param)
+                var activeId = window.ITW_LINE_CONFIG.id;
+                if (select && activeId) select.value = activeId;
+              } else if (configPollCount > 100) { // 100 × 100ms = 10 seconds
+                clearInterval(checkConfig);
+                console.warn('[v2] Config polling timed out after 10s — using static defaults');
               }
             }, 100);
 
@@ -806,7 +916,11 @@
             // Re-render on line switch
             window.addEventListener('itw:line-changed', function(e) {
               var lc = e.detail && e.detail.config;
-              if (lc) renderFromConfig(lc);
+              if (lc) {
+                renderFromConfig(lc);
+                // PERSONA FIX: Keep dropdown synced
+                if (select && lc.id) select.value = lc.id;
+              }
             });
           });
         })();
