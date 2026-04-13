@@ -72,7 +72,7 @@
         "ai-breadcrumbs": ".claude/skills/standards/resources/ai-breadcrumbs-spec.md",
         "wcag": ".claude/skills/standards/resources/wcag-aa-checklist.md"
       },
-      "activationMessage": "\ud83d\udccb Standards skill activated. Review standards before writing code.",
+      "activationMessage": "📋 Standards skill activated. Review standards before writing code.",
       "preWriteAction": {
         "script": "./admin/pre-write-standards.sh",
         "runAutomatically": false,
@@ -156,7 +156,7 @@
       "type": "domain",
       "enforcement": "suggest",
       "priority": "high",
-      "description": "DEPRECATED \u2014 superseded by ICP-2. SEO optimization that SUPPORTS ITW-Lite v3.010 philosophy: AI-first, Human-first, Google second. Focuses on technical SEO (schema.org, semantic HTML, meta tags) that benefits AI + humans + search engines simultaneously. MUST NOT suggest keyword stuffing, readability compromises, or removal of AI-helpful elements.",
+      "description": "DEPRECATED — superseded by ICP-2. SEO optimization that SUPPORTS ITW-Lite v3.010 philosophy: AI-first, Human-first, Google second. Focuses on technical SEO (schema.org, semantic HTML, meta tags) that benefits AI + humans + search engines simultaneously. MUST NOT suggest keyword stuffing, readability compromises, or removal of AI-helpful elements.",
       "guardrails": {
         "must_reject": [
           "Keyword stuffing or unnatural keyword density",
@@ -322,7 +322,7 @@
         "maxLines": 400,
         "loadOnFirstFileEdit": true
       },
-      "activationMessage": "\u2712\ufe0f Like-a-human v2.0.0 voice guide activated. Window Pane + Precision Discipline + Cadence in effect.",
+      "activationMessage": "✒️ Like-a-human v2.0.0 voice guide activated. Window Pane + Precision Discipline + Cadence in effect.",
       "coActivation": {
         "always_with": [
           "careful-not-clever"
@@ -359,7 +359,7 @@
         "loadOnFirstFileEdit": false,
         "note": "Loaded via voice-audit-hook.sh on PreToolUse Bash when git commit is detected with content files staged. Can also be loaded manually via prompt keywords."
       },
-      "activationMessage": "\ud83d\udd0d Voice audit diagnostic activated. Scanning for machine tells and voice drift.",
+      "activationMessage": "🔍 Voice audit diagnostic activated. Scanning for machine tells and voice drift.",
       "coActivation": {
         "always_with": [
           "content-strategy"
@@ -367,7 +367,6 @@
         "note": "Voice-audit is the post-draft companion to Like-a-human. Like-a-human fires during writing. Voice-audit fires before committing."
       }
     },
-
     "emotional-hook-test": {
       "enabled": true,
       "type": "guardrail",
@@ -401,7 +400,10 @@
       },
       "activationMessage": "Emotional Hook Test activated. Evaluating reader feeling: Clarity → Calm → Seen → Confidence → Guided.",
       "coActivation": {
-        "always_with": ["voice-audit", "content-strategy"],
+        "always_with": [
+          "voice-audit",
+          "content-strategy"
+        ],
         "note": "Completes the content quality trio: Like-a-human (during writing) → voice-audit (output scan) → emotional-hook-test (feeling-level gate). All three should inform content review before publishing."
       },
       "perPageTargets": {
@@ -415,7 +417,6 @@
         "article": "Authenticity + learning"
       }
     },
-
     "cognitive-memory": {
       "enabled": true,
       "type": "utility",
@@ -454,7 +455,6 @@
         "forget": "python3 /home/user/.memory/memory_ops.py forget --scope /inthewake --older-than 90 --dry-run"
       }
     },
-
     "performance-analyzer": {
       "enabled": true,
       "type": "domain",
@@ -528,7 +528,7 @@
         "maxLines": 800,
         "loadOnFirstFileEdit": true
       },
-      "activationMessage": "\ud83d\udea2 Ship page validator activated. Will auto-check compliance after modifications.",
+      "activationMessage": "🚢 Ship page validator activated. Will auto-check compliance after modifications.",
       "guardrails": {
         "must_have": [
           "Soli Deo Gloria invocation (IMMUTABLE)",
@@ -537,7 +537,7 @@
           "7 JSON-LD blocks (Organization, WebSite, BreadcrumbList, Review, Person, WebPage, FAQPage)",
           "WCAG accessibility (skip link, ARIA live regions, landmark roles)",
           "All required content sections (First Look, Stats, Dining, Logbook, Videos, Deck Plans, Live Tracker, FAQ, Attribution)",
-          "NO placeholder images (BLOCKING ERROR \u2014 omit image or hide container if no real image available)"
+          "NO placeholder images (BLOCKING ERROR — omit image or hide container if no real image available)"
         ],
         "validation_script": "./admin/validate-ship-page.sh",
         "checklist_reference": "new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md"
@@ -548,7 +548,7 @@
       "type": "domain",
       "enforcement": "suggest",
       "priority": "high",
-      "description": "Deep multi-LLM research pipeline that produces validated ship and port pages. 4 phases: reconnaissance \u2192 triage \u2192 deep research \u2192 synthesis \u2192 page generation.",
+      "description": "Deep multi-LLM research pipeline that produces validated ship and port pages. 4 phases: reconnaissance → triage → deep research → synthesis → page generation.",
       "promptTriggers": {
         "keywords": [
           "investigate",
@@ -585,7 +585,7 @@
       "type": "domain",
       "enforcement": "suggest",
       "priority": "high",
-      "description": "Full multi-LLM pipeline orchestration. Runs the cruising pipeline (Read Standards \u2192 Generate \u2192 Content Review \u2192 Completeness Check \u2192 UX Challenge \u2192 Integrate) coordinating GPT, Gemini, and Grok as consultants while Claude remains lead developer.",
+      "description": "Full multi-LLM pipeline orchestration. Runs the cruising pipeline (Read Standards → Generate → Content Review → Completeness Check → UX Challenge → Integrate) coordinating GPT, Gemini, and Grok as consultants while Claude remains lead developer.",
       "promptTriggers": {
         "keywords": [
           "orchestrate",
@@ -606,7 +606,7 @@
         "maxLines": 200,
         "loadOnFirstFileEdit": false
       },
-      "activationMessage": "Orchestrator active. Claude leads \u2014 external models consult.",
+      "activationMessage": "Orchestrator active. Claude leads — external models consult.",
       "coActivation": {
         "always_with": [
           "careful-not-clever"
@@ -659,7 +659,7 @@
       "type": "guardrail",
       "enforcement": "warn",
       "priority": "critical",
-      "description": "Integrity guardrail: enforces careful, verified, documented work over clever shortcuts. Two layers: (1) Process discipline \u2014 read before editing, verify, document. (2) Technical discipline \u2014 semantic equivalence, pattern verification, pre-commit checks. Both fire on every write via session-start-guardrail.sh.",
+      "description": "Integrity guardrail: enforces careful, verified, documented work over clever shortcuts. Two layers: (1) Process discipline — read before editing, verify, document. (2) Technical discipline — semantic equivalence, pattern verification, pre-commit checks. Both fire on every write via session-start-guardrail.sh.",
       "fileTriggers": {
         "pathPatterns": [
           "**/*.html",
@@ -710,7 +710,7 @@
           "Making improvements the user didn't ask for",
           "Silently skipping problems instead of reporting them",
           "Updating metrics in one file but not others",
-          "Using placeholder images on ANY page (BLOCKING ERROR \u2014 no exceptions)"
+          "Using placeholder images on ANY page (BLOCKING ERROR — no exceptions)"
         ],
         "philosophy": "Integrity over speed. Verified over assumed. Documented over remembered. Careful over clever."
       }
@@ -775,7 +775,7 @@
       "type": "guardrail",
       "enforcement": "block",
       "priority": "critical",
-      "description": "ICP-2 \u2014 Human-First SEO & AEO standard for 2026. Supersedes ICP-Lite v1.4 and seo-optimizer. Blocks HTML edits that don't meet ICP-2 compliance.",
+      "description": "ICP-2 — Human-First SEO & AEO standard for 2026. Supersedes ICP-Lite v1.4 and seo-optimizer. Blocks HTML edits that don't meet ICP-2 compliance.",
       "fileTriggers": {
         "pathPatterns": [
           "*.html",
@@ -794,6 +794,36 @@
         "loadOnFirstFileEdit": true
       },
       "activationMessage": "ICP-2 guardrail active. HTML edits will be validated for SEO/AEO compliance. Non-compliance is a blocking error."
+    },
+    "indexnow": {
+      "enabled": true,
+      "type": "utility",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Auto-submit pages to IndexNow when created or edited. Instantly notifies Bing, Yandex, Naver, Seznam, and Yep via POST to api.indexnow.org. Fires automatically via PostToolUse hook on Edit|Write for HTML files. No manual activation needed.",
+      "fileTriggers": {
+        "pathPatterns": [
+          "*.html",
+          "**/*.html"
+        ],
+        "exclude": [
+          "offline.html",
+          "search.html",
+          "node_modules/**",
+          ".git/**"
+        ]
+      },
+      "toolTriggers": [
+        "Edit",
+        "Write"
+      ],
+      "autoLoad": {
+        "mainFile": ".claude/skills/indexnow/SKILL.md",
+        "maxLines": 100,
+        "loadOnFirstFileEdit": false,
+        "note": "Hook fires automatically via settings.json PostToolUse. Skill doc loaded only on explicit request."
+      },
+      "activationMessage": "IndexNow: page submitted to search engines (Bing, Yandex, Naver, Seznam, Yep)."
     }
   },
   "globalSettings": {
@@ -805,16 +835,17 @@
   "notes": {
     "project": "In the Wake - Cruise planning site (merged with FOM enhancements)",
     "protocol": "ITW-Lite v3.010 (adapted from FOM-Lite v1.0)",
-    "total_skills": 17,
+    "total_skills": 18,
     "hook_wiring": {
-      "UserPromptSubmit": "session-start-guardrail.sh \u2192 injects BOTH Careful files (process v1.0 + technical root)",
+      "UserPromptSubmit": "session-start-guardrail.sh → injects BOTH Careful files (process v1.0 + technical root)",
       "PreToolUse_Bash": [
-        "voice-audit-hook.sh \u2192 injects voice-audit diagnostic before git commit when content files are staged"
+        "voice-audit-hook.sh → injects voice-audit diagnostic before git commit when content files are staged"
       ],
       "PostToolUse_Edit_Write": [
-        "post-tool-use-tracker.sh \u2192 tracks edited files/repos",
-        "ship-page-validator.sh \u2192 validates ship pages",
-        "port-content-voice-hook.sh \u2192 injects Like-a-human v2.0.0 voice guide for ALL content writes"
+        "post-tool-use-tracker.sh → tracks edited files/repos",
+        "ship-page-validator.sh → validates ship pages",
+        "port-content-voice-hook.sh → injects Like-a-human v2.0.0 voice guide for ALL content writes",
+        "indexnow-submit.sh → auto-submits edited HTML pages to IndexNow (Bing, Yandex, Naver, Seznam, Yep)"
       ],
       "activation_matrix": {
         "any_file_edit": [
