@@ -633,7 +633,7 @@
                 '<td style="' + tdStyle + '"><strong>' + pkg.name + '</strong></td>' +
                 '<td style="' + tdStyle + '">~$' + pkg.priceMid.toFixed(0) + '</td>' +
                 '<td style="' + tdStyle + '">' + pkg.includes + '</td>' +
-                '<td style="' + tdStyle + ' text-align: center;">' + (be ? Math.ceil(pkg.priceMid * (1 + (lc.rules.gratuity || 0.18)) / be.price) + ' ' + be.name : '-') + '</td>' +
+                '<td style="' + tdStyle + ' text-align: center;">' + (be && be.price > 0 ? Math.ceil(pkg.priceMid * (1 + (lc.rules.gratuity || 0.18)) / be.price) + ' ' + be.name : '-') + '</td>' +
                 '</tr>';
             });
             // Coffee card row
@@ -882,12 +882,17 @@
           document.addEventListener('DOMContentLoaded', function() {
             var select = document.getElementById('cruise-line-select');
 
-            // Wait for config, then do initial render
+            // Wait for config, then do initial render (timeout after 10s to avoid infinite poll)
+            var configPollCount = 0;
             var checkConfig = setInterval(function() {
+              configPollCount++;
               if (window.ITW_CALC_CONFIG && window.ITW_LINE_CONFIG) {
                 clearInterval(checkConfig);
                 populateLineSelector(window.ITW_CALC_CONFIG);
                 renderFromConfig(window.ITW_LINE_CONFIG);
+              } else if (configPollCount > 100) { // 100 × 100ms = 10 seconds
+                clearInterval(checkConfig);
+                console.warn('[v2] Config polling timed out after 10s — using static defaults');
               }
             }, 100);
 

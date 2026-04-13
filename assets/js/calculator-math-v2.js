@@ -346,7 +346,8 @@ function calculateHealthNote(inputs, results) {
  * When adults choose Deluxe, minors are FORCED to Refreshment (Royal Caribbean policy)
  * This is enforced even if Soda would be cheaper for minors
  */
-function determineWinners(costs, minors) {
+// v2: Accept lineConfig to check minorsForceRefreshment policy
+function determineWinners(costs, minors, lineConfig) {
   const adultOptions = [
     { key: 'alc', cost: costs.alc },
     { key: 'soda', cost: costs.soda },
@@ -372,15 +373,17 @@ function determineWinners(costs, minors) {
     };
   }
 
-  // CRITICAL FIX: If adults choose Deluxe, minors MUST choose Refreshment
-  if (adultWinner.key === 'deluxe') {
+  // CRITICAL FIX: If adults choose Deluxe AND line enforces minorsForceRefreshment
+  // v2 FIX (EC-23): Read policy from config instead of hardcoding (Carnival = false)
+  const forceMinorsRefresh = lineConfig?.rules?.minorsForceRefreshment !== false; // default true for backward compat
+  if (adultWinner.key === 'deluxe' && forceMinorsRefresh) {
     console.log('[Math Engine] POLICY ENFORCED: Minors forced to Refreshment (adults buying Deluxe)');
     return {
       adultWinner: 'deluxe',
       minorWinner: 'refresh',
       showTwoWinners: true,
-      minorForced: true, // Flag that minors are forced, not choosing cheapest
-      minorForcedReason: 'Required when adults purchase Deluxe'
+      minorForced: true,
+      minorForcedReason: 'Required when adults purchase ' + (lineConfig?.packages?.deluxe?.shortName || 'Deluxe')
     };
   }
 
@@ -691,12 +694,12 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
     // Handle minors with forced package
     if (minors > 0) {
-      if (forcedPackage === 'deluxe') {
-        // Deluxe policy: minors must have Refreshment
+      if (forcedPackage === 'deluxe' && (lineConfig?.rules?.minorsForceRefreshment !== false)) {
+        // v2 FIX (EC-23): Only force minors to Refreshment if policy requires it
         winners.minorWinner = 'refresh';
         winners.showTwoWinners = true;
         winners.minorForced = true;
-        winners.minorForcedReason = 'Required when adults purchase Deluxe';
+        winners.minorForcedReason = 'Required when adults purchase ' + (lineConfig?.packages?.deluxe?.shortName || 'Deluxe');
         console.log('[Math Engine] POLICY ENFORCED: Minors forced to Refreshment (adults forced Deluxe)');
       } else if (forcedPackage === 'coffee') {
         // Coffee cards: minors choose cheapest between Soda and Refreshment
@@ -726,7 +729,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
       costs.coffee = coffeeCardTotal;
     }
 
-    winners = determineWinners(costs, minors);
+    winners = determineWinners(costs, minors, lineConfig);
   }
 
   // FIXED v1.003.000: Correct Royal Caribbean policy messaging

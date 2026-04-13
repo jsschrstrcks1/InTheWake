@@ -422,6 +422,8 @@
         upgradeItem = drinkPrices.soda;
       }
 
+      // v2 FIX (EC-16): Guard against division by zero if break-even drink price is 0
+      if (!upgradeItem || !upgradeItem.price || upgradeItem.price <= 0) return '';
       const drinksNeeded = Math.ceil(delta / upgradeItem.price);
       const drinksPerDay = (drinksNeeded / days).toFixed(1);
 

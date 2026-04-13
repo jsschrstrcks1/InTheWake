@@ -117,7 +117,7 @@
       PKG_PRICE_MIN: 5, PKG_PRICE_MAX: 150 // ✅ #5 inline editing
     }),
     RULES: Object.freeze({
-      GRATUITY: 0.18, DELUXE_CAP_FALLBACK: 14.0,
+      GRATUITY: 0.20, DELUXE_CAP_FALLBACK: 14.0, // v2 FIX (EC-39): updated from 0.18 to 0.20 (RCL raised gratuity in 2025)
       DELUXE_DAILY_LIMIT: 15, CALC_DEBOUNCE_MS: 120,
       STORAGE_MAX_AGE_DAYS: 90 // ✅ #7 TTL limit
     }),
@@ -148,12 +148,12 @@
     }),
     WORKER: Object.freeze({
       enabled: true, // ✅ RE-ENABLED: Fixed worker validation (hasOwnProperty vs 'in' operator)
-      url: `/assets/js/calculator-worker.js?v=${VERSION}`,
+      url: `/assets/js/calculator-worker-v2.js?v=${VERSION}`, // v2 FIX (EC-25): use v2 worker
       timeout: 5000
     }),
     FALLBACK_DATASET: Object.freeze({
       version: VERSION,
-      rules: { gratuity: 0.18, deluxeCap: 14.0 },
+      rules: { gratuity: 0.20, deluxeCap: 14.0 }, // v2 FIX (EC-39): 0.18→0.20
       packages: {
         soda: { priceMid: 10.99 },
         refreshment: { priceMid: 34.0 },
@@ -759,7 +759,7 @@
     },
     economics: {
       pkg: { soda: 10.99, refresh: 34.0, deluxe: 85.0, coffee: 31.0 },
-      grat: 0.18,
+      grat: 0.20, // v2 FIX (EC-39): 0.18→0.20
       deluxeCap: CONFIG.RULES.DELUXE_CAP_FALLBACK
     },
     results: {
@@ -1037,6 +1037,11 @@
     if (lc.drinks) {
       const prices = {};
       lc.drinks.forEach(d => { prices[d.id] = num(d.price); });
+      // v2 FIX (EC-45): Math engine uses coffeeSmall/coffeeLarge but config only has 'coffee'
+      if (prices.coffee !== undefined && prices.coffeeSmall === undefined) {
+        prices.coffeeSmall = prices.coffee;
+        prices.coffeeLarge = prices.coffee;
+      }
       const dataset = safeClone(store.get('dataset'));
       dataset.prices = prices;
       if (lc.sets) dataset.sets = lc.sets;
@@ -1107,19 +1112,22 @@
 
       store.patch('dataset', data);
 
+      // v2 FIX (EC-6/7/30): Use ?? not || so 0 is valid (e.g., free package, 0% gratuity)
       const economics = safeClone(store.get('economics'));
       if (data.packages) {
-        const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
+        const getPkgPrice = (pkg) => { const p = num(pkg?.priceMid ?? pkg?.price); return p !== undefined ? p : null; };
+        const s = (v, fb) => (v !== null && v !== undefined) ? v : fb;
         economics.pkg = {
-          soda: getPkgPrice(data.packages.soda) || economics.pkg.soda,
-          refresh: getPkgPrice(data.packages.refreshment || data.packages.refresh) || economics.pkg.refresh,
-          deluxe: getPkgPrice(data.packages.deluxe) || economics.pkg.deluxe
+          soda: s(getPkgPrice(data.packages.soda), economics.pkg.soda),
+          refresh: s(getPkgPrice(data.packages.refreshment ?? data.packages.refresh), economics.pkg.refresh),
+          deluxe: s(getPkgPrice(data.packages.deluxe), economics.pkg.deluxe)
         };
       }
 
       if (data.rules) {
-        economics.grat = num(data.rules.gratuity) || economics.grat;
-        economics.deluxeCap = num(data.rules.caps?.deluxeAlcohol ?? data.rules.deluxeCap) || economics.deluxeCap;
+        economics.grat = (data.rules.gratuity !== null && data.rules.gratuity !== undefined) ? num(data.rules.gratuity) : economics.grat;
+        const capVal = data.rules.caps?.deluxeAlcohol ?? data.rules.deluxeCap;
+        economics.deluxeCap = (capVal !== null && capVal !== undefined) ? num(capVal) : economics.deluxeCap;
       }
 
       store.patch('economics', economics);
@@ -1130,19 +1138,20 @@
       const fallback = CONFIG.FALLBACK_DATASET;
       store.patch('dataset', fallback);
 
+      // v2 FIX: Same ?? pattern for fallback path
       const economics = safeClone(store.get('economics'));
       if (fallback.packages) {
         const getPkgPrice = (pkg) => num(pkg?.priceMid ?? pkg?.price);
         economics.pkg = {
-          soda: getPkgPrice(fallback.packages.soda) || 10.99,
-          refresh: getPkgPrice(fallback.packages.refreshment) || 34.0,
-          deluxe: getPkgPrice(fallback.packages.deluxe) || 85.0
+          soda: getPkgPrice(fallback.packages.soda) ?? 10.99,
+          refresh: getPkgPrice(fallback.packages.refreshment) ?? 34.0,
+          deluxe: getPkgPrice(fallback.packages.deluxe) ?? 85.0
         };
       }
 
       if (fallback.rules) {
-        economics.grat = num(fallback.rules.gratuity) || 0.18;
-        economics.deluxeCap = num(fallback.rules.deluxeCap) || 14.0;
+        economics.grat = num(fallback.rules.gratuity) ?? 0.18;
+        economics.deluxeCap = num(fallback.rules.deluxeCap) ?? 14.0;
       }
 
       store.patch('economics', economics);
@@ -1230,7 +1239,8 @@
         minorCountPerDay: inputs.voucherMinor || 0,
         perVoucherValue: economics.deluxeCap ?? 14.0
       } : null,
-      forcedPackage: ui?.forcedPackage || null  // ✅ NEW: Package forcing feature
+      forcedPackage: ui?.forcedPackage || null,  // ✅ NEW: Package forcing feature
+      lineConfig: window.ITW_LINE_CONFIG || null  // v2 FIX (EC-25): pass to worker
     };
 
     const canUseWorker = initializeWorker() && workerReady;
@@ -1462,6 +1472,12 @@
     const state = store.get();
     const params = new URLSearchParams();
 
+    // v2 FIX (EC-46): Include active cruise line in shared URL
+    const activeLineId = window.ITW_LINE_CONFIG?.id;
+    if (activeLineId && activeLineId !== 'royal-caribbean') {
+      params.set('line', activeLineId);
+    }
+
     // Core inputs
     if (state.inputs.days !== 7) params.set('days', state.inputs.days);
     if (state.inputs.adults !== 1) params.set('adults', state.inputs.adults);
@@ -1502,6 +1518,11 @@
     const params = new URLSearchParams(location.search);
 
     if (params.toString() === '') return false; // No params to load
+
+    // v2 FIX (EC-46): Stash cruise line from URL for later application
+    if (params.has('line')) {
+      window._itwUrlLineId = params.get('line');
+    }
 
     const state = safeClone(store.get());
     let hasChanges = false;
@@ -1638,7 +1659,12 @@
       announce('Loaded shared configuration');
     }
 
-    await loadLineConfig(); // v2: load cruise line config first
+    // v2: load cruise line config first (use URL line if shared link specified one)
+    const urlLineId = window._itwUrlLineId || null;
+    await loadLineConfig(urlLineId);
+    if (urlLineId && window.ITW_LINE_CONFIG?.id === urlLineId) {
+      await switchCruiseLine(urlLineId);
+    }
     await loadFXRates();
     setupCurrencySelector();
     await loadBrandConfig();
