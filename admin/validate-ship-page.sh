@@ -3382,6 +3382,179 @@ else
 fi
 
 # ============================================================================
+# Section 9ea: Navigation Structure (#1401)
+# ============================================================================
+section_header "Section 9ea: Navigation Structure"
+
+# Reference has 4 dropdown groups: nav-planning, nav-tools, nav-onboard, nav-travel
+NAV_PLANNING=$(grep -c 'id="nav-planning"' "$FILE" || true)
+NAV_TOOLS=$(grep -c 'id="nav-tools"' "$FILE" || true)
+NAV_ONBOARD=$(grep -c 'id="nav-onboard"' "$FILE" || true)
+NAV_TRAVEL=$(grep -c 'id="nav-travel"' "$FILE" || true)
+NAV_MISSING=0
+NAV_LIST=""
+if [ "$NAV_PLANNING" -eq 0 ]; then NAV_MISSING=$((NAV_MISSING+1)); NAV_LIST="$NAV_LIST Planning"; fi
+if [ "$NAV_TOOLS" -eq 0 ]; then NAV_MISSING=$((NAV_MISSING+1)); NAV_LIST="$NAV_LIST Tools"; fi
+if [ "$NAV_ONBOARD" -eq 0 ]; then NAV_MISSING=$((NAV_MISSING+1)); NAV_LIST="$NAV_LIST Onboard"; fi
+if [ "$NAV_TRAVEL" -eq 0 ]; then NAV_MISSING=$((NAV_MISSING+1)); NAV_LIST="$NAV_LIST Travel"; fi
+if [ "$NAV_MISSING" -gt 0 ]; then
+    check_warn "Missing $NAV_MISSING nav dropdown(s):$NAV_LIST — Anthem reference has all 4 (#1401)"
+else
+    check_pass "All 4 nav dropdowns present (Planning, Tools, Onboard, Travel)"
+fi
+
+# ============================================================================
+# Section 9eb: Mobile Nav Toggle (#1402)
+# ============================================================================
+section_header "Section 9eb: Mobile Nav Toggle"
+
+HAS_NAV_TOGGLE=$(grep -c 'class="nav-toggle"' "$FILE" || true)
+if [ "$HAS_NAV_TOGGLE" -eq 0 ]; then
+    check_warn "Missing nav-toggle hamburger button — mobile users can't open navigation (#1402)"
+else
+    check_pass "Mobile nav-toggle present"
+fi
+
+# ============================================================================
+# Section 9ec: Hero Wrapper (#1403)
+# ============================================================================
+section_header "Section 9ec: Hero Wrapper"
+
+HAS_HERO_DIV=$(grep -c 'class="hero"' "$FILE" || true)
+if [ "$HAS_HERO_DIV" -gt 0 ]; then
+    HERO_ROLE=$(grep 'class="hero"' "$FILE" | grep -c 'role="img"' || true)
+    if [ "$HERO_ROLE" -eq 0 ]; then
+        check_warn "Hero div missing role=\"img\" and aria-label — accessibility (#1403)"
+    else
+        check_pass "Hero wrapper has role=\"img\""
+    fi
+else
+    check_warn "No <div class=\"hero\"> wrapper — compass, logo, and tagline should be inside a hero div (#1403)"
+fi
+
+# ============================================================================
+# Section 9ed: Breadcrumb Accessibility (#1404)
+# ============================================================================
+section_header "Section 9ed: Breadcrumb Accessibility"
+
+HAS_BREADCRUMB=$(grep -c 'class="breadcrumb"' "$FILE" || true)
+if [ "$HAS_BREADCRUMB" -gt 0 ]; then
+    BC_LABEL=$(grep 'class="breadcrumb"' "$FILE" | grep -c 'aria-label' || true)
+    BC_CURRENT=$(grep -c 'aria-current="page"' "$FILE" || true)
+    BC_ISSUES=0
+    if [ "$BC_LABEL" -eq 0 ]; then
+        check_warn "Breadcrumb nav missing aria-label=\"Breadcrumb\" (#1404)"
+        BC_ISSUES=1
+    fi
+    if [ "$BC_CURRENT" -eq 0 ]; then
+        check_warn "Breadcrumb missing aria-current=\"page\" on current page span (#1404)"
+        BC_ISSUES=1
+    fi
+    if [ "$BC_ISSUES" -eq 0 ]; then
+        check_pass "Breadcrumb has aria-label and aria-current"
+    fi
+else
+    check_pass "Breadcrumb check skipped (no breadcrumb found)"
+fi
+
+# ============================================================================
+# Section 9ee: Footer Completeness (#1405)
+# ============================================================================
+section_header "Section 9ee: Footer Completeness"
+
+FOOTER_CONTENT=$(sed -n '/<footer/,/<\/footer>/p' "$FILE")
+FOOTER_ISSUES=0
+FOOTER_LIST=""
+
+HAS_ACCESSIBILITY_LINK=$(echo "$FOOTER_CONTENT" | grep -c 'accessibility' || true)
+if [ "$HAS_ACCESSIBILITY_LINK" -eq 0 ]; then
+    FOOTER_ISSUES=$((FOOTER_ISSUES+1))
+    FOOTER_LIST="$FOOTER_LIST accessibility-link"
+fi
+
+HAS_SDG_FOOTER=$(echo "$FOOTER_CONTENT" | grep -c 'Soli Deo Gloria' || true)
+if [ "$HAS_SDG_FOOTER" -eq 0 ]; then
+    FOOTER_ISSUES=$((FOOTER_ISSUES+1))
+    FOOTER_LIST="$FOOTER_LIST SDG-dedication"
+fi
+
+HAS_ABOUT_LINK=$(echo "$FOOTER_CONTENT" | grep -c 'about-us.html' || true)
+if [ "$HAS_ABOUT_LINK" -eq 0 ]; then
+    FOOTER_ISSUES=$((FOOTER_ISSUES+1))
+    FOOTER_LIST="$FOOTER_LIST about-link"
+fi
+
+if [ "$FOOTER_ISSUES" -gt 0 ]; then
+    check_warn "Footer missing $FOOTER_ISSUES element(s):$FOOTER_LIST — Anthem reference has all (#1405)"
+else
+    check_pass "Footer has accessibility link, SDG dedication, and about link"
+fi
+
+# ============================================================================
+# Section 9ef: Dead Code in Init Functions (#1406)
+# ============================================================================
+section_header "Section 9ef: Dead Code"
+
+# Check for hardcoded TBD/placeholder values in inline scripts
+DEAD_IMO_TBD=$(grep -c 'imo:TBD\|imo: TBD\|imo=TBD' "$FILE" || true)
+if [ "$DEAD_IMO_TBD" -gt 0 ]; then
+    check_warn "Found $DEAD_IMO_TBD hardcoded 'imo:TBD' in inline scripts — dead code (#1406)"
+else
+    check_pass "No dead TBD code in inline scripts"
+fi
+
+# Check for wrong dining data path
+WRONG_DINING_PATH=$(grep -c '/assets/data/dining/' "$FILE" || true)
+if [ "$WRONG_DINING_PATH" -gt 0 ]; then
+    check_warn "Dining init fetches from /assets/data/dining/ — should use venues-v2.json (#1406)"
+else
+    check_pass "No legacy dining data path"
+fi
+
+# ============================================================================
+# Section 9eg: Orphaned HTML Comments (#1407)
+# ============================================================================
+section_header "Section 9eg: Orphaned Comments"
+
+# Comments followed by nothing (empty section markers)
+ORPHAN_ATTRIB=$(grep -cP '<!-- Attribution Section -->\s*$' "$FILE" || true)
+ORPHAN_STUB=$(grep -cP '<!-- Stub Notice -->\s*$' "$FILE" || true)
+ORPHAN_TOTAL=$((ORPHAN_ATTRIB + ORPHAN_STUB))
+if [ "$ORPHAN_TOTAL" -gt 0 ]; then
+    check_warn "Found $ORPHAN_TOTAL orphaned HTML comment(s) (empty section markers) — clean up dead markup (#1407)"
+else
+    check_pass "No orphaned section comments"
+fi
+
+# ============================================================================
+# Section 9eh: Swiper Redundant Fallback (#1408)
+# ============================================================================
+section_header "Section 9eh: Swiper Loader Efficiency"
+
+# Check if primary and CDN URLs are identical (redundant fallback)
+PRIMARY_CSS=$(grep -oP 'primaryCSS\s*=\s*"\K[^"]+' "$FILE" | head -1)
+CDN_CSS=$(grep -oP 'cdnCSS\s*=\s*"\K[^"]+' "$FILE" | head -1)
+if [ -n "$PRIMARY_CSS" ] && [ -n "$CDN_CSS" ] && [ "$PRIMARY_CSS" = "$CDN_CSS" ]; then
+    check_warn "Swiper loader has identical primary and CDN URLs — redundant fallback (#1408)"
+else
+    check_pass "Swiper loader URLs are distinct (or single-source)"
+fi
+
+# ============================================================================
+# Section 9ei: OG Type (#1409)
+# ============================================================================
+section_header "Section 9ei: OpenGraph Type"
+
+OG_TYPE=$(grep -oP 'og:type" content="\K[^"]+' "$FILE" | head -1)
+if [ "$OG_TYPE" = "article" ]; then
+    check_warn "og:type is 'article' — ship pages should use 'website' (Anthem reference) (#1409)"
+elif [ -n "$OG_TYPE" ]; then
+    check_pass "og:type is '$OG_TYPE'"
+else
+    check_pass "og:type check skipped"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
