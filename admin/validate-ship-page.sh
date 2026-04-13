@@ -43,7 +43,7 @@ if [ ! -f "$FILE" ]; then
 fi
 
 # Exclusion list: files that live in ships/ but are NOT ship pages
-EXCLUDED_FILES="ships/rcl/venues.html ships/rcl/index.html"
+EXCLUDED_FILES="ships/rcl/venues.html ships/rcl/index.html ships/norwegian/index.html ships/msc/index.html ships/virgin-voyages/index.html ships/cunard/index.html"
 BASENAME=$(echo "$FILE" | sed 's|.*/ships/|ships/|')
 for EXCL in $EXCLUDED_FILES; do
     if [ "$BASENAME" = "$EXCL" ]; then
@@ -2732,6 +2732,109 @@ if [ "$HALF_ESCAPES" -gt 0 ] && [ "$FULL_ESCAPES" -eq 0 ]; then
     check_warn "$HALF_ESCAPES inline JS replace(s) escape '<' but not '>' — defense-in-depth gap (#1358)"
 else
     check_pass "No half-escape pattern detected"
+fi
+
+# ============================================================================
+# Section 9cl: Meta vs Body Guest Count Consistency (#1360)
+# ============================================================================
+section_header "Section 9cl: Meta vs Body Guest Count"
+
+META_GUESTS=$(grep '<meta name="description"' "$FILE" | head -1 | grep -oP '[\d,]+(?= guests)' | head -1)
+BODY_GUESTS=$(grep 'class="fact-block"' "$FILE" | head -1 | grep -oP '[\d,]+(?= guests)' | head -1)
+if [ -n "$META_GUESTS" ] && [ -n "$BODY_GUESTS" ]; then
+    if [ "$META_GUESTS" = "$BODY_GUESTS" ]; then
+        check_pass "Guest count consistent: meta ($META_GUESTS) matches body ($BODY_GUESTS)"
+    else
+        check_warn "Guest count mismatch: meta description says $META_GUESTS guests but body says $BODY_GUESTS guests — pick one authoritative number (#1360)"
+    fi
+else
+    check_pass "Guest count cross-check skipped (insufficient data)"
+fi
+
+# ============================================================================
+# Section 9cm: Ship Class Internal Consistency (#1361)
+# ============================================================================
+section_header "Section 9cm: Class Name Consistency"
+
+# Extract class from fact-block and from subtitle/at-a-glance
+FACTBLOCK_CLASS=$(grep -oP 'is a \K[A-Za-z ]+(?= cruise ship)' "$FILE" | head -1)
+SUBTITLE_CLASS=$(grep -oP 'Norwegian Cruise Line &bull; \K[^<]+' "$FILE" | head -1 | sed 's/ *$//')
+if [ -n "$FACTBLOCK_CLASS" ] && [ -n "$SUBTITLE_CLASS" ]; then
+    # Normalize for comparison (strip trailing "Class" from both)
+    FB_NORM=$(echo "$FACTBLOCK_CLASS" | sed 's/ Class$//')
+    SUB_NORM=$(echo "$SUBTITLE_CLASS" | sed 's/ Class$//')
+    if [ "$FB_NORM" = "$SUB_NORM" ]; then
+        check_pass "Ship class consistent: fact-block ($FACTBLOCK_CLASS) matches subtitle ($SUBTITLE_CLASS)"
+    else
+        check_warn "Ship class mismatch: fact-block says '$FACTBLOCK_CLASS' but subtitle says '$SUBTITLE_CLASS' — internal inconsistency (#1361)"
+    fi
+else
+    check_pass "Class consistency check skipped (insufficient data)"
+fi
+
+# ============================================================================
+# Section 9cn: Broken Superlative Date Insertion (#1362)
+# ============================================================================
+section_header "Section 9cn: Superlative Grammar"
+
+# Catch broken patterns like "first (as of 2026)-ever" or "largest (as of 2026)-class"
+BROKEN_SUPERLATIVE=$(grep -oP '\(as of \d{4}\)-[a-z]' "$FILE" | head -3)
+if [ -n "$BROKEN_SUPERLATIVE" ]; then
+    check_warn "Broken superlative date insertion: '$BROKEN_SUPERLATIVE' — grammar error from mechanical regex (#1362)"
+else
+    check_pass "No broken superlative date patterns detected"
+fi
+
+# ============================================================================
+# Section 9co: Page Grid Structural Integrity (#1363)
+# ============================================================================
+section_header "Section 9co: Page Grid Structure"
+
+# If <main> has page-grid class, the content MUST be wrapped in col-1
+# and the sidebar aside MUST have col-2. Without this, the CSS grid
+# activates but content doesn't flow into columns — broken layout.
+HAS_PAGE_GRID=$(grep -c 'page-grid' "$FILE")
+HAS_COL1=$(grep -cP 'class="col-1|class="page-intro col-1' "$FILE")
+HAS_ASIDE_RAIL=$(grep -c 'class="rail' "$FILE")
+HAS_COL2=$(grep -cP 'rail col-2|col-2.*rail' "$FILE")
+
+if [ "$HAS_PAGE_GRID" -gt 0 ]; then
+    if [ "$HAS_COL1" -eq 0 ]; then
+        check_fail "page-grid on <main> but NO col-1 wrapper — two-column layout is visually broken. Content floats loose in grid. (#1363)"
+    else
+        check_pass "page-grid has col-1 content wrapper"
+    fi
+
+    if [ "$HAS_ASIDE_RAIL" -gt 0 ] && [ "$HAS_COL2" -eq 0 ]; then
+        check_warn "Sidebar aside has class=\"rail\" but missing col-2 — may not position correctly in page-grid (#1363)"
+    elif [ "$HAS_ASIDE_RAIL" -gt 0 ]; then
+        check_pass "Sidebar aside has both rail and col-2 classes"
+    fi
+else
+    check_pass "No page-grid — structural check N/A"
+fi
+
+# ============================================================================
+# Section 9cp: Content Inside col-1 Completeness (#1364)
+# ============================================================================
+section_header "Section 9cp: col-1 Content Completeness"
+
+if [ "$HAS_PAGE_GRID" -gt 0 ] && [ "$HAS_COL1" -gt 0 ]; then
+    # Check that key content sections are INSIDE col-1, not floating outside it
+    # Extract everything between col-1 open and col-1 close
+    COL1_CONTENT=$(sed -n '/class="col-1/,/End.*col-1\|<\/section><!-- col-1\|<aside.*col-2/p' "$FILE" | head -200)
+
+    # Check if critical sections exist in the file but outside col-1
+    HAS_FAQ_IN_FILE=$(grep -c 'id="faq"' "$FILE")
+    HAS_FAQ_IN_COL1=$(echo "$COL1_CONTENT" | grep -c 'id="faq"' 2>/dev/null || echo 0)
+
+    if [ "$HAS_FAQ_IN_FILE" -gt 0 ] && [ "$HAS_FAQ_IN_COL1" -eq 0 ]; then
+        check_warn "FAQ section may be outside col-1 — verify it renders in the main content column (#1364)"
+    else
+        check_pass "Content sections appear inside col-1"
+    fi
+else
+    check_pass "col-1 completeness check skipped (no page-grid or no col-1)"
 fi
 
 # ============================================================================
