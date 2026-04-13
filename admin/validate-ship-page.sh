@@ -43,7 +43,7 @@ if [ ! -f "$FILE" ]; then
 fi
 
 # Exclusion list: files that live in ships/ but are NOT ship pages
-EXCLUDED_FILES="ships/rcl/venues.html ships/rcl/index.html ships/norwegian/index.html ships/msc/index.html ships/virgin-voyages/index.html"
+EXCLUDED_FILES="ships/rcl/venues.html ships/rcl/index.html"
 BASENAME=$(echo "$FILE" | sed 's|.*/ships/|ships/|')
 for EXCL in $EXCLUDED_FILES; do
     if [ "$BASENAME" = "$EXCL" ]; then
