@@ -2537,6 +2537,37 @@ else
 fi
 
 # ============================================================================
+# Section 9cb2: Figcaption Photographer vs Filename Mismatch (#1359)
+# ============================================================================
+section_header "Section 9cb2: Figcaption vs Filename Photographer"
+
+# If an image filename contains _flickr_PhotographerName and the adjacent
+# figcaption credits a DIFFERENT photographer, that's template contamination.
+PHOTO_MISMATCHES=$(python3 -c "
+import re, sys
+html = sys.stdin.read()
+# Find all <img src='..._flickr_NAME.ext'> followed by <figcaption>...credit...</figcaption>
+pairs = re.findall(r'<img[^>]*src=\"[^\"]*_flickr_([^.\"]+)\.[^\"]+\"[^>]*>\s*(?:</picture>\s*)?(?:</?[^>]*>\s*)*<figcaption[^>]*>([^<]+)</figcaption>', html, re.DOTALL)
+# Generic suffixes that are NOT photographer names
+GENERIC = {'new', '2', '3', '4', '5', 'exterior', 'interior', 'v2', 'crop', 'cropped', 'edit'}
+mismatches = 0
+for filename_photographer, caption_text in pairs:
+    if filename_photographer.lower() in GENERIC:
+        continue
+    fn_name = re.sub(r'[^a-z0-9]', '', filename_photographer.lower())
+    cap_norm = re.sub(r'[^a-z0-9]', '', caption_text.lower())
+    if fn_name not in cap_norm:
+        mismatches += 1
+print(mismatches)
+" <<< "$CONTENT" 2>/dev/null)
+PHOTO_MISMATCHES=${PHOTO_MISMATCHES:-0}
+if [ "$PHOTO_MISMATCHES" -gt 0 ]; then
+    check_warn "$PHOTO_MISMATCHES figcaption(s) credit a different photographer than the image filename suggests — possible template contamination (#1359)"
+else
+    check_pass "Figcaption photographer names match image filenames"
+fi
+
+# ============================================================================
 # Section 9cc: Generic Deck Plan Preview Alt Text (#1350)
 # ============================================================================
 section_header "Section 9cc: Generic Deck Plan Preview"
