@@ -122,10 +122,12 @@ Array of drink objects. Each drink that appears in the calculator must be listed
 
 Maps package keys to arrays of drink IDs that package covers.
 
+**IMPORTANT:** The `sets` keys must use `refresh` (not `refreshment`) and `alcoholic` (not `alcohol`) to match the math engine's internal naming convention.
+
 ```json
 "sets": {
   "soda": ["soda"],
-  "refreshment": ["soda", "coffee", "teaprem", ...],
+  "refresh": ["soda", "coffee", "teaprem", ...],
   "deluxe": ["soda", "coffee", ..., "beer", "wine", "cocktail", "spirits"],
   "alcoholic": ["beer", "wine", "cocktail", "spirits"]
 }
