@@ -731,7 +731,7 @@
                 var ch4 = coffeeCard.querySelector('h4');
                 if (ch4) ch4.textContent = '\u2615 ' + lc.coffeeCard.name;
                 var cdesc = coffeeCard.querySelector('p.small');
-                if (cdesc) cdesc.textContent = lc.coffeeCard.punches + ' punches (~$' + (lc.coffeeCard.price / lc.coffeeCard.punches).toFixed(2) + '/punch)';
+                if (cdesc) cdesc.textContent = lc.coffeeCard.punches + ' punches' + (lc.coffeeCard.punches > 0 ? ' (~$' + (lc.coffeeCard.price / lc.coffeeCard.punches).toFixed(2) + '/punch)' : '');
               } else {
                 coffeeCard.style.display = 'none';
               }
