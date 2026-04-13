@@ -279,7 +279,13 @@ function renderChart(bars, winnerKey) {
   if (!bars || typeof bars !== 'object') return;
 
   const chartData = {
-    labels: ['À la carte', 'Soda', 'Refreshment', 'Deluxe'],
+    // v2: Package labels from line config
+    labels: [
+      'À la carte',
+      window.ITW_LINE_CONFIG?.packages?.soda?.shortName || 'Soda',
+      window.ITW_LINE_CONFIG?.packages?.refreshment?.shortName || 'Refreshment',
+      window.ITW_LINE_CONFIG?.packages?.deluxe?.shortName || 'Deluxe'
+    ],
     datasets: [{
       label: 'Total Cost',
       data: [
@@ -976,25 +982,25 @@ function renderCostSummary(results) {
     },
     {
       key: 'soda',
-      icon: '🥤',
-      title: 'Soda Package',
-      subtitle: 'Fountain sodas & Coca-Cola Freestyle',
+      icon: window.ITW_LINE_CONFIG?.packages?.soda?.emoji || '🥤',
+      title: (window.ITW_LINE_CONFIG?.packages?.soda?.name || 'Soda Package'),
+      subtitle: (window.ITW_LINE_CONFIG?.packages?.soda?.includes || 'Fountain sodas & Coca-Cola Freestyle').substring(0, 60),
       cost: sodaCost,
       breakdown: breakdown.soda
     },
     {
       key: 'refresh',
-      icon: '☕',
-      title: 'Refreshment Package',
-      subtitle: 'All non-alcoholic specialty drinks',
+      icon: window.ITW_LINE_CONFIG?.packages?.refreshment?.emoji || '☕',
+      title: (window.ITW_LINE_CONFIG?.packages?.refreshment?.name || 'Refreshment Package'),
+      subtitle: (window.ITW_LINE_CONFIG?.packages?.refreshment?.includes || 'All non-alcoholic specialty drinks').substring(0, 60),
       cost: refreshCost,
       breakdown: breakdown.refresh
     },
     {
       key: 'deluxe',
-      icon: '🍹',
-      title: 'Deluxe Package',
-      subtitle: 'Everything including alcohol',
+      icon: window.ITW_LINE_CONFIG?.packages?.deluxe?.emoji || '🍹',
+      title: (window.ITW_LINE_CONFIG?.packages?.deluxe?.name || 'Deluxe Package'),
+      subtitle: (window.ITW_LINE_CONFIG?.packages?.deluxe?.includes || 'Everything including alcohol').substring(0, 60),
       cost: deluxeCost,
       breakdown: breakdown.deluxe
     }

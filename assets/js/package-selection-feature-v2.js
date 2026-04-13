@@ -370,11 +370,12 @@
      * Calculate break-even drinks needed to justify the more expensive package
      */
     calculateBreakEvenHTML: function(selectedPackage, recPackage, delta, days) {
-      // Typical drink prices for break-even calculations
+      // v2: Break-even drink prices from line config (falls back to RCL defaults)
+      const lc = window.ITW_LINE_CONFIG;
       const drinkPrices = {
-        'soda': { name: 'sodas', price: 3.50 },
-        'refresh': { name: 'specialty coffees', price: 4.50 },
-        'deluxe': { name: 'cocktails', price: 13.00 }
+        'soda': lc?.packages?.soda?.breakEvenDrink || { name: 'sodas', price: 3.50 },
+        'refresh': lc?.packages?.refreshment?.breakEvenDrink || { name: 'specialty coffees', price: 4.50 },
+        'deluxe': lc?.packages?.deluxe?.breakEvenDrink || { name: 'cocktails', price: 13.00 }
       };
 
       // What drink type would justify upgrading?

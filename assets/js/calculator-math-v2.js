@@ -379,8 +379,9 @@ function determineWinners(costs, minors) {
  * ✅ NEW v1.003.000: Package forcing feature
  * @param {object} forcedPackage - Optional forced package ('soda'|'refresh'|'deluxe'|null)
  *                                 When set, skips cost comparison and forces this package as winner
+ * @param {object} lineConfig - v2: Cruise line config from calculator-config.json
  */
-function compute(inputs, economics, dataset, vouchers = null, forcedPackage = null) {
+function compute(inputs, economics, dataset, vouchers = null, forcedPackage = null, lineConfig = null) {
   const { prices, sets, gratuity, deluxeCap } = adaptDataset(dataset);
 
   const days = clamp(inputs.days, 1, 365);
@@ -403,13 +404,16 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const weighted = applyWeight(drinkList, days, seaDays, seaApply, seaWeight);
 
   // CRITICAL FIX v1.006.000: Voucher application - most expensive drinks first!
-  // Pinnacle: 6/day (FIXED from 5), Diamond+: 5/day, Diamond: 4/day
+  // v2: Max vouchers per day from line config (RCL Pinnacle = 6)
+  const voucherMaxPerDay = lineConfig?.loyalty?.tiers
+    ? Math.max(...lineConfig.loyalty.tiers.map(t => t.vouchersPerDay || 0))
+    : 6;
   let totalVouchersPerDay = 0;
   let actualVoucherSavings = 0; // Track actual savings for accurate reporting
 
   if (vouchers && vouchers.perVoucherValue > 0) {
-    const adultVouchers = clamp(vouchers.adultCountPerDay || 0, 0, 6); // Max 6 for Pinnacle
-    const minorVouchers = clamp(vouchers.minorCountPerDay || 0, 0, 6);
+    const adultVouchers = clamp(vouchers.adultCountPerDay || 0, 0, voucherMaxPerDay);
+    const minorVouchers = clamp(vouchers.minorCountPerDay || 0, 0, voucherMaxPerDay);
     totalVouchersPerDay = (adultVouchers * adults) + (minorVouchers * minors);
 
     if (adultVouchers === 6 || minorVouchers === 6) {
@@ -475,7 +479,8 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const rawTotal = sum(categoryRows.map(r => r.cost));
 
   // CRITICAL FIX v1.003.003: Calculate total coffee punches from small (1 punch) and large (2 punches)
-  const COFFEE_CARD_PUNCHES = 15;
+  // v2: Coffee card punches from line config (RCL = 15, other lines may differ)
+  const COFFEE_CARD_PUNCHES = lineConfig?.coffeeCard?.punches || 15;
   const coffeeSmallQty = categoryRows.find(r => r.id === 'coffeeSmall')?.qty || 0;
   const coffeeLargeQty = categoryRows.find(r => r.id === 'coffeeLarge')?.qty || 0;
 

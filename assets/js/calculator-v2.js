@@ -58,6 +58,7 @@
     }),
     API: Object.freeze({
       brands: '/assets/data/brands.json',
+      calculatorConfig: '/assets/data/calculator-config.json',
       fxFrankfurter: 'https://api.frankfurter.app/latest',
       fxExchangeRate: 'https://api.exchangerate.host/latest'
     }),
@@ -904,6 +905,87 @@
 
   /* ==================== DATASET LOADING ==================== */
 
+  /* ==================== LINE CONFIG (v2) ==================== */
+
+  /**
+   * Load calculator-config.json and store the active cruise line config.
+   * This is the single source of truth for all cruise-line-specific data.
+   * Other v2 files access it via window.ITW_LINE_CONFIG.
+   */
+  async function loadLineConfig(lineId) {
+    try {
+      const url = CONFIG.API.calculatorConfig + `?v=${VERSION}`;
+      const response = await fetch(url, { cache: 'default', credentials: 'omit' });
+      if (!response.ok) throw new Error('Config fetch failed');
+
+      const config = await response.json();
+      const activeLineId = lineId || config.defaultLine || 'royal-caribbean';
+      const lineConfig = config.lines?.[activeLineId];
+
+      if (!lineConfig) {
+        console.warn(`[Core v2] Line "${activeLineId}" not found in config, using first available`);
+        const firstKey = Object.keys(config.lines)[0];
+        window.ITW_CALC_CONFIG = config;
+        window.ITW_LINE_CONFIG = config.lines[firstKey] || null;
+        return;
+      }
+
+      window.ITW_CALC_CONFIG = config;
+      window.ITW_LINE_CONFIG = lineConfig;
+
+      console.log(`[Core v2] Line config loaded: ${lineConfig.name} (${activeLineId})`);
+    } catch (error) {
+      console.warn('[Core v2] Failed to load calculator-config.json, using hardcoded fallbacks', error);
+      window.ITW_LINE_CONFIG = null;
+      window.ITW_CALC_CONFIG = null;
+    }
+  }
+
+  /**
+   * Switch the active cruise line. Reloads economics and triggers recalculation.
+   */
+  async function switchCruiseLine(lineId) {
+    await loadLineConfig(lineId);
+    const lc = window.ITW_LINE_CONFIG;
+    if (!lc) return;
+
+    // Update economics from new line config
+    const economics = safeClone(store.get('economics'));
+    if (lc.packages) {
+      economics.pkg = {
+        soda: num(lc.packages.soda?.priceMid) || economics.pkg.soda,
+        refresh: num(lc.packages.refreshment?.priceMid) || economics.pkg.refresh,
+        deluxe: num(lc.packages.deluxe?.priceMid) || economics.pkg.deluxe,
+        coffee: num(lc.coffeeCard?.price) || economics.pkg.coffee
+      };
+    }
+    if (lc.rules) {
+      economics.grat = num(lc.rules.gratuity) || economics.grat;
+      economics.deluxeCap = num(lc.rules.deluxeCap) || economics.deluxeCap;
+    }
+    store.patch('economics', economics);
+
+    // Rebuild dataset from line config drinks
+    if (lc.drinks) {
+      const prices = {};
+      lc.drinks.forEach(d => { prices[d.id] = num(d.price); });
+      const dataset = safeClone(store.get('dataset'));
+      dataset.prices = prices;
+      if (lc.sets) dataset.sets = lc.sets;
+      store.patch('dataset', dataset);
+    }
+
+    // Dispatch event for UI layer to update labels, FAQ, policies, etc.
+    window.dispatchEvent(new CustomEvent('itw:line-changed', { detail: { lineId, config: lc } }));
+
+    scheduleCalculation();
+    announce(`Switched to ${lc.name}`);
+    console.log(`[Core v2] Switched to ${lc.name}`);
+  }
+
+  // Expose switchCruiseLine globally for the line selector
+  window.ITW_switchCruiseLine = switchCruiseLine;
+
   async function loadDataset() {
     try {
       const brand = store.get('brand') || await loadBrandConfig();
@@ -1077,12 +1159,14 @@
       console.log('[Calc] Calling ITW_MATH.compute()...');
 
       // ✅ PHASE 1 ITEM #3: Unified API - single compute() function
+      // v2: Pass line config as 6th argument for config-driven calculations
       const results = window.ITW_MATH.compute(
         payload.inputs,
         payload.economics,
         payload.dataset,
         payload.vouchers,
-        payload.forcedPackage  // ✅ NEW: Package forcing
+        payload.forcedPackage,  // ✅ NEW: Package forcing
+        window.ITW_LINE_CONFIG  // v2: Line-specific config
       );
 
 
@@ -1459,6 +1543,7 @@
       announce('Loaded shared configuration');
     }
 
+    await loadLineConfig(); // v2: load cruise line config first
     await loadFXRates();
     setupCurrencySelector();
     await loadBrandConfig();
