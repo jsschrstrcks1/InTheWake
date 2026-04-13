@@ -2838,6 +2838,785 @@ else
 fi
 
 # ============================================================================
+# Section 9cq: GitHub Pages Asset References (#1365)
+# ============================================================================
+section_header "Section 9cq: Asset Source Integrity"
+
+GH_PAGES_REFS=$(grep -c 'jsschrstrcks1.github.io' "$FILE" || true)
+if [ "$GH_PAGES_REFS" -gt 0 ]; then
+    check_fail "Page loads $GH_PAGES_REFS asset(s) from GitHub Pages (jsschrstrcks1.github.io) instead of relative paths — breaks on production domain (#1365)"
+else
+    check_pass "No GitHub Pages asset references"
+fi
+
+# ============================================================================
+# Section 9cr: Inline Style Blocks (#1366)
+# ============================================================================
+section_header "Section 9cr: Inline Style Blocks"
+
+INLINE_STYLE_BLOCKS=$(grep -c '<style' "$FILE" || true)
+if [ "$INLINE_STYLE_BLOCKS" -gt 0 ]; then
+    check_warn "Page has $INLINE_STYLE_BLOCKS inline <style> block(s) — should be in external CSS (#1366)"
+else
+    check_pass "No inline style blocks"
+fi
+
+# ============================================================================
+# Section 9cs: Version Number in Title (#1367)
+# ============================================================================
+section_header "Section 9cs: Title Hygiene"
+
+TITLE_VERSION=$(grep -oP '<title>[^<]*</title>' "$FILE" | grep -cP 'v\d+\.\d+' || true)
+if [ "$TITLE_VERSION" -gt 0 ]; then
+    check_fail "Page title contains a version number (e.g. v2.201) — visitors shouldn't see internal versioning (#1367)"
+else
+    check_pass "Title clean of version numbers"
+fi
+
+# ============================================================================
+# Section 9ct: Empty or Stub Meta Description (#1368)
+# ============================================================================
+section_header "Section 9ct: Meta Description Quality"
+
+META_DESC=$(grep -oP '<meta name="description" content="\K[^"]*' "$FILE" | head -1)
+META_DESC_LEN=${#META_DESC}
+if [ "$META_DESC_LEN" -lt 50 ]; then
+    check_fail "Meta description is too short ($META_DESC_LEN chars) or stub content — needs real description for SEO (#1368)"
+elif echo "$META_DESC" | grep -qP 'v\d+\.\d+'; then
+    check_warn "Meta description contains version number — remove internal versioning (#1368)"
+else
+    check_pass "Meta description has adequate content ($META_DESC_LEN chars)"
+fi
+
+# ============================================================================
+# Section 9cu: Empty og:url (#1369)
+# ============================================================================
+section_header "Section 9cu: OpenGraph URL"
+
+OG_URL=$(grep -oP 'og:url" content="\K[^"]*' "$FILE" | head -1)
+if [ -z "$OG_URL" ]; then
+    check_fail "og:url is empty — must be set to canonical URL (#1369)"
+elif [ "$OG_URL" = '""' ] || [ "$OG_URL" = "" ]; then
+    check_fail "og:url is empty string — must be set to canonical URL (#1369)"
+else
+    check_pass "og:url is set"
+fi
+
+# ============================================================================
+# Section 9cv: Content After Aside (#1370)
+# ============================================================================
+section_header "Section 9cv: Content After Aside"
+
+# Check if there are content sections that SHOULD be inside col-1
+# (attributions, dining, logbook, stats) that ended up after </aside>.
+# Planning resources and print button are intentionally full-width after the grid.
+AFTER_ASIDE_BAD=$(sed -n '/<\/aside>/,/<\/main>/p' "$FILE" | grep -cP 'class="card attributions|class="card faq|id="dining|id="logbook|id="ship-stats"' || true)
+if [ "$AFTER_ASIDE_BAD" -gt 0 ]; then
+    check_fail "Found $AFTER_ASIDE_BAD content section(s) after </aside> that belong inside col-1 — broken grid layout (#1370)"
+else
+    check_pass "No content sections after aside"
+fi
+
+# ============================================================================
+# Section 9cw: Duplicate Attributions (#1371)
+# ============================================================================
+section_header "Section 9cw: Duplicate Sections"
+
+ATTRIB_COUNT=$(grep -c 'class="card attributions' "$FILE" || true)
+if [ "$ATTRIB_COUNT" -gt 1 ]; then
+    check_fail "Page has $ATTRIB_COUNT attribution sections — should have exactly 1 (#1371)"
+else
+    check_pass "Single attributions section (or none)"
+fi
+
+# ============================================================================
+# Section 9cx: Missing Robots Directives (#1372)
+# ============================================================================
+section_header "Section 9cx: SEO Robots Directives"
+
+HAS_ROBOTS=$(grep -c 'name="robots"' "$FILE" || true)
+if [ "$HAS_ROBOTS" -eq 0 ]; then
+    check_warn "Missing <meta name=\"robots\"> directive — search engines use defaults but explicit is better (#1372)"
+else
+    check_pass "Robots meta directive present"
+fi
+
+# ============================================================================
+# Section 9cy: Person JSON-LD Author URL (#1373)
+# ============================================================================
+section_header "Section 9cy: Author URL Consistency"
+
+PERSON_URL=$(grep -oP '"@type"\s*:\s*"Person"[^}]*"url"\s*:\s*"\K[^"]+' "$FILE" | head -1)
+if [ -n "$PERSON_URL" ]; then
+    if echo "$PERSON_URL" | grep -q '/about/'; then
+        check_warn "Person JSON-LD uses /about/ URL — should be /authors/ to match site structure (#1373)"
+    else
+        check_pass "Person JSON-LD author URL uses /authors/ path"
+    fi
+else
+    check_pass "Person URL check skipped (no Person schema found)"
+fi
+
+# ============================================================================
+# Section 9cz: Embedded VesselFinder Tracker (#1374)
+# ============================================================================
+section_header "Section 9cz: Live Tracker Embed"
+
+HAS_TRACKER_SECTION=$(grep -c 'liveTrackHeading' "$FILE" || true)
+HAS_VF_IFRAME=$(grep -c 'vesselfinder.com/aismap' "$FILE" || true)
+if [ "$HAS_TRACKER_SECTION" -gt 0 ] && [ "$HAS_VF_IFRAME" -eq 0 ]; then
+    check_warn "Live tracker section exists but has no embedded VesselFinder iframe — external link only (#1374)"
+else
+    check_pass "Live tracker either embedded or not present"
+fi
+
+# ============================================================================
+# Section 9da: Person E-E-A-T Schema (#1375)
+# ============================================================================
+section_header "Section 9da: Person E-E-A-T Schema"
+
+HAS_PERSON_SCHEMA=$(grep -cP '"@type"\s*:\s*"Person"' "$FILE" || true)
+if [ "$HAS_PERSON_SCHEMA" -eq 0 ]; then
+    check_warn "Missing Person JSON-LD schema — E-E-A-T signal for Google (#1375)"
+else
+    check_pass "Person JSON-LD schema present"
+fi
+
+# ============================================================================
+# Section 9db: Charset Position (#1376)
+# ============================================================================
+section_header "Section 9db: Charset Position"
+
+# Charset must appear in the first 1024 bytes. If analytics scripts come
+# before charset, browsers may re-parse. Check that charset comes before
+# any <script> tag.
+CHARSET_LINE=$(grep -n 'meta charset' "$FILE" | head -1 | cut -d: -f1)
+FIRST_SCRIPT_LINE=$(grep -n '<script' "$FILE" | head -1 | cut -d: -f1)
+if [ -n "$CHARSET_LINE" ] && [ -n "$FIRST_SCRIPT_LINE" ]; then
+    if [ "$CHARSET_LINE" -gt "$FIRST_SCRIPT_LINE" ]; then
+        check_warn "Charset declared at line $CHARSET_LINE but first <script> at line $FIRST_SCRIPT_LINE — charset should come first (#1376)"
+    else
+        check_pass "Charset declared before first script"
+    fi
+else
+    check_pass "Charset position check skipped"
+fi
+
+# ============================================================================
+# Section 9dc: LCP Preload Hints (#1377)
+# ============================================================================
+section_header "Section 9dc: LCP Preload Hints"
+
+HAS_PRELOAD=$(grep -c 'rel="preload".*as="image"' "$FILE" || true)
+if [ "$HAS_PRELOAD" -eq 0 ]; then
+    check_warn "No image preload hints — consider preloading hero/LCP images for performance (#1377)"
+else
+    check_pass "Found $HAS_PRELOAD image preload hint(s)"
+fi
+
+# ============================================================================
+# Section 9dd: Favicon and PWA (#1378)
+# ============================================================================
+section_header "Section 9dd: Favicon and PWA"
+
+HAS_FAVICON=$(grep -c 'rel="icon"' "$FILE" || true)
+HAS_MANIFEST=$(grep -c 'rel="manifest"' "$FILE" || true)
+HAS_APPLE_ICON=$(grep -c 'apple-touch-icon' "$FILE" || true)
+FAVICON_MISSING=0
+if [ "$HAS_FAVICON" -eq 0 ]; then FAVICON_MISSING=$((FAVICON_MISSING+1)); fi
+if [ "$HAS_MANIFEST" -eq 0 ]; then FAVICON_MISSING=$((FAVICON_MISSING+1)); fi
+if [ "$HAS_APPLE_ICON" -eq 0 ]; then FAVICON_MISSING=$((FAVICON_MISSING+1)); fi
+if [ "$FAVICON_MISSING" -gt 0 ]; then
+    check_warn "Missing $FAVICON_MISSING of 3 PWA/favicon links (icon, apple-touch-icon, manifest) (#1378)"
+else
+    check_pass "All PWA/favicon links present"
+fi
+
+# ============================================================================
+# Section 9de: CSS Version Currency (#1379)
+# ============================================================================
+section_header "Section 9de: CSS Version"
+
+CSS_VERSION=$(grep -oP 'styles\.css\?v=\K[\d.]+' "$FILE" | head -1)
+if [ -n "$CSS_VERSION" ]; then
+    if [ "$CSS_VERSION" != "3.010.400" ]; then
+        check_warn "CSS version is $CSS_VERSION — current production is 3.010.400 (#1379)"
+    else
+        check_pass "CSS version matches current production (3.010.400)"
+    fi
+else
+    check_pass "CSS version check skipped (no versioned styles.css found)"
+fi
+
+# ============================================================================
+# Section 9df: STANDARDS Comment (#1380)
+# ============================================================================
+section_header "Section 9df: STANDARDS Comment"
+
+HAS_STANDARDS=$(grep -c 'STANDARDS:' "$FILE" || true)
+if [ "$HAS_STANDARDS" -eq 0 ]; then
+    check_warn "Missing STANDARDS comment line in header — reference pages have version + compliance markers (#1380)"
+else
+    check_pass "STANDARDS comment present"
+fi
+
+# ============================================================================
+# Section 9dg: Duplicate Deck Plans Sections (#1381)
+# ============================================================================
+section_header "Section 9dg: Duplicate Deck Plans"
+
+DECK_PLAN_SECTIONS=$(grep -cP 'id="deck-plans"|id="deckPlansHeading"|Deck Plans</h2' "$FILE" || true)
+if [ "$DECK_PLAN_SECTIONS" -gt 1 ]; then
+    check_fail "Found $DECK_PLAN_SECTIONS deck plan headings/sections — should have exactly 1 (#1381)"
+else
+    check_pass "Single deck plans section (or none)"
+fi
+
+# ============================================================================
+# Section 9dh: Duplicate Tracker Sections (#1382)
+# ============================================================================
+section_header "Section 9dh: Duplicate Tracker Sections"
+
+# Only count actual heading elements, not section labels or FAQ references
+TRACKER_SECTIONS=$(grep -cP '<h2 id="liveTrackHeading"|<h2 id="trackingHeading"' "$FILE" || true)
+if [ "$TRACKER_SECTIONS" -gt 1 ]; then
+    check_fail "Found $TRACKER_SECTIONS tracker headings/sections — should have exactly 1 (#1382)"
+else
+    check_pass "Single tracker section (or none)"
+fi
+
+# ============================================================================
+# Section 9di: Duplicate Deck Plans CTA (#1383)
+# ============================================================================
+section_header "Section 9di: Duplicate Deck Plans CTA"
+
+# Count actual btn-deck-plans elements (not multi-line text)
+DECK_CTA_COUNT=$(grep -c 'class="btn-deck-plans"' "$FILE" || true)
+if [ "$DECK_CTA_COUNT" -gt 1 ]; then
+    check_warn "Found $DECK_CTA_COUNT Deck Plans CTA buttons — should have exactly 1 (#1383)"
+else
+    check_pass "Single Deck Plans CTA (or none)"
+fi
+
+# ============================================================================
+# Section 9dj: Redundant Quick Answer Section (#1384)
+# ============================================================================
+section_header "Section 9dj: Quick Answer Duplication"
+
+HAS_QUICK_ANSWER=$(grep -c 'class="quick-answer"' "$FILE" || true)
+HAS_ANSWER_LINE=$(grep -c 'class="answer-line"' "$FILE" || true)
+if [ "$HAS_QUICK_ANSWER" -gt 0 ] && [ "$HAS_ANSWER_LINE" -gt 0 ]; then
+    check_warn "Page has both a quick-answer section AND an answer-line — redundant duplication (#1384)"
+elif [ "$HAS_QUICK_ANSWER" -gt 0 ]; then
+    check_pass "Quick answer section present (no duplication)"
+else
+    check_pass "No redundant quick answer"
+fi
+
+# ============================================================================
+# Section 9dk: Standalone Entertainment Section (#1385)
+# ============================================================================
+section_header "Section 9dk: Entertainment Section"
+
+HAS_ENTERTAINMENT=$(grep -c 'entertainmentHeading' "$FILE" || true)
+if [ "$HAS_ENTERTAINMENT" -gt 0 ]; then
+    check_warn "Standalone Entertainment section present — Anthem reference integrates entertainment into page-intro or logbook (#1385)"
+else
+    check_pass "No standalone entertainment section"
+fi
+
+# ============================================================================
+# Section 9dl: Explore More / Related Links Section (#1386)
+# ============================================================================
+section_header "Section 9dl: Related Links Section"
+
+HAS_EXPLORE_MORE=$(grep -cP '>Explore More<|>Related Links<' "$FILE" || true)
+if [ "$HAS_EXPLORE_MORE" -gt 0 ]; then
+    check_warn "Standalone 'Explore More' / 'Related Links' section — sidebar handles navigation in reference template (#1386)"
+else
+    check_pass "No standalone related links section"
+fi
+
+# ============================================================================
+# Section 9dm: Section Ordering (#1387)
+# ============================================================================
+section_header "Section 9dm: Section Ordering"
+
+# Reference order: page-intro → first-look → dining → logbook → videos → deck-plans → tracker → faq → attributions
+# Check that first-look comes before dining, dining before logbook, logbook before faq
+FL_LINE=$(grep -n 'id="first-look"' "$FILE" | head -1 | cut -d: -f1)
+DIN_LINE=$(grep -n 'id="diningHeading"\|id="dining-card"' "$FILE" | head -1 | cut -d: -f1)
+LOG_LINE=$(grep -n 'id="logbook"' "$FILE" | head -1 | cut -d: -f1)
+FAQ_LINE=$(grep -n 'id="faq"\|id="faq-heading"' "$FILE" | head -1 | cut -d: -f1)
+ORDER_OK=1
+if [ -n "$FL_LINE" ] && [ -n "$DIN_LINE" ] && [ "$FL_LINE" -gt "$DIN_LINE" ]; then
+    ORDER_OK=0
+fi
+if [ -n "$DIN_LINE" ] && [ -n "$LOG_LINE" ] && [ "$DIN_LINE" -gt "$LOG_LINE" ]; then
+    ORDER_OK=0
+fi
+if [ -n "$LOG_LINE" ] && [ -n "$FAQ_LINE" ] && [ "$LOG_LINE" -gt "$FAQ_LINE" ]; then
+    ORDER_OK=0
+fi
+if [ "$ORDER_OK" -eq 0 ]; then
+    check_warn "Section ordering differs from reference (first-look → dining → logbook → faq) (#1387)"
+else
+    check_pass "Section ordering follows reference pattern"
+fi
+
+# ============================================================================
+# Section 9dn: Grid-2 Uses div Instead of section (#1388)
+# ============================================================================
+section_header "Section 9dn: Grid-2 Element Type"
+
+DIV_GRID2=$(grep -c '<div class="grid-2"' "$FILE" || true)
+if [ "$DIV_GRID2" -gt 0 ]; then
+    check_warn "Found $DIV_GRID2 <div class=\"grid-2\"> — should use <section class=\"grid-2\"> for consistency (#1388)"
+else
+    check_pass "All grid-2 containers use <section> (or none present)"
+fi
+
+# ============================================================================
+# Section 9do: Hero Lat-Lon Grid aria-hidden (#1389)
+# ============================================================================
+section_header "Section 9do: Hero Accessibility"
+
+HAS_LATLON=$(grep -c 'class="latlon-grid"' "$FILE" || true)
+if [ "$HAS_LATLON" -gt 0 ]; then
+    LATLON_HIDDEN=$(grep 'class="latlon-grid"' "$FILE" | grep -c 'aria-hidden' || true)
+    if [ "$LATLON_HIDDEN" -eq 0 ]; then
+        check_warn "latlon-grid missing aria-hidden=\"true\" — decorative SVG announced to screen readers (#1389)"
+    else
+        check_pass "latlon-grid has aria-hidden"
+    fi
+else
+    check_pass "No latlon-grid present"
+fi
+
+# ============================================================================
+# Section 9dp: Print Button SVG aria-hidden (#1390)
+# ============================================================================
+section_header "Section 9dp: Print Button Accessibility"
+
+HAS_PRINT_BTN=$(grep -c 'print-guide-btn' "$FILE" || true)
+if [ "$HAS_PRINT_BTN" -gt 0 ]; then
+    PRINT_SVG_HIDDEN=$(grep -A2 'print-guide-btn' "$FILE" | grep -c 'aria-hidden' || true)
+    if [ "$PRINT_SVG_HIDDEN" -eq 0 ]; then
+        check_warn "Print button SVG missing aria-hidden=\"true\" — icon announced to screen readers (#1390)"
+    else
+        check_pass "Print button SVG has aria-hidden"
+    fi
+else
+    check_pass "No print button present"
+fi
+
+# ============================================================================
+# Section 9dq: Hero Credit Attribution (#1391)
+# ============================================================================
+section_header "Section 9dq: Hero Credit"
+
+HAS_HERO=$(grep -c 'class="hero"' "$FILE" || true)
+HAS_HERO_CREDIT=$(grep -c 'hero-credit' "$FILE" || true)
+if [ "$HAS_HERO" -gt 0 ] && [ "$HAS_HERO_CREDIT" -eq 0 ]; then
+    check_warn "Hero section has no hero-credit attribution — reference pages credit the photographer (#1391)"
+else
+    check_pass "Hero credit present (or no hero section)"
+fi
+
+# ============================================================================
+# Section 9dr: Main tabindex for Skip Link Focus (#1392)
+# ============================================================================
+section_header "Section 9dr: Main tabindex"
+
+HAS_MAIN_TABINDEX=$(grep '<main' "$FILE" | grep -c 'tabindex="-1"' || true)
+if [ "$HAS_MAIN_TABINDEX" -eq 0 ]; then
+    check_warn "Main element missing tabindex=\"-1\" — skip link focus may not work in all browsers (#1392)"
+else
+    check_pass "Main has tabindex=\"-1\" for skip link focus"
+fi
+
+# ============================================================================
+# Section 9ds: Duplicate Key Facts Boxes (#1393)
+# ============================================================================
+section_header "Section 9ds: Duplicate Key Facts"
+
+KEY_FACTS_COUNT=$(grep -c 'class="key-facts"' "$FILE" || true)
+if [ "$KEY_FACTS_COUNT" -gt 1 ]; then
+    check_warn "Found $KEY_FACTS_COUNT key-facts boxes — Anthem reference has 1. Redundant data risks inconsistency (#1393)"
+else
+    check_pass "Single key-facts box (or none)"
+fi
+
+# ============================================================================
+# Section 9dt: Footer Separator Consistency (#1394)
+# ============================================================================
+section_header "Section 9dt: Footer Consistency"
+
+FOOTER_MIDDOT=$(sed -n '/<footer/,/<\/footer>/p' "$FILE" | grep -c '&middot;' || true)
+FOOTER_DOT=$(sed -n '/<footer/,/<\/footer>/p' "$FILE" | grep -c ' · ' || true)
+if [ "$FOOTER_MIDDOT" -gt 0 ] && [ "$FOOTER_DOT" -gt 0 ]; then
+    check_warn "Footer mixes &middot; and · separators — pick one for consistency (#1394)"
+elif [ "$FOOTER_MIDDOT" -gt 0 ]; then
+    check_warn "Footer uses &middot; — Anthem reference uses · (literal middle dot) (#1394)"
+else
+    check_pass "Footer separator consistent"
+fi
+
+# ============================================================================
+# Section 9du: Missing SEO Meta Tags (#1395)
+# ============================================================================
+section_header "Section 9du: SEO Meta Completeness"
+
+# Anthem reference has: googlebot, bingbot, color-scheme, theme-color, version, author, publisher, referrer
+SEO_MISSING=0
+SEO_LIST=""
+for TAG in googlebot bingbot color-scheme theme-color referrer; do
+    HAS_TAG=$(grep -c "name=\"$TAG\"" "$FILE" || true)
+    if [ "$HAS_TAG" -eq 0 ]; then
+        SEO_MISSING=$((SEO_MISSING+1))
+        SEO_LIST="$SEO_LIST $TAG"
+    fi
+done
+HAS_AUTHOR=$(grep -c 'name="author"' "$FILE" || true)
+HAS_PUBLISHER=$(grep -c 'name="publisher"' "$FILE" || true)
+if [ "$HAS_AUTHOR" -eq 0 ]; then SEO_MISSING=$((SEO_MISSING+1)); SEO_LIST="$SEO_LIST author"; fi
+if [ "$HAS_PUBLISHER" -eq 0 ]; then SEO_MISSING=$((SEO_MISSING+1)); SEO_LIST="$SEO_LIST publisher"; fi
+
+if [ "$SEO_MISSING" -gt 0 ]; then
+    check_warn "Missing $SEO_MISSING SEO meta tag(s):$SEO_LIST — Anthem reference has all of these (#1395)"
+else
+    check_pass "All SEO meta tags present (googlebot, bingbot, color-scheme, theme-color, referrer, author, publisher)"
+fi
+
+# ============================================================================
+# Section 9dv: Title Format (#1396)
+# ============================================================================
+section_header "Section 9dv: Title Format"
+
+PAGE_TITLE=$(grep -oP '<title>\K[^<]+' "$FILE" | head -1)
+if [ -n "$PAGE_TITLE" ]; then
+    if echo "$PAGE_TITLE" | grep -qP 'Deck Plans.*Live Tracker.*Dining'; then
+        check_pass "Title follows functional format (Deck Plans, Live Tracker, Dining & Videos)"
+    elif echo "$PAGE_TITLE" | grep -qP 'Ship Guide'; then
+        check_warn "Title uses 'Ship Guide' — Anthem reference uses 'Deck Plans, Live Tracker, Dining & Videos' (#1396)"
+    else
+        check_pass "Title format check — non-standard but not 'Ship Guide'"
+    fi
+else
+    check_pass "Title format check skipped (no title found)"
+fi
+
+# ============================================================================
+# Section 9dw: Skip Link Target Pattern (#1397)
+# ============================================================================
+section_header "Section 9dw: Skip Link Target"
+
+SKIP_HREF=$(grep -oP 'class="skip-link"[^>]*href="\K[^"]+' "$FILE" | head -1)
+MAIN_ID=$(grep -oP '<main[^>]*id="\K[^"]+' "$FILE" | head -1)
+if [ -n "$SKIP_HREF" ] && [ -n "$MAIN_ID" ]; then
+    if [ "$SKIP_HREF" = "#$MAIN_ID" ]; then
+        check_pass "Skip link target (#$MAIN_ID) matches main element id"
+    else
+        check_warn "Skip link href='$SKIP_HREF' but main id='$MAIN_ID' — mismatch (#1397)"
+    fi
+    if [ "$MAIN_ID" != "main-content" ]; then
+        check_warn "Main element id is '$MAIN_ID' — Anthem reference uses 'main-content' (#1397)"
+    fi
+else
+    check_pass "Skip link target check skipped"
+fi
+
+# ============================================================================
+# Section 9dx: ARIA Live Region IDs (#1398)
+# ============================================================================
+section_header "Section 9dx: ARIA Live Region IDs"
+
+HAS_A11Y_STATUS=$(grep -c 'id="a11y-status"' "$FILE" || true)
+HAS_OLD_ARIA=$(grep -c 'id="aria-live-polite"' "$FILE" || true)
+if [ "$HAS_OLD_ARIA" -gt 0 ]; then
+    check_warn "ARIA live region uses old id 'aria-live-polite' — Anthem reference uses 'a11y-status' (#1398)"
+elif [ "$HAS_A11Y_STATUS" -gt 0 ]; then
+    check_pass "ARIA live region uses standard 'a11y-status' id"
+else
+    check_pass "ARIA live region ID check skipped"
+fi
+
+# ============================================================================
+# Section 9dy: Logo Loading Priority (#1399)
+# ============================================================================
+section_header "Section 9dy: Logo Loading Priority"
+
+LOGO_LINE=$(grep 'class="logo"' "$FILE" | head -1)
+if [ -n "$LOGO_LINE" ]; then
+    if echo "$LOGO_LINE" | grep -q 'loading="eager"'; then
+        check_pass "Hero logo uses loading=\"eager\""
+    elif echo "$LOGO_LINE" | grep -q 'loading="lazy"'; then
+        check_warn "Hero logo uses loading=\"lazy\" — should be loading=\"eager\" for LCP (#1399)"
+    else
+        check_pass "Hero logo loading attribute check — no loading attr (browser default)"
+    fi
+fi
+
+BRAND_LOGO=$(grep -A1 'class="brand"' "$FILE" | grep 'logo_wake_256' | head -1)
+if [ -n "$BRAND_LOGO" ]; then
+    if echo "$BRAND_LOGO" | grep -q 'loading="lazy"'; then
+        check_warn "Brand logo in navbar uses loading=\"lazy\" — above the fold, should be eager or unset (#1399)"
+    else
+        check_pass "Brand logo loading attribute OK"
+    fi
+fi
+
+# ============================================================================
+# Section 9dz: data-imo Placement (#1400)
+# ============================================================================
+section_header "Section 9dz: data-imo Placement"
+
+MAIN_HAS_IMO=$(grep '<main' "$FILE" | grep -c 'data-imo' || true)
+TRACKER_HAS_IMO=$(grep -P 'itinerary|liveTrack' "$FILE" | grep -c 'data-imo' || true)
+if [ "$MAIN_HAS_IMO" -gt 0 ] && [ "$TRACKER_HAS_IMO" -gt 0 ]; then
+    check_warn "data-imo appears on both <main> and tracker section — Anthem reference puts it only on tracker (#1400)"
+elif [ "$MAIN_HAS_IMO" -gt 0 ] && [ "$TRACKER_HAS_IMO" -eq 0 ]; then
+    check_warn "data-imo is on <main> but not on tracker section — Anthem puts it on tracker (#1400)"
+else
+    check_pass "data-imo placement follows reference pattern"
+fi
+
+# ============================================================================
+# Section 9ea: Navigation Structure (#1401)
+# ============================================================================
+section_header "Section 9ea: Navigation Structure"
+
+# Reference has 4 dropdown groups: nav-planning, nav-tools, nav-onboard, nav-travel
+NAV_PLANNING=$(grep -c 'id="nav-planning"' "$FILE" || true)
+NAV_TOOLS=$(grep -c 'id="nav-tools"' "$FILE" || true)
+NAV_ONBOARD=$(grep -c 'id="nav-onboard"' "$FILE" || true)
+NAV_TRAVEL=$(grep -c 'id="nav-travel"' "$FILE" || true)
+NAV_MISSING=0
+NAV_LIST=""
+if [ "$NAV_PLANNING" -eq 0 ]; then NAV_MISSING=$((NAV_MISSING+1)); NAV_LIST="$NAV_LIST Planning"; fi
+if [ "$NAV_TOOLS" -eq 0 ]; then NAV_MISSING=$((NAV_MISSING+1)); NAV_LIST="$NAV_LIST Tools"; fi
+if [ "$NAV_ONBOARD" -eq 0 ]; then NAV_MISSING=$((NAV_MISSING+1)); NAV_LIST="$NAV_LIST Onboard"; fi
+if [ "$NAV_TRAVEL" -eq 0 ]; then NAV_MISSING=$((NAV_MISSING+1)); NAV_LIST="$NAV_LIST Travel"; fi
+if [ "$NAV_MISSING" -gt 0 ]; then
+    check_warn "Missing $NAV_MISSING nav dropdown(s):$NAV_LIST — Anthem reference has all 4 (#1401)"
+else
+    check_pass "All 4 nav dropdowns present (Planning, Tools, Onboard, Travel)"
+fi
+
+# ============================================================================
+# Section 9eb: Mobile Nav Toggle (#1402)
+# ============================================================================
+section_header "Section 9eb: Mobile Nav Toggle"
+
+HAS_NAV_TOGGLE=$(grep -c 'class="nav-toggle"' "$FILE" || true)
+if [ "$HAS_NAV_TOGGLE" -eq 0 ]; then
+    check_warn "Missing nav-toggle hamburger button — mobile users can't open navigation (#1402)"
+else
+    check_pass "Mobile nav-toggle present"
+fi
+
+# ============================================================================
+# Section 9ec: Hero Wrapper (#1403)
+# ============================================================================
+section_header "Section 9ec: Hero Wrapper"
+
+HAS_HERO_DIV=$(grep -c 'class="hero"' "$FILE" || true)
+if [ "$HAS_HERO_DIV" -gt 0 ]; then
+    HERO_ROLE=$(grep 'class="hero"' "$FILE" | grep -c 'role="img"' || true)
+    if [ "$HERO_ROLE" -eq 0 ]; then
+        check_warn "Hero div missing role=\"img\" and aria-label — accessibility (#1403)"
+    else
+        check_pass "Hero wrapper has role=\"img\""
+    fi
+else
+    check_warn "No <div class=\"hero\"> wrapper — compass, logo, and tagline should be inside a hero div (#1403)"
+fi
+
+# ============================================================================
+# Section 9ed: Breadcrumb Accessibility (#1404)
+# ============================================================================
+section_header "Section 9ed: Breadcrumb Accessibility"
+
+HAS_BREADCRUMB=$(grep -c 'class="breadcrumb"' "$FILE" || true)
+if [ "$HAS_BREADCRUMB" -gt 0 ]; then
+    BC_LABEL=$(grep 'class="breadcrumb"' "$FILE" | grep -c 'aria-label' || true)
+    BC_CURRENT=$(grep -c 'aria-current="page"' "$FILE" || true)
+    BC_ISSUES=0
+    if [ "$BC_LABEL" -eq 0 ]; then
+        check_warn "Breadcrumb nav missing aria-label=\"Breadcrumb\" (#1404)"
+        BC_ISSUES=1
+    fi
+    if [ "$BC_CURRENT" -eq 0 ]; then
+        check_warn "Breadcrumb missing aria-current=\"page\" on current page span (#1404)"
+        BC_ISSUES=1
+    fi
+    if [ "$BC_ISSUES" -eq 0 ]; then
+        check_pass "Breadcrumb has aria-label and aria-current"
+    fi
+else
+    check_pass "Breadcrumb check skipped (no breadcrumb found)"
+fi
+
+# ============================================================================
+# Section 9ee: Footer Completeness (#1405)
+# ============================================================================
+section_header "Section 9ee: Footer Completeness"
+
+FOOTER_CONTENT=$(sed -n '/<footer/,/<\/footer>/p' "$FILE")
+FOOTER_ISSUES=0
+FOOTER_LIST=""
+
+HAS_ACCESSIBILITY_LINK=$(echo "$FOOTER_CONTENT" | grep -c 'accessibility' || true)
+if [ "$HAS_ACCESSIBILITY_LINK" -eq 0 ]; then
+    FOOTER_ISSUES=$((FOOTER_ISSUES+1))
+    FOOTER_LIST="$FOOTER_LIST accessibility-link"
+fi
+
+HAS_SDG_FOOTER=$(echo "$FOOTER_CONTENT" | grep -c 'Soli Deo Gloria' || true)
+if [ "$HAS_SDG_FOOTER" -eq 0 ]; then
+    FOOTER_ISSUES=$((FOOTER_ISSUES+1))
+    FOOTER_LIST="$FOOTER_LIST SDG-dedication"
+fi
+
+HAS_ABOUT_LINK=$(echo "$FOOTER_CONTENT" | grep -c 'about-us.html' || true)
+if [ "$HAS_ABOUT_LINK" -eq 0 ]; then
+    FOOTER_ISSUES=$((FOOTER_ISSUES+1))
+    FOOTER_LIST="$FOOTER_LIST about-link"
+fi
+
+if [ "$FOOTER_ISSUES" -gt 0 ]; then
+    check_warn "Footer missing $FOOTER_ISSUES element(s):$FOOTER_LIST — Anthem reference has all (#1405)"
+else
+    check_pass "Footer has accessibility link, SDG dedication, and about link"
+fi
+
+# ============================================================================
+# Section 9ef: Dead Code in Init Functions (#1406)
+# ============================================================================
+section_header "Section 9ef: Dead Code"
+
+# Check for hardcoded TBD/placeholder values in inline scripts
+DEAD_IMO_TBD=$(grep -c 'imo:TBD\|imo: TBD\|imo=TBD' "$FILE" || true)
+if [ "$DEAD_IMO_TBD" -gt 0 ]; then
+    check_warn "Found $DEAD_IMO_TBD hardcoded 'imo:TBD' in inline scripts — dead code (#1406)"
+else
+    check_pass "No dead TBD code in inline scripts"
+fi
+
+# Check for wrong dining data path
+WRONG_DINING_PATH=$(grep -c '/assets/data/dining/' "$FILE" || true)
+if [ "$WRONG_DINING_PATH" -gt 0 ]; then
+    check_warn "Dining init fetches from /assets/data/dining/ — should use venues-v2.json (#1406)"
+else
+    check_pass "No legacy dining data path"
+fi
+
+# ============================================================================
+# Section 9eg: Orphaned HTML Comments (#1407)
+# ============================================================================
+section_header "Section 9eg: Orphaned Comments"
+
+# Comments followed by nothing (empty section markers)
+ORPHAN_ATTRIB=$(grep -cP '<!-- Attribution Section -->\s*$' "$FILE" || true)
+ORPHAN_STUB=$(grep -cP '<!-- Stub Notice -->\s*$' "$FILE" || true)
+ORPHAN_TOTAL=$((ORPHAN_ATTRIB + ORPHAN_STUB))
+if [ "$ORPHAN_TOTAL" -gt 0 ]; then
+    check_warn "Found $ORPHAN_TOTAL orphaned HTML comment(s) (empty section markers) — clean up dead markup (#1407)"
+else
+    check_pass "No orphaned section comments"
+fi
+
+# ============================================================================
+# Section 9eh: Swiper Redundant Fallback (#1408)
+# ============================================================================
+section_header "Section 9eh: Swiper Loader Efficiency"
+
+# Check if primary and CDN URLs are identical (redundant fallback)
+PRIMARY_CSS=$(grep -oP 'primaryCSS\s*=\s*"\K[^"]+' "$FILE" | head -1)
+CDN_CSS=$(grep -oP 'cdnCSS\s*=\s*"\K[^"]+' "$FILE" | head -1)
+if [ -n "$PRIMARY_CSS" ] && [ -n "$CDN_CSS" ] && [ "$PRIMARY_CSS" = "$CDN_CSS" ]; then
+    check_warn "Swiper loader has identical primary and CDN URLs — redundant fallback (#1408)"
+else
+    check_pass "Swiper loader URLs are distinct (or single-source)"
+fi
+
+# ============================================================================
+# Section 9ei: OG Type (#1409)
+# ============================================================================
+section_header "Section 9ei: OpenGraph Type"
+
+OG_TYPE=$(grep -oP 'og:type" content="\K[^"]+' "$FILE" | head -1)
+if [ "$OG_TYPE" = "article" ]; then
+    check_warn "og:type is 'article' — ship pages should use 'website' (Anthem reference) (#1409)"
+elif [ -n "$OG_TYPE" ]; then
+    check_pass "og:type is '$OG_TYPE'"
+else
+    check_pass "og:type check skipped"
+fi
+
+# ============================================================================
+# Section 9ej: Duplicate HTML Tags (#1410)
+# ============================================================================
+section_header "Section 9ej: HTML Tag Integrity"
+
+HEADER_COUNT=$(grep -c '<header' "$FILE" || true)
+MAIN_COUNT=$(grep -c '<main' "$FILE" || true)
+FOOTER_COUNT=$(grep -c '<footer' "$FILE" || true)
+TAG_ISSUES=0
+if [ "$HEADER_COUNT" -gt 1 ]; then
+    check_fail "Found $HEADER_COUNT <header> opening tags — should have exactly 1. Broken HTML nesting (#1410)"
+    TAG_ISSUES=1
+fi
+if [ "$MAIN_COUNT" -gt 1 ]; then
+    check_fail "Found $MAIN_COUNT <main> opening tags — should have exactly 1 (#1410)"
+    TAG_ISSUES=1
+fi
+if [ "$FOOTER_COUNT" -gt 1 ]; then
+    check_fail "Found $FOOTER_COUNT <footer> opening tags — should have exactly 1 (#1410)"
+    TAG_ISSUES=1
+fi
+if [ "$TAG_ISSUES" -eq 0 ]; then
+    check_pass "Single header, main, and footer tags"
+fi
+
+# ============================================================================
+# Section 9ek: Person knowsAbout Cruise Line Match (#1411)
+# ============================================================================
+section_header "Section 9ek: Person knowsAbout Accuracy"
+
+# Extract the cruise line from the page (from breadcrumb or data attributes)
+PAGE_LINE=$(grep -oP 'cruise-line:\s*\K.*' "$FILE" | head -1 | sed 's/ *$//')
+if [ -z "$PAGE_LINE" ]; then
+    PAGE_LINE=$(grep -oP 'class="breadcrumb".*?cruise-lines/\K[^"/.]+' "$FILE" | head -1)
+fi
+
+# Check if knowsAbout mentions a DIFFERENT cruise line
+HAS_KNOWS_ABOUT=$(grep -c 'knowsAbout' "$FILE" || true)
+HAS_RC_REF=$(grep -c '"Royal Caribbean"' "$FILE" || true)
+IS_RCL_PAGE=0
+echo "$FILE" | grep -q '/rcl/' && IS_RCL_PAGE=1
+
+if [ "$HAS_KNOWS_ABOUT" -gt 0 ] && [ "$HAS_RC_REF" -gt 0 ] && [ "$IS_RCL_PAGE" -eq 0 ]; then
+    check_fail "Person knowsAbout mentions 'Royal Caribbean' but this is NOT an RCL page — template contamination (#1411)"
+elif [ "$HAS_KNOWS_ABOUT" -gt 0 ] && [ "$HAS_RC_REF" -gt 0 ] && [ "$IS_RCL_PAGE" -eq 1 ]; then
+    check_pass "knowsAbout correctly mentions Royal Caribbean on RCL page"
+else
+    check_pass "knowsAbout cruise line check passed (or no knowsAbout found)"
+fi
+
+# ============================================================================
+# Section 9el: Swiper Vendor Path (#1412)
+# ============================================================================
+section_header "Section 9el: Swiper Vendor Path"
+
+VENDOR_SWIPER=$(grep -c 'cruisinginthewake.com/vendor/swiper\|/assets/vendor/swiper' "$FILE" || true)
+if [ "$VENDOR_SWIPER" -gt 0 ]; then
+    check_warn "Page references self-hosted Swiper vendor path ($VENDOR_SWIPER refs) — Anthem uses CDN-only (#1412)"
+else
+    check_pass "No self-hosted Swiper vendor references"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
