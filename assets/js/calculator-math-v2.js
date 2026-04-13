@@ -1,11 +1,59 @@
 /**
- * Royal Caribbean Drink Calculator - Math Engine
- * Version: 1.009.000 (Overcap Calculation Fix)
+ * Drink Calculator v2 - Math Engine (Config-Driven)
+ * Version: 2.000.000 (Multi-Cruise-Line Architecture)
+ * Based on: v1.009.000 (Overcap Calculation Fix)
  *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  * "The fear of the LORD is the beginning of wisdom" - Proverbs 9:10
  *
  * Soli Deo Gloria ✝️
+ *
+ * ═══════════════════════════════════════════════════════════════
+ * v2 ARCHITECTURE: CONFIG-DRIVEN MULTI-CRUISE-LINE SUPPORT
+ * ═══════════════════════════════════════════════════════════════
+ *
+ * This file is a DUPLICATE of calculator-math.js with targeted
+ * modifications to support multiple cruise lines via config.
+ * The original v1 file is UNTOUCHED.
+ *
+ * v2 CHANGES (3 surgical modifications):
+ *
+ * 1. SIGNATURE: compute() accepts 6th parameter `lineConfig`
+ *    - function compute(..., lineConfig = null)
+ *    - Defaults to null — fully backward-compatible with v1 callers
+ *    - lineConfig is the active cruise line object from calculator-config.json
+ *    - Search for: "function compute" to find the signature
+ *
+ * 2. COFFEE CARD PUNCHES: Config-driven instead of hardcoded
+ *    - COFFEE_CARD_PUNCHES = lineConfig?.coffeeCard?.punches || 15
+ *    - Was: const COFFEE_CARD_PUNCHES = 15 (RCL-specific)
+ *    - Now: reads from config, falls back to 15 if config unavailable
+ *    - Enables lines with different punch counts (e.g., Carnival has no coffee card)
+ *    - Search for: "COFFEE_CARD_PUNCHES" to find the change
+ *
+ * 3. VOUCHER MAX PER DAY: Config-driven instead of hardcoded 6
+ *    - voucherMaxPerDay derived from lineConfig.loyalty.tiers
+ *    - Was: clamp(vouchers, 0, 6) — hardcoded for RCL Pinnacle
+ *    - Now: reads max vouchersPerDay from all tiers, falls back to 6
+ *    - adultVouchers/minorVouchers use voucherMaxPerDay instead of literal 6
+ *    - Enables lines with different loyalty tier structures
+ *    - Search for: "voucherMaxPerDay" to find the change
+ *
+ * WHAT DID NOT CHANGE:
+ * - All v1 math logic is identical (overcap, break-even, package comparison)
+ * - adaptDataset() unchanged — still reads from dataset parameter
+ * - All drink price calculations unchanged
+ * - All package cost formulas unchanged
+ * - Export interface unchanged (window.ITW_MATH.compute)
+ *
+ * DATA FLOW:
+ *   calculator-v2.js calls compute(inputs, economics, dataset, vouchers, forcedPkg, lineConfig)
+ *                                                                         ^^^^^^^^^^
+ *                                                               NEW: from window.ITW_LINE_CONFIG
+ *
+ * ═══════════════════════════════════════════════════════════════
+ * ORIGINAL v1 CHANGELOG (preserved for reference):
+ * ═══════════════════════════════════════════════════════════════
  *
  * CHANGELOG v1.009.000:
  * ✅ CRITICAL BUG FIX: Deluxe package overcap was calculated completely wrong!

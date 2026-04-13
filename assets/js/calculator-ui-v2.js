@@ -1,11 +1,53 @@
 /**
- * Royal Caribbean Drink Calculator - UI Layer
- * Version: 1.003.000 (Accessibility Promise Kept)
+ * Drink Calculator v2 - UI Layer (Config-Driven Labels)
+ * Version: 2.000.000 (Multi-Cruise-Line Architecture)
+ * Based on: v1.003.000 (Accessibility Promise Kept)
  *
  * "Let your light so shine before men" - Matthew 5:16
  * "I was eyes to the blind and feet to the lame" - Job 29:15
  *
  * Soli Deo Gloria ✝️
+ *
+ * ═══════════════════════════════════════════════════════════════
+ * v2 ARCHITECTURE: CONFIG-DRIVEN MULTI-CRUISE-LINE SUPPORT
+ * ═══════════════════════════════════════════════════════════════
+ *
+ * This file is a DUPLICATE of calculator-ui.js with targeted
+ * modifications to display cruise-line-specific labels from config.
+ * The original v1 file is UNTOUCHED.
+ *
+ * v2 CHANGES (2 areas of modification):
+ *
+ * 1. CHART LABELS: Dynamic package names from config
+ *    - Lines 282-288: Chart.js bar labels read from
+ *      window.ITW_LINE_CONFIG.packages.{soda,refreshment,deluxe}.shortName
+ *    - Was: hardcoded ['À la carte', 'Soda', 'Refreshment', 'Deluxe']
+ *    - Falls back to v1 labels if config unavailable
+ *
+ * 2. COMPARISON TABLE: Dynamic package titles, icons, subtitles
+ *    - Lines 985-1003: Each package card reads from config:
+ *      * icon: packages.{key}.emoji (was hardcoded emoji)
+ *      * title: packages.{key}.name (was hardcoded 'Soda Package', etc.)
+ *      * subtitle: packages.{key}.includes (was hardcoded description)
+ *    - Subtitle truncated to 60 chars via .substring(0, 60)
+ *    - All values fall back to v1 defaults if config unavailable
+ *
+ * WHAT DID NOT CHANGE:
+ * - Accessibility (keyboard nav, ARIA, screen reader) — fully preserved
+ * - Preset system (drink count presets are universal, not line-specific)
+ * - Chart rendering logic (Chart.js bar chart)
+ * - All event listeners and DOM wiring
+ * - Result display formatting
+ * - Mobile/responsive behavior
+ * - All animation and transition logic
+ *
+ * DATA SOURCE:
+ *   All config reads go through: window.ITW_LINE_CONFIG?.packages?.{key}
+ *   This global is set by calculator-v2.js loadLineConfig() on init.
+ *
+ * ═══════════════════════════════════════════════════════════════
+ * ORIGINAL v1 DOCUMENTATION (preserved for reference):
+ * ═══════════════════════════════════════════════════════════════
  *
  * ACCESSIBILITY COMMITMENT:
  * This UI serves ALL travelers - regardless of ability, age, or circumstance.
