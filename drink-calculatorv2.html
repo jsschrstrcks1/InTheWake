@@ -791,6 +791,8 @@
               el.style.display = 'none';
               return;
             }
+            // PERSONA FIX: Actually show the family-note (was display:none and never toggled)
+            el.style.display = '';
             var deluxeName = lc.packages && lc.packages.deluxe ? lc.packages.deluxe.name : 'Deluxe Beverage Package';
             var refreshName = lc.packages && lc.packages.refreshment ? lc.packages.refreshment.name : 'Refreshment Package';
             var ruleDiv = el.querySelector('.family-rule p');
@@ -890,6 +892,9 @@
                 clearInterval(checkConfig);
                 populateLineSelector(window.ITW_CALC_CONFIG);
                 renderFromConfig(window.ITW_LINE_CONFIG);
+                // PERSONA FIX: Sync dropdown to actual active line (handles URL ?line= param)
+                var activeId = window.ITW_LINE_CONFIG.id;
+                if (select && activeId) select.value = activeId;
               } else if (configPollCount > 100) { // 100 × 100ms = 10 seconds
                 clearInterval(checkConfig);
                 console.warn('[v2] Config polling timed out after 10s — using static defaults');
@@ -908,7 +913,11 @@
             // Re-render on line switch
             window.addEventListener('itw:line-changed', function(e) {
               var lc = e.detail && e.detail.config;
-              if (lc) renderFromConfig(lc);
+              if (lc) {
+                renderFromConfig(lc);
+                // PERSONA FIX: Keep dropdown synced
+                if (select && lc.id) select.value = lc.id;
+              }
             });
           });
         })();

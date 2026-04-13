@@ -135,8 +135,9 @@
       fx: 'itw:fx:v10', brands: 'itw:brands:v10'
     }),
     CURRENCIES: Object.freeze(['USD', 'GBP', 'EUR', 'CAD', 'AUD']),
+    // PERSONA FIX (Blocker): Added coffeeSmall/coffeeLarge so split-coffee inputs get patched to store
     DRINK_KEYS: Object.freeze([
-      'soda', 'coffee', 'teaprem', 'freshjuice', 'mocktail', 'energy',
+      'soda', 'coffee', 'coffeeSmall', 'coffeeLarge', 'teaprem', 'freshjuice', 'mocktail', 'energy',
       'milkshake', 'bottledwater', 'beer', 'wine', 'cocktail', 'spirits'
     ]),
     DRINK_LABELS: Object.freeze({
@@ -1084,6 +1085,13 @@
       const coffeePunchesInput = document.querySelector('[data-input="coffee-punches"]');
       if (coffeeCardsInput) coffeeCardsInput.value = '0';
       if (coffeePunchesInput) coffeePunchesInput.value = '0';
+    }
+
+    // PERSONA FIX: Clear forced package selection when switching lines
+    // (stale forced package from old line shouldn't affect new line)
+    store.patch('ui.forcedPackage', null);
+    if (window.PackageSelection?.resetToRecommendation) {
+      window.PackageSelection.resetToRecommendation();
     }
 
     // Dispatch event for UI layer to update labels, FAQ, policies, etc.

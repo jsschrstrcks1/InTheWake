@@ -1254,11 +1254,17 @@ function renderSummary(results) {
     winnerEl.textContent = results.winnerLabel || 'À la carte';
   }
 
+  // PERSONA FIX: Don't overwrite v2-policy-content (rich HTML from renderFromConfig)
+  // with textContent — that destroys all child elements. Instead, show/hide the container.
   const policyEl = document.getElementById('policy-note');
   if (policyEl) {
     if (results.policyNote && typeof results.policyNote === 'string') {
-      policyEl.textContent = results.policyNote;
       policyEl.style.display = 'block';
+      // If v2-policy-content exists (config-driven), leave it alone.
+      // Only set textContent if there's no v2 content container.
+      if (!document.getElementById('v2-policy-content')) {
+        policyEl.textContent = results.policyNote;
+      }
     } else {
       policyEl.style.display = 'none';
     }
