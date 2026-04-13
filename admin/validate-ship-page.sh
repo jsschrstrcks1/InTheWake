@@ -3263,6 +3263,125 @@ else
 fi
 
 # ============================================================================
+# Section 9du: Missing SEO Meta Tags (#1395)
+# ============================================================================
+section_header "Section 9du: SEO Meta Completeness"
+
+# Anthem reference has: googlebot, bingbot, color-scheme, theme-color, version, author, publisher, referrer
+SEO_MISSING=0
+SEO_LIST=""
+for TAG in googlebot bingbot color-scheme theme-color referrer; do
+    HAS_TAG=$(grep -c "name=\"$TAG\"" "$FILE" || true)
+    if [ "$HAS_TAG" -eq 0 ]; then
+        SEO_MISSING=$((SEO_MISSING+1))
+        SEO_LIST="$SEO_LIST $TAG"
+    fi
+done
+HAS_AUTHOR=$(grep -c 'name="author"' "$FILE" || true)
+HAS_PUBLISHER=$(grep -c 'name="publisher"' "$FILE" || true)
+if [ "$HAS_AUTHOR" -eq 0 ]; then SEO_MISSING=$((SEO_MISSING+1)); SEO_LIST="$SEO_LIST author"; fi
+if [ "$HAS_PUBLISHER" -eq 0 ]; then SEO_MISSING=$((SEO_MISSING+1)); SEO_LIST="$SEO_LIST publisher"; fi
+
+if [ "$SEO_MISSING" -gt 0 ]; then
+    check_warn "Missing $SEO_MISSING SEO meta tag(s):$SEO_LIST — Anthem reference has all of these (#1395)"
+else
+    check_pass "All SEO meta tags present (googlebot, bingbot, color-scheme, theme-color, referrer, author, publisher)"
+fi
+
+# ============================================================================
+# Section 9dv: Title Format (#1396)
+# ============================================================================
+section_header "Section 9dv: Title Format"
+
+PAGE_TITLE=$(grep -oP '<title>\K[^<]+' "$FILE" | head -1)
+if [ -n "$PAGE_TITLE" ]; then
+    if echo "$PAGE_TITLE" | grep -qP 'Deck Plans.*Live Tracker.*Dining'; then
+        check_pass "Title follows functional format (Deck Plans, Live Tracker, Dining & Videos)"
+    elif echo "$PAGE_TITLE" | grep -qP 'Ship Guide'; then
+        check_warn "Title uses 'Ship Guide' — Anthem reference uses 'Deck Plans, Live Tracker, Dining & Videos' (#1396)"
+    else
+        check_pass "Title format check — non-standard but not 'Ship Guide'"
+    fi
+else
+    check_pass "Title format check skipped (no title found)"
+fi
+
+# ============================================================================
+# Section 9dw: Skip Link Target Pattern (#1397)
+# ============================================================================
+section_header "Section 9dw: Skip Link Target"
+
+SKIP_HREF=$(grep -oP 'class="skip-link"[^>]*href="\K[^"]+' "$FILE" | head -1)
+MAIN_ID=$(grep -oP '<main[^>]*id="\K[^"]+' "$FILE" | head -1)
+if [ -n "$SKIP_HREF" ] && [ -n "$MAIN_ID" ]; then
+    if [ "$SKIP_HREF" = "#$MAIN_ID" ]; then
+        check_pass "Skip link target (#$MAIN_ID) matches main element id"
+    else
+        check_warn "Skip link href='$SKIP_HREF' but main id='$MAIN_ID' — mismatch (#1397)"
+    fi
+    if [ "$MAIN_ID" != "main-content" ]; then
+        check_warn "Main element id is '$MAIN_ID' — Anthem reference uses 'main-content' (#1397)"
+    fi
+else
+    check_pass "Skip link target check skipped"
+fi
+
+# ============================================================================
+# Section 9dx: ARIA Live Region IDs (#1398)
+# ============================================================================
+section_header "Section 9dx: ARIA Live Region IDs"
+
+HAS_A11Y_STATUS=$(grep -c 'id="a11y-status"' "$FILE" || true)
+HAS_OLD_ARIA=$(grep -c 'id="aria-live-polite"' "$FILE" || true)
+if [ "$HAS_OLD_ARIA" -gt 0 ]; then
+    check_warn "ARIA live region uses old id 'aria-live-polite' — Anthem reference uses 'a11y-status' (#1398)"
+elif [ "$HAS_A11Y_STATUS" -gt 0 ]; then
+    check_pass "ARIA live region uses standard 'a11y-status' id"
+else
+    check_pass "ARIA live region ID check skipped"
+fi
+
+# ============================================================================
+# Section 9dy: Logo Loading Priority (#1399)
+# ============================================================================
+section_header "Section 9dy: Logo Loading Priority"
+
+LOGO_LINE=$(grep 'class="logo"' "$FILE" | head -1)
+if [ -n "$LOGO_LINE" ]; then
+    if echo "$LOGO_LINE" | grep -q 'loading="eager"'; then
+        check_pass "Hero logo uses loading=\"eager\""
+    elif echo "$LOGO_LINE" | grep -q 'loading="lazy"'; then
+        check_warn "Hero logo uses loading=\"lazy\" — should be loading=\"eager\" for LCP (#1399)"
+    else
+        check_pass "Hero logo loading attribute check — no loading attr (browser default)"
+    fi
+fi
+
+BRAND_LOGO=$(grep -A1 'class="brand"' "$FILE" | grep 'logo_wake_256' | head -1)
+if [ -n "$BRAND_LOGO" ]; then
+    if echo "$BRAND_LOGO" | grep -q 'loading="lazy"'; then
+        check_warn "Brand logo in navbar uses loading=\"lazy\" — above the fold, should be eager or unset (#1399)"
+    else
+        check_pass "Brand logo loading attribute OK"
+    fi
+fi
+
+# ============================================================================
+# Section 9dz: data-imo Placement (#1400)
+# ============================================================================
+section_header "Section 9dz: data-imo Placement"
+
+MAIN_HAS_IMO=$(grep '<main' "$FILE" | grep -c 'data-imo' || true)
+TRACKER_HAS_IMO=$(grep -P 'itinerary|liveTrack' "$FILE" | grep -c 'data-imo' || true)
+if [ "$MAIN_HAS_IMO" -gt 0 ] && [ "$TRACKER_HAS_IMO" -gt 0 ]; then
+    check_warn "data-imo appears on both <main> and tracker section — Anthem reference puts it only on tracker (#1400)"
+elif [ "$MAIN_HAS_IMO" -gt 0 ] && [ "$TRACKER_HAS_IMO" -eq 0 ]; then
+    check_warn "data-imo is on <main> but not on tracker section — Anthem puts it on tracker (#1400)"
+else
+    check_pass "data-imo placement follows reference pattern"
+fi
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
