@@ -223,6 +223,7 @@
           "priceMid": 11.99,
           "priceMin": 9.50,
           "priceMax": 14.39,
+          "childPriceMid": 6.95,
           "priceNote": "$11.99/day adults, $6.95/day kids (+20% service charge)",
           "includes": "Unlimited Coca-Cola fountain sodas and juice for the entire cruise",
           "includesList": [
@@ -295,24 +296,26 @@
       "loyalty": {
         "enabled": false,
         "programName": "VIFP Club / Carnival Rewards",
+        "programTransitionDate": "2026-06-01",
+        "programTransitionNote": "VIFP Club members become Carnival Rewards members on June 1, 2026, with the new program officially launching September 1, 2026. Diamond-by-May-31-2026 earns lifetime Diamond status. Platinum-by-May-31-2026 gets extended through May 31, 2028.",
         "voucherValue": 0,
-        "voucherNote": "Carnival's loyalty program does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor. VIFP offers occasional free drinks at loyalty parties.",
+        "voucherNote": "Carnival's loyalty program does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor. Platinum guests receive two free drinks at VIFP parties on 5+ night cruises and one complimentary drink at select venues — not comparable to a daily voucher.",
         "tiers": []
       },
 
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Soda (fountain)",          "price": 2.75,  "rangeMin": 2.75, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "🥤" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Specialty Coffee",         "price": 3.50,  "rangeMin": 2.95, "rangeMax": 4.25,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",              "price": 3.50,  "rangeMin": 2.95, "rangeMax": 4.25,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice",              "price": 4.50,  "rangeMin": 3.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "🧃" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",      "price": 8.00,  "rangeMin": 6.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Energy Drink",             "price": 4.00,  "rangeMin": 3.50, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",                "price": 6.95,  "rangeMin": 4.95, "rangeMax": 8.95,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",            "price": 1.50,  "rangeMin": 1.50, "rangeMax": 2.00,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (draft/bottle)",      "price": 7.25,  "rangeMin": 6.25, "rangeMax": 8.50,  "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",             "price": 10.50, "rangeMin": 9.50, "rangeMax": 14.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                 "price": 11.00, "rangeMin": 9.95, "rangeMax": 13.50, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",           "price": 9.00,  "rangeMin": 7.50, "rangeMax": 12.00, "category": "alcoholic",     "icon": "🥃" }
+        { "id": "soda",         "name": "Soda",             "label": "Soda (fountain)",          "price": 3.00,  "rangeMin": 2.75, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "🥤" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Java Blue Latte / Cappuccino","price": 4.25,  "rangeMin": 3.00, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Art of Tea",               "price": 3.00,  "rangeMin": 2.95, "rangeMax": 4.25,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice / Smoothie",   "price": 6.50,  "rangeMin": 5.00, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🧃" },
+        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",      "price": 9.50,  "rangeMin": 9.25, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
+        { "id": "energy",       "name": "Energy Drink",      "label": "Celsius / Monster",        "price": 5.00,  "rangeMin": 4.95, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
+        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",                "price": 6.75,  "rangeMin": 5.00, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🥛" },
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water (500 ml)",   "price": 2.50,  "rangeMin": 2.25, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "💧" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer (16 oz draft/bottle)","price": 7.95,  "rangeMin": 7.50, "rangeMax": 9.75,  "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",             "price": 13.00, "rangeMin": 10.00,"rangeMax": 15.00, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                 "price": 13.00, "rangeMin": 11.50,"rangeMax": 14.25, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",           "price": 11.00, "rangeMin": 8.00, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🥃" }
       ],
 
       "sets": {
@@ -390,18 +393,41 @@
       },
 
       "_sources": {
-        "note": "Prices verified April 2026 via web research",
+        "note": "Prices and policies verified 2026-04-14 via full investigate pipeline (RECON → TRIAGE → DEEP → SYNTHESIS)",
         "references": [
           "carnival.com/drink-packages",
-          "help.carnival.com (CHEERS! Q&A)",
+          "carnival.com/drink-packages/cheers-package/cheers-SUM",
+          "carnival.com/drink-packages/bottomless-bubbles-package",
+          "carnival.com/drink-packages/non-alcoholic-package/cheers-zero-proof-ZPR",
+          "help.carnival.com (CHEERS! Q&A, a_id/3525)",
+          "carnival-news.com (Carnival Rewards 2026 announcement)",
           "cruisebestie.com/carnival-drink-packages",
-          "eatsleepcruise.com (Carnival drink packages guide)",
-          "candidcruisetravel.com (Carnival drink prices)",
-          "shinecruise.com (Carnival drink menus)",
-          "cruise.blog (Carnival drink menu and prices)"
+          "cruisebestie.com/drink-prices-on-carnival-cruise-line",
+          "eatsleepcruise.com/complete-guide-to-drink-packages-on-carnival-cruise-line",
+          "candidcruisetravel.com/carnival-cruise-line-drink-prices-and-menus",
+          "cruisespotlight.com/carnival-cruise-line-drink-menus-and-pricing",
+          "cruisemummy.co.uk/carnival-cruise-drink-menus",
+          "profcruise.com/carnival-bar-and-drink-menus-with-prices-2026",
+          "intothefunnel.com/cruise-tips/carnival-drink-package-guide",
+          "cruisecritic.com (Carnival service charge news)",
+          "cruisingsite.com/carnival-drink-package-explained-prices-limits-what-included-is-it-worth-it"
         ],
-        "pricingDate": "Bottomless Bubbles price increase to $11.99/day effective April 2, 2026",
-        "gratuityNote": "Carnival charges 20% service charge on all beverage packages"
+        "pricingDates": [
+          "Bottomless Bubbles adult price increased to $11.99/day effective April 2, 2026",
+          "Bottomless Bubbles child price stable at $6.95/day",
+          "Beverage service charge raised from 18% to 20% in December 2025",
+          "Fleet-wide drink menu refresh with ~$0.25 per-drink increase rolled out December 2025",
+          "Zero Proof package extended for 2026 sailings at $29.99/day base"
+        ],
+        "gratuityNote": "20% service charge on all beverage purchases (packages and à la carte) since December 2025. Previously 18%.",
+        "loyaltyNote": "VIFP Club rebrands to Carnival Rewards; membership transitions June 1, 2026, program officially launches September 1, 2026.",
+        "knownPolicyChanges2026": [
+          "April 2, 2026: Bottomless Bubbles adult price $9.50 → $11.99/day",
+          "December 2025: Automatic beverage gratuity 18% → 20%",
+          "December 2025: Fleet-wide drink menu refresh (+$0.25 most drinks)",
+          "June 1, 2026: VIFP Club → Carnival Rewards transition begins",
+          "September 1, 2026: Carnival Rewards fully launches"
+        ]
       }
     },
 
