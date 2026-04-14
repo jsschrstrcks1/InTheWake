@@ -399,6 +399,175 @@ function main() {
     console.log('NCL Free-at-Sea config passes structural checks.');
   }
 
+  // -------------------------------------------------------------------------
+  // v2.1 engine features — three net-new code paths to exercise:
+  //   A. Free-at-Sea mode    (inputs.freeAtSeaMode)
+  //   B. Child pricing       (lineConfig.packages.soda.childPriceMid)
+  //   C. Grandfather policy  (inputs.bookingDate vs policy.effectiveDate)
+  // These scenarios run additional compute() calls against a fixed persona
+  // and assert the expected behavior changes.
+  // -------------------------------------------------------------------------
+  console.log('\n=== v2.1 Engine Feature Tests ===');
+  let featureFails = 0;
+  const featureMsg = (ok, label, detail) => {
+    const status = ok ? 'PASS' : 'FAIL';
+    if (!ok) featureFails++;
+    console.log(`  [${status}] ${label}${detail ? '  — ' + detail : ''}`);
+  };
+
+  // ---- A. Free-at-Sea mode (NCL) ----
+  // Same inputs computed twice: once without Free-at-Sea, once with.
+  // Expectation: with Free-at-Sea, deluxePkg cost drops from ~$1831 (2 adults × 7
+  // days × $109 × 1.20) to $399 (2 × 7 × $28.50). Winner should shift or at
+  // minimum the deluxe bar should get ~22% of its previous cost.
+  {
+    const ncl = config.lines.ncl;
+    if (ncl && ncl.freeAtSea) {
+      const dataset = buildDataset(ncl);
+      const economics = buildEconomics(ncl);
+      const baseInputs = {
+        days: 7, seaDays: 2, seaApply: false, seaWeight: 0,
+        adults: 2, minors: 0,
+        coffeeCards: 0, coffeePunches: 0,
+        drinks: { cocktail: 4, beer: 2, wine: 1 },
+      };
+
+      const off = compute(baseInputs, economics, dataset, null, 'deluxe', ncl);
+      const on = compute({ ...baseInputs, freeAtSeaMode: true }, economics, dataset, null, 'deluxe', ncl);
+
+      const expectedFasDeluxe = ncl.freeAtSea.serviceChargePerDay * baseInputs.days * baseInputs.adults;
+      const fasDeluxeActual = on.packageBreakdown.deluxe.fixedCost;
+      const expectedStandaloneDeluxe = ncl.packages.deluxe.priceMid * (1 + ncl.rules.gratuity) * baseInputs.days * baseInputs.adults;
+      const offDeluxeActual = off.packageBreakdown.deluxe.fixedCost;
+
+      featureMsg(
+        Math.abs(offDeluxeActual - expectedStandaloneDeluxe) < 0.01,
+        'A1. Free-at-Sea OFF: deluxe pkg = standalone (priceMid × 1.20)',
+        `$${offDeluxeActual.toFixed(2)} vs expected $${expectedStandaloneDeluxe.toFixed(2)}`
+      );
+      featureMsg(
+        Math.abs(fasDeluxeActual - expectedFasDeluxe) < 0.01,
+        'A2. Free-at-Sea ON: deluxe pkg = flat $28.50/person/day',
+        `$${fasDeluxeActual.toFixed(2)} vs expected $${expectedFasDeluxe.toFixed(2)}`
+      );
+      featureMsg(
+        on.freeAtSeaActive === true && on.freeAtSeaDaily === ncl.freeAtSea.serviceChargePerDay,
+        'A3. Free-at-Sea ON surfaces freeAtSeaActive + freeAtSeaDaily in result',
+        `active=${on.freeAtSeaActive} daily=$${on.freeAtSeaDaily}`
+      );
+      featureMsg(
+        off.freeAtSeaActive === false,
+        'A4. Free-at-Sea OFF surfaces freeAtSeaActive=false',
+        `active=${off.freeAtSeaActive}`
+      );
+      featureMsg(
+        fasDeluxeActual < offDeluxeActual,
+        'A5. Free-at-Sea saves money vs standalone',
+        `saves $${(offDeluxeActual - fasDeluxeActual).toFixed(2)} per couple per week`
+      );
+    } else {
+      featureMsg(false, 'A. NCL Free-at-Sea block missing in config');
+    }
+  }
+
+  // ---- B. Child pricing for Bottomless Bubbles (Carnival) ----
+  // Force the soda package so we can inspect its minors portion directly.
+  {
+    const carnival = config.lines.carnival;
+    const childPrice = carnival.packages.soda.childPriceMid;
+    if (childPrice) {
+      const dataset = buildDataset(carnival);
+      const economics = buildEconomics(carnival);
+      const inputs = {
+        days: 7, seaDays: 0, seaApply: false, seaWeight: 0,
+        adults: 2, minors: 3,
+        coffeeCards: 0, coffeePunches: 0,
+        drinks: { soda: 3 },
+      };
+
+      const result = compute(inputs, economics, dataset, null, 'soda', carnival);
+      const sodaFixed = result.packageBreakdown.soda.fixedCost;
+
+      // Expected: adults × $11.99 × 1.20 × 7 + minors × $6.95 × 1.20 × 7
+      const expected =
+        (inputs.adults * carnival.packages.soda.priceMid * (1 + carnival.rules.gratuity) * inputs.days) +
+        (inputs.minors * childPrice * (1 + carnival.rules.gratuity) * inputs.days);
+
+      featureMsg(
+        Math.abs(sodaFixed - expected) < 0.01,
+        'B1. Carnival soda billed adults at $11.99, minors at $6.95',
+        `$${sodaFixed.toFixed(2)} vs expected $${expected.toFixed(2)}`
+      );
+
+      // Savings vs. old behavior (all billed at adult rate)
+      const oldBehavior = (inputs.adults + inputs.minors) * carnival.packages.soda.priceMid * (1 + carnival.rules.gratuity) * inputs.days;
+      const savings = oldBehavior - sodaFixed;
+      featureMsg(
+        savings > 0,
+        'B2. Child pricing saves money vs. flat adult billing',
+        `family of 5 saves $${savings.toFixed(2)} on 7-night cruise`
+      );
+    } else {
+      featureMsg(false, 'B. Carnival childPriceMid missing');
+    }
+  }
+
+  // ---- C. Grandfathering via bookingDate (RCL Coca-Cola Freestyle cut) ----
+  {
+    const rcl = config.lines['royal-caribbean'];
+    const freestylePolicy = (rcl.policies || []).find(p => p.id === 'coca-cola-freestyle-cut-2026');
+    if (freestylePolicy && freestylePolicy.effectiveDate) {
+      const dataset = buildDataset(rcl);
+      const economics = buildEconomics(rcl);
+      const inputs = {
+        days: 7, seaDays: 0, seaApply: false, seaWeight: 0,
+        adults: 2, minors: 2,
+        coffeeCards: 0, coffeePunches: 0,
+        drinks: { soda: 3, coffee: 1 },
+      };
+
+      const noBookingDate = compute(inputs, economics, dataset, null, null, rcl);
+      const pre = compute({ ...inputs, bookingDate: '2026-02-01' }, economics, dataset, null, null, rcl);
+      const post = compute({ ...inputs, bookingDate: '2026-04-01' }, economics, dataset, null, null, rcl);
+
+      const preEntry = pre.appliedPolicies.find(p => p.id === 'coca-cola-freestyle-cut-2026');
+      const postEntry = post.appliedPolicies.find(p => p.id === 'coca-cola-freestyle-cut-2026');
+      const noneEntry = noBookingDate.appliedPolicies.find(p => p.id === 'coca-cola-freestyle-cut-2026');
+
+      featureMsg(
+        preEntry && preEntry.grandfathered === true && preEntry.effective === false,
+        'C1. Booking date pre-March-15 2026: Freestyle policy grandfathered',
+        `grandfathered=${preEntry?.grandfathered} effective=${preEntry?.effective}`
+      );
+      featureMsg(
+        postEntry && postEntry.grandfathered === false && postEntry.effective === true,
+        'C2. Booking date post-March-15 2026: Freestyle policy effective',
+        `grandfathered=${postEntry?.grandfathered} effective=${postEntry?.effective}`
+      );
+      featureMsg(
+        noneEntry && noneEntry.grandfathered === false && noneEntry.effective === true,
+        'C3. No bookingDate: policy defaults to effective',
+        `grandfathered=${noneEntry?.grandfathered} effective=${noneEntry?.effective}`
+      );
+
+      // No math impact — trip totals should be identical across all three
+      const tripsEqual = Math.abs(pre.trip - post.trip) < 0.01 && Math.abs(pre.trip - noBookingDate.trip) < 0.01;
+      featureMsg(
+        tripsEqual,
+        'C4. Grandfathering is advisory only — trip totals unchanged',
+        `pre=$${pre.trip} post=$${post.trip} none=$${noBookingDate.trip}`
+      );
+    } else {
+      featureMsg(false, 'C. RCL coca-cola-freestyle-cut-2026 policy missing');
+    }
+  }
+
+  console.log('');
+  if (featureFails > 0) {
+    console.error(`${featureFails} feature test(s) failed.`);
+    process.exit(1);
+  }
+  console.log('All v2.1 engine feature tests pass.');
   process.exit(0);
 }
 

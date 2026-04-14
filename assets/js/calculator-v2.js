@@ -752,6 +752,11 @@
       days: 7, seaDays: 3, seaApply: true, seaWeight: 20,
       adults: 2, minors: 0, coffeeCards: 0, coffeePunches: 0,
       voucherAdult: 0, voucherMinor: 0,
+      // v2.1: Optional inputs consumed by the math engine when the active
+      // line supports them (Free-at-Sea → NCL; bookingDate → any line with
+      // a policy carrying an effectiveDate).
+      freeAtSeaMode: false,
+      bookingDate: null,
       drinks: {
         soda: 0, coffeeSmall: 0, coffeeLarge: 0, teaprem: 0, freshjuice: 0,
         mocktail: 0, energy: 0, milkshake: 0, bottledwater: 0,
@@ -760,7 +765,10 @@
     },
     economics: {
       pkg: { soda: 10.99, refresh: 34.0, deluxe: 85.0, coffee: 31.0 },
-      grat: 0.20, // v2 FIX (EC-39): 0.18→0.20
+      // RCL fallback gratuity is 18% — verified 2026-04-14 via royalcaribbean.com FAQ.
+      // The earlier comment "v2 FIX (EC-39): 0.18→0.20" was based on bad data and has
+      // been reverted. calculator-config.json overrides this at runtime.
+      grat: 0.18,
       deluxeCap: CONFIG.RULES.DELUXE_CAP_FALLBACK
     },
     results: {
@@ -1147,6 +1155,23 @@
 
   // Expose switchCruiseLine globally for the line selector
   window.ITW_switchCruiseLine = switchCruiseLine;
+
+  // v2.1: Expose Free-at-Sea and bookingDate setters for the UI toggles to
+  // drive. Both patch store.inputs and schedule a recalc so the math engine
+  // picks up the new values immediately.
+  window.ITW_setFreeAtSeaMode = function(on) {
+    const inputs = safeClone(store.get('inputs')) || {};
+    inputs.freeAtSeaMode = Boolean(on);
+    store.patch('inputs', inputs);
+    scheduleCalculation();
+  };
+  window.ITW_setBookingDate = function(dateStr) {
+    const inputs = safeClone(store.get('inputs')) || {};
+    // Accept ISO YYYY-MM-DD or null/empty to clear.
+    inputs.bookingDate = (typeof dateStr === 'string' && dateStr) ? dateStr : null;
+    store.patch('inputs', inputs);
+    scheduleCalculation();
+  };
 
   async function loadDataset() {
     try {

@@ -444,6 +444,18 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const coffeeCards = clamp(inputs.coffeeCards || 0, 0, 10);
   const coffeePunches = clamp(inputs.coffeePunches || 0, 0, 5);
 
+  // v2.1 NEW INPUTS (optional, backward-compatible):
+  // - freeAtSeaMode: NCL Free-at-Sea toggle. When true and lineConfig.freeAtSea.available,
+  //   the deluxe package cost becomes the flat service charge per person per day, not
+  //   priceMid × (1+grat). Acknowledged simplification: applies to all adults; NCL's
+  //   real rule limits Free-at-Sea to guests 1–2. Surfaced via appliedPolicies warning.
+  // - bookingDate: ISO date string (YYYY-MM-DD). Used to grandfather policies with an
+  //   effectiveDate: if bookingDate is strictly before the policy's effectiveDate,
+  //   that policy is marked grandfathered and does not apply in the returned
+  //   appliedPolicies array. No direct math impact (policies are advisory).
+  const freeAtSeaMode = Boolean(inputs.freeAtSeaMode);
+  const bookingDate = typeof inputs.bookingDate === 'string' ? inputs.bookingDate : null;
+
   // v2 FIX: Use ?? instead of || so 0 is a valid price (defensive for future lines)
   const pkgSoda = toNum(economics.pkg?.soda ?? 10.99);
   const pkgRefresh = toNum(economics.pkg?.refresh ?? 34.0);
@@ -452,6 +464,17 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const coffeeCardPrice = toNum(economics.pkg?.coffee ?? 31.0);
   const grat = toNum(economics.grat ?? gratuity);
   const cap = toNum(economics.deluxeCap ?? deluxeCap);
+
+  // v2.1 NEW: child pricing for soda/refresh packages (e.g., Carnival Bottomless Bubbles $6.95/kid).
+  // Fallback: use adult price when no child price configured.
+  const pkgSodaChild = toNum(lineConfig?.packages?.soda?.childPriceMid ?? pkgSoda);
+  const pkgRefreshChild = toNum(lineConfig?.packages?.refreshment?.childPriceMid ?? pkgRefresh);
+
+  // v2.1 NEW: Free-at-Sea flat service charge (NCL). Only used when freeAtSeaMode is on
+  // AND the active line advertises availability via lineConfig.freeAtSea.
+  const freeAtSea = lineConfig?.freeAtSea;
+  const freeAtSeaActive = freeAtSeaMode && freeAtSea?.available === true && toNum(freeAtSea.serviceChargePerDay) > 0;
+  const freeAtSeaDaily = freeAtSeaActive ? toNum(freeAtSea.serviceChargePerDay) : 0;
 
   const drinkList = Object.keys(inputs.drinks || {}).map(key => [key, toNum(inputs.drinks[key])]);
   const weighted = applyWeight(drinkList, days, seaDays, seaApply, seaWeight);
@@ -580,15 +603,21 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // Package costs - adults only
   const sodaPkg = pkgSoda * (1 + grat) * days * adults;
   const refreshPkg = pkgRefresh * (1 + grat) * days * adults;
-  const deluxePkg = pkgDeluxe * (1 + grat) * days * adults;
+  // v2.1: Deluxe adult cost uses Free-at-Sea flat rate when active, else standard priceMid+gratuity.
+  const deluxePkg = freeAtSeaActive
+    ? freeAtSeaDaily * days * adults
+    : pkgDeluxe * (1 + grat) * days * adults;
 
   // CRITICAL FIX v1.005.000: Add minors' package costs to all package calculations!
-  // When comparing package options, we must include the cost of packages for minors
-  const sodaPkgWithMinors = sodaPkg + (minors > 0 ? (pkgSoda * (1 + grat) * days * minors) : 0);
-  const refreshPkgWithMinors = refreshPkg + (minors > 0 ? (pkgRefresh * (1 + grat) * days * minors) : 0);
+  // v2.1: Use child price (if configured) for minors on soda/refresh packages.
+  const sodaMinorCost = minors > 0 ? (pkgSodaChild * (1 + grat) * days * minors) : 0;
+  const refreshMinorCost = minors > 0 ? (pkgRefreshChild * (1 + grat) * days * minors) : 0;
+  const sodaPkgWithMinors = sodaPkg + sodaMinorCost;
+  const refreshPkgWithMinors = refreshPkg + refreshMinorCost;
 
   // CRITICAL v1.003.000: Minors MUST buy Refreshment when adults buy Deluxe (Royal Caribbean policy)
-  const deluxePkgWithMinors = deluxePkg + (minors > 0 ? (pkgRefresh * (1 + grat) * days * minors) : 0);
+  // v2.1: When Free-at-Sea is active, minors use their existing soda/refresh billing (unchanged).
+  const deluxePkgWithMinors = deluxePkg + refreshMinorCost;
 
   // CRITICAL FIX v1.009.000: Calculate overcap correctly per-drink, not per-day total!
   // The $14 deluxe cap applies to INDIVIDUAL drinks, not daily totals!
@@ -821,6 +850,26 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     }
   }
 
+  // v2.1 NEW: appliedPolicies — compute which line-config policies are in effect for
+  // this booking. A policy with an effectiveDate is considered grandfathered (effective:
+  // false) if the provided bookingDate is strictly before it. Used by the UI to toggle
+  // "your package still includes X" messaging for pre-cutoff bookings (e.g., RCL's
+  // March 15, 2026 Coca-Cola Freestyle removal).
+  const appliedPolicies = (lineConfig?.policies || []).map(p => {
+    if (!p.effectiveDate || !bookingDate) {
+      return { id: p.id, severity: p.severity, title: p.title, effective: true, grandfathered: false };
+    }
+    const grandfathered = bookingDate < p.effectiveDate;
+    return {
+      id: p.id,
+      severity: p.severity,
+      title: p.title,
+      effectiveDate: p.effectiveDate,
+      effective: !grandfathered,
+      grandfathered
+    };
+  });
+
   return {
     hasRange: false,
     bars,
@@ -852,6 +901,10 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     healthNote,
     voucherSavings: round2(voucherSavings),
     vouchersUsed: totalVouchersPerDay,
+    // v2.1 new fields
+    freeAtSeaActive,
+    freeAtSeaDaily: round2(freeAtSeaDaily),
+    appliedPolicies,
     ariaAnnouncement
   };
 }
@@ -861,7 +914,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 if (typeof window !== 'undefined') {
   window.ITW_MATH = Object.freeze({
     compute,
-    version: '1.009.000'
+    version: '2.001.000'
   });
 
 
@@ -869,7 +922,7 @@ if (typeof window !== 'undefined') {
 } else if (typeof self !== 'undefined') {
   self.ITW_MATH = Object.freeze({
     compute,
-    version: '1.009.000'
+    version: '2.001.000'
   });
 }
 
