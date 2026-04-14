@@ -79,6 +79,16 @@
       this.attachResetListener();
       this.attachResultsListener();
 
+      // Bug 2 FIX: Clear stale cache when cruise line switches
+      var self = this;
+      window.addEventListener('itw:line-changed', function() {
+        self.recommendedResults = null;
+        self.recommendedBars = null;
+        self.userSelectedPackage = null;
+        // Also clear the selection status banner
+        var banner = document.getElementById('package-selector-status');
+        if (banner) banner.style.display = 'none';
+      });
     },
 
     /**
