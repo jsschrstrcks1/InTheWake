@@ -50,6 +50,32 @@ After all moves above, delete the now-empty `data/` directory. Verify with grep 
 
 ---
 
+## Phase 1F Part 2: Image consolidation (deferred to R2 migration)
+
+**Status:** Initial cleanup complete (15 truly-orphaned JPG duplicates in assets/ships/ deleted 2026-04-14). Full image consolidation deferred to Step 10 (Cloudflare R2 migration), where all images are being relocated anyway.
+
+**Remaining work before/during R2 migration:**
+
+1. **JPG/WebP duplicate audit** — 132 JPG/WebP pairs verified in `assets/ships/`:
+   - 15 deleted (no HTML/JSON refs, WebP valid, ≥25% size ratio)
+   - 49 referenced in HTML (need coordinated `<img src=>` or `onerror=` updates to point at .webp)
+   - 39 referenced in JSON data files (need JSON attribute updates)
+   - 29 with low WebP quality (<25% JPG size) — keep JPGs as high-res originals
+   - Candidate list saved at analysis time; re-run with current working set before action.
+
+2. **Image directory consolidation** — merge scattered locations into canonical layout:
+   - Top-level `images/` (53 mixed files) → `assets/images/` or `ports/img/` or `authors/img/`
+   - `assets/*.jpg|.webp` (6 stray files at assets/ root) → `assets/ships/` or `assets/images/`
+   - `ships/rcl/images/` (8 files) → `assets/ships/rcl/`
+   - `ships/assets/images/`, `ships/assets/img/`, `ships/assets/*.webp` → `assets/ships/`
+   - `ships/radianceots.jpg|.webp` → `assets/ships/`
+
+3. **HTML reference updates** — the `/images/authors/` → `/authors/img/` renames mentioned in the original plan may or may not still apply; audit at R2 time.
+
+The R2 migration already plans to move everything preserving path structure, so resolving layout inconsistencies before uploading to R2 is the natural time. This avoids doing image moves twice.
+
+---
+
 ## Google Search Console Audit (2026-03-27)
 
 **Source:** GSC data pulled 2026-03-23
