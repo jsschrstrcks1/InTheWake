@@ -26,6 +26,30 @@
 
 ---
 
+## Phase 1C Part 2: Eliminate `/data/` directory (deferred from 2026-04-14 reorg)
+
+**Status:** In progress — safe moves complete (source docs to admin/source-materials/, duplicate fleets.json removed, fleets_index.json relocated to assets/data/).
+
+**Remaining work:** The top-level `data/` directory still contains 6 JSON files plus `data/atlas/` because each has live runtime references that require coordinated HTML/JS updates:
+
+| File | References | Action Needed |
+|---|---|---|
+| `data/authors.json` | 17+ HTML pages (`fetch('/data/authors.json')`) | Copy to `assets/data/authors.json`; update all 17 HTML files |
+| `data/atlas/ship-size-atlas.json` | `assets/js/ships-atlas.js:154` | Move to `assets/data/atlas/`; update 3 fetch URLs in ships-atlas.js |
+| `data/atlas/brands.json` | `assets/js/ships-atlas.js:155` | Move with above |
+| `data/atlas/parent_groups.json` | `assets/js/ships-atlas.js:156` | Move with above |
+| `data/atlas/*.js` (build scripts) | None at runtime | Move to `admin/tools/atlas/` |
+| `data/atlas/*.csv`, `ship-ids-list.json`, `missing-ship-pages.json` | Unclear — audit | Triage: data vs. build-tool artifact |
+| `data/validated-ships.json` | `assets/js/ships-dynamic.js:642` | Copy to `assets/data/`; update 1 fetch URL |
+| `data/rc_ship_videos.json` | Admin scripts only (not runtime) | Move to `admin/` |
+| `data/validated-venues.json` | Written by `scripts/batch-validate-venues.js` (admin only) | Move to `admin/`; update output path in script |
+| `data/validation-failures-detail.json` | Admin-only artifact | Move to `admin/` |
+| `data/ship_pages.json` | No references found | Archive to `admin/archive/` |
+
+After all moves above, delete the now-empty `data/` directory. Verify with grep for `/data/` in HTML/JS before deletion.
+
+---
+
 ## Google Search Console Audit (2026-03-27)
 
 **Source:** GSC data pulled 2026-03-23

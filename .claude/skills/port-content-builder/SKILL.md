@@ -21,8 +21,8 @@ Generates and maintains port guide pages in `ports/` using the POI index schema 
 
 ## Schema Files
 
-- **POI Index:** `schema/poi-index.schema.json` — Global point-of-interest definitions
-- **Port Map:** `schema/port-map.schema.json` — Per-port map configuration
+- **POI Index:** `assets/data/schema/poi-index.schema.json` — Global point-of-interest definitions
+- **Port Map:** `assets/data/schema/port-map.schema.json` — Per-port map configuration
 
 ### POI Schema Requirements
 - `id`: lowercase, hyphens only (pattern: `^[a-z0-9-]+$`)
