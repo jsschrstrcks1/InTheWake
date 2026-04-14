@@ -349,6 +349,56 @@ function main() {
     process.exit(1);
   }
   console.log('\nAll personas × lines pass. Drink calculator is intact for personas 61-70.');
+
+  // -------------------------------------------------------------------------
+  // Phase 2 preview: Free-at-Sea shadow calculation (NCL only)
+  //
+  // The math engine does not yet consume lineConfig.freeAtSea.
+  // This block validates the config block is well-formed and previews
+  // the break-even flip that NCL's flat $28.50/day service charge creates.
+  // When the engine adds Free-at-Sea support, this shadow calc becomes the
+  // source of truth the engine must match.
+  // -------------------------------------------------------------------------
+  const ncl = config.lines.ncl;
+  if (ncl && ncl.freeAtSea) {
+    const fas = ncl.freeAtSea;
+    const standaloneDaily = ncl.packages.deluxe.priceMid * (1 + ncl.rules.gratuity);
+    const fasDaily = fas.serviceChargePerDay;
+
+    console.log('\n=== Phase 2 Preview: NCL Free-at-Sea Shadow Calculation ===');
+    console.log(`Standalone: $${ncl.packages.deluxe.priceMid.toFixed(2)}/day × ${ncl.rules.gratuity * 100}% gratuity = $${standaloneDaily.toFixed(2)}/person/day`);
+    console.log(`Free-at-Sea: flat $${fasDaily.toFixed(2)}/person/day (${(fasDaily / ncl.packages.deluxe.priceMid * 100).toFixed(1)}% effective rate)`);
+    console.log(`Per-couple 7-night savings if eligible for Free-at-Sea: $${((standaloneDaily - fasDaily) * 2 * 7).toFixed(2)}\n`);
+
+    // Config block consistency assertions
+    const fasIssues = [];
+    if (fas.serviceChargePerDay <= 0) fasIssues.push('serviceChargePerDay must be positive');
+    if (fas.serviceChargeModel !== 'flat') fasIssues.push(`serviceChargeModel expected "flat", got ${fas.serviceChargeModel}`);
+    if (fasDaily >= standaloneDaily) fasIssues.push(`Free-at-Sea daily ($${fasDaily}) not cheaper than standalone ($${standaloneDaily.toFixed(2)}) — config likely wrong`);
+    if (fas.packageCovered !== 'deluxe') fasIssues.push(`packageCovered should be "deluxe", got ${fas.packageCovered}`);
+
+    if (!ncl.freeAtSeaPlus) fasIssues.push('freeAtSeaPlus block missing');
+    else {
+      const fasp = ncl.freeAtSeaPlus;
+      if (!fasp.pricePerDay || fasp.pricePerDay <= 0) fasIssues.push('freeAtSeaPlus.pricePerDay missing/invalid');
+      if (!Array.isArray(fasp.includes) || fasp.includes.length === 0) fasIssues.push('freeAtSeaPlus.includes must be non-empty array');
+    }
+
+    // Policy block sanity — the Great Stirrup Cay policy must be present with a 2026 effectiveDate
+    const gscPolicy = (ncl.policies || []).find(p => p.id === 'great-stirrup-cay-2026');
+    if (!gscPolicy) fasIssues.push('Missing great-stirrup-cay-2026 policy (critical 2026 rule)');
+    else if (!gscPolicy.effectiveDate || !gscPolicy.effectiveDate.startsWith('2026-')) {
+      fasIssues.push(`great-stirrup-cay-2026.effectiveDate missing or not 2026 (${gscPolicy.effectiveDate})`);
+    }
+
+    if (fasIssues.length) {
+      console.error('NCL Free-at-Sea config FAILED:');
+      for (const i of fasIssues) console.error('  - ' + i);
+      process.exit(1);
+    }
+    console.log('NCL Free-at-Sea config passes structural checks.');
+  }
+
   process.exit(0);
 }
 
