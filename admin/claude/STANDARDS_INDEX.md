@@ -57,7 +57,7 @@ When sources conflict, defer in this order:
 | File | Status |
 |---|---|
 | `standards/SHIP_PAGE_STANDARD.md` | Ship page v2.0 (ITW-SHIP-002) — still valid, defines gold standard examples |
-| `standards/drink-calculator.md` | Drink calculator feature spec |
+| `admin/archive/legacy-standards/drink-calculator.md` | Drink calculator feature spec (archived 2026-04) |
 
 ---
 

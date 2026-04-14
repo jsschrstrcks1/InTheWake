@@ -82,14 +82,14 @@ pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
 ├── ships/<line>/<slug>.html  # 295 ship pages
 ├── ports/                    # 387 port pages
 ├── restaurants/              # Dining venue pages
-├── solo/articles/            # Solo travel articles
+├── solo/                     # Solo travel articles (8 canonical pages at /solo/*.html)
 ├── tools/                    # Port tracker, ship tracker
 ├── assets/
 │   ├── css/                  # styles.css?v=3.010.400
 │   ├── data/                 # 1,310 JSON files
 │   └── ships/                # 682 WebP images (4,475 total)
 ├── new-standards/            # Official consolidated standards (foundation + v3.010)
-├── standards/                # Legacy — SHIP_PAGE_STANDARD.md, drink-calculator.md
+├── standards/                # Legacy — SHIP_PAGE_STANDARD.md (drink-calculator.md archived 2026-04)
 ├── admin/claude/             # Claude documentation (you are here)
 └── admin/UNFINISHED_TASKS.md
 ```
