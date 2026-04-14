@@ -2670,3 +2670,278 @@ Different types of solo travelers with distinct needs.
 3. **Party ship for grief traveler** - MUST NOT happen (tone-deaf)
 4. **Expedition for waterpark seeker** - MUST NOT happen (incompatible)
 5. **NCL #1 for solo female** - Should now be #2-3 due to penalty
+
+---
+
+## Section J: Additional Persona Test Cases (v2.1 Regression Set)
+
+> (Sections F–I above are historical analysis. Section J continues the numbered
+> persona series starting at 61.)
+
+These ten personas test uncharted territory against the live `cruise-lines/quiz.html`
+six-question scorer (travelers, budget, priority, shipSize, atmosphere, special).
+Each persona is validated by `scripts/test-quiz-personas.js` (run with `node`).
+
+Quiz answer fields map 1:1 to the categories inside the `cruiseLines[*].scores` block.
+Expected behavior is expressed as:
+- **ideal** — one of these lines must appear in the top 3
+- **forbidden** — none of these may win (position 1)
+
+### Persona 61: "The Neurodivergent Navigator" - Jordan
+- **Group**: Solo (34, autistic, sensitivity to crowds/noise)
+- **Occasion**: First cruise after a year of CBT for travel anxiety
+- **Priorities**: Predictable routines, quiet spaces, no surprises
+- **Hates**: Loud atriums, unannounced schedule changes, waterpark chaos
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| travelers | solo | Solo by design |
+| budget | mid-range | Not scrimping but not splurging |
+| priority | relaxation | Low-stimulation days |
+| shipSize | mid | Big enough to hide, small enough to learn |
+| atmosphere | smart-casual | No glittery trendy chaos |
+| special | none | No theme forced |
+
+**Expected Results:**
+- **ideal**: Holland America, Princess, Celebrity
+- **forbidden**: Carnival (sensory overload), Virgin (late-night energy)
+
+**Critical Test:** A solo seeker of relaxation + mid-size + smart-casual should NOT surface party-first lines.
+
+---
+
+### Persona 62: "The Homeschooling Pod" - The Kellerman Family
+- **Group**: Parents (41, 39), four kids (13, 11, 8, 5)
+- **Occasion**: Curriculum-integrated trip — ports double as history lessons
+- **Priorities**: Destination depth, lectures, library, port talks
+- **Hates**: Lazy ship days, waterslide-dominated itineraries
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| travelers | family-kids | Four minors in tow |
+| budget | mid-range | Family of six is the ceiling |
+| priority | destinations | Ports are the lesson |
+| shipSize | large | Room to split-activity |
+| atmosphere | smart-casual | Parents like dinner nights |
+| special | enrichment | The whole point |
+
+**Expected Results:**
+- **ideal**: Princess, MSC, Holland America
+- **forbidden**: Virgin (adults-only blocks kids), Seabourn (family penalty)
+
+**Critical Test:** Enrichment + family-kids should avoid adults-only-penalized lines entirely.
+
+---
+
+### Persona 63: "The Plus-Size Proud" - Tara & Mike
+- **Group**: Couple (36, 38, both size 22/XXL)
+- **Occasion**: Anniversary — she's nervous about fitting in deck chairs, shore tenders
+- **Priorities**: Inclusive vibe, ample seating, big pools, no judgmental uniform-dressed crew
+- **Hates**: Formal nights where suits don't come in their size
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| travelers | couple | Just them |
+| budget | mid-range | Reasonable splurge |
+| priority | relaxation | Pools, spa |
+| shipSize | large | Space per guest |
+| atmosphere | casual | No formal-night weight scrutiny |
+| special | none | No theme |
+
+**Expected Results:**
+- **ideal**: Carnival, Royal Caribbean, Norwegian
+- **forbidden**: Cunard (formal-heavy), Seabourn (tight spaces, formal)
+
+**Critical Test:** Casual + couple + large-ship must score mainstream lines above luxury/formal.
+
+---
+
+### Persona 64: "The Corporate Incentive Trip" - SalesForce North Region
+- **Group**: 24 top performers (late 20s – early 50s), no kids, no spouses
+- **Occasion**: Q4 reward charter — sales-goal achievers
+- **Priorities**: Group dining, premium bars, meeting rooms by day, DJs by night
+- **Hates**: Being seated next to children, buffet-only ships, dated décor
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| travelers | friends | Colleagues, not family |
+| budget | premium | Company is paying |
+| priority | dining | Group dinners are the event |
+| shipSize | mid | Easier to charter/group-book |
+| atmosphere | trendy | Younger execs want Instagram moments |
+| special | adults-only | Zero kids, full stop |
+
+**Expected Results:**
+- **ideal**: Virgin Voyages, Celebrity, Oceania
+- **forbidden**: Carnival (family-heavy), MSC (kids-friendly multigen brand)
+
+**Critical Test:** adults-only + trendy + dining must surface Virgin; adults-only penalty must keep family-focused lines out of top pick.
+
+---
+
+### Persona 65: "The Sober Cruisers" - Recovery Group
+- **Group**: 6 adults (30s–50s) from an AA-affiliated travel meetup
+- **Occasion**: Annual sober-friendly getaway
+- **Priorities**: Mocktails on the menu, yoga decks, no aggressive drink-package pushing
+- **Hates**: Booze-centric marketing, casino-heavy ships, club-scene atrium parties
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| travelers | friends | Group of six |
+| budget | mid-range | Most pay their own |
+| priority | relaxation | Wellness > stimulation |
+| shipSize | mid | Not overwhelming |
+| atmosphere | smart-casual | Dignified, not trendy-bar |
+| special | enrichment | Lectures, not liquor tastings |
+
+**Expected Results:**
+- **ideal**: Holland America, Princess, Celebrity
+- **forbidden**: Carnival (party brand), Virgin (drink-forward premium)
+
+**Critical Test:** enrichment + relaxation + smart-casual must de-rank party-first brands.
+
+---
+
+### Persona 66: "The Military Veterans Reunion" - Band of Brothers
+- **Group**: 8 men, ages 68–76, Vietnam/Gulf-era veterans
+- **Occasion**: 50-year reunion cruise to Normandy then the UK
+- **Priorities**: Historical lectures, transatlantic routing, dignified atmosphere
+- **Hates**: Water slides, club music, trendy millennial-targeted décor
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| travelers | friends | Buddy reunion |
+| budget | premium | Saved for this |
+| priority | destinations | The ports ARE the reunion |
+| shipSize | mid | Cunard QM2 is target class |
+| atmosphere | elegant | Dress for the occasion |
+| special | british | Transatlantic, Normandy heritage |
+
+**Expected Results:**
+- **ideal**: Cunard, Holland America, Princess
+- **forbidden**: Carnival (casual + young), Virgin (adults-only but very wrong vibe)
+
+**Critical Test:** `british` special must boost Cunard decisively; elegant + destinations must not surface mega-ship brands.
+
+---
+
+### Persona 67: "The Ash-Scattering Pilgrims" - The Hendrix Siblings
+- **Group**: 3 adult siblings (54, 51, 48) + spouses
+- **Occasion**: Scattering Dad's ashes in the Mediterranean where he served in the Navy
+- **Priorities**: Gentle ship, respectful crew, quiet deck time, a meaningful itinerary
+- **Hates**: Party atmosphere, crowds, being rushed
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| travelers | multigenerational | Siblings + spouses across generations of marriage |
+| budget | premium | One-time moment, spend appropriately |
+| priority | destinations | Mediterranean is the meaning |
+| shipSize | mid | Small enough to feel held |
+| atmosphere | elegant | Dignity matters |
+| special | enrichment | Not adventure, not british |
+
+**Expected Results:**
+- **ideal**: Oceania, Holland America, Princess
+- **forbidden**: Carnival (tonedeaf), Virgin (party energy), RCL mega
+
+**Critical Test:** Combines grief-style tone with destination focus — must not surface party brands. (Mirrors Persona 58 but with multigen group and Med destination.)
+
+---
+
+### Persona 68: "The Competitive Eaters" - Brad & Chad
+- **Group**: 2 friends, late 20s, YouTube food-challenge creators
+- **Occasion**: Content trip — buffet marathons, specialty-dining binges
+- **Priorities**: Variety, quantity, novelty, bragworthy dishes
+- **Hates**: Menu monotony, tiny tasting portions, snooty sommeliers
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| travelers | friends | Two buddies |
+| budget | mid-range | YouTube AdSense budget |
+| priority | dining | The whole content arc |
+| shipSize | mega | Maximum restaurant count |
+| atmosphere | casual | Athleisure + eating pants |
+| special | adventure | Food challenges = adventure |
+
+**Expected Results:**
+- **ideal**: Royal Caribbean, Norwegian, Carnival
+- **forbidden**: Cunard (fine-dining only, no variety), Seabourn (tiny ship = tiny menu count)
+
+**Critical Test:** mega + casual + dining + adventure should produce mainstream-mega winners; luxury small-ship brands must lose.
+
+---
+
+### Persona 69: "The Francophile Book Club" - Paris-bound Retirees
+- **Group**: 6 women, ages 62–71, literary-salon regulars
+- **Occasion**: Transatlantic to Southampton, then Seine river connector
+- **Priorities**: Library, author readings, wine pairings, daytime ports with bookshops
+- **Hates**: Casino noise, sports bars, water slides
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| travelers | friends | Book club, no spouses |
+| budget | premium | They've saved |
+| priority | destinations | Ports chosen for author tie-ins |
+| shipSize | mid | Oceania/Cunard class |
+| atmosphere | elegant | Gala dinners welcome |
+| special | enrichment | The raison d'être |
+
+**Expected Results:**
+- **ideal**: Oceania, Holland America, Cunard
+- **forbidden**: Carnival, Norwegian, Royal Caribbean (mainstream mega-ship energy)
+
+**Critical Test:** enrichment + elegant + mid should surface premium/luxury destination lines only.
+
+---
+
+### Persona 70: "The Crypto Bros" - DeFi Millionaires
+- **Group**: 4 men, ages 24–29, made their money in 2021
+- **Occasion**: Flex trip — first cruise, want full-send luxury
+- **Priorities**: Biggest ship possible, newest launches, rooftop DJs, designer restaurants
+- **Hates**: Old-people ships, library reading rooms, dress codes of any kind
+
+**Quiz Answers:**
+| Question | Answer | Reasoning |
+|----------|--------|-----------|
+| travelers | friends | Bro trip |
+| budget | luxury | Wallet says yes |
+| priority | activities | Entertainment > anything |
+| shipSize | mega | Bigger = better flex |
+| atmosphere | trendy | Instagram-first lifestyle |
+| special | adventure | Go-karts, zip-lines, DJs |
+
+**Expected Results:**
+- **ideal**: Royal Caribbean, Norwegian, MSC (luxury budget still scores mega/trendy/adventure)
+- **forbidden**: Cunard (elegant British), Holland America (mature destination), Oceania (foodie quiet)
+
+**Critical Test:** trendy + mega + adventure must pick mainstream flagships over traditional luxury lines even when budget=luxury.
+
+---
+
+### Section J Expected-Behavior Matrix
+
+| ID | Persona | Ideal Surface | Forbidden Winner | Unique Signal |
+|----|---------|--------------|------------------|---------------|
+| 61 | Neurodivergent | HAL / Princess / Celebrity | Carnival / Virgin | relaxation + mid + smart-casual |
+| 62 | Homeschool Pod | Princess / MSC / HAL | Virgin / Seabourn | enrichment + family-kids |
+| 63 | Plus-Size Proud | Carnival / RCL / NCL | Cunard / Seabourn | casual + large + no-formal |
+| 64 | Corporate Incentive | Virgin / Celebrity / Oceania | Carnival / MSC | adults-only + trendy + dining |
+| 65 | Sober Cruisers | HAL / Princess / Celebrity | Carnival / Virgin | enrichment + relaxation |
+| 66 | Veterans Reunion | Cunard / HAL / Princess | Carnival / Virgin | british + elegant |
+| 67 | Ash-Scattering | Oceania / HAL / Princess | Carnival / Virgin | mid + elegant + destinations |
+| 68 | Competitive Eaters | RCL / NCL / Carnival | Cunard / Seabourn | mega + casual + dining |
+| 69 | Francophile Club | Oceania / HAL / Cunard | Carnival / NCL / RCL | enrichment + elegant |
+| 70 | Crypto Bros | RCL / NCL / MSC | Cunard / HAL / Oceania | trendy + mega + adventure |
+
+Each row is auto-verified by `scripts/test-quiz-personas.js` — any regression in
+the `cruiseLines.scores` matrix inside `cruise-lines/quiz.html` will flip one of
+these assertions and fail the node run.
