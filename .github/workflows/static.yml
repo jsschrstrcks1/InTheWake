@@ -33,11 +33,36 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Build deploy artifact (excludes dev-only paths)
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.claude/' \
+            --exclude='admin/claude/' \
+            --exclude='admin/UNFINISHED_TASKS.md' \
+            --exclude='admin/IN_PROGRESS_TASKS.md' \
+            --exclude='admin/COMPLETED_TASKS.md' \
+            --exclude='admin/CAREFUL.md' \
+            --exclude='admin/CAREFUL_AUDIT_2026_03_27.md' \
+            --exclude='admin/README.md' \
+            --exclude='admin/PORT_DISRUPTION_FACTORS_REFERENCE.md' \
+            --exclude='data/' \
+            --exclude='eslint.config.js' \
+            --exclude='package.json' \
+            --exclude='package-lock.json' \
+            --exclude='lychee.toml' \
+            --exclude='node_modules/' \
+            --exclude='_site/' \
+            --exclude='*.tar.gz' \
+            ./ _site/
+          echo "--- Deploy artifact size ---"
+          du -sh _site/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: '_site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
