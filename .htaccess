@@ -88,6 +88,9 @@
   RewriteRule ^disability\.html$ /disability-at-sea.html [R=301,L]
   RewriteRule ^cruise-lines/rcl\.html$ /cruise-lines/royal-caribbean.html [R=301,L]
   RewriteRule ^solo/visitingtheunitedstates\.html$ /solo/visiting-the-united-states-before-your-cruise.html [R=301,L]
+
+  # Deprecated /solo/articles/ fragments → canonical /solo/ pages (directory removed 2026-04)
+  RewriteRule ^solo/articles/(.*)$ /solo/$1 [R=301,L]
   RewriteRule ^drinks\.html$ /drink-packages.html [R=301,L]
   RewriteRule ^packing\.html$ /packing-lists.html [R=301,L]
   RewriteRule ^contact\.html$ /about-us.html [R=301,L]
