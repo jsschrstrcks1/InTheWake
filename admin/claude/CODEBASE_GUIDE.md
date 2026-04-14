@@ -74,8 +74,10 @@ InTheWake/
 │   └── msc.html
 │
 ├── restaurants/                    # Dining venue pages (472 pages)
-│   ├── chefs-table.html
-│   ├── chops.html
+│   ├── chefs-table.html             # 280 RCL venues live at root (legacy, kept
+│   ├── chops.html                   # for SEO/link-equity preservation)
+│   ├── carnival/                    # All non-RCL cruise lines use subdirectories
+│   ├── ncl/                         # (carnival/, ncl/, msc/, virgin/, etc.)
 │   └── ...
 │
 ├── authors/                        # Author pages

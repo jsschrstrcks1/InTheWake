@@ -81,7 +81,11 @@ pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
 ├── ships/index.html          # Hub (NOT /ships.html)
 ├── ships/<line>/<slug>.html  # 295 ship pages
 ├── ports/                    # 387 port pages
-├── restaurants/              # Dining venue pages
+├── restaurants/              # Dining venue pages. CONVENTION: 280 RCL
+│                             # restaurants live at root (e.g. /restaurants/chops.html)
+│                             # for SEO — existing indexed URLs and link equity are
+│                             # preserved. All other cruise lines use subdirectories
+│                             # (e.g. /restaurants/carnival/, /restaurants/ncl/).
 ├── solo/                     # Solo travel articles (8 canonical pages at /solo/*.html)
 ├── tools/                    # Port tracker, ship tracker
 ├── assets/
