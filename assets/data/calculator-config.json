@@ -1,6 +1,6 @@
 {
-  "schemaVersion": "1.0",
-  "lastUpdated": "2026-04-13",
+  "schemaVersion": "1.1",
+  "lastUpdated": "2026-04-14",
   "defaultLine": "royal-caribbean",
   "lines": {
     "royal-caribbean": {
@@ -402,6 +402,315 @@
         ],
         "pricingDate": "Bottomless Bubbles price increase to $11.99/day effective April 2, 2026",
         "gratuityNote": "Carnival charges 20% service charge on all beverage packages"
+      }
+    },
+
+    "ncl": {
+      "id": "ncl",
+      "name": "Norwegian Cruise Line",
+      "shortName": "NCL",
+      "slug": "norwegian",
+      "pageUrl": "/cruise-lines/norwegian.html",
+      "color": "#00205b",
+
+      "packages": {
+        "soda": {
+          "name": "Unlimited Pop Package",
+          "shortName": "Pop",
+          "emoji": "🥤",
+          "priceMid": 12.50,
+          "priceMin": 12.50,
+          "priceMax": 12.50,
+          "priceNote": "$12.50/day adults & minors (+20% gratuity)",
+          "includes": "Unlimited Coca-Cola fountain sodas for the entire cruise",
+          "includesList": [
+            "Unlimited Coca-Cola fountain sodas",
+            "Souvenir cup"
+          ],
+          "breakEvenDrink": { "name": "sodas", "price": 3.50 }
+        },
+        "refreshment": {
+          "name": "Unlimited Starbucks Package",
+          "shortName": "Starbucks",
+          "emoji": "☕",
+          "priceMid": 16.50,
+          "priceMin": 16.50,
+          "priceMax": 16.50,
+          "priceNote": "$16.50/day (+20% gratuity) — specialty coffee only, not a full non-alcoholic package",
+          "includes": "Unlimited Starbucks drinks at onboard Starbucks plus specialty coffees at ship cafés",
+          "includesList": [
+            "Unlimited Starbucks drinks at onboard Starbucks",
+            "Specialty coffees at non-Starbucks cafés",
+            "Does NOT include soda, juice, mocktails, or water — those are à la carte"
+          ],
+          "breakEvenDrink": { "name": "specialty coffees", "price": 4.50 },
+          "note": "NCL does not offer a non-alcoholic 'Refreshment' tier equivalent to Royal Caribbean's. Travelers who don't drink alcohol typically buy Unlimited Pop + pay à la carte for coffee, OR buy Open Bar."
+        },
+        "deluxe": {
+          "name": "Unlimited Open Bar (Premium Beverage Package)",
+          "shortName": "Open Bar",
+          "emoji": "🍸",
+          "priceMid": 109.00,
+          "priceMin": 99.00,
+          "priceMax": 109.00,
+          "priceNote": "$99–$109/day standalone (+20% gratuity). Often bundled free via Free-at-Sea promo — see note below.",
+          "includes": "Cocktails, wine, beer, spirits, soda, juice, mocktails, specialty coffee up to $15/drink",
+          "includesList": [
+            "Cocktails, wine, beer, spirits up to $15 each",
+            "Pay difference for drinks above $15 cap",
+            "Specialty coffee (excluding onboard Starbucks)",
+            "Soda, juice, mocktails, energy drinks",
+            "No bottled water (bottled water is à la carte on Premium — Premium Plus includes it)"
+          ],
+          "breakEvenDrink": { "name": "cocktails", "price": 14.00 }
+        },
+        "deluxePlus": {
+          "name": "Premium Plus Beverage Package",
+          "shortName": "Premium Plus",
+          "emoji": "🥂",
+          "priceMid": 138.00,
+          "priceMin": 138.00,
+          "priceMax": 138.00,
+          "priceNote": "$138/day standalone (+20% gratuity). No per-drink cap. Upgrade from Premium costs ~$29/day.",
+          "includes": "Everything in Premium Beverage Package plus no per-drink cap, bottled wine by the glass, premium bottled water, top-shelf spirits",
+          "includesList": [
+            "All Premium Beverage Package items",
+            "No per-drink price cap (vs. $15 on Premium)",
+            "Select bottles of wine (by the glass)",
+            "Premium bottled water (Voss, Evian, etc.)",
+            "Top-shelf spirits, rare spirits",
+            "Excludes ultra-premium bottles (e.g., Louis XIII)"
+          ],
+          "breakEvenDrink": { "name": "premium cocktails", "price": 18.00 },
+          "note": "Calculator models Premium Plus as metadata only for now. The math engine compares Soda / Refresh / Deluxe / à la carte; Premium Plus ranking is UI-side."
+        }
+      },
+
+      "coffeeCard": {
+        "enabled": false,
+        "name": "Coffee Card",
+        "price": 0,
+        "punches": 0,
+        "note": "NCL does not offer an à-la-carte punchcard coffee card. The closest equivalent is the $16.50/day Unlimited Starbucks Package."
+      },
+
+      "rules": {
+        "gratuity": 0.20,
+        "deluxeCap": 15.00,
+        "deluxePlusCap": null,
+        "allAdultsSamePackage": true,
+        "allAdultsScope": "cabin-and-same-payment-method",
+        "allAdultsPolicyNote": "If one adult in a cabin buys Premium (Open Bar), ALL adults in that cabin — and additional staterooms under the same method of payment — must purchase it. Stricter than RCL's per-cabin rule.",
+        "minorsForceRefreshment": false,
+        "minorsForceSoda": true,
+        "minorsForceSodaNote": "When adults in the cabin buy the Unlimited Open Bar, all minors (under 21) must purchase the Unlimited Pop Package. Math engine currently does NOT enforce this (planned Phase 2) — the UI warns via the 'minors-forced-soda' policy below.",
+        "adultAge": 21,
+        "alcoholAge": 21,
+        "usPortAlcoholRestriction": true,
+        "deluxeDailyLimit": null,
+        "deluxeTransactionLimit": 2
+      },
+
+      "loyalty": {
+        "enabled": false,
+        "programName": "Latitudes Rewards",
+        "voucherValue": 0,
+        "voucherNote": "Latitudes Rewards has NO daily drink vouchers comparable to Royal Caribbean's Crown & Anchor. Silver+ tier members receive a 40% discount on pre-purchase of the Unlimited Open Bar Package, applied once at booking — not per day.",
+        "tiers": [],
+        "tierDiscounts": [
+          { "tier": "Bronze", "nightsMin": 1,   "nightsMax": 29,  "pctOffUOB": 0.00 },
+          { "tier": "Silver", "nightsMin": 30,  "nightsMax": 54,  "pctOffUOB": 0.40 },
+          { "tier": "Gold",   "nightsMin": 55,  "nightsMax": 74,  "pctOffUOB": 0.40 },
+          { "tier": "Platinum","nightsMin": 75,  "nightsMax": 149, "pctOffUOB": 0.40 },
+          { "tier": "Sapphire","nightsMin": 150, "nightsMax": 349, "pctOffUOB": 0.40 },
+          { "tier": "Diamond","nightsMin": 350, "nightsMax": 699, "pctOffUOB": 0.40 },
+          { "tier": "Ambassador","nightsMin": 700,"nightsMax": 99999,"pctOffUOB": 0.40 }
+        ]
+      },
+
+      "freeAtSea": {
+        "available": true,
+        "packageCovered": "deluxe",
+        "serviceChargeModel": "flat",
+        "serviceChargePerDay": 28.50,
+        "serviceChargeNote": "Free-at-Sea charges a FLAT $28.50/person/day service charge (26.1% effective rate on the $109 retail) — NOT the 20% gratuity that applies to standalone purchases. For a 7-night cruise for 2 adults that is $399 in gratuity alone on a 'free' package.",
+        "firstTwoGuestsOnly": true,
+        "guests3to8Note": "Guests 3-8 in the cabin do NOT receive Free-at-Sea drink perks. Minor guests 1-2 get the Soda Package substitution at $12.50/day; minors 3-8 pay separately."
+      },
+
+      "freeAtSeaPlus": {
+        "available": true,
+        "startDate": "2026-02-02",
+        "packageCovered": "deluxePlus",
+        "pricePerDay": 49.99,
+        "prepaidGratuityDiscount": 15.00,
+        "includes": [
+          "Premium Plus Beverage Package",
+          "All Free-at-Sea service charges included",
+          "2 nights specialty dining (varies by sail length)",
+          "300 minutes Wi-Fi (up from 150)",
+          "Open bar service on Great Stirrup Cay (private island)"
+        ],
+        "note": "Launched for sailings departing Feb 2, 2026 and later. Replaces the retired 'More at Sea' program."
+      },
+
+      "drinks": [
+        { "id": "soda",         "name": "Soda",             "label": "Soda (can/fountain)",     "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🥤" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Specialty Coffee",        "price": 4.50,  "rangeMin": 3.95, "rangeMax": 6.50,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 4.50,  "rangeMin": 3.95, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh-Squeezed Juice",    "price": 6.50,  "rangeMin": 4.50, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🧃" },
+        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",     "price": 8.00,  "rangeMin": 7.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
+        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
+        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 6.50,  "rangeMin": 5.00, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🥛" },
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.00,  "rangeMin": 2.50, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "💧" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer (draft/bottle)",     "price": 8.25,  "rangeMin": 7.00, "rangeMax": 10.00, "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 13.00, "rangeMin": 10.00,"rangeMax": 16.00, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Signature Cocktail",      "price": 14.00, "rangeMin": 11.00,"rangeMax": 16.00, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 10.00, "rangeMin": 8.00, "rangeMax": 14.00, "category": "alcoholic",     "icon": "🥃" }
+      ],
+
+      "sets": {
+        "soda": ["soda"],
+        "refresh": ["coffee", "teaprem"],
+        "deluxe": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
+        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+      },
+
+      "policies": [
+        {
+          "id": "free-at-sea-is-not-free",
+          "severity": "critical",
+          "icon": "🚨",
+          "title": "'Free at Sea' Is Not Free",
+          "text": "Free-at-Sea bundles the Premium Beverage Package into the fare but charges a FLAT $28.50/person/day service charge — higher than the 20% you'd pay on standalone. A 7-night cruise for 2 adults costs $399 in gratuity alone. Budget accordingly."
+        },
+        {
+          "id": "great-stirrup-cay-2026",
+          "severity": "critical",
+          "icon": "🏝️",
+          "effectiveDate": "2026-03-01",
+          "title": "Great Stirrup Cay Exclusion (Effective March 1, 2026)",
+          "text": "Beverage packages no longer cover drinks on Great Stirrup Cay (NCL's private Bahamian island). To get open bar on the island, upgrade to Free-at-Sea Plus ($49.99/day). This is a brand-new policy — most itineraries include a GSC stop, so factor one unpowered package day into the math."
+        },
+        {
+          "id": "all-adults-same",
+          "severity": "critical",
+          "icon": "🚨",
+          "title": "All Adults Must Have the Same Package",
+          "text": "If one adult in a cabin buys Premium (Open Bar), ALL adults in that cabin — and in additional staterooms booked under the same method of payment — must purchase it. Stricter than Royal Caribbean's per-cabin rule."
+        },
+        {
+          "id": "minors-forced-soda",
+          "severity": "warning",
+          "icon": "⚠️",
+          "title": "Minors Must Buy the Soda Package",
+          "text": "When adults buy the Open Bar package, all minors (under 21) in the cabin must purchase the Unlimited Pop Package at $12.50/day. Guests 1-2 under 21 get this as a Free-at-Sea substitution; guests 3-8 pay separately."
+        },
+        {
+          "id": "first-two-guests-only",
+          "severity": "warning",
+          "icon": "⚠️",
+          "title": "Free-at-Sea Applies to First Two Guests Only",
+          "text": "The Free-at-Sea drink perk is applied to the first two guests on the reservation. Guests 3-8 do not automatically get the beverage package — they pay for their own drinks or packages separately."
+        },
+        {
+          "id": "premium-plus-no-cap",
+          "severity": "info",
+          "icon": "💡",
+          "title": "Premium Plus Removed the $15 Cap",
+          "text": "NCL's Premium Plus Beverage Package ($138/day standalone) has no per-drink price cap — covers essentially all drinks by the glass. If you typically order cocktails above $15, Premium Plus may pay for itself."
+        },
+        {
+          "id": "starbucks-not-included",
+          "severity": "warning",
+          "icon": "⚠️",
+          "title": "Onboard Starbucks Is a Separate Package",
+          "text": "Specialty coffee at NCL-operated cafés is included in Premium. Drinks at onboard Starbucks locations are NOT. To get Starbucks included, buy the Unlimited Starbucks Package ($16.50/day) or upgrade to Premium Plus."
+        },
+        {
+          "id": "pride-of-america-hawaii",
+          "severity": "info",
+          "icon": "🌺",
+          "title": "Pride of America — Hawaii Beverage Package",
+          "text": "Pride of America (the US-flagged Hawaii ship) sells a distinct 'Hawaii Beverage Package' with the same $109/day and $15 cap structure. NCL reserves the right to restrict alcohol service in Hawaiian ports under state liquor law."
+        },
+        {
+          "id": "no-daily-vouchers",
+          "severity": "info",
+          "icon": "ℹ️",
+          "title": "No Daily Drink Vouchers",
+          "text": "Latitudes Rewards does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor. Silver tier and above receive a 40% discount on the Unlimited Open Bar Package — applied once at booking, not per day."
+        }
+      ],
+
+      "faq": [
+        {
+          "question": "Is the NCL Free-at-Sea drink package really free?",
+          "answer": "No. While the package itself is $0, NCL charges a flat $28.50 per person per day service charge. For a 7-night cruise with 2 adults, that's $399 in 'gratuities' on a $0 package — equivalent to ~$21/person/day. Factor this into your decision, especially compared to the standalone $109/day + 20% = $130.80/day price."
+        },
+        {
+          "question": "What's the break-even point on the NCL Premium Beverage Package?",
+          "answer": "Standalone at $130.80/day (with gratuity), you break even at roughly 9 cocktails/day, 16 beers, or a mixed 10-drink day. Under Free-at-Sea with the $28.50/day flat charge, break-even drops to ~2 cocktails/day — much easier to justify if you drink at all."
+        },
+        {
+          "question": "What's the difference between Premium and Premium Plus?",
+          "answer": "Premium ($109/day) caps drinks at $15/serving — pay the difference on anything above. Premium Plus ($138/day) has no per-drink cap, includes select bottled wine by the glass, premium bottled water, and top-shelf spirits. Premium Plus is worth it if your usual cocktail costs more than $15."
+        },
+        {
+          "question": "Do I have to buy a drink package for everyone in my cabin?",
+          "answer": "Yes. If one adult in your cabin buys the Open Bar, ALL adults must buy it — and if you booked additional staterooms under the same payment method, those adults must too. Minors under 21 must buy the Unlimited Pop Package."
+        },
+        {
+          "question": "Does the package work at Great Stirrup Cay?",
+          "answer": "Not anymore. Effective March 1, 2026, the standard Free-at-Sea beverage package no longer covers drinks on Great Stirrup Cay (NCL's private island in the Bahamas). To get open bar on the island, upgrade to Free-at-Sea Plus at $49.99/day. Most Caribbean itineraries stop at GSC for one day — factor that into your math."
+        },
+        {
+          "question": "Does Latitudes Rewards give me free drinks?",
+          "answer": "No daily vouchers like Royal Caribbean's Crown & Anchor. Silver tier (30+ nights) and above get 40% off pre-purchase of the Unlimited Open Bar Package — a one-time discount applied at booking, not per day."
+        },
+        {
+          "question": "What about the Unlimited Starbucks Package?",
+          "answer": "$16.50/day covers unlimited Starbucks drinks at onboard Starbucks locations plus specialty coffees at ship cafés. It's the closest NCL equivalent to a non-alcoholic 'refreshment tier' but narrower — it does NOT include soda, juice, mocktails, or water. Most travelers who don't drink alcohol buy the Unlimited Pop Package ($12.50/day) and pay for coffee à la carte."
+        },
+        {
+          "question": "Should I buy the drink package pre-cruise or onboard?",
+          "answer": "Pre-cruise, always — you save about 10% and the NCL website often runs additional promotions. Package prices can go up after embarkation. If you have Free-at-Sea bundled, you don't need to decide — the service charge is the same whether you pre-book or not."
+        }
+      ],
+
+      "quickAnswer": "On Free-at-Sea, break-even on the Open Bar is ~2 cocktails/day because you're only paying the $28.50/day gratuity. Standalone ($109/day + 20%), break-even jumps to ~9 drinks. Premium Plus at $138/day is worth it only if your usual cocktail costs more than $15. Use the calculator below to find your personal break-even.",
+
+      "meta": {
+        "title": "NCL Drink Package Calculator 2026 | Free-at-Sea Worth It?",
+        "description": "Compare Premium, Premium Plus, Starbucks, and Pop Package with real 2026 Free-at-Sea service charges. Free NCL drink calculator that shows what 'free' actually costs.",
+        "ogTitle": "NCL Drink Package Calculator 2026 — Is Free-at-Sea Worth It?"
+      },
+
+      "_sources": {
+        "note": "Prices and policies verified 2026-04-14 via Grok verification pass",
+        "references": [
+          "ncl.com/terms/premium-plus-beverage-package",
+          "ncl.com/cruise-deals/free-at-sea",
+          "ncl.com/faq/what-is-included-in-free-at-sea-plus-and-how-much-does-it-cost-",
+          "ncl.com/ca/en/onboard-packages/beverage-packages",
+          "ncl.com/terms/hawaii-beverage-package",
+          "ncl.com/latitudes-rewards",
+          "norwegiancruiselineblog.com/blog/free-at-sea-guide",
+          "eatsleepcruise.com/norwegian-drink-packages-complete-guide/",
+          "cruisegear.com/ncl-drink-packages-drink-prices/",
+          "cruisingsite.com/what-is-the-norwegian-drink-package-and-is-it-worth-it-in-2026/",
+          "tastyitinerary.com/ncl-free-at-sea/",
+          "freestyletravelers.com/blog/ncl-free-at-sea-guide",
+          "freestyletravelers.com/blog/ncl-latitudes-rewards-guide",
+          "profcruise.com/ncls-hawaii-beverage-package-a-complete-guide/"
+        ],
+        "pricingDate": "Premium: $109/day (2026). Premium Plus: $138/day (2026). Unlimited Pop: $12.50/day (2026). Starbucks: $16.50/day (2026).",
+        "policyChanges2026": [
+          "Great Stirrup Cay package exclusion effective March 1, 2026",
+          "Free-at-Sea Plus launched February 2, 2026 (replacing 'More at Sea')",
+          "Premium Plus per-drink cap removed (previously $20)"
+        ],
+        "gratuityNote": "Standalone: 20%. Free-at-Sea: flat $28.50/person/day (26.1% effective)."
       }
     }
   }
