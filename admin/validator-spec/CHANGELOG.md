@@ -6,6 +6,30 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.5.0] — 2026-04-15 — Conflict resolutions (user sign-off on 4 V-S-conflicts)
+
+### Changed
+All four V-S-conflict rules transitioned from `decision: UNRESOLVED` to `decision: FINAL` per user sign-off. Each rule now carries a `## USER DECISION (2026-04-15)` section naming the resolution + implementation follow-up required.
+
+### Resolutions (user accepted author's recommendation on all four)
+- **ICP-002** (ai-summary dual-cap 250/155): promote validator to full dual-cap — standards win. Implementation follow-up: add standalone-sentence check to port validator lines 670-685. Roll out at `warn` first, then `error`.
+- **ICP-011** (ai-breadcrumbs forbidden vs required): keep ai-breadcrumbs — standards win. User's original thinking ("crawlers aren't reading them") was correct but incomplete; developers + LLMs reading raw HTML do see the comments and use them. Implementation follow-up: delete lines 753-760 of port validator.
+- **ICP-014** (description ~ ai-summary relationship): exact match wins — revert port validator's 30%-overlap relaxation. Ship validator + standards already require exact match. Implementation follow-up: revert port validator lines 847-872 to string-equality.
+- **IMG-004** (non-hero loading="lazy" severity): promote ship validator WARNING to BLOCKING to match port. Implementation follow-up: change ship validator line 1514 severity.
+
+### Outstanding (tracked in rule files)
+All four resolutions require validator code changes. Those changes are **tracked in the rule files** as "Implementation follow-up" notes but are **not part of the spec work itself** (per plan: "NOT refactoring any validator code"). They will happen as a separate project after Phase 2 is complete.
+
+Rule provenance stays `V-S-conflict` until the validator is updated to match the decision; then a future update can transition each rule to `V+S-agree` and `CONFLICTS.md` will show zero history-preserving "Resolved" entries once the code catches up.
+
+### Reports
+- `CONFLICTS.md`: 0 unresolved, 4 resolved (previously 4 unresolved, 0 resolved).
+- No changes to rule count, orphans, or backfill queue.
+
+Spec version 0.4.0 → 0.5.0. find-orphans.cjs exits 0.
+
+---
+
 ## [0.4.0] — 2026-04-15 — Phase 2 batch 3: IMG family extraction + PERF-001 cleanup
 
 ### Added

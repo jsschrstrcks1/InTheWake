@@ -7,7 +7,7 @@ Every rule with `provenance: V-S-conflict` appears here with its side-by-side co
 ---
 
 <!-- CONFLICTS-START -->
-## 🔴 Unresolved (4) — awaiting user sign-off
+## ✓ Resolved (4) — user signed off
 
 | ID | Name | Severity | Rule file |
 |---|---|---|---|
