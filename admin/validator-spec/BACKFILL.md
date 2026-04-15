@@ -7,7 +7,7 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 ---
 
 <!-- BACKFILL-START -->
-**Total:** 20 rule(s) awaiting standards backfill during Phase 6.
+**Total:** 29 rule(s) awaiting standards backfill during Phase 6.
 
 ### A11Y (3)
 
@@ -37,6 +37,16 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 | [`IMG-010`](rules/IMG-010.md) | Hero section must contain port name overlay (h1 or .port-hero-overlay) | error | V-only |
 | [`IMG-015`](rules/IMG-015.md) | Cross-port image duplication forbidden (with approved exceptions) | error | V-only |
 
+### PORT (5)
+
+| ID | Name | Severity | Provenance |
+|---|---|---|---|
+| [`PORT-003`](rules/PORT-003.md) | Cruise port section minimum 100 words | error | V-only |
+| [`PORT-004`](rules/PORT-004.md) | Getting Around section minimum 200 words | error | V-only |
+| [`PORT-005`](rules/PORT-005.md) | Excursions section minimum 400 words | error | V-only |
+| [`PORT-006`](rules/PORT-006.md) | Depth Soundings section minimum 150 words | error | V-only |
+| [`PORT-007`](rules/PORT-007.md) | FAQ section minimum 200 words | error | V-only |
+
 ### SCHEMA (5)
 
 | ID | Name | Severity | Provenance |
@@ -47,11 +57,15 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 | [`SCHEMA-009`](rules/SCHEMA-009.md) | Person JSON-LD schema required on ship pages (for Review.author) | error | V-only |
 | [`SCHEMA-012`](rules/SCHEMA-012.md) | Review ratingValue is warned as unverified until a real editorial rating exists | warn | V-only |
 
-### STRUCT (1)
+### STRUCT (5)
 
 | ID | Name | Severity | Provenance |
 |---|---|---|---|
 | [`STRUCT-001`](rules/STRUCT-001.md) | Ship page sections appear in a canonical order (either legacy or emotional-hook) | warn | V-only |
+| [`STRUCT-002`](rules/STRUCT-002.md) | Port page sections appear in the EXPECTED_MAIN_ORDER sequence | warn | V-only |
+| [`STRUCT-003`](rules/STRUCT-003.md) | Port page must contain all 8 REQUIRED sections | error | V-only |
+| [`STRUCT-004`](rules/STRUCT-004.md) | Collapsible sections must use the details/summary pattern | warn | V-only |
+| [`STRUCT-005`](rules/STRUCT-005.md) | Port page total word count between 2000 and 6000 | error | V-only |
 
 ### VOI (1)
 

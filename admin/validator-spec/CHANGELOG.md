@@ -6,6 +6,51 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.7.0] — 2026-04-15 — Phase 2 batch 5: STRUCT + PORT section/word-count rules
+
+### Added
+10 new rules extracted from `admin/validate-port-page-v2.js`:
+- Section-order / presence constants at lines 260-278 (EXPECTED_MAIN_ORDER,
+  REQUIRED_SECTIONS, COLLAPSIBLE_REQUIRED)
+- Per-section word-count minimums at lines 1057-1147 (validateWordCounts)
+
+### Rules added (STRUCT)
+- **STRUCT-002** (warn, V-only): port page sections match EXPECTED_MAIN_ORDER sequence
+- **STRUCT-003** (error, V-only): all 8 REQUIRED_SECTIONS present
+  (hero, logbook, cruise_port, getting_around, excursions, depth_soundings, faq, gallery)
+- **STRUCT-004** (warn, V-only): 15 COLLAPSIBLE_REQUIRED sections use details/summary pattern
+- **STRUCT-005** (error, V-only): total page word count between 2000 and 6000
+
+### Rules added (PORT)
+- **PORT-002** (error, V+S-agree): logbook 800-2500 words. Note: LOGBOOK_ENTRY_STANDARDS_v2.300.md
+  says "600-1,200 words target" while validator enforces 800-2500. Documented as future cleanup,
+  not flagged as V-S-conflict (validator is ground truth; standards doc hasn't caught up).
+- **PORT-003** (error, V-only): cruise_port section >=100 words
+- **PORT-004** (error, V-only): getting_around >=200 words
+- **PORT-005** (error, V-only): excursions >=400 words
+- **PORT-006** (error, V-only): depth_soundings >=150 words
+- **PORT-007** (error, V-only): faq >=200 words
+
+### Drift findings
+- **LOGBOOK_ENTRY_STANDARDS_v2.300.md "600-1,200 words" vs validator "800-2500"**:
+  a docs-vs-code discrepancy that could become a V-S-conflict if the user wants the doc
+  to win; for now documenting as-is since the doc number feels informally-set and the
+  validator number is what's been enforced on hundreds of pages.
+- The per-section word-count minimums are entirely validator-policy; standards describe
+  section purpose but don't specify word counts. Backfill queue grows.
+
+### Spot-checks
+- PORT-002 line 1060 (logbookWords < 800): confirmed
+- PORT-005 line 1100 (excursionsWords < 400): confirmed
+- STRUCT-003 line 268-271 (REQUIRED_SECTIONS array): confirmed
+
+Totals: 70 → 80 rules. STRUCT 1 → 5. PORT 1 → 7. Backfill 20 → 29.
+Orphans 2 (unchanged). Conflicts 1 unresolved (A11Y-001), 4 resolved.
+
+Spec version 0.6.0 → 0.7.0. find-orphans.cjs exits 0.
+
+---
+
 ## [0.6.0] — 2026-04-15 — Phase 2 batch 4: A11Y family extraction
 
 ### Added
