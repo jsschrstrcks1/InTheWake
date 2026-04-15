@@ -6,6 +6,64 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.4.0] — 2026-04-15 — Phase 2 batch 3: IMG family extraction + PERF-001 cleanup
+
+### Added
+- 14 new IMG-family rules (IMG-002 through IMG-015), extracted from:
+  - `admin/validate-port-page-v2.js` lines 910-980 (hero validation block)
+  - `admin/validate-port-page-v2.js` lines 1170-1288 (validateImages main block)
+  - `admin/validate-port-page-v2.js` lines 1293-1400 (validatePortImages — directory/placeholder/cross-port checks)
+
+### Changed
+- **PERF-001** updated from `implementation: none` (S-only, orphan) to `V+S-agree` with
+  real citation (validate-port-page-v2.js lines 1193-1201, `hero_image_loading` check).
+  Orphan count 3 → 2. The Phase 1 scaffold documented this rule as unenforced because
+  I hadn't yet read the image-validation block; Phase 2 extraction discovered it IS
+  enforced. Self-correction noted in the rule file.
+
+### Rules added
+- **IMG-002** (error, V+S-agree): figures must have figcaption with credit link
+- **IMG-003** (warn, V-only): alt text recommended length ≥20 chars
+- **IMG-004** (error, V-S-CONFLICT, UNRESOLVED): non-hero loading="lazy" — port validator
+  BLOCKING, ship validator WARNING. Severity disagreement across validators.
+- **IMG-005** (error, V-only): minimum 11 images per port page
+- **IMG-006** (warn, V-only): maximum 25 images per port page
+- **IMG-007** (error, V+S-agree): hero image must be WebP format
+- **IMG-008** (error, V+S-agree): hero section inside main
+- **IMG-009** (error, V+S-agree): hero section contains img element
+- **IMG-010** (error, V-only): hero contains name overlay (h1 or .port-hero-overlay)
+- **IMG-011** (error, V+S-agree): page has .port-hero section
+- **IMG-012** (error, V+S-agree): port has own image directory
+- **IMG-013** (error, V+S-agree): port image directory not empty
+- **IMG-014** (error, V+S-agree): placeholder-hash detection — prevents college-fjord
+  class of escape. MD5-match against PLACEHOLDER_HASHES set. Grows over time.
+- **IMG-015** (error, V-only): cross-port image duplication forbidden (with allowedDuplicates
+  exception file)
+
+### New V-S-conflict
+- **IMG-004** (loading="lazy" severity) — port validator hard-errors; ship validator
+  warns. Recommendation in rule file: promote ship to hard-error for consistency +
+  real LCP impact. Counter-argument acknowledged.
+
+### Drift findings
+- Port and ship validators disagree on `missing_lazy` severity (BLOCKING vs WARNING).
+  Exactly the validator drift the spec exists to surface. See IMG-004.
+- Ship validator has its own hero-image requirements (line 1433: "Dining hero must use
+  shared Cordelia_Empress_Food_Court.webp") that are ship-specific and deserve their
+  own SHIP-family rule next batch. Flagged for follow-up.
+- PERF-001 was orphan for one batch (Phase 1) — reminder that orphans should be
+  re-examined each batch as new code is read. The orphan list IS working as intended.
+
+### Spot-checks
+- IMG-007 line 940 ("Hero image must be in webp format"): confirmed
+- IMG-014 line 1355 (`PLACEHOLDER_HASHES.has(hash)`): confirmed
+- IMG-005 line 1179 ("minimum is 11"): confirmed
+
+Totals: 43 → 57 rules. IMG 1 → 15. Backfill 12 → 18. Orphans 3 → 2. Conflicts 3 → 4.
+Spec version 0.3.0 → 0.4.0. find-orphans.cjs exits 0.
+
+---
+
 ## [0.3.0] — 2026-04-15 — Phase 2 batch 2: SCHEMA family extraction
 
 ### Added

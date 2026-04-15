@@ -15,7 +15,6 @@ Rules with `implementation: none` appear here. These are rules the spec declares
 | ID | Name | File |
 |---|---|---|
 | `NAV-001` | Primary navigation includes the twelve canonical links in order | [rules/NAV-001.md](rules/NAV-001.md) |
-| `PERF-001` | Hero image declares fetchpriority="high" and loads eagerly | [rules/PERF-001.md](rules/PERF-001.md) |
 | `PWA-001` | Service worker cache version bumped on every release | [rules/PWA-001.md](rules/PWA-001.md) |
 
 <!-- ORPHANS-END -->

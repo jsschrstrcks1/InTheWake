@@ -7,7 +7,7 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 ---
 
 <!-- BACKFILL-START -->
-**Total:** 12 rule(s) awaiting standards backfill during Phase 6.
+**Total:** 17 rule(s) awaiting standards backfill during Phase 6.
 
 ### ICP (5)
 
@@ -18,6 +18,16 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 | [`ICP-010`](rules/ICP-010.md) | geo meta tags forbidden (irrelevant) | warn | V-only |
 | [`ICP-012`](rules/ICP-012.md) | Duplicate ai-summary meta tags forbidden | error | V-only |
 | [`ICP-015`](rules/ICP-015.md) | Answer-first first paragraph (minimum length) | info | V-only |
+
+### IMG (5)
+
+| ID | Name | Severity | Provenance |
+|---|---|---|---|
+| [`IMG-003`](rules/IMG-003.md) | Alt text should be at least 20 characters | warn | V-only |
+| [`IMG-005`](rules/IMG-005.md) | Port pages must have at least 11 images | error | V-only |
+| [`IMG-006`](rules/IMG-006.md) | Port pages should have at most 25 images (warning) | warn | V-only |
+| [`IMG-010`](rules/IMG-010.md) | Hero section must contain port name overlay (h1 or .port-hero-overlay) | error | V-only |
+| [`IMG-015`](rules/IMG-015.md) | Cross-port image duplication forbidden (with approved exceptions) | error | V-only |
 
 ### SCHEMA (5)
 
