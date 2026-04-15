@@ -4,21 +4,43 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
+
+STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.400 · A11y/WCAG 2.1 AA Compliant
 -->
 <html lang="en" class="no-js">
 <head>
-<script>document.documentElement.classList.remove('no-js');</script>
+  <!-- ======================================================
+       In the Wake — Scarlet Lady • Virgin Voyages
+       Version: 3.010.400  |  Soli Deo Gloria ✝️
+       ====================================================== -->
+
+  <!-- Core -->
   <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove('no-js');</script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Scarlet Lady — Virgin Voyages Ship Guide | In the Wake</title>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.400"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+
+  <title>Scarlet Lady — Deck Plans, Live Tracker, Dining &amp; Videos | In the Wake</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/virgin-voyages/scarlet-lady.html"/>
   <meta name="description" content="Scarlet Lady is Virgin Voyages' 2020 flagship and lead ship of the four-ship Lady Class: 110,000 GT, 2,770 guests double occupancy, 1,160 crew, adults-only (18+), all-dining-included, currently sailing Caribbean round-trips from PortMiami. IMO 9804801."/>
-  <meta property="og:type" content="article"/>
+  <meta property="og:type" content="website"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="Scarlet Lady — Virgin Voyages Ship Guide"/>
+  <meta property="og:title" content="Scarlet Lady — Deck Plans, Live Tracker, Dining &amp; Videos"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Scarlet Lady — Virgin Voyages Ship Guide"/>
+  <meta name="twitter:title" content="Scarlet Lady — Deck Plans, Live Tracker, Dining &amp; Videos"/>
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
   <meta property="og:description" content="Scarlet Lady — Virgin Voyages' 2020 lead ship. 110,000 GT, 2,770 adult guests, IMO 9804801. Adults-only 18+, all dining included, Caribbean from PortMiami."/>
   <meta property="og:url" content="https://cruisinginthewake.com/ships/virgin-voyages/scarlet-lady.html"/>
@@ -27,8 +49,16 @@ All work on this project is offered as a gift to God.
   <meta name="ai-summary" content="Scarlet Lady — Virgin Voyages' lead ship of the Lady Class, delivered 14 Feb 2020. 110,000 GT, 2,770 guests double / 2,860 max, 1,160 crew, IMO 9804801, Fincantieri yard 6287. Adults-only 18+, Caribbean from PortMiami.">
   <meta name="last-reviewed" content="2026-04-11">
   <meta name="content-protocol" content="ICP-2">
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
+
+  <!-- LCP Optimization: Preload critical hero image -->
+  <link rel="preload" as="image" href="/assets/social/ships-hero.jpg" fetchpriority="high"/>
 
   <!-- JSON-LD: CruiseShip -->
   <script type="application/ld+json">
@@ -238,68 +268,122 @@ All work on this project is offered as a gift to God.
   <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </head>
 <body class="page">
-<a href="#content" class="skip-link">Skip to main content</a>
-  <div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
-  <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="a11y-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div id="a11y-alerts" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
+  <!-- HEADER -->
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" alt="In the Wake cruise travel guide and ship reviews logo" width="256" height="259"/></a>
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel site wordmark" decoding="async" loading="eager"/>
       </div>
-      <nav class="site-nav" aria-label="Main navigation">
-  <a class="nav-pill" href="/">Home</a>
+      <!-- Mobile hamburger button -->
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
 
-  <div class="nav-dropdown" id="nav-planning">
-    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-      Planning <span class="caret">▾</span>
-    </button>
-    <div class="dropdown-menu" role="menu">
-      <a href="/planning.html">Planning Overview</a>
-      <a href="/ships.html">Ships</a>
-      <a href="/ships/quiz.html">Ship Quiz</a>
-      <a href="/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="/ports.html">Ports</a>
-      <a href="/internet-at-sea.html">Internet at Sea</a>
-      <a href="/drink-packages.html">Drink Packages</a>
-      <a href="/drink-calculator.html">Drink Calculator</a>
-      <a href="/stateroom-check.html">Stateroom Check</a>
-      <a href="/cruise-lines.html">Cruise Lines</a>
-      <a href="/packing-lists.html">Packing Lists</a>
-      <a href="/accessibility.html">Accessibility</a>
+        <!-- Planning Dropdown -->
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning</a>
+            <a href="/first-cruise.html">Your First Cruise</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <!-- Tools Dropdown -->
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
+          </div>
+        </div>
+
+        <!-- Onboard Dropdown -->
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <!-- Travel Dropdown -->
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
     </div>
-  </div>
 
-  <div class="nav-dropdown" id="nav-travel">
-    <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
-      Travel <span class="caret">▾</span>
-    </button>
-    <div class="dropdown-menu" role="menu">
-      <a href="/travel.html">Travel Overview</a>
-      <a href="/solo.html">Solo Cruising</a>
-    </div>
-  </div>
-
-  <a class="nav-pill" href="/tools/port-tracker.html">Port Logbook</a>
-  <a class="nav-pill" href="/tools/ship-tracker.html">Ship Logbook</a>
-  <a class="nav-pill" href="/search.html">Search</a>
-  <a class="nav-pill" href="/about-us.html">About</a>
-</nav>
-    </div>
-
-      <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
+    <div class="hero" role="img" aria-label="Scarlet Lady hero image">
+      <div class="latlon-grid" aria-hidden="true">
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none">
+          <g class="grid-lines" stroke-width="0.35">
+            <line x1="10" y1="0" x2="10" y2="60"/><line x1="20" y1="0" x2="20" y2="60"/>
+            <line x1="30" y1="0" x2="30" y2="60"/><line x1="40" y1="0" x2="40" y2="60"/>
+            <line x1="50" y1="0" x2="50" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/>
+            <line x1="70" y1="0" x2="70" y2="60"/><line x1="80" y1="0" x2="80" y2="60"/>
+            <line x1="90" y1="0" x2="90" y2="60"/>
+            <line x1="0" y1="10" x2="100" y2="10"/><line x1="0" y1="20" x2="100" y2="20"/>
+            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="40" x2="100" y2="40"/>
+          </g>
+        </svg>
+      </div>
+      <img class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" loading="eager"/>
       <div class="hero-title">
-        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel site logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
-      <div class="tagline">A Cruise Traveler's Logbook</div>
-      </header>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        <a class="pill" href="https://www.instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+      </div>
+    </div>
+  </header>
 
-  <main class="wrap page-grid" id="content" role="main">
-    <nav class="breadcrumb">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
       <a href="/ships/virgin-voyages/">Virgin Voyages</a> &rsaquo;
-      <span>Scarlet Lady</span>
+      <span aria-current="page">Scarlet Lady</span>
     </nav>
 
     <section class="col-1" aria-label="Ship details">
