@@ -7,7 +7,7 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 ---
 
 <!-- BACKFILL-START -->
-**Total:** 7 rule(s) awaiting standards backfill during Phase 6.
+**Total:** 12 rule(s) awaiting standards backfill during Phase 6.
 
 ### ICP (5)
 
@@ -18,6 +18,16 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 | [`ICP-010`](rules/ICP-010.md) | geo meta tags forbidden (irrelevant) | warn | V-only |
 | [`ICP-012`](rules/ICP-012.md) | Duplicate ai-summary meta tags forbidden | error | V-only |
 | [`ICP-015`](rules/ICP-015.md) | Answer-first first paragraph (minimum length) | info | V-only |
+
+### SCHEMA (5)
+
+| ID | Name | Severity | Provenance |
+|---|---|---|---|
+| [`SCHEMA-006`](rules/SCHEMA-006.md) | Organization JSON-LD schema required on ship pages | error | V-only |
+| [`SCHEMA-007`](rules/SCHEMA-007.md) | WebSite JSON-LD schema required on ship pages | error | V-only |
+| [`SCHEMA-008`](rules/SCHEMA-008.md) | Review JSON-LD schema required on ship pages | error | V-only |
+| [`SCHEMA-009`](rules/SCHEMA-009.md) | Person JSON-LD schema required on ship pages (for Review.author) | error | V-only |
+| [`SCHEMA-012`](rules/SCHEMA-012.md) | Review ratingValue is warned as unverified until a real editorial rating exists | warn | V-only |
 
 ### STRUCT (1)
 

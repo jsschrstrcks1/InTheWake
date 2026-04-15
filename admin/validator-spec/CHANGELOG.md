@@ -6,6 +6,41 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.3.0] — 2026-04-15 — Phase 2 batch 2: SCHEMA family extraction
+
+### Added
+- 11 new SCHEMA-family rules (SCHEMA-002 through SCHEMA-012), extracted from:
+  - `admin/validate-port-page-v2.js` lines 793-825 (JSON-LD parse + required types)
+  - `admin/validate-ship-page.js` lines 553-660 (validateJSONLD — 7 required types + Review authenticity)
+  - `admin/validate-venue-page-v2.js` lines 443-452 (T-code presence checks for WebPage/BreadcrumbList/FAQPage)
+
+### Rules added
+- **SCHEMA-002** (error, V+S-agree): all JSON-LD blocks must parse
+- **SCHEMA-003** (error, V+S-agree): WebPage (or TouristDestination for ports) required
+- **SCHEMA-004** (error, V+S-agree): FAQPage required
+- **SCHEMA-005** (error, V+S-agree): BreadcrumbList required
+- **SCHEMA-006** (error, V-only, ship): Organization schema required
+- **SCHEMA-007** (error, V-only, ship): WebSite schema required
+- **SCHEMA-008** (error, V-only, ship): Review schema required
+- **SCHEMA-009** (error, V-only, ship): Person schema required (for Review.author)
+- **SCHEMA-010** (error, V+S-agree, ship): Review.itemReviewed class reference must match ship's actual class (motivated by Silver Shadow/Whisper class-name swap escape)
+- **SCHEMA-011** (warn, V+S-agree, ship): Review.reviewBody must not contain templated phrases (208 pages flagged in 2026-02 audit)
+- **SCHEMA-012** (warn, V-only, ship): any Review.reviewRating.ratingValue is warned as unverified until editorial rubric exists
+
+### Backfill queue growth
+- 5 SCHEMA rules flagged V-only, requiring standards backfill (SCHEMA-006 through SCHEMA-009, SCHEMA-012). Ship validator requires 7 JSON-LD types; standards docs haven't documented the full set. Phase 6 must capture.
+
+### Drift findings
+- Port validator requires 3 JSON-LD types (WebPage/TouristDestination, FAQPage, BreadcrumbList). Ship validator requires 7. Venue validator checks 3 via T-codes. Different pages, different bars — legitimate per-page-type difference.
+- The Review authenticity policy (SCHEMA-011 + SCHEMA-012) is the validator's collected wisdom from 2026-02 audits. Standards docs don't describe it. This is exactly the kind of "validator grew from escapes" content that backfill in Phase 6 must capture.
+- The templated-phrase list in SCHEMA-011 (lines 635-639 of validate-ship-page.js) is incomplete. Noted in the rule file as extension work.
+
+Total spec: 32 → 43 rules. Backfill queue: 7 → 12. Orphans: 3 (unchanged — no new implementation:none this batch). Conflicts: 3 (unchanged).
+
+Spec version 0.2.0 → 0.3.0. find-orphans.cjs exits 0.
+
+---
+
 ## [0.2.0] — 2026-04-15 — Phase 2 batch 1: ICP family extraction
 
 ### Added
