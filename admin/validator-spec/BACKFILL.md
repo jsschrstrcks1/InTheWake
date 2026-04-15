@@ -7,7 +7,15 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 ---
 
 <!-- BACKFILL-START -->
-**Total:** 17 rule(s) awaiting standards backfill during Phase 6.
+**Total:** 20 rule(s) awaiting standards backfill during Phase 6.
+
+### A11Y (3)
+
+| ID | Name | Severity | Provenance |
+|---|---|---|---|
+| [`A11Y-007`](rules/A11Y-007.md) | Carousel regions must have aria-label describing their content | warn | V-only |
+| [`A11Y-008`](rules/A11Y-008.md) | Carousel navigation buttons (prev/next) must have aria-label | warn | V-only |
+| [`A11Y-009`](rules/A11Y-009.md) | ARIA live region present for dynamic content announcements | warn | V-only |
 
 ### ICP (5)
 

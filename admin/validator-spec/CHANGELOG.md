@@ -6,6 +6,52 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.6.0] — 2026-04-15 — Phase 2 batch 4: A11Y family extraction
+
+### Added
+- 13 new A11Y rules (A11Y-002 through A11Y-014), extracted from:
+  - `admin/validate-port-page-v2.js` lines 2264-2270, 2044-2080, 2544-2563, 3710-3735, 4580-4586
+  - `admin/validate-ship-page.js` lines 994-1021, 1462-1478, 2540-2563
+  - `.claude/standards/html.yml` (charset, viewport, lang, heading hierarchy)
+
+### Changed
+- **A11Y-001** updated from `V+S-agree` / `decision: FINAL` to `V-S-conflict` / `decision: UNRESOLVED` after discovering severity drift between validators (port WARNING, ship BLOCKING). Follows the IMG-004 pattern. Recommendation included for user review.
+- **A11Y-011** corrected from `severity: error` to `severity: warn` to match actual validator code (ship-page-v2.js line 2556 emits WARNING, not BLOCKING). Spec fidelity fix caught during spot-check. Noted future-consideration possibility of promoting to BLOCKING.
+
+### Rules added
+- **A11Y-002** (error, V+S-agree): meta charset required
+- **A11Y-003** (error, V+S-agree): meta viewport required
+- **A11Y-004** (error, V+S-agree): id="main-content" landmark required
+- **A11Y-005** (error, V+S-agree): exactly one h1 per page
+- **A11Y-006** (warn, V+S-agree): icon-only buttons need aria-label
+- **A11Y-007** (warn, V-only, ship): carousel regions need aria-label
+- **A11Y-008** (warn, V-only, ship): carousel prev/next nav need aria-label
+- **A11Y-009** (warn, V-only, ship): ARIA live region for dynamic announcements
+- **A11Y-010** (warn, V+S-agree): breadcrumb nav aria-label="Breadcrumb"
+- **A11Y-011** (warn, V+S-agree, ship): SDG footer NOT aria-hidden (226-page escape)
+- **A11Y-012** (warn, V+S-agree): consistency — aria-hidden images should have empty alt
+- **A11Y-013** (error, V+S-agree): tag balance — opening/closing counts match
+- **A11Y-014** (error, V+S-agree): html lang attribute (note: validator gap — enforced via YAML only)
+
+### New V-S-conflict
+- **A11Y-001** skip-link severity drift (port WARN vs ship BLOCKING). Same pattern as IMG-004.
+
+### Drift findings
+- Port and ship validators disagree on skip-link severity (mirrors IMG-004 disagreement on lazy-loading severity).
+- A11Y-014 (html lang) is declared in `.claude/standards/html.yml` but not checked by any of the port/ship/venue validators — a genuine gap where standards speak and validators don't. Noted in rule file.
+- A11Y-011 severity in validator (WARNING) is arguably weak given the pastoral importance; documented as future consideration, not changed.
+
+### Spot-checks
+- A11Y-001 port line 3729-3730 (WARNING) + ship line 994-996 (BLOCKING): confirmed
+- A11Y-004 port line 3726-3728 `missing_main_content`: confirmed
+- A11Y-011 ship line 2548-2559 SDG aria-hidden check: confirmed (and caught severity mismatch)
+
+Totals: 57 → 70 rules. A11Y 1 → 14. Backfill 18 → 20. Orphans unchanged at 2. Conflicts 0 unresolved → 1 unresolved (A11Y-001), 4 resolved.
+
+Spec version 0.5.0 → 0.6.0. find-orphans.cjs exits 0.
+
+---
+
 ## [0.5.0] — 2026-04-15 — Conflict resolutions (user sign-off on 4 V-S-conflicts)
 
 ### Changed

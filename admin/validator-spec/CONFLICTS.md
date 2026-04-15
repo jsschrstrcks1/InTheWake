@@ -7,6 +7,12 @@ Every rule with `provenance: V-S-conflict` appears here with its side-by-side co
 ---
 
 <!-- CONFLICTS-START -->
+## 🔴 Unresolved (1) — awaiting user sign-off
+
+| ID | Name | Severity | Rule file |
+|---|---|---|---|
+| [`A11Y-001`](rules/A11Y-001.md) | Skip-link present (severity drift across validators) | error | [rules/A11Y-001.md](rules/A11Y-001.md) |
+
 ## ✓ Resolved (4) — user signed off
 
 | ID | Name | Severity | Rule file |
