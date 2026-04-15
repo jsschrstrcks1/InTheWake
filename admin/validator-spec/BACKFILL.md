@@ -7,7 +7,17 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 ---
 
 <!-- BACKFILL-START -->
-**Total:** 2 rule(s) awaiting standards backfill during Phase 6.
+**Total:** 7 rule(s) awaiting standards backfill during Phase 6.
+
+### ICP (5)
+
+| ID | Name | Severity | Provenance |
+|---|---|---|---|
+| [`ICP-007`](rules/ICP-007.md) | Content staleness warning when last-reviewed older than 180 days | warn | V-only |
+| [`ICP-009`](rules/ICP-009.md) | meta keywords tag forbidden (SEO theater) | warn | V-only |
+| [`ICP-010`](rules/ICP-010.md) | geo meta tags forbidden (irrelevant) | warn | V-only |
+| [`ICP-012`](rules/ICP-012.md) | Duplicate ai-summary meta tags forbidden | error | V-only |
+| [`ICP-015`](rules/ICP-015.md) | Answer-first first paragraph (minimum length) | info | V-only |
 
 ### STRUCT (1)
 

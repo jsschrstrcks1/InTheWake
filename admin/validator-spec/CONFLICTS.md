@@ -7,11 +7,13 @@ Every rule with `provenance: V-S-conflict` appears here with its side-by-side co
 ---
 
 <!-- CONFLICTS-START -->
-## 🔴 Unresolved (1) — awaiting user sign-off
+## 🔴 Unresolved (3) — awaiting user sign-off
 
 | ID | Name | Severity | Rule file |
 |---|---|---|---|
 | [`ICP-002`](rules/ICP-002.md) | ai-summary dual-cap length (250 total, 155 standalone) | error | [rules/ICP-002.md](rules/ICP-002.md) |
+| [`ICP-011`](rules/ICP-011.md) | ai-breadcrumbs HTML comments forbidden (ICP-2) vs required (ICP-Lite v1.4) | warn | [rules/ICP-011.md](rules/ICP-011.md) |
+| [`ICP-014`](rules/ICP-014.md) | JSON-LD description relationship to ai-summary (exact vs consistent) | error | [rules/ICP-014.md](rules/ICP-014.md) |
 
 <!-- CONFLICTS-END -->
 
