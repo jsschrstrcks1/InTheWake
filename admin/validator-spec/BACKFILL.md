@@ -7,7 +7,7 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 ---
 
 <!-- BACKFILL-START -->
-**Total:** 37 rule(s) awaiting standards backfill during Phase 6.
+**Total:** 40 rule(s) awaiting standards backfill during Phase 6.
 
 ### A11Y (3)
 
@@ -79,6 +79,14 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 | [`STRUCT-003`](rules/STRUCT-003.md) | Port page must contain all 8 REQUIRED sections | error | V-only |
 | [`STRUCT-004`](rules/STRUCT-004.md) | Collapsible sections must use the details/summary pattern | warn | V-only |
 | [`STRUCT-005`](rules/STRUCT-005.md) | Port page total word count between 2000 and 6000 | error | V-only |
+
+### VENUE (3)
+
+| ID | Name | Severity | Provenance |
+|---|---|---|---|
+| [`VENUE-002`](rules/VENUE-002.md) | Venue page required sections (hero, about, dining/menu, logbook, faq) | error | V-only |
+| [`VENUE-004`](rules/VENUE-004.md) | FAQ section has at least 3 expandable items | warn | V-only |
+| [`VENUE-008`](rules/VENUE-008.md) | Meta description coherence — menu/price claims must have matching section | warn | V-only |
 
 ### VOI (1)
 

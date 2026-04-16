@@ -6,6 +6,48 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.10.0] — 2026-04-16 — Phase 2 batch 7: VENUE family extraction
+
+### Added
+10 new VENUE-family rules (VENUE-002 through VENUE-011), extracted from:
+- `admin/validate-venue-page-v2.js` T01/T02/T05/T08/S04/S06/W06/W08 check handlers
+- Venue style taxonomy at lines 123-228 (NO_RESERVATION_FAQ_STYLES, GENERIC_FAQ_PHRASES)
+- 2026-03 venue audit findings (`admin/VENUE_PAGE_AUDIT_2026_03_04.md`) for orphan S-only rules
+
+### Rules added
+- **VENUE-002** (error, V-only): required sections (logbook, faq required; menu-prices required for dining styles)
+- **VENUE-003** (warn, V+S-agree): menu-prices section must have real prices, not "Varies by venue" placeholder
+- **VENUE-004** (warn, V-only): FAQ has >=3 expandable items
+- **VENUE-005** (warn, V-only): logbook entries carry ship + date attribution
+- **VENUE-006** (warn, S-only, ORPHAN): venue-tags meta required — 453/472 pages missing per audit
+- **VENUE-007** (error, V+S-agree): Generic FAQ phrase contamination (specialty-dining template on counter-service/bar/activity venues — 9 pages flagged)
+- **VENUE-008** (warn, V-only): meta description coherence — menu/price claims must have matching section
+- **VENUE-009** (warn, V+S-agree): "Guest Experience Summary" placeholder review forbidden — 297 pages (63% of fleet)
+- **VENUE-010** (warn, S-only, ORPHAN): "Varies by venue" price placeholder forbidden — 187 pages per audit
+- **VENUE-011** (warn, S-only, ORPHAN): "Coming soon" ship availability placeholder on active venues — 18 pages per audit
+
+### Orphan list growth
+Orphans 2 → 5: added VENUE-006, VENUE-010, VENUE-011 as honest S-only gaps. All three have real pages failing them (from audit), none have validator code yet. These are the highest-priority validator additions for a future V-extraction pass.
+
+### Intentional lint warning
+- VENUE-005 marked V-only but cites LOGBOOK_WRITING_GUIDE.md — intentional; the guide is an authoring reference, not a canonical v3.010 standards doc. Same class as SHIP-009, SHIP-011.
+
+### Drift findings
+- Venue validator enforces 3 JSON-LD types (WebPage, BreadcrumbList, FAQPage) — less than ship's 7. Already covered by SCHEMA-003/004/005.
+- Audit found 297 pages with "Guest Experience Summary" (63% of venue fleet). Highest-count single content debt in the spec so far. VENUE-009 is at warn, correctly — blocking would freeze 297 pages; warn makes the work-queue visible.
+- Venue validator's style taxonomy (NO_RESERVATION_FAQ_STYLES, GENERIC_FAQ_PHRASES) is a rich source of future rules. Left unmined in this batch to keep focus.
+
+### Spot-checks
+- VENUE-007 line 553-567 (S04 FAQ contamination): confirmed
+- VENUE-002 line 370-375 (required sections list): confirmed
+
+Totals: 91 → 101 rules. VENUE 1 → 12. Backfill 37 → 40. Orphans 2 → 5.
+No new conflicts. CONFLICTS.md still 0 unresolved, 6 resolved.
+
+Spec version 0.9.0 → 0.10.0. find-orphans.cjs exits 0.
+
+---
+
 ## [0.9.0] — 2026-04-16 — Conflict resolutions (A11Y-001 + SHIP-005 user sign-off)
 
 ### Changed

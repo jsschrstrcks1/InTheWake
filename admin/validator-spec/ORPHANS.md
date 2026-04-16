@@ -16,6 +16,9 @@ Rules with `implementation: none` appear here. These are rules the spec declares
 |---|---|---|
 | `NAV-001` | Primary navigation includes the twelve canonical links in order | [rules/NAV-001.md](rules/NAV-001.md) |
 | `PWA-001` | Service worker cache version bumped on every release | [rules/PWA-001.md](rules/PWA-001.md) |
+| `VENUE-006` | venue-tags meta tag present with style / cruise-line / ship-availability attributes | [rules/VENUE-006.md](rules/VENUE-006.md) |
+| `VENUE-010` | "Varies by venue" price placeholder forbidden in key facts | [rules/VENUE-010.md](rules/VENUE-010.md) |
+| `VENUE-011` | "Coming soon" ship availability placeholder forbidden on active venues | [rules/VENUE-011.md](rules/VENUE-011.md) |
 
 <!-- ORPHANS-END -->
 
