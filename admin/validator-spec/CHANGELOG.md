@@ -6,6 +6,23 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.11.0] — 2026-04-16 — LINK-001: ship→venue reference integrity gap
+
+### Added
+- **LINK-001** (warn, S-only, ORPHAN): ship-page venue references must resolve to existing venue pages.
+
+### Context — scale finding
+User (2026-04-16): "Thousands of failing and missing venues. Maybe as many as ten per ship on average." Ship fleet is 295 pages × ~10 referenced venues = ~2,950 venue slots. Venue catalogue is 472 pages. Unique-venue reference gap is likely in the hundreds to low thousands when computed properly (unique venues × ship-presence, deduplicated).
+
+VENUE-009/010/011 capture debt on the 472 pages that DO exist. LINK-001 captures the larger invisible debt: pages that SHOULD exist but don't. Without a rule to surface the gap, it stays off the spec's radar.
+
+### Reports
+- Rules: 101 → 102. Orphans: 5 → 6. Backfill, conflicts: unchanged.
+
+Spec version 0.10.0 → 0.11.0.
+
+---
+
 ## [0.10.0] — 2026-04-16 — Phase 2 batch 7: VENUE family extraction
 
 ### Added
