@@ -117,7 +117,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
-  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
   <!-- LCP Optimization: Preload critical hero image -->
   <link rel="preload" as="image" href="/assets/social/ships-hero.jpg" fetchpriority="high"/>
@@ -252,12 +252,10 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     function addJS(src, ok, fail){
       const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
     }
-    const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-    const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    addCSS(primaryCSS);
-    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+    const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(cdnCSS);
+    addJS(cdnJS, function(){ window.__swiperReady=true; });
   })();
   </script>
 </head>
@@ -371,7 +369,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       <span aria-current="page">Silver Ray</span>
     </nav>
 
-    <h1>Silver Ray</h1>
+    <h1 class="page-title">Silver Ray — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
     <!-- ICP-Lite: Page Intro -->
     <section class="page-intro" aria-label="Silver Ray overview">
@@ -591,7 +589,7 @@ Dining on Silver Ray</h2>
         <h2 id="deckPlansHeading">Silver Ray Deck Plans</h2>
         <p>View the official deck plans to explore Silver Ray's layout.</p>
         <figure>
-          <img src="/assets/ship-map.png" alt="Silver Ray simplified deck plan preview" loading="lazy"/>
+          <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview — not specific to Silver Ray" loading="lazy"/>
           <figcaption class="tiny">Simplified deck layout overview</figcaption>
         </figure>
         <p><a class="btn" href="https://www.silversea.com/" target="_blank" rel="noopener">Visit Silversea Official Site</a></p>
@@ -719,7 +717,7 @@ Dining on Silver Ray</h2>
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>&copy; 2025 In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p>&copy; <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
@@ -751,5 +749,6 @@ Dining on Silver Ray</h2>
 <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+  <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>
