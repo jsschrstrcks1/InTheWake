@@ -6,6 +6,57 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.8.0] — 2026-04-16 — Phase 2 batch 6: SHIP family extraction
+
+### Added
+11 new SHIP-family rules (SHIP-002 through SHIP-012), extracted from `admin/validate-ship-page.js`:
+- Section-detection constants at lines 99-146 (REQUIRED_PERSONAS, GOLD_NAV_ITEMS, SECTION_PATTERNS, VALID_SECTION_ORDERS, section word-count constraints)
+- Required-sections branching at lines 1104-1107 (active vs TBN)
+- Layout checks at lines 1161-1200 (personality-first detection, grid2 firstlook+dining)
+- Meta description coherence at lines 1355-1380
+- Dining hero check at lines 1421-1445 (the Cordelia V-S-conflict)
+- Logbook personas at lines 99-103, 1856-1870
+- Swiper config at lines 1554-1570
+- Navigation at lines 683-691
+- Footer trust badge at lines 2160-2170
+
+### Rules added
+- **SHIP-002** (error, V-only): active ship required sections (7-section set)
+- **SHIP-003** (error, V-only): TBN ship required sections (6-section set, no logbook)
+- **SHIP-004** (warn, V-only): first_look 50-150 words
+- **SHIP-005** (error, **V-S-conflict UNRESOLVED**): Cordelia dining hero — the biggest conflict in the spec so far. Validator hard-requires 291/295 pages to use a wrong-ship buffet image; audit findings flag this as a defect. Full implications analysis + strong recommendation to change the validator.
+- **SHIP-006** (warn, V-only): logbook personas coverage (7 required categories)
+- **SHIP-007** (warn, V-only): first_look + dining grid-2 layout
+- **SHIP-008** (warn, V-only): meta description coherence (deck plans / live tracker / video claims must match page content)
+- **SHIP-009** (info, V-only): personality-first ordering detection
+- **SHIP-010** (warn, V-only): Swiper rewind/loop forbidden
+- **SHIP-011** (error, V-only): Internet at Sea link in nav (302-page escape)
+- **SHIP-012** (warn, V-only): footer trust badge exact wording
+
+### New V-S-conflict (highest pastoral stakes so far)
+- **SHIP-005 — Cordelia dining hero**: Validator enforces that every ship page's dining hero must be `/assets/img/Cordelia_Empress_Food_Court.webp` — a buffet on a budget Indian cruise line that has nothing to do with the ship being documented. `SHIP_AUDIT_FINDINGS.md` correctly identifies this pattern (291 of 295 pages) as a defect. The validator ossified a stopgap into a requirement, so the fix is blocked by the very tool meant to enforce quality.
+  - **My recommendation:** change the validator. Remove the Cordelia hard-requirement. Replace with positive rule "dining-hero must exist, be ship-specific, attributed, and pass IMG/ATTR rules."
+  - **Pastoral reasoning stressed:** every page currently lies to readers about what the ship's dining looks like. The rule stays in, the lie persists.
+
+### Drift findings
+- SHIP-005 is the most revealing drift yet — a validator actively preventing improvement. Classic "validator grew from a single decision" escape.
+- The 85-page "missing personas" audit flag (SHIP-006) is a known gap; the rule is WARN so it doesn't block but tracks adoption.
+- The 302-page "missing /internet-at-sea.html" (SHIP-011) is a BLOCKING enforcement of a recent nav addition. Most historic ship pages failed; new ones must comply.
+
+### Intentional lint warnings
+- SHIP-009 and SHIP-011 carry V-only provenance but cite plan/reference docs (PLAN-validator-emotional-hook.md, SITE_REFERENCE.md). Linter warns "usually V-only pairs with silent; intentional?" — yes, intentional. Those docs aren't canonical v3.010 standards but provide useful context. Warnings left as informational heads-up.
+
+### Spot-checks
+- SHIP-005 line 1421-1445 (Cordelia enforcement): confirmed exact quote
+- SHIP-011 line 683-690 (Internet at Sea required): confirmed
+
+Totals: 80 → 91 rules. SHIP 1 → 12. Backfill 29 → 37. Orphans 2 (unchanged).
+Conflicts: 2 unresolved (A11Y-001, SHIP-005), 4 resolved.
+
+Spec version 0.7.0 → 0.8.0. find-orphans.cjs exits 0 (warnings informational).
+
+---
+
 ## [0.7.0] — 2026-04-15 — Phase 2 batch 5: STRUCT + PORT section/word-count rules
 
 ### Added

@@ -7,11 +7,12 @@ Every rule with `provenance: V-S-conflict` appears here with its side-by-side co
 ---
 
 <!-- CONFLICTS-START -->
-## 🔴 Unresolved (1) — awaiting user sign-off
+## 🔴 Unresolved (2) — awaiting user sign-off
 
 | ID | Name | Severity | Rule file |
 |---|---|---|---|
 | [`A11Y-001`](rules/A11Y-001.md) | Skip-link present (severity drift across validators) | error | [rules/A11Y-001.md](rules/A11Y-001.md) |
+| [`SHIP-005`](rules/SHIP-005.md) | Dining hero image must be the shared Cordelia_Empress_Food_Court.webp | error | [rules/SHIP-005.md](rules/SHIP-005.md) |
 
 ## ✓ Resolved (4) — user signed off
 

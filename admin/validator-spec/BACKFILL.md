@@ -7,7 +7,7 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 ---
 
 <!-- BACKFILL-START -->
-**Total:** 29 rule(s) awaiting standards backfill during Phase 6.
+**Total:** 37 rule(s) awaiting standards backfill during Phase 6.
 
 ### A11Y (3)
 
@@ -56,6 +56,19 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 | [`SCHEMA-008`](rules/SCHEMA-008.md) | Review JSON-LD schema required on ship pages | error | V-only |
 | [`SCHEMA-009`](rules/SCHEMA-009.md) | Person JSON-LD schema required on ship pages (for Review.author) | error | V-only |
 | [`SCHEMA-012`](rules/SCHEMA-012.md) | Review ratingValue is warned as unverified until a real editorial rating exists | warn | V-only |
+
+### SHIP (8)
+
+| ID | Name | Severity | Provenance |
+|---|---|---|---|
+| [`SHIP-002`](rules/SHIP-002.md) | Ship page required sections (active ships) | error | V-only |
+| [`SHIP-003`](rules/SHIP-003.md) | TBN (to-be-named) ship page required sections | error | V-only |
+| [`SHIP-004`](rules/SHIP-004.md) | First Look section word count between 50 and 150 | warn | V-only |
+| [`SHIP-006`](rules/SHIP-006.md) | Logbook contains required persona categories | warn | V-only |
+| [`SHIP-007`](rules/SHIP-007.md) | First-look and dining sections use grid-2 layout | warn | V-only |
+| [`SHIP-008`](rules/SHIP-008.md) | Meta description coherence — claimed features must exist on page | warn | V-only |
+| [`SHIP-010`](rules/SHIP-010.md) | Swiper carousel initialization must not enable rewind or loop | warn | V-only |
+| [`SHIP-012`](rules/SHIP-012.md) | Trust badge present in footer | warn | V-only |
 
 ### STRUCT (5)
 
