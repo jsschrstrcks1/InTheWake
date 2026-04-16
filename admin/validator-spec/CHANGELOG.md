@@ -6,6 +6,31 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.9.0] — 2026-04-16 — Conflict resolutions (A11Y-001 + SHIP-005 user sign-off)
+
+### Changed
+- **A11Y-001** decision UNRESOLVED → FINAL. User accepted recommendation: promote port skip-link severity from WARNING to BLOCKING to match ship. Same pattern as IMG-004. Follow-up: port validator line 3729-3730 `warnings.push` → `errors.push`.
+- **SHIP-005** decision UNRESOLVED → FINAL. User defined a **three-tier acceptance policy** (more nuanced than my binary keep/remove recommendation):
+  1. **Tier 1 — Ideal:** ship-specific dining image (actual dining on this ship)
+  2. **Tier 2 — Acceptable:** sister ship of same class (high design fidelity)
+  3. **Tier 3 — Last resort (warn):** cruise-line-generic image
+  - Cross-line imagery (including the existing Cordelia_Empress_Food_Court.webp) is explicitly rejected. Transition plan: immediate validator change → per-line Tier-3 stopgap → ongoing Tier-3 → Tier-2/1 upgrades as real imagery sourced.
+  - Rule file now documents the policy, pseudocode for the validator rewrite, and the relationship to SCHEMA-010's SHIP_CLASSES mapping (reusable for sister-class detection).
+
+### Conflicts state
+- 0 unresolved, 6 resolved. All V-S-conflicts caught in Phase 2 have user sign-off.
+
+### Outstanding (tracked in rule files)
+Each resolved conflict carries its implementation follow-up in the rule body. Those validator code changes happen as separate work (per plan: spec does not modify validator code). Rules keep `provenance: V-S-conflict` until the code catches up; future commit can transition them to `V+S-agree` and the CONFLICTS.md "Resolved" table becomes history.
+
+### Reports
+- `CONFLICTS.md`: 0 unresolved, 6 resolved.
+- No changes to rule count, orphans, or backfill queue.
+
+Spec version 0.8.0 → 0.9.0.
+
+---
+
 ## [0.8.0] — 2026-04-16 — Phase 2 batch 6: SHIP family extraction
 
 ### Added

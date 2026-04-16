@@ -7,21 +7,16 @@ Every rule with `provenance: V-S-conflict` appears here with its side-by-side co
 ---
 
 <!-- CONFLICTS-START -->
-## 🔴 Unresolved (2) — awaiting user sign-off
+## ✓ Resolved (6) — user signed off
 
 | ID | Name | Severity | Rule file |
 |---|---|---|---|
 | [`A11Y-001`](rules/A11Y-001.md) | Skip-link present (severity drift across validators) | error | [rules/A11Y-001.md](rules/A11Y-001.md) |
-| [`SHIP-005`](rules/SHIP-005.md) | Dining hero image must be the shared Cordelia_Empress_Food_Court.webp | error | [rules/SHIP-005.md](rules/SHIP-005.md) |
-
-## ✓ Resolved (4) — user signed off
-
-| ID | Name | Severity | Rule file |
-|---|---|---|---|
 | [`ICP-002`](rules/ICP-002.md) | ai-summary dual-cap length (250 total, 155 standalone) | error | [rules/ICP-002.md](rules/ICP-002.md) |
 | [`ICP-011`](rules/ICP-011.md) | ai-breadcrumbs HTML comments forbidden (ICP-2) vs required (ICP-Lite v1.4) | warn | [rules/ICP-011.md](rules/ICP-011.md) |
 | [`ICP-014`](rules/ICP-014.md) | JSON-LD description relationship to ai-summary (exact vs consistent) | error | [rules/ICP-014.md](rules/ICP-014.md) |
 | [`IMG-004`](rules/IMG-004.md) | Non-hero images must declare loading="lazy | error | [rules/IMG-004.md](rules/IMG-004.md) |
+| [`SHIP-005`](rules/SHIP-005.md) | Dining hero image — tiered acceptance (ship-specific preferred; sister-class OK; cruise-line-generic last resort) | error | [rules/SHIP-005.md](rules/SHIP-005.md) |
 
 <!-- CONFLICTS-END -->
 

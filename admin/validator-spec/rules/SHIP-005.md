@@ -1,6 +1,6 @@
 ---
 id: SHIP-005
-name: Dining hero image must be the shared Cordelia_Empress_Food_Court.webp
+name: Dining hero image — tiered acceptance (ship-specific preferred; sister-class OK; cruise-line-generic last resort)
 family: ship
 severity: error
 applies-to:
@@ -9,19 +9,137 @@ provenance: V-S-conflict
 status: live
 implementation:
   - file: admin/validate-ship-page.js
-    function: validateImages (dining hero check)
+    function: validateImages (dining hero check — CURRENTLY hard-requires Cordelia)
     lines: "1421-1445"
-check: if page has an element with id="dining-hero", its src must include the substring "Cordelia_Empress_Food_Court"; if the page has a dining section but no dining-hero image, that also fails
+check: dining-hero image (if dining section exists) must be at Tier 1 (ship-specific, path under /assets/ships/<line>/<ship-slug>/), Tier 2 (sister of same class — path under /assets/ships/<line>/<sister-slug>/ where sister is in SHIP_CLASSES[class]), or Tier 3 (cruise-line-generic — path under /assets/ships/<line>/ or /assets/img/<line>_*); the current shared Cordelia_Empress_Food_Court.webp is explicitly rejected (it is neither Royal Caribbean nor any ship's actual dining room)
 standards-source:
   - doc: admin/SHIP_AUDIT_FINDINGS.md
     section: "Cross-fleet dining hero image wrong — 291 of 295 pages use Cordelia Empress Food Court (budget Indian line) instead of ship-appropriate image"
 standards-backfill: no
-decision: UNRESOLVED
+decision: FINAL
 last-updated: 2026-04-16
 ---
 
+## USER DECISION (2026-04-16)
+**Accepted direction: change the validator. Cordelia hard-requirement removed.**
+
+**New tiered-acceptance policy** (user-defined, more nuanced than the original binary I proposed):
+
+| Tier | Image source | Status |
+|---|---|---|
+| **1 — Ideal** | Photo of actual dining on this specific ship | Pass, preferred |
+| **2 — Acceptable** | Photo from a sister ship of the same class (same venue design, same fleet, high visual fidelity) | Pass |
+| **3 — Last resort** | Generic dining image from the same cruise line (not ship-specific, but at least the right line) | Pass with warning |
+| **Reject** | Images from different cruise lines, stock imagery, placeholder hashes, the Cordelia_Empress_Food_Court.webp file | Fail |
+
+The existing `/assets/img/Cordelia_Empress_Food_Court.webp` is explicitly rejected under all tiers — it is from Cordelia Empress, a different cruise line. Using a photo from Cordelia Empress on a Royal Caribbean ship page is the exact failure mode the audit identified; the fix is not "change which cross-line photo we use," it is "stop using cross-line photos."
+
+### Implementation follow-up
+
+The validator change (`admin/validate-ship-page.js` lines 1421-1445) becomes:
+
+```javascript
+// PSEUDOCODE — actual implementation done as separate PR
+
+const diningHero = $('#dining-hero');
+if (diningHero.length > 0) {
+  const src = diningHero.attr('src') || '';
+  const cruiseLine = extractCruiseLineFromFilepath(filepath); // e.g., 'rcl'
+  const shipSlug = extractShipSlug(filepath);                   // e.g., 'allure-of-the-seas'
+  const shipClass = getShipClass(shipSlug);                     // from SHIP_CLASSES
+
+  // Explicit reject list first
+  if (src.includes('Cordelia_Empress_Food_Court')) {
+    errors.push({ rule: 'cross_line_dining_hero_cordelia', severity: 'BLOCKING',
+      message: 'Dining hero uses Cordelia Empress (wrong cruise line). Use ship-specific or sister-class or line-generic instead.' });
+  }
+  // Tier 1: ship-specific
+  else if (src.startsWith(`/assets/ships/${cruiseLine}/${shipSlug}/`)) {
+    // Pass — ideal
+  }
+  // Tier 2: sister of same class
+  else if (isSisterShipDining(src, cruiseLine, shipClass, SHIP_CLASSES)) {
+    // Pass — acceptable
+  }
+  // Tier 3: cruise-line-generic (warn, but pass)
+  else if (src.startsWith(`/assets/ships/${cruiseLine}/`) || src.includes(`/${cruiseLine}_`)) {
+    warnings.push({ rule: 'dining_hero_line_generic_fallback', severity: 'WARNING',
+      message: 'Dining hero is line-generic, not ship-specific. Upgrade when real imagery available.' });
+  }
+  // Anything else: reject
+  else {
+    errors.push({ rule: 'dining_hero_cross_line', severity: 'BLOCKING',
+      message: `Dining hero src "${src}" is not from ship ${shipSlug}, a sister-class ship, or ${cruiseLine} line. Must match one of these tiers.` });
+  }
+} else if (hasDiningSection()) {
+  // Existing rule: dining section needs a dining hero
+  errors.push({ rule: 'dining_section_missing_hero', severity: 'BLOCKING',
+    message: 'Dining section exists but missing dining-hero image' });
+}
+```
+
+The existing `SHIP_CLASSES` mapping used by SCHEMA-010 (class-reference check) can be reused here to define sisters.
+
+### Transition plan for the 291 affected ships
+
+1. **Immediate (validator change only):** apply the new tiered check. All 291 pages still fail (Cordelia is now explicitly rejected with no grandfather clause).
+2. **Short-term stopgap:** per-cruise-line, source ONE acceptable Tier-3 image (a generic Royal Caribbean dining image, one for Carnival, one for Norwegian, etc.). Replace the Cordelia reference with the line-appropriate Tier-3 fallback on every ship under that line. Pages now pass at Tier 3 with a warning.
+3. **Ongoing Tier-3 → Tier-2/1 upgrade:** as real ship-specific or sister-class dining photos are sourced (with proper attribution per ATTR-001/003), replace the Tier-3 fallbacks. Rule's Tier-3 warning visible on any page still using line-generic; becomes the work-queue signal.
+
+### Why the three-tier approach is better than either extreme
+
+- **Better than "keep Cordelia"**: pages stop claiming a Cordelia Empress buffet is what Allure's dining looks like. That was always a lie.
+- **Better than "no hero at all during transition"**: the visual slot stays filled; pages don't look broken during the months of image sourcing.
+- **Better than "ship-specific or nothing"**: recognizes the reality that 295 ships * 1+ dining image each is a large sourcing project. Tier 2 (sister class, high design fidelity) and Tier 3 (line-generic, still correct brand) let work proceed incrementally.
+
+---
+
 ## Rule
-The validator hard-requires that every ship page's dining hero image be the literal file `/assets/img/Cordelia_Empress_Food_Court.webp` — a photo of a buffet on Cordelia Empress (a budget Indian cruise line unrelated to the ship being documented). The `SHIP_AUDIT_FINDINGS.md` document identifies this exact pattern as a defect.
+(After the above decision is implemented) A ship page's dining hero image must come from one of three acceptance tiers, ranked by fidelity: (1) ship-specific, (2) sister ship of the same class, (3) cruise-line-generic. Images from different cruise lines, stock photos, or the known Cordelia_Empress_Food_Court.webp placeholder are rejected.
+
+## Why (rationale)
+Pastoral honesty. Readers planning to cruise Icon of the Seas should not be shown a buffet photo from Cordelia Empress, an unrelated cruise line. The three tiers balance pastoral honesty against the practical reality that real dining photos for 295 ships is a multi-month sourcing project.
+
+## Pass example (Tier 1 — ideal)
+```html
+<!-- Allure of the Seas page -->
+<img id="dining-hero" src="/assets/ships/rcl/allure-of-the-seas/chops-grille-interior.webp"
+     alt="Chops Grille steakhouse aboard Allure of the Seas"/>
+```
+Tier 1 — ship-specific. Passes.
+
+## Pass example (Tier 2 — sister class)
+```html
+<!-- Allure of the Seas page (Oasis-class) — borrowing from Harmony of the Seas (also Oasis-class) -->
+<img id="dining-hero" src="/assets/ships/rcl/harmony-of-the-seas/main-dining-room.webp"
+     alt="Royal Caribbean Oasis-class Main Dining Room (sister-ship image)"/>
+```
+Tier 2 — sister of same class. Passes.
+
+## Pass example (Tier 3 — cruise-line-generic, warn)
+```html
+<!-- A ship whose dining hero is a generic Royal Caribbean image -->
+<img id="dining-hero" src="/assets/ships/rcl/rcl-dining-generic.webp"
+     alt="Royal Caribbean dining — representative image"/>
+```
+Tier 3 — line-generic. Passes with warning; upgrade to Tier 2 or 1 when real imagery available.
+
+## Fail example (cross-line — the Cordelia case)
+```html
+<img id="dining-hero" src="/assets/img/Cordelia_Empress_Food_Court.webp" alt="..."/>
+```
+Different cruise line entirely. Validator emits: `Dining hero uses Cordelia Empress (wrong cruise line). Use ship-specific or sister-class or line-generic instead.`
+
+## Fix guidance
+- **Tier 1:** source a real dining photo from the specific ship, with full attribution. ATTR-001 (attr.json) + ATTR-003 (source diversity) + IMG-014 (non-placeholder) all still apply.
+- **Tier 2:** use a sister ship's dining photo. Alt text must honestly disclose: "Oasis-class Main Dining Room (sister-ship image)." Don't present sister-class imagery as the specific ship.
+- **Tier 3:** use a cruise-line-generic image and alt-text that doesn't lie about ship-specificity. Treat the warning as a work-queue signal, not a permanent state.
+
+## Related
+- SCHEMA-010 — Review class-reference must match actual ship class (same SHIP_CLASSES mapping)
+- ATTR-001 / ATTR-003 / IMG-014 — attribution + diversity + placeholder rules all still apply to the hero
+- `SHIP_AUDIT_FINDINGS.md` cross-fleet-dining-hero entry — the motivating escape
+
 
 ## Why the conflict exists
 The validator's requirement started life as a stopgap — "we don't have real dining hero images for most ships yet; use this shared placeholder to get the page structure in place and fix the image later." Over time:
