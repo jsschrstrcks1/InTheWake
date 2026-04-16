@@ -6,6 +6,34 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.13.0] — 2026-04-16 — Phase 2 batch 9: SEC family extraction
+
+### Added
+- 6 new SEC-family rules extracted from `.claude/standards/javascript.yml` (JS security rules declared there; validation is run via post-write-validate.sh grep patterns).
+
+### Rules added
+- **SEC-001** (error, V+S-agree): no `eval()` in JavaScript
+- **SEC-002** (error, V+S-agree): no `debugger` statements
+- **SEC-003** (warn, V+S-agree): no `console.log` in production (admin/dev/test exempt)
+- **SEC-004** (warn, V+S-agree): `innerHTML` assignment requires XSS sanitization review
+- **SEC-005** (error, V+S-agree): no hardcoded API keys or secrets
+- **SEC-006** (error, V+S-agree): no `document.write()` in production
+
+### Notes
+- All six rules are V+S-agree because the standards YAML both declares the rule and provides the regex pattern — code and standards align by construction.
+- The audit report AUDIT_REPORT_2025_11_19 found 12 instances of console.log in production that SEC-003 would now flag.
+- No new orphans, conflicts, or backfill entries this batch.
+
+### Spot-check
+- SEC-001 line 80-87 (eval rule YAML declaration): confirmed
+
+Totals: 109 → 115 rules. SEC 0 → 6. Backfill 40 (unchanged). Orphans 6 (unchanged).
+Conflicts: 0 unresolved, 6 resolved.
+
+Spec version 0.12.0 → 0.13.0. find-orphans.cjs exits 0.
+
+---
+
 ## [0.12.0] — 2026-04-16 — Phase 2 batch 8: MOB family extraction (with ID renumbering for validator alignment)
 
 ### Added
