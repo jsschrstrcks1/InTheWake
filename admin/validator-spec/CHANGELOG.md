@@ -6,6 +6,43 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.12.0] — 2026-04-16 — Phase 2 batch 8: MOB family extraction (with ID renumbering for validator alignment)
+
+### Added
+- 7 new MOB-family rules (MOB-001, MOB-002, MOB-003, MOB-004, MOB-006, MOB-007, MOB-008), extracted from `admin/validate-mobile-readiness.js`. Rule IDs align with the validator's internal emitted IDs for direct grep-ability.
+
+### Changed (ID renumbering — careful-not-clever correction)
+- **MOB-001 (Phase 1 scaffold) → MOB-005.** The Phase 1 scaffold assigned MOB-001 to the touch-target rule, unaware that validate-mobile-readiness.js emits its own internal MOB-NNN IDs — with MOB-001 already meaning the viewport-meta check. The spec should align with validator output for grep-ability. Fix:
+  - `git mv rules/MOB-001.md rules/MOB-005.md` (preserves history)
+  - Updated front-matter id, added a "Renumbering note" section explaining the change
+  - Updated A11Y-003 cross-reference from MOB-001 to MOB-005
+  - Added a note in A11Y-003 that viewport presence is also tracked by validator as MOB-001
+
+This is the sort of retroactive correction the "careful, not clever" guardrail exists to surface — a spec-level consistency decision made late but before the wrong ID propagated further.
+
+### New rules (all V+S-agree unless noted; all cite validator's matching internal ID)
+- **MOB-001** (error): viewport meta present with `width=device-width` + `initial-scale=1` (lines 85-135)
+- **MOB-002** (warn): no inline widths > 480px (lines 140-175)
+- **MOB-003** (warn): hero image container prevents overflow (lines 180-228)
+- **MOB-004** (warn): wide tables have overflow-x strategy (lines 240-300)
+- **MOB-005** (warn): touch targets >= 44×44 CSS px (lines 301-362) — renamed from old MOB-001
+- **MOB-006** (error): no horizontal scroll root causes (lines 380-440)
+- **MOB-007** (warn): minimum font-size 15px (lines 455-510)
+- **MOB-008** (info, V-only): mobile-hardening CSS section present in shared stylesheet (lines 510-553)
+
+### Drift findings
+- The MOB ID collision is the exact failure mode the spec catalog exists to catch: scaffold-era arbitrary IDs drifting from validator output. Fixing early is cheap; fixing after dozens of downstream references would be painful. Noted in rule file history.
+
+### Spot-checks
+- MOB-001 line 85-135 (checkViewportMeta): confirmed
+- MOB-006 line 427 (MOB-006 BLOCKING severity): confirmed
+
+Totals: 102 → 109 rules. MOB 1 → 8. Backfill unchanged (40 — MOB-008 added to V-only with backfill). Orphans: 6 (unchanged). Conflicts: 0 unresolved, 6 resolved.
+
+Spec version 0.11.0 → 0.12.0.
+
+---
+
 ## [0.11.0] — 2026-04-16 — LINK-001: ship→venue reference integrity gap
 
 ### Added

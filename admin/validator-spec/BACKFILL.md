@@ -7,7 +7,7 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 ---
 
 <!-- BACKFILL-START -->
-**Total:** 40 rule(s) awaiting standards backfill during Phase 6.
+**Total:** 41 rule(s) awaiting standards backfill during Phase 6.
 
 ### A11Y (3)
 
@@ -36,6 +36,12 @@ Rules with `standards-backfill: yes` appear here. These are rules the validator 
 | [`IMG-006`](rules/IMG-006.md) | Port pages should have at most 25 images (warning) | warn | V-only |
 | [`IMG-010`](rules/IMG-010.md) | Hero section must contain port name overlay (h1 or .port-hero-overlay) | error | V-only |
 | [`IMG-015`](rules/IMG-015.md) | Cross-port image duplication forbidden (with approved exceptions) | error | V-only |
+
+### MOB (1)
+
+| ID | Name | Severity | Provenance |
+|---|---|---|---|
+| [`MOB-008`](rules/MOB-008.md) | Mobile-hardening CSS section present in shared stylesheet | info | V-only |
 
 ### PORT (5)
 
