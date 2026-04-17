@@ -6,6 +6,33 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.18.0] — 2026-04-16 — Phase 3 batch 4: DATA family (3 rules) — Phases 2+3 substantially complete
+
+### Added
+- **DATA-001** (error, V+S-agree): port slug canonical across all data sources
+- **DATA-002** (error, V+S-agree): all JSON files must parse
+- **DATA-003** (warn, S-only, ORPHAN): ship spec consistency across HTML/JSON/JSON-LD
+
+### Milestone
+**Phases 2 + 3 are substantially complete.** 138 rules across 18 populated families. All validator code has been surveyed; all standards docs that define enforceable rules have been extracted. Remaining families (NAV, PWA, PERF) have exemplar rules from Phase 1 and no additional validator code to extract.
+
+### Summary statistics
+- **138 rules** (plan projected ~180 including Phase 4 voice/judgment expansion)
+- **18 families populated** (of 21 defined in CATEGORIES.md)
+- **6 V-S-conflicts** — all resolved with user sign-off
+- **12 orphans** (S-only rules with `implementation: none`)
+- **41 backfill entries** (V-only rules standards docs need to adopt in Phase 6)
+- **0 errors** from find-orphans.cjs (clean exit)
+
+### Next phases per plan
+- Phase 4 (additional voice/judgment rules) — diminishing returns; can be done incrementally
+- Phase 6 (regenerate standards + archive originals) — the big remaining deliverable
+- Phase 7 (wire find-orphans.cjs into CI) — quick follow-up
+
+Totals: 135 → 138 rules. DATA 0 → 3. Orphans 11 → 12. Spec version 0.17.0 → 0.18.0.
+
+---
+
 ## [0.17.0] — 2026-04-16 — Phase 3 batch 3: VOI expansion (5 rules)
 
 ### Added
