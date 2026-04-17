@@ -265,15 +265,15 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </script>
 </head>
 <body class="page">
-<a href="#content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
-<div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div id="a11y-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+<div id="a11y-alerts" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
-</div>
+        <img loading="eager" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/>
+      </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
       </button>
@@ -344,7 +344,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     </div>
 
     <div class="hero" role="img" aria-label="Norwegian Bliss hero image">
-      <div class="latlon-grid" >
+      <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
           <g class="grid-lines" stroke-width="0.35">
             <line x1="10" y1="0" x2="10" y2="60"/><line x1="30" y1="0" x2="30" y2="60"/>
@@ -354,15 +354,19 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
           </g>
         </svg>
       </div>
-      <img loading="lazy" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
+      <img loading="eager" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
-      <div class="tagline" >A Cruise Traveler's Logbook</div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        <a class="pill" href="https://www.instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
+      </div>
     </div>
   </header>
 
-  <main class="wrap page-grid" id="content" data-ship="Norwegian Bliss" data-imo="9751509" role="main">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
@@ -401,16 +405,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       <p class="content-text">
         Norwegian Bliss was designed with Alaska glacier viewing in mind — her observation lounge wraps the top deck with panoramic windows. The two-level race track and open-air laser tag arena set her apart from earlier NCL ships. Freestyle Cruising means no fixed dining times. If you want the newest NCL ship, Norwegian Aqua has the latest Prima Class features; for a similar size with Caribbean focus, Norwegian Encore is a near-sister.
       </p>
-
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
-        <ul style="margin: 0; padding-left: 1.25rem;">
-          <li><strong>Ship Class:</strong> Breakaway Plus — 168,028 GT, 4,010 guests</li>
-          <li><strong>Signature Features:</strong> Two-level go-kart track, observation lounge, open-air laser tag</li>
-          <li><strong>Itineraries:</strong> Alaska, Caribbean, Mexico</li>
-          <li><strong>Entered Service:</strong> 2018</li>
-        </ul>
-      </div>
     </section>
 
     <!-- First Look Section -->
@@ -474,18 +468,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     </section>
     <p class="subtitle">Norwegian Cruise Line &bull; Breakaway Plus Class</p>
 
-    <!-- ICP-2 Quick Answer -->
-    <div class="quick-answer" role="region" aria-label="Quick answer">
-      <h3>At a Glance</h3>
-      <p><strong>Norwegian Bliss</strong> is a <strong>Breakaway Plus Class</strong> ship from Norwegian Cruise Line.
-      With <strong>168,028 gross tons</strong> and capacity for <strong>4,010 guests</strong>,
-      she entered service in <strong>2018</strong>.</p>
-    </div>
-
-    <!-- Specs consolidated into stats section below -->
-
-    <!-- Stub Notice -->
-
     <!-- Dining Section -->
     <section class="card" aria-labelledby="diningHeading">
       <h2 id="diningHeading">Dining on Norwegian Bliss <a href="/restaurants.html" class="browse-all">→ Browse All</a></h2>
@@ -545,14 +527,9 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Norwegian Bliss features Broadway shows, the two-level Speedway go-kart track, open-air laser tag, Aqua Park waterslides, and the Galaxy Pavilion VR complex.</p>
-    </section>
-
     <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Norwegian Bliss Deck Plans</h2>
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">Norwegian Bliss Deck Plans</h2>
         <p>View the official deck plans to explore Norwegian Bliss's layout.</p>
         <figure>
           <img src="/assets/ship-map.png" alt="Simplified cruise ship deck layout overview" loading="lazy"/>
@@ -560,8 +537,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         </figure>
         <p><a class="btn" href="https://www.ncl.com/" target="_blank" rel="noopener">Visit Norwegian Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Norwegian Bliss?</h2>
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9751509" data-name="NORWEGIAN-BLISS">
+        <h2 id="liveTrackHeading">Where Is Norwegian Bliss?</h2>
         <div id="vf-tracker-container" style="width:100%;height:400px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;">
           <noscript><p>Live tracking requires JavaScript. Visit <a href="https://www.vesselfinder.com/?imo=9751509" target="_blank" rel="noopener">VesselFinder</a> to track Norwegian Bliss.</p></noscript>
           <iframe style="width:100%;height:100%;border:0;" title="Live ship tracker for Norwegian Bliss" loading="lazy" src="https://www.vesselfinder.com/aismap?imo=9751509&amp;zoom=5&amp;track=true&amp;names=true"></iframe>
@@ -569,19 +546,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       </section>
     </section>
 
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Norwegian Bliss with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-
-    <!-- Deck Plans & Tracker Grid -->
-    <div class="grid-2">
-      
     <!-- Ship Statistics -->
     <section class="card" aria-labelledby="statsHeading">
       <h3 id="statsHeading">Key Facts About Norwegian Bliss</h3>
@@ -594,26 +558,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         <div class="stat-item"><div class="label">Class</div><div class="value">Breakaway Plus</div></div>
       </div>
     </section>
-    <p class="mt-1">
-      <a href="https://www.ncl.com/cruise-ships/bliss" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
-        View Official Deck Plans →
-      </a>
-    </p>
-
-<section class="card" aria-labelledby="deck-plans">
-        <h2 id="deck-plans">Norwegian Bliss Deck Plans</h2>
-        <div id="ship-map" data-ship="norwegian-bliss">
-          <p>Interactive deck plans for Norwegian Bliss are available on the cruise line's official website.</p>
-        </div>
-      </section>
-
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9751509" data-name="NORWEGIANBLISS">
-        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
-        <div id="ship-tracker-container">
-          <p>Track Norwegian Bliss's current position and voyage details.</p>
-        </div>
-      </section>
-    </div>
 
     <script>
     (function(){
@@ -667,8 +611,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 
     
 
-    <!-- Attribution Section -->
-    
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Norwegian Bliss</h2>
@@ -770,17 +712,17 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     </section>
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny">
-      <a href="/privacy.html">Privacy</a> &middot;
-      <a href="/terms.html">Terms</a> &middot;
-      <a href="/about-us.html">About</a> &middot;
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center dedication-hidden" >Soli Deo Gloria</p>
