@@ -57,17 +57,18 @@ pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
 | `admin/claude/STANDARDS_INDEX.md` | Master index of all standards |
 | `admin/claude/CODEBASE_GUIDE.md` | Repository structure, patterns, conventions |
 | `.claude/ONBOARDING.md` | Claude Code system overview (10 skills, 5 hooks) |
-| `new-standards/README.md` | Official consolidated standards — start here for page work |
-| `new-standards/foundation/Unified_Modular_Standards_v3.007.010.md` | Complete superset: all page types, navigation, data, analytics |
-| `new-standards/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md` | Ship pages — primary reference (860 lines) |
-| `new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md` | Accessibility — full WCAG 2.1 AA spec |
-| `new-standards/foundation/PWA_CACHING_STANDARDS_v3.007.md` | Service Worker / PWA / caching strategy |
-| `new-standards/foundation/NAVIGATION_STANDARDS_ADDENDUM_v3.008.md` | Navigation contract — 12-link structure, ARIA |
-| `new-standards/v3.010/PORT_PAGE_STANDARD_v3.010.md` | Port pages |
-| `new-standards/v3.010/LOGBOOK_ENTRY_STANDARD_v3.010.md` | Logbook entry structure |
-| `new-standards/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md` | Ship page pre-publish checklist |
-| `new-standards/v3.010/MOBILE_STANDARDS_v1.000.md` | Mobile responsiveness — breakpoints, touch targets |
-| `standards/SHIP_PAGE_STANDARD.md` | Ship page standard v2.0 (ITW-SHIP-002, gold standard refs) |
+| `admin/validator-spec/README.md` | **Canonical rule catalog — 138 rules, single source of truth** |
+| `new-standards/README.md` | Regenerated standards index (points to validator-spec rules) |
+| `admin/archive/standards-pre-2026-04-15/foundation/Unified_Modular_Standards_v3.007.010.md` | Archived: complete superset (historical reference) |
+| `admin/archive/standards-pre-2026-04-15/foundation/SHIP_PAGE_STANDARDS_v3.007.010.md` | Archived: ship pages primary reference (historical) |
+| `admin/archive/standards-pre-2026-04-15/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md` | Archived: WCAG 2.1 AA spec (historical) |
+| `admin/archive/standards-pre-2026-04-15/foundation/PWA_CACHING_STANDARDS_v3.007.md` | Archived: PWA / caching strategy (historical) |
+| `admin/archive/standards-pre-2026-04-15/foundation/NAVIGATION_STANDARDS_ADDENDUM_v3.008.md` | Archived: navigation contract (historical) |
+| `admin/archive/standards-pre-2026-04-15/v3.010/PORT_PAGE_STANDARD_v3.010.md` | Archived: port pages (historical) |
+| `admin/archive/standards-pre-2026-04-15/v3.010/LOGBOOK_ENTRY_STANDARD_v3.010.md` | Archived: logbook entry structure (historical) |
+| `admin/archive/standards-pre-2026-04-15/v3.010/SHIP_PAGE_CHECKLIST_v3.010.md` | Archived: ship page checklist (historical) |
+| `admin/archive/standards-pre-2026-04-15/v3.010/MOBILE_STANDARDS_v1.000.md` | Archived: mobile standards (historical) |
+| `admin/archive/standards-pre-2026-04-15/standards-legacy/SHIP_PAGE_STANDARD.md` | Archived: ship page standard v2.0 (historical) |
 
 ---
 
@@ -88,8 +89,9 @@ pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
 │   ├── css/                  # styles.css?v=3.010.400
 │   ├── data/                 # 1,310 JSON files
 │   └── ships/                # 682 WebP images (4,475 total)
-├── new-standards/            # Official consolidated standards (foundation + v3.010)
-├── standards/                # Legacy — SHIP_PAGE_STANDARD.md, drink-calculator.md
+├── admin/validator-spec/     # Canonical rule catalog (138 rules — single source of truth)
+├── new-standards/            # Regenerated standards index (points to validator-spec)
+├── admin/archive/standards-pre-2026-04-15/  # Archived original standards (historical)
 ├── admin/claude/             # Claude documentation (you are here)
 └── admin/UNFINISHED_TASKS.md
 ```
@@ -169,8 +171,9 @@ pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
 2. `.claude/skills/careful-not-clever/CAREFUL.md` — integrity and carefulness override efficiency
 3. This file — architecture, never-dos, priorities
 4. `admin/claude/TECHNICAL_STANDARDS.md` — implementation patterns
-5. `new-standards/` — page-type specifics
-6. `admin/UNFINISHED_TASKS.md` — current work
+5. `admin/validator-spec/` — canonical rule catalog (138 rules, single source of truth)
+6. `new-standards/README.md` — regenerated standards index (points to validator-spec)
+7. `admin/UNFINISHED_TASKS.md` — current work
 
 ---
 

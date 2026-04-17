@@ -435,6 +435,29 @@
           </select>
           <span id="line-selector-status" class="tiny" style="color: #555;"></span>
         </div>
+
+        <!-- v2.1: Free-at-Sea toggle (shown only when active line has freeAtSea.available) -->
+        <div id="free-at-sea-toggle" style="display: none; margin: 0.5rem 0 1rem; padding: 0.75rem 1rem; background: #fef9e7; border: 2px solid #e8c547; border-radius: 8px;">
+          <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.95rem;">
+            <input type="checkbox" id="free-at-sea-check" style="width: 18px; height: 18px; cursor: pointer;" aria-describedby="free-at-sea-help" />
+            <span><strong>I have Free-at-Sea bundled with my fare</strong></span>
+          </label>
+          <p id="free-at-sea-help" class="tiny" style="margin: 0.4rem 0 0 1.7rem; color: #665; line-height: 1.35;">
+            When enabled, the Open Bar package cost becomes the flat <span id="fas-rate">$28.50</span>/person/day service charge rather than full retail + 20% gratuity. Applies to first 2 guests on the reservation.
+          </p>
+        </div>
+
+        <!-- v2.1: Booking date picker (shown only when active line has policies with effectiveDate) -->
+        <div id="booking-date-wrap" style="display: none; margin: 0.5rem 0 1rem; padding: 0.75rem 1rem; background: #eef5fb; border: 2px solid #b4cfe4; border-radius: 8px;">
+          <label for="booking-date-input" style="display: block; font-weight: 600; font-size: 0.95rem; color: #083041; margin-bottom: 0.3rem;">
+            When did you book your cruise?
+          </label>
+          <input type="date" id="booking-date-input" style="padding: 0.45rem 0.6rem; border: 1px solid #b4cfe4; border-radius: 6px; font-size: 0.9rem;" aria-describedby="booking-date-help" />
+          <p id="booking-date-help" class="tiny" style="margin: 0.4rem 0 0; color: #556; line-height: 1.35;">
+            Bookings made before a policy change's effective date are grandfathered into the prior benefits. Leave blank to assume current-day policies.
+          </p>
+          <p id="grandfathered-policies" class="tiny" style="margin: 0.4rem 0 0; color: #0c6b35; display: none;" aria-live="polite"></p>
+        </div>
         <script>
         // ═══════════════════════════════════════════════════════════
         // v2: Unified Config-Driven Dynamic Rendering
@@ -867,6 +890,43 @@
 
           // ══════════════════════════════════════════
           // Master render function — called on init and on line switch
+          // ── v2.1: Free-at-Sea toggle visibility + rate label ──
+          function updateFreeAtSeaToggle(lc) {
+            var wrap = document.getElementById('free-at-sea-toggle');
+            if (!wrap) return;
+            if (lc && lc.freeAtSea && lc.freeAtSea.available === true) {
+              wrap.style.display = '';
+              var rate = document.getElementById('fas-rate');
+              if (rate && lc.freeAtSea.serviceChargePerDay) {
+                rate.textContent = '$' + Number(lc.freeAtSea.serviceChargePerDay).toFixed(2);
+              }
+            } else {
+              wrap.style.display = 'none';
+              // Reset checkbox + state so stale selection doesn't linger across lines
+              var chk = document.getElementById('free-at-sea-check');
+              if (chk) chk.checked = false;
+              if (window.ITW_setFreeAtSeaMode) window.ITW_setFreeAtSeaMode(false);
+            }
+          }
+
+          // ── v2.1: Booking-date picker visibility + grandfather summary ──
+          function updateBookingDatePicker(lc) {
+            var wrap = document.getElementById('booking-date-wrap');
+            if (!wrap) return;
+            var hasDatedPolicy = lc && Array.isArray(lc.policies) &&
+              lc.policies.some(function(p) { return p.effectiveDate; });
+            wrap.style.display = hasDatedPolicy ? '' : 'none';
+            // Reset date input + grandfather summary on line change so stale
+            // values from the previous line don't produce wrong matches.
+            var dateInput = document.getElementById('booking-date-input');
+            if (dateInput) {
+              dateInput.value = '';
+              if (window.ITW_setBookingDate) window.ITW_setBookingDate(null);
+            }
+            var summary = document.getElementById('grandfathered-policies');
+            if (summary) { summary.style.display = 'none'; summary.textContent = ''; }
+          }
+
           // ══════════════════════════════════════════
           function renderFromConfig(lc) {
             if (!lc) return;
@@ -889,6 +949,8 @@
             updateDrinkPriceLabels(lc);
             updateChartHelp(lc);
             updateFamilyPolicy(lc);
+            updateFreeAtSeaToggle(lc);
+            updateBookingDatePicker(lc);
           }
 
           // ── Wire Events ──
@@ -921,6 +983,50 @@
               });
             }
 
+            // v2.1: Free-at-Sea checkbox wiring
+            var fasCheck = document.getElementById('free-at-sea-check');
+            if (fasCheck) {
+              fasCheck.addEventListener('change', function() {
+                if (window.ITW_setFreeAtSeaMode) {
+                  window.ITW_setFreeAtSeaMode(fasCheck.checked);
+                }
+              });
+            }
+
+            // v2.1: Booking date picker wiring. Also renders a summary of
+            // which policies (if any) were grandfathered based on that date.
+            var dateInput = document.getElementById('booking-date-input');
+            if (dateInput) {
+              dateInput.addEventListener('change', function() {
+                if (window.ITW_setBookingDate) {
+                  window.ITW_setBookingDate(dateInput.value || null);
+                }
+                renderGrandfatherSummary(dateInput.value, window.ITW_LINE_CONFIG);
+              });
+            }
+
+            // Renders a small green note listing which policies are grandfathered.
+            function renderGrandfatherSummary(date, lc) {
+              var summary = document.getElementById('grandfathered-policies');
+              if (!summary) return;
+              if (!date || !lc || !Array.isArray(lc.policies)) {
+                summary.style.display = 'none';
+                summary.textContent = '';
+                return;
+              }
+              var grandfathered = lc.policies.filter(function(p) {
+                return p.effectiveDate && date < p.effectiveDate;
+              });
+              if (grandfathered.length === 0) {
+                summary.style.display = 'none';
+                summary.textContent = '';
+                return;
+              }
+              summary.style.display = '';
+              summary.textContent = '\u2713 Your booking pre-dates ' + grandfathered.length +
+                ' policy change(s): ' + grandfathered.map(function(p) { return p.title || p.id; }).join(' \u2014 ');
+            }
+
             // Re-render on line switch
             window.addEventListener('itw:line-changed', function(e) {
               var lc = e.detail && e.detail.config;
@@ -928,6 +1034,8 @@
                 renderFromConfig(lc);
                 // PERSONA FIX: Keep dropdown synced
                 if (select && lc.id) select.value = lc.id;
+                // v2.1: Re-render grandfather summary for new line + existing date
+                if (dateInput) renderGrandfatherSummary(dateInput.value, lc);
               }
             });
           });
