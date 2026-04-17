@@ -6,18 +6,28 @@ All work on this project is offered as a gift to God.
 "Whatever you do, work heartily..." — Colossians 3:23
 -->
 
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
-  <!-- ======================================================
-       STANDARDS: v3.010.400 · ICP-2 · A11y/WCAG 2.1 AA
-       ====================================================== -->
-
+<!-- ai-breadcrumbs
+     entity: Ship
+     name: Unnamed (Project Ace 2)
+     type: Ship Information Page
+     parent: /ships.html
+     siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-breeze.html, /ships/carnival/carnival-celebration.html, /ships/carnival/carnival-conquest.html, /ships/carnival/carnival-dream.html
+     category: Carnival Fleet
+     cruise-line: Carnival Cruise Line
+     ship-class: Project Ace (New Class)
+     updated: 2026-02-20
+     expertise: Carnival ship reviews, deck plans, dining analysis, cabin comparisons
+     target-audience: Unnamed (Project Ace 2) cruisers, ship comparison researchers, first-time cruisers
+     answer-first: Details, deck plans, photos, and videos for Unnamed (Project Ace 2) — Coming Soon (Future) ship with Carnival Cruise Line.
+     -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Unnamed (Project Ace 2) (Carnival) — InTheWake</title>
 <link rel="canonical" href="https://cruisinginthewake.com/ships/carnival/unnamed-project-ace-2.html" />
   <!-- OpenGraph -->
-  <meta property="og:type" content="website"/>
+  <meta property="og:type" content="article"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:title" content="Unnamed (Project Ace 2) (Carnival) — InTheWake"/>
   <meta property="og:description" content="Details, deck plans, photos, and videos for Unnamed (Project Ace 2) — Coming Soon (Future) ship with Carnival Cruise Line."/>
@@ -28,19 +38,7 @@ All work on this project is offered as a gift to God.
 <meta name="description" content="Details, deck plans, photos, and videos for Unnamed (Project Ace 2) — Coming Soon (Future) ship with Carnival Cruise Line." />
   <meta name="ai-summary" content="Details, deck plans, photos, and videos for Unnamed (Project Ace 2) — Coming Soon (Future) ship with Carnival Cruise Line.">
   <meta name="last-reviewed" content="2026-02-20">
-  <!-- SEO: Robots & Crawling -->
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
-  <meta name="googlebot" content="index,follow"/>
-  <meta name="bingbot" content="index,follow"/>
-
-  <!-- SEO: Theme & Appearance -->
-  <meta name="color-scheme" content="light"/>
-  <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.400"/>
-  <meta name="author" content="In the Wake"/>
-  <meta name="publisher" content="In the Wake"/>
-
-  <meta name="content-protocol" content="ICP-2">
+  <meta name="content-protocol" content="ICP-Lite v1.4">
 <link rel="preconnect" href="https://www.carnival.com">
 <!-- Service Worker Registration -->
   <script>
@@ -301,10 +299,12 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(cdnCSS);
-  addJS(cdnJS, function(){ window.__swiperReady=true; });
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
 })();
 </script>
 </head>
@@ -671,6 +671,5 @@ All work on this project is offered as a gift to God.
   })();
   </script>
   <script src="/assets/js/ship-port-links.js" defer></script>
-  <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>

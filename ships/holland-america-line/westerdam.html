@@ -6,12 +6,22 @@ All work on this project is offered as a gift to God.
 "Whatever you do, work heartily..." — Colossians 3:23
 -->
 
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
-  <!-- ======================================================
-       STANDARDS: v3.010.400 · ICP-2 · A11y/WCAG 2.1 AA
-       ====================================================== -->
-
+<!-- ai-breadcrumbs
+     name: Westerdam
+     entity: Ship
+     type: Ship Information Page
+     parent: /ships.html
+     category: Holland America Line Fleet
+     cruise-line: Holland America Line
+     ship-class: Vista Class
+     siblings: /ships/holland-america-line/noordam.html, /ships/holland-america-line/oosterdam.html, /ships/holland-america-line/zuiderdam.html
+     updated: 2026-01-02
+     expertise: Holland America ship reviews, deck plans, dining analysis, cabin comparisons
+     target-audience: Westerdam cruisers, ship comparison researchers, first-time cruisers
+     answer-first: Discover Westerdam: Vista Class ship from Holland America Line — dining highlights, crew warmth, live tracking, and planning tips inside.
+     -->
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
 <script>
@@ -25,7 +35,6 @@ All work on this project is offered as a gift to God.
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="referrer" content="no-referrer-when-downgrade"/>
 
   <!-- ===== SEO Meta ===== -->
   <title>Westerdam — Holland America Line Ship Guide | In the Wake</title>
@@ -33,19 +42,7 @@ All work on this project is offered as a gift to God.
   <meta name="description" content="Discover Westerdam: A Vista Class ship from Holland America Line. 82,348 GT, 1,916 guests, built 2004. Dining, entertainment, deck plans, and planning tips."/>
   <meta name="ai-summary" content="Discover Westerdam: A Vista Class ship from Holland America Line. 82,348 GT, 1,916 guests, built 2004. Dining, entertainment, deck plans, and planning tips.">
   <meta name="last-reviewed" content="2026-02-21">
-  <!-- SEO: Robots & Crawling -->
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
-  <meta name="googlebot" content="index,follow"/>
-  <meta name="bingbot" content="index,follow"/>
-
-  <!-- SEO: Theme & Appearance -->
-  <meta name="color-scheme" content="light"/>
-  <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.400"/>
-  <meta name="author" content="In the Wake"/>
-  <meta name="publisher" content="In the Wake"/>
-
-  <meta name="content-protocol" content="ICP-2">
+  <meta name="content-protocol" content="ICP-Lite v1.4">
 
   <!-- OpenGraph / Twitter -->
   <meta property="og:type" content="website"/>
@@ -103,11 +100,6 @@ All work on this project is offered as a gift to God.
     window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
   }
   </script>
-
-  <!-- Favicon / PWA -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
-  <link rel="manifest" href="/manifest.webmanifest"/>
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
@@ -265,10 +257,12 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(cdnCSS);
-  addJS(cdnJS, function(){ window.__swiperReady=true; });
+  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
+  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
 })();
 </script>
 </head>
@@ -738,6 +732,5 @@ Dining on Westerdam</h2>
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
-  <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>

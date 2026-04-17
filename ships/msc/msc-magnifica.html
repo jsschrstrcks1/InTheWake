@@ -8,9 +8,6 @@ All work on this project is offered as a gift to God.
 
 <html lang="en" class="no-js">
 <head>
-  <!-- ======================================================
-       STANDARDS: v3.010.400 · ICP-2 · A11y/WCAG 2.1 AA
-       ====================================================== -->
 <script>document.documentElement.classList.remove('no-js');</script>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -32,20 +29,6 @@ All work on this project is offered as a gift to God.
   <meta name="description" content="MSC Magnifica: Musica Class, 95,128 GT, 2,506 double / 3,007 max guests, 1,038 crew. Delivered February 2010 by STX France; christened by Sophia Loren in Hamburg. Oct-Dec 2025 Palumbo Malta refit added the MSC Yacht Club (63 suites), Butcher's Cut steakhouse, and Kaito Sushi. L'Edera and Quattro Venti MDRs. 2026 World Cruise through mid-May."/>
   <meta name="ai-summary" content="MSC Magnifica: Musica Class, 95,128 GT, 2,506 double / 3,007 max, 1,038 crew. Built 2010, 2025 refit added Yacht Club. L'Edera + Quattro Venti MDRs, Royal Theatre. 2026 World Cruise then Baltic summer 2026.">
   <meta name="last-reviewed" content="2026-04-11">
-  <meta name="referrer" content="no-referrer-when-downgrade"/>
-
-  <!-- SEO: Robots & Crawling -->
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
-  <meta name="googlebot" content="index,follow"/>
-  <meta name="bingbot" content="index,follow"/>
-
-  <!-- SEO: Theme & Appearance -->
-  <meta name="color-scheme" content="light"/>
-  <meta name="theme-color" content="#0e6e8e"/>
-  <meta name="version" content="3.010.400"/>
-  <meta name="author" content="In the Wake"/>
-  <meta name="publisher" content="In the Wake"/>
-
   <meta name="content-protocol" content="ICP-2">
 
   <!-- OpenGraph / Twitter -->
@@ -105,12 +88,7 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
-  <!-- Favicon / PWA -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
-  <link rel="manifest" href="/manifest.webmanifest"/>
-
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 <!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -264,10 +242,12 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(cdnCSS);
-  addJS(cdnJS, function(){ window.__swiperReady=true; });
+  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(primaryCSS);
+  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
 })();
 </script>
 </head>
