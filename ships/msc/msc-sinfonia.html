@@ -8,6 +8,9 @@ All work on this project is offered as a gift to God.
 
 <html lang="en" class="no-js">
 <head>
+  <!-- ======================================================
+       STANDARDS: v3.010.400 · ICP-2 · A11y/WCAG 2.1 AA
+       ====================================================== -->
 <script>document.documentElement.classList.remove('no-js');</script>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
@@ -29,6 +32,20 @@ All work on this project is offered as a gift to God.
   <meta name="description" content="MSC Sinfonia: Lirica Class ship (65,542 GT, ~1,554 double / 2,546 max guests, ~721 crew). Originally delivered as MS European Stars 2002 for Festival Cruises by Chantiers de l'Atlantique at Saint-Nazaire; acquired by MSC July 2004, entered MSC service March 2005; lengthened by 24 metres at Fincantieri Palermo in January-March 2015 (Renaissance Programme Phase 2). Il Galeone and Il Covo dining, Teatro San Carlo. Summer 2026 Greek Isles from Bari; winter 2026-27 South America."/>
   <meta name="ai-summary" content="MSC Sinfonia: Lirica Class, 65,542 GT, ~1,554 double / 2,546 max, ~721 crew. Built 2002 as European Stars, joined MSC 2004, lengthened 2015. Il Galeone + Il Covo MDRs, Teatro San Carlo. Bari / Greek Isles summer 2026; South America winter 2026-27.">
   <meta name="last-reviewed" content="2026-04-11">
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.400"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+
   <meta name="content-protocol" content="ICP-2">
 
   <!-- OpenGraph / Twitter -->
@@ -88,7 +105,12 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 <!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -222,12 +244,10 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(primaryCSS);
-  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
 })();
 </script>
 </head>
