@@ -647,15 +647,16 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   let drinkOvercapTotal = 0;
   for (const row of categoryRows) {
     if (sets.alcoholic.includes(row.id) && row.price > cap) {
-      // row.qty is drinks per adult per day, row.price is per-drink price
-      // Excess per drink = price - cap ($14)
-      // Total excess = excess_per_drink × qty × days × adults
+      // row.qty is GROUP-LEVEL per day (same scale as rawTotal which uses qty × price × days).
+      // Excess per drink = price - cap. Total excess = excess × qty × days.
+      // No adults multiplier — qty already represents the group's total daily consumption.
       const perDrinkExcess = row.price - cap;
-      drinkOvercapTotal += perDrinkExcess * row.qty * days * adults;
+      drinkOvercapTotal += perDrinkExcess * row.qty * days;
     }
   }
 
-  // For backwards compatibility, keep overcap as per-person per-day value for display
+  // Display value: per-person per-day overcap. drinkOvercapTotal is group-level per-trip,
+  // so divide by days to get per-day, then by adults to approximate per-person.
   const overcap = drinkOvercapTotal > 0 ? round2(drinkOvercapTotal / (days * adults)) : 0;
 
   // CRITICAL FIX v1.004.000 + v1.005.000 + v1.006.000: Calculate TRUE total cost for each package option

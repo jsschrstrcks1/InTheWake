@@ -228,6 +228,53 @@ assert(atCap.overcap === 0, 'cocktail at $14 = cap → overcap=0');
 const wineTest = run(rcl, { days: 7, adults: 1, seaApply: false, drinks: { wine: 5 } });
 assert(wineTest.overcap === 0, 'wine at $11 under $14 cap → overcap=0');
 
+// Celebrity Classic has $10 cap — cocktails at $15 exceed it
+const celOvercap = run(config.lines.celebrity, { days: 7, adults: 1, seaApply: false, drinks: { cocktail: 3 } });
+assert(celOvercap.overcap > 0, 'Celebrity cocktail at $15 over $10 cap → overcap > 0');
+// Verify exact: $5 excess × 3 qty × 7 days = $105 total, display = $105 / (7×1) = $15/person/day
+assert(near(celOvercap.overcap, 15.0, 0.01), 'Celebrity overcap = $15/person/day', `got $${celOvercap.overcap}`);
+
+// REGRESSION: overcap must be INDEPENDENT of adults count (same group consumption)
+const celOc1 = run(config.lines.celebrity, { days: 7, adults: 1, seaApply: false, drinks: { cocktail: 3 } });
+const celOc2 = run(config.lines.celebrity, { days: 7, adults: 2, seaApply: false, drinks: { cocktail: 3 } });
+const rawOc1 = celOc1.packageBreakdown.deluxe.total - celOc1.packageBreakdown.deluxe.fixedCost;
+const rawOc2 = celOc2.packageBreakdown.deluxe.total - celOc2.packageBreakdown.deluxe.fixedCost;
+assert(near(rawOc1, rawOc2, 0.01),
+  'overcap raw total same for 1 vs 2 adults (same group drinks)',
+  `1 adult=$${rawOc1.toFixed(2)} 2 adults=$${rawOc2.toFixed(2)}`);
+
+// ═══════════════════════════════════════════════════════════════
+// E2. noPackages / allInclusive FLAGS
+// ═══════════════════════════════════════════════════════════════
+section('E2. noPackages/allInclusive');
+
+// Virgin (noPackages: true) → always à la carte
+const virginResult = run(config.lines.virgin, { days: 7, adults: 2, seaApply: false, drinks: { cocktail: 4, beer: 2 } });
+assert(virginResult.winnerKey === 'alc', 'Virgin (noPackages) → winner always alc');
+assert(virginResult.trip > 0, 'Virgin → trip > 0 (drinks are not free)');
+
+// Virgin with minors → minor winner also alc
+const virginMinors = run(config.lines.virgin, { days: 7, adults: 2, minors: 1, seaApply: false, drinks: { cocktail: 2, soda: 3 } });
+assert(virginMinors.winnerKey === 'alc', 'Virgin + minors → adult winner alc');
+assert(virginMinors.minorWinnerKey === 'alc', 'Virgin + minors → minor winner alc');
+assert(virginMinors.showTwoWinners === false, 'Virgin + minors → showTwoWinners false');
+
+// Regent (allInclusive: true) → always à la carte at $0
+const regentResult = run(config.lines.regent, { days: 7, adults: 2, seaApply: false, drinks: { cocktail: 10, wine: 5 } });
+assert(regentResult.winnerKey === 'alc', 'Regent (allInclusive) → winner alc');
+assert(regentResult.trip === 0, 'Regent → trip = $0 (all drinks price $0)');
+
+// Seabourn allInclusive
+const seabournResult = run(config.lines.seabourn, { days: 7, adults: 2, seaApply: false, drinks: { cocktail: 5 } });
+assert(seabournResult.winnerKey === 'alc', 'Seabourn (allInclusive) → winner alc');
+assert(seabournResult.trip === 0, 'Seabourn → trip = $0');
+
+// Silversea allInclusive
+assert(run(config.lines.silversea, { drinks: { wine: 3 } }).winnerKey === 'alc', 'Silversea → alc');
+
+// Explora allInclusive
+assert(run(config.lines.explora, { drinks: { spirits: 3 } }).winnerKey === 'alc', 'Explora → alc');
+
 // ═══════════════════════════════════════════════════════════════
 // F. VOUCHERS (RCL Diamond)
 // ═══════════════════════════════════════════════════════════════
