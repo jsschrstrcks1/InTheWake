@@ -6,6 +6,22 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.17.0] — 2026-04-16 — Phase 3 batch 3: VOI expansion (5 rules)
+
+### Added
+5 VOI-family rules from voice-audit.md + Like-a-human.md:
+- **VOI-002** (warn, S-only, llm-review): no hedging stacks
+- **VOI-003** (warn, S-only, llm-review): natural sentence-length variance
+- **VOI-004** (warn, S-only, llm-review): no interchangeable descriptions
+- **VOI-005** (warn, S-only, llm-review): emotional precision — direct words not euphemisms
+- **VOI-006** (warn, S-only, llm-review): no road-map paragraphs
+
+All llm-review implementation. These are the core voice-authenticity rules the site depends on for pastoral integrity. No new orphans (llm-review ≠ implementation:none).
+
+Totals: 130 → 135 rules. VOI 1 → 6. Spec version 0.16.0 → 0.17.0.
+
+---
+
 ## [0.16.0] — 2026-04-16 — Phase 3 batch 2: SEO family (5 rules)
 
 ### Added
