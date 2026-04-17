@@ -6,6 +6,25 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.15.0] — 2026-04-16 — Phase 3 batch 1: LOG family (5 rules)
+
+### Added
+5 LOG-family rules from `LOGBOOK_ENTRY_STANDARDS_v2.300.md` and `LOGBOOK_AUDIT_2026-02-05.md`:
+- **LOG-001** (warn, S-only, llm-review): 6-movement narrative anatomy
+- **LOG-002** (warn, S-only, ORPHAN): `## Full disclosure` section required (1% compliance per audit)
+- **LOG-003** (warn, S-only, ORPHAN): 7-section spine includes Accessibility + Female Crewmate
+- **LOG-004** (warn, S-only, llm-review): emotional pivot must not be flattened (CLAUDE.md NEVER rule)
+- **LOG-005** (error, V+S-agree): no brochure/sales language in logbook (FORBIDDEN_PATTERNS in port validator)
+
+LOG-001/004 are llm-review (voice-audit detects during editorial review).
+LOG-002/003 are pure orphans — described in standards, no validator enforces.
+LOG-005 is V+S-agree — both port validator forbidden-patterns and LOGBOOK_ENTRY_STANDARDS enforce it.
+
+Totals: 120 → 125 rules. LOG 0 → 5. Orphans 6 → 8.
+Spec version 0.14.0 → 0.15.0.
+
+---
+
 ## [0.14.0] — 2026-04-16 — Phase 2 batch 10: PROOF family (5 rules)
 
 ### Added

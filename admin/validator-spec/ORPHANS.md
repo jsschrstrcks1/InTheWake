@@ -15,6 +15,8 @@ Rules with `implementation: none` appear here. These are rules the spec declares
 | ID | Name | File |
 |---|---|---|
 | `LINK-001` | Ship-page venue references must resolve to existing venue pages | [rules/LINK-001.md](rules/LINK-001.md) |
+| `LOG-002` | Logbook disclosure statement required (## Full disclosure) | [rules/LOG-002.md](rules/LOG-002.md) |
+| `LOG-003` | Logbook 7-section spine includes accessibility and female-crewmate sections | [rules/LOG-003.md](rules/LOG-003.md) |
 | `NAV-001` | Primary navigation includes the twelve canonical links in order | [rules/NAV-001.md](rules/NAV-001.md) |
 | `PWA-001` | Service worker cache version bumped on every release | [rules/PWA-001.md](rules/PWA-001.md) |
 | `VENUE-006` | venue-tags meta tag present with style / cruise-line / ship-availability attributes | [rules/VENUE-006.md](rules/VENUE-006.md) |
