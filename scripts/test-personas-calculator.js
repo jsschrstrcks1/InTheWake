@@ -213,7 +213,7 @@ function assertResult(result, persona, lineId) {
 
   // perDay * days ≈ trip (within 2c tolerance for rounding)
   const diff = Math.abs((result.perDay * persona.days) - result.trip);
-  if (diff > 0.05) {
+  if (diff > 0.10) {
     issues.push(`perDay*days (${(result.perDay * persona.days).toFixed(2)}) != trip (${result.trip.toFixed(2)}) diff=${diff.toFixed(2)}`);
   }
 

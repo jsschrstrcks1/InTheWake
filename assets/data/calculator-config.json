@@ -777,6 +777,224 @@
         ],
         "gratuityNote": "Standalone: 20%. Free-at-Sea: flat $28.50/person/day (26.1% effective)."
       }
+    },
+
+    "celebrity": {
+      "id": "celebrity",
+      "name": "Celebrity Cruises",
+      "shortName": "Celebrity",
+      "slug": "celebrity",
+      "pageUrl": "/cruise-lines/celebrity.html",
+      "color": "#1c2b3a",
+
+      "packages": {
+        "soda": {
+          "name": "Included in Fare",
+          "shortName": "Fare",
+          "emoji": "🚢",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "Basic soda, water, drip coffee, juice, and lemonade are included in Celebrity's base fare. No separate soda package is sold.",
+          "includesList": [
+            "Fountain soda (Coca-Cola products)",
+            "Drip coffee and tea",
+            "Juice and lemonade",
+            "Infused water"
+          ],
+          "breakEvenDrink": { "name": "sodas", "price": 0 },
+          "note": "Celebrity includes basic non-alcoholic drinks in the cruise fare. This is modeled as a $0 'soda package' so the calculator correctly shows these drinks at no cost."
+        },
+        "refreshment": {
+          "name": "Zero Proof Package",
+          "shortName": "Zero Proof",
+          "emoji": "☕",
+          "priceMid": 30.00,
+          "priceMin": 25.00,
+          "priceMax": 45.00,
+          "priceNote": "$30–$45/day (+20% gratuity). Prices vary by ship and sailing.",
+          "includes": "Premium non-alcoholic drinks: specialty coffee, premium teas, fresh juices, mocktails, smoothies, premium bottled water, energy drinks",
+          "includesList": [
+            "Specialty coffees (espresso, cappuccino, latte)",
+            "Premium teas",
+            "Fresh-squeezed juices and smoothies",
+            "Premium mocktails and zero-proof cocktails",
+            "Premium bottled water (Evian, San Pellegrino)",
+            "Energy drinks (Red Bull)",
+            "Does NOT include alcohol"
+          ],
+          "breakEvenDrink": { "name": "specialty coffees", "price": 5.00 }
+        },
+        "deluxe": {
+          "name": "Classic Beverage Package",
+          "shortName": "Classic",
+          "emoji": "🍸",
+          "priceMid": 89.00,
+          "priceMin": 75.00,
+          "priceMax": 100.00,
+          "priceNote": "$75–$100/day (+20% gratuity). Pre-cruise pricing typically $85/day.",
+          "includes": "Beer, wine, cocktails, spirits up to $10/drink + all Zero Proof items",
+          "includesList": [
+            "All Zero Proof items",
+            "Beer, wine, cocktails, spirits up to $10 per drink",
+            "Pay difference for drinks above $10 cap",
+            "Most domestic beers covered; many craft/imported exceed cap"
+          ],
+          "breakEvenDrink": { "name": "cocktails", "price": 10.00 }
+        },
+        "deluxePlus": {
+          "name": "Premium Beverage Package",
+          "shortName": "Premium",
+          "emoji": "🥂",
+          "priceMid": 109.00,
+          "priceMin": 89.00,
+          "priceMax": 125.00,
+          "priceNote": "$89–$125/day (+20% gratuity). Pre-cruise pricing typically $93/day.",
+          "includes": "Everything in Classic + premium spirits, wines, cocktails up to $17/drink",
+          "includesList": [
+            "All Classic items",
+            "Premium spirits up to $17 per drink",
+            "Premium wines by the glass up to $17",
+            "Craft cocktails and specialty martinis up to $17",
+            "Pay difference for drinks above $17 cap"
+          ],
+          "breakEvenDrink": { "name": "premium cocktails", "price": 17.00 },
+          "note": "Calculator models Premium as metadata only. Math engine compares soda/refresh/deluxe (Classic); Premium ranking is planned Phase 2."
+        }
+      },
+
+      "coffeeCard": {
+        "enabled": false,
+        "name": "Coffee Card",
+        "price": 0,
+        "punches": 0,
+        "note": "Celebrity does not offer an à-la-carte coffee card. Specialty coffee is included in the Zero Proof, Classic, and Premium packages. Elite Plus Captain's Club members get free specialty coffees."
+      },
+
+      "rules": {
+        "gratuity": 0.20,
+        "deluxeCap": 10.00,
+        "deluxePlusCap": 17.00,
+        "allAdultsSamePackage": true,
+        "allAdultsSamePackageNote": "All adults sharing a stateroom must purchase the same beverage package. Medical exemptions require a phone call to Celebrity. Different package tiers (Classic vs Premium) also require phone booking.",
+        "minorsForceRefreshment": false,
+        "minorsForceSodaNote": "Minors under 21 cannot purchase alcohol packages. They receive the fare-included basic drinks. No forced package purchase required.",
+        "adultAge": 21,
+        "alcoholAge": 21,
+        "usPortAlcoholRestriction": true,
+        "deluxeDailyLimit": null,
+        "deluxeTransactionLimit": 1
+      },
+
+      "loyalty": {
+        "enabled": false,
+        "programName": "Captain's Club",
+        "voucherValue": 0,
+        "voucherNote": "Captain's Club does not offer daily drink vouchers. Elite members (300+ pts) get free drinks 5–7pm daily from the Captain's Club menu at most bars. Elite Plus (750+ pts) get free specialty coffees all day. Not modeled as vouchers in the calculator.",
+        "tiers": [],
+        "perks": [
+          { "tier": "Classic", "pointsMin": 2, "pointsMax": 149, "drinkPerks": "None" },
+          { "tier": "Select", "pointsMin": 150, "pointsMax": 299, "drinkPerks": "None" },
+          { "tier": "Elite", "pointsMin": 300, "pointsMax": 749, "drinkPerks": "Free drinks 5–7pm daily at CC bars" },
+          { "tier": "Elite Plus", "pointsMin": 750, "pointsMax": 99999, "drinkPerks": "Free specialty coffees all day + free drinks 5–7pm" }
+        ]
+      },
+
+      "drinks": [
+        { "id": "soda",         "name": "Soda",             "label": "Soda (fountain)",         "price": 0,     "rangeMin": 0,    "rangeMax": 0,     "category": "non-alcoholic", "icon": "🥤", "note": "Included in Celebrity fare" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Latte",        "price": 5.00,  "rangeMin": 4.25, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 4.50,  "rangeMin": 4.00, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice / Smoothie",  "price": 0,     "rangeMin": 0,    "rangeMax": 0,     "category": "non-alcoholic", "icon": "🧃", "note": "Basic juice included in fare; premium smoothies covered by Zero Proof" },
+        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",     "price": 8.00,  "rangeMin": 5.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
+        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 7.00,  "rangeMin": 7.00, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "⚡" },
+        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake / Smoothie",    "price": 7.00,  "rangeMin": 5.00, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🥛" },
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Premium Bottled Water",   "price": 5.00,  "rangeMin": 4.00, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "💧" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer (domestic/craft)",   "price": 10.00, "rangeMin": 8.00, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 12.00, "rangeMin": 9.00, "rangeMax": 40.00, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 15.00, "rangeMin": 12.00,"rangeMax": 26.00, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 12.00, "rangeMin": 8.00, "rangeMax": 35.00, "category": "alcoholic",     "icon": "🥃" }
+      ],
+
+      "sets": {
+        "soda": ["soda", "freshjuice"],
+        "refresh": ["soda", "freshjuice", "coffee", "teaprem", "mocktail", "energy", "milkshake", "bottledwater"],
+        "deluxe": ["soda", "freshjuice", "coffee", "teaprem", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
+        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+      },
+
+      "policies": [
+        {
+          "id": "all-adults-same",
+          "severity": "critical",
+          "icon": "🚨",
+          "title": "All Adults Must Buy the Same Package",
+          "text": "Every adult sharing a stateroom must purchase the same beverage package. Medical exemptions require calling Celebrity directly. Booking different tiers (Classic vs Premium) also requires a phone call."
+        },
+        {
+          "id": "classic-cap-warning",
+          "severity": "warning",
+          "icon": "⚠️",
+          "title": "Classic Package $10 Cap Is Very Low",
+          "text": "The Classic package only covers drinks up to $10. Most craft beers ($13–$15), cocktails ($12–$17), and wines ($9–$40) exceed this cap. You'll pay the difference on almost every cocktail. Consider Premium ($17 cap) if you plan to order cocktails."
+        },
+        {
+          "id": "basic-drinks-included",
+          "severity": "info",
+          "icon": "🚢",
+          "title": "Basic Drinks Included in Your Fare",
+          "text": "Celebrity includes fountain soda, drip coffee, tea, juice, lemonade, and infused water in the base fare. You don't need any package for these basics."
+        }
+      ],
+
+      "faq": [
+        {
+          "question": "What's the difference between Classic and Premium drink packages on Celebrity?",
+          "answer": "Classic ($89/day) covers drinks up to $10 per serving — enough for domestic beer and basic wine, but most cocktails exceed this. Premium ($109/day) covers up to $17 — enough for most standard cocktails and craft beers. Both add 20% gratuity. If you drink cocktails, Premium is almost always the better value."
+        },
+        {
+          "question": "Are basic drinks free on Celebrity?",
+          "answer": "Yes. Fountain soda, drip coffee, tea, juice, lemonade, and infused water are included in every Celebrity fare — no package needed. The packages cover premium items: specialty coffee, cocktails, wine, beer, and spirits."
+        },
+        {
+          "question": "Does Celebrity have drink vouchers like Royal Caribbean?",
+          "answer": "No daily vouchers. Captain's Club Elite members (300+ pts) get free drinks 5–7pm daily. Elite Plus (750+ pts) also get free specialty coffees all day. These aren't comparable to RCL's per-day voucher system."
+        },
+        {
+          "question": "Why is the Classic package cap so low?",
+          "answer": "The $10 Classic cap was designed for beer and house wine drinkers. It predates the recent drink price inflation. Most cocktails ($12–$17) and craft beers ($13–$15) exceed $10, making Classic a poor value for cocktail drinkers. If you plan to order mixed drinks, the Premium package ($17 cap) or à la carte is usually better."
+        }
+      ],
+
+      "quickAnswer": "Celebrity includes basic soda, coffee, and juice in the fare — no package needed for those. The Classic package ($89/day) has a low $10 cap that most cocktails exceed. Premium ($109/day) at $17 cap is the sweet spot for cocktail drinkers. Use the calculator to see which works for your mix.",
+
+      "meta": {
+        "title": "Celebrity Cruises Drink Package Calculator 2026 | Classic vs Premium",
+        "description": "Compare Classic ($10 cap), Premium ($17 cap), Zero Proof, and à-la-carte. Celebrity includes basic drinks free — find out if upgrading is worth it.",
+        "ogTitle": "Celebrity Cruises Drink Package Calculator 2026"
+      },
+
+      "_sources": {
+        "note": "Verified 2026-04-17 via investigate pipeline",
+        "references": [
+          "celebritycruises.com/things-to-do-onboard/onboard-packages/beverage-packages",
+          "celebritycruises.com/faqs/beverage-packages",
+          "celebritycruises.com/captains-club/tiers-and-benefits",
+          "royalcaribbeanblog.com/2026/03/24/celebrity-drink-package",
+          "cruisegear.com/celebrity-cruises-drink-packages-explained",
+          "candidcruisetravel.com/celebrity-cruises-drink-prices-and-menus",
+          "cruisingsite.com/celebrity-cruises-drink-package-prices-inclusions-is-it-worth-it",
+          "eatsleepcruise.com/review-of-celebrity-cruises-beverage-packages",
+          "highseascruising.com/celebrity-cruises-drink-package",
+          "highseascruising.com/celebrity-cruises-captains-club-ultimate-guide"
+        ],
+        "pricingDates": [
+          "Classic: $89/day typical (range $75–$100, dynamic)",
+          "Premium: $109/day typical (range $89–$125, dynamic)",
+          "Zero Proof: $30/day typical (range $25–$45)",
+          "Gratuity: 20% on all packages and individual drinks"
+        ],
+        "gratuityNote": "20% automatic service charge on all beverage packages and à-la-carte drink purchases."
+      }
     }
   }
 }
