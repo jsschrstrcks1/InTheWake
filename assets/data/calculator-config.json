@@ -1648,6 +1648,144 @@
         ],
         "gratuityNote": "No automatic gratuity on drinks. Menu prices are final."
       }
+    },
+
+    "costa": {
+      "id": "costa",
+      "name": "Costa Cruises",
+      "shortName": "Costa",
+      "slug": "costa",
+      "pageUrl": "/cruise-lines/costa.html",
+      "color": "#003399",
+      "currency": "EUR",
+
+      "packages": {
+        "soda": {
+          "name": "My Soft Drinks",
+          "shortName": "Soft Drinks",
+          "emoji": "☕",
+          "priceMid": 23.00,
+          "priceMin": 20.00,
+          "priceMax": 26.00,
+          "priceNote": "~€23/day. Water, coffee, juices, soft drinks, non-alcoholic cocktails.",
+          "includesList": ["Bottled water","Coffee and herbal teas","Juices","Soft drinks","Non-alcoholic cocktails"],
+          "breakEvenDrink": { "name": "coffees", "price": 4.00 }
+        },
+        "refreshment": {
+          "name": "My Drinks",
+          "shortName": "My Drinks",
+          "emoji": "🍷",
+          "priceMid": 35.00,
+          "priceMin": 29.00,
+          "priceMax": 42.00,
+          "priceNote": "~€35/day pre-cruise, ~€42/day onboard. Draught beer, house spirits, classic cocktails, wine with meals, soft drinks, coffee.",
+          "includes": "All Soft Drinks items + draught Heineken, house spirits, classic cocktails, wine with meals",
+          "includesList": ["All My Soft Drinks items","Draught Heineken","House spirits and mixers","Classic cocktails","Wine with meals","Does NOT include premium cocktails, bottled beer, fruit juice, minibar"],
+          "breakEvenDrink": { "name": "beer/cocktails", "price": 6.00 }
+        },
+        "deluxe": {
+          "name": "My Drinks Plus",
+          "shortName": "Drinks Plus",
+          "emoji": "🍸",
+          "priceMid": 48.00,
+          "priceMin": 42.00,
+          "priceMax": 57.00,
+          "priceNote": "~€48/day pre-cruise, ~€57/day onboard. Premium cocktails, prestigious spirits, bottled beer, fruit juice, minibar access.",
+          "includes": "All My Drinks items + premium cocktails, prestigious spirits, bottled beer, fruit juice, minibar",
+          "includesList": ["All My Drinks items","Premium cocktails","Prestigious/top-shelf spirits","Bottled beer","Fruit juices","Minibar access (where available)","Excludes specialty restaurant drinks"],
+          "breakEvenDrink": { "name": "premium cocktails", "price": 10.00 }
+        }
+      },
+
+      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
+
+      "rules": {
+        "gratuity": 0,
+        "gratuityNote": "Costa package prices appear all-in. 15% service charge applies to individual à-la-carte drink purchases only. Engine gratuity set to 0% for package math.",
+        "deluxeCap": null,
+        "allAdultsSamePackage": true,
+        "allAdultsSamePackageNote": "All adults sharing a cabin or on the same reservation must have the same unlimited package. Children 4+ included; under-18s get soft drinks only.",
+        "minorsForceRefreshment": false,
+        "adultAge": 18,
+        "alcoholAge": 18,
+        "usPortAlcoholRestriction": false,
+        "deluxeDailyLimit": null
+      },
+
+      "loyalty": {
+        "enabled": false,
+        "programName": "Costa Club",
+        "voucherValue": 0,
+        "voucherNote": "Costa Club does not offer daily drink vouchers.",
+        "tiers": []
+      },
+
+      "drinks": [
+        { "id": "soda",         "name": "Soda",             "label": "Soft Drink",              "price": 3.70,  "rangeMin": 3.50, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🥤" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Cappuccino",   "price": 4.50,  "rangeMin": 2.20, "rangeMax": 6.70,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Herbal Tea",              "price": 3.00,  "rangeMin": 2.20, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fruit Juice",             "price": 4.50,  "rangeMin": 3.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "🧃" },
+        { "id": "mocktail",     "name": "Mocktail",          "label": "Non-Alcoholic Cocktail",  "price": 6.00,  "rangeMin": 4.50, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🍹" },
+        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
+        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 5.50,  "rangeMin": 4.50, "rangeMax": 6.50,  "category": "non-alcoholic", "icon": "🥛" },
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.00,  "rangeMin": 2.50, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "💧" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer (draught/bottle)",   "price": 6.10,  "rangeMin": 5.50, "rangeMax": 7.50,  "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 8.00,  "rangeMin": 5.70, "rangeMax": 10.30, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 8.00,  "rangeMin": 5.70, "rangeMax": 10.30, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits + Mixer",         "price": 9.00,  "rangeMin": 7.80, "rangeMax": 12.40, "category": "alcoholic",     "icon": "🥃" }
+      ],
+
+      "sets": {
+        "soda": ["soda", "bottledwater"],
+        "refresh": ["soda", "bottledwater", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
+        "deluxe": ["soda", "bottledwater", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
+        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+      },
+
+      "policies": [
+        {
+          "id": "euro-pricing",
+          "severity": "warning",
+          "icon": "💶",
+          "title": "Prices in EUR",
+          "text": "Costa Cruises prices are in Euros (€), not US Dollars. Use the currency converter to see equivalent USD amounts."
+        },
+        {
+          "id": "children-included",
+          "severity": "info",
+          "icon": "👶",
+          "title": "Children 4+ Included in Package",
+          "text": "Children aged 4 and older are included in the cabin's drink package. Under-18s receive soft drinks only. Children's packages are free when the adult package is purchased during booking."
+        }
+      ],
+
+      "faq": [
+        {
+          "question": "What's the difference between My Drinks and My Drinks Plus?",
+          "answer": "My Drinks (~€35/day) covers house spirits, draught beer, classic cocktails, and wine with meals. My Drinks Plus (~€48/day) adds premium cocktails, top-shelf spirits, bottled beer, fruit juice, and minibar access. If you prefer cocktails over basic beer and wine, Plus is worth the €13/day upgrade."
+        }
+      ],
+
+      "quickAnswer": "Costa's My Drinks Plus at ~€48/day is competitive for a European line. With cocktails at €5.70–€10.30, break-even is ~5–6 drinks/day. The My Soft Drinks package (€23/day) is excellent value for coffee and juice drinkers.",
+
+      "meta": {
+        "title": "Costa Cruises Drink Package Calculator 2026 | My Drinks vs Plus",
+        "description": "Compare My Soft Drinks, My Drinks, and My Drinks Plus with 2026 EUR pricing.",
+        "ogTitle": "Costa Cruises Drink Package Calculator 2026"
+      },
+
+      "_sources": {
+        "note": "Verified 2026-04-17 via investigate pipeline",
+        "references": [
+          "costacruises.com/experience/drink-package.html",
+          "cruisemummy.co.uk/costa-cruise-drink-packages",
+          "shipboardcruiser.com/costa-cruise-drinks-packages-guide",
+          "oggiabordo.com/post/costa-drinks",
+          "emmacruises.com/costa-cruises-drinks-package-guide",
+          "cruisewithleo.com/costa-cruises-drink-packages-list-and-prices"
+        ],
+        "gratuityNote": "Packages appear all-in. 15% service charge on individual purchases."
+      }
     }
   }
 }
