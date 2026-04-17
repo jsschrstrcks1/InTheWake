@@ -26,12 +26,12 @@ All work on this project is offered as a gift to God.
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="ai-summary" content="Celebrity Millennium • Celebrity Cruises • In The Wake. Deck plans, dining venues, stateroom tours, and live ship tracker.">
   <meta name="last-reviewed" content="2026-02-20">
-  <meta name="content-protocol" content="ICP-Lite v1.4">
+  <meta name="content-protocol" content="ICP-2">
 <title>Celebrity Millennium • Celebrity Cruises • In The Wake</title>
 <meta name="description" content="Celebrity Millennium • Celebrity Cruises • In The Wake"/>
 <link rel="canonical" href="https://cruisinginthewake.com/ships/celebrity-cruises/celebrity-millennium.html"/>
   <!-- OpenGraph -->
-  <meta property="og:type" content="article"/>
+  <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:title" content="Celebrity Millennium • Celebrity Cruises • In The Wake"/>
   <meta property="og:description" content="Celebrity Millennium • Celebrity Cruises • In The Wake"/>
@@ -225,12 +225,10 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(primaryCSS);
-  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
 })();
 </script>
 </head>
@@ -535,7 +533,7 @@ Location : Ketchikan, Alaska"
       <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
-    <div class="grid-2">
+    <section class="grid-2">
       <section class="card" aria-labelledby="deck-plans">
         <h2 id="deck-plans">Celebrity Millennium Deck Plans</h2>
         <div id="ship-map" data-ship="celebrity-millennium">
@@ -782,6 +780,7 @@ Location : Ketchikan, Alaska"
   })();
   </script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+  <script src="/assets/js/sw-bridge.js" defer></script>
 
   <!-- ===== Logbook loader (safe absolute fetch + a11y carousel) ===== -->
   <script>
