@@ -1914,6 +1914,229 @@
           "emmacruises.com/cunard-drinks-prices"
         ]
       }
+    },
+
+    "oceania": {
+      "id": "oceania",
+      "name": "Oceania Cruises",
+      "shortName": "Oceania",
+      "slug": "oceania",
+      "pageUrl": "/cruise-lines.html",
+      "color": "#003366",
+      "packages": {
+        "soda": {
+          "name": "Included in Fare",
+          "shortName": "Fare",
+          "emoji": "🚢",
+          "priceMid": 0, "priceMin": 0, "priceMax": 0,
+          "priceNote": "Basic drinks (soda, coffee, tea, juice, water) included in all Oceania fares.",
+          "includesList": ["Drip coffee and tea","Juice","Soft drinks","Water"],
+          "breakEvenDrink": { "name": "sodas", "price": 0 }
+        },
+        "refreshment": {
+          "name": "House Select (Fare-Included)",
+          "shortName": "House Select",
+          "emoji": "🍷",
+          "priceMid": 0, "priceMin": 0, "priceMax": 0,
+          "priceNote": "Included in fare. Beers, wines, and Champagnes with lunch and dinner only. Not available at bars between meals.",
+          "includesList": ["Beer with lunch and dinner","Wine with lunch and dinner","Champagne with lunch and dinner","Not available at bars outside meal times"],
+          "breakEvenDrink": { "name": "wines at dinner", "price": 0 }
+        },
+        "deluxe": {
+          "name": "Prestige Select Upgrade",
+          "shortName": "Prestige",
+          "emoji": "🍸",
+          "priceMid": 30.00, "priceMin": 28.00, "priceMax": 35.00,
+          "priceNote": "$30/day upgrade. Unlimited premium spirits, cocktails, wines, beer, specialty coffee, mineral water — anytime, anywhere on ship. Both guests in stateroom must upgrade.",
+          "includes": "All-day access to premium spirits, cocktails, wines by glass, beer, specialty coffee, mineral water. Excludes minibar and room service.",
+          "includesList": ["Premium spirits and cocktails (anytime)","Wines by the glass (anytime)","Beer (anytime)","Specialty coffees","Mineral water","Excludes minibar and room service drinks"],
+          "breakEvenDrink": { "name": "cocktails", "price": 12.00 }
+        }
+      },
+      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
+      "rules": {
+        "gratuity": 0,
+        "gratuityNote": "Gratuities included in Oceania fares. The $30/day Prestige upgrade is all-in.",
+        "deluxeCap": null,
+        "allAdultsSamePackage": true,
+        "allAdultsSamePackageNote": "Both guests in the stateroom must upgrade to Prestige Select if one does.",
+        "minorsForceRefreshment": false,
+        "adultAge": 21, "alcoholAge": 21,
+        "deluxeDailyLimit": null
+      },
+      "loyalty": { "enabled": false, "programName": "Oceania Club", "voucherValue": 0, "tiers": [] },
+      "drinks": [
+        { "id": "soda",    "price": 0, "category": "non-alcoholic", "icon": "🥤", "name": "Soda", "label": "Soda", "rangeMin": 0, "rangeMax": 0, "note": "Included" },
+        { "id": "coffee",  "price": 5.00, "category": "non-alcoholic", "icon": "☕", "name": "Specialty Coffee", "label": "Espresso", "rangeMin": 4.00, "rangeMax": 6.50 },
+        { "id": "teaprem", "price": 0, "category": "non-alcoholic", "icon": "🍵", "name": "Tea", "label": "Tea", "rangeMin": 0, "rangeMax": 0, "note": "Included" },
+        { "id": "freshjuice", "price": 0, "category": "non-alcoholic", "icon": "🧃", "name": "Juice", "label": "Juice", "rangeMin": 0, "rangeMax": 0, "note": "Included" },
+        { "id": "mocktail", "price": 8.00, "category": "non-alcoholic", "icon": "🍹", "name": "Mocktail", "label": "Mocktail", "rangeMin": 6.00, "rangeMax": 10.00 },
+        { "id": "energy",  "price": 5.00, "category": "non-alcoholic", "icon": "⚡", "name": "Energy Drink", "label": "Red Bull", "rangeMin": 4.50, "rangeMax": 5.50 },
+        { "id": "milkshake", "price": 6.00, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 5.00, "rangeMax": 7.00 },
+        { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0, "note": "Included" },
+        { "id": "beer",    "price": 7.50, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 6.50, "rangeMax": 9.00 },
+        { "id": "wine",    "price": 12.00, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 9.00, "rangeMax": 18.00 },
+        { "id": "cocktail","price": 14.00, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 11.00, "rangeMax": 18.00 },
+        { "id": "spirits", "price": 11.00, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 9.00, "rangeMax": 15.00 }
+      ],
+      "sets": {
+        "soda": ["soda", "teaprem", "freshjuice", "bottledwater"],
+        "refresh": ["soda", "teaprem", "freshjuice", "bottledwater", "beer", "wine"],
+        "deluxe": ["soda", "teaprem", "freshjuice", "bottledwater", "coffee", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
+        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+      },
+      "policies": [{ "id": "prestige-upgrade", "severity": "info", "icon": "🍸", "title": "Prestige Select: $30/Day Upgrade", "text": "Your fare includes House Select (wine/beer at meals). For $30/day, upgrade to Prestige Select for unlimited premium drinks anytime. Both cabin guests must upgrade." }],
+      "quickAnswer": "Your Oceania fare already includes wine and beer with meals. The question is whether the $30/day Prestige Select upgrade — unlimited cocktails, spirits, and specialty coffee all day — is worth it for you.",
+      "meta": { "title": "Oceania Cruises Drink Calculator 2026 | Prestige Select Worth It?", "description": "Your fare includes meal drinks. Is the $30/day Prestige upgrade worth it?", "ogTitle": "Oceania Drink Calculator 2026" },
+      "_sources": { "note": "Verified 2026-04-17", "references": ["oceaniacruises.com/your-world-included", "cruisingsite.com/oceania-cruises-drink-package-guide-benefits", "theluxurycruisereview.com/oceania-beverage-packages", "cruisemummy.co.uk/everything-included-in-oceanias-fares"] }
+    },
+
+    "regent": {
+      "id": "regent",
+      "name": "Regent Seven Seas Cruises",
+      "shortName": "Regent",
+      "slug": "regent",
+      "pageUrl": "/cruise-lines.html",
+      "color": "#1a2e4a",
+      "allInclusive": true,
+      "packages": {
+        "soda": { "name": "Included in Fare", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All drinks included in Regent's all-inclusive fare.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
+        "refreshment": { "name": "Included in Fare", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All non-alcoholic drinks included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
+        "deluxe": { "name": "Included in Fare", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All alcoholic drinks included. Ultra-premium selections (rare wines, vintage spirits) may carry a surcharge.", "includesList": ["Premium spirits","Cocktails","Wine by glass","Beer","Specialty coffee","Excludes rare vintages and ultra-premium bottles"], "breakEvenDrink": { "name": "all", "price": 0 } }
+      },
+      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
+      "rules": { "gratuity": 0, "deluxeCap": null, "allAdultsSamePackage": false, "minorsForceRefreshment": false, "adultAge": 21, "alcoholAge": 21, "deluxeDailyLimit": null },
+      "loyalty": { "enabled": false, "programName": "Seven Seas Society", "voucherValue": 0, "tiers": [] },
+      "drinks": [
+        { "id": "soda", "price": 0, "category": "non-alcoholic", "icon": "🥤", "name": "Soda", "label": "Soda", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "coffee", "price": 0, "category": "non-alcoholic", "icon": "☕", "name": "Coffee", "label": "Specialty Coffee", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "teaprem", "price": 0, "category": "non-alcoholic", "icon": "🍵", "name": "Tea", "label": "Tea", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "freshjuice", "price": 0, "category": "non-alcoholic", "icon": "🧃", "name": "Juice", "label": "Juice", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "mocktail", "price": 0, "category": "non-alcoholic", "icon": "🍹", "name": "Mocktail", "label": "Mocktail", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "energy", "price": 0, "category": "non-alcoholic", "icon": "⚡", "name": "Energy", "label": "Red Bull", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "milkshake", "price": 0, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "beer", "price": 0, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "wine", "price": 0, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "cocktail", "price": 0, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "spirits", "price": 0, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 0, "rangeMax": 0 }
+      ],
+      "sets": { "soda": ["soda"], "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater"], "deluxe": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater","beer","wine","cocktail","spirits"], "alcoholic": ["beer","wine","cocktail","spirits"] },
+      "policies": [{ "id": "all-inclusive", "severity": "info", "icon": "✅", "title": "All Drinks Included", "text": "Regent Seven Seas is fully all-inclusive. Premium spirits, cocktails, wine, beer, specialty coffee — all included in your fare. No drink package to buy. Rare vintages and ultra-premium bottles may carry a surcharge." }],
+      "quickAnswer": "You don't need a drink package — Regent includes everything. Premium spirits, wine, cocktails, coffee — all in the fare. Only rare vintages carry a surcharge.",
+      "meta": { "title": "Regent Seven Seas — All Drinks Included", "description": "Regent is all-inclusive. All drinks are in the fare — no package decision needed.", "ogTitle": "Regent Drinks — All Included" },
+      "_sources": { "note": "Verified 2026-04-17", "references": ["rssc.com", "cruisesolutioner.com/what-cruise-line-offers-all-inclusive"] }
+    },
+
+    "seabourn": {
+      "id": "seabourn",
+      "name": "Seabourn",
+      "shortName": "Seabourn",
+      "slug": "seabourn",
+      "pageUrl": "/cruise-lines.html",
+      "color": "#002855",
+      "allInclusive": true,
+      "packages": {
+        "soda": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
+        "refreshment": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
+        "deluxe": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included. Complimentary caviar, premium spirits, fine wines.", "includesList": ["Premium spirits","Fine wines","Cocktails","Specialty coffee","Complimentary caviar"], "breakEvenDrink": { "name": "all", "price": 0 } }
+      },
+      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
+      "rules": { "gratuity": 0, "deluxeCap": null, "allAdultsSamePackage": false, "minorsForceRefreshment": false, "adultAge": 21, "alcoholAge": 21, "deluxeDailyLimit": null },
+      "loyalty": { "enabled": false, "programName": "Seabourn Club", "voucherValue": 0, "tiers": [] },
+      "drinks": [
+        { "id": "soda", "price": 0, "category": "non-alcoholic", "icon": "🥤", "name": "Soda", "label": "Soda", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "coffee", "price": 0, "category": "non-alcoholic", "icon": "☕", "name": "Coffee", "label": "Coffee", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "teaprem", "price": 0, "category": "non-alcoholic", "icon": "🍵", "name": "Tea", "label": "Tea", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "freshjuice", "price": 0, "category": "non-alcoholic", "icon": "🧃", "name": "Juice", "label": "Juice", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "mocktail", "price": 0, "category": "non-alcoholic", "icon": "🍹", "name": "Mocktail", "label": "Mocktail", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "energy", "price": 0, "category": "non-alcoholic", "icon": "⚡", "name": "Energy", "label": "Energy", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "milkshake", "price": 0, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "beer", "price": 0, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "wine", "price": 0, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "cocktail", "price": 0, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "spirits", "price": 0, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 0, "rangeMax": 0 }
+      ],
+      "sets": { "soda": ["soda"], "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater"], "deluxe": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater","beer","wine","cocktail","spirits"], "alcoholic": ["beer","wine","cocktail","spirits"] },
+      "policies": [{ "id": "all-inclusive", "severity": "info", "icon": "✅", "title": "All Drinks Included", "text": "Seabourn is fully all-inclusive. Premium spirits, fine wines, cocktails, specialty coffee, even caviar — all included." }],
+      "quickAnswer": "Seabourn includes everything — no drink package needed. Premium spirits, fine wines, cocktails, and specialty coffee are all in the fare.",
+      "meta": { "title": "Seabourn — All Drinks Included", "description": "Seabourn is all-inclusive.", "ogTitle": "Seabourn Drinks" },
+      "_sources": { "note": "Verified 2026-04-17", "references": ["seabourn.com", "cruisesolutioner.com/what-cruise-line-offers-all-inclusive"] }
+    },
+
+    "silversea": {
+      "id": "silversea",
+      "name": "Silversea Cruises",
+      "shortName": "Silversea",
+      "slug": "silversea",
+      "pageUrl": "/cruise-lines.html",
+      "color": "#1c1c1c",
+      "allInclusive": true,
+      "packages": {
+        "soda": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
+        "refreshment": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
+        "deluxe": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included. Butler service in every suite.", "includesList": ["Premium spirits","Fine wines","Cocktails","Specialty coffee","Butler service"], "breakEvenDrink": { "name": "all", "price": 0 } }
+      },
+      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
+      "rules": { "gratuity": 0, "deluxeCap": null, "allAdultsSamePackage": false, "minorsForceRefreshment": false, "adultAge": 21, "alcoholAge": 21, "deluxeDailyLimit": null },
+      "loyalty": { "enabled": false, "programName": "Venetian Society", "voucherValue": 0, "tiers": [] },
+      "drinks": [
+        { "id": "soda", "price": 0, "category": "non-alcoholic", "icon": "🥤", "name": "Soda", "label": "Soda", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "coffee", "price": 0, "category": "non-alcoholic", "icon": "☕", "name": "Coffee", "label": "Coffee", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "teaprem", "price": 0, "category": "non-alcoholic", "icon": "🍵", "name": "Tea", "label": "Tea", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "freshjuice", "price": 0, "category": "non-alcoholic", "icon": "🧃", "name": "Juice", "label": "Juice", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "mocktail", "price": 0, "category": "non-alcoholic", "icon": "🍹", "name": "Mocktail", "label": "Mocktail", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "energy", "price": 0, "category": "non-alcoholic", "icon": "⚡", "name": "Energy", "label": "Energy", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "milkshake", "price": 0, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "beer", "price": 0, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "wine", "price": 0, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "cocktail", "price": 0, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "spirits", "price": 0, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 0, "rangeMax": 0 }
+      ],
+      "sets": { "soda": ["soda"], "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater"], "deluxe": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater","beer","wine","cocktail","spirits"], "alcoholic": ["beer","wine","cocktail","spirits"] },
+      "policies": [{ "id": "all-inclusive", "severity": "info", "icon": "✅", "title": "All Drinks Included", "text": "Silversea is fully all-inclusive. Italian elegance with butler service in every suite. All drinks included in fare." }],
+      "quickAnswer": "Silversea includes everything — no drink package needed.",
+      "meta": { "title": "Silversea — All Drinks Included", "description": "Silversea is all-inclusive.", "ogTitle": "Silversea Drinks" },
+      "_sources": { "note": "Verified 2026-04-17", "references": ["silversea.com", "cruisesolutioner.com/what-cruise-line-offers-all-inclusive"] }
+    },
+
+    "explora": {
+      "id": "explora",
+      "name": "Explora Journeys",
+      "shortName": "Explora",
+      "slug": "explora-journeys",
+      "pageUrl": "/cruise-lines.html",
+      "color": "#1a1a2e",
+      "allInclusive": true,
+      "packages": {
+        "soda": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
+        "refreshment": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
+        "deluxe": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included. MSC's ultra-luxury brand. Wines, spirits, coffee, espresso, gratuities — all in fare.", "includesList": ["Wines and spirits","Cocktails","Coffee and espresso","Gratuities","24/7 room service"], "breakEvenDrink": { "name": "all", "price": 0 } }
+      },
+      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
+      "rules": { "gratuity": 0, "deluxeCap": null, "allAdultsSamePackage": false, "minorsForceRefreshment": false, "adultAge": 18, "alcoholAge": 18, "deluxeDailyLimit": null },
+      "loyalty": { "enabled": false, "programName": "JOURNEY", "voucherValue": 0, "tiers": [] },
+      "drinks": [
+        { "id": "soda", "price": 0, "category": "non-alcoholic", "icon": "🥤", "name": "Soda", "label": "Soda", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "coffee", "price": 0, "category": "non-alcoholic", "icon": "☕", "name": "Coffee", "label": "Coffee", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "teaprem", "price": 0, "category": "non-alcoholic", "icon": "🍵", "name": "Tea", "label": "Tea", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "freshjuice", "price": 0, "category": "non-alcoholic", "icon": "🧃", "name": "Juice", "label": "Juice", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "mocktail", "price": 0, "category": "non-alcoholic", "icon": "🍹", "name": "Mocktail", "label": "Mocktail", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "energy", "price": 0, "category": "non-alcoholic", "icon": "⚡", "name": "Energy", "label": "Energy", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "milkshake", "price": 0, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "beer", "price": 0, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "wine", "price": 0, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "cocktail", "price": 0, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 0, "rangeMax": 0 },
+        { "id": "spirits", "price": 0, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 0, "rangeMax": 0 }
+      ],
+      "sets": { "soda": ["soda"], "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater"], "deluxe": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater","beer","wine","cocktail","spirits"], "alcoholic": ["beer","wine","cocktail","spirits"] },
+      "policies": [{ "id": "all-inclusive", "severity": "info", "icon": "✅", "title": "All Drinks Included", "text": "Explora Journeys (MSC's ultra-luxury brand) is fully all-inclusive. Wines, spirits, coffee, espresso, gratuities, and 24/7 room service all included." }],
+      "quickAnswer": "Explora includes everything — no drink package needed. Wines, spirits, coffee, gratuities all in the fare.",
+      "meta": { "title": "Explora Journeys — All Drinks Included", "description": "Explora is all-inclusive.", "ogTitle": "Explora Drinks" },
+      "_sources": { "note": "Verified 2026-04-17", "references": ["explorajourneys.com", "joshfriedmantravel.wordpress.com/2023/10/24/explora-journeys-review"] }
     }
   }
 }
