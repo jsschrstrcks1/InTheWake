@@ -1471,6 +1471,183 @@
         ],
         "gratuityNote": "18% gratuity included in all MSC package prices. Individual drinks: 15% (Europe) or 18% (North America)."
       }
+    },
+
+    "virgin": {
+      "id": "virgin",
+      "name": "Virgin Voyages",
+      "shortName": "Virgin",
+      "slug": "virgin",
+      "pageUrl": "/cruise-lines/virgin.html",
+      "color": "#e10a0a",
+
+      "packages": {
+        "soda": {
+          "name": "Included in Fare",
+          "shortName": "Fare",
+          "emoji": "🚢",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "Water, juice, soda, teas, and drip coffee are included in every Virgin Voyages fare. No package needed.",
+          "includesList": ["Still and sparkling water","Juices","Coca-Cola fountain sodas","Teas","Drip coffee"],
+          "breakEvenDrink": { "name": "sodas", "price": 0 }
+        },
+        "refreshment": {
+          "name": "No NA Package Available",
+          "shortName": "N/A",
+          "emoji": "❌",
+          "priceMid": 999.00,
+          "priceMin": 999.00,
+          "priceMax": 999.00,
+          "priceNote": "Virgin Voyages does not sell a non-alcoholic premium package. Basic drinks are included; specialty drinks are à la carte.",
+          "includesList": [],
+          "breakEvenDrink": { "name": "n/a", "price": 0 },
+          "note": "Sentinel price $999 ensures this option never wins in the calculator. Virgin has no NA-only package."
+        },
+        "deluxe": {
+          "name": "No Drink Package Available",
+          "shortName": "N/A",
+          "emoji": "❌",
+          "priceMid": 999.00,
+          "priceMin": 999.00,
+          "priceMax": 999.00,
+          "priceNote": "Virgin Voyages does NOT sell drink packages. All alcoholic and specialty drinks are à la carte. See the Bar Tab system below.",
+          "includesList": [],
+          "breakEvenDrink": { "name": "n/a", "price": 0 },
+          "note": "Sentinel price $999. The calculator will always recommend à la carte for Virgin, which is the correct answer — there is no package to compare against."
+        }
+      },
+
+      "barTab": {
+        "available": true,
+        "description": "Pre-loaded credit on your onboard account. Not a package — no cap, no daily limit, no covered-drinks list. Just prepaid money that works like a gift card at any bar.",
+        "tiers": [
+          { "amount": 200, "bonus": 25, "total": 225 },
+          { "amount": 300, "bonus": 50, "total": 350 },
+          { "amount": 500, "bonus": 75, "total": 575 },
+          { "amount": 750, "bonus": 100, "total": 850 },
+          { "amount": 1000, "bonus": 150, "total": 1150 }
+        ],
+        "bonusNote": "Bonus amounts vary by promotion and sailing. The values above are typical 2026 offers. Once your Bar Tab balance is spent, additional drinks are charged à la carte to your onboard account.",
+        "noGratuityOnDrinks": true,
+        "gratuityNote": "Virgin Voyages does not add automatic gratuity to drink purchases. A $13 cocktail costs $13."
+      },
+
+      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
+
+      "rules": {
+        "gratuity": 0,
+        "gratuityNote": "Virgin Voyages charges NO automatic gratuity on drink purchases. Menu prices are final.",
+        "deluxeCap": null,
+        "allAdultsSamePackage": false,
+        "allAdultsSamePackageNote": "No packages exist, so no cabin-mate rule applies.",
+        "minorsForceRefreshment": false,
+        "adultAge": 18,
+        "alcoholAge": 18,
+        "alcoholAgeNote": "Virgin Voyages is 18+ only (no children on board).",
+        "usPortAlcoholRestriction": false,
+        "deluxeDailyLimit": null
+      },
+
+      "loyalty": {
+        "enabled": false,
+        "programName": "The Sailing Club",
+        "voucherValue": 0,
+        "voucherNote": "The Sailing Club does not offer drink vouchers. Repeat Sailors earn discounts on future bookings, not onboard drink credits.",
+        "tiers": []
+      },
+
+      "drinks": [
+        { "id": "soda",         "name": "Soda",             "label": "Fountain Soda",           "price": 0,     "rangeMin": 0,    "rangeMax": 0,     "category": "non-alcoholic", "icon": "🥤", "note": "Included in fare" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Latte",        "price": 5.00,  "rangeMin": 3.00, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 4.00,  "rangeMin": 3.00, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice / Smoothie",  "price": 7.00,  "rangeMin": 5.00, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🧃" },
+        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",     "price": 10.00, "rangeMin": 7.00, "rangeMax": 13.00, "category": "non-alcoholic", "icon": "🍹" },
+        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "⚡" },
+        { "id": "milkshake",    "name": "Milkshake",         "label": "Shake / Smoothie",        "price": 7.00,  "rangeMin": 5.00, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🥛" },
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 0,     "rangeMin": 0,    "rangeMax": 0,     "category": "non-alcoholic", "icon": "💧", "note": "Included in fare" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer (craft/imported)",   "price": 9.00,  "rangeMin": 7.00, "rangeMax": 11.00, "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 14.00, "rangeMin": 9.00, "rangeMax": 29.00, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 13.00, "rangeMin": 11.00,"rangeMax": 17.00, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 12.00, "rangeMin": 9.00, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🥃" }
+      ],
+
+      "sets": {
+        "soda": ["soda", "bottledwater"],
+        "refresh": [],
+        "deluxe": ["soda", "bottledwater", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
+        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+      },
+
+      "policies": [
+        {
+          "id": "no-drink-packages",
+          "severity": "critical",
+          "icon": "🚫",
+          "title": "Virgin Voyages Does Not Sell Drink Packages",
+          "text": "There is no unlimited drink package on Virgin Voyages. All alcoholic and specialty drinks are à la carte. The calculator will always recommend à la carte — that's the only option."
+        },
+        {
+          "id": "bar-tab-system",
+          "severity": "info",
+          "icon": "💳",
+          "title": "Bar Tab — Prepaid Drink Credit",
+          "text": "Pre-load $200–$1000 onto your onboard account and Virgin adds a bonus (typically $25–$150 depending on amount). Not a package — no cap, no daily limit. Works like a gift card at any bar. Once spent, additional drinks charge à la carte."
+        },
+        {
+          "id": "no-gratuity-on-drinks",
+          "severity": "info",
+          "icon": "✅",
+          "title": "No Automatic Gratuity on Drinks",
+          "text": "Virgin Voyages does not add 18% or 20% to your drink orders. A $13 cocktail costs $13. This makes à-la-carte math simpler than on other cruise lines."
+        },
+        {
+          "id": "adults-only",
+          "severity": "info",
+          "icon": "🔞",
+          "title": "Adults Only (18+)",
+          "text": "Virgin Voyages is an adults-only cruise line. All Sailors must be 18+. No children, no minors packages."
+        }
+      ],
+
+      "faq": [
+        {
+          "question": "Does Virgin Voyages have a drink package?",
+          "answer": "No. Virgin is the only major cruise line without drink packages. All drinks are à la carte. Basic drinks (soda, water, juice, coffee, tea) are included in the fare. Cocktails, beer, wine, and specialty drinks are paid per drink with no hidden gratuity."
+        },
+        {
+          "question": "What is the Virgin Voyages Bar Tab?",
+          "answer": "Pre-loaded credit ($200–$1000) on your onboard account. Virgin adds a bonus: typically $25 on $200, up to $150 on $1000. Works like a gift card — no cap, no daily limit, no covered-drinks list. Once spent, drinks charge to your cabin account."
+        },
+        {
+          "question": "Are basic drinks free on Virgin Voyages?",
+          "answer": "Yes. Water, juice, fountain soda, teas, and drip coffee are included in every fare. Specialty coffee, fresh juice, smoothies, mocktails, and all alcohol are à la carte."
+        }
+      ],
+
+      "quickAnswer": "Virgin Voyages has no drink packages — the calculator shows your estimated daily à-la-carte spend. Basic drinks are free. Consider pre-loading a Bar Tab ($200–$1000) for bonus credit. No gratuity on drinks makes pricing transparent.",
+
+      "meta": {
+        "title": "Virgin Voyages Drink Calculator 2026 | Bar Tab Worth It?",
+        "description": "No drink packages on Virgin — estimate your à-la-carte spending and see if a Bar Tab pre-load saves money.",
+        "ogTitle": "Virgin Voyages Drink Calculator 2026"
+      },
+
+      "_sources": {
+        "note": "Verified 2026-04-17 via investigate pipeline",
+        "references": [
+          "virginvoyages.com/drinks",
+          "virginvoyages.com/drinks/cruise-drink-package-option-free-drinks",
+          "eatsleepcruise.com/virgin-voyages-drink-packages-guide",
+          "candidcruisetravel.com/virgin-voyages-drink-prices-and-menus",
+          "vvinsider.com/bar-menus",
+          "vvinsider.com/bar-tab-calculator",
+          "cruisemummy.co.uk/virgin-voyages-drinks-package",
+          "christinelozada.com/virgin-voyages-drinks-package"
+        ],
+        "gratuityNote": "No automatic gratuity on drinks. Menu prices are final."
+      }
     }
   }
 }
