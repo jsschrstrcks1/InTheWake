@@ -2945,3 +2945,60 @@ Expected behavior is expressed as:
 Each row is auto-verified by `scripts/test-quiz-personas.js` — any regression in
 the `cruiseLines.scores` matrix inside `cruise-lines/quiz.html` will flip one of
 these assertions and fail the node run.
+
+---
+
+## Section K: Edge-Case Calculator Personas (71–80)
+
+These 10 personas target specific fragile code paths in `calculator-math-v2.js`.
+They are tested by `scripts/test-edge-cases.js` (math + Playwright browser sim).
+
+### Persona 71: "The Overcap Trigger" — Celebrity Classic, 2 adults
+- **Target code path**: Overcap calculation with adults > 1
+- **Setup**: Celebrity, 2 adults, 7 days, 6 cocktails/day at $15 (cap $10)
+- **Critical test**: Raw overcap total must be identical for 1 vs 2 adults (same group drinks)
+
+### Persona 72: "The Max Party" — RCL, 20 adults + 20 minors
+- **Target code path**: Boundary clamping at max party size
+- **Setup**: RCL, 20 adults, 20 minors, 14 days, sea weighting 30%, coffee cards
+- **Critical test**: No NaN/Infinity at maximum clamped values
+
+### Persona 73: "The Solo Zero-Drinker" — RCL, 1 adult, empty drinks
+- **Target code path**: Empty drinks input + minimum adults
+- **Setup**: RCL, 1 adult, 0 minors, 7 days, no drinks at all
+- **Critical test**: trip=$0, winner=alc, no NaN
+
+### Persona 74: "The Free-at-Sea Family" — NCL, 2 adults + 3 minors
+- **Target code path**: Free-at-Sea mode + minor interaction
+- **Setup**: NCL, FaS enabled, 2 adults + 3 minors, cocktails + soda
+- **Critical test**: FaS active, adults get flat rate, minors get standard pricing
+
+### Persona 75: "The Carnival Kids" — Carnival, 2 adults + 4 minors
+- **Target code path**: Child pricing with large minor count
+- **Setup**: Carnival, 2 adults + 4 minors, soda-heavy
+- **Critical test**: Soda package bills adults at $11.99, kids at $6.95
+
+### Persona 76: "The Diamond Pinnacle" — RCL, solo, 6 vouchers/day
+- **Target code path**: Max voucher application over long cruise
+- **Setup**: RCL, 1 adult, 14 days, 6 Pinnacle vouchers/day, heavy drinker
+- **Critical test**: 6 vouchers used, trip substantially reduced
+
+### Persona 77: "The All-Sea-Day Cruise" — RCL, max sea weight
+- **Target code path**: Sea-day weighting at boundary (40%)
+- **Setup**: RCL, 7 days, 7 sea days, sea weight 40%
+- **Critical test**: Trip total higher than without weighting
+
+### Persona 78: "The Virgin Bartab User" — Virgin, 4 adults, heavy drinker
+- **Target code path**: noPackages flag in determineWinners()
+- **Setup**: Virgin, 4 adults, cocktails + beer + wine + spirits
+- **Critical test**: Winner always alc, trip > 0, deluxe fixedCost = $0
+
+### Persona 79: "The Celebrity Edge Overcap" — Celebrity Classic, 5 cocktails
+- **Target code path**: Precise overcap arithmetic
+- **Setup**: Celebrity, 1 adult, 7 days, 5 cocktails at $15 (cap $10)
+- **Critical test**: overcap = $5 × 5 × 7 = $175 exactly
+
+### Persona 80: "The Grandfathered Cruiser" — RCL, Jan 15 booking
+- **Target code path**: appliedPolicies grandfathering via bookingDate
+- **Setup**: RCL, bookingDate=2026-01-15, soda + coffee drinker
+- **Critical test**: Freestyle policy grandfathered, no math impact vs post-cutoff
