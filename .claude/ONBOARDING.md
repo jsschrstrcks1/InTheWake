@@ -17,7 +17,7 @@ You're working on **In the Wake**, a cruise planning website with an enhanced Cl
 2. **ITW-Lite v3.010 philosophy**: AI-first, Human-first, Google second
 3. **Theological foundation is IMMUTABLE**: Soli Deo Gloria invocation required on all pages
 4. **10 skill rules total**: 4 with dedicated directories (careful-not-clever, standards, skill-developer, frontend-dev-guidelines) + 6 rule-based triggers in skill-rules.json (seo-optimizer, accessibility-auditor, content-strategy, voice-audit, performance-analyzer, ship-page-validator)
-5. **Read this first**: `.claude/skill-rules.json` (skill activation rules) and `new-standards/README.md` (site standards)
+5. **Read this first**: `.claude/skill-rules.json` (skill activation rules) and `admin/validator-spec/README.md` (canonical rule catalog — 138 rules)
 
 ---
 
@@ -32,11 +32,10 @@ admin/FOM_STANDARDS_ALIGNMENT.md   # How FOM integration aligns with CITW standa
 
 ### 2. Understand the Standards:
 ```bash
-new-standards/README.md           # Standards directory structure
+admin/validator-spec/README.md    # Canonical rule catalog (138 rules — single source of truth)
+new-standards/README.md           # Regenerated standards index (points to validator-spec)
 .claude/skills/standards/resources/icp-lite-protocol.md  # ✅ ICP-Lite v1.4 (CURRENT)
-new-standards/v3.010/ICP_LITE_v1.0_PROTOCOL.md        # ❌ DEPRECATED (v1.0)
-new-standards/v3.010/AI_BREADCRUMBS_SPECIFICATION.md  # Structured context comments
-new-standards/foundation/WCAG_2.1_AA_STANDARDS_v3.100.md  # Accessibility
+# Archived originals at admin/archive/standards-pre-2026-04-15/ (historical reference)
 ```
 
 ### 3. Know the Theology (CRITICAL):
