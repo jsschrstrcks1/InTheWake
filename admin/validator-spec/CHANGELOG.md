@@ -6,6 +6,23 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.14.0] — 2026-04-16 — Phase 2 batch 10: PROOF family (5 rules)
+
+### Added
+5 PROOF-family rules from `.claude/skills/publication-proofreader/SKILL.md`:
+- **PROOF-001** (warn, S-only, llm-review): curly quotes over straight quotes
+- **PROOF-002** (warn, S-only, llm-review): em-dashes not double-hyphens
+- **PROOF-003** (warn, S-only, llm-review): no double spaces after periods
+- **PROOF-004** (info, S-only, llm-review): proper ellipsis character
+- **PROOF-005** (error, V+S-agree): no placeholder text (Lorem ipsum, TBD, TODO, Coming soon)
+
+PROOF-001 through PROOF-004 are `implementation: llm-review` — detected by the proofreader skill during editorial review, not by a regex validator. PROOF-005 is V+S-agree because the port validator's forbidden-pattern list (lines 284-300) and CLAUDE.md's "NEVER" list both catch placeholder text.
+
+Totals: 115 → 120 rules. PROOF 0 → 5. No new orphans/conflicts/backfill.
+Spec version 0.13.0 → 0.14.0.
+
+---
+
 ## [0.13.0] — 2026-04-16 — Phase 2 batch 9: SEC family extraction
 
 ### Added
