@@ -6,6 +6,19 @@ Follow Keep-a-Changelog format. Semver on the spec's own version number (`README
 
 ---
 
+## [0.16.0] — 2026-04-16 — Phase 3 batch 2: SEO family (5 rules)
+
+### Added
+- **SEO-001** (warn, S-only, ORPHAN): Open Graph tags present
+- **SEO-002** (warn, S-only, ORPHAN): Twitter Card tags present
+- **SEO-003** (error, V+S-agree): title tag present and non-empty
+- **SEO-004** (error, V+S-agree): DOCTYPE declaration present (62-page escape from 2025-11 audit)
+- **SEO-005** (error, S-only, ORPHAN): no duplicate title/description tags
+
+Totals: 125 → 130 rules. SEO 0 → 5. Orphans 8 → 11. Spec version 0.15.0 → 0.16.0.
+
+---
+
 ## [0.15.0] — 2026-04-16 — Phase 3 batch 1: LOG family (5 rules)
 
 ### Added
