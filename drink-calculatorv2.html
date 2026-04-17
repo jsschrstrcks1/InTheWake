@@ -910,10 +910,18 @@
           }
 
           // ── v2.1: Booking-date picker visibility + grandfather summary ──
+          // Relevance cutoff: grandfather questions matter only until all pre-cutoff
+          // bookings have sailed. Max realistic cruise lead time is 2–3 years (world
+          // cruises), so Jan 1, 2029 is the cutoff (~34 months after the March 15 2026
+          // Coca-Cola Freestyle policy). After that date, pre-cutoff bookings are
+          // effectively impossible and the date question becomes noise.
+          var GRANDFATHER_RELEVANCE_CUTOFF = new Date('2029-01-01T00:00:00Z');
           function updateBookingDatePicker(lc) {
             var wrap = document.getElementById('booking-date-wrap');
             if (!wrap) return;
-            var hasDatedPolicy = lc && Array.isArray(lc.policies) &&
+            var today = new Date();
+            var isPastCutoff = today >= GRANDFATHER_RELEVANCE_CUTOFF;
+            var hasDatedPolicy = !isPastCutoff && lc && Array.isArray(lc.policies) &&
               lc.policies.some(function(p) { return p.effectiveDate; });
             wrap.style.display = hasDatedPolicy ? '' : 'none';
             // Reset date input + grandfather summary on line change so stale
@@ -1580,45 +1588,45 @@
         </div>
       </section>
 
-      <!-- Author -->
-      <section class="card author-card">
-        <h3>About the Author</h3>
-        <div class="author-info">
-          <a href="/authors/ken-baker.html" class="author-link">
-            <picture>
-              <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
-              <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
-            </picture>
-          </a>
-          <div>
-            <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
-            <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
-            <p class="tiny">
-              <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
-            </p>
-          </div>
-        </div>
-      </section>
-      
-      <!-- Recent Articles rail -->
-      <section class="card" aria-labelledby="recent-rail-title">
-        <h3 id="recent-rail-title">Recent Stories</h3>
-        <p class="tiny content-text mb-075" >
-          Real cruising experiences, practical guides, and heartfelt reflections from our community.
+      <!-- Author card (aligned to ship-page pattern: author-card-vertical) -->
+      <section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <picture>
+            <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
+            <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker, founder and author of In the Wake" decoding="async" loading="lazy"/>
+          </picture>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+        <p class="tiny">
+          <a href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
         </p>
-        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
-        <p id="recent-rail-fallback" class="tiny" style="color: #555;">Loading articles…</p>
       </section>
 
-      <!-- Authors rail -->
+      <!-- Recent Articles rail (aligned to ship-page pattern) -->
+      <section class="card" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <p class="tiny content-text mb-075">
+          Real cruising experiences, practical guides, and heartfelt reflections from our community.
+        </p>
+        <nav id="recent-rail-nav-top" class="rail-nav mb-05" aria-label="Article pagination"></nav>
+        <div id="recent-rail" class="rail-list" aria-live="polite">
+          <noscript><ul style="list-style:none;padding:0;"><li><a href="/solo/solo-cruising-practical-guide.html">Solo Cruising Guide</a></li><li><a href="/solo/freedom-of-your-own-wake.html">Freedom of Your Own Wake</a></li></ul></noscript>
+        </div>
+        <nav id="recent-rail-nav-bottom" class="rail-nav mt-075" aria-label="Article pagination"></nav>
+        <p id="recent-rail-fallback" class="tiny loading-text">Loading articles…</p>
+      </section>
+
+      <!-- Authors rail (aligned to ship-page pattern) -->
       <section class="card" aria-labelledby="authors-rail-title">
         <h3 id="authors-rail-title">Our Authors</h3>
-        <p class="tiny content-text mb-075" >
+        <p class="tiny content-text mb-075">
           The voices behind In the Wake — cruisers, storytellers, and fellow travelers.
         </p>
-        <div id="authors-rail" class="rail-list" aria-live="polite"></div>
+        <div id="authors-rail" class="rail-list" aria-live="polite">
+          <noscript><p><a href="/authors/ken-baker.html">Ken Baker</a> — Founder and Editor</p></noscript>
+        </div>
       </section>
     </aside>
   
@@ -2120,7 +2128,9 @@
         const response = await fetch('/data/authors.json');
         if (!response.ok) throw new Error('Failed to load authors');
         const data = await response.json();
-        const authors = Array.isArray(data) ? data : (data.authors || []);
+        let authors = Array.isArray(data) ? data : (data.authors || []);
+        // Drink calculator-specific: exclude Tina Maulsby from this page's rail.
+        authors = authors.filter(a => a.slug !== 'tina-maulsby');
         if (authors.length === 0) {
           rail.innerHTML = '<p class="tiny" style="color: #777;">No authors available.</p>';
           return;
