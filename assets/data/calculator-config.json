@@ -1786,6 +1786,134 @@
         ],
         "gratuityNote": "Packages appear all-in. 15% service charge on individual purchases."
       }
+    },
+
+    "cunard": {
+      "id": "cunard",
+      "name": "Cunard",
+      "shortName": "Cunard",
+      "slug": "cunard",
+      "pageUrl": "/cruise-lines/cunard.html",
+      "color": "#1a1a1a",
+
+      "packages": {
+        "soda": {
+          "name": "Alcohol-Free Collection",
+          "shortName": "Alcohol-Free",
+          "emoji": "☕",
+          "priceMid": 18.00,
+          "priceMin": 16.00,
+          "priceMax": 22.00,
+          "priceNote": "$18/day (15% gratuity included). 15 drinks per 24hrs including gelato.",
+          "includesList": ["Non-alcoholic cocktails","Specialty coffees","Premium teas","Juices","Soft drinks","Gelato","15 drinks per 24-hour period limit"],
+          "breakEvenDrink": { "name": "coffees", "price": 4.00 }
+        },
+        "refreshment": {
+          "name": "Beers, Wines & Spirits Collection",
+          "shortName": "BWS",
+          "emoji": "🍷",
+          "priceMid": 72.00,
+          "priceMin": 49.50,
+          "priceMax": 94.50,
+          "priceNote": "$49.50–$94.50/day pre-cruise (15% gratuity included, varies by cruise length). Alcoholic drinks up to $13.50/drink.",
+          "includes": "All Premium Alcohol-Free items + beer, wine, cocktails, spirits up to $13.50 each",
+          "includesList": ["All Premium Alcohol-Free Collection items (unlimited)","Beer, wine, cocktails, spirits up to $13.50 each","Pay difference for drinks above cap"],
+          "breakEvenDrink": { "name": "cocktails", "price": 13.00 }
+        },
+        "deluxe": {
+          "name": "Premium Beverage Collection",
+          "shortName": "Premium",
+          "emoji": "🍸",
+          "priceMid": 85.00,
+          "priceMin": 63.00,
+          "priceMax": 108.00,
+          "priceNote": "$63–$108/day pre-cruise (15% gratuity included, varies by cruise length). Premium drinks up to $20/drink.",
+          "includes": "All BWS items + premium spirits, wines, cocktails up to $20 each",
+          "includesList": ["All BWS Collection items","Premium spirits, wines, cocktails up to $20 each","Pay difference for drinks above $20 cap"],
+          "breakEvenDrink": { "name": "premium cocktails", "price": 14.00 }
+        }
+      },
+
+      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
+
+      "rules": {
+        "gratuity": 0,
+        "gratuityNote": "15% service charge included in all Cunard package prices and added to individual drink purchases.",
+        "deluxeCap": 20.00,
+        "bwsCap": 13.50,
+        "allAdultsSamePackage": true,
+        "minorsForceRefreshment": false,
+        "adultAge": 18,
+        "alcoholAge": 18,
+        "usPortAlcoholRestriction": false,
+        "deluxeDailyLimit": null
+      },
+
+      "loyalty": {
+        "enabled": false,
+        "programName": "Cunard Loyalty",
+        "voucherValue": 0,
+        "voucherNote": "Cunard's loyalty program does not offer daily drink vouchers.",
+        "tiers": []
+      },
+
+      "drinks": [
+        { "id": "soda",         "name": "Soda",             "label": "Soft Drink",              "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🥤" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Cappuccino",   "price": 4.50,  "rangeMin": 3.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.50,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice",             "price": 4.50,  "rangeMin": 3.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "🧃" },
+        { "id": "mocktail",     "name": "Mocktail",          "label": "Non-Alcoholic Cocktail",  "price": 7.50,  "rangeMin": 6.00, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🍹" },
+        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
+        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 6.00,  "rangeMin": 5.00, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "🥛" },
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.00,  "rangeMin": 2.50, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "💧" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer (pint)",             "price": 7.00,  "rangeMin": 6.50, "rangeMax": 7.50,  "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 12.00, "rangeMin": 9.50, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Classic Cocktail",        "price": 13.00, "rangeMin": 12.00,"rangeMax": 14.00, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 10.00, "rangeMin": 8.00, "rangeMax": 14.00, "category": "alcoholic",     "icon": "🥃" }
+      ],
+
+      "sets": {
+        "soda": ["soda", "bottledwater"],
+        "refresh": ["soda", "bottledwater", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
+        "deluxe": ["soda", "bottledwater", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
+        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+      },
+
+      "policies": [
+        {
+          "id": "price-varies-by-length",
+          "severity": "warning",
+          "icon": "📏",
+          "title": "Package Price Varies by Cruise Length",
+          "text": "Cunard prices drink packages based on voyage length. A 7-night cruise costs less per day than a 3-night. The calculator uses midpoint pricing — check My Cunard for your exact sailing price."
+        }
+      ],
+
+      "faq": [
+        {
+          "question": "Why do Cunard package prices vary so much?",
+          "answer": "Cunard prices by cruise length — shorter cruises cost more per day. A 7-night transatlantic might be $72/day for BWS while a 3-night is $94.50. Book pre-cruise and save 10% vs onboard."
+        }
+      ],
+
+      "quickAnswer": "Cunard's Premium Beverage ($20 cap) at ~$85/day with 15% gratuity included is competitive for a heritage line. The BWS Collection ($13.50 cap) covers most standard cocktails. Book pre-cruise and save 10%.",
+
+      "meta": {
+        "title": "Cunard Drink Package Calculator 2026 | BWS vs Premium",
+        "description": "Compare Cunard's Alcohol-Free, BWS ($13.50 cap), and Premium ($20 cap) collections. Gratuity included.",
+        "ogTitle": "Cunard Drink Package Calculator 2026"
+      },
+
+      "_sources": {
+        "note": "Verified 2026-04-17",
+        "references": [
+          "cunard.com/en-gb/activity-types/bars-and-lounges/a-world-of-drinks",
+          "cruisemummy.co.uk/cunard-drinks-package-guide",
+          "shipboardcruiser.com/cunard-drinks-packages-guide",
+          "cruisemonkeys.com/2026/01/cunard-drink-prices-2026-what-we-found-onboard-queen-mary-2",
+          "emmacruises.com/cunard-drinks-prices"
+        ]
+      }
     }
   }
 }
