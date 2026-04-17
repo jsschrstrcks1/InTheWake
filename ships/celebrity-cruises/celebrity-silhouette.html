@@ -4,34 +4,43 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
+
+STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.400 · A11y/WCAG 2.1 AA Compliant
 -->
 
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
-<!-- ai-breadcrumbs
-     name: Celebrity Silhouette
-     entity: Ship
-     type: Ship Information Page
-     parent: /ships.html
-     category: Celebrity Fleet
-     cruise-line: Celebrity
-     ship-class: Solstice Class
-     siblings: /ships/celebrity-cruises/celebrity-eclipse.html, /ships/celebrity-cruises/celebrity-equinox.html, /ships/celebrity-cruises/celebrity-reflection.html, /ships/celebrity-cruises/celebrity-solstice.html
-     updated: 2025-11-15
-     expertise: Celebrity Cruises ship reviews, deck plans, dining analysis, cabin comparisons
-     target-audience: Celebrity SilhouetteActive cruisers, ship comparison researchers, first-time cruisers
-     answer-first: If a venue list does not appear, it means this ship’s dining has not been verified yet.
-     -->
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- ======================================================
+       In the Wake — Celebrity Silhouette • Celebrity Cruises
+       Version: 3.010.400  |  Soli Deo Gloria ✝️
+       ====================================================== -->
+
+  <!-- Core -->
+  <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove(‘no-js’);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.400"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+
   <meta name="ai-summary" content="Celebrity Silhouette is a Solstice-class ship featuring the Lawn Club, Hot Glass Show, and Rooftop Terrace. The ship carries 2,886 guests and offers Caribbean and Mediterranean cruises from Fort Lauderdale.">
   <meta name="last-reviewed" content="2026-02-20">
-  <meta name="content-protocol" content="ICP-Lite v1.4">
+  <meta name="content-protocol" content="ICP-2">
 <title>Celebrity Silhouette • Celebrity Cruises • In The Wake</title>
 <meta name="description" content="Celebrity Silhouette • Celebrity Cruises • In The Wake"/>
 <link rel="canonical" href="https://cruisinginthewake.com/ships/celebrity-cruises/celebrity-silhouette.html"/>
   <!-- OpenGraph -->
-  <meta property="og:type" content="article"/>
+  <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:title" content="Celebrity Silhouette • Celebrity Cruises • In The Wake"/>
   <meta property="og:description" content="Celebrity Silhouette • Celebrity Cruises • In The Wake"/>
@@ -45,6 +54,11 @@ All work on this project is offered as a gift to God.
     window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
   }
   </script>
+
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
@@ -243,12 +257,10 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const primaryCSS="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.css";
-  const primaryJS ="https://cruisinginthewake.com/vendor/swiper/swiper-bundle.min.js";
-  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(primaryCSS);
-  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
 })();
 </script>
 </head>
@@ -505,7 +517,7 @@ All work on this project is offered as a gift to God.
     </section>
 
     <!-- Deck Plans & Tracker Grid -->
-    <div class="grid-2">
+    <section class="grid-2">
       <section class="card" aria-labelledby="deck-plans">
         <h2 id="deck-plans">Celebrity Silhouette Deck Plans</h2>
         <div id="ship-map" data-ship="celebrity-silhouette">
@@ -519,7 +531,7 @@ All work on this project is offered as a gift to God.
           <p>Track Celebrity Silhouette's current position and voyage details.</p>
         </div>
       </section>
-    </div>
+    </section>
 
     <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
       <h2 id="faq-heading" style="margin: 0 0 1rem; font-size: 1.25rem;">Frequently Asked Questions About Celebrity Silhouette</h2>
@@ -731,6 +743,7 @@ All work on this project is offered as a gift to God.
   })();
   </script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+  <script src="/assets/js/sw-bridge.js" defer></script>
 
   <!-- ===== Logbook loader (safe absolute fetch + a11y carousel) ===== -->
   <script>
