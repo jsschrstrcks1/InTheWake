@@ -1167,6 +1167,156 @@
         ],
         "gratuityNote": "18% on packages purchased separately. Gratuities included when booked as Plus/Premier fare."
       }
+    },
+
+    "holland": {
+      "id": "holland",
+      "name": "Holland America Line",
+      "shortName": "HAL",
+      "slug": "holland-america",
+      "pageUrl": "/cruise-lines/holland-america.html",
+      "color": "#003366",
+
+      "packages": {
+        "soda": {
+          "name": "Quench Package",
+          "shortName": "Quench",
+          "emoji": "☕",
+          "priceMid": 17.95,
+          "priceMin": 15.95,
+          "priceMax": 19.95,
+          "priceNote": "$17.95/day pre-cruise (+18% gratuity). Non-alcoholic premium: soda, coffee, juice, mocktails, Red Bull.",
+          "includes": "Unlimited non-alcoholic premium beverages",
+          "includesList": ["Espresso-based coffees and cappuccinos","Coca-Cola fountain soda","Fresh juices and smoothies","Signature mocktails","Red Bull energy drinks","Premium teas","Bottled water"],
+          "breakEvenDrink": { "name": "specialty coffees", "price": 4.00 }
+        },
+        "refreshment": {
+          "name": "Signature Beverage Package",
+          "shortName": "Signature",
+          "emoji": "🍷",
+          "priceMid": 50.95,
+          "priceMin": 45.95,
+          "priceMax": 55.95,
+          "priceNote": "$50.95/day pre-cruise (+18% gratuity). All Quench items + beer, wine, cocktails, spirits up to $12/drink.",
+          "includes": "All Quench items + beer, wine, cocktails, spirits up to $12 per drink",
+          "includesList": ["All Quench Package items","Beer, wine, cocktails, spirits up to $12 each","Pay difference for drinks above $12 cap","15 alcoholic drinks per day limit"],
+          "breakEvenDrink": { "name": "cocktails", "price": 11.00 }
+        },
+        "deluxe": {
+          "name": "Elite Beverage Package",
+          "shortName": "Elite",
+          "emoji": "🍸",
+          "priceMid": 65.95,
+          "priceMin": 59.95,
+          "priceMax": 69.95,
+          "priceNote": "$65.95/day pre-cruise (+18% gratuity). All Signature items + premium spirits, wines, cocktails up to $16/drink. Unlimited zero-proof.",
+          "includes": "All Signature items + premium spirits, wines, cocktails up to $16 per drink. 15 alcoholic/day, unlimited non-alcoholic.",
+          "includesList": ["All Signature Package items","Premium spirits, wines, cocktails up to $16 each","Unlimited zero-proof beverages (no daily limit)","15 alcoholic drinks per day limit","Pay difference for drinks above $16 cap"],
+          "breakEvenDrink": { "name": "cocktails", "price": 13.00 }
+        }
+      },
+
+      "coffeeCard": {
+        "enabled": false,
+        "name": "Coffee Card",
+        "price": 0,
+        "punches": 0,
+        "note": "Holland America does not offer a coffee card. Specialty coffee is included in the Quench, Signature, and Elite packages."
+      },
+
+      "rules": {
+        "gratuity": 0.18,
+        "deluxeCap": 16.00,
+        "signatureCap": 12.00,
+        "allAdultsSamePackage": true,
+        "allAdultsSamePackageNote": "All adults in the same stateroom must purchase the same beverage package if one buys it.",
+        "minorsForceRefreshment": false,
+        "adultAge": 21,
+        "alcoholAge": 21,
+        "usPortAlcoholRestriction": true,
+        "deluxeDailyLimit": 15
+      },
+
+      "loyalty": {
+        "enabled": false,
+        "programName": "Mariner Society",
+        "voucherValue": 0,
+        "voucherNote": "Mariner Society does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor.",
+        "tiers": []
+      },
+
+      "drinks": [
+        { "id": "soda",         "name": "Soda",             "label": "Coca-Cola (fountain)",    "price": 2.75,  "rangeMin": 2.50, "rangeMax": 3.00,  "category": "non-alcoholic", "icon": "🥤" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Cappuccino",   "price": 4.00,  "rangeMin": 3.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.50,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice / Smoothie",  "price": 5.00,  "rangeMin": 4.00, "rangeMax": 6.50,  "category": "non-alcoholic", "icon": "🧃" },
+        { "id": "mocktail",     "name": "Mocktail",          "label": "Signature Mocktail",       "price": 7.50,  "rangeMin": 6.00, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🍹" },
+        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
+        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 6.00,  "rangeMin": 5.00, "rangeMax": 7.50,  "category": "non-alcoholic", "icon": "🥛" },
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.75,  "rangeMin": 3.75, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "💧" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer (domestic/craft)",   "price": 7.75,  "rangeMin": 7.00, "rangeMax": 9.50,  "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 13.00, "rangeMin": 10.00,"rangeMax": 17.00, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 13.00, "rangeMin": 11.00,"rangeMax": 19.00, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 11.00, "rangeMin": 8.50, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🥃" }
+      ],
+
+      "sets": {
+        "soda": ["soda"],
+        "refresh": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater"],
+        "deluxe": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
+        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+      },
+
+      "policies": [
+        {
+          "id": "happy-hour",
+          "severity": "info",
+          "icon": "🍸",
+          "title": "Daily Happy Hour — 50% Off Drinks",
+          "text": "Holland America offers happy hour most days (usually 4–5pm) at select bars (typically Ocean Bar and Billboard Onboard) where drinks are 50% off. Factor this into your break-even calculation."
+        },
+        {
+          "id": "3-tier-packages",
+          "severity": "info",
+          "icon": "ℹ️",
+          "title": "Three Package Tiers with Different Caps",
+          "text": "Holland America uniquely offers three alcohol-capable tiers: Quench ($0 alcohol, non-alcoholic only), Signature ($12 cap), and Elite ($16 cap). The calculator compares Quench, Signature, and Elite against à la carte."
+        }
+      ],
+
+      "faq": [
+        {
+          "question": "What's the difference between Quench, Signature, and Elite on Holland America?",
+          "answer": "Quench ($17.95/day) is non-alcoholic only: premium coffee, soda, juice, mocktails, Red Bull. Signature ($50.95/day) adds alcohol up to $12/drink. Elite ($65.95/day) raises the cap to $16/drink and makes zero-proof drinks unlimited. All add 18% gratuity."
+        },
+        {
+          "question": "Is there a happy hour on Holland America?",
+          "answer": "Yes — most days 4–5pm at select bars (usually Ocean Bar and Billboard Onboard), drinks are 50% off. If you time your drinking to happy hour, you may not need a package at all."
+        }
+      ],
+
+      "quickAnswer": "Holland America's 3-tier system is unusually flexible. Quench ($17.95/day) is great value for coffee and mocktail lovers. Signature ($50.95/day) covers most standard drinks. Elite ($65.95/day) is one of the cheapest premium packages in the industry. The daily happy hour (50% off) can also shift the break-even math.",
+
+      "meta": {
+        "title": "Holland America Drink Package Calculator 2026 | Quench vs Signature vs Elite",
+        "description": "Compare Quench, Signature ($12 cap), and Elite ($16 cap) packages with 2026 pricing. Includes happy hour analysis.",
+        "ogTitle": "Holland America Drink Package Calculator 2026"
+      },
+
+      "_sources": {
+        "note": "Verified 2026-04-17 via investigate pipeline",
+        "references": [
+          "hollandamerica.com/en/us/onboard-packages/beverage-packages",
+          "hollandamerica.com/en/us/faq/onboard-cruise-experience/beverage/what-are-my-beverage-package-option",
+          "eatsleepcruise.com/complete-guide-to-holland-america-line-drink-packages",
+          "cruisegear.com/a-guide-to-holland-america-drink-packages-beverage-package-options",
+          "cruisegear.com/holland-america-drink-menus-drink-prices",
+          "profcruise.com/holland-america-bar-menus-with-drink-prices-2026",
+          "cruisemummy.co.uk/holland-america-line-drink-packages",
+          "shipboardcruiser.com/holland-america-drinks-packages-guide"
+        ],
+        "gratuityNote": "18% service charge on all beverage purchases and packages."
+      }
     }
   }
 }
