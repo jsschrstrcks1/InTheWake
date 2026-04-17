@@ -1,6 +1,6 @@
 /**
  * Drink Calculator v2 - Math Engine (Config-Driven)
- * Version: 2.000.000 (Multi-Cruise-Line Architecture)
+ * Version: 2.001.000 (Multi-Cruise-Line Architecture + Free-at-Sea, Child Pricing, Grandfathering)
  * Based on: v1.009.000 (Overcap Calculation Fix)
  *
  * "I was eyes to the blind and feet to the lame" - Job 29:15
@@ -348,6 +348,18 @@ function calculateHealthNote(inputs, results) {
  */
 // v2: Accept lineConfig to check minorsForceRefreshment policy
 function determineWinners(costs, minors, lineConfig) {
+  // v2.1: Lines with noPackages (Virgin) or allInclusive (Regent, Seabourn, etc.)
+  // skip the package comparison entirely. À la carte is the only option (or everything
+  // is $0 for all-inclusive). This replaces the $999 sentinel-price workaround.
+  if (lineConfig?.noPackages || lineConfig?.allInclusive) {
+    return {
+      adultWinner: 'alc',
+      minorWinner: minors > 0 ? 'alc' : null,
+      showTwoWinners: false,
+      minorForced: false
+    };
+  }
+
   const adultOptions = [
     { key: 'alc', cost: costs.alc },
     { key: 'soda', cost: costs.soda },
@@ -616,7 +628,9 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const refreshPkgWithMinors = refreshPkg + refreshMinorCost;
 
   // CRITICAL v1.003.000: Minors MUST buy Refreshment when adults buy Deluxe (Royal Caribbean policy)
-  // v2.1: When Free-at-Sea is active, minors use their existing soda/refresh billing (unchanged).
+  // v2.1: When Free-at-Sea is active, only the ADULT deluxePkg changes (flat rate). Minors still
+  // pay standard refresh pricing because NCL's Free-at-Sea perks cover guests 1-2 only and minors
+  // get Soda Package substitution, not the Open Bar. refreshMinorCost is intentionally unchanged.
   const deluxePkgWithMinors = deluxePkg + refreshMinorCost;
 
   // CRITICAL FIX v1.009.000: Calculate overcap correctly per-drink, not per-day total!
@@ -805,8 +819,10 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
       label: 'Minors',
       count: minors,
       pkg: minorPackageName,
-      cost: winners.minorWinner === 'refresh' ? (pkgRefresh * (1 + grat) * days * minors) :
-        winners.minorWinner === 'soda' ? (pkgSoda * (1 + grat) * days * minors) : 0,
+      // v2.1 FIX: Use child price (pkgRefreshChild/pkgSodaChild) for display consistency
+      // with the winner-determination math that already uses child prices.
+      cost: winners.minorWinner === 'refresh' ? (pkgRefreshChild * (1 + grat) * days * minors) :
+        winners.minorWinner === 'soda' ? (pkgSodaChild * (1 + grat) * days * minors) : 0,
       forced: winners.minorForced,
       forcedReason: winners.minorForcedReason
     });

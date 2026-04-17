@@ -456,7 +456,7 @@
           <p id="booking-date-help" class="tiny" style="margin: 0.4rem 0 0; color: #556; line-height: 1.35;">
             Bookings made before a policy change's effective date are grandfathered into the prior benefits. Leave blank to assume current-day policies.
           </p>
-          <p id="grandfathered-policies" class="tiny" style="margin: 0.4rem 0 0; color: #0c6b35; display: none;"></p>
+          <p id="grandfathered-policies" class="tiny" style="margin: 0.4rem 0 0; color: #0c6b35; display: none;" aria-live="polite"></p>
         </div>
         <script>
         // ═══════════════════════════════════════════════════════════
@@ -916,7 +916,13 @@
             var hasDatedPolicy = lc && Array.isArray(lc.policies) &&
               lc.policies.some(function(p) { return p.effectiveDate; });
             wrap.style.display = hasDatedPolicy ? '' : 'none';
-            // Reset grandfather summary on line change
+            // Reset date input + grandfather summary on line change so stale
+            // values from the previous line don't produce wrong matches.
+            var dateInput = document.getElementById('booking-date-input');
+            if (dateInput) {
+              dateInput.value = '';
+              if (window.ITW_setBookingDate) window.ITW_setBookingDate(null);
+            }
             var summary = document.getElementById('grandfathered-policies');
             if (summary) { summary.style.display = 'none'; summary.textContent = ''; }
           }

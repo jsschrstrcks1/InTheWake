@@ -1194,10 +1194,10 @@
           "name": "Signature Beverage Package",
           "shortName": "Signature",
           "emoji": "🍷",
-          "priceMid": 50.95,
-          "priceMin": 45.95,
-          "priceMax": 55.95,
-          "priceNote": "$50.95/day pre-cruise (+18% gratuity). All Quench items + beer, wine, cocktails, spirits up to $12/drink.",
+          "priceMid": 55.95,
+          "priceMin": 50.95,
+          "priceMax": 60.95,
+          "priceNote": "$50.95–$60.95/day pre-cruise (+18% gratuity). All Quench items + beer, wine, cocktails, spirits up to $12/drink.",
           "includes": "All Quench items + beer, wine, cocktails, spirits up to $12 per drink",
           "includesList": ["All Quench Package items","Beer, wine, cocktails, spirits up to $12 each","Pay difference for drinks above $12 cap","15 alcoholic drinks per day limit"],
           "breakEvenDrink": { "name": "cocktails", "price": 11.00 }
@@ -1255,9 +1255,9 @@
         { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 6.00,  "rangeMin": 5.00, "rangeMax": 7.50,  "category": "non-alcoholic", "icon": "🥛" },
         { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.75,  "rangeMin": 3.75, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "💧" },
         { "id": "beer",         "name": "Beer",              "label": "Beer (domestic/craft)",   "price": 7.75,  "rangeMin": 7.00, "rangeMax": 9.50,  "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 13.00, "rangeMin": 10.00,"rangeMax": 17.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 13.00, "rangeMin": 11.00,"rangeMax": 19.00, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 11.00, "rangeMin": 8.50, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🥃" }
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 11.00, "rangeMin": 8.00, "rangeMax": 13.00, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Classic Cocktail",        "price": 11.00, "rangeMin": 9.00, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 10.00, "rangeMin": 8.50, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🥃" }
       ],
 
       "sets": {
@@ -1480,6 +1480,7 @@
       "slug": "virgin",
       "pageUrl": "/cruise-lines/virgin.html",
       "color": "#e10a0a",
+      "noPackages": true,
 
       "packages": {
         "soda": {
@@ -1494,28 +1495,28 @@
           "breakEvenDrink": { "name": "sodas", "price": 0 }
         },
         "refreshment": {
-          "name": "No NA Package Available",
+          "name": "Not Available",
           "shortName": "N/A",
           "emoji": "❌",
-          "priceMid": 999.00,
-          "priceMin": 999.00,
-          "priceMax": 999.00,
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
           "priceNote": "Virgin Voyages does not sell a non-alcoholic premium package. Basic drinks are included; specialty drinks are à la carte.",
           "includesList": [],
           "breakEvenDrink": { "name": "n/a", "price": 0 },
-          "note": "Sentinel price $999 ensures this option never wins in the calculator. Virgin has no NA-only package."
+          "note": "noPackages flag on the line config causes the engine to skip package comparison entirely."
         },
         "deluxe": {
-          "name": "No Drink Package Available",
+          "name": "Not Available",
           "shortName": "N/A",
           "emoji": "❌",
-          "priceMid": 999.00,
-          "priceMin": 999.00,
-          "priceMax": 999.00,
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
           "priceNote": "Virgin Voyages does NOT sell drink packages. All alcoholic and specialty drinks are à la carte. See the Bar Tab system below.",
           "includesList": [],
           "breakEvenDrink": { "name": "n/a", "price": 0 },
-          "note": "Sentinel price $999. The calculator will always recommend à la carte for Virgin, which is the correct answer — there is no package to compare against."
+          "note": "noPackages flag on the line config causes the engine to skip package comparison entirely."
         }
       },
 
@@ -1721,18 +1722,18 @@
       },
 
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Soft Drink",              "price": 3.70,  "rangeMin": 3.50, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🥤" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Cappuccino",   "price": 4.50,  "rangeMin": 2.20, "rangeMax": 6.70,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Herbal Tea",              "price": 3.00,  "rangeMin": 2.20, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fruit Juice",             "price": 4.50,  "rangeMin": 3.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "🧃" },
+        { "id": "soda",         "name": "Soda",             "label": "Soft Drink",              "price": 3.70,  "rangeMin": 3.40, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🥤" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Cappuccino",   "price": 3.50,  "rangeMin": 2.20, "rangeMax": 6.70,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Herbal Tea",              "price": 2.50,  "rangeMin": 2.20, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fruit Juice",             "price": 4.00,  "rangeMin": 3.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "🧃" },
         { "id": "mocktail",     "name": "Mocktail",          "label": "Non-Alcoholic Cocktail",  "price": 6.00,  "rangeMin": 4.50, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🍹" },
         { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
         { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 5.50,  "rangeMin": 4.50, "rangeMax": 6.50,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.00,  "rangeMin": 2.50, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (draught/bottle)",   "price": 6.10,  "rangeMin": 5.50, "rangeMax": 7.50,  "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 8.00,  "rangeMin": 5.70, "rangeMax": 10.30, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 8.00,  "rangeMin": 5.70, "rangeMax": 10.30, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits + Mixer",         "price": 9.00,  "rangeMin": 7.80, "rangeMax": 12.40, "category": "alcoholic",     "icon": "🥃" }
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.40,  "rangeMin": 2.90, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "💧" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer (draught Heineken)",  "price": 4.80,  "rangeMin": 4.50, "rangeMax": 6.00,  "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 7.00,  "rangeMin": 5.70, "rangeMax": 10.30, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 9.30,  "rangeMin": 5.70, "rangeMax": 10.30, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits + Mixer",         "price": 8.00,  "rangeMin": 7.80, "rangeMax": 12.40, "category": "alcoholic",     "icon": "🥃" }
       ],
 
       "sets": {
@@ -1974,9 +1975,9 @@
         { "id": "energy",  "price": 5.00, "category": "non-alcoholic", "icon": "⚡", "name": "Energy Drink", "label": "Red Bull", "rangeMin": 4.50, "rangeMax": 5.50 },
         { "id": "milkshake", "price": 6.00, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 5.00, "rangeMax": 7.00 },
         { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0, "note": "Included" },
-        { "id": "beer",    "price": 7.50, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 6.50, "rangeMax": 9.00 },
-        { "id": "wine",    "price": 12.00, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 9.00, "rangeMax": 18.00 },
-        { "id": "cocktail","price": 14.00, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 11.00, "rangeMax": 18.00 },
+        { "id": "beer",    "price": 9.00, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 8.00, "rangeMax": 10.00 },
+        { "id": "wine",    "price": 14.00, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 12.00, "rangeMax": 16.00 },
+        { "id": "cocktail","price": 12.00, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 10.00, "rangeMax": 15.00 },
         { "id": "spirits", "price": 11.00, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 9.00, "rangeMax": 15.00 }
       ],
       "sets": {
