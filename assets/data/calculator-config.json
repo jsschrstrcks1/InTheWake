@@ -1317,6 +1317,160 @@
         ],
         "gratuityNote": "18% service charge on all beverage purchases and packages."
       }
+    },
+
+    "msc": {
+      "id": "msc",
+      "name": "MSC Cruises",
+      "shortName": "MSC",
+      "slug": "msc",
+      "pageUrl": "/cruise-lines/msc.html",
+      "color": "#003366",
+
+      "packages": {
+        "soda": {
+          "name": "Minors Package",
+          "shortName": "Minors",
+          "emoji": "🧃",
+          "priceMid": 22.00,
+          "priceMin": 22.00,
+          "priceMax": 25.00,
+          "childPriceMid": 22.00,
+          "priceNote": "$22/day (4+ nights) or $25/day (3 nights). Gratuity included. For guests under 18.",
+          "includes": "Non-alcoholic drinks for minors: soda, juice, water, mocktails",
+          "includesList": ["Coca-Cola fountain soda","Juices","Bottled water","Mocktails","Smoothies"],
+          "breakEvenDrink": { "name": "sodas", "price": 3.25 }
+        },
+        "refreshment": {
+          "name": "Alcohol-Free Package",
+          "shortName": "Alcohol-Free",
+          "emoji": "☕",
+          "priceMid": 33.00,
+          "priceMin": 33.00,
+          "priceMax": 35.00,
+          "priceNote": "$33/day (4+ nights) or $35/day (3 nights). Gratuity included.",
+          "includes": "Premium non-alcoholic: specialty coffee, premium tea, mocktails, fresh juice, Red Bull, bottled water, soda",
+          "includesList": ["Specialty coffees and cappuccinos","Premium teas","Signature mocktails","Fresh juices and smoothies","Red Bull energy drinks","Bottled water","Coca-Cola soda","Unlimited daily consumption"],
+          "breakEvenDrink": { "name": "specialty coffees", "price": 5.00 }
+        },
+        "deluxe": {
+          "name": "Premium Extra Package",
+          "shortName": "Premium Extra",
+          "emoji": "🍸",
+          "priceMid": 85.00,
+          "priceMin": 85.00,
+          "priceMax": 95.00,
+          "priceNote": "$85/day (4+ nights) or $95/day (3 nights). Gratuity included. All Alcohol-Free items + beer, wine, cocktails, spirits.",
+          "includes": "All Alcohol-Free items + beer, wine, cocktails, spirits. 15 alcoholic/day limit, unlimited non-alcoholic.",
+          "includesList": ["All Alcohol-Free Package items","Beer, wine, cocktails, spirits","15 alcoholic drinks per day limit","Unlimited non-alcoholic (does not count toward 15)","Gratuity included in price"],
+          "breakEvenDrink": { "name": "cocktails", "price": 14.00 }
+        }
+      },
+
+      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
+
+      "rules": {
+        "gratuity": 0,
+        "gratuityNote": "MSC includes 18% gratuity in all advertised package prices. Engine gratuity is 0% because priceMid values are already all-in.",
+        "deluxeCap": null,
+        "deluxeCapNote": "MSC Premium Extra does not have a published per-drink cap. Most drinks on the ship fall within the package. Ultra-premium spirits may be excluded.",
+        "allAdultsSamePackage": true,
+        "allAdultsSamePackageNote": "All adults in the same cabin must purchase the same beverage package.",
+        "minorsForceRefreshment": false,
+        "adultAge": 18,
+        "alcoholAge": 18,
+        "alcoholAgeNote": "MSC's drinking age is 18 on most international itineraries, 21 on North America sailings.",
+        "usPortAlcoholRestriction": true,
+        "deluxeDailyLimit": 15
+      },
+
+      "loyalty": {
+        "enabled": false,
+        "programName": "MSC Voyagers Club",
+        "voucherValue": 0,
+        "voucherNote": "MSC Voyagers Club does not offer daily drink vouchers.",
+        "tiers": []
+      },
+
+      "drinks": [
+        { "id": "soda",         "name": "Soda",             "label": "Coca-Cola (fountain)",    "price": 3.25,  "rangeMin": 3.00, "rangeMax": 3.75,  "category": "non-alcoholic", "icon": "🥤" },
+        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Cappuccino",   "price": 5.00,  "rangeMin": 4.00, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "☕" },
+        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 4.00,  "rangeMin": 3.50, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "🍵" },
+        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice / Smoothie",  "price": 5.50,  "rangeMin": 4.50, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "🧃" },
+        { "id": "mocktail",     "name": "Mocktail",          "label": "Signature Mocktail",       "price": 8.00,  "rangeMin": 6.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
+        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
+        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 6.00,  "rangeMin": 5.00, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "🥛" },
+        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.25,  "rangeMin": 3.25, "rangeMax": 4.25,  "category": "non-alcoholic", "icon": "💧" },
+        { "id": "beer",         "name": "Beer",              "label": "Beer (draft/bottle)",     "price": 8.00,  "rangeMin": 7.00, "rangeMax": 9.50,  "category": "alcoholic",     "icon": "🍺" },
+        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 14.00, "rangeMin": 13.00,"rangeMax": 16.00, "category": "alcoholic",     "icon": "🍷" },
+        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 14.00, "rangeMin": 12.00,"rangeMax": 16.00, "category": "alcoholic",     "icon": "🍸" },
+        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 10.00, "rangeMin": 8.00, "rangeMax": 14.00, "category": "alcoholic",     "icon": "🥃" }
+      ],
+
+      "sets": {
+        "soda": ["soda"],
+        "refresh": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater"],
+        "deluxe": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
+        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+      },
+
+      "policies": [
+        {
+          "id": "gratuity-included",
+          "severity": "info",
+          "icon": "✅",
+          "title": "Gratuity Included in All Package Prices",
+          "text": "Unlike most cruise lines, MSC includes 18% gratuity in the advertised package price. The $85/day Premium Extra is the final price — no hidden service charge. Individual drink purchases still have 15% (Europe) or 18% (North America) added."
+        },
+        {
+          "id": "easy-packages-discontinued",
+          "severity": "info",
+          "icon": "ℹ️",
+          "title": "Easy & Easy Plus Packages Discontinued",
+          "text": "MSC's former Easy ($49/day) and Easy Plus ($59/day) packages are no longer available for 2026 bookings. The current lineup is Alcohol-Free, Premium Extra, and Minors."
+        },
+        {
+          "id": "drinking-age-varies",
+          "severity": "warning",
+          "icon": "⚠️",
+          "title": "Drinking Age Varies by Region",
+          "text": "MSC's drinking age is 18 on most international itineraries but 21 on North America sailings. This affects which guests can purchase the Premium Extra package."
+        }
+      ],
+
+      "faq": [
+        {
+          "question": "Is gratuity included in MSC drink package prices?",
+          "answer": "Yes — unlike Royal Caribbean, Carnival, and NCL, MSC includes 18% gratuity in the advertised package price. The $85/day Premium Extra is the final all-in daily cost. No surprise service charges."
+        },
+        {
+          "question": "What happened to the MSC Easy and Easy Plus packages?",
+          "answer": "Discontinued for 2026. MSC simplified to three packages: Alcohol-Free ($33/day), Premium Extra ($85/day), and Minors ($22/day). If you see Easy or Easy Plus pricing online, it's outdated."
+        }
+      ],
+
+      "quickAnswer": "MSC includes gratuity in all package prices — $85/day Premium Extra is the real price, no surprises. With cocktails at $14 and wine at $13–$16, break-even is ~6 drinks/day. The $33/day Alcohol-Free is strong value for coffee and mocktail drinkers.",
+
+      "meta": {
+        "title": "MSC Cruises Drink Package Calculator 2026 | Premium Extra Worth It?",
+        "description": "Compare Premium Extra ($85/day all-in), Alcohol-Free, and à-la-carte. MSC includes gratuity — no hidden charges.",
+        "ogTitle": "MSC Cruises Drink Package Calculator 2026"
+      },
+
+      "_sources": {
+        "note": "Verified 2026-04-17 via investigate pipeline",
+        "references": [
+          "msccruisesusa.com/on-board/dining-drinks/drinks-packages",
+          "msccruisesusa.com/faq/drink-packages",
+          "eatsleepcruise.com/complete-guide-to-drink-packages-on-msc-cruises",
+          "cruisemummy.co.uk/msc-drinks-packages-prices-menus-offers",
+          "cruisemummy.co.uk/msc-cruises-drinks-menus",
+          "shinecruise.com/msc-drinks-menu-prices",
+          "cruise.blog/2025/msc-cruises-drink-menu-and-prices",
+          "msccruisefan.com/msc-cruise-drink-packages"
+        ],
+        "gratuityNote": "18% gratuity included in all MSC package prices. Individual drinks: 15% (Europe) or 18% (North America)."
+      }
     }
   }
 }
