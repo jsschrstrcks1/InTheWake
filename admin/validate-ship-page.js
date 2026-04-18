@@ -1418,21 +1418,72 @@ function validateImages($, isHistoric = false, filepath = '') {
   let hotlinkedImages = [];
   let missingLocalImages = [];
 
-  // BLOCKING: Dining hero must use the shared Cordelia image
+  // SHIP-005 resolution (2026-04-16): tiered dining-hero acceptance.
+  // See admin/validator-spec/rules/SHIP-005.md for the full policy.
+  // Tier 1 (pass): ship-specific image under /assets/ships/<line>/<slug>/
+  // Tier 2 (pass): sister-of-same-class image under another ship's dir
+  // Tier 3 (warn): cruise-line-generic image under /assets/ships/<line>/ or /assets/img/<line>_
+  // Reject: Cordelia_Empress_Food_Court (different cruise line entirely) and any cross-line image
   const diningHero = $('#dining-hero');
   const hasDiningHero = diningHero.length > 0;
-  let hasCordeliaDining = false;
+  let hasCordeliaDining = false;  // kept for downstream data{} consumers
 
   if (hasDiningHero) {
     const diningHeroSrc = diningHero.attr('src') || '';
-    hasCordeliaDining = diningHeroSrc.includes('Cordelia_Empress_Food_Court');
-    if (!hasCordeliaDining) {
+    const cruiseLine = extractCruiseLine(filepath);
+    const thisShipSlug = basename(filepath, '.html');
+
+    // Explicit reject: Cordelia (wrong cruise line)
+    if (diningHeroSrc.includes('Cordelia_Empress_Food_Court')) {
       errors.push({
         section: 'images',
-        rule: 'wrong_dining_hero',
-        message: `Dining hero must use shared Cordelia image (/assets/img/Cordelia_Empress_Food_Court.webp), found: ${diningHeroSrc.substring(0, 50)}`,
+        rule: 'cross_line_dining_hero_cordelia',
+        message: 'Dining hero uses Cordelia Empress (wrong cruise line). Use ship-specific > sister-of-class > line-generic (see SHIP-005).',
         severity: 'BLOCKING'
       });
+    }
+    // Tier 1: ship-specific
+    else if (diningHeroSrc.startsWith(`/assets/ships/${cruiseLine}/${thisShipSlug}/`)) {
+      // pass — ideal
+    }
+    // Tier 2: sister ship of same class
+    else {
+      let tier = null;
+      const sisterMatch = diningHeroSrc.match(new RegExp(`^/assets/ships/${cruiseLine}/([^/]+)/`));
+      if (sisterMatch) {
+        const sisterSlug = sisterMatch[1];
+        const sisterName = sisterSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        const thisShipName = extractShipName(filepath);
+        for (const ships of Object.values(SHIP_CLASSES)) {
+          const thisInClass = ships.some(s => thisShipName.toLowerCase().includes(s.toLowerCase().split(' ')[0]));
+          const sisterInClass = ships.some(s => sisterName.toLowerCase().includes(s.toLowerCase().split(' ')[0]));
+          if (thisInClass && sisterInClass) { tier = 2; break; }
+        }
+      }
+      // Tier 3: cruise-line-generic
+      if (tier === null) {
+        if (diningHeroSrc.startsWith(`/assets/ships/${cruiseLine}/`) ||
+            diningHeroSrc.includes(`/${cruiseLine}_`) ||
+            diningHeroSrc.includes(`/${cruiseLine}-`)) {
+          tier = 3;
+        }
+      }
+      if (tier === 3) {
+        warnings.push({
+          section: 'images',
+          rule: 'dining_hero_line_generic_fallback',
+          message: `Dining hero is line-generic (${cruiseLine}), not ship-specific. Upgrade to ship-specific or sister-of-class image when available.`,
+          severity: 'WARNING'
+        });
+      } else if (tier === null) {
+        // Neither ship-specific, nor sister, nor line-generic → cross-line reject
+        errors.push({
+          section: 'images',
+          rule: 'dining_hero_cross_line',
+          message: `Dining hero src "${diningHeroSrc.substring(0, 80)}" is not from ${thisShipSlug}, a sister-class ship, or ${cruiseLine} line. Must match SHIP-005 tier 1/2/3.`,
+          severity: 'BLOCKING'
+        });
+      }
     }
   } else {
     // Check if page has a dining section - if so, it needs a dining-hero image
@@ -1441,7 +1492,7 @@ function validateImages($, isHistoric = false, filepath = '') {
       errors.push({
         section: 'images',
         rule: 'missing_dining_hero',
-        message: 'Dining section exists but missing dining-hero image with Cordelia_Empress_Food_Court.webp',
+        message: 'Dining section exists but missing dining-hero image (see SHIP-005 tiered acceptance policy)',
         severity: 'BLOCKING'
       });
     }
