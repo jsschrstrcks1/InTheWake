@@ -5,10 +5,13 @@ family: venue
 severity: warn
 applies-to:
   - venue
-provenance: S-only
+provenance: V+S-agree
 status: live
-implementation: none
-check: venue page includes <meta name="venue-tags" content="style:... cruise-line:... ships:..."/> with machine-parseable tag values
+implementation:
+  - file: admin/validate-venue-page-v2.js
+    function: checkVenueTagsMeta (S07)
+    lines: "644-650 (added 2026-04-16)"
+check: venue page has <meta name="venue-tags" content="..."> (presence check; structure validation deferred to future enhancement)
 standards-source:
   - doc: admin/VENUE_PAGE_AUDIT_2026_03_04.md
     section: "Missing venue-tags meta: 453 of 472 pages (96%)"

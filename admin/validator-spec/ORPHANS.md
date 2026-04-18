@@ -23,9 +23,6 @@ Rules with `implementation: none` appear here. These are rules the spec declares
 | `SEO-001` | Open Graph meta tags present (og:title, og:description, og:image, og:url) | [rules/SEO-001.md](rules/SEO-001.md) |
 | `SEO-002` | Twitter Card meta tags present (twitter:card, twitter:title, twitter:description) | [rules/SEO-002.md](rules/SEO-002.md) |
 | `SEO-005` | No duplicate title tags or meta descriptions | [rules/SEO-005.md](rules/SEO-005.md) |
-| `VENUE-006` | venue-tags meta tag present with style / cruise-line / ship-availability attributes | [rules/VENUE-006.md](rules/VENUE-006.md) |
-| `VENUE-010` | "Varies by venue" price placeholder forbidden in key facts | [rules/VENUE-010.md](rules/VENUE-010.md) |
-| `VENUE-011` | "Coming soon" ship availability placeholder forbidden on active venues | [rules/VENUE-011.md](rules/VENUE-011.md) |
 
 <!-- ORPHANS-END -->
 

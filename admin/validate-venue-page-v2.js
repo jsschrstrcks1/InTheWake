@@ -625,6 +625,50 @@ class VenueValidator {
     }
   }
 
+  // ── S07: venue-tags meta tag present (VENUE-006 in admin/validator-spec) ──
+  // Orphan closure 2026-04-16: see admin/validator-spec/rules/VENUE-006.md.
+  // 453/472 pages (96%) currently missing per 2026-03 audit.
+  checkVenueTagsMeta() {
+    if (this.has('name="venue-tags"')) {
+      this.pass('S07', 'venue-tags meta tag present');
+    } else {
+      this.warn('S07', 'venue-tags meta tag missing (VENUE-006 — needed for venue-filter tooling and AI discovery)');
+    }
+  }
+
+  // ── S08: no "Varies by venue" price placeholder (VENUE-010 closure) ──────
+  // Orphan closure 2026-04-16: see admin/validator-spec/rules/VENUE-010.md.
+  // 187 pages flagged by 2026-03 audit for non-informative price placeholder.
+  checkVenuePricePlaceholder() {
+    const placeholders = [
+      'Varies by venue',
+      'Varies by cruise line',
+      'Please check with your cruise',
+      'Contact your cruise director',
+      'Prices subject to change'
+    ];
+    const found = placeholders.filter(p => this.has(p));
+    if (found.length > 0) {
+      this.warn('S08', `Price placeholder in page: "${found[0]}" — replace with actual price or as-of disclosure (VENUE-010)`);
+    }
+  }
+
+  // ── S09: no "Coming soon" on active venues (VENUE-011 closure) ───────────
+  // Orphan closure 2026-04-16: see admin/validator-spec/rules/VENUE-011.md.
+  // 18 active pages flagged by 2026-03 audit with placeholder ship-availability.
+  checkVenueComingSoon() {
+    // Only fire on active venues — skip if page is marked as pre-launch.
+    // The venue validator doesn't track a TBN flag explicitly, so we use a
+    // heuristic: if the page has logbook entries OR a real ship-availability
+    // section with named ships, it's an active venue; coming-soon text fails.
+    const hasRealShipRefs = /ships?\s*that\s*have\s*her|available\s*on\s*(the\s*)?(following|these)/i.test(this.html)
+      && /[A-Z][a-z]+\s+of\s+the\s+Seas|[A-Z][a-z]+\s+(Princess|Celebrity|Line)/.test(this.html);
+    const hasComingSoon = /coming\s*soon/i.test(this.html);
+    if (hasComingSoon && hasRealShipRefs) {
+      this.warn('S09', '"Coming soon" text on page that also names real ships — likely stale placeholder (VENUE-011)');
+    }
+  }
+
   // ── W01: No venue-specific images ────────────────────────────────────────
   checkVenueSpecificImages() {
     const images = this.extractAllImageSrcs();
@@ -867,6 +911,9 @@ class VenueValidator {
     this.checkFAQRelevance();             // S04
     this.checkImageSemantics();           // S05
     this.checkContentPromises();          // S06
+    this.checkVenueTagsMeta();            // S07 (VENUE-006 orphan closure)
+    this.checkVenuePricePlaceholder();    // S08 (VENUE-010 orphan closure)
+    this.checkVenueComingSoon();          // S09 (VENUE-011 orphan closure)
 
     // Voice quality (Like-a-Human)
     this.checkVoiceQuality();             // V01-V06

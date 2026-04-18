@@ -5,10 +5,13 @@ family: venue
 severity: warn
 applies-to:
   - venue
-provenance: S-only
+provenance: V+S-agree
 status: live
-implementation: none
-check: venue key-facts / price field does NOT equal "Varies by venue", "Varies by cruise line", "Please check", or similar non-informative placeholders
+implementation:
+  - file: admin/validate-venue-page-v2.js
+    function: checkVenuePricePlaceholder (S08)
+    lines: "654-668 (added 2026-04-16)"
+check: venue page does not contain placeholder phrases — "Varies by venue", "Varies by cruise line", "Please check with your cruise", "Contact your cruise director", "Prices subject to change"
 standards-source:
   - doc: admin/VENUE_PAGE_AUDIT_2026_03_04.md
     section: "Generic 'Varies by venue' price key fact — no actionable info (187 pages)"
