@@ -683,6 +683,41 @@ function validateICPLite($, html) {
     });
   }
 
+  // --- ai-summary dual-cap: first sentence must be standalone within 155 chars ---
+  // ICP-002 resolution (2026-04-16): see admin/validator-spec/rules/ICP-002.md.
+  // Rolled out at WARN; promote to BLOCKING once fleet-wide fallout < 5 pages.
+  if (aiSummary && aiSummary.length >= 30) {
+    // Match sentence terminator not preceded by a common abbreviation.
+    // Abbreviations we skip: Mr. Mrs. Ms. Dr. St. Sr. Jr. etc. Rev. Hon. Rd. Ave. Blvd. i.e. e.g. vs. a.m. p.m.
+    const ABBREV = /\b(mr|mrs|ms|dr|st|sr|jr|etc|rev|hon|rd|ave|blvd|mt|ft|i\.e|e\.g|vs|a\.m|p\.m|no)\.$/i;
+    let firstTerm = -1;
+    for (let i = 0; i < aiSummary.length; i++) {
+      const ch = aiSummary[i];
+      if (ch === '.' || ch === '!' || ch === '?') {
+        const preceding = aiSummary.slice(0, i + 1);
+        if (!ABBREV.test(preceding)) {
+          firstTerm = i;
+          break;
+        }
+      }
+    }
+    if (firstTerm === -1) {
+      warnings.push({
+        section: 'icp',
+        rule: 'ai_summary_standalone_sentence',
+        message: `ai-summary has no complete first sentence (no terminator found). Dual-cap rule: first ~155 chars must be a standalone sentence.`,
+        severity: 'WARNING'
+      });
+    } else if (firstTerm > 155) {
+      warnings.push({
+        section: 'icp',
+        rule: 'ai_summary_standalone_sentence',
+        message: `ai-summary first sentence ends at char ${firstTerm + 1}; dual-cap rule requires it within 155.`,
+        severity: 'WARNING'
+      });
+    }
+  }
+
   // --- description meta tag (ICP-2 v2.1: required) ---
   if (!description) {
     errors.push({
