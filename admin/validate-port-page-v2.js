@@ -750,14 +750,8 @@ function validateICPLite($, html) {
       severity: 'WARNING'
     });
   }
-  if (html.includes('ai-breadcrumbs')) {
-    warnings.push({
-      section: 'icp',
-      rule: 'forbidden_ai_breadcrumbs',
-      message: 'ai-breadcrumbs HTML comments are not read by any crawler — remove them',
-      severity: 'WARNING'
-    });
-  }
+  // ICP-011 resolution (2026-04-16): ai-breadcrumbs kept — used by developers
+  // and LLMs reading raw HTML. See admin/validator-spec/rules/ICP-011.md.
 
   // --- JSON-LD structured data ---
   const jsonldScripts = $('script[type="application/ld+json"]');
@@ -844,21 +838,15 @@ function validateICPLite($, html) {
     });
   }
 
-  // --- Description consistency (ICP-2 v2.1: relaxed from exact-match) ---
-  // JSON-LD description must be "consistent with" ai-summary — same key facts,
-  // not necessarily character-identical. We check that they share significant words.
+  // --- Description exact-match (ICP-014 resolution 2026-04-16) ---
+  // JSON-LD description MUST match ai-summary character-for-character. See
+  // admin/validator-spec/rules/ICP-014.md — user reverted the v2.1 relaxation.
   if (hasPageSchema && aiSummary && schemaDescription) {
-    const summaryWords = new Set(aiSummary.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 3));
-    const descWords = new Set(schemaDescription.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 3));
-    // Count overlapping significant words
-    let overlap = 0;
-    for (const w of summaryWords) { if (descWords.has(w)) overlap++; }
-    const overlapRatio = summaryWords.size > 0 ? overlap / summaryWords.size : 0;
-    if (overlapRatio < 0.3) {
+    if (schemaDescription !== aiSummary) {
       errors.push({
         section: 'icp',
         rule: 'description_mismatch',
-        message: `JSON-LD description has low consistency with ai-summary (${Math.round(overlapRatio * 100)}% word overlap). Must convey same key facts.`,
+        message: 'JSON-LD WebPage description must exactly match ai-summary meta tag',
         severity: 'BLOCKING'
       });
     }
