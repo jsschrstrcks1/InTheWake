@@ -72,6 +72,49 @@ Before committing bulk changes:
 
 ---
 
+## Code-Logic Verification — MANDATORY for logic changes
+
+**The trap:** syntax-check passes, tests I wrote for myself pass, reasoning says the code should work — so I commit. That is **clever, not careful**. "It parses" is not the same as "it works."
+
+**The rule:** any change that adds or modifies logic (a new check, a branching condition, a regex, a threshold, a classification) MUST be exercised end-to-end against real repo state before the commit lands. Not reasoned about. Run.
+
+### What counts as "logic change" (requires end-to-end run)
+
+- Adding a new validator check (any rule, any severity)
+- Changing a threshold, regex, or classification
+- Renaming an identifier that's referenced elsewhere
+- Changing branching conditions (if/else/switch)
+- Replacing one algorithm with another (e.g., exact-match vs fuzzy match)
+
+### What does NOT count (syntax-check + diff review is enough)
+
+- Moving a constant
+- Editing prose in comments or documentation
+- Renaming a variable that's only used locally
+- Updating severity/label strings without changing branching
+
+### End-to-end run protocol
+
+1. **Pick one known-good input and one known-bad input** that the new logic should clearly pass / fail respectively.
+2. **Run the actual entry point** (`node admin/validate-port-page-v2.js ports/<real>.html`, or equivalent for whichever validator / script / page you touched).
+3. **Confirm the output matches intent** — new rule fires on the bad case, doesn't fire on the good case. Paste relevant output into the commit message or session log.
+4. **If you can't run it** (missing deps, sandbox limits, no representative fixture), say so explicitly — do not commit with "should work" as the basis.
+
+### Anti-patterns this prevents
+
+- Committing a regex that "looks right" but never matched anything because of shell-escaping or a missed edge case
+- Adding a validator check that passes parse but is unreachable due to existing branching
+- Declaring an orphan "closed" by pointing at code that has a subtle bug
+- Shipping 6 commits in a row under momentum without ever seeing the new behavior actually execute
+
+### Why this matters more than it feels like it does
+
+The validator catches problems at commit time. If the validator itself has a subtle bug — wrong regex, wrong conditional, wrong comparison — every page that relies on that validator silently ships with the missed check. One unrun commit can leak dozens of unrelated defects into production that the validator was supposed to catch.
+
+**Soli Deo Gloria** means excellence as worship. Excellence is not "the code parsed" — it is "I watched the code do what I claimed it does."
+
+---
+
 ## Image Verification Protocol — MANDATORY, Every Time
 
 **Rule:** Before trusting, citing, or keeping ANY port/ship/venue image, visually
