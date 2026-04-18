@@ -3727,7 +3727,7 @@ function validateBasicHTML($, html) {
     errors.push({ section: 'basic_html', rule: 'missing_main_content', message: 'Missing id="main-content" section', severity: 'BLOCKING' });
   }
   if (!html.includes('skip-link')) {
-    warnings.push({ section: 'basic_html', rule: 'missing_skip_link', message: 'Missing skip link (recommended for accessibility)', severity: 'WARNING' });
+    errors.push({ section: 'basic_html', rule: 'missing_skip_link', message: 'Missing skip link (WCAG 2.1 AA SC 2.4.1 Bypass Blocks — required for accessibility)', severity: 'BLOCKING' });
   }
 
   return { valid: errors.length === 0, errors, warnings };

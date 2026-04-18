@@ -1511,7 +1511,7 @@ function validateImages($, isHistoric = false, filepath = '') {
     warnings.push({ section: 'images', rule: 'short_alt', message: `${shortAlt} images have short alt text`, severity: 'WARNING' });
   }
   if (missingLazy > 0) {
-    warnings.push({ section: 'images', rule: 'missing_lazy', message: `${missingLazy} images missing loading="lazy"`, severity: 'WARNING' });
+    errors.push({ section: 'images', rule: 'missing_lazy', message: `${missingLazy} non-hero images missing loading="lazy" (LCP / mobile bandwidth)`, severity: 'BLOCKING' });
   }
 
   return { valid: errors.length === 0, errors, warnings, data: { total: imageCount, missingAlt, shortAlt, missingLazy, hotlinked: hotlinkedImages.length, missingLocal: missingLocalImages.length, hasDiningHero, hasCordeliaDining } };
