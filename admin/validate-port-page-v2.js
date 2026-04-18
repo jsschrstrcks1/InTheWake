@@ -3799,6 +3799,32 @@ function validateBasicHTML($, html) {
     });
   }
 
+  // NAV-001 orphan closure (2026-04-16): canonical navigation must include all required links
+  // See admin/validator-spec/rules/NAV-001.md
+  // NOTE: this list mirrors validate-ship-page.js REQUIRED_NAV_ITEMS (line 263-270).
+  // If either list changes, update both. Future cleanup: consolidate into shared constant.
+  const NAV_REQUIRED = [
+    '/planning.html', '/ships.html', '/restaurants.html', '/ports.html',
+    '/internet-at-sea.html', '/drink-packages.html', '/drink-calculator.html',
+    '/stateroom-check.html', '/cruise-lines.html', '/packing-lists.html',
+    '/accessibility.html', '/travel.html', '/solo.html',
+    '/search.html', '/about-us.html'
+  ];
+  const navLinks = [];
+  $('nav a, nav.site-nav a, header nav a').each((i, elem) => {
+    const href = $(elem).attr('href');
+    if (href) navLinks.push(href);
+  });
+  const missingNav = NAV_REQUIRED.filter(href => !navLinks.includes(href));
+  if (missingNav.length > 0) {
+    warnings.push({
+      section: 'basic_html',
+      rule: 'missing_canonical_nav_items',
+      message: `Navigation missing ${missingNav.length} canonical link(s): ${missingNav.slice(0, 5).join(', ')}${missingNav.length > 5 ? '...' : ''}`,
+      severity: 'WARNING'
+    });
+  }
+
   return { valid: errors.length === 0, errors, warnings };
 }
 
