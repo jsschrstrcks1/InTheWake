@@ -2918,7 +2918,8 @@ async function validateShipPage(filepath) {
     const shipImageResult = await validateShipImages(filepath, cruiseLine, slug);
 
     // Stub: voiceQualityResult — function not yet implemented, prevent crash
-    const voiceQualityResult = { errors: [], warnings: [] };
+    // (First declaration at line 2908; this duplicate removed 2026-04-16)
+    // const voiceQualityResult = { errors: [], warnings: [] };
 
     // Calculate preliminary score for discoverability checks
     const preliminaryErrors = [
