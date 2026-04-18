@@ -3753,6 +3753,52 @@ function validateBasicHTML($, html) {
     errors.push({ section: 'basic_html', rule: 'missing_skip_link', message: 'Missing skip link (WCAG 2.1 AA SC 2.4.1 Bypass Blocks — required for accessibility)', severity: 'BLOCKING' });
   }
 
+  // SEO-001 orphan closure (2026-04-16): Open Graph meta tags present
+  // See admin/validator-spec/rules/SEO-001.md
+  const ogTags = ['og:title', 'og:description', 'og:image', 'og:url'];
+  const missingOg = ogTags.filter(tag => !html.includes(`property="${tag}"`));
+  if (missingOg.length > 0) {
+    warnings.push({
+      section: 'basic_html',
+      rule: 'missing_og_tags',
+      message: `Missing Open Graph meta tags: ${missingOg.join(', ')} (social sharing preview)`,
+      severity: 'WARNING'
+    });
+  }
+
+  // SEO-002 orphan closure (2026-04-16): Twitter Card meta tags present
+  // See admin/validator-spec/rules/SEO-002.md
+  const twitterTags = ['twitter:card', 'twitter:title', 'twitter:description'];
+  const missingTwitter = twitterTags.filter(tag => !html.includes(`name="${tag}"`));
+  if (missingTwitter.length > 0) {
+    warnings.push({
+      section: 'basic_html',
+      rule: 'missing_twitter_cards',
+      message: `Missing Twitter Card meta tags: ${missingTwitter.join(', ')} (should use summary_large_image)`,
+      severity: 'WARNING'
+    });
+  }
+
+  // SEO-005 orphan closure (2026-04-16): no duplicate title/description
+  // See admin/validator-spec/rules/SEO-005.md
+  if ($('title').length > 1) {
+    errors.push({
+      section: 'basic_html',
+      rule: 'duplicate_title',
+      message: `Page has ${$('title').length} <title> tags — must be exactly 1`,
+      severity: 'BLOCKING'
+    });
+  }
+  const descCount = $('meta[name="description"]').length;
+  if (descCount > 1) {
+    errors.push({
+      section: 'basic_html',
+      rule: 'duplicate_description',
+      message: `Page has ${descCount} <meta name="description"> tags — must be exactly 1`,
+      severity: 'BLOCKING'
+    });
+  }
+
   return { valid: errors.length === 0, errors, warnings };
 }
 

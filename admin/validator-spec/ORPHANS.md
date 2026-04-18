@@ -20,9 +20,6 @@ Rules with `implementation: none` appear here. These are rules the spec declares
 | `LOG-003` | Logbook 7-section spine includes accessibility and female-crewmate sections | [rules/LOG-003.md](rules/LOG-003.md) |
 | `NAV-001` | Primary navigation includes the twelve canonical links in order | [rules/NAV-001.md](rules/NAV-001.md) |
 | `PWA-001` | Service worker cache version bumped on every release | [rules/PWA-001.md](rules/PWA-001.md) |
-| `SEO-001` | Open Graph meta tags present (og:title, og:description, og:image, og:url) | [rules/SEO-001.md](rules/SEO-001.md) |
-| `SEO-002` | Twitter Card meta tags present (twitter:card, twitter:title, twitter:description) | [rules/SEO-002.md](rules/SEO-002.md) |
-| `SEO-005` | No duplicate title tags or meta descriptions | [rules/SEO-005.md](rules/SEO-005.md) |
 
 <!-- ORPHANS-END -->
 
