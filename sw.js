@@ -4,7 +4,7 @@
  * Soli Deo Gloria ✝️
  */
 
-const VERSION = '14.2.0';
+const VERSION = '14.3.0';
 const CACHE_PREFIX = 'itw-site';
 
 /* Network state (updated by client via NETWORK_INFO message) */
@@ -537,11 +537,18 @@ async function copyPrecacheToRuntime() {
  * warm the calculator shell so drink-calculator.html loads instantly. */
 const CALC_SHELL_URLS = [
   '/drink-calculator.html',
+  '/drink-calculatorv2.html',
   '/drink-packages.html',
   '/assets/js/calculator.js',
   '/assets/js/calculator-ui.js',
   '/assets/js/calculator-math.js',
   '/assets/js/calculator-worker.js',
+  '/assets/js/calculator-v2.js',
+  '/assets/js/calculator-ui-v2.js',
+  '/assets/js/calculator-math-v2.js',
+  '/assets/js/calculator-worker-v2.js',
+  '/assets/js/package-selection-feature-v2.js',
+  '/assets/data/calculator-config.json',
   '/assets/css/calculator.css'
 ];
 let calcShellWarmed = false;

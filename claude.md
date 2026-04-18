@@ -131,7 +131,10 @@ Before touching anything:
 **P1 — Complete:** Port maps (367/387), Ship CSS rollout (292/295), "From the Pier" transport (376/376)
 **P1 — Active:** ⏳ Site-wide hero/logo standardization
 
-**P2 — Complete:** Service Worker v14.2.0, Port weather (387 ports), Stateroom Checker (270 JSON files)
+**P2 — Complete:** Service Worker v14.2.0 → v14.3.0, Port weather (387 ports), Stateroom Checker (270 JSON files)
+**P2 — Active:** ⏳ Drink Calculator V2 — 15 cruise lines, 376 automated tests, math engine v2.001.000
+  - **Plan:** `.claude/plans/calculator-v2-feature-plan.md` (approved features, pending math bug fix)
+  - **Pipeline debate:** `/root/.claude/plans/bright-strolling-gem.md` (2-round orchestra analysis)
 
 **P3–P4 — User Decision Required:**
 - 🔴 Pastoral articles: Healing Relationships, Rest for Wounded Healers

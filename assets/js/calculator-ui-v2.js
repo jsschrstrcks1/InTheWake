@@ -262,7 +262,14 @@ function renderBanner(results) {
 
   const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
 
-  const winnerLabel = results.winnerLabel || 'À la carte';
+  // v2.1: When winner is 'soda' but the soda package costs $0 (fare-included lines
+  // like Celebrity and Princess), display "No package needed" instead of the package name.
+  const lc = window.ITW_LINE_CONFIG;
+  const isFareIncludedSoda = results.winnerKey === 'soda' &&
+    lc?.packages?.soda?.priceMid !== undefined && Number(lc.packages.soda.priceMid) === 0;
+  const winnerLabel = isFareIncludedSoda
+    ? 'No package needed'
+    : (results.winnerLabel || 'À la carte');
   const winnerCost = results.bars[results.winnerKey]?.mean || 0;
   const alcCost = results.bars.alc?.mean || 0;
   const savings = alcCost - winnerCost;
@@ -270,7 +277,13 @@ function renderBanner(results) {
   chipEl.textContent = `Best Value: ${winnerLabel}`;
   chipEl.className = 'badge';
 
-  if (results.winnerKey === 'alc') {
+  if (lc?.allInclusive) {
+    textEl.textContent = 'All drinks are included in your fare';
+  } else if (lc?.noPackages) {
+    textEl.textContent = 'All drinks are à la carte — no packages available';
+  } else if (isFareIncludedSoda) {
+    textEl.textContent = 'Basic drinks are in your fare — pay à la carte for the rest';
+  } else if (results.winnerKey === 'alc') {
     textEl.textContent = 'Paying as you go is your best option';
   } else if (savings > 0) {
     textEl.textContent = `Save ${formatMoney(savings)} over à-la-carte`;
