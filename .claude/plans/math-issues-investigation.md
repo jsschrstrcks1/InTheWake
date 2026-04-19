@@ -1,6 +1,6 @@
 # Math Issues Found — Investigation Log
 
-## Status: 9 bugs found + 11 config mismatches
+## Status: 10 bugs found + 11 config mismatches
 
 ## Bug 1: Per-Adult vs Group-Total Input Mismatch
 **Severity:** Major | **Affects:** All 15 lines
@@ -61,3 +61,11 @@ All four bugs push in the SAME direction: **making packages look worse than they
 **Description:** Line 634 always adds refreshMinorCost when adults buy deluxe. Only RCL forces this. Other lines let minors buy cheapest (soda at child price or $0).
 **Impact:** Princess $1,074, Cunard $756, Celebrity $588, HAL $545, Carnival $387 overcharge per 7-night with 2 minors.
 **Root cause:** Built for RCL's force-to-refresh rule. Multi-line generalization missed it.
+
+## Bug 10: Package Set Coverage Doesn't Match Actual Inclusions
+**Severity:** Critical | **Affects:** 8 of 10 non-luxury lines
+**Found on:** Carnival Bottomless Bubbles (includes juice but soda set = ["soda"] only)
+**Description:** The sets.soda array defines which drinks are covered by the soda package. Uncovered drinks are added at a la carte: sodaTotalCost = sodaPkg + (rawTotal - sodaTotal). If a drink IS covered by the real package but NOT in the set, the engine treats it as uncovered and inflates the package cost.
+**Carnival example:** Bubbles covers juice but sets.soda=["soda"]. 2 juices/day x $6.50 x 7 = $91 wrongly added.
+**Affected:** Carnival (juice), Celebrity (coffee, water), Princess (coffee, water), HAL (juice, coffee, water), MSC (juice, water), Costa (juice, coffee), Cunard (juice, coffee), Oceania (coffee).
+**Impact:** Packages consistently look more expensive than they are.
