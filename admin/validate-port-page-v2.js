@@ -3830,6 +3830,61 @@ function validateBasicHTML($, html) {
 }
 
 /**
+ * Layer 3: CSS/rendering baseline validation (v2.6, 2026-04-16)
+ * Checks stylesheet/script existence + inline overflow risks.
+ * Same checks as ship validator's validateRenderingBaseline.
+ */
+function validateRenderingBaseline($, html) {
+  const errors = [];
+  const warnings = [];
+
+  $('link[rel="stylesheet"]').each((i, elem) => {
+    const href = $(elem).attr('href');
+    if (!href || href.startsWith('http')) return;
+    const cssPath = href.split('?')[0];
+    const localPath = join(PROJECT_ROOT, cssPath.replace(/^\//, ''));
+    if (!existsSync(localPath)) {
+      errors.push({
+        section: 'rendering',
+        rule: 'missing_stylesheet',
+        message: `Referenced stylesheet not found: ${cssPath}`,
+        severity: 'BLOCKING'
+      });
+    }
+  });
+
+  $('script[src]').each((i, elem) => {
+    const src = $(elem).attr('src');
+    if (!src || src.startsWith('http') || src.includes('youtube') || src.includes('analytics') || src.includes('umami')) return;
+    const jsPath = src.split('?')[0];
+    const localPath = join(PROJECT_ROOT, jsPath.replace(/^\//, ''));
+    if (!existsSync(localPath)) {
+      warnings.push({
+        section: 'rendering',
+        rule: 'missing_script',
+        message: `Referenced script not found: ${jsPath}`,
+        severity: 'WARNING'
+      });
+    }
+  });
+
+  const cssLink = $('link[rel="stylesheet"][href*="styles.css"]');
+  if (cssLink.length > 0) {
+    const href = cssLink.attr('href') || '';
+    if (!href.includes('?v=')) {
+      warnings.push({
+        section: 'rendering',
+        rule: 'missing_css_version',
+        message: 'Stylesheet link missing cache-bust version query (?v=3.010.400)',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
  * Validate tender port indicator against port-registry.json
  * Ported from validate-port.js validateTenderPortIndicator()
  * BLOCKING: tender ports MUST have indicator; non-tender ports MUST NOT
@@ -4319,6 +4374,9 @@ async function validatePortPage(filepath) {
     const articlesResult = validateRecentArticlesSubValidator(filepath);
     const noscriptResult = validateNoscriptFallbacks($, html);
 
+    // v2.6 — Layer 3: CSS/rendering baseline (2026-04-16)
+    const renderingResult = validateRenderingBaseline($, html);
+
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
     results.blocking_errors.push(...analyticsResult.errors);
@@ -4354,6 +4412,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...mobileResult.errors);
     results.blocking_errors.push(...articlesResult.errors);
     results.blocking_errors.push(...noscriptResult.errors);
+    results.blocking_errors.push(...renderingResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -4403,6 +4462,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...mobileResult.warnings);
     results.warnings.push(...articlesResult.warnings);
     results.warnings.push(...noscriptResult.warnings);
+    results.warnings.push(...renderingResult.warnings);
 
     // Gold standard gap detection (only included with --gold-standard flag)
     // Per orchestra: separate mode to avoid alert fatigue on the 100% pass rate

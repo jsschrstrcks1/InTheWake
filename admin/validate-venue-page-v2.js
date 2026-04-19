@@ -878,6 +878,36 @@ class VenueValidator {
     }
   }
 
+  // ── T20: Layer 3 — CSS/rendering baseline (v2.6, 2026-04-16) ──────────
+  checkRenderingBaseline() {
+    // Check stylesheet references exist
+    const cssRefs = [...this.html.matchAll(/rel="stylesheet"\s+href="([^"]+)"/g)];
+    for (const [, href] of cssRefs) {
+      if (href.startsWith('http')) continue;
+      const cssPath = href.split('?')[0];
+      const localPath = join(PROJECT_ROOT, cssPath.replace(/^\//, ''));
+      if (!existsSync(localPath)) {
+        this.fail('T20', `Referenced stylesheet not found: ${cssPath}`);
+      }
+    }
+
+    // Check script references exist
+    const jsRefs = [...this.html.matchAll(/script\s+src="([^"]+)"/g)];
+    for (const [, src] of jsRefs) {
+      if (src.startsWith('http') || src.includes('analytics') || src.includes('umami')) continue;
+      const jsPath = src.split('?')[0];
+      const localPath = join(PROJECT_ROOT, jsPath.replace(/^\//, ''));
+      if (!existsSync(localPath)) {
+        this.warn('T20', `Referenced script not found: ${jsPath}`);
+      }
+    }
+
+    // Check CSS version query
+    if (this.has('styles.css') && !this.has('styles.css?v=')) {
+      this.warn('T20', 'Stylesheet missing cache-bust version query (?v=3.010.400)');
+    }
+  }
+
   // ── Run all checks ──────────────────────────────────────────────────────
   async validate() {
     this.html = await readFile(this.filepath, 'utf-8');
@@ -903,6 +933,7 @@ class VenueValidator {
     this.checkFAQAnswerLength();          // T17
     this.checkCanonicalURL();             // T18
     this.checkSDGPosition();              // T19
+    this.checkRenderingBaseline();         // T20 (Layer 3)
 
     // Semantic checks
     this.checkGenericReview();            // S01
