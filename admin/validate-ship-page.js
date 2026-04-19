@@ -3142,36 +3142,89 @@ function validateRuntimeDataSources(html, filepath) {
   const cruiseLine = extractCruiseLine(filepath);
   const slug = basename(filepath, '.html');
 
-  // Extract all JSON paths from abs('...json') and fetch('...json') patterns
-  const absRefs = [...html.matchAll(/abs\(['"]([^'"]+\.json)['"]\)/g)].map(m => m[1]);
-  const fetchRefs = [...html.matchAll(/fetch\(['"]([^'"]+\.json)['"]/g)].map(m => m[1]);
-  const allRefs = [...new Set([...absRefs, ...fetchRefs])];
-
   // Skip global/shared files that aren't page-specific
-  const SHARED_FILES = ['/assets/data/articles/index.json', '/data/authors.json', '/assets/data/ship-quiz-data-v2.json'];
+  const SHARED_FILES = new Set(['/assets/data/articles/index.json', '/data/authors.json', '/assets/data/ship-quiz-data-v2.json']);
 
-  let missingCount = 0;
-  const missingPaths = [];
+  // --- CASCADE-AWARE analysis ---
+  // Parse SOURCES arrays as fallback cascades. A cascade fails only when ALL sources are missing.
+  // Individual missing sources within a working cascade are cleanup items (INFO), not reader-facing failures.
+  const cascadeBlocks = [...html.matchAll(/const SOURCES=\[([^\]]+)\]/g)];
+  let cascadesFullyFailed = 0;
+  const failedCascadeLabels = [];
+
+  for (const [, block] of cascadeBlocks) {
+    const paths = [...block.matchAll(/abs\(['"]([^'"]+\.json)['"]\)/g)].map(m => m[1]);
+    if (paths.length === 0) continue;
+    if (paths.every(p => SHARED_FILES.has(p))) continue;
+
+    const resolved = paths.map(p => ({
+      path: p,
+      exists: existsSync(join(PROJECT_ROOT, p.replace(/^\//, '')))
+    }));
+    const anyExists = resolved.some(r => r.exists);
+
+    if (!anyExists) {
+      // ENTIRE cascade fails — reader sees empty section
+      cascadesFullyFailed++;
+      const category = paths[0].includes('video') ? 'video' :
+                       paths[0].includes('logbook') ? 'logbook' :
+                       paths[0].includes('dining') ? 'dining' :
+                       'stats/data';
+      failedCascadeLabels.push(`${category} (${paths.length} sources, all missing)`);
+    }
+  }
+
+  if (cascadesFullyFailed > 0) {
+    errors.push({
+      section: 'runtime_data',
+      rule: 'cascade_fully_failed',
+      message: `${cascadesFullyFailed} data cascade(s) have ALL sources missing — reader sees empty section(s): ${failedCascadeLabels.join('; ')}`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // --- STANDALONE fetch() calls (not in SOURCES cascades) ---
+  // These are single-fetch calls with no fallback — missing = empty section.
+  const standaloneFetches = [...html.matchAll(/fetch\(['"]([^'"]+\.json)['"]/g)]
+    .map(m => m[1])
+    .filter(p => !SHARED_FILES.has(p));
+
+  // Dedupe against paths already found in SOURCES cascades
+  const cascadePaths = new Set();
+  for (const [, block] of cascadeBlocks) {
+    for (const m of block.matchAll(/abs\(['"]([^'"]+\.json)['"]\)/g)) {
+      cascadePaths.add(m[1]);
+    }
+  }
+  const trueStandalone = standaloneFetches.filter(p => !cascadePaths.has(p));
+
+  for (const ref of trueStandalone) {
+    const localPath = join(PROJECT_ROOT, ref.replace(/^\//, ''));
+    if (!existsSync(localPath)) {
+      warnings.push({
+        section: 'runtime_data',
+        rule: 'standalone_fetch_missing',
+        message: `Standalone fetch target missing: ${ref} (no fallback cascade)`,
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // --- CONTENT quality of existing sources ---
+  // Check that JSON files found on disk have non-trivial content.
+  const allPaths = new Set([...cascadePaths, ...trueStandalone]);
   let emptyCount = 0;
   const emptyPaths = [];
 
-  for (const ref of allRefs) {
-    if (SHARED_FILES.includes(ref)) continue;
-
+  for (const ref of allPaths) {
+    if (SHARED_FILES.has(ref)) continue;
     const localPath = join(PROJECT_ROOT, ref.replace(/^\//, ''));
+    if (!existsSync(localPath)) continue;
 
-    if (!existsSync(localPath)) {
-      missingCount++;
-      missingPaths.push(ref);
-      continue;
-    }
-
-    // Check content — is the JSON non-trivial?
     try {
       const content = readFileSync(localPath, 'utf8');
       const data = JSON.parse(content);
 
-      // Determine data type and check emptiness
       if (ref.includes('video')) {
         const videos = data.videos || data;
         const count = Array.isArray(videos) ? videos.length :
@@ -3186,8 +3239,7 @@ function validateRuntimeDataSources(html, filepath) {
           emptyCount++;
           emptyPaths.push(`${ref} (0 stories)`);
         }
-      } else if (ref.includes('stats') || ref.includes('ships')) {
-        // Stats JSON should have at least some spec data
+      } else if (ref.includes('stats') || (ref.includes('ships') && !ref.includes('assets'))) {
         const keys = Object.keys(data);
         if (keys.length < 3) {
           emptyCount++;
@@ -3202,15 +3254,6 @@ function validateRuntimeDataSources(html, filepath) {
         severity: 'BLOCKING'
       });
     }
-  }
-
-  if (missingCount > 0) {
-    warnings.push({
-      section: 'runtime_data',
-      rule: 'missing_json_sources',
-      message: `${missingCount} runtime JSON source(s) not found on disk: ${missingPaths.slice(0, 3).join(', ')}${missingCount > 3 ? ` and ${missingCount - 3} more` : ''}. Page may show empty sections to readers.`,
-      severity: 'WARNING'
-    });
   }
 
   if (emptyCount > 0) {
