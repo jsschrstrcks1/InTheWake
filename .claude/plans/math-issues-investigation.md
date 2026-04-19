@@ -1,6 +1,6 @@
 # Math Issues Found — Investigation Log
 
-## Status: 5 bugs found + 11 config mismatches. User's bug likely Bug 2 or 4 or 5.
+## Status: 9 bugs found + 11 config mismatches
 
 ## Bug 1: Per-Adult vs Group-Total Input Mismatch
 **Severity:** Major | **Affects:** All 15 lines
@@ -42,3 +42,22 @@ A Carnival cruiser using the calculator sees:
 4. Sea-day weighting silently reducing their total drinks if they're on a port-heavy Caribbean itinerary (Bug 3)
 
 All four bugs push in the SAME direction: **making packages look worse than they are.** A visitor who should buy CHEERS! gets told not to. This is the opposite of the site's integrity mission — it's not honest math, it's systematically wrong math that happens to be conservative.
+
+## Bug 6: Double Gratuity Trap on Price Editing
+**Severity:** Major | **Affects:** RCL, Carnival, NCL, Celebrity, Princess, HAL (6 lines)
+**Description:** Editable price shows pre-gratuity ($69.95 CHEERS!). Cruise websites show with-grat ($83.94). User edits to match → engine adds 20% again = $100.73. Double gratuity.
+
+## Bug 7: Chart Help Text Claims Gratuity Included But It Isn't
+**Severity:** Medium | **Affects:** All lines with grat > 0
+**Description:** Chart says "including X% gratuity" but alc bar uses rawTotal which has no gratuity.
+
+## Bug 8: Ambiguous Price Labels
+**Severity:** Medium | **Affects:** All lines with grat > 0
+**Description:** Labels say "per person, per day" but not "before gratuity." Feeds Bug 6.
+
+## Bug 9: deluxePkgWithMinors ALWAYS Adds Refresh Cost for Minors
+**Severity:** CRITICAL | **Affects:** 9 of 10 non-luxury lines (all except RCL)
+**Found on:** Carnival page, confirmed across all lines
+**Description:** Line 634 always adds refreshMinorCost when adults buy deluxe. Only RCL forces this. Other lines let minors buy cheapest (soda at child price or $0).
+**Impact:** Princess $1,074, Cunard $756, Celebrity $588, HAL $545, Carnival $387 overcharge per 7-night with 2 minors.
+**Root cause:** Built for RCL's force-to-refresh rule. Multi-line generalization missed it.
