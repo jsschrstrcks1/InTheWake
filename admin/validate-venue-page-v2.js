@@ -658,11 +658,11 @@ class VenueValidator {
   // 18 active pages flagged by 2026-03 audit with placeholder ship-availability.
   checkVenueComingSoon() {
     // Only fire on active venues — skip if page is marked as pre-launch.
-    // The venue validator doesn't track a TBN flag explicitly, so we use a
-    // heuristic: if the page has logbook entries OR a real ship-availability
-    // section with named ships, it's an active venue; coming-soon text fails.
-    const hasRealShipRefs = /ships?\s*that\s*have\s*her|available\s*on\s*(the\s*)?(following|these)/i.test(this.html)
-      && /[A-Z][a-z]+\s+of\s+the\s+Seas|[A-Z][a-z]+\s+(Princess|Celebrity|Line)/.test(this.html);
+    // Heuristic: page references real ship names (Royal Caribbean naming pattern
+    // "X of the Seas", or line-specific names like "Celebrity Beyond"). If a page
+    // mentions real ships AND says "coming soon", the coming-soon is stale.
+    const SHIP_NAME_PATTERNS = /[A-Z][a-z]+\s+of\s+the\s+Seas|Celebrity\s+[A-Z][a-z]+|Carnival\s+[A-Z][a-z]+|Norwegian\s+[A-Z][a-z]+|MSC\s+[A-Z][a-z]+/;
+    const hasRealShipRefs = SHIP_NAME_PATTERNS.test(this.html);
     const hasComingSoon = /coming\s*soon/i.test(this.html);
     if (hasComingSoon && hasRealShipRefs) {
       this.warn('S09', '"Coming soon" text on page that also names real ships — likely stale placeholder (VENUE-011)');

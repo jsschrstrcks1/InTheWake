@@ -2877,7 +2877,7 @@ async function validateShipPage(filepath) {
     const dataResult = validateDataAttributes($, isTBN, isHistoric);
     const consistencyResult = validateContentConsistency($, filepath);
     const faqResult = validateFAQ($);
-    const imageResult = validateImages($, isHistoric);
+    const imageResult = validateImages($, isHistoric, filepath);
     const jsResult = validateJavaScript(html);
     const cleanConsoleResult = validateCleanConsole(html);
     const htmlStructureResult = validateHTMLStructure(html);
