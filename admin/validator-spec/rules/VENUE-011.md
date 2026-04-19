@@ -5,10 +5,13 @@ family: venue
 severity: warn
 applies-to:
   - venue
-provenance: S-only
+provenance: V+S-agree
 status: live
-implementation: none
-check: venue page's ship-availability block (or equivalent where-is-this-venue section) does NOT contain only "Coming soon" or equivalent placeholder; pages genuinely about not-yet-launched venues are exempt when marked as pre-launch
+implementation:
+  - file: admin/validate-venue-page-v2.js
+    function: checkVenueComingSoon (S09)
+    lines: "672-684 (added 2026-04-16)"
+check: page contains "coming soon" AND references real ship names (named ships like "Allure of the Seas" or "Carnival Celebration") — the conjunction of both indicates a placeholder left on an otherwise-active page; pre-launch venues with only coming-soon text are exempt (no real ship refs present)
 standards-source:
   - doc: admin/VENUE_PAGE_AUDIT_2026_03_04.md
     section: "Missing ship availability data — 'coming soon' placeholder (18 pages)"

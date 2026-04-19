@@ -1418,21 +1418,72 @@ function validateImages($, isHistoric = false, filepath = '') {
   let hotlinkedImages = [];
   let missingLocalImages = [];
 
-  // BLOCKING: Dining hero must use the shared Cordelia image
+  // SHIP-005 resolution (2026-04-16): tiered dining-hero acceptance.
+  // See admin/validator-spec/rules/SHIP-005.md for the full policy.
+  // Tier 1 (pass): ship-specific image under /assets/ships/<line>/<slug>/
+  // Tier 2 (pass): sister-of-same-class image under another ship's dir
+  // Tier 3 (warn): cruise-line-generic image under /assets/ships/<line>/ or /assets/img/<line>_
+  // Reject: Cordelia_Empress_Food_Court (different cruise line entirely) and any cross-line image
   const diningHero = $('#dining-hero');
   const hasDiningHero = diningHero.length > 0;
-  let hasCordeliaDining = false;
+  let hasCordeliaDining = false;  // kept for downstream data{} consumers
 
   if (hasDiningHero) {
     const diningHeroSrc = diningHero.attr('src') || '';
-    hasCordeliaDining = diningHeroSrc.includes('Cordelia_Empress_Food_Court');
-    if (!hasCordeliaDining) {
+    const cruiseLine = extractCruiseLine(filepath);
+    const thisShipSlug = basename(filepath, '.html');
+
+    // Explicit reject: Cordelia (wrong cruise line)
+    if (diningHeroSrc.includes('Cordelia_Empress_Food_Court')) {
       errors.push({
         section: 'images',
-        rule: 'wrong_dining_hero',
-        message: `Dining hero must use shared Cordelia image (/assets/img/Cordelia_Empress_Food_Court.webp), found: ${diningHeroSrc.substring(0, 50)}`,
+        rule: 'cross_line_dining_hero_cordelia',
+        message: 'Dining hero uses Cordelia Empress (wrong cruise line). Use ship-specific > sister-of-class > line-generic (see SHIP-005).',
         severity: 'BLOCKING'
       });
+    }
+    // Tier 1: ship-specific
+    else if (diningHeroSrc.startsWith(`/assets/ships/${cruiseLine}/${thisShipSlug}/`)) {
+      // pass — ideal
+    }
+    // Tier 2: sister ship of same class
+    else {
+      let tier = null;
+      const sisterMatch = diningHeroSrc.match(new RegExp(`^/assets/ships/${cruiseLine}/([^/]+)/`));
+      if (sisterMatch) {
+        const sisterSlug = sisterMatch[1];
+        const sisterName = sisterSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        const thisShipName = extractShipName(filepath);
+        for (const ships of Object.values(SHIP_CLASSES)) {
+          const thisInClass = ships.some(s => thisShipName.toLowerCase().includes(s.toLowerCase().split(' ')[0]));
+          const sisterInClass = ships.some(s => sisterName.toLowerCase().includes(s.toLowerCase().split(' ')[0]));
+          if (thisInClass && sisterInClass) { tier = 2; break; }
+        }
+      }
+      // Tier 3: cruise-line-generic
+      if (tier === null) {
+        if (diningHeroSrc.startsWith(`/assets/ships/${cruiseLine}/`) ||
+            diningHeroSrc.includes(`/${cruiseLine}_`) ||
+            diningHeroSrc.includes(`/${cruiseLine}-`)) {
+          tier = 3;
+        }
+      }
+      if (tier === 3) {
+        warnings.push({
+          section: 'images',
+          rule: 'dining_hero_line_generic_fallback',
+          message: `Dining hero is line-generic (${cruiseLine}), not ship-specific. Upgrade to ship-specific or sister-of-class image when available.`,
+          severity: 'WARNING'
+        });
+      } else if (tier === null) {
+        // Neither ship-specific, nor sister, nor line-generic → cross-line reject
+        errors.push({
+          section: 'images',
+          rule: 'dining_hero_cross_line',
+          message: `Dining hero src "${diningHeroSrc.substring(0, 80)}" is not from ${thisShipSlug}, a sister-class ship, or ${cruiseLine} line. Must match SHIP-005 tier 1/2/3.`,
+          severity: 'BLOCKING'
+        });
+      }
     }
   } else {
     // Check if page has a dining section - if so, it needs a dining-hero image
@@ -1441,7 +1492,7 @@ function validateImages($, isHistoric = false, filepath = '') {
       errors.push({
         section: 'images',
         rule: 'missing_dining_hero',
-        message: 'Dining section exists but missing dining-hero image with Cordelia_Empress_Food_Court.webp',
+        message: 'Dining section exists but missing dining-hero image (see SHIP-005 tiered acceptance policy)',
         severity: 'BLOCKING'
       });
     }
@@ -1511,7 +1562,7 @@ function validateImages($, isHistoric = false, filepath = '') {
     warnings.push({ section: 'images', rule: 'short_alt', message: `${shortAlt} images have short alt text`, severity: 'WARNING' });
   }
   if (missingLazy > 0) {
-    warnings.push({ section: 'images', rule: 'missing_lazy', message: `${missingLazy} images missing loading="lazy"`, severity: 'WARNING' });
+    errors.push({ section: 'images', rule: 'missing_lazy', message: `${missingLazy} non-hero images missing loading="lazy" (LCP / mobile bandwidth)`, severity: 'BLOCKING' });
   }
 
   return { valid: errors.length === 0, errors, warnings, data: { total: imageCount, missingAlt, shortAlt, missingLazy, hotlinked: hotlinkedImages.length, missingLocal: missingLocalImages.length, hasDiningHero, hasCordeliaDining } };
@@ -2826,7 +2877,7 @@ async function validateShipPage(filepath) {
     const dataResult = validateDataAttributes($, isTBN, isHistoric);
     const consistencyResult = validateContentConsistency($, filepath);
     const faqResult = validateFAQ($);
-    const imageResult = validateImages($, isHistoric);
+    const imageResult = validateImages($, isHistoric, filepath);
     const jsResult = validateJavaScript(html);
     const cleanConsoleResult = validateCleanConsole(html);
     const htmlStructureResult = validateHTMLStructure(html);
@@ -2856,6 +2907,16 @@ async function validateShipPage(filepath) {
     // Stub returns no errors/warnings so scoring is unaffected until the function is written.
     const voiceQualityResult = { errors: [], warnings: [] };
 
+    // v2.6 — Layer 2: Runtime data-source validation (2026-04-16)
+    // Checks that SOURCES/fetch JSON paths referenced in inline JS actually exist on disk
+    // and contain non-trivial content. See admin/validator-spec/STRATEGIC_GAPS.md §9.
+    const runtimeDataResult = validateRuntimeDataSources(html, filepath);
+
+    // v2.6 — Layer 3: CSS/rendering baseline validation (2026-04-16)
+    // Checks that referenced stylesheets exist, no inline styles cause known rendering
+    // failures, and critical rendering patterns are present.
+    const renderingResult = validateRenderingBaseline($, html, filepath);
+
     // v2.4 principle import validations
     const templateRemnantResult = validateTemplateRemnants($, html);
     const accessibilityKeywordResult = validateAccessibilityKeywords($);
@@ -2867,7 +2928,8 @@ async function validateShipPage(filepath) {
     const shipImageResult = await validateShipImages(filepath, cruiseLine, slug);
 
     // Stub: voiceQualityResult — function not yet implemented, prevent crash
-    const voiceQualityResult = { errors: [], warnings: [] };
+    // (First declaration at line 2908; this duplicate removed 2026-04-16)
+    // const voiceQualityResult = { errors: [], warnings: [] };
 
     // Calculate preliminary score for discoverability checks
     const preliminaryErrors = [
@@ -2885,7 +2947,8 @@ async function validateShipPage(filepath) {
       ...canonicalResult.errors, ...answerLineResult.errors,
       ...voiceQualityResult.errors,
       ...templateRemnantResult.errors, ...shipImageResult.errors,
-      ...accessibilityKeywordResult.errors
+      ...accessibilityKeywordResult.errors,
+      ...runtimeDataResult.errors, ...renderingResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
@@ -2902,7 +2965,8 @@ async function validateShipPage(filepath) {
       ...serviceWorkerResult.warnings,
       ...voiceQualityResult.warnings,
       ...templateRemnantResult.warnings, ...shipImageResult.warnings,
-      ...accessibilityKeywordResult.warnings
+      ...accessibilityKeywordResult.warnings,
+      ...runtimeDataResult.warnings, ...renderingResult.warnings
     ];
     const preliminaryScore = Math.max(0, 100 - (preliminaryErrors.length * 10) - (preliminaryWarnings.length * 2));
 
@@ -2931,7 +2995,8 @@ async function validateShipPage(filepath) {
       ...answerLineResult.errors,
       ...voiceQualityResult.errors,
       ...templateRemnantResult.errors, ...shipImageResult.errors,
-      ...accessibilityKeywordResult.errors
+      ...accessibilityKeywordResult.errors,
+      ...runtimeDataResult.errors, ...renderingResult.errors
     );
 
     // Collect warnings
@@ -2954,7 +3019,8 @@ async function validateShipPage(filepath) {
       ...serviceWorkerResult.warnings,
       ...voiceQualityResult.warnings,
       ...templateRemnantResult.warnings, ...shipImageResult.warnings,
-      ...accessibilityKeywordResult.warnings
+      ...accessibilityKeywordResult.warnings,
+      ...runtimeDataResult.warnings, ...renderingResult.warnings
     );
 
     // Calculate score
@@ -3060,6 +3126,180 @@ function printResults(results, options) {
 
   console.log('='.repeat(80));
   return results.valid;
+}
+
+// =============================================================================
+// LAYER 2: RUNTIME DATA-SOURCE VALIDATION (v2.6, 2026-04-16)
+// =============================================================================
+// Checks that JSON paths referenced in inline SOURCES arrays and fetch() calls
+// actually exist on disk and contain non-trivial content.
+// See admin/validator-spec/STRATEGIC_GAPS.md §9.
+
+function validateRuntimeDataSources(html, filepath) {
+  const errors = [];
+  const warnings = [];
+
+  const cruiseLine = extractCruiseLine(filepath);
+  const slug = basename(filepath, '.html');
+
+  // Extract all JSON paths from abs('...json') and fetch('...json') patterns
+  const absRefs = [...html.matchAll(/abs\(['"]([^'"]+\.json)['"]\)/g)].map(m => m[1]);
+  const fetchRefs = [...html.matchAll(/fetch\(['"]([^'"]+\.json)['"]/g)].map(m => m[1]);
+  const allRefs = [...new Set([...absRefs, ...fetchRefs])];
+
+  // Skip global/shared files that aren't page-specific
+  const SHARED_FILES = ['/assets/data/articles/index.json', '/data/authors.json', '/assets/data/ship-quiz-data-v2.json'];
+
+  let missingCount = 0;
+  const missingPaths = [];
+  let emptyCount = 0;
+  const emptyPaths = [];
+
+  for (const ref of allRefs) {
+    if (SHARED_FILES.includes(ref)) continue;
+
+    const localPath = join(PROJECT_ROOT, ref.replace(/^\//, ''));
+
+    if (!existsSync(localPath)) {
+      missingCount++;
+      missingPaths.push(ref);
+      continue;
+    }
+
+    // Check content — is the JSON non-trivial?
+    try {
+      const content = readFileSync(localPath, 'utf8');
+      const data = JSON.parse(content);
+
+      // Determine data type and check emptiness
+      if (ref.includes('video')) {
+        const videos = data.videos || data;
+        const count = Array.isArray(videos) ? videos.length :
+                      (typeof videos === 'object' ? Object.values(videos).flat().length : 0);
+        if (count === 0) {
+          emptyCount++;
+          emptyPaths.push(`${ref} (0 videos)`);
+        }
+      } else if (ref.includes('logbook')) {
+        const stories = data.stories || data.personas || data.entries || [];
+        if (Array.isArray(stories) && stories.length === 0) {
+          emptyCount++;
+          emptyPaths.push(`${ref} (0 stories)`);
+        }
+      } else if (ref.includes('stats') || ref.includes('ships')) {
+        // Stats JSON should have at least some spec data
+        const keys = Object.keys(data);
+        if (keys.length < 3) {
+          emptyCount++;
+          emptyPaths.push(`${ref} (${keys.length} keys — likely stub)`);
+        }
+      }
+    } catch (e) {
+      errors.push({
+        section: 'runtime_data',
+        rule: 'json_parse_error',
+        message: `Runtime JSON ${ref} exists but fails to parse: ${e.message}`,
+        severity: 'BLOCKING'
+      });
+    }
+  }
+
+  if (missingCount > 0) {
+    warnings.push({
+      section: 'runtime_data',
+      rule: 'missing_json_sources',
+      message: `${missingCount} runtime JSON source(s) not found on disk: ${missingPaths.slice(0, 3).join(', ')}${missingCount > 3 ? ` and ${missingCount - 3} more` : ''}. Page may show empty sections to readers.`,
+      severity: 'WARNING'
+    });
+  }
+
+  if (emptyCount > 0) {
+    warnings.push({
+      section: 'runtime_data',
+      rule: 'empty_json_sources',
+      message: `${emptyCount} runtime JSON source(s) exist but are empty/stubs: ${emptyPaths.slice(0, 3).join(', ')}${emptyCount > 3 ? ` and ${emptyCount - 3} more` : ''}`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+// =============================================================================
+// LAYER 3: CSS / RENDERING BASELINE VALIDATION (v2.6, 2026-04-16)
+// =============================================================================
+// Checks that referenced stylesheets exist, critical CSS patterns are present,
+// and no inline styles create known rendering failures.
+
+function validateRenderingBaseline($, html, filepath) {
+  const errors = [];
+  const warnings = [];
+
+  // Check that referenced stylesheets exist on disk
+  $('link[rel="stylesheet"]').each((i, elem) => {
+    const href = $(elem).attr('href');
+    if (!href || href.startsWith('http')) return;  // skip external CDN
+    const cssPath = href.split('?')[0];  // strip ?v= cache-buster
+    const localPath = join(PROJECT_ROOT, cssPath.replace(/^\//, ''));
+    if (!existsSync(localPath)) {
+      errors.push({
+        section: 'rendering',
+        rule: 'missing_stylesheet',
+        message: `Referenced stylesheet not found: ${cssPath}`,
+        severity: 'BLOCKING'
+      });
+    }
+  });
+
+  // Check that referenced JS files exist on disk
+  $('script[src]').each((i, elem) => {
+    const src = $(elem).attr('src');
+    if (!src || src.startsWith('http') || src.includes('youtube') || src.includes('analytics')) return;
+    const jsPath = src.split('?')[0];
+    const localPath = join(PROJECT_ROOT, jsPath.replace(/^\//, ''));
+    if (!existsSync(localPath)) {
+      warnings.push({
+        section: 'rendering',
+        rule: 'missing_script',
+        message: `Referenced script not found: ${jsPath}`,
+        severity: 'WARNING'
+      });
+    }
+  });
+
+  // Check for inline styles that create known rendering failures
+  // (overflow-causing fixed widths on mobile — from MOB-002/MOB-006)
+  const inlineWidthPattern = /style="[^"]*width:\s*(\d+)px/g;
+  let match;
+  let overflowRisk = 0;
+  while ((match = inlineWidthPattern.exec(html)) !== null) {
+    const px = parseInt(match[1]);
+    if (px > 600) overflowRisk++;
+  }
+  if (overflowRisk > 0) {
+    warnings.push({
+      section: 'rendering',
+      rule: 'inline_overflow_risk',
+      message: `${overflowRisk} inline style(s) with width > 600px — may cause horizontal scroll on mobile`,
+      severity: 'WARNING'
+    });
+  }
+
+  // Check CSS version query string is current (should be ?v=3.010.400)
+  const cssLink = $('link[rel="stylesheet"][href*="styles.css"]');
+  if (cssLink.length > 0) {
+    const href = cssLink.attr('href') || '';
+    if (!href.includes('?v=')) {
+      warnings.push({
+        section: 'rendering',
+        rule: 'missing_css_version',
+        message: 'Stylesheet link missing cache-bust version query (?v=3.010.400)',
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
 }
 
 /**

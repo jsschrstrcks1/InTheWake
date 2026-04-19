@@ -683,6 +683,42 @@ function validateICPLite($, html) {
     });
   }
 
+  // --- ai-summary dual-cap: first sentence must be standalone within 155 chars ---
+  // ICP-002 resolution (2026-04-16): see admin/validator-spec/rules/ICP-002.md.
+  // Rolled out at WARN; promote to BLOCKING once fleet-wide fallout < 5 pages.
+  if (aiSummary && aiSummary.length >= 30) {
+    // Match sentence terminator not preceded by a common abbreviation.
+    // Abbreviations we skip: Mr. Mrs. Ms. Dr. St. Sr. Jr. etc. Rev. Hon. Rd. Ave. Blvd. i.e. e.g. vs. a.m. p.m.
+    const ABBREV = /\b(mr|mrs|ms|dr|st|sr|jr|etc|rev|hon|rd|ave|blvd|mt|ft|i\.e|e\.g|vs|a\.m|p\.m|no)\.$/i;
+    let firstTerm = -1;
+    for (let i = 0; i < aiSummary.length; i++) {
+      const ch = aiSummary[i];
+      if (ch === '.' || ch === '!' || ch === '?') {
+        const preceding = aiSummary.slice(0, i + 1);
+        if (!ABBREV.test(preceding)) {
+          firstTerm = i;
+          break;
+        }
+      }
+    }
+    if (firstTerm === -1) {
+      warnings.push({
+        section: 'icp',
+        rule: 'ai_summary_standalone_sentence',
+        message: `ai-summary has no complete first sentence (no terminator found). Dual-cap rule: first ~155 chars must be a standalone sentence.`,
+        severity: 'WARNING'
+      });
+    } else if (firstTerm >= 155) {
+      // firstTerm is 0-indexed; position 155 = char 156 = past the 155-char limit
+      warnings.push({
+        section: 'icp',
+        rule: 'ai_summary_standalone_sentence',
+        message: `ai-summary first sentence ends at char ${firstTerm + 1}; dual-cap rule requires it within 155.`,
+        severity: 'WARNING'
+      });
+    }
+  }
+
   // --- description meta tag (ICP-2 v2.1: required) ---
   if (!description) {
     errors.push({
@@ -750,14 +786,8 @@ function validateICPLite($, html) {
       severity: 'WARNING'
     });
   }
-  if (html.includes('ai-breadcrumbs')) {
-    warnings.push({
-      section: 'icp',
-      rule: 'forbidden_ai_breadcrumbs',
-      message: 'ai-breadcrumbs HTML comments are not read by any crawler — remove them',
-      severity: 'WARNING'
-    });
-  }
+  // ICP-011 resolution (2026-04-16): ai-breadcrumbs kept — used by developers
+  // and LLMs reading raw HTML. See admin/validator-spec/rules/ICP-011.md.
 
   // --- JSON-LD structured data ---
   const jsonldScripts = $('script[type="application/ld+json"]');
@@ -844,21 +874,15 @@ function validateICPLite($, html) {
     });
   }
 
-  // --- Description consistency (ICP-2 v2.1: relaxed from exact-match) ---
-  // JSON-LD description must be "consistent with" ai-summary — same key facts,
-  // not necessarily character-identical. We check that they share significant words.
+  // --- Description exact-match (ICP-014 resolution 2026-04-16) ---
+  // JSON-LD description MUST match ai-summary character-for-character. See
+  // admin/validator-spec/rules/ICP-014.md — user reverted the v2.1 relaxation.
   if (hasPageSchema && aiSummary && schemaDescription) {
-    const summaryWords = new Set(aiSummary.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 3));
-    const descWords = new Set(schemaDescription.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(w => w.length > 3));
-    // Count overlapping significant words
-    let overlap = 0;
-    for (const w of summaryWords) { if (descWords.has(w)) overlap++; }
-    const overlapRatio = summaryWords.size > 0 ? overlap / summaryWords.size : 0;
-    if (overlapRatio < 0.3) {
+    if (schemaDescription !== aiSummary) {
       errors.push({
         section: 'icp',
         rule: 'description_mismatch',
-        message: `JSON-LD description has low consistency with ai-summary (${Math.round(overlapRatio * 100)}% word overlap). Must convey same key facts.`,
+        message: 'JSON-LD WebPage description must exactly match ai-summary meta tag',
         severity: 'BLOCKING'
       });
     }
@@ -3727,7 +3751,134 @@ function validateBasicHTML($, html) {
     errors.push({ section: 'basic_html', rule: 'missing_main_content', message: 'Missing id="main-content" section', severity: 'BLOCKING' });
   }
   if (!html.includes('skip-link')) {
-    warnings.push({ section: 'basic_html', rule: 'missing_skip_link', message: 'Missing skip link (recommended for accessibility)', severity: 'WARNING' });
+    errors.push({ section: 'basic_html', rule: 'missing_skip_link', message: 'Missing skip link (WCAG 2.1 AA SC 2.4.1 Bypass Blocks — required for accessibility)', severity: 'BLOCKING' });
+  }
+
+  // SEO-001 orphan closure (2026-04-16): Open Graph meta tags present
+  // See admin/validator-spec/rules/SEO-001.md
+  const ogTags = ['og:title', 'og:description', 'og:image', 'og:url'];
+  const missingOg = ogTags.filter(tag => !html.includes(`property="${tag}"`));
+  if (missingOg.length > 0) {
+    warnings.push({
+      section: 'basic_html',
+      rule: 'missing_og_tags',
+      message: `Missing Open Graph meta tags: ${missingOg.join(', ')} (social sharing preview)`,
+      severity: 'WARNING'
+    });
+  }
+
+  // SEO-002 orphan closure (2026-04-16): Twitter Card meta tags present
+  // See admin/validator-spec/rules/SEO-002.md
+  const twitterTags = ['twitter:card', 'twitter:title', 'twitter:description'];
+  const missingTwitter = twitterTags.filter(tag => !html.includes(`name="${tag}"`));
+  if (missingTwitter.length > 0) {
+    warnings.push({
+      section: 'basic_html',
+      rule: 'missing_twitter_cards',
+      message: `Missing Twitter Card meta tags: ${missingTwitter.join(', ')} (should use summary_large_image)`,
+      severity: 'WARNING'
+    });
+  }
+
+  // SEO-005 orphan closure (2026-04-16): no duplicate title/description
+  // See admin/validator-spec/rules/SEO-005.md
+  if ($('title').length > 1) {
+    errors.push({
+      section: 'basic_html',
+      rule: 'duplicate_title',
+      message: `Page has ${$('title').length} <title> tags — must be exactly 1`,
+      severity: 'BLOCKING'
+    });
+  }
+  const descCount = $('meta[name="description"]').length;
+  if (descCount > 1) {
+    errors.push({
+      section: 'basic_html',
+      rule: 'duplicate_description',
+      message: `Page has ${descCount} <meta name="description"> tags — must be exactly 1`,
+      severity: 'BLOCKING'
+    });
+  }
+
+  // NAV-001 orphan closure (2026-04-16): canonical navigation must include all required links
+  // See admin/validator-spec/rules/NAV-001.md
+  // NOTE: this list mirrors validate-ship-page.js REQUIRED_NAV_ITEMS (line 263-270).
+  // If either list changes, update both. Future cleanup: consolidate into shared constant.
+  const NAV_REQUIRED = [
+    '/planning.html', '/ships.html', '/restaurants.html', '/ports.html',
+    '/internet-at-sea.html', '/drink-packages.html', '/drink-calculator.html',
+    '/stateroom-check.html', '/cruise-lines.html', '/packing-lists.html',
+    '/accessibility.html', '/travel.html', '/solo.html',
+    '/search.html', '/about-us.html'
+  ];
+  const navLinks = [];
+  $('nav a, nav.site-nav a, header nav a').each((i, elem) => {
+    const href = $(elem).attr('href');
+    if (href) navLinks.push(href);
+  });
+  const missingNav = NAV_REQUIRED.filter(href => !navLinks.includes(href));
+  if (missingNav.length > 0) {
+    warnings.push({
+      section: 'basic_html',
+      rule: 'missing_canonical_nav_items',
+      message: `Navigation missing ${missingNav.length} canonical link(s): ${missingNav.slice(0, 5).join(', ')}${missingNav.length > 5 ? '...' : ''}`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+/**
+ * Layer 3: CSS/rendering baseline validation (v2.6, 2026-04-16)
+ * Checks stylesheet/script existence + inline overflow risks.
+ * Same checks as ship validator's validateRenderingBaseline.
+ */
+function validateRenderingBaseline($, html) {
+  const errors = [];
+  const warnings = [];
+
+  $('link[rel="stylesheet"]').each((i, elem) => {
+    const href = $(elem).attr('href');
+    if (!href || href.startsWith('http')) return;
+    const cssPath = href.split('?')[0];
+    const localPath = join(PROJECT_ROOT, cssPath.replace(/^\//, ''));
+    if (!existsSync(localPath)) {
+      errors.push({
+        section: 'rendering',
+        rule: 'missing_stylesheet',
+        message: `Referenced stylesheet not found: ${cssPath}`,
+        severity: 'BLOCKING'
+      });
+    }
+  });
+
+  $('script[src]').each((i, elem) => {
+    const src = $(elem).attr('src');
+    if (!src || src.startsWith('http') || src.includes('youtube') || src.includes('analytics') || src.includes('umami')) return;
+    const jsPath = src.split('?')[0];
+    const localPath = join(PROJECT_ROOT, jsPath.replace(/^\//, ''));
+    if (!existsSync(localPath)) {
+      warnings.push({
+        section: 'rendering',
+        rule: 'missing_script',
+        message: `Referenced script not found: ${jsPath}`,
+        severity: 'WARNING'
+      });
+    }
+  });
+
+  const cssLink = $('link[rel="stylesheet"][href*="styles.css"]');
+  if (cssLink.length > 0) {
+    const href = cssLink.attr('href') || '';
+    if (!href.includes('?v=')) {
+      warnings.push({
+        section: 'rendering',
+        rule: 'missing_css_version',
+        message: 'Stylesheet link missing cache-bust version query (?v=3.010.400)',
+        severity: 'WARNING'
+      });
+    }
   }
 
   return { valid: errors.length === 0, errors, warnings };
@@ -4223,6 +4374,9 @@ async function validatePortPage(filepath) {
     const articlesResult = validateRecentArticlesSubValidator(filepath);
     const noscriptResult = validateNoscriptFallbacks($, html);
 
+    // v2.6 — Layer 3: CSS/rendering baseline (2026-04-16)
+    const renderingResult = validateRenderingBaseline($, html);
+
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
     results.blocking_errors.push(...analyticsResult.errors);
@@ -4258,6 +4412,7 @@ async function validatePortPage(filepath) {
     results.blocking_errors.push(...mobileResult.errors);
     results.blocking_errors.push(...articlesResult.errors);
     results.blocking_errors.push(...noscriptResult.errors);
+    results.blocking_errors.push(...renderingResult.errors);
 
     // Collect all warnings
     results.warnings.push(...analyticsResult.warnings);
@@ -4307,6 +4462,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...mobileResult.warnings);
     results.warnings.push(...articlesResult.warnings);
     results.warnings.push(...noscriptResult.warnings);
+    results.warnings.push(...renderingResult.warnings);
 
     // Gold standard gap detection (only included with --gold-standard flag)
     // Per orchestra: separate mode to avoid alert fatigue on the 100% pass rate
