@@ -94,6 +94,8 @@ Before touching anything:
 
 ### Integrity (INVIOLABLE)
 
+**NEVER USE TRAINING DATA AS A SOURCE.** Do not populate ship stats, IMO numbers, crew counts, tonnage, guest capacity, build dates, or any factual data from your training knowledge. Use ONLY data already present on the page, in the repository's JSON files, or obtained through original research (WebSearch, WebFetch, /consult, /investigate). If data cannot be found through original research, flag it as unknown — do not fill it in from memory. Training data is unverifiable and this site serves real people making real decisions.
+
 **NEVER GAME THE VALIDATOR.** Do not reverse-engineer regex patterns to pass automated checks. Write for humans first. If the prose is genuine and follows the voice standard, it passes on its own merit. Violation is a **BLOCKING integrity failure** — no exceptions.
 
 **SDG invocation is IMMUTABLE.** Every HTML file must have the Soli Deo Gloria comment before line 20. This cannot be removed, shortened, or relocated — not for SEO, not for performance, not for anything.
