@@ -708,7 +708,8 @@ function validateICPLite($, html) {
         message: `ai-summary has no complete first sentence (no terminator found). Dual-cap rule: first ~155 chars must be a standalone sentence.`,
         severity: 'WARNING'
       });
-    } else if (firstTerm > 155) {
+    } else if (firstTerm >= 155) {
+      // firstTerm is 0-indexed; position 155 = char 156 = past the 155-char limit
       warnings.push({
         section: 'icp',
         rule: 'ai_summary_standalone_sentence',
