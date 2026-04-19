@@ -1,6 +1,6 @@
 # Math Issues Found — Investigation Log
 
-## Status: 10 bugs found + 11 config mismatches
+## Status: 12 bugs found + 11 config mismatches
 
 ## Bug 1: Per-Adult vs Group-Total Input Mismatch
 **Severity:** Major | **Affects:** All 15 lines
@@ -69,3 +69,11 @@ All four bugs push in the SAME direction: **making packages look worse than they
 **Carnival example:** Bubbles covers juice but sets.soda=["soda"]. 2 juices/day x $6.50 x 7 = $91 wrongly added.
 **Affected:** Carnival (juice), Celebrity (coffee, water), Princess (coffee, water), HAL (juice, coffee, water), MSC (juice, water), Costa (juice, coffee), Cunard (juice, coffee), Oceania (coffee).
 **Impact:** Packages consistently look more expensive than they are.
+
+## Bug 11: sets.deluxe Defined But Never Used By Engine
+**Severity:** Low | **Affects:** All lines
+**Description:** Config defines sets.deluxe but engine never reads it. Deluxe assumed to cover everything. Would fail if top-tier excludes specific drinks.
+
+## Bug 12: Intermediate-Tier Cap Not Modeled
+**Severity:** Medium | **Affects:** HAL (Signature $12), Cunard (BWS $13.50)
+**Description:** Engine only models one cap (deluxeCap). HAL Signature and Cunard BWS have lower caps but the refresh tier doesn't compute overcap for drinks above those intermediate caps.
