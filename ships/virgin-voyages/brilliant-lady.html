@@ -263,12 +263,10 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     function addJS(src, ok, fail){
       const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
     }
-    const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-    const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-    addCSS(primaryCSS);
-    addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+    const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(cdnCSS);
+    addJS(cdnJS, function(){ window.__swiperReady=true; });
   })();
   </script>
   <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
@@ -382,7 +380,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       </div>
     </div></header>
 
-  <main class="wrap page-grid" id="content" role="main">
+  <main class="wrap page-grid" id="content" role="main" tabindex="-1">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
@@ -426,7 +424,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         Brilliant Lady has the most complicated history in the fleet. She was ordered from Fincantieri on 31 October 2018 for approximately €700 million, with hull sections fabricated at Castellammare di Stabia and assembled at Sestri Ponente. She floated out on 25 November 2022. In September 2023, Virgin Voyages cancelled all her planned cruises while completing a new round of financing — and placed her in warm lay-up for approximately 18 months, drifting between anchorages off Cyprus, Civitavecchia, and Málaga. Her delay forced Virgin to pull Valiant Lady's Winter 2024 Caribbean season and Resilient Lady's Summer 2024 Greek Isles season to backfill itineraries. A pre-launch drydock at Fincantieri Palermo from 20 July to 1 August 2025 finally prepared her for service, and on 5 September 2025 she made her commercial debut from New York on a 5-night maiden voyage to King's Wharf, Bermuda — 21 months after her originally announced first voyage. She is hardware-identical to her three sisters except for one critical difference: her adapted frame, with modified deck and lifeboat overhangs, allows her to transit the Panama Canal. Her sisters cannot. This is what enables her West Coast and Alaska deployment. Her bow carries a distinctive mermaid figurehead designed by Toronto illustrator Janice Sung, blending Renaissance and Japanese/Chinese art influences. Signature on-board events include Scarlet Night (the fleet-wide red party), the Runway fashion show, and Drag Brunch; all dining, gratuities, basic WiFi, and group fitness classes are included in the fare.
       </p>
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+      <div class="class-profile" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Class Profile</h3>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Ship Class:</strong> Lady Class — 110,000 GT, 2,770 guests, 1,160 crew</li>
@@ -543,8 +541,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     </section>
 
     <!-- Deck Plans CTA between logbook and videos -->
-    <section class="card" id="deck-plans-cta" aria-labelledby="deck-plans-cta-heading">
-      <h2 id="deck-plans-cta-heading">Brilliant Lady Deck Plans</h2>
+    <section class="card" aria-labelledby="deck-plans">
+      <h2 id="deck-plans">Brilliant Lady Deck Plans</h2>
       <p>View the official Virgin Voyages deck plans for Brilliant Lady to explore cabin locations, the 20+ restaurants, the Manor nightclub, Squid Ink tattoo studio, Richard's Rooftop, and the Athletic Club.</p>
       <p><a href="https://www.virginvoyages.com/ships/brilliant-lady" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Brilliant Lady Deck Plans →</a></p>
     </section>
@@ -591,7 +589,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 
 
     <!-- Deck Plans & Tracker Grid -->
-    <div class="grid-2">
+    <section class="grid-2">
 
     <!-- Ship Statistics -->
     <section class="card" aria-labelledby="statsHeading">
@@ -633,12 +631,11 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       </div>
     </section>
 
-<section class="card" aria-labelledby="deck-plans">
-        <h2 id="deck-plans">Official Brilliant Lady Deck Plan Preview</h2>
+<section class="card" aria-labelledby="deck-plans-preview">
+        <h2 id="deck-plans-preview">Official Brilliant Lady Deck Plan Preview</h2>
         <div id="ship-map" data-ship="brilliant-lady">
           <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy" style="max-width:100%;height:auto;"/>
-          <p>Interactive deck plans for Brilliant Lady are published on the Virgin Voyages website.</p>
-          <p><a href="https://www.virginvoyages.com/ships/brilliant-lady" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Brilliant Lady Deck Plans →</a></p>
+          <p>Interactive deck plans for Brilliant Lady are published on the Virgin Voyages website. Use the Deck Plans link above in the Brilliant Lady Deck Plans section to open them.</p>
         </div>
       </section>
 
@@ -656,7 +653,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         </div>
         <p class="tiny">Live tracker via <a href="https://www.vesselfinder.com/vessels/details/9870654" target="_blank" rel="noopener">VesselFinder</a>.</p>
       </section>
-    </div>
+    </section>
 
     <script>
     (function(){
@@ -710,8 +707,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 
     
 
-    <!-- Attribution Section -->
-    
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Brilliant Lady</h2>
@@ -837,8 +832,14 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake &middot; A Cruise Traveler's Logbook</p>
-    <p class="tiny"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></p>
+    <p>© <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
+    <p class="tiny mt-05">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
+    <p class="tiny center">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
     <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
   <script src="/assets/js/whimsical-ship-units.js" defer></script>
@@ -852,10 +853,10 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);const t=document.getElementById('stats-table');if(t&&d){t.innerHTML=`<tr><th>Gross Tonnage</th><td>${d.gt}</td></tr><tr><th>Guests</th><td>${d.guests}</td></tr><tr><th>Crew</th><td>${d.crew}</td></tr><tr><th>Class</th><td>${d.class}</td></tr><tr><th>Entered Service</th><td>${d.entered_service}</td></tr>`;}}catch(e){}}
 </script>
 <!-- initDining — fetch dining JSON -->
-<script>function initDining(){const el=document.getElementById('dining-list');if(!el)return;fetch('/assets/data/dining/virgin-voyages/brilliant-lady.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.venues||[]).map(v=>`<li><strong>${v.name}</strong> — ${v.description}</li>`).join('');}). catch(()=>{});}
+<script>function initDining(){const el=document.getElementById('dining-list');if(!el)return;fetch('/assets/data/venues-v2.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{const ship=(data.ships&&data.ships['brilliant-lady'])||null;if(!ship)return;const idx=Object.fromEntries((data.venues||[]).map(v=>[v.slug,v]));const venues=(ship.venues||[]).map(s=>idx[s]).filter(Boolean);el.innerHTML=venues.map(v=>`<li><strong>${v.name}</strong> — ${v.description||''}</li>`).join('');}). catch(()=>{});}
 </script>
 <!-- initLiveTracker — render tracking link -->
-<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:TBD" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
+<script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:${imo}" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
 </script>
 <!-- initShipLogbook — logbook loader -->
 <script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/virgin-voyages/brilliant-lady.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.entries||[]).slice(0,5).map(e=>`<li>${e.date}: ${e.note}</li>`).join('');}). catch(()=>{});}
