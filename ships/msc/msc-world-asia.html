@@ -4,27 +4,43 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
+
+STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.400 · A11y/WCAG 2.1 AA Compliant
 -->
 
 <html lang="en" class="no-js">
 <head>
-<script>document.documentElement.classList.remove('no-js');</script>
+  <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove('no-js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.400"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
+  </script>
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
   <!-- ===== SEO Meta ===== -->
-  <title>MSC World Asia — MSC Cruises Ship Guide | In the Wake</title>
+  <title>MSC World Asia — Deck Plans, Live Tracker, Dining &amp; Videos | In the Wake</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/msc/msc-world-asia.html"/>
   <meta name="description" content="MSC World Asia — the third World Class ship from MSC Cruises, scheduled for November 2026 delivery with a maiden voyage 4 December 2026 ex-Barcelona. 215,863 GT, 5,079 double / 6,762 max guests, 2,138 crew. IMO 9901556. Deck plans, live tracker, dining, and videos."/>
   <meta name="ai-summary" content="MSC World Asia — third MSC World Class ship, 215,863 GT, 5,079/6,762 guests, IMO 9901556. Scheduled Nov 2026 delivery (Chantiers de l'Atlantique, Y34). Maiden voyage 4 Dec 2026 ex-Barcelona. Mediterranean deployment.">
@@ -88,7 +104,12 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 <!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -238,24 +259,23 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(primaryCSS);
-  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
 })();
 </script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
+        <a href="/"><img loading="eager" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
 </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
@@ -327,7 +347,7 @@ All work on this project is offered as a gift to God.
     </div>
 
     <div class="hero" role="img" aria-label="MSC World Asia hero image">
-      <div class="latlon-grid" >
+      <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
           <g class="grid-lines" stroke-width="0.35">
             <line x1="10" y1="0" x2="10" y2="60"/><line x1="30" y1="0" x2="30" y2="60"/>
@@ -341,7 +361,10 @@ All work on this project is offered as a gift to God.
       <div class="hero-title">
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
-      <div class="tagline" >A Cruise Traveler's Logbook</div>
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+      </div>
     </div>
   </header>
 
@@ -388,7 +411,7 @@ All work on this project is offered as a gift to God.
         MSC World Asia is the third World Class ship from MSC Cruises, joining MSC World Europa (2022, Mediterranean-based) and MSC World America (2025, Miami-based). MSC World Atlantic is the fourth class member, scheduled for 2027 delivery. The Y-shaped aft with its floor-to-ceiling glass walls creates distinct neighbourhoods — each with its own pool, dining, and entertainment — a class signature carried over from World Europa. Despite the name, World Asia deploys in the Western Mediterranean (not Asia-Pacific): her maiden season is year-round 7-night Barcelona round-trips calling at Marseille, Genoa, Civitavecchia (Rome), Naples, Messina, and Valletta. Asian influences show up in the ship's design language — a suspended stainless-steel Dragon sculpture above the World Galleria, koi-carp artworks, the Manila Bay pool name, and the new Pan-Asian Street Food specialty restaurant — rather than in the deployment pattern.
       </p>
 
-      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+      <div class="class-profile" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Class Profile</h3>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Ship Class:</strong> World Class — 215,863 GT, 5,079 guests at double occupancy</li>
@@ -468,12 +491,6 @@ All work on this project is offered as a gift to God.
 
     <p class="subtitle">MSC Cruises &bull; World Class</p>
 
-    <!-- ICP-2 Quick Answer -->
-    <div class="quick-answer" role="region" aria-label="Quick answer">
-      <h3>At a Glance</h3>
-      <p><strong>MSC World Asia</strong> is the third <strong>World Class</strong> ship from MSC Cruises. At <strong>215,863 gross tons</strong> with capacity for <strong>5,079 guests at double occupancy</strong> (6,762 maximum), she is scheduled for <strong>delivery in November 2026</strong> with a maiden voyage from Barcelona on <strong>4 December 2026</strong>.</p>
-    </div>
-
     <!-- Who She's For -->
     <section class="card" id="who-shes-for" aria-labelledby="whoshesfor-heading">
       <h2 id="whoshesfor-heading">Who MSC World Asia Is For</h2>
@@ -481,8 +498,6 @@ All work on this project is offered as a gift to God.
       <p><strong>You may prefer a different ship if:</strong> you are booking specifically for an Asia-Pacific itinerary (despite the name, she sails in the Mediterranean); you dislike mega-ship scale or crowds of 5,000+ guests; you want Cirque du Soleil at Sea (the partnership has been phased out from MSC); or you prefer a more intimate, port-focused small or mid-sized ship where the ship itself is not the destination.</p>
     </section>
 
-    <!-- Stub Notice -->
-    
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: MSC World Asia (World Class)</h2>
@@ -584,20 +599,6 @@ All work on this project is offered as a gift to God.
     <!-- Stats fallback JSON used by stats loader -->
     <script type="application/json" id="ship-stats-fallback">{"slug":"msc-world-asia","name":"MSC World Asia","cruise_line":"MSC Cruises","class":"World Class","entered_service":2026,"scheduled_delivery":"2026-11","maiden_voyage":"2026-12-04 (from Barcelona)","imo":"9901556","gt":"215,863 GT","guests":"5,079 (double) / 6,762 (max)","cabins":2614,"crew":"2,138","length":"1,093 ft (333.30 m)","beam":"154 ft (47 m hull) / 177 ft (54 m max)","registry":"Malta (Valletta)","builder":"Chantiers de l'Atlantique, Saint-Nazaire (hull Y34)","godmothers_coin_ceremony":"Marialuisa Iaccarino and Flavie Biondo","yacht_club_suites":144}</script>
 
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities on MSC World Asia</h2>
-      <ul>
-        <li><strong>The Spiral @ Tree of Life</strong> — 266.7 ft (81 m) dry slide spanning 12 decks. MSC's longest dry slide at sea as of 2026, one deck taller than the 11-deck Venom Drop on sisters MSC World Europa and MSC World America.</li>
-        <li><strong>World Galleria Dragon sculpture</strong> — Suspended stainless-steel Dragon, ~12 m long and ~9 m wide, hanging about 32 ft above the World Galleria floor, built from roughly 700 mirrors and 3,000 LED lights.</li>
-        <li><strong>World Theatre</strong> — MSC's in-house production shows. (Cirque du Soleil at Sea is NOT on MSC World Asia — the partnership has been phased out from the MSC fleet.)</li>
-        <li><strong>Luna Park Arena</strong> — Acrobatic, family, and variety shows in MSC's class-defining arena venue.</li>
-        <li><strong>The Harbour Family Park</strong> — Outdoor family zone on the upper decks: the 164-ft Cliffhanger over-water swing, Sky Rails high-ropes course, aquapark, Harbour Bar &amp; Bites, and Play Deck.</li>
-        <li><strong>The Clubhouse</strong> — New retro-inspired family venue with bumper cars, roller skating, basketball, table games, and a LEGO Family Zone.</li>
-        <li><strong>Manila Bay Pool</strong> (outdoor, with Pearl Lagoon Bar) and <strong>Coral Cove</strong> (indoor with retractable roof and an Elisabetta Milan water-droplet art installation).</li>
-        <li><strong>World Promenade</strong> — Seven-deck open-air promenade along the Y-shaped aft with floor-to-ceiling glass walls.</li>
-      </ul>
-    </section>
-
     <!-- Ports &amp; Itineraries -->
     <section class="card" aria-labelledby="ports-heading">
       <h2 id="ports-heading">Ports &amp; Maiden-Season Itinerary</h2>
@@ -652,16 +653,6 @@ All work on this project is offered as a gift to God.
       </div>
     </section>
 
-    <section class="card" aria-labelledby="deckPlansHeading">
-      <h2 id="deckPlansHeading">Official MSC World Asia Deck Plan Preview</h2>
-      <p>A preview of MSC World Asia's deck layout. The official interactive plan is published by MSC Cruises.</p>
-      <figure>
-        <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
-        <figcaption class="tiny">Simplified deck layout overview (placeholder — official plan available from MSC Cruises)</figcaption>
-      </figure>
-      <p><a href="https://www.msccruises.com/en-gb/cruise-ships/msc-world-asia" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official MSC World Asia Deck Plans →</a></p>
-    </section>
-
     <section class="card" aria-labelledby="liveTrackHeading" data-imo="9901556">
       <h2 id="liveTrackHeading">Where Is MSC World Asia?</h2>
       <p>Track MSC World Asia's current position and upcoming itinerary via VesselFinder (IMO 9901556). As of April 2026 she is in fit-out at Chantiers de l'Atlantique in Saint-Nazaire, France, awaiting her November 2026 delivery.</p>
@@ -678,19 +669,6 @@ All work on this project is offered as a gift to God.
     </section>
     </section>
 
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare MSC World Asia with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-  
-
-    <!-- Attribution Section -->
-    
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About MSC World Asia</h2>
@@ -813,17 +791,17 @@ All work on this project is offered as a gift to God.
     </section>
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny">
-      <a href="/privacy.html">Privacy</a> &middot;
-      <a href="/terms.html">Terms</a> &middot;
-      <a href="/about-us.html">About</a> &middot;
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center dedication-hidden" >Soli Deo Gloria</p>
