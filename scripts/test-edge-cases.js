@@ -97,7 +97,8 @@ console.log('\n══ Persona 71: Overcap Trigger (Celebrity Classic, 2 adults) 
     adults: 1, minors: 0, coffeeCards: 0, coffeePunches: 0, drinks: { cocktail: 6 } });
   const rawOc2 = r.packageBreakdown.deluxe.total - r.packageBreakdown.deluxe.fixedCost;
   const rawOc1 = r1.packageBreakdown.deluxe.total - r1.packageBreakdown.deluxe.fixedCost;
-  assert(near(rawOc1, rawOc2, 0.01), 'overcap raw total same for 1 vs 2 adults', `1=$${rawOc1.toFixed(2)} 2=$${rawOc2.toFixed(2)}`);
+  // Per-adult inputs: 2 adults ordering 6 each = 12 group drinks = 2× overcap
+  assert(near(rawOc2, rawOc1 * 2, 0.01), 'overcap scales linearly with adults', `1=$${rawOc1.toFixed(2)} 2=$${rawOc2.toFixed(2)}`);
 }
 
 console.log('\n══ Persona 72: Max Party (20 adults + 20 minors) ══');
@@ -171,7 +172,8 @@ console.log('\n══ Persona 77: All-Sea-Day Cruise (max sea weight) ══');
   const noSea = run('royal-caribbean', { days: 7, seaDays: 7, seaApply: false, seaWeight: 0,
     adults: 2, minors: 0, coffeeCards: 0, coffeePunches: 0,
     drinks: { cocktail: 3, beer: 2, wine: 1 } });
-  assert(r.trip > noSea.trip, 'sea weighting increases trip total', `sea=$${r.trip} noSea=$${noSea.trip}`);
+  // After Bug 3 fix: sea weighting PRESERVES total (redistributes, doesn't add)
+  assert(near(r.trip, noSea.trip, 0.02), 'sea weighting preserves trip total', `sea=$${r.trip} noSea=$${noSea.trip}`);
 }
 
 console.log('\n══ Persona 78: Virgin Heavy Drinker (noPackages path) ══');
