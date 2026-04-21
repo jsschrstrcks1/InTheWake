@@ -143,7 +143,7 @@
       '/assets/ships/Icon_of_the_Seas_stern_in_Philipsburg,_Sint_Maarten.webp'
     ],
     'star-of-the-seas': [
-      '/assets/ships/Cádiz_-_Crucero_Star_of_the_Seas,_atracado_en_el_puerto_de_Cádiz_(25_julio_2025)_01.webp'
+      '/assets/ships/Star_of_the_Seas_Pansio_2024-1.webp'
     ],
     // Oasis Class
     'oasis-of-the-seas': [
@@ -167,8 +167,7 @@
     ],
     'wonder-of-the-seas': [
       '/assets/ships/Wonder_of_the_Seas_-_August_2021.webp',
-      '/assets/ships/Wonder_of_the_Seas_Jan_30_2025.webp',
-      '/assets/ships/Wonder_of_the_Seas_atracando_en_Cartagena-España-.webp'
+      '/assets/ships/Wonder_of_the_Seas_Jan_30_2025.webp'
     ],
     'utopia-of-the-seas': [
       '/assets/ships/Utopia-of-the-seas-FOM- - 1.webp',
@@ -213,8 +212,7 @@
       '/assets/ships/Liberty-of-the-seas-FOM- - 3.webp'
     ],
     'independence-of-the-seas': [
-      '/assets/ships/Cruise_ship_Independence_of_the_Seas_R01.webp',
-      '/assets/ships/1993-Independence_of_the_seas_na_Coruña.webp'
+      '/assets/ships/Cruise_ship_Independence_of_the_Seas_R01.webp'
     ],
     // Voyager Class
     'voyager-of-the-seas': [
@@ -228,8 +226,7 @@
     ],
     'navigator-of-the-seas': [
       '/assets/ships/Navigator_of_the_Seas_(Grand_Cayman)_001.webp',
-      '/assets/ships/Navigator_of_the_Seas_(ship,_2002)_in_Ensenada,_Mexico_(August_2024)_1.webp',
-      '/assets/ships/Navigator_of_the_Seas,_Puerto_de_la_Bahía_de_Cádiz.webp'
+      '/assets/ships/Navigator_of_the_Seas_(ship,_2002)_in_Ensenada,_Mexico_(August_2024)_1.webp'
     ],
     'adventure-of-the-seas': [
       '/assets/ships/Adventure_of_the_Seas_5.webp',
