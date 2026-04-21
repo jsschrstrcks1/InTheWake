@@ -4,27 +4,43 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
+
+STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.400 · A11y/WCAG 2.1 AA Compliant
 -->
 
 <html lang="en" class="no-js">
 <head>
-<script>document.documentElement.classList.remove('no-js');</script>
+  <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove('no-js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.400"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
+  </script>
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
   <!-- ===== SEO Meta ===== -->
-  <title>MSC World Europa — MSC Cruises Ship Guide | In the Wake</title>
+  <title>MSC World Europa — Deck Plans, Live Tracker, Dining &amp; Videos | In the Wake</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/msc/msc-world-europa.html"/>
   <meta name="description" content="MSC World Europa: World Class lead ship (215,863 GT, 5,079 double / 6,762 max guests, 2,138 crew, 2,626 cabins, 22 decks). Delivered 24 October 2022 by Chantiers de l'Atlantique at Saint-Nazaire; christened 13 November 2022 at the Grand Cruise Terminal in Doha, Qatar by Sheikha Hind bint Hamad Al Thani. Four MDRs (Bubbles, La Foglia, Esagono, Hexagon), the Venom Drop @ The Spiral 11-deck dry slide, LNG dual-fuel power, Y-shaped aft with Panorama Lounge glass walls, Aurora Borealis Aquapark, MSC Yacht Club with 152 suites. Year-round Western Mediterranean from Genoa/Barcelona/Marseille."/>
   <meta name="ai-summary" content="MSC World Europa: World Class lead ship, 215,863 GT, 5,079 double / 6,762 max, 2,138 crew. Built 2022 Chantiers de l'Atlantique. Venom Drop 11-deck dry slide, Y-shaped aft, LNG dual-fuel + SOFC fuel cell. Western Mediterranean year-round 2026.">
@@ -88,7 +104,16 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <!-- Preload LCP images -->
+  <link rel="preload" as="image" href="/assets/ships/msc-world-europa_01.webp" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 <!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -222,24 +247,23 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(primaryCSS);
-  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
 })();
 </script>
 </head>
 <body class="page" data-imo="9837420">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
+        <a href="/"><img loading="eager" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
 </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
@@ -311,7 +335,7 @@ All work on this project is offered as a gift to God.
     </div>
 
     <div class="hero" role="img" aria-label="MSC World Europa hero image">
-      <div class="latlon-grid" >
+      <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
           <g class="grid-lines" stroke-width="0.35">
             <line x1="10" y1="0" x2="10" y2="60"/><line x1="30" y1="0" x2="30" y2="60"/>
@@ -326,6 +350,7 @@ All work on this project is offered as a gift to God.
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" >A Cruise Traveler's Logbook</div>
+      <p class="hero-credit tiny">Hero layout and compass graphics by <a href="/authors/ken-baker.html">Ken Baker</a> for In the Wake.</p>
     </div>
   </header>
 
@@ -610,14 +635,7 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
-    
-
 <script type="application/json" id="ship-stats-fallback">{"slug":"msc-world-europa","name":"MSC World Europa","cruise_line":"MSC Cruises","class":"World Class","entered_service":2022,"delivered":"2022-10-24","imo":"9837420","gt":"215,863 GT","guests":"5,079 (double) / 6,762 (max)","cabins":2626,"crew":"2,138","length":"1,093 ft (333.30 m)","beam":"154 ft (47 m)","registry":"Malta (Valletta)","builder":"Chantiers de l'Atlantique, Saint-Nazaire","godmother":"Sheikha Hind bint Hamad Al Thani"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities on MSC World Europa</h2>
-      <p>Entertainment on MSC World Europa is built around the <strong>World Theatre</strong> (~1,153 seats) for main production shows, with the <strong>Luna Park Arena</strong> (~300 seats) as a family entertainment and VR experience zone. The <strong>Panorama Lounge</strong> aft — housed in the class-defining Y-shaped stern with floor-to-ceiling glass walls — features an interactive LED floor and panoramic ocean views. The indoor <strong>World Galleria</strong> promenade runs through the heart of the ship under a vast LED-dome ceiling, while the outdoor <strong>World Promenade</strong> runs seven decks and 104 metres along the Y-shaped stern at Deck 8. The most dramatic activity feature is <strong>Venom Drop @ The Spiral</strong>, an 11-deck stainless-steel dry slide that runs from Deck 20 down to Deck 8 — the longest dry slide at sea. Family attractions include the <strong>Aurora Borealis Aquapark</strong> and the full <strong>Doremiland Kids Clubs</strong> (Baby Club Chicco, Mini Club LEGO, Junior Club LEGO, Young Club, Teen Club, Web Creator Room). Dining-wise, Deck 7 is the specialty-restaurants and bars hub, with the <strong>Masters of the Sea Pub</strong> hosting MSC's first onboard microbrewery, plus <strong>Fizz Champagne Bar</strong>, <strong>The Gin Project</strong> (70+ craft gins), <strong>Elixir Mixology Bar</strong>, <strong>Malt Lounge &amp; Smoker's Bar</strong>, and chef-branded specialty restaurants. The <strong>MSC Foundation Centre</strong> is an interactive sustainability and ocean conservation exhibit. Wellness lives at the <strong>MSC Aurea Spa</strong> and <strong>MSC Gym powered by Technogym</strong>. The private MSC Yacht Club enclave has 152 suites with private pools, a private Top Sail Lounge, the MSC Yacht Club Restaurant, and butler service. Note: MSC World Europa does NOT carry Cirque du Soleil at Sea (the MSC × Cirque partnership was never applied to World Europa and has since been phased out entirely from the MSC fleet).</p>
-    </section>
 
     <section class="grid-2">
 
@@ -651,7 +669,6 @@ All work on this project is offered as a gift to God.
         <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
         <figcaption class="tiny">Simplified deck layout overview</figcaption>
       </figure>
-      <p><a href="https://www.msccruises.com/en-us/cruise-ships/msc-world-europa.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official MSC World Europa Deck Plans →</a></p>
     </section>
 
       <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9837420" data-name="MSC-WORLD-EUROPA">
@@ -666,17 +683,6 @@ All work on this project is offered as a gift to God.
         <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
       </section>
     </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare MSC World Europa with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-  
 
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
@@ -787,17 +793,17 @@ All work on this project is offered as a gift to God.
     </section>
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny">
-      <a href="/privacy.html">Privacy</a> &middot;
-      <a href="/terms.html">Terms</a> &middot;
-      <a href="/about-us.html">About</a> &middot;
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center dedication-hidden" >Soli Deo Gloria</p>
