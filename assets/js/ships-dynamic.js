@@ -1,5 +1,5 @@
 /**
- * Ships Dynamic Module v2.000.000
+ * Ships Dynamic Module v2.001.000
  * Soli Deo Gloria
  *
  * Features:
@@ -633,6 +633,8 @@
   // Current state
   let currentCruiseLine = 'rcl';
   let validatedShips = {}; // Will be populated from JSON
+  const missingPages = new Set(); // `${line}/${slug}` entries whose HTML page HEADs 404
+  const preflightedLines = new Set(); // lines we've already preflighted
 
   /**
    * Load validated ships data from JSON
@@ -692,6 +694,36 @@
     } catch (e) {
       return false;
     }
+  }
+
+  /**
+   * Preflight every ship URL in a line, marking 404s in `missingPages`.
+   * Runs once per line on first render; cached thereafter. Parallel HEADs
+   * with a small concurrency cap to avoid flooding the network.
+   * Used to render "Coming Soon" for ships whose HTML page doesn't exist
+   * yet, instead of linking to a dead URL.
+   */
+  async function preflightMissingPages(lineKey) {
+    if (preflightedLines.has(lineKey)) return;
+    preflightedLines.add(lineKey);
+    const config = CRUISE_LINES[lineKey];
+    if (!config) return;
+    const fleet = FLEET_DATA[lineKey];
+    if (!fleet) return;
+    const slugs = [];
+    Object.values(fleet).forEach(classData => {
+      (classData.ships || []).forEach(s => slugs.push(s.slug));
+    });
+    const CONCURRENCY = 6;
+    let i = 0;
+    async function worker() {
+      while (i < slugs.length) {
+        const slug = slugs[i++];
+        const exists = await checkShipPageExists(config.directory, slug);
+        if (!exists) missingPages.add(`${lineKey}/${slug}`);
+      }
+    }
+    await Promise.all(Array.from({length: CONCURRENCY}, worker));
   }
 
   /**
@@ -766,8 +798,9 @@
     // Don't show empty class sections
     if (validatedShipsList.length === 0) return '';
 
+    const lineKeyForPage = Object.keys(CRUISE_LINES).find(k => CRUISE_LINES[k].directory === cruiseLineConfig.directory);
     const shipsHtml = validatedShipsList
-      .map(ship => createShipCard(ship, cruiseLineConfig, true))
+      .map(ship => createShipCard(ship, cruiseLineConfig, !missingPages.has(`${lineKeyForPage}/${ship.slug}`)))
       .join('');
     const shipCount = validatedShipsList.length;
     const classImage = CLASS_IMAGES[className] || '/assets/ship-placeholder.jpg';
@@ -1433,7 +1466,7 @@
     const contentContainer = document.getElementById('cruiseLineContent');
 
     buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         const lineKey = btn.getAttribute('data-cruise-line');
         if (lineKey === currentCruiseLine) return;
 
@@ -1445,8 +1478,13 @@
         btn.classList.add('active');
         btn.setAttribute('aria-pressed', 'true');
 
-        // Update current state and re-render
+        // Update current state
         currentCruiseLine = lineKey;
+
+        // Preflight page existence for this line before rendering so cards
+        // for ships without an HTML file show "Coming Soon" instead of a
+        // dead link. Cached per-line after first fetch.
+        await preflightMissingPages(lineKey);
         contentContainer.innerHTML = createCruiseLineSection(lineKey);
 
         // Re-initialize interactivity
@@ -1727,6 +1765,10 @@
 
     // Load validation data first
     await loadValidatedShips();
+
+    // Preflight page existence for the default line so dead ship pages
+    // render as "Coming Soon" instead of linking to a 404.
+    await preflightMissingPages(currentCruiseLine);
 
     // Create the main structure
     container.innerHTML = `
