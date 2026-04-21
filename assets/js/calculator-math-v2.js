@@ -498,7 +498,9 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const freeAtSeaActive = freeAtSeaMode && freeAtSea?.available === true && toNum(freeAtSea.serviceChargePerDay) > 0;
   const freeAtSeaDaily = freeAtSeaActive ? toNum(freeAtSea.serviceChargePerDay) : 0;
 
-  const drinkList = Object.keys(inputs.drinks || {}).map(key => [key, toNum(inputs.drinks[key])]);
+  // v2.1 FIX (Bug 1): UI says "enter drinks per adult." Multiply by adults to get
+  // group-level qty that matches the scale of package costs (which are per-person × adults).
+  const drinkList = Object.keys(inputs.drinks || {}).map(key => [key, toNum(inputs.drinks[key]) * adults]);
   const weighted = applyWeight(drinkList, days, seaDays, seaApply, seaWeight);
 
   // CRITICAL FIX v1.006.000: Voucher application - most expensive drinks first!
