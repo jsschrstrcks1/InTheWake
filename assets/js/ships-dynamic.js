@@ -161,7 +161,6 @@
       '/assets/ships/Harmony-of-the-seas-FOM- - 2.webp'
     ],
     'symphony-of-the-seas': [
-      '/assets/ships/SymphonyOfTheSeas_(cropped)_02-2.webp',
       '/assets/ships/SymphonyOfTheSeas_(cropped)_02.webp',
       '/assets/ships/Mein_Schiff_2_&_Symphony_of_the_Seas.webp'
     ],
@@ -202,13 +201,10 @@
     ],
     // Freedom Class
     'freedom-of-the-seas': [
-      '/assets/ships/freedom-of-the-seas-FOM- - 1.webp',
-      '/assets/ships/freedom-of-the-seas-FOM- - 2.webp',
-      '/assets/ships/freedom-of-the-seas-FOM- - 3.webp'
+      '/assets/ships/freedom-of-the-seas-FOM- - 1.webp'
     ],
     'liberty-of-the-seas': [
       '/assets/ships/Liberty-of-the-seas-FOM- - 1.webp',
-      '/assets/ships/Liberty-of-the-seas-FOM- - 2.webp',
       '/assets/ships/Liberty-of-the-seas-FOM- - 3.webp'
     ],
     'independence-of-the-seas': [
@@ -220,8 +216,6 @@
       '/assets/ships/Voyageroftheseas.webp'
     ],
     'mariner-of-the-seas': [
-      '/assets/ships/mariner-of-the-seas-FOM- - 1.webp',
-      '/assets/ships/mariner-of-the-seas-FOM- - 2.webp',
       '/assets/ships/mariner-of-the-seas-FOM- - 3.webp'
     ],
     'navigator-of-the-seas': [
@@ -238,13 +232,11 @@
     ],
     // Radiance Class
     'radiance-of-the-seas': [
-      '/assets/ships/Radiance-of-the-seas-FOM- - 1.webp',
       '/assets/ships/Radiance-of-the-seas-FOM- - 2.webp',
       '/assets/ships/Radiance-of-the-seas-FOM- - 3.webp'
     ],
     'brilliance-of-the-seas': [
       '/assets/ships/brilliance-of-the-seas1.webp',
-      '/assets/ships/brilliance-of-the-seas2.webp',
       '/assets/ships/Brilliance_of_the_Seas_Boston_2014_02_(cropped).webp'
     ],
     'serenade-of-the-seas': [
@@ -274,8 +266,7 @@
       '/assets/ships/rhapsody-of-the-seas1.webp'
     ],
     'vision-of-the-seas': [
-      '/assets/ships/vision-of-the-seas1.webp',
-      '/assets/ships/vision-of-the-seas2.webp'
+      '/assets/ships/vision-of-the-seas1.webp'
     ],
     // Historic Fleet
     'majesty-of-the-seas': [
@@ -298,7 +289,6 @@
       '/assets/ships/Splendour_of_the_Seas_(at_Split_on_2011-0716).webp'
     ],
     'song-of-norway': [
-      '/assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped)-2.webp',
       '/assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped).webp',
       '/assets/ships/2560px-Song_of_Norway_Vigo.webp'
     ],
