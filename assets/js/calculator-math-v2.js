@@ -669,6 +669,28 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // so divide by days to get per-day, then by adults to approximate per-person.
   const overcap = drinkOvercapTotal > 0 ? round2(drinkOvercapTotal / (days * adults)) : 0;
 
+  // v2.1 FIX (Bug 4): Enforce daily alcoholic drink limit.
+  // Lines like Carnival CHEERS!, RCL Deluxe, Princess Plus, HAL Elite, and MSC Premium
+  // Extra cap alcoholic drinks at 15/day. Drinks beyond the limit are NOT covered by
+  // the package and must be paid à la carte. The engine adds the excess cost to the
+  // deluxe package total so the comparison is honest.
+  const dailyLimit = lineConfig?.rules?.deluxeDailyLimit || null;
+  let dailyLimitExcessCost = 0;
+  if (dailyLimit && dailyLimit > 0) {
+    const alcDrinksPerDay = categoryRows
+      .filter(r => sets.alcoholic.includes(r.id))
+      .reduce((total, r) => total + r.qty, 0);
+    if (alcDrinksPerDay > dailyLimit) {
+      const excessPerDay = alcDrinksPerDay - dailyLimit;
+      // Excess drinks charged at average alcoholic drink price
+      const totalAlcCostPerDay = categoryRows
+        .filter(r => sets.alcoholic.includes(r.id))
+        .reduce((total, r) => total + r.qty * r.price, 0);
+      const avgAlcPrice = alcDrinksPerDay > 0 ? totalAlcCostPerDay / alcDrinksPerDay : 0;
+      dailyLimitExcessCost = round2(excessPerDay * avgAlcPrice * days);
+    }
+  }
+
   // CRITICAL FIX v1.004.000 + v1.005.000 + v1.006.000: Calculate TRUE total cost for each package option
   // Each package only covers certain drinks - uncovered drinks must be paid à la carte!
   // AND include minors' package costs in the total!
@@ -679,7 +701,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // - Using totalAlc incorrectly added coffee card cost to package totals
   const sodaTotalCost = sodaPkgWithMinors + (rawTotal - sodaTotal); // Soda pkg (all people) + all non-soda drinks à la carte
   const refreshTotalCost = refreshPkgWithMinors + (rawTotal - refreshTotal); // Refresh pkg (all people) + alcoholic drinks à la carte
-  const deluxeTotalCost = deluxePkgWithMinors + drinkOvercapTotal; // Deluxe pkg + over-cap drinks (FIXED v1.009.000)
+  const deluxeTotalCost = deluxePkgWithMinors + drinkOvercapTotal + dailyLimitExcessCost;
 
   console.log('[Math Engine] Package comparison (including uncovered drinks + minors):');
   console.log(`  À la carte: $${totalAlc.toFixed(2)} (raw: $${rawTotal.toFixed(2)}, coffee discount: $${coffeeDiscount.toFixed(2)}, coffee cards: $${coffeeCardCost.toFixed(2)})`);
