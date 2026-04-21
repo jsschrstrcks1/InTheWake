@@ -197,12 +197,12 @@ console.log('\n══ Persona 79: Celebrity Premium Overcap ($17 cap, $19 cockta
     adults: 1, minors: 0, coffeeCards: 0, coffeePunches: 0,
     drinks: { cocktail: 5 } });
   assert(collectBadNums(r, '').length === 0, 'no NaN');
-  // Celebrity cocktail = $15, Classic cap = $10. Overcap = $5 × 5 × 7 = $175
-  const expectedOvercapTotal = 5 * 5 * 7;
+  // Celebrity cocktail = $15, Classic cap = $10. Overcap = $5 × 1.20 grat × 5 × 7 = $210
+  const expectedOvercapTotal = 5 * 1.20 * 5 * 7; // $5 excess × 1.20 grat × 5/day × 7 days
   const actualOvercapTotal = r.packageBreakdown.deluxe.total - r.packageBreakdown.deluxe.fixedCost;
   assert(near(actualOvercapTotal, expectedOvercapTotal, 0.05),
-    'overcap = $5/drink × 5 qty × 7 days = $175',
-    `expected $${expectedOvercapTotal} got $${actualOvercapTotal.toFixed(2)}`);
+    'overcap = $5/drink × 1.20 grat × 5 qty × 7 days = $210',
+    `expected $210 got $${actualOvercapTotal.toFixed(2)}`);
 }
 
 console.log('\n══ Persona 80: RCL Grandfathered Booking (pre-March-15) ══');

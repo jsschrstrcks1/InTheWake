@@ -235,7 +235,8 @@ assert(wineTest.overcap === 0, 'wine at $11 under $14 cap → overcap=0');
 const celOvercap = run(config.lines.celebrity, { days: 7, adults: 1, seaApply: false, drinks: { cocktail: 3 } });
 assert(celOvercap.overcap > 0, 'Celebrity cocktail at $15 over $10 cap → overcap > 0');
 // Verify exact: $5 excess × 3 qty × 7 days = $105 total, display = $105 / (7×1) = $15/person/day
-assert(near(celOvercap.overcap, 15.0, 0.01), 'Celebrity overcap = $15/person/day', `got $${celOvercap.overcap}`);
+// $5 excess × 1.20 grat = $6/drink. 3 drinks/day ÷ 1 adult = $18/person/day
+assert(near(celOvercap.overcap, 18.0, 0.01), 'Celebrity overcap = $18/person/day (with grat)', `got $${celOvercap.overcap}`);
 
 // With per-adult inputs, 2 adults ordering 3 cocktails EACH = 6 group drinks (2× the overcap).
 // The RAW overcap per-adult should be the same: $5 × 3 × 7 = $105 per adult.

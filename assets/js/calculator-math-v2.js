@@ -620,6 +620,26 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const alcTotal = sum(categoryRows.filter(r => sets.alcoholic.includes(r.id)).map(r => r.cost));
   const refreshTotal = sum(categoryRows.filter(r => sets.refresh.includes(r.id)).map(r => r.cost));
   const sodaTotal = sum(categoryRows.filter(r => sets.soda.includes(r.id)).map(r => r.cost));
+  // v2.1 FIX (Bug 11): Compute deluxeTotal from sets.deluxe so the engine knows
+  // exactly which drinks the top-tier package covers. Previously assumed "everything."
+  const deluxeTotal = sum(categoryRows.filter(r => (sets.deluxe || []).includes(r.id)).map(r => r.cost));
+
+  // v2.1 FIX (Bug 12): Intermediate-tier cap for the refresh slot.
+  // HAL Signature has a $12 cap, Cunard BWS has $13.50. Drinks in the refresh set
+  // that exceed this cap are partially uncovered — user pays the difference.
+  // v2.1 FIX (Bug 12): Intermediate-tier cap for refresh slot.
+  // HAL Signature cap=$12, Cunard BWS cap=$13.50. Alcoholic drinks in the refresh
+  // set that exceed this cap are partially uncovered.
+  const refreshCap = toNum(lineConfig?.rules?.signatureCap ?? lineConfig?.rules?.bwsCap ?? 0);
+  let refreshOvercapTotal = 0;
+  if (refreshCap > 0) {
+    for (const row of categoryRows) {
+      if (sets.refresh.includes(row.id) && sets.alcoholic.includes(row.id) && row.price > refreshCap) {
+        const perDrinkExcess = (row.price - refreshCap) * (1 + grat);
+        refreshOvercapTotal += perDrinkExcess * row.qty * days;
+      }
+    }
+  }
 
   // À-la-carte total = raw cost - free coffee discount + coffee card purchase cost
   const totalAlc = Math.max(0, rawTotal - coffeeDiscount + coffeeCardCost);
@@ -666,10 +686,9 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   let drinkOvercapTotal = 0;
   for (const row of categoryRows) {
     if (sets.alcoholic.includes(row.id) && row.price > cap) {
-      // row.qty is GROUP-LEVEL per day (same scale as rawTotal which uses qty × price × days).
-      // Excess per drink = price - cap. Total excess = excess × qty × days.
-      // No adults multiplier — qty already represents the group's total daily consumption.
-      const perDrinkExcess = row.price - cap;
+      // row.price is BASE price. cap is BASE cap. Excess includes grat to match
+      // the with-grat scale of rawTotal (after Fix 7).
+      const perDrinkExcess = (row.price - cap) * (1 + grat);
       drinkOvercapTotal += perDrinkExcess * row.qty * days;
     }
   }
@@ -708,9 +727,12 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // - totalAlc includes coffee card purchase cost, which is only for à la carte option
   // - Packages COVER coffee, so you don't buy coffee cards with packages
   // - Using totalAlc incorrectly added coffee card cost to package totals
-  const sodaTotalCost = sodaPkgWithMinors + (rawTotal - sodaTotal); // Soda pkg (all people) + all non-soda drinks à la carte
-  const refreshTotalCost = refreshPkgWithMinors + (rawTotal - refreshTotal); // Refresh pkg (all people) + alcoholic drinks à la carte
-  const deluxeTotalCost = deluxePkgWithMinors + drinkOvercapTotal + dailyLimitExcessCost;
+  const sodaTotalCost = sodaPkgWithMinors + (rawTotal - sodaTotal);
+  // v2.1: Add refreshOvercapTotal for intermediate-tier caps (HAL Signature $12, Cunard BWS $13.50)
+  const refreshTotalCost = refreshPkgWithMinors + (rawTotal - refreshTotal) + refreshOvercapTotal;
+  // v2.1 (Bug 11): Use deluxeTotal instead of assuming deluxe covers everything
+  const deluxeUncoveredCost = rawTotal - deluxeTotal;
+  const deluxeTotalCost = deluxePkgWithMinors + deluxeUncoveredCost + drinkOvercapTotal + dailyLimitExcessCost;
 
   console.log('[Math Engine] Package comparison (including uncovered drinks + minors):');
   console.log(`  À la carte: $${totalAlc.toFixed(2)} (raw: $${rawTotal.toFixed(2)}, coffee discount: $${coffeeDiscount.toFixed(2)}, coffee cards: $${coffeeCardCost.toFixed(2)})`);
@@ -734,7 +756,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     },
     refresh: {
       fixedCost: refreshPkgWithMinors,
-      uncoveredCost: rawTotal - refreshTotal,
+      uncoveredCost: (rawTotal - refreshTotal) + refreshOvercapTotal,
       total: refreshTotalCost,
       dailyRate: pkgRefresh,
       days: days,
@@ -742,7 +764,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     },
     deluxe: {
       fixedCost: deluxePkgWithMinors,
-      uncoveredCost: drinkOvercapTotal, // FIXED v1.009.000: Use correct per-drink overcap
+      uncoveredCost: deluxeUncoveredCost + drinkOvercapTotal + dailyLimitExcessCost,
       total: deluxeTotalCost,
       dailyRate: pkgDeluxe,
       days: days,
