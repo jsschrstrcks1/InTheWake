@@ -552,7 +552,8 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
       const qtyAfterVouchers = Math.max(0, drink.qty - vouchersUsed);
 
       // Track actual savings from this drink type
-      actualVoucherSavings += vouchersUsed * drink.price;
+      // v2.1: Include gratuity in savings — a voucher saves the with-grat price.
+      actualVoucherSavings += vouchersUsed * drink.price * (1 + grat);
 
       vouchersRemaining -= vouchersUsed;
 
@@ -570,9 +571,12 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     console.log(`[Vouchers] Total savings: $${actualVoucherSavings.toFixed(2)} (${totalVouchersPerDay - vouchersRemaining} vouchers used)`);
   }
 
+  // v2.1 FIX (Bug 2): Include gratuity in drink costs so à la carte total matches
+  // what the user actually pays at the bar. Previously, packages included gratuity
+  // but individual drinks did not, making à la carte look 18-20% cheaper than reality.
   let categoryRows = adjustedWeighted.map(([id, qty]) => {
     const price = prices[id] || 0;
-    const cost = price * qty * days;
+    const cost = price * (1 + grat) * qty * days;
     return { id, qty, price, cost };
   });
 
@@ -605,9 +609,10 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const remainingPunches = totalFreePunches - (largeCoffeesFromPunches * 2);
   const smallCoffeesFromPunches = Math.min(coffeeSmallQty * days, remainingPunches);
 
+  // v2.1: Include gratuity in coffee discount — a free coffee saves the with-grat price.
   const coffeeDiscount =
-    (largeCoffeesFromPunches * (prices.coffeeLarge || 4.5)) +
-    (smallCoffeesFromPunches * (prices.coffeeSmall || 4.5));
+    (largeCoffeesFromPunches * (prices.coffeeLarge || 4.5) * (1 + grat)) +
+    (smallCoffeesFromPunches * (prices.coffeeSmall || 4.5) * (1 + grat));
 
   // CRITICAL FIX v1.003.002: Add cost of purchasing coffee cards
   const coffeeCardCost = coffeeCards * coffeeCardPrice * (1 + grat);
