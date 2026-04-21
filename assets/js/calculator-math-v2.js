@@ -637,11 +637,13 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const sodaPkgWithMinors = sodaPkg + sodaMinorCost;
   const refreshPkgWithMinors = refreshPkg + refreshMinorCost;
 
-  // CRITICAL v1.003.000: Minors MUST buy Refreshment when adults buy Deluxe (Royal Caribbean policy)
-  // v2.1: When Free-at-Sea is active, only the ADULT deluxePkg changes (flat rate). Minors still
-  // pay standard refresh pricing because NCL's Free-at-Sea perks cover guests 1-2 only and minors
-  // get Soda Package substitution, not the Open Bar. refreshMinorCost is intentionally unchanged.
-  const deluxePkgWithMinors = deluxePkg + refreshMinorCost;
+  // v2.1 FIX (Bug 9): What minors pay when adults buy deluxe depends on line policy.
+  // RCL (minorsForceRefreshment=true): minors MUST buy Refreshment.
+  // All other lines (minorsForceRefreshment=false): minors buy the cheapest option,
+  // which is typically the soda-tier package at child price (or $0 for fare-included).
+  const forceMinorsToRefresh = lineConfig?.rules?.minorsForceRefreshment !== false;
+  const minorDeluxeAddonCost = forceMinorsToRefresh ? refreshMinorCost : sodaMinorCost;
+  const deluxePkgWithMinors = deluxePkg + minorDeluxeAddonCost;
 
   // CRITICAL FIX v1.009.000: Calculate overcap correctly per-drink, not per-day total!
   // The $14 deluxe cap applies to INDIVIDUAL drinks, not daily totals!
