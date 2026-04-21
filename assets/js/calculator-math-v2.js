@@ -194,9 +194,19 @@ function applyWeight(list, days, seaDays, seaApply, seaWeight) {
   const portFactor = 1 - w;
   const portDays = Math.max(0, D - S);
 
+  // Normalize so total consumption is preserved: sum across all days = q × D.
+  // Without normalization, unequal sea/port splits change the total (e.g., 0 sea
+  // days with weighting on would reduce total by 20%). Normalization redistributes
+  // drinks between sea and port days without changing how many total drinks the
+  // user entered.
+  const rawFactor = (seaFactor * S + portFactor * portDays) / D;
+  const norm = rawFactor > 0 ? 1 / rawFactor : 1;
+  const normSea = seaFactor * norm;
+  const normPort = portFactor * norm;
+
   return list.map(([id, qty]) => {
     const q = toNum(qty);
-    const weighted = ((q * seaFactor * S) + (q * portFactor * portDays)) / D;
+    const weighted = ((q * normSea * S) + (q * normPort * portDays)) / D;
     return [id, safe(weighted)];
   });
 }
