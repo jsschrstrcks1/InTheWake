@@ -710,12 +710,13 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
       .reduce((total, r) => total + r.qty, 0);
     if (alcDrinksPerDay > dailyLimit) {
       const excessPerDay = alcDrinksPerDay - dailyLimit;
-      // Excess drinks charged at average alcoholic drink price
+      // Excess drinks charged at average alcoholic drink price WITH gratuity
+      // (same scale as rawTotal and other cost comparisons post Fix 7)
       const totalAlcCostPerDay = categoryRows
         .filter(r => sets.alcoholic.includes(r.id))
         .reduce((total, r) => total + r.qty * r.price, 0);
       const avgAlcPrice = alcDrinksPerDay > 0 ? totalAlcCostPerDay / alcDrinksPerDay : 0;
-      dailyLimitExcessCost = round2(excessPerDay * avgAlcPrice * days);
+      dailyLimitExcessCost = round2(excessPerDay * avgAlcPrice * (1 + grat) * days);
     }
   }
 
