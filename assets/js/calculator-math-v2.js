@@ -708,8 +708,11 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     const alcDrinksPerDay = categoryRows
       .filter(r => sets.alcoholic.includes(r.id))
       .reduce((total, r) => total + r.qty, 0);
-    if (alcDrinksPerDay > dailyLimit) {
-      const excessPerDay = alcDrinksPerDay - dailyLimit;
+    // Daily limit is PER PERSON. With per-adult inputs (Fix 6), qty is group-level.
+    // Group limit = dailyLimit × adults.
+    const groupDailyLimit = dailyLimit * adults;
+    if (alcDrinksPerDay > groupDailyLimit) {
+      const excessPerDay = alcDrinksPerDay - groupDailyLimit;
       // Excess drinks charged at average alcoholic drink price WITH gratuity
       // (same scale as rawTotal and other cost comparisons post Fix 7)
       const totalAlcCostPerDay = categoryRows
