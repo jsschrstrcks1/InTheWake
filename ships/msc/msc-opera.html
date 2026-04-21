@@ -4,27 +4,42 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
+
+STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.400 · A11y/WCAG 2.1 AA Compliant
 -->
 
 <html lang="en" class="no-js">
 <head>
-<script>document.documentElement.classList.remove('no-js');</script>
+  <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove('no-js');</script>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
+  </script>
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-  <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.400"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
 
   <!-- ===== SEO Meta ===== -->
-  <title>MSC Opera — MSC Cruises Ship Guide | In the Wake</title>
+  <title>MSC Opera — Deck Plans, Live Tracker, Dining &amp; Videos | In the Wake</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/msc/msc-opera.html"/>
   <meta name="description" content="MSC Opera: Lirica Class, 65,591 GT, 1,756 double / 2,658 max guests, ~728 crew. Delivered June 2004 by Chantiers de l'Atlantique (Alstom Marine); christened 26 June 2004 in Naples by Sophia Loren. 24m Renaissance lengthening at Fincantieri Palermo 2015. La Caravella and L'Approdo MDRs, Teatro dell'Opera. Venice/Bari Mediterranean summer 2026; La Romana (Dominican Republic) year-round from 16 November 2026 — replaces MSC Armonia in the Caribbean after losing the South Africa season."/>
   <meta name="ai-summary" content="MSC Opera: Lirica Class, 65,591 GT, 1,756 double / 2,658 max, ~728 crew. Built 2004, lengthened 2015. La Caravella + L'Approdo MDRs. Med summer 2026; La Romana Caribbean from Nov 2026.">
@@ -88,7 +103,15 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+  <!-- Preload LCP images -->
+  <link rel="preload" as="image" href="/assets/ships/Msc_Opera_flickr_GrahamBuchanInnes.webp" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 <!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -239,27 +262,26 @@ All work on this project is offered as a gift to God.
 <script>
 (function(){
   function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-  function addJS(src, ok, fail){
-    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
+  function addJS(src, ok){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; document.head.appendChild(s);
   }
-  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(primaryCSS);
-  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
 })();
 </script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
+        <a href="/"><img loading="eager" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
 </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
@@ -331,7 +353,7 @@ All work on this project is offered as a gift to God.
     </div>
 
     <div class="hero" role="img" aria-label="MSC Opera hero image">
-      <div class="latlon-grid" >
+      <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
           <g class="grid-lines" stroke-width="0.35">
             <line x1="10" y1="0" x2="10" y2="60"/><line x1="30" y1="0" x2="30" y2="60"/>
@@ -346,6 +368,7 @@ All work on this project is offered as a gift to God.
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" >A Cruise Traveler's Logbook</div>
+      <p class="hero-credit tiny">Hero layout and compass graphics by <a href="/authors/ken-baker.html">Ken Baker</a> for In the Wake.</p>
     </div>
   </header>
 
@@ -564,13 +587,7 @@ All work on this project is offered as a gift to God.
 
     
 
-    <!-- Placeholder sections -->
         <script type="application/json" id="ship-stats-fallback">{"slug":"msc-opera","name":"MSC Opera","cruise_line":"MSC Cruises","class":"Lirica Class","entered_service":2004,"delivered":"2004-06","lengthened":2015,"imo":"9250464","gt":"65,591 GT","guests":"1,756 (double) / 2,658 (max)","cabins":1075,"crew":"~728","length":"902 ft (275 m)","beam":"105 ft (32 m)","registry":"Panama","builder":"Chantiers de l'Atlantique (Alstom Marine), Saint-Nazaire","godmother":"Sophia Loren"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities on MSC Opera</h2>
-      <p>Entertainment on MSC Opera is centred on the <strong>Teatro dell'Opera</strong>, a two-deck production theatre on Decks 6-7 named after the ship. The Deck 6 public-room circuit adds the <strong>Cotton Club</strong>, the <strong>La Cabala Piano Bar</strong>, the <strong>Piazza di Spagna</strong> atrium lounge, and the <strong>Med Pearl Casino</strong>. Deck 7 holds the <strong>Sottovento Pub</strong>, Card Room, Library, Internet Point, Voyagers Club, and Guest Services. Late-night life moves to the <strong>Byblos Discoteca</strong> on Deck 12. Outdoor Deck 11 carries the <strong>Lo Spinnaker Pool Bar</strong> and the <strong>Doremy Spray Park</strong> added in the 2015 Renaissance refit for children. Wellness lives at the <strong>MSC Aurea Spa</strong> on Deck 11 with its massage area, thermal suite, relaxation room, and gym. Deck 12 has a power walking track; Deck 13 adds minigolf, shuffleboard, and the Top 13 Exclusive Solarium for Aurea Experience guests. Families have the Baby Club, Mini Club, Young Club, Junior Club, and Teen Club programmes run by MSC's multilingual youth staff. MSC Opera does NOT carry Cirque du Soleil at Sea, waterslides, or the MSC Yacht Club.</p>
-    </section>
 
     <section class="grid-2">
 
@@ -601,7 +618,6 @@ All work on this project is offered as a gift to God.
         <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
         <figcaption class="tiny">Simplified deck layout overview</figcaption>
       </figure>
-      <p><a href="https://www.msccruises.com/en-us/cruise-ships/msc-opera.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official MSC Opera Deck Plans →</a></p>
     </section>
 
       <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9250464" data-name="MSC-OPERA">
@@ -617,19 +633,7 @@ All work on this project is offered as a gift to God.
       </section>
     </section>
 
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare MSC Opera with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-  
 
-    <!-- Attribution Section -->
-    
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About MSC Opera</h2>
@@ -738,17 +742,17 @@ All work on this project is offered as a gift to God.
     </section>
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny">
-      <a href="/privacy.html">Privacy</a> &middot;
-      <a href="/terms.html">Terms</a> &middot;
-      <a href="/about-us.html">About</a> &middot;
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center dedication-hidden" >Soli Deo Gloria</p>
