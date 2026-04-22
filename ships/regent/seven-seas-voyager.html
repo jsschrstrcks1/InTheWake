@@ -140,7 +140,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Voyager Class ship operated by Regent Seven Seas Cruises.","name":"Seven Seas Voyager","brand":{"@type":"Organization","name":"Regent Seven Seas Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Seven Seas Voyager (Voyager Class, 42,363 GT, 700 guests, 2003) is Regent's all-suite Voyager Class ship featuring Pacific Rim, La Veranda, Compass Rose, and Prime 7 — delivering all-inclusive upscale on global itineraries."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Voyager Class ship operated by Regent Seven Seas Cruises.","name":"Seven Seas Voyager","brand":{"@type":"Organization","name":"Regent Seven Seas Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Seven Seas Voyager (Voyager Class, 42,363 GT, 700 guests, 447 crew, 2003) is Regent's second all-suite, all-balcony ship with 353 suites. Dining is fully inclusive: Compass Rose main dining room, Prime 7 steakhouse, Chartreuse French restaurant, La Veranda buffet (transforms to Sette Mari at La Veranda for Italian evenings), and the Pool Grill. Voyager has a loyal following among world-voyage passengers who prefer her intimate feel over the larger Explorer Class ships.","reviewRating":{"@type":"Rating","ratingValue":4.5,"bestRating":5}}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -149,18 +149,34 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What dining options are available on Seven Seas Voyager?",
+        "name": "What dining options are on Seven Seas Voyager?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Seven Seas Voyager offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship."
+          "text": "Seven Seas Voyager has six dining venues, all complimentary and included in Regent's all-inclusive fare: Compass Rose (main dining room, open seating), Prime 7 (steakhouse, reservations required), Chartreuse (French cuisine), La Veranda (buffet by day), Sette Mari at La Veranda (Italian, evening service), and Pool Grill (casual outdoor). Voyager does not have Pacific Rim as a dedicated restaurant — that venue is only on the Explorer Class ships."
         }
       },
       {
         "@type": "Question",
-        "name": "How do I find the deck plans for Seven Seas Voyager?",
+        "name": "How big is Seven Seas Voyager?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Deck plans are available through the links on this page. You can also find official deck plans on the Regent Seven Seas Cruises website or in the cruise planner app."
+          "text": "Seven Seas Voyager measures 42,363 gross tons with 353 suites (all with private balconies) and approximately 700 guests at double occupancy, served by a crew of 447. She entered service in 2003 as Regent's second all-suite, all-balcony ship."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Seven Seas Voyager compare to other Regent ships?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Voyager (2003, 42,363 GT, 700 guests) shares the 700-guest capacity of sister ship Mariner (2001, 48,075 GT) but is slightly more compact in tonnage. She is smaller than the Explorer Class ships — Explorer (2016), Splendor (2020), and Grandeur (2023), all 55,254 GT / 750 guests. She is larger than Navigator (1999, 28,550 GT, 490 guests)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is included in Regent's all-inclusive fare?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Regent's all-inclusive fare covers all dining with no surcharges, premium drinks and fine wines, unlimited shore excursions in every port, pre-paid gratuities, Wi-Fi, and a 1-night pre-cruise hotel stay in concierge suites and above. Inclusions are identical across the Regent fleet."
         }
       },
       {
@@ -168,23 +184,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "Where does Seven Seas Voyager sail?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ship deployments vary by season. Check the Regent Seven Seas Cruises website for current itineraries and departure ports for Seven Seas Voyager."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How can I track Seven Seas Voyager's current location?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is this information official?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This page provides planning resources and community insights. Always confirm details with Regent Seven Seas Cruises or your travel advisor before booking."
+          "text": "Seven Seas Voyager sails seasonal luxury itineraries including the Mediterranean, Caribbean, South America, Asia-Pacific, Africa, and repositioning voyages. Regent also deploys Voyager on multi-segment world cruise routes — she has a loyal following among world-voyage passengers."
         }
       }
     ]
@@ -261,7 +261,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <header class="hero-header" role="banner">
@@ -361,27 +362,31 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     </div>
   </header>
 
-  <main class="wrap" id="main-content" role="main" tabindex="-1">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="grid-column: 1 / -1;">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
       <a href="/cruise-lines/regent.html">Regent Seven Seas Cruises</a> &rsaquo;
       <span aria-current="page">Seven Seas Voyager</span>
     </nav>
 
+    <!-- Main Content Column -->
+    <section class="col-1" aria-label="Ship details">
+
     <h1 class="page-title">Seven Seas Voyager — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
     <!-- ICP-Lite: Page Intro -->
     <section class="page-intro" aria-label="Seven Seas Voyager overview">
       
-      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Seven Seas Voyager is a Voyager Class cruise ship operated by Regent Seven Seas Cruises. She entered service in 2003, measures 42,363 gross tons, and carries approximately 700 guests at double occupancy.</p>
+      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Seven Seas Voyager is a Voyager Class cruise ship operated by Regent Seven Seas Cruises. She entered service in 2003, measures 42,363 gross tons, and carries approximately 700 guests at double occupancy with a crew of 447.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> Voyager Class</li>
           <li><strong>Year:</strong> 2003</li>
           <li><strong>Tonnage:</strong> 42,363 GT</li>
           <li><strong>Guests:</strong> 700</li>
+          <li><strong>Crew:</strong> 447</li>
           <li><strong>IMO:</strong> 9247144</li>
         </ul>
       </div>
@@ -390,8 +395,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         <strong>Quick Answer:</strong> Seven Seas Voyager is Regent's second classic ship — 42,363 GT, 700 guests, launched in 2003. All-suite, all-balcony, and fully inclusive, she offers a slightly more intimate feel than Mariner with refined public spaces. This page covers deck plans, live tracking, dining venues, and videos.
       </p>
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Repeat Regent cruisers who appreciate a ship with character and a devoted crew. Voyager suits travelers who want Regent's all-inclusive promise on a mid-sized ship — smaller tonnage than the Explorer Class but the same 700-guest capacity as Mariner.
+      <p id="who-shes-for" class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <strong>Who She's For:</strong> Repeat Regent cruisers who appreciate a ship with character and a devoted crew. Voyager suits travelers who want Regent's all-inclusive promise on a mid-sized ship — smaller tonnage than the Explorer Class but the same 700-guest capacity as Mariner.
       </p>
 
       <p class="content-text">
@@ -423,35 +428,61 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
           </div>
         </section>
 
-        <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading"><img id="dining-hero" class="card-hero"
-             src="/assets/img/Cordelia_Empress_Food_Court.webp"
-             alt="Seven Seas Voyager dining venue" loading="lazy"/>
-Dining on Seven Seas Voyager</h2>
-      <p>Dining venue information coming soon. Regent Seven Seas Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
+    <section id="dining-card" class="card" data-ship="Seven Seas Voyager" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Seven Seas Voyager <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+          <noscript>
+            <h3>Main Dining</h3>
+            <ul>
+              <li><strong>Compass Rose</strong> — main dining room, open seating, complimentary</li>
+            </ul>
+            <h3>Specialty Restaurants</h3>
+            <ul>
+              <li><strong>Prime 7</strong> — steakhouse, complimentary (reservations required)</li>
+              <li><strong>Chartreuse</strong> — French cuisine, complimentary</li>
+              <li><strong>Sette Mari at La Veranda</strong> — Italian (evening service), complimentary</li>
+            </ul>
+            <h3>Buffet &amp; Casual</h3>
+            <ul>
+              <li><strong>La Veranda</strong> — buffet by day, transforms to Sette Mari in evening</li>
+              <li><strong>Pool Grill</strong> — casual outdoor grilled fare</li>
+            </ul>
+          </noscript>
+        </div>
 <script type="application/json" id="dining-data-source">{"provider":"regent","json":"/assets/data/venues-v2.json","ship_slug":"seven-seas-voyager","aliases":["Seven Seas Voyager"]}</script>
+    </section>
 
     <p class="subtitle">Regent Seven Seas Cruises &bull; Voyager Class</p>
 
-    <!-- Stub Notice -->
-    
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Seven Seas Voyager</h2>
       <div id="logbook-container" data-ship="seven-seas-voyager" data-line="regent">
-        <p class="placeholder">Stories and insights from cruisers who have sailed on Seven Seas Voyager will appear here.</p>
+        <noscript>
+          <article class="story">
+            <h3>About Seven Seas Voyager</h3>
+            <div class="story-body">
+              <p>Seven Seas Voyager entered service in 2003 as Regent's second all-suite, all-balcony cruise ship. At 42,363 GT and 700 guests served by a crew of 447, she shares the same guest capacity as Mariner but with slightly more compact tonnage. Her 353 suites all have private balconies. Voyager has a loyal following among world-voyage passengers who prefer her intimate feel over the larger Explorer Class ships. Regent's all-inclusive fare — Compass Rose, Prime 7, Chartreuse, La Veranda/Sette Mari, and Pool Grill dining, plus premium drinks, shore excursions, Wi-Fi, and gratuities — is identical to the rest of the fleet.</p>
+            </div>
+          </article>
+        </noscript>
       </div>
     </section>
 
+    <p class="mt-1">
+      <a href="https://www.rssc.com/ships/seven-seas-voyager" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
+        View Official Deck Plans →
+      </a>
+    </p>
 
     <!-- Videos Section -->
     <section class="card" aria-labelledby="video-highlights">
       <h2 id="video-highlights">Watch: Seven Seas Voyager Highlights</h2>
       <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
       <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-wrapper" id="featuredVideos">
+          <noscript><p>Video tours for Seven Seas Voyager are available on YouTube.</p></noscript>
+        </div>
         <div class="swiper-pagination" ></div>
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
@@ -473,7 +504,7 @@ Dining on Seven Seas Voyager</h2>
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
         mount.innerHTML=arr.slice(0,12).map(v=>{
           const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'Seven Seas Voyager').replace(/</g,'&lt;');
+          const title=String(v.title||'Seven Seas Voyager').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
         }).join('');
         if(mount.children.length&&window.Swiper){
@@ -508,58 +539,47 @@ Dining on Seven Seas Voyager</h2>
     })();
     </script>
 
-    
-
-<script type="application/json" id="ship-stats-fallback">{"slug":"seven-seas-voyager","name":"Seven Seas Voyager","cruise_line":"Regent Seven Seas Cruises","class":"Voyager Class","entered_service":2003,"gt":"42,363 GT","guests":"700","crew":"447"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
+<script type="application/json" id="ship-stats-fallback">{"slug":"seven-seas-voyager","name":"Seven Seas Voyager","cruise_line":"Regent Seven Seas Cruises","class":"Voyager Class","entered_service":2003,"gt":"42,363 GT","guests":"700","crew":"447","imo":"9247144"}</script>
 
     <section class="grid-2">
-      
+
     <!-- Ship Statistics -->
-    <section class="card" aria-labelledby="ship-stats-title">
-      <h2 id="ship-stats-title">Ship Statistics</h2>
+    <section class="card" aria-labelledby="statsHeading">
+      <h3 id="statsHeading">Key Facts About Seven Seas Voyager</h3>
       <div id="ship-stats" class="stats-grid" data-slug="seven-seas-voyager">
-        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">42,363 GT</div></div>
-        <div class="stat-item"><div class="label">Guests</div><div class="value">700</div></div>
-        <div class="stat-item"><div class="label">Crew</div><div class="value">447</div></div>
-        <div class="stat-item"><div class="label">Entered Service</div><div class="value">2003</div></div>
-        <div class="stat-item"><div class="label">Class</div><div class="value">Voyager Class</div></div>
+        <noscript>
+          <div class="stat-item"><div class="label">Class</div><div class="value">Voyager Class</div></div>
+          <div class="stat-item"><div class="label">Entered Service</div><div class="value">2003</div></div>
+          <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">42,363 GT</div></div>
+          <div class="stat-item"><div class="label">Guests</div><div class="value">700</div></div>
+          <div class="stat-item"><div class="label">Crew</div><div class="value">447</div></div>
+          <div class="stat-item"><div class="label">Suites</div><div class="value">353 (all-balcony)</div></div>
+          <div class="stat-item"><div class="label">Registry</div><div class="value">Bahamas (Nassau)</div></div>
+          <div class="stat-item"><div class="label">IMO</div><div class="value">9247144</div></div>
+        </noscript>
       </div>
     </section>
+
     <section class="card" aria-labelledby="deck-plans">
       <h2 id="deck-plans">Seven Seas Voyager Deck Plans</h2>
-      <p>View the official deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
-      <p><a href="https://www.rssc.com/ships/seven-seas-voyager" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Deck Plans →</a></p>
+      <p>Seven Seas Voyager spans 12 passenger decks with 353 all-suite, all-balcony accommodations. View the official deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
+      <figure>
+        <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
+        <figcaption class="tiny">Simplified deck layout overview</figcaption>
+      </figure>
     </section>
 
-<section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Seven Seas Voyager Deck Plans</h2>
-        <p>View the official deck plans to explore Seven Seas Voyager's layout.</p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview — not specific to Seven Seas Voyager" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure>
-        <p><a class="btn" href="https://www.rssc.com/" target="_blank" rel="noopener">Visit Regent Official Site</a></p>
-      </section>
       <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9247144" data-name="SEVEN-SEAS-VOYAGER">
-        <h2 id="liveTrackHeading">Where Is Seven Seas Voyager?</h2>
-        <p>Track Seven Seas Voyager's current position and upcoming itinerary.</p>
-        <p><a class="btn" href="https://www.cruisemapper.com/?search=Seven%20Seas%20Voyager" target="_blank" rel="noopener">Open Live Tracker</a></p>
+        <h2 id="liveTrackHeading">Where Is Seven Seas Voyager Right Now?</h2>
+        <p>See Seven Seas Voyager's current position, speed, heading, and next port on the live AIS tracker below.</p>
+        <div id="vf-tracker-container" class="tracker-container">
+          <iframe title="Seven Seas Voyager live position tracker" src="https://www.vesselfinder.com/aismap?imo=9247144&amp;zoom=4&amp;names=true" width="100%" height="380" frameborder="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <noscript>
+            <p>Live tracking requires JavaScript. You can track Seven Seas Voyager (IMO 9247144) directly at <a href="https://www.vesselfinder.com/vessels/details/9247144" target="_blank" rel="noopener">VesselFinder</a> or <a href="https://www.cruisemapper.com/ships/Seven-Seas-Voyager-96" target="_blank" rel="noopener">CruiseMapper</a>.</p>
+          </noscript>
+        </div>
+        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
       </section>
-    </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Seven Seas Voyager with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
     </section>
   
 
@@ -567,37 +587,44 @@ Dining on Seven Seas Voyager</h2>
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Seven Seas Voyager</h2>
 
-      <details  class="section-divider">
-        <summary>What dining options are available on Seven Seas Voyager?</summary>
-        <p  class="list-indent">Seven Seas Voyager offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship.</p>
+      <details class="faq-item section-divider">
+        <summary>What dining options are on Seven Seas Voyager?</summary>
+        <p class="faq-answer list-indent">Seven Seas Voyager has six dining venues — all complimentary and included in Regent's all-inclusive fare. <strong>Compass Rose</strong> is the open-seating main dining room. Specialty restaurants include <strong>Prime 7</strong> (steakhouse, reservations required), <strong>Chartreuse</strong> (French cuisine), and <strong>Sette Mari at La Veranda</strong> (Italian, evening service). <strong>La Veranda</strong> serves buffet breakfast and lunch and transforms into Sette Mari each evening. <strong>Pool Grill</strong> handles casual outdoor dining. Voyager does not have Pacific Rim — that venue is only on Explorer Class ships. See the <a href="#dining-card">Dining section</a> above.</p>
       </details>
 
-      <details  class="section-divider">
-        <summary>How do I find the deck plans for Seven Seas Voyager?</summary>
-        <p  class="list-indent">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.rssc.com" target="_blank" rel="noopener">Regent Seven Seas Cruises</a> website or in the cruise planner app.</p>
+      <details class="faq-item section-divider">
+        <summary>How big is Seven Seas Voyager and how many guests does she carry?</summary>
+        <p class="faq-answer list-indent">Seven Seas Voyager measures <strong>42,363 gross tons</strong> with <strong>353 suites</strong> (all with private balconies) and approximately <strong>700 guests</strong> at double occupancy, served by a crew of <strong>447</strong>. She entered service in 2003 as Regent's second all-suite, all-balcony ship after Mariner.</p>
       </details>
 
-      <details  class="section-divider">
+      <details class="faq-item section-divider">
+        <summary>How does Seven Seas Voyager compare to other Regent ships?</summary>
+        <p class="faq-answer list-indent">Seven Seas Voyager (2003, 42,363 GT, 700 guests) shares her 700-guest capacity with <a href="/ships/regent/seven-seas-mariner.html">Seven Seas Mariner</a> (2001, 48,075 GT) but is slightly more compact in tonnage. She is smaller than the Explorer Class — <a href="/ships/regent/seven-seas-explorer.html">Explorer</a> (2016), <a href="/ships/regent/seven-seas-splendor.html">Splendor</a> (2020), and <a href="/ships/regent/seven-seas-grandeur.html">Grandeur</a> (2023) — all 55,254 GT / 750 guests. She is larger than <a href="/ships/regent/seven-seas-navigator.html">Navigator</a> (490 guests).</p>
+      </details>
+
+      <details class="faq-item section-divider">
+        <summary>What is included in Regent's all-inclusive fare on Seven Seas Voyager?</summary>
+        <p class="faq-answer list-indent">Regent's all-inclusive fare covers all dining (main and specialty restaurants with no surcharges), premium drinks and fine wines, unlimited shore excursions in every port, pre-paid gratuities, Wi-Fi, and a 1-night pre-cruise hotel stay in concierge suites and above. Inclusions are identical across the Regent fleet.</p>
+      </details>
+
+      <details class="faq-item">
         <summary>Where does Seven Seas Voyager sail?</summary>
-        <p  class="list-indent">Ship deployments vary by season. Check the <a href="https://www.rssc.com" target="_blank" rel="noopener">Regent Seven Seas Cruises</a> website for current itineraries and departure ports for Seven Seas Voyager.</p>
-      </details>
-
-      <details  class="section-divider">
-        <summary>How can I track Seven Seas Voyager's current location?</summary>
-        <p  class="list-indent">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary>Is this information official?</summary>
-        <p  class="list-indent">This page provides planning resources and community insights. Always confirm details with <a href="https://www.rssc.com" target="_blank" rel="noopener">Regent Seven Seas Cruises</a> or your travel advisor before booking.</p>
+        <p class="faq-answer list-indent">Seven Seas Voyager sails seasonal luxury itineraries including the Mediterranean, Caribbean, South America, Asia-Pacific, Africa, and repositioning voyages. She has a loyal following among world-voyage passengers and is often deployed on multi-segment world cruise routes. Check the <a href="#liveTrackHeading">live tracker</a> above for current position.</p>
       </details>
     </section>
 
     <section class="card attributions">
-      <h3>Sources & Attribution</h3>
-      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+      <h3>Sources &amp; Attribution</h3>
+      <ul class="small">
+        <li>IMO and live position verified against <a href="https://www.vesselfinder.com/vessels/details/9247144" target="_blank" rel="noopener">VesselFinder (IMO 9247144)</a>.</li>
+        <li>Dining venues confirmed via Cruise Critic ship-specific dining review, Luxury Cruise Review, and RSSC official materials (2024-2025 season).</li>
+        <li>Ship specifications from Regent Seven Seas Cruises official materials and Travel Weekly ship profile.</li>
+        <li>Cruise Critic editor rating: 4.5/5.</li>
+      </ul>
     </section>
-  
+
+    </section><!-- End col-1 -->
+
 
     <aside class="rail col-2" role="complementary" aria-label="Quick navigation and author info">
       <section class="card" id="recent-rail-nav-top" aria-labelledby="nav-top-title">
@@ -641,10 +668,12 @@ Dining on Seven Seas Voyager</h2>
 
       <section class="card" id="recent-rail-nav-bottom" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <div id="recent-rail" class="rail-list" aria-live="polite">
+          <noscript><ul style="list-style:none;padding:0;"><li><a href="/solo/solo-cruising-practical-guide.html">Solo Cruising Guide</a></li></ul></noscript>
+        </div>
       </section>
     
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"><noscript><h3 style="margin:0 0 0.5rem;">Ship Size</h3><p class="tiny">Seven Seas Voyager carries 700 guests in 353 all-suite, all-balcony accommodations — Regent's second all-suite, all-balcony ship.</p></noscript></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -692,6 +721,7 @@ Dining on Seven Seas Voyager</h2>
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+<script src="/assets/js/whimsical-ship-units.js" defer></script>
   <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>
