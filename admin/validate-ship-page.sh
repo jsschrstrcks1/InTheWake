@@ -1097,18 +1097,22 @@ if [ -n "$FACT_BLOCK" ]; then
 fi
 
 # ============================================================================
-# Section 9o: page.json Data File
+# Section 9o: page.json Data File (info-only)
 # ============================================================================
-section_header "Section 9o: page.json Data File"
+# NOTE (2026-04-26): page.json files exist as future-shape data but are NOT
+# currently read by any site code (no JS loader, no template, no fetch). The
+# previous "drives prefetching, tracker config, dining sources" warning was
+# false — the loader was never built. The check is kept as info because the
+# files contain genuine reference data (IMO, builder, fate) that downstream
+# tools may eventually consume. Do NOT add new fields just to make this check
+# pass; that produced documented gaming (see admin/GAMING_AUDIT_2026-04-26.md).
+section_header "Section 9o: page.json Data File (info-only)"
 
-# Ship pages should have a companion page.json in assets/data/ships/[line]/
 PAGE_JSON="${REPO_ROOT}/assets/data/ships/$(echo "$FILE" | grep -oP 'ships/\K[^/]+')/${SHIP_SLUG}.page.json"
 if [ -n "$SHIP_SLUG" ] && [ -f "$PAGE_JSON" ]; then
-    check_pass "page.json data file exists at $(echo "$PAGE_JSON" | sed "s|$REPO_ROOT/||")"
-else
-    if [ -n "$SHIP_SLUG" ]; then
-        check_warn "No page.json at assets/data/ships/$(echo "$FILE" | grep -oP 'ships/\K[^/]+')/${SHIP_SLUG}.page.json — drives prefetching, tracker config, dining sources"
-    fi
+    check_pass "page.json present at $(echo "$PAGE_JSON" | sed "s|$REPO_ROOT/||") (informational — no live loader)"
+elif [ -n "$SHIP_SLUG" ]; then
+    check_pass "No page.json at assets/data/ships/$(echo "$FILE" | grep -oP 'ships/\K[^/]+')/${SHIP_SLUG}.page.json (acceptable — file is unread by site code)"
 fi
 
 # ============================================================================
