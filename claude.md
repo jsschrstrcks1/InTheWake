@@ -96,7 +96,19 @@ Before touching anything:
 
 **NEVER USE TRAINING DATA AS A SOURCE.** Do not populate ship stats, IMO numbers, crew counts, tonnage, guest capacity, build dates, or any factual data from your training knowledge. Use ONLY data already present on the page, in the repository's JSON files, or obtained through original research (WebSearch, WebFetch, /consult, /investigate). If data cannot be found through original research, flag it as unknown — do not fill it in from memory. Training data is unverifiable and this site serves real people making real decisions.
 
-**NEVER GAME THE VALIDATOR.** Do not reverse-engineer regex patterns to pass automated checks. Write for humans first. If the prose is genuine and follows the voice standard, it passes on its own merit. Violation is a **BLOCKING integrity failure** — no exceptions.
+**NEVER GAME THE VALIDATOR.** Do not reverse-engineer regex patterns to pass automated checks. Write for humans first. If the prose is genuine and follows the voice standard, it passes on its own merit. Violation is a **BLOCKING integrity failure** — no exceptions. Specific patterns that count as gaming and have actually been observed in the history of this repo:
+- Weakening a factually correct statement to dodge a regex (e.g., "first ship" → "founding vessel")
+- Adding fields to data files that no validator reads (e.g., `compliance.permanent_exemptions`) to make a report look better
+- Reporting "fixed N warnings" against a stale validator while the canonical validator is unchanged
+
+### Canonical Ship Validator
+
+The single authoritative ship-page validator is **`admin/validate-ship-page.sh`**. It is wired to:
+- The Claude Code post-write hook: `.claude/hooks/ship-page-validator.sh`
+- The git pre-commit hook: `.githooks/pre-commit` (enable with `git config core.hooksPath .githooks`)
+- The page-type dispatcher: `admin/validate.js` routes ship pages to it
+
+The previous JavaScript validator lives in `admin/legacy/validate-ship-page.js` for reference only — it enforced obsolete rules (ICP-Lite v1.4, ai-breadcrumbs comments, character-identical descriptions) that ICP-2 explicitly removed. Do not resurrect it without porting its checks into the canonical shell validator first. See `admin/legacy/README.md`.
 
 **SDG invocation is IMMUTABLE.** Every HTML file must have the Soli Deo Gloria comment before line 20. This cannot be removed, shortened, or relocated — not for SEO, not for performance, not for anything.
 

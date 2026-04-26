@@ -36,7 +36,10 @@ let validationResults;
 try {
   validationResults = JSON.parse(fs.readFileSync(VALIDATION_RESULTS_PATH, 'utf8'));
 } catch (e) {
-  console.error('Error: Run validation first: node admin/validate-ship-page.js --all-ships --json-output > /tmp/validation-results.json');
+  console.error('Error: Run validation first to produce /tmp/validation-results.json.');
+  console.error('       This script depends on the legacy JS validator (admin/legacy/validate-ship-page.js)');
+  console.error('       which produced JSON-output scores. The canonical validate-ship-page.sh does not');
+  console.error('       emit JSON; either run the legacy script or rewrite this helper against the .sh.');
   process.exit(1);
 }
 

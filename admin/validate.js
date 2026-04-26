@@ -11,7 +11,7 @@
  * 3. File path pattern detection
  *
  * Supported page types:
- * - ship: Ship profile pages (validate-ship-page.js)
+ * - ship: Ship profile pages (validate-ship-page.sh — canonical)
  * - ship-historic: Historic/retired ship pages (validate-historic-ship-page.js)
  * - port: Port/destination pages (validate-port-page-v2.js)
  * - venue: Venue pages (validate-venue-page-v2.js)
@@ -53,9 +53,12 @@ const colors = {
   dim: '\x1b[2m'
 };
 
-// Page type to validator mapping
+// Page type to validator mapping.
+// Ship validation is the shell script — it is the single canonical ship
+// validator. The previous JS implementation lives in admin/legacy/ for
+// reference; see admin/legacy/README.md for the rationale.
 const VALIDATORS = {
-  'ship': 'validate-ship-page.js',
+  'ship': 'validate-ship-page.sh',
   'ship-historic': 'validate-historic-ship-page.js',
   'port': 'validate-port-page-v2.js',
   'article': 'validate-recent-articles.js',

@@ -3802,8 +3802,10 @@ function validateBasicHTML($, html) {
 
   // NAV-001 orphan closure (2026-04-16): canonical navigation must include all required links
   // See admin/validator-spec/rules/NAV-001.md
-  // NOTE: this list mirrors validate-ship-page.js REQUIRED_NAV_ITEMS (line 263-270).
-  // If either list changes, update both. Future cleanup: consolidate into shared constant.
+  // NOTE: this list mirrors the REQUIRED_NAV_ITEMS that lived in the retired
+  // validate-ship-page.js (now admin/legacy/validate-ship-page.js, lines 263-270).
+  // The canonical ship validator is admin/validate-ship-page.sh; if its nav
+  // expectations diverge from this list, update both.
   const NAV_REQUIRED = [
     '/planning.html', '/ships.html', '/restaurants.html', '/ports.html',
     '/internet-at-sea.html', '/drink-packages.html', '/drink-calculator.html',
