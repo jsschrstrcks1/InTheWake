@@ -175,7 +175,10 @@ const WORD_COUNT_REQUIREMENTS = {
 // =============================================================================
 const FORBIDDEN_PATTERNS = [
   // Brochure/sales language (warnings - stylistic issues)
-  { pattern: /you'll love/i, category: 'brochure', severity: 'warning' },
+  // "You'll love X if" is reader-scaffolding (self-selection), not brochure
+  // promotion. Fire only when followed by an unconditional claim.
+  { pattern: /you'll love/i, category: 'brochure', severity: 'warning',
+    allowed_context: /you'll love [^.]{0,80}\bif\b/i },
   { pattern: /perfect for/i, category: 'brochure', severity: 'warning' },
   { pattern: /ideal choice/i, category: 'brochure', severity: 'warning' },
   { pattern: /value[- ]packed/i, category: 'brochure', severity: 'warning' },
@@ -193,7 +196,13 @@ const FORBIDDEN_PATTERNS = [
   // Drinking/nightlife (blocking)
   { pattern: /\b(bar hop|bar-hop|pub crawl|pub-crawl)\b/i, category: 'drinking' },
   { pattern: /\b(get drunk|getting drunk|wasted|hammered|tipsy)\b/i, category: 'drinking' },
-  { pattern: /\b(nightlife|night life|nightclub|night club)\b/i, category: 'nightlife' },
+  // Match the *activity* (nightlife / night life) — not the *venue type*
+  // (nightclub). Listing onboard venues like "Jesters Disco & Nightclub"
+  // is factual naming, not promotion. Also allow nightlife inside
+  // disqualifying scaffolding ("you may prefer a different ship if you want
+  // livelier nightlife") — that copy helps readers self-select away.
+  { pattern: /\b(nightlife|night life)\b/i, category: 'nightlife',
+    allowed_context: /(may prefer|prefer a different|not the (?:right|best)|if you want|looking for)[^.]{0,120}\b(nightlife|night life)\b/i },
   { pattern: /\b(let loose|go wild|get wild|cut loose)\b/i, category: 'partying' },
   { pattern: /\b(happy hour|cocktail hour|wine tasting|beer flight)\b/i, category: 'drinking', severity: 'warning' },
   // Gambling (warning with allowed context)
@@ -445,10 +454,13 @@ function validateAIBreadcrumbs(html, shipName) {
   const warnings = [];
   const data = {};
 
+  // ICP-2 explicitly removed ai-breadcrumbs HTML comments ("no crawler reads
+  // HTML comments"). Absence is the correct state. If the comment IS present,
+  // validate its shape (some legacy pages still have them); if it's absent,
+  // pass silently.
   const match = html.match(/<!--\s*ai-breadcrumbs([\s\S]*?)-->/i);
   if (!match) {
-    errors.push({ section: 'ai_breadcrumbs', rule: 'missing', message: 'Missing AI-Breadcrumbs comment', severity: 'BLOCKING' });
-    return { valid: false, errors, warnings, data };
+    return { valid: true, errors, warnings, data };
   }
 
   const content = match[1];
@@ -512,8 +524,13 @@ function validateICPLite($) {
   const lastReviewed = $('meta[name="last-reviewed"]').attr('content') || '';
   const protocol = $('meta[name="content-protocol"]').attr('content') || '';
 
-  if (protocol !== 'ICP-Lite v1.4') {
-    errors.push({ section: 'icp_lite', rule: 'protocol_version', message: `Invalid content-protocol. Expected "ICP-Lite v1.4", found "${protocol}"`, severity: 'BLOCKING' });
+  // ICP-2 (the current standard, see .claude/skills/icp-2/SKILL.md) demoted
+  // content-protocol from blocking to optional. Accept ICP-2 (current),
+  // ICP-Lite v1.4 (predecessor still used by a couple of legacy pages),
+  // or absent.
+  const ACCEPTED_PROTOCOLS = ['ICP-2', 'ICP-Lite v1.4', ''];
+  if (!ACCEPTED_PROTOCOLS.includes(protocol)) {
+    warnings.push({ section: 'icp_lite', rule: 'protocol_unknown', message: `Unknown content-protocol "${protocol}" — expected one of: ${ACCEPTED_PROTOCOLS.filter(p=>p).join(', ')}`, severity: 'WARNING' });
   }
 
   if (!aiSummary) {
@@ -601,9 +618,14 @@ function validateJSONLD($, filepath) {
     const aiSummary = $('meta[name="ai-summary"]').attr('content') || '';
     const lastReviewed = $('meta[name="last-reviewed"]').attr('content') || '';
 
+    // ICP-2 relaxed character-identical match to "consistent with" — exact
+    // match was brittle process overhead. Warn (not block) when descriptions
+    // diverge so a maintainer can sanity-check, but don't fail the build.
     if (normalize(webPage.description) !== normalize(aiSummary)) {
-      errors.push({ section: 'json_ld', rule: 'description_mismatch', message: 'WebPage description must match ai-summary', severity: 'BLOCKING' });
+      warnings.push({ section: 'json_ld', rule: 'description_drift', message: 'WebPage description and ai-summary differ — ICP-2 wants them consistent in meaning, not character-identical', severity: 'WARNING' });
     }
+    // ICP-2 keeps dateModified ↔ last-reviewed as a hard data-integrity rule.
+    // Conflicting dates lie to AI and humans about content freshness.
     if (webPage.dateModified !== lastReviewed) {
       errors.push({ section: 'json_ld', rule: 'datemodified_mismatch', message: `WebPage dateModified (${webPage.dateModified}) must match last-reviewed (${lastReviewed})`, severity: 'BLOCKING' });
     }
@@ -1486,15 +1508,21 @@ function validateImages($, isHistoric = false, filepath = '') {
       }
     }
   } else {
-    // Check if page has a dining section - if so, it needs a dining-hero image
-    const hasDiningSection = $('[id="dining"], [aria-labelledby="dining"], section.card:contains("Dining")').length > 0;
-    if (hasDiningSection) {
-      errors.push({
-        section: 'images',
-        rule: 'missing_dining_hero',
-        message: 'Dining section exists but missing dining-hero image (see SHIP-005 tiered acceptance policy)',
-        severity: 'BLOCKING'
-      });
+    // No #dining-hero element — check whether the dining section has any
+    // image at all. Gold-standard pages use id="dining-card" with images
+    // inside; the rule used to demand #dining-hero specifically and false-
+    // positived on every gold-standard page.
+    const diningSection = $('[id="dining-card"], [id="dining"], [aria-labelledby^="dining"]').first();
+    if (diningSection.length > 0) {
+      const hasImageInDining = diningSection.find('img').length > 0;
+      if (!hasImageInDining) {
+        warnings.push({
+          section: 'images',
+          rule: 'dining_section_no_image',
+          message: 'Dining section has no <img> at all — readers see a text-only block where a venue or dining-room photo would help',
+          severity: 'WARNING'
+        });
+      }
     }
   }
 
@@ -2839,9 +2867,28 @@ function validateAccessibilityKeywords($) {
   return { valid: errors.length === 0, errors, warnings, data: { accessibilityMentions, count: accessibilityMentions.length } };
 }
 
+// Hub pages live under ships/<line>/ but are NOT ship pages — they are fleet
+// indexes or topic hubs. Running ship checks against them produces nonsense.
+// Match the exclusion list maintained in admin/validate-ship-page.sh.
+const HUB_PAGE_BASENAMES = new Set(['index.html', 'venues.html', 'quiz.html']);
+
 async function validateShipPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const slug = basename(filepath, '.html');
+
+  if (HUB_PAGE_BASENAMES.has(basename(filepath))) {
+    return {
+      file: relPath,
+      slug,
+      valid: true,
+      score: 100,
+      blocking_errors: [],
+      warnings: [],
+      info: [{ message: `Skipped: ${basename(filepath)} is a hub page, not a ship page.` }],
+      isHub: true
+    };
+  }
+
   const results = {
     file: relPath,
     slug,
@@ -3139,39 +3186,78 @@ function validateRuntimeDataSources(html, filepath) {
   const errors = [];
   const warnings = [];
 
-  const cruiseLine = extractCruiseLine(filepath);
-  const slug = basename(filepath, '.html');
+  // Extract SOURCES = [abs(...), abs(...)] cascades — these are intentional
+  // fallback chains. The reader sees content if AT LEAST ONE source resolves.
+  // Older versions of this check counted each missing path independently and
+  // false-positived on every fallback that wasn't needed.
+  const cascadeMatches = [...html.matchAll(/SOURCES\s*=\s*\[([^\]]+)\]/g)];
+  const cascades = cascadeMatches.map(m => {
+    const refs = [...m[1].matchAll(/abs\(['"]([^'"]+\.json)['"]\)/g)].map(r => r[1]);
+    return refs;
+  }).filter(c => c.length > 0);
 
-  // Extract all JSON paths from abs('...json') and fetch('...json') patterns
-  const absRefs = [...html.matchAll(/abs\(['"]([^'"]+\.json)['"]\)/g)].map(m => m[1]);
-  const fetchRefs = [...html.matchAll(/fetch\(['"]([^'"]+\.json)['"]/g)].map(m => m[1]);
-  const allRefs = [...new Set([...absRefs, ...fetchRefs])];
+  // Refs that aren't part of any SOURCES cascade — flat fetch() calls.
+  const cascadedRefs = new Set(cascades.flat());
+  const flatFetchRefs = [...html.matchAll(/fetch\(['"]([^'"]+\.json)['"]/g)]
+    .map(m => m[1])
+    .filter(r => !cascadedRefs.has(r));
+  const flatAbsRefs = [...html.matchAll(/abs\(['"]([^'"]+\.json)['"]\)/g)]
+    .map(m => m[1])
+    .filter(r => !cascadedRefs.has(r));
 
-  // Skip global/shared files that aren't page-specific
-  const SHARED_FILES = ['/assets/data/articles/index.json', '/data/authors.json', '/assets/data/ship-quiz-data-v2.json'];
+  const SHARED_FILES = new Set([
+    '/assets/data/articles/index.json',
+    '/data/authors.json',
+    '/assets/data/ship-quiz-data-v2.json',
+    '/assets/data/venues.json',
+    '/assets/data/venues-v2.json'
+  ]);
 
+  // Helper: does any path in the array resolve on disk?
+  const anyResolves = (paths) => paths.some(p =>
+    existsSync(join(PROJECT_ROOT, p.replace(/^\//, '')))
+  );
+
+  // Cascades: warn only if NONE of the fallbacks exist on disk.
+  const brokenCascades = cascades.filter(refs => !anyResolves(refs));
+  if (brokenCascades.length > 0) {
+    warnings.push({
+      section: 'runtime_data',
+      rule: 'broken_cascade',
+      message: `${brokenCascades.length} runtime data cascade(s) have no source resolving on disk. Example: ${brokenCascades[0].join(' → ')}. Reader sees empty section.`,
+      severity: 'WARNING'
+    });
+  }
+
+  // Flat refs: each is checked individually; missing → warn, malformed → error.
+  const flatRefs = [...new Set([...flatFetchRefs, ...flatAbsRefs])];
   let missingCount = 0;
   const missingPaths = [];
   let emptyCount = 0;
   const emptyPaths = [];
 
-  for (const ref of allRefs) {
-    if (SHARED_FILES.includes(ref)) continue;
+  // Also parse-check every existing file in cascades (parse errors are real
+  // bugs even if a fallback would mask them — silent fallback hides root cause).
+  const allRefsToCheck = [...new Set([...flatRefs, ...cascades.flat()])];
+  for (const ref of allRefsToCheck) {
+    if (SHARED_FILES.has(ref)) continue;
 
     const localPath = join(PROJECT_ROOT, ref.replace(/^\//, ''));
 
     if (!existsSync(localPath)) {
-      missingCount++;
-      missingPaths.push(ref);
+      // Skip; cascade-level handling above already reported broken cascades.
+      // Only count missing for flat refs.
+      if (flatRefs.includes(ref)) {
+        missingCount++;
+        missingPaths.push(ref);
+      }
       continue;
     }
 
-    // Check content — is the JSON non-trivial?
     try {
       const content = readFileSync(localPath, 'utf8');
       const data = JSON.parse(content);
 
-      // Determine data type and check emptiness
       if (ref.includes('video')) {
         const videos = data.videos || data;
         const count = Array.isArray(videos) ? videos.length :
@@ -3187,7 +3273,6 @@ function validateRuntimeDataSources(html, filepath) {
           emptyPaths.push(`${ref} (0 stories)`);
         }
       } else if (ref.includes('stats') || ref.includes('ships')) {
-        // Stats JSON should have at least some spec data
         const keys = Object.keys(data);
         if (keys.length < 3) {
           emptyCount++;
@@ -3208,7 +3293,7 @@ function validateRuntimeDataSources(html, filepath) {
     warnings.push({
       section: 'runtime_data',
       rule: 'missing_json_sources',
-      message: `${missingCount} runtime JSON source(s) not found on disk: ${missingPaths.slice(0, 3).join(', ')}${missingCount > 3 ? ` and ${missingCount - 3} more` : ''}. Page may show empty sections to readers.`,
+      message: `${missingCount} flat runtime JSON source(s) not found: ${missingPaths.slice(0, 3).join(', ')}${missingCount > 3 ? ` and ${missingCount - 3} more` : ''}.`,
       severity: 'WARNING'
     });
   }

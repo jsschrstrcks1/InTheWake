@@ -53,12 +53,16 @@ const colors = {
   dim: '\x1b[2m'
 };
 
-// Page type to validator mapping.
-// Ship validation is the shell script — it is the single canonical ship
-// validator. The previous JS implementation lives in admin/legacy/ for
-// reference; see admin/legacy/README.md for the rationale.
+// Page type to validator mapping. A value can be either a single script name
+// or an array of script names; arrays are run in order and the page is
+// considered valid only if ALL listed validators pass.
+//
+// Ship pages run both validators because they have complementary coverage:
+//   .sh — structural / ICP-2 / per-section rules (158+ checks)
+//   .js — DOM-based, Layer-2 runtime data, JSON parseability, cross-cutting
+// See claude/review-ship-validation history for the empirical comparison.
 const VALIDATORS = {
-  'ship': 'validate-ship-page.sh',
+  'ship': ['validate-ship-page.sh', 'validate-ship-page.js'],
   'ship-historic': 'validate-historic-ship-page.js',
   'port': 'validate-port-page-v2.js',
   'article': 'validate-recent-articles.js',
@@ -357,15 +361,23 @@ async function validatePage(filepath, options = {}) {
       }
     }
 
-    // Run type-specific validator if available
-    const validatorScript = VALIDATORS[result.pageType];
+    // Run type-specific validator(s) if available. The mapping value can be
+    // a single script name (string) or an array of scripts to run in order.
+    const validatorEntry = VALIDATORS[result.pageType];
+    const validatorScripts = Array.isArray(validatorEntry)
+      ? validatorEntry
+      : (validatorEntry ? [validatorEntry] : []);
     // Mobile blocking errors contribute to overall pass/fail
     const mobileBlocking = result.mobileValidation.blocking ? result.mobileValidation.blocking.length : 0;
 
-    if (validatorScript) {
-      const typeResult = await runValidator(validatorScript, filepath, options);
-      result.typeValidation = typeResult;
-      result.valid = typeResult.success && basicResult.errors.length === 0 && mobileBlocking === 0;
+    if (validatorScripts.length > 0) {
+      result.typeValidation = { success: true, runs: [] };
+      for (const script of validatorScripts) {
+        const typeResult = await runValidator(script, filepath, options);
+        result.typeValidation.runs.push({ script, ...typeResult });
+        if (!typeResult.success) result.typeValidation.success = false;
+      }
+      result.valid = result.typeValidation.success && basicResult.errors.length === 0 && mobileBlocking === 0;
     } else if (result.pageType === 'unknown') {
       result.typeValidation = {
         success: false,
@@ -435,9 +447,18 @@ function printResult(result, options = {}) {
       }
     }
 
-    // Print type validation errors if failed
-    if (!result.typeValidation.success && result.typeValidation.error) {
-      console.log(`  ${colors.red}[type-validator]${colors.reset} ${result.typeValidation.error}`);
+    // Print type validation errors if failed (single-script form OR per-run form)
+    if (!result.typeValidation.success) {
+      if (result.typeValidation.error) {
+        console.log(`  ${colors.red}[type-validator]${colors.reset} ${result.typeValidation.error}`);
+      }
+      if (Array.isArray(result.typeValidation.runs)) {
+        for (const run of result.typeValidation.runs) {
+          if (!run.success) {
+            console.log(`  ${colors.red}[${run.script}]${colors.reset} exit ${run.exitCode}`);
+          }
+        }
+      }
     }
   }
 }

@@ -3621,6 +3621,104 @@ else
 fi
 
 # ============================================================================
+# Section 9em: Cross-line dining hero image
+# ============================================================================
+# Ports a check from the retired admin/legacy/validate-ship-page.js. The dining
+# hero <img id="dining-hero"> on RCL pages must not reference a ship from a
+# different cruise line. Caught Cordelia_Empress_Food_Court appearing on 20
+# RCL pages plus active Celebrity pages.
+section_header "Section 9em: Cross-line dining hero image"
+
+DINING_HERO_SRC=$(echo "$CONTENT" | grep -oP 'id="dining-hero"[^>]*src="\K[^"]+' | head -1)
+if [ -n "$DINING_HERO_SRC" ]; then
+    LINE_DIR=$(echo "$FILE" | grep -oP 'ships/\K[^/]+')
+    # Explicit reject: known cross-line stock image
+    if echo "$DINING_HERO_SRC" | grep -qi 'Cordelia_Empress'; then
+        check_fail "Dining hero <img id=\"dining-hero\"> uses Cordelia Empress image (different cruise line entirely): $DINING_HERO_SRC"
+    # Otherwise: src should live under /assets/ships/<line>/ or /assets/img/<line>_*
+    elif echo "$DINING_HERO_SRC" | grep -qE "^/assets/ships/${LINE_DIR}/|^/assets/img/${LINE_DIR}[-_]|^/assets/ships/${LINE_DIR}_"; then
+        check_pass "Dining hero is from the same cruise line ($LINE_DIR)"
+    elif echo "$DINING_HERO_SRC" | grep -qE "^https?://"; then
+        check_warn "Dining hero is an external URL ($DINING_HERO_SRC) — prefer locally hosted ship-line images"
+    else
+        check_warn "Dining hero src does not live under /assets/ships/${LINE_DIR}/ or /assets/img/${LINE_DIR}_ — verify it is not from another cruise line: $DINING_HERO_SRC"
+    fi
+else
+    check_pass "No dining-hero image to cross-check (acceptable — dining-card hero is structural)"
+fi
+
+# ============================================================================
+# Section 9en: dateModified must equal last-reviewed
+# ============================================================================
+# Ports json_ld/datemodified_mismatch from the retired JS validator. ICP-2
+# treats the dateModified ↔ last-reviewed link as data integrity — conflicting
+# dates lie to AI consumers and humans about content freshness.
+# Found 5 RCL ships with mismatches up to 107 days; e.g. mariner-of-the-seas
+# said last-reviewed=2026-04-12 while dateModified=2025-12-27.
+section_header "Section 9en: dateModified ↔ last-reviewed parity"
+
+LAST_REVIEWED=$(echo "$CONTENT" | grep -oP 'name="last-reviewed"\s+content="\K[0-9-]+' | head -1)
+if [ -n "$LAST_REVIEWED" ]; then
+    # Collect every distinct dateModified value in JSON-LD blocks.
+    DM_VALUES=$(echo "$CONTENT" | grep -oP '"dateModified"\s*:\s*"\K[0-9-]+' | sort -u)
+    DM_COUNT=$(echo "$DM_VALUES" | grep -c .)
+    if [ "$DM_COUNT" -eq 0 ]; then
+        check_warn "last-reviewed is $LAST_REVIEWED but no dateModified found in any JSON-LD block"
+    else
+        BAD=""
+        while IFS= read -r dm; do
+            [ -z "$dm" ] && continue
+            if [ "$dm" != "$LAST_REVIEWED" ]; then
+                BAD="$BAD $dm"
+            fi
+        done <<< "$DM_VALUES"
+        if [ -n "$BAD" ]; then
+            check_fail "dateModified value(s)$BAD do not match last-reviewed ($LAST_REVIEWED) — schema lies about freshness"
+        else
+            check_pass "dateModified ($DM_VALUES) matches last-reviewed ($LAST_REVIEWED)"
+        fi
+    fi
+fi
+
+# ============================================================================
+# Section 9eo: Runtime JSON sources must parse
+# ============================================================================
+# Ports runtime_data/json_parse_error from the retired JS validator. The page
+# runtime fetches JSON at load time; if the JSON is invalid, the section
+# silently empties. Caught a real parse error in
+# /ships/rcl/assets/radiance-of-the-seas.json (line 27 col 498) that has been
+# shipping to production.
+#
+# Cascade-aware: only ERRORS on JSON files that EXIST and are MALFORMED. Files
+# that do not exist are handled by the existing cascade-aware Section 9p.
+section_header "Section 9eo: Runtime JSON sources parse"
+
+# Extract every abs(...) and fetch(...) JSON path from inline scripts.
+JSON_REFS=$(echo "$CONTENT" | grep -oE "(abs|fetch)\(['\"][^'\"]+\.json['\"]" \
+    | grep -oE "/[^'\"]+\.json" | sort -u)
+PARSE_ERRORS=0
+PARSE_ERROR_FILES=""
+for ref in $JSON_REFS; do
+    local_path="${REPO_ROOT}${ref}"
+    if [ -f "$local_path" ]; then
+        if ! python3 -c "import json; json.load(open('$local_path'))" 2>/dev/null; then
+            PARSE_ERRORS=$((PARSE_ERRORS + 1))
+            PARSE_ERROR_FILES="$PARSE_ERROR_FILES $ref"
+        fi
+    fi
+done
+if [ "$PARSE_ERRORS" -gt 0 ]; then
+    check_fail "$PARSE_ERRORS runtime JSON file(s) on disk fail to parse:$PARSE_ERROR_FILES — fetch will fail and section will render empty"
+elif [ -n "$JSON_REFS" ]; then
+    REF_COUNT=$(echo "$JSON_REFS" | grep -c .)
+    check_pass "All $REF_COUNT existing runtime JSON source(s) parse cleanly"
+fi
+
+# Section ordering is handled by validate-ship-page.js (looser id matching).
+# Earlier attempt at a section 9ep here false-positived on gold-standard pages
+# whose page-intro lacks an id="page-intro" literal.
+
+# ============================================================================
 # Section 10: JavaScript Modules
 # ============================================================================
 section_header "Section 10: JavaScript Modules"
