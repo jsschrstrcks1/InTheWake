@@ -140,7 +140,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A R Class ship operated by Oceania Cruises.","name":"Regatta","brand":{"@type":"Organization","name":"Oceania Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Regatta (R Class, 30,277 GT, 684 guests, 1998) is Oceania's intimate R-class ship featuring Jacques, Red Ginger, Polo Grill, Toscana, Grand Dining Room, and the Terrace Café — delivering culinary-focused, destination-immersive voyages."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"An R Class ship operated by Oceania Cruises.","name":"Regatta","brand":{"@type":"Organization","name":"Oceania Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Regatta (R Class, 30,277 GT, 684 guests, 400 crew, 1998) is one of four intimate R Class sisters with Grand Dining Room, Toscana (Italian), Polo Grill (steakhouse), Terrace Café, and Waves Grill — all included in the fare.","reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5}}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -152,7 +152,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "What dining options are available on Regatta?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Regatta offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship."
+          "text": "Five venues included in the fare: Grand Dining Room, Toscana (Italian), Polo Grill (steakhouse), Terrace Café (buffet), and Waves Grill (poolside)."
         }
       },
       {
@@ -168,7 +168,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "Where does Regatta sail?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ship deployments vary by season. Check the Oceania Cruises website for current itineraries and departure ports for Regatta."
+          "text": "Seasonal itineraries including the Mediterranean, Caribbean, South America, and world cruise segments."
         }
       },
       {
@@ -184,7 +184,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "Is this information official?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This page provides planning resources and community insights. Always confirm details with Oceania Cruises or your travel advisor before booking."
+          "text": "R Class (684 guests, 30,277 GT) is half the size of the O Class — Marina and Riviera carry 1,250 guests at 66,084 GT."
         }
       }
     ]
@@ -261,7 +261,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <header class="hero-header" role="banner">
@@ -361,28 +362,32 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     </div>
   </header>
 
-  <main class="wrap" id="main-content" role="main" tabindex="-1">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="grid-column: 1 / -1;">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
       <a href="/cruise-lines/oceania.html">Oceania Cruises</a> &rsaquo;
       <span aria-current="page">Regatta</span>
     </nav>
 
+    <!-- Main Content Column -->
+    <section class="col-1" aria-label="Ship details">
+
     <h1 class="page-title">Regatta — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
     <!-- ICP-Lite: Page Intro -->
     <section class="page-intro" aria-label="Regatta overview">
       
-      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Regatta is a R Class cruise ship operated by Oceania Cruises. She entered service in 1998, measures 30,277 gross tons, and carries approximately 684 guests at double occupancy.</p>
+      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Regatta is a R Class cruise ship operated by Oceania Cruises. She entered service in 1998, measures 30,277 gross tons, and carries approximately 684 guests at double occupancy with a crew of 400.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> R Class</li>
           <li><strong>Year:</strong> 1998</li>
           <li><strong>Tonnage:</strong> 30,277 GT</li>
           <li><strong>Guests:</strong> 684</li>
-          <li><strong>IMO:</strong> TBD</li>
+          <li><strong>Crew:</strong> 400</li>
+          <li><strong>IMO:</strong> 9156474</li>
         </ul>
       </div>
 
@@ -390,8 +395,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         <strong>Quick Answer:</strong> Regatta is Oceania's original R Class ship — 30,277 GT, 684 guests, launched in 1998 and extensively refurbished. She helped establish Oceania's reputation for exceptional food on an intimate ship. This page covers deck plans, live tracking, dining venues, and videos.
       </p>
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Travelers who value Oceania's culinary heritage on the most intimate ships in the fleet. Regatta suits repeat cruisers who appreciate the R Class charm — a loyal crew, small-ship ports, and specialty dining included without the formality of luxury lines.
+      <p id="who-shes-for" class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <strong>Who She's For:</strong> Travelers who value Oceania's culinary heritage on the most intimate ships in the fleet. Regatta suits repeat cruisers who appreciate the R Class charm — a loyal crew, small-ship ports, and specialty dining included without the formality of luxury lines.
       </p>
 
       <p class="content-text">
@@ -423,109 +428,65 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
           </div>
         </section>
 
-        <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading"><img id="dining-hero" class="card-hero"
-             src="/assets/img/Cordelia_Empress_Food_Court.webp"
-             alt="Regatta dining venue" loading="lazy"/>
-Dining on Regatta</h2>
-      <p>Dining venue information coming soon. Oceania Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
+    <section id="dining-card" class="card" data-ship="Regatta" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Regatta <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+          <noscript>
+            <h3>Main Dining</h3>
+            <ul>
+              <li><strong>Grand Dining Room</strong> — main restaurant, open seating, included in fare</li>
+            </ul>
+            <h3>Specialty (included)</h3>
+            <ul>
+              <li><strong>Toscana</strong> — Italian, included</li>
+              <li><strong>Polo Grill</strong> — steakhouse, included</li>
+            </ul>
+            <h3>Casual</h3>
+            <ul>
+              <li><strong>Terrace Café</strong> — buffet, included</li>
+              <li><strong>Waves Grill</strong> — poolside, included</li>
+            </ul>
+          </noscript>
+        </div>
 <script type="application/json" id="dining-data-source">{"provider":"oceania","json":"/assets/data/venues-v2.json","ship_slug":"regatta","aliases":["Regatta"]}</script>
+    </section>
 
     <p class="subtitle">Oceania Cruises &bull; R Class</p>
 
-    <!-- Stub Notice -->
-    
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Regatta</h2>
       <div id="logbook-container" data-ship="regatta" data-line="oceania">
-        <p class="placeholder">Stories and insights from cruisers who have sailed on Regatta will appear here.</p>
+        <noscript>
+          <article class="story">
+            <h3>About Regatta</h3>
+            <div class="story-body">
+              <p>Regatta is one of four R Class sisters (with Insignia, Nautica, and Sirena) in the Oceania fleet. At 30,277 GT and 684 guests with a crew of 400, she offers Oceania's culinary-focused experience on an intimate scale. Specialty dining at Toscana and Polo Grill is included in the fare.</p>
+            </div>
+          </article>
+        </noscript>
       </div>
     </section>
 
-    
-
-<script type="application/json" id="ship-stats-fallback">{"slug":"regatta","name":"Regatta","cruise_line":"Oceania Cruises","class":"R Class","entered_service":1998,"gt":"30,277 GT","guests":"684","crew":"400"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
-
-    <!-- Videos -->
-    <section class="card" aria-labelledby="video-highlights">
-      <h2 id="video-highlights">Watch: Regatta Highlights</h2>
-      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
-      <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
-        <div class="swiper-pagination" ></div>
-        <div class="swiper-button-prev" aria-label="Previous slide"></div>
-        <div class="swiper-button-next" aria-label="Next slide"></div>
-      </div>
-      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
-    </section>
-
-    <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Regatta Deck Plans</h2>
-        <p>View the official deck plans to explore Regatta's layout.</p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview — not specific to Regatta" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure>
-        <p><a class="btn" href="https://www.oceaniacruises.com/" target="_blank" rel="noopener">Visit Oceania Official Site</a></p>
-      </section>
-      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Regatta?</h2>
-        <p>Track Regatta's current position and upcoming itinerary.</p>
-        <p><a class="btn" href="https://www.cruisemapper.com/?search=Regatta" target="_blank" rel="noopener">Open Live Tracker</a></p>
-      </section>
-    </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Regatta with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-    <!-- Deck Plans & Tracker Grid -->
-    <section class="grid-2">
-      
-    <!-- Ship Statistics -->
-    <section class="card" aria-labelledby="ship-stats-title">
-      <h2 id="ship-stats-title">Ship Statistics</h2>
-      <div id="ship-stats" class="stats-grid" data-slug="regatta">
-        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">30,277 GT</div></div>
-        <div class="stat-item"><div class="label">Guests</div><div class="value">684</div></div>
-        <div class="stat-item"><div class="label">Crew</div><div class="value">400</div></div>
-        <div class="stat-item"><div class="label">Entered Service</div><div class="value">1998</div></div>
-        <div class="stat-item"><div class="label">Class</div><div class="value">R Class</div></div>
-      </div>
-    </section>
     <p class="mt-1">
       <a href="https://www.oceaniacruises.com/ships/regatta/" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
         View Official Deck Plans →
       </a>
     </p>
 
-<section class="card" aria-labelledby="deck-plans">
-        <h2 id="deck-plans">Regatta Deck Plans</h2>
-        <div id="ship-map" data-ship="regatta">
-          <p>Interactive deck plans for Regatta are available on the cruise line's official website.</p>
+    <!-- Videos Section -->
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Regatta Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos">
+          <noscript><p>Video tours for Regatta are available on YouTube.</p></noscript>
         </div>
-      </section>
-
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="REGATTA">
-        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
-        <div id="ship-tracker-container">
-          <p>Track Regatta's current position and voyage details.</p>
-        </div>
-      </section>
+        <div class="swiper-pagination" ></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
     <script>
@@ -542,7 +503,7 @@ Dining on Regatta</h2>
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
         mount.innerHTML=arr.slice(0,12).map(v=>{
           const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'Regatta').replace(/</g,'&lt;');
+          const title=String(v.title||'Regatta').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
         }).join('');
         if(mount.children.length&&window.Swiper){
@@ -577,44 +538,82 @@ Dining on Regatta</h2>
     })();
     </script>
 
+<script type="application/json" id="ship-stats-fallback">{"slug":"regatta","name":"Regatta","cruise_line":"Oceania Cruises","class":"R Class","entered_service":1998,"gt":"30,277 GT","guests":"684","crew":"400","imo":"9156474"}</script>
 
-    
+    <section class="grid-2">
+
+    <section class="card" aria-labelledby="statsHeading">
+      <h3 id="statsHeading">Key Facts About Regatta</h3>
+      <div id="ship-stats" class="stats-grid" data-slug="regatta">
+        <noscript>
+          <div class="stat-item"><div class="label">Class</div><div class="value">R Class</div></div>
+          <div class="stat-item"><div class="label">Entered Service</div><div class="value">1998</div></div>
+          <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">30,277 GT</div></div>
+          <div class="stat-item"><div class="label">Guests</div><div class="value">684</div></div>
+          <div class="stat-item"><div class="label">Crew</div><div class="value">400</div></div>
+          <div class="stat-item"><div class="label">Registry</div><div class="value">Marshall Islands</div></div>
+          <div class="stat-item"><div class="label">IMO</div><div class="value">9156474</div></div>
+        </noscript>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="deck-plans">
+      <h2 id="deck-plans">Regatta Deck Plans</h2>
+      <p>Regatta is one of four intimate R Class sisters — 684 guests with Grand Dining Room, Toscana, Polo Grill, Terrace Café, and Waves Grill.</p>
+      <figure>
+        <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
+        <figcaption class="tiny">Simplified deck layout overview</figcaption>
+      </figure>
+    </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9156474" data-name="REGATTA">
+        <h2 id="liveTrackHeading">Where Is Regatta Right Now?</h2>
+        <p>See Regatta's current position, speed, heading, and next port on the live AIS tracker below.</p>
+        <div id="vf-tracker-container" class="tracker-container">
+          <iframe title="Regatta live position tracker" src="https://www.vesselfinder.com/aismap?imo=9156474&amp;zoom=4&amp;names=true" width="100%" height="380" frameborder="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <noscript>
+            <p>Live tracking requires JavaScript. You can track Regatta (IMO 9156474) directly at <a href="https://www.vesselfinder.com/vessels/details/9156474" target="_blank" rel="noopener">VesselFinder</a>.</p>
+          </noscript>
+        </div>
+        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
+      </section>
+    </section>
 
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Regatta</h2>
 
-      <details  class="section-divider">
-        <summary>What dining options are available on Regatta?</summary>
-        <p  class="list-indent">Regatta offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship.</p>
+      <details class="faq-item section-divider">
+        <summary>What dining options are on Regatta?</summary>
+        <p class="faq-answer list-indent">Five venues, all included: <strong>Grand Dining Room</strong>, <strong>Toscana</strong> (Italian), <strong>Polo Grill</strong> (steakhouse), <strong>Terrace Café</strong> (buffet), <strong>Waves Grill</strong> (poolside). See the <a href="#dining-card">Dining section</a> above.</p>
       </details>
 
-      <details  class="section-divider">
-        <summary>How do I find the deck plans for Regatta?</summary>
-        <p  class="list-indent">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.oceaniacruises.com" target="_blank" rel="noopener">Oceania Cruises</a> website or in the cruise planner app.</p>
+      <details class="faq-item section-divider">
+        <summary>How big is Regatta?</summary>
+        <p class="faq-answer list-indent"><strong>30,277 GT</strong> with <strong>684 guests</strong> and <strong>400 crew</strong>. One of four R Class sisters (with Insignia, Nautica, Sirena).</p>
       </details>
 
-      <details  class="section-divider">
+      <details class="faq-item section-divider">
+        <summary>How does the R Class compare to Marina/Riviera?</summary>
+        <p class="faq-answer list-indent">R Class (684 guests, 30,277 GT) is half the size of the O Class — <a href="/ships/oceania/marina.html">Marina</a> and <a href="/ships/oceania/riviera.html">Riviera</a> carry 1,250 guests at 66,084 GT with more dining. R Class is more intimate.</p>
+      </details>
+
+      <details class="faq-item">
         <summary>Where does Regatta sail?</summary>
-        <p  class="list-indent">Ship deployments vary by season. Check the <a href="https://www.oceaniacruises.com" target="_blank" rel="noopener">Oceania Cruises</a> website for current itineraries and departure ports for Regatta.</p>
-      </details>
-
-      <details  class="section-divider">
-        <summary>How can I track Regatta's current location?</summary>
-        <p  class="list-indent">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary>Is this information official?</summary>
-        <p  class="list-indent">This page provides planning resources and community insights. Always confirm details with <a href="https://www.oceaniacruises.com" target="_blank" rel="noopener">Oceania Cruises</a> or your travel advisor before booking.</p>
+        <p class="faq-answer list-indent">Seasonal itineraries including the Mediterranean, Caribbean, South America, and world cruise segments. Her smaller size allows access to ports larger ships cannot reach. Check the <a href="#liveTrackHeading">live tracker</a> above.</p>
       </details>
     </section>
 
     <section class="card attributions">
-      <h3>Sources & Attribution</h3>
-      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+      <h3>Sources &amp; Attribution</h3>
+      <ul class="small">
+        <li>IMO 9156474 verified against <a href="https://www.vesselfinder.com/vessels/details/9156474" target="_blank" rel="noopener">VesselFinder</a> (1.0 confidence, Perplexity Research).</li>
+        <li>R Class dining venues confirmed via Perplexity Research.</li>
+      </ul>
     </section>
-  
+
+    </section><!-- End col-1 -->
+
 
     <aside class="rail col-2" role="complementary" aria-label="Quick navigation and author info">
       <section class="card" id="recent-rail-nav-top" aria-labelledby="nav-top-title">
@@ -658,10 +657,12 @@ Dining on Regatta</h2>
 
       <section class="card" id="recent-rail-nav-bottom" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <div id="recent-rail" class="rail-list" aria-live="polite">
+          <noscript><ul style="list-style:none;padding:0;"><li><a href="/solo/solo-cruising-practical-guide.html">Solo Cruising Guide</a></li></ul></noscript>
+        </div>
       </section>
     
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"><noscript><h3 style="margin:0 0 0.5rem;">Ship Size</h3><p class="tiny">Regatta carries 684 guests — one of four intimate R Class sisters in the Oceania fleet.</p></noscript></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -709,6 +710,7 @@ Dining on Regatta</h2>
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+<script src="/assets/js/whimsical-ship-units.js" defer></script>
   <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>
