@@ -4,27 +4,43 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
+
+STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.400 · A11y/WCAG 2.1 AA Compliant
 -->
 
 <html lang="en" class="no-js">
 <head>
-<script>document.documentElement.classList.remove('no-js');</script>
+  <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove('no-js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.400"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
+  </script>
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
   <!-- ===== SEO Meta ===== -->
-  <title>MSC Lirica — MSC Cruises Ship Guide | In the Wake</title>
+  <title>MSC Lirica — Deck Plans, Live Tracker, Dining &amp; Videos | In the Wake</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/msc/msc-lirica.html"/>
   <meta name="description" content="MSC Lirica: Lirica Class (first-in-class), 65,591 GT, 1,984 double / 2,658 max guests, ~721 crew. Delivered March 2003 by Chantiers de l'Atlantique (Alstom); christened by Sophia Loren (her first MSC ceremony). 24m Renaissance lengthening at Fincantieri Palermo in 2015. La Bussola and L'Ippocampo MDRs, Broadway Theatre. Eastern Mediterranean from Venice, Ancona, and Piraeus."/>
   <meta name="ai-summary" content="MSC Lirica: Lirica Class first ship, 65,591 GT, 1,984 double / 2,658 max, ~721 crew. Built 2003, lengthened 2015. Godmother Sophia Loren. La Bussola + L'Ippocampo MDRs, Broadway Theatre. Eastern Med 2026; 2026-27 Brazil season cancelled.">
@@ -88,7 +104,16 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <!-- Preload LCP images -->
+  <link rel="preload" as="image" href="/assets/ships/Msc_Lirica_flickr_EricBhm.webp" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 <!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -242,24 +267,23 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(primaryCSS);
-  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
 })();
 </script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
+        <a href="/"><img loading="eager" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
 </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
@@ -331,7 +355,7 @@ All work on this project is offered as a gift to God.
     </div>
 
     <div class="hero" role="img" aria-label="MSC Lirica hero image">
-      <div class="latlon-grid" >
+      <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
           <g class="grid-lines" stroke-width="0.35">
             <line x1="10" y1="0" x2="10" y2="60"/><line x1="30" y1="0" x2="30" y2="60"/>
@@ -346,6 +370,7 @@ All work on this project is offered as a gift to God.
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" >A Cruise Traveler's Logbook</div>
+      <p class="hero-credit tiny">Hero layout and compass graphics by <a href="/authors/ken-baker.html">Ken Baker</a> for In the Wake.</p>
     </div>
   </header>
 
@@ -563,15 +588,7 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
-    
-
-    <!-- Placeholder sections -->
-        <script type="application/json" id="ship-stats-fallback">{"slug":"msc-lirica","name":"MSC Lirica","cruise_line":"MSC Cruises","class":"Lirica Class","entered_service":2003,"delivered":"2003-03","lengthened":2015,"imo":"9246102","gt":"65,591 GT","guests":"1,984 (double) / 2,658 (max)","cabins":992,"crew":"~721","length":"902 ft (274.9 m)","beam":"94 ft (28.8 m)","registry":"Panama (Colón)","builder":"Chantiers de l'Atlantique (Alstom), Saint-Nazaire, France","godmother":"Sophia Loren (first MSC ceremony)"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities on MSC Lirica</h2>
-      <p>Entertainment on MSC Lirica is centred on the <strong>713-seat Broadway Theatre</strong> on Decks 5-6 forward, running MSC's production shows, guest acts, and classical performances. The nightlife axis on Deck 6 includes <strong>Le Cabaret Lounge</strong>, the <strong>Beverly Hills Bar</strong> and <strong>L'Atmosphère Piano Bar</strong>, plus the <strong>Las Vegas Casino</strong> and its <strong>Casino VIP Lounge</strong>. Lord Nelson Pub on Deck 5 handles English-style pub service. Late-night life moves to <strong>The Blue Club Disco</strong> on Deck 11 aft. The 2015 Renaissance refit added the <strong>Doremi Spray Park</strong> on Deck 11 — an outdoor splash zone for children. Upper decks carry two saltwater pools with whirlpools, mini-golf (Deck 13), shuffleboard, and a power walking track (Deck 12). Wellness is handled by the <strong>MSC Aurea Spa</strong> on Deck 11 with its thermal suite, beauty parlour, relaxation room, and MSC Gym. Families have a Baby Club, Mini Club, Junior Club, and Teens Karaoke club on Deck 11, all run by MSC's multilingual youth staff. MSC Lirica does NOT carry Cirque du Soleil at Sea, waterslides, or the MSC Yacht Club.</p>
-    </section>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"msc-lirica","name":"MSC Lirica","cruise_line":"MSC Cruises","class":"Lirica Class","entered_service":2003,"delivered":"2003-03","lengthened":2015,"imo":"9246102","gt":"65,591 GT","guests":"1,984 (double) / 2,658 (max)","cabins":992,"crew":"~721","length":"902 ft (274.9 m)","beam":"94 ft (28.8 m)","registry":"Panama (Colón)","builder":"Chantiers de l'Atlantique (Alstom), Saint-Nazaire, France","godmother":"Sophia Loren (first MSC ceremony)"}</script>
 
     <section class="grid-2">
 
@@ -602,7 +619,6 @@ All work on this project is offered as a gift to God.
         <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
         <figcaption class="tiny">Simplified deck layout overview</figcaption>
       </figure>
-      <p><a href="https://www.msccruises.com/en-us/cruise-ships/msc-lirica.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official MSC Lirica Deck Plans →</a></p>
     </section>
 
       <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9246102" data-name="MSC-LIRICA">
@@ -618,19 +634,6 @@ All work on this project is offered as a gift to God.
       </section>
     </section>
 
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare MSC Lirica with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-  
-
-    <!-- Attribution Section -->
-    
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About MSC Lirica</h2>
@@ -739,17 +742,17 @@ All work on this project is offered as a gift to God.
     </section>
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny">
-      <a href="/privacy.html">Privacy</a> &middot;
-      <a href="/terms.html">Terms</a> &middot;
-      <a href="/about-us.html">About</a> &middot;
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center dedication-hidden" >Soli Deo Gloria</p>

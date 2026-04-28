@@ -4,27 +4,49 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
+
+STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.400 · A11y/WCAG 2.1 AA Compliant
 -->
 
 <html lang="en" class="no-js">
 <head>
-<script>document.documentElement.classList.remove('no-js');</script>
   <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove('no-js');</script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="ai-summary" content="MSC World America (v2.201). Deck plans, dining venues, stateroom tours, and live ship tracker. Plan your cruise with in-depth reviews.">
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.400"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+
+  <meta name="ai-summary" content="MSC World America: World Class cruise ship (IMO 9837432), 216,638 GT, 5,079 guests (double occupancy) / 6,762 max, 2,138 crew, LNG-powered, delivered March 2025. Homeport PortMiami. Deck plans, dining venues, stateroom tours, and live ship tracker.">
   <meta name="last-reviewed" content="2026-02-21">
   <meta name="content-protocol" content="ICP-2">
-  <title>MSC World America — In the Wake (v2.201)</title>
-<meta name="description" content="MSC World America (v2.201)"/>
-<link rel="canonical" href="https://cruisinginthewake.com/ships/msc/msc-world-america.html"/>
+  <title>MSC World America — Deck Plans, Live Tracker, Dining &amp; Videos | In the Wake</title>
+  <meta name="description" content="MSC World America is MSC Cruises' second World Class ship — 216,638 GT, 5,079 guests (double occupancy), LNG-powered, homeported at PortMiami. Deck plans, 20+ dining venues including the first Eataly at sea, live tracker, and videos."/>
+  <link rel="canonical" href="https://cruisinginthewake.com/ships/msc/msc-world-america.html"/>
+
   <!-- OpenGraph -->
-  <meta property="og:type" content="article"/>
+  <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:title" content="MSC World America — In the Wake (v2.201)"/>
-  <meta property="og:description" content="MSC World America (v2.201)"/>
-  <meta property="og:url" content=""/>
+  <meta property="og:title" content="MSC World America — Deck Plans, Live Tracker, Dining &amp; Videos"/>
+  <meta property="og:description" content="MSC World America: World Class, 216,638 GT, 5,079 guests (double), LNG-powered, PortMiami homeport. Deck plans, dining, live tracker."/>
+  <meta property="og:url" content="https://cruisinginthewake.com/ships/msc/msc-world-america.html"/>
   <meta property="og:image" content="https://cruisinginthewake.com/assets/social/msc-world-america.jpg"/>
   <meta property="og:locale" content="en_US"/>
+
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
 
   <!-- Service Worker Registration -->
   <script>
@@ -33,20 +55,21 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/styles.css?v=2.201"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
-  
-  <link rel="stylesheet" href="https://jsschrstrcks1.github.io/InTheWake/assets/vendor/swiper-bundle.min.css?v=2.201"/>
-  <script defer src="https://jsschrstrcks1.github.io/InTheWake/assets/vendor/swiper-bundle.min.js?v=2.201"></script>
 
+  <!-- Swiper CDN -->
   <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      if (window.Swiper && document.querySelector('.swiper')) {
-        document.querySelectorAll('.swiper').forEach(function(el){
-          new Swiper(el, { slidesPerView: 1, spaceBetween: 16, loop: false, rewind: false });
-        });
-      }
-    });
+  (function ensureSwiper(){
+    function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+    function addJS(src, ok){
+      const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; document.head.appendChild(s);
+    }
+    const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+    const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+    addCSS(cdnCSS);
+    addJS(cdnJS, function(){ window.__swiperReady=true; });
+  })();
   </script>
 
 <style id="watermark-style">
@@ -264,21 +287,6 @@ All work on this project is offered as a gift to God.
 })();
 </script>
 
-<!-- Swiper loader -->
-<script>
-(function(){
-  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
-  function addJS(src, ok, fail){
-    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
-  }
-  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(primaryCSS);
-  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
-})();
-</script>
 </head>
 <body class="page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -291,7 +299,7 @@ All work on this project is offered as a gift to God.
       <!-- Navigation with Dropdown Menus -->
 
       <div class="brand">
-        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img loading="eager" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
 </div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -630,7 +638,7 @@ All work on this project is offered as a gift to God.
             <div class="story-body">
               <p><strong>When MSC World America arrived at PortMiami in April 2025, she became the second MSC Cruises World Class ship — and MSC's first World Class ship dedicated to the US market.</strong></p>
               <p>MSC World America was delivered on 27 March 2025 at Chantiers de l'Atlantique in Saint-Nazaire (yard number X34) after her keel was laid on 31 May 2023 and she was floated out in May 2024. She sailed directly from Saint-Nazaire to PortMiami for her christening ceremony on 9 April 2025 — with actress Drew Barrymore as godmother (breaking MSC Cruises' long-standing tradition of Sophia Loren christenings, after sister MSC World Europa was previously christened by Sheikha Hind bint Hamad Al Thani in Doha in 2022). The ceremony featured Orlando Bloom as a celebrity guest and a live concert by Gloria Estefan. Her maiden voyage departed Miami on 12 April 2025.</p>
-              <p>Structurally, MSC World America shares the World Class hull with sister MSC World Europa: 333.30 metres long, Y-shaped aft with floor-to-ceiling glass walls, seven-deck outdoor World Promenade, three-deck LED-ceiling indoor World Galleria, 11-deck Venom Drop @ The Spiral dry slide, and LNG dual-fuel propulsion augmented by two 75 kW Bloom Energy Solid Oxide Fuel Cells. At 216,638 GT she is slightly larger than Europa's 215,863 GT from minor configuration changes. She carries 5,079 guests at double occupancy (6,762 maximum) and a crew of 2,138 across 2,614 cabins, including a 159-suite MSC Yacht Club enclave.</p>
+              <p>Structurally, MSC World America shares the World Class hull with sister MSC World Europa: 333.30 metres long, Y-shaped aft with floor-to-ceiling glass walls, seven-deck outdoor World Promenade, three-deck LED-ceiling indoor World Galleria, 11-deck Venom Drop @ The Spiral dry slide, and LNG dual-fuel propulsion augmented by two 75 kW Bloom Energy Solid Oxide Fuel Cells. At 216,638 GT she is slightly larger than Europa's 216,638 GT from minor configuration changes. She carries 5,079 guests at double occupancy (6,762 maximum) and a crew of 2,138 across 2,614 cabins, including a 159-suite MSC Yacht Club enclave.</p>
               <p>Her most distinctive feature vs Europa is the set of new venues that debut with World America: <strong>Eataly</strong> — the first Eataly at sea — occupies Deck 8 with fresh pasta, wood-fired pizza, and gelato. <strong>Paxos</strong> brings a Greek seafood concept to the World Promenade. The <strong>All-Stars Sports Bar</strong> is a new sports-bar concept and <strong>The Loft</strong> is a new comedy and karaoke lounge. Her decks are themed after Americas port cities (Cozumel, Nassau, Santos, Miami, Seattle, Port Canaveral, Halifax, Los Angeles, Montevideo, Rio de Janeiro, Fort-de-France, Buenos Aires, New York, Ocean Cay, San Juan, Ocho Rios) rather than Europa's European-city theme. Her signature outdoor family zone is <strong>The Harbour</strong> on Deck 20 with the <strong>Cliffhanger swing ride</strong>, a ropes course, and water-play features. She sails year-round 7-night alternating Eastern and Western Caribbean round-trips from PortMiami's new MSC Miami Cruise Terminal.</p>
               <p>Note: MSC World America does NOT carry Cirque du Soleil at Sea. The MSC × Cirque partnership was never applied to the World Class and has since been phased out entirely from the MSC fleet.</p>
             </div>
@@ -638,12 +646,6 @@ All work on this project is offered as a gift to God.
         </noscript>
       </div>
     </section>
-
-    <p class="mt-1">
-      <a href="https://www.msccruises.com/en-us/cruise-ships/msc-world-america.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
-        View Official Deck Plans →
-      </a>
-    </p>
 
     <section class="card itinerary" aria-labelledby="ports-heading">
       <h2 id="ports-heading">Where Does MSC World America Sail?</h2>
@@ -710,7 +712,20 @@ All work on this project is offered as a gift to God.
     <li>Ship photography credited in each carousel caption.</li>
   </ul>
 </section>
-</div>
+
+    <!-- Planning Resources -->
+    <section class="card" aria-labelledby="planning-resources">
+      <h2 id="planning-resources">Plan Your Cruise</h2>
+      <p>Helpful resources to prepare for your voyage:</p>
+      <ul>
+        <li><a href="/packing-lists.html">Complete Cruise Packing Lists</a></li>
+        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization Tips</a></li>
+        <li><a href="/internet-at-sea.html">Internet &amp; WiFi at Sea</a></li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Tech &amp; Photography Guide</a></li>
+      </ul>
+    </section>
+
+    </section><!-- End col-1 -->
 
     <aside class="rail col-2" role="complementary" aria-label="Author & articles">
       <!-- Recent Articles Navigation (Top) -->
@@ -783,25 +798,7 @@ All work on this project is offered as a gift to God.
     
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"><noscript><h3 style="margin:0 0 0.5rem;">Ship Size</h3><p class="tiny">MSC World America offers MSC Cruises' signature European elegance and multinational atmosphere.</p></noscript></section>
     </aside>
-  
 
-    <!-- Attribution Section -->
-    <section class="card attributions">
-      <h3>Sources & Attribution</h3>
-      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
-    </section>
-  
-    <!-- Planning Resources -->
-    <section class="card" aria-labelledby="planning-resources">
-      <h2 id="planning-resources">Plan Your Cruise</h2>
-      <p>Helpful resources to prepare for your voyage:</p>
-      <ul>
-        <li><a href="/packing-lists.html">Complete Cruise Packing Lists</a></li>
-        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization Tips</a></li>
-        <li><a href="/internet-at-sea.html">Internet &amp; WiFi at Sea</a></li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Tech &amp; Photography Guide</a></li>
-      </ul>
-    </section>
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -817,6 +814,7 @@ All work on this project is offered as a gift to God.
       <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
+    <p class="tiny center">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
     <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 

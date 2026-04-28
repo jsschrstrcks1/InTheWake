@@ -23,12 +23,14 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- SEO: Robots & Crawling -->
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
   <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
 
   <!-- SEO: Theme & Appearance -->
   <meta name="color-scheme" content="light"/>
   <meta name="theme-color" content="#0e6e8e"/>
   <meta name="version" content="3.010.300"/>
   <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
 
   <!-- ICP-2: AI-First Metadata -->
   <meta name="ai-summary" content="Song of America: Royal Caribbean historic ship (1982-1999), 37,584 GT, one of the largest cruise ships when built. Sold to Sun Cruises, later Pullmantur and Thomson. Scrapped 2015."/>
@@ -111,7 +113,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         "name": "When did Song of America sail for Royal Caribbean?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Song of America was part of Royal Caribbean's fleet from 1982 to 1999. She was the largest cruise ship in the world when she entered service."
+          "text": "Song of America was part of Royal Caribbean's fleet from 1982 to 1998. She was one of the largest cruise ships in the world when she entered service."
         }
       },
       {
@@ -274,7 +276,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <img loading="eager" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
       </div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -351,7 +353,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     </div>
 
     <!-- Hero -->
-    <div class="hero">
+    <div class="hero" role="img" aria-label="Song of America hero image">
       <img loading="lazy" class="hero-compass" src="/assets/brand/compassrose.png" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
@@ -364,7 +366,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap page-grid" id="main-content" role="main">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
     <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;">
       <ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;">
         <li  class="inline"><a href="/">Home</a> &rsaquo; </li>
@@ -379,7 +381,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h1 class="page-title">Song of America — Historic Royal Caribbean Ship (1982-1999)</h1>
 
       
-      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Song of America is a Song of America Class cruise ship operated by Royal Caribbean International. She entered service in 1982, measures 37,584 gross tons, and carries approximately 1,402 guests at double occupancy.</p>
+      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Song of America was a Song of America Class cruise ship operated by Royal Caribbean International. She entered service in 1982, measured 37,584 gross tons, and carried approximately 1,402 guests at double occupancy with a crew of 535.</p>
 
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
@@ -482,12 +484,27 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <p>For thousands of cruisers, Song of America represents fond memories of Caribbean cruises during the "golden age" of traditional cruising, before the era of mega-ships and private islands. Her legacy lives on in the DNA of every Royal Caribbean ship that followed.</p>
       </article>
 
+      <!-- First Look Section -->
+      <section class="card" aria-labelledby="first-look">
+        <h2 id="first-look">A First Look at Song of America</h2>
+        <div class="swiper firstlook" aria-label="Song of America photo carousel">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <figure>
+                <img src="/assets/ships/Song_Of_America_flickr_neuphin.webp" alt="Song of America exterior view" loading="lazy" decoding="async">
+                <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/neuphin/53684254548/" target="_blank" rel="noopener">neuphin</a> via Flickr</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="swiper-pagination" aria-hidden="true"></div>
+          <div class="swiper-button-prev" aria-label="Previous image"></div>
+          <div class="swiper-button-next" aria-label="Next image"></div>
+        </div>
+      </section>
+
       <!-- Dining Section -->
       <article id="dining-card" class="card" aria-labelledby="diningHeading">
-        <h2 id="diningHeading"><img id="dining-hero" class="card-hero"
-             src="/assets/img/Cordelia_Empress_Food_Court.webp"
-             alt="Song of America dining venue" loading="lazy"/>
-Dining on Song of America <a href="/restaurants.html" style="font-size:1rem;font-weight:400;text-decoration:none;color:var(--accent);opacity:0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+        <h2 id="diningHeading">Dining on Song of America <a href="/restaurants.html" style="font-size:1rem;font-weight:400;text-decoration:none;color:var(--accent);opacity:0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
         <p>During her Royal Caribbean years (1982-1999), Song of America featured traditional cruise dining with a single main dining room offering two seating times for dinner. This was the standard format before modern "freestyle" or "anytime" dining became popular.</p>
         <h3>Dining Venues (Historical)</h3>
         <ul>
@@ -513,11 +530,16 @@ Dining on Song of America <a href="/restaurants.html" style="font-size:1rem;font
           <noscript><p class="tiny">Content loads with JavaScript enabled.</p></noscript>
         </div>
       </section>
+      <p class="mt-1">
+        <a href="https://www.royalcaribbean.com/cruise-ships" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
+          Browse Royal Caribbean Fleet →
+        </a>
+      </p>
 
 <!-- Videos -->
       <section class="card" aria-labelledby="video-highlights">
         <h2 id="video-highlights">Watch: Song of America Highlights</h2>
-        <p class="small">Historic footage and retrospectives of Song of America, when available, will appear here.</p>
+        <p class="small">No video content is available for this historic ship. Song of America sailed for Royal Caribbean from 1982 to 1998.</p>
         <div id="videoFallback" class="tiny">No video content is available for this ship.</div>
       </section>
 
@@ -540,7 +562,7 @@ Dining on Song of America <a href="/restaurants.html" style="font-size:1rem;font
 
         <details  class="section-divider">
           <summary>When did Song of America sail for Royal Caribbean?</summary>
-          <p  class="list-indent">Song of America was part of Royal Caribbean's fleet from 1982 to 1999. She was one of the largest cruise ships in the world when she entered service.</p>
+          <p  class="list-indent">Song of America was part of Royal Caribbean's fleet from 1982 to 1998. She was one of the largest cruise ships in the world when she entered service.</p>
         </details>
 
         <details  class="section-divider">
@@ -559,7 +581,6 @@ Dining on Song of America <a href="/restaurants.html" style="font-size:1rem;font
         </details>
       </section>
 
-    <!-- Attribution Section -->
     <section class="card attributions">
       <h3>Sources & Attribution</h3>
       <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
@@ -613,27 +634,9 @@ Dining on Song of America <a href="/restaurants.html" style="font-size:1rem;font
 
     </section>
 
-    <!-- First Look Section -->
-    <section class="card" aria-labelledby="first-look">
-          <h2 id="first-look">A First Look at Song Of America</h2>
-          <div class="swiper firstlook" aria-label="Song Of America photo carousel">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <figure>
-                  <img src="/assets/ships/Song_Of_America_flickr_neuphin.webp" alt="Song Of America exterior view" loading="lazy" decoding="async">
-                  <figcaption class="tiny">Photo: <a href="https://www.flickr.com/photos/neuphin/53684254548/" target="_blank" rel="noopener">neuphin</a> via Flickr</figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="swiper-pagination" aria-hidden="true"></div>
-            <div class="swiper-button-prev" aria-label="Previous image"></div>
-            <div class="swiper-button-next" aria-label="Next image"></div>
-          </div>
-        </section>
     <section class="card" aria-labelledby="deck-plans">
       <h2 id="deck-plans">Song of America Deck Plans</h2>
-      <p>View the official deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
-      <p><a href="https://www.royalcaribbean.com/cruise-ships/song-of-america" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Deck Plans →</a></p>
+      <p>Song of America is no longer in service. Official Royal Caribbean deck plans are no longer available for this vessel. Historical deck plan references may be found on maritime archive sites.</p>
     </section>
 
       <!-- Author Card -->

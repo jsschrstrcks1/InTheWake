@@ -140,7 +140,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Navigator Class ship operated by Regent Seven Seas Cruises.","name":"Seven Seas Navigator","brand":{"@type":"Organization","name":"Regent Seven Seas Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Seven Seas Navigator (Navigator Class, 28,550 GT, 490 guests, 1999) is Regent's intimate all-suite ship featuring La Veranda, Compass Rose, and Prime 7 — an intimate all-inclusive upscale experience on smaller-port itineraries."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A Navigator Class ship operated by Regent Seven Seas Cruises.","name":"Seven Seas Navigator","brand":{"@type":"Organization","name":"Regent Seven Seas Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Seven Seas Navigator (Navigator Class, 28,550 GT, 490 guests, 340 crew, 1999) is the smallest and most intimate ship in the Regent fleet with 245 suites. Dining is fully inclusive: Compass Rose main dining room, Prime 7 steakhouse, La Veranda buffet (Sette Mari at La Veranda for Italian evenings), and Pool Grill. She is the only current Regent ship where not all suites have balconies. Her small size allows access to ports the larger Explorer Class ships cannot reach.","reviewRating":{"@type":"Rating","ratingValue":4.5,"bestRating":5}}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -149,18 +149,34 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What dining options are available on Seven Seas Navigator?",
+        "name": "What dining options are on Seven Seas Navigator?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Seven Seas Navigator offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship."
+          "text": "Seven Seas Navigator has five dining venues, all complimentary: Compass Rose (main dining room, open seating), Prime 7 (steakhouse, reservations required), La Veranda (buffet by day), Sette Mari at La Veranda (Italian, evening service), and Pool Grill (casual outdoor). Navigator does not carry Chartreuse or Pacific Rim as separate restaurants — those are on other Regent ships."
         }
       },
       {
         "@type": "Question",
-        "name": "How do I find the deck plans for Seven Seas Navigator?",
+        "name": "How big is Seven Seas Navigator?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Deck plans are available through the links on this page. You can also find official deck plans on the Regent Seven Seas Cruises website or in the cruise planner app."
+          "text": "Seven Seas Navigator measures 28,550 gross tons with 245 suites and approximately 490 guests at double occupancy, served by a crew of 340. She is the smallest ship in the Regent fleet and the only current Regent ship where not all suites have balconies."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Seven Seas Navigator compare to other Regent ships?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Navigator (1999, 28,550 GT, 490 guests) is significantly smaller than Mariner and Voyager (700 guests each) and the Explorer Class ships (750 guests, 55,254 GT). Her smaller size means more personal attention and access to smaller ports, but older hardware and fewer dining options (5 vs 7+ on Explorer Class)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is included in Regent's all-inclusive fare?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Regent's all-inclusive fare covers all dining with no surcharges, premium drinks and fine wines, unlimited shore excursions in every port, pre-paid gratuities, Wi-Fi, and a 1-night pre-cruise hotel stay in concierge suites and above. Inclusions are identical across the Regent fleet."
         }
       },
       {
@@ -168,23 +184,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "Where does Seven Seas Navigator sail?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ship deployments vary by season. Check the Regent Seven Seas Cruises website for current itineraries and departure ports for Seven Seas Navigator."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How can I track Seven Seas Navigator's current location?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is this information official?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "This page provides planning resources and community insights. Always confirm details with Regent Seven Seas Cruises or your travel advisor before booking."
+          "text": "Seven Seas Navigator sails seasonal luxury itineraries including the Mediterranean, Northern Europe, Alaska, Canada/New England, Caribbean, and repositioning voyages. Her smaller size allows access to ports that larger Regent ships cannot reach. Regent also deploys Navigator on multi-segment world cruise routes."
         }
       }
     ]
@@ -261,7 +261,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <header class="hero-header" role="banner">
@@ -361,27 +362,31 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     </div>
   </header>
 
-  <main class="wrap" id="main-content" role="main" tabindex="-1">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="grid-column: 1 / -1;">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
       <a href="/cruise-lines/regent.html">Regent Seven Seas Cruises</a> &rsaquo;
       <span aria-current="page">Seven Seas Navigator</span>
     </nav>
 
+    <!-- Main Content Column -->
+    <section class="col-1" aria-label="Ship details">
+
     <h1 class="page-title">Seven Seas Navigator — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
     <!-- ICP-Lite: Page Intro -->
     <section class="page-intro" aria-label="Seven Seas Navigator overview">
       
-      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Seven Seas Navigator is a Navigator Class cruise ship operated by Regent Seven Seas Cruises. She entered service in 1999, measures 28,550 gross tons, and carries approximately 490 guests at double occupancy.</p>
+      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Seven Seas Navigator is a Navigator Class cruise ship operated by Regent Seven Seas Cruises. She entered service in 1999, measures 28,550 gross tons, and carries approximately 490 guests at double occupancy with a crew of 340.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> Navigator Class</li>
           <li><strong>Year:</strong> 1999</li>
           <li><strong>Tonnage:</strong> 28,550 GT</li>
           <li><strong>Guests:</strong> 490</li>
+          <li><strong>Crew:</strong> 340</li>
           <li><strong>IMO:</strong> 9064126</li>
         </ul>
       </div>
@@ -390,8 +395,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         <strong>Quick Answer:</strong> Seven Seas Navigator is Regent's smallest and most intimate ship — 28,550 GT, 490 guests, launched in 1999. All-suite and fully inclusive, she offers the highest crew-to-guest ratio in the fleet. This page covers deck plans, live tracking, dining venues, and videos.
       </p>
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Travelers who prioritize intimacy and personal attention above all else. Navigator suits experienced luxury cruisers who find even 750-guest ships too large — with 490 guests and 340 crew, you are known by name.
+      <p id="who-shes-for" class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <strong>Who She's For:</strong> Travelers who prioritize intimacy and personal attention above all else. Navigator suits experienced luxury cruisers who find even 750-guest ships too large — with 490 guests and 340 crew, you are known by name.
       </p>
 
       <p class="content-text">
@@ -423,27 +428,50 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
           </div>
         </section>
 
-        <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading"><img id="dining-hero" class="card-hero"
-             src="/assets/img/Cordelia_Empress_Food_Court.webp"
-             alt="Seven Seas Navigator dining venue" loading="lazy"/>
-Dining on Seven Seas Navigator</h2>
-      <p>Dining venue information coming soon. Regent Seven Seas Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
+    <section id="dining-card" class="card" data-ship="Seven Seas Navigator" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Seven Seas Navigator <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+          <noscript>
+            <h3>Main Dining</h3>
+            <ul>
+              <li><strong>Compass Rose</strong> — main dining room, open seating, complimentary</li>
+            </ul>
+            <h3>Specialty Restaurants</h3>
+            <ul>
+              <li><strong>Prime 7</strong> — steakhouse, complimentary (reservations required)</li>
+              <li><strong>Sette Mari at La Veranda</strong> — Italian (evening service), complimentary</li>
+            </ul>
+            <h3>Buffet &amp; Casual</h3>
+            <ul>
+              <li><strong>La Veranda</strong> — buffet by day, transforms to Sette Mari in evening</li>
+              <li><strong>Pool Grill</strong> — casual outdoor grilled fare</li>
+            </ul>
+          </noscript>
+        </div>
 <script type="application/json" id="dining-data-source">{"provider":"regent","json":"/assets/data/venues-v2.json","ship_slug":"seven-seas-navigator","aliases":["Seven Seas Navigator"]}</script>
 
     <p class="subtitle">Regent Seven Seas Cruises &bull; Navigator Class</p>
 
-    <!-- Stub Notice -->
-    
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Seven Seas Navigator</h2>
       <div id="logbook-container" data-ship="seven-seas-navigator" data-line="regent">
-        <p class="placeholder">Stories and insights from cruisers who have sailed on Seven Seas Navigator will appear here.</p>
+        <noscript>
+          <article class="story">
+            <h3>About Seven Seas Navigator</h3>
+            <div class="story-body">
+              <p>Seven Seas Navigator is the smallest and most intimate ship in the Regent fleet. At 28,550 GT and 490 guests with a crew of 340, she offers one of the highest crew-to-guest ratios in luxury cruising. She entered service in 1999 and is the only current Regent ship where not all suites have balconies — some have large picture windows instead. The all-inclusive fare matches the larger ships: Compass Rose, Prime 7, La Veranda/Sette Mari, and Pool Grill dining, plus premium drinks, shore excursions, Wi-Fi, and gratuities.</p>
+            </div>
+          </article>
+        </noscript>
       </div>
     </section>
+
+    <p class="mt-1">
+      <a href="https://www.rssc.com/ships/seven-seas-navigator" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
+        View Official Deck Plans →
+      </a>
+    </p>
 
 
     <!-- Videos Section -->
@@ -451,7 +479,9 @@ Dining on Seven Seas Navigator</h2>
       <h2 id="video-highlights">Watch: Seven Seas Navigator Highlights</h2>
       <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
       <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-wrapper" id="featuredVideos">
+          <noscript><p>Video tours for Seven Seas Navigator are available on YouTube.</p></noscript>
+        </div>
         <div class="swiper-pagination" ></div>
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
@@ -473,7 +503,7 @@ Dining on Seven Seas Navigator</h2>
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
         mount.innerHTML=arr.slice(0,12).map(v=>{
           const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'Seven Seas Navigator').replace(/</g,'&lt;');
+          const title=String(v.title||'Seven Seas Navigator').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
         }).join('');
         if(mount.children.length&&window.Swiper){
@@ -508,96 +538,90 @@ Dining on Seven Seas Navigator</h2>
     })();
     </script>
 
-    
-
-<script type="application/json" id="ship-stats-fallback">{"slug":"seven-seas-navigator","name":"Seven Seas Navigator","cruise_line":"Regent Seven Seas Cruises","class":"Navigator Class","entered_service":1999,"gt":"28,550 GT","guests":"490","crew":"340"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
+<script type="application/json" id="ship-stats-fallback">{"slug":"seven-seas-navigator","name":"Seven Seas Navigator","cruise_line":"Regent Seven Seas Cruises","class":"Navigator Class","entered_service":1999,"gt":"28,550 GT","guests":"490","crew":"340","imo":"9064126"}</script>
 
     <section class="grid-2">
-      
+
     <!-- Ship Statistics -->
-    <section class="card" aria-labelledby="ship-stats-title">
-      <h2 id="ship-stats-title">Ship Statistics</h2>
+    <section class="card" aria-labelledby="statsHeading">
+      <h3 id="statsHeading">Key Facts About Seven Seas Navigator</h3>
       <div id="ship-stats" class="stats-grid" data-slug="seven-seas-navigator">
-        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">28,550 GT</div></div>
-        <div class="stat-item"><div class="label">Guests</div><div class="value">490</div></div>
-        <div class="stat-item"><div class="label">Crew</div><div class="value">340</div></div>
-        <div class="stat-item"><div class="label">Entered Service</div><div class="value">1999</div></div>
-        <div class="stat-item"><div class="label">Class</div><div class="value">Navigator Class</div></div>
+        <noscript>
+          <div class="stat-item"><div class="label">Class</div><div class="value">Navigator Class</div></div>
+          <div class="stat-item"><div class="label">Entered Service</div><div class="value">1999</div></div>
+          <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">28,550 GT</div></div>
+          <div class="stat-item"><div class="label">Guests</div><div class="value">490</div></div>
+          <div class="stat-item"><div class="label">Crew</div><div class="value">340</div></div>
+          <div class="stat-item"><div class="label">Suites</div><div class="value">245</div></div>
+          <div class="stat-item"><div class="label">Registry</div><div class="value">Bahamas (Nassau)</div></div>
+          <div class="stat-item"><div class="label">IMO</div><div class="value">9064126</div></div>
+        </noscript>
       </div>
     </section>
+
     <section class="card" aria-labelledby="deck-plans">
       <h2 id="deck-plans">Seven Seas Navigator Deck Plans</h2>
-      <p>View the official deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
-      <p><a href="https://www.rssc.com/ships/seven-seas-navigator" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Deck Plans →</a></p>
+      <p>Seven Seas Navigator spans 8 passenger decks with 245 suites. View the official deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
+      <figure>
+        <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
+        <figcaption class="tiny">Simplified deck layout overview</figcaption>
+      </figure>
     </section>
 
-<section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Seven Seas Navigator Deck Plans</h2>
-        <p>View the official deck plans to explore Seven Seas Navigator's layout.</p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview — not specific to Seven Seas Navigator" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure>
-        <p><a class="btn" href="https://www.rssc.com/" target="_blank" rel="noopener">Visit Regent Official Site</a></p>
-      </section>
       <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9064126" data-name="SEVEN-SEAS-NAVIGATOR">
-        <h2 id="liveTrackHeading">Where Is Seven Seas Navigator?</h2>
-        <p>Track Seven Seas Navigator's current position and upcoming itinerary.</p>
-        <p><a class="btn" href="https://www.cruisemapper.com/?search=Seven%20Seas%20Navigator" target="_blank" rel="noopener">Open Live Tracker</a></p>
+        <h2 id="liveTrackHeading">Where Is Seven Seas Navigator Right Now?</h2>
+        <p>See Seven Seas Navigator's current position, speed, heading, and next port on the live AIS tracker below.</p>
+        <div id="vf-tracker-container" class="tracker-container">
+          <iframe title="Seven Seas Navigator live position tracker" src="https://www.vesselfinder.com/aismap?imo=9064126&amp;zoom=4&amp;names=true" width="100%" height="380" frameborder="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <noscript>
+            <p>Live tracking requires JavaScript. You can track Seven Seas Navigator (IMO 9064126) directly at <a href="https://www.vesselfinder.com/vessels/details/9064126" target="_blank" rel="noopener">VesselFinder</a> or <a href="https://www.cruisemapper.com/ships/Seven-Seas-Navigator-94" target="_blank" rel="noopener">CruiseMapper</a>.</p>
+          </noscript>
+        </div>
+        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
       </section>
     </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Seven Seas Navigator with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-  
 
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Seven Seas Navigator</h2>
 
-      <details  class="section-divider">
-        <summary>What dining options are available on Seven Seas Navigator?</summary>
-        <p  class="list-indent">Seven Seas Navigator offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship.</p>
+      <details class="faq-item section-divider">
+        <summary>What dining options are on Seven Seas Navigator?</summary>
+        <p class="faq-answer list-indent">Seven Seas Navigator has five dining venues — all complimentary and included in Regent's all-inclusive fare. <strong>Compass Rose</strong> is the open-seating main dining room (lunch menus include dishes inspired by Prime 7, Chartreuse, and Pacific Rim concepts, but those exist on Navigator only as menu items within Compass Rose — not as standalone restaurants). <strong>Prime 7</strong> is the steakhouse (reservations required). <strong>La Veranda</strong> serves buffet breakfast and lunch and transforms into <strong>Sette Mari at La Veranda</strong> for Italian dinner service each evening. <strong>Pool Grill</strong> handles casual outdoor dining poolside. Navigator does not carry Chartreuse or Pacific Rim as separate venues — those are on other Regent ships. See the <a href="#dining-card">Dining section</a> above.</p>
       </details>
 
-      <details  class="section-divider">
-        <summary>How do I find the deck plans for Seven Seas Navigator?</summary>
-        <p  class="list-indent">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.rssc.com" target="_blank" rel="noopener">Regent Seven Seas Cruises</a> website or in the cruise planner app.</p>
+      <details class="faq-item section-divider">
+        <summary>How big is Seven Seas Navigator and how many guests does she carry?</summary>
+        <p class="faq-answer list-indent">Seven Seas Navigator is the smallest ship in the Regent fleet at <strong>28,550 gross tons</strong> with <strong>245 suites</strong> and approximately <strong>490 guests</strong> at double occupancy, served by a crew of <strong>340</strong>. She is the only current Regent ship where not all suites have balconies — some have large picture windows. Her small size gives her one of the highest crew-to-guest ratios in luxury cruising and allows her to dock in ports that larger ships cannot reach.</p>
       </details>
 
-      <details  class="section-divider">
+      <details class="faq-item section-divider">
+        <summary>How does Seven Seas Navigator compare to the other Regent ships?</summary>
+        <p class="faq-answer list-indent">Seven Seas Navigator (1999, 28,550 GT, 490 guests) is significantly smaller than the rest of the Regent fleet. <a href="/ships/regent/seven-seas-mariner.html">Seven Seas Mariner</a> (2001) and <a href="/ships/regent/seven-seas-voyager.html">Seven Seas Voyager</a> (2003) carry 700 guests each. The Explorer Class — <a href="/ships/regent/seven-seas-explorer.html">Explorer</a> (2016), <a href="/ships/regent/seven-seas-splendor.html">Splendor</a> (2020), and <a href="/ships/regent/seven-seas-grandeur.html">Grandeur</a> (2023) — carries 750 guests at 55,254 GT. Navigator's smaller size means more personal attention but older hardware and fewer dining options (5 venues vs 7+ on the Explorer Class).</p>
+      </details>
+
+      <details class="faq-item section-divider">
+        <summary>What is included in Regent's all-inclusive fare on Seven Seas Navigator?</summary>
+        <p class="faq-answer list-indent">Regent's all-inclusive fare covers all dining (main and specialty restaurants with no surcharges), premium drinks and fine wines, unlimited shore excursions in every port, pre-paid gratuities, Wi-Fi, and a 1-night pre-cruise hotel stay in concierge suites and above. The inclusions are identical across the Regent fleet.</p>
+      </details>
+
+      <details class="faq-item">
         <summary>Where does Seven Seas Navigator sail?</summary>
-        <p  class="list-indent">Ship deployments vary by season. Check the <a href="https://www.rssc.com" target="_blank" rel="noopener">Regent Seven Seas Cruises</a> website for current itineraries and departure ports for Seven Seas Navigator.</p>
-      </details>
-
-      <details  class="section-divider">
-        <summary>How can I track Seven Seas Navigator's current location?</summary>
-        <p  class="list-indent">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary>Is this information official?</summary>
-        <p  class="list-indent">This page provides planning resources and community insights. Always confirm details with <a href="https://www.rssc.com" target="_blank" rel="noopener">Regent Seven Seas Cruises</a> or your travel advisor before booking.</p>
+        <p class="faq-answer list-indent">Seven Seas Navigator sails seasonal luxury itineraries — her smaller size allows access to smaller ports across the Mediterranean, Northern Europe, Alaska, Canada/New England, Caribbean, and repositioning voyages. Regent also deploys Navigator on multi-segment world cruise routes. Check the <a href="#liveTrackHeading">live tracker</a> above for current position and <a href="https://www.rssc.com/ships/seven-seas-navigator" target="_blank" rel="noopener">Regent's official site</a> for departure dates.</p>
       </details>
     </section>
 
     <section class="card attributions">
-      <h3>Sources & Attribution</h3>
-      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+      <h3>Sources &amp; Attribution</h3>
+      <ul class="small">
+        <li>IMO and live position verified against <a href="https://www.vesselfinder.com/vessels/details/9064126" target="_blank" rel="noopener">VesselFinder (IMO 9064126)</a>.</li>
+        <li>Dining venues confirmed via Cruise Critic ship-specific dining review, Luxury Cruise Review, and Mundy Cruising Navigator guide (2024-2025 season).</li>
+        <li>Ship specifications from Regent Seven Seas Cruises official materials and Travel Weekly ship profile.</li>
+        <li>Cruise Critic editor rating: 4.5/5.</li>
+      </ul>
     </section>
-  
+
+    </section><!-- End col-1 -->
 
     <aside class="rail col-2" role="complementary" aria-label="Quick navigation and author info">
       <section class="card" id="recent-rail-nav-top" aria-labelledby="nav-top-title">
@@ -641,10 +665,12 @@ Dining on Seven Seas Navigator</h2>
 
       <section class="card" id="recent-rail-nav-bottom" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <div id="recent-rail" class="rail-list" aria-live="polite">
+          <noscript><ul style="list-style:none;padding:0;"><li><a href="/solo/solo-cruising-practical-guide.html">Solo Cruising Guide</a></li></ul></noscript>
+        </div>
       </section>
     
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"><noscript><h3 style="margin:0 0 0.5rem;">Ship Size</h3><p class="tiny">Seven Seas Navigator carries 490 guests in 245 suites — the smallest and most intimate ship in the Regent Seven Seas fleet.</p></noscript></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -692,6 +718,7 @@ Dining on Seven Seas Navigator</h2>
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+<script src="/assets/js/whimsical-ship-units.js" defer></script>
   <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>
