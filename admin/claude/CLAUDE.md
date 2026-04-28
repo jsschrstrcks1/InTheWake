@@ -1,7 +1,7 @@
 # Claude AI Assistant Guide — In the Wake
 
-**Version:** 1.4.1
-**Last Updated:** 2026-03-02
+**Version:** 1.4.2
+**Last Updated:** 2026-04-21
 
 **Soli Deo Gloria.** All work on this project is offered as a gift to God. Excellence as worship means getting it right, not getting it fast.
 
@@ -134,6 +134,38 @@ pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
 
 ---
 
+## Verification Discipline
+
+**Trust bytes, not strings.** When asked whether something is correct, unique, working, or consistent — run the ground-truth check, not the proxy check. The proxy can be clean while the ground truth is broken.
+
+This rule exists because trusting strings — filenames, attribution catalogs, URL uniqueness — produced a confident "all images unique and correctly assigned" report on `ships.html` while the repo in fact contained byte-identical photos labelled as Liberty on one card and Radiance on another. The metadata agreed with itself; the pixels didn't.
+
+### Default to the stronger check
+
+| Question | Proxy (don't stop here) | Ground truth (run this) |
+|---|---|---|
+| Are these files unique? | URL or filename comparison | `md5sum` + perceptual hash |
+| Does this file exist? | directory listing (may truncate at 1000) | HTTP HEAD the URL |
+| Is this image the right ship? | filename / attribution catalog | open the image; read hull text |
+| Do these JSON files agree? | read one source | diff all redundant sources |
+| Does this link work? | slug in a map | HTTP HEAD the target URL |
+| Is this claim in the HTML true? | read the metadata that claims it | run the check the claim describes |
+| Does accessibility hold? | trust-badge / meta tag | actual axe / screen-reader pass |
+
+### Operating rules
+
+- ❌ NEVER conclude from metadata alone when a ground-truth check is cheap.
+- ❌ NEVER report "verified" if you only ran the proxy check. Say "I verified URL strings are distinct; I did not hash the file contents."
+- ✅ When a proxy check returns clean, ask: is there a cheaper-than-I-think ground-truth check that could falsify this? Run it.
+- ✅ When the user says "verify" or "check" — especially paired with a concrete claim like "unique" or "right ship" — default to the stronger version of the check.
+- ✅ State the limit of your verification in your report. "Opened 12 of 90 images" is better than silence on the 78 unopened.
+
+### What this would have caught on `ships.html`
+
+Byte-identical images assigned to different ships; pointer-stub text files served as webp; 10 broken image references; a 404 placeholder that every fallback points to; 14 of 15 per-line hero images missing; 6 dead ship-page links; a silent validated-ships.json filter hiding 25 declared ships. Every one was findable with `curl -I`, `md5sum`, `head -c 64`, or `file`.
+
+---
+
 ## Current Priorities (Updated 2026-03-02)
 
 **P0 — Complete:** Port Logbook, Ship Logbook, Ship Cards, Ships That Visit Here (387 ports), Port expansion (387 pages), ICP-Lite rollout (100%), Venue audit Phase 2
@@ -183,6 +215,7 @@ pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
 
 ## Version History
 
+- v1.4.2 (2026-04-21) — Added Verification Discipline section. Codifies the "trust bytes, not strings" rule after a ships.html audit missed byte-identical images assigned to different ships because only URL-string uniqueness was checked.
 - v1.4.1 (2026-03-02) — Fixed standards references: new-standards/ (15 files, foundation + v3.010) was completely absent from CLAUDE.md. Replaced broken `standards/*.md` glob with accurate per-file references. Updated Site Architecture tree and Need Help? section.
 - v1.4.0 (2026-03-02) — Restructured as lean navigation hub (~250 lines, down from 919). Extracted 5 subfiles: PASTORAL_GUARDRAILS.md, SKILLS_REFERENCE.md, TECHNICAL_STANDARDS.md, IMAGE_WORKFLOW.md, WORKFLOW.md. Added task tracking files to Essential Reading. Emphasized integrity and SDG throughout. Fixed session-start-guardrail.sh skill count 9→10.
 - v1.3.0 (2026-03-02) — Ground-truth metrics audit: pages 1,238→1,241, ship images 669→682, WebP 3,131→4,475, ports 380→387, JSON 2,455→1,310, inline styles ~16,022→~19,513, ICP-Lite 100%. Added Like-a-human v2.0.0 and voice-audit.

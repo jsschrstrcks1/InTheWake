@@ -1,5 +1,5 @@
 /**
- * Ships Dynamic Module v2.000.000
+ * Ships Dynamic Module v2.001.000
  * Soli Deo Gloria
  *
  * Features:
@@ -143,7 +143,7 @@
       '/assets/ships/Icon_of_the_Seas_stern_in_Philipsburg,_Sint_Maarten.webp'
     ],
     'star-of-the-seas': [
-      '/assets/ships/Cádiz_-_Crucero_Star_of_the_Seas,_atracado_en_el_puerto_de_Cádiz_(25_julio_2025)_01.webp'
+      '/assets/ships/Star_of_the_Seas_Pansio_2024-1.webp'
     ],
     // Oasis Class
     'oasis-of-the-seas': [
@@ -161,14 +161,12 @@
       '/assets/ships/Harmony-of-the-seas-FOM- - 2.webp'
     ],
     'symphony-of-the-seas': [
-      '/assets/ships/SymphonyOfTheSeas_(cropped)_02-2.webp',
       '/assets/ships/SymphonyOfTheSeas_(cropped)_02.webp',
       '/assets/ships/Mein_Schiff_2_&_Symphony_of_the_Seas.webp'
     ],
     'wonder-of-the-seas': [
       '/assets/ships/Wonder_of_the_Seas_-_August_2021.webp',
-      '/assets/ships/Wonder_of_the_Seas_Jan_30_2025.webp',
-      '/assets/ships/Wonder_of_the_Seas_atracando_en_Cartagena-España-.webp'
+      '/assets/ships/Wonder_of_the_Seas_Jan_30_2025.webp'
     ],
     'utopia-of-the-seas': [
       '/assets/ships/Utopia-of-the-seas-FOM- - 1.webp',
@@ -203,18 +201,14 @@
     ],
     // Freedom Class
     'freedom-of-the-seas': [
-      '/assets/ships/freedom-of-the-seas-FOM- - 1.webp',
-      '/assets/ships/freedom-of-the-seas-FOM- - 2.webp',
-      '/assets/ships/freedom-of-the-seas-FOM- - 3.webp'
+      '/assets/ships/freedom-of-the-seas-FOM- - 1.webp'
     ],
     'liberty-of-the-seas': [
       '/assets/ships/Liberty-of-the-seas-FOM- - 1.webp',
-      '/assets/ships/Liberty-of-the-seas-FOM- - 2.webp',
       '/assets/ships/Liberty-of-the-seas-FOM- - 3.webp'
     ],
     'independence-of-the-seas': [
-      '/assets/ships/Cruise_ship_Independence_of_the_Seas_R01.webp',
-      '/assets/ships/1993-Independence_of_the_seas_na_Coruña.webp'
+      '/assets/ships/Cruise_ship_Independence_of_the_Seas_R01.webp'
     ],
     // Voyager Class
     'voyager-of-the-seas': [
@@ -222,14 +216,11 @@
       '/assets/ships/Voyageroftheseas.webp'
     ],
     'mariner-of-the-seas': [
-      '/assets/ships/mariner-of-the-seas-FOM- - 1.webp',
-      '/assets/ships/mariner-of-the-seas-FOM- - 2.webp',
       '/assets/ships/mariner-of-the-seas-FOM- - 3.webp'
     ],
     'navigator-of-the-seas': [
       '/assets/ships/Navigator_of_the_Seas_(Grand_Cayman)_001.webp',
-      '/assets/ships/Navigator_of_the_Seas_(ship,_2002)_in_Ensenada,_Mexico_(August_2024)_1.webp',
-      '/assets/ships/Navigator_of_the_Seas,_Puerto_de_la_Bahía_de_Cádiz.webp'
+      '/assets/ships/Navigator_of_the_Seas_(ship,_2002)_in_Ensenada,_Mexico_(August_2024)_1.webp'
     ],
     'adventure-of-the-seas': [
       '/assets/ships/Adventure_of_the_Seas_5.webp',
@@ -241,13 +232,11 @@
     ],
     // Radiance Class
     'radiance-of-the-seas': [
-      '/assets/ships/Radiance-of-the-seas-FOM- - 1.webp',
       '/assets/ships/Radiance-of-the-seas-FOM- - 2.webp',
       '/assets/ships/Radiance-of-the-seas-FOM- - 3.webp'
     ],
     'brilliance-of-the-seas': [
       '/assets/ships/brilliance-of-the-seas1.webp',
-      '/assets/ships/brilliance-of-the-seas2.webp',
       '/assets/ships/Brilliance_of_the_Seas_Boston_2014_02_(cropped).webp'
     ],
     'serenade-of-the-seas': [
@@ -277,8 +266,7 @@
       '/assets/ships/rhapsody-of-the-seas1.webp'
     ],
     'vision-of-the-seas': [
-      '/assets/ships/vision-of-the-seas1.webp',
-      '/assets/ships/vision-of-the-seas2.webp'
+      '/assets/ships/vision-of-the-seas1.webp'
     ],
     // Historic Fleet
     'majesty-of-the-seas': [
@@ -301,7 +289,6 @@
       '/assets/ships/Splendour_of_the_Seas_(at_Split_on_2011-0716).webp'
     ],
     'song-of-norway': [
-      '/assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped)-2.webp',
       '/assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped).webp',
       '/assets/ships/2560px-Song_of_Norway_Vigo.webp'
     ],
@@ -633,6 +620,8 @@
   // Current state
   let currentCruiseLine = 'rcl';
   let validatedShips = {}; // Will be populated from JSON
+  const missingPages = new Set(); // `${line}/${slug}` entries whose HTML page HEADs 404
+  const preflightedLines = new Set(); // lines we've already preflighted
 
   /**
    * Load validated ships data from JSON
@@ -692,6 +681,36 @@
     } catch (e) {
       return false;
     }
+  }
+
+  /**
+   * Preflight every ship URL in a line, marking 404s in `missingPages`.
+   * Runs once per line on first render; cached thereafter. Parallel HEADs
+   * with a small concurrency cap to avoid flooding the network.
+   * Used to render "Coming Soon" for ships whose HTML page doesn't exist
+   * yet, instead of linking to a dead URL.
+   */
+  async function preflightMissingPages(lineKey) {
+    if (preflightedLines.has(lineKey)) return;
+    preflightedLines.add(lineKey);
+    const config = CRUISE_LINES[lineKey];
+    if (!config) return;
+    const fleet = FLEET_DATA[lineKey];
+    if (!fleet) return;
+    const slugs = [];
+    Object.values(fleet).forEach(classData => {
+      (classData.ships || []).forEach(s => slugs.push(s.slug));
+    });
+    const CONCURRENCY = 6;
+    let i = 0;
+    async function worker() {
+      while (i < slugs.length) {
+        const slug = slugs[i++];
+        const exists = await checkShipPageExists(config.directory, slug);
+        if (!exists) missingPages.add(`${lineKey}/${slug}`);
+      }
+    }
+    await Promise.all(Array.from({length: CONCURRENCY}, worker));
   }
 
   /**
@@ -766,8 +785,9 @@
     // Don't show empty class sections
     if (validatedShipsList.length === 0) return '';
 
+    const lineKeyForPage = Object.keys(CRUISE_LINES).find(k => CRUISE_LINES[k].directory === cruiseLineConfig.directory);
     const shipsHtml = validatedShipsList
-      .map(ship => createShipCard(ship, cruiseLineConfig, true))
+      .map(ship => createShipCard(ship, cruiseLineConfig, !missingPages.has(`${lineKeyForPage}/${ship.slug}`)))
       .join('');
     const shipCount = validatedShipsList.length;
     const classImage = CLASS_IMAGES[className] || '/assets/ship-placeholder.jpg';
@@ -1433,7 +1453,7 @@
     const contentContainer = document.getElementById('cruiseLineContent');
 
     buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         const lineKey = btn.getAttribute('data-cruise-line');
         if (lineKey === currentCruiseLine) return;
 
@@ -1445,8 +1465,13 @@
         btn.classList.add('active');
         btn.setAttribute('aria-pressed', 'true');
 
-        // Update current state and re-render
+        // Update current state
         currentCruiseLine = lineKey;
+
+        // Preflight page existence for this line before rendering so cards
+        // for ships without an HTML file show "Coming Soon" instead of a
+        // dead link. Cached per-line after first fetch.
+        await preflightMissingPages(lineKey);
         contentContainer.innerHTML = createCruiseLineSection(lineKey);
 
         // Re-initialize interactivity
@@ -1727,6 +1752,10 @@
 
     // Load validation data first
     await loadValidatedShips();
+
+    // Preflight page existence for the default line so dead ship pages
+    // render as "Coming Soon" instead of linking to a 404.
+    await preflightMissingPages(currentCruiseLine);
 
     // Create the main structure
     container.innerHTML = `
