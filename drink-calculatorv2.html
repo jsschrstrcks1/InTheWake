@@ -778,6 +778,17 @@
             if (badge && lc.rules) {
               badge.textContent = '$' + (lc.rules.deluxeCap || 14).toFixed(2);
             }
+            // Update "(before X% gratuity)" labels on package price cards
+            var gratLabels = document.querySelectorAll('[data-grat-label]');
+            var grat = lc.rules && lc.rules.gratuity ? Math.round(lc.rules.gratuity * 100) : 0;
+            gratLabels.forEach(function(el) {
+              if (grat > 0) {
+                el.style.display = '';
+                el.textContent = '(before ' + grat + '% gratuity)';
+              } else {
+                el.style.display = 'none';
+              }
+            });
           }
 
           // ── Drink Price Labels (input fields) ──
@@ -1600,7 +1611,7 @@
           <div class="price">
             <span data-pkg-price="soda" data-edit-price="soda" tabindex="0" role="button" aria-label="Edit soda package price. Current value: $10.99">$10.99</span>
           </div>
-          <p class="small">per person, per day</p>
+          <p class="small">per person, per day <span class="tiny muted" data-grat-label>(before gratuity)</span></p>
           <p class="tiny muted">Fountain soda, Coca-Cola Freestyle</p>
           <div class="tiny" data-inc="soda">Includes: $0/day</div>
         </div>
@@ -1610,7 +1621,7 @@
           <div class="price">
             <span data-pkg-price="refresh" data-edit-price="refresh" tabindex="0" role="button" aria-label="Edit refreshment package price. Current value: $34.00">$34.00</span>
           </div>
-          <p class="small">per person, per day</p>
+          <p class="small">per person, per day <span class="tiny muted" data-grat-label>(before gratuity)</span></p>
           <p class="tiny muted">Non-alcoholic specialty drinks</p>
           <div class="tiny" data-inc="refresh">Includes: $0/day</div>
         </div>
@@ -1620,7 +1631,7 @@
           <div class="price">
             <span data-pkg-price="deluxe" data-edit-price="deluxe" tabindex="0" role="button" aria-label="Edit deluxe package price. Current value: $85.00">$85.00</span>
           </div>
-          <p class="small">per person, per day</p>
+          <p class="small">per person, per day <span class="tiny muted" data-grat-label>(before gratuity)</span></p>
           <p class="tiny muted">Cocktails, beer, wine up to $14/drink</p>
           <div class="tiny" data-inc="deluxe">Includes: $0/day</div>
           <div class="tiny overcap-note" id="overcap-est">Over-cap: $0/day</div>

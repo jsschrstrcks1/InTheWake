@@ -4,27 +4,43 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
+
+STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.400 · A11y/WCAG 2.1 AA Compliant
 -->
 
 <html lang="en" class="no-js">
 <head>
-<script>document.documentElement.classList.remove('no-js');</script>
+  <meta charset="utf-8"/>
+  <script>document.documentElement.classList.remove('no-js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.400"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
+  </script>
 
   <!-- Umami (secondary analytics) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
   <!-- ===== SEO Meta ===== -->
-  <title>MSC Preziosa — MSC Cruises Ship Guide | In the Wake</title>
+  <title>MSC Preziosa — Deck Plans, Live Tracker, Dining &amp; Videos | In the Wake</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/msc/msc-preziosa.html"/>
   <meta name="description" content="MSC Preziosa: Fantasia Class (fourth and final), 139,072 GT, 3,502 double / 4,345 max guests, 1,388 crew, 1,751 cabins, 18 decks. Delivered 14 March 2013 by STX France at Saint-Nazaire; christened 23 March 2013 in Genoa by Sophia Loren. L'Arabesque and The Golden Lobster MDRs, Platinum Theatre, MSC Yacht Club with La Palmeraie restaurant, Vertigo 120m waterslide. Hamburg / Northern Europe summer 2026."/>
   <meta name="ai-summary" content="MSC Preziosa: Fantasia Class 4th ship, 139,072 GT, 3,502 / 4,345 max, 1,388 crew. Built 2013 STX France. L'Arabesque + Golden Lobster MDRs, Platinum Theatre, Vertigo waterslide, YC La Palmeraie. Hamburg 2026.">
@@ -88,7 +104,16 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
-  <link rel="stylesheet" href="/assets/styles.css?v=3.010"/>
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <!-- Preload LCP images -->
+  <link rel="preload" as="image" href="/assets/ships/Msc_Preziosa_flickr_xavier43.webp" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
+
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
   <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.300"/>
 <!-- JSON-LD: WebSite -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
@@ -222,24 +247,23 @@ All work on this project is offered as a gift to God.
   function addJS(src, ok, fail){
     const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  const primaryCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const primaryJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  const cdnCSS    ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
-  const cdnJS     ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
-  addCSS(primaryCSS);
-  addJS(primaryJS, function(){ window.__swiperReady=true; }, function(){ addCSS(cdnCSS); addJS(cdnJS, function(){ window.__swiperReady=true; }); });
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
 })();
 </script>
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <header class="hero-header" role="banner">
     <div class="navbar">
       <div class="brand">
-        <a href="/"><img loading="lazy" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
+        <a href="/"><img loading="eager" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/></a>
 </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
         <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
@@ -311,7 +335,7 @@ All work on this project is offered as a gift to God.
     </div>
 
     <div class="hero" role="img" aria-label="MSC Preziosa hero image">
-      <div class="latlon-grid" >
+      <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
           <g class="grid-lines" stroke-width="0.35">
             <line x1="10" y1="0" x2="10" y2="60"/><line x1="30" y1="0" x2="30" y2="60"/>
@@ -326,6 +350,7 @@ All work on this project is offered as a gift to God.
         <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
       <div class="tagline" >A Cruise Traveler's Logbook</div>
+      <p class="hero-credit tiny">Hero layout and compass graphics by <a href="/authors/ken-baker.html">Ken Baker</a> for In the Wake.</p>
     </div>
   </header>
 
@@ -558,15 +583,7 @@ All work on this project is offered as a gift to God.
     })();
     </script>
 
-    
-
-    <!-- Placeholder sections -->
-        <script type="application/json" id="ship-stats-fallback">{"slug":"msc-preziosa","name":"MSC Preziosa","cruise_line":"MSC Cruises","class":"Fantasia Class","entered_service":2013,"delivered":"2013-03-14","imo":"9595321","gt":"139,072 GT","guests":"3,502 (double) / 4,345 (max)","cabins":1751,"crew":"1,388","length":"1,093 ft (333.30 m)","beam":"124 ft (37.92 m)","registry":"Panama (Colón)","builder":"STX France (now Chantiers de l'Atlantique), Saint-Nazaire","godmother":"Sophia Loren"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities on MSC Preziosa</h2>
-      <p>Entertainment on MSC Preziosa centres on the <strong>Platinum Theatre</strong>, a 1,645-seat two-deck production stage on Decks 6-7 — unique to Preziosa among the Fantasia class. Deck 6 Diamante carries the <strong>Millennium Star Casino</strong>, the <strong>Diamond Bar &amp; Library</strong>, and the <strong>Phoenician Plaza</strong> themed square with live music. Deck 7 Rubino is the entertainment and specialty-dining axis with <strong>Butcher's Cut</strong>, the <strong>El Dorado Piano Bar</strong>, <strong>La Locanda</strong> wine bar, the 313-seat <strong>Safari Lounge</strong> with dance floor, <strong>The Green Sax Jazz Bar</strong>, <strong>Sports Bar &amp; Bowling</strong>, <strong>La Cantina di Bacco</strong>, and <strong>Il Cappuccino</strong> coffee bar. The signature late-night venue is on Deck 16 at the stern, where the <strong>Galaxy Restaurant</strong> converts to the <strong>Galaxy Disco</strong>. Families have the signature 120-metre <strong>Vertigo Waterslide</strong> (Deck 18 entrance down to Deck 15 exit, with a transparent over-sea tube section), plus the <strong>Doremi Castle Aquapark</strong> on Deck 16, the <strong>Doremiland</strong> kids' clubs and <strong>I Graffiti Teen Club</strong> on Deck 15, and four separate pools (the main <strong>Aquapark</strong>, the covered <strong>La Playa Preciosa Pool</strong> with sliding roof, the aft <strong>Garden Pool</strong>, and the private Yacht Club <strong>One Pool</strong> on Deck 18). Wellness lives at the 1,700 m² <strong>MSC Aurea Spa</strong> on Deck 14 with thermal area, balneo, thalasso room, MediSpa, barber shop, and salons. MSC Yacht Club suite guests have a complete forward ship-within-a-ship enclave with the <strong>Top Sail Lounge</strong>, the Moroccan-themed <strong>La Palmeraie Restaurant</strong>, <strong>The One Bar</strong> and <strong>One Pool</strong> on Deck 18, the <strong>Top 18 Exclusive Solarium</strong>, and 24-hour butler service. Note: MSC Preziosa does NOT carry Cirque du Soleil at Sea, and despite some older articles she does not have an Eataly venue.</p>
-    </section>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"msc-preziosa","name":"MSC Preziosa","cruise_line":"MSC Cruises","class":"Fantasia Class","entered_service":2013,"delivered":"2013-03-14","imo":"9595321","gt":"139,072 GT","guests":"3,502 (double) / 4,345 (max)","cabins":1751,"crew":"1,388","length":"1,093 ft (333.30 m)","beam":"124 ft (37.92 m)","registry":"Panama (Colón)","builder":"STX France (now Chantiers de l'Atlantique), Saint-Nazaire","godmother":"Sophia Loren"}</script>
 
     <section class="grid-2">
 
@@ -599,7 +616,6 @@ All work on this project is offered as a gift to God.
         <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
         <figcaption class="tiny">Simplified deck layout overview</figcaption>
       </figure>
-      <p><a href="https://www.msccruises.com/en-us/cruise-ships/msc-preziosa.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official MSC Preziosa Deck Plans →</a></p>
     </section>
 
       <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9595321" data-name="MSC-PREZIOSA">
@@ -614,17 +630,6 @@ All work on this project is offered as a gift to God.
         <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
       </section>
     </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare MSC Preziosa with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-  
 
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
@@ -737,17 +742,17 @@ All work on this project is offered as a gift to God.
     </section>
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
 </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p>&copy; <script>document.write(new Date().getFullYear())</script><noscript>2026</noscript> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
     <p class="tiny">
-      <a href="/privacy.html">Privacy</a> &middot;
-      <a href="/terms.html">Terms</a> &middot;
-      <a href="/about-us.html">About</a> &middot;
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/about-us.html">About</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center dedication-hidden" >Soli Deo Gloria</p>

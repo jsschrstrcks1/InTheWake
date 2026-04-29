@@ -194,9 +194,19 @@ function applyWeight(list, days, seaDays, seaApply, seaWeight) {
   const portFactor = 1 - w;
   const portDays = Math.max(0, D - S);
 
+  // Normalize so total consumption is preserved: sum across all days = q × D.
+  // Without normalization, unequal sea/port splits change the total (e.g., 0 sea
+  // days with weighting on would reduce total by 20%). Normalization redistributes
+  // drinks between sea and port days without changing how many total drinks the
+  // user entered.
+  const rawFactor = (seaFactor * S + portFactor * portDays) / D;
+  const norm = rawFactor > 0 ? 1 / rawFactor : 1;
+  const normSea = seaFactor * norm;
+  const normPort = portFactor * norm;
+
   return list.map(([id, qty]) => {
     const q = toNum(qty);
-    const weighted = ((q * seaFactor * S) + (q * portFactor * portDays)) / D;
+    const weighted = ((q * normSea * S) + (q * normPort * portDays)) / D;
     return [id, safe(weighted)];
   });
 }
@@ -488,7 +498,9 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const freeAtSeaActive = freeAtSeaMode && freeAtSea?.available === true && toNum(freeAtSea.serviceChargePerDay) > 0;
   const freeAtSeaDaily = freeAtSeaActive ? toNum(freeAtSea.serviceChargePerDay) : 0;
 
-  const drinkList = Object.keys(inputs.drinks || {}).map(key => [key, toNum(inputs.drinks[key])]);
+  // v2.1 FIX (Bug 1): UI says "enter drinks per adult." Multiply by adults to get
+  // group-level qty that matches the scale of package costs (which are per-person × adults).
+  const drinkList = Object.keys(inputs.drinks || {}).map(key => [key, toNum(inputs.drinks[key]) * adults]);
   const weighted = applyWeight(drinkList, days, seaDays, seaApply, seaWeight);
 
   // CRITICAL FIX v1.006.000: Voucher application - most expensive drinks first!
@@ -540,7 +552,8 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
       const qtyAfterVouchers = Math.max(0, drink.qty - vouchersUsed);
 
       // Track actual savings from this drink type
-      actualVoucherSavings += vouchersUsed * drink.price;
+      // v2.1: Include gratuity in savings — a voucher saves the with-grat price.
+      actualVoucherSavings += vouchersUsed * drink.price * (1 + grat);
 
       vouchersRemaining -= vouchersUsed;
 
@@ -558,9 +571,12 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     console.log(`[Vouchers] Total savings: $${actualVoucherSavings.toFixed(2)} (${totalVouchersPerDay - vouchersRemaining} vouchers used)`);
   }
 
+  // v2.1 FIX (Bug 2): Include gratuity in drink costs so à la carte total matches
+  // what the user actually pays at the bar. Previously, packages included gratuity
+  // but individual drinks did not, making à la carte look 18-20% cheaper than reality.
   let categoryRows = adjustedWeighted.map(([id, qty]) => {
     const price = prices[id] || 0;
-    const cost = price * qty * days;
+    const cost = price * (1 + grat) * qty * days;
     return { id, qty, price, cost };
   });
 
@@ -593,9 +609,10 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const remainingPunches = totalFreePunches - (largeCoffeesFromPunches * 2);
   const smallCoffeesFromPunches = Math.min(coffeeSmallQty * days, remainingPunches);
 
+  // v2.1: Include gratuity in coffee discount — a free coffee saves the with-grat price.
   const coffeeDiscount =
-    (largeCoffeesFromPunches * (prices.coffeeLarge || 4.5)) +
-    (smallCoffeesFromPunches * (prices.coffeeSmall || 4.5));
+    (largeCoffeesFromPunches * (prices.coffeeLarge || 4.5) * (1 + grat)) +
+    (smallCoffeesFromPunches * (prices.coffeeSmall || 4.5) * (1 + grat));
 
   // CRITICAL FIX v1.003.002: Add cost of purchasing coffee cards
   const coffeeCardCost = coffeeCards * coffeeCardPrice * (1 + grat);
@@ -603,6 +620,26 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const alcTotal = sum(categoryRows.filter(r => sets.alcoholic.includes(r.id)).map(r => r.cost));
   const refreshTotal = sum(categoryRows.filter(r => sets.refresh.includes(r.id)).map(r => r.cost));
   const sodaTotal = sum(categoryRows.filter(r => sets.soda.includes(r.id)).map(r => r.cost));
+  // v2.1 FIX (Bug 11): Compute deluxeTotal from sets.deluxe so the engine knows
+  // exactly which drinks the top-tier package covers. Previously assumed "everything."
+  const deluxeTotal = sum(categoryRows.filter(r => (sets.deluxe || []).includes(r.id)).map(r => r.cost));
+
+  // v2.1 FIX (Bug 12): Intermediate-tier cap for the refresh slot.
+  // HAL Signature has a $12 cap, Cunard BWS has $13.50. Drinks in the refresh set
+  // that exceed this cap are partially uncovered — user pays the difference.
+  // v2.1 FIX (Bug 12): Intermediate-tier cap for refresh slot.
+  // HAL Signature cap=$12, Cunard BWS cap=$13.50. Alcoholic drinks in the refresh
+  // set that exceed this cap are partially uncovered.
+  const refreshCap = toNum(lineConfig?.rules?.signatureCap ?? lineConfig?.rules?.bwsCap ?? 0);
+  let refreshOvercapTotal = 0;
+  if (refreshCap > 0) {
+    for (const row of categoryRows) {
+      if (sets.refresh.includes(row.id) && sets.alcoholic.includes(row.id) && row.price > refreshCap) {
+        const perDrinkExcess = (row.price - refreshCap) * (1 + grat);
+        refreshOvercapTotal += perDrinkExcess * row.qty * days;
+      }
+    }
+  }
 
   // À-la-carte total = raw cost - free coffee discount + coffee card purchase cost
   const totalAlc = Math.max(0, rawTotal - coffeeDiscount + coffeeCardCost);
@@ -627,11 +664,13 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const sodaPkgWithMinors = sodaPkg + sodaMinorCost;
   const refreshPkgWithMinors = refreshPkg + refreshMinorCost;
 
-  // CRITICAL v1.003.000: Minors MUST buy Refreshment when adults buy Deluxe (Royal Caribbean policy)
-  // v2.1: When Free-at-Sea is active, only the ADULT deluxePkg changes (flat rate). Minors still
-  // pay standard refresh pricing because NCL's Free-at-Sea perks cover guests 1-2 only and minors
-  // get Soda Package substitution, not the Open Bar. refreshMinorCost is intentionally unchanged.
-  const deluxePkgWithMinors = deluxePkg + refreshMinorCost;
+  // v2.1 FIX (Bug 9): What minors pay when adults buy deluxe depends on line policy.
+  // RCL (minorsForceRefreshment=true): minors MUST buy Refreshment.
+  // All other lines (minorsForceRefreshment=false): minors buy the cheapest option,
+  // which is typically the soda-tier package at child price (or $0 for fare-included).
+  const forceMinorsToRefresh = lineConfig?.rules?.minorsForceRefreshment !== false;
+  const minorDeluxeAddonCost = forceMinorsToRefresh ? refreshMinorCost : sodaMinorCost;
+  const deluxePkgWithMinors = deluxePkg + minorDeluxeAddonCost;
 
   // CRITICAL FIX v1.009.000: Calculate overcap correctly per-drink, not per-day total!
   // The $14 deluxe cap applies to INDIVIDUAL drinks, not daily totals!
@@ -647,10 +686,9 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   let drinkOvercapTotal = 0;
   for (const row of categoryRows) {
     if (sets.alcoholic.includes(row.id) && row.price > cap) {
-      // row.qty is GROUP-LEVEL per day (same scale as rawTotal which uses qty × price × days).
-      // Excess per drink = price - cap. Total excess = excess × qty × days.
-      // No adults multiplier — qty already represents the group's total daily consumption.
-      const perDrinkExcess = row.price - cap;
+      // row.price is BASE price. cap is BASE cap. Excess includes grat to match
+      // the with-grat scale of rawTotal (after Fix 7).
+      const perDrinkExcess = (row.price - cap) * (1 + grat);
       drinkOvercapTotal += perDrinkExcess * row.qty * days;
     }
   }
@@ -658,6 +696,32 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // Display value: per-person per-day overcap. drinkOvercapTotal is group-level per-trip,
   // so divide by days to get per-day, then by adults to approximate per-person.
   const overcap = drinkOvercapTotal > 0 ? round2(drinkOvercapTotal / (days * adults)) : 0;
+
+  // v2.1 FIX (Bug 4): Enforce daily alcoholic drink limit.
+  // Lines like Carnival CHEERS!, RCL Deluxe, Princess Plus, HAL Elite, and MSC Premium
+  // Extra cap alcoholic drinks at 15/day. Drinks beyond the limit are NOT covered by
+  // the package and must be paid à la carte. The engine adds the excess cost to the
+  // deluxe package total so the comparison is honest.
+  const dailyLimit = lineConfig?.rules?.deluxeDailyLimit || null;
+  let dailyLimitExcessCost = 0;
+  if (dailyLimit && dailyLimit > 0) {
+    const alcDrinksPerDay = categoryRows
+      .filter(r => sets.alcoholic.includes(r.id))
+      .reduce((total, r) => total + r.qty, 0);
+    // Daily limit is PER PERSON. With per-adult inputs (Fix 6), qty is group-level.
+    // Group limit = dailyLimit × adults.
+    const groupDailyLimit = dailyLimit * adults;
+    if (alcDrinksPerDay > groupDailyLimit) {
+      const excessPerDay = alcDrinksPerDay - groupDailyLimit;
+      // Excess drinks charged at average alcoholic drink price WITH gratuity
+      // (same scale as rawTotal and other cost comparisons post Fix 7)
+      const totalAlcCostPerDay = categoryRows
+        .filter(r => sets.alcoholic.includes(r.id))
+        .reduce((total, r) => total + r.qty * r.price, 0);
+      const avgAlcPrice = alcDrinksPerDay > 0 ? totalAlcCostPerDay / alcDrinksPerDay : 0;
+      dailyLimitExcessCost = round2(excessPerDay * avgAlcPrice * (1 + grat) * days);
+    }
+  }
 
   // CRITICAL FIX v1.004.000 + v1.005.000 + v1.006.000: Calculate TRUE total cost for each package option
   // Each package only covers certain drinks - uncovered drinks must be paid à la carte!
@@ -667,9 +731,12 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   // - totalAlc includes coffee card purchase cost, which is only for à la carte option
   // - Packages COVER coffee, so you don't buy coffee cards with packages
   // - Using totalAlc incorrectly added coffee card cost to package totals
-  const sodaTotalCost = sodaPkgWithMinors + (rawTotal - sodaTotal); // Soda pkg (all people) + all non-soda drinks à la carte
-  const refreshTotalCost = refreshPkgWithMinors + (rawTotal - refreshTotal); // Refresh pkg (all people) + alcoholic drinks à la carte
-  const deluxeTotalCost = deluxePkgWithMinors + drinkOvercapTotal; // Deluxe pkg + over-cap drinks (FIXED v1.009.000)
+  const sodaTotalCost = sodaPkgWithMinors + (rawTotal - sodaTotal);
+  // v2.1: Add refreshOvercapTotal for intermediate-tier caps (HAL Signature $12, Cunard BWS $13.50)
+  const refreshTotalCost = refreshPkgWithMinors + (rawTotal - refreshTotal) + refreshOvercapTotal;
+  // v2.1 (Bug 11): Use deluxeTotal instead of assuming deluxe covers everything
+  const deluxeUncoveredCost = rawTotal - deluxeTotal;
+  const deluxeTotalCost = deluxePkgWithMinors + deluxeUncoveredCost + drinkOvercapTotal + dailyLimitExcessCost;
 
   console.log('[Math Engine] Package comparison (including uncovered drinks + minors):');
   console.log(`  À la carte: $${totalAlc.toFixed(2)} (raw: $${rawTotal.toFixed(2)}, coffee discount: $${coffeeDiscount.toFixed(2)}, coffee cards: $${coffeeCardCost.toFixed(2)})`);
@@ -693,7 +760,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     },
     refresh: {
       fixedCost: refreshPkgWithMinors,
-      uncoveredCost: rawTotal - refreshTotal,
+      uncoveredCost: (rawTotal - refreshTotal) + refreshOvercapTotal,
       total: refreshTotalCost,
       dailyRate: pkgRefresh,
       days: days,
@@ -701,7 +768,7 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     },
     deluxe: {
       fixedCost: deluxePkgWithMinors,
-      uncoveredCost: drinkOvercapTotal, // FIXED v1.009.000: Use correct per-drink overcap
+      uncoveredCost: deluxeUncoveredCost + drinkOvercapTotal + dailyLimitExcessCost,
       total: deluxeTotalCost,
       dailyRate: pkgDeluxe,
       days: days,

@@ -10,30 +10,32 @@
       "slug": "royal-caribbean",
       "pageUrl": "/cruise-lines/royal-caribbean.html",
       "color": "#0072CE",
-
       "packages": {
         "soda": {
           "name": "Classic Soda Package",
           "shortName": "Soda",
           "emoji": "🥤",
-          "priceMid": 14.00,
+          "priceMid": 14.0,
           "priceMin": 9.99,
-          "priceMax": 18.00,
+          "priceMax": 18.0,
           "priceNote": "$9.99–$18/day (+18% gratuity). Fleet pricing is dynamic.",
           "includes": "Unlimited fountain soda & Coca-Cola Freestyle, souvenir cup",
           "includesList": [
             "Unlimited fountain soda & Coca-Cola Freestyle access (retained)",
             "Coca-Cola souvenir cup (retained for Classic Soda only after March 15, 2026)"
           ],
-          "breakEvenDrink": { "name": "sodas", "price": 3.50 }
+          "breakEvenDrink": {
+            "name": "sodas",
+            "price": 3.5
+          }
         },
         "refreshment": {
           "name": "Royal Refreshment Package",
           "shortName": "Refreshment",
           "emoji": "☕",
-          "priceMid": 34.50,
-          "priceMin": 29.00,
-          "priceMax": 42.00,
+          "priceMid": 34.5,
+          "priceMin": 29.0,
+          "priceMax": 42.0,
           "priceNote": "$29–$42/day (+18% gratuity)",
           "includes": "Soda + specialty coffee + tea + juice + mocktails + energy drinks + water — no alcohol",
           "includesList": [
@@ -45,15 +47,18 @@
             "Milkshakes at Johnny Rockets",
             "Bottled still/sparkling water"
           ],
-          "breakEvenDrink": { "name": "specialty coffees", "price": 4.25 }
+          "breakEvenDrink": {
+            "name": "specialty coffees",
+            "price": 4.25
+          }
         },
         "deluxe": {
           "name": "Deluxe Beverage Package",
           "shortName": "Deluxe",
           "emoji": "🍸",
-          "priceMid": 77.00,
-          "priceMin": 55.00,
-          "priceMax": 125.00,
+          "priceMid": 77.0,
+          "priceMin": 55.0,
+          "priceMax": 125.0,
           "priceNote": "$55–$125/day — dynamic by ship & sailing (+18% gratuity). Icon/Oasis class run highest; older ships (Grandeur) run lowest. Fleet median ~$77/day pre-cruise.",
           "includes": "Everything in Refreshment + cocktails, wine, beer, spirits (up to $14/drink)",
           "includesList": [
@@ -62,25 +67,26 @@
             "Pay difference for drinks above cap",
             "40% off select bottled wines"
           ],
-          "breakEvenDrink": { "name": "cocktails", "price": 14.00 }
+          "breakEvenDrink": {
+            "name": "cocktails",
+            "price": 14.0
+          }
         }
       },
-
       "coffeeCard": {
         "enabled": true,
         "name": "Coffee Card",
         "emoji": "☕",
-        "price": 31.00,
+        "price": 31.0,
         "punches": 15,
         "punchesPerSmall": 1,
         "punchesPerLarge": 2,
         "shareable": true,
         "note": "Not valid at licensed Starbucks locations. Unused punches expire at cruise end."
       },
-
       "rules": {
         "gratuity": 0.18,
-        "deluxeCap": 14.00,
+        "deluxeCap": 14.0,
         "allAdultsSamePackage": true,
         "allAdultsSamePackageScope": "alcoholic-packages-only",
         "allAdultsSamePackageNote": "All adults (21+) in the same stateroom must buy the same adult (alcoholic) beverage package. Non-alcoholic packages (Classic Soda, Royal Refreshment) can be purchased individually by any guest.",
@@ -91,46 +97,221 @@
         "usPortAlcoholRestriction": true,
         "deluxeDailyLimit": 15
       },
-
       "loyalty": {
         "enabled": true,
         "programName": "Crown & Anchor Society",
-        "voucherValue": 14.00,
+        "voucherValue": 14.0,
         "voucherNote": "Each voucher = one drink up to $14. Applied to most expensive drinks first. Loaded automatically onto SeaPass card. Excludes Starbucks, Bionic Bar, Desserted.",
         "tierThresholdMetric": "points",
         "tierThresholdNote": "Tier thresholds are Crown & Anchor POINTS (1 point per cruise night for standard cabins; bonus points for suites, solo, and promotional sailings). The nightsMin/nightsMax fields approximate this for typical non-suite cruising.",
         "tiers": [
-          { "name": "Gold", "nightsMin": 3, "nightsMax": 29, "pointsMin": 3, "pointsMax": 29, "vouchersPerDay": 0 },
-          { "name": "Platinum", "nightsMin": 30, "nightsMax": 54, "pointsMin": 30, "pointsMax": 54, "vouchersPerDay": 0 },
-          { "name": "Emerald", "nightsMin": 55, "nightsMax": 79, "pointsMin": 55, "pointsMax": 79, "vouchersPerDay": 0 },
-          { "name": "Diamond", "nightsMin": 80, "nightsMax": 174, "pointsMin": 80, "pointsMax": 174, "vouchersPerDay": 4 },
-          { "name": "Diamond Plus", "nightsMin": 175, "nightsMax": 699, "pointsMin": 175, "pointsMax": 699, "vouchersPerDay": 5 },
-          { "name": "Pinnacle", "nightsMin": 700, "nightsMax": 99999, "pointsMin": 700, "pointsMax": 99999, "vouchersPerDay": 6 }
+          {
+            "name": "Gold",
+            "nightsMin": 3,
+            "nightsMax": 29,
+            "pointsMin": 3,
+            "pointsMax": 29,
+            "vouchersPerDay": 0
+          },
+          {
+            "name": "Platinum",
+            "nightsMin": 30,
+            "nightsMax": 54,
+            "pointsMin": 30,
+            "pointsMax": 54,
+            "vouchersPerDay": 0
+          },
+          {
+            "name": "Emerald",
+            "nightsMin": 55,
+            "nightsMax": 79,
+            "pointsMin": 55,
+            "pointsMax": 79,
+            "vouchersPerDay": 0
+          },
+          {
+            "name": "Diamond",
+            "nightsMin": 80,
+            "nightsMax": 174,
+            "pointsMin": 80,
+            "pointsMax": 174,
+            "vouchersPerDay": 4
+          },
+          {
+            "name": "Diamond Plus",
+            "nightsMin": 175,
+            "nightsMax": 699,
+            "pointsMin": 175,
+            "pointsMax": 699,
+            "vouchersPerDay": 5
+          },
+          {
+            "name": "Pinnacle",
+            "nightsMin": 700,
+            "nightsMax": 99999,
+            "pointsMin": 700,
+            "pointsMax": 99999,
+            "vouchersPerDay": 6
+          }
         ]
       },
-
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Soda (can/fountain)",     "price": 3.50,  "rangeMin": 3.50, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "🥤" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Latte / Cappuccino",      "price": 4.25,  "rangeMin": 4.25, "rangeMax": 6.75,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Tazo Hot Tea",            "price": 3.00,  "rangeMin": 2.00, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh-Squeezed Juice",    "price": 3.50,  "rangeMin": 3.50, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "🧃" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",     "price": 8.00,  "rangeMin": 7.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 4.00,  "rangeMin": 4.00, "rangeMax": 5.95,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Johnny Rockets Milkshake","price": 5.50,  "rangeMin": 5.00, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water (500 ml)",  "price": 3.25,  "rangeMin": 2.25, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (domestic/craft)",   "price": 7.75,  "rangeMin": 7.49, "rangeMax": 8.49,  "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 11.00, "rangeMin": 8.00, "rangeMax": 16.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 14.00, "rangeMin": 10.00,"rangeMax": 15.00, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot (+mixer)", "price": 11.00, "rangeMin": 9.99, "rangeMax": 13.99, "category": "alcoholic",     "icon": "🥃" }
+        {
+          "id": "soda",
+          "name": "Soda",
+          "label": "Soda (can/fountain)",
+          "price": 3.5,
+          "rangeMin": 3.5,
+          "rangeMax": 3.5,
+          "category": "non-alcoholic",
+          "icon": "🥤"
+        },
+        {
+          "id": "coffee",
+          "name": "Specialty Coffee",
+          "label": "Latte / Cappuccino",
+          "price": 4.25,
+          "rangeMin": 4.25,
+          "rangeMax": 6.75,
+          "category": "non-alcoholic",
+          "icon": "☕"
+        },
+        {
+          "id": "teaprem",
+          "name": "Premium Tea",
+          "label": "Tazo Hot Tea",
+          "price": 3.0,
+          "rangeMin": 2.0,
+          "rangeMax": 3.5,
+          "category": "non-alcoholic",
+          "icon": "🍵"
+        },
+        {
+          "id": "freshjuice",
+          "name": "Fresh Juice",
+          "label": "Fresh-Squeezed Juice",
+          "price": 3.5,
+          "rangeMin": 3.5,
+          "rangeMax": 5.0,
+          "category": "non-alcoholic",
+          "icon": "🧃"
+        },
+        {
+          "id": "mocktail",
+          "name": "Mocktail",
+          "label": "Zero-Proof Cocktail",
+          "price": 8.0,
+          "rangeMin": 7.0,
+          "rangeMax": 10.0,
+          "category": "non-alcoholic",
+          "icon": "🍹"
+        },
+        {
+          "id": "energy",
+          "name": "Energy Drink",
+          "label": "Red Bull",
+          "price": 4.0,
+          "rangeMin": 4.0,
+          "rangeMax": 5.95,
+          "category": "non-alcoholic",
+          "icon": "⚡"
+        },
+        {
+          "id": "milkshake",
+          "name": "Milkshake",
+          "label": "Johnny Rockets Milkshake",
+          "price": 5.5,
+          "rangeMin": 5.0,
+          "rangeMax": 8.0,
+          "category": "non-alcoholic",
+          "icon": "🥛"
+        },
+        {
+          "id": "bottledwater",
+          "name": "Bottled Water",
+          "label": "Bottled Water (500 ml)",
+          "price": 3.25,
+          "rangeMin": 2.25,
+          "rangeMax": 3.5,
+          "category": "non-alcoholic",
+          "icon": "💧"
+        },
+        {
+          "id": "beer",
+          "name": "Beer",
+          "label": "Beer (domestic/craft)",
+          "price": 7.75,
+          "rangeMin": 7.49,
+          "rangeMax": 8.49,
+          "category": "alcoholic",
+          "icon": "🍺"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "label": "Wine (glass)",
+          "price": 11.0,
+          "rangeMin": 8.0,
+          "rangeMax": 16.0,
+          "category": "alcoholic",
+          "icon": "🍷"
+        },
+        {
+          "id": "cocktail",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "price": 14.0,
+          "rangeMin": 10.0,
+          "rangeMax": 15.0,
+          "category": "alcoholic",
+          "icon": "🍸"
+        },
+        {
+          "id": "spirits",
+          "name": "Spirits",
+          "label": "Spirits / Shot (+mixer)",
+          "price": 11.0,
+          "rangeMin": 9.99,
+          "rangeMax": 13.99,
+          "category": "alcoholic",
+          "icon": "🥃"
+        }
       ],
-
       "sets": {
-        "soda": ["soda"],
-        "refresh": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater"],
-        "deluxe": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "soda": [
+          "soda"
+        ],
+        "refresh": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater"
+        ],
+        "deluxe": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-
       "policies": [
         {
           "id": "all-adults-same",
@@ -162,7 +343,6 @@
           "text": "Always buy drink packages pre-cruise for the best price. Pre-cruise pricing is typically 10–40% cheaper than onboard — biggest discounts when booked 90+ days before sailing. Watch for sales during Wave Season (January–March) and Black Friday."
         }
       ],
-
       "faq": [
         {
           "question": "How do I calculate if the Royal Caribbean drink package is worth it?",
@@ -197,15 +377,12 @@
           "answer": "Sea days typically mean more onboard drinks (lounging by the pool), while port days mean fewer (you're off exploring). The calculator adjusts estimates: sea days increase by your chosen percentage (default 20%), port days decrease by the same."
         }
       ],
-
       "quickAnswer": "Most cruisers break even on the Deluxe Beverage Package at 6-7 drinks per day. Use the calculator below to find your personal break-even point.",
-
       "meta": {
         "title": "Royal Caribbean Drink Package Calculator 2026 | Is It Worth It?",
         "description": "Compare Soda, Refreshment, Deluxe, and Coffee Card vs à-la-carte with live break-even chart. Free Royal Caribbean drink calculator with Crown & Anchor support.",
         "ogTitle": "Royal Caribbean Drink Package Calculator 2026"
       },
-
       "_sources": {
         "note": "Prices, policies, and loyalty tiers verified 2026-04-14 via full investigate pipeline (RECON → TRIAGE → DEEP → SYNTHESIS)",
         "references": [
@@ -245,7 +422,6 @@
         "gratuityNote": "RCL beverage gratuity is 18% (verified 2026-04-14 via royalcaribbean.com/faq). Prior internal note claiming a raise from 18% to 20% in 2025 was INCORRECT and has been removed. The daily onboard service gratuity (housekeeping/dining, $18.50/day standard, $21/day suites as of Nov 2024) is a separate charge and does not apply to drink-package math."
       }
     },
-
     "carnival": {
       "id": "carnival",
       "name": "Carnival Cruise Line",
@@ -253,14 +429,13 @@
       "slug": "carnival",
       "pageUrl": "/cruise-lines/carnival.html",
       "color": "#004B8D",
-
       "packages": {
         "soda": {
           "name": "Bottomless Bubbles",
           "shortName": "Bubbles",
           "emoji": "🥤",
           "priceMid": 11.99,
-          "priceMin": 9.50,
+          "priceMin": 9.5,
           "priceMax": 14.39,
           "childPriceMid": 6.95,
           "priceNote": "$11.99/day adults, $6.95/day kids (+20% service charge)",
@@ -270,15 +445,18 @@
             "Juice",
             "Refillable souvenir cup"
           ],
-          "breakEvenDrink": { "name": "sodas", "price": 2.75 }
+          "breakEvenDrink": {
+            "name": "sodas",
+            "price": 3.0
+          }
         },
         "refreshment": {
           "name": "CHEERS! Zero Proof",
           "shortName": "Zero Proof",
           "emoji": "☕",
           "priceMid": 29.99,
-          "priceMin": 25.00,
-          "priceMax": 35.00,
+          "priceMin": 25.0,
+          "priceMax": 35.0,
           "priceNote": "$29.99/day pre-cruise (+20% service charge)",
           "includes": "Sodas, specialty coffee, tea, juice, mocktails, energy drinks, milkshakes, bottled water, NA beer, NA sparkling wine",
           "includesList": [
@@ -291,7 +469,10 @@
             "Energy drinks",
             "Bottled water"
           ],
-          "breakEvenDrink": { "name": "specialty coffees", "price": 3.50 }
+          "breakEvenDrink": {
+            "name": "specialty coffees",
+            "price": 4.25
+          }
         },
         "deluxe": {
           "name": "CHEERS! Beverage Program",
@@ -309,20 +490,21 @@
             "15 alcoholic drinks per day maximum",
             "Pay difference for drinks above $20 cap"
           ],
-          "breakEvenDrink": { "name": "cocktails", "price": 11.00 }
+          "breakEvenDrink": {
+            "name": "cocktails",
+            "price": 13.0
+          }
         }
       },
-
       "coffeeCard": {
         "enabled": false,
         "name": "Coffee Card",
         "price": 0,
         "punches": 0
       },
-
       "rules": {
-        "gratuity": 0.20,
-        "deluxeCap": 20.00,
+        "gratuity": 0.2,
+        "deluxeCap": 20.0,
         "allAdultsSamePackage": true,
         "allAdultsPolicyNote": "All adults must purchase CHEERS! if one does. Bottomless Bubbles and Zero Proof do NOT require all adults to buy.",
         "minorsForceRefreshment": false,
@@ -331,7 +513,6 @@
         "usPortAlcoholRestriction": true,
         "deluxeDailyLimit": 15
       },
-
       "loyalty": {
         "enabled": false,
         "programName": "VIFP Club / Carnival Rewards",
@@ -341,29 +522,164 @@
         "voucherNote": "Carnival's loyalty program does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor. Platinum guests receive two free drinks at VIFP parties on 5+ night cruises and one complimentary drink at select venues — not comparable to a daily voucher.",
         "tiers": []
       },
-
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Soda (fountain)",          "price": 3.00,  "rangeMin": 2.75, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "🥤" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Java Blue Latte / Cappuccino","price": 4.25,  "rangeMin": 3.00, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Art of Tea",               "price": 3.00,  "rangeMin": 2.95, "rangeMax": 4.25,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice / Smoothie",   "price": 6.50,  "rangeMin": 5.00, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🧃" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",      "price": 9.50,  "rangeMin": 9.25, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Celsius / Monster",        "price": 5.00,  "rangeMin": 4.95, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",                "price": 6.75,  "rangeMin": 5.00, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water (500 ml)",   "price": 2.50,  "rangeMin": 2.25, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (16 oz draft/bottle)","price": 7.95,  "rangeMin": 7.50, "rangeMax": 9.75,  "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",             "price": 13.00, "rangeMin": 10.00,"rangeMax": 15.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                 "price": 13.00, "rangeMin": 11.50,"rangeMax": 14.25, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",           "price": 11.00, "rangeMin": 8.00, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🥃" }
+        {
+          "id": "soda",
+          "name": "Soda",
+          "label": "Soda (fountain)",
+          "price": 3.0,
+          "rangeMin": 2.75,
+          "rangeMax": 3.5,
+          "category": "non-alcoholic",
+          "icon": "🥤"
+        },
+        {
+          "id": "coffee",
+          "name": "Specialty Coffee",
+          "label": "Java Blue Latte / Cappuccino",
+          "price": 4.25,
+          "rangeMin": 3.0,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "☕"
+        },
+        {
+          "id": "teaprem",
+          "name": "Premium Tea",
+          "label": "Art of Tea",
+          "price": 3.0,
+          "rangeMin": 2.95,
+          "rangeMax": 4.25,
+          "category": "non-alcoholic",
+          "icon": "🍵"
+        },
+        {
+          "id": "freshjuice",
+          "name": "Fresh Juice",
+          "label": "Fresh Juice / Smoothie",
+          "price": 6.5,
+          "rangeMin": 5.0,
+          "rangeMax": 8.0,
+          "category": "non-alcoholic",
+          "icon": "🧃"
+        },
+        {
+          "id": "mocktail",
+          "name": "Mocktail",
+          "label": "Zero-Proof Cocktail",
+          "price": 9.5,
+          "rangeMin": 9.25,
+          "rangeMax": 10.0,
+          "category": "non-alcoholic",
+          "icon": "🍹"
+        },
+        {
+          "id": "energy",
+          "name": "Energy Drink",
+          "label": "Celsius / Monster",
+          "price": 5.0,
+          "rangeMin": 4.95,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "⚡"
+        },
+        {
+          "id": "milkshake",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "price": 6.75,
+          "rangeMin": 5.0,
+          "rangeMax": 8.0,
+          "category": "non-alcoholic",
+          "icon": "🥛"
+        },
+        {
+          "id": "bottledwater",
+          "name": "Bottled Water",
+          "label": "Bottled Water (500 ml)",
+          "price": 2.5,
+          "rangeMin": 2.25,
+          "rangeMax": 5.0,
+          "category": "non-alcoholic",
+          "icon": "💧"
+        },
+        {
+          "id": "beer",
+          "name": "Beer",
+          "label": "Beer (16 oz draft/bottle)",
+          "price": 7.95,
+          "rangeMin": 7.5,
+          "rangeMax": 9.75,
+          "category": "alcoholic",
+          "icon": "🍺"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "label": "Wine (glass)",
+          "price": 13.0,
+          "rangeMin": 10.0,
+          "rangeMax": 15.0,
+          "category": "alcoholic",
+          "icon": "🍷"
+        },
+        {
+          "id": "cocktail",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "price": 13.0,
+          "rangeMin": 11.5,
+          "rangeMax": 14.25,
+          "category": "alcoholic",
+          "icon": "🍸"
+        },
+        {
+          "id": "spirits",
+          "name": "Spirits",
+          "label": "Spirits / Shot",
+          "price": 11.0,
+          "rangeMin": 8.0,
+          "rangeMax": 15.0,
+          "category": "alcoholic",
+          "icon": "🥃"
+        }
       ],
-
       "sets": {
-        "soda": ["soda"],
-        "refresh": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater"],
-        "deluxe": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "soda": [
+          "soda",
+          "freshjuice"
+        ],
+        "refresh": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater"
+        ],
+        "deluxe": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-
       "policies": [
         {
           "id": "all-adults-cheers",
@@ -387,7 +703,6 @@
           "text": "Save $5/day per person by purchasing CHEERS! before your cruise. Pre-cruise: $69.95/day. Onboard: $74.95/day. Both plus 20% service charge."
         }
       ],
-
       "faq": [
         {
           "question": "How do I calculate if the Carnival CHEERS! package is worth it?",
@@ -422,15 +737,12 @@
           "answer": "No. Carnival's VIFP Club (transitioning to Carnival Rewards in 2026) does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor program. VIFP members may receive occasional free drinks at loyalty parties, but there are no daily vouchers that offset package value."
         }
       ],
-
-      "quickAnswer": "Most cruisers break even on CHEERS! at 7-8 drinks per day (mix of cocktails, beer, and wine). The Zero Proof package breaks even at ~8 specialty drinks/day. Use the calculator below to find your personal break-even point.",
-
+      "quickAnswer": "Carnival's CHEERS! breaks even at about 5-6 cocktails per day (including the 20% gratuity the bar charges on every drink). The Zero Proof package breaks even at ~8 specialty drinks/day. Use the calculator below to find your personal break-even point.",
       "meta": {
         "title": "Carnival CHEERS! Drink Package Calculator 2026 | Is It Worth It?",
         "description": "Compare CHEERS!, Zero Proof, and Bottomless Bubbles vs à-la-carte with live break-even chart. Free Carnival drink calculator with 2026 pricing.",
         "ogTitle": "Carnival CHEERS! Drink Package Calculator 2026"
       },
-
       "_sources": {
         "note": "Prices and policies verified 2026-04-14 via full investigate pipeline (RECON → TRIAGE → DEEP → SYNTHESIS)",
         "references": [
@@ -469,7 +781,6 @@
         ]
       }
     },
-
     "ncl": {
       "id": "ncl",
       "name": "Norwegian Cruise Line",
@@ -477,30 +788,32 @@
       "slug": "norwegian",
       "pageUrl": "/cruise-lines/norwegian.html",
       "color": "#00205b",
-
       "packages": {
         "soda": {
           "name": "Unlimited Pop Package",
           "shortName": "Pop",
           "emoji": "🥤",
-          "priceMid": 12.50,
-          "priceMin": 12.50,
-          "priceMax": 12.50,
+          "priceMid": 12.5,
+          "priceMin": 12.5,
+          "priceMax": 12.5,
           "priceNote": "$12.50/day adults & minors (+20% gratuity)",
           "includes": "Unlimited Coca-Cola fountain sodas for the entire cruise",
           "includesList": [
             "Unlimited Coca-Cola fountain sodas",
             "Souvenir cup"
           ],
-          "breakEvenDrink": { "name": "sodas", "price": 3.50 }
+          "breakEvenDrink": {
+            "name": "sodas",
+            "price": 3.5
+          }
         },
         "refreshment": {
           "name": "Unlimited Starbucks Package",
           "shortName": "Starbucks",
           "emoji": "☕",
-          "priceMid": 16.50,
-          "priceMin": 16.50,
-          "priceMax": 16.50,
+          "priceMid": 16.5,
+          "priceMin": 16.5,
+          "priceMax": 16.5,
           "priceNote": "$16.50/day (+20% gratuity) — specialty coffee only, not a full non-alcoholic package",
           "includes": "Unlimited Starbucks drinks at onboard Starbucks plus specialty coffees at ship cafés",
           "includesList": [
@@ -508,16 +821,19 @@
             "Specialty coffees at non-Starbucks cafés",
             "Does NOT include soda, juice, mocktails, or water — those are à la carte"
           ],
-          "breakEvenDrink": { "name": "specialty coffees", "price": 4.50 },
+          "breakEvenDrink": {
+            "name": "specialty coffees",
+            "price": 4.5
+          },
           "note": "NCL does not offer a non-alcoholic 'Refreshment' tier equivalent to Royal Caribbean's. Travelers who don't drink alcohol typically buy Unlimited Pop + pay à la carte for coffee, OR buy Open Bar."
         },
         "deluxe": {
           "name": "Unlimited Open Bar (Premium Beverage Package)",
           "shortName": "Open Bar",
           "emoji": "🍸",
-          "priceMid": 109.00,
-          "priceMin": 99.00,
-          "priceMax": 109.00,
+          "priceMid": 109.0,
+          "priceMin": 99.0,
+          "priceMax": 109.0,
           "priceNote": "$99–$109/day standalone (+20% gratuity). Often bundled free via Free-at-Sea promo — see note below.",
           "includes": "Cocktails, wine, beer, spirits, soda, juice, mocktails, specialty coffee up to $15/drink",
           "includesList": [
@@ -527,15 +843,18 @@
             "Soda, juice, mocktails, energy drinks",
             "No bottled water (bottled water is à la carte on Premium — Premium Plus includes it)"
           ],
-          "breakEvenDrink": { "name": "cocktails", "price": 14.00 }
+          "breakEvenDrink": {
+            "name": "cocktails",
+            "price": 14.0
+          }
         },
         "deluxePlus": {
           "name": "Premium Plus Beverage Package",
           "shortName": "Premium Plus",
           "emoji": "🥂",
-          "priceMid": 138.00,
-          "priceMin": 138.00,
-          "priceMax": 138.00,
+          "priceMid": 138.0,
+          "priceMin": 138.0,
+          "priceMax": 138.0,
           "priceNote": "$138/day standalone (+20% gratuity). No per-drink cap. Upgrade from Premium costs ~$29/day.",
           "includes": "Everything in Premium Beverage Package plus no per-drink cap, bottled wine by the glass, premium bottled water, top-shelf spirits",
           "includesList": [
@@ -546,11 +865,13 @@
             "Top-shelf spirits, rare spirits",
             "Excludes ultra-premium bottles (e.g., Louis XIII)"
           ],
-          "breakEvenDrink": { "name": "premium cocktails", "price": 18.00 },
+          "breakEvenDrink": {
+            "name": "premium cocktails",
+            "price": 18.0
+          },
           "note": "Calculator models Premium Plus as metadata only for now. The math engine compares Soda / Refresh / Deluxe / à la carte; Premium Plus ranking is UI-side."
         }
       },
-
       "coffeeCard": {
         "enabled": false,
         "name": "Coffee Card",
@@ -558,10 +879,9 @@
         "punches": 0,
         "note": "NCL does not offer an à-la-carte punchcard coffee card. The closest equivalent is the $16.50/day Unlimited Starbucks Package."
       },
-
       "rules": {
-        "gratuity": 0.20,
-        "deluxeCap": 15.00,
+        "gratuity": 0.2,
+        "deluxeCap": 15.0,
         "deluxePlusCap": null,
         "allAdultsSamePackage": true,
         "allAdultsScope": "cabin-and-same-payment-method",
@@ -575,7 +895,6 @@
         "deluxeDailyLimit": null,
         "deluxeTransactionLimit": 2
       },
-
       "loyalty": {
         "enabled": false,
         "programName": "Latitudes Rewards",
@@ -583,32 +902,65 @@
         "voucherNote": "Latitudes Rewards has NO daily drink vouchers comparable to Royal Caribbean's Crown & Anchor. Silver+ tier members receive a 40% discount on pre-purchase of the Unlimited Open Bar Package, applied once at booking — not per day.",
         "tiers": [],
         "tierDiscounts": [
-          { "tier": "Bronze", "nightsMin": 1,   "nightsMax": 29,  "pctOffUOB": 0.00 },
-          { "tier": "Silver", "nightsMin": 30,  "nightsMax": 54,  "pctOffUOB": 0.40 },
-          { "tier": "Gold",   "nightsMin": 55,  "nightsMax": 74,  "pctOffUOB": 0.40 },
-          { "tier": "Platinum","nightsMin": 75,  "nightsMax": 149, "pctOffUOB": 0.40 },
-          { "tier": "Sapphire","nightsMin": 150, "nightsMax": 349, "pctOffUOB": 0.40 },
-          { "tier": "Diamond","nightsMin": 350, "nightsMax": 699, "pctOffUOB": 0.40 },
-          { "tier": "Ambassador","nightsMin": 700,"nightsMax": 99999,"pctOffUOB": 0.40 }
+          {
+            "tier": "Bronze",
+            "nightsMin": 1,
+            "nightsMax": 29,
+            "pctOffUOB": 0.0
+          },
+          {
+            "tier": "Silver",
+            "nightsMin": 30,
+            "nightsMax": 54,
+            "pctOffUOB": 0.4
+          },
+          {
+            "tier": "Gold",
+            "nightsMin": 55,
+            "nightsMax": 74,
+            "pctOffUOB": 0.4
+          },
+          {
+            "tier": "Platinum",
+            "nightsMin": 75,
+            "nightsMax": 149,
+            "pctOffUOB": 0.4
+          },
+          {
+            "tier": "Sapphire",
+            "nightsMin": 150,
+            "nightsMax": 349,
+            "pctOffUOB": 0.4
+          },
+          {
+            "tier": "Diamond",
+            "nightsMin": 350,
+            "nightsMax": 699,
+            "pctOffUOB": 0.4
+          },
+          {
+            "tier": "Ambassador",
+            "nightsMin": 700,
+            "nightsMax": 99999,
+            "pctOffUOB": 0.4
+          }
         ]
       },
-
       "freeAtSea": {
         "available": true,
         "packageCovered": "deluxe",
         "serviceChargeModel": "flat",
-        "serviceChargePerDay": 28.50,
+        "serviceChargePerDay": 28.5,
         "serviceChargeNote": "Free-at-Sea charges a FLAT $28.50/person/day service charge (26.1% effective rate on the $109 retail) — NOT the 20% gratuity that applies to standalone purchases. For a 7-night cruise for 2 adults that is $399 in gratuity alone on a 'free' package.",
         "firstTwoGuestsOnly": true,
         "guests3to8Note": "Guests 3-8 in the cabin do NOT receive Free-at-Sea drink perks. Minor guests 1-2 get the Soda Package substitution at $12.50/day; minors 3-8 pay separately."
       },
-
       "freeAtSeaPlus": {
         "available": true,
         "startDate": "2026-02-02",
         "packageCovered": "deluxePlus",
         "pricePerDay": 49.99,
-        "prepaidGratuityDiscount": 15.00,
+        "prepaidGratuityDiscount": 15.0,
         "includes": [
           "Premium Plus Beverage Package",
           "All Free-at-Sea service charges included",
@@ -618,29 +970,156 @@
         ],
         "note": "Launched for sailings departing Feb 2, 2026 and later. Replaces the retired 'More at Sea' program."
       },
-
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Soda (can/fountain)",     "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🥤" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Specialty Coffee",        "price": 4.50,  "rangeMin": 3.95, "rangeMax": 6.50,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 4.50,  "rangeMin": 3.95, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh-Squeezed Juice",    "price": 6.50,  "rangeMin": 4.50, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🧃" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",     "price": 8.00,  "rangeMin": 7.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 6.50,  "rangeMin": 5.00, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.00,  "rangeMin": 2.50, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (draft/bottle)",     "price": 8.25,  "rangeMin": 7.00, "rangeMax": 10.00, "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 13.00, "rangeMin": 10.00,"rangeMax": 16.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Signature Cocktail",      "price": 14.00, "rangeMin": 11.00,"rangeMax": 16.00, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 10.00, "rangeMin": 8.00, "rangeMax": 14.00, "category": "alcoholic",     "icon": "🥃" }
+        {
+          "id": "soda",
+          "name": "Soda",
+          "label": "Soda (can/fountain)",
+          "price": 3.5,
+          "rangeMin": 3.0,
+          "rangeMax": 4.0,
+          "category": "non-alcoholic",
+          "icon": "🥤"
+        },
+        {
+          "id": "coffee",
+          "name": "Specialty Coffee",
+          "label": "Specialty Coffee",
+          "price": 4.5,
+          "rangeMin": 3.95,
+          "rangeMax": 6.5,
+          "category": "non-alcoholic",
+          "icon": "☕"
+        },
+        {
+          "id": "teaprem",
+          "name": "Premium Tea",
+          "label": "Premium Tea",
+          "price": 4.5,
+          "rangeMin": 3.95,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "🍵"
+        },
+        {
+          "id": "freshjuice",
+          "name": "Fresh Juice",
+          "label": "Fresh-Squeezed Juice",
+          "price": 6.5,
+          "rangeMin": 4.5,
+          "rangeMax": 8.0,
+          "category": "non-alcoholic",
+          "icon": "🧃"
+        },
+        {
+          "id": "mocktail",
+          "name": "Mocktail",
+          "label": "Zero-Proof Cocktail",
+          "price": 8.0,
+          "rangeMin": 7.0,
+          "rangeMax": 10.0,
+          "category": "non-alcoholic",
+          "icon": "🍹"
+        },
+        {
+          "id": "energy",
+          "name": "Energy Drink",
+          "label": "Red Bull",
+          "price": 5.0,
+          "rangeMin": 4.5,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "⚡"
+        },
+        {
+          "id": "milkshake",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "price": 6.5,
+          "rangeMin": 5.0,
+          "rangeMax": 8.0,
+          "category": "non-alcoholic",
+          "icon": "🥛"
+        },
+        {
+          "id": "bottledwater",
+          "name": "Bottled Water",
+          "label": "Bottled Water",
+          "price": 3.0,
+          "rangeMin": 2.5,
+          "rangeMax": 4.0,
+          "category": "non-alcoholic",
+          "icon": "💧"
+        },
+        {
+          "id": "beer",
+          "name": "Beer",
+          "label": "Beer (draft/bottle)",
+          "price": 8.25,
+          "rangeMin": 7.0,
+          "rangeMax": 10.0,
+          "category": "alcoholic",
+          "icon": "🍺"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "label": "Wine (glass)",
+          "price": 13.0,
+          "rangeMin": 10.0,
+          "rangeMax": 16.0,
+          "category": "alcoholic",
+          "icon": "🍷"
+        },
+        {
+          "id": "cocktail",
+          "name": "Cocktail",
+          "label": "Signature Cocktail",
+          "price": 14.0,
+          "rangeMin": 11.0,
+          "rangeMax": 16.0,
+          "category": "alcoholic",
+          "icon": "🍸"
+        },
+        {
+          "id": "spirits",
+          "name": "Spirits",
+          "label": "Spirits / Shot",
+          "price": 10.0,
+          "rangeMin": 8.0,
+          "rangeMax": 14.0,
+          "category": "alcoholic",
+          "icon": "🥃"
+        }
       ],
-
       "sets": {
-        "soda": ["soda"],
-        "refresh": ["coffee", "teaprem"],
-        "deluxe": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "soda": [
+          "soda"
+        ],
+        "refresh": [
+          "coffee",
+          "teaprem"
+        ],
+        "deluxe": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-
       "policies": [
         {
           "id": "free-at-sea-is-not-free",
@@ -707,7 +1186,6 @@
           "text": "Latitudes Rewards does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor. Silver tier and above receive a 40% discount on the Unlimited Open Bar Package — applied once at booking, not per day."
         }
       ],
-
       "faq": [
         {
           "question": "Is the NCL Free-at-Sea drink package really free?",
@@ -742,15 +1220,12 @@
           "answer": "Pre-cruise, always — you save about 10% and the NCL website often runs additional promotions. Package prices can go up after embarkation. If you have Free-at-Sea bundled, you don't need to decide — the service charge is the same whether you pre-book or not."
         }
       ],
-
-      "quickAnswer": "On Free-at-Sea, break-even on the Open Bar is ~2 cocktails/day because you're only paying the $28.50/day gratuity. Standalone ($109/day + 20%), break-even jumps to ~9 drinks. Premium Plus at $138/day is worth it only if your usual cocktail costs more than $15. Use the calculator below to find your personal break-even.",
-
+      "quickAnswer": "On Free-at-Sea, break-even on the Open Bar is ~2 cocktails/day because you're only paying the $28.50/day gratuity. Standalone ($109/day + 20%), break-even jumps to ~8 drinks. Premium Plus at $138/day is worth it only if your usual cocktail costs more than $15. Use the calculator below to find your personal break-even.",
       "meta": {
         "title": "NCL Drink Package Calculator 2026 | Free-at-Sea Worth It?",
         "description": "Compare Premium, Premium Plus, Starbucks, and Pop Package with real 2026 Free-at-Sea service charges. Free NCL drink calculator that shows what 'free' actually costs.",
         "ogTitle": "NCL Drink Package Calculator 2026 — Is Free-at-Sea Worth It?"
       },
-
       "_sources": {
         "note": "Prices and policies verified 2026-04-14 via Grok verification pass",
         "references": [
@@ -778,7 +1253,6 @@
         "gratuityNote": "Standalone: 20%. Free-at-Sea: flat $28.50/person/day (26.1% effective)."
       }
     },
-
     "celebrity": {
       "id": "celebrity",
       "name": "Celebrity Cruises",
@@ -786,7 +1260,6 @@
       "slug": "celebrity",
       "pageUrl": "/cruise-lines/celebrity.html",
       "color": "#1c2b3a",
-
       "packages": {
         "soda": {
           "name": "Included in Fare",
@@ -802,16 +1275,19 @@
             "Juice and lemonade",
             "Infused water"
           ],
-          "breakEvenDrink": { "name": "sodas", "price": 0 },
+          "breakEvenDrink": {
+            "name": "sodas",
+            "price": 0
+          },
           "note": "Celebrity includes basic non-alcoholic drinks in the cruise fare. This is modeled as a $0 'soda package' so the calculator correctly shows these drinks at no cost."
         },
         "refreshment": {
           "name": "Zero Proof Package",
           "shortName": "Zero Proof",
           "emoji": "☕",
-          "priceMid": 35.00,
-          "priceMin": 30.00,
-          "priceMax": 45.00,
+          "priceMid": 35.0,
+          "priceMin": 30.0,
+          "priceMax": 45.0,
           "priceNote": "$30–$45/day (+20% gratuity). Prices vary by ship and sailing. Typical mid is $35 (dynamic pricing).",
           "includes": "Premium non-alcoholic drinks: specialty coffee, premium teas, fresh juices, mocktails, smoothies, premium bottled water, energy drinks",
           "includesList": [
@@ -823,15 +1299,18 @@
             "Energy drinks (Red Bull)",
             "Does NOT include alcohol"
           ],
-          "breakEvenDrink": { "name": "specialty coffees", "price": 5.00 }
+          "breakEvenDrink": {
+            "name": "specialty coffees",
+            "price": 5.0
+          }
         },
         "deluxe": {
           "name": "Classic Beverage Package",
           "shortName": "Classic",
           "emoji": "🍸",
-          "priceMid": 72.00,
-          "priceMin": 55.00,
-          "priceMax": 100.00,
+          "priceMid": 72.0,
+          "priceMin": 55.0,
+          "priceMax": 100.0,
           "priceNote": "$55–$100/day pre-cruise (+20% gratuity). Fleet-wide daily tracking shows $58–$81 pre-cruise average. Pre-cruise as low as $54.99 on shorter sailings; $85 typical onboard.",
           "includes": "Beer, wine, cocktails, spirits up to $10/drink + all Zero Proof items",
           "includesList": [
@@ -840,15 +1319,18 @@
             "Pay difference for drinks above $10 cap",
             "Most domestic beers covered; many craft/imported exceed cap"
           ],
-          "breakEvenDrink": { "name": "cocktails", "price": 10.00 }
+          "breakEvenDrink": {
+            "name": "cocktails",
+            "price": 15.0
+          }
         },
         "deluxePlus": {
           "name": "Premium Beverage Package",
           "shortName": "Premium",
           "emoji": "🥂",
-          "priceMid": 109.00,
-          "priceMin": 89.00,
-          "priceMax": 125.00,
+          "priceMid": 109.0,
+          "priceMin": 89.0,
+          "priceMax": 125.0,
           "priceNote": "$89–$125/day (+20% gratuity). Pre-cruise pricing typically $93/day.",
           "includes": "Everything in Classic + premium spirits, wines, cocktails up to $17/drink",
           "includesList": [
@@ -858,11 +1340,13 @@
             "Craft cocktails and specialty martinis up to $17",
             "Pay difference for drinks above $17 cap"
           ],
-          "breakEvenDrink": { "name": "premium cocktails", "price": 17.00 },
+          "breakEvenDrink": {
+            "name": "premium cocktails",
+            "price": 17.0
+          },
           "note": "Calculator models Premium as metadata only. Math engine compares soda/refresh/deluxe (Classic); Premium ranking is planned Phase 2."
         }
       },
-
       "coffeeCard": {
         "enabled": false,
         "name": "Coffee Card",
@@ -870,11 +1354,10 @@
         "punches": 0,
         "note": "Celebrity does not offer an à-la-carte coffee card. Specialty coffee is included in the Zero Proof, Classic, and Premium packages. Elite Plus Captain's Club members get free specialty coffees."
       },
-
       "rules": {
-        "gratuity": 0.20,
-        "deluxeCap": 10.00,
-        "deluxePlusCap": 17.00,
+        "gratuity": 0.2,
+        "deluxeCap": 10.0,
+        "deluxePlusCap": 17.0,
         "allAdultsSamePackage": true,
         "allAdultsSamePackageNote": "All adults sharing a stateroom must purchase the same beverage package. Medical exemptions require a phone call to Celebrity. Different package tiers (Classic vs Premium) also require phone booking.",
         "minorsForceRefreshment": false,
@@ -885,7 +1368,6 @@
         "deluxeDailyLimit": null,
         "deluxeTransactionLimit": 1
       },
-
       "loyalty": {
         "enabled": false,
         "programName": "Captain's Club",
@@ -893,35 +1375,195 @@
         "voucherNote": "Captain's Club does not offer daily drink vouchers. Elite members (300+ pts) get free drinks 5–7pm daily from the Captain's Club menu at most bars. Elite Plus (750+ pts) get free specialty coffees all day. Not modeled as vouchers in the calculator.",
         "tiers": [],
         "perks": [
-          { "tier": "Classic", "pointsMin": 2, "pointsMax": 149, "drinkPerks": "None" },
-          { "tier": "Select", "pointsMin": 150, "pointsMax": 299, "drinkPerks": "None" },
-          { "tier": "Elite", "pointsMin": 300, "pointsMax": 749, "drinkPerks": "Free drinks 5–7pm daily at CC bars" },
-          { "tier": "Elite Plus", "pointsMin": 750, "pointsMax": 99999, "drinkPerks": "Free specialty coffees all day + free drinks 5–7pm" }
+          {
+            "tier": "Classic",
+            "pointsMin": 2,
+            "pointsMax": 149,
+            "drinkPerks": "None"
+          },
+          {
+            "tier": "Select",
+            "pointsMin": 150,
+            "pointsMax": 299,
+            "drinkPerks": "None"
+          },
+          {
+            "tier": "Elite",
+            "pointsMin": 300,
+            "pointsMax": 749,
+            "drinkPerks": "Free drinks 5–7pm daily at CC bars"
+          },
+          {
+            "tier": "Elite Plus",
+            "pointsMin": 750,
+            "pointsMax": 99999,
+            "drinkPerks": "Free specialty coffees all day + free drinks 5–7pm"
+          }
         ]
       },
-
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Soda (fountain)",         "price": 0,     "rangeMin": 0,    "rangeMax": 0,     "category": "non-alcoholic", "icon": "🥤", "note": "Included in Celebrity fare" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Latte",        "price": 5.00,  "rangeMin": 4.25, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 4.50,  "rangeMin": 4.00, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice / Smoothie",  "price": 0,     "rangeMin": 0,    "rangeMax": 0,     "category": "non-alcoholic", "icon": "🧃", "note": "Basic juice included in fare; premium smoothies covered by Zero Proof" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",     "price": 8.00,  "rangeMin": 5.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 7.00,  "rangeMin": 7.00, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake / Smoothie",    "price": 7.00,  "rangeMin": 5.00, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Premium Bottled Water",   "price": 5.00,  "rangeMin": 4.00, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (domestic/craft)",   "price": 10.00, "rangeMin": 8.00, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 12.00, "rangeMin": 9.00, "rangeMax": 40.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 15.00, "rangeMin": 12.00,"rangeMax": 26.00, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 12.00, "rangeMin": 8.00, "rangeMax": 35.00, "category": "alcoholic",     "icon": "🥃" }
+        {
+          "id": "soda",
+          "name": "Soda",
+          "label": "Soda (fountain)",
+          "price": 0,
+          "rangeMin": 0,
+          "rangeMax": 0,
+          "category": "non-alcoholic",
+          "icon": "🥤",
+          "note": "Included in Celebrity fare"
+        },
+        {
+          "id": "coffee",
+          "name": "Specialty Coffee",
+          "label": "Espresso / Latte",
+          "price": 5.0,
+          "rangeMin": 4.25,
+          "rangeMax": 6.0,
+          "category": "non-alcoholic",
+          "icon": "☕"
+        },
+        {
+          "id": "teaprem",
+          "name": "Premium Tea",
+          "label": "Premium Tea",
+          "price": 4.5,
+          "rangeMin": 4.0,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "🍵"
+        },
+        {
+          "id": "freshjuice",
+          "name": "Fresh Juice",
+          "label": "Fresh Juice / Smoothie",
+          "price": 0,
+          "rangeMin": 0,
+          "rangeMax": 0,
+          "category": "non-alcoholic",
+          "icon": "🧃",
+          "note": "Basic juice included in fare; premium smoothies covered by Zero Proof"
+        },
+        {
+          "id": "mocktail",
+          "name": "Mocktail",
+          "label": "Zero-Proof Cocktail",
+          "price": 8.0,
+          "rangeMin": 5.0,
+          "rangeMax": 10.0,
+          "category": "non-alcoholic",
+          "icon": "🍹"
+        },
+        {
+          "id": "energy",
+          "name": "Energy Drink",
+          "label": "Red Bull",
+          "price": 7.0,
+          "rangeMin": 7.0,
+          "rangeMax": 7.0,
+          "category": "non-alcoholic",
+          "icon": "⚡"
+        },
+        {
+          "id": "milkshake",
+          "name": "Milkshake",
+          "label": "Milkshake / Smoothie",
+          "price": 7.0,
+          "rangeMin": 5.0,
+          "rangeMax": 9.0,
+          "category": "non-alcoholic",
+          "icon": "🥛"
+        },
+        {
+          "id": "bottledwater",
+          "name": "Bottled Water",
+          "label": "Premium Bottled Water",
+          "price": 5.0,
+          "rangeMin": 4.0,
+          "rangeMax": 6.0,
+          "category": "non-alcoholic",
+          "icon": "💧"
+        },
+        {
+          "id": "beer",
+          "name": "Beer",
+          "label": "Beer (domestic/craft)",
+          "price": 10.0,
+          "rangeMin": 8.0,
+          "rangeMax": 15.0,
+          "category": "alcoholic",
+          "icon": "🍺"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "label": "Wine (glass)",
+          "price": 12.0,
+          "rangeMin": 9.0,
+          "rangeMax": 40.0,
+          "category": "alcoholic",
+          "icon": "🍷"
+        },
+        {
+          "id": "cocktail",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "price": 15.0,
+          "rangeMin": 12.0,
+          "rangeMax": 26.0,
+          "category": "alcoholic",
+          "icon": "🍸"
+        },
+        {
+          "id": "spirits",
+          "name": "Spirits",
+          "label": "Spirits / Shot",
+          "price": 12.0,
+          "rangeMin": 8.0,
+          "rangeMax": 35.0,
+          "category": "alcoholic",
+          "icon": "🥃"
+        }
       ],
-
       "sets": {
-        "soda": ["soda", "freshjuice"],
-        "refresh": ["soda", "freshjuice", "coffee", "teaprem", "mocktail", "energy", "milkshake", "bottledwater"],
-        "deluxe": ["soda", "freshjuice", "coffee", "teaprem", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "soda": [
+          "soda",
+          "freshjuice",
+          "coffee",
+          "teaprem",
+          "bottledwater"
+        ],
+        "refresh": [
+          "soda",
+          "freshjuice",
+          "coffee",
+          "teaprem",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater"
+        ],
+        "deluxe": [
+          "soda",
+          "freshjuice",
+          "coffee",
+          "teaprem",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-
       "policies": [
         {
           "id": "all-adults-same",
@@ -945,7 +1587,6 @@
           "text": "Celebrity includes fountain soda, drip coffee, tea, juice, lemonade, and infused water in the base fare. You don't need any package for these basics."
         }
       ],
-
       "faq": [
         {
           "question": "What's the difference between Classic and Premium drink packages on Celebrity?",
@@ -964,15 +1605,12 @@
           "answer": "The $10 Classic cap was designed for beer and house wine drinkers. It predates the recent drink price inflation. Most cocktails ($12–$17) and craft beers ($13–$15) exceed $10, making Classic a poor value for cocktail drinkers. If you plan to order mixed drinks, the Premium package ($17 cap) or à la carte is usually better."
         }
       ],
-
       "quickAnswer": "Celebrity includes basic soda, coffee, and juice in the fare — no package needed for those. The Classic package ($89/day) has a low $10 cap that most cocktails exceed. Premium ($109/day) at $17 cap is the sweet spot for cocktail drinkers. Use the calculator to see which works for your mix.",
-
       "meta": {
         "title": "Celebrity Cruises Drink Package Calculator 2026 | Classic vs Premium",
         "description": "Compare Classic ($10 cap), Premium ($17 cap), Zero Proof, and à-la-carte. Celebrity includes basic drinks free — find out if upgrading is worth it.",
         "ogTitle": "Celebrity Cruises Drink Package Calculator 2026"
       },
-
       "_sources": {
         "note": "Verified 2026-04-17 via investigate pipeline",
         "references": [
@@ -996,7 +1634,6 @@
         "gratuityNote": "20% automatic service charge on all beverage packages and à-la-carte drink purchases."
       }
     },
-
     "princess": {
       "id": "princess",
       "name": "Princess Cruises",
@@ -1004,7 +1641,6 @@
       "slug": "princess",
       "pageUrl": "/cruise-lines/princess.html",
       "color": "#0a2240",
-
       "packages": {
         "soda": {
           "name": "Included in Fare",
@@ -1014,48 +1650,87 @@
           "priceMin": 0,
           "priceMax": 0,
           "priceNote": "Princess Standard fare includes juice (breakfast), milk, iced water, iced tea, hot tea, drip coffee, and lemonade. No separate soda package sold.",
-          "includesList": ["Drip coffee and hot tea","Iced tea and lemonade","Juice at breakfast","Milk","Iced water"],
-          "breakEvenDrink": { "name": "drip coffees", "price": 0 }
+          "includesList": [
+            "Drip coffee and hot tea",
+            "Iced tea and lemonade",
+            "Juice at breakfast",
+            "Milk",
+            "Iced water"
+          ],
+          "breakEvenDrink": {
+            "name": "drip coffees",
+            "price": 0
+          }
         },
         "refreshment": {
           "name": "Princess Plus (non-alcoholic portion)",
           "shortName": "Plus (NA)",
           "emoji": "☕",
-          "priceMid": 65.00,
-          "priceMin": 60.00,
-          "priceMax": 70.00,
+          "priceMid": 65.0,
+          "priceMin": 60.0,
+          "priceMax": 70.0,
           "priceNote": "Princess does not sell a non-alcoholic-only package. The cheapest package covering premium drinks is Princess Plus ($65/day). Modeled at Plus price so the calculator correctly shows Plus as the entry point.",
           "includes": "Specialty coffee, premium tea, mocktails, Red Bull, bottled water, fountain soda — all included in Princess Plus",
-          "includesList": ["Specialty coffee and tea","Mocktails","Red Bull / energy drinks","Bottled water (500ml)","Fountain soda"],
-          "breakEvenDrink": { "name": "specialty coffees", "price": 4.00 }
+          "includesList": [
+            "Specialty coffee and tea",
+            "Mocktails",
+            "Red Bull / energy drinks",
+            "Bottled water (500ml)",
+            "Fountain soda"
+          ],
+          "breakEvenDrink": {
+            "name": "specialty coffees",
+            "price": 4.0
+          }
         },
         "deluxe": {
           "name": "Princess Plus",
           "shortName": "Plus",
           "emoji": "🍸",
-          "priceMid": 65.00,
-          "priceMin": 60.00,
-          "priceMax": 70.00,
+          "priceMid": 65.0,
+          "priceMin": 60.0,
+          "priceMax": 70.0,
           "priceNote": "$60–$70/day (+18% gratuity when purchased separately; included in fare when booked as Plus fare). Sphere-class ships (Sun/Star Princess) add ~$5/day.",
           "includes": "Beer, wine, cocktails, spirits up to $15/drink + specialty coffee, tea, mocktails, Red Bull, bottled water, 25% off wine bottles. 15 alcoholic drinks/day limit.",
-          "includesList": ["Beer, wine, cocktails, spirits up to $15 each","Specialty coffees and teas","Mocktails and zero-proof cocktails","Red Bull and energy drinks","Bottled water (500ml)","Fountain soda","25% discount on wine bottles","15 alcoholic drinks per day limit"],
-          "breakEvenDrink": { "name": "cocktails", "price": 12.00 }
+          "includesList": [
+            "Beer, wine, cocktails, spirits up to $15 each",
+            "Specialty coffees and teas",
+            "Mocktails and zero-proof cocktails",
+            "Red Bull and energy drinks",
+            "Bottled water (500ml)",
+            "Fountain soda",
+            "25% discount on wine bottles",
+            "15 alcoholic drinks per day limit"
+          ],
+          "breakEvenDrink": {
+            "name": "cocktails",
+            "price": 13.0
+          }
         },
         "deluxePlus": {
           "name": "Princess Premier",
           "shortName": "Premier",
           "emoji": "🥂",
-          "priceMid": 100.00,
-          "priceMin": 85.00,
-          "priceMax": 105.00,
+          "priceMid": 100.0,
+          "priceMin": 85.0,
+          "priceMax": 105.0,
           "priceNote": "$85–$105/day (+18% gratuity separately; included in fare as Premier). Sphere-class +$5/day.",
           "includes": "Premium spirits, reserve wines, cocktails up to $20/drink + all Plus items. 15 alcoholic/day, unlimited NA.",
-          "includesList": ["All Princess Plus items","Premium/top-shelf spirits up to $20 each","Reserve wines by the glass up to $20","Woodford Reserve and Jack Daniel's selections","Unlimited non-alcoholic drinks (no daily limit)","25% off wine and water bottles"],
-          "breakEvenDrink": { "name": "premium cocktails", "price": 17.00 },
+          "includesList": [
+            "All Princess Plus items",
+            "Premium/top-shelf spirits up to $20 each",
+            "Reserve wines by the glass up to $20",
+            "Woodford Reserve and Jack Daniel's selections",
+            "Unlimited non-alcoholic drinks (no daily limit)",
+            "25% off wine and water bottles"
+          ],
+          "breakEvenDrink": {
+            "name": "premium cocktails",
+            "price": 17.0
+          },
           "note": "Calculator models Premier as metadata only. Math engine compares soda/refresh/deluxe (Plus); Premier ranking is planned Phase 2."
         }
       },
-
       "coffeeCard": {
         "enabled": false,
         "name": "Coffee Card",
@@ -1063,11 +1738,10 @@
         "punches": 0,
         "note": "Princess does not offer a coffee card. Specialty coffee is included in Princess Plus and Premier packages."
       },
-
       "rules": {
         "gratuity": 0.18,
-        "deluxeCap": 15.00,
-        "deluxePlusCap": 20.00,
+        "deluxeCap": 15.0,
+        "deluxePlusCap": 20.0,
         "allAdultsSamePackage": false,
         "allAdultsSamePackageNote": "Unlike most cruise lines, Princess allows individual adults to purchase drink packages independently. One person can buy Plus while their cabinmate buys nothing.",
         "minorsForceRefreshment": false,
@@ -1076,7 +1750,6 @@
         "usPortAlcoholRestriction": true,
         "deluxeDailyLimit": 15
       },
-
       "loyalty": {
         "enabled": false,
         "programName": "Captain's Circle",
@@ -1084,29 +1757,168 @@
         "voucherNote": "Captain's Circle does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor.",
         "tiers": []
       },
-
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Fountain Soda",           "price": 3.00,  "rangeMin": 3.00, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "🥤" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Latte / Cappuccino",      "price": 4.00,  "rangeMin": 3.00, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 3.50,  "rangeMin": 3.00, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice",             "price": 0,     "rangeMin": 0,    "rangeMax": 0,     "category": "non-alcoholic", "icon": "🧃", "note": "Juice at breakfast included in fare" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",     "price": 8.00,  "rangeMin": 6.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake / Smoothie",    "price": 6.00,  "rangeMin": 5.00, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water (500ml)",   "price": 2.65,  "rangeMin": 2.50, "rangeMax": 3.50,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (domestic/craft)",   "price": 8.00,  "rangeMin": 7.00, "rangeMax": 10.00, "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 12.00, "rangeMin": 10.00,"rangeMax": 20.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 13.00, "rangeMin": 10.00,"rangeMax": 19.00, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 10.00, "rangeMin": 7.50, "rangeMax": 30.00, "category": "alcoholic",     "icon": "🥃" }
+        {
+          "id": "soda",
+          "name": "Soda",
+          "label": "Fountain Soda",
+          "price": 3.0,
+          "rangeMin": 3.0,
+          "rangeMax": 3.5,
+          "category": "non-alcoholic",
+          "icon": "🥤"
+        },
+        {
+          "id": "coffee",
+          "name": "Specialty Coffee",
+          "label": "Latte / Cappuccino",
+          "price": 4.0,
+          "rangeMin": 3.0,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "☕"
+        },
+        {
+          "id": "teaprem",
+          "name": "Premium Tea",
+          "label": "Premium Tea",
+          "price": 3.5,
+          "rangeMin": 3.0,
+          "rangeMax": 5.0,
+          "category": "non-alcoholic",
+          "icon": "🍵"
+        },
+        {
+          "id": "freshjuice",
+          "name": "Fresh Juice",
+          "label": "Fresh Juice",
+          "price": 0,
+          "rangeMin": 0,
+          "rangeMax": 0,
+          "category": "non-alcoholic",
+          "icon": "🧃",
+          "note": "Juice at breakfast included in fare"
+        },
+        {
+          "id": "mocktail",
+          "name": "Mocktail",
+          "label": "Zero-Proof Cocktail",
+          "price": 8.0,
+          "rangeMin": 6.0,
+          "rangeMax": 10.0,
+          "category": "non-alcoholic",
+          "icon": "🍹"
+        },
+        {
+          "id": "energy",
+          "name": "Energy Drink",
+          "label": "Red Bull",
+          "price": 5.0,
+          "rangeMin": 4.5,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "⚡"
+        },
+        {
+          "id": "milkshake",
+          "name": "Milkshake",
+          "label": "Milkshake / Smoothie",
+          "price": 6.0,
+          "rangeMin": 5.0,
+          "rangeMax": 8.0,
+          "category": "non-alcoholic",
+          "icon": "🥛"
+        },
+        {
+          "id": "bottledwater",
+          "name": "Bottled Water",
+          "label": "Bottled Water (500ml)",
+          "price": 2.65,
+          "rangeMin": 2.5,
+          "rangeMax": 3.5,
+          "category": "non-alcoholic",
+          "icon": "💧"
+        },
+        {
+          "id": "beer",
+          "name": "Beer",
+          "label": "Beer (domestic/craft)",
+          "price": 8.0,
+          "rangeMin": 7.0,
+          "rangeMax": 10.0,
+          "category": "alcoholic",
+          "icon": "🍺"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "label": "Wine (glass)",
+          "price": 12.0,
+          "rangeMin": 10.0,
+          "rangeMax": 20.0,
+          "category": "alcoholic",
+          "icon": "🍷"
+        },
+        {
+          "id": "cocktail",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "price": 13.0,
+          "rangeMin": 10.0,
+          "rangeMax": 19.0,
+          "category": "alcoholic",
+          "icon": "🍸"
+        },
+        {
+          "id": "spirits",
+          "name": "Spirits",
+          "label": "Spirits / Shot",
+          "price": 10.0,
+          "rangeMin": 7.5,
+          "rangeMax": 30.0,
+          "category": "alcoholic",
+          "icon": "🥃"
+        }
       ],
-
       "sets": {
-        "soda": ["soda", "freshjuice"],
-        "refresh": ["soda", "freshjuice", "coffee", "teaprem", "mocktail", "energy", "milkshake", "bottledwater"],
-        "deluxe": ["soda", "freshjuice", "coffee", "teaprem", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "soda": [
+          "soda",
+          "freshjuice",
+          "coffee",
+          "teaprem",
+          "bottledwater"
+        ],
+        "refresh": [
+          "soda",
+          "freshjuice",
+          "coffee",
+          "teaprem",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater"
+        ],
+        "deluxe": [
+          "soda",
+          "freshjuice",
+          "coffee",
+          "teaprem",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-
       "policies": [
         {
           "id": "individual-purchase-ok",
@@ -1130,7 +1942,6 @@
           "text": "Sun Princess and Star Princess (Sphere class) charge approximately $5/day more for Plus and Premier packages compared to the rest of the fleet."
         }
       ],
-
       "faq": [
         {
           "question": "What's the difference between Princess Plus and Premier?",
@@ -1145,15 +1956,12 @@
           "answer": "Juice at breakfast, milk, iced water, iced tea, hot tea, drip coffee, and lemonade. No soda, no specialty coffee, no alcohol."
         }
       ],
-
       "quickAnswer": "Princess Plus at $65/day ($15 cap, includes specialty coffee) is excellent value — better per-dollar than most competitors. Plus can be purchased individually (no forced cabin-mate rule). Premier at $100/day raises the cap to $20 for top-shelf.",
-
       "meta": {
         "title": "Princess Cruises Drink Package Calculator 2026 | Plus vs Premier",
         "description": "Compare Princess Plus ($15 cap), Premier ($20 cap), and à-la-carte. Individual purchase allowed — no cabin-mate rule.",
         "ogTitle": "Princess Cruises Drink Package Calculator 2026"
       },
-
       "_sources": {
         "note": "Verified 2026-04-17 via investigate pipeline",
         "references": [
@@ -1168,7 +1976,6 @@
         "gratuityNote": "18% on packages purchased separately. Gratuities included when booked as Plus/Premier fare."
       }
     },
-
     "holland": {
       "id": "holland",
       "name": "Holland America Line",
@@ -1176,7 +1983,6 @@
       "slug": "holland-america",
       "pageUrl": "/cruise-lines/holland-america.html",
       "color": "#003366",
-
       "packages": {
         "soda": {
           "name": "Quench Package",
@@ -1187,8 +1993,19 @@
           "priceMax": 19.95,
           "priceNote": "$17.95/day pre-cruise (+18% gratuity). Non-alcoholic premium: soda, coffee, juice, mocktails, Red Bull.",
           "includes": "Unlimited non-alcoholic premium beverages",
-          "includesList": ["Espresso-based coffees and cappuccinos","Coca-Cola fountain soda","Fresh juices and smoothies","Signature mocktails","Red Bull energy drinks","Premium teas","Bottled water"],
-          "breakEvenDrink": { "name": "specialty coffees", "price": 4.00 }
+          "includesList": [
+            "Espresso-based coffees and cappuccinos",
+            "Coca-Cola fountain soda",
+            "Fresh juices and smoothies",
+            "Signature mocktails",
+            "Red Bull energy drinks",
+            "Premium teas",
+            "Bottled water"
+          ],
+          "breakEvenDrink": {
+            "name": "specialty coffees",
+            "price": 4.0
+          }
         },
         "refreshment": {
           "name": "Signature Beverage Package",
@@ -1199,8 +2016,16 @@
           "priceMax": 60.95,
           "priceNote": "$50.95/day pre-cruise per hollandamerica.com (+18% gratuity). All Quench items + beer, wine, cocktails, spirits up to $12/drink.",
           "includes": "All Quench items + beer, wine, cocktails, spirits up to $12 per drink",
-          "includesList": ["All Quench Package items","Beer, wine, cocktails, spirits up to $12 each","Pay difference for drinks above $12 cap","15 alcoholic drinks per day limit"],
-          "breakEvenDrink": { "name": "cocktails", "price": 11.00 }
+          "includesList": [
+            "All Quench Package items",
+            "Beer, wine, cocktails, spirits up to $12 each",
+            "Pay difference for drinks above $12 cap",
+            "15 alcoholic drinks per day limit"
+          ],
+          "breakEvenDrink": {
+            "name": "cocktails",
+            "price": 11.0
+          }
         },
         "deluxe": {
           "name": "Elite Beverage Package",
@@ -1211,11 +2036,19 @@
           "priceMax": 65.95,
           "priceNote": "$55.95/day pre-cruise per hollandamerica.com (+18% gratuity). All Signature items + premium spirits, wines, cocktails up to $16/drink. Unlimited zero-proof.",
           "includes": "All Signature items + premium spirits, wines, cocktails up to $16 per drink. 15 alcoholic/day, unlimited non-alcoholic.",
-          "includesList": ["All Signature Package items","Premium spirits, wines, cocktails up to $16 each","Unlimited zero-proof beverages (no daily limit)","15 alcoholic drinks per day limit","Pay difference for drinks above $16 cap"],
-          "breakEvenDrink": { "name": "cocktails", "price": 13.00 }
+          "includesList": [
+            "All Signature Package items",
+            "Premium spirits, wines, cocktails up to $16 each",
+            "Unlimited zero-proof beverages (no daily limit)",
+            "15 alcoholic drinks per day limit",
+            "Pay difference for drinks above $16 cap"
+          ],
+          "breakEvenDrink": {
+            "name": "cocktails",
+            "price": 11.0
+          }
         }
       },
-
       "coffeeCard": {
         "enabled": false,
         "name": "Coffee Card",
@@ -1223,11 +2056,10 @@
         "punches": 0,
         "note": "Holland America does not offer a coffee card. Specialty coffee is included in the Quench, Signature, and Elite packages."
       },
-
       "rules": {
         "gratuity": 0.18,
-        "deluxeCap": 16.00,
-        "signatureCap": 12.00,
+        "deluxeCap": 16.0,
+        "signatureCap": 12.0,
         "allAdultsSamePackage": true,
         "allAdultsSamePackageNote": "All adults in the same stateroom must purchase the same beverage package if one buys it.",
         "minorsForceRefreshment": false,
@@ -1236,7 +2068,6 @@
         "usPortAlcoholRestriction": true,
         "deluxeDailyLimit": 15
       },
-
       "loyalty": {
         "enabled": false,
         "programName": "Mariner Society",
@@ -1244,29 +2075,174 @@
         "voucherNote": "Mariner Society does not offer daily drink vouchers comparable to Royal Caribbean's Crown & Anchor.",
         "tiers": []
       },
-
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Coca-Cola (fountain)",    "price": 2.75,  "rangeMin": 2.50, "rangeMax": 3.00,  "category": "non-alcoholic", "icon": "🥤" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Cappuccino",   "price": 4.00,  "rangeMin": 3.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.50,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice / Smoothie",  "price": 5.00,  "rangeMin": 4.00, "rangeMax": 6.50,  "category": "non-alcoholic", "icon": "🧃" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Signature Mocktail",       "price": 7.50,  "rangeMin": 6.00, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 6.00,  "rangeMin": 5.00, "rangeMax": 7.50,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.75,  "rangeMin": 3.75, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (domestic/craft)",   "price": 7.75,  "rangeMin": 7.00, "rangeMax": 9.50,  "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 11.00, "rangeMin": 8.00, "rangeMax": 13.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Classic Cocktail",        "price": 11.00, "rangeMin": 9.00, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 10.00, "rangeMin": 8.50, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🥃" }
+        {
+          "id": "soda",
+          "name": "Soda",
+          "label": "Coca-Cola (fountain)",
+          "price": 2.75,
+          "rangeMin": 2.5,
+          "rangeMax": 3.0,
+          "category": "non-alcoholic",
+          "icon": "🥤"
+        },
+        {
+          "id": "coffee",
+          "name": "Specialty Coffee",
+          "label": "Espresso / Cappuccino",
+          "price": 4.0,
+          "rangeMin": 3.5,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "☕"
+        },
+        {
+          "id": "teaprem",
+          "name": "Premium Tea",
+          "label": "Premium Tea",
+          "price": 3.5,
+          "rangeMin": 3.0,
+          "rangeMax": 4.5,
+          "category": "non-alcoholic",
+          "icon": "🍵"
+        },
+        {
+          "id": "freshjuice",
+          "name": "Fresh Juice",
+          "label": "Fresh Juice / Smoothie",
+          "price": 5.0,
+          "rangeMin": 4.0,
+          "rangeMax": 6.5,
+          "category": "non-alcoholic",
+          "icon": "🧃"
+        },
+        {
+          "id": "mocktail",
+          "name": "Mocktail",
+          "label": "Signature Mocktail",
+          "price": 7.5,
+          "rangeMin": 6.0,
+          "rangeMax": 9.0,
+          "category": "non-alcoholic",
+          "icon": "🍹"
+        },
+        {
+          "id": "energy",
+          "name": "Energy Drink",
+          "label": "Red Bull",
+          "price": 5.0,
+          "rangeMin": 4.5,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "⚡"
+        },
+        {
+          "id": "milkshake",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "price": 6.0,
+          "rangeMin": 5.0,
+          "rangeMax": 7.5,
+          "category": "non-alcoholic",
+          "icon": "🥛"
+        },
+        {
+          "id": "bottledwater",
+          "name": "Bottled Water",
+          "label": "Bottled Water",
+          "price": 3.75,
+          "rangeMin": 3.75,
+          "rangeMax": 5.0,
+          "category": "non-alcoholic",
+          "icon": "💧"
+        },
+        {
+          "id": "beer",
+          "name": "Beer",
+          "label": "Beer (domestic/craft)",
+          "price": 7.75,
+          "rangeMin": 7.0,
+          "rangeMax": 9.5,
+          "category": "alcoholic",
+          "icon": "🍺"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "label": "Wine (glass)",
+          "price": 11.0,
+          "rangeMin": 8.0,
+          "rangeMax": 13.0,
+          "category": "alcoholic",
+          "icon": "🍷"
+        },
+        {
+          "id": "cocktail",
+          "name": "Cocktail",
+          "label": "Classic Cocktail",
+          "price": 11.0,
+          "rangeMin": 9.0,
+          "rangeMax": 15.0,
+          "category": "alcoholic",
+          "icon": "🍸"
+        },
+        {
+          "id": "spirits",
+          "name": "Spirits",
+          "label": "Spirits / Shot",
+          "price": 10.0,
+          "rangeMin": 8.5,
+          "rangeMax": 15.0,
+          "category": "alcoholic",
+          "icon": "🥃"
+        }
       ],
-
       "sets": {
-        "soda": ["soda"],
-        "refresh": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater"],
-        "deluxe": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "soda": [
+          "soda",
+          "freshjuice",
+          "coffee",
+          "teaprem",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater"
+        ],
+        "refresh": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "deluxe": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-
       "policies": [
         {
           "id": "happy-hour",
@@ -1283,7 +2259,6 @@
           "text": "Holland America uniquely offers three alcohol-capable tiers: Quench ($0 alcohol, non-alcoholic only), Signature ($12 cap), and Elite ($16 cap). The calculator compares Quench, Signature, and Elite against à la carte."
         }
       ],
-
       "faq": [
         {
           "question": "What's the difference between Quench, Signature, and Elite on Holland America?",
@@ -1294,15 +2269,12 @@
           "answer": "Yes — most days 4–5pm at select bars (usually Ocean Bar and Billboard Onboard), drinks are 50% off. If you time your drinking to happy hour, you may not need a package at all."
         }
       ],
-
       "quickAnswer": "Holland America's 3-tier system is unusually flexible. Quench ($17.95/day) is great value for coffee and mocktail lovers. Signature ($50.95/day) covers most standard drinks. Elite ($65.95/day) is one of the cheapest premium packages in the industry. The daily happy hour (50% off) can also shift the break-even math.",
-
       "meta": {
         "title": "Holland America Drink Package Calculator 2026 | Quench vs Signature vs Elite",
         "description": "Compare Quench, Signature ($12 cap), and Elite ($16 cap) packages with 2026 pricing. Includes happy hour analysis.",
         "ogTitle": "Holland America Drink Package Calculator 2026"
       },
-
       "_sources": {
         "note": "Verified 2026-04-17 via investigate pipeline",
         "references": [
@@ -1318,7 +2290,6 @@
         "gratuityNote": "18% service charge on all beverage purchases and packages."
       }
     },
-
     "msc": {
       "id": "msc",
       "name": "MSC Cruises",
@@ -1326,49 +2297,80 @@
       "slug": "msc",
       "pageUrl": "/cruise-lines/msc.html",
       "color": "#003366",
-
       "packages": {
         "soda": {
           "name": "Minors Package",
           "shortName": "Minors",
           "emoji": "🧃",
-          "priceMid": 22.00,
-          "priceMin": 22.00,
-          "priceMax": 25.00,
-          "childPriceMid": 22.00,
+          "priceMid": 22.0,
+          "priceMin": 22.0,
+          "priceMax": 25.0,
+          "childPriceMid": 22.0,
           "priceNote": "$22/day (4+ nights) or $25/day (3 nights). Gratuity included. For guests under 18.",
           "includes": "Non-alcoholic drinks for minors: soda, juice, water, mocktails",
-          "includesList": ["Coca-Cola fountain soda","Juices","Bottled water","Mocktails","Smoothies"],
-          "breakEvenDrink": { "name": "sodas", "price": 3.25 }
+          "includesList": [
+            "Coca-Cola fountain soda",
+            "Juices",
+            "Bottled water",
+            "Mocktails",
+            "Smoothies"
+          ],
+          "breakEvenDrink": {
+            "name": "sodas",
+            "price": 3.25
+          }
         },
         "refreshment": {
           "name": "Alcohol-Free Package",
           "shortName": "Alcohol-Free",
           "emoji": "☕",
-          "priceMid": 33.00,
-          "priceMin": 33.00,
-          "priceMax": 35.00,
+          "priceMid": 33.0,
+          "priceMin": 33.0,
+          "priceMax": 35.0,
           "priceNote": "$33/day (4+ nights) or $35/day (3 nights). Gratuity included.",
           "includes": "Premium non-alcoholic: specialty coffee, premium tea, mocktails, fresh juice, Red Bull, bottled water, soda",
-          "includesList": ["Specialty coffees and cappuccinos","Premium teas","Signature mocktails","Fresh juices and smoothies","Red Bull energy drinks","Bottled water","Coca-Cola soda","Unlimited daily consumption"],
-          "breakEvenDrink": { "name": "specialty coffees", "price": 5.00 }
+          "includesList": [
+            "Specialty coffees and cappuccinos",
+            "Premium teas",
+            "Signature mocktails",
+            "Fresh juices and smoothies",
+            "Red Bull energy drinks",
+            "Bottled water",
+            "Coca-Cola soda",
+            "Unlimited daily consumption"
+          ],
+          "breakEvenDrink": {
+            "name": "specialty coffees",
+            "price": 5.0
+          }
         },
         "deluxe": {
           "name": "Premium Extra Package",
           "shortName": "Premium Extra",
           "emoji": "🍸",
-          "priceMid": 85.00,
-          "priceMin": 85.00,
-          "priceMax": 95.00,
+          "priceMid": 85.0,
+          "priceMin": 85.0,
+          "priceMax": 95.0,
           "priceNote": "$85/day (4+ nights) or $95/day (3 nights). Gratuity included. All Alcohol-Free items + beer, wine, cocktails, spirits.",
           "includes": "All Alcohol-Free items + beer, wine, cocktails, spirits. 15 alcoholic/day limit, unlimited non-alcoholic.",
-          "includesList": ["All Alcohol-Free Package items","Beer, wine, cocktails, spirits","15 alcoholic drinks per day limit","Unlimited non-alcoholic (does not count toward 15)","Gratuity included in price"],
-          "breakEvenDrink": { "name": "cocktails", "price": 14.00 }
+          "includesList": [
+            "All Alcohol-Free Package items",
+            "Beer, wine, cocktails, spirits",
+            "15 alcoholic drinks per day limit",
+            "Unlimited non-alcoholic (does not count toward 15)",
+            "Gratuity included in price"
+          ],
+          "breakEvenDrink": {
+            "name": "cocktails",
+            "price": 14.0
+          }
         }
       },
-
-      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
-
+      "coffeeCard": {
+        "enabled": false,
+        "price": 0,
+        "punches": 0
+      },
       "rules": {
         "gratuity": 0,
         "gratuityNote": "MSC includes 18% gratuity in all advertised package prices. Engine gratuity is 0% because priceMid values are already all-in.",
@@ -1383,7 +2385,6 @@
         "usPortAlcoholRestriction": true,
         "deluxeDailyLimit": 15
       },
-
       "loyalty": {
         "enabled": false,
         "programName": "MSC Voyagers Club",
@@ -1391,29 +2392,167 @@
         "voucherNote": "MSC Voyagers Club does not offer daily drink vouchers.",
         "tiers": []
       },
-
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Coca-Cola (fountain)",    "price": 3.25,  "rangeMin": 3.00, "rangeMax": 3.75,  "category": "non-alcoholic", "icon": "🥤" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Cappuccino",   "price": 5.00,  "rangeMin": 4.00, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 4.00,  "rangeMin": 3.50, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice / Smoothie",  "price": 5.50,  "rangeMin": 4.50, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "🧃" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Signature Mocktail",       "price": 8.00,  "rangeMin": 6.00, "rangeMax": 10.00, "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 6.00,  "rangeMin": 5.00, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.25,  "rangeMin": 3.25, "rangeMax": 4.25,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (draft/bottle)",     "price": 8.00,  "rangeMin": 7.00, "rangeMax": 9.50,  "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 14.00, "rangeMin": 13.00,"rangeMax": 16.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 14.00, "rangeMin": 12.00,"rangeMax": 16.00, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 10.00, "rangeMin": 8.00, "rangeMax": 14.00, "category": "alcoholic",     "icon": "🥃" }
+        {
+          "id": "soda",
+          "name": "Soda",
+          "label": "Coca-Cola (fountain)",
+          "price": 3.25,
+          "rangeMin": 3.0,
+          "rangeMax": 3.75,
+          "category": "non-alcoholic",
+          "icon": "🥤"
+        },
+        {
+          "id": "coffee",
+          "name": "Specialty Coffee",
+          "label": "Espresso / Cappuccino",
+          "price": 5.0,
+          "rangeMin": 4.0,
+          "rangeMax": 6.0,
+          "category": "non-alcoholic",
+          "icon": "☕"
+        },
+        {
+          "id": "teaprem",
+          "name": "Premium Tea",
+          "label": "Premium Tea",
+          "price": 4.0,
+          "rangeMin": 3.5,
+          "rangeMax": 5.0,
+          "category": "non-alcoholic",
+          "icon": "🍵"
+        },
+        {
+          "id": "freshjuice",
+          "name": "Fresh Juice",
+          "label": "Fresh Juice / Smoothie",
+          "price": 5.5,
+          "rangeMin": 4.5,
+          "rangeMax": 7.0,
+          "category": "non-alcoholic",
+          "icon": "🧃"
+        },
+        {
+          "id": "mocktail",
+          "name": "Mocktail",
+          "label": "Signature Mocktail",
+          "price": 8.0,
+          "rangeMin": 6.0,
+          "rangeMax": 10.0,
+          "category": "non-alcoholic",
+          "icon": "🍹"
+        },
+        {
+          "id": "energy",
+          "name": "Energy Drink",
+          "label": "Red Bull",
+          "price": 5.0,
+          "rangeMin": 4.5,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "⚡"
+        },
+        {
+          "id": "milkshake",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "price": 6.0,
+          "rangeMin": 5.0,
+          "rangeMax": 7.0,
+          "category": "non-alcoholic",
+          "icon": "🥛"
+        },
+        {
+          "id": "bottledwater",
+          "name": "Bottled Water",
+          "label": "Bottled Water",
+          "price": 3.25,
+          "rangeMin": 3.25,
+          "rangeMax": 4.25,
+          "category": "non-alcoholic",
+          "icon": "💧"
+        },
+        {
+          "id": "beer",
+          "name": "Beer",
+          "label": "Beer (draft/bottle)",
+          "price": 8.0,
+          "rangeMin": 7.0,
+          "rangeMax": 9.5,
+          "category": "alcoholic",
+          "icon": "🍺"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "label": "Wine (glass)",
+          "price": 14.0,
+          "rangeMin": 13.0,
+          "rangeMax": 16.0,
+          "category": "alcoholic",
+          "icon": "🍷"
+        },
+        {
+          "id": "cocktail",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "price": 14.0,
+          "rangeMin": 12.0,
+          "rangeMax": 16.0,
+          "category": "alcoholic",
+          "icon": "🍸"
+        },
+        {
+          "id": "spirits",
+          "name": "Spirits",
+          "label": "Spirits / Shot",
+          "price": 10.0,
+          "rangeMin": 8.0,
+          "rangeMax": 14.0,
+          "category": "alcoholic",
+          "icon": "🥃"
+        }
       ],
-
       "sets": {
-        "soda": ["soda"],
-        "refresh": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater"],
-        "deluxe": ["soda", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "bottledwater", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "soda": [
+          "soda",
+          "freshjuice",
+          "bottledwater",
+          "mocktail",
+          "milkshake"
+        ],
+        "refresh": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater"
+        ],
+        "deluxe": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-
       "policies": [
         {
           "id": "gratuity-included",
@@ -1437,7 +2576,6 @@
           "text": "MSC's drinking age is 18 on most international itineraries but 21 on North America sailings. This affects which guests can purchase the Premium Extra package."
         }
       ],
-
       "faq": [
         {
           "question": "Is gratuity included in MSC drink package prices?",
@@ -1448,15 +2586,12 @@
           "answer": "Discontinued for 2026. MSC simplified to three packages: Alcohol-Free ($33/day), Premium Extra ($85/day), and Minors ($22/day). If you see Easy or Easy Plus pricing online, it's outdated."
         }
       ],
-
       "quickAnswer": "MSC includes gratuity in all package prices — $85/day Premium Extra is the real price, no surprises. With cocktails at $14 and wine at $13–$16, break-even is ~6 drinks/day. The $33/day Alcohol-Free is strong value for coffee and mocktail drinkers.",
-
       "meta": {
         "title": "MSC Cruises Drink Package Calculator 2026 | Premium Extra Worth It?",
         "description": "Compare Premium Extra ($85/day all-in), Alcohol-Free, and à-la-carte. MSC includes gratuity — no hidden charges.",
         "ogTitle": "MSC Cruises Drink Package Calculator 2026"
       },
-
       "_sources": {
         "note": "Verified 2026-04-17 via investigate pipeline",
         "references": [
@@ -1472,7 +2607,6 @@
         "gratuityNote": "18% gratuity included in all MSC package prices. Individual drinks: 15% (Europe) or 18% (North America)."
       }
     },
-
     "virgin": {
       "id": "virgin",
       "name": "Virgin Voyages",
@@ -1481,7 +2615,6 @@
       "pageUrl": "/cruise-lines/virgin.html",
       "color": "#e10a0a",
       "noPackages": true,
-
       "packages": {
         "soda": {
           "name": "Included in Fare",
@@ -1491,8 +2624,17 @@
           "priceMin": 0,
           "priceMax": 0,
           "priceNote": "Water, juice, soda, teas, and drip coffee are included in every Virgin Voyages fare. No package needed.",
-          "includesList": ["Still and sparkling water","Juices","Coca-Cola fountain sodas","Teas","Drip coffee"],
-          "breakEvenDrink": { "name": "sodas", "price": 0 }
+          "includesList": [
+            "Still and sparkling water",
+            "Juices",
+            "Coca-Cola fountain sodas",
+            "Teas",
+            "Drip coffee"
+          ],
+          "breakEvenDrink": {
+            "name": "sodas",
+            "price": 0
+          }
         },
         "refreshment": {
           "name": "Not Available",
@@ -1503,7 +2645,10 @@
           "priceMax": 0,
           "priceNote": "Virgin Voyages does not sell a non-alcoholic premium package. Basic drinks are included; specialty drinks are à la carte.",
           "includesList": [],
-          "breakEvenDrink": { "name": "n/a", "price": 0 },
+          "breakEvenDrink": {
+            "name": "n/a",
+            "price": 0
+          },
           "note": "noPackages flag on the line config causes the engine to skip package comparison entirely."
         },
         "deluxe": {
@@ -1515,28 +2660,52 @@
           "priceMax": 0,
           "priceNote": "Virgin Voyages does NOT sell drink packages. All alcoholic and specialty drinks are à la carte. See the Bar Tab system below.",
           "includesList": [],
-          "breakEvenDrink": { "name": "n/a", "price": 0 },
+          "breakEvenDrink": {
+            "name": "n/a",
+            "price": 0
+          },
           "note": "noPackages flag on the line config causes the engine to skip package comparison entirely."
         }
       },
-
       "barTab": {
         "available": true,
         "description": "Pre-loaded credit on your onboard account. Not a package — no cap, no daily limit, no covered-drinks list. Just prepaid money that works like a gift card at any bar.",
         "tiers": [
-          { "amount": 200, "bonus": 25, "total": 225 },
-          { "amount": 300, "bonus": 50, "total": 350 },
-          { "amount": 500, "bonus": 100, "total": 600 },
-          { "amount": 750, "bonus": 175, "total": 925 },
-          { "amount": 1000, "bonus": 250, "total": 1250 }
+          {
+            "amount": 200,
+            "bonus": 25,
+            "total": 225
+          },
+          {
+            "amount": 300,
+            "bonus": 50,
+            "total": 350
+          },
+          {
+            "amount": 500,
+            "bonus": 100,
+            "total": 600
+          },
+          {
+            "amount": 750,
+            "bonus": 175,
+            "total": 925
+          },
+          {
+            "amount": 1000,
+            "bonus": 250,
+            "total": 1250
+          }
         ],
         "bonusNote": "Standard non-promotional 2026 bonuses per serioussailors.com. Wave Season and Black Friday promotions can increase bonuses further. Once your Bar Tab balance is spent, additional drinks are charged à la carte.",
         "noGratuityOnDrinks": true,
         "gratuityNote": "Virgin Voyages does not add automatic gratuity to drink purchases. A $13 cocktail costs $13."
       },
-
-      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
-
+      "coffeeCard": {
+        "enabled": false,
+        "price": 0,
+        "punches": 0
+      },
       "rules": {
         "gratuity": 0,
         "gratuityNote": "Virgin Voyages charges NO automatic gratuity on drink purchases. Menu prices are final.",
@@ -1550,7 +2719,6 @@
         "usPortAlcoholRestriction": false,
         "deluxeDailyLimit": null
       },
-
       "loyalty": {
         "enabled": false,
         "programName": "The Sailing Club",
@@ -1558,29 +2726,157 @@
         "voucherNote": "The Sailing Club does not offer drink vouchers. Repeat Sailors earn discounts on future bookings, not onboard drink credits.",
         "tiers": []
       },
-
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Fountain Soda",           "price": 0,     "rangeMin": 0,    "rangeMax": 0,     "category": "non-alcoholic", "icon": "🥤", "note": "Included in fare" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Latte",        "price": 5.00,  "rangeMin": 3.00, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 4.00,  "rangeMin": 3.00, "rangeMax": 5.00,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice / Smoothie",  "price": 7.00,  "rangeMin": 5.00, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🧃" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Zero-Proof Cocktail",     "price": 10.00, "rangeMin": 7.00, "rangeMax": 13.00, "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Shake / Smoothie",        "price": 7.00,  "rangeMin": 5.00, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 0,     "rangeMin": 0,    "rangeMax": 0,     "category": "non-alcoholic", "icon": "💧", "note": "Included in fare" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (craft/imported)",   "price": 9.00,  "rangeMin": 7.00, "rangeMax": 11.00, "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 14.00, "rangeMin": 9.00, "rangeMax": 29.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 13.00, "rangeMin": 11.00,"rangeMax": 17.00, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 12.00, "rangeMin": 9.00, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🥃" }
+        {
+          "id": "soda",
+          "name": "Soda",
+          "label": "Fountain Soda",
+          "price": 0,
+          "rangeMin": 0,
+          "rangeMax": 0,
+          "category": "non-alcoholic",
+          "icon": "🥤",
+          "note": "Included in fare"
+        },
+        {
+          "id": "coffee",
+          "name": "Specialty Coffee",
+          "label": "Espresso / Latte",
+          "price": 5.0,
+          "rangeMin": 3.0,
+          "rangeMax": 7.0,
+          "category": "non-alcoholic",
+          "icon": "☕"
+        },
+        {
+          "id": "teaprem",
+          "name": "Premium Tea",
+          "label": "Premium Tea",
+          "price": 4.0,
+          "rangeMin": 3.0,
+          "rangeMax": 5.0,
+          "category": "non-alcoholic",
+          "icon": "🍵"
+        },
+        {
+          "id": "freshjuice",
+          "name": "Fresh Juice",
+          "label": "Fresh Juice / Smoothie",
+          "price": 7.0,
+          "rangeMin": 5.0,
+          "rangeMax": 9.0,
+          "category": "non-alcoholic",
+          "icon": "🧃"
+        },
+        {
+          "id": "mocktail",
+          "name": "Mocktail",
+          "label": "Zero-Proof Cocktail",
+          "price": 10.0,
+          "rangeMin": 7.0,
+          "rangeMax": 13.0,
+          "category": "non-alcoholic",
+          "icon": "🍹"
+        },
+        {
+          "id": "energy",
+          "name": "Energy Drink",
+          "label": "Red Bull",
+          "price": 5.0,
+          "rangeMin": 4.5,
+          "rangeMax": 6.0,
+          "category": "non-alcoholic",
+          "icon": "⚡"
+        },
+        {
+          "id": "milkshake",
+          "name": "Milkshake",
+          "label": "Shake / Smoothie",
+          "price": 7.0,
+          "rangeMin": 5.0,
+          "rangeMax": 9.0,
+          "category": "non-alcoholic",
+          "icon": "🥛"
+        },
+        {
+          "id": "bottledwater",
+          "name": "Bottled Water",
+          "label": "Bottled Water",
+          "price": 0,
+          "rangeMin": 0,
+          "rangeMax": 0,
+          "category": "non-alcoholic",
+          "icon": "💧",
+          "note": "Included in fare"
+        },
+        {
+          "id": "beer",
+          "name": "Beer",
+          "label": "Beer (craft/imported)",
+          "price": 9.0,
+          "rangeMin": 7.0,
+          "rangeMax": 11.0,
+          "category": "alcoholic",
+          "icon": "🍺"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "label": "Wine (glass)",
+          "price": 14.0,
+          "rangeMin": 9.0,
+          "rangeMax": 29.0,
+          "category": "alcoholic",
+          "icon": "🍷"
+        },
+        {
+          "id": "cocktail",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "price": 13.0,
+          "rangeMin": 11.0,
+          "rangeMax": 17.0,
+          "category": "alcoholic",
+          "icon": "🍸"
+        },
+        {
+          "id": "spirits",
+          "name": "Spirits",
+          "label": "Spirits / Shot",
+          "price": 12.0,
+          "rangeMin": 9.0,
+          "rangeMax": 15.0,
+          "category": "alcoholic",
+          "icon": "🥃"
+        }
       ],
-
       "sets": {
-        "soda": ["soda", "bottledwater"],
+        "soda": [
+          "soda",
+          "bottledwater"
+        ],
         "refresh": [],
-        "deluxe": ["soda", "bottledwater", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "deluxe": [
+          "soda",
+          "bottledwater",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-
       "policies": [
         {
           "id": "no-drink-packages",
@@ -1611,7 +2907,6 @@
           "text": "Virgin Voyages is an adults-only cruise line. All Sailors must be 18+. No children, no minors packages."
         }
       ],
-
       "faq": [
         {
           "question": "Does Virgin Voyages have a drink package?",
@@ -1626,15 +2921,12 @@
           "answer": "Yes. Water, juice, fountain soda, teas, and drip coffee are included in every fare. Specialty coffee, fresh juice, smoothies, mocktails, and all alcohol are à la carte."
         }
       ],
-
       "quickAnswer": "Virgin Voyages has no drink packages — the calculator shows your estimated daily à-la-carte spend. Basic drinks are free. Consider pre-loading a Bar Tab ($200–$1000) for bonus credit. No gratuity on drinks makes pricing transparent.",
-
       "meta": {
         "title": "Virgin Voyages Drink Calculator 2026 | Bar Tab Worth It?",
         "description": "No drink packages on Virgin — estimate your à-la-carte spending and see if a Bar Tab pre-load saves money.",
         "ogTitle": "Virgin Voyages Drink Calculator 2026"
       },
-
       "_sources": {
         "note": "Verified 2026-04-17 via investigate pipeline",
         "references": [
@@ -1650,7 +2942,6 @@
         "gratuityNote": "No automatic gratuity on drinks. Menu prices are final."
       }
     },
-
     "costa": {
       "id": "costa",
       "name": "Costa Cruises",
@@ -1659,47 +2950,78 @@
       "pageUrl": "/cruise-lines/costa.html",
       "color": "#003399",
       "currency": "EUR",
-
       "packages": {
         "soda": {
           "name": "My Soft Drinks",
           "shortName": "Soft Drinks",
           "emoji": "☕",
-          "priceMid": 23.00,
-          "priceMin": 20.00,
-          "priceMax": 26.00,
+          "priceMid": 23.0,
+          "priceMin": 20.0,
+          "priceMax": 26.0,
           "priceNote": "~€23/day. Water, coffee, juices, soft drinks, non-alcoholic cocktails.",
-          "includesList": ["Bottled water","Coffee and herbal teas","Juices","Soft drinks","Non-alcoholic cocktails"],
-          "breakEvenDrink": { "name": "coffees", "price": 4.00 }
+          "includesList": [
+            "Bottled water",
+            "Coffee and herbal teas",
+            "Juices",
+            "Soft drinks",
+            "Non-alcoholic cocktails"
+          ],
+          "breakEvenDrink": {
+            "name": "coffees",
+            "price": 3.5
+          }
         },
         "refreshment": {
           "name": "My Drinks",
           "shortName": "My Drinks",
           "emoji": "🍷",
-          "priceMid": 35.00,
-          "priceMin": 29.00,
-          "priceMax": 42.00,
+          "priceMid": 35.0,
+          "priceMin": 29.0,
+          "priceMax": 42.0,
           "priceNote": "~€35/day pre-cruise, ~€42/day onboard. Draught beer, house spirits, classic cocktails, wine with meals, soft drinks, coffee.",
           "includes": "All Soft Drinks items + draught Heineken, house spirits, classic cocktails, wine with meals",
-          "includesList": ["All My Soft Drinks items","Draught Heineken","House spirits and mixers","Classic cocktails","Wine with meals","Does NOT include premium cocktails, bottled beer, fruit juice, minibar"],
-          "breakEvenDrink": { "name": "beer/cocktails", "price": 6.00 }
+          "includesList": [
+            "All My Soft Drinks items",
+            "Draught Heineken",
+            "House spirits and mixers",
+            "Classic cocktails",
+            "Wine with meals",
+            "Does NOT include premium cocktails, bottled beer, fruit juice, minibar"
+          ],
+          "breakEvenDrink": {
+            "name": "beer/cocktails",
+            "price": 9.3
+          }
         },
         "deluxe": {
           "name": "My Drinks Plus",
           "shortName": "Drinks Plus",
           "emoji": "🍸",
-          "priceMid": 48.00,
-          "priceMin": 42.00,
-          "priceMax": 57.00,
+          "priceMid": 48.0,
+          "priceMin": 42.0,
+          "priceMax": 57.0,
           "priceNote": "~€48/day pre-cruise, ~€57/day onboard. Premium cocktails, prestigious spirits, bottled beer, fruit juice, minibar access.",
           "includes": "All My Drinks items + premium cocktails, prestigious spirits, bottled beer, fruit juice, minibar",
-          "includesList": ["All My Drinks items","Premium cocktails","Prestigious/top-shelf spirits","Bottled beer","Fruit juices","Minibar access (where available)","Excludes specialty restaurant drinks"],
-          "breakEvenDrink": { "name": "premium cocktails", "price": 10.00 }
+          "includesList": [
+            "All My Drinks items",
+            "Premium cocktails",
+            "Prestigious/top-shelf spirits",
+            "Bottled beer",
+            "Fruit juices",
+            "Minibar access (where available)",
+            "Excludes specialty restaurant drinks"
+          ],
+          "breakEvenDrink": {
+            "name": "premium cocktails",
+            "price": 9.3
+          }
         }
       },
-
-      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
-
+      "coffeeCard": {
+        "enabled": false,
+        "price": 0,
+        "punches": 0
+      },
       "rules": {
         "gratuity": 0,
         "gratuityNote": "Costa package prices appear all-in. 15% service charge applies to individual à-la-carte drink purchases only. Engine gratuity set to 0% for package math.",
@@ -1712,7 +3034,6 @@
         "usPortAlcoholRestriction": false,
         "deluxeDailyLimit": null
       },
-
       "loyalty": {
         "enabled": false,
         "programName": "Costa Club",
@@ -1720,29 +3041,172 @@
         "voucherNote": "Costa Club does not offer daily drink vouchers.",
         "tiers": []
       },
-
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Soft Drink",              "price": 3.70,  "rangeMin": 3.40, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🥤" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Cappuccino",   "price": 3.50,  "rangeMin": 2.20, "rangeMax": 6.70,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Herbal Tea",              "price": 2.50,  "rangeMin": 2.20, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fruit Juice",             "price": 4.00,  "rangeMin": 3.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "🧃" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Non-Alcoholic Cocktail",  "price": 6.00,  "rangeMin": 4.50, "rangeMax": 8.00,  "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 5.50,  "rangeMin": 4.50, "rangeMax": 6.50,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.40,  "rangeMin": 2.90, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (draught Heineken)",  "price": 4.80,  "rangeMin": 4.50, "rangeMax": 6.00,  "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 7.00,  "rangeMin": 5.70, "rangeMax": 10.30, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Cocktail",                "price": 9.30,  "rangeMin": 5.70, "rangeMax": 10.30, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits + Mixer",         "price": 8.00,  "rangeMin": 7.80, "rangeMax": 12.40, "category": "alcoholic",     "icon": "🥃" }
+        {
+          "id": "soda",
+          "name": "Soda",
+          "label": "Soft Drink",
+          "price": 3.7,
+          "rangeMin": 3.4,
+          "rangeMax": 4.0,
+          "category": "non-alcoholic",
+          "icon": "🥤"
+        },
+        {
+          "id": "coffee",
+          "name": "Specialty Coffee",
+          "label": "Espresso / Cappuccino",
+          "price": 3.5,
+          "rangeMin": 2.2,
+          "rangeMax": 6.7,
+          "category": "non-alcoholic",
+          "icon": "☕"
+        },
+        {
+          "id": "teaprem",
+          "name": "Premium Tea",
+          "label": "Herbal Tea",
+          "price": 2.5,
+          "rangeMin": 2.2,
+          "rangeMax": 4.0,
+          "category": "non-alcoholic",
+          "icon": "🍵"
+        },
+        {
+          "id": "freshjuice",
+          "name": "Fresh Juice",
+          "label": "Fruit Juice",
+          "price": 4.0,
+          "rangeMin": 3.5,
+          "rangeMax": 6.0,
+          "category": "non-alcoholic",
+          "icon": "🧃"
+        },
+        {
+          "id": "mocktail",
+          "name": "Mocktail",
+          "label": "Non-Alcoholic Cocktail",
+          "price": 6.0,
+          "rangeMin": 4.5,
+          "rangeMax": 8.0,
+          "category": "non-alcoholic",
+          "icon": "🍹"
+        },
+        {
+          "id": "energy",
+          "name": "Energy Drink",
+          "label": "Red Bull",
+          "price": 5.0,
+          "rangeMin": 4.5,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "⚡"
+        },
+        {
+          "id": "milkshake",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "price": 5.5,
+          "rangeMin": 4.5,
+          "rangeMax": 6.5,
+          "category": "non-alcoholic",
+          "icon": "🥛"
+        },
+        {
+          "id": "bottledwater",
+          "name": "Bottled Water",
+          "label": "Bottled Water",
+          "price": 3.4,
+          "rangeMin": 2.9,
+          "rangeMax": 4.0,
+          "category": "non-alcoholic",
+          "icon": "💧"
+        },
+        {
+          "id": "beer",
+          "name": "Beer",
+          "label": "Beer (draught Heineken)",
+          "price": 4.8,
+          "rangeMin": 4.5,
+          "rangeMax": 6.0,
+          "category": "alcoholic",
+          "icon": "🍺"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "label": "Wine (glass)",
+          "price": 7.0,
+          "rangeMin": 5.7,
+          "rangeMax": 10.3,
+          "category": "alcoholic",
+          "icon": "🍷"
+        },
+        {
+          "id": "cocktail",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "price": 9.3,
+          "rangeMin": 5.7,
+          "rangeMax": 10.3,
+          "category": "alcoholic",
+          "icon": "🍸"
+        },
+        {
+          "id": "spirits",
+          "name": "Spirits",
+          "label": "Spirits + Mixer",
+          "price": 8.0,
+          "rangeMin": 7.8,
+          "rangeMax": 12.4,
+          "category": "alcoholic",
+          "icon": "🥃"
+        }
       ],
-
       "sets": {
-        "soda": ["soda", "bottledwater"],
-        "refresh": ["soda", "bottledwater", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
-        "deluxe": ["soda", "bottledwater", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "soda": [
+          "soda",
+          "freshjuice",
+          "coffee",
+          "teaprem",
+          "mocktail",
+          "bottledwater"
+        ],
+        "refresh": [
+          "soda",
+          "bottledwater",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "deluxe": [
+          "soda",
+          "bottledwater",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-
       "policies": [
         {
           "id": "euro-pricing",
@@ -1759,22 +3223,18 @@
           "text": "Children aged 4 and older are included in the cabin's drink package. Under-18s receive soft drinks only. Children's packages are free when the adult package is purchased during booking."
         }
       ],
-
       "faq": [
         {
           "question": "What's the difference between My Drinks and My Drinks Plus?",
           "answer": "My Drinks (~€35/day) covers house spirits, draught beer, classic cocktails, and wine with meals. My Drinks Plus (~€48/day) adds premium cocktails, top-shelf spirits, bottled beer, fruit juice, and minibar access. If you prefer cocktails over basic beer and wine, Plus is worth the €13/day upgrade."
         }
       ],
-
       "quickAnswer": "Costa's My Drinks Plus at ~€48/day is competitive for a European line. With cocktails at €5.70–€10.30, break-even is ~5–6 drinks/day. The My Soft Drinks package (€23/day) is excellent value for coffee and juice drinkers.",
-
       "meta": {
         "title": "Costa Cruises Drink Package Calculator 2026 | My Drinks vs Plus",
         "description": "Compare My Soft Drinks, My Drinks, and My Drinks Plus with 2026 EUR pricing.",
         "ogTitle": "Costa Cruises Drink Package Calculator 2026"
       },
-
       "_sources": {
         "note": "Verified 2026-04-17 via investigate pipeline",
         "references": [
@@ -1788,7 +3248,6 @@
         "gratuityNote": "Packages appear all-in. 15% service charge on individual purchases."
       }
     },
-
     "cunard": {
       "id": "cunard",
       "name": "Cunard",
@@ -1796,52 +3255,78 @@
       "slug": "cunard",
       "pageUrl": "/cruise-lines/cunard.html",
       "color": "#1a1a1a",
-
       "packages": {
         "soda": {
           "name": "Alcohol-Free Collection",
           "shortName": "Alcohol-Free",
           "emoji": "☕",
-          "priceMid": 18.00,
-          "priceMin": 16.00,
-          "priceMax": 22.00,
+          "priceMid": 18.0,
+          "priceMin": 16.0,
+          "priceMax": 22.0,
           "priceNote": "$18/day (15% gratuity included). 15 drinks per 24hrs including gelato.",
-          "includesList": ["Non-alcoholic cocktails","Specialty coffees","Premium teas","Juices","Soft drinks","Gelato","15 drinks per 24-hour period limit"],
-          "breakEvenDrink": { "name": "coffees", "price": 4.00 }
+          "includesList": [
+            "Non-alcoholic cocktails",
+            "Specialty coffees",
+            "Premium teas",
+            "Juices",
+            "Soft drinks",
+            "Gelato",
+            "15 drinks per 24-hour period limit"
+          ],
+          "breakEvenDrink": {
+            "name": "coffees",
+            "price": 4.5
+          }
         },
         "refreshment": {
           "name": "Beers, Wines & Spirits Collection",
           "shortName": "BWS",
           "emoji": "🍷",
-          "priceMid": 72.00,
-          "priceMin": 49.50,
-          "priceMax": 94.50,
+          "priceMid": 72.0,
+          "priceMin": 49.5,
+          "priceMax": 94.5,
           "priceNote": "$49.50–$94.50/day pre-cruise (15% gratuity included, varies by cruise length). Alcoholic drinks up to $13.50/drink.",
           "includes": "All Premium Alcohol-Free items + beer, wine, cocktails, spirits up to $13.50 each",
-          "includesList": ["All Premium Alcohol-Free Collection items (unlimited)","Beer, wine, cocktails, spirits up to $13.50 each","Pay difference for drinks above cap"],
-          "breakEvenDrink": { "name": "cocktails", "price": 13.00 }
+          "includesList": [
+            "All Premium Alcohol-Free Collection items (unlimited)",
+            "Beer, wine, cocktails, spirits up to $13.50 each",
+            "Pay difference for drinks above cap"
+          ],
+          "breakEvenDrink": {
+            "name": "cocktails",
+            "price": 13.0
+          }
         },
         "deluxe": {
           "name": "Premium Beverage Collection",
           "shortName": "Premium",
           "emoji": "🍸",
-          "priceMid": 85.00,
-          "priceMin": 63.00,
-          "priceMax": 108.00,
+          "priceMid": 85.0,
+          "priceMin": 63.0,
+          "priceMax": 108.0,
           "priceNote": "$63–$108/day pre-cruise (15% gratuity included, varies by cruise length). Premium drinks up to $20/drink.",
           "includes": "All BWS items + premium spirits, wines, cocktails up to $20 each",
-          "includesList": ["All BWS Collection items","Premium spirits, wines, cocktails up to $20 each","Pay difference for drinks above $20 cap"],
-          "breakEvenDrink": { "name": "premium cocktails", "price": 14.00 }
+          "includesList": [
+            "All BWS Collection items",
+            "Premium spirits, wines, cocktails up to $20 each",
+            "Pay difference for drinks above $20 cap"
+          ],
+          "breakEvenDrink": {
+            "name": "premium cocktails",
+            "price": 13.0
+          }
         }
       },
-
-      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
-
+      "coffeeCard": {
+        "enabled": false,
+        "price": 0,
+        "punches": 0
+      },
       "rules": {
         "gratuity": 0,
         "gratuityNote": "15% service charge included in all Cunard package prices and added to individual drink purchases.",
-        "deluxeCap": 20.00,
-        "bwsCap": 13.50,
+        "deluxeCap": 20.0,
+        "bwsCap": 13.5,
         "allAdultsSamePackage": true,
         "minorsForceRefreshment": false,
         "adultAge": 18,
@@ -1849,7 +3334,6 @@
         "usPortAlcoholRestriction": false,
         "deluxeDailyLimit": null
       },
-
       "loyalty": {
         "enabled": false,
         "programName": "Cunard Loyalty",
@@ -1857,29 +3341,172 @@
         "voucherNote": "Cunard's loyalty program does not offer daily drink vouchers.",
         "tiers": []
       },
-
       "drinks": [
-        { "id": "soda",         "name": "Soda",             "label": "Soft Drink",              "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "🥤" },
-        { "id": "coffee",       "name": "Specialty Coffee",  "label": "Espresso / Cappuccino",   "price": 4.50,  "rangeMin": 3.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "☕" },
-        { "id": "teaprem",      "name": "Premium Tea",       "label": "Premium Tea",             "price": 3.50,  "rangeMin": 3.00, "rangeMax": 4.50,  "category": "non-alcoholic", "icon": "🍵" },
-        { "id": "freshjuice",   "name": "Fresh Juice",       "label": "Fresh Juice",             "price": 4.50,  "rangeMin": 3.50, "rangeMax": 6.00,  "category": "non-alcoholic", "icon": "🧃" },
-        { "id": "mocktail",     "name": "Mocktail",          "label": "Non-Alcoholic Cocktail",  "price": 7.50,  "rangeMin": 6.00, "rangeMax": 9.00,  "category": "non-alcoholic", "icon": "🍹" },
-        { "id": "energy",       "name": "Energy Drink",      "label": "Red Bull",                "price": 5.00,  "rangeMin": 4.50, "rangeMax": 5.50,  "category": "non-alcoholic", "icon": "⚡" },
-        { "id": "milkshake",    "name": "Milkshake",         "label": "Milkshake",               "price": 6.00,  "rangeMin": 5.00, "rangeMax": 7.00,  "category": "non-alcoholic", "icon": "🥛" },
-        { "id": "bottledwater", "name": "Bottled Water",     "label": "Bottled Water",           "price": 3.00,  "rangeMin": 2.50, "rangeMax": 4.00,  "category": "non-alcoholic", "icon": "💧" },
-        { "id": "beer",         "name": "Beer",              "label": "Beer (pint)",             "price": 7.00,  "rangeMin": 6.50, "rangeMax": 7.50,  "category": "alcoholic",     "icon": "🍺" },
-        { "id": "wine",         "name": "Wine",              "label": "Wine (glass)",            "price": 12.00, "rangeMin": 9.50, "rangeMax": 15.00, "category": "alcoholic",     "icon": "🍷" },
-        { "id": "cocktail",     "name": "Cocktail",          "label": "Classic Cocktail",        "price": 13.00, "rangeMin": 12.00,"rangeMax": 14.00, "category": "alcoholic",     "icon": "🍸" },
-        { "id": "spirits",      "name": "Spirits",           "label": "Spirits / Shot",          "price": 10.00, "rangeMin": 8.00, "rangeMax": 14.00, "category": "alcoholic",     "icon": "🥃" }
+        {
+          "id": "soda",
+          "name": "Soda",
+          "label": "Soft Drink",
+          "price": 3.5,
+          "rangeMin": 3.0,
+          "rangeMax": 4.0,
+          "category": "non-alcoholic",
+          "icon": "🥤"
+        },
+        {
+          "id": "coffee",
+          "name": "Specialty Coffee",
+          "label": "Espresso / Cappuccino",
+          "price": 4.5,
+          "rangeMin": 3.5,
+          "rangeMax": 6.0,
+          "category": "non-alcoholic",
+          "icon": "☕"
+        },
+        {
+          "id": "teaprem",
+          "name": "Premium Tea",
+          "label": "Premium Tea",
+          "price": 3.5,
+          "rangeMin": 3.0,
+          "rangeMax": 4.5,
+          "category": "non-alcoholic",
+          "icon": "🍵"
+        },
+        {
+          "id": "freshjuice",
+          "name": "Fresh Juice",
+          "label": "Fresh Juice",
+          "price": 4.5,
+          "rangeMin": 3.5,
+          "rangeMax": 6.0,
+          "category": "non-alcoholic",
+          "icon": "🧃"
+        },
+        {
+          "id": "mocktail",
+          "name": "Mocktail",
+          "label": "Non-Alcoholic Cocktail",
+          "price": 7.5,
+          "rangeMin": 6.0,
+          "rangeMax": 9.0,
+          "category": "non-alcoholic",
+          "icon": "🍹"
+        },
+        {
+          "id": "energy",
+          "name": "Energy Drink",
+          "label": "Red Bull",
+          "price": 5.0,
+          "rangeMin": 4.5,
+          "rangeMax": 5.5,
+          "category": "non-alcoholic",
+          "icon": "⚡"
+        },
+        {
+          "id": "milkshake",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "price": 6.0,
+          "rangeMin": 5.0,
+          "rangeMax": 7.0,
+          "category": "non-alcoholic",
+          "icon": "🥛"
+        },
+        {
+          "id": "bottledwater",
+          "name": "Bottled Water",
+          "label": "Bottled Water",
+          "price": 3.0,
+          "rangeMin": 2.5,
+          "rangeMax": 4.0,
+          "category": "non-alcoholic",
+          "icon": "💧"
+        },
+        {
+          "id": "beer",
+          "name": "Beer",
+          "label": "Beer (pint)",
+          "price": 7.0,
+          "rangeMin": 6.5,
+          "rangeMax": 7.5,
+          "category": "alcoholic",
+          "icon": "🍺"
+        },
+        {
+          "id": "wine",
+          "name": "Wine",
+          "label": "Wine (glass)",
+          "price": 12.0,
+          "rangeMin": 9.5,
+          "rangeMax": 15.0,
+          "category": "alcoholic",
+          "icon": "🍷"
+        },
+        {
+          "id": "cocktail",
+          "name": "Cocktail",
+          "label": "Classic Cocktail",
+          "price": 13.0,
+          "rangeMin": 12.0,
+          "rangeMax": 14.0,
+          "category": "alcoholic",
+          "icon": "🍸"
+        },
+        {
+          "id": "spirits",
+          "name": "Spirits",
+          "label": "Spirits / Shot",
+          "price": 10.0,
+          "rangeMin": 8.0,
+          "rangeMax": 14.0,
+          "category": "alcoholic",
+          "icon": "🥃"
+        }
       ],
-
       "sets": {
-        "soda": ["soda", "bottledwater"],
-        "refresh": ["soda", "bottledwater", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
-        "deluxe": ["soda", "bottledwater", "coffee", "teaprem", "freshjuice", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "soda": [
+          "soda",
+          "freshjuice",
+          "coffee",
+          "teaprem",
+          "mocktail",
+          "bottledwater"
+        ],
+        "refresh": [
+          "soda",
+          "bottledwater",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "deluxe": [
+          "soda",
+          "bottledwater",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-
       "policies": [
         {
           "id": "price-varies-by-length",
@@ -1889,22 +3516,18 @@
           "text": "Cunard prices drink packages based on voyage length. A 7-night cruise costs less per day than a 3-night. The calculator uses midpoint pricing — check My Cunard for your exact sailing price."
         }
       ],
-
       "faq": [
         {
           "question": "Why do Cunard package prices vary so much?",
           "answer": "Cunard prices by cruise length — shorter cruises cost more per day. A 7-night transatlantic might be $72/day for BWS while a 3-night is $94.50. Book pre-cruise and save 10% vs onboard."
         }
       ],
-
       "quickAnswer": "Cunard's Premium Beverage ($20 cap) at ~$85/day with 15% gratuity included is competitive for a heritage line. The BWS Collection ($13.50 cap) covers most standard cocktails. Book pre-cruise and save 10%.",
-
       "meta": {
         "title": "Cunard Drink Package Calculator 2026 | BWS vs Premium",
         "description": "Compare Cunard's Alcohol-Free, BWS ($13.50 cap), and Premium ($20 cap) collections. Gratuity included.",
         "ogTitle": "Cunard Drink Package Calculator 2026"
       },
-
       "_sources": {
         "note": "Verified 2026-04-17",
         "references": [
@@ -1916,7 +3539,6 @@
         ]
       }
     },
-
     "oceania": {
       "id": "oceania",
       "name": "Oceania Cruises",
@@ -1929,32 +3551,68 @@
           "name": "Included in Fare",
           "shortName": "Fare",
           "emoji": "🚢",
-          "priceMid": 0, "priceMin": 0, "priceMax": 0,
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
           "priceNote": "Basic drinks (soda, coffee, tea, juice, water) included in all Oceania fares.",
-          "includesList": ["Drip coffee and tea","Juice","Soft drinks","Water"],
-          "breakEvenDrink": { "name": "sodas", "price": 0 }
+          "includesList": [
+            "Drip coffee and tea",
+            "Juice",
+            "Soft drinks",
+            "Water"
+          ],
+          "breakEvenDrink": {
+            "name": "sodas",
+            "price": 0
+          }
         },
         "refreshment": {
           "name": "House Select (Fare-Included)",
           "shortName": "House Select",
           "emoji": "🍷",
-          "priceMid": 0, "priceMin": 0, "priceMax": 0,
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
           "priceNote": "Included in fare. Beers, wines, and Champagnes with lunch and dinner only. Not available at bars between meals.",
-          "includesList": ["Beer with lunch and dinner","Wine with lunch and dinner","Champagne with lunch and dinner","Not available at bars outside meal times"],
-          "breakEvenDrink": { "name": "wines at dinner", "price": 0 }
+          "includesList": [
+            "Beer with lunch and dinner",
+            "Wine with lunch and dinner",
+            "Champagne with lunch and dinner",
+            "Not available at bars outside meal times"
+          ],
+          "breakEvenDrink": {
+            "name": "wines at dinner",
+            "price": 0
+          }
         },
         "deluxe": {
           "name": "Prestige Select Upgrade",
           "shortName": "Prestige",
           "emoji": "🍸",
-          "priceMid": 30.00, "priceMin": 28.00, "priceMax": 35.00,
+          "priceMid": 30.0,
+          "priceMin": 28.0,
+          "priceMax": 35.0,
           "priceNote": "$30/day upgrade. Unlimited premium spirits, cocktails, wines, beer, specialty coffee, mineral water — anytime, anywhere on ship. Both guests in stateroom must upgrade.",
           "includes": "All-day access to premium spirits, cocktails, wines by glass, beer, specialty coffee, mineral water. Excludes minibar and room service.",
-          "includesList": ["Premium spirits and cocktails (anytime)","Wines by the glass (anytime)","Beer (anytime)","Specialty coffees","Mineral water","Excludes minibar and room service drinks"],
-          "breakEvenDrink": { "name": "cocktails", "price": 12.00 }
+          "includesList": [
+            "Premium spirits and cocktails (anytime)",
+            "Wines by the glass (anytime)",
+            "Beer (anytime)",
+            "Specialty coffees",
+            "Mineral water",
+            "Excludes minibar and room service drinks"
+          ],
+          "breakEvenDrink": {
+            "name": "cocktails",
+            "price": 12.0
+          }
         }
       },
-      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
+      "coffeeCard": {
+        "enabled": false,
+        "price": 0,
+        "punches": 0
+      },
       "rules": {
         "gratuity": 0,
         "gratuityNote": "Gratuities included in Oceania fares. The $30/day Prestige upgrade is all-in.",
@@ -1962,36 +3620,204 @@
         "allAdultsSamePackage": true,
         "allAdultsSamePackageNote": "Both guests in the stateroom must upgrade to Prestige Select if one does.",
         "minorsForceRefreshment": false,
-        "adultAge": 21, "alcoholAge": 21,
+        "adultAge": 21,
+        "alcoholAge": 21,
         "deluxeDailyLimit": null
       },
-      "loyalty": { "enabled": false, "programName": "Oceania Club", "voucherValue": 0, "tiers": [] },
+      "loyalty": {
+        "enabled": false,
+        "programName": "Oceania Club",
+        "voucherValue": 0,
+        "tiers": []
+      },
       "drinks": [
-        { "id": "soda",    "price": 0, "category": "non-alcoholic", "icon": "🥤", "name": "Soda", "label": "Soda", "rangeMin": 0, "rangeMax": 0, "note": "Included" },
-        { "id": "coffee",  "price": 5.00, "category": "non-alcoholic", "icon": "☕", "name": "Specialty Coffee", "label": "Espresso", "rangeMin": 4.00, "rangeMax": 6.50 },
-        { "id": "teaprem", "price": 0, "category": "non-alcoholic", "icon": "🍵", "name": "Tea", "label": "Tea", "rangeMin": 0, "rangeMax": 0, "note": "Included" },
-        { "id": "freshjuice", "price": 0, "category": "non-alcoholic", "icon": "🧃", "name": "Juice", "label": "Juice", "rangeMin": 0, "rangeMax": 0, "note": "Included" },
-        { "id": "mocktail", "price": 8.00, "category": "non-alcoholic", "icon": "🍹", "name": "Mocktail", "label": "Mocktail", "rangeMin": 6.00, "rangeMax": 10.00 },
-        { "id": "energy",  "price": 5.00, "category": "non-alcoholic", "icon": "⚡", "name": "Energy Drink", "label": "Red Bull", "rangeMin": 4.50, "rangeMax": 5.50 },
-        { "id": "milkshake", "price": 6.00, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 5.00, "rangeMax": 7.00 },
-        { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0, "note": "Included" },
-        { "id": "beer",    "price": 9.00, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 8.00, "rangeMax": 10.00 },
-        { "id": "wine",    "price": 14.00, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 12.00, "rangeMax": 16.00 },
-        { "id": "cocktail","price": 12.00, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 10.00, "rangeMax": 15.00 },
-        { "id": "spirits", "price": 11.00, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 9.00, "rangeMax": 15.00 }
+        {
+          "id": "soda",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🥤",
+          "name": "Soda",
+          "label": "Soda",
+          "rangeMin": 0,
+          "rangeMax": 0,
+          "note": "Included"
+        },
+        {
+          "id": "coffee",
+          "price": 5.0,
+          "category": "non-alcoholic",
+          "icon": "☕",
+          "name": "Specialty Coffee",
+          "label": "Espresso",
+          "rangeMin": 4.0,
+          "rangeMax": 6.5
+        },
+        {
+          "id": "teaprem",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🍵",
+          "name": "Tea",
+          "label": "Tea",
+          "rangeMin": 0,
+          "rangeMax": 0,
+          "note": "Included"
+        },
+        {
+          "id": "freshjuice",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🧃",
+          "name": "Juice",
+          "label": "Juice",
+          "rangeMin": 0,
+          "rangeMax": 0,
+          "note": "Included"
+        },
+        {
+          "id": "mocktail",
+          "price": 8.0,
+          "category": "non-alcoholic",
+          "icon": "🍹",
+          "name": "Mocktail",
+          "label": "Mocktail",
+          "rangeMin": 6.0,
+          "rangeMax": 10.0
+        },
+        {
+          "id": "energy",
+          "price": 5.0,
+          "category": "non-alcoholic",
+          "icon": "⚡",
+          "name": "Energy Drink",
+          "label": "Red Bull",
+          "rangeMin": 4.5,
+          "rangeMax": 5.5
+        },
+        {
+          "id": "milkshake",
+          "price": 6.0,
+          "category": "non-alcoholic",
+          "icon": "🥛",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "rangeMin": 5.0,
+          "rangeMax": 7.0
+        },
+        {
+          "id": "bottledwater",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "💧",
+          "name": "Water",
+          "label": "Water",
+          "rangeMin": 0,
+          "rangeMax": 0,
+          "note": "Included"
+        },
+        {
+          "id": "beer",
+          "price": 9.0,
+          "category": "alcoholic",
+          "icon": "🍺",
+          "name": "Beer",
+          "label": "Beer",
+          "rangeMin": 8.0,
+          "rangeMax": 10.0
+        },
+        {
+          "id": "wine",
+          "price": 14.0,
+          "category": "alcoholic",
+          "icon": "🍷",
+          "name": "Wine",
+          "label": "Wine",
+          "rangeMin": 12.0,
+          "rangeMax": 16.0
+        },
+        {
+          "id": "cocktail",
+          "price": 12.0,
+          "category": "alcoholic",
+          "icon": "🍸",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "rangeMin": 10.0,
+          "rangeMax": 15.0
+        },
+        {
+          "id": "spirits",
+          "price": 11.0,
+          "category": "alcoholic",
+          "icon": "🥃",
+          "name": "Spirits",
+          "label": "Spirits",
+          "rangeMin": 9.0,
+          "rangeMax": 15.0
+        }
       ],
       "sets": {
-        "soda": ["soda", "teaprem", "freshjuice", "bottledwater"],
-        "refresh": ["soda", "teaprem", "freshjuice", "bottledwater", "beer", "wine"],
-        "deluxe": ["soda", "teaprem", "freshjuice", "bottledwater", "coffee", "mocktail", "energy", "milkshake", "beer", "wine", "cocktail", "spirits"],
-        "alcoholic": ["beer", "wine", "cocktail", "spirits"]
+        "soda": [
+          "soda",
+          "freshjuice",
+          "coffee",
+          "teaprem",
+          "bottledwater"
+        ],
+        "refresh": [
+          "soda",
+          "teaprem",
+          "freshjuice",
+          "bottledwater",
+          "beer",
+          "wine"
+        ],
+        "deluxe": [
+          "soda",
+          "teaprem",
+          "freshjuice",
+          "bottledwater",
+          "coffee",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
       },
-      "policies": [{ "id": "prestige-upgrade", "severity": "info", "icon": "🍸", "title": "Prestige Select: $30/Day Upgrade", "text": "Your fare includes House Select (wine/beer at meals). For $30/day, upgrade to Prestige Select for unlimited premium drinks anytime. Both cabin guests must upgrade." }],
+      "policies": [
+        {
+          "id": "prestige-upgrade",
+          "severity": "info",
+          "icon": "🍸",
+          "title": "Prestige Select: $30/Day Upgrade",
+          "text": "Your fare includes House Select (wine/beer at meals). For $30/day, upgrade to Prestige Select for unlimited premium drinks anytime. Both cabin guests must upgrade."
+        }
+      ],
       "quickAnswer": "Your Oceania fare already includes wine and beer with meals. The question is whether the $30/day Prestige Select upgrade — unlimited cocktails, spirits, and specialty coffee all day — is worth it for you.",
-      "meta": { "title": "Oceania Cruises Drink Calculator 2026 | Prestige Select Worth It?", "description": "Your fare includes meal drinks. Is the $30/day Prestige upgrade worth it?", "ogTitle": "Oceania Drink Calculator 2026" },
-      "_sources": { "note": "Verified 2026-04-17", "references": ["oceaniacruises.com/your-world-included", "cruisingsite.com/oceania-cruises-drink-package-guide-benefits", "theluxurycruisereview.com/oceania-beverage-packages", "cruisemummy.co.uk/everything-included-in-oceanias-fares"] }
+      "meta": {
+        "title": "Oceania Cruises Drink Calculator 2026 | Prestige Select Worth It?",
+        "description": "Your fare includes meal drinks. Is the $30/day Prestige upgrade worth it?",
+        "ogTitle": "Oceania Drink Calculator 2026"
+      },
+      "_sources": {
+        "note": "Verified 2026-04-17",
+        "references": [
+          "oceaniacruises.com/your-world-included",
+          "cruisingsite.com/oceania-cruises-drink-package-guide-benefits",
+          "theluxurycruisereview.com/oceania-beverage-packages",
+          "cruisemummy.co.uk/everything-included-in-oceanias-fares"
+        ]
+      }
     },
-
     "regent": {
       "id": "regent",
       "name": "Regent Seven Seas Cruises",
@@ -2001,34 +3827,254 @@
       "color": "#1a2e4a",
       "allInclusive": true,
       "packages": {
-        "soda": { "name": "Included in Fare", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All drinks included in Regent's all-inclusive fare.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
-        "refreshment": { "name": "Included in Fare", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All non-alcoholic drinks included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
-        "deluxe": { "name": "Included in Fare", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All alcoholic drinks included. Ultra-premium selections (rare wines, vintage spirits) may carry a surcharge.", "includesList": ["Premium spirits","Cocktails","Wine by glass","Beer","Specialty coffee","Excludes rare vintages and ultra-premium bottles"], "breakEvenDrink": { "name": "all", "price": 0 } }
+        "soda": {
+          "name": "Included in Fare",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All drinks included in Regent's all-inclusive fare.",
+          "includesList": [
+            "Everything"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        },
+        "refreshment": {
+          "name": "Included in Fare",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All non-alcoholic drinks included.",
+          "includesList": [
+            "Everything"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        },
+        "deluxe": {
+          "name": "Included in Fare",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All alcoholic drinks included. Ultra-premium selections (rare wines, vintage spirits) may carry a surcharge.",
+          "includesList": [
+            "Premium spirits",
+            "Cocktails",
+            "Wine by glass",
+            "Beer",
+            "Specialty coffee",
+            "Excludes rare vintages and ultra-premium bottles"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        }
       },
-      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
-      "rules": { "gratuity": 0, "deluxeCap": null, "allAdultsSamePackage": false, "minorsForceRefreshment": false, "adultAge": 21, "alcoholAge": 21, "deluxeDailyLimit": null },
-      "loyalty": { "enabled": false, "programName": "Seven Seas Society", "voucherValue": 0, "tiers": [] },
+      "coffeeCard": {
+        "enabled": false,
+        "price": 0,
+        "punches": 0
+      },
+      "rules": {
+        "gratuity": 0,
+        "deluxeCap": null,
+        "allAdultsSamePackage": false,
+        "minorsForceRefreshment": false,
+        "adultAge": 21,
+        "alcoholAge": 21,
+        "deluxeDailyLimit": null
+      },
+      "loyalty": {
+        "enabled": false,
+        "programName": "Seven Seas Society",
+        "voucherValue": 0,
+        "tiers": []
+      },
       "drinks": [
-        { "id": "soda", "price": 0, "category": "non-alcoholic", "icon": "🥤", "name": "Soda", "label": "Soda", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "coffee", "price": 0, "category": "non-alcoholic", "icon": "☕", "name": "Coffee", "label": "Specialty Coffee", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "teaprem", "price": 0, "category": "non-alcoholic", "icon": "🍵", "name": "Tea", "label": "Tea", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "freshjuice", "price": 0, "category": "non-alcoholic", "icon": "🧃", "name": "Juice", "label": "Juice", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "mocktail", "price": 0, "category": "non-alcoholic", "icon": "🍹", "name": "Mocktail", "label": "Mocktail", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "energy", "price": 0, "category": "non-alcoholic", "icon": "⚡", "name": "Energy", "label": "Red Bull", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "milkshake", "price": 0, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "beer", "price": 0, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "wine", "price": 0, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "cocktail", "price": 0, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "spirits", "price": 0, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 0, "rangeMax": 0 }
+        {
+          "id": "soda",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🥤",
+          "name": "Soda",
+          "label": "Soda",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "coffee",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "☕",
+          "name": "Coffee",
+          "label": "Specialty Coffee",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "teaprem",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🍵",
+          "name": "Tea",
+          "label": "Tea",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "freshjuice",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🧃",
+          "name": "Juice",
+          "label": "Juice",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "mocktail",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🍹",
+          "name": "Mocktail",
+          "label": "Mocktail",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "energy",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "⚡",
+          "name": "Energy",
+          "label": "Red Bull",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "milkshake",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🥛",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "bottledwater",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "💧",
+          "name": "Water",
+          "label": "Water",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "beer",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍺",
+          "name": "Beer",
+          "label": "Beer",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "wine",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍷",
+          "name": "Wine",
+          "label": "Wine",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "cocktail",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍸",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "spirits",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🥃",
+          "name": "Spirits",
+          "label": "Spirits",
+          "rangeMin": 0,
+          "rangeMax": 0
+        }
       ],
-      "sets": { "soda": ["soda"], "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater"], "deluxe": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater","beer","wine","cocktail","spirits"], "alcoholic": ["beer","wine","cocktail","spirits"] },
-      "policies": [{ "id": "all-inclusive", "severity": "info", "icon": "✅", "title": "All Drinks Included", "text": "Regent Seven Seas is fully all-inclusive. Premium spirits, cocktails, wine, beer, specialty coffee — all included in your fare. No drink package to buy. Rare vintages and ultra-premium bottles may carry a surcharge." }],
+      "sets": {
+        "soda": [
+          "soda"
+        ],
+        "refresh": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater"
+        ],
+        "deluxe": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
+      },
+      "policies": [
+        {
+          "id": "all-inclusive",
+          "severity": "info",
+          "icon": "✅",
+          "title": "All Drinks Included",
+          "text": "Regent Seven Seas is fully all-inclusive. Premium spirits, cocktails, wine, beer, specialty coffee — all included in your fare. No drink package to buy. Rare vintages and ultra-premium bottles may carry a surcharge."
+        }
+      ],
       "quickAnswer": "You don't need a drink package — Regent includes everything. Premium spirits, wine, cocktails, coffee — all in the fare. Only rare vintages carry a surcharge.",
-      "meta": { "title": "Regent Seven Seas — All Drinks Included", "description": "Regent is all-inclusive. All drinks are in the fare — no package decision needed.", "ogTitle": "Regent Drinks — All Included" },
-      "_sources": { "note": "Verified 2026-04-17", "references": ["rssc.com", "cruisesolutioner.com/what-cruise-line-offers-all-inclusive"] }
+      "meta": {
+        "title": "Regent Seven Seas — All Drinks Included",
+        "description": "Regent is all-inclusive. All drinks are in the fare — no package decision needed.",
+        "ogTitle": "Regent Drinks — All Included"
+      },
+      "_sources": {
+        "note": "Verified 2026-04-17",
+        "references": [
+          "rssc.com",
+          "cruisesolutioner.com/what-cruise-line-offers-all-inclusive"
+        ]
+      }
     },
-
     "seabourn": {
       "id": "seabourn",
       "name": "Seabourn",
@@ -2038,34 +4084,253 @@
       "color": "#002855",
       "allInclusive": true,
       "packages": {
-        "soda": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
-        "refreshment": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
-        "deluxe": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included. Complimentary caviar, premium spirits, fine wines.", "includesList": ["Premium spirits","Fine wines","Cocktails","Specialty coffee","Complimentary caviar"], "breakEvenDrink": { "name": "all", "price": 0 } }
+        "soda": {
+          "name": "Included",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All included.",
+          "includesList": [
+            "Everything"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        },
+        "refreshment": {
+          "name": "Included",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All included.",
+          "includesList": [
+            "Everything"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        },
+        "deluxe": {
+          "name": "Included",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All included. Complimentary caviar, premium spirits, fine wines.",
+          "includesList": [
+            "Premium spirits",
+            "Fine wines",
+            "Cocktails",
+            "Specialty coffee",
+            "Complimentary caviar"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        }
       },
-      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
-      "rules": { "gratuity": 0, "deluxeCap": null, "allAdultsSamePackage": false, "minorsForceRefreshment": false, "adultAge": 21, "alcoholAge": 21, "deluxeDailyLimit": null },
-      "loyalty": { "enabled": false, "programName": "Seabourn Club", "voucherValue": 0, "tiers": [] },
+      "coffeeCard": {
+        "enabled": false,
+        "price": 0,
+        "punches": 0
+      },
+      "rules": {
+        "gratuity": 0,
+        "deluxeCap": null,
+        "allAdultsSamePackage": false,
+        "minorsForceRefreshment": false,
+        "adultAge": 21,
+        "alcoholAge": 21,
+        "deluxeDailyLimit": null
+      },
+      "loyalty": {
+        "enabled": false,
+        "programName": "Seabourn Club",
+        "voucherValue": 0,
+        "tiers": []
+      },
       "drinks": [
-        { "id": "soda", "price": 0, "category": "non-alcoholic", "icon": "🥤", "name": "Soda", "label": "Soda", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "coffee", "price": 0, "category": "non-alcoholic", "icon": "☕", "name": "Coffee", "label": "Coffee", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "teaprem", "price": 0, "category": "non-alcoholic", "icon": "🍵", "name": "Tea", "label": "Tea", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "freshjuice", "price": 0, "category": "non-alcoholic", "icon": "🧃", "name": "Juice", "label": "Juice", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "mocktail", "price": 0, "category": "non-alcoholic", "icon": "🍹", "name": "Mocktail", "label": "Mocktail", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "energy", "price": 0, "category": "non-alcoholic", "icon": "⚡", "name": "Energy", "label": "Energy", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "milkshake", "price": 0, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "beer", "price": 0, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "wine", "price": 0, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "cocktail", "price": 0, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "spirits", "price": 0, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 0, "rangeMax": 0 }
+        {
+          "id": "soda",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🥤",
+          "name": "Soda",
+          "label": "Soda",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "coffee",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "☕",
+          "name": "Coffee",
+          "label": "Coffee",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "teaprem",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🍵",
+          "name": "Tea",
+          "label": "Tea",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "freshjuice",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🧃",
+          "name": "Juice",
+          "label": "Juice",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "mocktail",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🍹",
+          "name": "Mocktail",
+          "label": "Mocktail",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "energy",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "⚡",
+          "name": "Energy",
+          "label": "Energy",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "milkshake",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🥛",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "bottledwater",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "💧",
+          "name": "Water",
+          "label": "Water",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "beer",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍺",
+          "name": "Beer",
+          "label": "Beer",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "wine",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍷",
+          "name": "Wine",
+          "label": "Wine",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "cocktail",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍸",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "spirits",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🥃",
+          "name": "Spirits",
+          "label": "Spirits",
+          "rangeMin": 0,
+          "rangeMax": 0
+        }
       ],
-      "sets": { "soda": ["soda"], "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater"], "deluxe": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater","beer","wine","cocktail","spirits"], "alcoholic": ["beer","wine","cocktail","spirits"] },
-      "policies": [{ "id": "all-inclusive", "severity": "info", "icon": "✅", "title": "All Drinks Included", "text": "Seabourn is fully all-inclusive. Premium spirits, fine wines, cocktails, specialty coffee, even caviar — all included." }],
+      "sets": {
+        "soda": [
+          "soda"
+        ],
+        "refresh": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater"
+        ],
+        "deluxe": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
+      },
+      "policies": [
+        {
+          "id": "all-inclusive",
+          "severity": "info",
+          "icon": "✅",
+          "title": "All Drinks Included",
+          "text": "Seabourn is fully all-inclusive. Premium spirits, fine wines, cocktails, specialty coffee, even caviar — all included."
+        }
+      ],
       "quickAnswer": "Seabourn includes everything — no drink package needed. Premium spirits, fine wines, cocktails, and specialty coffee are all in the fare.",
-      "meta": { "title": "Seabourn — All Drinks Included", "description": "Seabourn is all-inclusive.", "ogTitle": "Seabourn Drinks" },
-      "_sources": { "note": "Verified 2026-04-17", "references": ["seabourn.com", "cruisesolutioner.com/what-cruise-line-offers-all-inclusive"] }
+      "meta": {
+        "title": "Seabourn — All Drinks Included",
+        "description": "Seabourn is all-inclusive.",
+        "ogTitle": "Seabourn Drinks"
+      },
+      "_sources": {
+        "note": "Verified 2026-04-17",
+        "references": [
+          "seabourn.com",
+          "cruisesolutioner.com/what-cruise-line-offers-all-inclusive"
+        ]
+      }
     },
-
     "silversea": {
       "id": "silversea",
       "name": "Silversea Cruises",
@@ -2075,34 +4340,253 @@
       "color": "#1c1c1c",
       "allInclusive": true,
       "packages": {
-        "soda": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
-        "refreshment": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
-        "deluxe": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included. Butler service in every suite.", "includesList": ["Premium spirits","Fine wines","Cocktails","Specialty coffee","Butler service"], "breakEvenDrink": { "name": "all", "price": 0 } }
+        "soda": {
+          "name": "Included",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All included.",
+          "includesList": [
+            "Everything"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        },
+        "refreshment": {
+          "name": "Included",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All included.",
+          "includesList": [
+            "Everything"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        },
+        "deluxe": {
+          "name": "Included",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All included. Butler service in every suite.",
+          "includesList": [
+            "Premium spirits",
+            "Fine wines",
+            "Cocktails",
+            "Specialty coffee",
+            "Butler service"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        }
       },
-      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
-      "rules": { "gratuity": 0, "deluxeCap": null, "allAdultsSamePackage": false, "minorsForceRefreshment": false, "adultAge": 21, "alcoholAge": 21, "deluxeDailyLimit": null },
-      "loyalty": { "enabled": false, "programName": "Venetian Society", "voucherValue": 0, "tiers": [] },
+      "coffeeCard": {
+        "enabled": false,
+        "price": 0,
+        "punches": 0
+      },
+      "rules": {
+        "gratuity": 0,
+        "deluxeCap": null,
+        "allAdultsSamePackage": false,
+        "minorsForceRefreshment": false,
+        "adultAge": 21,
+        "alcoholAge": 21,
+        "deluxeDailyLimit": null
+      },
+      "loyalty": {
+        "enabled": false,
+        "programName": "Venetian Society",
+        "voucherValue": 0,
+        "tiers": []
+      },
       "drinks": [
-        { "id": "soda", "price": 0, "category": "non-alcoholic", "icon": "🥤", "name": "Soda", "label": "Soda", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "coffee", "price": 0, "category": "non-alcoholic", "icon": "☕", "name": "Coffee", "label": "Coffee", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "teaprem", "price": 0, "category": "non-alcoholic", "icon": "🍵", "name": "Tea", "label": "Tea", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "freshjuice", "price": 0, "category": "non-alcoholic", "icon": "🧃", "name": "Juice", "label": "Juice", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "mocktail", "price": 0, "category": "non-alcoholic", "icon": "🍹", "name": "Mocktail", "label": "Mocktail", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "energy", "price": 0, "category": "non-alcoholic", "icon": "⚡", "name": "Energy", "label": "Energy", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "milkshake", "price": 0, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "beer", "price": 0, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "wine", "price": 0, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "cocktail", "price": 0, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "spirits", "price": 0, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 0, "rangeMax": 0 }
+        {
+          "id": "soda",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🥤",
+          "name": "Soda",
+          "label": "Soda",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "coffee",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "☕",
+          "name": "Coffee",
+          "label": "Coffee",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "teaprem",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🍵",
+          "name": "Tea",
+          "label": "Tea",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "freshjuice",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🧃",
+          "name": "Juice",
+          "label": "Juice",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "mocktail",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🍹",
+          "name": "Mocktail",
+          "label": "Mocktail",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "energy",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "⚡",
+          "name": "Energy",
+          "label": "Energy",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "milkshake",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🥛",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "bottledwater",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "💧",
+          "name": "Water",
+          "label": "Water",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "beer",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍺",
+          "name": "Beer",
+          "label": "Beer",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "wine",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍷",
+          "name": "Wine",
+          "label": "Wine",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "cocktail",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍸",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "spirits",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🥃",
+          "name": "Spirits",
+          "label": "Spirits",
+          "rangeMin": 0,
+          "rangeMax": 0
+        }
       ],
-      "sets": { "soda": ["soda"], "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater"], "deluxe": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater","beer","wine","cocktail","spirits"], "alcoholic": ["beer","wine","cocktail","spirits"] },
-      "policies": [{ "id": "all-inclusive", "severity": "info", "icon": "✅", "title": "All Drinks Included", "text": "Silversea is fully all-inclusive. Italian elegance with butler service in every suite. All drinks included in fare." }],
+      "sets": {
+        "soda": [
+          "soda"
+        ],
+        "refresh": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater"
+        ],
+        "deluxe": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
+      },
+      "policies": [
+        {
+          "id": "all-inclusive",
+          "severity": "info",
+          "icon": "✅",
+          "title": "All Drinks Included",
+          "text": "Silversea is fully all-inclusive. Italian elegance with butler service in every suite. All drinks included in fare."
+        }
+      ],
       "quickAnswer": "Silversea includes everything — no drink package needed.",
-      "meta": { "title": "Silversea — All Drinks Included", "description": "Silversea is all-inclusive.", "ogTitle": "Silversea Drinks" },
-      "_sources": { "note": "Verified 2026-04-17", "references": ["silversea.com", "cruisesolutioner.com/what-cruise-line-offers-all-inclusive"] }
+      "meta": {
+        "title": "Silversea — All Drinks Included",
+        "description": "Silversea is all-inclusive.",
+        "ogTitle": "Silversea Drinks"
+      },
+      "_sources": {
+        "note": "Verified 2026-04-17",
+        "references": [
+          "silversea.com",
+          "cruisesolutioner.com/what-cruise-line-offers-all-inclusive"
+        ]
+      }
     },
-
     "explora": {
       "id": "explora",
       "name": "Explora Journeys",
@@ -2112,32 +4596,252 @@
       "color": "#1a1a2e",
       "allInclusive": true,
       "packages": {
-        "soda": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
-        "refreshment": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included.", "includesList": ["Everything"], "breakEvenDrink": { "name": "all", "price": 0 } },
-        "deluxe": { "name": "Included", "priceMid": 0, "priceMin": 0, "priceMax": 0, "priceNote": "All included. MSC's ultra-luxury brand. Wines, spirits, coffee, espresso, gratuities — all in fare.", "includesList": ["Wines and spirits","Cocktails","Coffee and espresso","Gratuities","24/7 room service"], "breakEvenDrink": { "name": "all", "price": 0 } }
+        "soda": {
+          "name": "Included",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All included.",
+          "includesList": [
+            "Everything"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        },
+        "refreshment": {
+          "name": "Included",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All included.",
+          "includesList": [
+            "Everything"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        },
+        "deluxe": {
+          "name": "Included",
+          "priceMid": 0,
+          "priceMin": 0,
+          "priceMax": 0,
+          "priceNote": "All included. MSC's ultra-luxury brand. Wines, spirits, coffee, espresso, gratuities — all in fare.",
+          "includesList": [
+            "Wines and spirits",
+            "Cocktails",
+            "Coffee and espresso",
+            "Gratuities",
+            "24/7 room service"
+          ],
+          "breakEvenDrink": {
+            "name": "all",
+            "price": 0
+          }
+        }
       },
-      "coffeeCard": { "enabled": false, "price": 0, "punches": 0 },
-      "rules": { "gratuity": 0, "deluxeCap": null, "allAdultsSamePackage": false, "minorsForceRefreshment": false, "adultAge": 18, "alcoholAge": 18, "deluxeDailyLimit": null },
-      "loyalty": { "enabled": false, "programName": "JOURNEY", "voucherValue": 0, "tiers": [] },
+      "coffeeCard": {
+        "enabled": false,
+        "price": 0,
+        "punches": 0
+      },
+      "rules": {
+        "gratuity": 0,
+        "deluxeCap": null,
+        "allAdultsSamePackage": false,
+        "minorsForceRefreshment": false,
+        "adultAge": 18,
+        "alcoholAge": 18,
+        "deluxeDailyLimit": null
+      },
+      "loyalty": {
+        "enabled": false,
+        "programName": "JOURNEY",
+        "voucherValue": 0,
+        "tiers": []
+      },
       "drinks": [
-        { "id": "soda", "price": 0, "category": "non-alcoholic", "icon": "🥤", "name": "Soda", "label": "Soda", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "coffee", "price": 0, "category": "non-alcoholic", "icon": "☕", "name": "Coffee", "label": "Coffee", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "teaprem", "price": 0, "category": "non-alcoholic", "icon": "🍵", "name": "Tea", "label": "Tea", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "freshjuice", "price": 0, "category": "non-alcoholic", "icon": "🧃", "name": "Juice", "label": "Juice", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "mocktail", "price": 0, "category": "non-alcoholic", "icon": "🍹", "name": "Mocktail", "label": "Mocktail", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "energy", "price": 0, "category": "non-alcoholic", "icon": "⚡", "name": "Energy", "label": "Energy", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "milkshake", "price": 0, "category": "non-alcoholic", "icon": "🥛", "name": "Milkshake", "label": "Milkshake", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "bottledwater", "price": 0, "category": "non-alcoholic", "icon": "💧", "name": "Water", "label": "Water", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "beer", "price": 0, "category": "alcoholic", "icon": "🍺", "name": "Beer", "label": "Beer", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "wine", "price": 0, "category": "alcoholic", "icon": "🍷", "name": "Wine", "label": "Wine", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "cocktail", "price": 0, "category": "alcoholic", "icon": "🍸", "name": "Cocktail", "label": "Cocktail", "rangeMin": 0, "rangeMax": 0 },
-        { "id": "spirits", "price": 0, "category": "alcoholic", "icon": "🥃", "name": "Spirits", "label": "Spirits", "rangeMin": 0, "rangeMax": 0 }
+        {
+          "id": "soda",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🥤",
+          "name": "Soda",
+          "label": "Soda",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "coffee",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "☕",
+          "name": "Coffee",
+          "label": "Coffee",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "teaprem",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🍵",
+          "name": "Tea",
+          "label": "Tea",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "freshjuice",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🧃",
+          "name": "Juice",
+          "label": "Juice",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "mocktail",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🍹",
+          "name": "Mocktail",
+          "label": "Mocktail",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "energy",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "⚡",
+          "name": "Energy",
+          "label": "Energy",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "milkshake",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "🥛",
+          "name": "Milkshake",
+          "label": "Milkshake",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "bottledwater",
+          "price": 0,
+          "category": "non-alcoholic",
+          "icon": "💧",
+          "name": "Water",
+          "label": "Water",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "beer",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍺",
+          "name": "Beer",
+          "label": "Beer",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "wine",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍷",
+          "name": "Wine",
+          "label": "Wine",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "cocktail",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🍸",
+          "name": "Cocktail",
+          "label": "Cocktail",
+          "rangeMin": 0,
+          "rangeMax": 0
+        },
+        {
+          "id": "spirits",
+          "price": 0,
+          "category": "alcoholic",
+          "icon": "🥃",
+          "name": "Spirits",
+          "label": "Spirits",
+          "rangeMin": 0,
+          "rangeMax": 0
+        }
       ],
-      "sets": { "soda": ["soda"], "refresh": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater"], "deluxe": ["soda","coffee","teaprem","freshjuice","mocktail","energy","milkshake","bottledwater","beer","wine","cocktail","spirits"], "alcoholic": ["beer","wine","cocktail","spirits"] },
-      "policies": [{ "id": "all-inclusive", "severity": "info", "icon": "✅", "title": "All Drinks Included", "text": "Explora Journeys (MSC's ultra-luxury brand) is fully all-inclusive. Wines, spirits, coffee, espresso, gratuities, and 24/7 room service all included." }],
+      "sets": {
+        "soda": [
+          "soda"
+        ],
+        "refresh": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater"
+        ],
+        "deluxe": [
+          "soda",
+          "coffee",
+          "teaprem",
+          "freshjuice",
+          "mocktail",
+          "energy",
+          "milkshake",
+          "bottledwater",
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ],
+        "alcoholic": [
+          "beer",
+          "wine",
+          "cocktail",
+          "spirits"
+        ]
+      },
+      "policies": [
+        {
+          "id": "all-inclusive",
+          "severity": "info",
+          "icon": "✅",
+          "title": "All Drinks Included",
+          "text": "Explora Journeys (MSC's ultra-luxury brand) is fully all-inclusive. Wines, spirits, coffee, espresso, gratuities, and 24/7 room service all included."
+        }
+      ],
       "quickAnswer": "Explora includes everything — no drink package needed. Wines, spirits, coffee, gratuities all in the fare.",
-      "meta": { "title": "Explora Journeys — All Drinks Included", "description": "Explora is all-inclusive.", "ogTitle": "Explora Drinks" },
-      "_sources": { "note": "Verified 2026-04-17", "references": ["explorajourneys.com", "joshfriedmantravel.wordpress.com/2023/10/24/explora-journeys-review"] }
+      "meta": {
+        "title": "Explora Journeys — All Drinks Included",
+        "description": "Explora is all-inclusive.",
+        "ogTitle": "Explora Drinks"
+      },
+      "_sources": {
+        "note": "Verified 2026-04-17",
+        "references": [
+          "explorajourneys.com",
+          "joshfriedmantravel.wordpress.com/2023/10/24/explora-journeys-review"
+        ]
+      }
     }
   }
 }

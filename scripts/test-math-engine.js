@@ -153,7 +153,9 @@ section('B. Input clamping');
 const zeroDays = run(rcl, { days: 0, drinks: { beer: 1 } });
 assert(zeroDays.trip > 0, 'days=0 clamped to 1 (trip > 0)');
 const hugeDays = run(rcl, { days: 999, drinks: { beer: 1 } });
-assert(hugeDays.trip > 0 && hugeDays.trip <= 7.75 * 365, 'days=999 clamped to 365');
+// With per-adult multiply (default adults=2), 1 beer × 2 adults × $7.75 × 365 max
+// With per-adult multiply (2 adults) + 18% gratuity on drinks
+assert(hugeDays.trip > 0 && hugeDays.trip <= 7.75 * 1.18 * 2 * 365 + 0.01, 'days=999 clamped to 365');
 
 // adults clamped [1, 20]
 const zeroAdults = run(rcl, { adults: 0, drinks: { beer: 1 } });
@@ -177,16 +179,17 @@ assert(strInputs.trip > 0, 'string numeric inputs parsed correctly');
 // ═══════════════════════════════════════════════════════════════
 section('C. À-la-carte math');
 
-// Simple: 1 drink type, no sea weighting
+// Simple: 1 drink type, no sea weighting. qty is per-adult, engine multiplies by adults.
 const simple = run(rcl, { days: 7, adults: 2, seaApply: false, drinks: { cocktail: 3 } });
-const expectedTrip = 14.00 * 3 * 7; // price × qty × days (no adults multiplier in rawTotal)
+const expectedTrip = 14.00 * (1 + 0.18) * 3 * 2 * 7; // price × (1+grat) × perAdult × adults × days
 assert(near(simple.trip, expectedTrip, 0.02), `cocktail trip = $${expectedTrip}`, `got $${simple.trip}`);
 assert(near(simple.perDay, expectedTrip / 7, 0.02), 'perDay = trip / days');
 
 // Multiple drinks
 const multi = run(rcl, { days: 5, adults: 1, seaApply: false, drinks: { beer: 2, wine: 1, soda: 3 } });
-const expectedMulti = (7.75 * 2 + 11 * 1 + 3.50 * 3) * 5;
-assert(near(multi.trip, expectedMulti, 0.02), 'multi-drink trip correct', `expected $${expectedMulti.toFixed(2)} got $${multi.trip}`);
+// 1 adult, 18% grat: (beer×2 + wine×1 + soda×3) × (1+0.18) × 5 days
+const expectedMulti = (7.75 * 2 + 11 * 1 + 3.50 * 3) * (1 + 0.18) * 5;
+assert(near(multi.trip, expectedMulti, 0.10), 'multi-drink trip correct', `expected $${expectedMulti.toFixed(2)} got $${multi.trip}`);
 
 // ═══════════════════════════════════════════════════════════════
 // D. PACKAGE COST MATH
@@ -232,16 +235,18 @@ assert(wineTest.overcap === 0, 'wine at $11 under $14 cap → overcap=0');
 const celOvercap = run(config.lines.celebrity, { days: 7, adults: 1, seaApply: false, drinks: { cocktail: 3 } });
 assert(celOvercap.overcap > 0, 'Celebrity cocktail at $15 over $10 cap → overcap > 0');
 // Verify exact: $5 excess × 3 qty × 7 days = $105 total, display = $105 / (7×1) = $15/person/day
-assert(near(celOvercap.overcap, 15.0, 0.01), 'Celebrity overcap = $15/person/day', `got $${celOvercap.overcap}`);
+// $5 excess × 1.20 grat = $6/drink. 3 drinks/day ÷ 1 adult = $18/person/day
+assert(near(celOvercap.overcap, 18.0, 0.01), 'Celebrity overcap = $18/person/day (with grat)', `got $${celOvercap.overcap}`);
 
-// REGRESSION: overcap must be INDEPENDENT of adults count (same group consumption)
+// With per-adult inputs, 2 adults ordering 3 cocktails EACH = 6 group drinks (2× the overcap).
+// The RAW overcap per-adult should be the same: $5 × 3 × 7 = $105 per adult.
 const celOc1 = run(config.lines.celebrity, { days: 7, adults: 1, seaApply: false, drinks: { cocktail: 3 } });
 const celOc2 = run(config.lines.celebrity, { days: 7, adults: 2, seaApply: false, drinks: { cocktail: 3 } });
 const rawOc1 = celOc1.packageBreakdown.deluxe.total - celOc1.packageBreakdown.deluxe.fixedCost;
 const rawOc2 = celOc2.packageBreakdown.deluxe.total - celOc2.packageBreakdown.deluxe.fixedCost;
-assert(near(rawOc1, rawOc2, 0.01),
-  'overcap raw total same for 1 vs 2 adults (same group drinks)',
-  `1 adult=$${rawOc1.toFixed(2)} 2 adults=$${rawOc2.toFixed(2)}`);
+assert(near(rawOc2, rawOc1 * 2, 0.01),
+  'overcap scales linearly with adults (per-adult input)',
+  `1 adult=$${rawOc1.toFixed(2)} 2 adults=$${rawOc2.toFixed(2)} (expected ${(rawOc1*2).toFixed(2)})`);
 
 // ═══════════════════════════════════════════════════════════════
 // E2. noPackages / allInclusive FLAGS

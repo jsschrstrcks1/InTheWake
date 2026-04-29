@@ -3196,63 +3196,84 @@ function validateRuntimeDataSources(html, filepath) {
     return refs;
   }).filter(c => c.length > 0);
 
-  // Refs that aren't part of any SOURCES cascade — flat fetch() calls.
-  const cascadedRefs = new Set(cascades.flat());
-  const flatFetchRefs = [...html.matchAll(/fetch\(['"]([^'"]+\.json)['"]/g)]
-    .map(m => m[1])
-    .filter(r => !cascadedRefs.has(r));
-  const flatAbsRefs = [...html.matchAll(/abs\(['"]([^'"]+\.json)['"]\)/g)]
-    .map(m => m[1])
-    .filter(r => !cascadedRefs.has(r));
+  // Skip global/shared files that aren't page-specific
+  const SHARED_FILES = new Set(['/assets/data/articles/index.json', '/data/authors.json', '/assets/data/ship-quiz-data-v2.json']);
 
-  const SHARED_FILES = new Set([
-    '/assets/data/articles/index.json',
-    '/data/authors.json',
-    '/assets/data/ship-quiz-data-v2.json',
-    '/assets/data/venues.json',
-    '/assets/data/venues-v2.json'
-  ]);
+  // --- CASCADE-AWARE analysis ---
+  // Parse SOURCES arrays as fallback cascades. A cascade fails only when ALL sources are missing.
+  // Individual missing sources within a working cascade are cleanup items (INFO), not reader-facing failures.
+  const cascadeBlocks = [...html.matchAll(/const SOURCES=\[([^\]]+)\]/g)];
+  let cascadesFullyFailed = 0;
+  const failedCascadeLabels = [];
 
-  // Helper: does any path in the array resolve on disk?
-  const anyResolves = (paths) => paths.some(p =>
-    existsSync(join(PROJECT_ROOT, p.replace(/^\//, '')))
-  );
+  for (const [, block] of cascadeBlocks) {
+    const paths = [...block.matchAll(/abs\(['"]([^'"]+\.json)['"]\)/g)].map(m => m[1]);
+    if (paths.length === 0) continue;
+    if (paths.every(p => SHARED_FILES.has(p))) continue;
 
-  // Cascades: warn only if NONE of the fallbacks exist on disk.
-  const brokenCascades = cascades.filter(refs => !anyResolves(refs));
-  if (brokenCascades.length > 0) {
-    warnings.push({
+    const resolved = paths.map(p => ({
+      path: p,
+      exists: existsSync(join(PROJECT_ROOT, p.replace(/^\//, '')))
+    }));
+    const anyExists = resolved.some(r => r.exists);
+
+    if (!anyExists) {
+      // ENTIRE cascade fails — reader sees empty section
+      cascadesFullyFailed++;
+      const category = paths[0].includes('video') ? 'video' :
+                       paths[0].includes('logbook') ? 'logbook' :
+                       paths[0].includes('dining') ? 'dining' :
+                       'stats/data';
+      failedCascadeLabels.push(`${category} (${paths.length} sources, all missing)`);
+    }
+  }
+
+  if (cascadesFullyFailed > 0) {
+    errors.push({
       section: 'runtime_data',
-      rule: 'broken_cascade',
-      message: `${brokenCascades.length} runtime data cascade(s) have no source resolving on disk. Example: ${brokenCascades[0].join(' → ')}. Reader sees empty section.`,
-      severity: 'WARNING'
+      rule: 'cascade_fully_failed',
+      message: `${cascadesFullyFailed} data cascade(s) have ALL sources missing — reader sees empty section(s): ${failedCascadeLabels.join('; ')}`,
+      severity: 'BLOCKING'
     });
   }
 
-  // Flat refs: each is checked individually; missing → warn, malformed → error.
-  const flatRefs = [...new Set([...flatFetchRefs, ...flatAbsRefs])];
-  let missingCount = 0;
-  const missingPaths = [];
+  // --- STANDALONE fetch() calls (not in SOURCES cascades) ---
+  // These are single-fetch calls with no fallback — missing = empty section.
+  const standaloneFetches = [...html.matchAll(/fetch\(['"]([^'"]+\.json)['"]/g)]
+    .map(m => m[1])
+    .filter(p => !SHARED_FILES.has(p));
+
+  // Dedupe against paths already found in SOURCES cascades
+  const cascadePaths = new Set();
+  for (const [, block] of cascadeBlocks) {
+    for (const m of block.matchAll(/abs\(['"]([^'"]+\.json)['"]\)/g)) {
+      cascadePaths.add(m[1]);
+    }
+  }
+  const trueStandalone = standaloneFetches.filter(p => !cascadePaths.has(p));
+
+  for (const ref of trueStandalone) {
+    const localPath = join(PROJECT_ROOT, ref.replace(/^\//, ''));
+    if (!existsSync(localPath)) {
+      warnings.push({
+        section: 'runtime_data',
+        rule: 'standalone_fetch_missing',
+        message: `Standalone fetch target missing: ${ref} (no fallback cascade)`,
+        severity: 'WARNING'
+      });
+    }
+  }
+
+  // --- CONTENT quality of existing sources ---
+  // Check that JSON files found on disk have non-trivial content.
+  const allPaths = new Set([...cascadePaths, ...trueStandalone]);
   let emptyCount = 0;
   const emptyPaths = [];
 
-  // Also parse-check every existing file in cascades (parse errors are real
-  // bugs even if a fallback would mask them — silent fallback hides root cause).
-  const allRefsToCheck = [...new Set([...flatRefs, ...cascades.flat()])];
-  for (const ref of allRefsToCheck) {
+  for (const ref of allPaths) {
     if (SHARED_FILES.has(ref)) continue;
-
     const localPath = join(PROJECT_ROOT, ref.replace(/^\//, ''));
-
-    if (!existsSync(localPath)) {
-      // Skip; cascade-level handling above already reported broken cascades.
-      // Only count missing for flat refs.
-      if (flatRefs.includes(ref)) {
-        missingCount++;
-        missingPaths.push(ref);
-      }
-      continue;
-    }
+    if (!existsSync(localPath)) continue;
 
     try {
       const content = readFileSync(localPath, 'utf8');
@@ -3272,7 +3293,7 @@ function validateRuntimeDataSources(html, filepath) {
           emptyCount++;
           emptyPaths.push(`${ref} (0 stories)`);
         }
-      } else if (ref.includes('stats') || ref.includes('ships')) {
+      } else if (ref.includes('stats') || (ref.includes('ships') && !ref.includes('assets'))) {
         const keys = Object.keys(data);
         if (keys.length < 3) {
           emptyCount++;
@@ -3287,15 +3308,6 @@ function validateRuntimeDataSources(html, filepath) {
         severity: 'BLOCKING'
       });
     }
-  }
-
-  if (missingCount > 0) {
-    warnings.push({
-      section: 'runtime_data',
-      rule: 'missing_json_sources',
-      message: `${missingCount} flat runtime JSON source(s) not found: ${missingPaths.slice(0, 3).join(', ')}${missingCount > 3 ? ` and ${missingCount - 3} more` : ''}.`,
-      severity: 'WARNING'
-    });
   }
 
   if (emptyCount > 0) {
