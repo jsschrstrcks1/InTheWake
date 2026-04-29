@@ -1,6 +1,6 @@
 # In the Wake — cruisinginthewake.com
 
-A Christ-shaped cruise planning website for ordinary travelers.
+A Christ-shaped cruise planning website for ordinary cruise travelers.
 
 > **Soli Deo Gloria.** Every line of code and every word of content is
 > stewardship. Excellence as worship means getting it right, not getting
@@ -29,19 +29,10 @@ A Christ-shaped cruise planning website for ordinary travelers.
 
 ## What this site is
 
-**In the Wake** helps real people make real decisions about cruise travel.
-The audience is wider than the typical cruise blog:
-
-- First-time cruisers who don't know which port to book or what to pack.
-- Widows and widowers planning a first solo trip after loss.
-- Disabled travelers who need accurate accessibility information.
-- Caregivers looking for rest without abandoning the people they care for.
-- Families balancing kids, grandparents, and dietary needs in one cabin.
-
-Every port page, ship page, and tool answers a question someone is
-actually asking — usually with a budget on the line, often with grief in
-the background. The voice is honest, calm, and concrete: not chipper, not
-performatively heavy.
+**In the Wake** helps ordinary cruise travelers make real decisions
+about cruise travel. Every port page, ship page, and tool answers a
+question someone is actually asking — usually with a budget on the
+line. The voice is honest, calm, and concrete: facts over superlatives.
 
 ---
 
@@ -122,22 +113,19 @@ This is immutable — not for SEO, not for performance, not for anything.
 The site is governed by a layered standards system. When sources
 conflict, defer in this order:
 
-1. `admin/claude/PASTORAL_GUARDRAILS.md` — pastoral care and theological
-   foundation override everything.
-2. `.claude/skills/careful-not-clever/CAREFUL.md` — integrity and
+1. `.claude/skills/careful-not-clever/CAREFUL.md` — integrity and
    carefulness override efficiency.
-3. `claude.md` (architecture, never-dos, priorities).
-4. `admin/claude/TECHNICAL_STANDARDS.md` — implementation patterns.
-5. `new-standards/` — page-type specifics.
-6. `admin/UNFINISHED_TASKS.md` — current work queue.
+2. `claude.md` (architecture, never-dos, priorities).
+3. `admin/claude/TECHNICAL_STANDARDS.md` — implementation patterns.
+4. `new-standards/` — page-type specifics.
+5. `admin/UNFINISHED_TASKS.md` — current work queue.
 
 ### Voice
 
 - Honest, calm, concrete. Facts over superlatives.
-- The "logbook entry" pattern uses an authentic emotional pivot — never
-  flattened into something chipper.
-- Pastoral content (grief, disability, caregiving) is non-negotiable.
 - Negative reviews are surfaced and contextualized, not hidden.
+- Specific over generic. "The 9 a.m. tender to Cabo San Lucas runs every
+  20 minutes" beats "tenders run regularly".
 
 ### Integrity (inviolable)
 
@@ -165,7 +153,6 @@ decisions. Each is testable in isolation via the `webapp-testing` skill.
 | Packing Lists | `packing-lists.html` / `packing.html` | Packing checklists by trip type |
 | Search | `search.html` | Site-wide search |
 | First Cruise | `first-cruise.html` | Onboarding for first-timers |
-| Disability at Sea | `disability-at-sea.html` | Accessibility planning |
 | Internet at Sea | `internet-at-sea.html` | Wi-Fi packages compared |
 | Solo travel | `solo.html` + `solo/articles/` | Solo cruising planner & articles |
 
@@ -219,7 +206,7 @@ the canonical shell validator first.
 | Hook | Where | Purpose |
 |---|---|---|
 | Claude Code post-write | `.claude/hooks/ship-page-validator.sh` | Validates ship-page edits as Claude writes them |
-| Claude Code session-start | `.claude/hooks/session-start-guardrail.sh` | Loads pastoral guardrails and skill list |
+| Claude Code session-start | `.claude/hooks/session-start-guardrail.sh` | Loads guardrails and skill list |
 | Git pre-commit | `.githooks/pre-commit` | Blocks placeholder images, invalid JSON, missing SDG |
 | Page-type dispatcher | `admin/validate.js` | Routes any page to the right validator |
 
@@ -249,16 +236,13 @@ git config core.hooksPath .githooks
 ### Content
 
 - ❌ Never lorem ipsum or "coming soon" pages.
-- ❌ Never remove logbook stories or grief-focused content.
-- ❌ Never flatten the emotional pivot in a logbook story.
-- ❌ Never rewrite a hard story into something chipper at the expense of
-  honesty.
+- ❌ Never invent ship stats, port facts, or pricing from training data.
+- ❌ Never break existing functionality — no regressions.
 
 ### Code
 
 - ❌ Never `console.log` / `console.warn` in production.
 - ❌ Never commit invalid JSON.
-- ❌ Never break existing functionality — no regressions.
 - ❌ Never push to `main` / `master` directly.
 
 The full rule set lives in `claude.md` and is enforced by the validator +
@@ -302,7 +286,6 @@ right-side rail, accessibility, canonical URLs.
 
 | File | Purpose |
 |---|---|
-| `admin/claude/PASTORAL_GUARDRAILS.md` | Pastoral foundation. Non-negotiable. |
 | `.claude/skills/careful-not-clever/CAREFUL.md` | Process integrity guardrail |
 | `admin/CAREFUL.md` | Technical integrity — CSS semantics, pre-commit checks |
 | `admin/claude/SKILLS_REFERENCE.md` | Skills, both CAREFUL files, task tracking |
@@ -350,7 +333,7 @@ This is a personal project, but family and close collaborators are
 welcome. The workflow:
 
 1. Branch from `main` as `claude/<topic>-<id>`.
-2. Read `admin/claude/PASTORAL_GUARDRAILS.md` and `claude.md` first.
+2. Read `claude.md` first.
 3. Run `git config core.hooksPath .githooks` once.
 4. Write code that passes `admin/validate-ship-page.sh` for any ship-page
    change, and the page-type dispatcher for everything else.
@@ -359,6 +342,4 @@ welcome. The workflow:
 
 ---
 
-*Soli Deo Gloria. This site helps people process some of the hardest
-experiences in life. Every accessibility improvement helps someone. Every
-logbook story might be exactly what someone needs to read today.*
+*Soli Deo Gloria.*
