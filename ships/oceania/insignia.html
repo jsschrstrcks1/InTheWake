@@ -140,7 +140,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A R Class ship operated by Oceania Cruises.","name":"Insignia","brand":{"@type":"Organization","name":"Oceania Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Insignia (R Class, 30,277 GT, 684 guests, 2000) is Oceania's intimate R-class ship featuring Jacques, Red Ginger, Polo Grill, Toscana, Grand Dining Room, and the Terrace Café — delivering culinary-focused, destination-immersive voyages."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"An R Class ship operated by Oceania Cruises.","name":"Insignia","brand":{"@type":"Organization","name":"Oceania Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Insignia (R Class, 30,277 GT, 684 guests, 386 crew, 1998) is one of four intimate R Class sisters with Grand Dining Room, Toscana (Italian), Polo Grill (steakhouse), Terrace Café, and Waves Grill — all included in the fare. Specialty dining quality matches the larger Oceania ships on a more personal scale.","reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5}}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -152,7 +152,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "What dining options are available on Insignia?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Insignia offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship."
+          "text": "Five venues included in the fare: Grand Dining Room (main restaurant), Toscana (Italian), Polo Grill (steakhouse), Terrace Café (buffet), and Waves Grill (poolside casual)."
         }
       },
       {
@@ -168,7 +168,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "Where does Insignia sail?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ship deployments vary by season. Check the Oceania Cruises website for current itineraries and departure ports for Insignia."
+          "text": "Seasonal itineraries including the Mediterranean, Caribbean, South America, Africa, and world cruise segments. Her smaller R Class size allows access to ports the larger Oceania ships cannot reach."
         }
       },
       {
@@ -184,7 +184,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "Is this information official?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This page provides planning resources and community insights. Always confirm details with Oceania Cruises or your travel advisor before booking."
+          "text": "R Class (684 guests, 30,277 GT) is about half the size of the O Class — Marina and Riviera carry 1,250 guests at 66,084 GT with more dining venues."
         }
       }
     ]
@@ -261,7 +261,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <header class="hero-header" role="banner">
@@ -361,28 +362,32 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     </div>
   </header>
 
-  <main class="wrap" id="main-content" role="main" tabindex="-1">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="grid-column: 1 / -1;">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
       <a href="/cruise-lines/oceania.html">Oceania Cruises</a> &rsaquo;
       <span aria-current="page">Insignia</span>
     </nav>
 
+    <!-- Main Content Column -->
+    <section class="col-1" aria-label="Ship details">
+
     <h1 class="page-title">Insignia — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
     <!-- ICP-Lite: Page Intro -->
     <section class="page-intro" aria-label="Insignia overview">
       
-      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Insignia is a R Class cruise ship operated by Oceania Cruises. She entered service in 1998, measures 30,277 gross tons, and carries approximately 684 guests at double occupancy.</p>
+      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Insignia is a R Class cruise ship operated by Oceania Cruises. She entered service in 1998, measures 30,277 gross tons, and carries approximately 684 guests at double occupancy with a crew of 386.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> R Class</li>
           <li><strong>Year:</strong> 1998</li>
           <li><strong>Tonnage:</strong> 30,277 GT</li>
           <li><strong>Guests:</strong> 684</li>
-          <li><strong>IMO:</strong> 9156474</li>
+          <li><strong>Crew:</strong> 386</li>
+          <li><strong>IMO:</strong> 9156462</li>
         </ul>
       </div>
 
@@ -390,8 +395,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         <strong>Quick Answer:</strong> Insignia is one of Oceania's intimate R Class ships — 30,277 GT, 684 guests, originally launched in 1998 and extensively refurbished. Small enough to dock in ports larger ships cannot reach, with Oceania's signature included specialty dining. This page covers deck plans, live tracking, dining venues, and videos.
       </p>
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Travelers who prefer an intimate ship that can visit smaller ports. Insignia suits food-focused cruisers who want Oceania's culinary quality on a 684-guest ship — half the size of the Oceania Class, with a closer-knit atmosphere and crew who learn your name.
+      <p id="who-shes-for" class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <strong>Who She's For:</strong> Travelers who prefer an intimate ship that can visit smaller ports. Insignia suits food-focused cruisers who want Oceania's culinary quality on a 684-guest ship — half the size of the Oceania Class, with a closer-knit atmosphere and crew who learn your name.
       </p>
 
       <p class="content-text">
@@ -423,35 +428,60 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
           </div>
         </section>
 
-        <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading"><img id="dining-hero" class="card-hero"
-             src="/assets/img/Cordelia_Empress_Food_Court.webp"
-             alt="Insignia dining venue" loading="lazy"/>
-Dining on Insignia</h2>
-      <p>Dining venue information coming soon. Oceania Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
+    <section id="dining-card" class="card" data-ship="Insignia" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Insignia <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+          <noscript>
+            <h3>Main Dining</h3>
+            <ul>
+              <li><strong>Grand Dining Room</strong> — main restaurant, open seating, complimentary</li>
+            </ul>
+            <h3>Specialty (included in fare)</h3>
+            <ul>
+              <li><strong>Toscana</strong> — Italian, complimentary</li>
+              <li><strong>Polo Grill</strong> — steakhouse, complimentary</li>
+            </ul>
+            <h3>Casual</h3>
+            <ul>
+              <li><strong>Terrace Café</strong> — buffet, complimentary</li>
+              <li><strong>Waves Grill</strong> — poolside casual, complimentary</li>
+            </ul>
+          </noscript>
+        </div>
 <script type="application/json" id="dining-data-source">{"provider":"oceania","json":"/assets/data/venues-v2.json","ship_slug":"insignia","aliases":["Insignia"]}</script>
+    </section>
 
     <p class="subtitle">Oceania Cruises &bull; R Class</p>
 
-    <!-- Stub Notice -->
-    
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Insignia</h2>
       <div id="logbook-container" data-ship="insignia" data-line="oceania">
-        <p class="placeholder">Stories and insights from cruisers who have sailed on Insignia will appear here.</p>
+        <noscript>
+          <article class="story">
+            <h3>About Insignia</h3>
+            <div class="story-body">
+              <p>Insignia is one of four R Class sisters (with Regatta, Nautica, and Sirena) that form Oceania's intimate fleet. At 30,277 GT and 684 guests with a crew of 386, she offers Oceania's culinary-focused cruise experience on a smaller, more personal scale. Specialty dining at Toscana (Italian) and Polo Grill (steakhouse) is included in the fare. Originally built in 1998, she has been extensively refurbished under Oceania ownership.</p>
+            </div>
+          </article>
+        </noscript>
       </div>
     </section>
 
+    <p class="mt-1">
+      <a href="https://www.oceaniacruises.com/ships/insignia/" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
+        View Official Deck Plans →
+      </a>
+    </p>
 
     <!-- Videos Section -->
     <section class="card" aria-labelledby="video-highlights">
       <h2 id="video-highlights">Watch: Insignia Highlights</h2>
       <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
       <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-wrapper" id="featuredVideos">
+          <noscript><p>Video tours for Insignia are available on YouTube.</p></noscript>
+        </div>
         <div class="swiper-pagination" ></div>
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
@@ -473,7 +503,7 @@ Dining on Insignia</h2>
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
         mount.innerHTML=arr.slice(0,12).map(v=>{
           const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'Insignia').replace(/</g,'&lt;');
+          const title=String(v.title||'Insignia').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
         }).join('');
         if(mount.children.length&&window.Swiper){
@@ -508,95 +538,82 @@ Dining on Insignia</h2>
     })();
     </script>
 
-    
-
-<script type="application/json" id="ship-stats-fallback">{"slug":"insignia","name":"Insignia","cruise_line":"Oceania Cruises","class":"R Class","entered_service":1998,"gt":"30,277 GT","guests":"684","crew":"386"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
+<script type="application/json" id="ship-stats-fallback">{"slug":"insignia","name":"Insignia","cruise_line":"Oceania Cruises","class":"R Class","entered_service":1998,"gt":"30,277 GT","guests":"684","crew":"386","imo":"9156462"}</script>
 
     <section class="grid-2">
-      
-    <!-- Ship Statistics -->
-    <section class="card" aria-labelledby="ship-stats-title">
-      <h2 id="ship-stats-title">Ship Statistics</h2>
+
+    <section class="card" aria-labelledby="statsHeading">
+      <h3 id="statsHeading">Key Facts About Insignia</h3>
       <div id="ship-stats" class="stats-grid" data-slug="insignia">
-        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">30,277 GT</div></div>
-        <div class="stat-item"><div class="label">Guests</div><div class="value">684</div></div>
-        <div class="stat-item"><div class="label">Crew</div><div class="value">386</div></div>
-        <div class="stat-item"><div class="label">Entered Service</div><div class="value">1998</div></div>
-        <div class="stat-item"><div class="label">Class</div><div class="value">R Class</div></div>
+        <noscript>
+          <div class="stat-item"><div class="label">Class</div><div class="value">R Class</div></div>
+          <div class="stat-item"><div class="label">Entered Service</div><div class="value">1998</div></div>
+          <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">30,277 GT</div></div>
+          <div class="stat-item"><div class="label">Guests</div><div class="value">684</div></div>
+          <div class="stat-item"><div class="label">Crew</div><div class="value">386</div></div>
+          <div class="stat-item"><div class="label">Registry</div><div class="value">Marshall Islands</div></div>
+          <div class="stat-item"><div class="label">IMO</div><div class="value">9156462</div></div>
+        </noscript>
       </div>
     </section>
+
     <section class="card" aria-labelledby="deck-plans">
       <h2 id="deck-plans">Insignia Deck Plans</h2>
-      <p>View the official deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
-      <p><a href="https://www.oceaniacruises.com/ships/insignia/" class="btn-deck-plans" target="_blank" rel="nofollow noopener">View Official Deck Plans →</a></p>
+      <p>Insignia is one of four intimate R Class sisters — 684 guests with Grand Dining Room, Toscana, Polo Grill, Terrace Café, and Waves Grill.</p>
+      <figure>
+        <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
+        <figcaption class="tiny">Simplified deck layout overview</figcaption>
+      </figure>
     </section>
 
-<section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Insignia Deck Plans</h2>
-        <p>View the official deck plans to explore Insignia's layout.</p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview — not specific to Insignia" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure>
-        <p><a class="btn" href="https://www.oceaniacruises.com/" target="_blank" rel="noopener">Visit Oceania Official Site</a></p>
-      </section>
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9156474" data-name="INSIGNIA">
-        <h2 id="liveTrackHeading">Where Is Insignia?</h2>
-        <p>Track Insignia's current position and upcoming itinerary.</p>
-        <p><a class="btn" href="https://www.cruisemapper.com/?search=Insignia" target="_blank" rel="noopener">Open Live Tracker</a></p>
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9156462" data-name="INSIGNIA">
+        <h2 id="liveTrackHeading">Where Is Insignia Right Now?</h2>
+        <p>See Insignia's current position, speed, heading, and next port on the live AIS tracker below.</p>
+        <div id="vf-tracker-container" class="tracker-container">
+          <iframe title="Insignia live position tracker" src="https://www.vesselfinder.com/aismap?imo=9156462&amp;zoom=4&amp;names=true" width="100%" height="380" frameborder="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <noscript>
+            <p>Live tracking requires JavaScript. You can track Insignia (IMO 9156462) directly at <a href="https://www.vesselfinder.com/vessels/details/9156462" target="_blank" rel="noopener">VesselFinder</a>.</p>
+          </noscript>
+        </div>
+        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
       </section>
     </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Insignia with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-  
 
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Insignia</h2>
 
-      <details  class="section-divider">
-        <summary>What dining options are available on Insignia?</summary>
-        <p  class="list-indent">Insignia offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship.</p>
+      <details class="faq-item section-divider">
+        <summary>What dining options are on Insignia?</summary>
+        <p class="faq-answer list-indent">Five venues, all included in the fare: <strong>Grand Dining Room</strong> (main restaurant), <strong>Toscana</strong> (Italian), <strong>Polo Grill</strong> (steakhouse), <strong>Terrace Café</strong> (buffet), and <strong>Waves Grill</strong> (poolside casual). See the <a href="#dining-card">Dining section</a> above.</p>
       </details>
 
-      <details  class="section-divider">
-        <summary>How do I find the deck plans for Insignia?</summary>
-        <p  class="list-indent">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.oceaniacruises.com" target="_blank" rel="noopener">Oceania Cruises</a> website or in the cruise planner app.</p>
+      <details class="faq-item section-divider">
+        <summary>How big is Insignia?</summary>
+        <p class="faq-answer list-indent"><strong>30,277 GT</strong> with <strong>684 guests</strong> and <strong>386 crew</strong>. One of four R Class sisters (with Regatta, Nautica, Sirena). Originally built 1998, extensively refurbished.</p>
       </details>
 
-      <details  class="section-divider">
+      <details class="faq-item section-divider">
+        <summary>How does the R Class compare to Marina/Riviera?</summary>
+        <p class="faq-answer list-indent">R Class (684 guests, 30,277 GT) is about half the size of the O Class — <a href="/ships/oceania/marina.html">Marina</a> and <a href="/ships/oceania/riviera.html">Riviera</a> carry 1,250 guests at 66,084 GT with more dining venues (including Red Ginger and Jacques). R Class is more intimate; O Class has more public space and culinary options.</p>
+      </details>
+
+      <details class="faq-item">
         <summary>Where does Insignia sail?</summary>
-        <p  class="list-indent">Ship deployments vary by season. Check the <a href="https://www.oceaniacruises.com" target="_blank" rel="noopener">Oceania Cruises</a> website for current itineraries and departure ports for Insignia.</p>
-      </details>
-
-      <details  class="section-divider">
-        <summary>How can I track Insignia's current location?</summary>
-        <p  class="list-indent">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary>Is this information official?</summary>
-        <p  class="list-indent">This page provides planning resources and community insights. Always confirm details with <a href="https://www.oceaniacruises.com" target="_blank" rel="noopener">Oceania Cruises</a> or your travel advisor before booking.</p>
+        <p class="faq-answer list-indent">Seasonal itineraries including the Mediterranean, Caribbean, South America, Africa, and world cruise segments. Her smaller size allows access to ports the larger Oceania ships cannot reach. Check the <a href="#liveTrackHeading">live tracker</a> above.</p>
       </details>
     </section>
 
     <section class="card attributions">
-      <h3>Sources & Attribution</h3>
-      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+      <h3>Sources &amp; Attribution</h3>
+      <ul class="small">
+        <li>IMO corrected from 9156474 to 9156462 (VesselFinder 1.0 confidence, Perplexity Research).</li>
+        <li>R Class dining venues confirmed via Perplexity Research.</li>
+        <li>Ship specifications from Oceania Cruises official materials.</li>
+      </ul>
     </section>
+
+    </section><!-- End col-1 -->
   
 
     <aside class="rail col-2" role="complementary" aria-label="Quick navigation and author info">
@@ -641,10 +658,12 @@ Dining on Insignia</h2>
 
       <section class="card" id="recent-rail-nav-bottom" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <div id="recent-rail" class="rail-list" aria-live="polite">
+          <noscript><ul style="list-style:none;padding:0;"><li><a href="/solo/solo-cruising-practical-guide.html">Solo Cruising Guide</a></li></ul></noscript>
+        </div>
       </section>
     
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"><noscript><h3 style="margin:0 0 0.5rem;">Ship Size</h3><p class="tiny">Insignia carries 684 guests — one of four intimate R Class sisters in the Oceania fleet.</p></noscript></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -692,6 +711,7 @@ Dining on Insignia</h2>
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+<script src="/assets/js/whimsical-ship-units.js" defer></script>
   <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>
