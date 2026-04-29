@@ -1,7 +1,6 @@
 # In the Wake — cruisinginthewake.com
 
-A Christ-shaped cruise planning website for ordinary travelers, grieving
-widows, disabled adventurers, healing families, and exhausted caregivers.
+A Christ-shaped cruise planning website for ordinary travelers.
 
 > **Soli Deo Gloria.** Every line of code and every word of content is
 > stewardship. Excellence as worship means getting it right, not getting
