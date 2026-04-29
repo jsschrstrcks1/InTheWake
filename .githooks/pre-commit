@@ -1,0 +1,82 @@
+#!/bin/bash
+# ============================================================================
+# Pre-commit hook — validate staged ship pages with both validators
+#
+# Runs both ship validators on every staged ship page:
+#   1. admin/validate-ship-page.sh — structural / ICP-2 / per-section rules
+#   2. admin/validate-ship-page.js — DOM-based, Layer-2 runtime, broad coverage
+# Both must pass (exit 0 or 2) for the commit to proceed. Either reporting
+# blocking errors (exit 1) blocks the commit.
+#
+# The two validators have complementary blind spots — running both catches
+# more real bugs than either alone. See the comparison in the
+# claude/review-ship-validation branch's commit history for the empirical
+# breakdown.
+#
+# Enable for this clone:
+#   git config core.hooksPath .githooks
+#
+# Skip for a single commit (use sparingly):
+#   git commit --no-verify
+#
+# Soli Deo Gloria
+# ============================================================================
+
+set -u
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+SH_VALIDATOR="$REPO_ROOT/admin/validate-ship-page.sh"
+JS_VALIDATOR="$REPO_ROOT/admin/validate-ship-page.js"
+
+mapfile -t SHIP_FILES < <(
+    git diff --cached --name-only --diff-filter=ACMR \
+        | grep -E '^ships/[^/]+/[^/]+\.html$' \
+        | grep -Ev '/(index|venues|quiz)\.html$' \
+        || true
+)
+
+if [ "${#SHIP_FILES[@]}" -eq 0 ]; then
+    exit 0
+fi
+
+echo "pre-commit: validating ${#SHIP_FILES[@]} ship page(s) with both validators…"
+
+run_validator() {
+    local label="$1"; local cmd="$2"; local file="$3"
+    local out code
+    out=$(eval "$cmd \"$file\"" 2>&1)
+    code=$?
+    if [ $code -eq 1 ]; then
+        echo "─── $label FAIL: $file ──────────────────────────────────"
+        echo "$out" | tail -30
+        return 1
+    fi
+    return 0
+}
+
+FAILED=0
+for f in "${SHIP_FILES[@]}"; do
+    full="$REPO_ROOT/$f"
+    [ ! -f "$full" ] && continue
+
+    file_failed=0
+    if [ -f "$SH_VALIDATOR" ]; then
+        run_validator ".sh" "bash $SH_VALIDATOR" "$full" || file_failed=1
+    fi
+    if [ -f "$JS_VALIDATOR" ]; then
+        run_validator ".js" "node $JS_VALIDATOR" "$full" || file_failed=1
+    fi
+    [ $file_failed -eq 1 ] && FAILED=$((FAILED + 1))
+done
+
+if [ "$FAILED" -gt 0 ]; then
+    echo ""
+    echo "pre-commit: $FAILED ship page(s) failed validation. Commit blocked."
+    echo "  Re-run a single file:  bash admin/validate-ship-page.sh <file>"
+    echo "                         node admin/validate-ship-page.js <file>"
+    echo "  Bypass (sparingly):    git commit --no-verify"
+    exit 1
+fi
+
+echo "pre-commit: ${#SHIP_FILES[@]} ship page(s) passed both validators."
+exit 0
