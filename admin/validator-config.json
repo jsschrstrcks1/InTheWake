@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "_doc": "Per-line validator configuration. The _default key applies to every cruise line; line-specific keys override _default. Both validate-ship-page.sh and validate-ship-page.js read this file. See admin/SHIP_STANDARDIZATION_PLAN.md and admin/POLICY_DECISIONS.md for the rationale behind each value.",
+  "lines": {
+    "_default": {
+      "main_id": "main-content",
+      "grid_class": "page-grid",
+      "skip_link_target": "#main-content",
+      "image_min": 8,
+      "image_target": 12,
+      "image_max": 24,
+      "main_entity_types": ["Product", "TouristAttraction"],
+      "guest_count_field": "passengers_double_occupancy"
+    },
+    "carnival": {
+      "_doc": "Carnival template uses id=\"main\" rather than id=\"main-content\". Convention, not bug. Documented per Policy 1.1.",
+      "main_id": "main",
+      "skip_link_target": "#main"
+    },
+    "holland-america-line": {
+      "_doc": "HAL template uses .col-1 single-column layout in some sections rather than .page-grid two-column. Convention, not bug.",
+      "grid_class": "col-1"
+    },
+    "rcl": {
+      "_doc": "RCL flagships consistently ship 10+ images; raise the floor for this line.",
+      "image_min": 10
+    }
+  },
+  "ai_summary_boilerplate_phrases": [
+    "deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise",
+    "deck plans, live tracker, dining venues, and stateroom videos. Plan your",
+    "serves as a",
+    "represents the perfect",
+    "offers something for everyone",
+    "the ultimate cruise experience"
+  ],
+  "main_entity_whitelist": ["Product", "TouristAttraction"],
+  "main_entity_blacklist": ["Cruise", "Service", "Thing", "WebPage"],
+  "_doc_boilerplate": "ai_summary_boilerplate_phrases: ≥1 hit on a ship's ai-summary => ICP-018 ERROR. The first phrase is the exact 6-ship boilerplate we found. Other entries are common templated tells that should never appear in a unique summary.",
+  "_doc_main_entity": "main_entity_whitelist/blacklist: drives SCHEMA-002. mainEntity @type must be in whitelist; @type in blacklist is BLOCKING. See admin/POLICY_DECISIONS.md § 0.1 for rationale (Cruise is wrong shape — it's an itinerary instance, not an evergreen ship reference)."
+}
