@@ -3247,11 +3247,12 @@ function validateMainEntityType($) {
     return { valid: true, errors, warnings };
   }
 
+  const preferred = VALIDATOR_CONFIG.main_entity_preferred;
   for (const t of observed) {
     if (blacklist.includes(t)) {
       errors.push({
         section: 'json_ld', rule: 'main_entity_blacklisted',
-        message: `mainEntity @type="${t}" is blacklisted (see admin/POLICY_DECISIONS.md § 0.1). Use one of: ${whitelist.join(', ')}.`,
+        message: `mainEntity @type="${t}" is blacklisted (see admin/POLICY_DECISIONS.md § 0.1). Use one of: ${whitelist.join(', ')}. Preferred: ${preferred || whitelist[0]}.`,
         severity: 'BLOCKING'
       });
     } else if (!whitelist.includes(t)) {
@@ -3259,6 +3260,12 @@ function validateMainEntityType($) {
         section: 'json_ld', rule: 'main_entity_unknown',
         message: `mainEntity @type="${t}" is not in the whitelist (${whitelist.join(', ')}). Verify Schema.org type is appropriate.`,
         severity: 'WARNING'
+      });
+    } else if (preferred && t !== preferred && t !== 'TouristAttraction') {
+      warnings.push({
+        section: 'json_ld', rule: 'main_entity_prefer_preferred',
+        message: `mainEntity @type="${t}" is acceptable, but ${preferred} is preferred for cruise-ship pages (Schema.org subtype of Product specifically for transport devices including ships).`,
+        severity: 'INFO'
       });
     }
   }

@@ -18,29 +18,46 @@ ship page declare? Current state: 30 of 34 ships use `Cruise`, 4 use `Thing`,
 0 use `Product`. ICP-2 prescribes `Product`. Plan agent suggested adding a
 sibling `TouristAttraction` node.
 
-**Recommendation:** `Product` as the `mainEntity` `@type`, with an optional
-sibling JSON-LD graph node typed `TouristAttraction` for geo/discovery.
+**Recommendation (revised post-orchestra 2026-04-29):** **`Vehicle`** as the
+`mainEntity` `@type`, with `TouristAttraction` added as an `additionalType`
+property (not a sibling graph node).
 
-**Rationale:**
-- A ship page is an evergreen reference for a vessel. `Cruise` schema models
-  a single voyage instance (`departureLocation`, `arrivalLocation`,
-  `cruiseLine`, `itinerary`) — wrong shape for an evergreen page.
-- `Product` enables `aggregateRating`, `offers`, `brand`, `image`,
-  `additionalProperty` (gross tonnage, beam, draft) — fields a ship page
-  surfaces. Google rich-results documented support.
-- `TouristAttraction` adds geo/discovery surface area for AI assistants
-  asking "what cruise ships visit Cozumel?"
-- `Thing` is the Schema.org root — semantically meaningless. Always wrong.
+**Original recommendation:** `Product` + sibling `TouristAttraction` node.
+The orchestra moved this.
 
-**Validator rule:** SCHEMA-002. Whitelist `Product`, `TouristAttraction`.
-Blacklist `Cruise`, `Service`, `Thing`, `WebPage` as `mainEntity`. ERROR
-when not in whitelist; ERROR when in blacklist.
+**Rationale (post-debate):**
+- **Perplexity + You.com both independently pointed at `Vehicle`** — a
+  Schema.org subtype of Product specifically defined for "a device used to
+  transport people or cargo over land, water, air or space" (literally
+  includes ships). Inherits every Product property (brand, model,
+  manufacturer, additionalProperty, offers, aggregateRating). More precise
+  than bare Product and avoids the "is a ship really a *product*?" framing
+  problem.
+- **TouristAttraction as `additionalType`, not sibling:** You.com's
+  argument — "TouristAttraction is intended as an additionalType that can
+  be layered onto many different base types when something functions as a
+  tourist draw." Sibling graph node adds JSON-LD complexity without
+  documented rich-results upside; `additionalType` property is a one-line
+  addition.
+- Grok flagged: this is all speculative without A/B testing of how Google
+  actually treats Vehicle vs Product for cruise-ship pages. Recommendation
+  stands as the most semantically defensible choice; user should monitor
+  rich-results eligibility post-migration.
+- Rejected: `LocalBusiness` (Grok — defined for fixed-location physical
+  branches; ships move). `Place` (You.com — for fixed locations).
+  `CreativeWork` (Grok — wrong category).
 
-**Migration cost:** 30 ships need their `mainEntity.@type` changed from
-`Cruise` to `Product`; 4 from `Thing` to `Product`. JSON-LD-only edit, no
-prose changes. Scripted.
+**Validator rule (revised):** SCHEMA-002. Whitelist `Vehicle`, `Product`,
+`TouristAttraction`. Blacklist `Cruise`, `Service`, `Thing`, `WebPage`.
+Add a soft "prefer Vehicle over Product" warning (info-level) — Product is
+acceptable, Vehicle is preferred.
 
-**Orchestra challenge:** _attempted 2026-04-29; adapters unavailable (no external-LLM API keys in env). Recommendation stands on Claude reasoning. Re-challenge welcome._
+**Migration cost:** ~290 ships need their `mainEntity.@type` updated to
+`Vehicle`. JSON-LD-only edit, scriptable.
+
+**Orchestra transcript:** `audit-reports/orchestra/2026-04-29-policies-0.1-0.4.json`
+(GPT, Perplexity, You.com, Grok all participated; Gemini adapter blocked
+on a system-level cryptography issue). Total cost: $0.18.
 
 ---
 
@@ -117,32 +134,44 @@ None are read by any current site code. The validator's Section 9o was
 demoted to info-only in commit `42b3863e` because the warning incentivised
 gaming. Should we delete them, keep them dormant, or build the loader?
 
-**Recommendation:** **KEEP and BUILD the loader.**
+**Recommendation (revised post-orchestra 2026-04-29):** **KEEP and HARDEN.**
+The orchestra split — Perplexity + Grok argued DELETE; You.com argued
+KEEP+HARDEN; GPT was lukewarm-keep. The reconciled position takes You.com's
+strict-separation framing because it both keeps the data and respects ICP-2.
 
-**Rationale:**
-- Data shape is already correct. Field names map directly to ship-page
-  elements: `tracker.{provider, embed_name, details_url}` → tracker iframe;
-  `deck_plans.{official_url, preview_img}` → deck-plans CTA;
-  `dining.{provider, json, aliases}` → dining-card data source;
-  `stats_fallback.{entered_service, gt, guests, crew, length, beam,
-  builder, registry}` → fact-block; `related.sister_ships[]` → sister-ships
-  rail.
-- Building the loader removes duplication between hardcoded HTML and the
-  JSON, enabling Phase 5's "visual/conceptual similarity" goal — the HTML
-  stays structurally identical across ships, content varies via JSON.
-- Six of the 89 files (the ones recently created in the gaming campaign)
-  had a fake `compliance` block stripped in commit `20adc53f`. The
-  Legend (1995) had its copy-paste-from-Splendour stats removed in the
-  same commit. Both repairs leave the files in a good state.
-- Deleting risks rework if the loader is built later anyway.
+**Rationale (post-debate):**
+- **Critical facts stay in static HTML, period.** ICP-2 requires it. Specs
+  (GT, capacity, length, builder, registry), schema, and dining options
+  remain in the rendered HTML for crawlers and JS-disabled readers.
+- **JSON loader only augments NON-CRITICAL UI.** Acceptable use:
+  deck-plan preview thumbnails, extended dining aliases, related-ships
+  rail rendering, tracker iframe hydration. NOT acceptable use:
+  replacing the fact-block, replacing FAQ, replacing review JSON-LD.
+- **Validator catches HTML↔JSON drift.** New rule: if both `page.json`
+  and HTML hardcoded values are present, they must agree; mismatch = ERROR.
+  This converts the data layer from "compliance theater" (the Grok worry)
+  into "documented data contract" (the You.com framing).
+- **Scriptable migration to Vehicle schema:** the `stats_fallback` block
+  in page.json is the single source of truth that the Phase-2 schema
+  migration script reads to generate Vehicle JSON-LD per ship.
 
-**Implementation:** New file `assets/js/ship-page-data.js` — fetches the
-page.json, hydrates tracker iframe src, deck-plans CTA href, fact-block
-stats, sister-ships rail. Falls back to existing static HTML when JSON
-missing.
+**Why not DELETE (Perplexity + Grok):**
+- Sunk cost is real; the data shape is correct (their own concession);
+  rebuilding later is expensive. Their concern about JS-fallback
+  inconsistency is valid and addressed by the strict-separation policy
+  above plus the drift validator.
 
-**Validator rule:** DATA-005. When both `page.json` and HTML hardcoded
-values are present, the JSON wins; flag mismatches as ERROR.
+**Implementation:** `assets/js/ship-page-data.js` — fetches page.json,
+hydrates tracker iframe src + sister-ships rail + deck-plan preview only.
+Build-time validator check `validatePageJsonHtmlParity` flags HTML↔JSON
+drift on any field that exists in both.
+
+**Validator rule:** DATA-005. ERROR on HTML↔JSON drift for fields
+present in both. Specifically check: capacity (`stats_fallback.guests` vs
+visible "X,XXX guests"), gross tonnage, builder, registry. Hub-page guard
+applies (hub pages skip).
+
+**Orchestra transcript:** `audit-reports/orchestra/2026-04-29-policies-0.1-0.4.json`
 
 **Orchestra challenge:** _attempted 2026-04-29; adapter unavailable. Recommendation stands. KEEP+BUILD is reversible (loader can be deleted; files are dormant data). DELETE is irreversible without re-creation. Default to reversible._
 
