@@ -52,9 +52,34 @@ for EXCL in $EXCLUDED_FILES; do
     fi
 done
 
+# ============================================================================
+# Per-line config — see admin/validator-config.json + admin/POLICY_DECISIONS.md
+# ============================================================================
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+CFG_FILE="$REPO_ROOT/admin/validator-config.json"
+LINE=$(echo "$FILE" | grep -oP 'ships/\K[^/]+')
+
+if [ -f "$CFG_FILE" ] && command -v jq >/dev/null 2>&1; then
+    CFG_MAIN_ID=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .main_id // "main-content"' "$CFG_FILE")
+    CFG_GRID_CLASS=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .grid_class // "page-grid"' "$CFG_FILE")
+    CFG_SKIP_TARGET=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .skip_link_target // "#main-content"' "$CFG_FILE")
+    CFG_IMG_MIN=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .image_min // 8' "$CFG_FILE")
+    CFG_IMG_MAX=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .image_max // 20' "$CFG_FILE")
+    CFG_IMG_ERROR_BELOW=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .image_error_below // 6' "$CFG_FILE")
+else
+    # Sane defaults if config missing or jq absent
+    CFG_MAIN_ID="main-content"
+    CFG_GRID_CLASS="page-grid"
+    CFG_SKIP_TARGET="#main-content"
+    CFG_IMG_MIN=8
+    CFG_IMG_MAX=20
+    CFG_IMG_ERROR_BELOW=6
+fi
+
 echo "============================================================================"
 echo "  Ship Page Validator — v3.010.400"
 echo "  File: $FILE"
+echo "  Line: $LINE  (main_id=$CFG_MAIN_ID, grid_class=$CFG_GRID_CLASS, img=$CFG_IMG_MIN-$CFG_IMG_MAX)"
 echo "============================================================================"
 echo ""
 
@@ -2127,10 +2152,10 @@ fi
 # ============================================================================
 section_header "Section 9be: Page Grid Layout"
 
-if echo "$CONTENT" | grep -q 'class=".*page-grid'; then
-    check_pass "Main element has page-grid class (2-column layout)"
+if echo "$CONTENT" | grep -q "class=\".*$CFG_GRID_CLASS"; then
+    check_pass "Main element has $CFG_GRID_CLASS class (line '$LINE' expected layout)"
 else
-    check_warn "Main element missing page-grid class — 2-column layout won't activate"
+    check_warn "Main element missing $CFG_GRID_CLASS class — line '$LINE' expected layout won't activate"
 fi
 
 # ============================================================================
@@ -2802,7 +2827,9 @@ HAS_COL1=$(grep -cP 'class="col-1|class="page-intro col-1' "$FILE")
 HAS_ASIDE_RAIL=$(grep -c 'class="rail' "$FILE")
 HAS_COL2=$(grep -cP 'rail col-2|col-2.*rail' "$FILE")
 
-if [ "$HAS_PAGE_GRID" -gt 0 ]; then
+if [ "$CFG_GRID_CLASS" != "page-grid" ]; then
+    check_pass "Page-grid structural check skipped — line '$LINE' uses '$CFG_GRID_CLASS' layout"
+elif [ "$HAS_PAGE_GRID" -gt 0 ]; then
     if [ "$HAS_COL1" -eq 0 ]; then
         check_fail "page-grid on <main> but NO col-1 wrapper — two-column layout is visually broken. Content floats loose in grid. (#1363)"
     else
@@ -3323,8 +3350,8 @@ if [ -n "$SKIP_HREF" ] && [ -n "$MAIN_ID" ]; then
     else
         check_warn "Skip link href='$SKIP_HREF' but main id='$MAIN_ID' — mismatch (#1397)"
     fi
-    if [ "$MAIN_ID" != "main-content" ]; then
-        check_warn "Main element id is '$MAIN_ID' — Anthem reference uses 'main-content' (#1397)"
+    if [ "$MAIN_ID" != "$CFG_MAIN_ID" ]; then
+        check_warn "Main element id is '$MAIN_ID' — line '$LINE' config expects '$CFG_MAIN_ID' (#1397)"
     fi
 else
     check_pass "Skip link target check skipped"
