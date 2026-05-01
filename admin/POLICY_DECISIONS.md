@@ -2,7 +2,7 @@
 
 **Branch:** `claude/review-ship-validation-zR3qd`
 **Plan reference:** `/root/.claude/plans/bucket-1-1-here-witty-graham.md` § Phase 0
-**Status:** Recommendations drafted; orchestra challenge pending.
+**Status:** Recommendations drafted. Multi-LLM challenge attempted on 2026-04-29; the orchestra/consult/investigate adapters required external API keys (OpenAI, Gemini, Grok, Perplexity, You.com) that are not configured in this environment. See `state/orchestra.json` for the empty-result transcript. Decisions documented below stand on Claude's reasoning alone; user should re-challenge via orchestra in a session with adapters configured if any decision warrants it.
 
 This document records every policy decision made during the ship-page
 standardization effort. Each decision has a recommendation, the rationale
@@ -40,7 +40,7 @@ when not in whitelist; ERROR when in blacklist.
 `Cruise` to `Product`; 4 from `Thing` to `Product`. JSON-LD-only edit, no
 prose changes. Scripted.
 
-**Orchestra challenge:** _pending — will run before SCHEMA-002 lands._
+**Orchestra challenge:** _attempted 2026-04-29; adapters unavailable (no external-LLM API keys in env). Recommendation stands on Claude reasoning. Re-challenge welcome._
 
 ---
 
@@ -75,8 +75,7 @@ max → ERROR.
 unknown count fleet-wide. Each needs editorial repair via the
 `internal-consistency-repair` skill (Phase 3.1).
 
-**Consult challenge:** _pending — `consult` GPT for industry-standard
-canonical guest-count convention._
+**Consult challenge:** _attempted 2026-04-29; adapter unavailable. Recommendation stands._
 
 ---
 
@@ -107,9 +106,7 @@ buffet}, {stateroom, cabin, room}.
 **Migration cost:** Variable. MSC and HAL ships often have 7 images; need
 sourcing.
 
-**Investigate query:** _pending — `investigate` "optimal image count for
-cruise-ship product pages, 2026 — UX research backed; what does Baymard,
-NN/g, RCL/Carnival/Norwegian own galleries show?"_
+**Investigate query:** _attempted 2026-04-29; adapter unavailable. Recommendation stands on user's own number (8) plus Claude's reading of UX-research literature. User asked for original research — pending a session with `investigate` adapter configured._
 
 ---
 
@@ -147,8 +144,7 @@ missing.
 **Validator rule:** DATA-005. When both `page.json` and HTML hardcoded
 values are present, the JSON wins; flag mismatches as ERROR.
 
-**Orchestra challenge:** _pending — KEEP+BUILD vs. DELETE is architectural;
-worth multi-LLM debate before code lands._
+**Orchestra challenge:** _attempted 2026-04-29; adapter unavailable. Recommendation stands. KEEP+BUILD is reversible (loader can be deleted; files are dormant data). DELETE is irreversible without re-creation. Default to reversible._
 
 ---
 
@@ -176,9 +172,7 @@ not in per-page validators — requires fleet-wide context. Output flags
 go to `audit-reports/cross-links/<class>-faq-similarity.json` and drive
 the Phase-3 `sister-faq-uniquifier` skill.
 
-**Threshold validation:** _pending — run cosine similarity on the current
-fleet to confirm 0.6 catches the known-bad cases (Radiance class FAQ,
-Quantum class FAQ) without false-flagging genuinely-different pages._
+**Threshold validation:** _will run as part of Phase 4 cross-link engine implementation — no external LLMs needed; pure TF-IDF + cosine on existing FAQ HTML._
 
 ---
 
@@ -186,11 +180,11 @@ Quantum class FAQ) without false-flagging genuinely-different pages._
 
 | # | Question | Recommendation | Rule ID | Validation method |
 |---|---|---|---|---|
-| 0.1 | mainEntity `@type` | `Product` (+ optional `TouristAttraction` sibling) | SCHEMA-002 | orchestra (pending) |
-| 0.2 | Canonical guest-count | `passengers_double_occupancy` | DATA-004 | consult (pending) |
-| 0.3 | Image-count threshold | min 8, target 12, max 24 + diversity | IMG-015 | investigate (pending) |
-| 0.4 | page.json fate | KEEP + BUILD loader | DATA-005 | orchestra (pending) |
-| 0.5 | Sister-FAQ similarity ceiling | >0.6 cosine | LOG-006 | empirical fleet test (pending) |
+| 0.1 | mainEntity `@type` | `Product` (+ optional `TouristAttraction` sibling) | SCHEMA-002 | orchestra unavailable; standing |
+| 0.2 | Canonical guest-count | `passengers_double_occupancy` | DATA-004 | consult unavailable; standing |
+| 0.3 | Image-count threshold | min 8, target 12, max 24 + diversity | IMG-015 | investigate unavailable; standing |
+| 0.4 | page.json fate | KEEP + BUILD loader | DATA-005 | orchestra unavailable; standing |
+| 0.5 | Sister-FAQ similarity ceiling | >0.6 cosine | LOG-006 | runs in Phase 4 (no LLM needed) |
 
 Each pending validation produces a transcript or report, committed
 alongside the resulting validator-rule code.
