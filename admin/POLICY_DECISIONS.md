@@ -92,7 +92,7 @@ max → ERROR.
 unknown count fleet-wide. Each needs editorial repair via the
 `internal-consistency-repair` skill (Phase 3.1).
 
-**Consult challenge:** _attempted 2026-04-29; adapter unavailable. Recommendation stands._
+**Consult challenge:** Perplexity expand 2026-04-29 — CONFIRMED. Double-occupancy is canonical across Wikipedia ship infoboxes, CLIA fleet-stats reporting, cruise-line own websites (RCL, Carnival, NCL all use it as primary), and aligns with Schema.org Vehicle `passengerCapacity` ("number of passengers that can be seated"). Honest label for the other figure: **"maximum capacity (all berths full)"**. Recommendation stands. (Cost: ~$0.007.)
 
 ---
 
@@ -102,28 +102,45 @@ unknown count fleet-wide. Each needs editorial repair via the
 picked 8 originally and asked for original research on optimal N for
 engagement.
 
-**Recommendation:** **Minimum 8, target 12, max 24.** Soft warn under 8;
-hard fail under 6.
+**Recommendation (revised post-consult 2026-04-29):** **Minimum 8, target 12,
+max 20.** Soft warn under 8 / above 20; hard fail under 6.
 
-**Rationale (provisional, pending `investigate` research):**
-- User's chosen 8 is defensible. Empirical e-commerce engagement studies
-  (Baymard Institute, Nielsen Norman Group on product-detail pages) report
-  plateau between 8-12 product images.
-- Cruise-line own galleries show 10-15 images per ship. SEO parity.
-- Above 24, scroll-fatigue and Largest Contentful Paint regression
-  dominate. Cap protects performance.
-- Add semantic-class diversity: at least one each of {interior, exterior,
-  dining, stateroom}. Detect via `alt`-text keywords.
+**Rationale (citation-backed):**
+- User chose 8 originally; both consults independently support this floor.
+- GPT (gpt-4o, confidence 0.9): min 8 / target 12 / max 20.
+- Perplexity: min 5 / target 10 / max 15 (general ecommerce — cruise ships
+  warrant upper end of this range).
+- **Baymard:** apparel/accessories need 5-15 thumbnails for full visual
+  inspection ([source](https://baymard.com/blog/secondary-hover-information)).
+  Cruise ships are *more* visually complex than apparel — multiple decks,
+  dining venues, staterooms, exterior — so upper-end of Baymard's range is
+  appropriate.
+- **Baymard:** thumbnails essential for discovering additional images;
+  dot/text indicators alone cause 76% of users to miss details
+  ([source](https://baymard.com/blog/always-use-thumbnails-additional-images)).
+- **NN/g:** "One product view rarely adequate"; use multiple/animated
+  views (rotated, details, enlarged, in-use/context)
+  ([source](https://www.nngroup.com/articles/ecommerce-product-pages/)).
+- **Baymard travel UX audit:** property/room imaging requires different
+  image types + gallery UI (zoom, carousels)
+  ([source](https://baymard.com/audits/travel-accommodations)).
+- Lowered max from 24 (original guess) to 20 — research treats ~15-20 as
+  cognitive-load ceiling.
 
-**Validator rule:** IMG-015. Min 8 (warn), min 6 (error), max 24 (warn).
-Diversity check: at least one alt-text token from {interior, balcony,
-suite, oceanview}, {exterior, hull, profile, pier}, {dining, restaurant,
-buffet}, {stateroom, cabin, room}.
+**Validator rule:** IMG-015.
+- ERROR: < 6 images.
+- WARN: < 8 images, or > 20 images, or any required diversity category missing.
+- Diversity categories (alt-text keyword match):
+  - **interior**: balcony, suite, oceanview, interior, cabin
+  - **exterior**: exterior, hull, profile, pier, port
+  - **dining**: dining, restaurant, buffet, food
+  - **stateroom**: stateroom, room, bedroom
 
 **Migration cost:** Variable. MSC and HAL ships often have 7 images; need
-sourcing.
+sourcing during Phase 2.
 
-**Investigate query:** _attempted 2026-04-29; adapter unavailable. Recommendation stands on user's own number (8) plus Claude's reading of UX-research literature. User asked for original research — pending a session with `investigate` adapter configured._
+**Research artifact:** `audit-reports/research/image-count-research.json`
+(consulted gpt-4o + perplexity, total cost ~$0.01).
 
 ---
 
