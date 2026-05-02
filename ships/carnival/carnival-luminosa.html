@@ -85,7 +85,7 @@
     },
     "dateModified": "2025-12-02",
     "mainEntity": {
-      "@type": "Thing",
+      "@type": "Vehicle",
       "name": "Carnival Luminosa",
       "category": "Cruise Ship",
       "manufacturer": {
@@ -196,7 +196,7 @@
   <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));}</script>
 </head>
 <body class="page">
-<a href="#content" class="skip-link">Skip to main content</a>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
@@ -279,11 +279,11 @@
     </div>
   </header>
 
-<header class="hero-ship" role="banner">
+<section class="hero-ship">
   <h1>Carnival Luminosa</h1>
   <div class="tagline">Spirit-Class Hybrid • Carnival Cruise Line</div>
   <span class="status-badge">Active Ship</span>
-</header>
+</section>
 
 <nav class="wrap" aria-label="Breadcrumb" style="padding-top: 1rem; padding-bottom: 0;">
   <ol style="list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; font-size: 1rem;">
@@ -376,10 +376,6 @@
     <!-- Dining Section -->
     <section id="dining-card" class="card" data-ship="Carnival Luminosa" aria-labelledby="diningHeading">
       <h2 id="diningHeading">
-        <img id="dining-hero" class="card-hero"
-             src="/assets/img/Cordelia_Empress_Food_Court.webp"
-             alt="Carnival Luminosa dining venue" loading="lazy"
-             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
 Dining Venues on Carnival Luminosa <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
       <p class="section-intro">Explore the dining options available on Carnival Luminosa, from complimentary venues to specialty restaurants.</p>
       <div class="dining-content" id="dining-content" aria-live="polite">
@@ -454,16 +450,6 @@ Dining Venues on Carnival Luminosa <a href="/restaurants.html" style="font-size:
     </section>
 
   <!-- Deck Plans -->
-  <section class="card" aria-labelledby="deck-plans-title">
-    <h2 id="deck-plans-title">Carnival Luminosa Deck Plans</h2>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Carnival Luminosa simplified deck plan preview" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure>
-    <p>Carnival Luminosa features 12 passenger decks with 1,130 staterooms. Access the official interactive deck plans to explore cabin locations, dining venues, pools, and entertainment areas.</p>
-    <p><a class="btn" href="https://www.carnival.com/cruise-ships/carnival-luminosa#deck-plans" target="_blank" rel="noopener">View Official Deck Plans →</a></p>
-  </section>
-
   <!-- Sister Ships -->
   <section class="card" aria-labelledby="sisters-title">
     <h2 id="sisters-title">Spirit-Class Sister Ships</h2>
@@ -604,7 +590,25 @@ Dining Venues on Carnival Luminosa <a href="/restaurants.html" style="font-size:
     <p>Ship specifications from <a href="https://en.wikipedia.org/wiki/Carnival_Luminosa" target="_blank" rel="noopener">Wikipedia</a>, <a href="https://www.cruisemapper.com/ships/Carnival-Luminosa-576" target="_blank" rel="noopener">CruiseMapper</a>, and Carnival Cruise Line. IMO 9398905. Live tracking via MarineTraffic. All trademarks property of their respective owners.</p>
     <p>Page maintained by <a href="/authors/ken-baker.html">Ken Baker</a>, Cruise Research Analyst at In the Wake.</p>
   </section>
-  </section><!-- End Main Content Column -->
+
+<!-- Attribution Section -->
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
+
+<!-- Planning Resources -->
+    <section class="card" aria-labelledby="planning-resources">
+      <h2 id="planning-resources">Plan Your Cruise</h2>
+      <p>Helpful resources to prepare for your voyage:</p>
+      <ul>
+        <li><a href="/packing-lists.html">Complete Cruise Packing Lists</a></li>
+        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization Tips</a></li>
+        <li><a href="/internet-at-sea.html">Internet &amp; WiFi at Sea</a></li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Tech &amp; Photography Guide</a></li>
+      </ul>
+    </section>
+    </section><!-- End Main Content Column -->
 
   <!-- Right Rail -->
   <aside class="rail col-2" role="complementary" aria-label="Key facts, author & articles">
@@ -658,25 +662,7 @@ Dining Venues on Carnival Luminosa <a href="/restaurants.html" style="font-size:
   </section>
   </aside>
 
-
-    <!-- Attribution Section -->
-    <section class="card attributions">
-      <h3>Sources & Attribution</h3>
-      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
-    </section>
-  
-    <!-- Planning Resources -->
-    <section class="card" aria-labelledby="planning-resources">
-      <h2 id="planning-resources">Plan Your Cruise</h2>
-      <p>Helpful resources to prepare for your voyage:</p>
-      <ul>
-        <li><a href="/packing-lists.html">Complete Cruise Packing Lists</a></li>
-        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization Tips</a></li>
-        <li><a href="/internet-at-sea.html">Internet &amp; WiFi at Sea</a></li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Tech &amp; Photography Guide</a></li>
-      </ul>
-    </section>
-  <!-- Print Guide Button -->
+    <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>

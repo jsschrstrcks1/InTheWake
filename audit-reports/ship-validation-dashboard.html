@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Ship Validation Dashboard — line=rcl</title>
+<title>Ship Validation Dashboard — full-fleet</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   body { font-family: ui-sans-serif, system-ui, sans-serif; margin: 2em; max-width: 1100px; color: #134; }
@@ -21,14 +21,14 @@
 </head>
 <body>
 <h1>Ship Validation Dashboard</h1>
-<p><strong>Scope:</strong> line=rcl · <strong>Generated:</strong> 2026-05-01T04:39:34.868Z</p>
+<p><strong>Scope:</strong> full-fleet · <strong>Generated:</strong> 2026-05-02T03:06:44.296Z</p>
 
 <div class="summary">
-  <strong>Totals (49 pages):</strong><br>
-  .sh validator: 24 pass / 19 warn-only / 6 fail<br>
-  .js validator: 0 pass / 49 fail<br>
-  Errors: 6 (sh) + 159 (js)<br>
-  Warnings: 77 (sh) + 404 (js)
+  <strong>Totals (290 pages):</strong><br>
+  .sh validator: 78 pass / 67 warn-only / 145 fail<br>
+  .js validator: 96 pass / 194 fail<br>
+  Errors: 314 (sh) + 297 (js)<br>
+  Warnings: 6069 (sh) + 2650 (js)
 </div>
 
 <h2>By cruise line</h2>
@@ -38,18 +38,144 @@
 </tr></thead>
 <tbody>
     <tr>
+      <td>carnival</td>
+      <td class="num">48</td>
+      <td class="num err">147</td>
+      <td class="num warn">1841</td>
+      <td class="num err">48</td>
+      <td class="num warn">579</td>
+      <td class="topfail">15× <code>js:data_consistency/internal_numeric_inconsistency</code><br>14× <code>sh:First Look carousel has NO images — carousel will render emp</code><br>14× <code>sh:Found 2 content section(s) after &lt;/aside> that belong inside</code></td>
+    </tr>
+    <tr>
+      <td>celebrity-cruises</td>
+      <td class="num">29</td>
+      <td class="num err">36</td>
+      <td class="num warn">782</td>
+      <td class="num err">9</td>
+      <td class="num warn">240</td>
+      <td class="topfail">8× <code>js:images/few_images</code><br>7× <code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code><br>3× <code>sh:Carousel HTML BROKEN: 2 slides opened but 1 missing &lt;/div> —</code></td>
+    </tr>
+    <tr>
+      <td>costa</td>
+      <td class="num">9</td>
+      <td class="num err">10</td>
+      <td class="num warn">219</td>
+      <td class="num err">10</td>
+      <td class="num warn">67</td>
+      <td class="topfail">9× <code>js:images/few_images</code><br>1× <code>sh:Ship 'costa-deliziosa' has NO venues in venues.json — dining</code><br>1× <code>js:data_consistency/internal_numeric_inconsistency</code></td>
+    </tr>
+    <tr>
+      <td>cunard</td>
+      <td class="num">4</td>
+      <td class="num err">0</td>
+      <td class="num warn">0</td>
+      <td class="num err">5</td>
+      <td class="num warn">41</td>
+      <td class="topfail">4× <code>js:images/few_images</code><br>1× <code>js:data_consistency/internal_numeric_inconsistency</code></td>
+    </tr>
+    <tr>
+      <td>explora-journeys</td>
+      <td class="num">6</td>
+      <td class="num err">0</td>
+      <td class="num warn">6</td>
+      <td class="num err">15</td>
+      <td class="num warn">44</td>
+      <td class="topfail">6× <code>js:images/few_images</code><br>4× <code>js:videos/few_videos</code><br>4× <code>js:videos/missing_categories</code></td>
+    </tr>
+    <tr>
+      <td>holland-america-line</td>
+      <td class="num">46</td>
+      <td class="num err">38</td>
+      <td class="num warn">2114</td>
+      <td class="num err">6</td>
+      <td class="num warn">423</td>
+      <td class="topfail">8× <code>sh:Meta description is too short (48 chars) or stub content — n</code><br>5× <code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code><br>4× <code>js:data_consistency/internal_numeric_inconsistency</code></td>
+    </tr>
+    <tr>
+      <td>msc</td>
+      <td class="num">24</td>
+      <td class="num err">0</td>
+      <td class="num warn">4</td>
+      <td class="num err">27</td>
+      <td class="num warn">245</td>
+      <td class="topfail">23× <code>js:images/few_images</code><br>1× <code>js:videos/few_videos</code><br>1× <code>js:videos/missing_categories</code></td>
+    </tr>
+    <tr>
+      <td>norwegian</td>
+      <td class="num">20</td>
+      <td class="num err">0</td>
+      <td class="num warn">0</td>
+      <td class="num err">16</td>
+      <td class="num warn">164</td>
+      <td class="topfail">8× <code>js:images/few_images</code><br>7× <code>js:data_consistency/internal_numeric_inconsistency</code><br>1× <code>js:content_purity/forbidden_nightlife</code></td>
+    </tr>
+    <tr>
+      <td>oceania</td>
+      <td class="num">8</td>
+      <td class="num err">13</td>
+      <td class="num warn">201</td>
+      <td class="num err">13</td>
+      <td class="num warn">56</td>
+      <td class="topfail">8× <code>js:images/few_images</code><br>5× <code>sh:Found 2 tracker headings/sections — should have exactly 1 (#</code><br>5× <code>js:sections/wrong_section_order</code></td>
+    </tr>
+    <tr>
+      <td>princess</td>
+      <td class="num">17</td>
+      <td class="num err">44</td>
+      <td class="num warn">364</td>
+      <td class="num err">9</td>
+      <td class="num warn">111</td>
+      <td class="topfail">11× <code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code><br>4× <code>js:html_structure/unclosed_section</code><br>3× <code>js:images/few_images</code></td>
+    </tr>
+    <tr>
       <td>rcl</td>
       <td class="num">49</td>
-      <td class="num err">6</td>
+      <td class="num err">1</td>
       <td class="num warn">77</td>
-      <td class="num err">159</td>
-      <td class="num warn">404</td>
-      <td class="topfail">49× <code>js:json_ld/main_entity_blacklisted</code><br>43× <code>js:runtime_data/cascade_fully_failed</code><br>28× <code>js:data_consistency/internal_numeric_inconsistency</code></td>
+      <td class="num err">93</td>
+      <td class="num warn">427</td>
+      <td class="topfail">43× <code>js:runtime_data/cascade_fully_failed</code><br>28× <code>js:data_consistency/internal_numeric_inconsistency</code><br>8× <code>js:images/few_images</code></td>
+    </tr>
+    <tr>
+      <td>regent</td>
+      <td class="num">7</td>
+      <td class="num err">0</td>
+      <td class="num warn">7</td>
+      <td class="num err">9</td>
+      <td class="num warn">52</td>
+      <td class="topfail">7× <code>js:images/few_images</code><br>2× <code>js:html_structure/unclosed_section</code></td>
+    </tr>
+    <tr>
+      <td>seabourn</td>
+      <td class="num">7</td>
+      <td class="num err">12</td>
+      <td class="num warn">159</td>
+      <td class="num err">10</td>
+      <td class="num warn">59</td>
+      <td class="topfail">7× <code>js:images/few_images</code><br>3× <code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code><br>3× <code>sh:Found 2 tracker headings/sections — should have exactly 1 (#</code></td>
+    </tr>
+    <tr>
+      <td>silversea</td>
+      <td class="num">12</td>
+      <td class="num err">13</td>
+      <td class="num warn">295</td>
+      <td class="num err">12</td>
+      <td class="num warn">104</td>
+      <td class="topfail">11× <code>js:images/few_images</code><br>1× <code>sh:Ship 'silver-dawn' has NO venues in venues.json — dining sec</code><br>1× <code>sh:Ship 'silver-endeavour' has NO venues in venues.json — dinin</code></td>
+    </tr>
+    <tr>
+      <td>virgin-voyages</td>
+      <td class="num">4</td>
+      <td class="num err">0</td>
+      <td class="num warn">0</td>
+      <td class="num err">15</td>
+      <td class="num warn">38</td>
+      <td class="topfail">4× <code>js:sections/wrong_section_order</code><br>4× <code>js:images/few_images</code><br>4× <code>js:template_remnants/placeholder_content</code></td>
     </tr></tbody>
 </table>
 
 <h2>Top error rules across fleet</h2>
-<ul class="rules"><li><code>js:json_ld/main_entity_blacklisted</code> — 49</li><li><code>js:runtime_data/cascade_fully_failed</code> — 43</li><li><code>js:data_consistency/internal_numeric_inconsistency</code> — 28</li><li><code>js:images/cross_line_dining_hero_cordelia</code> — 19</li><li><code>js:icp_lite/ai_summary_boilerplate</code> — 6</li><li><code>js:json_ld/datemodified_mismatch</code> — 5</li><li><code>js:sections/wrong_section_order</code> — 5</li><li><code>sh:dateModified value(s) 2025-12-27 do not match last-reviewed </code> — 3</li><li><code>sh:dateModified value(s) 2026-04-07 do not match last-reviewed </code> — 2</li><li><code>js:images/few_images</code> — 1</li><li><code>js:videos/few_videos</code> — 1</li><li><code>js:videos/missing_categories</code> — 1</li><li><code>sh:1 runtime JSON file(s) on disk fail to parse: /ships/rcl/ass</code> — 1</li><li><code>js:runtime_data/json_parse_error</code> — 1</li></ul>
+<ul class="rules"><li><code>js:images/few_images</code> — 120</li><li><code>js:data_consistency/internal_numeric_inconsistency</code> — 59</li><li><code>js:runtime_data/cascade_fully_failed</code> — 50</li><li><code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code> — 30</li><li><code>js:sections/wrong_section_order</code> — 28</li><li><code>sh:First Look carousel has NO images — carousel will render emp</code> — 18</li><li><code>sh:Found 2 content section(s) after &lt;/aside> that belong inside</code> — 14</li><li><code>sh:Attributions is OUTSIDE col-1 — renders parallel to sidebar </code> — 13</li><li><code>sh:Inline renderVenues uses catLabels without 'dining' key — ve</code> — 9</li><li><code>sh:Found 1 duplicate ID(s): id="logbook-container,</code> — 9</li><li><code>sh:Found 2 tracker headings/sections — should have exactly 1 (#</code> — 9</li><li><code>js:videos/missing_categories</code> — 8</li><li><code>sh:Meta description is too short (48 chars) or stub content — n</code> — 8</li><li><code>js:icp_lite/ai_summary_boilerplate</code> — 7</li><li><code>sh:data-imo attribute MISSING for live tracker</code> — 7</li><li><code>js:videos/few_videos</code> — 7</li><li><code>js:html_structure/unclosed_section</code> — 7</li><li><code>sh:Found 2 duplicate ID(s): id="faq,id="faq-heading,</code> — 5</li><li><code>sh:Page has 2 attribution sections — should have exactly 1 (#13</code> — 5</li><li><code>sh:Found 2 deck plan headings/sections — should have exactly 1 </code> — 5</li></ul>
 
 <p><em>Raw JSON: <a href="ship-validation-dashboard.json">ship-validation-dashboard.json</a></em></p>
 </body>
