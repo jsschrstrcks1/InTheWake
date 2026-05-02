@@ -72,50 +72,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
   })();
   </script>
 
-<style id="watermark-style">
-  html, body { position: relative; }
-  body::before {
-    content: "";
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(60vw, 900px);
-    height: min(60vh, 900px);
-    background: url('assets/watermark.png') no-repeat center / contain;
-    opacity: 0.08;
-    pointer-events: none;
-    z-index: 0;
-  }
-  main, header, footer, section, nav { position: relative; z-index: 1; }
-
-    .rail {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .author-card-vertical {
-      text-align: center;
-    }
-    .author-card-vertical .author-avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 12px;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-    }
-    .author-card-vertical h4 {
-      margin: 0.5rem 0 0.25rem;
-    }
-    .author-card-vertical p {
-      margin: 0.25rem 0;
-    }
-    .rail-list {
-      display: grid;
-      gap: 1rem;
-    }
-
-  </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -599,11 +555,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         </noscript>
       </div>
     </section>
-    <p class="mt-1">
-      <a href="https://www.msccruises.com/en-us/cruise-ships/msc-world-america.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
-        View Official Deck Plans →
-      </a>
-    </p>
 
 <section class="card" aria-labelledby="deck-plans">
     <h2 id="deck-plans">Ship Layout (Deck Plans)</h2>
@@ -616,10 +567,15 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 
   </section>
 
-  <section class="card" aria-labelledby="liveTrackHeading" data-imo="9837432">
+  <section class="card" aria-labelledby="liveTrackHeading" data-imo="9837432" data-name="MSC-WORLD-AMERICA">
     <h2 id="liveTrackHeading">Where Is MSC World America Right Now?</h2>
-    <p>See the ship’s current geographic position, speed, and next port on a live tracker.</p>
-    <p><a class="btn" href="https://www.cruisemapper.com/?live" target="_blank" rel="noopener noreferrer">Open Live Ship Tracker →</a></p>
+    <p>See MSC World America's current position, speed, heading, and next port on the live AIS tracker below.</p>
+    <div id="vf-tracker-container" class="tracker-container">
+      <iframe title="MSC World America live position tracker" src="https://www.vesselfinder.com/aismap?imo=9837432&amp;zoom=4&amp;names=true" width="100%" height="380" frameborder="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <noscript>
+        <p>Live tracking requires JavaScript. You can track MSC World America (IMO 9837432) directly at <a href="https://www.vesselfinder.com/vessels/details/9837432" target="_blank" rel="noopener">VesselFinder</a> or <a href="https://www.cruisemapper.com/ships/MSC-World-America-2184" target="_blank" rel="noopener">CruiseMapper</a>.</p>
+      </noscript>
+    </div>
     <p class="tip">Tip: Keep this page open while you check the tracker; it opens in a new tab.</p>
   </section>
 </section>
@@ -646,6 +602,12 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         </noscript>
       </div>
     </section>
+
+    <p class="mt-1">
+      <a href="https://www.msccruises.com/en-us/cruise-ships/msc-world-america.aspx" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
+        View Official Deck Plans →
+      </a>
+    </p>
 
     <section class="card itinerary" aria-labelledby="ports-heading">
       <h2 id="ports-heading">Where Does MSC World America Sail?</h2>

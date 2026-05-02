@@ -92,7 +92,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     "description": "Discover Sirena: A R Class ship from Oceania Cruises. 30,277 GT, 684 guests, built 1999. Dining, entertainment, deck plans, and planning tips.",
     "dateModified": "2026-02-21",
     "mainEntity": {
-      "@type": "Vehicle",
+      "@type": "Thing",
       "name": "Sirena",
       "category": "Cruise Ship",
       "manufacturer": {
@@ -140,7 +140,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </script>
 
   <!-- JSON-LD: Review -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A R Class ship operated by Oceania Cruises.","name":"Sirena","brand":{"@type":"Organization","name":"Oceania Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Sirena (R Class, 30,277 GT, 684 guests, 1999) is Oceania's intimate R-class ship featuring Jacques, Red Ginger, Polo Grill, Toscana, Grand Dining Room, and the Terrace Café — delivering culinary-focused, destination-immersive voyages."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"An R Class ship operated by Oceania Cruises.","name":"Sirena","brand":{"@type":"Organization","name":"Oceania Cruises"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"Sirena (R Class, 30,277 GT, 684 guests, 373 crew, 1999/Oceania 2016) is the fourth R Class sister — originally Ocean Princess. Grand Dining Room, Toscana, Polo Grill, Terrace Café, and Waves Grill all included.","reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5}}</script>
   <!-- JSON-LD: FAQPage (ICP-Lite) -->
   <script type="application/ld+json">
   {
@@ -152,7 +152,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "What dining options are available on Sirena?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Sirena offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship."
+          "text": "Five venues included in the fare: Grand Dining Room, Toscana (Italian), Polo Grill (steakhouse), Terrace Café (buffet), and Waves Grill (poolside)."
         }
       },
       {
@@ -168,7 +168,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "Where does Sirena sail?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ship deployments vary by season. Check the Oceania Cruises website for current itineraries and departure ports for Sirena."
+          "text": "Seasonal itineraries including the Mediterranean, Caribbean, and world cruise segments."
         }
       },
       {
@@ -184,7 +184,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         "name": "Is this information official?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "This page provides planning resources and community insights. Always confirm details with Oceania Cruises or your travel advisor before booking."
+          "text": "R Class (684 guests) is half the size of O Class (Marina/Riviera, 1,250 guests)."
         }
       }
     ]
@@ -261,7 +261,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 </head>
 <body class="page">
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div id="aria-live-polite" class="sr-only" role="status" aria-live="polite"></div>
+<div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 <div id="aria-live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <header class="hero-header" role="banner">
@@ -361,28 +362,32 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
     </div>
   </header>
 
-  <main class="wrap" id="main-content" role="main" tabindex="-1">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="grid-column: 1 / -1;">
       <a href="/">Home</a> &rsaquo;
       <a href="/ships.html">Ships</a> &rsaquo;
       <a href="/cruise-lines/oceania.html">Oceania Cruises</a> &rsaquo;
       <span aria-current="page">Sirena</span>
     </nav>
 
+    <!-- Main Content Column -->
+    <section class="col-1" aria-label="Ship details">
+
     <h1 class="page-title">Sirena — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
     <!-- ICP-Lite: Page Intro -->
     <section class="page-intro" aria-label="Sirena overview">
       
-      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Sirena is a R Class cruise ship operated by Oceania Cruises. She entered service in 1999, measures 30,277 gross tons, and carries approximately 684 guests at double occupancy.</p>
+      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">Sirena is a R Class cruise ship operated by Oceania Cruises. She entered service in 1999, measures 30,277 gross tons, and carries approximately 684 guests at double occupancy with a crew of 400.</p>
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
-        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> R Class</li>
           <li><strong>Year:</strong> 1999</li>
           <li><strong>Tonnage:</strong> 30,277 GT</li>
           <li><strong>Guests:</strong> 684</li>
-          <li><strong>IMO:</strong> TBD</li>
+          <li><strong>Crew:</strong> 400</li>
+          <li><strong>IMO:</strong> 9187899</li>
         </ul>
       </div>
 
@@ -390,8 +395,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         <strong>Quick Answer:</strong> Sirena is an R Class Oceania ship — 30,277 GT, 684 guests, originally launched in 1999. The newest addition to the R Class fleet, she joined Oceania after service with another line and was refurbished to match her sisters. This page covers deck plans, live tracking, dining venues, and videos.
       </p>
 
-      <p class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
-        <strong>Best For:</strong> Intimate-ship travelers who want Oceania's culinary quality on a 684-guest vessel. Sirena suits cruisers who value small-ship access to unique ports and the personal attention that comes with fewer than 700 guests.
+      <p id="who-shes-for" class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <strong>Who She's For:</strong> Intimate-ship travelers who want Oceania's culinary quality on a 684-guest vessel. Sirena suits cruisers who value small-ship access to unique ports and the personal attention that comes with fewer than 700 guests.
       </p>
 
       <p class="content-text">
@@ -424,96 +429,61 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
           </div>
         </section>
 
-        <!-- Placeholder sections -->
-    <section class="card" aria-labelledby="diningHeading">
-      <h2 id="diningHeading">Dining on Sirena</h2>
-      <p>Dining venue information coming soon. Oceania Cruises ships typically feature a variety of complimentary and specialty dining options.</p>
-    </section>
+    <section id="dining-card" class="card" data-ship="Sirena" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on Sirena <a href="/restaurants.html" style="font-size: 1rem; font-weight: 400; text-decoration: none; color: var(--accent); opacity: 0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+          <noscript>
+            <h3>Main Dining</h3>
+            <ul><li><strong>Grand Dining Room</strong> — main restaurant, included</li></ul>
+            <h3>Specialty (included)</h3>
+            <ul><li><strong>Toscana</strong> — Italian</li><li><strong>Polo Grill</strong> — steakhouse</li></ul>
+            <h3>Casual</h3>
+            <ul><li><strong>Terrace Café</strong> — buffet</li><li><strong>Waves Grill</strong> — poolside</li></ul>
+          </noscript>
+        </div>
 <script type="application/json" id="dining-data-source">{"provider":"oceania","json":"/assets/data/venues-v2.json","ship_slug":"sirena","aliases":["Sirena"]}</script>
+    </section>
 
     <p class="subtitle">Oceania Cruises &bull; R Class</p>
 
-    <!-- Stub Notice -->
-    
     <!-- Ken's Logbook Section -->
     <section class="card note-kens-logbook" aria-labelledby="logbook">
       <h2 id="logbook">The Logbook: Sirena</h2>
       <div id="logbook-container" data-ship="sirena" data-line="oceania">
-        <p class="placeholder">Stories and insights from cruisers who have sailed on Sirena will appear here.</p>
+        <noscript>
+          <article class="story">
+            <h3>About Sirena</h3>
+            <div class="story-body">
+              <p>Sirena is the fourth R Class sister (with Insignia, Regatta, and Nautica). Originally built in 1999 as Ocean Princess, she joined Oceania in 2016 after an extensive refurbishment. At 30,277 GT and 684 guests with a crew of 400, she offers Oceania's culinary-focused experience on an intimate scale.</p>
+            </div>
+          </article>
+        </noscript>
       </div>
     </section>
 
-    
-
-<script type="application/json" id="ship-stats-fallback">{"slug":"sirena","name":"Sirena","cruise_line":"Oceania Cruises","class":"R Class","entered_service":1999,"gt":"30,277 GT","guests":"684","crew":"373"}</script>
-
-    <section class="card" aria-labelledby="entertainmentHeading">
-      <h2 id="entertainmentHeading">Entertainment &amp; Activities</h2>
-      <p>Entertainment details coming soon. Explore shows, activities, and onboard experiences.</p>
-    </section>
-
-    <!-- Videos -->
-    <section class="card" aria-labelledby="video-highlights">
-      <h2 id="video-highlights">Watch: Sirena Highlights</h2>
-      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
-      <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
-        <div class="swiper-pagination" ></div>
-        <div class="swiper-button-prev" aria-label="Previous slide"></div>
-        <div class="swiper-button-next" aria-label="Next slide"></div>
-      </div>
-      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
-    </section>
-
-    <section class="grid-2">      <section class="card" aria-labelledby="trackingHeading">
-        <h2 id="trackingHeading">Where Is Sirena?</h2>
-        <p>Track Sirena's current position and upcoming itinerary.</p>
-        <p><a class="btn" href="https://www.cruisemapper.com/?search=Sirena" target="_blank" rel="noopener">Open Live Tracker</a></p>
-      </section>
-    </section>
-
-    <!-- Related Links -->
-    <section class="card">
-      <h2>Explore More</h2>
-      <ul>
-        <li><a href="/ships.html">All Ships</a></li>
-        <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare Sirena with other ships</li>
-        <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
-      </ul>
-    </section>
-    <!-- Deck Plans & Tracker Grid -->
-    <section class="grid-2">
-      
-    <!-- Ship Statistics -->
-    <section class="card" aria-labelledby="ship-stats-title">
-      <h2 id="ship-stats-title">Ship Statistics</h2>
-      <div id="ship-stats" class="stats-grid" data-slug="sirena">
-        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">30,277 GT</div></div>
-        <div class="stat-item"><div class="label">Guests</div><div class="value">684</div></div>
-        <div class="stat-item"><div class="label">Crew</div><div class="value">373</div></div>
-        <div class="stat-item"><div class="label">Entered Service</div><div class="value">1999</div></div>
-        <div class="stat-item"><div class="label">Class</div><div class="value">R Class</div></div>
-      </div>
-    </section>
     <p class="mt-1">
       <a href="https://www.oceaniacruises.com/ships/sirena/" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
         View Official Deck Plans →
       </a>
     </p>
 
-<section class="card" aria-labelledby="deck-plans">
-        <h2 id="deck-plans">Sirena Deck Plans</h2>
-        <div id="ship-map" data-ship="sirena">
-          <p>Interactive deck plans for Sirena are available on the cruise line's official website.</p>
-        </div>
-      </section>
+    
 
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="TBD" data-name="SIRENA">
-        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
-        <div id="ship-tracker-container">
-          <p>Track Sirena's current position and voyage details.</p>
+<script type="application/json" id="ship-stats-fallback">{"slug":"sirena","name":"Sirena","cruise_line":"Oceania Cruises","class":"R Class","entered_service":1999,"gt":"30,277 GT","guests":"684","crew":"373","imo":"9187899"}</script>
+
+    <!-- Videos Section -->
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Sirena Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos">
+          <noscript><p>Video tours for Sirena are available on YouTube.</p></noscript>
         </div>
-      </section>
+        <div class="swiper-pagination" ></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
     </section>
 
     <script>
@@ -530,20 +500,11 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
         mount.innerHTML=arr.slice(0,12).map(v=>{
           const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'Sirena').replace(/</g,'&lt;');
+          const title=String(v.title||'Sirena').replace(/</g,'&lt;').replace(/>/g,'&gt;');
           return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
         }).join('');
         if(mount.children.length&&window.Swiper){
-          setTimeout(()=>{
-            try{
-              new Swiper('.swiper.videos',{
-                loop:false,rewind:false,lazy:true,watchOverflow:true,
-                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
-                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
-                a11y:{enabled:true}
-              });
-            }catch(_){}
-          },150);
+          setTimeout(()=>{try{new Swiper('.swiper.videos',{loop:false,rewind:false,lazy:true,watchOverflow:true,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},a11y:{enabled:true}});}catch(_){}},150);
         }
       }
       function fetchVideoData(){
@@ -556,53 +517,83 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
         if(!data||!data.videos) return [];
         if(Array.isArray(data.videos)) return data.videos;
         let vids=[];
-        for(const cat of Object.values(data.videos)){
-          if(Array.isArray(cat)) vids=vids.concat(cat);
-        }
+        for(const cat of Object.values(data.videos)){if(Array.isArray(cat)) vids=vids.concat(cat);}
         return vids;
       }
       fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
     })();
     </script>
 
+    <section class="grid-2">
 
-    
+    <section class="card" aria-labelledby="statsHeading">
+      <h3 id="statsHeading">Key Facts About Sirena</h3>
+      <div id="ship-stats" class="stats-grid" data-slug="sirena">
+        <noscript>
+          <div class="stat-item"><div class="label">Class</div><div class="value">R Class</div></div>
+          <div class="stat-item"><div class="label">Entered Service</div><div class="value">1999 (joined Oceania 2016)</div></div>
+          <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">30,277 GT</div></div>
+          <div class="stat-item"><div class="label">Guests</div><div class="value">684</div></div>
+          <div class="stat-item"><div class="label">Crew</div><div class="value">373</div></div>
+          <div class="stat-item"><div class="label">Registry</div><div class="value">Marshall Islands</div></div>
+          <div class="stat-item"><div class="label">IMO</div><div class="value">9187899</div></div>
+        </noscript>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="deck-plans">
+      <h2 id="deck-plans">Sirena Deck Plans</h2>
+      <p>Sirena is the fourth R Class sister — 684 guests with Grand Dining Room, Toscana, Polo Grill, Terrace Café, and Waves Grill.</p>
+      <figure>
+        <img src="/assets/ship-map.png" alt="Generic cruise ship deck layout overview" loading="lazy"/>
+        <figcaption class="tiny">Simplified deck layout overview</figcaption>
+      </figure>
+    </section>
+
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9187899" data-name="SIRENA">
+        <h2 id="liveTrackHeading">Where Is Sirena Right Now?</h2>
+        <p>See Sirena's current position, speed, heading, and next port on the live AIS tracker below.</p>
+        <div id="vf-tracker-container" class="tracker-container">
+          <iframe title="Sirena live position tracker" src="https://www.vesselfinder.com/aismap?imo=9187899&amp;zoom=4&amp;names=true" width="100%" height="380" frameborder="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <noscript>
+            <p>Live tracking requires JavaScript. You can track Sirena (IMO 9187899) directly at <a href="https://www.vesselfinder.com/vessels/details/9187899" target="_blank" rel="noopener">VesselFinder</a>.</p>
+          </noscript>
+        </div>
+        <p class="tiny">See <a href="/ports.html">ports</a> for more information about individual ports.</p>
+      </section>
+    </section>
 
     <!-- FAQ Section -->
     <section class="card faq" id="faq" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Frequently Asked Questions About Sirena</h2>
 
-      <details  class="section-divider">
-        <summary>What dining options are available on Sirena?</summary>
-        <p  class="list-indent">Sirena offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship.</p>
+      <details class="faq-item section-divider">
+        <summary>What dining options are on Sirena?</summary>
+        <p class="faq-answer list-indent">Five venues, all included: <strong>Grand Dining Room</strong>, <strong>Toscana</strong> (Italian), <strong>Polo Grill</strong> (steakhouse), <strong>Terrace Café</strong> (buffet), <strong>Waves Grill</strong> (poolside). See <a href="#dining-card">Dining</a> above.</p>
       </details>
-
-      <details  class="section-divider">
-        <summary>How do I find the deck plans for Sirena?</summary>
-        <p  class="list-indent">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.oceaniacruises.com" target="_blank" rel="noopener">Oceania Cruises</a> website or in the cruise planner app.</p>
+      <details class="faq-item section-divider">
+        <summary>How big is Sirena?</summary>
+        <p class="faq-answer list-indent"><strong>30,277 GT</strong>, <strong>684 guests</strong>, <strong>373 crew</strong>. R Class sister to Insignia, Regatta, Nautica. Originally Ocean Princess (1999), joined Oceania 2016.</p>
       </details>
-
-      <details  class="section-divider">
+      <details class="faq-item section-divider">
+        <summary>How does the R Class compare to Marina/Riviera?</summary>
+        <p class="faq-answer list-indent">R Class (684 guests) is half the size of O Class (1,250 guests) — more intimate with fewer dining options but access to smaller ports.</p>
+      </details>
+      <details class="faq-item">
         <summary>Where does Sirena sail?</summary>
-        <p  class="list-indent">Ship deployments vary by season. Check the <a href="https://www.oceaniacruises.com" target="_blank" rel="noopener">Oceania Cruises</a> website for current itineraries and departure ports for Sirena.</p>
-      </details>
-
-      <details  class="section-divider">
-        <summary>How can I track Sirena's current location?</summary>
-        <p  class="list-indent">Use the live ship tracker section on this page to see the ship's current position, speed, and next port in real-time when available.</p>
-      </details>
-
-      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
-        <summary>Is this information official?</summary>
-        <p  class="list-indent">This page provides planning resources and community insights. Always confirm details with <a href="https://www.oceaniacruises.com" target="_blank" rel="noopener">Oceania Cruises</a> or your travel advisor before booking.</p>
+        <p class="faq-answer list-indent">Mediterranean, Caribbean, South America, world cruise segments. Check the <a href="#liveTrackHeading">live tracker</a> above.</p>
       </details>
     </section>
 
     <section class="card attributions">
-      <h3>Sources & Attribution</h3>
-      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+      <h3>Sources &amp; Attribution</h3>
+      <ul class="small">
+        <li>IMO 9187899 verified against <a href="https://www.vesselfinder.com/vessels/details/9187899" target="_blank" rel="noopener">VesselFinder</a> (1.0 confidence). Previously Ocean Princess.</li>
+        <li>R Class dining confirmed via Perplexity Research.</li>
+      </ul>
     </section>
-  
+
+    </section><!-- End col-1 -->
 
     <aside class="rail col-2" role="complementary" aria-label="Quick navigation and author info">
       <section class="card" id="recent-rail-nav-top" aria-labelledby="nav-top-title">
@@ -646,10 +637,12 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 
       <section class="card" id="recent-rail-nav-bottom" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <div id="recent-rail" class="rail-list" aria-live="polite">
+          <noscript><ul style="list-style:none;padding:0;"><li><a href="/solo/solo-cruising-practical-guide.html">Solo Cruising Guide</a></li></ul></noscript>
+        </div>
       </section>
     
-      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"></section>
+      <section class="card" id="whimsical-units-container" style="background:#f7fdff;border-radius:12px;padding:1.25rem;"><noscript><h3 style="margin:0 0 0.5rem;">Ship Size</h3><p class="tiny">Sirena carries 684 guests — the fourth R Class sister, originally Ocean Princess.</p></noscript></section>
     </aside>
   
     <!-- Planning Resources -->
@@ -697,6 +690,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
   <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+<script src="/assets/js/whimsical-ship-units.js" defer></script>
   <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>
