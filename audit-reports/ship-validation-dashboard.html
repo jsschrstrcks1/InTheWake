@@ -21,14 +21,14 @@
 </head>
 <body>
 <h1>Ship Validation Dashboard</h1>
-<p><strong>Scope:</strong> full-fleet · <strong>Generated:</strong> 2026-05-02T01:14:44.716Z</p>
+<p><strong>Scope:</strong> full-fleet · <strong>Generated:</strong> 2026-05-02T01:29:29.405Z</p>
 
 <div class="summary">
   <strong>Totals (290 pages):</strong><br>
-  .sh validator: 78 pass / 39 warn-only / 173 fail<br>
-  .js validator: 97 pass / 193 fail<br>
-  Errors: 604 (sh) + 295 (js)<br>
-  Warnings: 6159 (sh) + 2650 (js)
+  .sh validator: 78 pass / 67 warn-only / 145 fail<br>
+  .js validator: 96 pass / 194 fail<br>
+  Errors: 333 (sh) + 297 (js)<br>
+  Warnings: 6069 (sh) + 2650 (js)
 </div>
 
 <h2>By cruise line</h2>
@@ -40,20 +40,20 @@
     <tr>
       <td>carnival</td>
       <td class="num">48</td>
-      <td class="num err">244</td>
-      <td class="num warn">1873</td>
-      <td class="num err">46</td>
+      <td class="num err">166</td>
+      <td class="num warn">1841</td>
+      <td class="num err">48</td>
       <td class="num warn">579</td>
-      <td class="topfail">42× <code>sh:Skip link target (#content) does NOT match main element ID (</code><br>30× <code>sh:Attributions is OUTSIDE col-1 — renders parallel to sidebar </code><br>23× <code>sh:Found 2 content section(s) after &lt;/aside> that belong inside</code></td>
+      <td class="topfail">19× <code>sh:Found 2 &lt;header> opening tags — should have exactly 1. Broke</code><br>15× <code>js:data_consistency/internal_numeric_inconsistency</code><br>14× <code>sh:First Look carousel has NO images — carousel will render emp</code></td>
     </tr>
     <tr>
       <td>celebrity-cruises</td>
       <td class="num">29</td>
-      <td class="num err">105</td>
-      <td class="num warn">800</td>
+      <td class="num err">36</td>
+      <td class="num warn">782</td>
       <td class="num err">9</td>
       <td class="num warn">240</td>
-      <td class="topfail">29× <code>sh:Skip link target (#content) does NOT match main element ID (</code><br>20× <code>sh:Attributions is OUTSIDE col-1 — renders parallel to sidebar </code><br>20× <code>sh:Found 1 content section(s) after &lt;/aside> that belong inside</code></td>
+      <td class="topfail">8× <code>js:images/few_images</code><br>7× <code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code><br>3× <code>sh:Carousel HTML BROKEN: 2 slides opened but 1 missing &lt;/div> —</code></td>
     </tr>
     <tr>
       <td>costa</td>
@@ -85,11 +85,11 @@
     <tr>
       <td>holland-america-line</td>
       <td class="num">46</td>
-      <td class="num err">162</td>
-      <td class="num warn">2154</td>
+      <td class="num err">38</td>
+      <td class="num warn">2114</td>
       <td class="num err">6</td>
       <td class="num warn">423</td>
-      <td class="topfail">44× <code>sh:Skip link target (#content) does NOT match main element ID (</code><br>40× <code>sh:Attributions is OUTSIDE col-1 — renders parallel to sidebar </code><br>40× <code>sh:Found 1 content section(s) after &lt;/aside> that belong inside</code></td>
+      <td class="topfail">8× <code>sh:Meta description is too short (48 chars) or stub content — n</code><br>5× <code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code><br>4× <code>js:data_consistency/internal_numeric_inconsistency</code></td>
     </tr>
     <tr>
       <td>msc</td>
@@ -175,7 +175,7 @@
 </table>
 
 <h2>Top error rules across fleet</h2>
-<ul class="rules"><li><code>js:images/few_images</code> — 120</li><li><code>sh:Skip link target (#content) does NOT match main element ID (</code> — 115</li><li><code>sh:Attributions is OUTSIDE col-1 — renders parallel to sidebar </code> — 90</li><li><code>sh:Found 1 content section(s) after &lt;/aside> that belong inside</code> — 73</li><li><code>js:data_consistency/internal_numeric_inconsistency</code> — 59</li><li><code>js:runtime_data/cascade_fully_failed</code> — 50</li><li><code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code> — 30</li><li><code>js:sections/wrong_section_order</code> — 26</li><li><code>sh:Found 2 content section(s) after &lt;/aside> that belong inside</code> — 23</li><li><code>sh:Found 2 &lt;header> opening tags — should have exactly 1. Broke</code> — 19</li><li><code>sh:First Look carousel has NO images — carousel will render emp</code> — 18</li><li><code>sh:Inline renderVenues uses catLabels without 'dining' key — ve</code> — 9</li><li><code>sh:Found 1 duplicate ID(s): id="logbook-container,</code> — 9</li><li><code>sh:Found 2 tracker headings/sections — should have exactly 1 (#</code> — 9</li><li><code>js:videos/missing_categories</code> — 8</li><li><code>sh:Meta description is too short (48 chars) or stub content — n</code> — 8</li><li><code>js:icp_lite/ai_summary_boilerplate</code> — 7</li><li><code>sh:data-imo attribute MISSING for live tracker</code> — 7</li><li><code>js:videos/few_videos</code> — 7</li><li><code>js:html_structure/unclosed_section</code> — 7</li></ul>
+<ul class="rules"><li><code>js:images/few_images</code> — 120</li><li><code>js:data_consistency/internal_numeric_inconsistency</code> — 59</li><li><code>js:runtime_data/cascade_fully_failed</code> — 50</li><li><code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code> — 30</li><li><code>js:sections/wrong_section_order</code> — 28</li><li><code>sh:Found 2 &lt;header> opening tags — should have exactly 1. Broke</code> — 19</li><li><code>sh:First Look carousel has NO images — carousel will render emp</code> — 18</li><li><code>sh:Found 2 content section(s) after &lt;/aside> that belong inside</code> — 14</li><li><code>sh:Attributions is OUTSIDE col-1 — renders parallel to sidebar </code> — 13</li><li><code>sh:Inline renderVenues uses catLabels without 'dining' key — ve</code> — 9</li><li><code>sh:Found 1 duplicate ID(s): id="logbook-container,</code> — 9</li><li><code>sh:Found 2 tracker headings/sections — should have exactly 1 (#</code> — 9</li><li><code>js:videos/missing_categories</code> — 8</li><li><code>sh:Meta description is too short (48 chars) or stub content — n</code> — 8</li><li><code>js:icp_lite/ai_summary_boilerplate</code> — 7</li><li><code>sh:data-imo attribute MISSING for live tracker</code> — 7</li><li><code>js:videos/few_videos</code> — 7</li><li><code>js:html_structure/unclosed_section</code> — 7</li><li><code>sh:Found 2 duplicate ID(s): id="faq,id="faq-heading,</code> — 5</li><li><code>sh:Page has 2 attribution sections — should have exactly 1 (#13</code> — 5</li></ul>
 
 <p><em>Raw JSON: <a href="ship-validation-dashboard.json">ship-validation-dashboard.json</a></em></p>
 </body>
