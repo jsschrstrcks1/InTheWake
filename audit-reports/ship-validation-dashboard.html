@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ship Validation Dashboard — line=rcl</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: ui-sans-serif, system-ui, sans-serif; margin: 2em; max-width: 1100px; color: #134; }
+  h1 { font-size: 1.5em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+  th, td { padding: 0.5em 0.75em; text-align: left; border-bottom: 1px solid #cdd; }
+  th { background: #f0f5fa; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.err { color: #b00; }
+  td.warn { color: #c84; }
+  .topfail code { font-size: 0.85em; }
+  .summary { background: #f0f5fa; padding: 1em; border-radius: 6px; margin: 1em 0; }
+  ul.rules { columns: 2; }
+  ul.rules code { font-size: 0.9em; }
+</style>
+</head>
+<body>
+<h1>Ship Validation Dashboard</h1>
+<p><strong>Scope:</strong> line=rcl · <strong>Generated:</strong> 2026-05-01T04:39:34.868Z</p>
+
+<div class="summary">
+  <strong>Totals (49 pages):</strong><br>
+  .sh validator: 24 pass / 19 warn-only / 6 fail<br>
+  .js validator: 0 pass / 49 fail<br>
+  Errors: 6 (sh) + 159 (js)<br>
+  Warnings: 77 (sh) + 404 (js)
+</div>
+
+<h2>By cruise line</h2>
+<table>
+<thead><tr>
+  <th>Line</th><th>Pages</th><th>sh err</th><th>sh warn</th><th>js err</th><th>js warn</th><th>Top failures</th>
+</tr></thead>
+<tbody>
+    <tr>
+      <td>rcl</td>
+      <td class="num">49</td>
+      <td class="num err">6</td>
+      <td class="num warn">77</td>
+      <td class="num err">159</td>
+      <td class="num warn">404</td>
+      <td class="topfail">49× <code>js:json_ld/main_entity_blacklisted</code><br>43× <code>js:runtime_data/cascade_fully_failed</code><br>28× <code>js:data_consistency/internal_numeric_inconsistency</code></td>
+    </tr></tbody>
+</table>
+
+<h2>Top error rules across fleet</h2>
+<ul class="rules"><li><code>js:json_ld/main_entity_blacklisted</code> — 49</li><li><code>js:runtime_data/cascade_fully_failed</code> — 43</li><li><code>js:data_consistency/internal_numeric_inconsistency</code> — 28</li><li><code>js:images/cross_line_dining_hero_cordelia</code> — 19</li><li><code>js:icp_lite/ai_summary_boilerplate</code> — 6</li><li><code>js:json_ld/datemodified_mismatch</code> — 5</li><li><code>js:sections/wrong_section_order</code> — 5</li><li><code>sh:dateModified value(s) 2025-12-27 do not match last-reviewed </code> — 3</li><li><code>sh:dateModified value(s) 2026-04-07 do not match last-reviewed </code> — 2</li><li><code>js:images/few_images</code> — 1</li><li><code>js:videos/few_videos</code> — 1</li><li><code>js:videos/missing_categories</code> — 1</li><li><code>sh:1 runtime JSON file(s) on disk fail to parse: /ships/rcl/ass</code> — 1</li><li><code>js:runtime_data/json_parse_error</code> — 1</li></ul>
+
+<p><em>Raw JSON: <a href="ship-validation-dashboard.json">ship-validation-dashboard.json</a></em></p>
+</body>
+</html>

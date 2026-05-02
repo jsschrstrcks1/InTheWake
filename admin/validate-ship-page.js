@@ -67,6 +67,26 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '..');
 
+// Per-line validator config — see admin/validator-config.json + Policy 1.1
+// in admin/SHIP_STANDARDIZATION_PLAN.md. Loaded once at startup.
+const VALIDATOR_CONFIG = (() => {
+  try {
+    const raw = readFileSync(join(__dirname, 'validator-config.json'), 'utf-8');
+    return JSON.parse(raw);
+  } catch (e) {
+    console.error(`Warning: validator-config.json not loaded (${e.message}); using empty config.`);
+    return { lines: { _default: {} }, ai_summary_boilerplate_phrases: [], main_entity_whitelist: [], main_entity_blacklist: [] };
+  }
+})();
+
+// Resolve config for a given cruise-line slug. Falls back to _default for missing keys.
+function configFor(line) {
+  const lines = VALIDATOR_CONFIG.lines || {};
+  const def = lines._default || {};
+  const lineCfg = lines[line] || {};
+  return { ...def, ...lineCfg };
+}
+
 // Colors for terminal output
 const colors = {
   reset: '\x1b[0m',
@@ -2968,6 +2988,11 @@ async function validateShipPage(filepath) {
     const templateRemnantResult = validateTemplateRemnants($, html);
     const accessibilityKeywordResult = validateAccessibilityKeywords($);
 
+    // Phase 1 validations (added 2026-04-29)
+    const mainEntityResult = validateMainEntityType($);
+    const aiSummaryBoilerplateResult = validateAiSummaryBoilerplate($);
+    const internalNumericResult = validateInternalNumericConsistency($);
+
     // Async validations (pass cruiseLine for correct data paths)
     const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
     const videoResult = await validateVideos(slug, cruiseLine, isHistoric, isTBN);
@@ -2995,7 +3020,9 @@ async function validateShipPage(filepath) {
       ...voiceQualityResult.errors,
       ...templateRemnantResult.errors, ...shipImageResult.errors,
       ...accessibilityKeywordResult.errors,
-      ...runtimeDataResult.errors, ...renderingResult.errors
+      ...runtimeDataResult.errors, ...renderingResult.errors,
+      ...mainEntityResult.errors, ...aiSummaryBoilerplateResult.errors,
+      ...internalNumericResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
@@ -3013,7 +3040,9 @@ async function validateShipPage(filepath) {
       ...voiceQualityResult.warnings,
       ...templateRemnantResult.warnings, ...shipImageResult.warnings,
       ...accessibilityKeywordResult.warnings,
-      ...runtimeDataResult.warnings, ...renderingResult.warnings
+      ...runtimeDataResult.warnings, ...renderingResult.warnings,
+      ...mainEntityResult.warnings, ...aiSummaryBoilerplateResult.warnings,
+      ...internalNumericResult.warnings
     ];
     const preliminaryScore = Math.max(0, 100 - (preliminaryErrors.length * 10) - (preliminaryWarnings.length * 2));
 
@@ -3043,7 +3072,9 @@ async function validateShipPage(filepath) {
       ...voiceQualityResult.errors,
       ...templateRemnantResult.errors, ...shipImageResult.errors,
       ...accessibilityKeywordResult.errors,
-      ...runtimeDataResult.errors, ...renderingResult.errors
+      ...runtimeDataResult.errors, ...renderingResult.errors,
+      ...mainEntityResult.errors, ...aiSummaryBoilerplateResult.errors,
+      ...internalNumericResult.errors
     );
 
     // Collect warnings
@@ -3067,7 +3098,9 @@ async function validateShipPage(filepath) {
       ...voiceQualityResult.warnings,
       ...templateRemnantResult.warnings, ...shipImageResult.warnings,
       ...accessibilityKeywordResult.warnings,
-      ...runtimeDataResult.warnings, ...renderingResult.warnings
+      ...runtimeDataResult.warnings, ...renderingResult.warnings,
+      ...mainEntityResult.warnings, ...aiSummaryBoilerplateResult.warnings,
+      ...internalNumericResult.warnings
     );
 
     // Calculate score
@@ -3173,6 +3206,128 @@ function printResults(results, options) {
 
   console.log('='.repeat(80));
   return results.valid;
+}
+
+// =============================================================================
+// PHASE 1 CHECKS (added 2026-04-29) — per admin/SHIP_STANDARDIZATION_PLAN.md
+// =============================================================================
+
+// SCHEMA-002: mainEntity @type must be in whitelist, never in blacklist.
+// See admin/POLICY_DECISIONS.md § 0.1. JSON-LD WebPage.mainEntity is the
+// schema's anchor for what the page is *about*; "Cruise" is wrong shape
+// (an itinerary instance), "Thing" is the schema root (meaningless).
+function validateMainEntityType($) {
+  const errors = [];
+  const warnings = [];
+  const whitelist = VALIDATOR_CONFIG.main_entity_whitelist || [];
+  const blacklist = VALIDATOR_CONFIG.main_entity_blacklist || [];
+  if (whitelist.length === 0) return { valid: true, errors, warnings };
+
+  const jsonldScripts = $('script[type="application/ld+json"]');
+  const observed = [];
+  jsonldScripts.each((i, el) => {
+    try {
+      const d = JSON.parse($(el).html() || '{}');
+      const blocks = Array.isArray(d) ? d : (d['@graph'] || [d]);
+      for (const b of blocks) {
+        if (!b || typeof b !== 'object') continue;
+        if (b.mainEntity && b.mainEntity['@type']) {
+          observed.push(b.mainEntity['@type']);
+        }
+      }
+    } catch { /* ignore parse errors here — JSON-LD validity is a separate check */ }
+  });
+
+  if (observed.length === 0) {
+    warnings.push({
+      section: 'json_ld', rule: 'main_entity_missing',
+      message: 'No mainEntity @type found in any JSON-LD block — ship pages should declare what they are about.',
+      severity: 'WARNING'
+    });
+    return { valid: true, errors, warnings };
+  }
+
+  const preferred = VALIDATOR_CONFIG.main_entity_preferred;
+  for (const t of observed) {
+    if (blacklist.includes(t)) {
+      errors.push({
+        section: 'json_ld', rule: 'main_entity_blacklisted',
+        message: `mainEntity @type="${t}" is blacklisted (see admin/POLICY_DECISIONS.md § 0.1). Use one of: ${whitelist.join(', ')}. Preferred: ${preferred || whitelist[0]}.`,
+        severity: 'BLOCKING'
+      });
+    } else if (!whitelist.includes(t)) {
+      warnings.push({
+        section: 'json_ld', rule: 'main_entity_unknown',
+        message: `mainEntity @type="${t}" is not in the whitelist (${whitelist.join(', ')}). Verify Schema.org type is appropriate.`,
+        severity: 'WARNING'
+      });
+    } else if (preferred && t !== preferred && t !== 'TouristAttraction') {
+      warnings.push({
+        section: 'json_ld', rule: 'main_entity_prefer_preferred',
+        message: `mainEntity @type="${t}" is acceptable, but ${preferred} is preferred for cruise-ship pages (Schema.org subtype of Product specifically for transport devices including ships).`,
+        severity: 'INFO'
+      });
+    }
+  }
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+// ICP-018: ai-summary content must not be boilerplate. Six pages currently
+// share a character-identical template; the phrase list in
+// validator-config.json catches it plus common templated tells.
+function validateAiSummaryBoilerplate($) {
+  const errors = [];
+  const warnings = [];
+  const phrases = VALIDATOR_CONFIG.ai_summary_boilerplate_phrases || [];
+  if (phrases.length === 0) return { valid: true, errors, warnings };
+
+  const aiSummary = $('meta[name="ai-summary"]').attr('content') || '';
+  if (!aiSummary) return { valid: true, errors, warnings };
+
+  const lower = aiSummary.toLowerCase();
+  const hits = phrases.filter(p => lower.includes(p.toLowerCase()));
+  if (hits.length > 0) {
+    errors.push({
+      section: 'icp_lite', rule: 'ai_summary_boilerplate',
+      message: `ai-summary contains boilerplate phrase(s): ${hits.slice(0, 2).map(s => `"${s}"`).join(', ')}. ICP-2 forbids generic summaries that could apply to any page. Rewrite with 2 ship-specific facts + 1 voice-aligned editorial line.`,
+      severity: 'BLOCKING'
+    });
+  }
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+// DATA-004: Internal numeric consistency. Pages routinely have multiple
+// distinct guest-counts (Brilliance has 4: 2,112 / 2,145 / 2,100 / 2,543).
+// Canonical is `passengers_double_occupancy` per Policy 0.2.
+// Allowed exception: a number explicitly labelled "maximum capacity" or
+// "all-berths-full" can differ from the canonical.
+function validateInternalNumericConsistency($) {
+  const errors = [];
+  const warnings = [];
+
+  const bodyText = $('body').text();
+  // Find every "N,NNN guests" or "N,NNN passengers" mention with leading 12-char window.
+  const guestPattern = /([\s\S]{0,30})\b(\d{1,2},\d{3})\b\s*(guests?|passengers?|capacity)/gi;
+  const found = [];
+  let m;
+  while ((m = guestPattern.exec(bodyText)) !== null) {
+    const ctx = m[1];
+    const num = m[2];
+    const isLabelledMax = /\b(max(imum)?|all[- ]berths?|full[- ]capacity)\b/i.test(ctx);
+    found.push({ num, isLabelledMax, ctx: ctx.slice(-30) });
+  }
+
+  // Distinct non-max numbers
+  const canonical = found.filter(f => !f.isLabelledMax).map(f => f.num);
+  const distinct = [...new Set(canonical)];
+  if (distinct.length > 1) {
+    errors.push({
+      section: 'data_consistency', rule: 'internal_numeric_inconsistency',
+      message: `Page has ${distinct.length} distinct guest-count numbers in non-"maximum" contexts: ${distinct.join(', ')}. Canonical is double-occupancy per Policy 0.2; explicitly label any max-capacity figure with "maximum" or "all-berths-full" to suppress this check.`,
+      severity: 'BLOCKING'
+    });
+  }
+  return { valid: errors.length === 0, errors, warnings, data: { distinct, total_mentions: found.length } };
 }
 
 // =============================================================================

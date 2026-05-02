@@ -1,0 +1,18 @@
+{
+  "policy": "0.2 — canonical guest-count for ship pages",
+  "date": "2026-04-29",
+  "method": "consult.py perplexity expand",
+  "consulted": ["perplexity (xai/grok-4-1-fast-non-reasoning)"],
+  "canonical_field": "double-occupancy capacity (lower-berth)",
+  "honest_label_for_other": "maximum capacity (all berths full)",
+  "authorities": [
+    {"name": "Wikipedia ship infoboxes", "convention": "Lists double-occupancy as primary figure; maximum as secondary"},
+    {"name": "CLIA cruise-line marketing", "convention": "Uses lower-berth/double-occupancy for industry fleet stats and orderbook"},
+    {"name": "Royal Caribbean own site", "convention": "Symphony shown as ~5,400 guests (double-occupancy)"},
+    {"name": "Carnival own site", "convention": "'guest capacity' is double-occupancy"},
+    {"name": "Norwegian own site", "convention": "'Guest Capacity double occupancy' is the explicit label"},
+    {"name": "Schema.org Vehicle.passengerCapacity", "convention": "'number of passengers that can be seated' — aligns with double-occupancy"}
+  ],
+  "validator_rule_id": "DATA-004",
+  "validator_canonical_source": "assets/data/ships/<line>/<slug>.page.json field stats_fallback.guests (parse first integer); fall back to most-frequent on-page integer if page.json absent"
+}

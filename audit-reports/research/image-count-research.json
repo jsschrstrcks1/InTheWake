@@ -1,0 +1,39 @@
+{
+  "policy": "0.3 — image-count threshold for cruise-ship First-Look carousel",
+  "date": "2026-04-29",
+  "method": "consult.py — GPT (expand) + Perplexity (expand) — see audit-reports/orchestra/2026-04-29-policies-0.1-0.4.json for orchestra-format equivalent on policies 0.1/0.4",
+  "consulted": ["gpt-4o", "perplexity (xai/grok-4-1-fast-non-reasoning)"],
+  "gpt_recommendation": {
+    "min": 8, "target": 12, "max": 20,
+    "diversity_required": true,
+    "diversity_categories": ["interior", "exterior", "dining", "stateroom"],
+    "confidence": 0.9
+  },
+  "perplexity_recommendation": {
+    "min": 5, "target": 10, "max": 15,
+    "domain": "general ecommerce; cruise/travel-specific lower because hotel travel UX research focuses on room counts not ship complexity"
+  },
+  "citations": [
+    {"source": "Baymard Institute", "url": "https://baymard.com/blog/secondary-hover-information",  "finding": "Apparel/accessories need 5-15 thumbnails for full visual inspection. 2 additional minimum, 3+ optimal."},
+    {"source": "Baymard Institute", "url": "https://baymard.com/blog/always-use-thumbnails-additional-images", "finding": "Thumbnails essential for discovering additional images; dot/text indicators alone cause 76% of users to miss key product details."},
+    {"source": "Nielsen Norman Group", "url": "https://www.nngroup.com/articles/ecommerce-product-pages/", "finding": "One product view rarely adequate; use multiple/animated views (rotated, details, enlarged, in-use/context images)."},
+    {"source": "Nielsen Norman Group", "url": "https://www.nngroup.com/articles/product-photos-listing-pages/", "finding": "Multiple views like alternate angles, closeups, back views, texture details."},
+    {"source": "Baymard Institute (travel)", "url": "https://baymard.com/audits/travel-accommodations", "finding": "Property/room imaging requires different image types, video supplementation, gallery UI considerations (navigation, zoom, carousels)."}
+  ],
+  "reconciled_recommendation": {
+    "min": 8,
+    "target": 12,
+    "max": 20,
+    "rationale": "User chose 8 originally; defensible per GPT (in research-supported 8-12 plateau range). Cruise ships justify upper-end of Baymard's 5-15 apparel range because they have more visual surface area (multiple decks, dining venues, staterooms, exterior views). Max 20 (GPT) preferred over my original 24 — research literature treats ~15-20 as cognitive-load ceiling.",
+    "diversity_required": true,
+    "diversity_categories": ["interior", "exterior", "dining", "stateroom"],
+    "diversity_detection": "Match alt-text against keyword sets: {balcony, suite, oceanview, interior, cabin}, {exterior, hull, profile, pier, port}, {dining, restaurant, buffet, food}, {stateroom, room, bedroom}"
+  },
+  "validator_rule_id": "IMG-015",
+  "validator_thresholds": {
+    "errors_below": 6,
+    "warns_below": 8,
+    "warns_above": 20,
+    "diversity_warn_when_missing": true
+  }
+}
