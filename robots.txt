@@ -1,7 +1,29 @@
 # robots.txt for https://cruisinginthewake.com/
-# Last updated: 2026-03-27
+# Last updated: 2026-05-03
 # Purpose: Allow full indexing of public content while preventing crawl of
 #          internal assets, admin pages, and development files.
+#
+# ─────────────────────────────────────────────────────────────────────────────
+# AI-bot policy (read this before "fixing" something that looks broken)
+# ─────────────────────────────────────────────────────────────────────────────
+# At the live edge, Cloudflare's managed AI-Bot Block prepends a header block
+# above this file that explicitly Disallows the major AI training crawlers:
+#   GPTBot, ClaudeBot, Google-Extended, CCBot, Bytespider, Amazonbot,
+#   Applebot-Extended, meta-externalagent, CloudflareBrowserRenderingCrawler.
+# This is intentional and reflects our content-signal policy:
+#   "search=yes, ai-train=no"
+# i.e., AI engines may retrieve our content for inference-time citation in
+# answers, but may not use it as training data.
+#
+# Crawlers we DO allow (because they are inference-time retrieval, not
+# training): ChatGPT-User, OAI-SearchBot, PerplexityBot, Claude-Search-User,
+# Claude-Web, regular Googlebot (which feeds AI Overviews via the standard
+# search index). These all fall under the "User-agent: *" rules below.
+#
+# If you want to revisit the AI-Bot Block, do it in the Cloudflare dashboard
+# (Security → Bots → AI Audit), NOT in this file — Cloudflare's prepended
+# block overrides whatever this file says for those specific user agents.
+# ─────────────────────────────────────────────────────────────────────────────
 
 User-agent: *
 
@@ -108,3 +130,5 @@ Sitemap: https://cruisinginthewake.com/sitemap.xml
 # - Updated 2026-01-31: Updated counts (380 ports, 297 ships, 404 restaurants, 1,154 sitemap URLs)
 # - Updated 2026-03-27: GSC audit — added 7 Alaska ports, 68 Carnival/MSC restaurants,
 #   2 tools to sitemap (1,150 → 1,227 URLs). Updated counts to match actual repo.
+# - Updated 2026-05-03: Added explicit AI-bot policy header explaining the
+#   Cloudflare-managed training-bot block and the inference-bot allowance.
