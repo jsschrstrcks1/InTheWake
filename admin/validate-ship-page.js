@@ -2992,6 +2992,7 @@ async function validateShipPage(filepath) {
     const mainEntityResult = validateMainEntityType($);
     const aiSummaryBoilerplateResult = validateAiSummaryBoilerplate($);
     const internalNumericResult = validateInternalNumericConsistency($);
+    const proseTicsResult = validateProseTics($);
 
     // Async validations (pass cruiseLine for correct data paths)
     const logbookResult = await validateLogbook(slug, cruiseLine, isHistoric);
@@ -3022,7 +3023,7 @@ async function validateShipPage(filepath) {
       ...accessibilityKeywordResult.errors,
       ...runtimeDataResult.errors, ...renderingResult.errors,
       ...mainEntityResult.errors, ...aiSummaryBoilerplateResult.errors,
-      ...internalNumericResult.errors
+      ...internalNumericResult.errors, ...proseTicsResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
@@ -3042,7 +3043,7 @@ async function validateShipPage(filepath) {
       ...accessibilityKeywordResult.warnings,
       ...runtimeDataResult.warnings, ...renderingResult.warnings,
       ...mainEntityResult.warnings, ...aiSummaryBoilerplateResult.warnings,
-      ...internalNumericResult.warnings
+      ...internalNumericResult.warnings, ...proseTicsResult.warnings
     ];
     const preliminaryScore = Math.max(0, 100 - (preliminaryErrors.length * 10) - (preliminaryWarnings.length * 2));
 
@@ -3074,7 +3075,7 @@ async function validateShipPage(filepath) {
       ...accessibilityKeywordResult.errors,
       ...runtimeDataResult.errors, ...renderingResult.errors,
       ...mainEntityResult.errors, ...aiSummaryBoilerplateResult.errors,
-      ...internalNumericResult.errors
+      ...internalNumericResult.errors, ...proseTicsResult.errors
     );
 
     // Collect warnings
@@ -3100,7 +3101,7 @@ async function validateShipPage(filepath) {
       ...accessibilityKeywordResult.warnings,
       ...runtimeDataResult.warnings, ...renderingResult.warnings,
       ...mainEntityResult.warnings, ...aiSummaryBoilerplateResult.warnings,
-      ...internalNumericResult.warnings
+      ...internalNumericResult.warnings, ...proseTicsResult.warnings
     );
 
     // Calculate score
@@ -3328,6 +3329,109 @@ function validateInternalNumericConsistency($) {
     });
   }
   return { valid: errors.length === 0, errors, warnings, data: { distinct, total_mentions: found.length } };
+}
+
+// VOI-007: prose tics — anaphora ladders + antithetical-parallelism stacks.
+// See admin/validator-spec/rules/VOI-007.md and
+// .claude/skills/Humanization/Like-a-human.md.
+//
+// Caps:
+//   - Antithetical parallelism (`it's not X, it's Y`): max 1 per section.
+//     Two or more in the same section fires.
+//   - Anaphora ladder (consecutive sentences starting with the same non-
+//     pronoun word): max 3 in a row. Four or more fires. Or the same
+//     ladder repeating inside a section.
+function validateProseTics($) {
+  const errors = [];
+  const warnings = [];
+
+  // Pronoun starts that don't count as anaphora (too common in normal prose).
+  const PRONOUNS = new Set([
+    'a', 'an', 'the', 'i', 'we', 'he', 'she', 'it', 'they', 'you',
+    'this', 'that', 'these', 'those', 'and', 'but', 'or', 'so',
+    'in', 'on', 'at', 'of', 'to', 'for', 'with', 'as', 'by', 'from',
+  ]);
+
+  // Pull body text from each top-level prose-bearing section. Treat each
+  // <section> with class "card" as a "section" for the cap rules.
+  const $sections = $('section.card, section[class*="card"]').filter((_, el) => {
+    // Skip dining/photo/map/tracker — they're data display, not prose.
+    const id = ($(el).attr('id') || '').toLowerCase();
+    if (id.includes('dining') || id.includes('photo') || id.includes('map') ||
+        id.includes('tracker') || id.includes('first-look') ||
+        id.includes('whimsical') || id.includes('attribution')) return false;
+    return true;
+  });
+
+  let antiStacks = 0;
+  let anaphoraLadders = 0;
+  const examples = [];
+
+  $sections.each((_, sec) => {
+    // Plain-text body of this section, MINUS non-prose elements that
+    // produce template-repeat false positives (image captions, table
+    // cells, button labels, list-of-links, etc.).
+    const $clone = $(sec).clone();
+    $clone.find('figcaption, figure, table, nav, button, .swiper-pagination, .photo-caption, code, pre').remove();
+    const text = $clone.text().replace(/\s+/g, ' ').trim();
+    if (text.length < 80) return;
+
+    // (1) Antithetical parallelism count.
+    // Match `it's not <X> [, .—] it's <Y>` plus the bare `not X. not Y.` form.
+    const antiRe = /\b[Ii]t(?:'?s| is) not [^.\n,—\-–;]{3,80}[—\-–.,;] *[Ii]t(?:'?s| is) [^.\n,—\-–;]{3,80}/g;
+    const antiCount = (text.match(antiRe) || []).length;
+    if (antiCount >= 2) {
+      antiStacks++;
+      const m = text.match(antiRe);
+      examples.push(`antithetical×${antiCount}: "${(m[0] || '').slice(0, 90)}…"`);
+    }
+
+    // (2) Anaphora ladder: split text into sentences, find runs of 4+
+    //     consecutive sentences starting with the same non-pronoun word.
+    const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
+    const starts = sentences.map(s => {
+      const w = s.trim().split(/\s+/)[0] || '';
+      return w.replace(/[^a-zA-Z]/g, '').toLowerCase();
+    });
+    let run = 1;
+    let maxRun = 1;
+    let runStartIdx = 0;
+    let runWord = null;
+    for (let i = 1; i < starts.length; i++) {
+      if (starts[i] && starts[i] === starts[i - 1] && !PRONOUNS.has(starts[i])) {
+        run++;
+        if (run > maxRun) {
+          maxRun = run;
+          runStartIdx = i - run + 1;
+          runWord = starts[i];
+        }
+      } else {
+        run = 1;
+      }
+    }
+    if (maxRun >= 4) {
+      anaphoraLadders++;
+      const sample = sentences.slice(runStartIdx, runStartIdx + maxRun).join(' ');
+      examples.push(`anaphora×${maxRun} on "${runWord}": "${sample.slice(0, 120)}…"`);
+    }
+  });
+
+  if (antiStacks > 0) {
+    warnings.push({
+      section: 'voice', rule: 'antithetical_parallelism_stack',
+      message: `${antiStacks} section(s) contain 2+ "It's not X, it's Y" constructions. Per VOI-007: cap at 1 per section. Example: ${examples.find(e => e.startsWith('antithetical')) || ''}`,
+      severity: 'WARNING'
+    });
+  }
+  if (anaphoraLadders > 0) {
+    warnings.push({
+      section: 'voice', rule: 'anaphora_ladder',
+      message: `${anaphoraLadders} section(s) have 4+ consecutive same-start sentences. Per VOI-007: cap at 3. Example: ${examples.find(e => e.startsWith('anaphora')) || ''}`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings, data: { antiStacks, anaphoraLadders } };
 }
 
 // =============================================================================
