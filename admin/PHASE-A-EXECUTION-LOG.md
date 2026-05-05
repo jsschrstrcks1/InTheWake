@@ -123,3 +123,27 @@ The plan flagged a 5-vs-682 inbound-link disparity (cruise-duck-tradition vs cru
 **Result:** cruise-duck inbound links 5 → 7 (+40% in one pass).
 
 **Phase B work (out of scope for this rescue):** further weaving into port pages, ship pages, and additional articles. The 682-vs-7 disparity reflects months of deliberate cabin-organization editorial work that won't close in a single Phase A pass.
+
+### A7 — Pastoral-affiliate bright-line sweep (verification only)
+
+Per `affiliate-disclosure.html` v1.0 governance, no amzn.to links may appear in pastoral content surfaces. Verified post-A1–A6:
+
+| Surface | amzn.to count | Status |
+|---|---|---|
+| `/solo/` (recursive) | 0 | Clean |
+| Grief-named files (`grief`, `widow`, `loss`, `after-loss`, `in-the-wake-of-*`) | 0 | Clean |
+| `accessibility.html` | 0 | Clean |
+| `disability-at-sea.html` | 0 | Clean |
+| `solo/articles/accessible-cruising.html` (real accessibility content) | 0 | Clean |
+
+**Sitewide amzn.to footprint (post Phase A):** 8 files, all in non-pastoral content surfaces:
+- `articles/cruise-cabin-organization.html` (6 links)
+- `articles/cruise-tech-photography-guide.html` (5 links)
+- `articles/cruise-duck-tradition.html` (7 links — not yet pruned, but article is whimsical/community-tradition focused, not a buyer-persona gear list)
+- `packing-lists.html` (5 links)
+- `internet-at-sea.html` (12 links — outside Phase A scope)
+- `travel.html` (4 links — outside Phase A scope)
+- `first-cruise.html` (1 link — outside Phase A scope)
+- `affiliate-disclosure.html` (1 link — disclosure page, expected)
+
+Pastoral bright line is being respected. No corrective action needed.
