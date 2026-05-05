@@ -172,3 +172,54 @@ Two hero images referenced in `og:image`, `<link rel="preload">`, and JSON-LD on
 - `assets/articles/cruise-tech-hero.jpg` (referenced from cruise-tech-photography-guide.html)
 
 Both files appear to live only on production. Surface for follow-up: either commit the images (preferred) or remove the references. Not blocking Phase A.
+
+---
+
+## Phase A.5 — Out-of-original-scope cleanup (same session)
+
+After Phase A shipped, three additional affiliate-bearing files (12, 4, 1 amzn.to links) and three sitewide `must-have` instances were uncovered. Same standards applied for consistency.
+
+### A.5.1 — Prune internet-at-sea.html from 12 amzn.to to 4
+
+- Same product matrix as cruise-tech-photography-guide.html (4 earbuds, 3 e-readers, 3 power banks, 2 waterproof pouches). Applied identical A4 curation.
+- Surviving: Bose QuietComfort Ultra, Kindle Paperwhite, Anker PowerCore 20K, UNBREAKcable Floating Pouch
+- Dropped: AirPods Pro 3, Sony WF-1000XM5, EarFun Air Pro 4, Kindle Colorsoft, Kobo Clara, INIU 65W, Anker Prime 26K, Hiearcool Waterproof Pouch
+- Voice cleanup: "Essential for flights..." → "Cabin hallways, pool decks..."; "Tech essentials included" → "Tech recommendations included"
+- Practical TSA-limit context preserved as text
+
+### A.5.2 — Drop all 5 amzn.to from travel.html (FTC vulnerable-consumer)
+
+- All 5 amzn.to links in travel.html were seasickness medications (Bonine x3, Sea-Bands x2). Same FTC Health Products Compliance Guidance (Dec 2022) concern that drove dropping these from cruise-tech-photography-guide (A4), packing-lists (A8), and now travel.html (A.5.2).
+- Drug-name awareness preserved as text only; readers redirected to pharmacist for medical context.
+- Voice cleanup: "you'll get incredible deals" → "prices are noticeably lower this window"; "Essentials (don't leave home without these)" → "What to pack first (the genuinely useful list)"; "Bonine becomes your best friend" → "whatever option your pharmacist suggested earns its keep"
+
+### A.5.3 — Drop Sea-Bands amzn.to from first-cruise.html (FTC) + JSON-LD voice
+
+- Single amzn.to link (Sea-Bands at line 442 motion-sickness FAQ) dropped per same FTC standard.
+- JSON-LD FAQ answer at line 133 rewritten from "Essential items include..." to "What to pack:" — this content feeds AI answer engines (Bing Copilot, ChatGPT) directly, so voice matters disproportionately.
+
+### A.5.4 — Clean sitewide "must-have" remnants
+
+- `ports/adelaide.html`: "Sunscreen, sunglasses, and a hat are must-haves year-round" rewritten to "are worth packing year-round" in both JSON-LD answer (line 124) and visible FAQ (line 641).
+- `ships/quiz.html` and `ships/allshipquiz.html`: quiz question "What's a must-have for you?" → "What matters most to you?" (subtitle adjusted "Pick the one that would shape your week"). Internal `must_have` id kept (not user-visible).
+- **Sitewide "must-have" count: 0** (down from 5 outside Phase A scope plus 1 inside).
+
+### A.5 — Final state of affiliate footprint after combined Phase A + A.5
+
+| File | Before | After | Reduction |
+|---|---|---|---|
+| `articles/cruise-cabin-organization.html` | 21 | 6 | -15 |
+| `articles/cruise-tech-photography-guide.html` | 18 | 5 | -13 |
+| `articles/cruise-duck-tradition.html` | 7 | 7 | 0 (whimsical, not buyer-mode) |
+| `packing-lists.html` | 6 | 4 | -2 |
+| `internet-at-sea.html` | 12 | 4 | -8 |
+| `travel.html` | 5 | 0 | -5 |
+| `first-cruise.html` | 1 | 0 | -1 |
+| `affiliate-disclosure.html` | 1 | 1 | 0 (disclosure page, expected) |
+| **TOTAL** | **71** | **27** | **-44 (-62%)** |
+
+Pastoral bright line: still respected (zero amzn.to in `/solo/`, grief content, accessibility surfaces).
+
+FTC vulnerable-consumer bright line: now respected sitewide (zero affiliate links to medications/health products of any kind).
+
+Brand-voice bright line: zero "must-have" hits sitewide.
