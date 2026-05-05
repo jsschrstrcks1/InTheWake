@@ -136,14 +136,39 @@ Per `affiliate-disclosure.html` v1.0 governance, no amzn.to links may appear in 
 | `disability-at-sea.html` | 0 | Clean |
 | `solo/articles/accessible-cruising.html` (real accessibility content) | 0 | Clean |
 
-**Sitewide amzn.to footprint (post Phase A):** 8 files, all in non-pastoral content surfaces:
-- `articles/cruise-cabin-organization.html` (6 links)
-- `articles/cruise-tech-photography-guide.html` (5 links)
-- `articles/cruise-duck-tradition.html` (7 links — not yet pruned, but article is whimsical/community-tradition focused, not a buyer-persona gear list)
-- `packing-lists.html` (5 links)
-- `internet-at-sea.html` (12 links — outside Phase A scope)
-- `travel.html` (4 links — outside Phase A scope)
-- `first-cruise.html` (1 link — outside Phase A scope)
+Pastoral bright line is being respected. No corrective action needed.
+
+### A8 — Validation pass + small consistency fixes
+
+**Validation results:**
+- JSON-LD: ✓ all 4 Phase A files have valid JSON-LD blocks (3-6 blocks each)
+- Banned vocabulary: ✓ 0 hits across all 5 modified files (cruise-cabin-organization, cruise-tech-photography, cruise-duck-tradition, packing-lists, first-cruise)
+- Internal page links: ✓ all resolve
+- Pre-commit hook: only validates ship pages — Phase A files don't trigger it; all commits A1–A7 proceeded cleanly
+- HTML well-formed: ✓ (no validation tool available locally — confirmed via JSON-LD/structural sanity checks)
+
+**Consistency fixes uncovered during validation:**
+
+`packing-lists.html` had two issues created by Phase A's stronger standards in A3/A4:
+1. Line 376 contained an affiliate link to Sea-Bands (motion-sickness wristband). Same FTC vulnerable-consumer concern that drove me to drop Bonine + Sea-Bands from cruise-tech-photography-guide.html in A4. Replaced with text-only mention referring readers to their pharmacist.
+2. Line 498 said "Bring a [cruise-approved USB charger]" — directly contradicting cruise-cabin-organization.html which (post-A3) explicitly debunks the "cruise approved" marketing phrase. Rewrote line 498 to align with the cabin-organization debunking and dropped the affiliate link.
+
+`packing-lists.html` amzn.to count: 6 → 4 (still within plan's 5–7 band; just on the low side now).
+
+**Final sitewide amzn.to footprint after Phase A:** 8 files, all in non-pastoral content surfaces:
+- `articles/cruise-cabin-organization.html` (6 links — pruned in A3 from 21)
+- `articles/cruise-tech-photography-guide.html` (5 links — pruned in A4 from 18)
+- `articles/cruise-duck-tradition.html` (7 links — NOT pruned; whimsical article, not buyer-persona gear list)
+- `packing-lists.html` (4 links — Sea-Bands + cruise-approved-charger dropped in A8)
+- `internet-at-sea.html` (12 links — outside Phase A scope, surfaced for user)
+- `travel.html` (4 links — outside Phase A scope, surfaced for user)
+- `first-cruise.html` (1 link — outside Phase A scope, surfaced for user)
 - `affiliate-disclosure.html` (1 link — disclosure page, expected)
 
-Pastoral bright line is being respected. No corrective action needed.
+**Pre-existing issue uncovered (NOT introduced by Phase A; out of scope):**
+
+Two hero images referenced in `og:image`, `<link rel="preload">`, and JSON-LD on the two heaviest articles are not committed to git:
+- `assets/articles/cabin-organization-hero.jpg` (referenced from cruise-cabin-organization.html)
+- `assets/articles/cruise-tech-hero.jpg` (referenced from cruise-tech-photography-guide.html)
+
+Both files appear to live only on production. Surface for follow-up: either commit the images (preferred) or remove the references. Not blocking Phase A.
