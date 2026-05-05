@@ -78,3 +78,13 @@ Running `grep -rl "amzn\.to" solo/` returns NOTHING. No amzn.to links in `/solo/
 - Files in scope (4 affiliate articles + packing-lists): now zero "must-have" hits
 - Single remaining instance was in `articles/cruise-cabin-organization.html:31` ai-summary meta tag — rewritten to brand voice
 - Sitewide remaining "must-have" hits (NOT in Phase A scope): `ports/adelaide.html`, `ships/allshipquiz.html`, `ships/quiz.html` — surfaced for follow-up cleanup pass
+
+### A3 — Prune cruise-cabin-organization.html from 21 amzn.to to 6, rewrite to brand voice
+
+- Final amzn.to count: **6** (target was 5–7)
+- Voice violations remaining: **0** (must-have / MVP / magic / secret advantage / ultimate / bucket-list)
+- Surviving links: magnetic hooks, over-the-door organizer, packing cubes, Anker PowerCore 20K, sleep mask, retractable lanyard
+- Dropped: BAGAIL/Eagle Creek compression cubes (redundant), INIU 65W battery (redundant), seasickness remedies (FTC vulnerable-consumer concern — kept as text mention only), earplugs, USB nightlight, travel pillow, clip-on book light, USB fan, leather lanyard, necklace lanyard, and 4 duplicate links in checklist
+- Each survivor now paired with one honest "why and when" sentence
+- Quick Checklist at bottom converted to anchor links into the article (no Amazon links repeated)
+- Rewrote ai-breadcrumbs entity from "Cruising Essentials: Gear and Gadgets" → "Cruise Cabin Organization" (matched actual article); updated answer-first; bumped last-reviewed to 2026-05-05; rewrote "secret advantage: steel walls" hype line
