@@ -67,4 +67,14 @@ Running `grep -rl "amzn\.to" solo/` returns NOTHING. No amzn.to links in `/solo/
 
 ### A1 — Delete `/solo/accessible-cruising.html` + 301 redirect
 
-(In progress — see commit log below.)
+- Commit: `ecef14bf`
+- Files: deleted `solo/accessible-cruising.html`; modified `.htaccess` (added 301), `sitemap.xml` (removed orphan entry)
+- Verification: file no longer exists; .htaccess redirect routes to canonical `/solo/articles/accessible-cruising.html`
+- Pre-commit hook: passed
+- Inbound-link cleanup (8 referring pages) deferred — 301 will handle redirects; consider direct-link refresh as separate housekeeping pass
+
+### A2 — Strip remaining "must-have" from Phase A files
+
+- Files in scope (4 affiliate articles + packing-lists): now zero "must-have" hits
+- Single remaining instance was in `articles/cruise-cabin-organization.html:31` ai-summary meta tag — rewritten to brand voice
+- Sitewide remaining "must-have" hits (NOT in Phase A scope): `ports/adelaide.html`, `ships/allshipquiz.html`, `ships/quiz.html` — surfaced for follow-up cleanup pass
