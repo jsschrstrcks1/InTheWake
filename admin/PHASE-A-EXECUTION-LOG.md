@@ -109,3 +109,17 @@ Added one calm Decisional CTA per article (per W2-rev framework: Wayfinding / De
 | `articles/cruise-tech-photography-guide.html` | `/countdown.html` | "Tech sorted? Most cruisers find the actual planning window evaporates faster than expected…" |
 | `articles/cruise-duck-tradition.html` | `/first-cruise.html` | "Hooked on the duck idea? It's one of the small joys that makes a first cruise feel like more than just a vacation…" |
 | `packing-lists.html` | (existing visual CTA section was already in place; one-word brand-voice fix only) | Existing "Continue planning your cruise…" grid already serves as Decisional CTA. Only fix: changed "Find your perfect ship" → "Narrow down the fleet in 2 minutes" (the `admin/CTA-STYLE-GUIDE.md` explicitly flags "Find your PERFECT cruise ship" as a Bad example) |
+
+### A6 — Increase internal-link surface to cruise-duck-tradition.html
+
+The plan flagged a 5-vs-682 inbound-link disparity (cruise-duck-tradition vs cruise-cabin-organization). Investigation: the 682 cabin-organization links are NOT auto-generated — they're contextually woven into pages over time (port pages, ship pages, navigation cards, resource cards). cruise-duck never received the same editorial weaving.
+
+**Phase A increment** — added cruise-duck-tradition to high-traffic, contextually-aligned pages:
+
+- `first-cruise.html` resource-card grid (added a 4th card: "The Cruise Duck Tradition — One of the small joys of cruising: rubber ducks hidden around the ship, and the community of strangers who hide and find them.")
+- `first-cruise.html` Resources list (line ~528) — added bullet
+- `articles/cruise-tech-photography-guide.html` Related Articles — added bullet
+
+**Result:** cruise-duck inbound links 5 → 7 (+40% in one pass).
+
+**Phase B work (out of scope for this rescue):** further weaving into port pages, ship pages, and additional articles. The 682-vs-7 disparity reflects months of deliberate cabin-organization editorial work that won't close in a single Phase A pass.
