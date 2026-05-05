@@ -88,3 +88,13 @@ Running `grep -rl "amzn\.to" solo/` returns NOTHING. No amzn.to links in `/solo/
 - Each survivor now paired with one honest "why and when" sentence
 - Quick Checklist at bottom converted to anchor links into the article (no Amazon links repeated)
 - Rewrote ai-breadcrumbs entity from "Cruising Essentials: Gear and Gadgets" → "Cruise Cabin Organization" (matched actual article); updated answer-first; bumped last-reviewed to 2026-05-05; rewrote "secret advantage: steel walls" hype line
+
+### A4 — Prune cruise-tech-photography-guide.html from 18 amzn.to to 5, rewrite to brand voice
+
+- Final amzn.to count: **5** (target was 5–7)
+- Voice violations remaining: **0** (essential / stunning / ultimate / must-have)
+- Surviving links: UNBREAKcable Waterproof Phone Pouch, Kindle Paperwhite, Bose QuietComfort Ultra Earbuds, Anker PowerCore 20K, Anker 6-Port USB Charger
+- Dropped: Hiearcool waterproof case (redundant), Kindle Colorsoft + Kobo Clara Colour (alternates kept as text), AirPods Pro 3 + Sony WF-1000XM5 + EarFun Air Pro 4 (alternates kept as text — picked Bose as universal recommendation), INIU 65W (alternate kept as text), Bonine Motion Sickness Relief + Sea-Bands (FTC vulnerable-consumer concern — entire motion-sickness section now refers reader to pharmacist/doctor with no product links), and 4 duplicate links in checklist
+- Each survivor paired with one honest "why and when" sentence
+- Tech Packing Checklist converted to anchor links into article
+- Rewrote 7 instances of "Essential" hype across meta-description, og:description, twitter:description, JSON-LD description, dek, and intro paragraph; rewrote "stunning ocean photos" → "the difference is real"; bumped last-reviewed to 2026-05-05; trimmed page title from "...: Capture Every Moment" to plain "Cruise Tech & Photography Guide"
