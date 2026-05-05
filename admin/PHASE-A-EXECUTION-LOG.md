@@ -98,3 +98,14 @@ Running `grep -rl "amzn\.to" solo/` returns NOTHING. No amzn.to links in `/solo/
 - Each survivor paired with one honest "why and when" sentence
 - Tech Packing Checklist converted to anchor links into article
 - Rewrote 7 instances of "Essential" hype across meta-description, og:description, twitter:description, JSON-LD description, dek, and intro paragraph; rewrote "stunning ocean photos" → "the difference is real"; bumped last-reviewed to 2026-05-05; trimmed page title from "...: Capture Every Moment" to plain "Cruise Tech & Photography Guide"
+
+### A5 — Decisional CTAs added to surviving affiliate articles
+
+Added one calm Decisional CTA per article (per W2-rev framework: Wayfinding / Decisional / Pastoral). Each CTA points to a NON-affiliate next-step tool, framed as orientation rather than upsell. Verified against `admin/CTA-STYLE-GUIDE.md` (the brand's own published guide).
+
+| Article | CTA target | Frame |
+|---|---|---|
+| `articles/cruise-cabin-organization.html` | `/stateroom-check.html` | "Done thinking about cabin organization? The decision most cruisers wrestle with next is the cabin itself…" |
+| `articles/cruise-tech-photography-guide.html` | `/countdown.html` | "Tech sorted? Most cruisers find the actual planning window evaporates faster than expected…" |
+| `articles/cruise-duck-tradition.html` | `/first-cruise.html` | "Hooked on the duck idea? It's one of the small joys that makes a first cruise feel like more than just a vacation…" |
+| `packing-lists.html` | (existing visual CTA section was already in place; one-word brand-voice fix only) | Existing "Continue planning your cruise…" grid already serves as Decisional CTA. Only fix: changed "Find your perfect ship" → "Narrow down the fleet in 2 minutes" (the `admin/CTA-STYLE-GUIDE.md` explicitly flags "Find your PERFECT cruise ship" as a Bad example) |
