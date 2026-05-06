@@ -125,10 +125,92 @@ If the prototype gets a green light, next session work:
 4. Build a `/voyage-packs.html` landing page (similar in voice to `/support.html`)
 5. Soft launch — share with 5 readers first for direct feedback before public
 
+## v0.1.2 — A second prototype: hosted group cruise, real partner
+
+After v0.1 (Symphony Western Caribbean, generic itinerary), a second prototype was built for a *specific real sailing*: the **All Aboard, Veterans! Hosted Solo Cruisers Group Cruise** (Norwegian Aqua, Port Canaveral, Dec 12–19, 2027), hosted by Tina Maulsby of Maulsby Travel Co. (a Featured Contributor on the site).
+
+**Two artifacts shipped:**
+- `admin/voyage-packs/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.md` — content source (720 lines, ~10K words)
+- `admin/voyage-packs/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.html` — rendered version using the site's CSS, with sticky TOC sidebar, Swiper video carousel pulling from `/assets/data/videos/norwegian/norwegian-aqua.json` (8 NCL Aqua YouTube videos), Tina bio block with avatar, port snapshot cards, hero image from Wikimedia Commons (CC BY-SA 4.0), print-friendly CSS, and 64 internal links across 37 unique destinations.
+
+**Key differences from v0.1:**
+- Audience-tailored (veterans + solo cruisers + group cruise rhythm) rather than generic
+- Ship section uses the site's existing video data feed with no extra infrastructure
+- Hosted-group considerations woven through (group dinners, meet-and-greets, what "hosted" means)
+- Tina is positioned as both a Featured Contributor (site authority) and group host (booking entity); booking remains with her travel agency, the pack remains a planning companion sold separately
+
+**Why this pattern matters:** Audience-tailored packs (specific group, specific persona) command higher pricing than generic packs and have natural promotion paths (Tina's email list, veterans-focused communities). The *cost* is that they're harder to scale — each one is its own writing project — and they tie pack revenue partially to the group's own marketing momentum.
+
+## Partnership posture (Maulsby Travel Co.)
+
+The bright lines for partnerships with travel agencies / contributors who also operate adjacent businesses:
+
+1. **Booking goes through the travel agency.** The Voyage Pack does not include cruise booking, group registration, or commission-shared travel-agency referral. Tina's customers buy the pack from In the Wake; In the Wake takes pack revenue. Tina takes booking revenue from her own group separately. The two transactions don't cross.
+
+2. **The pack doesn't promote the group's commercial offering beyond stating the host context.** It says "Tina hosts this group; reach her at maulsbytravel.com" because that is factual orientation. It doesn't pitch readers to upgrade cabin, buy ship excursions, or accept booking-related upsells.
+
+3. **Editorial independence preserved.** Even though Tina is the group host AND a Featured Contributor on the site, the pack is editorially independent — the honest-read sections about Jamaica's tourism aggression, NCL's Free At Sea marketing language, etc., remain intact regardless of partnership. If Tina objects to specific content, that's a conversation; it isn't a veto.
+
+4. **No cruise-line affiliate commissions.** The same v1.0 bright line that covers the rest of the site applies to packs. The pack does not earn commissions on the cruise booking itself.
+
+5. **Pastoral surfaces remain untouched.** The pack doesn't promote support, drink packages, or any commercial elements on the grief-related sections (the closing note about grieving solo cruisers cross-links to Tina's grief article — that's editorial, not commercial).
+
+6. **The pack is honest about the partnership.** The "About this document" section names Tina as group host and her booking entity; readers know the relationship from the start.
+
+## What's still missing for v0.2 (image-sourcing focus)
+
+The HTML prototype works visually but is leaning on placeholder images. Production v0.2 needs:
+
+### P0 — image sourcing (the user's explicit ask)
+
+| Need | Source candidate | Action | Effort |
+|---|---|---|---|
+| **NCL Aqua exterior photo** | [Norwegian Aqua at Southampton](https://commons.wikimedia.org/wiki/File:Norwegian_Aqua_southampton.JPG) — CC BY-SA 4.0 | Download, host at `assets/ships/ncl/norwegian-aqua-exterior.jpg`, write `.attr.json` companion file matching the existing pattern at `assets/ships/symphony-of-the-seas-wiki-attributions.json` | XS — single download |
+| **Norwegian Aqua additional shots** | Wikimedia Commons category for Norwegian Aqua (sometimes empty for new ships); also consider NCL press kit or Wikimedia Commons "Cruise ships built in 2025" category | Source 2–4 additional CC-BY/CC-BY-SA images for variety; populate the existing ship page's swiper carousel | S |
+| **Cozumel hero image** | [Cozumel Wikimedia category](https://commons.wikimedia.org/wiki/Category:Cozumel) — abundant CC images available | Download → `assets/ports/cozumel-hero.jpg` (new directory pattern) | S |
+| **Grand Cayman hero image** | [Grand Cayman Wikimedia category](https://commons.wikimedia.org/wiki/Category:Grand_Cayman) | Download → `assets/ports/grand-cayman-hero.jpg` | S |
+| **Ocho Rios / Falmouth / Montego Bay hero** | Wikimedia (Ocho Rios has Dunn's River Falls images abundant under CC) | Download → `assets/ports/ocho-rios-hero.jpg` | S |
+| **Great Stirrup Cay hero** | Limited CC options (NCL private island; mostly NCL-controlled imagery). Wikimedia has a few; Flickr has CC-licensed visitor shots | Download → `assets/ports/great-stirrup-cay-hero.jpg` | M (license diligence) |
+| **Tina's flyer ship-art image** | The flyer the user uploaded showing the NCL Aqua + military theme — ask Tina for a clean source file or the raw image she used | Download → `assets/social/all-aboard-veterans-2027.jpg`; use as the pack's social card | XS once received |
+
+### P0 — also missing
+- **Great Stirrup Cay port page** does not exist on the site. Should be commissioned as part of the broader site, not just for this pack. Effort: M.
+- **Voyage Pack landing page** at `/voyage-packs.html` (the public listing where readers learn about and buy packs) — not yet built.
+- **Buy flow / payment integration** — Gumroad or Buy Me A Coffee Shop digital-product listing; pricing finalized; refund policy documented.
+
+### P1 — nice-to-have for v0.2
+- **PDF export** of the HTML version (WeasyPrint or wkhtmltopdf; ~30 min setup)
+- **Visual itinerary timeline** (8-day strip with port icons) — currently the day-by-day section reads as flat text
+- **Port quick-reference cards** moved to a sticky-on-mobile drawer
+- **Light / dark theme support** (the site has `color-scheme: light dark` declared but the pack's custom CSS should respect it)
+- **Audio version** (accessibility for low-vision veterans) — XL effort, defer to v0.3
+- **Buyer-name personalization** ("Welcome aboard, [name]" cover page) — defer to v0.3
+
+### P2 — process / governance
+- **Pack-update policy** when sailing-specific facts change (NCL itinerary changes, ship refurbishments, port closures). Currently there is no defined update workflow.
+- **Pack versioning convention** (currently using v0.1, v0.1.2; need to settle on semver-style or sail-date-tagged convention).
+- **Pack discoverability** — should packs be listed on `/articles.html` (probably no), `/voyage-packs.html` (yes once built), in the main nav (no for v0.2), in port-page sidebars (yes — soft promotion)?
+
+## Image sourcing — recommended workflow
+
+When sourcing Wikimedia Commons images:
+
+1. **Find the file** at `commons.wikimedia.org` (use `Special:MediaSearch` for a port name)
+2. **Verify license** — accept CC0, PD, CC-BY, CC-BY-SA. Reject any image with `non-commercial` or `no-derivatives` clauses
+3. **Download** the file (use the original-resolution link from the file page; for the pack a 1280px-wide thumbnail is sufficient)
+4. **Place** in the appropriate `assets/` subfolder
+5. **Write attribution file** following the existing pattern at `assets/ships/symphony-of-the-seas-wiki-attributions.json`:
+   - filename, path, source, sourceUrl, artist, license, licenseUrl, originalTitle, description, dimensions
+6. **Commit** with message format: `assets: add port/ship hero image (Wikimedia, CC-BY-SA 4.0)`
+
+For NCL Aqua specifically, this is a single-file change. For broader port-image rollout (28+ ports referenced across both prototype packs so far), this is a more substantial workstream — consider a Phase B sub-project.
+
 ## Status
 
-- **v0.1 prototype**: complete, hand-crafted, ~10K words ✓
-- **Decision required**: review prototype, approve / iterate / reject
+- **v0.1 prototype** (Symphony Western Caribbean, generic): complete, hand-crafted, ~10K words ✓
+- **v0.1.2 prototype** (NCL Aqua Veterans Solo Group, hosted): complete, Markdown + HTML, with floating TOC, Swiper carousel, port snapshot cards, Tina bio block ✓
+- **Hero image sourced**: Norwegian Aqua via Wikimedia Commons (CC BY-SA 4.0), referenced via direct URL in HTML; production should self-host
+- **Decision required**: review prototype, approve / iterate / reject the audience-tailored pack pattern
 - **Next step**: pending your call
 
 Soli Deo Gloria.
