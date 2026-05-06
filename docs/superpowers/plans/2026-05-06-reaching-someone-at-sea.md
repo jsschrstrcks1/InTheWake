@@ -639,11 +639,13 @@ Name: __________  Phone: __________  Relationship: __________
 
 ### Cruise-line numbers ({{CRUISE_LINE}})
 
-- **Ship-to-shore family contact** (this is the number a family member calls to reach someone onboard): {{SHIP_TO_SHORE_TOLLFREE}} from U.S./Canada · {{SHIP_TO_SHORE_INTL}} international
-- **Flight assistance hotline** (pre-cruise flight delays or rebooking): {{FLIGHT_HOTLINE}}
-- **Customer service main line**: {{CUSTOMER_SERVICE}}
+The State Department line above is the right call for a true at-sea emergency. The cruise-line numbers below are useful for non-emergency communication (relaying a non-urgent message to the ship, pre-cruise flight delays, billing or booking questions). Per the cruise line's own published documentation, **{{CRUISE_LINE}} does not publish a separate free 24/7 emergency family-contact desk** — the ship-phone numbers below are paid relays that connect a caller to the ship's onboard phone system.
 
-For in-port emergencies the ship's port agent is reachable through the cruise line's emergency desk; the agent's name and direct number for each port appear in the daily program once you board.
+- **Ship-phone relay (paid, non-emergency communication):** {{SHIP_TO_SHORE_LINE}}. Per {{CRUISE_LINE}}'s official FAQ, this requires a major credit card; per-minute rates apply. Use this for non-urgent messages, not for delivering crisis news. The State Department line is faster and free for true emergencies.
+- **Pre-cruise flight assistance (24/7):** {{FLIGHT_HOTLINE}}
+- **Customer service / general inquiries:** {{CUSTOMER_SERVICE}}
+
+For in-port emergencies the ship's port agent is reachable through the cruise line's customer-service desk; the agent's name and direct number for each port appear in the daily program once you board.
 
 ### U.S. embassies and consulates — this itinerary's ports
 
@@ -681,7 +683,9 @@ The placeholders this template uses (substituted in the next two tasks):
 - `{{SHIP_NAME}}` — e.g., `Norwegian Aqua`
 - `{{SAIL_DATE}}`, `{{DISEMBARK_DATE}}` — pre-filled where the pack already knows them; blank lines where it doesn't
 - `{{GROUP_HOST}}`, `{{GROUP_HOST_CONTACT}}` — only present in v0.1.2 (Tina); replace with empty fillable line in v0.1
-- `{{SHIP_TO_SHORE_TOLLFREE}}`, `{{SHIP_TO_SHORE_INTL}}`, `{{FLIGHT_HOTLINE}}`, `{{CUSTOMER_SERVICE}}` — line-specific verified numbers (NCL from commit `82739fcd`; RCL from Task 1)
+- `{{SHIP_TO_SHORE_LINE}}` — single combined string with the line's published ship-phone numbers and any paid-per-minute caveats (NCL: 1-888-627-4477 paid; RCL: 888-724-7447 / 321-953-9003 paid). Both lines publish only paid relays — there is no free emergency family-contact desk for either; the State Dept block above is the genuine emergency call.
+- `{{FLIGHT_HOTLINE}}` — line-specific (NCL 1-800-456-7179; RCL Air2Sea 844-278-9745)
+- `{{CUSTOMER_SERVICE}}` — line-specific; for RCL this is multi-line (general / reservations / international day-of-sailing)
 - `{{PER_PORT_BLOCK}}` — bulleted list of embassies for *that itinerary's ports only*
 - `{{GROUP_HOST_LINK_LINE}}` — `- For group-cruise coordination, contact [Host Name](contact).` in v0.1.2; omitted in v0.1
 
@@ -707,8 +711,7 @@ No commit yet — content is committed when applied to a pack in Task 7 or Task 
 | `{{DISEMBARK_DATE}}` | `Sunday, December 19, 2027` |
 | `{{GROUP_HOST}}` | `Tina Maulsby, Maulsby Travel Co.` |
 | `{{GROUP_HOST_CONTACT}}` | `tina@maulsbytravel.com · 910-528-5077` |
-| `{{SHIP_TO_SHORE_TOLLFREE}}` | `+1-833-810-7963` |
-| `{{SHIP_TO_SHORE_INTL}}` | `+1-321-953-9006` |
+| `{{SHIP_TO_SHORE_LINE}}` | `**1-888-627-4477** from U.S./Canada (per [NCL's official FAQ](https://www.ncl.com/faq/how-do-you-contact-someone-cruise-ship)). International callers: confirm via your booking confirmation, as NCL does not publish a separate international ship-phone number on its primary FAQ. ⏳` |
 | `{{FLIGHT_HOTLINE}}` | `1-800-456-7179 (24/7 from U.S./Canada — flight delays before boarding only)` |
 | `{{CUSTOMER_SERVICE}}` | `1-866-234-7350 (Mon–Fri 9 AM – 5:30 PM ET; not for at-sea emergencies)` |
 | `{{GROUP_HOST_LINK_LINE}}` | `- For group-cruise coordination, contact [Tina Maulsby](mailto:tina@maulsbytravel.com).` |
@@ -846,12 +849,13 @@ Open `admin/voyage-packs/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.html`. App
   </ul>
 
   <h3>Cruise-line numbers (Norwegian Cruise Line)</h3>
+  <p>The State Department line above is the right call for a true at-sea emergency. The numbers below are useful for non-emergency communication. <strong>Per NCL's own FAQ, NCL does not publish a separate free 24/7 emergency family-contact desk</strong> — its ship-phone number is a paid relay that connects a caller to the ship's onboard phone system.</p>
   <ul>
-    <li><strong>Ship-to-shore family contact:</strong> +1-833-810-7963 from U.S./Canada · +1-321-953-9006 international</li>
-    <li><strong>Flight assistance hotline:</strong> 1-800-456-7179 (24/7 from U.S./Canada — flight delays before boarding only)</li>
-    <li><strong>Customer service main line:</strong> 1-866-234-7350 (Mon–Fri 9 AM – 5:30 PM ET; not for at-sea emergencies)</li>
+    <li><strong>Ship-phone relay (paid, non-emergency communication):</strong> <strong>1-888-627-4477</strong> from U.S./Canada (per <a href="https://www.ncl.com/faq/how-do-you-contact-someone-cruise-ship">NCL's official FAQ</a> — "You will need to pay with a MasterCard, Visa, or American Express"; per-minute rate applies). International callers: confirm via your booking confirmation. Use this for non-urgent messages, not for delivering crisis news.</li>
+    <li><strong>Pre-cruise flight assistance (24/7):</strong> 1-800-456-7179</li>
+    <li><strong>Customer service / general inquiries:</strong> 1-866-234-7350 (Mon–Fri 9 AM – 5:30 PM ET; not for at-sea emergencies)</li>
   </ul>
-  <p>For in-port emergencies the ship's port agent is reachable through the cruise line's emergency desk; the agent's name and direct number for each port appear in the daily program once you board.</p>
+  <p>For in-port emergencies the ship's port agent is reachable through the cruise line's customer-service desk; the agent's name and direct number for each port appear in the daily program once you board.</p>
 
   <h3>U.S. embassies and consulates — this itinerary's ports</h3>
   <ul>
@@ -954,10 +958,9 @@ https://claude.ai/code/session_01MWXayHqZQR6BpFfzsbJKTb"
 | `{{DISEMBARK_DATE}}` | (left blank) |
 | `{{GROUP_HOST}}` | (omit; this isn't a hosted group cruise) |
 | `{{GROUP_HOST_CONTACT}}` | (omit) |
-| `{{SHIP_TO_SHORE_TOLLFREE}}` | from Task 1 RCL verification |
-| `{{SHIP_TO_SHORE_INTL}}` | from Task 1 |
-| `{{FLIGHT_HOTLINE}}` | from Task 1 (Air2Sea) |
-| `{{CUSTOMER_SERVICE}}` | from Task 1 |
+| `{{SHIP_TO_SHORE_LINE}}` | `**(888) 724-7447** from U.S. · **(321) 953-9003** international (per [Royal Caribbean's official FAQ](https://www.royalcaribbean.com/faq/questions/onboard-phone-call-services)). $7.95 USD/min, billed to MasterCard or Visa; international additionally accrues long-distance charges.` |
+| `{{FLIGHT_HOTLINE}}` | `844-278-9745 (24/7 from U.S./Canada — Air2Sea flight assistance)` |
+| `{{CUSTOMER_SERVICE}}` | `800-256-6649 (general customer service / 24/7 day-of-sailing) · 866-562-7625 (reservations, Mon–Sun 7 AM – 2 AM ET) · 305-539-4107 (international day-of-sailing)` |
 | `{{GROUP_HOST_LINK_LINE}}` | (omit) |
 
 For the handoff-card lines `{{SAIL_DATE}}` and `{{DISEMBARK_DATE}}`, replace with blank fillable lines (`Sailing date: ______________________`).
