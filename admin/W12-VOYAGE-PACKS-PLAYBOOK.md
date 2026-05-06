@@ -109,6 +109,24 @@ These are non-negotiable per the v2.5 plan:
 4. **Refunds honored.** No-questions 30-day refund window.
 5. **No cruise-line affiliations within packs.** The same posture as the rest of the site.
 6. **Each pack is itinerary-specific, not a generic guide rebranded.** A Voyage Pack that's mostly the same as a free article is fraud. The pack must contain integration work that doesn't exist anywhere else on the site.
+7. **No medication-product affiliate links** anywhere in a Voyage Pack. The FTC vulnerable-consumer guidance applies. Educational coverage of medication options (drug names as text, mechanism of action, when to talk to a pharmacist) is fine and required; affiliate purchase links are not.
+
+## Required baseline sections (every Voyage Pack)
+
+The structure each pack should hit, regardless of audience tailoring:
+
+1. **Welcome** — calm framing, who the pack is for
+2. **At a Glance** — ship, dates, cabin pricing, ports of call
+3. **Your Ship** — specific ship guide, cabin advice for THIS ship, dining, drinks, connectivity
+4. **Day by Day** — embarkation through disembarkation, with port choices (easy / half / full)
+5. **Pre-Cruise Countdown** — calibrated to actual sailing date
+6. **Packing List** — calibrated to climate, ports, formal nights
+7. **Budget Breakdown** — itemized realistic mid-range figure + how to spend less / more
+8. **Seasickness** — added as baseline after v0.1.2 review identified the gap. Required because (a) every Caribbean / open-ocean cruise has seas, (b) some readers have vestibular issues that compound with motion, (c) FTC vulnerable-consumer rule rules out affiliate-link pages but readers still need the content. The section is editorial only — drug names as text, prevention timing, what works, when to talk to a pharmacist
+9. **Audience-specific sections** — these vary by pack: accessibility, solo traveler, first cruiser, veterans, group cruise, family, etc. Pick what fits the audience.
+10. **Closing** — brief, calm, brand voice
+
+The seasickness gap (v0.1 + v0.1.2 both shipped without it) is documented in case future writing assistants make the same mistake — the FTC guidance correctly steers away from product affiliate links but should not steer the topic out of the document entirely.
 
 ## What to do next
 
