@@ -57,6 +57,9 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.500"/>
+  <link rel="stylesheet" href="/assets/css/handoff-card.css"/>
+  <link rel="stylesheet" href="/assets/css/handoff-card-print.css"/>
+  <meta name="vp-filename-base" content="inthewake-norwegian-aqua-2027-12-12"/>
 
   <!-- Swiper (same CDN as ship pages) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
@@ -717,9 +720,108 @@
           <p><strong>More:</strong> Balcony cabin instead of Studio, multiple specialty restaurants per night, day-passes to all-inclusive resorts at ports (Jamaica especially), cabana at Great Stirrup Cay, casino time, Premium Plus drink package.</p>
         </section>
 
-        <!-- ====== SECTION 6: SEASICKNESS ====== -->
+        <!-- ====== SECTION 6: EMERGENCY CONTACTS ====== -->
+        <section id="emergency-contacts" class="card">
+          <h2>6 · Emergency Contacts</h2>
+          <p>If you're reading this in a crisis, the numbers below are the right calls in priority order. Skip to the bold State Department line below if you don't know where to start. If you're the cruiser preparing for the trip, fill in the handoff card and share it with one trusted person ashore before sailing. Numbers verified 2026-05-06; cruise-line numbers occasionally change with promotional cycles — confirm yours on your booking confirmation.</p>
+
+          <div class="offline-banner">
+            <strong>This page is part of In the Wake's offline-capable PWA.</strong>
+            After your first visit, it works without Wi-Fi — even at sea, in port, or anywhere your family member loses signal.
+          </div>
+
+          <h3>The family handoff card</h3>
+          <div class="handoff-card" data-storage-key="inthewake-handoff-v0.1.2">
+            <p class="card-intro">Fill in before sailing. Share with one trusted person ashore.</p>
+            <p class="card-privacy">Privacy note: passport number and date of birth are sensitive — share with someone you fully trust, and don't email this card unencrypted.</p>
+
+            <div class="card-row"><label for="hc-name">Cruiser's full legal name (as on passport):</label><input type="text" id="hc-name" name="legal_name"/></div>
+            <div class="card-row"><label for="hc-dob">Date of birth:</label><input type="text" id="hc-dob" name="dob"/></div>
+            <div class="card-row"><label for="hc-passport">Passport number:</label><input type="text" id="hc-passport" name="passport"/></div>
+            <div class="card-row"><label for="hc-mobile">Cruiser's mobile (Wi-Fi calling at sea):</label><input type="text" id="hc-mobile" name="mobile"/></div>
+
+            <div class="card-row"><label>Cruise line:</label><span>Norwegian Cruise Line (NCL)</span></div>
+            <div class="card-row"><label>Ship name:</label><span>Norwegian Aqua</span></div>
+            <div class="card-row"><label>Sailing date:</label><span>Sunday, December 12, 2027</span></div>
+            <div class="card-row"><label>Disembark date:</label><span>Sunday, December 19, 2027</span></div>
+            <div class="card-row"><label for="hc-booking">Booking / reservation number:</label><input type="text" id="hc-booking" name="booking"/></div>
+            <div class="card-row"><label for="hc-cabin">Stateroom / cabin number:</label><input type="text" id="hc-cabin" name="cabin"/></div>
+
+            <div class="card-row"><label for="hc-ins-co">Travel insurance company:</label><input type="text" id="hc-ins-co" name="ins_company"/></div>
+            <div class="card-row"><label for="hc-ins-policy">Policy number:</label><input type="text" id="hc-ins-policy" name="ins_policy"/></div>
+            <div class="card-row"><label for="hc-ins-phone">24-hour assistance line:</label><input type="text" id="hc-ins-phone" name="ins_phone"/></div>
+
+            <div class="card-row"><label>Group host:</label><span>Tina Maulsby, Maulsby Travel Co.</span></div>
+            <div class="card-row"><label>Group host contact:</label><span>tina@maulsbytravel.com · 910-528-5077</span></div>
+
+            <div class="card-row"><label for="hc-flt-out">Outbound flight (airline + number + date):</label><input type="text" id="hc-flt-out" name="flight_out"/></div>
+            <div class="card-row"><label for="hc-flt-ret">Return flight (airline + number + date):</label><input type="text" id="hc-flt-ret" name="flight_ret"/></div>
+
+            <div class="card-row"><label for="hc-medical">Medical info to share if needed:</label><input type="text" id="hc-medical" name="medical"/></div>
+
+            <div class="card-row"><label for="hc-trusted-name">Trusted contact at home — name:</label><input type="text" id="hc-trusted-name" name="trusted_name"/></div>
+            <div class="card-row"><label for="hc-trusted-phone">Trusted contact — phone:</label><input type="text" id="hc-trusted-phone" name="trusted_phone"/></div>
+            <div class="card-row"><label for="hc-trusted-rel">Trusted contact — relationship:</label><input type="text" id="hc-trusted-rel" name="trusted_rel"/></div>
+
+            <div class="card-actions">
+              <button type="button" data-print-scope="emergency-only">Print: just emergency contacts</button>
+              <button type="button" data-print-scope="entire-pack">Print: the entire pack</button>
+              <button type="button" data-pdf-scope="emergency-only">Download PDF: just emergency contacts</button>
+              <button type="button" data-pdf-scope="entire-pack">Download PDF: the entire pack</button>
+              <button type="button" class="clear">Clear card</button>
+            </div>
+          </div>
+
+          <h3 class="universal-247">Universal 24/7 line — the right call when in doubt</h3>
+          <p class="universal-247"><strong>U.S. State Department, Overseas Citizens Services</strong></p>
+          <ul class="universal-247">
+            <li>From the U.S. or Canada: <strong>+1-888-407-4747</strong></li>
+            <li>From abroad: <strong>+1-202-501-4444</strong></li>
+            <li>Available 24 hours a day, every day. They can locate the ship, contact the cruise line on the family's behalf, and coordinate consular services if the situation is in port.</li>
+          </ul>
+
+          <h3>Cruise-line numbers (Norwegian Cruise Line)</h3>
+          <p>The State Department line above is the right call for a true at-sea emergency. The numbers below are useful for non-emergency communication. <strong>Per NCL's own FAQ, NCL does not publish a separate free 24/7 emergency family-contact desk</strong> — its ship-phone number is a paid relay that connects a caller to the ship's onboard phone system.</p>
+          <ul>
+            <li><strong>Ship-phone relay (paid, non-emergency communication):</strong> <strong>1-888-627-4477</strong> from U.S./Canada (per <a href="https://www.ncl.com/faq/how-do-you-contact-someone-cruise-ship">NCL's official FAQ</a> — "You will need to pay with a MasterCard, Visa, or American Express"; per-minute rate applies). International callers: confirm via your booking confirmation. Use this for non-urgent messages, not for delivering crisis news.</li>
+            <li><strong>Pre-cruise flight assistance (24/7):</strong> 1-800-456-7179</li>
+            <li><strong>Customer service / general inquiries:</strong> 1-866-234-7350 (Mon–Fri 9 AM – 5:30 PM ET; not for at-sea emergencies)</li>
+          </ul>
+          <p>For in-port emergencies the ship's port agent is reachable through the cruise line's customer-service desk; the agent's name and direct number for each port appear in the daily program once you board.</p>
+
+          <h3>U.S. embassies and consulates — this itinerary's ports</h3>
+          <ul>
+            <li><strong>Bahamas (U.S. Embassy, Nassau)</strong> — Great Stirrup Cay falls under Bahamian jurisdiction.<br/>+1-242-461-5025 (24/7; press option 1 for emergencies). Address: 235 Shirley Street, Nassau.</li>
+            <li><strong>Jamaica (U.S. Embassy, Kingston)</strong> — for Ocho Rios.<br/>+1-876-702-6000 (24/7 for U.S.-citizen emergencies). Address: 142 Old Hope Road, Kingston 6.</li>
+            <li><strong>Cayman Islands (U.S. Consular Agency, George Town):</strong> +1-345-747-8172 (Mon–Fri 8 AM – 2 PM). After-hours: routes through U.S. Embassy Kingston at +1-876-702-6000.</li>
+            <li><strong>Mexico (U.S. Consulate General, Mérida)</strong> — covers Cozumel. +52-999-689-0660 from Mexico, or 011-52-999-689-0660 from the U.S.</li>
+          </ul>
+
+          <h3>What each authority will need from you</h3>
+          <p><strong>Calling the State Department:</strong> ship name, sailing date, full legal name of the person aboard, your name, your relationship to them, what you know about the situation.</p>
+          <p><strong>Calling the cruise line ship-phone:</strong> booking number, ship name, sailing date, full legal name of the person aboard, cabin number if assigned, your name, your relationship.</p>
+          <p><strong>Calling an embassy or consulate from a port:</strong> your full name, passport number if you're abroad, where you are physically right now, what you need, whether anyone is hurt.</p>
+
+          <h3>Decision tree — which call do I make?</h3>
+          <ul>
+            <li><strong>Medical emergency at sea</strong> → State Department first; they coordinate with the cruise line.</li>
+            <li><strong>Missing person at sea</strong> → State Department; the Cruise Vessel Security and Safety Act of 2010 requires the cruise line to log incidents and report to the FBI.</li>
+            <li><strong>Port-side emergency</strong> → local emergency services first; embassy/consulate second; State Department third.</li>
+            <li><strong>Pre-cruise flight delay</strong> → the cruise line's flight assistance hotline above.</li>
+            <li><em>Don't call 911 — it can't reach a ship in international waters.</em></li>
+            <li><em>Don't call the cruise line's general booking line — it routes to sales, not emergencies.</em></li>
+          </ul>
+
+          <h3>Where to go next</h3>
+          <ul>
+            <li>For the deeper systems explanation, see <a href="/reaching-someone-at-sea.html">/reaching-someone-at-sea.html</a>.</li>
+            <li>For group-cruise coordination, contact <a href="mailto:tina@maulsbytravel.com">Tina Maulsby</a>.</li>
+          </ul>
+        </section>
+
+        <!-- ====== SECTION 7: SEASICKNESS ====== -->
         <section id="seasickness">
-          <h2>6 · Seasickness on a Caribbean Cruise</h2>
+          <h2>7 · Seasickness on a Caribbean Cruise</h2>
 
           <p>Seasickness is the question most cruisers ask before their first sailing and the topic most cruisers underplan for after. The Caribbean in December is generally calm — trade winds are steady, hurricane season is past — but Aqua is on open ocean for several days of this trip, and a 7-night sailing will produce some hours of swell that you'll feel.</p>
 
@@ -788,7 +890,7 @@
 
         <!-- ====== SECTION 7: PRACTICAL LOGISTICS ====== -->
         <section id="logistics">
-          <h2>7 · Practical Logistics</h2>
+          <h2>8 · Practical Logistics</h2>
 
           <p>The everyday details that no one mentions until they bite. Skim this section once now and once again two weeks before sailing. The detail here is deliberately heavier than in the rest of the pack — these are the questions that, when unanswered, become real problems at the worst possible moments.</p>
 
@@ -883,14 +985,7 @@
             <li><strong>Bring your passport in port, not in your cabin safe.</strong> If you miss the ship, you cannot fly internationally without a passport. Birth certificate plus photo ID is not enough for the airlines.</li>
             <li><strong>Time zones — read the Freestyle Daily before each port.</strong> Aqua keeps "ship time" — usually U.S. Eastern Time on a Caribbean run from Port Canaveral. Two notes that surprise people: (a) <strong>Cozumel is in Mexico's Quintana Roo state, which observes Eastern Standard Time year-round (UTC−5) and never changes for daylight saving</strong> — so during U.S. EDT months the local clock is one hour <em>behind</em> ship time, and during EST months they match. (b) Bahamas observes Eastern Time with daylight saving, matching U.S. East Coast year-round; Jamaica is on Eastern Standard Time year-round (no DST); Cayman Islands is on Eastern Standard Time year-round (no DST). Aqua may stay on ship time even when docked; the only clock that matters for re-boarding is ship time.</li>
           </ol>
-          <p><strong>If your situation is more serious than "missed the ship"</strong> — illness in port that requires hospitalization, lost passport with no way to fly, criminal incident — the U.S. Embassy or Consulate in each country handles emergency assistance. Phone numbers (save in your phone before sailing):</p>
-          <ul>
-            <li><strong>Bahamas (U.S. Embassy, Nassau):</strong> +1-242-461-5025 (24/7 — option 1 for emergencies). Address: 235 Shirley Street, Nassau.</li>
-            <li><strong>Jamaica (U.S. Embassy, Kingston):</strong> +1-876-702-6000 (24/7 for U.S.-citizen emergencies). Address: 142 Old Hope Road, Kingston 6.</li>
-            <li><strong>Cayman Islands (U.S. Consular Agency, George Town):</strong> +1-345-747-8172 during business hours (Mon–Fri, 8 AM – 2 PM). After-hours emergencies route through the U.S. Embassy in Kingston, Jamaica at +1-876-702-6000.</li>
-            <li><strong>Mexico (U.S. Consulate General, Mérida, for Cozumel):</strong> +52-999-689-0660 (from Mexico) or 011-52-999-689-0660 (from the U.S.). For cruise-port emergencies, the ship's port agent can also reach the consular agent quickly.</li>
-            <li><strong>From anywhere, 24/7:</strong> State Department Overseas Citizens Services +1-202-501-4444 (from abroad) / +1-888-407-4747 (from U.S./Canada).</li>
-          </ul>
+          <p><strong>If your situation is more serious than "missed the ship"</strong> — illness in port that requires hospitalization, lost passport with no way to fly, criminal incident — the U.S. Embassy or Consulate in each country handles emergency assistance. See <a href="#emergency-contacts">Section 6 — Emergency Contacts</a> for the full contact list and the family handoff card.</p>
 
           <h3 id="logistics-diet">Special diets, allergies, and religious dietary needs</h3>
           <p>Notify NCL at booking AND have Tina confirm the request was logged in your reservation. The ship's kitchen is genuinely capable of accommodating a wide range of dietary needs, but advance notice matters because some accommodations require purchasing or stocking before sailing.</p>
@@ -969,7 +1064,7 @@
 
         <!-- ====== SECTION 8: GROUP CRUISE RHYTHM ====== -->
         <section id="group">
-          <h2>8 · The Group Cruise Rhythm</h2>
+          <h2>9 · The Group Cruise Rhythm</h2>
 
           <h3>What "hosted" actually means</h3>
           <p>Tina, as group host, has organized the booking, will run several scheduled meetups during the sailing, will be available as a coordinator for shared concerns, and is the bridge between the group and NCL's own group services. She is <strong>not</strong> going to lead every activity, choreograph every dinner, or be on call 24/7. She's a facilitator, not a tour guide.</p>
@@ -1004,7 +1099,7 @@
 
         <!-- ====== SECTION 9: VETERANS CONSIDERATIONS ====== -->
         <section id="veterans">
-          <h2>9 · Veterans Considerations</h2>
+          <h2>10 · Veterans Considerations</h2>
 
           <h3>Practical: military discounts and group rates</h3>
           <p>NCL offers a year-round military discount; it's not always combinable with group rates. The group rate Tina negotiated may already incorporate the military discount, or may be a separate calculation. <strong>Confirm with Tina</strong> before assuming you'll get both.</p>
@@ -1054,7 +1149,7 @@
           <p><strong>Medical-power-of-attorney documentation.</strong> If your caregiver is going to make medical decisions for you in case of incapacity at sea, <strong>bring the paperwork</strong>. The ship's medical center will ask, and so will any shore-side hospital if a port-day incident requires hospitalization. The practical kit is: a notarized durable Power of Attorney for Healthcare, the caregiver's photo ID, your VA primary care contact information, your medication list with prescribing doctors, and a one-page medical summary including any service-connected conditions. Keep a copy in your cabin safe and a copy in the caregiver's wallet. Email a copy to a trusted family member ashore as backup.</p>
           <p><strong>Insurance and incapacity.</strong> Travel insurance treats caregiver-related claims well — if the veteran becomes incapacitated and the caregiver needs to handle medical evacuation, repatriation, and trip-interruption logistics, the insurance covers both parties. Confirm this when buying the policy: most reputable insurers cover the named travel companion automatically, but verify.</p>
           <p><strong>Group activities and the caregiver's experience.</strong> Tina won't treat the caregiver as a guest who's "just there for support" — they're a full group member, with their own dinner seat at hosted events, their own welcome packet, their own opportunity to befriend the group. The caregiver shouldn't expect to spend the whole week in invisible support mode. Several caregivers on hosted veterans cruises have reported the trip is the first vacation they've been able to actually rest on — because the structured group rhythm reduces the daily decision-making load that caregiving normally requires.</p>
-          <p><strong>Accessibility coordination on the ship.</strong> The caregiver's role on a cruise often expands to include managing accessibility logistics: confirming cabin features work, scoping out elevator routes, checking gangway access at each port, evaluating shore excursion accommodations. Do this homework BEFORE sailing rather than at sea — see Section 7's special-diets/accessibility subsection AND the broader <a href="/disability-at-sea.html">/disability-at-sea.html</a> guide. The caregiver may also benefit from reading <a href="/solo/articles/accessible-cruising.html">Tina's accessible cruising article</a>, even though it's framed for solo cruisers; the practical content applies to caregivers too.</p>
+          <p><strong>Accessibility coordination on the ship.</strong> The caregiver's role on a cruise often expands to include managing accessibility logistics: confirming cabin features work, scoping out elevator routes, checking gangway access at each port, evaluating shore excursion accommodations. Do this homework BEFORE sailing rather than at sea — see Section 8's special-diets/accessibility subsection AND the broader <a href="/disability-at-sea.html">/disability-at-sea.html</a> guide. The caregiver may also benefit from reading <a href="/solo/articles/accessible-cruising.html">Tina's accessible cruising article</a>, even though it's framed for solo cruisers; the practical content applies to caregivers too.</p>
           <p><strong>Respite for the caregiver.</strong> Plan one time-off block for the caregiver during the week — a spa morning, a quiet sunset hour at the Observation Lounge, a port-day excursion the veteran skips so the caregiver can do something solo. Caregiver burnout is real and a 7-night cruise can either compound it or relieve it. Tina can help coordinate; another group member often welcomes the chance to spend a meal with the veteran while the caregiver gets a break.</p>
           <p><strong>A note for paid caregivers.</strong> If you're traveling with a hired caregiver rather than a family member, mention this at booking. Some travel insurance treats paid caregivers differently (cabin shared with caregiver vs separate cabin); the cabin pricing also differs. Tipping for paid caregivers follows their employment contract, not cruise tipping conventions — discuss before sailing.</p>
 
@@ -1065,7 +1160,7 @@
 
         <!-- ====== SECTION 10: SOLO DEEP-DIVE ====== -->
         <section id="solo">
-          <h2>10 · Solo Cruising Deep-Dive</h2>
+          <h2>11 · Solo Cruising Deep-Dive</h2>
 
           <h3>The cabin question — solo specifics</h3>
           <p>NCL's <strong>Studio cabin</strong> is genuinely the best deal in solo cruising. ~$1,799 for a 7-night Caribbean is competitive with ANY solo travel option. The single supplement that other cruise lines charge (typically 175–200% of double occupancy) does not apply to NCL Studios.</p>
@@ -1187,8 +1282,9 @@
           <li><a href="#countdown">3 · Pre-Cruise Countdown</a></li>
           <li><a href="#packing">4 · Packing List</a></li>
           <li><a href="#budget">5 · Budget</a></li>
-          <li><a href="#seasickness">6 · Seasickness</a></li>
-          <li><a href="#logistics">7 · Practical Logistics</a></li>
+          <li><a href="#emergency-contacts">6 · Emergency Contacts</a></li>
+          <li><a href="#seasickness">7 · Seasickness</a></li>
+          <li><a href="#logistics">8 · Practical Logistics</a></li>
           <li class="sub"><a href="#logistics-documents">Travel documents</a></li>
           <li class="sub"><a href="#logistics-insurance">Travel insurance</a></li>
           <li class="sub"><a href="#logistics-money">Onboard money</a></li>
@@ -1200,11 +1296,11 @@
           <li class="sub"><a href="#logistics-photo">Photography &amp; privacy</a></li>
           <li class="sub"><a href="#logistics-faith">Faith resources</a></li>
           <li class="sub"><a href="#logistics-post-cruise">Post-cruise</a></li>
-          <li><a href="#group">8 · Group Cruise Rhythm</a></li>
-          <li><a href="#veterans">9 · Veterans Considerations</a></li>
+          <li><a href="#group">9 · Group Cruise Rhythm</a></li>
+          <li><a href="#veterans">10 · Veterans Considerations</a></li>
           <li class="sub"><a href="#vets-service-animals">Service animals</a></li>
           <li class="sub"><a href="#vets-caregivers">Caregivers</a></li>
-          <li><a href="#solo">10 · Solo Cruising Deep-Dive</a></li>
+          <li><a href="#solo">11 · Solo Cruising Deep-Dive</a></li>
           <li class="sub"><a href="#solo-safety">Solo safety</a></li>
           <li><a href="#closing">Closing</a></li>
         </ol>
@@ -1273,5 +1369,8 @@
     setTimeout(initVoyagePackVideos, 200);
   }
   </script>
+
+  <script src="/assets/js/handoff-card.js" defer></script>
+  <script src="/assets/js/pdf-download.js" defer></script>
 </body>
 </html>
