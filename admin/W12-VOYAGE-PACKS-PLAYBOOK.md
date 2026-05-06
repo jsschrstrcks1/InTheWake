@@ -113,7 +113,7 @@ These are non-negotiable per the v2.5 plan:
 
 ## Required baseline sections (every Voyage Pack)
 
-The structure each pack should hit, regardless of audience tailoring:
+After the multi-LLM gap review (orchestra-style: GPT + Gemini + Grok in parallel), the baseline expanded. The structure each pack should hit, regardless of audience tailoring:
 
 1. **Welcome** — calm framing, who the pack is for
 2. **At a Glance** — ship, dates, cabin pricing, ports of call
@@ -122,11 +122,26 @@ The structure each pack should hit, regardless of audience tailoring:
 5. **Pre-Cruise Countdown** — calibrated to actual sailing date
 6. **Packing List** — calibrated to climate, ports, formal nights
 7. **Budget Breakdown** — itemized realistic mid-range figure + how to spend less / more
-8. **Seasickness** — added as baseline after v0.1.2 review identified the gap. Required because (a) every Caribbean / open-ocean cruise has seas, (b) some readers have vestibular issues that compound with motion, (c) FTC vulnerable-consumer rule rules out affiliate-link pages but readers still need the content. The section is editorial only — drug names as text, prevention timing, what works, when to talk to a pharmacist
-9. **Audience-specific sections** — these vary by pack: accessibility, solo traveler, first cruiser, veterans, group cruise, family, etc. Pick what fits the audience.
-10. **Closing** — brief, calm, brand voice
+8. **Seasickness** — added after v0.1.2 review identified the gap. Editorial only — drug names as text, prevention timing, what works, when to talk to a pharmacist
+9. **Practical Logistics** (NEW after gap review) — required subsections: travel documents (passport rules, REAL ID, name match, kids), travel insurance (medical, evacuation, CFAR), onboard money / cashless system, tipping etiquette beyond auto-grat, port-day safety + missed-ship protocol, special diets / allergies / religious dietary, laundry, lost & found, photography & privacy, faith resources, post-cruise (refunds + the cruise blues)
+10. **Audience-specific sections** — these vary by pack: accessibility, solo traveler, first cruiser, veterans, group cruise, family, etc. Pick what fits the audience. For Veterans packs, REQUIRED subsections include: military discounts, TSA Cares, PTSD/anxiety, mobility, mental health, **service animals (PSDs)** [NEW after gap review], **caregivers traveling with veterans** [NEW after gap review]. For Solo packs, REQUIRED subsections include: Studio cabin discussion, where to find people, **solo safety (cabin + onboard)** [NEW after gap review].
+11. **Closing** — brief, calm, brand voice. **Required: family/multi-gen note** [NEW after gap review] for any pack tailored to a single audience persona, acknowledging that travelers outside the main persona may also use the pack and connecting them to the appropriate accommodations.
 
-The seasickness gap (v0.1 + v0.1.2 both shipped without it) is documented in case future writing assistants make the same mistake — the FTC guidance correctly steers away from product affiliate links but should not steer the topic out of the document entirely.
+## Gap review process (record from v0.1 + v0.1.2)
+
+After v0.1.2 shipped, the user asked: "Do we address the question of seasickness at all in there?" The answer was no — neither pack covered it.
+
+To find other gaps, ran a 3-way LLM gap analysis (orchestra-style fan-out):
+
+- **GPT-4o (critique role):** returned 17 gaps. Strongest: passport, insurance, port safety, missed ship, debarkation customs, service animals, prescription continuity, special diets, tipping etiquette, faith resources, caregiver support, post-cruise blues
+- **Gemini 2.5 Flash (critique role):** returned 7 gaps before output truncation. Strongest: travel documents, insurance, embarkation logistics, port-day safety, debarkation, onboard finances, special needs
+- **Grok 3 (challenge role):** returned 18 gaps including two unique ones — **family/multi-gen needs** (some veterans bring grandchildren) and **refund/dispute guidance** (post-cruise billing). Also raised useful risk: "Adding 18 new content areas risks overwhelming the document length and clashing with the no-urgency tone"
+
+Three-way convergence on 12+ overlapping gaps gave high confidence. Folded into v0.1 + v0.1.2 packs as Section 7 (Practical Logistics) plus targeted subsections in Veterans and Solo. Total addition: ~3,000 words to v0.1.2, ~2,500 to v0.1.
+
+Grok's risk note ("dilution of calm voice") was honored: the new Practical Logistics section uses crisp 1-paragraph subsections rather than expanding each gap into its own section. Scam-awareness content in port-day safety is framed protectively ("not to fear, just to be aware of") rather than alarmingly.
+
+The seasickness + practical-logistics + audience-subsection additions document the pattern for future packs: ship the lean v0.1 prototype first, then run a 3-LLM gap review, fold convergent gaps in as v0.1.x. This catches blind spots that a single author + LLM pass misses.
 
 ## What to do next
 
