@@ -139,7 +139,9 @@ To find other gaps, ran a 3-way LLM gap analysis (orchestra-style fan-out):
 
 Three-way convergence on 12+ overlapping gaps gave high confidence. Folded into v0.1 + v0.1.2 packs as Section 7 (Practical Logistics) plus targeted subsections in Veterans and Solo. Total addition: ~3,000 words to v0.1.2, ~2,500 to v0.1.
 
-Grok's risk note ("dilution of calm voice") was honored: the new Practical Logistics section uses crisp 1-paragraph subsections rather than expanding each gap into its own section. Scam-awareness content in port-day safety is framed protectively ("not to fear, just to be aware of") rather than alarmingly.
+Grok's risk note ("dilution of calm voice") was *initially* honored with crisp 1-paragraph subsections — but on user review this was reversed. **For a paid product, depth-per-dollar matters more than brevity.** The buyer has already committed; they want a comprehensive reference, not a tight skim. The Practical Logistics section was subsequently expanded to multi-paragraph subsections with concrete dollar amounts, real-world scenarios, specific protocols, and embedded cross-links. This expansion superseded the "crisp 1-paragraph" guidance for paid-product content.
+
+Scam-awareness content in port-day safety was kept framed protectively ("not to fear, just to be aware of") rather than alarmingly — the calm-voice principle still applies to *tone*, but not to *length*. Calm voice + comprehensive depth is the right combination for a paid planning document.
 
 The seasickness + practical-logistics + audience-subsection additions document the pattern for future packs: ship the lean v0.1 prototype first, then run a 3-LLM gap review, fold convergent gaps in as v0.1.x. This catches blind spots that a single author + LLM pass misses.
 
