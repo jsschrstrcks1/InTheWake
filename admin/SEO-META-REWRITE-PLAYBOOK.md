@@ -2,7 +2,7 @@
 
 **Plan reference:** v2.5 W7/W9 — meta-rewrite sprint targeting top zero-click queries from Bing Webmaster Tools.
 **Owner:** Ken
-**Last updated:** 2026-05-06
+**Last updated:** 2026-05-06 (W7/W9 sprint baselines logged)
 
 ---
 
@@ -115,10 +115,18 @@ Sometimes the BWT data shows a query landing on a page where the page genuinely 
 
 When a meta-rewrite is shipped, log it here with the BWT baseline so impact can be measured 30/60/90 days later:
 
-| Date | Page | Query | Pre-rewrite impressions / clicks / CTR | Post-rewrite (30d) | Post-rewrite (60d) | Post-rewrite (90d) |
+| Date | Page | Query | Pre-rewrite impressions / clicks / CTR / position | Post-rewrite (30d) | Post-rewrite (60d) | Post-rewrite (90d) |
 |---|---|---|---|---|---|---|
 | 2026-05-06 | `/ports/endicott-arm.html` | `endicott arm` | (BWT data needed) | | | |
 | 2026-05-06 | `/ships/rcl/majesty-of-the-seas.html` | `majesty seas` | (BWT data needed) | | | |
+| 2026-05-06 | `/drink-packages.html` | `cruise drink packages`, `royal caribbean drink package cost` | 7,800 imp / 78 clicks / 1.00% / pos 5.90 | | | |
+| 2026-05-06 | `/restaurants/casino.html` | `cruise ship casino`, `smoking on cruise casino` | 1,600 imp / 4 clicks / 0.26% / pos 6.51 | | | |
+| 2026-05-06 | `/ports/royal-beach-club-nassau.html` | `royal beach club nassau` | 851 imp / 10 clicks / 1.18% / pos 6.20 | | | |
+| 2026-05-06 | `/ships/rcl/enchantment-of-the-seas.html` | `enchantment of the seas`, `is enchantment of the seas still sailing` | 760 imp / 1 click / 0.13% / pos 7.41 | | | |
+| 2026-05-06 | `/ports/puerto-caldera.html` | `puerto caldera`, `puerto caldera costa rica cruise` | 671 imp / 3 clicks / 0.45% / pos 7.51 | | | |
+| 2026-05-06 | `/ships/rcl/radiance-of-the-seas.html` | `radiance of the seas` | 242 imp / 0 clicks / 0.00% / pos 7.20 | | | |
+| 2026-05-06 | `/ports/mystery-island.html` | `mystery island vanuatu`, `mystery island cruise port` | 307 imp / 3 clicks / 0.98% / pos 7.84 | | | |
+| 2026-05-06 | `/ports/cape-liberty.html` | `cape liberty cruise port`, `cape liberty bayonne new jersey` | 798 imp / 17 clicks / 2.13% / pos 5.27 | | | |
 
 Pull the BWT data for each query when the rewrite ships, so the 30/60/90-day comparisons measure something concrete.
 
