@@ -220,8 +220,85 @@ Soli Deo Gloria
           <div class="collapse-body">
             <div id="port-weather-widget" data-port-id="alexandria" data-port-name="Alexandria" data-lat="31.2001" data-lon="29.9187" data-region="Mediterranean">
           <noscript>
-            <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions, seasonal guide, and 48-hour forecast.</em></p>
-          </noscript>
+                        <div class="seasonal-guide seasonal-guide-static">
+                          <details class="seasonal-section" open>
+                            <summary class="seasonal-section-title">At a Glance</summary>
+                            <div class="seasonal-at-glance">
+                              <div class="seasonal-glance-grid">
+                                <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">50-88°F Mediterranean climate</span></div>
+                                <div class="seasonal-glance-item"><span class="glance-label">Humidity</span><span class="glance-value">Moderate; higher summer</span></div>
+                                <div class="seasonal-glance-item"><span class="glance-label">Rain</span><span class="glance-value">Winter rain (Dec-Feb); dry summers</span></div>
+                                <div class="seasonal-glance-item"><span class="glance-label">Wind</span><span class="glance-value">Can be strong along the Corniche</span></div>
+                                <div class="seasonal-glance-item"><span class="glance-label">Daylight</span><span class="glance-value">10-14 hours seasonal</span></div>
+                              </div>
+                            </div>
+                          </details>
+          
+                          <details class="seasonal-section" open>
+                            <summary class="seasonal-section-title">Best Time to Visit</summary>
+                            <div class="seasonal-best-time">
+                              <div class="cruise-seasons-grid">
+                                <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">Mar, Apr, May, Oct, Nov</span></div>
+                                <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">Jun, Sep, Dec</span></div>
+                                <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">Jul, Aug, Jan, Feb</span></div>
+                              </div>
+                              <div class="best-months-activities">
+                                <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">Jun, Jul, Aug, Sep</span></div>
+                                <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">N/A</span></div>
+                                <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">N/A</span></div>
+                                <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">Oct, Nov, Mar, Apr, May</span></div>
+                                <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">Jan, Feb</span></div>
+                              </div>
+                              <div class="months-to-avoid">
+                                <span class="avoid-label">Consider avoiding:</span>
+                                <span class="avoid-months">Jul, Aug</span>
+                              </div>
+                            </div>
+                          </details>
+          
+                          <details class="seasonal-section">
+                            <summary class="seasonal-section-title">What Catches Visitors Off Guard</summary>
+                            <div class="seasonal-catches">
+                              <ul class="catches-list">
+                                <li>The new Bibliotheca Alexandrina is air-conditioned and world-class</li>
+                                <li>Pompey's Pillar and Catacombs are open-air — pick cooler days</li>
+                                <li>Summer is hot and humid along the coast</li>
+                                <li>Winter can be surprisingly rainy and cool</li>
+                                <li>Egyptian cotton shopping is a unique opportunity</li>
+                              </ul>
+                            </div>
+                          </details>
+          
+                          <details class="seasonal-section">
+                            <summary class="seasonal-section-title">Packing Tips</summary>
+                            <div class="seasonal-packing">
+                              <ul class="packing-list">
+                                <li>Light layers for spring/fall</li>
+                                <li>Sunscreen and hat</li>
+                                <li>Comfortable walking shoes</li>
+                                <li>Light rain jacket for winter</li>
+                                <li>Modest clothing for mosque visits</li>
+                              </ul>
+                            </div>
+                          </details>
+          
+                          <details class="seasonal-section" open>
+                            <summary class="seasonal-section-title">Weather Hazards</summary>
+                            <div class="seasonal-hazards">
+                              <div class="hazard-warning">
+                                <span class="hazard-icon">⚠️</span>
+                                <div class="hazard-content">
+                                  <strong>Off-Season Weather</strong>
+                                  <p>Months to weigh carefully: Jul, Aug</p>
+                                  <p class="hazard-note">Conditions outside the cruise window can include disruptive weather; verify forecasts close to your sail date.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </details>
+          
+                          <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+                        </div>
+                      </noscript>
             </div>
           </div>
         </details>
@@ -451,7 +528,7 @@ Soli Deo Gloria
         <p class="answer-line"><strong>Quick Answer:</strong> Alexandria is Egypt's Mediterranean gateway to Cairo's pyramids (3 hours by road, $150–250 USD), the rebuilt Bibliotheca Alexandrina, and 2,300 years of Greco-Roman history — all reachable from the commercial cruise port via ship excursions or private guides.</p>
       </section>
       <section class="card" aria-labelledby="glance-heading">
-        <h3 id="glance-heading">At a Glance</h3>
+        <h3 id="glance-heading">Port Snapshot</h3>
         <div class="at-a-glance-grid">
           <div class="at-a-glance-item"><strong>Country</strong><span>Egypt</span></div>
           <div class="at-a-glance-item"><strong>Language</strong><span>Arabic / English</span></div>
@@ -528,7 +605,9 @@ Soli Deo Gloria
       <section class="card" aria-labelledby="recent-rail-title">
         <h3 id="recent-rail-title">Recent Stories</h3>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
+        <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
+        <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles...</p>
       </section>
       <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;"></section>
