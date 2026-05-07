@@ -67,20 +67,41 @@ function pickActivityMonths(port, label) {
   return 'N/A';
 }
 
+/**
+ * Render the hazard-warning block ONLY when the source JSON has truthful data.
+ *
+ * Two truthful sources, in priority order:
+ *   1. hurricane_zone === true → real hurricane warning with hurricane_season,
+ *      peak_risk_months, and (when present) hazards.note
+ *   2. hazards.note exists → render the curated note verbatim
+ *
+ * If neither: return empty string. The validator will then fail H001/H002
+ * on those pages (hazard-warning required) — that is the honest cost of not
+ * having curated hazard data, and it surfaces the gap so it can be filled
+ * by humans rather than papered over with template filler.
+ *
+ * NOTE: a prior version of this generator emitted a fabricated "Off-Season
+ * Weather" block when neither truthful source existed. That violated the
+ * careful-not-clever doctrine ("Never fabricate to satisfy a structural
+ * check") and shipped to 35 ports before being reverted.
+ */
 function renderHazard(port) {
   const h = port.hazards || {};
   if (h.hurricane_zone) {
-    const season = h.hurricane_season || 'Jun 1 – Nov 30';
+    const season = h.hurricane_season || '';
     const peak = Array.isArray(h.peak_risk_months) ? h.peak_risk_months.join(', ') : '';
-    const note = h.note || 'Travel insurance with weather-event coverage is recommended.';
+    const note = h.note || '';
+    const lines = [
+      `                        <strong>Hurricane Zone</strong>`,
+      season ? `                        <p>Season: ${escapeHTML(season)}</p>` : '',
+      peak ? `                        <p>Peak risk: ${escapeHTML(peak)}</p>` : '',
+      note ? `                        <p class="hazard-note">${escapeHTML(note)}</p>` : '',
+    ].filter(Boolean).join('\n');
     return `
                     <div class="hazard-warning">
                       <span class="hazard-icon">🌀</span>
                       <div class="hazard-content">
-                        <strong>Hurricane Zone</strong>
-                        <p>Season: ${escapeHTML(season)}</p>
-                        ${peak ? `<p>Peak risk: ${escapeHTML(peak)}</p>` : ''}
-                        <p class="hazard-note">${escapeHTML(note)}</p>
+${lines}
                       </div>
                     </div>`;
   }
@@ -94,29 +115,22 @@ function renderHazard(port) {
                       </div>
                     </div>`;
   }
-  // Fallback: derive from avoid_months
-  const avoid = joinMonths(port.avoid_months || []);
-  return `
-                    <div class="hazard-warning">
-                      <span class="hazard-icon">⚠️</span>
-                      <div class="hazard-content">
-                        <strong>Off-Season Weather</strong>
-                        <p>Months to weigh carefully: ${escapeHTML(avoid)}</p>
-                        <p class="hazard-note">Conditions outside the cruise window can include disruptive weather; verify forecasts close to your sail date.</p>
-                      </div>
-                    </div>`;
+  // Neither hurricane_zone nor a curated hazards.note. Emit nothing so the
+  // validator can flag the gap honestly, rather than silencing it with filler.
+  return '';
 }
 
 function renderSeasonalGuide(port) {
   const g = port.at_a_glance || {};
   const cs = port.cruise_seasons || { high: [], transitional: [], low: [] };
+  // Emit only what the JSON registry has. Do NOT pad to satisfy validator
+  // minimums — fabricating filler is the careful-not-clever violation
+  // ("Never fabricate to satisfy a structural check"). If a port has fewer
+  // than 3 catches or packing items the validator will fail CATCH_003 /
+  // PACK_003, which honestly surfaces the gap for human curation.
   const catches = (port.catches_off_guard || []).slice(0, 7);
   const packing = (port.packing_nudges || []).slice(0, 7);
   const avoid = joinMonths(port.avoid_months || []);
-
-  // Pad catches/packing to a minimum of 3 if the registry under-supplied
-  while (catches.length < 3) catches.push('Verify current conditions and ship return-to-pier deadlines on the day of arrival.');
-  while (packing.length < 3) packing.push('Check the weather forecast 48 hours before sail-in and adjust layers accordingly.');
 
   const activitiesHTML = ACTIVITY_LABELS.map(label => {
     const months = pickActivityMonths(port, label);
@@ -177,13 +191,17 @@ ${packingHTML}
                   </div>
                 </details>
 
-                <details class="seasonal-section" open>
+${(() => {
+  const hazardHTML = renderHazard(port);
+  if (!hazardHTML) return ''; // No truthful hazard data; omit the section entirely
+  return `                <details class="seasonal-section" open>
                   <summary class="seasonal-section-title">Weather Hazards</summary>
-                  <div class="seasonal-hazards">${renderHazard(port)}
+                  <div class="seasonal-hazards">${hazardHTML}
                   </div>
                 </details>
 
-                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
+`;
+})()}                <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
               </div>
             </noscript>`;
 }
@@ -230,7 +248,7 @@ function renameSidebarGlance(html) {
  * If no <noscript> exists inside the widget, insert one immediately after the
  * widget's opening tag.
  */
-function backfill(html, portSlug) {
+function backfill(html, portSlug, opts = {}) {
   const port = seasonalGuides[portSlug];
   if (!port) return { changed: false, reason: `port "${portSlug}" not in seasonal-guides.json` };
 
@@ -241,11 +259,13 @@ function backfill(html, portSlug) {
   const widgetStart = widgetMatch.index;
   const afterTag = widgetStart + widgetMatch[0].length;
 
-  // Look for an existing seasonal-guide already in the widget — if so, only the
-  // sidebar rename runs; the widget content is left alone.
+  // Look for an existing seasonal-guide already in the widget. By default
+  // we skip these (PR 2 idempotency); with --force we replace the existing
+  // <noscript> block too — needed for re-rendering after generator fixes
+  // (e.g., reverting fabricated hazard prose).
   const widgetSlice = html.substring(widgetStart, widgetStart + 10000);
   const widgetAlreadyHasGuide = /class="seasonal-guide/.test(widgetSlice);
-  if (widgetAlreadyHasGuide) {
+  if (widgetAlreadyHasGuide && !opts.force) {
     const { html: renamedHtml, renamed } = renameSidebarGlance(html);
     if (renamed > 0) return { changed: true, html: renamedHtml, reason: `sidebar At a Glance renamed (${renamed})` };
     return { changed: false, reason: 'widget already has class="seasonal-guide" (skip)' };
@@ -285,6 +305,7 @@ function backfill(html, portSlug) {
 function main() {
   const args = process.argv.slice(2);
   const apply = args.includes('--apply');
+  const force = args.includes('--force');
   const explicitFiles = args.filter(a => a.endsWith('.html'));
 
   let portFiles;
@@ -308,7 +329,7 @@ function main() {
     if ((bodyType || metaType || 'port') !== 'port') { nonPort++; continue; }
 
     const slug = path.basename(filePath, '.html');
-    const result = backfill(html, slug);
+    const result = backfill(html, slug, { force });
     const rel = path.relative(path.join(__dirname, '..'), filePath);
 
     if (!result.changed) {
