@@ -62,8 +62,10 @@ one attribution row.** Violations fall into one of four bands:
 
 | Band | What it means | Where it gets caught |
 |---|---|---|
+| ⛔ **SYMLINK** | A path under any image tree is a symlink. Symlinks point at someone else's image; that is reuse with extra steps and extra deniability. **Always blocked, no exceptions.** | Pre-commit `block`. |
 | 🔴 **CRITICAL** | The same bytes are used on pages in different sections (a ship photo passed off as a port photo), or different cruise lines (Westerdam ≡ Zuiderdam ≡ Star Princess), or in a legacy/root bucket with no resolvable owner. | Pre-commit `block`. Site-wide audit `--strict` exit-1. |
 | 🟠 **ERROR** | The same bytes are used for two different ships within the same line (e.g., Liberty-of-the-Seas's hero photo also serving as Radiance-of-the-Seas's). | Pre-commit `block`. Site-wide audit `--strict` exit-1. |
+| 🟣 **VISUAL-RECROP** | Two images are byte-different but visually near-identical (same photograph, recompressed / cropped / mirrored / recolored). Catches the trick md5 misses. | `admin/scan-image-recrops.cjs` audit. Cross-entity matches block CI. |
 | 🟡 **WARN** | The image filename does not contain a known slug for its section (e.g., `assets/ships/rcl/random-name.webp` — which ship?). | Pre-commit `warn` (allowed but flagged). |
 | ℹ️ **INFO** | Same bytes appear under multiple filenames within one entity's directory. Storage waste, not a lie. | Audit only. |
 
@@ -77,10 +79,12 @@ Re-run `node admin/scan-image-reuse.cjs` to refresh it.
 
 Before you create, edit, fetch, or reference an image:
 
-1. **The filename must contain the entity's slug.** `assets/ships/rcl/icon-of-the-seas-1.webp` is fine; `assets/ships/rcl/hero.webp` is not.
-2. **The bytes must be unique site-wide.** Run `node admin/scan-image-reuse.cjs` if you are unsure. If your image's MD5 matches anything in `audit-reports/image-reuse-registry.json` outside this entity, you do not have a new image; you have someone else's image.
-3. **Every committed image must have a row in `assets/data/atribution_registry.json`** with a matching `path`, `author`, `license`, and `credit_line`. No row, no commit.
-4. **Allowlisted sections** — `assets/brand/`, `assets/icons/`, `assets/social/` — may legitimately reuse imagery (a logo is a logo). Nothing else.
+1. **No symlinks in image trees, ever.** A symlink to another image is reuse with paperwork laundering. The pre-commit hook rejects them. The audit scanner names them ⛔ before any other classification runs.
+2. **The filename must contain the entity's slug.** `assets/ships/rcl/icon-of-the-seas-1.webp` is fine; `assets/ships/rcl/hero.webp` is not.
+3. **The bytes must be unique site-wide.** Run `node admin/scan-image-reuse.cjs` if you are unsure. If your image's MD5 matches anything in `audit-reports/image-reuse-registry.json` outside this entity, you do not have a new image; you have someone else's image.
+4. **The image must not be a visual recrop of an existing one.** `node admin/scan-image-recrops.cjs` runs dHash on every site image and flags pairs within Hamming-8 of each other. Recompressing / cropping / mirroring an existing photo to make a "new" image for a different entity defeats md5 but doesn't defeat dHash. We caught Costa Deliziosa being passed off as Celebrity Millennium this way. Don't be the next entry.
+5. **Every committed image must have a row in `assets/data/atribution_registry.json`** with a matching `path`, `author`, `license`, and `credit_line`. No row, no commit.
+6. **Allowlisted sections** — `assets/brand/`, `assets/icons/`, `assets/social/` — may legitimately reuse imagery (a logo is a logo). Nothing else.
 
 If you are tempted to break any of these because finding the right image is
 hard: stop. **Leaving a slot empty is honest. Filling it with the wrong image

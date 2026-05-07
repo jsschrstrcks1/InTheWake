@@ -75,10 +75,16 @@ function* walk(dir, { flat = false } = {}) {
   if (!fs.existsSync(dir)) return;
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
+    // Symlinks are NEVER followed and ALWAYS surfaced as findings. A symlink
+    // points at someone else's image; that is reuse with extra steps.
+    if (entry.isSymbolicLink()) {
+      yield { full, symlink: true };
+      continue;
+    }
     if (entry.isDirectory()) {
       if (!flat) yield* walk(full);
     } else if (entry.isFile() && IMG_RE.test(entry.name)) {
-      yield full;
+      yield { full, symlink: false };
     }
   }
 }
@@ -181,21 +187,29 @@ function main() {
   const byHash = new Map();
   let scanned = 0;
 
+  const symlinks = [];
+
   for (const tree of IMAGE_TREES) {
     const dir = path.join(REPO_ROOT, tree.dir);
     if (!fs.existsSync(dir)) continue;
-    for (const full of walk(dir, { flat: tree.flat })) {
-      const hash = md5(full);
-      const rel = relPath(full);
+    for (const item of walk(dir, { flat: tree.flat })) {
+      const rel = relPath(item.full);
+      if (item.symlink) {
+        let target = null;
+        try { target = fs.readlinkSync(item.full); } catch (_) {}
+        symlinks.push({ rel, target });
+        continue;
+      }
+      const hash = md5(item.full);
       const meta = classify(rel, knownSlugs);
       if (!byHash.has(hash)) byHash.set(hash, []);
       byHash.get(hash).push({ rel, ...meta, allowlisted: ALLOWLISTED_SECTIONS.has(meta.section) });
       scanned++;
     }
   }
-  console.log(`[image-reuse] hashed ${scanned} images, ${byHash.size} unique`);
+  console.log(`[image-reuse] hashed ${scanned} images, ${byHash.size} unique, ${symlinks.length} symlink(s)`);
 
-  const findings = { CRITICAL: [], ERROR: [], INFO: [], WARN_FILENAME: [] };
+  const findings = { CRITICAL: [], ERROR: [], INFO: [], WARN_FILENAME: [], SYMLINK: symlinks };
 
   for (const [hash, files] of byHash) {
     if (files.every(f => f.allowlisted)) continue; // brand / icon reuse is fine
@@ -250,6 +264,7 @@ function main() {
   lines.push(`**Unique image bytes:** ${byHash.size}`);
   lines.push(`**Storage waste:** ${scanned - byHash.size} duplicate file(s) on disk`);
   lines.push('');
+  lines.push(`**⛔ SYMLINKS (always blocking):** ${findings.SYMLINK.length}`);
   lines.push(`**🔴 CRITICAL findings:** ${findings.CRITICAL.length}`);
   lines.push(`**🟠 ERROR findings:** ${findings.ERROR.length}`);
   lines.push(`**🟡 WARN (filename does not match a slug):** ${findings.WARN_FILENAME.length}`);
@@ -273,6 +288,16 @@ function main() {
     }
   }
 
+  if (findings.SYMLINK.length > 0) {
+    lines.push(`## ⛔ SYMLINKS — always blocking (${findings.SYMLINK.length})`);
+    lines.push('');
+    lines.push('Symlinks point at someone else\'s image. They are reuse with extra steps and extra deniability. Every symlink in a site image tree must be replaced with either an actual file (with its own attribution row) or removed.');
+    lines.push('');
+    for (const s of findings.SYMLINK) {
+      lines.push(`- \`${s.rel}\` → \`${s.target ?? '<unreadable>'}\``);
+    }
+    lines.push('');
+  }
   renderGroup('🔴 CRITICAL', 'Cross-section / cross-line image reuse', findings.CRITICAL);
   renderGroup('🟠 ERROR', 'Same-section different-entity reuse', findings.ERROR);
   renderGroup('🟡 WARN', 'Filename does not match a known slug', findings.WARN_FILENAME.slice(0, 50));
@@ -287,7 +312,7 @@ function main() {
   console.log(`[image-reuse] CRITICAL: ${findings.CRITICAL.length}, ERROR: ${findings.ERROR.length}, WARN(filename): ${findings.WARN_FILENAME.length}, INFO: ${findings.INFO.length}`);
   console.log(`[image-reuse] wrote ${path.relative(REPO_ROOT, REPORT_OUT)}`);
 
-  if (findings.CRITICAL.length + findings.ERROR.length > 0) process.exit(1);
+  if (findings.SYMLINK.length + findings.CRITICAL.length + findings.ERROR.length > 0) process.exit(1);
 }
 
 main();

@@ -119,6 +119,17 @@ function checkOneImage(rel, registry) {
   if (isAllowlisted(rel)) return null;
   const abs = path.join(REPO_ROOT, rel);
   if (!fs.existsSync(abs)) return null;
+
+  // Symlinks are never accepted in image trees. lstat (not stat) — we want
+  // to know if THIS path is a symlink, not whether the target is a file.
+  let lst;
+  try { lst = fs.lstatSync(abs); } catch (_) { return null; }
+  if (lst.isSymbolicLink()) {
+    let target = null;
+    try { target = fs.readlinkSync(abs); } catch (_) {}
+    return { rel, hash: null, conflicts: [], symlink: true, symlinkTarget: target };
+  }
+
   const hash = md5(abs);
   const entries = registry.by_hash[hash] || [];
 
@@ -138,6 +149,12 @@ function checkOneImage(rel, registry) {
 
 function reportConflict(c) {
   console.error('');
+  if (c.symlink) {
+    console.error(`  ⛔  ${c.rel}`);
+    console.error(`      this is a SYMLINK → ${c.symlinkTarget ?? '<unreadable>'}`);
+    console.error(`      symlinks are not allowed in image trees. replace with a real file + attribution, or delete.`);
+    return;
+  }
   console.error(`  ✗  ${c.rel}`);
   console.error(`     md5 ${c.hash} already used elsewhere for a DIFFERENT entity:`);
   for (const x of c.conflicts) {
@@ -169,7 +186,8 @@ function main() {
   const conflicts = [];
   for (const rel of imageTargets) {
     const c = checkOneImage(rel, registry);
-    if (c) conflicts.push(c);
+    if (!c) continue;
+    if (c.symlink || c.conflicts.length > 0) conflicts.push(c);
   }
 
   if (conflicts.length === 0) {
