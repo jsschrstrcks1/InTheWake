@@ -326,7 +326,7 @@
     <!-- Photo Carousel -->
     <section class="card" aria-labelledby="photos-title">
       <h2 id="photos-title">Photo Gallery</h2>
-      <div class="swiper" id="photo-swiper" aria-label="Carnival Breeze photo gallery">
+      <div class="swiper firstlook" id="photo-swiper" aria-label="Carnival Breeze photo gallery">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <figure>
@@ -602,7 +602,7 @@ Dining Venues on Carnival Breeze <a href="/restaurants.html" class="section-labe
   <p>© <script>document.write(new Date().getFullYear())</script> In the Wake. All rights reserved.</p>
   <p class="mt-1"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/accessibility.html">Accessibility</a></p>
   <p class="hidden">Soli Deo Gloria</p>
-  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+  <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
@@ -835,7 +835,7 @@ document.addEventListener('DOMContentLoaded',function(){
         byCategory[cat].push(v);
       });
       const catOrder=['mdr','specialty','casual','bar'];
-      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
+      const catLabels={dining:'Dining',mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
       let html='';
       catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
         const arr=byCategory[cat]; if(!arr) return;

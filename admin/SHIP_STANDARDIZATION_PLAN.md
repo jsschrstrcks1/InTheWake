@@ -1,8 +1,13 @@
-# Ship-Page Standardization Master Plan
+# Ship-Page Standardization Master Plan (v2.0 — superseded)
+
+> **This plan is superseded by [`SHIP_STANDARDIZATION_PLAN_V3.md`](SHIP_STANDARDIZATION_PLAN_V3.md)
+> as of 2026-05-07.** Phases 0–2 in this file remain the historical record of
+> what shipped. Phases 3–5 are reorganized in v3 around outcome metrics, two
+> parallel tracks, and a Vehicle-schema canary. New work follows v3.
 
 **Origin plan:** `/root/.claude/plans/bucket-1-1-here-witty-graham.md`
 **Branch (current):** `claude/review-ship-validation-zR3qd` (PR #1436)
-**Last updated:** 2026-04-29
+**Last updated:** 2026-04-29 (v2.0); preserved unchanged below as historical record.
 
 This is the maintained, in-repo version of the approved plan. It tracks
 phase progress, links to runbooks, and points at the policy log for

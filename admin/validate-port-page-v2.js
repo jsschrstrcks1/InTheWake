@@ -1312,6 +1312,71 @@ function validateImages($) {
 }
 
 /**
+ * Validate that no image src is reused multiple times within the same page.
+ * Mirrors detectImageReuse in admin/port-page-audit.cjs (C3 detector) but
+ * emits as a validator WARNING. Exempts logos, brand marks, and compass icons,
+ * which are reused intentionally site-wide.
+ *
+ * Three escalation levels:
+ *   - Reused 2-3x with same alt:  INFO (likely benign / nav decoration)
+ *   - Reused 2+x with different alts: WARNING (alt-text drift)
+ *   - Reused 4+x regardless:      WARNING (excessive in-page reuse)
+ */
+function validateImageReuse($) {
+  const warnings = [];
+  const info = [];
+  const usage = new Map(); // src -> [alt, alt, ...]
+
+  $('img').each((i, elem) => {
+    const $img = $(elem);
+    const src = $img.attr('src') || '';
+    if (!src) return;
+    // Exempt site-chrome decoration that is intentionally reused
+    if (/logo|compass|brand|favicon|sprite|icon-/i.test(src)) return;
+    if ($img.attr('aria-hidden') === 'true' || $img.attr('role') === 'presentation') return;
+    const alt = $img.attr('alt') || '';
+    if (!usage.has(src)) usage.set(src, []);
+    usage.get(src).push(alt);
+  });
+
+  for (const [src, alts] of usage) {
+    if (alts.length < 2) continue;
+    const uniqueAlts = new Set(alts);
+    const filename = src.split('/').pop();
+    if (uniqueAlts.size > 1) {
+      warnings.push({
+        section: 'images',
+        rule: 'image_reuse_alt_drift',
+        message: `Image "${filename}" reused ${alts.length} times with ${uniqueAlts.size} different alt texts — pick one canonical alt or use distinct images`,
+        severity: 'WARNING'
+      });
+    } else if (alts.length >= 4) {
+      warnings.push({
+        section: 'images',
+        rule: 'image_reuse_excessive',
+        message: `Image "${filename}" appears ${alts.length} times on the page — likely indicates filler reuse`,
+        severity: 'WARNING'
+      });
+    } else {
+      info.push({
+        section: 'images',
+        rule: 'image_reuse_minor',
+        message: `Image "${filename}" used ${alts.length} times with the same alt text`,
+        severity: 'INFO'
+      });
+    }
+  }
+
+  return {
+    valid: true,
+    errors: [],
+    warnings,
+    info,
+    data: { reused_srcs: [...usage.entries()].filter(([, a]) => a.length >= 2).length }
+  };
+}
+
+/**
  * Validate port-specific images (each port must have unique images, not placeholders)
  */
 async function validatePortImages(filepath) {
@@ -4398,6 +4463,7 @@ async function validatePortPage(filepath) {
     const sectionResult = validateSectionOrder($);
     const wordResult = validateWordCounts($);
     const imageResult = validateImages($);
+    const imageReuseResult = validateImageReuse($);
     const portImagesResult = await validatePortImages(filepath);
     const rubricResult = validateRubric($);
     const logbookResult = validateLogbookNarrative($);
@@ -4511,6 +4577,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...sectionResult.warnings);
     results.warnings.push(...wordResult.warnings);
     results.warnings.push(...imageResult.warnings);
+    results.warnings.push(...imageReuseResult.warnings);
     results.warnings.push(...portImagesResult.warnings);
     results.warnings.push(...rubricResult.warnings);
     results.warnings.push(...logbookResult.warnings);
@@ -4565,6 +4632,7 @@ async function validatePortPage(filepath) {
     results.info.push(...logbookResult.info);
     if (contentPurityResult.info) results.info.push(...contentPurityResult.info);
     if (voiceQualityResult.info) results.info.push(...voiceQualityResult.info);
+    if (imageReuseResult.info) results.info.push(...imageReuseResult.info);
 
     // Calculate score (start at 100, deduct for errors/warnings)
     results.score = 100;
@@ -4585,6 +4653,7 @@ async function validatePortPage(filepath) {
     };
     results.word_counts = wordResult.counts;
     results.images = imageResult.counts;
+    results.image_reuse = imageReuseResult.data;
     results.port_images = portImagesResult.data;
     results.rubric = rubricResult.data;
     results.logbook_narrative = logbookResult.data;

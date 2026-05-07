@@ -1,0 +1,61 @@
+/* In the Wake — Emergency Contacts print stylesheet
+ * Three scopes via body classes set by handoff-card.js:
+ *   .printing-emergency-only — print only the #emergency-contacts section + the universal 24/7 line
+ *   .printing-entire-pack    — print the whole voyage pack, hide nav and TOC sidebar
+ *   .printing-page           — print the whole sitewide page, hide nav
+ * Soli Deo Gloria.
+ */
+
+@media print {
+  /* Universal print hygiene */
+  nav, .vp-toc, .vp-host-ribbon, .swiper, .offline-banner,
+  .handoff-card .card-actions, .footer-cta, .skip-link {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+  }
+
+  .handoff-card {
+    background: transparent !important;
+    border: 1px solid #333 !important;
+    page-break-inside: avoid;
+  }
+
+  .handoff-card input[type="text"] {
+    border-bottom: 1px solid #333 !important;
+    background: transparent !important;
+    color: black !important;
+  }
+
+  /* Emergency-only scope: hide everything outside the emergency contacts section */
+  body.printing-emergency-only > *:not(#emergency-contacts):not(.universal-247) {
+    display: none !important;
+  }
+  body.printing-emergency-only #emergency-contacts {
+    display: block !important;
+  }
+
+  /* Entire-pack scope: hide nav and sidebar but keep all sections */
+  body.printing-entire-pack .vp-toc,
+  body.printing-entire-pack header.site-header,
+  body.printing-entire-pack .swiper {
+    display: none !important;
+  }
+
+  /* Page scope (sitewide): hide site nav and footer chrome but keep page content */
+  body.printing-page header.site-header,
+  body.printing-page footer.site-footer-meta {
+    display: none !important;
+  }
+}
