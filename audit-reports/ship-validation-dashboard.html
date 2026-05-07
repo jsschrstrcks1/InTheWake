@@ -21,14 +21,14 @@
 </head>
 <body>
 <h1>Ship Validation Dashboard</h1>
-<p><strong>Scope:</strong> full-fleet · <strong>Generated:</strong> 2026-05-02T03:06:44.296Z</p>
+<p><strong>Scope:</strong> full-fleet · <strong>Generated:</strong> 2026-05-07T21:27:19.706Z</p>
 
 <div class="summary">
   <strong>Totals (290 pages):</strong><br>
-  .sh validator: 78 pass / 67 warn-only / 145 fail<br>
-  .js validator: 96 pass / 194 fail<br>
-  Errors: 314 (sh) + 297 (js)<br>
-  Warnings: 6069 (sh) + 2650 (js)
+  .sh validator: 85 pass / 93 warn-only / 112 fail<br>
+  .js validator: 76 pass / 214 fail<br>
+  Errors: 780 (sh) + 344 (js)<br>
+  Warnings: 5431 (sh) + 2723 (js)
 </div>
 
 <h2>By cruise line</h2>
@@ -40,44 +40,44 @@
     <tr>
       <td>carnival</td>
       <td class="num">48</td>
-      <td class="num err">147</td>
-      <td class="num warn">1841</td>
-      <td class="num err">48</td>
-      <td class="num warn">579</td>
-      <td class="topfail">15× <code>js:data_consistency/internal_numeric_inconsistency</code><br>14× <code>sh:First Look carousel has NO images — carousel will render emp</code><br>14× <code>sh:Found 2 content section(s) after &lt;/aside> that belong inside</code></td>
+      <td class="num err">234</td>
+      <td class="num warn">1813</td>
+      <td class="num err">72</td>
+      <td class="num warn">574</td>
+      <td class="topfail">22× <code>js:images/missing_local_images</code><br>15× <code>js:sections/wrong_section_order</code><br>12× <code>js:images/few_images</code></td>
     </tr>
     <tr>
       <td>celebrity-cruises</td>
       <td class="num">29</td>
-      <td class="num err">36</td>
-      <td class="num warn">782</td>
-      <td class="num err">9</td>
-      <td class="num warn">240</td>
-      <td class="topfail">8× <code>js:images/few_images</code><br>7× <code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code><br>3× <code>sh:Carousel HTML BROKEN: 2 slides opened but 1 missing &lt;/div> —</code></td>
+      <td class="num err">162</td>
+      <td class="num warn">781</td>
+      <td class="num err">18</td>
+      <td class="num warn">250</td>
+      <td class="topfail">10× <code>js:images/missing_local_images</code><br>8× <code>js:images/few_images</code><br>8× <code>sh:Image not found on disk: /assets/ships/celebrity-reflection_</code></td>
     </tr>
     <tr>
       <td>costa</td>
       <td class="num">9</td>
-      <td class="num err">10</td>
-      <td class="num warn">219</td>
-      <td class="num err">10</td>
-      <td class="num warn">67</td>
-      <td class="topfail">9× <code>js:images/few_images</code><br>1× <code>sh:Ship 'costa-deliziosa' has NO venues in venues.json — dining</code><br>1× <code>js:data_consistency/internal_numeric_inconsistency</code></td>
+      <td class="num err">3</td>
+      <td class="num warn">0</td>
+      <td class="num err">18</td>
+      <td class="num warn">85</td>
+      <td class="topfail">9× <code>js:images/few_images</code><br>9× <code>js:json_ld/main_entity_blacklisted</code><br>1× <code>sh:Image filename ship mismatch: Costa_Diadema_flickr_brlrzxmb1</code></td>
     </tr>
     <tr>
       <td>cunard</td>
       <td class="num">4</td>
       <td class="num err">0</td>
       <td class="num warn">0</td>
-      <td class="num err">5</td>
+      <td class="num err">4</td>
       <td class="num warn">41</td>
-      <td class="topfail">4× <code>js:images/few_images</code><br>1× <code>js:data_consistency/internal_numeric_inconsistency</code></td>
+      <td class="topfail">4× <code>js:images/few_images</code></td>
     </tr>
     <tr>
       <td>explora-journeys</td>
       <td class="num">6</td>
-      <td class="num err">0</td>
-      <td class="num warn">6</td>
+      <td class="num err">5</td>
+      <td class="num warn">0</td>
       <td class="num err">15</td>
       <td class="num warn">44</td>
       <td class="topfail">6× <code>js:images/few_images</code><br>4× <code>js:videos/few_videos</code><br>4× <code>js:videos/missing_categories</code></td>
@@ -85,83 +85,83 @@
     <tr>
       <td>holland-america-line</td>
       <td class="num">46</td>
-      <td class="num err">38</td>
-      <td class="num warn">2114</td>
-      <td class="num err">6</td>
+      <td class="num err">54</td>
+      <td class="num warn">2117</td>
+      <td class="num err">5</td>
       <td class="num warn">423</td>
-      <td class="topfail">8× <code>sh:Meta description is too short (48 chars) or stub content — n</code><br>5× <code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code><br>4× <code>js:data_consistency/internal_numeric_inconsistency</code></td>
+      <td class="topfail">3× <code>js:images/missing_local_images</code><br>2× <code>js:images/few_images</code><br>1× <code>sh:Missing local image: /assets/ships/koningsdam_01.webp</code></td>
     </tr>
     <tr>
       <td>msc</td>
       <td class="num">24</td>
-      <td class="num err">0</td>
-      <td class="num warn">4</td>
-      <td class="num err">27</td>
-      <td class="num warn">245</td>
-      <td class="topfail">23× <code>js:images/few_images</code><br>1× <code>js:videos/few_videos</code><br>1× <code>js:videos/missing_categories</code></td>
+      <td class="num err">18</td>
+      <td class="num warn">0</td>
+      <td class="num err">28</td>
+      <td class="num warn">256</td>
+      <td class="topfail">23× <code>js:images/few_images</code><br>1× <code>sh:Image filename ship mismatch: Msc_Grandiosa_flickr_bobindrum</code><br>1× <code>js:videos/few_videos</code></td>
     </tr>
     <tr>
       <td>norwegian</td>
       <td class="num">20</td>
-      <td class="num err">0</td>
+      <td class="num err">80</td>
       <td class="num warn">0</td>
-      <td class="num err">16</td>
+      <td class="num err">14</td>
       <td class="num warn">164</td>
-      <td class="topfail">8× <code>js:images/few_images</code><br>7× <code>js:data_consistency/internal_numeric_inconsistency</code><br>1× <code>js:content_purity/forbidden_nightlife</code></td>
+      <td class="topfail">8× <code>js:images/few_images</code><br>5× <code>js:images/missing_local_images</code><br>1× <code>sh:Missing local image: /assets/ships/norwegian-bliss_01.webp</code></td>
     </tr>
     <tr>
       <td>oceania</td>
       <td class="num">8</td>
-      <td class="num err">13</td>
-      <td class="num warn">201</td>
-      <td class="num err">13</td>
-      <td class="num warn">56</td>
-      <td class="topfail">8× <code>js:images/few_images</code><br>5× <code>sh:Found 2 tracker headings/sections — should have exactly 1 (#</code><br>5× <code>js:sections/wrong_section_order</code></td>
+      <td class="num err">4</td>
+      <td class="num warn">0</td>
+      <td class="num err">24</td>
+      <td class="num warn">68</td>
+      <td class="topfail">8× <code>js:images/few_images</code><br>8× <code>js:json_ld/main_entity_blacklisted</code><br>5× <code>js:videos/missing_categories</code></td>
     </tr>
     <tr>
       <td>princess</td>
       <td class="num">17</td>
-      <td class="num err">44</td>
-      <td class="num warn">364</td>
-      <td class="num err">9</td>
-      <td class="num warn">111</td>
-      <td class="topfail">11× <code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code><br>4× <code>js:html_structure/unclosed_section</code><br>3× <code>js:images/few_images</code></td>
+      <td class="num err">148</td>
+      <td class="num warn">363</td>
+      <td class="num err">19</td>
+      <td class="num warn">130</td>
+      <td class="topfail">11× <code>js:images/missing_local_images</code><br>4× <code>js:images/few_images</code><br>4× <code>js:html_structure/unclosed_section</code></td>
     </tr>
     <tr>
       <td>rcl</td>
       <td class="num">49</td>
-      <td class="num err">1</td>
-      <td class="num warn">77</td>
-      <td class="num err">93</td>
+      <td class="num err">66</td>
+      <td class="num warn">66</td>
+      <td class="num err">73</td>
       <td class="num warn">427</td>
-      <td class="topfail">43× <code>js:runtime_data/cascade_fully_failed</code><br>28× <code>js:data_consistency/internal_numeric_inconsistency</code><br>8× <code>js:images/few_images</code></td>
+      <td class="topfail">43× <code>js:runtime_data/cascade_fully_failed</code><br>9× <code>js:images/missing_local_images</code><br>8× <code>js:images/few_images</code></td>
     </tr>
     <tr>
       <td>regent</td>
       <td class="num">7</td>
-      <td class="num err">0</td>
-      <td class="num warn">7</td>
+      <td class="num err">3</td>
+      <td class="num warn">0</td>
       <td class="num err">9</td>
       <td class="num warn">52</td>
-      <td class="topfail">7× <code>js:images/few_images</code><br>2× <code>js:html_structure/unclosed_section</code></td>
+      <td class="topfail">7× <code>js:images/few_images</code><br>2× <code>sh:Image filename ship mismatch: Seven_Seas_Explorer_flickr_gil</code><br>2× <code>js:html_structure/unclosed_section</code></td>
     </tr>
     <tr>
       <td>seabourn</td>
       <td class="num">7</td>
-      <td class="num err">12</td>
-      <td class="num warn">159</td>
-      <td class="num err">10</td>
-      <td class="num warn">59</td>
-      <td class="topfail">7× <code>js:images/few_images</code><br>3× <code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code><br>3× <code>sh:Found 2 tracker headings/sections — should have exactly 1 (#</code></td>
+      <td class="num err">1</td>
+      <td class="num warn">0</td>
+      <td class="num err">17</td>
+      <td class="num warn">66</td>
+      <td class="topfail">7× <code>js:images/few_images</code><br>6× <code>js:json_ld/main_entity_blacklisted</code><br>3× <code>js:videos/missing_categories</code></td>
     </tr>
     <tr>
       <td>silversea</td>
       <td class="num">12</td>
+      <td class="num err">2</td>
+      <td class="num warn">291</td>
       <td class="num err">13</td>
-      <td class="num warn">295</td>
-      <td class="num err">12</td>
-      <td class="num warn">104</td>
-      <td class="topfail">11× <code>js:images/few_images</code><br>1× <code>sh:Ship 'silver-dawn' has NO venues in venues.json — dining sec</code><br>1× <code>sh:Ship 'silver-endeavour' has NO venues in venues.json — dinin</code></td>
+      <td class="num warn">105</td>
+      <td class="topfail">11× <code>js:images/few_images</code><br>1× <code>js:videos/few_videos</code><br>1× <code>js:videos/missing_categories</code></td>
     </tr>
     <tr>
       <td>virgin-voyages</td>
@@ -175,7 +175,7 @@
 </table>
 
 <h2>Top error rules across fleet</h2>
-<ul class="rules"><li><code>js:images/few_images</code> — 120</li><li><code>js:data_consistency/internal_numeric_inconsistency</code> — 59</li><li><code>js:runtime_data/cascade_fully_failed</code> — 50</li><li><code>sh:Ship stats JSON contains 1 'TBD' field(s) on a non-TBN page </code> — 30</li><li><code>js:sections/wrong_section_order</code> — 28</li><li><code>sh:First Look carousel has NO images — carousel will render emp</code> — 18</li><li><code>sh:Found 2 content section(s) after &lt;/aside> that belong inside</code> — 14</li><li><code>sh:Attributions is OUTSIDE col-1 — renders parallel to sidebar </code> — 13</li><li><code>sh:Inline renderVenues uses catLabels without 'dining' key — ve</code> — 9</li><li><code>sh:Found 1 duplicate ID(s): id="logbook-container,</code> — 9</li><li><code>sh:Found 2 tracker headings/sections — should have exactly 1 (#</code> — 9</li><li><code>js:videos/missing_categories</code> — 8</li><li><code>sh:Meta description is too short (48 chars) or stub content — n</code> — 8</li><li><code>js:icp_lite/ai_summary_boilerplate</code> — 7</li><li><code>sh:data-imo attribute MISSING for live tracker</code> — 7</li><li><code>js:videos/few_videos</code> — 7</li><li><code>js:html_structure/unclosed_section</code> — 7</li><li><code>sh:Found 2 duplicate ID(s): id="faq,id="faq-heading,</code> — 5</li><li><code>sh:Page has 2 attribution sections — should have exactly 1 (#13</code> — 5</li><li><code>sh:Found 2 deck plan headings/sections — should have exactly 1 </code> — 5</li></ul>
+<ul class="rules"><li><code>js:images/few_images</code> — 121</li><li><code>js:images/missing_local_images</code> — 61</li><li><code>js:runtime_data/cascade_fully_failed</code> — 50</li><li><code>js:sections/wrong_section_order</code> — 25</li><li><code>js:json_ld/main_entity_blacklisted</code> — 23</li><li><code>js:videos/missing_categories</code> — 17</li><li><code>js:videos/few_videos</code> — 11</li><li><code>sh:Image not found on disk: /assets/ships/celebrity-reflection_</code> — 8</li><li><code>sh:Image not found on disk: /assets/ships/celebrity-silhouette_</code> — 8</li><li><code>js:icp_lite/ai_summary_boilerplate</code> — 7</li><li><code>js:data_attr/invalid_imo</code> — 7</li><li><code>js:html_structure/unclosed_section</code> — 7</li><li><code>sh:Image filename ship mismatch: Carnival_Celebration,_Nassau_(</code> — 5</li><li><code>sh:Image filename ship mismatch: Carnival_Jubilee_Panorama_Cozu</code> — 5</li><li><code>js:sections/missing_required</code> — 5</li><li><code>sh:Image filename ship mismatch: carnival-glory_01.webp does no</code> — 4</li><li><code>sh:Image filename ship mismatch: carnival-conquest_01.webp does</code> — 4</li><li><code>sh:Missing local image: /assets/ships/carnival-spirit_01.webp</code> — 4</li><li><code>sh:Missing local image: /assets/ships/carnival-pride_01.webp</code> — 4</li><li><code>sh:Image not found on disk: /assets/ships/carnival-pride_01.web</code> — 4</li></ul>
 
 <p><em>Raw JSON: <a href="ship-validation-dashboard.json">ship-validation-dashboard.json</a></em></p>
 </body>
