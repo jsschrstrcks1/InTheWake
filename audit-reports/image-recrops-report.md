@@ -1,6 +1,6 @@
 # Visual recrop / near-duplicate audit
 
-**Generated:** 2026-05-07T12:19:40.291Z
+**Generated:** 2026-05-07T21:23:56.411Z
 **Method:** dHash on 9×8 grayscale (sharp). Hamming distance ≤ 8 = "near-identical at thumbnail scale."
 **Images compared:** 1078
 **Cross-entity near-duplicate groups:** 44
