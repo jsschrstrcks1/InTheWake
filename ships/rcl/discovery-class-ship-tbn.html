@@ -153,7 +153,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       }
     },
     "mainEntity": {
-      "@type": "Cruise",
+      "@type": "Vehicle",
       "name": "Discovery Class Ship (TBN)"
     }
   }
@@ -557,9 +557,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     <!-- Dining -->
     <section id="dining-card" class="card" data-ship="Discovery Class Ship (TBN)" aria-labelledby="diningHeading">
       <h2 id="diningHeading">Dining Venues on Discovery Class Ship (TBN) <a href="/restaurants.html" style="font-size:1rem;font-weight:400;text-decoration:none;color:var(--accent);opacity:0.8;" aria-label="Browse all restaurants">→ Browse All</a></h2>
-      <img id="dining-hero" class="card-hero"
-           src="/assets/img/Cordelia_Empress_Food_Court.webp"
-           alt="Cruise ship dining venue" loading="lazy"/>
       <div class="dining-content" id="dining-content" aria-live="polite">
           <noscript><p>Dining venue information available with JavaScript enabled.</p></noscript>
         <p>Dining venue details for the Discovery Class will be announced by Royal Caribbean. This section will be updated with restaurant names, menus, and specialty dining options as they become available.</p>
@@ -637,7 +634,25 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
     </section>
 
-    </section><!-- End Main Content Column -->
+
+<!-- Ship Tracker Placeholder -->
+    <section id="ship-tracker" class="card" data-imo="TBD" data-name="DISCOVERYCLASSSHIPTBN">
+      <h2>Ship Tracking</h2>
+      <p>Live tracking will be available when this ship enters service.</p>
+    </section>
+
+<!-- Planning Resources -->
+    <section class="card" aria-labelledby="planning-resources">
+      <h2 id="planning-resources">Plan Your Cruise</h2>
+      <p>Helpful resources to prepare for your voyage:</p>
+      <ul>
+        <li><a href="/packing-lists.html">Complete Cruise Packing Lists</a></li>
+        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization Tips</a></li>
+        <li><a href="/internet-at-sea.html">Internet &amp; WiFi at Sea</a></li>
+        <li><a href="/articles/cruise-tech-photography-guide.html">Tech &amp; Photography Guide</a></li>
+      </ul>
+    </section>
+      </section><!-- End Main Content Column -->
 
   <!-- Right Rail -->
   <aside class="rail col-2" role="complementary" aria-label="Key facts, author & articles">
@@ -721,25 +736,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </aside>
 
   
-  
-    <!-- Ship Tracker Placeholder -->
-    <section id="ship-tracker" class="card" data-imo="TBD" data-name="DISCOVERYCLASSSHIPTBN">
-      <h2>Ship Tracking</h2>
-      <p>Live tracking will be available when this ship enters service.</p>
-    </section>
-  
-    <!-- Planning Resources -->
-    <section class="card" aria-labelledby="planning-resources">
-      <h2 id="planning-resources">Plan Your Cruise</h2>
-      <p>Helpful resources to prepare for your voyage:</p>
-      <ul>
-        <li><a href="/packing-lists.html">Complete Cruise Packing Lists</a></li>
-        <li><a href="/articles/cruise-cabin-organization.html">Cabin Organization Tips</a></li>
-        <li><a href="/internet-at-sea.html">Internet &amp; WiFi at Sea</a></li>
-        <li><a href="/articles/cruise-tech-photography-guide.html">Tech &amp; Photography Guide</a></li>
-      </ul>
-    </section>
-  <!-- Print Guide Button -->
+      <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>

@@ -28,6 +28,26 @@ ERRORS=0
 WARNINGS=0
 PASSES=0
 
+# --json-output mode: collect structured rows instead of pretty-printing.
+# Either of: --json-output (emits to stdout) or --json-output=<path> (writes
+# to file and silences stdout entirely).
+JSON_OUT=""
+JSON_OUT_PATH=""
+ARGS=()
+for arg in "$@"; do
+    case "$arg" in
+        --json-output)        JSON_OUT=1 ;;
+        --json-output=*)      JSON_OUT=1; JSON_OUT_PATH="${arg#*=}" ;;
+        *)                    ARGS+=("$arg") ;;
+    esac
+done
+set -- "${ARGS[@]}"
+
+# Accumulator for JSON rows; one per check_pass/fail/warn invocation.
+# Format: each line is "<status>\t<message>"
+JSON_TMP="$(mktemp -t itw-validate.XXXXXX)"
+trap 'rm -f "$JSON_TMP"' EXIT
+
 # File to validate
 FILE="$1"
 
@@ -52,34 +72,68 @@ for EXCL in $EXCLUDED_FILES; do
     fi
 done
 
-echo "============================================================================"
-echo "  Ship Page Validator — v3.010.400"
-echo "  File: $FILE"
-echo "============================================================================"
-echo ""
+# ============================================================================
+# Per-line config — see admin/validator-config.json + admin/POLICY_DECISIONS.md
+# ============================================================================
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+CFG_FILE="$REPO_ROOT/admin/validator-config.json"
+LINE=$(echo "$FILE" | grep -oP 'ships/\K[^/]+')
+
+if [ -f "$CFG_FILE" ] && command -v jq >/dev/null 2>&1; then
+    CFG_MAIN_ID=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .main_id // "main-content"' "$CFG_FILE")
+    CFG_GRID_CLASS=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .grid_class // "page-grid"' "$CFG_FILE")
+    CFG_SKIP_TARGET=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .skip_link_target // "#main-content"' "$CFG_FILE")
+    CFG_IMG_MIN=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .image_min // 8' "$CFG_FILE")
+    CFG_IMG_MAX=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .image_max // 20' "$CFG_FILE")
+    CFG_IMG_ERROR_BELOW=$(jq -r --arg L "$LINE" '(.lines._default + (.lines[$L] // {})) | .image_error_below // 6' "$CFG_FILE")
+else
+    # Sane defaults if config missing or jq absent
+    CFG_MAIN_ID="main-content"
+    CFG_GRID_CLASS="page-grid"
+    CFG_SKIP_TARGET="#main-content"
+    CFG_IMG_MIN=8
+    CFG_IMG_MAX=20
+    CFG_IMG_ERROR_BELOW=6
+fi
+
+if [ -z "$JSON_OUT" ]; then
+    echo "============================================================================"
+    echo "  Ship Page Validator — v3.010.400"
+    echo "  File: $FILE"
+    echo "  Line: $LINE  (main_id=$CFG_MAIN_ID, grid_class=$CFG_GRID_CLASS, img=$CFG_IMG_MIN-$CFG_IMG_MAX)"
+    echo "============================================================================"
+    echo ""
+fi
 
 # Read file content
 CONTENT=$(cat "$FILE")
 
-# Helper functions
+# Helper functions. In JSON mode, suppress pretty-printing AND accumulate
+# every check into $JSON_TMP for later emission.
 check_pass() {
-    echo -e "  ${GREEN}✓${NC} $1"
+    [ -z "$JSON_OUT" ] && echo -e "  ${GREEN}✓${NC} $1"
+    printf 'pass\t%s\n' "$1" >> "$JSON_TMP"
     PASSES=$((PASSES + 1))
 }
 
 check_fail() {
-    echo -e "  ${RED}✗${NC} $1"
+    [ -z "$JSON_OUT" ] && echo -e "  ${RED}✗${NC} $1"
+    printf 'error\t%s\n' "$1" >> "$JSON_TMP"
     ERRORS=$((ERRORS + 1))
 }
 
 check_warn() {
-    echo -e "  ${YELLOW}⚠${NC} $1"
+    [ -z "$JSON_OUT" ] && echo -e "  ${YELLOW}⚠${NC} $1"
+    printf 'warn\t%s\n' "$1" >> "$JSON_TMP"
     WARNINGS=$((WARNINGS + 1))
 }
 
 section_header() {
-    echo ""
-    echo -e "${BLUE}▶ $1${NC}"
+    if [ -z "$JSON_OUT" ]; then
+        echo ""
+        echo -e "${BLUE}▶ $1${NC}"
+    fi
+    printf 'section\t%s\n' "$1" >> "$JSON_TMP"
 }
 
 # ============================================================================
@@ -646,7 +700,8 @@ fi
 section_header "Section 9c: Sister Ships Consistency"
 
 # Count sister ship pills in the HTML
-SISTER_PILLS=$(echo "$CONTENT" | sed -n '/related-ships/,/See All Ships/p' | grep -c 'class="pill"' || echo "0")
+SISTER_PILLS=$(echo "$CONTENT" | sed -n '/related-ships/,/See All Ships/p' | grep -c 'class="pill"' 2>/dev/null)
+SISTER_PILLS=${SISTER_PILLS:-0}
 
 if [ "$SISTER_PILLS" -gt 0 ]; then
     check_pass "Sister ship pills present: $SISTER_PILLS ships linked"
@@ -2127,10 +2182,10 @@ fi
 # ============================================================================
 section_header "Section 9be: Page Grid Layout"
 
-if echo "$CONTENT" | grep -q 'class=".*page-grid'; then
-    check_pass "Main element has page-grid class (2-column layout)"
+if echo "$CONTENT" | grep -q "class=\".*$CFG_GRID_CLASS"; then
+    check_pass "Main element has $CFG_GRID_CLASS class (line '$LINE' expected layout)"
 else
-    check_warn "Main element missing page-grid class — 2-column layout won't activate"
+    check_warn "Main element missing $CFG_GRID_CLASS class — line '$LINE' expected layout won't activate"
 fi
 
 # ============================================================================
@@ -2802,7 +2857,9 @@ HAS_COL1=$(grep -cP 'class="col-1|class="page-intro col-1' "$FILE")
 HAS_ASIDE_RAIL=$(grep -c 'class="rail' "$FILE")
 HAS_COL2=$(grep -cP 'rail col-2|col-2.*rail' "$FILE")
 
-if [ "$HAS_PAGE_GRID" -gt 0 ]; then
+if [ "$CFG_GRID_CLASS" != "page-grid" ]; then
+    check_pass "Page-grid structural check skipped — line '$LINE' uses '$CFG_GRID_CLASS' layout"
+elif [ "$HAS_PAGE_GRID" -gt 0 ]; then
     if [ "$HAS_COL1" -eq 0 ]; then
         check_fail "page-grid on <main> but NO col-1 wrapper — two-column layout is visually broken. Content floats loose in grid. (#1363)"
     else
@@ -3323,8 +3380,8 @@ if [ -n "$SKIP_HREF" ] && [ -n "$MAIN_ID" ]; then
     else
         check_warn "Skip link href='$SKIP_HREF' but main id='$MAIN_ID' — mismatch (#1397)"
     fi
-    if [ "$MAIN_ID" != "main-content" ]; then
-        check_warn "Main element id is '$MAIN_ID' — Anthem reference uses 'main-content' (#1397)"
+    if [ "$MAIN_ID" != "$CFG_MAIN_ID" ]; then
+        check_warn "Main element id is '$MAIN_ID' — line '$LINE' config expects '$CFG_MAIN_ID' (#1397)"
     fi
 else
     check_pass "Skip link target check skipped"
@@ -3756,6 +3813,47 @@ done
 # ============================================================================
 # Summary
 # ============================================================================
+emit_json() {
+    # Emit a structured payload to stdout (or to JSON_OUT_PATH).
+    # Schema: { file, line, summary{errors,warnings,passes}, checks[], config_version, timestamp }
+    local cfg_version="unknown"
+    if [ -f "$CFG_FILE" ] && command -v jq >/dev/null 2>&1; then
+        cfg_version=$(jq -r '.version // "unknown"' "$CFG_FILE")
+    fi
+    local exit_status="$1"
+    local out
+    out=$(jq -Rn \
+        --arg file "$FILE" \
+        --arg line "$LINE" \
+        --argjson errors "$ERRORS" \
+        --argjson warnings "$WARNINGS" \
+        --argjson passes "$PASSES" \
+        --argjson exit "$exit_status" \
+        --arg cfg_version "$cfg_version" \
+        --arg timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+        --rawfile rows "$JSON_TMP" \
+        '{
+            file: $file,
+            line: $line,
+            summary: { errors: $errors, warnings: $warnings, passes: $passes, exit_status: $exit },
+            config_version: $cfg_version,
+            timestamp: $timestamp,
+            checks: ($rows | split("\n") | map(select(length > 0)) | map(split("\t")) | map({status: .[0], message: .[1:] | join("\t")}))
+        }')
+    if [ -n "$JSON_OUT_PATH" ]; then
+        printf '%s\n' "$out" > "$JSON_OUT_PATH"
+    else
+        printf '%s\n' "$out"
+    fi
+}
+
+if [ -n "$JSON_OUT" ]; then
+    if [ "$ERRORS" -gt 0 ]; then        emit_json 1; exit 1
+    elif [ "$WARNINGS" -gt 0 ]; then    emit_json 2; exit 2
+    else                                emit_json 0; exit 0
+    fi
+fi
+
 echo ""
 echo "============================================================================"
 echo "  VALIDATION SUMMARY"

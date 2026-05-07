@@ -4241,6 +4241,92 @@ function validateRecentArticlesSubValidator(filepath) {
   return { valid: errors.length === 0, errors, warnings };
 }
 
+// VOI-007: prose tics — anaphora ladders + antithetical-parallelism stacks.
+// See admin/validator-spec/rules/VOI-007.md and
+// .claude/skills/Humanization/Like-a-human.md. Mirrors the function in
+// admin/validate-ship-page.js — keep them in sync.
+function validateProseTics($) {
+  const errors = [];
+  const warnings = [];
+
+  const PRONOUNS = new Set([
+    'a', 'an', 'the', 'i', 'we', 'he', 'she', 'it', 'they', 'you',
+    'this', 'that', 'these', 'those', 'and', 'but', 'or', 'so',
+    'in', 'on', 'at', 'of', 'to', 'for', 'with', 'as', 'by', 'from',
+  ]);
+
+  const $sections = $('section.card, section[class*="card"], article, main > section').filter((_, el) => {
+    const id = ($(el).attr('id') || '').toLowerCase();
+    if (id.includes('photo') || id.includes('map') || id.includes('tracker') ||
+        id.includes('first-look') || id.includes('whimsical') ||
+        id.includes('attribution')) return false;
+    return true;
+  });
+
+  let antiStacks = 0;
+  let anaphoraLadders = 0;
+  const examples = [];
+
+  $sections.each((_, sec) => {
+    const $clone = $(sec).clone();
+    $clone.find('figcaption, figure, table, nav, button, .swiper-pagination, .photo-caption, code, pre').remove();
+    const text = $clone.text().replace(/\s+/g, ' ').trim();
+    if (text.length < 80) return;
+
+    const antiRe = /\b[Ii]t(?:'?s| is) not [^.\n,—\-–;]{3,80}[—\-–.,;] *[Ii]t(?:'?s| is) [^.\n,—\-–;]{3,80}/g;
+    const antiCount = (text.match(antiRe) || []).length;
+    if (antiCount >= 2) {
+      antiStacks++;
+      const m = text.match(antiRe);
+      examples.push(`antithetical×${antiCount}: "${(m[0] || '').slice(0, 90)}…"`);
+    }
+
+    const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0);
+    const starts = sentences.map(s => {
+      const w = s.trim().split(/\s+/)[0] || '';
+      return w.replace(/[^a-zA-Z]/g, '').toLowerCase();
+    });
+    let run = 1;
+    let maxRun = 1;
+    let runStartIdx = 0;
+    let runWord = null;
+    for (let i = 1; i < starts.length; i++) {
+      if (starts[i] && starts[i] === starts[i - 1] && !PRONOUNS.has(starts[i])) {
+        run++;
+        if (run > maxRun) {
+          maxRun = run;
+          runStartIdx = i - run + 1;
+          runWord = starts[i];
+        }
+      } else {
+        run = 1;
+      }
+    }
+    if (maxRun >= 4) {
+      anaphoraLadders++;
+      const sample = sentences.slice(runStartIdx, runStartIdx + maxRun).join(' ');
+      examples.push(`anaphora×${maxRun} on "${runWord}": "${sample.slice(0, 120)}…"`);
+    }
+  });
+
+  if (antiStacks > 0) {
+    warnings.push({
+      section: 'voice', rule: 'antithetical_parallelism_stack',
+      message: `${antiStacks} section(s) contain 2+ "It's not X, it's Y" constructions. Per VOI-007: cap at 1 per section. Example: ${examples.find(e => e.startsWith('antithetical')) || ''}`,
+      severity: 'WARNING'
+    });
+  }
+  if (anaphoraLadders > 0) {
+    warnings.push({
+      section: 'voice', rule: 'anaphora_ladder',
+      message: `${anaphoraLadders} section(s) have 4+ consecutive same-start sentences. Per VOI-007: cap at 3. Example: ${examples.find(e => e.startsWith('anaphora')) || ''}`,
+      severity: 'WARNING'
+    });
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
 async function validatePortPage(filepath) {
   const relPath = relative(PROJECT_ROOT, filepath);
   const results = {
@@ -4379,6 +4465,9 @@ async function validatePortPage(filepath) {
     // v2.6 — Layer 3: CSS/rendering baseline (2026-04-16)
     const renderingResult = validateRenderingBaseline($, html);
 
+    // VOI-007: prose tics — anaphora ladders + antithetical-parallelism stacks
+    const proseTicsResult = validateProseTics($);
+
     // Collect all errors
     results.blocking_errors.push(...siteIntegrationResult.errors);
     results.blocking_errors.push(...analyticsResult.errors);
@@ -4465,6 +4554,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...articlesResult.warnings);
     results.warnings.push(...noscriptResult.warnings);
     results.warnings.push(...renderingResult.warnings);
+    results.warnings.push(...proseTicsResult.warnings);
 
     // Gold standard gap detection (only included with --gold-standard flag)
     // Per orchestra: separate mode to avoid alert fatigue on the 100% pass rate

@@ -196,6 +196,18 @@ Define by what something is *not*, then what it *is*:
 
 This cuts through marketing noise. It works for ship descriptions, port introductions, venue reviews — anywhere the reader has been lied to by superlatives and needs to hear what's actually true.
 
+**Use sparingly.** This is the single move LLMs overuse most. ChatGPT in particular stacks "It's not X, it's Y" / "It's not A, it's B" / "It's not C, it's D" until the prose reads like an algorithm. **Cap: at most one antithetical-parallelism construction per section, never two consecutive.** If you reach for the second, you're patterning instead of writing.
+
+### Anaphora — repeated sentence starts
+
+Three sentences in a row beginning with the same word can build rhythm. Done well, it earns the repetition:
+
+> Some days, it feels like building a machine. Some days, it feels like guessing in public. But that's the game.
+
+Done badly, it's the AI tic the screenshot in the issue tracker warns about — "You test the hook. You test the offer. You test the angle. You test the page. You test your own patience."
+
+**Cap: at most three consecutive same-start sentences, and never twice in the same section.** Anything beyond three reads as a generated list, not as prose.
+
 ### Shrinking Sentences at Emotional Climax
 
 As emotional weight builds, sentences compress:

@@ -47,6 +47,9 @@ Run this scan against any content that has been written or edited with AI assist
 - [ ] Even sentence length from start to finish
 - [ ] Fragment stacking every time emphasis is needed (occasional = human; constant = machine)
 - [ ] False variation: complex/simple alternation in a mechanical pattern
+- [ ] **Antithetical-parallelism stacking:** two or more `It's not X, it's Y` constructions in the same section. The strongest LLM tic. Exactly one is rhetoric; two is patterning.
+- [ ] **Anaphora ladders:** four or more consecutive sentences starting with the same word ("You test the hook. You test the offer. You test the angle. You test the page."). Three earns its repetition; four reads as a generated list. Also fires when the same anaphora ladder appears twice in one section.
+
 
 ### Substance tells
 

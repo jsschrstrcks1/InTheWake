@@ -88,7 +88,7 @@
     "dateModified": "2025-12-03",
     "description": "Carnival Glory: Conquest-class ship (IMO 9198367), 110,239 GT, sailing from Norfolk VA. Features Heroes Tribute Lounge (2024), perfect for military families from Hampton Roads.",
     "mainEntity": {
-      "@type": "Thing",
+      "@type": "Vehicle",
       "name": "Carnival Glory",
       "category": "Cruise Ship",
       "manufacturer": {
@@ -201,7 +201,7 @@
 </head>
 
 <body class="page">
-<a href="#content" class="skip-link">Skip to main content</a>
+<a href="#main-content" class="skip-link">Skip to main content</a>
   <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
   <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
@@ -413,10 +413,6 @@
     </section>
 
     <section class="card" id="dining-card"><h2 id="diningHeading">
-        <img id="dining-hero" class="card-hero"
-             src="/assets/img/Cordelia_Empress_Food_Court.webp"
-             alt="Carnival Glory dining venue" loading="lazy"
-             onerror="this.src='/assets/img/Cordelia_Empress_Food_Court.webp'"/>
 Dining Venues</h2>
       <h3>Complimentary</h3>
       <div class="dining-grid">
@@ -437,12 +433,6 @@ Dining Venues</h2>
     <section class="card"><h2>Ship's Logbook</h2><div id="logbook-container"><p class="tiny">Loading stories...</p></div></section>
 
     <section class="card"><h2>Video Tours</h2><div class="swiper" id="video-swiper" aria-label="Carnival Glory video gallery"><div class="swiper-wrapper" id="video-wrapper"></div></div></section>
-
-    <section class="card"><h2>Carnival Glory Deck Plans</h2><p><a href="https://www.carnival.com/cruise-ships/carnival-glory#deck-plans" target="_blank" rel="noopener">View Official Deck Plans on Carnival.com</a></p>
-        <figure>
-          <img src="/assets/ship-map.png" alt="Carnival Glory simplified deck plan preview" loading="lazy"/>
-          <figcaption class="tiny">Simplified deck layout overview</figcaption>
-        </figure></section>
 
     <section class="card"><h2>Live Ship Tracker</h2>
       <div class="tracker-container"><iframe title="Carnival Glory Live Position" src="https://www.marinetraffic.com/en/ais/embed/zoom:10/centery:36.85/centerx:-76.3/maptype:1/shownames:true/mmsi:357659000/shipid:434989/fleet:/fleet_id:/vtypes:/showmenu:false/remember:false" loading="lazy"></iframe></div>
@@ -467,7 +457,47 @@ Dining Venues</h2>
     <section class="card"><h2>Sources</h2><ul class="tiny"><li><a href="https://www.carnival.com/cruise-ships/carnival-glory" target="_blank" rel="noopener">Carnival Cruise Line</a></li><li><a href="https://www.marinetraffic.com" target="_blank" rel="noopener">MarineTraffic</a></li><li><a href="https://en.wikipedia.org/wiki/Carnival_Glory" target="_blank" rel="noopener">Wikipedia</a></li></ul></section>
 
   </div>
-    </section><!-- End Main Content Column -->
+
+<section class="card faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions About Carnival Glory</h2>
+      <div class="faq-list">
+        <details>
+          <summary><strong>What are the dining options on Carnival Glory?</strong></summary>
+          <p  class="list-indent">Carnival Glory features the Platinum and Golden main dining rooms with Your Time Dining flexibility. Complimentary casual options include Guy's Burger Joint, BlueIguana Cantina for fresh tacos, and the Lido Marketplace buffet. Specialty restaurants include Fahrenheit 555 steakhouse, Cucina del Capitano Italian dining, Guy's Pig & Anchor BBQ, and the exclusive Chef's Table experience.</p>
+        </details>
+        <details>
+          <summary><strong>Where does Carnival Glory sail from?</strong></summary>
+          <p  class="list-indent">Carnival Glory is homeported in Norfolk, Virginia, offering year-round departures to the Bahamas, Eastern Caribbean, and seasonal Bermuda cruises. This makes her ideal for Mid-Atlantic travelers and military families from the Hampton Roads area near the world's largest naval base.</p>
+        </details>
+        <details>
+          <summary><strong>What is the Heroes Tribute Lounge?</strong></summary>
+          <p  class="list-indent">Added during Carnival Glory's 2024 dry dock refurbishment, the Heroes Tribute Lounge is a dedicated venue honoring military service members with patriotic décor and ambiance. This addition is particularly meaningful given Norfolk's strong naval heritage and military community.</p>
+        </details>
+        <details>
+          <summary><strong>How can I track Carnival Glory's current location?</strong></summary>
+          <p  class="list-indent">Use the live ship tracker section on this page to see the ship's current position, speed, heading, and next port in real-time via MarineTraffic AIS integration.</p>
+        </details>
+      </div>
+    </section>
+
+<section class="card attributions">
+      <h2>Image Attributions</h2>
+      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
+    </section>
+
+<!-- Videos -->
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: Carnival Glory Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
+      <div class="swiper videos" aria-label="Featured video carousel">
+        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-pagination" ></div>
+        <div class="swiper-button-prev" aria-label="Previous slide"></div>
+        <div class="swiper-button-next" aria-label="Next slide"></div>
+      </div>
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
+      </section><!-- End Main Content Column -->
 
     <aside class="rail col-2">
     <section class="card quick-answer"><h2>Quick Answer</h2><img loading="lazy" id="quick-answer-icon" src="/assets/compass_rose.svg" alt="" aria-hidden="true" style="width:48px;height:48px;float:right;opacity:0.3"/><p><strong>Carnival Glory</strong> is a 110,239 GT Conquest-class ship sailing from Norfolk. Her Heroes Tribute Lounge (2024) honors military service — perfect for Hampton Roads families.</p></section>
@@ -502,46 +532,6 @@ Dining Venues</h2>
     <section class="card" id="whimsical-units-container" style="background:#f7fdff;border:1px solid #e0f0f5;border-radius:12px;padding:1.25rem;">
     </section>
   </aside>
-
-    <section class="card faq" aria-labelledby="faq-heading">
-      <h2 id="faq-heading">Frequently Asked Questions About Carnival Glory</h2>
-      <div class="faq-list">
-        <details>
-          <summary><strong>What are the dining options on Carnival Glory?</strong></summary>
-          <p  class="list-indent">Carnival Glory features the Platinum and Golden main dining rooms with Your Time Dining flexibility. Complimentary casual options include Guy's Burger Joint, BlueIguana Cantina for fresh tacos, and the Lido Marketplace buffet. Specialty restaurants include Fahrenheit 555 steakhouse, Cucina del Capitano Italian dining, Guy's Pig & Anchor BBQ, and the exclusive Chef's Table experience.</p>
-        </details>
-        <details>
-          <summary><strong>Where does Carnival Glory sail from?</strong></summary>
-          <p  class="list-indent">Carnival Glory is homeported in Norfolk, Virginia, offering year-round departures to the Bahamas, Eastern Caribbean, and seasonal Bermuda cruises. This makes her ideal for Mid-Atlantic travelers and military families from the Hampton Roads area near the world's largest naval base.</p>
-        </details>
-        <details>
-          <summary><strong>What is the Heroes Tribute Lounge?</strong></summary>
-          <p  class="list-indent">Added during Carnival Glory's 2024 dry dock refurbishment, the Heroes Tribute Lounge is a dedicated venue honoring military service members with patriotic décor and ambiance. This addition is particularly meaningful given Norfolk's strong naval heritage and military community.</p>
-        </details>
-        <details>
-          <summary><strong>How can I track Carnival Glory's current location?</strong></summary>
-          <p  class="list-indent">Use the live ship tracker section on this page to see the ship's current position, speed, heading, and next port in real-time via MarineTraffic AIS integration.</p>
-        </details>
-      </div>
-    </section>
-
-    <section class="card attributions">
-      <h2>Image Attributions</h2>
-      <p class="tiny">Ship images are served locally from licensed sources or CC-BY-SA-4.0 Wikimedia Commons. See individual image captions for specific attribution.</p>
-    </section>
-
-    <!-- Videos -->
-    <section class="card" aria-labelledby="video-highlights">
-      <h2 id="video-highlights">Watch: Carnival Glory Highlights</h2>
-      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
-      <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
-        <div class="swiper-pagination" ></div>
-        <div class="swiper-button-prev" aria-label="Previous slide"></div>
-        <div class="swiper-button-next" aria-label="Next slide"></div>
-      </div>
-      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
-    </section>
 
 
     <!-- Deck Plans & Tracker Grid -->
