@@ -435,9 +435,9 @@ if ('serviceWorker' in navigator) {
 
     <!-- First Look Carousel -->
     <section class="card" id="first-look" aria-labelledby="first-look-title">
-      <header><h2 id="first-look-title">First Look</h2></header>
+      <h2 id="first-look-title">First Look</h2>
       <div class="content">
-        <div class="carousel">
+        <div class="swiper firstlook">
           <figure>
             <img src="/assets/ships/carnival-encounter1.webp"
                  alt="Carnival Encounter at sea"
@@ -465,9 +465,9 @@ if ('serviceWorker' in navigator) {
 
     <!-- Ship Stats -->
     <section class="card" aria-labelledby="stats-title">
-      <header><h2 id="stats-title">Ship Statistics</h2>
+      <h2 id="stats-title">Ship Statistics</h2>
           <div id="ship-stats" class="stats-grid" data-slug="carnival-encounter"></div>
-          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-encounter","name":"Carnival Encounter","class":"Grand Class (ex-Princess)","entered_service":2025,"gt":"109,000 GT","guests":"2,600","crew":"1,100","length":"951 ft (290 m)","beam":"118 ft (36 m)","registry":"Panama"}</script></header>
+          <script type="application/json" id="ship-stats-fallback">{"slug":"carnival-encounter","name":"Carnival Encounter","class":"Grand Class (ex-Princess)","entered_service":2025,"gt":"109,000 GT","guests":"2,600","crew":"1,100","length":"951 ft (290 m)","beam":"118 ft (36 m)","registry":"Panama"}</script>
       <div class="content">
         <div class="stats-grid">
           <div class="stat-item">
@@ -516,7 +516,7 @@ if ('serviceWorker' in navigator) {
 
     <!-- Sister Ships -->
     <section class="card" aria-labelledby="sisters-title">
-      <header><h2 id="sisters-title">Grand Class Fleet</h2></header>
+      <h2 id="sisters-title">Grand Class Fleet</h2>
       <div class="content">
         <p style="margin: 0 0 1rem; font-size: 1rem; color: var(--ink-mid);">
           Carnival Encounter is one of two Grand Class ships operating in Australia, both transferred from P&O Australia in 2025.
@@ -530,7 +530,7 @@ if ('serviceWorker' in navigator) {
 
     <!-- Dining Venues -->
     <section class="card" id="dining-card" aria-labelledby="dining-title">
-      <header><h2 id="dining-title">Dining Venues</h2></header>
+      <h2 id="dining-title">Dining Venues</h2>
       <div class="content">
         <div class="dining-grid">
           <div class="dining-item">
@@ -564,7 +564,7 @@ if ('serviceWorker' in navigator) {
 
     <!-- Captain's Logbook -->
     <section class="card" aria-labelledby="logbook-title">
-      <header><h2 id="logbook-title">Captain's Logbook</h2></header>
+      <h2 id="logbook-title">Captain's Logbook</h2>
       <div class="content">
         <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.8;">
           <li><strong>2002:</strong> Delivered as Star Princess from Fincantieri, Italy for Princess Cruises</li>
@@ -579,7 +579,7 @@ if ('serviceWorker' in navigator) {
 
     <!-- Itineraries -->
     <section class="card" aria-labelledby="itineraries-title">
-      <header><h2 id="itineraries-title">Sailing Regions</h2></header>
+      <h2 id="itineraries-title">Sailing Regions</h2>
       <div class="content">
         <div class="dining-grid">
           <div class="dining-item">
@@ -600,7 +600,7 @@ if ('serviceWorker' in navigator) {
 
     <!-- Videos -->
     <section class="card" aria-labelledby="videos-title">
-      <header><h2 id="videos-title">Ship Videos</h2></header>
+      <h2 id="videos-title">Ship Videos</h2>
       <div class="content">
         <div class="video-grid">
           <div class="video-item">
@@ -625,8 +625,8 @@ if ('serviceWorker' in navigator) {
     </section>
 
     <!-- Deck Plans -->
-    <section class="card" aria-labelledby="decks-title">
-      <header><h2 id="decks-title">Carnival Encounter Deck Plans</h2></header>
+    <section class="card" aria-labelledby="deck-plans">
+      <h2 id="deck-plans">Carnival Encounter Deck Plans</h2>
       <div class="content">
         <p style="margin: 0 0 1rem;">Carnival Encounter features 16 decks with 7 cabin decks and 1,298 staterooms:</p>
         <figure>
@@ -646,7 +646,7 @@ if ('serviceWorker' in navigator) {
 
     <!-- Live Ship Tracker -->
     <section class="card" aria-labelledby="tracker-title">
-      <header><h2 id="tracker-title">Live Ship Tracker</h2></header>
+      <h2 id="tracker-title">Live Ship Tracker</h2>
       <div class="content">
         <iframe class="tracker-frame"
                 src="https://www.marinetraffic.com/en/ais/embed/zoom:8/centery:-27.4/centerx:153.1/maptype:0/shownames:false/mmsi:311001596/shipid:0/fleet:/fleet_id:/vtypes:/showmenu:/remember:false"
@@ -732,26 +732,9 @@ if ('serviceWorker' in navigator) {
     })();
     </script>
 
-    
-    <!-- Deck Plans & Tracker Grid -->
-    <div class="grid-2">
-      <section class="card" aria-labelledby="deck-plans">
-        <h2 id="deck-plans">Carnival Encounter Deck Plans</h2>
-        <div id="ship-map" data-ship="carnival-encounter">
-          <p>Interactive deck plans for Carnival Encounter are available on the cruise line's official website.</p>
-        </div>
-      </section>
-
-      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="9862030" data-name="CARNIVALENCOUNTER">
-        <h2 id="liveTrackHeading">Live Ship Tracker</h2>
-        <div id="ship-tracker-container">
-          <p>Track Carnival Encounter's current position and voyage details.</p>
-        </div>
-      </section>
-    </div>
 
     <section class="card faq" aria-labelledby="faq-title">
-      <header><h2 id="faq-title">Frequently Asked Questions About Carnival Encounter</h2></header>
+      <h2 id="faq-title">Frequently Asked Questions About Carnival Encounter</h2>
       <div class="content">
         <details>
           <summary>Where does Carnival Encounter sail from?</summary>
@@ -778,7 +761,7 @@ if ('serviceWorker' in navigator) {
 
     <!-- Attribution -->
     <section class="card" aria-labelledby="attribution-title">
-      <header><h2 id="attribution-title">Sources & Attribution</h2></header>
+      <h2 id="attribution-title">Sources & Attribution</h2>
       <div class="content">
         <ul style="margin: 0; padding-left: 1.25rem; font-size: 1rem; line-height: 1.8;">
           <li><a href="https://www.carnival.com.au/cruise-ships/carnival-encounter" target="_blank" rel="noopener">Carnival Cruise Line Australia — Official Ship Page</a></li>
@@ -832,7 +815,7 @@ if ('serviceWorker' in navigator) {
 
     <!-- Quick Links -->
     <section class="card" aria-labelledby="quick-links-title">
-      <header><h3 id="quick-links-title">Quick Links</h3></header>
+      <h3 id="quick-links-title">Quick Links</h3>
       <div class="content">
         <div class="quick-links">
           <a href="https://www.carnival.com.au/cruise-ships/carnival-encounter" target="_blank" rel="noopener">
@@ -853,7 +836,7 @@ if ('serviceWorker' in navigator) {
 
     <!-- Ship Facts -->
     <section class="card" aria-labelledby="facts-title">
-      <header><h3 id="facts-title">Quick Facts</h3></header>
+      <h3 id="facts-title">Quick Facts</h3>
       <div class="content" style="font-size: 1rem;">
         <p><strong>Ship Class:</strong> Grand Class</p>
         <p><strong>Former Names:</strong> Star Princess, Pacific Encounter</p>
@@ -884,8 +867,8 @@ if ('serviceWorker' in navigator) {
       </section>
 
 
-<section class="card author-card-vertical" aria-labelledby="author-heading">
-      <h3 id="author-heading">About the Author</h3>
+<section class="card author-card-vertical" aria-labelledby="author-heading-vertical">
+      <h3 id="author-heading-vertical">About the Author</h3>
       <a href="/authors/ken-baker.html"><img class="author-avatar" src="/authors/img/ken1_96.webp" width="96" height="96" alt="Ken Baker cruise research analyst and author of In The Wake ship reviews" loading="lazy"/></a>
       <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
       <p class="tiny">Founder of In the Wake</p>
