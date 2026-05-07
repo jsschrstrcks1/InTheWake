@@ -367,6 +367,43 @@
         "note": "Voice-audit is the post-draft companion to Like-a-human. Like-a-human fires during writing. Voice-audit fires before committing."
       }
     },
+    "ai-summary-rewriter": {
+      "enabled": true,
+      "type": "skill",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Rewrites <meta name=\"ai-summary\"> tags that ICP-018 flags as boilerplate. Each rewrite carries 2 ship-specific facts + 1 voice-aligned editorial line, <=80 words, no boilerplate phrases.",
+      "promptTriggers": {
+        "keywords": [
+          "ai-summary rewrite",
+          "ai summary boilerplate",
+          "rewrite ai-summary",
+          "ICP-018",
+          "fix boilerplate summary"
+        ],
+        "intentPatterns": [
+          "(rewrite|fix|repair).*?ai[- ]summary",
+          "ICP-018",
+          "ai[- ]summary.*?boilerplate"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "ships/*/*.html"
+        ],
+        "exclude": [
+          "ships/*/index.html",
+          "ships/*/venues.html"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/ai-summary-rewriter/SKILL.md",
+        "maxLines": 250,
+        "loadOnFirstFileEdit": false,
+        "note": "Loaded on prompt keyword or when validator output mentions ai_summary_boilerplate."
+      },
+      "activationMessage": "AI-summary rewriter activated. Each rewrite: 2 ship-specific facts + 1 voice line, <=80 words, zero boilerplate."
+    },
     "emotional-hook-test": {
       "enabled": true,
       "type": "guardrail",
