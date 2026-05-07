@@ -1,0 +1,48 @@
+{
+  "_doc": "Schema for audit-reports/business-kpi-baseline.json. Captured before any v3 phase runs; gates Definition of Done items #3 and #4. See admin/SHIP_STANDARDIZATION_PLAN_V3.md § 4.",
+  "schema_version": "1.0.0",
+  "captured_at": "YYYY-MM-DDTHH:MM:SSZ",
+  "captured_by": "admin/capture-kpi-baseline.cjs",
+  "window_days": 28,
+  "scope": {
+    "page_glob": "ships/**/*.html",
+    "ship_count_at_capture": 290
+  },
+  "ga4": {
+    "property_id": "GA4_PROPERTY_ID_HERE",
+    "ship_page_avg_session_duration_seconds": null,
+    "ship_page_scroll_depth_p50": null,
+    "ship_page_scroll_depth_p75": null,
+    "ship_page_sessions": null,
+    "internal_link_ctr": null,
+    "outbound_link_ctr": null,
+    "bounce_rate": null
+  },
+  "gsc": {
+    "site": "https://cruisinginthewake.com",
+    "structured_data_valid_count": {
+      "Cruise": null,
+      "Product": null,
+      "Vehicle": null,
+      "TouristAttraction": null,
+      "FAQPage": null,
+      "BreadcrumbList": null
+    },
+    "indexed_ship_pages": null,
+    "impressions_28d": null,
+    "clicks_28d": null,
+    "avg_position_28d": null,
+    "ctr_28d": null
+  },
+  "regression_floors": {
+    "_doc": "v3 fails DoD if any of these drops by >= 10% post-rollout. Reference values copied from above at capture.",
+    "gsc_impressions_28d_floor": null,
+    "gsc_avg_position_28d_floor": null,
+    "ga4_ship_page_sessions_floor": null
+  },
+  "targets": {
+    "_doc": "v3 DoD #3 and #4 bind these.",
+    "ga4_ship_page_session_depth_uplift_pct": 20,
+    "gsc_vehicle_valid_count_must_meet_or_beat_baseline_for": ["Cruise", "Product"]
+  }
+}

@@ -1,0 +1,11 @@
+# Lock files for v3 parallel-track coordination.
+#
+# Per admin/SHIP_STANDARDIZATION_PLAN_V3.md § 11, agents working a fleet line
+# write a JSON lock here before editing ships/<line>/*.html. The pre-commit
+# hook rejects commits that touch a line currently locked by a different
+# branch.
+#
+# Lock filename:  <line>.lock        (e.g. rcl.lock, carnival.lock)
+# Lock contents:  { "branch": "...", "agent": "...", "started_at": "...", "ttl_minutes": 720 }
+#
+# Stale locks (older than ttl_minutes) are reaped by the pre-commit hook.
