@@ -1685,48 +1685,68 @@ else
 fi
 
 # ============================================================================
-# Section 9aj: Image Symlink Integrity
+# Section 9aj: Symlink Image References Forbidden (#1500)
 # ============================================================================
-section_header "Section 9aj: Image Symlink Integrity"
+# Symlinks let us mass-fake "every ship has photos" by aliasing one real photo
+# under many ship-named filenames. Banned outright. Any <img src> resolving to
+# a symlink under the repo is a blocking error.
+section_header "Section 9aj: Symlink Image References (#1500)"
 
-BROKEN_SYMLINKS=0
+SYMLINK_REFS=0
 while IFS= read -r img_path; do
     [ -z "$img_path" ] && continue
     [[ "$img_path" == http* ]] && continue
     FULL_PATH="${REPO_ROOT}/${img_path#/}"
     if [ -L "$FULL_PATH" ]; then
-        # It's a symlink — check if target exists and filename makes sense
         TARGET=$(readlink -f "$FULL_PATH" 2>/dev/null)
-        if [ ! -f "$TARGET" ]; then
-            check_fail "Broken image symlink: $img_path → target does not exist"
-            BROKEN_SYMLINKS=$((BROKEN_SYMLINKS + 1))
-        else
-            # Check if symlink target contains a different ship name
-            TARGET_BASE=$(basename "$TARGET")
-            SRC_BASE=$(basename "$img_path")
-            # Extract ship names from both — use full "Name_of_the_Seas" pattern
-            SRC_SHIP=$(echo "$SRC_BASE" | grep -oiP '^[A-Za-z_]+_of_the_[A-Za-z]+' | head -1)
-            TGT_SHIP=$(echo "$TARGET_BASE" | grep -oiP '^[A-Za-z_]+_of_the_[A-Za-z]+' | head -1)
-            # Fallback: if no "of the" pattern, use first word before underscore+digit
-            [ -z "$SRC_SHIP" ] && SRC_SHIP=$(echo "$SRC_BASE" | grep -oiP '^[A-Za-z]+(?=_)' | head -1)
-            [ -z "$TGT_SHIP" ] && TGT_SHIP=$(echo "$TARGET_BASE" | grep -oiP '^[A-Za-z]+(?=_)' | head -1)
-            # Normalize: lowercase, strip trailing s/es for fuzzy match
-            SRC_NORM=$(echo "$SRC_SHIP" | tr 'A-Z' 'a-z' | sed 's/_*$//')
-            TGT_NORM=$(echo "$TGT_SHIP" | tr 'A-Z' 'a-z' | sed 's/_*$//')
-            # Check if one starts with the other (handles "Sea" vs "Seas")
-            SHIPS_MATCH=0
-            [ "$SRC_NORM" = "$TGT_NORM" ] && SHIPS_MATCH=1
-            echo "$SRC_NORM" | grep -q "^${TGT_NORM}" && SHIPS_MATCH=1
-            echo "$TGT_NORM" | grep -q "^${SRC_NORM}" && SHIPS_MATCH=1
-            if [ -n "$SRC_SHIP" ] && [ -n "$TGT_SHIP" ] && [ "$SHIPS_MATCH" -eq 0 ]; then
-                check_fail "Image symlink cross-ship: $SRC_BASE → $TARGET_BASE (different ships)"
-                BROKEN_SYMLINKS=$((BROKEN_SYMLINKS + 1))
-            fi
-        fi
+        TARGET_BASE=$(basename "$TARGET" 2>/dev/null)
+        check_fail "Symlink image reference forbidden: $img_path → $TARGET_BASE (#1500)"
+        SYMLINK_REFS=$((SYMLINK_REFS + 1))
     fi
 done <<< "$(echo "$CONTENT" | grep -oP 'src="(/[^"]+\.(jpg|jpeg|png|webp|gif))"' | grep -oP '/[^"]+' || true)"
-if [ "$BROKEN_SYMLINKS" -eq 0 ]; then
-    check_pass "No broken or cross-ship image symlinks"
+if [ "$SYMLINK_REFS" -eq 0 ]; then
+    check_pass "No symlink image references"
+fi
+
+# ============================================================================
+# Section 9aj-2: Image Filename ↔ Page Slug Match (#1501)
+# ============================================================================
+# Every <img src="/assets/ships/X"> on a ship page must contain that page's
+# ship slug in the filename. Catches direct (non-symlink) cross-ship reuse —
+# e.g. carnival-pride.html referencing Carnival_Breeze_001.jpg. Substring
+# match against the page slug (with optional trailing -YYYY year suffix
+# stripped) on a normalised filename.
+section_header "Section 9aj-2: Image Filename Matches Page Slug (#1501)"
+
+PAGE_SLUG=$(basename "$FILE" .html)
+# Strip trailing 4-digit year (historical fleet pages: mardi-gras-1972 etc.)
+PAGE_SLUG_BASE=$(echo "$PAGE_SLUG" | sed -E 's/-[0-9]{4}$//')
+
+MISMATCH_COUNT=0
+while IFS= read -r img_path; do
+    [ -z "$img_path" ] && continue
+    [[ "$img_path" == http* ]] && continue
+    BASE=$(basename "$img_path")
+    # Skip generic placeholders that aren't ship-named
+    case "$BASE" in
+        ship-map.*|compass_rose.*|ship-thumbnail.*|*placeholder*) continue ;;
+    esac
+    # Normalise: drop extension, lowercase, collapse [_.\s] to '-'
+    BASE_NORM=$(echo "${BASE%.*}" | tr 'A-Z' 'a-z' | tr '_.' '--' | tr -s '-')
+    # Match if normalised filename contains either the full slug or the
+    # year-stripped slug. (carnival-pride matches carnival-pride_01.webp;
+    # mardi-gras-1972 also matches Mardi_Gras_flickr_xxx.webp via the base.)
+    if echo "$BASE_NORM" | grep -qF -- "$PAGE_SLUG"; then
+        continue
+    fi
+    if [ "$PAGE_SLUG_BASE" != "$PAGE_SLUG" ] && echo "$BASE_NORM" | grep -qF -- "$PAGE_SLUG_BASE"; then
+        continue
+    fi
+    check_fail "Image filename ship mismatch: $BASE does not contain page slug '$PAGE_SLUG' (#1501)"
+    MISMATCH_COUNT=$((MISMATCH_COUNT + 1))
+done <<< "$(echo "$CONTENT" | grep -oP 'src="(/assets/ships/[^"]+\.(jpg|jpeg|png|webp|gif))"' | grep -oP '/[^"]+' || true)"
+if [ "$MISMATCH_COUNT" -eq 0 ]; then
+    check_pass "All /assets/ships/ image filenames contain the page's ship slug"
 fi
 
 # ============================================================================
