@@ -41,7 +41,7 @@ const PROVENANCE_VALUES = new Set(['V+S-agree', 'V-only', 'S-only', 'V-S-conflic
 const STATUS_VALUES = new Set(['live', 'proposed', 'deprecated']);
 const DECISION_VALUES = new Set(['FINAL', 'UNRESOLVED']);
 const BACKFILL_VALUES = new Set(['yes', 'no']);
-const APPLIES_TO_VALUES = new Set(['port', 'ship', 'venue', 'root', 'logbook', 'solo', 'cruise-line', 'tool', 'all']);
+const APPLIES_TO_VALUES = new Set(['port', 'ship', 'venue', 'root', 'logbook', 'solo', 'cruise-line', 'tool', 'article', 'all']);
 
 const ID_PATTERN = /^[A-Z][A-Z0-9]{2,6}-\d{3,4}$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;

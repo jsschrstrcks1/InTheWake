@@ -12,7 +12,7 @@ id: FAM-NNN                     # required. 3-letter family + zero-padded number
 name: Short human title         # required. One line. Plain English.
 family: image                   # required. Matches a CATEGORIES.md entry.
 severity: error                 # required. error | warn | info.
-applies-to:                     # required. One or more of: port, ship, venue, root, logbook, solo, cruise-line, tool, all.
+applies-to:                     # required. One or more of: port, ship, venue, root, logbook, solo, cruise-line, tool, article, all.
   - port
   - ship
 provenance: V+S-agree           # required. V+S-agree | V-only | S-only | V-S-conflict.
@@ -109,7 +109,7 @@ V-S-conflict rules additionally must contain `## Implications` and `## Recommend
 
 ## Field semantics notes
 
-**`applies-to`:** Use `all` only if the rule literally applies to every HTML page (theological invocation, canonical URL presence, etc.). Most rules should list specific page types.
+**`applies-to`:** Use `all` only if the rule literally applies to every HTML page (theological invocation, canonical URL presence, etc.). Most rules should list specific page types. The `article` value covers solo-articles fragments and the `/articles/*` pages that aren't logbook entries.
 
 **`implementation: none`:** Honest — means no validator enforces this today. The rule goes on `ORPHANS.md`. `find-orphans.cjs` does NOT fail the build for `implementation: none` (that would make the spec unwritable during Phase 3); it counts and reports.
 
