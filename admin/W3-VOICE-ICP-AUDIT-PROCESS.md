@@ -139,7 +139,7 @@ The audit findings get published on a public page so readers and partners can se
 
 ### Page location
 
-`/audit-log.html` (proposed; create on the first audit run).
+`/audit-log.html` — empty-by-design until the first audit fills it on 2026-07-01. Page shipped 2026-05-06 with the placeholder forthcoming-audit entry visible.
 
 ### Page structure
 
