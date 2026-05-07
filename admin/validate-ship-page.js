@@ -3323,12 +3323,18 @@ function validateInternalNumericConsistency($) {
   // "Lower-bound" rhetoric like "over 5,000 guests" or "more than 5,000" is
   // honest rounding to a floor — not an inconsistency. Skip those too.
   const LOWER_BOUND = /\b(over|more than|north of|upwards of)\s+$/i;
+  // If the 30-char "before" window names another ship-stat (gross tonnage,
+  // length, year built, IMO, crew), the captured integer is for THAT stat,
+  // not for guests — the regex's \s* greedily bridged across `</dd>` to a
+  // distant "Guests" keyword. Skip these.
+  const NON_GUEST_LABEL = /\b(tonnage|gross\s+tons?|gross\s+tonnage|GT|metric\s+tons?|displacement|ft\b|feet|metres?|m\b|year(\s+built)?|built|IMO|MMSI|crew(\s+members?)?|knots?|length|beam|draft|draught)\s*[:.]?\s*$/i;
   const found = [];
   let m;
   while ((m = guestPattern.exec(bodyText)) !== null) {
     const ctxBefore = m[1];
     const num = m[2];
     const ctxAfter = m[4];
+    if (NON_GUEST_LABEL.test(ctxBefore)) continue;
     const isLabelledMax = MAX_LABEL.test(ctxBefore) || MAX_LABEL.test(ctxAfter);
     const isLowerBound = LOWER_BOUND.test(ctxBefore);
     if (isLowerBound) continue;
