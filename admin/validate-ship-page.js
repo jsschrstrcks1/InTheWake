@@ -3306,16 +3306,39 @@ function validateInternalNumericConsistency($) {
   const errors = [];
   const warnings = [];
 
-  const bodyText = $('body').text();
-  // Find every "N,NNN guests" or "N,NNN passengers" mention with leading 12-char window.
-  const guestPattern = /([\s\S]{0,30})\b(\d{1,2},\d{3})\b\s*(guests?|passengers?|capacity)/gi;
+  // Strip voice-protected sections from the body BEFORE scanning. Logbook
+  // stories carry first-person narrator prose where rhetorical rounding
+  // ("~3,100 guests", "over 5,000 passengers") is editorial, not a
+  // data-consistency issue. Same for the whimsical-units rail (its
+  // max-capacity figures already wear explicit labels).
+  const $clone = $('body').clone();
+  $clone.find('section.note-kens-logbook, section[aria-labelledby="logbook"], section[id="logbook-stories"], #logbook-stories, article.story, .whimsical-units-container, .fun-distance-units').remove();
+  const bodyText = $clone.text();
+  // Find every "N,NNN guests" or "N,NNN passengers" mention. Capture both
+  // a 30-char window before the integer (where labels like "max capacity
+  // of" go) AND a 60-char window after the keyword (where labels like
+  // "at full capacity" / "all-berths-full" go).
+  const guestPattern = /([\s\S]{0,30})\b(\d{1,2},\d{3})\b\s*(guests?|passengers?|capacity)([\s\S]{0,60})/gi;
+  const MAX_LABEL = /\b(max(imum)?|all[- ]berths?(?:[- ]?full)?|full[- ]capacity|full[- ]occupanc[yi])\b/i;
+  // "Lower-bound" rhetoric like "over 5,000 guests" or "more than 5,000" is
+  // honest rounding to a floor — not an inconsistency. Skip those too.
+  const LOWER_BOUND = /\b(over|more than|north of|upwards of)\s+$/i;
+  // If the 30-char "before" window names another ship-stat (gross tonnage,
+  // length, year built, IMO, crew), the captured integer is for THAT stat,
+  // not for guests — the regex's \s* greedily bridged across `</dd>` to a
+  // distant "Guests" keyword. Skip these.
+  const NON_GUEST_LABEL = /\b(tonnage|gross\s+tons?|gross\s+tonnage|GT|metric\s+tons?|displacement|ft\b|feet|metres?|m\b|year(\s+built)?|built|IMO|MMSI|crew(\s+members?)?|knots?|length|beam|draft|draught)\s*[:.]?\s*$/i;
   const found = [];
   let m;
   while ((m = guestPattern.exec(bodyText)) !== null) {
-    const ctx = m[1];
+    const ctxBefore = m[1];
     const num = m[2];
-    const isLabelledMax = /\b(max(imum)?|all[- ]berths?|full[- ]capacity)\b/i.test(ctx);
-    found.push({ num, isLabelledMax, ctx: ctx.slice(-30) });
+    const ctxAfter = m[4];
+    if (NON_GUEST_LABEL.test(ctxBefore)) continue;
+    const isLabelledMax = MAX_LABEL.test(ctxBefore) || MAX_LABEL.test(ctxAfter);
+    const isLowerBound = LOWER_BOUND.test(ctxBefore);
+    if (isLowerBound) continue;
+    found.push({ num, isLabelledMax, ctx: (ctxBefore.slice(-30) + '⟨' + num + '⟩' + ctxAfter.slice(0, 30)) });
   }
 
   // Distinct non-max numbers
