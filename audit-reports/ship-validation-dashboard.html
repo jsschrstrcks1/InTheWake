@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Ship Validation Dashboard — line=rcl</title>
+<title>Ship Validation Dashboard — full-fleet</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   body { font-family: ui-sans-serif, system-ui, sans-serif; margin: 2em; max-width: 1100px; color: #134; }
@@ -21,14 +21,14 @@
 </head>
 <body>
 <h1>Ship Validation Dashboard</h1>
-<p><strong>Scope:</strong> line=rcl · <strong>Generated:</strong> 2026-05-07T20:28:05.759Z</p>
+<p><strong>Scope:</strong> full-fleet · <strong>Generated:</strong> 2026-05-07T20:33:11.007Z</p>
 
 <div class="summary">
-  <strong>Totals (49 pages):</strong><br>
-  .sh validator: 19 pass / 9 warn-only / 21 fail<br>
-  .js validator: 6 pass / 43 fail<br>
-  Errors: 66 (sh) + 67 (js)<br>
-  Warnings: 66 (sh) + 427 (js)
+  <strong>Totals (290 pages):</strong><br>
+  .sh validator: 85 pass / 93 warn-only / 112 fail<br>
+  .js validator: 76 pass / 214 fail<br>
+  Errors: 780 (sh) + 337 (js)<br>
+  Warnings: 5431 (sh) + 2722 (js)
 </div>
 
 <h2>By cruise line</h2>
@@ -38,6 +38,96 @@
 </tr></thead>
 <tbody>
     <tr>
+      <td>carnival</td>
+      <td class="num">48</td>
+      <td class="num err">234</td>
+      <td class="num warn">1813</td>
+      <td class="num err">71</td>
+      <td class="num warn">573</td>
+      <td class="topfail">22× <code>js:images/missing_local_images</code><br>15× <code>js:sections/wrong_section_order</code><br>12× <code>js:images/few_images</code></td>
+    </tr>
+    <tr>
+      <td>celebrity-cruises</td>
+      <td class="num">29</td>
+      <td class="num err">162</td>
+      <td class="num warn">781</td>
+      <td class="num err">18</td>
+      <td class="num warn">250</td>
+      <td class="topfail">10× <code>js:images/missing_local_images</code><br>8× <code>js:images/few_images</code><br>8× <code>sh:Image not found on disk: /assets/ships/celebrity-reflection_</code></td>
+    </tr>
+    <tr>
+      <td>costa</td>
+      <td class="num">9</td>
+      <td class="num err">3</td>
+      <td class="num warn">0</td>
+      <td class="num err">18</td>
+      <td class="num warn">85</td>
+      <td class="topfail">9× <code>js:images/few_images</code><br>9× <code>js:json_ld/main_entity_blacklisted</code><br>1× <code>sh:Image filename ship mismatch: Costa_Diadema_flickr_brlrzxmb1</code></td>
+    </tr>
+    <tr>
+      <td>cunard</td>
+      <td class="num">4</td>
+      <td class="num err">0</td>
+      <td class="num warn">0</td>
+      <td class="num err">4</td>
+      <td class="num warn">41</td>
+      <td class="topfail">4× <code>js:images/few_images</code></td>
+    </tr>
+    <tr>
+      <td>explora-journeys</td>
+      <td class="num">6</td>
+      <td class="num err">5</td>
+      <td class="num warn">0</td>
+      <td class="num err">15</td>
+      <td class="num warn">44</td>
+      <td class="topfail">6× <code>js:images/few_images</code><br>4× <code>js:videos/few_videos</code><br>4× <code>js:videos/missing_categories</code></td>
+    </tr>
+    <tr>
+      <td>holland-america-line</td>
+      <td class="num">46</td>
+      <td class="num err">54</td>
+      <td class="num warn">2117</td>
+      <td class="num err">5</td>
+      <td class="num warn">423</td>
+      <td class="topfail">3× <code>js:images/missing_local_images</code><br>2× <code>js:images/few_images</code><br>1× <code>sh:Missing local image: /assets/ships/koningsdam_01.webp</code></td>
+    </tr>
+    <tr>
+      <td>msc</td>
+      <td class="num">24</td>
+      <td class="num err">18</td>
+      <td class="num warn">0</td>
+      <td class="num err">28</td>
+      <td class="num warn">256</td>
+      <td class="topfail">23× <code>js:images/few_images</code><br>1× <code>sh:Image filename ship mismatch: Msc_Grandiosa_flickr_bobindrum</code><br>1× <code>js:videos/few_videos</code></td>
+    </tr>
+    <tr>
+      <td>norwegian</td>
+      <td class="num">20</td>
+      <td class="num err">80</td>
+      <td class="num warn">0</td>
+      <td class="num err">14</td>
+      <td class="num warn">164</td>
+      <td class="topfail">8× <code>js:images/few_images</code><br>5× <code>js:images/missing_local_images</code><br>1× <code>sh:Missing local image: /assets/ships/norwegian-bliss_01.webp</code></td>
+    </tr>
+    <tr>
+      <td>oceania</td>
+      <td class="num">8</td>
+      <td class="num err">4</td>
+      <td class="num warn">0</td>
+      <td class="num err">24</td>
+      <td class="num warn">68</td>
+      <td class="topfail">8× <code>js:images/few_images</code><br>8× <code>js:json_ld/main_entity_blacklisted</code><br>5× <code>js:videos/missing_categories</code></td>
+    </tr>
+    <tr>
+      <td>princess</td>
+      <td class="num">17</td>
+      <td class="num err">148</td>
+      <td class="num warn">363</td>
+      <td class="num err">19</td>
+      <td class="num warn">130</td>
+      <td class="topfail">11× <code>js:images/missing_local_images</code><br>4× <code>js:images/few_images</code><br>4× <code>js:html_structure/unclosed_section</code></td>
+    </tr>
+    <tr>
       <td>rcl</td>
       <td class="num">49</td>
       <td class="num err">66</td>
@@ -45,11 +135,47 @@
       <td class="num err">67</td>
       <td class="num warn">427</td>
       <td class="topfail">43× <code>js:runtime_data/cascade_fully_failed</code><br>9× <code>js:images/missing_local_images</code><br>8× <code>js:images/few_images</code></td>
+    </tr>
+    <tr>
+      <td>regent</td>
+      <td class="num">7</td>
+      <td class="num err">3</td>
+      <td class="num warn">0</td>
+      <td class="num err">9</td>
+      <td class="num warn">52</td>
+      <td class="topfail">7× <code>js:images/few_images</code><br>2× <code>sh:Image filename ship mismatch: Seven_Seas_Explorer_flickr_gil</code><br>2× <code>js:html_structure/unclosed_section</code></td>
+    </tr>
+    <tr>
+      <td>seabourn</td>
+      <td class="num">7</td>
+      <td class="num err">1</td>
+      <td class="num warn">0</td>
+      <td class="num err">17</td>
+      <td class="num warn">66</td>
+      <td class="topfail">7× <code>js:images/few_images</code><br>6× <code>js:json_ld/main_entity_blacklisted</code><br>3× <code>js:videos/missing_categories</code></td>
+    </tr>
+    <tr>
+      <td>silversea</td>
+      <td class="num">12</td>
+      <td class="num err">2</td>
+      <td class="num warn">291</td>
+      <td class="num err">13</td>
+      <td class="num warn">105</td>
+      <td class="topfail">11× <code>js:images/few_images</code><br>1× <code>js:videos/few_videos</code><br>1× <code>js:videos/missing_categories</code></td>
+    </tr>
+    <tr>
+      <td>virgin-voyages</td>
+      <td class="num">4</td>
+      <td class="num err">0</td>
+      <td class="num warn">0</td>
+      <td class="num err">15</td>
+      <td class="num warn">38</td>
+      <td class="topfail">4× <code>js:sections/wrong_section_order</code><br>4× <code>js:images/few_images</code><br>4× <code>js:template_remnants/placeholder_content</code></td>
     </tr></tbody>
 </table>
 
 <h2>Top error rules across fleet</h2>
-<ul class="rules"><li><code>js:runtime_data/cascade_fully_failed</code> — 43</li><li><code>js:images/missing_local_images</code> — 9</li><li><code>js:images/few_images</code> — 8</li><li><code>js:sections/wrong_section_order</code> — 5</li><li><code>sh:Image filename ship mismatch: Icon_of_the_Seas_(cropped).web</code> — 4</li><li><code>sh:Image filename ship mismatch: Icon_and_Mariner_Cozumel_Mexic</code> — 4</li><li><code>sh:Image not found on disk: /assets/ships/Adventure_of_the_Seas</code> — 3</li><li><code>sh:Image not found on disk: /assets/ships/Explorer_of_the_Seas_</code> — 3</li><li><code>sh:Image filename ship mismatch: Wonder_of_the_Seas_Jan_30_2025</code> — 2</li><li><code>sh:Image filename ship mismatch: Odyssey_of_the_Seas.webp does </code> — 2</li><li><code>sh:Image filename ship mismatch: Quantum_of_the_Seas_01.webp do</code> — 2</li><li><code>sh:Missing local image: /assets/ships/Cádiz_-_Crucero_Star_of_t</code> — 2</li><li><code>sh:Image not found on disk: /assets/ships/Cádiz_-_Crucero_Star_</code> — 2</li><li><code>sh:Missing local image: /assets/ships/Adventure_of_the_Seas_02.</code> — 1</li><li><code>sh:Missing local image: /assets/ships/Adventure_of_the_Seas_03.</code> — 1</li><li><code>sh:Missing local image: /assets/ships/Adventure_of_the_Seas_04.</code> — 1</li><li><code>sh:Image filename ship mismatch: enchantment-halifax-2011.webp </code> — 1</li><li><code>sh:Image filename ship mismatch: enchantment-labadee-2013.webp </code> — 1</li><li><code>sh:Image filename ship mismatch: enchantment-tampa-2025.webp do</code> — 1</li><li><code>sh:Missing local image: /assets/ships/Explorer_of_the_Seas_02.w</code> — 1</li></ul>
+<ul class="rules"><li><code>js:images/few_images</code> — 121</li><li><code>js:images/missing_local_images</code> — 61</li><li><code>js:runtime_data/cascade_fully_failed</code> — 50</li><li><code>js:sections/wrong_section_order</code> — 25</li><li><code>js:json_ld/main_entity_blacklisted</code> — 23</li><li><code>js:videos/missing_categories</code> — 17</li><li><code>js:videos/few_videos</code> — 11</li><li><code>sh:Image not found on disk: /assets/ships/celebrity-reflection_</code> — 8</li><li><code>sh:Image not found on disk: /assets/ships/celebrity-silhouette_</code> — 8</li><li><code>js:data_attr/invalid_imo</code> — 7</li><li><code>js:html_structure/unclosed_section</code> — 7</li><li><code>sh:Image filename ship mismatch: Carnival_Celebration,_Nassau_(</code> — 5</li><li><code>sh:Image filename ship mismatch: Carnival_Jubilee_Panorama_Cozu</code> — 5</li><li><code>js:sections/missing_required</code> — 5</li><li><code>sh:Image filename ship mismatch: carnival-glory_01.webp does no</code> — 4</li><li><code>sh:Image filename ship mismatch: carnival-conquest_01.webp does</code> — 4</li><li><code>sh:Missing local image: /assets/ships/carnival-spirit_01.webp</code> — 4</li><li><code>sh:Missing local image: /assets/ships/carnival-pride_01.webp</code> — 4</li><li><code>sh:Image not found on disk: /assets/ships/carnival-pride_01.web</code> — 4</li><li><code>sh:Image not found on disk: /assets/ships/carnival-spirit_01.we</code> — 4</li></ul>
 
 <p><em>Raw JSON: <a href="ship-validation-dashboard.json">ship-validation-dashboard.json</a></em></p>
 </body>
