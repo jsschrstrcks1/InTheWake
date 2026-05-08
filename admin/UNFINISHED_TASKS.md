@@ -765,6 +765,17 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 
 `careful-not-clever` requires that gaps surfaced during one task get documented for the next task rather than silently skipped. These pages and images were excluded as link/image targets in the Caribbean trends article (deliberate skips) and need their own scoped work. Move each to `admin/COMPLETED_TASKS.md` when published — do not delete from this list silently.
 
+### Broken article reference: `/solo/articles/alaska-cruise-first-timer.html` (Discovered 2026-05-08)
+
+- [ ] **`alaska-cruise-first-timer.html` does not exist** but is hardcoded into the `<noscript>` rail fallback on 14 port pages (anchorage, ajaccio, akureyri, alesund, etc.). The file was never written — only the link was. For users without JS, those 14 pages serve a 404 link. Two acceptable fixes:
+  1. Write the article (`/articles/alaska-cruise-first-timer.html` or `/solo/alaska-cruise-first-timer.html`) and add it to `assets/data/articles/index.json`. The link target then resolves.
+  2. Remove the alaska `<li>` from each port-page noscript fallback. Cleaner if no plan to write the article.
+- See remaining hits: `grep -rln "/solo/articles/alaska-cruise-first-timer" --include="*.html" .`
+
+### `/travel.html` is also the "Top 20 First-Cruise Questions" article (Discovered 2026-05-08)
+
+- [ ] **Architectural quirk, low priority.** `assets/data/articles/index.json` lists "Top 20 First-Cruise Questions (Answered)" with `url: /travel.html`. The travel hub *is* the article — its `<title>`, `<h1>`, and JSON-LD all confirm. Works today. Future cleanup option: split out to `/articles/top-20-first-cruise-questions.html` so the URL matches the article title, leave `/travel.html` as a hub that links to it. Touches sitemap, internal links, JSON-LD, and the JSON entry — non-trivial. Don't act unless we're doing a broader articles-hub refactor.
+
 ---
 
 ## Strategic "Don't Chase" List (Explicit Decisions)
