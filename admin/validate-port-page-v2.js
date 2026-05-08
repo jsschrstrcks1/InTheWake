@@ -1321,6 +1321,13 @@ function validateImages($) {
  *   - Reused 2-3x with same alt:  INFO (likely benign / nav decoration)
  *   - Reused 2+x with different alts: WARNING (alt-text drift)
  *   - Reused 4+x regardless:      WARNING (excessive in-page reuse)
+ *
+ * Pairs with — does NOT replace — the cross-page image-reuse-guardrail skill
+ * (.claude/skills/image-reuse-guardrail/SKILL.md). That skill enforces byte
+ * uniqueness across pages and entities via admin/scan-image-reuse.cjs and
+ * the .githooks/pre-commit hook (admin/check-image-reuse.cjs). This function
+ * checks alt-text drift WITHIN a single page; the guardrail catches the same
+ * bytes being reused ACROSS pages. Together they cover both surfaces.
  */
 function validateImageReuse($) {
   const warnings = [];
