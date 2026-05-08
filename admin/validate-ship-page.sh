@@ -1750,6 +1750,74 @@ if [ "$MISMATCH_COUNT" -eq 0 ]; then
 fi
 
 # ============================================================================
+# Section 9aj-3: Byte-Equal Cross-Page Image Reuse (#1502) — warn
+# ============================================================================
+# Reads admin/aggregate output audit-reports/image-reuse-registry.json. For
+# each ship image referenced on this page, looks up its md5-bucket in by_hash
+# and warns if any sibling entry belongs to a different ship slug. The hook
+# blocks NEW reuse at commit; this validator section surfaces existing reuse
+# during per-page review.
+section_header "Section 9aj-3: Byte-Equal Cross-Page Image Reuse (#1502)"
+
+REUSE_REGISTRY="${REPO_ROOT}/audit-reports/image-reuse-registry.json"
+if [ -f "$REUSE_REGISTRY" ] && command -v jq >/dev/null 2>&1; then
+    REUSE_WARNS=0
+    while IFS= read -r img_path; do
+        [ -z "$img_path" ] && continue
+        REL="${img_path#/}"
+        # Find all slugs sharing this image's md5 bucket
+        OTHER_SLUGS=$(jq -r --arg rel "$REL" --arg slug "$PAGE_SLUG" '
+            [ .by_hash[] | select(any(.[]; .rel == $rel)) | .[] | .slug // empty ]
+            | map(select(. != null and . != "" and . != $slug))
+            | unique | .[]
+        ' "$REUSE_REGISTRY" 2>/dev/null | grep -v '^$' | sort -u)
+        if [ -n "$OTHER_SLUGS" ]; then
+            OTHER_LIST=$(echo "$OTHER_SLUGS" | tr '\n' ',' | sed 's/,$//')
+            check_warn "Image $REL is byte-equal to images on different ship pages: $OTHER_LIST (#1502)"
+            REUSE_WARNS=$((REUSE_WARNS + 1))
+        fi
+    done <<< "$(echo "$CONTENT" | grep -oP 'src="/assets/ships/[^"]+\.(jpg|jpeg|png|webp|gif)' | sed 's/^src="//' | sort -u || true)"
+    if [ "$REUSE_WARNS" -eq 0 ]; then
+        check_pass "No byte-equal cross-page image reuse"
+    fi
+else
+    check_pass "No byte-equal reuse registry (skipped)"
+fi
+
+# ============================================================================
+# Section 9aj-4: Perceptual (Near-Duplicate) Image Reuse (#1503) — warn
+# ============================================================================
+# Reads audit-reports/image-recrops-registry.json. dHash-based; surfaces
+# images that aren't byte-equal but visually near-identical (re-saved JPEGs,
+# slight crops, format conversions). Fires when this page references an image
+# whose perceptual group has another member belonging to a different ship slug.
+section_header "Section 9aj-4: Perceptual Cross-Page Image Near-Duplicate (#1503)"
+
+RECROPS_REGISTRY="${REPO_ROOT}/audit-reports/image-recrops-registry.json"
+if [ -f "$RECROPS_REGISTRY" ] && command -v jq >/dev/null 2>&1; then
+    RECROP_WARNS=0
+    while IFS= read -r img_path; do
+        [ -z "$img_path" ] && continue
+        REL="${img_path#/}"
+        OTHER_SLUGS=$(jq -r --arg rel "$REL" --arg slug "$PAGE_SLUG" '
+            [ .groups[] | select(.members | any(.rel == $rel)) | .members[] | .slug // empty ]
+            | map(select(. != null and . != "" and . != $slug))
+            | unique | .[]
+        ' "$RECROPS_REGISTRY" 2>/dev/null | grep -v '^$' | sort -u)
+        if [ -n "$OTHER_SLUGS" ]; then
+            OTHER_LIST=$(echo "$OTHER_SLUGS" | tr '\n' ',' | sed 's/,$//')
+            check_warn "Image $REL is visually near-identical to images on different ship pages: $OTHER_LIST (#1503)"
+            RECROP_WARNS=$((RECROP_WARNS + 1))
+        fi
+    done <<< "$(echo "$CONTENT" | grep -oP 'src="/assets/ships/[^"]+\.(jpg|jpeg|png|webp|gif)' | sed 's/^src="//' | sort -u || true)"
+    if [ "$RECROP_WARNS" -eq 0 ]; then
+        check_pass "No perceptual cross-page image near-duplicates"
+    fi
+else
+    check_pass "No perceptual recrop registry (skipped)"
+fi
+
+# ============================================================================
 # Section 9ak: Browse All Link Leaking Into Heading (#1322)
 # ============================================================================
 section_header "Section 9ak: Dining Heading Text Leak"
