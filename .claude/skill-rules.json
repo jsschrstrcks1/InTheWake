@@ -404,6 +404,44 @@
       },
       "activationMessage": "AI-summary rewriter activated. Each rewrite: 2 ship-specific facts + 1 voice line, <=80 words, zero boilerplate."
     },
+    "internal-consistency-repair": {
+      "enabled": true,
+      "type": "skill",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Per-page repair of internal numeric inconsistencies on ship pages. When validate-ship-page.js fires data_consistency/internal_numeric_inconsistency (DATA-004), this skill walks each occurrence of a guest-count integer and canonicalizes to passengers_double_occupancy per Policy 0.2. Voice-preserving — only the integer changes.",
+      "promptTriggers": {
+        "keywords": [
+          "repair numbers",
+          "internal consistency",
+          "guest count repair",
+          "DATA-004",
+          "fix guest count",
+          "repair guest counts"
+        ],
+        "intentPatterns": [
+          "(repair|fix|reconcile).*?(guest|passenger).*?(count|number|capacity)",
+          "internal.*?(numeric|consistency).*?(repair|fix)",
+          "DATA-004"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "ships/*/*.html"
+        ],
+        "exclude": [
+          "ships/*/index.html",
+          "ships/*/venues.html"
+        ]
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/internal-consistency-repair/SKILL.md",
+        "maxLines": 250,
+        "loadOnFirstFileEdit": false,
+        "note": "Loaded on prompt keyword or when validator output mentions internal_numeric_inconsistency."
+      },
+      "activationMessage": "🔢 Internal-consistency repair skill activated. Resolving guest-count integers to passengers_double_occupancy (Policy 0.2)."
+    },
     "emotional-hook-test": {
       "enabled": true,
       "type": "guardrail",
