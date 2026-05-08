@@ -1,13 +1,13 @@
 # Site-wide image-reuse audit
 
-**Generated:** 2026-05-07T16:09:26.877Z
-**Images scanned:** 1300
-**Unique image bytes:** 1218
-**Storage waste:** 82 duplicate file(s) on disk
+**Generated:** 2026-05-08T00:53:32.877Z
+**Images scanned:** 1295
+**Unique image bytes:** 1215
+**Storage waste:** 80 duplicate file(s) on disk
 
 **⛔ SYMLINKS (always blocking):** 0
-**🔴 CRITICAL findings:** 6
-**🟠 ERROR findings:** 20
+**🔴 CRITICAL findings:** 5
+**🟠 ERROR findings:** 19
 **🟡 WARN (filename does not match a slug):** 0
 **ℹ️  INFO (intra-entity duplicates):** 12
 
@@ -15,7 +15,7 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
 
 ---
 
-## 🔴 CRITICAL — Cross-section / cross-line image reuse (6)
+## 🔴 CRITICAL — Cross-section / cross-line image reuse (5)
 
 - **md5 `396ec3cf5dc83045ffc317bbee011887`** — same bytes appear in legacy/root bucket without a resolvable slug — provenance unclear
   - `assets/ships/carnival-glory_01.webp`  *(section: ships, line: _root, slug: carnival-glory)*
@@ -38,19 +38,11 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
   - `assets/articles/ken1.png`  *(section: articles, line: _generic)*
   - `authors/img/ken1.png`  *(section: authors, line: _generic)*
 
-- **md5 `4c69e1133d962d29552919bbf10f957c`** — same bytes used across DIFFERENT sections: articles, authors
-  - `assets/articles/ken1.webp`  *(section: articles, line: _generic)*
-  - `authors/img/ken1.webp`  *(section: authors, line: _generic)*
-
-## 🟠 ERROR — Same-section different-entity reuse (20)
+## 🟠 ERROR — Same-section different-entity reuse (19)
 
 - **md5 `19255bbf7e5450ff50b001282899ac7d`** — same bytes used for DIFFERENT entities (celebrity-compass, celebrity-seeker) within the same line
   - `assets/ships/Celebrity_Compass_flickr_gabry92g.webp`  *(section: ships, line: _root, slug: celebrity-compass)*
   - `assets/ships/Celebrity_Seeker_flickr_gabry92g.webp`  *(section: ships, line: _root, slug: celebrity-seeker)*
-
-- **md5 `a4849940a7a5871319be72e329d48b50`** — same bytes used for DIFFERENT entities (explora-iv, explora-v) within the same line
-  - `assets/ships/Explora_Iv_flickr_gabry92g.webp`  *(section: ships, line: _root, slug: explora-iv)*
-  - `assets/ships/Explora_V_flickr_gabry92g.webp`  *(section: ships, line: _root, slug: explora-v)*
 
 - **md5 `f614b8681a3f6bc79bc426350a3377dd`** — same bytes used for DIFFERENT entities (liberty-of-the-seas, radiance-of-the-seas) within the same line
   - `assets/ships/Liberty-of-the-seas-FOM- - 2.jpeg`  *(section: ships, line: _root, slug: liberty-of-the-seas)*
