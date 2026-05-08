@@ -8,7 +8,7 @@
 - **Static-first, progressively enhanced.** Pure HTML + CSS + ES modules. No build step. Noscript fallback shows the rate table and the four-step manual formula so the page is useful without JS.
 - **Data is split from logic.** Existing `assets/data/brands.json` is the canonical line manifest (already keyed by slug for all 15 lines). New `assets/data/tipping/<slug>.json` files hold per-line tipping data with effective dates and source URLs. The tool fetches both at load.
 - **State lives in three places, in priority order:** URL hash (shareable) → localStorage (returning visitor) → defaults (first visit). The hash and storage carry the same shape; the model is a single plain object.
-- **Bundled-gratuity lines** (Regent, Silversea, Seabourn, Explora Journeys, Virgin Voyages) carry a `bundled_in_fare: true` flag that locks the daily-charge total to $0 and surfaces a banner; the cash-extras section stays editable so users can plan optional thank-yous.
+- **Bundled-gratuity lines** (Regent, Silversea, Seabourn, Explora Journeys, **Oceania**) carry a `bundledInFare: true` flag that locks the daily-charge total to $0 and surfaces a banner; the cash-extras section stays editable so users can plan optional thank-yous. *(Note: per the 2026 research pass, Oceania moved into bundled via "Your World Included" effective 2025-01-01 sailings; Virgin Voyages moved OUT of bundled to $20 prepaid / $22 onboard effective 2025-10-07. The plan reflects the corrected list.)*
 
 **Tech Stack:**
 - HTML5, CSS3 (Grid + custom properties already used across the site), vanilla ES modules
@@ -59,39 +59,49 @@
 
 ## Data Schema: `assets/data/tipping/<slug>.json`
 
-Locked shape. Every per-line file conforms.
+Locked shape (revised after Task 1 research surfaced multi-tier, regional, and date-effective requirements). Every per-line file conforms.
+
+**Schema version: 1.1** — supports a `tiers` array (Celebrity 3-tier, Princess 3-tier, RC 2-tier, Carnival 2-tier all fit uniformly), an optional `upcomingChange` block (HAL has one effective 2026-06-01), and per-line `region` / `currency` (Costa, MSC publish region-priced rates; v1 ships USD/Caribbean as default and surfaces other regions in `notes`).
+
+### Non-bundled line (example: Carnival)
 
 ```json
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "lineId": "carnival",
   "displayName": "Carnival Cruise Line",
-  "effectiveDate": "2026-05-08",
+  "effectiveDate": "2026-04-02",
   "verifiedAt": "2026-05-08",
+  "currency": "USD",
+  "region": "global",
   "policyUrls": [
-    "https://www.carnival.com/about-carnival/legal-notice/cruise-ticket-contract.aspx"
+    "https://www.carnival.com/help?topicid=1123",
+    "https://www.cruisecritic.com/news/carnival-increases-gratuities-drink-package-rates"
   ],
   "bundledInFare": false,
   "dailyRates": {
-    "standard": { "amount": 17.00, "appliesTo": "interior, oceanview, balcony" },
-    "suite":    { "amount": 19.00, "appliesTo": "all suite categories" }
+    "tiers": [
+      { "slug": "standard", "label": "Interior / Oceanview / Balcony", "amount": 17.00, "isDefault": true, "appliesTo": "all non-suite cabins" },
+      { "slug": "suite",    "label": "Suite",                          "amount": 19.00, "isDefault": false, "appliesTo": "all suite categories" }
+    ],
+    "upcomingChange": null
   },
   "childPolicy": {
     "exemptUnderAge": 2,
-    "notes": "Carnival exempts guests under age 2 from the daily service charge."
+    "notes": "Gratuities are assessed on all guests, with the exception of children under the age of 2."
   },
   "autoGratuities": {
-    "bar":             { "percent": 18, "appliesTo": "drinks, bar tabs" },
-    "spa":             { "percent": 18, "appliesTo": "spa and salon services" },
-    "specialtyDining": { "percent": 18, "appliesTo": "specialty restaurant cover charges" },
-    "roomService":     { "percent": 18, "appliesTo": "room service orders (where applicable)" }
+    "bar":             { "percent": 20, "appliesTo": "bar beverages and packages" },
+    "spa":             { "percent": 20, "appliesTo": "spa and salon services" },
+    "specialtyDining": { "percent": 20, "appliesTo": "specialty restaurants and à la carte" },
+    "roomService":     { "percent": 20, "appliesTo": "room service bar items and steakhouse selections" }
   },
   "recommendedCashExtras": {
-    "stewardThankYou":   { "default": 0,  "perDay": false, "note": "Daily charge already covers stateroom attendant; cash is optional." },
+    "stewardThankYou":   { "default": 0,  "perDay": false, "note": "Daily charge covers stateroom attendant; cash is optional." },
     "headWaiter":        { "default": 25, "perDay": false, "note": "End-of-cruise envelope, optional." },
     "asstWaiter":        { "default": 15, "perDay": false, "note": "End-of-cruise envelope, optional." },
     "butler":            { "default": 0,  "perDay": true,  "note": "Carnival has no butler role." },
-    "concierge":         { "default": 0,  "perDay": false, "note": "Carnival has no dedicated concierge in standard cabins." },
+    "concierge":         { "default": 0,  "perDay": false, "note": "Carnival has no dedicated concierge for non-suite cabins." },
     "porterPerBag":      { "default": 2,  "perBag": true,  "note": "Embarkation porter, US dollars." },
     "kidsClubCounselor": { "default": 10, "perDay": false, "note": "Optional, end of cruise." },
     "excursionGuide":    { "default": 5,  "perPerson": true, "note": "Per person, ship-sponsored excursion." },
@@ -101,28 +111,114 @@ Locked shape. Every per-line file conforms.
 }
 ```
 
-**Bundled-gratuity variant.** For Regent / Silversea / Seabourn / Explora / Virgin:
+### Three-tier line (example: Princess)
 
 ```json
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
+  "lineId": "princess",
+  "displayName": "Princess Cruises",
+  "effectiveDate": "2026-03-08",
+  "verifiedAt": "2026-05-08",
+  "currency": "USD",
+  "region": "global (excl. AU/NZ)",
+  "policyUrls": ["https://www.princess.com/html/global/disclaimers/crew-appreciation/"],
+  "bundledInFare": false,
+  "dailyRates": {
+    "tiers": [
+      { "slug": "standard",   "label": "Interior / Oceanview / Balcony", "amount": 18.00, "isDefault": true,  "appliesTo": "non-suite cabins" },
+      { "slug": "mini-suite", "label": "Mini-Suite / Reserve / Cabana",  "amount": 19.00, "isDefault": false, "appliesTo": "Mini-Suite, Reserve Collection, Cabana cabins" },
+      { "slug": "suite",      "label": "Suite",                          "amount": 20.00, "isDefault": false, "appliesTo": "full suite categories" }
+    ],
+    "upcomingChange": null
+  },
+  "childPolicy": {
+    "exemptUnderAge": null,
+    "notes": "Crew Appreciation does not apply to residents of Australia or New Zealand on voyages departing from those regions; otherwise charged to all guests including children."
+  },
+  "autoGratuities": {
+    "bar":             { "percent": 20, "appliesTo": "bar and beverage" },
+    "spa":             { "percent": 20, "appliesTo": "Lotus Spa services" },
+    "specialtyDining": { "percent": 20, "appliesTo": "specialty dining cover charges" },
+    "roomService":     { "percent": 20, "appliesTo": "room service orders" }
+  },
+  "recommendedCashExtras": { /* same structure as Carnival, line-specific defaults from research */ }
+}
+```
+
+### Date-effective line (example: Holland America with announced 2026-06-01 change)
+
+```json
+{
+  "schemaVersion": "1.1",
+  "lineId": "holland-america",
+  "displayName": "Holland America Line",
+  "effectiveDate": "2025-01-01",
+  "verifiedAt": "2026-05-08",
+  "currency": "USD",
+  "region": "global",
+  "policyUrls": [
+    "https://www.hollandamerica.com/en/us/faq/onboard-cruise-experience/onboard-information/is-there-a-crew-appreciation-charge-gratuity-tip",
+    "https://www.cruisehive.com/holland-america-guests-to-face-higher-daily-gratuities-and-service-charges/204080"
+  ],
+  "bundledInFare": false,
+  "dailyRates": {
+    "tiers": [
+      { "slug": "standard", "label": "Interior / Oceanview / Verandah", "amount": 17.00, "isDefault": true,  "appliesTo": "non-suite cabins" },
+      { "slug": "suite",    "label": "Suite",                            "amount": 19.00, "isDefault": false, "appliesTo": "Neptune, Pinnacle, Signature suites" }
+    ],
+    "upcomingChange": {
+      "effectiveDate": "2026-06-01",
+      "tiers": [
+        { "slug": "standard", "amount": 18.00 },
+        { "slug": "suite",    "amount": 20.00 }
+      ],
+      "autoGratuitiesPercent": 20,
+      "note": "Daily Crew Appreciation rises and bar/spa/specialty/room-service service charge moves from 18% to 20% on 2026-06-01. Sailings with embarkation on or after this date use the new rates; earlier embarkations use current rates."
+    }
+  },
+  "childPolicy": { "exemptUnderAge": null, "notes": "No published age exemption." },
+  "autoGratuities": {
+    "bar":             { "percent": 18, "appliesTo": "bar (rises to 20% on 2026-06-01)" },
+    "spa":             { "percent": 18, "appliesTo": "spa (rises to 20% on 2026-06-01)" },
+    "specialtyDining": { "percent": 18, "appliesTo": "specialty dining (rises to 20% on 2026-06-01)" },
+    "roomService":     { "percent": 18, "appliesTo": "room service (rises to 20% on 2026-06-01)" }
+  },
+  "recommendedCashExtras": { /* same structure */ }
+}
+```
+
+### Bundled-gratuity line (example: Regent)
+
+```json
+{
+  "schemaVersion": "1.1",
   "lineId": "regent",
   "displayName": "Regent Seven Seas Cruises",
-  "effectiveDate": "2026-05-08",
+  "effectiveDate": null,
   "verifiedAt": "2026-05-08",
-  "policyUrls": ["https://www.rssc.com/..."],
+  "currency": "USD",
+  "region": "global",
+  "policyUrls": ["https://www.rssc.com/experience/all-included"],
   "bundledInFare": true,
-  "bundledNote": "Gratuities are included in your fare on Regent. Crew tipping is at your discretion.",
+  "bundledNote": "All shipboard gratuities are included in your fare on Regent. Crew members are well paid and not tip-dependent. The Serene Spa is the only onboard service that carries an additional service charge.",
   "dailyRates": null,
   "childPolicy": null,
   "autoGratuities": null,
   "recommendedCashExtras": {
-    "butler":           { "default": 5, "perDay": true, "note": "Optional. Common practice on suite voyages." },
-    "stewardThankYou":  { "default": 5, "perDay": true, "note": "Optional thank-you, end of cruise." },
-    "porterPerBag":     { "default": 2, "perBag": true, "note": "Embarkation porter, US dollars." }
+    "porterPerBag":  { "default": 2, "perBag": true, "note": "Embarkation porter, US dollars (off-ship; not covered by the bundled fare)." }
   }
 }
 ```
+
+### Bundled list (corrected per Task 1 research)
+
+`bundledInFare: true`: **Explora Journeys, Oceania, Regent, Seabourn, Silversea**.
+`bundledInFare: false`: **Carnival, Celebrity, Costa, Cunard, Holland America, MSC, Norwegian, Princess, Royal Caribbean, Virgin Voyages**.
+
+### Virgin Voyages note
+
+Virgin operates a single per-night charge ($20 prepaid / $22 onboard) with no suite differential. Model as a single-tier non-bundled line with `amount: 20` (the prepaid default) and put the $22 onboard rate in `tiers[0].appliesTo`-style note plus a top-level `notes` field. Article surfaces the prepaid-vs-onboard nuance.
 
 ---
 
@@ -234,25 +330,56 @@ Create `assets/data/tipping/_schema.json` with:
   "$id": "https://cruisinginthewake.com/assets/data/tipping/_schema.json",
   "title": "Cruise Line Tipping Configuration",
   "type": "object",
-  "required": ["schemaVersion", "lineId", "displayName", "effectiveDate", "verifiedAt", "policyUrls", "bundledInFare", "recommendedCashExtras"],
+  "required": ["schemaVersion", "lineId", "displayName", "verifiedAt", "currency", "region", "policyUrls", "bundledInFare", "recommendedCashExtras"],
   "properties": {
-    "schemaVersion": { "type": "string", "const": "1.0" },
+    "schemaVersion": { "type": "string", "const": "1.1" },
     "lineId":        { "type": "string", "description": "Slug matching brands.json id" },
     "displayName":   { "type": "string" },
-    "effectiveDate": { "type": "string", "format": "date" },
+    "effectiveDate": { "type": ["string", "null"], "format": "date", "description": "Date the current rates took effect; null for bundled lines." },
     "verifiedAt":    { "type": "string", "format": "date" },
+    "currency":      { "type": "string", "description": "ISO 4217 code for the rate values shown." },
+    "region":        { "type": "string", "description": "Sailing region where these rates apply (\"global\" if not regional)." },
     "policyUrls":    { "type": "array", "items": { "type": "string", "format": "uri" }, "minItems": 1 },
     "bundledInFare": { "type": "boolean" },
     "bundledNote":   { "type": "string" },
+    "notes":         { "type": "string", "description": "Free-text notes (e.g., regional variations, prepaid-vs-onboard split)." },
     "dailyRates": {
       "oneOf": [
         { "type": "null" },
         {
           "type": "object",
-          "required": ["standard", "suite"],
+          "required": ["tiers"],
           "properties": {
-            "standard": { "$ref": "#/$defs/rate" },
-            "suite":    { "$ref": "#/$defs/rate" }
+            "tiers": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["slug", "label", "amount", "isDefault", "appliesTo"],
+                "properties": {
+                  "slug":      { "type": "string", "description": "Stable identifier (e.g., 'standard', 'mini-suite', 'suite')." },
+                  "label":     { "type": "string", "description": "Human-readable label shown in the UI dropdown." },
+                  "amount":    { "type": "number", "minimum": 0 },
+                  "isDefault": { "type": "boolean" },
+                  "appliesTo": { "type": "string" }
+                }
+              }
+            },
+            "upcomingChange": {
+              "oneOf": [
+                { "type": "null" },
+                {
+                  "type": "object",
+                  "required": ["effectiveDate", "tiers"],
+                  "properties": {
+                    "effectiveDate":          { "type": "string", "format": "date" },
+                    "tiers":                  { "type": "array", "items": { "type": "object", "required": ["slug", "amount"], "properties": { "slug": { "type": "string" }, "amount": { "type": "number" } } } },
+                    "autoGratuitiesPercent":  { "type": "number" },
+                    "note":                   { "type": "string" }
+                  }
+                }
+              ]
+            }
           }
         }
       ]
@@ -300,8 +427,16 @@ Create `assets/data/tipping/_schema.json` with:
     }
   },
   "$defs": {
-    "rate":    { "type": "object", "required": ["amount", "appliesTo"], "properties": { "amount": { "type": "number" }, "appliesTo": { "type": "string" } } },
-    "percent": { "type": "object", "required": ["percent", "appliesTo"], "properties": { "percent": { "type": "number" }, "appliesTo": { "type": "string" } } }
+    "percent": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["percent", "appliesTo"],
+          "properties": { "percent": { "type": ["number", "null"] }, "appliesTo": { "type": "string" } }
+        }
+      ]
+    }
   }
 }
 ```
@@ -512,9 +647,11 @@ Capture the current `<head>` block contract (frontmatter, JSON-LD, OG, Twitter, 
           </label>
           <label>Cabin tier
             <select id="cabin-tier" name="cabinTier">
-              <option value="standard">Interior / Oceanview / Balcony</option>
-              <option value="suite">Suite</option>
+              <!-- Options injected per line by render.js from line.dailyRates.tiers. -->
             </select>
+          </label>
+          <label>Sailing embarkation date
+            <input type="date" id="sailing-date" name="sailingDate">
           </label>
           <label>Nights <input type="number" id="nights" name="nights" min="1" max="180" value="7" required></label>
           <fieldset>
@@ -779,27 +916,79 @@ import { calcDailyTotal, calcOnboardAutoGrats, calcCashExtras, calcGrandTotal } 
 
 const carnival = {
   bundledInFare: false,
-  dailyRates: { standard: { amount: 17 }, suite: { amount: 19 } },
+  dailyRates: {
+    tiers: [
+      { slug: "standard", amount: 17, isDefault: true },
+      { slug: "suite",    amount: 19, isDefault: false }
+    ],
+    upcomingChange: null
+  },
   childPolicy: { exemptUnderAge: 2 },
+  autoGratuities: { bar: { percent: 20 }, spa: { percent: 20 }, specialtyDining: { percent: 20 }, roomService: { percent: 20 } }
+};
+const princess = {
+  bundledInFare: false,
+  dailyRates: {
+    tiers: [
+      { slug: "standard",   amount: 18, isDefault: true },
+      { slug: "mini-suite", amount: 19, isDefault: false },
+      { slug: "suite",      amount: 20, isDefault: false }
+    ],
+    upcomingChange: null
+  },
+  childPolicy: { exemptUnderAge: null },
+  autoGratuities: { bar: { percent: 20 }, spa: { percent: 20 }, specialtyDining: { percent: 20 }, roomService: { percent: 20 } }
+};
+const hal = {
+  bundledInFare: false,
+  dailyRates: {
+    tiers: [
+      { slug: "standard", amount: 17, isDefault: true },
+      { slug: "suite",    amount: 19, isDefault: false }
+    ],
+    upcomingChange: {
+      effectiveDate: "2026-06-01",
+      tiers: [{ slug: "standard", amount: 18 }, { slug: "suite", amount: 20 }],
+      autoGratuitiesPercent: 20
+    }
+  },
+  childPolicy: { exemptUnderAge: null },
   autoGratuities: { bar: { percent: 18 }, spa: { percent: 18 }, specialtyDining: { percent: 18 }, roomService: { percent: 18 } }
 };
 const regent = { bundledInFare: true, dailyRates: null, childPolicy: null, autoGratuities: null };
 
-test("daily total: 7 nights × 2 adults × $17 standard = $238", () => {
+test("daily total: 7 nights × 2 adults × $17 standard Carnival = $238", () => {
   assert.equal(calcDailyTotal(carnival, { cabinTier: "standard", nights: 7, adults: 2, childAges: [] }), 238);
 });
 
-test("daily total: skip exempt children (under 2)", () => {
+test("daily total: Princess mini-suite ($19) for 7 nights × 2 = $266", () => {
+  assert.equal(calcDailyTotal(princess, { cabinTier: "mini-suite", nights: 7, adults: 2, childAges: [] }), 266);
+});
+
+test("daily total: skip exempt children (Carnival under 2)", () => {
   assert.equal(calcDailyTotal(carnival, { cabinTier: "standard", nights: 7, adults: 2, childAges: [1, 5] }), 7 * 17 * 3); // 2 adults + 1 charged child (age 5)
+});
+
+test("daily total: HAL with sailing date >= 2026-06-01 picks upcoming rate ($18)", () => {
+  assert.equal(calcDailyTotal(hal, { cabinTier: "standard", nights: 7, adults: 2, childAges: [], sailingDate: "2026-07-15" }), 7 * 18 * 2);
+});
+
+test("daily total: HAL with sailing date < 2026-06-01 picks current rate ($17)", () => {
+  assert.equal(calcDailyTotal(hal, { cabinTier: "standard", nights: 7, adults: 2, childAges: [], sailingDate: "2026-05-20" }), 7 * 17 * 2);
 });
 
 test("daily total: bundled-in-fare line returns 0", () => {
   assert.equal(calcDailyTotal(regent, { cabinTier: "suite", nights: 10, adults: 2, childAges: [] }), 0);
 });
 
-test("onboard auto-grats: $300 bar at 18% = $54", () => {
+test("daily total: unknown cabinTier slug falls back to default tier", () => {
+  // Princess default is "standard" ($18); pass an unknown slug, expect $18 not a crash.
+  assert.equal(calcDailyTotal(princess, { cabinTier: "bogus", nights: 7, adults: 2, childAges: [] }), 7 * 18 * 2);
+});
+
+test("onboard auto-grats: $300 bar at 20% = $60 (Carnival post-Dec-2025)", () => {
   const out = calcOnboardAutoGrats(carnival, { barTab: 300, barPrepaid: false, specialtyCost: 0, specialtyMeals: 0, spaTotal: 0, roomServiceCount: 0, roomServiceAvg: 0 });
-  assert.equal(out.total, 54);
+  assert.equal(out.total, 60);
 });
 
 test("onboard auto-grats: prepaid bar package excludes bar tab", () => {
@@ -807,9 +996,9 @@ test("onboard auto-grats: prepaid bar package excludes bar tab", () => {
   assert.equal(out.bar, 0);
 });
 
-test("onboard auto-grats: specialty dining 2 meals × $80 × 18% = $28.80", () => {
+test("onboard auto-grats: specialty dining 2 meals × $80 × 20% = $32 (Carnival)", () => {
   const out = calcOnboardAutoGrats(carnival, { barTab: 0, barPrepaid: false, specialtyCost: 80, specialtyMeals: 2, spaTotal: 0, roomServiceCount: 0, roomServiceAvg: 0 });
-  assert.equal(out.specialty, 28.8);
+  assert.equal(out.specialty, 32);
 });
 
 test("cash extras sum: porter $2 × 4 bags + butler $5/day × 7 = $8 + $35 = $43", () => {
@@ -824,7 +1013,7 @@ test("cash extras sum: porter $2 × 4 bags + butler $5/day × 7 = $8 + $35 = $43
   assert.equal(calcCashExtras(line, inputs), 43);
 });
 
-test("grand total = daily + onboard + cash", () => {
+test("grand total = daily + onboard + cash (Carnival 20% auto-grats)", () => {
   const inputs = {
     cabinTier: "standard", nights: 7, adults: 2, childAges: [],
     barTab: 300, barPrepaid: false,
@@ -833,8 +1022,8 @@ test("grand total = daily + onboard + cash", () => {
     cashExtras: {}
   };
   const t = calcGrandTotal(carnival, inputs);
-  // 238 daily + (54 bar + 28.8 specialty + 27 spa + 2.7 RS) + 0 cash = 350.5
-  assert.equal(t.total, 350.5);
+  // 238 daily + (60 bar + 32 specialty + 30 spa + 3 RS) + 0 cash = 363
+  assert.equal(t.total, 363);
 });
 ```
 
@@ -854,9 +1043,45 @@ Expected: `Cannot find module` for `calc.js`.
 
 const round2 = (n) => Math.round(n * 100) / 100;
 
+// Pick the tier set that applies for a sailing date. If the line has an
+// upcomingChange and the sailing date is on/after its effectiveDate, use the
+// upcoming rates merged with the current tier metadata. Otherwise, current.
+export function pickTiers(line, sailingDate) {
+  if (!line.dailyRates) return null;
+  const change = line.dailyRates.upcomingChange;
+  if (change && sailingDate && sailingDate >= change.effectiveDate) {
+    // Merge upcoming amounts onto the current tier shape (so we keep slug, label, isDefault).
+    const updated = line.dailyRates.tiers.map(t => {
+      const u = change.tiers.find(x => x.slug === t.slug);
+      return u ? { ...t, amount: u.amount } : t;
+    });
+    return updated;
+  }
+  return line.dailyRates.tiers;
+}
+
+// Pick the auto-gratuity percent for a given category, honoring upcomingChange.
+function pickPercent(line, category, sailingDate) {
+  if (!line.autoGratuities || !line.autoGratuities[category]) return 0;
+  const change = line.dailyRates?.upcomingChange;
+  if (change && sailingDate && sailingDate >= change.effectiveDate && change.autoGratuitiesPercent != null) {
+    return change.autoGratuitiesPercent;
+  }
+  return line.autoGratuities[category].percent || 0;
+}
+
+function tierAmount(tiers, slug) {
+  if (!tiers || tiers.length === 0) return 0;
+  const match = tiers.find(t => t.slug === slug);
+  if (match) return match.amount;
+  const def = tiers.find(t => t.isDefault) || tiers[0];
+  return def.amount;
+}
+
 export function calcDailyTotal(line, inputs) {
   if (line.bundledInFare || !line.dailyRates) return 0;
-  const rate = (inputs.cabinTier === "suite" ? line.dailyRates.suite : line.dailyRates.standard).amount;
+  const tiers = pickTiers(line, inputs.sailingDate);
+  const rate = tierAmount(tiers, inputs.cabinTier);
   const exemptUnder = line.childPolicy?.exemptUnderAge ?? 0;
   const chargedChildren = (inputs.childAges || []).filter(age => age >= exemptUnder).length;
   const charged = inputs.adults + chargedChildren;
@@ -867,11 +1092,14 @@ export function calcOnboardAutoGrats(line, inputs) {
   if (line.bundledInFare || !line.autoGratuities) {
     return { total: 0, bar: 0, specialty: 0, spa: 0, roomService: 0 };
   }
-  const g = line.autoGratuities;
-  const bar       = inputs.barPrepaid ? 0 : (inputs.barTab || 0) * (g.bar.percent / 100);
-  const specialty = (inputs.specialtyCost || 0) * (inputs.specialtyMeals || 0) * (g.specialtyDining.percent / 100);
-  const spa       = (inputs.spaTotal || 0) * (g.spa.percent / 100);
-  const roomService = (inputs.roomServiceCount || 0) * (inputs.roomServiceAvg || 0) * (g.roomService.percent / 100);
+  const barPct       = pickPercent(line, "bar", inputs.sailingDate);
+  const specialtyPct = pickPercent(line, "specialtyDining", inputs.sailingDate);
+  const spaPct       = pickPercent(line, "spa", inputs.sailingDate);
+  const rsPct        = pickPercent(line, "roomService", inputs.sailingDate);
+  const bar       = inputs.barPrepaid ? 0 : (inputs.barTab || 0) * (barPct / 100);
+  const specialty = (inputs.specialtyCost || 0) * (inputs.specialtyMeals || 0) * (specialtyPct / 100);
+  const spa       = (inputs.spaTotal || 0) * (spaPct / 100);
+  const roomService = (inputs.roomServiceCount || 0) * (inputs.roomServiceAvg || 0) * (rsPct / 100);
   const total = bar + specialty + spa + roomService;
   return { total: round2(total), bar: round2(bar), specialty: round2(specialty), spa: round2(spa), roomService: round2(roomService) };
 }
@@ -972,6 +1200,7 @@ Expected: module not found.
 const DEFAULTS = {
   line: "royal-caribbean",
   cabinTier: "standard",
+  sailingDate: "",
   nights: 7,
   adults: 2,
   children: 0,
@@ -1081,6 +1310,32 @@ export function renderLineSelect(el, lines, selected) {
   }
 }
 
+export function renderCabinTiers(el, line, selectedSlug) {
+  el.innerHTML = "";
+  if (line.bundledInFare || !line.dailyRates) {
+    const opt = document.createElement("option");
+    opt.value = "";
+    opt.textContent = "—";
+    el.appendChild(opt);
+    el.disabled = true;
+    return;
+  }
+  el.disabled = false;
+  const tiers = line.dailyRates.tiers;
+  const fallback = (tiers.find(t => t.isDefault) || tiers[0]).slug;
+  for (const tier of tiers) {
+    const opt = document.createElement("option");
+    opt.value = tier.slug;
+    opt.textContent = `${tier.label} ($${tier.amount.toFixed(2)}/day)`;
+    if (tier.slug === selectedSlug) opt.selected = true;
+    el.appendChild(opt);
+  }
+  // If selectedSlug isn't valid for this line, snap the select to the line's default.
+  if (!tiers.some(t => t.slug === selectedSlug)) {
+    el.value = fallback;
+  }
+}
+
 export function renderBundledBanner(el, line) {
   if (line.bundledInFare) {
     el.hidden = false;
@@ -1147,7 +1402,7 @@ import { loadAll, getLine, listLines } from "./data.js";
 import { createState } from "./state.js";
 import { attachPersistence } from "./persist.js";
 import { calcGrandTotal } from "./calc.js";
-import { renderLineSelect, renderBundledBanner, renderCashExtras, renderResult } from "./render.js";
+import { renderLineSelect, renderCabinTiers, renderBundledBanner, renderCashExtras, renderResult } from "./render.js";
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -1218,6 +1473,7 @@ async function init() {
   state.subscribe((v) => {
     const line = getLine(v.line);
     if (!line) return;
+    renderCabinTiers($("#cabin-tier"), line, v.cabinTier);
     renderBundledBanner(bundledBanner, line);
     renderCashExtras(cashPanel, line, v);
     const totals = calcGrandTotal(line, v);
@@ -1348,14 +1604,24 @@ test.describe("Cruise tipping calculator", () => {
     await expect(fresh.locator("#adults")).toHaveValue("3");
   });
 
-  test("specialty dining auto-gratuity math: 2 meals × $80 × 18% = $28.80", async ({ page }) => {
+  test("specialty dining auto-gratuity math: 2 meals × $80 × 20% = $32 (Carnival post-Dec-2025)", async ({ page }) => {
     await page.goto(URL);
     await page.selectOption("#line-select", "carnival");
-    await page.click("#panel-onboard ~ * .accordion__toggle, [aria-controls=panel-onboard]");
+    await page.click("[aria-controls=panel-onboard]");
     await page.fill("#specialty-cost", "80");
     await page.fill("#specialty-meals", "2");
     await expect(page.locator("#result-breakdown")).toContainText("Specialty dining auto-grats");
-    await expect(page.locator("#result-breakdown")).toContainText("$28.80");
+    await expect(page.locator("#result-breakdown")).toContainText("$32");
+  });
+
+  test("HAL with sailing date >= 2026-06-01 uses upcoming $18 standard rate", async ({ page }) => {
+    await page.goto(URL);
+    await page.selectOption("#line-select", "holland-america");
+    await page.fill("#sailing-date", "2026-07-15");
+    await page.fill("#nights", "7");
+    await page.fill("#adults", "2");
+    // 7 × $18 × 2 = $252
+    await expect(page.locator("#result-headline")).toContainText("$252");
   });
 });
 ```
