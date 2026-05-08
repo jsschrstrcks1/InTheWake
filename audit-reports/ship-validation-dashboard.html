@@ -21,14 +21,14 @@
 </head>
 <body>
 <h1>Ship Validation Dashboard</h1>
-<p><strong>Scope:</strong> full-fleet · <strong>Generated:</strong> 2026-05-08T00:50:49.689Z</p>
+<p><strong>Scope:</strong> full-fleet · <strong>Generated:</strong> 2026-05-08T02:49:54.048Z</p>
 
 <div class="summary">
   <strong>Totals (290 pages):</strong><br>
-  .sh validator: 95 pass / 123 warn-only / 72 fail<br>
-  .js validator: 79 pass / 211 fail<br>
-  Errors: 394 (sh) + 341 (js)<br>
-  Warnings: 5459 (sh) + 2726 (js)
+  .sh validator: 95 pass / 148 warn-only / 47 fail<br>
+  .js validator: 80 pass / 210 fail<br>
+  Errors: 240 (sh) + 329 (js)<br>
+  Warnings: 5470 (sh) + 2725 (js)
 </div>
 
 <h2>By cruise line</h2>
@@ -40,11 +40,11 @@
     <tr>
       <td>carnival</td>
       <td class="num">48</td>
-      <td class="num err">154</td>
-      <td class="num warn">1818</td>
-      <td class="num err">72</td>
-      <td class="num warn">574</td>
-      <td class="topfail">17× <code>js:images/few_images</code><br>17× <code>js:images/missing_local_images</code><br>15× <code>js:sections/wrong_section_order</code></td>
+      <td class="num err">0</td>
+      <td class="num warn">1829</td>
+      <td class="num err">60</td>
+      <td class="num warn">573</td>
+      <td class="topfail">22× <code>js:images/few_images</code><br>12× <code>js:sections/wrong_section_order</code><br>8× <code>js:sections/missing_required</code></td>
     </tr>
     <tr>
       <td>celebrity-cruises</td>
@@ -175,7 +175,7 @@
 </table>
 
 <h2>Top error rules across fleet</h2>
-<ul class="rules"><li><code>js:images/few_images</code> — 141</li><li><code>js:runtime_data/cascade_fully_failed</code> — 50</li><li><code>js:images/missing_local_images</code> — 38</li><li><code>js:sections/wrong_section_order</code> — 25</li><li><code>js:json_ld/main_entity_blacklisted</code> — 23</li><li><code>js:videos/missing_categories</code> — 17</li><li><code>js:videos/few_videos</code> — 11</li><li><code>js:icp_lite/ai_summary_boilerplate</code> — 7</li><li><code>js:data_attr/invalid_imo</code> — 7</li><li><code>js:html_structure/unclosed_section</code> — 7</li><li><code>sh:Image filename ship mismatch: Carnival_Celebration,_Nassau_(</code> — 5</li><li><code>sh:Image filename ship mismatch: Carnival_Jubilee_Panorama_Cozu</code> — 5</li><li><code>js:sections/missing_required</code> — 5</li><li><code>sh:Image filename ship mismatch: carnival-glory_01.webp does no</code> — 4</li><li><code>sh:Image filename ship mismatch: carnival-conquest_01.webp does</code> — 4</li><li><code>sh:Missing local image: /assets/ships/carnival-spirit_01.webp</code> — 4</li><li><code>sh:Missing local image: /assets/ships/carnival-pride_01.webp</code> — 4</li><li><code>sh:Image not found on disk: /assets/ships/carnival-pride_01.web</code> — 4</li><li><code>sh:Image not found on disk: /assets/ships/carnival-spirit_01.we</code> — 4</li><li><code>js:data_consistency/internal_numeric_inconsistency</code> — 4</li></ul>
+<ul class="rules"><li><code>js:images/few_images</code> — 146</li><li><code>js:runtime_data/cascade_fully_failed</code> — 50</li><li><code>js:json_ld/main_entity_blacklisted</code> — 23</li><li><code>js:sections/wrong_section_order</code> — 22</li><li><code>js:images/missing_local_images</code> — 21</li><li><code>js:videos/missing_categories</code> — 17</li><li><code>js:videos/few_videos</code> — 11</li><li><code>js:sections/missing_required</code> — 8</li><li><code>js:icp_lite/ai_summary_boilerplate</code> — 7</li><li><code>js:data_attr/invalid_imo</code> — 7</li><li><code>js:html_structure/unclosed_section</code> — 7</li><li><code>js:data_consistency/internal_numeric_inconsistency</code> — 4</li><li><code>sh:Image filename ship mismatch: Icon_of_the_Seas_(cropped).web</code> — 4</li><li><code>sh:Image filename ship mismatch: Icon_and_Mariner_Cozumel_Mexic</code> — 4</li><li><code>js:template_remnants/placeholder_content</code> — 4</li><li><code>sh:Image filename ship mismatch: celebrity-apex-exterior.jpg do</code> — 3</li><li><code>sh:Image not found on disk: /assets/ships/Adventure_of_the_Seas</code> — 3</li><li><code>sh:Image not found on disk: /assets/ships/Explorer_of_the_Seas_</code> — 3</li><li><code>sh:Image filename ship mismatch: celebrity-edge-exterior.jpg do</code> — 2</li><li><code>sh:Image filename ship mismatch: celebrity-beyond-exterior.jpg </code> — 2</li></ul>
 
 <p><em>Raw JSON: <a href="ship-validation-dashboard.json">ship-validation-dashboard.json</a></em></p>
 </body>

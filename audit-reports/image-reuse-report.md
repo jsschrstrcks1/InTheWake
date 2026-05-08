@@ -1,25 +1,21 @@
 # Site-wide image-reuse audit
 
-**Generated:** 2026-05-08T00:53:32.877Z
-**Images scanned:** 1295
+**Generated:** 2026-05-08T02:53:14.576Z
+**Images scanned:** 1293
 **Unique image bytes:** 1215
-**Storage waste:** 80 duplicate file(s) on disk
+**Storage waste:** 78 duplicate file(s) on disk
 
 **⛔ SYMLINKS (always blocking):** 0
-**🔴 CRITICAL findings:** 5
+**🔴 CRITICAL findings:** 4
 **🟠 ERROR findings:** 19
 **🟡 WARN (filename does not match a slug):** 0
-**ℹ️  INFO (intra-entity duplicates):** 12
+**ℹ️  INFO (intra-entity duplicates):** 11
 
 Allowlisted sections (brand / icons / social) are not flagged for reuse.
 
 ---
 
-## 🔴 CRITICAL — Cross-section / cross-line image reuse (5)
-
-- **md5 `396ec3cf5dc83045ffc317bbee011887`** — same bytes appear in legacy/root bucket without a resolvable slug — provenance unclear
-  - `assets/ships/carnival-glory_01.webp`  *(section: ships, line: _root, slug: carnival-glory)*
-  - `assets/img/cruise-features-hero.webp`  *(section: ships, line: _legacy)*
+## 🔴 CRITICAL — Cross-section / cross-line image reuse (4)
 
 - **md5 `47d160f86e40207350ab806996f2dd85`** — same bytes appear in legacy/root bucket without a resolvable slug — provenance unclear
   - `assets/ships/grandeur-of-the-seas_01.webp`  *(section: ships, line: _root, slug: grandeur-of-the-seas)*
@@ -141,7 +137,7 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
   - `authors/img/author-avatar.jpg`  *(section: authors, line: _generic)*
   - `assets/brand/placeholder-port.webp`  *(section: brand, line: _allow)*
 
-## ℹ️ INFO — Storage-only duplicates within one entity (12)
+## ℹ️ INFO — Storage-only duplicates within one entity (11)
 
 - **md5 `14fdd48416a3394a80058c0c5b970b59`** — same bytes under multiple filenames for slug "quantum-of-the-seas" — pick one and delete duplicates
   - `assets/ships/0016_Quantum_of_the_Seas.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
@@ -154,10 +150,6 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
 - **md5 `dfe98868bbf48a04f9ee714ae5cc0b0c`** — same bytes under multiple filenames for slug "quantum-of-the-seas" — pick one and delete duplicates
   - `assets/ships/0018_Quantum_of_the_Seas_(2).webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
   - `assets/ships/Quantum_of_the_Seas_02.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
-
-- **md5 `12806e1d0378f1612986f8a153041074`** — same bytes under multiple filenames for slug "carnival-conquest" — pick one and delete duplicates
-  - `assets/ships/Carnival_Conquest_3.jpg`  *(section: ships, line: _root, slug: carnival-conquest)*
-  - `assets/ships/carnival/carnival-conquest-exterior.jpg`  *(section: ships, line: carnival, slug: carnival-conquest)*
 
 - **md5 `cd02f782e08577fe4dbeb2f8e650aec0`** — same bytes under multiple filenames for slug "discovery-princess" — pick one and delete duplicates
   - `assets/ships/Discovery_Princess_profile.jpg`  *(section: ships, line: _root, slug: discovery-princess)*
