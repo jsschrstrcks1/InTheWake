@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.1",
+  "lineId": "carnival",
+  "displayName": "Carnival Cruise Line",
+  "effectiveDate": "2026-04-02",
+  "verifiedAt": "2026-05-08",
+  "currency": "USD",
+  "region": "global",
+  "policyUrls": [
+    "https://www.carnival.com/help?topicid=1123",
+    "https://www.cruisecritic.com/news/carnival-increases-gratuities-drink-package-rates"
+  ],
+  "bundledInFare": false,
+  "notes": "Up from $16/$18; first hike in three years. Pre-paid bookings before 2026-04-02 lock the prior rate.",
+  "dailyRates": {
+    "tiers": [
+      { "slug": "standard", "label": "Standard stateroom", "amount": 17.00, "isDefault": true,  "appliesTo": "Interior, Oceanview, Balcony cabins" },
+      { "slug": "suite",    "label": "Suite",              "amount": 19.00, "isDefault": false, "appliesTo": "All suite categories" }
+    ],
+    "upcomingChange": null
+  },
+  "childPolicy": {
+    "exemptUnderAge": 2,
+    "notes": "Gratuities are assessed on all guests, with the exception of children under the age of 2."
+  },
+  "autoGratuities": {
+    "bar":             { "percent": 20, "appliesTo": "Bar beverages, drink packages, room-service bar items" },
+    "spa":             { "percent": 20, "appliesTo": "Spa and salon services" },
+    "specialtyDining": { "percent": 20, "appliesTo": "Specialty restaurants, à la carte specialty venues, steakhouse selections in the MDR" },
+    "roomService":     { "percent": 20, "appliesTo": "Room-service food orders and bar items" }
+  },
+  "recommendedCashExtras": {
+    "stewardThankYou":   { "default": 0,  "perDay": false, "note": "Daily charge covers stateroom attendant; cash is optional." },
+    "headWaiter":        { "default": 25, "perDay": false, "note": "End-of-cruise envelope, optional." },
+    "asstWaiter":        { "default": 15, "perDay": false, "note": "End-of-cruise envelope, optional." },
+    "butler":            { "default": 0,  "perDay": true,  "note": "Carnival has no butler role." },
+    "concierge":         { "default": 0,  "perDay": false, "note": "Optional thank-you for suite/loyalty concierge service." },
+    "porterPerBag":      { "default": 2,  "perBag": true,  "note": "Embarkation porter, US dollars." },
+    "kidsClubCounselor": { "default": 10, "perDay": false, "note": "Optional, end of cruise — Camp Ocean counselors." },
+    "excursionGuide":    { "default": 5,  "perPerson": true, "note": "Per person, ship-sponsored excursion." },
+    "excursionDriver":   { "default": 2,  "perPerson": true, "note": "Per person, on driver-led portions." },
+    "casinoDealer":      { "default": 5,  "perVisit": true, "note": "Per session, optional, US dollars." }
+  }
+}
