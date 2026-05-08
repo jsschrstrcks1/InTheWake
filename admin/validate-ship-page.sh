@@ -498,6 +498,27 @@ elif [ "$SHIP_IMAGE_COUNT" -eq 0 ]; then
 fi
 
 # ============================================================================
+# Section 7c: Ship Image Count Thresholds (#1504/#1505/#1506) — warn
+# ============================================================================
+# Compares unique-URL count of /assets/ships/* references on this page against
+# the per-line config (image_min, image_max, image_error_below). Warnings only;
+# the 177-ship placeholder bridge state has many ships intentionally at 0 or 1
+# authentic photos — blocking would fail half the fleet. Surfaced so reviewers
+# can see which ships still need photography sourced.
+section_header "Section 7c: Ship Image Count Thresholds"
+
+UNIQUE_SHIP_IMG_COUNT=$(echo "$CONTENT" | grep -oE 'src="/assets/ships/[^"]+' | sort -u | wc -l)
+if [ "$UNIQUE_SHIP_IMG_COUNT" -lt "$CFG_IMG_ERROR_BELOW" ]; then
+    check_warn "Only $UNIQUE_SHIP_IMG_COUNT distinct /assets/ships/ image(s) — below error threshold $CFG_IMG_ERROR_BELOW (line '$LINE' policy). Ship needs authentic photography (#1504)"
+elif [ "$UNIQUE_SHIP_IMG_COUNT" -lt "$CFG_IMG_MIN" ]; then
+    check_warn "$UNIQUE_SHIP_IMG_COUNT distinct ship image(s) — below recommended minimum $CFG_IMG_MIN (line '$LINE' policy) (#1505)"
+elif [ "$UNIQUE_SHIP_IMG_COUNT" -gt "$CFG_IMG_MAX" ]; then
+    check_warn "$UNIQUE_SHIP_IMG_COUNT distinct ship image(s) — above recommended maximum $CFG_IMG_MAX (line '$LINE' policy). Trim the gallery (#1506)"
+else
+    check_pass "Image count $UNIQUE_SHIP_IMG_COUNT is within recommended range ($CFG_IMG_MIN–$CFG_IMG_MAX)"
+fi
+
+# ============================================================================
 # Section 8: Performance
 # ============================================================================
 section_header "Section 8: Performance"
