@@ -1,8 +1,8 @@
 # Visual recrop / near-duplicate audit
 
-**Generated:** 2026-05-07T20:29:49.882Z
+**Generated:** 2026-05-08T10:37:21.301Z
 **Method:** dHash on 9×8 grayscale (sharp). Hamming distance ≤ 8 = "near-identical at thumbnail scale."
-**Images compared:** 1078
+**Images compared:** 1071
 **Cross-entity near-duplicate groups:** 44
 
 **🔴 CRITICAL:** 3
@@ -22,9 +22,8 @@ Note: Groups with byte-identical members (single md5) are already caught by `sca
 - **near-duplicate across DIFFERENT sections: articles, authors**
   - `assets/articles/ken1.jpg`  *(md5 `263499439f2a…`, section: articles, line: _generic)*
   - `authors/img/ken1.jpg`  *(md5 `263499439f2a…`, section: authors, line: _generic)*
-  - `assets/articles/ken1.webp`  *(md5 `4c69e1133d96…`, section: articles, line: _generic)*
-  - `authors/img/ken1.webp`  *(md5 `4c69e1133d96…`, section: authors, line: _generic)*
   - `assets/articles/thumbs/ken1.webp`  *(md5 `2809263c9093…`, section: articles, line: _generic)*
+  - `authors/img/ken1.webp`  *(md5 `4c69e1133d96…`, section: authors, line: _generic)*
   - `authors/img/ken1_192.webp`  *(md5 `8717957e2636…`, section: authors, line: _generic)*
   - `authors/img/ken1_96.webp`  *(md5 `d346f7d9c047…`, section: authors, line: _generic)*
 
