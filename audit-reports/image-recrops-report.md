@@ -1,12 +1,12 @@
 # Visual recrop / near-duplicate audit
 
-**Generated:** 2026-05-07T20:29:49.882Z
+**Generated:** 2026-05-08T20:36:35.205Z
 **Method:** dHash on 9×8 grayscale (sharp). Hamming distance ≤ 8 = "near-identical at thumbnail scale."
-**Images compared:** 1078
-**Cross-entity near-duplicate groups:** 44
+**Images compared:** 1037
+**Cross-entity near-duplicate groups:** 35
 
 **🔴 CRITICAL:** 3
-**🟠 ERROR:** 12
+**🟠 ERROR:** 3
 **ℹ️  INFO:** 29
 
 Note: Groups with byte-identical members (single md5) are already caught by `scan-image-reuse.cjs` and excluded here. This report only surfaces visual reuse that md5 missed.
@@ -22,9 +22,8 @@ Note: Groups with byte-identical members (single md5) are already caught by `sca
 - **near-duplicate across DIFFERENT sections: articles, authors**
   - `assets/articles/ken1.jpg`  *(md5 `263499439f2a…`, section: articles, line: _generic)*
   - `authors/img/ken1.jpg`  *(md5 `263499439f2a…`, section: authors, line: _generic)*
-  - `assets/articles/ken1.webp`  *(md5 `4c69e1133d96…`, section: articles, line: _generic)*
-  - `authors/img/ken1.webp`  *(md5 `4c69e1133d96…`, section: authors, line: _generic)*
   - `assets/articles/thumbs/ken1.webp`  *(md5 `2809263c9093…`, section: articles, line: _generic)*
+  - `authors/img/ken1.webp`  *(md5 `4c69e1133d96…`, section: authors, line: _generic)*
   - `authors/img/ken1_192.webp`  *(md5 `8717957e2636…`, section: authors, line: _generic)*
   - `authors/img/ken1_96.webp`  *(md5 `d346f7d9c047…`, section: authors, line: _generic)*
 
@@ -36,7 +35,7 @@ Note: Groups with byte-identical members (single md5) are already caught by `sca
   - `authors/img/author_96.webp`  *(md5 `d5d64abfd77f…`, section: authors, line: _generic)*
   - `authors/img/ico/ken1ico.webp`  *(md5 `18bbebae6795…`, section: authors, line: _generic)*
 
-## 🟠 ERROR — Same-section different-entity near-duplicates (12)
+## 🟠 ERROR — Same-section different-entity near-duplicates (3)
 
 - **near-duplicate used for DIFFERENT entities: costa-deliziosa, celebrity-millennium**
   - `assets/ships/Costa_Deliziosa_flickr_StephenMarcus.webp`  *(md5 `265b638fabd8…`, section: ships, line: _root, slug: costa-deliziosa)*
@@ -46,68 +45,9 @@ Note: Groups with byte-identical members (single md5) are already caught by `sca
   - `assets/ships/Costa_Firenze_flickr_brlrzxmb18.webp`  *(md5 `bf2e80e21632…`, section: ships, line: _root, slug: costa-firenze)*
   - `assets/ships/celebrity-infinity_08.webp`  *(md5 `ded4d975b17c…`, section: ships, line: _root, slug: celebrity-infinity)*
 
-- **near-duplicate used for DIFFERENT entities: liberty-of-the-seas, radiance-of-the-seas**
-  - `assets/ships/Liberty-of-the-seas-FOM- - 2.jpeg`  *(md5 `f614b8681a3f…`, section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 1.jpeg`  *(md5 `f614b8681a3f…`, section: ships, line: _root, slug: radiance-of-the-seas)*
-  - `assets/ships/Liberty-of-the-seas-FOM- - 2.webp`  *(md5 `40cbc1116b1d…`, section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 1.webp`  *(md5 `40cbc1116b1d…`, section: ships, line: _root, slug: radiance-of-the-seas)*
-
-- **near-duplicate used for DIFFERENT entities: liberty-of-the-seas, radiance-of-the-seas**
-  - `assets/ships/Liberty-of-the-seas-FOM- - 5.jpeg`  *(md5 `72418c3d4459…`, section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 3.jpeg`  *(md5 `72418c3d4459…`, section: ships, line: _root, slug: radiance-of-the-seas)*
-  - `assets/ships/Liberty-of-the-seas-FOM- - 5.webp`  *(md5 `5564839f8013…`, section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 3.webp`  *(md5 `5564839f8013…`, section: ships, line: _root, slug: radiance-of-the-seas)*
-  - `assets/ships/Liberty-of-the-seas-FOM- - 6.jpeg`  *(md5 `2e019fee853d…`, section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 4.jpeg`  *(md5 `2e019fee853d…`, section: ships, line: _root, slug: radiance-of-the-seas)*
-
-- **near-duplicate used for DIFFERENT entities: oasis-of-the-seas, serenade-of-the-seas**
-  - `assets/ships/Oasis-of-the-seas-FOM- - 1.jpeg`  *(md5 `5e693afed0f1…`, section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-4.jpeg`  *(md5 `5e693afed0f1…`, section: ships, line: _root, slug: serenade-of-the-seas)*
-  - `assets/ships/Oasis-of-the-seas-FOM- - 1.webp`  *(md5 `868f2e3a4755…`, section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-4.webp`  *(md5 `868f2e3a4755…`, section: ships, line: _root, slug: serenade-of-the-seas)*
-
-- **near-duplicate used for DIFFERENT entities: oasis-of-the-seas, serenade-of-the-seas**
-  - `assets/ships/Oasis-of-the-seas-FOM- - 3.jpeg`  *(md5 `1951bd78fc96…`, section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-5.jpeg`  *(md5 `1951bd78fc96…`, section: ships, line: _root, slug: serenade-of-the-seas)*
-  - `assets/ships/Oasis-of-the-seas-FOM- - 3.webp`  *(md5 `d9cabe12e2b0…`, section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-5.webp`  *(md5 `d9cabe12e2b0…`, section: ships, line: _root, slug: serenade-of-the-seas)*
-
-- **near-duplicate used for DIFFERENT entities: oasis-of-the-seas, serenade-of-the-seas**
-  - `assets/ships/Oasis-of-the-seas-FOM- - 4.jpeg`  *(md5 `945561a41bb9…`, section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-6.jpeg`  *(md5 `945561a41bb9…`, section: ships, line: _root, slug: serenade-of-the-seas)*
-  - `assets/ships/Oasis-of-the-seas-FOM- - 4.webp`  *(md5 `46ce653559b7…`, section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-6.webp`  *(md5 `46ce653559b7…`, section: ships, line: _root, slug: serenade-of-the-seas)*
-
 - **near-duplicate used for DIFFERENT entities: rotterdam-vi, zaandam**
   - `assets/ships/Rotterdam_Vi_flickr_CaptainMartini.webp`  *(md5 `059178914d7d…`, section: ships, line: _root, slug: rotterdam-vi)*
   - `assets/ships/zaandam_02.webp`  *(md5 `fbbffabaf3b4…`, section: ships, line: _root, slug: zaandam)*
-
-- **near-duplicate used for DIFFERENT entities: seven-seas-voyager, voyager-of-the-seas**
-  - `assets/ships/Seven_Seas_Voyager_(ship,_2003),_S_te_01.jpg`  *(md5 `64fee492afc3…`, section: ships, line: _root, slug: seven-seas-voyager)*
-  - `assets/ships/rcl/voyager-of-the-seas-exterior.jpg`  *(md5 `1dfe5ef357ae…`, section: ships, line: rcl, slug: voyager-of-the-seas)*
-
-- **near-duplicate used for DIFFERENT entities: carnival-adventure, norwegian-bliss**
-  - `assets/ships/carnival-adventure_01.webp`  *(md5 `3ae130bc14f7…`, section: ships, line: _root, slug: carnival-adventure)*
-  - `assets/ships/carnival-adventure_02.webp`  *(md5 `bc8acde50bcf…`, section: ships, line: _root, slug: carnival-adventure)*
-  - `assets/ships/carnival-adventure_03.webp`  *(md5 `982628dada0e…`, section: ships, line: _root, slug: carnival-adventure)*
-  - `assets/ships/carnival-adventure_04.webp`  *(md5 `acf834cd39e9…`, section: ships, line: _root, slug: carnival-adventure)*
-  - `assets/ships/carnival-adventure_05.webp`  *(md5 `f63495987f09…`, section: ships, line: _root, slug: carnival-adventure)*
-  - `assets/ships/carnival-adventure_06.webp`  *(md5 `12941cb2b326…`, section: ships, line: _root, slug: carnival-adventure)*
-  - `assets/ships/carnival-adventure_07.webp`  *(md5 `a28c9affcb04…`, section: ships, line: _root, slug: carnival-adventure)*
-  - `assets/ships/carnival-adventure_08.webp`  *(md5 `c111c43c72a9…`, section: ships, line: _root, slug: carnival-adventure)*
-  - `assets/ships/ncl/norwegian-bliss-exterior.jpg`  *(md5 `4a3ab93674f4…`, section: ships, line: ncl, slug: norwegian-bliss)*
-
-- **near-duplicate used for DIFFERENT entities: freedom-of-the-seas, mariner-of-the-seas**
-  - `assets/ships/freedom-of-the-seas-FOM- - 2.jpeg`  *(md5 `da288363e365…`, section: ships, line: _root, slug: freedom-of-the-seas)*
-  - `assets/ships/mariner-of-the-seas-FOM- - 1.jpeg`  *(md5 `da288363e365…`, section: ships, line: _root, slug: mariner-of-the-seas)*
-  - `assets/ships/freedom-of-the-seas-FOM- - 2.webp`  *(md5 `94486f216fd2…`, section: ships, line: _root, slug: freedom-of-the-seas)*
-  - `assets/ships/mariner-of-the-seas-FOM- - 1.webp`  *(md5 `94486f216fd2…`, section: ships, line: _root, slug: mariner-of-the-seas)*
-
-- **near-duplicate used for DIFFERENT entities: freedom-of-the-seas, mariner-of-the-seas**
-  - `assets/ships/freedom-of-the-seas-FOM- - 3.jpeg`  *(md5 `0ca717f7483b…`, section: ships, line: _root, slug: freedom-of-the-seas)*
-  - `assets/ships/mariner-of-the-seas-FOM- - 2.jpeg`  *(md5 `0ca717f7483b…`, section: ships, line: _root, slug: mariner-of-the-seas)*
-  - `assets/ships/freedom-of-the-seas-FOM- - 3.webp`  *(md5 `85ab8d842134…`, section: ships, line: _root, slug: freedom-of-the-seas)*
-  - `assets/ships/mariner-of-the-seas-FOM- - 2.webp`  *(md5 `85ab8d842134…`, section: ships, line: _root, slug: mariner-of-the-seas)*
 
 ## ℹ️ INFO — Intra-entity recrops/recompresses (29)
 
