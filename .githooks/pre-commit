@@ -23,6 +23,20 @@
 set -u
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+# Skip during merge / rebase / cherry-pick — the staged set then contains
+# everything the upstream author already shipped, and the per-file checks
+# below would re-flag pre-existing failures as if this commit introduced
+# them. CI is the right place to verify cross-branch state. The hook
+# remains active for normal feature commits and for amend.
+if [ -f "$REPO_ROOT/.git/MERGE_HEAD" ] || \
+   [ -d "$REPO_ROOT/.git/rebase-merge" ] || \
+   [ -d "$REPO_ROOT/.git/rebase-apply" ] || \
+   [ -f "$REPO_ROOT/.git/CHERRY_PICK_HEAD" ]; then
+    echo "pre-commit: merge/rebase/cherry-pick detected — skipping per-file checks."
+    exit 0
+fi
+
 LOCK_CLI="$REPO_ROOT/admin/ship-lock.cjs"
 REGRESSION_CLI="$REPO_ROOT/admin/check-ship-regression.cjs"
 IMAGE_REUSE_CLI="$REPO_ROOT/admin/check-image-reuse.cjs"
