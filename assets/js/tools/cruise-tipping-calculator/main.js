@@ -81,6 +81,7 @@ async function init() {
   state.subscribe((v) => {
     const line = getLine(v.line);
     if (!line) return;
+    paintInputs(v);
     renderCabinTiers($("#cabin-tier"), line, v.cabinTier);
     renderBundledBanner(bundledBanner, line);
     renderCashExtras(cashPanel, line, v);
@@ -91,6 +92,34 @@ async function init() {
 
   // Initial paint.
   state.update({});
+}
+
+// Mirror state values back into form inputs so hash/storage restore is visible
+// to the user. Programmatic .value writes do not refire input events, so this
+// is safe to call from inside the subscriber.
+function paintInputs(v) {
+  const fields = [
+    ["#line-select",        v.line],
+    ["#cabin-tier",         v.cabinTier],
+    ["#sailing-date",       v.sailingDate || ""],
+    ["#nights",             v.nights],
+    ["#adults",             v.adults],
+    ["#children",           v.children],
+    ["#bar-tab",            v.barTab],
+    ["#specialty-cost",     v.specialtyCost],
+    ["#specialty-meals",    v.specialtyMeals],
+    ["#spa-total",          v.spaTotal],
+    ["#room-service-count", v.roomServiceCount],
+    ["#room-service-avg",   v.roomServiceAvg]
+  ];
+  for (const [sel, val] of fields) {
+    const el = document.querySelector(sel);
+    if (!el) continue;
+    const next = String(val ?? "");
+    if (el.value !== next) el.value = next;
+  }
+  const prepaid = document.querySelector("#bar-prepaid");
+  if (prepaid && prepaid.checked !== !!v.barPrepaid) prepaid.checked = !!v.barPrepaid;
 }
 
 function renderCompareColumn(col, state) {
