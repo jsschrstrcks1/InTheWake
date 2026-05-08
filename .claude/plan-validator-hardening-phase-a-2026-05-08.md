@@ -44,56 +44,49 @@ Every step in this phase is reversible by a single command. None of them rewrite
 
 ## PR B — Extend ICP-018 (ai-summary boilerplate) to port pages
 
-**What it does:** Adds a `validateAiSummaryBoilerplate` function to `admin/validate-port-page-v2.js`, modelled on the ship-side function at `admin/validate-ship-page.js:3279`. Reads `ai_summary_boilerplate_phrases` from `admin/validator-config.json` (already shared) and warns on substring matches in `<meta name="ai-summary">`.
+**STATUS: skipped 2026-05-08 — fleet-clean baseline**
 
-**Severity choice:** **WARNING** initially, not BLOCKING. Rationale:
-- Ship side uses BLOCKING because the editorial baseline there has been worked through.
-- Port side hasn't been baselined for this rule yet — going BLOCKING immediately would fail an unknown number of port pages without notice.
-- WARNING surfaces the gap honestly without breaking the validator's pass-rate signal for port work in flight.
-- Promote to BLOCKING in a future PR once the baseline is rewritten.
+Pre-flight survey of all 384 port `<meta name="ai-summary">` values found:
+- 0 / 384 match any phrase in `ai_summary_boilerplate_phrases` (the ship-curated list).
+- The only 4-gram appearing in ≥8 port summaries is "first person logbook guide to" (8 ports, 2%) — the site's voice signature, not boilerplate.
+- "paradise" appears in 22 summaries; mild marketing-tell, not actionable.
+- No 5-gram appears in 10+ port summaries.
 
-**Files affected:**
-- `admin/validate-port-page-v2.js` — one new function, one call site, one warnings.push, one results.icp_018 export. ~50 LoC total.
-- No port HTML changes.
+Adding ICP-018 to the port validator with the current phrase list would produce zero detections — a no-op. Per `careful-not-clever` "Anti-Theater Rule: ritual compliance without substance," skipping rather than adding theater.
 
-**Material assumptions:**
-- The phrase list in `admin/validator-config.json` is appropriate for ports as well (it's currently ship-curated but the phrases — "the ultimate cruise experience", "offers something for everyone", "represents the perfect" — are generic-cruise tells, not ship-specific). **Verify each phrase against a sample of port ai-summaries before committing.**
-- Some phrases may legitimately appear in port content. If so, document and split the list (or add a `port_ai_summary_boilerplate_phrases` config key).
+Re-evaluate when:
+- Editorial regenerates port ai-summaries en masse (any new template would be a candidate boilerplate phrase).
+- A new template script lands that mass-produces port summaries from a shared pattern.
+- An audit run flags newly-introduced repetition in port summaries.
 
-**Verification:**
-1. Read 10 sampled port `<meta name="ai-summary">` values; check whether any of the 6 phrases would false-positive.
-2. Run validator on the full fleet. Count how many ports get the new warning.
-3. Spot-check 3 flagged ports to confirm the matches are real boilerplate.
-
-**Reversal:** Single revert commit.
+**Net change:** none to validator code; one documented decision in this plan; the boilerplate phrase list in `admin/validator-config.json` remains ship-scoped (correct).
 
 ---
 
 ## PR C — Extend #1501 (filename ↔ page slug match) to port pages
 
-**What it does:** Adds a `validateImageFilenameSlugMatch` function to `admin/validate-port-page-v2.js`, modelled on the ship-side bash impl at `admin/validate-ship-page.sh:1719`. For every `<img src="/ports/img/...">` (or wherever ports keep images), normalize the filename and require it to contain the port's slug.
+**STATUS: shipped 2026-05-08**
 
-**Severity choice:** **WARNING** initially. Same rationale as PR B — port image filename conventions need a baseline run before promotion.
+**Pre-flight survey** (full fleet, with default exemptions):
+- 381 port pages scanned, 4,515 port-image references
+- 47 / 381 pages flag (12.3%) — well below the 50% abort threshold
+- 394 image filenames don't contain the page slug
 
-**Required exemptions (from ship-side rules + port-specific):**
-- `*placeholder*` filename
-- `compass_rose.*`, `compass.*`, `compass-card.*`
-- `port-map.*`, `port-pin.*`
-- Any image under `/assets/social/`, `/assets/brand/`, `/assets/icons/` (allowlisted sections)
-- Generic gallery scaffolding if any (will discover during baseline run)
+**Implementation:** `validateImageFilenameSlugMatch` function in `admin/validate-port-page-v2.js`. Severity: **WARNING** (not BLOCKING) — port pages legitimately use POI-named images sometimes (e.g., `place-foch.webp` on Ajaccio's page), so this is a soft signal.
 
-**Material assumptions:**
-- Port pages reference port-specific images via `/ports/img/<slug>/<slug>-N.webp` convention.
-- Year-suffix pattern (`mardi-gras-1972` → match `mardi-gras-*`) doesn't apply to ports — skip that branch for now.
+**Exemptions applied:**
+- `*placeholder*` filenames
+- Site chrome: `compass`, `compass_rose`, `compass_card`, `port-map`, `port-pin`, `ship-map`, `ship-thumbnail`, `logo`, `favicon`, `sprite`, `icon-*`
+- Allowlisted asset prefixes: `/assets/social/`, `/assets/brand/`, `/assets/icons/`
 
-**Files affected:**
-- `admin/validate-port-page-v2.js` — one new function, one call site. ~70 LoC.
-- No port HTML changes.
+**End-to-end verification:**
+- `ports/airlie-beach.html` (known-bad): emits warning naming 7 mismatches (`whitehaven-hero.webp` etc.) ✓
+- `ports/dubai.html` (known-clean): no filename_slug warning ✓
 
-**Verification:**
-1. Read 5 port pages' image references (one each: gold-standard, hub page, beach port, cold-water port, image-rich port).
-2. Run validator on the full fleet. Count how many ports get the new warning.
-3. If >50% of ports flag, assume the convention is wrong, abort, surface for editorial decision.
+**Top flagged ports (from pre-flight):**
+- antarctic-peninsula (14), costa-maya (13), cabo-san-lucas (6), aitutaki (7), airlie-beach (7), akaroa (7), barbados (7), ajaccio (5), anchorage (2), cozumel (2)
+
+These are NOT auto-fixable — each needs human review to decide whether the image is genuinely this port's (rename) or a reuse of another port's image (replace). Listing them here as the editorial backlog from PR C.
 
 **Reversal:** Single revert commit.
 
