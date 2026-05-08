@@ -82,6 +82,35 @@ function readPageJsonCanonical(htmlPath) {
 // approximations. Don't rewrite them.
 const LOWER_BOUND_LABEL = /\b(over|more than|north of|upwards of)\s+$/i;
 
+// Comparison-recommendation context. When the surrounding prose is recommending
+// a DIFFERENT ship to the reader ("If you want a smaller Cunard ship, Queen
+// Elizabeth ... 2,081 guests"), the integer refers to that other ship, not to
+// the page's ship. Rewriting it to the page's canonical produces a factually
+// false claim (the page would assert that the OTHER ship has the page-ship's
+// guest count). Skip swaps in these contexts.
+//
+// Match against a 200-char lookback + 100-char lookahead around the integer.
+const COMPARISON_CONTEXT_TRIGGERS = [
+  // Recommendation idioms — the strongest signal
+  /\bif you (want|prefer|need|like|would prefer|are looking)\b/i,
+  /\b(may|might|would|could) be a better (fit|choice|option)\b/i,
+  // Direct class-of-other-ship reference with a quantitative verb
+  /\b(the )?(grand|sphere|coral|spirit|breakaway|jewel|prima|edge|excel|conquest|quantum|oasis|voyager|radiance|freedom|icon|millennium|vista|fantasy|sunshine|seabourn|silversea|explora) class (carries|has|holds|features|sails)\b/i,
+  // Class-bucket descriptors ("intimate ocean ships at under 2,000")
+  /\b(intimate|small|large|bigger|smaller|tiny|mid-?size) (ocean|cruise|cunard|princess|carnival|holland|royal|norwegian|celebrity|msc|costa) ships?\s+(at\s+|under|over|around|near)\b/i,
+  // Direct contrast markers
+  /\bby contrast\b/i,
+  /\bin contrast\b/i,
+  /\bunlike (the |her |its |a |an )/i,
+];
+
+function inComparisonContext(html, atIndex, matchLength) {
+  const lookbackStart = Math.max(0, atIndex - 200);
+  const lookaheadEnd = Math.min(html.length, atIndex + matchLength + 100);
+  const window = html.slice(lookbackStart, lookaheadEnd);
+  return COMPARISON_CONTEXT_TRIGGERS.some(rx => rx.test(window));
+}
+
 function findGuestCounts(html) {
   // Match "N,NNN guests" or "NNNN guests" in non-max context (label can be
   // before or after).
@@ -112,6 +141,7 @@ function findGuestCounts(html) {
       isLogbookStory =
         /\bnote-kens-logbook\b|\blogbook\b|\bid="logbook|\bclass="story|\baria-labelledby="logbook/i.test(sectionHeader);
     }
+    const isComparison = inComparisonContext(html, m.index, m[0].length);
     out.push({
       index: m.index,
       full: m[0],
@@ -121,8 +151,9 @@ function findGuestCounts(html) {
       isMax,
       isLowerBound,
       isLogbookStory,
+      isComparison,
       normalized: num.replace(/,/g, ''),
-      skip: isMax || isLowerBound || isLogbookStory,
+      skip: isMax || isLowerBound || isLogbookStory || isComparison,
     });
   }
   return out;
@@ -173,7 +204,7 @@ async function repair(filepath, opts) {
   const swaps = [];
   for (let i = occurrences.length - 1; i >= 0; i--) {
     const o = occurrences[i];
-    if (o.skip) continue; // max-labeled, lower-bound rhetoric, or logbook story
+    if (o.skip) continue; // max-labeled, lower-bound rhetoric, logbook story, or cross-ship comparison
     if (o.normalized === canonical) continue;
     // Replace just the integer within this occurrence.
     const start = o.index + o.before.length;
