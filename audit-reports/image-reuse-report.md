@@ -1,13 +1,13 @@
 # Site-wide image-reuse audit
 
-**Generated:** 2026-05-08T16:40:48.103Z
-**Images scanned:** 1285
-**Unique image bytes:** 1215
-**Storage waste:** 70 duplicate file(s) on disk
+**Generated:** 2026-05-08T20:35:51.762Z
+**Images scanned:** 1259
+**Unique image bytes:** 1203
+**Storage waste:** 56 duplicate file(s) on disk
 
 **⛔ SYMLINKS (always blocking):** 0
-**🔴 CRITICAL findings:** 4
-**🟠 ERROR findings:** 13
+**🔴 CRITICAL findings:** 3
+**🟠 ERROR findings:** 1
 **🟡 WARN (filename does not match a slug):** 0
 **ℹ️  INFO (intra-entity duplicates):** 9
 
@@ -15,16 +15,11 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
 
 ---
 
-## 🔴 CRITICAL — Cross-section / cross-line image reuse (4)
+## 🔴 CRITICAL — Cross-section / cross-line image reuse (3)
 
 - **md5 `47d160f86e40207350ab806996f2dd85`** — same bytes appear in legacy/root bucket without a resolvable slug — provenance unclear
   - `assets/ships/grandeur-of-the-seas_01.webp`  *(section: ships, line: _root, slug: grandeur-of-the-seas)*
   - `assets/ships/template_01.webp`  *(section: ships, line: _root)*
-
-- **md5 `c652b150136e170a917bde5ba007a238`** — same bytes used across DIFFERENT cruise lines / port-groups within ships
-  - `assets/ships/other/westerdam-exterior.jpg`  *(section: ships, line: other, slug: westerdam)*
-  - `assets/ships/other/zuiderdam-exterior.jpg`  *(section: ships, line: other, slug: zuiderdam)*
-  - `assets/ships/princess/star-princess-exterior.jpg`  *(section: ships, line: princess, slug: star-princess)*
 
 - **md5 `263499439f2ac50abc28157308a5807d`** — same bytes used across DIFFERENT sections: articles, authors
   - `assets/articles/ken1.jpg`  *(section: articles, line: _generic)*
@@ -34,55 +29,7 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
   - `assets/articles/ken1.png`  *(section: articles, line: _generic)*
   - `authors/img/ken1.png`  *(section: authors, line: _generic)*
 
-## 🟠 ERROR — Same-section different-entity reuse (13)
-
-- **md5 `19255bbf7e5450ff50b001282899ac7d`** — same bytes used for DIFFERENT entities (celebrity-compass, celebrity-seeker) within the same line
-  - `assets/ships/Celebrity_Compass_flickr_gabry92g.webp`  *(section: ships, line: _root, slug: celebrity-compass)*
-  - `assets/ships/Celebrity_Seeker_flickr_gabry92g.webp`  *(section: ships, line: _root, slug: celebrity-seeker)*
-
-- **md5 `f614b8681a3f6bc79bc426350a3377dd`** — same bytes used for DIFFERENT entities (liberty-of-the-seas, radiance-of-the-seas) within the same line
-  - `assets/ships/Liberty-of-the-seas-FOM- - 2.jpeg`  *(section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 1.jpeg`  *(section: ships, line: _root, slug: radiance-of-the-seas)*
-
-- **md5 `40cbc1116b1daef4687874629f21ae84`** — same bytes used for DIFFERENT entities (liberty-of-the-seas, radiance-of-the-seas) within the same line
-  - `assets/ships/Liberty-of-the-seas-FOM- - 2.webp`  *(section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 1.webp`  *(section: ships, line: _root, slug: radiance-of-the-seas)*
-
-- **md5 `72418c3d4459161cb90cfe1794a16cfc`** — same bytes used for DIFFERENT entities (liberty-of-the-seas, radiance-of-the-seas) within the same line
-  - `assets/ships/Liberty-of-the-seas-FOM- - 5.jpeg`  *(section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 3.jpeg`  *(section: ships, line: _root, slug: radiance-of-the-seas)*
-
-- **md5 `5564839f8013477b7c0e40743e3f4b9b`** — same bytes used for DIFFERENT entities (liberty-of-the-seas, radiance-of-the-seas) within the same line
-  - `assets/ships/Liberty-of-the-seas-FOM- - 5.webp`  *(section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 3.webp`  *(section: ships, line: _root, slug: radiance-of-the-seas)*
-
-- **md5 `2e019fee853df3f6bdb0178520aef53b`** — same bytes used for DIFFERENT entities (liberty-of-the-seas, radiance-of-the-seas) within the same line
-  - `assets/ships/Liberty-of-the-seas-FOM- - 6.jpeg`  *(section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 4.jpeg`  *(section: ships, line: _root, slug: radiance-of-the-seas)*
-
-- **md5 `1818996836203115613abc9403afd7d7`** — same bytes used for DIFFERENT entities (liberty-of-the-seas, radiance-of-the-seas) within the same line
-  - `assets/ships/Liberty-of-the-seas-FOM- - 6.webp`  *(section: ships, line: _root, slug: liberty-of-the-seas)*
-  - `assets/ships/Radiance-of-the-seas-FOM- - 4.webp`  *(section: ships, line: _root, slug: radiance-of-the-seas)*
-
-- **md5 `a6f3f6ab6252b907d238cdde77d938bf`** — same bytes used for DIFFERENT entities (rijndam-ii, rijndam) within the same line
-  - `assets/ships/Rijndam_II_flickr_wimhoppenbrouwers.webp`  *(section: ships, line: _root, slug: rijndam-ii)*
-  - `assets/ships/Rijndam_flickr_wimhoppenbrouwers.webp`  *(section: ships, line: _root, slug: rijndam)*
-
-- **md5 `da288363e365348a712a10832e9a0ea1`** — same bytes used for DIFFERENT entities (freedom-of-the-seas, mariner-of-the-seas) within the same line
-  - `assets/ships/freedom-of-the-seas-FOM- - 2.jpeg`  *(section: ships, line: _root, slug: freedom-of-the-seas)*
-  - `assets/ships/mariner-of-the-seas-FOM- - 1.jpeg`  *(section: ships, line: _root, slug: mariner-of-the-seas)*
-
-- **md5 `94486f216fd2801f20d91ca66a997de0`** — same bytes used for DIFFERENT entities (freedom-of-the-seas, mariner-of-the-seas) within the same line
-  - `assets/ships/freedom-of-the-seas-FOM- - 2.webp`  *(section: ships, line: _root, slug: freedom-of-the-seas)*
-  - `assets/ships/mariner-of-the-seas-FOM- - 1.webp`  *(section: ships, line: _root, slug: mariner-of-the-seas)*
-
-- **md5 `0ca717f7483b025d3dc45e4855772833`** — same bytes used for DIFFERENT entities (freedom-of-the-seas, mariner-of-the-seas) within the same line
-  - `assets/ships/freedom-of-the-seas-FOM- - 3.jpeg`  *(section: ships, line: _root, slug: freedom-of-the-seas)*
-  - `assets/ships/mariner-of-the-seas-FOM- - 2.jpeg`  *(section: ships, line: _root, slug: mariner-of-the-seas)*
-
-- **md5 `85ab8d842134d16541d34e0a8d547d36`** — same bytes used for DIFFERENT entities (freedom-of-the-seas, mariner-of-the-seas) within the same line
-  - `assets/ships/freedom-of-the-seas-FOM- - 3.webp`  *(section: ships, line: _root, slug: freedom-of-the-seas)*
-  - `assets/ships/mariner-of-the-seas-FOM- - 2.webp`  *(section: ships, line: _root, slug: mariner-of-the-seas)*
+## 🟠 ERROR — Same-section different-entity reuse (1)
 
 - **md5 `cdf8bd1f00cbe19173712e81050c669c`** — same bytes used for DIFFERENT entities (christchurch, durban, luanda, mombasa, port-moresby) within the same line
   - `assets/ships/placeholder-ship.webp`  *(section: ships, line: _root)*
