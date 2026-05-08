@@ -1,15 +1,15 @@
 # Site-wide image-reuse audit
 
-**Generated:** 2026-05-08T13:56:51.573Z
-**Images scanned:** 1292
+**Generated:** 2026-05-08T16:25:23.276Z
+**Images scanned:** 1291
 **Unique image bytes:** 1215
-**Storage waste:** 77 duplicate file(s) on disk
+**Storage waste:** 76 duplicate file(s) on disk
 
 **⛔ SYMLINKS (always blocking):** 0
 **🔴 CRITICAL findings:** 4
 **🟠 ERROR findings:** 19
 **🟡 WARN (filename does not match a slug):** 0
-**ℹ️  INFO (intra-entity duplicates):** 10
+**ℹ️  INFO (intra-entity duplicates):** 9
 
 Allowlisted sections (brand / icons / social) are not flagged for reuse.
 
@@ -137,7 +137,7 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
   - `authors/img/author-avatar.jpg`  *(section: authors, line: _generic)*
   - `assets/brand/placeholder-port.webp`  *(section: brand, line: _allow)*
 
-## ℹ️ INFO — Storage-only duplicates within one entity (10)
+## ℹ️ INFO — Storage-only duplicates within one entity (9)
 
 - **md5 `14fdd48416a3394a80058c0c5b970b59`** — same bytes under multiple filenames for slug "quantum-of-the-seas" — pick one and delete duplicates
   - `assets/ships/0016_Quantum_of_the_Seas.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
@@ -158,10 +158,6 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
 - **md5 `931f0598453416d7c3f3a9d4ce05f2a9`** — same bytes under multiple filenames for slug "song-of-norway" — pick one and delete duplicates
   - `assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped)-2.webp`  *(section: ships, line: _root, slug: song-of-norway)*
   - `assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped).webp`  *(section: ships, line: _root, slug: song-of-norway)*
-
-- **md5 `a801dae0fc830078e60d3479d8e82fce`** — same bytes under multiple filenames for slug "symphony-of-the-seas" — pick one and delete duplicates
-  - `assets/ships/SymphonyOfTheSeas_(cropped)_02-2.webp`  *(section: ships, line: _root, slug: symphony-of-the-seas)*
-  - `assets/ships/SymphonyOfTheSeas_(cropped)_02.webp`  *(section: ships, line: _root, slug: symphony-of-the-seas)*
 
 - **md5 `c98a620b816a668050e6ca1e605f0bb6`** — same bytes under multiple filenames for slug "carnival-jubilee" — pick one and delete duplicates
   - `assets/ships/carnival/carnival-jubilee/carnival-jubilee1.jpg`  *(section: ships, line: carnival, slug: carnival-jubilee)*
