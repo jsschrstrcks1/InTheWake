@@ -1,13 +1,13 @@
 # Site-wide image-reuse audit
 
-**Generated:** 2026-05-08T16:25:23.276Z
-**Images scanned:** 1291
+**Generated:** 2026-05-08T16:40:48.103Z
+**Images scanned:** 1285
 **Unique image bytes:** 1215
-**Storage waste:** 76 duplicate file(s) on disk
+**Storage waste:** 70 duplicate file(s) on disk
 
 **⛔ SYMLINKS (always blocking):** 0
 **🔴 CRITICAL findings:** 4
-**🟠 ERROR findings:** 19
+**🟠 ERROR findings:** 13
 **🟡 WARN (filename does not match a slug):** 0
 **ℹ️  INFO (intra-entity duplicates):** 9
 
@@ -34,7 +34,7 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
   - `assets/articles/ken1.png`  *(section: articles, line: _generic)*
   - `authors/img/ken1.png`  *(section: authors, line: _generic)*
 
-## 🟠 ERROR — Same-section different-entity reuse (19)
+## 🟠 ERROR — Same-section different-entity reuse (13)
 
 - **md5 `19255bbf7e5450ff50b001282899ac7d`** — same bytes used for DIFFERENT entities (celebrity-compass, celebrity-seeker) within the same line
   - `assets/ships/Celebrity_Compass_flickr_gabry92g.webp`  *(section: ships, line: _root, slug: celebrity-compass)*
@@ -63,30 +63,6 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
 - **md5 `1818996836203115613abc9403afd7d7`** — same bytes used for DIFFERENT entities (liberty-of-the-seas, radiance-of-the-seas) within the same line
   - `assets/ships/Liberty-of-the-seas-FOM- - 6.webp`  *(section: ships, line: _root, slug: liberty-of-the-seas)*
   - `assets/ships/Radiance-of-the-seas-FOM- - 4.webp`  *(section: ships, line: _root, slug: radiance-of-the-seas)*
-
-- **md5 `5e693afed0f13e4cf21e3abcbafcd8a0`** — same bytes used for DIFFERENT entities (oasis-of-the-seas, serenade-of-the-seas) within the same line
-  - `assets/ships/Oasis-of-the-seas-FOM- - 1.jpeg`  *(section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-4.jpeg`  *(section: ships, line: _root, slug: serenade-of-the-seas)*
-
-- **md5 `868f2e3a475527349103c69dcb322611`** — same bytes used for DIFFERENT entities (oasis-of-the-seas, serenade-of-the-seas) within the same line
-  - `assets/ships/Oasis-of-the-seas-FOM- - 1.webp`  *(section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-4.webp`  *(section: ships, line: _root, slug: serenade-of-the-seas)*
-
-- **md5 `1951bd78fc96e85fe660885597427740`** — same bytes used for DIFFERENT entities (oasis-of-the-seas, serenade-of-the-seas) within the same line
-  - `assets/ships/Oasis-of-the-seas-FOM- - 3.jpeg`  *(section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-5.jpeg`  *(section: ships, line: _root, slug: serenade-of-the-seas)*
-
-- **md5 `d9cabe12e2b0a3bafc928ad3cf63fd2b`** — same bytes used for DIFFERENT entities (oasis-of-the-seas, serenade-of-the-seas) within the same line
-  - `assets/ships/Oasis-of-the-seas-FOM- - 3.webp`  *(section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-5.webp`  *(section: ships, line: _root, slug: serenade-of-the-seas)*
-
-- **md5 `945561a41bb98619f340f92b075b6f42`** — same bytes used for DIFFERENT entities (oasis-of-the-seas, serenade-of-the-seas) within the same line
-  - `assets/ships/Oasis-of-the-seas-FOM- - 4.jpeg`  *(section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-6.jpeg`  *(section: ships, line: _root, slug: serenade-of-the-seas)*
-
-- **md5 `46ce653559b707322e0631275bff7b3b`** — same bytes used for DIFFERENT entities (oasis-of-the-seas, serenade-of-the-seas) within the same line
-  - `assets/ships/Oasis-of-the-seas-FOM- - 4.webp`  *(section: ships, line: _root, slug: oasis-of-the-seas)*
-  - `assets/ships/serenade-of-the-seas-FOM-6.webp`  *(section: ships, line: _root, slug: serenade-of-the-seas)*
 
 - **md5 `a6f3f6ab6252b907d238cdde77d938bf`** — same bytes used for DIFFERENT entities (rijndam-ii, rijndam) within the same line
   - `assets/ships/Rijndam_II_flickr_wimhoppenbrouwers.webp`  *(section: ships, line: _root, slug: rijndam-ii)*
