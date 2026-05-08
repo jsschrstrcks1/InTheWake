@@ -219,11 +219,9 @@ Same as the 2026-07-01 audit; second iteration.
 
 ## Open content tasks (not actions per se, but flagged for awareness)
 
-### 18. v0.1 Symphony Voyage Pack HTML render
+### 18. v0.1 Symphony Voyage Pack HTML render — **✅ shipped 2026-05-07 (commit `c464e1ec`)**
 
-The v0.1 Symphony pack exists only as markdown. The v0.1.2 NCL Aqua pack has both markdown and HTML. For the offline-PWA experience to work for Symphony buyers, an HTML render is needed.
-
-**Decision:** ship Symphony as PDF-only initially, OR have me build the HTML render before W12 launch. The launch checklist's Item 4 mentions this.
+The v0.1 Symphony pack now exists as both markdown (`admin/voyage-packs/v0.1-symphony-western-caribbean-7n.md`) and HTML (`.html`). Both v0.1 Symphony and v0.1.2 NCL Aqua now ship at full feature parity for the offline-PWA experience: fillable Emergency Contacts handoff card, print/PDF download buttons, floating TOC sidebar, the same shared CSS/JS modules. **No further action needed on this item.**
 
 ### 19. Voyage Pack discoverability — homepage CTA + nav addition
 
