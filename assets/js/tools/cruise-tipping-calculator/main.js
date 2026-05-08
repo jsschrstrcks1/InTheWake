@@ -43,11 +43,14 @@ async function init() {
   });
 
   // Accordion toggle.
+  // Section uses data-expanded (CSS hook); button uses aria-expanded (a11y state).
+  // Both are kept in sync so screen readers see the correct expanded/collapsed
+  // state whenever the panel's visibility changes.
   document.querySelectorAll(".accordion__toggle").forEach(btn => {
     btn.addEventListener("click", () => {
       const section = btn.closest(".accordion");
-      const open = section.getAttribute("aria-expanded") === "true";
-      section.setAttribute("aria-expanded", String(!open));
+      const open = section.getAttribute("data-expanded") === "true";
+      section.setAttribute("data-expanded", String(!open));
       btn.setAttribute("aria-expanded", String(!open));
     });
   });
@@ -58,6 +61,16 @@ async function init() {
     if (!li) return;
     const panel = document.getElementById(li.dataset.scrollTarget);
     panel?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  // Keyboard equivalent for the result-row scroll affordance. Each li carries
+  // role="button" and tabindex=0; Enter and Space must activate it (WCAG 2.1.1).
+  breakdown.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const li = e.target.closest("li[data-scroll-target]");
+    if (!li) return;
+    e.preventDefault();
+    document.getElementById(li.dataset.scrollTarget)?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
   // Reset.
@@ -71,9 +84,10 @@ async function init() {
   $("#print-plan").addEventListener("click", () => window.print());
 
   // Compare toggle.
-  $("#compare-toggle").addEventListener("click", () => {
+  $("#compare-toggle").addEventListener("click", (e) => {
     const col = $("#compare-column");
     col.hidden = !col.hidden;
+    e.currentTarget.setAttribute("aria-expanded", String(!col.hidden));
     if (!col.hidden) renderCompareColumn(col, state);
   });
 
@@ -126,11 +140,12 @@ function renderCompareColumn(col, state) {
   const v = state.get();
   const others = listLines().filter(l => l.lineId !== v.line);
   col.innerHTML = `
-    <h3>Compare with</h3>
-    <select id="compare-line">
+    <h3 id="compare-heading">Compare with</h3>
+    <label for="compare-line" class="sr-only">Choose another cruise line to compare</label>
+    <select id="compare-line" aria-labelledby="compare-heading">
       ${others.map(l => `<option value="${l.lineId}">${l.displayName}</option>`).join("")}
     </select>
-    <div id="compare-output"></div>
+    <div id="compare-output" aria-live="polite"></div>
   `;
   const output = col.querySelector("#compare-output");
   const select = col.querySelector("#compare-line");

@@ -85,6 +85,8 @@ export function renderResult(headlineEl, breakdownEl, line, totals, state) {
     if (row.amount === 0) continue;
     const li = document.createElement("li");
     li.tabIndex = 0;
+    li.setAttribute("role", "button");
+    li.setAttribute("aria-label", `${row.label}: ${fmt(row.amount)} — jump to source inputs`);
     li.dataset.scrollTarget = row.target;
     li.innerHTML = `<span>${row.label}</span><span>${fmt(row.amount)}</span>`;
     breakdownEl.appendChild(li);

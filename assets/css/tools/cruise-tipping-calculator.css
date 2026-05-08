@@ -60,17 +60,23 @@
   cursor: pointer;
 }
 
+.accordion__toggle:focus-visible {
+  outline: 3px solid var(--accent, #0e6e8e);
+  outline-offset: -3px;
+  border-radius: 8px;
+}
+
 .accordion__toggle::after {
   content: "\25BE"; /* ▾ */
   float: right;
   transition: transform 0.2s;
 }
 
-.accordion[aria-expanded="false"] .accordion__panel {
+.accordion[data-expanded="false"] .accordion__panel {
   display: none;
 }
 
-.accordion[aria-expanded="false"] .accordion__toggle::after {
+.accordion[data-expanded="false"] .accordion__toggle::after {
   transform: rotate(-90deg);
 }
 
@@ -137,6 +143,14 @@
   cursor: pointer;
 }
 
+/* Visible focus ring for the keyboard-activated scroll affordance.
+   3px solid accent at -3px offset gives ≥3:1 contrast on the panel background. */
+.result-panel__breakdown li:focus-visible {
+  outline: 3px solid var(--accent, #0e6e8e);
+  outline-offset: -3px;
+  background: rgba(14, 110, 142, 0.08);
+}
+
 .result-panel__actions {
   display: flex;
   gap: 0.5rem;
@@ -146,6 +160,12 @@
 .result-panel__actions button {
   padding: 0.5rem 1rem;
   cursor: pointer;
+}
+
+.result-panel__actions button:focus-visible {
+  outline: 3px solid var(--accent, #0e6e8e);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .result-panel__compare {
@@ -191,7 +211,7 @@
   }
 
   /* Force every accordion panel open so headings and content print. */
-  .accordion[aria-expanded="false"] .accordion__panel,
+  .accordion[data-expanded="false"] .accordion__panel,
   .accordion__panel {
     display: block !important;
   }

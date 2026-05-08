@@ -420,7 +420,7 @@ All work on this project is offered as a gift to God.
     </noscript>
 
     <form id="tipping-form" class="tipping-form" aria-label="Cruise tipping inputs">
-      <section class="accordion" data-section="sailing" aria-expanded="true">
+      <section class="accordion" data-section="sailing" data-expanded="true">
         <h2><button type="button" class="accordion__toggle" aria-controls="panel-sailing" aria-expanded="true">Your sailing</button></h2>
         <div id="panel-sailing" class="accordion__panel">
           <label>Cruise line
@@ -430,51 +430,51 @@ All work on this project is offered as a gift to God.
             <select id="cabin-tier" name="cabinTier"></select>
           </label>
           <label>Sailing embarkation date
-            <input type="date" id="sailing-date" name="sailingDate">
+            <input type="date" id="sailing-date" name="sailingDate" autocomplete="off">
           </label>
           <label>Nights
-            <input type="number" id="nights" name="nights" min="1" max="180" value="7" required>
+            <input type="number" id="nights" name="nights" min="1" max="180" value="7" required autocomplete="off" inputmode="numeric">
           </label>
           <fieldset>
             <legend>Party</legend>
             <label>Adults
-              <input type="number" id="adults" name="adults" min="1" max="12" value="2" required>
+              <input type="number" id="adults" name="adults" min="1" max="12" value="2" required autocomplete="off" inputmode="numeric">
             </label>
             <label>Children
-              <input type="number" id="children" name="children" min="0" max="12" value="0">
+              <input type="number" id="children" name="children" min="0" max="12" value="0" autocomplete="off" inputmode="numeric">
             </label>
             <div id="children-ages" hidden></div>
           </fieldset>
-          <p id="bundled-banner" class="bundled-banner" hidden></p>
+          <p id="bundled-banner" class="bundled-banner" role="note" hidden></p>
         </div>
       </section>
 
-      <section class="accordion" data-section="onboard" aria-expanded="false">
+      <section class="accordion" data-section="onboard" data-expanded="false">
         <h2><button type="button" class="accordion__toggle" aria-controls="panel-onboard" aria-expanded="false">Onboard extras</button></h2>
         <div id="panel-onboard" class="accordion__panel">
           <label>Estimated bar tab (cruise total, $)
-            <input type="number" id="bar-tab" name="barTab" min="0" step="1" value="0">
+            <input type="number" id="bar-tab" name="barTab" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
           </label>
           <label><input type="checkbox" id="bar-prepaid" name="barPrepaid"> I have a prepaid drink package (auto-grats included)</label>
           <label>Specialty dining covers ($/person/meal)
-            <input type="number" id="specialty-cost" name="specialtyCost" min="0" step="1" value="0">
+            <input type="number" id="specialty-cost" name="specialtyCost" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
           </label>
           <label>Specialty dining meals (count)
-            <input type="number" id="specialty-meals" name="specialtyMeals" min="0" step="1" value="0">
+            <input type="number" id="specialty-meals" name="specialtyMeals" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
           </label>
           <label>Spa total ($)
-            <input type="number" id="spa-total" name="spaTotal" min="0" step="1" value="0">
+            <input type="number" id="spa-total" name="spaTotal" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
           </label>
           <label>Room service orders (count)
-            <input type="number" id="room-service-count" name="roomServiceCount" min="0" step="1" value="0">
+            <input type="number" id="room-service-count" name="roomServiceCount" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
           </label>
           <label>Avg per order ($)
-            <input type="number" id="room-service-avg" name="roomServiceAvg" min="0" step="1" value="0">
+            <input type="number" id="room-service-avg" name="roomServiceAvg" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
           </label>
         </div>
       </section>
 
-      <section class="accordion" data-section="cash" aria-expanded="false">
+      <section class="accordion" data-section="cash" data-expanded="false">
         <h2><button type="button" class="accordion__toggle" aria-controls="panel-cash" aria-expanded="false">Service tips, cash on top</button></h2>
         <div id="panel-cash" class="accordion__panel">
           <!-- Rendered by render.js from the selected line's recommendedCashExtras. -->
@@ -482,16 +482,18 @@ All work on this project is offered as a gift to God.
       </section>
     </form>
 
-    <aside id="result-panel" class="result-panel" aria-live="polite">
-      <h2>Your tipping plan</h2>
-      <p class="result-panel__headline" id="result-headline"></p>
-      <ul class="result-panel__breakdown" id="result-breakdown"></ul>
+    <aside id="result-panel" class="result-panel" aria-labelledby="result-panel-heading">
+      <h2 id="result-panel-heading">Your tipping plan</h2>
+      <div class="result-panel__live" aria-live="polite" aria-atomic="false">
+        <p class="result-panel__headline" id="result-headline"></p>
+        <ul class="result-panel__breakdown" id="result-breakdown"></ul>
+      </div>
       <div class="result-panel__actions">
-        <button type="button" id="compare-toggle">Compare another line</button>
+        <button type="button" id="compare-toggle" aria-expanded="false" aria-controls="compare-column">Compare another line</button>
         <button type="button" id="print-plan">Print my plan</button>
         <button type="button" id="reset">Reset</button>
       </div>
-      <section id="compare-column" class="result-panel__compare" hidden></section>
+      <section id="compare-column" class="result-panel__compare" aria-label="Compare with another line" hidden></section>
     </aside>
   </main>
 
