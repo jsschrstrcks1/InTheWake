@@ -737,6 +737,25 @@ Comprehensive factors that can disrupt a passenger's port day, to be integrated 
 
 ---
 
+## Missing Port and Ship Pages (Discovered 2026-05-08)
+
+**Source:** Link verification during drafting of `articles/caribbean-cruise-trends-2026.html`. Each item below is referenced by name in published or upcoming content but has no dedicated page yet.
+
+### Missing port pages
+
+- [ ] **Half Moon Cay** — Holland America / Carnival private destination in the Bahamas. Mentioned in the 2026 Caribbean trends article and across multiple cruise-line itineraries. Needs a port page in `/ports/half-moon-cay.html` per the standard port template.
+- [ ] **Celebration Key** — Carnival's new private destination in Grand Bahama, opening 2025–2026. Mentioned in the 2026 Caribbean trends article. Needs a port page in `/ports/celebration-key.html`. Add as it opens; verify pier, capacity, and on-island amenities from primary Carnival sources before publishing.
+
+### Missing ship pages
+
+- [ ] **Norwegian Luna** — New NCL ship referenced in 2026 capacity discussions. Needs a ship page in `/ships/norwegian/norwegian-luna.html` once specs, deck plans, and naming-rights data are available.
+
+### Why these are tracked here
+
+`careful-not-clever` requires that gaps surfaced during one task get documented for the next task rather than silently skipped. These three pages were excluded as link targets in the Caribbean trends article (a deliberate skip) and need their own scoped work. Move each to `admin/COMPLETED_TASKS.md` when published — do not delete from this list silently.
+
+---
+
 ## Strategic "Don't Chase" List (Explicit Decisions)
 
 | Feature | Why Not | Competitor Reference |
