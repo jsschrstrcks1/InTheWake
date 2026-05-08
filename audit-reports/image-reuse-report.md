@@ -1,15 +1,15 @@
 # Site-wide image-reuse audit
 
-**Generated:** 2026-05-08T10:36:41.629Z
-**Images scanned:** 1293
+**Generated:** 2026-05-08T13:56:51.573Z
+**Images scanned:** 1292
 **Unique image bytes:** 1215
-**Storage waste:** 78 duplicate file(s) on disk
+**Storage waste:** 77 duplicate file(s) on disk
 
 **⛔ SYMLINKS (always blocking):** 0
 **🔴 CRITICAL findings:** 4
 **🟠 ERROR findings:** 19
 **🟡 WARN (filename does not match a slug):** 0
-**ℹ️  INFO (intra-entity duplicates):** 11
+**ℹ️  INFO (intra-entity duplicates):** 10
 
 Allowlisted sections (brand / icons / social) are not flagged for reuse.
 
@@ -137,15 +137,11 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
   - `authors/img/author-avatar.jpg`  *(section: authors, line: _generic)*
   - `assets/brand/placeholder-port.webp`  *(section: brand, line: _allow)*
 
-## ℹ️ INFO — Storage-only duplicates within one entity (11)
+## ℹ️ INFO — Storage-only duplicates within one entity (10)
 
 - **md5 `14fdd48416a3394a80058c0c5b970b59`** — same bytes under multiple filenames for slug "quantum-of-the-seas" — pick one and delete duplicates
   - `assets/ships/0016_Quantum_of_the_Seas.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
   - `assets/ships/Quantum_of_the_Seas_01.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
-
-- **md5 `ab9195854bedc4e99783ae316d2bd48c`** — same bytes under multiple filenames for slug "quantum-of-the-seas" — pick one and delete duplicates
-  - `assets/ships/0018_Quantum_of_the_Seas_(2).JPG`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
-  - `assets/ships/0018_Quantum_of_the_Seas_(2).jpg`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
 
 - **md5 `dfe98868bbf48a04f9ee714ae5cc0b0c`** — same bytes under multiple filenames for slug "quantum-of-the-seas" — pick one and delete duplicates
   - `assets/ships/0018_Quantum_of_the_Seas_(2).webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
