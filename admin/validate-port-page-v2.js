@@ -1321,6 +1321,13 @@ function validateImages($) {
  *   - Reused 2-3x with same alt:  INFO (likely benign / nav decoration)
  *   - Reused 2+x with different alts: WARNING (alt-text drift)
  *   - Reused 4+x regardless:      WARNING (excessive in-page reuse)
+ *
+ * Pairs with — does NOT replace — the cross-page image-reuse-guardrail skill
+ * (.claude/skills/image-reuse-guardrail/SKILL.md). That skill enforces byte
+ * uniqueness across pages and entities via admin/scan-image-reuse.cjs and
+ * the .githooks/pre-commit hook (admin/check-image-reuse.cjs). This function
+ * checks alt-text drift WITHIN a single page; the guardrail catches the same
+ * bytes being reused ACROSS pages. Together they cover both surfaces.
  */
 function validateImageReuse($) {
   const warnings = [];
@@ -1373,6 +1380,84 @@ function validateImageReuse($) {
     warnings,
     info,
     data: { reused_srcs: [...usage.entries()].filter(([, a]) => a.length >= 2).length }
+  };
+}
+
+/**
+ * Validate that every port-image filename contains the page's port slug.
+ * Companion to ship-side rule #1501 (admin/validate-ship-page.sh §9aj-2)
+ * and the image-reuse-guardrail skill.
+ *
+ * Rationale: filenames that don't reference the entity slug are the
+ * naming-convention drift that precedes outright cross-page reuse. The
+ * scanner (admin/scan-image-reuse.cjs) catches reuse at the byte level;
+ * this check catches the slack in the convention before it becomes reuse.
+ *
+ * Severity: WARNING (not BLOCKING). Port image filenames sometimes
+ * legitimately use POI names (e.g., "place-foch.webp" on Ajaccio's page),
+ * so this is a soft signal — not an automatic violation. A future
+ * promotion to BLOCKING would need a per-port allowlist of exempted POI
+ * filenames.
+ *
+ * Exemptions:
+ *   - Generic placeholders (anything containing "placeholder")
+ *   - Site-chrome decoration: compass/compass_rose/compass_card,
+ *     port-map/port-pin/ship-map/ship-thumbnail, logo/favicon/sprite/icon-*
+ *   - Allowlisted asset prefixes: /assets/social/, /assets/brand/,
+ *     /assets/icons/ (per image-reuse-guardrail SKILL.md §The law clause 6)
+ */
+function validateImageFilenameSlugMatch($, filepath) {
+  const warnings = [];
+  const slug = basename(filepath, '.html');
+  const slugNorm = slug.toLowerCase().replace(/[_.\s]+/g, '-').replace(/-+/g, '-');
+
+  function normalize(name) {
+    return name.toLowerCase().replace(/\.[a-z]+$/i, '').replace(/[_.\s]+/g, '-').replace(/-+/g, '-');
+  }
+  function isExempt(filename) {
+    const f = filename.toLowerCase();
+    if (/placeholder/.test(f)) return true;
+    if (/^(compass|compass[-_]rose|compass[-_]card)\./.test(f)) return true;
+    if (/^(port-map|port-pin|ship-map|ship-thumbnail)\./.test(f)) return true;
+    if (/^(logo|favicon|sprite|icon-)/.test(f)) return true;
+    return false;
+  }
+  function isAllowlistedPath(src) {
+    return src.startsWith('/assets/social/') ||
+           src.startsWith('/assets/brand/') ||
+           src.startsWith('/assets/icons/');
+  }
+
+  const mismatches = [];
+  $('img').each((i, elem) => {
+    const src = $(elem).attr('src') || '';
+    if (!src) return;
+    // Only check port-image paths; let ship-side rules handle ship paths
+    if (!/^\/(ports\/img\/|images\/ports\/|assets\/ports\/)/.test(src)) return;
+    if (isAllowlistedPath(src)) return;
+    const filename = src.split('/').pop();
+    if (isExempt(filename)) return;
+    const baseNorm = normalize(filename);
+    if (baseNorm.includes(slugNorm)) return;
+    mismatches.push(filename);
+  });
+
+  if (mismatches.length > 0) {
+    const sample = mismatches.slice(0, 3).join(', ');
+    const more = mismatches.length > 3 ? ` and ${mismatches.length - 3} more` : '';
+    warnings.push({
+      section: 'images',
+      rule: 'filename_slug_mismatch',
+      message: `${mismatches.length} port image filename(s) do not contain the page slug "${slug}": ${sample}${more}. Naming-convention drift is the precursor to cross-port reuse — verify each is genuinely this port's image.`,
+      severity: 'WARNING'
+    });
+  }
+
+  return {
+    valid: true,
+    errors: [],
+    warnings,
+    data: { slug, mismatch_count: mismatches.length }
   };
 }
 
@@ -4464,6 +4549,7 @@ async function validatePortPage(filepath) {
     const wordResult = validateWordCounts($);
     const imageResult = validateImages($);
     const imageReuseResult = validateImageReuse($);
+    const filenameSlugResult = validateImageFilenameSlugMatch($, filepath);
     const portImagesResult = await validatePortImages(filepath);
     const rubricResult = validateRubric($);
     const logbookResult = validateLogbookNarrative($);
@@ -4578,6 +4664,7 @@ async function validatePortPage(filepath) {
     results.warnings.push(...wordResult.warnings);
     results.warnings.push(...imageResult.warnings);
     results.warnings.push(...imageReuseResult.warnings);
+    results.warnings.push(...filenameSlugResult.warnings);
     results.warnings.push(...portImagesResult.warnings);
     results.warnings.push(...rubricResult.warnings);
     results.warnings.push(...logbookResult.warnings);
@@ -4654,6 +4741,7 @@ async function validatePortPage(filepath) {
     results.word_counts = wordResult.counts;
     results.images = imageResult.counts;
     results.image_reuse = imageReuseResult.data;
+    results.filename_slug = filenameSlugResult.data;
     results.port_images = portImagesResult.data;
     results.rubric = rubricResult.data;
     results.logbook_narrative = logbookResult.data;
