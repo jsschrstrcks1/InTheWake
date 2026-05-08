@@ -1,0 +1,208 @@
+/* Cruise Tipping Calculator — page-scoped styles.
+   Inherits from /assets/styles.css. Mobile-first.
+   Soli Deo Gloria. */
+
+/* ---------- Page layout ---------- */
+.tool-page {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tool-hero h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin: 0 0 0.25rem;
+}
+
+.tool-hero__year {
+  color: var(--accent, #0e6e8e);
+  font-weight: 600;
+}
+
+.tool-hero__lede {
+  color: var(--ink-soft, #3d5a6a);
+  max-width: 60ch;
+}
+
+/* ---------- Noscript fallback ---------- */
+.noscript-fallback {
+  padding: 1rem;
+  border: 2px solid var(--accent, #0e6e8e);
+  border-radius: 8px;
+}
+
+/* ---------- Form / accordion ---------- */
+.tipping-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.accordion {
+  border: 1px solid var(--border, #e3e3e3);
+  border-radius: 8px;
+  background: var(--surface, #fff);
+}
+
+.accordion h2 {
+  margin: 0;
+}
+
+.accordion__toggle {
+  width: 100%;
+  padding: 1rem;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.accordion__toggle::after {
+  content: "\25BE"; /* ▾ */
+  float: right;
+  transition: transform 0.2s;
+}
+
+.accordion[aria-expanded="false"] .accordion__panel {
+  display: none;
+}
+
+.accordion[aria-expanded="false"] .accordion__toggle::after {
+  transform: rotate(-90deg);
+}
+
+.accordion__panel {
+  padding: 0 1rem 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.accordion__panel label {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.accordion__panel input,
+.accordion__panel select {
+  padding: 0.5rem;
+  font: inherit;
+}
+
+/* ---------- Bundled-fare banner ----------
+   Background #fef9e7; ink #3a2a00 yields ~14:1 contrast (WCAG AA/AAA). */
+.bundled-banner {
+  padding: 0.75rem 1rem;
+  background: #fef9e7;
+  color: #3a2a00;
+  border-left: 4px solid var(--accent, #0e6e8e);
+  border-radius: 4px;
+}
+
+/* ---------- Result panel ---------- */
+.result-panel {
+  padding: 1.25rem;
+  border-radius: 8px;
+  background: var(--surface-strong, #f7f5f0);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.result-panel__headline {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.result-panel__breakdown {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.result-panel__breakdown li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35rem 0.5rem;
+  border-radius: 4px;
+}
+
+.result-panel__breakdown li:hover,
+.result-panel__breakdown li:focus-within {
+  background: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+
+.result-panel__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.result-panel__actions button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.result-panel__compare {
+  display: grid;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border, #e3e3e3);
+}
+
+/* ---------- Desktop: sticky right column ---------- */
+@media (min-width: 960px) {
+  .tool-page {
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    align-items: start;
+  }
+  .tool-hero,
+  .tipping-form {
+    grid-column: 1;
+  }
+  .result-panel {
+    grid-column: 2;
+    position: sticky;
+    top: 1rem;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .accordion__toggle::after {
+    transition: none;
+  }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  /* Hide interactive controls and global chrome (header/footer/nav). */
+  .accordion__toggle,
+  .result-panel__actions,
+  header,
+  footer,
+  nav {
+    display: none !important;
+  }
+
+  /* Force every accordion panel open so headings and content print. */
+  .accordion[aria-expanded="false"] .accordion__panel,
+  .accordion__panel {
+    display: block !important;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  .result-panel {
+    border: 1px solid #000;
+    background: #fff;
+  }
+}
