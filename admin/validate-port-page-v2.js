@@ -1417,6 +1417,13 @@ function validateImageReuse($) {
  *     port-map/port-pin/ship-map/ship-thumbnail, logo/favicon/sprite/icon-*
  *   - Allowlisted asset prefixes: /assets/social/, /assets/brand/,
  *     /assets/icons/ (per image-reuse-guardrail SKILL.md §The law clause 6)
+ *
+ * Deliberate scope (per careful-not-clever retrospective 2026-05-09):
+ *   Only scans <img src="..."> attributes. Does NOT scan srcset,
+ *   <picture><source srcset>, or CSS background-image. The byte-level
+ *   image-reuse-guardrail catches cross-page reuse on those surfaces
+ *   at the file level; this function focuses on the author-canonical
+ *   src path where filename-slug drift is most diagnostic.
  */
 function validateImageFilenameSlugMatch($, filepath) {
   const warnings = [];
