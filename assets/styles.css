@@ -320,7 +320,8 @@ a:focus, button:focus, [tabindex="0"]:focus {
   display: flex;
   align-items: flex-end;
   gap: .6rem;
-  padding: .5rem .9rem .35rem;
+  /* Horizontal padding respects landscape safe-area on notched phones */
+  padding: .5rem max(.9rem, env(safe-area-inset-right)) .35rem max(.9rem, env(safe-area-inset-left));
   position: relative;
   z-index: 2000;
   overflow: visible;
@@ -909,7 +910,13 @@ figure.hero img + img,
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    padding: 80px 1.5rem 2rem;
+    /* Safe-area insets so the open drawer clears Dynamic Island (top),
+       home indicator (bottom), and landscape rounded corners (sides). */
+    padding:
+      max(80px, calc(env(safe-area-inset-top) + 60px))
+      max(1.5rem, env(safe-area-inset-right))
+      max(2rem, calc(env(safe-area-inset-bottom) + 1rem))
+      max(1.5rem, env(safe-area-inset-left));
     gap: 0.5rem;
     overflow-y: auto;
     z-index: 10000;
