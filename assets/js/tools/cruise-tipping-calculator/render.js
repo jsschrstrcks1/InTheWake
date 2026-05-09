@@ -38,6 +38,30 @@ export function renderCabinTiers(el, line, selectedSlug) {
   }
 }
 
+export function renderChildAges(el, state, line) {
+  const n = state.children || 0;
+  if (n === 0) {
+    el.hidden = true;
+    el.innerHTML = "";
+    return;
+  }
+  el.hidden = false;
+  // Surface the line's exemption rule so families know what triggers the discount.
+  const exemptUnder = line?.childPolicy?.exemptUnderAge;
+  const note = (typeof exemptUnder === "number")
+    ? `${line.displayName} exempts children under ${exemptUnder}. Enter each child's age — leave at 99 if you want them counted as full-fare.`
+    : `${line?.displayName || "This line"} charges all guests regardless of age. Enter each child's age for record-keeping.`;
+  const ages = state.childAges || [];
+  let html = `<p class="children-ages__note"><small>${note}</small></p>`;
+  for (let i = 0; i < n; i++) {
+    const age = ages[i] ?? 99;
+    html += `<label>Age of child ${i + 1}
+      <input type="number" min="0" max="21" step="1" value="${age}" data-child-index="${i}" inputmode="numeric">
+    </label>`;
+  }
+  el.innerHTML = html;
+}
+
 export function renderBundledBanner(el, line) {
   if (line.bundledInFare) {
     el.hidden = false;

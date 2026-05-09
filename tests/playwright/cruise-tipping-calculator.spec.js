@@ -80,4 +80,32 @@ test.describe("Cruise tipping calculator", () => {
     const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
     await expect(dailyRow).toContainText("$252");
   });
+
+  test("Carnival toddler exemption: setting age=1 drops daily charge from $357 to $238", async ({ page }) => {
+    // Regression for the careful-not-clever audit finding (2026-05-09):
+    // entering a child count without the per-age UI was synthesizing all kids as
+    // age 99 (full-fare), overcharging Carnival/Norwegian/MSC families with toddlers
+    // by ~$119 on a 7-night standard cabin. After the fix, the family enters the
+    // toddler's age and the calc applies the line's exemptUnderAge rule.
+    await page.goto(URL);
+    await page.selectOption("#line-select", "carnival");
+    await page.selectOption("#cabin-tier", "standard");
+    await page.fill("#nights", "7");
+    await page.fill("#adults", "2");
+    await page.fill("#children", "1");
+
+    // Default age is 99 (safe-side: charged like an adult). Confirm the
+    // pre-fix behavior is still the conservative default for users who don't
+    // touch the new age input.
+    const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
+    await expect(dailyRow).toContainText("$357"); // 7 × $17 × 3 charged guests
+
+    // Now enter a real toddler age. Carnival exempts under 2.
+    await page.fill('input[data-child-index="0"]', "1");
+    await expect(dailyRow).toContainText("$238"); // 7 × $17 × 2 charged guests (toddler exempt)
+
+    // The exemption note should mention Carnival's under-2 rule so the user
+    // understands why the number changed.
+    await expect(page.locator(".children-ages__note")).toContainText("under 2");
+  });
 });
