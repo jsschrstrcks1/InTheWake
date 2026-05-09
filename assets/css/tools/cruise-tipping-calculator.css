@@ -91,6 +91,14 @@
   gap: 0.25rem;
 }
 
+/* Authored display: rules above out-specify the user-agent [hidden] rule, so
+   labels with the `hidden` attribute would otherwise stay laid-out. The region
+   picker (multi-region lines only) and other conditional fields rely on this. */
+.accordion__panel label[hidden],
+.accordion__panel select[hidden] {
+  display: none;
+}
+
 .accordion__panel input,
 .accordion__panel select {
   padding: 0.5rem;

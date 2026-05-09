@@ -108,4 +108,55 @@ test.describe("Cruise tipping calculator", () => {
     // understands why the number changed.
     await expect(page.locator(".children-ages__note")).toContainText("under 2");
   });
+
+  test("Costa region picker: switching to Med flips currency to EUR and rate to €11", async ({ page }) => {
+    // Regression for the careful-not-clever audit P1 #2 (2026-05-09): Costa's
+    // tool was showing only the South America USD $14.50 rate; Mediterranean
+    // sailings (the dominant Costa deployment) actually price at EUR 11/night.
+    // After the fix, the form exposes a region picker for multi-region lines.
+    await page.goto(URL);
+    await page.selectOption("#line-select", "costa");
+
+    // Region picker should be visible only on multi-region lines.
+    const regionSelect = page.locator("#region-select");
+    await expect(regionSelect).toBeVisible();
+
+    // Default region is South America (USD) — daily charge for 7 × 2 = $203.
+    const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
+    await expect(dailyRow).toContainText("$203");
+
+    // Switch to Mediterranean / Northern Europe (EUR). Daily charge becomes
+    // 7 × 2 × €11 = €154, displayed with the euro symbol.
+    await page.selectOption("#region-select", "med-northern-europe");
+    await expect(dailyRow).toContainText("€154");
+    // The headline should explicitly say euros, not dollars.
+    await expect(page.locator("#result-headline")).toContainText("€");
+  });
+
+  test("MSC three-region picker: standard cabin rate updates with region", async ({ page }) => {
+    await page.goto(URL);
+    await page.selectOption("#line-select", "msc");
+    await expect(page.locator("#region-select")).toBeVisible();
+    const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
+
+    // Caribbean/Alaska USD $17 standard × 7 × 2 = $238
+    await page.selectOption("#region-select", "caribbean-alaska");
+    await expect(dailyRow).toContainText("$238");
+
+    // Mediterranean EUR 12 × 7 × 2 = €168
+    await page.selectOption("#region-select", "med-northern-europe");
+    await expect(dailyRow).toContainText("€168");
+
+    // South America USD $19 × 7 × 2 = $266
+    await page.selectOption("#region-select", "south-america");
+    await expect(dailyRow).toContainText("$266");
+  });
+
+  test("region picker is hidden on single-region lines", async ({ page }) => {
+    await page.goto(URL);
+    await page.selectOption("#line-select", "carnival");
+    // Carnival has no regions array — the picker (and its label) should be hidden.
+    await expect(page.locator("#region-select")).toBeHidden();
+    await expect(page.locator("#region-label")).toBeHidden();
+  });
 });

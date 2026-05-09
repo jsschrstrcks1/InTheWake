@@ -39,5 +39,31 @@
     "excursionGuide":    { "default": 5,  "perPerson": true, "note": "Per person, ship-sponsored excursion." },
     "excursionDriver":   { "default": 2,  "perPerson": true, "note": "Per person, on driver-led portions." },
     "casinoDealer":      { "default": 5,  "perVisit": true, "note": "Per session, optional, US dollars." }
-  }
+  },
+  "regions": [
+    {
+      "slug": "south-america",
+      "label": "South America (USD)",
+      "currency": "USD",
+      "effectiveDate": null,
+      "isDefault": true,
+      "dailyRates": {
+        "tiers": [
+          { "slug": "standard", "label": "All cabins", "amount": 14.50, "isDefault": true, "appliesTo": "All Costa guests sailing from South American ports — flat USD rate, no suite differential." }
+        ]
+      }
+    },
+    {
+      "slug": "med-northern-europe",
+      "label": "Mediterranean / Northern Europe (EUR)",
+      "currency": "EUR",
+      "effectiveDate": null,
+      "isDefault": false,
+      "dailyRates": {
+        "tiers": [
+          { "slug": "standard", "label": "All cabins", "amount": 11.00, "isDefault": true, "appliesTo": "All Costa guests sailing in the Mediterranean or Northern Europe — flat EUR rate, no suite differential." }
+        ]
+      }
+    }
+  ]
 }

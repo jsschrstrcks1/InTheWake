@@ -40,5 +40,46 @@
     "excursionGuide":    { "default": 5,  "perPerson": true, "note": "Per person, ship-sponsored excursion." },
     "excursionDriver":   { "default": 2,  "perPerson": true, "note": "Per person, on driver-led portions." },
     "casinoDealer":      { "default": 5,  "perVisit": true, "note": "Per session, optional, US dollars." }
-  }
+  },
+  "regions": [
+    {
+      "slug": "caribbean-alaska",
+      "label": "Caribbean / Alaska (USD)",
+      "currency": "USD",
+      "effectiveDate": "2026-05-11",
+      "isDefault": true,
+      "dailyRates": {
+        "tiers": [
+          { "slug": "standard", "label": "Standard stateroom", "amount": 17.00, "isDefault": true,  "appliesTo": "Interior, Oceanview, Balcony staterooms (Caribbean/Alaska)." },
+          { "slug": "suite",    "label": "MSC Yacht Club",     "amount": 23.00, "isDefault": false, "appliesTo": "MSC Yacht Club suites (Caribbean/Alaska)." }
+        ]
+      }
+    },
+    {
+      "slug": "med-northern-europe",
+      "label": "Mediterranean / Northern Europe (EUR)",
+      "currency": "EUR",
+      "effectiveDate": "2026-04-10",
+      "isDefault": false,
+      "dailyRates": {
+        "tiers": [
+          { "slug": "standard", "label": "Standard stateroom", "amount": 12.00, "isDefault": true,  "appliesTo": "Interior, Oceanview, Balcony staterooms (Med / Northern Europe)." },
+          { "slug": "suite",    "label": "MSC Yacht Club",     "amount": 16.00, "isDefault": false, "appliesTo": "MSC Yacht Club suites (Med / Northern Europe)." }
+        ]
+      }
+    },
+    {
+      "slug": "south-america",
+      "label": "South America (USD)",
+      "currency": "USD",
+      "effectiveDate": "2026-05-11",
+      "isDefault": false,
+      "dailyRates": {
+        "tiers": [
+          { "slug": "standard", "label": "Standard stateroom", "amount": 19.00, "isDefault": true,  "appliesTo": "Interior, Oceanview, Balcony staterooms (South America)." },
+          { "slug": "suite",    "label": "MSC Yacht Club",     "amount": 23.00, "isDefault": false, "appliesTo": "MSC Yacht Club suites (South America)." }
+        ]
+      }
+    }
+  ]
 }

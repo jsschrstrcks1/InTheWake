@@ -97,6 +97,42 @@
           "note":        { "type": "string" }
         }
       }
+    },
+    "regions": {
+      "type": "array",
+      "description": "Optional. Present only on multi-region lines (Costa, MSC). Each entry overrides the line's top-level dailyRates and currency when selected. Top-level dailyRates remains the default for users who don't pick a region.",
+      "items": {
+        "type": "object",
+        "required": ["slug", "label", "currency", "effectiveDate", "dailyRates"],
+        "properties": {
+          "slug":          { "type": "string", "description": "Stable identifier ('south-america', 'med-northern-europe', 'caribbean-alaska')." },
+          "label":         { "type": "string", "description": "Human-readable label for the region picker (e.g., 'Mediterranean / Northern Europe')." },
+          "currency":      { "type": "string", "description": "ISO 4217 code for this region's rates." },
+          "effectiveDate": { "type": ["string", "null"], "format": "date" },
+          "isDefault":     { "type": "boolean", "description": "Optional. Marks the region the form picks by default. Falls back to first entry if absent." },
+          "dailyRates": {
+            "type": "object",
+            "required": ["tiers"],
+            "properties": {
+              "tiers": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": ["slug", "label", "amount", "isDefault", "appliesTo"],
+                  "properties": {
+                    "slug":      { "type": "string" },
+                    "label":     { "type": "string" },
+                    "amount":    { "type": "number", "minimum": 0 },
+                    "isDefault": { "type": "boolean" },
+                    "appliesTo": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {

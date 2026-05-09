@@ -792,13 +792,12 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 - **Fix shape:** The HTML form already has a `<div id="children-ages" hidden>` placeholder. Wire `render.js` to render one numeric `<input type="number">` per child when `children > 0`, populate `state.childAges` from those inputs, and remove the `Array(n).fill(99)` synthesis. Update unit tests to cover toddler-on-Carnival and Costa half-rate. Add a Playwright case for the family-with-toddler golden path.
 - **Why P1:** Direct dollar-correctness bug. A user planning a Disney-substitute Carnival sailing with a 1-year-old sees an inflated total. That's the kind of thing that makes someone stop trusting the rest of the calculator.
 
-### P1 — Region pricing not exposed for Costa and MSC
+### P1 — Region pricing not exposed for Costa and MSC ✅ DONE 2026-05-09
 
-- [ ] **Bug:** Costa and MSC publish region- and currency-priced rates. Tool ships the USD/Caribbean default and surfaces other regions in `notes` only, where most users will not see them.
-  - **Costa:** UI shows $14.50/night (South America USD); Med/Northern Europe is **EUR 11/night** (~$11.80). Caribbean Costa rare; Med Costa is the dominant deployment.
-  - **MSC Med/Northern Europe:** **EUR 12 standard / EUR 16 Yacht Club** (vs. UI's USD $17/$23). MSC South America: USD $19/$23.
-- **Fix shape:** Add a region picker in the "Your sailing" accordion that switches `dailyRates.tiers` based on a `region` selection. Update `tipping/<line>.json` for Costa and MSC to carry `regions: { caribbean: {tiers}, med: {tiers, currency: "EUR"}, southAmerica: {tiers} }` and adjust `pickTiers()` to honor selection. Other lines stay single-region. Currency display follows the picked region.
-- **Why P1:** A user in Barcelona planning a Costa Med cruise lands on the calculator, sees $14.50/night, and budgets accordingly. The actual on-board charge is EUR 11. Same trust failure as the children bug, smaller absolute amount but larger user population.
+- [x] **Bug:** Costa and MSC publish region- and currency-priced rates. Tool was shipping the USD/Caribbean default with other regions surfaced only in `notes`.
+- **Fix shipped:** Schema v1.1 now has an optional `regions` array. Costa carries 2 regions (South America USD $14.50, Med/Northern Europe EUR 11). MSC carries 3 regions (Caribbean/Alaska USD $17/$23, Med/Northern Europe EUR 12/16, South America USD $19/$23). Form renders a "Sailing region" picker only on multi-region lines. Daily and onboard amounts display in the active region's currency (€ or $); cash extras stay USD with an honest split-currency headline when both are non-zero. Cabin tiers re-render when region changes; the cabin slug is preserved across region switches when valid, otherwise snaps to the new region's default. Caught a CSS bug along the way (`.accordion__panel label { display: grid }` overrode the `hidden` attribute) and added explicit `[hidden] { display: none }` rules.
+- **Tests:** 25 unit, 10 Playwright (added 4: Costa Med EUR, MSC three-region switching, picker visibility on single-region lines, plus the toddler-exemption regression already shipped). All green.
+- **Costa half-rate (ages 4–14)** still not modeled — schema would need a `childRateMultipliers` block. Tracked separately in P-future.
 
 ### P2 — Virgin Voyages prepaid vs. onboard not exposed
 
