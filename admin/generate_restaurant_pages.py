@@ -92,7 +92,7 @@ def generate_page(slug, venue):
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Site CSS -->
-  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.257">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
@@ -274,6 +274,34 @@ def generate_page(slug, venue):
 '''
 
     return html
+
+
+# ─── Self-test: verify emitted HTML contains no known antipatterns ──────────
+import sys
+import re as _re
+if '--self-test' in sys.argv:
+    fixture = {
+        'slug': 'self-test-fixture',
+        'name': 'Self Test',
+        'description': 'Self-test fixture for antipattern detection.',
+        'category': 'dining',
+    }
+    html = generate_page(fixture['slug'], fixture)
+    antipatterns = [
+        (r'href="https://cruisinginthewake\.com/assets/styles\.css', 'absolute production URL on stylesheet (D-2)'),
+        (r'styles\.css\?v=2\.\d+', 'stale stylesheet version pin (D-2)'),
+        (r'style="grid-column:\s*[12];\s*grid-row:', 'inline grid-* antipattern (D-3)'),
+        (r'<div\s+style="grid-column:\s*1;\s*grid-row:\s*1;\s*">', 'col-1 wrapper antipattern (D-3)'),
+    ]
+    failed = [(p, label) for (p, label) in antipatterns if _re.search(p, html)]
+    if failed:
+        print('SELF-TEST FAILED. Antipatterns matched in emitted HTML:')
+        for pat, label in failed:
+            print(f'  - {label}: {pat}')
+        sys.exit(1)
+    print('Self-test passed: no known antipatterns in emitted HTML.')
+    sys.exit(0)
+
 
 # Generate pages
 count = 0
