@@ -3,14 +3,45 @@
 
 const round2 = (n) => Math.round(n * 100) / 100;
 
-// Pick the tier set that applies for a sailing date. If the line has an
-// upcomingChange and the sailing date is on/after its effectiveDate, use the
-// upcoming rates merged with the current tier metadata. Otherwise, current.
-export function pickTiers(line, sailingDate) {
+// Resolve the active region object for a line + region slug. Returns null when
+// the line has no `regions` array or when no slug matches — callers fall back
+// to the line's top-level dailyRates / currency in that case.
+export function pickRegion(line, regionSlug) {
+  if (!line.regions || line.regions.length === 0) return null;
+  if (!regionSlug) {
+    // No explicit selection — use the region marked isDefault, or the first.
+    return line.regions.find(r => r.isDefault) || line.regions[0];
+  }
+  return line.regions.find(r => r.slug === regionSlug) || null;
+}
+
+// Resolve the currency code for the active region (or the line's top-level).
+export function pickCurrency(line, regionSlug) {
+  const region = pickRegion(line, regionSlug);
+  if (region) return region.currency;
+  return line.currency || "USD";
+}
+
+// Pick the tier set that applies for a sailing date.
+//
+// Resolution order:
+//   1. If the line has a `regions` array AND a region matches `regionSlug`
+//      (or its isDefault region exists), use that region's tiers.
+//   2. Otherwise fall through to the line's top-level dailyRates.
+//   3. If an upcomingChange is present on the chosen tier set and the sailing
+//      date is on or after its effectiveDate, merge the upcoming amounts.
+//
+// upcomingChange is currently only modeled at the line top-level (HAL is the
+// only line that uses it). Region-scoped upcoming changes (e.g. MSC's
+// 2026-04-10 / 2026-05-11 staggered hikes) are encoded by setting each
+// region's effectiveDate and treating the rate as already-effective at the
+// verification date — no separate upcoming branch needed.
+export function pickTiers(line, sailingDate, regionSlug) {
+  const region = pickRegion(line, regionSlug);
+  if (region) return region.dailyRates.tiers;
   if (!line.dailyRates) return null;
   const change = line.dailyRates.upcomingChange;
   if (change && sailingDate && sailingDate >= change.effectiveDate) {
-    // Merge upcoming amounts onto the current tier shape (so we keep slug, label, isDefault).
     const updated = line.dailyRates.tiers.map(t => {
       const u = change.tiers.find(x => x.slug === t.slug);
       return u ? { ...t, amount: u.amount } : t;
@@ -39,8 +70,9 @@ function tierAmount(tiers, slug) {
 }
 
 export function calcDailyTotal(line, inputs) {
-  if (line.bundledInFare || !line.dailyRates) return 0;
-  const tiers = pickTiers(line, inputs.sailingDate);
+  if (line.bundledInFare) return 0;
+  const tiers = pickTiers(line, inputs.sailingDate, inputs.region);
+  if (!tiers) return 0;
   const rate = tierAmount(tiers, inputs.cabinTier);
   const exemptUnder = line.childPolicy?.exemptUnderAge ?? 0;
   const chargedChildren = (inputs.childAges || []).filter(age => age >= exemptUnder).length;

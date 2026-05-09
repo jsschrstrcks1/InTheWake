@@ -778,6 +778,51 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 
 ---
 
+## Cruise Tipping Calculator — Known Defects (Discovered 2026-05-09 careful-not-clever audit)
+
+**Source:** Post-merge careful-not-clever audit against the v1.7-alpha skill (canonical 2026-05-09). The tool shipped on `claude/explore-inthewake-repo-lIUcX` between 2026-05-08 and 2026-05-09 and lives at `/tools/cruise-tipping-calculator.html` with companion article `/articles/cruise-tipping-2026.html`. The audit caught one wiring miss (fixed in `17584da3`) and four UX defects that affect the dollar amounts the tool reports. Trust requires the tool's output match the user's actual onboard bill; the items below break that promise for specific user populations.
+
+### P1 — Children handling overcharges families on child-exempt lines
+
+- [ ] **Bug:** `assets/js/tools/cruise-tipping-calculator/main.js:36-40` synthesizes `childAges = Array(n).fill(99)` so every entered child is treated as full-fare regardless of the line's exemption policy. Documented as a "v1 simplification" in the implementation plan, but the user-facing impact is real money:
+  - **Carnival** (under 2 exempt): a family of 2 adults + 1 toddler on a 7-night standard cabin sees **$357** instead of **$238** — a $119 over-estimate.
+  - **Norwegian** (under 3 exempt): same shape; under-3 not subtracted.
+  - **MSC** USD regions (under 2 exempt): same.
+  - **Costa** (under 4 free, ages 4–14 half-rate at EUR 5.50 / USD $7): the tool ignores both the exemption AND the half-rate. Costa families get the worst over-estimate of any line.
+- **Fix shape:** The HTML form already has a `<div id="children-ages" hidden>` placeholder. Wire `render.js` to render one numeric `<input type="number">` per child when `children > 0`, populate `state.childAges` from those inputs, and remove the `Array(n).fill(99)` synthesis. Update unit tests to cover toddler-on-Carnival and Costa half-rate. Add a Playwright case for the family-with-toddler golden path.
+- **Why P1:** Direct dollar-correctness bug. A user planning a Disney-substitute Carnival sailing with a 1-year-old sees an inflated total. That's the kind of thing that makes someone stop trusting the rest of the calculator.
+
+### P1 — Region pricing not exposed for Costa and MSC ✅ DONE 2026-05-09
+
+- [x] **Bug:** Costa and MSC publish region- and currency-priced rates. Tool was shipping the USD/Caribbean default with other regions surfaced only in `notes`.
+- **Fix shipped:** Schema v1.1 now has an optional `regions` array. Costa carries 2 regions (South America USD $14.50, Med/Northern Europe EUR 11). MSC carries 3 regions (Caribbean/Alaska USD $17/$23, Med/Northern Europe EUR 12/16, South America USD $19/$23). Form renders a "Sailing region" picker only on multi-region lines. Daily and onboard amounts display in the active region's currency (€ or $); cash extras stay USD with an honest split-currency headline when both are non-zero. Cabin tiers re-render when region changes; the cabin slug is preserved across region switches when valid, otherwise snaps to the new region's default. Caught a CSS bug along the way (`.accordion__panel label { display: grid }` overrode the `hidden` attribute) and added explicit `[hidden] { display: none }` rules.
+- **Tests:** 25 unit, 10 Playwright (added 4: Costa Med EUR, MSC three-region switching, picker visibility on single-region lines, plus the toddler-exemption regression already shipped). All green.
+- **Costa half-rate (ages 4–14)** still not modeled — schema would need a `childRateMultipliers` block. Tracked separately in P-future.
+
+### P2 — Virgin Voyages prepaid vs. onboard not exposed ✅ DONE 2026-05-09
+
+- [x] **Bug:** Tool defaulted to Virgin's $20/night prepaid rate. Onboard rate is $22/night.
+- **Fix shipped:** Added a second tier to `virgin-voyages.json` — `slug: "onboard", amount: 22.00, label: "Posted onboard the ship"`. The existing tier was relabeled "Pre-paid before sailing — recommended" so users see both options in the cabin-tier dropdown with their dollar amounts. No new schema field required (the existing `tiers` array already supported this); no Virgin-specific code paths. The cabin-tier dropdown serves both the suite-vs-standard semantic for other lines and the prepaid-vs-onboard semantic for Virgin — labels make the choice clear.
+- **Tests:** 1 new Playwright case verifying $20×7×2 = $280 by default and $22×7×2 = $308 after switching to "onboard." 11/11 Playwright pass total.
+
+### P3 — Five legacy Carnival ship pages have a sidebar Quick Tools widget that lists Budget + Drink Calculator but not Tipping Calculator
+
+- [ ] **Files:** `ships/carnival/carnival-firenze.html`, `carnival-horizon.html`, `carnival-panorama.html`, `carnival-sunshine.html`, `carnival-venezia.html`. These five do not use the standard Tools dropdown nav (so the 1,217-page bulk update did not reach them); instead they use an older sidebar "Planning Tools" widget that lists Budget Calculator and Drink Package Calculator. The Task 12 wiring agent intentionally left them alone as a curated subset.
+- **Fix shape:** One option — add a third `<li>` to the sidebar widget on each of the five pages pointing at `/tools/cruise-tipping-calculator.html`. Other option — leave them as-is on the principle that the sidebar is a curated "tools that pair with cruise budgeting" list, in which case the Tipping Calculator arguably belongs more than the Drink one. Judgment call.
+- **Why P3:** Discovery/visibility issue, not a correctness issue. A user on `carnival-horizon.html` who wants the tipping calculator can still find it from the global nav (when those pages are eventually upgraded to the standard nav).
+
+### P3 — No Playwright regression spec for the other 8 site tools
+
+- [ ] **Process gap:** The webapp-testing skill says the site has 9 interactive JavaScript tools handling real-money decisions. Only the cruise tipping calculator has a Playwright spec on this branch. Task 13 reported "all Playwright tests pass" but only ran our 6 new tests. Other tools (drink-calculator, drink-calculatorv2, cruise-budget-calculator, port-day-planner, ship-tracker, port-tracker, ship-size-atlas, stateroom-check) have no automated coverage. Risk: a future shared-CSS or shared-nav change breaks one of them silently.
+- **Fix shape:** Backfill at minimum a smoke spec per tool — load the page, click the primary CTA, assert that an output element renders. Could be 9 × ~20-line specs in `tests/playwright/`. Lower the bar: just verify each tool's golden path doesn't 500 / NaN / blank-screen. Higher bar: parity with the cruise-tipping spec (golden path + at least one edge case per tool).
+- **Why P3:** Defensive/process work. No immediate user-facing impact, but the lack of regression coverage is what allowed Task 12's budget-calculator nav miss to escape detection until the careful-not-clever audit caught it manually.
+
+### Why these are tracked here
+
+The careful-not-clever skill (`.claude/skills/careful-not-clever/CAREFUL.md` v1.7-alpha) requires that material assumptions surfaced by Layer 2 / Layer 3 audits get documented for the next task rather than silently skipped. The tool shipped under the original v1.0 of the skill, which did not require the formal red-team pass; the v1.7-alpha promotion (commit `20797133`) raised the bar retroactively. These five items are exactly what a Layer 3 red-team would have surfaced at the time of the schema revision. Move each to `admin/COMPLETED_TASKS.md` when fixed — do not delete from this list silently.
+
+---
+
 ## Strategic "Don't Chase" List (Explicit Decisions)
 
 | Feature | Why Not | Competitor Reference |

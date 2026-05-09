@@ -80,4 +80,108 @@ test.describe("Cruise tipping calculator", () => {
     const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
     await expect(dailyRow).toContainText("$252");
   });
+
+  test("Carnival toddler exemption: setting age=1 drops daily charge from $357 to $238", async ({ page }) => {
+    // Regression for the careful-not-clever audit finding (2026-05-09):
+    // entering a child count without the per-age UI was synthesizing all kids as
+    // age 99 (full-fare), overcharging Carnival/Norwegian/MSC families with toddlers
+    // by ~$119 on a 7-night standard cabin. After the fix, the family enters the
+    // toddler's age and the calc applies the line's exemptUnderAge rule.
+    await page.goto(URL);
+    await page.selectOption("#line-select", "carnival");
+    await page.selectOption("#cabin-tier", "standard");
+    await page.fill("#nights", "7");
+    await page.fill("#adults", "2");
+    await page.fill("#children", "1");
+
+    // Default age is 99 (safe-side: charged like an adult). Confirm the
+    // pre-fix behavior is still the conservative default for users who don't
+    // touch the new age input.
+    const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
+    await expect(dailyRow).toContainText("$357"); // 7 × $17 × 3 charged guests
+
+    // Now enter a real toddler age. Carnival exempts under 2.
+    await page.fill('input[data-child-index="0"]', "1");
+    await expect(dailyRow).toContainText("$238"); // 7 × $17 × 2 charged guests (toddler exempt)
+
+    // The exemption note should mention Carnival's under-2 rule so the user
+    // understands why the number changed.
+    await expect(page.locator(".children-ages__note")).toContainText("under 2");
+  });
+
+  test("Costa region picker: switching to Med flips currency to EUR and rate to €11", async ({ page }) => {
+    // Regression for the careful-not-clever audit P1 #2 (2026-05-09): Costa's
+    // tool was showing only the South America USD $14.50 rate; Mediterranean
+    // sailings (the dominant Costa deployment) actually price at EUR 11/night.
+    // After the fix, the form exposes a region picker for multi-region lines.
+    await page.goto(URL);
+    await page.selectOption("#line-select", "costa");
+
+    // Region picker should be visible only on multi-region lines.
+    const regionSelect = page.locator("#region-select");
+    await expect(regionSelect).toBeVisible();
+
+    // Default region is South America (USD) — daily charge for 7 × 2 = $203.
+    const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
+    await expect(dailyRow).toContainText("$203");
+
+    // Switch to Mediterranean / Northern Europe (EUR). Daily charge becomes
+    // 7 × 2 × €11 = €154, displayed with the euro symbol.
+    await page.selectOption("#region-select", "med-northern-europe");
+    await expect(dailyRow).toContainText("€154");
+    // The headline should explicitly say euros, not dollars.
+    await expect(page.locator("#result-headline")).toContainText("€");
+  });
+
+  test("MSC three-region picker: standard cabin rate updates with region", async ({ page }) => {
+    await page.goto(URL);
+    await page.selectOption("#line-select", "msc");
+    await expect(page.locator("#region-select")).toBeVisible();
+    const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
+
+    // Caribbean/Alaska USD $17 standard × 7 × 2 = $238
+    await page.selectOption("#region-select", "caribbean-alaska");
+    await expect(dailyRow).toContainText("$238");
+
+    // Mediterranean EUR 12 × 7 × 2 = €168
+    await page.selectOption("#region-select", "med-northern-europe");
+    await expect(dailyRow).toContainText("€168");
+
+    // South America USD $19 × 7 × 2 = $266
+    await page.selectOption("#region-select", "south-america");
+    await expect(dailyRow).toContainText("$266");
+  });
+
+  test("region picker is hidden on single-region lines", async ({ page }) => {
+    await page.goto(URL);
+    await page.selectOption("#line-select", "carnival");
+    // Carnival has no regions array — the picker (and its label) should be hidden.
+    await expect(page.locator("#region-select")).toBeHidden();
+    await expect(page.locator("#region-label")).toBeHidden();
+  });
+
+  test("Virgin Voyages prepaid vs. onboard: cabin tier toggles between $20 and $22", async ({ page }) => {
+    // Regression for the careful-not-clever audit P2 (2026-05-09): Virgin
+    // Voyages charges $20/night when gratuities are pre-paid before sailing
+    // and $22/night when posted onboard. The tool was hard-coded to the
+    // prepaid rate; users planning to pay onboard saw the wrong number.
+    await page.goto(URL);
+    await page.selectOption("#line-select", "virgin-voyages");
+    await page.fill("#nights", "7");
+    await page.fill("#adults", "2");
+    await page.fill("#children", "0");
+
+    const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
+
+    // Default: pre-paid — $20 × 7 × 2 = $280
+    await page.selectOption("#cabin-tier", "standard");
+    await expect(dailyRow).toContainText("$280");
+
+    // Switch to posted-onboard — $22 × 7 × 2 = $308
+    await page.selectOption("#cabin-tier", "onboard");
+    await expect(dailyRow).toContainText("$308");
+
+    // Single-region line — region picker stays hidden.
+    await expect(page.locator("#region-select")).toBeHidden();
+  });
 });

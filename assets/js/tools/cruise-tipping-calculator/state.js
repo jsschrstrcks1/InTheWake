@@ -1,6 +1,7 @@
 // assets/js/tools/cruise-tipping-calculator/state.js
 const DEFAULTS = {
   line: "royal-caribbean",
+  region: "",
   cabinTier: "standard",
   sailingDate: "",
   nights: 7,
