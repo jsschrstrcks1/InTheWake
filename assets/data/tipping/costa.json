@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.1",
+  "lineId": "costa",
+  "displayName": "Costa Cruises",
+  "effectiveDate": null,
+  "verifiedAt": "2026-05-08",
+  "currency": "USD",
+  "region": "South America (USD)",
+  "policyUrls": [
+    "https://www.costacruises.com/useful-links/service-charges.html",
+    "https://www.cruisedirect.com/faq/gratuities-tipping/how-much-are-gratuities/costa-cruises"
+  ],
+  "bundledInFare": false,
+  "notes": "Region-priced. South America: USD $14.50/night. Mediterranean and Northern Europe: EUR 11/night. Children 4–14 pay half (EUR 5.50 / USD $7); under 4 free. Only the 15% beverage gratuity is published officially.",
+  "dailyRates": {
+    "tiers": [
+      { "slug": "standard", "label": "All cabins", "amount": 14.50, "isDefault": true, "appliesTo": "all guests, no suite differential" }
+    ],
+    "upcomingChange": null
+  },
+  "childPolicy": {
+    "exemptUnderAge": 4,
+    "notes": "Under 4: free. Ages 4–14: half rate (USD $7 in South America; EUR 5.50 in Med / Northern Europe)."
+  },
+  "autoGratuities": {
+    "bar":             { "percent": 15,   "appliesTo": "Bar beverages (15% beverage gratuity)" },
+    "spa":             { "percent": null, "appliesTo": "not published in official material" },
+    "specialtyDining": { "percent": null, "appliesTo": "not published in official material" },
+    "roomService":     { "percent": null, "appliesTo": "not published in official material" }
+  },
+  "recommendedCashExtras": {
+    "stewardThankYou":   { "default": 0,  "perDay": false, "note": "Daily service charge covers stateroom attendant; cash is optional." },
+    "headWaiter":        { "default": 25, "perDay": false, "note": "End-of-cruise envelope, optional." },
+    "asstWaiter":        { "default": 15, "perDay": false, "note": "End-of-cruise envelope, optional." },
+    "butler":            { "default": 0,  "perDay": true,  "note": "Costa has no butler role." },
+    "concierge":         { "default": 0,  "perDay": false, "note": "Optional thank-you for Samsara/loyalty concierge service." },
+    "porterPerBag":      { "default": 2,  "perBag": true,  "note": "Embarkation porter, US dollars." },
+    "kidsClubCounselor": { "default": 10, "perDay": false, "note": "Optional, end of cruise — Squok Club counselors." },
+    "excursionGuide":    { "default": 5,  "perPerson": true, "note": "Per person, ship-sponsored excursion." },
+    "excursionDriver":   { "default": 2,  "perPerson": true, "note": "Per person, on driver-led portions." },
+    "casinoDealer":      { "default": 5,  "perVisit": true, "note": "Per session, optional, US dollars." }
+  },
+  "regions": [
+    {
+      "slug": "south-america",
+      "label": "South America (USD)",
+      "currency": "USD",
+      "effectiveDate": null,
+      "isDefault": true,
+      "dailyRates": {
+        "tiers": [
+          { "slug": "standard", "label": "All cabins", "amount": 14.50, "isDefault": true, "appliesTo": "All Costa guests sailing from South American ports — flat USD rate, no suite differential." }
+        ]
+      }
+    },
+    {
+      "slug": "med-northern-europe",
+      "label": "Mediterranean / Northern Europe (EUR)",
+      "currency": "EUR",
+      "effectiveDate": null,
+      "isDefault": false,
+      "dailyRates": {
+        "tiers": [
+          { "slug": "standard", "label": "All cabins", "amount": 11.00, "isDefault": true, "appliesTo": "All Costa guests sailing in the Mediterranean or Northern Europe — flat EUR rate, no suite differential." }
+        ]
+      }
+    }
+  ]
+}

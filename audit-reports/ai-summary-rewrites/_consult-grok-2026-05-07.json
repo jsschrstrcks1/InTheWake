@@ -1,0 +1,73 @@
+ModuleNotFoundError: No module named '_cffi_backend'
+thread '<unnamed>' panicked at /usr/share/cargo/registry/pyo3-0.20.2/src/err/mod.rs:788:5:
+Python API call failed
+stack backtrace:
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+[adapters] gemini: Load error: Python API call failed
+[adapters] Loaded: gpt, grok, perplexity, youdotcom
+Consulting grok as challenge...
+{
+  "analysis": {
+    "overview": "The rewrites aim to address boilerplate issues by injecting ship-specific details and human voice while adhering to word limits and editorial constraints. However, the effectiveness varies significantly. Some entries lean too heavily on generic phrasing or fail to balance specificity with voice, while others risk over-enthusiasm or miss critical differentiation. I'm challenging the assumption that all meet the 'human sensibility' goal equally and questioning whether the facts chosen are distinctive enough to pass a name-swap test.",
+    "scoring_table": {
+      "Carnival Adventure": {
+        "SPECIFIC": 4,
+        "VOICED": 4,
+        "HONEST": 5,
+        "Notes": "Strong with 'Movies Under the Stars' and rebadge context, but 'older bones, lighter price tag' could apply to other refits. Voice feels conversational."
+      },
+      "Brilliance of the Seas": {
+        "SPECIFIC": 3,
+        "VOICED": 3,
+        "HONEST": 5,
+        "Notes": "Centrum atrium is distinctive, but 'glass ship' and ocean decor phrasing could fit other Radiance-class ships. Voice is borderline template-like."
+      },
+      "Explorer of the Seas": {
+        "SPECIFIC": 5,
+        "VOICED": 4,
+        "HONEST": 5,
+        "Notes": "Royal Promenade and Studio B are highly specific; 'main street at sea' anchors history. Voice feels human but slightly polished."
+      },
+      "Freedom of the Seas": {
+        "SPECIFIC": 4,
+        "VOICED": 3,
+        "HONEST": 4,
+        "Notes": "FlowRider is unique, but size comparison is generic. 'Sweet spot' risks overclaim without evidence. Voice leans marketing."
+      },
+      "Harmony of the Seas": {
+        "SPECIFIC": 5,
+        "VOICED": 3,
+        "HONEST": 3,
+        "Notes": "Ultimate Abyss and neighborhoods are specific, but 'week isn\u2019t long enough' feels forced and promotional. Voice lacks personal touch."
+      },
+      "Ovation of the Seas": {
+        "SPECIFIC": 5,
+        "VOICED": 4,
+        "HONEST": 4,
+        "Notes": "North Star and RipCord are unique, refit date is off (2026 is future, likely typo). Voice is engaging but 'engineering-as-spectacle' is slightly stylized."
+      },
+      "Sovereign of the Seas": {
+        "SPECIFIC": 4,
+        "VOICED": 2,
+        "HONEST": 5,
+        "Notes": "Historical context is specific, but lacks a standout feature beyond 'first megaship.' Voice feels detached, almost academic, not personal."
+      }
+    },
+    "weakest_rewrite": {
+      "ship": "Sovereign of the Seas",
+      "reason": "While it offers historical specificity, it lacks a vivid, ship-defining feature beyond being 'first,' and the voice is the least human, reading like a textbook entry rather than a personal reflection. It fails to evoke a sense of connection or experience, missing the editorial goal of first-person sensibility."
+    }
+  },
+  "proposed_update": {
+    "revision": "Sovereign of the Seas: Sovereign Class pioneer (1988, 73,192 GT, 2,276 guests) -- Royal Caribbean\u2019s first megaship with a then-novel five-story atrium that awed me on my first cruise, setting the blueprint for today\u2019s giants before her 2008 retirement.",
+    "rationale": "This adds a standout feature (five-story atrium) and injects a personal memory to align with human voice, while retaining historical context within word limits."
+  },
+  "risks": {
+    "subjectivity_in_voice": "Personal anecdotes like 'awed me' may not resonate with all readers or fit site tone if it\u2019s not consistently first-person elsewhere.",
+    "fact_verification": "Ensure the atrium detail and retirement date are accurate; historical ships may have conflicting data online.",
+    "over-correction": "Adding personal voice might make other entries seem inconsistent if they lack similar depth, risking uneven tone across pages."
+  },
+  "confidence": 0.85
+}
+
+--- Usage: grok-3 | in=907 out=871 | $0.0158 ---

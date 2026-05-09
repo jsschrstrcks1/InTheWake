@@ -376,6 +376,72 @@ Each port's content must be **port-specific** — no generic templates. Research
 
 ## GREEN LANE — AI Executes Autonomously
 
+### [G] Phase 3 ai-summary follow-ups — surfaced 2026-05-09
+
+**Source:** Continuation of PR #1466 (Phase 3.2a). After merging the 7 ai-summary boilerplate rewrites + image-reuse-guardrail dependency, three follow-ups remain. Listed in continuation-of-work order.
+
+#### Phase 3.2b — finish ai-summary boilerplate cleanup ✅ IN PR
+
+**Status:** All 36 ships fixed on branch `claude/phase3-2b-ai-summary-cleanup`. Validator tightened with 5 atomic boilerplate fragments. Audit log: `audit-reports/ai-summary-rewrites/_phase3-2b-batch-2026-05-09.md`.
+
+The actual scope was bigger than the original 7-ship guess: **17 propagations** (ai-summary already specific; description tag still boilerplate) + **19 rewrites** (ai-summary itself was boilerplate by tightened standards). Mechanism:
+
+- `admin/phase3-2b-propagate.cjs` — copies existing ai-summary into description meta + JSON-LD descriptions
+- `admin/phase3-2b-rewrite.cjs` — accepts a JSON map of `path → new_summary`, replaces ai-summary, then propagates
+
+Tightening the validator (`admin/validator-config.json`) added: `"deck plans, live tracker"`, `"deck plans, live tracking"`, `"deck plans, dining venues, stateroom tours"`, `"deck plans, historical information"`, `"historical information, legacy, and ship details"`.
+
+- [x] All 36 ships silent on `ai_summary_boilerplate` AND `ai_summary_length`
+- [x] Validator tightening lives in same PR
+
+#### Phase 3.2c — newly-surfaced boilerplate (26 ships) ✅ IN PR
+
+**Source:** Tightening the validator in 3.2b surfaced 26 additional ships carrying boilerplate variants the original phrase list missed.
+
+**Status:** All 26 ships rewritten on branch `claude/phase3-2c-boilerplate-batch-3` (stacked on 3.2b). Audit log: `audit-reports/ai-summary-rewrites/_phase3-2c-batch-2026-05-09.md`. After this batch, the **fleet-wide `ai_summary_boilerplate` count is 0**.
+
+Distribution:
+
+| Cruise line | Count | Pattern |
+|---|---:|---|
+| Celebrity Cruises | 12 | "Ship • Celebrity Cruises • In The Wake. Deck plans, dining venues, stateroom tours, and live ship tracker." |
+| Holland America Line | 7 | Same template, HAL line |
+| Royal Caribbean | 6 | Lazy "historical information" template + 1 trailing-boilerplate (Radiance) + 1 test fixture + 1 placeholder |
+| MSC | 1 | Trailing boilerplate trimmed |
+
+- [x] All 26 rewritten (54 replacements via `admin/phase3-2b-rewrite.cjs`)
+- [x] All 26 silent on `ai_summary_boilerplate` AND `ai_summary_length`
+- [x] Fleet-wide `ai_summary_boilerplate` count = **0**
+
+**Mid-batch correction:** initially split into "ship 22, file 4 as 3.2d" on the false premise that 4 HAL ships were content-stubs. Re-verification using the meta description tag + body prose (not just the `<li><strong>` fact block) showed all 26 had on-page facts. Expanded back to 26. Captured in audit log under "Mid-batch correction."
+
+#### Phase 3.5 — image-reuse-guardrail allowlist (issue #1465)
+
+- [ ] **Issue:** https://github.com/jsschrstrcks1/InTheWake/issues/1465
+- [ ] Two complementary fixes inside `.claude/skills/image-reuse-guardrail/` and possibly `admin/scan-image-reuse.cjs`:
+  1. **Same-entity normalizer.** Treat `assets/ships/Carnival_Conquest_3.jpg` and `assets/ships/carnival/carnival-conquest-exterior.jpg` as same-entity (both normalize to `carnival/carnival-conquest`). Applies to authors, ports, articles too.
+  2. **FOM filename allowlist.** Files matching `*-FOM- - *.webp` are intentionally one-image-per-named-ship by convention. Allow-list the pattern (Option A in #1465) unless the FOM convention itself is up for revisit.
+- [ ] **Test cases that must still fail** (Cordelia pattern):
+  - `assets/ships/cordelia/cordelia-1.jpg` ↔ `assets/ships/carnival/carnival-fascination-1.jpg` (different lines, no shared slug)
+  - `assets/ports/dubai/hero.jpg` ↔ `assets/ports/cozumel/hero.jpg` (different ports)
+- [ ] **Test cases that must now pass:** the 4 documented in #1465.
+- [ ] **Effort:** 1–2 hours. Removes the recurring `--no-verify` papercut that blocked PR #1466 commits.
+
+#### Phase 3.6 — `cascade_fully_failed` triage
+
+- [ ] **50 ships** flagged by `js:runtime_data/cascade_fully_failed` per the same dashboard. Top single failure category by count (147 `js:images/few_images` is higher but is mostly warn-tier; cascade is a real user-visible bug — specs / data sections fail to render).
+- [ ] **Investigation first:** root cause unknown. Likely candidates: missing `data-*` attributes the cascade script reads, broken JSON in `assets/data/ships/`, or a script load order issue introduced by an upstream merge.
+- [ ] Use `systematic-debugging` skill before proposing fixes. Pick 1–2 affected ships, reproduce in a browser, instrument the cascade loader, identify the failure mode, then plan the fix scope.
+- [ ] Identify the 50 ships:
+  ```bash
+  jq -r '.per_page[] | select(.js_errors[]?.rule == "runtime_data/cascade_fully_failed") | .file' \
+    audit-reports/ship-validation-dashboard.json
+  ```
+- [ ] **Effort:** unknown until root-caused. Could be a one-line fix affecting all 50, or 50 individual data-shape repairs.
+- [ ] **Why it's higher value than 3.2b for end users:** boilerplate ai-summary is invisible to readers; a fully-failed data cascade means the ship page renders without specs / amenities / itinerary data. Real bug, real impact.
+
+---
+
 ### [G] Noscript Remediation — Port Pages (NEW — 2026-04-09)
 **Status:** Not started — plan ready, scripts needed
 **Priority:** P1 — accessibility and pastoral mandate (exhausted caregivers on hospital WiFi, privacy-conscious travelers using NoScript, disabled users on stripped-down browsers)
@@ -734,6 +800,92 @@ Comprehensive factors that can disrupt a passenger's port day, to be integrated 
 - [ ] hp-trieste
 - [ ] hp-dubai
 - [ ] hp-mumbai
+
+---
+
+## Missing Port and Ship Pages (Discovered 2026-05-08)
+
+**Source:** Link verification during drafting of `articles/caribbean-cruise-trends-2026.html`. Each item below is referenced by name in published or upcoming content but has no dedicated page yet.
+
+### Missing port pages
+
+- [ ] **Half Moon Cay** — Holland America / Carnival private destination in the Bahamas. Mentioned in the 2026 Caribbean trends article and across multiple cruise-line itineraries. Needs a port page in `/ports/half-moon-cay.html` per the standard port template.
+- [ ] **Celebration Key** — Carnival's new private destination in Grand Bahama, opening 2025–2026. Mentioned in the 2026 Caribbean trends article. Needs a port page in `/ports/celebration-key.html`. Add as it opens; verify pier, capacity, and on-island amenities from primary Carnival sources before publishing.
+
+### Missing ship pages
+
+- [ ] **Norwegian Luna** — New NCL ship referenced in 2026 capacity discussions. Needs a ship page in `/ships/norwegian/norwegian-luna.html` once specs, deck plans, and naming-rights data are available.
+
+### Missing article thumbnails / hero images
+
+The article rail (`/assets/data/articles/index.json`) lists `thumbnail` and `image` paths for each article. Four articles currently fall back to `/assets/social/articles-hero.jpg` because their dedicated hero images don't exist on disk yet:
+
+- [ ] **`/articles/caribbean-cruise-trends-2026.html`** — needs a hero/thumbnail (suggest: `/assets/articles/caribbean-cruise-trends-2026-hero.webp`). The page's `og:image` currently also points at the generic articles-hero.jpg fallback.
+- [ ] **`/articles/cruise-cabin-organization.html`** — `og:image` references `/assets/articles/cabin-organization-hero.jpg?v=3.010.400` but the file does not exist on disk. Either generate the image or update the og:image to a real path.
+- [ ] **`/articles/cruise-tech-photography-guide.html`** — `og:image` references `/assets/articles/cruise-tech-hero.jpg?v=3.010.401`; not on disk. Same fix needed.
+- [ ] **`/articles/cruise-duck-tradition.html`** — `og:image` references `/assets/social/cruise-ducks-hero.jpg`; not on disk.
+
+While the rail and article-hub-grid renderers fall back gracefully to `/assets/social/articles-hero.jpg`, the social meta tags still serve broken URLs to Facebook/Twitter/LinkedIn previews. Generate proper hero images per `admin/claude/IMAGE_WORKFLOW.md`, then update both the og:image meta tags and the `thumbnail`/`image` paths in `/assets/data/articles/index.json`.
+
+### Why these are tracked here
+
+`careful-not-clever` requires that gaps surfaced during one task get documented for the next task rather than silently skipped. These pages and images were excluded as link/image targets in the Caribbean trends article (deliberate skips) and need their own scoped work. Move each to `admin/COMPLETED_TASKS.md` when published — do not delete from this list silently.
+
+### Broken article reference: `/solo/articles/alaska-cruise-first-timer.html` (Discovered 2026-05-08)
+
+- [ ] **`alaska-cruise-first-timer.html` does not exist** but is hardcoded into the `<noscript>` rail fallback on 14 port pages (anchorage, ajaccio, akureyri, alesund, etc.). The file was never written — only the link was. For users without JS, those 14 pages serve a 404 link. Two acceptable fixes:
+  1. Write the article (`/articles/alaska-cruise-first-timer.html` or `/solo/alaska-cruise-first-timer.html`) and add it to `assets/data/articles/index.json`. The link target then resolves.
+  2. Remove the alaska `<li>` from each port-page noscript fallback. Cleaner if no plan to write the article.
+- See remaining hits: `grep -rln "/solo/articles/alaska-cruise-first-timer" --include="*.html" .`
+
+### `/travel.html` is also the "Top 20 First-Cruise Questions" article (Discovered 2026-05-08)
+
+- [ ] **Architectural quirk, low priority.** `assets/data/articles/index.json` lists "Top 20 First-Cruise Questions (Answered)" with `url: /travel.html`. The travel hub *is* the article — its `<title>`, `<h1>`, and JSON-LD all confirm. Works today. Future cleanup option: split out to `/articles/top-20-first-cruise-questions.html` so the URL matches the article title, leave `/travel.html` as a hub that links to it. Touches sitemap, internal links, JSON-LD, and the JSON entry — non-trivial. Don't act unless we're doing a broader articles-hub refactor.
+
+---
+
+## Cruise Tipping Calculator — Known Defects (Discovered 2026-05-09 careful-not-clever audit)
+
+**Source:** Post-merge careful-not-clever audit against the v1.7-alpha skill (canonical 2026-05-09). The tool shipped on `claude/explore-inthewake-repo-lIUcX` between 2026-05-08 and 2026-05-09 and lives at `/tools/cruise-tipping-calculator.html` with companion article `/articles/cruise-tipping-2026.html`. The audit caught one wiring miss (fixed in `17584da3`) and four UX defects that affect the dollar amounts the tool reports. Trust requires the tool's output match the user's actual onboard bill; the items below break that promise for specific user populations.
+
+### P1 — Children handling overcharges families on child-exempt lines
+
+- [ ] **Bug:** `assets/js/tools/cruise-tipping-calculator/main.js:36-40` synthesizes `childAges = Array(n).fill(99)` so every entered child is treated as full-fare regardless of the line's exemption policy. Documented as a "v1 simplification" in the implementation plan, but the user-facing impact is real money:
+  - **Carnival** (under 2 exempt): a family of 2 adults + 1 toddler on a 7-night standard cabin sees **$357** instead of **$238** — a $119 over-estimate.
+  - **Norwegian** (under 3 exempt): same shape; under-3 not subtracted.
+  - **MSC** USD regions (under 2 exempt): same.
+  - **Costa** (under 4 free, ages 4–14 half-rate at EUR 5.50 / USD $7): the tool ignores both the exemption AND the half-rate. Costa families get the worst over-estimate of any line.
+- **Fix shape:** The HTML form already has a `<div id="children-ages" hidden>` placeholder. Wire `render.js` to render one numeric `<input type="number">` per child when `children > 0`, populate `state.childAges` from those inputs, and remove the `Array(n).fill(99)` synthesis. Update unit tests to cover toddler-on-Carnival and Costa half-rate. Add a Playwright case for the family-with-toddler golden path.
+- **Why P1:** Direct dollar-correctness bug. A user planning a Disney-substitute Carnival sailing with a 1-year-old sees an inflated total. That's the kind of thing that makes someone stop trusting the rest of the calculator.
+
+### P1 — Region pricing not exposed for Costa and MSC ✅ DONE 2026-05-09
+
+- [x] **Bug:** Costa and MSC publish region- and currency-priced rates. Tool was shipping the USD/Caribbean default with other regions surfaced only in `notes`.
+- **Fix shipped:** Schema v1.1 now has an optional `regions` array. Costa carries 2 regions (South America USD $14.50, Med/Northern Europe EUR 11). MSC carries 3 regions (Caribbean/Alaska USD $17/$23, Med/Northern Europe EUR 12/16, South America USD $19/$23). Form renders a "Sailing region" picker only on multi-region lines. Daily and onboard amounts display in the active region's currency (€ or $); cash extras stay USD with an honest split-currency headline when both are non-zero. Cabin tiers re-render when region changes; the cabin slug is preserved across region switches when valid, otherwise snaps to the new region's default. Caught a CSS bug along the way (`.accordion__panel label { display: grid }` overrode the `hidden` attribute) and added explicit `[hidden] { display: none }` rules.
+- **Tests:** 25 unit, 10 Playwright (added 4: Costa Med EUR, MSC three-region switching, picker visibility on single-region lines, plus the toddler-exemption regression already shipped). All green.
+- **Costa half-rate (ages 4–14)** still not modeled — schema would need a `childRateMultipliers` block. Tracked separately in P-future.
+
+### P2 — Virgin Voyages prepaid vs. onboard not exposed ✅ DONE 2026-05-09
+
+- [x] **Bug:** Tool defaulted to Virgin's $20/night prepaid rate. Onboard rate is $22/night.
+- **Fix shipped:** Added a second tier to `virgin-voyages.json` — `slug: "onboard", amount: 22.00, label: "Posted onboard the ship"`. The existing tier was relabeled "Pre-paid before sailing — recommended" so users see both options in the cabin-tier dropdown with their dollar amounts. No new schema field required (the existing `tiers` array already supported this); no Virgin-specific code paths. The cabin-tier dropdown serves both the suite-vs-standard semantic for other lines and the prepaid-vs-onboard semantic for Virgin — labels make the choice clear.
+- **Tests:** 1 new Playwright case verifying $20×7×2 = $280 by default and $22×7×2 = $308 after switching to "onboard." 11/11 Playwright pass total.
+
+### P3 — Five legacy Carnival ship pages have a sidebar Quick Tools widget that lists Budget + Drink Calculator but not Tipping Calculator
+
+- [ ] **Files:** `ships/carnival/carnival-firenze.html`, `carnival-horizon.html`, `carnival-panorama.html`, `carnival-sunshine.html`, `carnival-venezia.html`. These five do not use the standard Tools dropdown nav (so the 1,217-page bulk update did not reach them); instead they use an older sidebar "Planning Tools" widget that lists Budget Calculator and Drink Package Calculator. The Task 12 wiring agent intentionally left them alone as a curated subset.
+- **Fix shape:** One option — add a third `<li>` to the sidebar widget on each of the five pages pointing at `/tools/cruise-tipping-calculator.html`. Other option — leave them as-is on the principle that the sidebar is a curated "tools that pair with cruise budgeting" list, in which case the Tipping Calculator arguably belongs more than the Drink one. Judgment call.
+- **Why P3:** Discovery/visibility issue, not a correctness issue. A user on `carnival-horizon.html` who wants the tipping calculator can still find it from the global nav (when those pages are eventually upgraded to the standard nav).
+
+### P3 — No Playwright regression spec for the other 8 site tools
+
+- [ ] **Process gap:** The webapp-testing skill says the site has 9 interactive JavaScript tools handling real-money decisions. Only the cruise tipping calculator has a Playwright spec on this branch. Task 13 reported "all Playwright tests pass" but only ran our 6 new tests. Other tools (drink-calculator, drink-calculatorv2, cruise-budget-calculator, port-day-planner, ship-tracker, port-tracker, ship-size-atlas, stateroom-check) have no automated coverage. Risk: a future shared-CSS or shared-nav change breaks one of them silently.
+- **Fix shape:** Backfill at minimum a smoke spec per tool — load the page, click the primary CTA, assert that an output element renders. Could be 9 × ~20-line specs in `tests/playwright/`. Lower the bar: just verify each tool's golden path doesn't 500 / NaN / blank-screen. Higher bar: parity with the cruise-tipping spec (golden path + at least one edge case per tool).
+- **Why P3:** Defensive/process work. No immediate user-facing impact, but the lack of regression coverage is what allowed Task 12's budget-calculator nav miss to escape detection until the careful-not-clever audit caught it manually.
+
+### Why these are tracked here
+
+The careful-not-clever skill (`.claude/skills/careful-not-clever/CAREFUL.md` v1.7-alpha) requires that material assumptions surfaced by Layer 2 / Layer 3 audits get documented for the next task rather than silently skipped. The tool shipped under the original v1.0 of the skill, which did not require the formal red-team pass; the v1.7-alpha promotion (commit `20797133`) raised the bar retroactively. These five items are exactly what a Layer 3 red-team would have surfaced at the time of the schema revision. Move each to `admin/COMPLETED_TASKS.md` when fixed — do not delete from this list silently.
 
 ---
 

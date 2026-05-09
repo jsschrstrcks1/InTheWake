@@ -45,6 +45,12 @@ pip3 install -q -r /home/user/ken/orchestrator/requirements.txt
 | `admin/IN_PROGRESS_TASKS.md` | Active work in current session |
 | `admin/COMPLETED_TASKS.md` | Completed work log — update immediately when done, not later |
 
+**Task documentation is required, not optional:**
+
+1. **Document as you discover.** If you uncover a missing page, broken link, stale data, or incomplete content while working on something else — add it to `admin/UNFINISHED_TASKS.md` in the same session. Do not silently skip. Do not "remember it for next time." `careful-not-clever` is explicit: "I left X alone because Y" beats silent skips.
+2. **Remove as you finish.** When a task in `admin/UNFINISHED_TASKS.md` is completed, **remove the entry from that file** and add a corresponding line to `admin/COMPLETED_TASKS.md`. Do not leave checked-off boxes accumulating in the unfinished list — that file is a working queue, not a history log.
+3. **Move, don't delete.** Migration is the rule: every removal from `admin/UNFINISHED_TASKS.md` must show up in `admin/COMPLETED_TASKS.md` with the same level of detail, plus the date completed.
+
 ### Technical Reference
 | File | Purpose |
 |---|---|

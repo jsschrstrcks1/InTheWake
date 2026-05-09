@@ -320,7 +320,8 @@ a:focus, button:focus, [tabindex="0"]:focus {
   display: flex;
   align-items: flex-end;
   gap: .6rem;
-  padding: .5rem .9rem .35rem;
+  /* Horizontal padding respects landscape safe-area on notched phones */
+  padding: .5rem max(.9rem, env(safe-area-inset-right)) .35rem max(.9rem, env(safe-area-inset-left));
   position: relative;
   z-index: 2000;
   overflow: visible;
@@ -909,7 +910,13 @@ figure.hero img + img,
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    padding: 80px 1.5rem 2rem;
+    /* Safe-area insets so the open drawer clears Dynamic Island (top),
+       home indicator (bottom), and landscape rounded corners (sides). */
+    padding:
+      max(80px, calc(env(safe-area-inset-top) + 60px))
+      max(1.5rem, env(safe-area-inset-right))
+      max(2rem, calc(env(safe-area-inset-bottom) + 1rem))
+      max(1.5rem, env(safe-area-inset-left));
     gap: 0.5rem;
     overflow-y: auto;
     z-index: 10000;
@@ -2450,14 +2457,43 @@ h3.seasonal-section-title::after {
   h2 { font-size: clamp(1.15rem, 4.5vw, 1.5rem); }
   h3 { font-size: clamp(1rem, 3.5vw, 1.25rem); }
 
-  /* Hero image containment (Section 7.4) */
-  .hero-header img,
-  .hero-ship img,
-  .hero img,
-  [class*="hero"] img {
+  /* Hero image containment (Section 7.4) — narrowed 2026-05-09
+     The previous selector group (.hero-header img, .hero img,
+     [class*="hero"] img) mis-targeted the navbar brand wordmark and the
+     home-page .hero-compass / .hero-title .logo, blowing them up to
+     viewport width on small phones. Each of those elements already has
+     its own size rules; the mobile cap is only meant for content hero
+     images. width / object-fit are intentionally NOT set here so each
+     element's own declared values are preserved. */
+  .article-hero img,
+  .port-hero-image img,
+  .hero-ship img {
     max-height: 50vh;
-    width: 100%;
-    object-fit: cover;
+  }
+
+  /* Home-page hero: tagline / credit-pill collision (Phase C, 2026-05-09).
+     .tagline used `white-space: nowrap` and was anchored bottom-left while
+     .hero-credit was anchored bottom-right; on narrow phones the long
+     "A Cruise Traveler's Logbook" string ran straight under the photo
+     credit pill. Fix: let the tagline wrap, lift the credit pill to
+     top-right, hide the decorative compass at this width so the new pill
+     position doesn't collide with it. Compass is aria-hidden, safe to
+     hide. */
+  .tagline {
+    white-space: normal;
+  }
+  .hero-credit {
+    top: .85rem;
+    right: .85rem;
+    bottom: auto;
+  }
+  .hero-credit .pill,
+  .hero-credit .pill.long {
+    font-size: .8rem;
+    padding: .35rem .6rem;
+  }
+  .hero-compass {
+    display: none;
   }
 }
 

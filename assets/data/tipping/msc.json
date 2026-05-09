@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "1.1",
+  "lineId": "msc",
+  "displayName": "MSC Cruises",
+  "effectiveDate": "2026-05-11",
+  "verifiedAt": "2026-05-08",
+  "currency": "USD",
+  "region": "Caribbean / Alaska (USD)",
+  "policyUrls": [
+    "https://www.msccruisesusa.com/manage-booking/before-you-go/service-charges",
+    "https://www.cruisecritic.com/news/msc-cruises-increases-daily-service-charges"
+  ],
+  "bundledInFare": false,
+  "notes": "Multi-region pricing. Caribbean/Alaska USD $17/$23 from 2026-05-11 (was $16/$20). Mediterranean and Northern Europe EUR 12/16 from 2026-04-10. South America USD $19/$23. Pre-pay before 2026-05-11 to lock the prior rate.",
+  "dailyRates": {
+    "tiers": [
+      { "slug": "standard", "label": "Standard stateroom",   "amount": 17.00, "isDefault": true,  "appliesTo": "Interior, Oceanview, Balcony staterooms (Caribbean/Alaska)" },
+      { "slug": "suite",    "label": "MSC Yacht Club",       "amount": 23.00, "isDefault": false, "appliesTo": "MSC Yacht Club suites (Caribbean/Alaska)" }
+    ],
+    "upcomingChange": null
+  },
+  "childPolicy": {
+    "exemptUnderAge": 2,
+    "notes": "Under 2 free in USD-priced regions; ages 2–11 pay reduced rate in EUR/South America regions."
+  },
+  "autoGratuities": {
+    "bar":             { "percent": 18, "appliesTo": "Bar beverages and drink packages" },
+    "spa":             { "percent": 18, "appliesTo": "Spa and salon services" },
+    "specialtyDining": { "percent": 18, "appliesTo": "Specialty restaurants" },
+    "roomService":     { "percent": 18, "appliesTo": "Room-service orders" }
+  },
+  "recommendedCashExtras": {
+    "stewardThankYou":   { "default": 0,  "perDay": false, "note": "Daily service charge covers stateroom attendant; cash is optional." },
+    "headWaiter":        { "default": 25, "perDay": false, "note": "End-of-cruise envelope, optional." },
+    "asstWaiter":        { "default": 15, "perDay": false, "note": "End-of-cruise envelope, optional." },
+    "butler":            { "default": 5,  "perDay": true,  "note": "MSC Yacht Club butlers — daily gratuity is included; cash thank-you is optional." },
+    "concierge":         { "default": 0,  "perDay": false, "note": "Optional thank-you for Yacht Club concierge service." },
+    "porterPerBag":      { "default": 2,  "perBag": true,  "note": "Embarkation porter, US dollars." },
+    "kidsClubCounselor": { "default": 10, "perDay": false, "note": "Optional, end of cruise — DOREMI counselors." },
+    "excursionGuide":    { "default": 5,  "perPerson": true, "note": "Per person, ship-sponsored excursion." },
+    "excursionDriver":   { "default": 2,  "perPerson": true, "note": "Per person, on driver-led portions." },
+    "casinoDealer":      { "default": 5,  "perVisit": true, "note": "Per session, optional, US dollars." }
+  },
+  "regions": [
+    {
+      "slug": "caribbean-alaska",
+      "label": "Caribbean / Alaska (USD)",
+      "currency": "USD",
+      "effectiveDate": "2026-05-11",
+      "isDefault": true,
+      "dailyRates": {
+        "tiers": [
+          { "slug": "standard", "label": "Standard stateroom", "amount": 17.00, "isDefault": true,  "appliesTo": "Interior, Oceanview, Balcony staterooms (Caribbean/Alaska)." },
+          { "slug": "suite",    "label": "MSC Yacht Club",     "amount": 23.00, "isDefault": false, "appliesTo": "MSC Yacht Club suites (Caribbean/Alaska)." }
+        ]
+      }
+    },
+    {
+      "slug": "med-northern-europe",
+      "label": "Mediterranean / Northern Europe (EUR)",
+      "currency": "EUR",
+      "effectiveDate": "2026-04-10",
+      "isDefault": false,
+      "dailyRates": {
+        "tiers": [
+          { "slug": "standard", "label": "Standard stateroom", "amount": 12.00, "isDefault": true,  "appliesTo": "Interior, Oceanview, Balcony staterooms (Med / Northern Europe)." },
+          { "slug": "suite",    "label": "MSC Yacht Club",     "amount": 16.00, "isDefault": false, "appliesTo": "MSC Yacht Club suites (Med / Northern Europe)." }
+        ]
+      }
+    },
+    {
+      "slug": "south-america",
+      "label": "South America (USD)",
+      "currency": "USD",
+      "effectiveDate": "2026-05-11",
+      "isDefault": false,
+      "dailyRates": {
+        "tiers": [
+          { "slug": "standard", "label": "Standard stateroom", "amount": 19.00, "isDefault": true,  "appliesTo": "Interior, Oceanview, Balcony staterooms (South America)." },
+          { "slug": "suite",    "label": "MSC Yacht Club",     "amount": 23.00, "isDefault": false, "appliesTo": "MSC Yacht Club suites (South America)." }
+        ]
+      }
+    }
+  ]
+}

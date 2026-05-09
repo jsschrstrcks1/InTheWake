@@ -352,6 +352,7 @@ if ('serviceWorker' in navigator) {
             <a href="/tools/port-tracker.html">Port Logbook</a>
             <a href="/tools/ship-tracker.html">Ship Logbook</a>
             <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/cruise-tipping-calculator.html">Tipping Calculator</a>
             <a href="/tools/port-day-planner.html">Port Day Planner</a>
             <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
           </div>
@@ -436,30 +437,19 @@ if ('serviceWorker' in navigator) {
     <!-- First Look Carousel -->
     <section class="card" id="first-look" aria-labelledby="first-look-title">
       <h2 id="first-look-title">First Look</h2>
-      <div class="content">
-        <div class="swiper firstlook">
-          <figure>
-            <img src="/assets/ships/carnival-encounter1.webp"
-                 alt="Carnival Encounter at sea"
-                 loading="eager"
-                 width="400" height="200"/>
-            <figcaption>Carnival Encounter — Grand Class ship based in Brisbane</figcaption>
-          </figure>
-          <figure>
-            <img src="/assets/ships/carnival-encounter2.webp"
-                 alt="Carnival Encounter pool deck"
-                 loading="lazy"
-                 width="400" height="200"/>
-            <figcaption>Pool deck with Byron Beach Club exclusive area</figcaption>
-          </figure>
-          <figure>
-            <img src="/assets/ships/carnival-encounter3.webp"
-                 alt="Carnival Encounter atrium"
-                 loading="lazy"
-                 width="400" height="200"/>
-            <figcaption>Grand atrium showcasing Australian-inspired design</figcaption>
-          </figure>
+      <p class="tiny">Authentic photography for Carnival Encounter is pending sourcing. The image below is a generic placeholder; ship-specific photography will replace it once licensed images are available.</p>
+      <div class="swiper firstlook" aria-label="Carnival Encounter photo gallery">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <figure>
+              <img src="/assets/ship-map.png" alt="Generic placeholder for Carnival Encounter (ship-specific photography pending)" loading="lazy" decoding="async">
+              <figcaption class="tiny">Placeholder image — authentic Carnival Encounter photography pending sourcing.</figcaption>
+            </figure>
+          </div>
         </div>
+        <div class="swiper-pagination" aria-hidden="true"></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
       </div>
     </section>
 

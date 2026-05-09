@@ -42,7 +42,10 @@ answers. Those have their own audits.
 
 A non-boilerplate ai-summary is:
 
-1. **80 words or fewer.** The Open Graph practical limit; AI engines truncate longer.
+1. **≤250 characters.** This is the validator's hard cap (`icp_lite/ai_summary_length`).
+   Roughly 40 words at average-cruise-vocabulary density. The 80-word target floated in
+   earlier drafts is the OG-snippet soft ceiling — the 250-char limit is binding and
+   tighter; budget by characters, not words.
 2. **At least 2 ship-specific facts.** Class + year + gross tonnage + distinctive feature
    + sister-ship lineage + builder yard + retired-status — pick two. The ship name in the
    sentence does NOT count as a fact (it's just the entity).
@@ -103,7 +106,7 @@ Patterns to avoid:
 Format: `<ShipName>: <Class> (<Year>, <GT>) — <fact 2>. <Voice line.>`
 
 Or any natural variant. The grammar isn't fixed; the constraints are: 2 facts, 1 voice
-line, ≤80 words.
+line, ≤250 characters. Measure with `grep 'name="ai-summary"' <file> | sed -E 's/.*content="([^"]*)".*/\1/' | wc -c` — the ship-page batch in this repo runs 232–249 chars after the first compression pass.
 
 Examples (from the Phase 3.2 batch):
 
