@@ -83,6 +83,33 @@ For each occurrence of a max-capacity integer that lacks an explicit label, **ad
 instead of bare:
 > "...with 7,600 guests"
 
+### 3a. NEVER rewrite a cross-ship comparison
+
+If the integer appears inside a sentence that is recommending or comparing
+to a **different** ship — "If you prefer a smaller Cunard ship, Queen
+Elizabeth or Queen Victoria may be a better fit at roughly 90,000 GT and
+2,081 guests" — that integer refers to the OTHER ship, not the page's ship.
+Rewriting it to the page's canonical produces a factually wrong claim (the
+page would assert that Elizabeth/Victoria carry Queen Anne's guest count).
+
+The repair script (`admin/repair-internal-consistency.js`) detects this
+class of context via `COMPARISON_CONTEXT_TRIGGERS` and skips the swap.
+Triggers include "if you want/prefer", "may be a better fit", "the X Class
+carries", "intimate ocean ships at under", "by contrast", "unlike". An
+integer in any of those contexts must remain.
+
+If the validator fires DATA-004 on a comparison sentence, the *correct*
+remediation is editorial: leave the comparison's integer in place (it's
+true) and either reword to remove it or add a wrapper attribute the
+validator can be taught to recognize. **Do not** rewrite the comparison
+to the page-ship's canonical.
+
+This rule was added 2026-05-07 after an earlier Phase 3.1 run rewrote
+2,081 (Queen Elizabeth/Victoria) to 2,996 (Queen Anne) on `queen-anne.html`,
+~1,970/3,000 (Coral-class vs. Grand-class) on the Princess pair, and
+under-2,000 (NCL bucket) to 1,878 on `norwegian-sun.html`. Reverted; script
+hardened. See `audit-reports/internal-consistency/_comparison-check.md`.
+
 ### 4. Re-validate
 
 ```bash

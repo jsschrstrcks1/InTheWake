@@ -498,6 +498,27 @@ elif [ "$SHIP_IMAGE_COUNT" -eq 0 ]; then
 fi
 
 # ============================================================================
+# Section 7c: Ship Image Count Thresholds (#1504/#1505/#1506) — warn
+# ============================================================================
+# Compares unique-URL count of /assets/ships/* references on this page against
+# the per-line config (image_min, image_max, image_error_below). Warnings only;
+# the 177-ship placeholder bridge state has many ships intentionally at 0 or 1
+# authentic photos — blocking would fail half the fleet. Surfaced so reviewers
+# can see which ships still need photography sourced.
+section_header "Section 7c: Ship Image Count Thresholds"
+
+UNIQUE_SHIP_IMG_COUNT=$(echo "$CONTENT" | grep -oE 'src="/assets/ships/[^"]+' | sort -u | wc -l)
+if [ "$UNIQUE_SHIP_IMG_COUNT" -lt "$CFG_IMG_ERROR_BELOW" ]; then
+    check_warn "Only $UNIQUE_SHIP_IMG_COUNT distinct /assets/ships/ image(s) — below error threshold $CFG_IMG_ERROR_BELOW (line '$LINE' policy). Ship needs authentic photography (#1504)"
+elif [ "$UNIQUE_SHIP_IMG_COUNT" -lt "$CFG_IMG_MIN" ]; then
+    check_warn "$UNIQUE_SHIP_IMG_COUNT distinct ship image(s) — below recommended minimum $CFG_IMG_MIN (line '$LINE' policy) (#1505)"
+elif [ "$UNIQUE_SHIP_IMG_COUNT" -gt "$CFG_IMG_MAX" ]; then
+    check_warn "$UNIQUE_SHIP_IMG_COUNT distinct ship image(s) — above recommended maximum $CFG_IMG_MAX (line '$LINE' policy). Trim the gallery (#1506)"
+else
+    check_pass "Image count $UNIQUE_SHIP_IMG_COUNT is within recommended range ($CFG_IMG_MIN–$CFG_IMG_MAX)"
+fi
+
+# ============================================================================
 # Section 8: Performance
 # ============================================================================
 section_header "Section 8: Performance"
@@ -1747,6 +1768,74 @@ while IFS= read -r img_path; do
 done <<< "$(echo "$CONTENT" | grep -oP 'src="(/assets/ships/[^"]+\.(jpg|jpeg|png|webp|gif))"' | grep -oP '/[^"]+' || true)"
 if [ "$MISMATCH_COUNT" -eq 0 ]; then
     check_pass "All /assets/ships/ image filenames contain the page's ship slug"
+fi
+
+# ============================================================================
+# Section 9aj-3: Byte-Equal Cross-Page Image Reuse (#1502) — warn
+# ============================================================================
+# Reads admin/aggregate output audit-reports/image-reuse-registry.json. For
+# each ship image referenced on this page, looks up its md5-bucket in by_hash
+# and warns if any sibling entry belongs to a different ship slug. The hook
+# blocks NEW reuse at commit; this validator section surfaces existing reuse
+# during per-page review.
+section_header "Section 9aj-3: Byte-Equal Cross-Page Image Reuse (#1502)"
+
+REUSE_REGISTRY="${REPO_ROOT}/audit-reports/image-reuse-registry.json"
+if [ -f "$REUSE_REGISTRY" ] && command -v jq >/dev/null 2>&1; then
+    REUSE_WARNS=0
+    while IFS= read -r img_path; do
+        [ -z "$img_path" ] && continue
+        REL="${img_path#/}"
+        # Find all slugs sharing this image's md5 bucket
+        OTHER_SLUGS=$(jq -r --arg rel "$REL" --arg slug "$PAGE_SLUG" '
+            [ .by_hash[] | select(any(.[]; .rel == $rel)) | .[] | .slug // empty ]
+            | map(select(. != null and . != "" and . != $slug))
+            | unique | .[]
+        ' "$REUSE_REGISTRY" 2>/dev/null | grep -v '^$' | sort -u)
+        if [ -n "$OTHER_SLUGS" ]; then
+            OTHER_LIST=$(echo "$OTHER_SLUGS" | tr '\n' ',' | sed 's/,$//')
+            check_warn "Image $REL is byte-equal to images on different ship pages: $OTHER_LIST (#1502)"
+            REUSE_WARNS=$((REUSE_WARNS + 1))
+        fi
+    done <<< "$(echo "$CONTENT" | grep -oP 'src="/assets/ships/[^"]+\.(jpg|jpeg|png|webp|gif)' | sed 's/^src="//' | sort -u || true)"
+    if [ "$REUSE_WARNS" -eq 0 ]; then
+        check_pass "No byte-equal cross-page image reuse"
+    fi
+else
+    check_pass "No byte-equal reuse registry (skipped)"
+fi
+
+# ============================================================================
+# Section 9aj-4: Perceptual (Near-Duplicate) Image Reuse (#1503) — warn
+# ============================================================================
+# Reads audit-reports/image-recrops-registry.json. dHash-based; surfaces
+# images that aren't byte-equal but visually near-identical (re-saved JPEGs,
+# slight crops, format conversions). Fires when this page references an image
+# whose perceptual group has another member belonging to a different ship slug.
+section_header "Section 9aj-4: Perceptual Cross-Page Image Near-Duplicate (#1503)"
+
+RECROPS_REGISTRY="${REPO_ROOT}/audit-reports/image-recrops-registry.json"
+if [ -f "$RECROPS_REGISTRY" ] && command -v jq >/dev/null 2>&1; then
+    RECROP_WARNS=0
+    while IFS= read -r img_path; do
+        [ -z "$img_path" ] && continue
+        REL="${img_path#/}"
+        OTHER_SLUGS=$(jq -r --arg rel "$REL" --arg slug "$PAGE_SLUG" '
+            [ .groups[] | select(.members | any(.rel == $rel)) | .members[] | .slug // empty ]
+            | map(select(. != null and . != "" and . != $slug))
+            | unique | .[]
+        ' "$RECROPS_REGISTRY" 2>/dev/null | grep -v '^$' | sort -u)
+        if [ -n "$OTHER_SLUGS" ]; then
+            OTHER_LIST=$(echo "$OTHER_SLUGS" | tr '\n' ',' | sed 's/,$//')
+            check_warn "Image $REL is visually near-identical to images on different ship pages: $OTHER_LIST (#1503)"
+            RECROP_WARNS=$((RECROP_WARNS + 1))
+        fi
+    done <<< "$(echo "$CONTENT" | grep -oP 'src="/assets/ships/[^"]+\.(jpg|jpeg|png|webp|gif)' | sed 's/^src="//' | sort -u || true)"
+    if [ "$RECROP_WARNS" -eq 0 ]; then
+        check_pass "No perceptual cross-page image near-duplicates"
+    fi
+else
+    check_pass "No perceptual recrop registry (skipped)"
 fi
 
 # ============================================================================

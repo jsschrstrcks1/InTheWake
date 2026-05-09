@@ -737,6 +737,47 @@ Comprehensive factors that can disrupt a passenger's port day, to be integrated 
 
 ---
 
+## Missing Port and Ship Pages (Discovered 2026-05-08)
+
+**Source:** Link verification during drafting of `articles/caribbean-cruise-trends-2026.html`. Each item below is referenced by name in published or upcoming content but has no dedicated page yet.
+
+### Missing port pages
+
+- [ ] **Half Moon Cay** — Holland America / Carnival private destination in the Bahamas. Mentioned in the 2026 Caribbean trends article and across multiple cruise-line itineraries. Needs a port page in `/ports/half-moon-cay.html` per the standard port template.
+- [ ] **Celebration Key** — Carnival's new private destination in Grand Bahama, opening 2025–2026. Mentioned in the 2026 Caribbean trends article. Needs a port page in `/ports/celebration-key.html`. Add as it opens; verify pier, capacity, and on-island amenities from primary Carnival sources before publishing.
+
+### Missing ship pages
+
+- [ ] **Norwegian Luna** — New NCL ship referenced in 2026 capacity discussions. Needs a ship page in `/ships/norwegian/norwegian-luna.html` once specs, deck plans, and naming-rights data are available.
+
+### Missing article thumbnails / hero images
+
+The article rail (`/assets/data/articles/index.json`) lists `thumbnail` and `image` paths for each article. Four articles currently fall back to `/assets/social/articles-hero.jpg` because their dedicated hero images don't exist on disk yet:
+
+- [ ] **`/articles/caribbean-cruise-trends-2026.html`** — needs a hero/thumbnail (suggest: `/assets/articles/caribbean-cruise-trends-2026-hero.webp`). The page's `og:image` currently also points at the generic articles-hero.jpg fallback.
+- [ ] **`/articles/cruise-cabin-organization.html`** — `og:image` references `/assets/articles/cabin-organization-hero.jpg?v=3.010.400` but the file does not exist on disk. Either generate the image or update the og:image to a real path.
+- [ ] **`/articles/cruise-tech-photography-guide.html`** — `og:image` references `/assets/articles/cruise-tech-hero.jpg?v=3.010.401`; not on disk. Same fix needed.
+- [ ] **`/articles/cruise-duck-tradition.html`** — `og:image` references `/assets/social/cruise-ducks-hero.jpg`; not on disk.
+
+While the rail and article-hub-grid renderers fall back gracefully to `/assets/social/articles-hero.jpg`, the social meta tags still serve broken URLs to Facebook/Twitter/LinkedIn previews. Generate proper hero images per `admin/claude/IMAGE_WORKFLOW.md`, then update both the og:image meta tags and the `thumbnail`/`image` paths in `/assets/data/articles/index.json`.
+
+### Why these are tracked here
+
+`careful-not-clever` requires that gaps surfaced during one task get documented for the next task rather than silently skipped. These pages and images were excluded as link/image targets in the Caribbean trends article (deliberate skips) and need their own scoped work. Move each to `admin/COMPLETED_TASKS.md` when published — do not delete from this list silently.
+
+### Broken article reference: `/solo/articles/alaska-cruise-first-timer.html` (Discovered 2026-05-08)
+
+- [ ] **`alaska-cruise-first-timer.html` does not exist** but is hardcoded into the `<noscript>` rail fallback on 14 port pages (anchorage, ajaccio, akureyri, alesund, etc.). The file was never written — only the link was. For users without JS, those 14 pages serve a 404 link. Two acceptable fixes:
+  1. Write the article (`/articles/alaska-cruise-first-timer.html` or `/solo/alaska-cruise-first-timer.html`) and add it to `assets/data/articles/index.json`. The link target then resolves.
+  2. Remove the alaska `<li>` from each port-page noscript fallback. Cleaner if no plan to write the article.
+- See remaining hits: `grep -rln "/solo/articles/alaska-cruise-first-timer" --include="*.html" .`
+
+### `/travel.html` is also the "Top 20 First-Cruise Questions" article (Discovered 2026-05-08)
+
+- [ ] **Architectural quirk, low priority.** `assets/data/articles/index.json` lists "Top 20 First-Cruise Questions (Answered)" with `url: /travel.html`. The travel hub *is* the article — its `<title>`, `<h1>`, and JSON-LD all confirm. Works today. Future cleanup option: split out to `/articles/top-20-first-cruise-questions.html` so the URL matches the article title, leave `/travel.html` as a hub that links to it. Touches sitemap, internal links, JSON-LD, and the JSON entry — non-trivial. Don't act unless we're doing a broader articles-hub refactor.
+
+---
+
 ## Strategic "Don't Chase" List (Explicit Decisions)
 
 | Feature | Why Not | Competitor Reference |

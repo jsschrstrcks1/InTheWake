@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8"/>
+  <script>
+    document.documentElement.classList.remove('no-js');
+  </script>
+
+<!--
+Soli Deo Gloria
+All work on this project is offered as a gift to God.
+"Trust in the LORD with all your heart..." — Proverbs 3:5
+"Whatever you do, work heartily..." — Colossians 3:23
+-->
+
+  <!-- ======================================================
+       In the Wake — Cruise Tipping Calculator
+       Version: 1.000.000  |  Soli Deo Gloria
+
+       WCAG 2.1 Level AA Compliant
+       SEO Optimized (JSON-LD, OpenGraph, Twitter Cards)
+       ICP-2 v2.1 Compliant
+       ====================================================== -->
+
+  <!-- Consent (autoblocking) -->
+  <script type="text/javascript" data-cmp-ab="1"
+    src="https://cdn.consentmanager.net/delivery/autoblocking/e11a25480244a.js"
+    data-cmp-host="a.delivery.consentmanager.net"
+    data-cmp-cdn="cdn.consentmanager.net"
+    data-cmp-codesrc="16"></script>
+
+  <!-- Analytics -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WZP891PZXJ',{anonymize_ip:true});</script>
+
+  <!-- ICP-2 v2.1 Meta Tags -->
+  <meta name="ai-summary" content="Interactive 2026 cruise tipping calculator across 15 lines. Inputs: line, cabin tier, sailing date, nights, party. Outputs: daily auto-charge, onboard auto-grats (bar, spa, specialty, room service), and recommended cash thank-yous. Bundled-fare lines (Explora, Oceania, Regent, Seabourn, Silversea) display included status."/>
+  <meta name="ai-target-audience" content="First-time and returning cruisers planning a 2026 sailing who want a precise, by-line breakdown of daily gratuities, onboard auto-grats, and cash thank-yous before they board."/>
+  <meta name="last-reviewed" content="2026-05-08"/>
+  <meta name="content-protocol" content="ICP-2"/>
+
+  <!-- Core -->
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
+
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="1.000.000"/>
+  <meta name="page:version" content="1.000.000"/>
+  <meta name="standards:baseline" content="3.010"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+
+  <!-- Title & SEO -->
+  <title>Cruise Tipping Calculator — 2026 Daily Rates &amp; Cash Extras for All 15 Lines | In the Wake</title>
+  <meta name="description" content="Plan exactly what you'll owe in cruise gratuities. 2026 daily rates, bar/spa/specialty auto-grats, and cash thank-yous for stewards, butlers, and porters across Carnival, Royal Caribbean, Norwegian, Princess, and 11 more lines."/>
+  <link rel="canonical" href="https://cruisinginthewake.com/tools/cruise-tipping-calculator.html"/>
+
+  <!-- SEO: Author & Copyright -->
+  <meta name="copyright" content="In the Wake"/>
+  <link rel="author" href="https://cruisinginthewake.com/authors/ken-baker.html"/>
+
+  <!-- OpenGraph / Facebook -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="In the Wake"/>
+  <meta property="og:url" content="https://cruisinginthewake.com/tools/cruise-tipping-calculator.html"/>
+  <meta property="og:title" content="Cruise Tipping Calculator — 2026 Rates for All 15 Lines"/>
+  <meta property="og:description" content="What you'll really owe in tips, by line. 2026 daily rates plus the extras most calculators miss."/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/cruise-tipping-calculator-2026.jpg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="Cruise Tipping Calculator — 2026 Rates"/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Cruise Tipping Calculator — 2026 Rates for All 15 Lines"/>
+  <meta name="twitter:description" content="What you'll really owe in tips, by line. 2026 daily rates plus the extras most calculators miss."/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/cruise-tipping-calculator-2026.jpg"/>
+  <meta name="twitter:image:alt" content="Cruise Tipping Calculator — 2026 Rates"/>
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "In the Wake",
+    "url": "https://cruisinginthewake.com",
+    "logo": "https://cruisinginthewake.com/assets/logo_wake.png",
+    "description": "A cruise traveler's logbook providing planning tools, travel tips, and faith-scented reflections for smoother sailings."
+  }
+  </script>
+
+  <!-- JSON-LD: SoftwareApplication + HowTo (ICP-2) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Cruise Tipping Calculator",
+        "applicationCategory": "TravelApplication",
+        "operatingSystem": "Any (web)",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "url": "https://cruisinginthewake.com/tools/cruise-tipping-calculator.html",
+        "description": "Calculates 2026 cruise gratuities including daily charges, bar/spa/specialty auto-grats, and recommended cash extras for all 15 major lines. Bundled-fare lines display included status.",
+        "datePublished": "2026-05-08",
+        "dateModified": "2026-05-08",
+        "publisher": { "@type": "Organization", "name": "In the Wake", "url": "https://cruisinginthewake.com/" }
+      },
+      {
+        "@type": "HowTo",
+        "name": "How to budget cruise tips for a 2026 sailing",
+        "description": "Four-step procedure for estimating total gratuities on a cruise: enter sailing details, add onboard purchase plans, adjust cash thank-yous, and print a tip-envelope summary.",
+        "step": [
+          { "@type": "HowToStep", "name": "Enter your sailing", "text": "Choose your cruise line, cabin tier, sailing date, nights, and party." },
+          { "@type": "HowToStep", "name": "Add onboard plans", "text": "Estimate bar tabs, spa, specialty dining, and room service so the tool can apply the correct auto-gratuities." },
+          { "@type": "HowToStep", "name": "Plan cash extras", "text": "Adjust suggested cash thank-yous for stateroom attendant, head waiter, butler, porters, kids' club, excursion guide and driver, and casino dealer." },
+          { "@type": "HowToStep", "name": "Compare and print", "text": "Compare two lines side by side and print a clean tip-envelope summary." }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: Breadcrumb -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://cruisinginthewake.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": "https://cruisinginthewake.com/tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Cruise Tipping Calculator",
+        "item": "https://cruisinginthewake.com/tools/cruise-tipping-calculator.html"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <!-- SEO: Sitemap -->
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
+
+  <!-- Performance: DNS Prefetch & Preconnect -->
+  <link rel="preconnect" href="https://cruisinginthewake.com"/>
+
+  <!-- URL normalizer -->
+  <script>
+  (function(){
+    const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+    window._abs=function(p){p=String(p||'');if(!p.startsWith('/'))p='/'+p;return ORIGIN+p;};
+  })();
+  </script>
+
+  <!-- External link hardener -->
+  <script>
+  (function(){
+    const here=location.hostname.replace(/^www\./,'');
+    function upgrade(){
+      document.querySelectorAll('a[href]').forEach(a=>{
+        const href=a.getAttribute('href')||'';
+        if(/^(#|mailto:|tel:)/i.test(href))return;
+        try{
+          const u=new URL(href,location.href);
+          const host=u.hostname.replace(/^www\./,'');
+          if(host!==here||a.rel==='external'){
+            a.target='_blank';
+            a.rel=['noopener','noreferrer'].concat((a.rel||'').split(/\s+/)).filter(Boolean).join(' ');
+          }
+        }catch(_){}
+      });
+    }
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',upgrade,{once:true});}else{upgrade();}
+  })();
+  </script>
+
+  <!-- Site cache & SW -->
+  <script src="/assets/js/site-cache.js?v=3.010.300" defer></script>
+  <script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=3.010.300').catch(()=>{}));
+  }
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.300">
+  <link rel="stylesheet" href="/assets/css/tools/cruise-tipping-calculator.css?v=3.010.300">
+
+  <!-- LCP preload -->
+  <link rel="preload" as="image" href="/assets/index_hero.jpg?v=3.010.300" fetchpriority="high">
+</head>
+
+<body class="page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- ARIA Live Regions -->
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+  <header class="site-header hero-header" role="banner">
+    <div class="navbar">
+      <div class="brand">
+        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
+        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
+      </div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
+        <a class="nav-pill" href="/">Home</a>
+
+        <div class="nav-dropdown" id="nav-planning">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Planning <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/first-cruise.html">Your First Cruise</a>
+            <a href="/ships.html">Ships</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
+            <a href="/packing-lists.html">Packing Lists</a>
+            <a href="/accessibility.html">Accessibility</a>
+          </div>
+        </div>
+
+        <div class="nav-dropdown" id="nav-tools">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Tools <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/ships/quiz.html">Ship Quiz</a>
+            <a href="/cruise-lines/quiz.html">Cruise Line Quiz</a>
+            <a href="/drink-calculator.html">Drink Calculator</a>
+            <a href="/stateroom-check.html">Stateroom Check</a>
+            <a href="/tools/port-tracker.html">Port Logbook</a>
+            <a href="/tools/ship-tracker.html">Ship Logbook</a>
+            <a href="/tools/cruise-budget-calculator.html">Budget Calculator</a>
+            <a href="/tools/cruise-tipping-calculator.html">Tipping Calculator</a>
+            <a href="/tools/port-day-planner.html">Port Day Planner</a>
+            <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
+          </div>
+        </div>
+
+        <div class="nav-dropdown" id="nav-onboard">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Onboard <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/drink-packages.html">Drink Packages</a>
+            <a href="/internet-at-sea.html">Internet at Sea</a>
+            <a href="/articles.html">Articles</a>
+          </div>
+        </div>
+
+        <div class="nav-dropdown" id="nav-travel">
+          <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
+            Travel <span class="caret">&#9662;</span>
+          </button>
+          <div class="dropdown-menu" role="menu">
+            <a href="/travel.html">Travel (overview)</a>
+            <a href="/solo.html">Solo</a>
+          </div>
+        </div>
+
+        <a class="nav-pill" href="/search.html">Search</a>
+        <a class="nav-pill" href="/about-us.html">About</a>
+      </nav>
+    </div>
+
+    <div class="hero" role="img" aria-label="Ship wake at sunrise">
+      <div class="latlon-grid" aria-hidden="true"></div>
+      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true">
+      <div class="hero-title">
+        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
+      </div>
+      <div class="tagline">A Cruise Traveler's Logbook</div>
+      <div class="hero-credit">
+        <a class="pill long" href="https://instagram.com/flickersofmajesty" rel="noopener external">Photo &copy; Flickers of Majesty</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="tool-page" role="main">
+    <header class="tool-hero">
+      <h1>Cruise Tipping Calculator <span class="tool-hero__year">2026</span></h1>
+      <p class="tool-hero__lede">What you'll actually owe in tips for your booked cruise — daily charges, bar and spa auto-grats, and the cash thank-yous most calculators leave out. All 15 lines we cover.</p>
+    </header>
+
+    <noscript>
+      <section class="noscript-fallback">
+        <h2>Calculator requires JavaScript</h2>
+        <p>The interactive calculator uses JavaScript to compute totals. The 2026 rate table and the four-step manual formula below give you everything you need to compute by hand.</p>
+        <h3>2026 daily rates by line</h3>
+        <p class="tiny">Rates verified 2026-05-08. Subject to change without notice.</p>
+        <table>
+          <thead><tr><th scope="col">Line</th><th scope="col">Standard cabin</th><th scope="col">Suite</th><th scope="col">Notes</th></tr></thead>
+          <tbody id="noscript-rate-table">
+            <tr>
+              <th scope="row">Carnival</th>
+              <td>$17.00 standard</td>
+              <td>$19.00 suite</td>
+              <td>Effective 2026-04-02 (up from $16/$18). Pre-paid bookings before that date lock the prior rate.</td>
+            </tr>
+            <tr>
+              <th scope="row">Celebrity</th>
+              <td>$18.00 standard</td>
+              <td>$23.00 Retreat suite</td>
+              <td>Three tiers: Inside/Oceanview/Veranda $18; Concierge/AquaClass $19; Retreat $23. No 2026 hike announced.</td>
+            </tr>
+            <tr>
+              <th scope="row">Costa</th>
+              <td colspan="2">$14.50 USD / EUR 11 per guest per day (no suite differential)</td>
+              <td>Currency varies by region. Children 4-14 pay half; under 4 free. 15% beverage gratuity.</td>
+            </tr>
+            <tr>
+              <th scope="row">Cunard</th>
+              <td>$17.00 Britannia</td>
+              <td>$19.00 Grills</td>
+              <td>Called "Hotel and Dining Service Charge." Same rate for adults and children. Unchanged through 2026-05-08.</td>
+            </tr>
+            <tr>
+              <th scope="row">Explora Journeys</th>
+              <td colspan="2">Gratuities included in fare</td>
+              <td>Cashless onboard environment; tipping not encouraged. Discretionary recognition only.</td>
+            </tr>
+            <tr>
+              <th scope="row">Holland America</th>
+              <td>$17.00 standard</td>
+              <td>$19.00 suite</td>
+              <td>Rises to $18/$20 on 2026-06-01; bar/spa/specialty/room service charge also rises from 18% to 20% same date.</td>
+            </tr>
+            <tr>
+              <th scope="row">MSC</th>
+              <td>$17.00 standard (Caribbean/Alaska)</td>
+              <td>$23.00 Yacht Club</td>
+              <td>Effective 2026-05-11 Caribbean/Alaska (was $16/$20). Med/N. Europe EUR 12/16 from 2026-04-10. South America $19/$23. Under 2 free.</td>
+            </tr>
+            <tr>
+              <th scope="row">Norwegian</th>
+              <td>$20.00 standard</td>
+              <td>$25.00 Suites &amp; Haven</td>
+              <td>Rates set 2023-01-01; no 2026 hike announced. Children under 3 exempt. 20% on bar/specialty/spa.</td>
+            </tr>
+            <tr>
+              <th scope="row">Oceania</th>
+              <td colspan="2">Gratuities included in fare</td>
+              <td>"Your World Included" effective 2025-01-01 sailings. Spa/La Reserve still carry 20% service charge.</td>
+            </tr>
+            <tr>
+              <th scope="row">Princess</th>
+              <td>$18.00 standard</td>
+              <td>$20.00 suite</td>
+              <td>Mini-suite/Cabana/Reserve $19. Effective 2026-03-08. F&amp;B service charge raised from 18% to 20% same date. Australia/NZ departures exempt.</td>
+            </tr>
+            <tr>
+              <th scope="row">Regent Seven Seas</th>
+              <td colspan="2">Gratuities included in fare</td>
+              <td>All shipboard gratuities included. Serene Spa carries its own service charge. Tipping not expected.</td>
+            </tr>
+            <tr>
+              <th scope="row">Royal Caribbean</th>
+              <td>$18.50 standard</td>
+              <td>$21.00 suite</td>
+              <td>Suites = Sky Junior Suite, Grand Suite and above. Junior Suites pay standard. Rates set 2024-11-01; unchanged through 2026-05-08.</td>
+            </tr>
+            <tr>
+              <th scope="row">Seabourn</th>
+              <td colspan="2">Gratuities included in fare</td>
+              <td>"Tipping is neither required, nor expected." Spa/Salon carries 18% gratuity outside the fare.</td>
+            </tr>
+            <tr>
+              <th scope="row">Silversea</th>
+              <td colspan="2">Gratuities included in fare</td>
+              <td>All-Inclusive and All-Inclusive Plus fares both include onboard gratuities. Butler service in every suite.</td>
+            </tr>
+            <tr>
+              <th scope="row">Virgin Voyages</th>
+              <td colspan="2">$20 prepaid / $22 onboard (no suite differential)</td>
+              <td>Adults-only (18+); reclassified 2025-10-07. Bookings prior to that date retain bundled status.</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Manual formula</h3>
+        <ol>
+          <li><strong>Daily charge:</strong> rate &times; nights &times; charged guests (subtract under-age children where the line exempts them).</li>
+          <li><strong>Onboard auto-grats:</strong> add 18% to bar tabs, 18% to spa, 18% to specialty dining, 18% to room service charges (varies by line &mdash; see table).</li>
+          <li><strong>Cash extras:</strong> $2 per bag at embarkation; optional end-of-cruise envelopes for head waiter and assistant waiter; $5/day for butler if your suite includes one; $5/person for excursion guides plus $2/person for drivers.</li>
+          <li><strong>Print and pack envelopes labeled by role.</strong></li>
+        </ol>
+      </section>
+    </noscript>
+
+    <form id="tipping-form" class="tipping-form" aria-label="Cruise tipping inputs">
+      <section class="accordion" data-section="sailing" data-expanded="true">
+        <h2><button type="button" class="accordion__toggle" aria-controls="panel-sailing" aria-expanded="true">Your sailing</button></h2>
+        <div id="panel-sailing" class="accordion__panel">
+          <label>Cruise line
+            <select id="line-select" name="line" required></select>
+          </label>
+          <label>Cabin tier
+            <select id="cabin-tier" name="cabinTier"></select>
+          </label>
+          <label>Sailing embarkation date
+            <input type="date" id="sailing-date" name="sailingDate" autocomplete="off">
+          </label>
+          <label>Nights
+            <input type="number" id="nights" name="nights" min="1" max="180" value="7" required autocomplete="off" inputmode="numeric">
+          </label>
+          <fieldset>
+            <legend>Party</legend>
+            <label>Adults
+              <input type="number" id="adults" name="adults" min="1" max="12" value="2" required autocomplete="off" inputmode="numeric">
+            </label>
+            <label>Children
+              <input type="number" id="children" name="children" min="0" max="12" value="0" autocomplete="off" inputmode="numeric">
+            </label>
+            <div id="children-ages" hidden></div>
+          </fieldset>
+          <p id="bundled-banner" class="bundled-banner" role="note" hidden></p>
+        </div>
+      </section>
+
+      <section class="accordion" data-section="onboard" data-expanded="false">
+        <h2><button type="button" class="accordion__toggle" aria-controls="panel-onboard" aria-expanded="false">Onboard extras</button></h2>
+        <div id="panel-onboard" class="accordion__panel">
+          <label>Estimated bar tab (cruise total, $)
+            <input type="number" id="bar-tab" name="barTab" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
+          </label>
+          <label><input type="checkbox" id="bar-prepaid" name="barPrepaid"> I have a prepaid drink package (auto-grats included)</label>
+          <label>Specialty dining covers ($/person/meal)
+            <input type="number" id="specialty-cost" name="specialtyCost" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
+          </label>
+          <label>Specialty dining meals (count)
+            <input type="number" id="specialty-meals" name="specialtyMeals" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
+          </label>
+          <label>Spa total ($)
+            <input type="number" id="spa-total" name="spaTotal" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
+          </label>
+          <label>Room service orders (count)
+            <input type="number" id="room-service-count" name="roomServiceCount" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
+          </label>
+          <label>Avg per order ($)
+            <input type="number" id="room-service-avg" name="roomServiceAvg" min="0" step="1" value="0" autocomplete="off" inputmode="numeric">
+          </label>
+        </div>
+      </section>
+
+      <section class="accordion" data-section="cash" data-expanded="false">
+        <h2><button type="button" class="accordion__toggle" aria-controls="panel-cash" aria-expanded="false">Service tips, cash on top</button></h2>
+        <div id="panel-cash" class="accordion__panel">
+          <!-- Rendered by render.js from the selected line's recommendedCashExtras. -->
+        </div>
+      </section>
+    </form>
+
+    <aside id="result-panel" class="result-panel" aria-labelledby="result-panel-heading">
+      <h2 id="result-panel-heading">Your tipping plan</h2>
+      <div class="result-panel__live" aria-live="polite" aria-atomic="false">
+        <p class="result-panel__headline" id="result-headline"></p>
+        <ul class="result-panel__breakdown" id="result-breakdown"></ul>
+      </div>
+      <div class="result-panel__actions">
+        <button type="button" id="compare-toggle" aria-expanded="false" aria-controls="compare-column">Compare another line</button>
+        <button type="button" id="print-plan">Print my plan</button>
+        <button type="button" id="reset">Reset</button>
+      </div>
+      <section id="compare-column" class="result-panel__compare" aria-label="Compare with another line" hidden></section>
+    </aside>
+  </main>
+
+  <footer class="wrap" role="contentinfo">
+    <p>&copy; 2026 In the Wake &middot; A Cruise Traveler's Logbook &middot; All rights reserved.</p>
+    <p class="tiny mt-05">
+      <a href="/privacy.html">Privacy</a> &middot;
+      <a href="/terms.html">Terms</a> &middot;
+      <a href="/about-us.html">About</a> &middot;
+      <a href="/support.html">Support</a> &middot;
+      <a href="/reaching-someone-at-sea.html">Reach Family at Sea</a> &middot;
+      <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
+    </p>
+    <p class="tiny center dedication-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy.</p>
+    <p class="trust-badge">&#10003; No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+  </footer>
+
+  <!-- Tipping Calculator main module -->
+  <script type="module" src="/assets/js/tools/cruise-tipping-calculator/main.js"></script>
+
+  <!-- Dropdown nav JS -->
+  <script src="/assets/js/dropdown.js?v=3.010.300" defer></script>
+</body>
+</html>

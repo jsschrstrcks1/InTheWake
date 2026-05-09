@@ -3328,6 +3328,20 @@ function validateInternalNumericConsistency($) {
   // not for guests — the regex's \s* greedily bridged across `</dd>` to a
   // distant "Guests" keyword. Skip these.
   const NON_GUEST_LABEL = /\b(tonnage|gross\s+tons?|gross\s+tonnage|GT|metric\s+tons?|displacement|ft\b|feet|metres?|m\b|year(\s+built)?|built|IMO|MMSI|crew(\s+members?)?|knots?|length|beam|draft|draught)\s*[:.]?\s*$/i;
+  // Cross-ship comparison contexts: the integer refers to a DIFFERENT ship
+  // being recommended or compared, not to the page's ship. Mirrors
+  // COMPARISON_CONTEXT_TRIGGERS in admin/repair-internal-consistency.js so
+  // validator and repair-script agree. Match against a 200-char lookback +
+  // 100-char lookahead window centered on the integer.
+  const COMPARISON_TRIGGERS = [
+    /\bif you (want|prefer|need|like|would prefer|are looking)\b/i,
+    /\b(may|might|would|could) be a better (fit|choice|option)\b/i,
+    /\b(the )?(grand|sphere|coral|spirit|breakaway|jewel|prima|edge|excel|conquest|quantum|oasis|voyager|radiance|freedom|icon|millennium|vista|fantasy|sunshine|seabourn|silversea|explora) class (carries|has|holds|features|sails)\b/i,
+    /\b(intimate|small|large|bigger|smaller|tiny|mid-?size) (ocean|cruise|cunard|princess|carnival|holland|royal|norwegian|celebrity|msc|costa) ships?\s+(at\s+|under|over|around|near)\b/i,
+    /\bby contrast\b/i,
+    /\bin contrast\b/i,
+    /\bunlike (the |her |its |a |an )/i,
+  ];
   const found = [];
   let m;
   while ((m = guestPattern.exec(bodyText)) !== null) {
@@ -3338,6 +3352,12 @@ function validateInternalNumericConsistency($) {
     const isLabelledMax = MAX_LABEL.test(ctxBefore) || MAX_LABEL.test(ctxAfter);
     const isLowerBound = LOWER_BOUND.test(ctxBefore);
     if (isLowerBound) continue;
+    // Comparison-context check uses a wider window than ctxBefore/ctxAfter.
+    const compStart = Math.max(0, m.index - 200);
+    const compEnd = Math.min(bodyText.length, m.index + m[0].length + 100);
+    const compWindow = bodyText.slice(compStart, compEnd);
+    const isComparison = COMPARISON_TRIGGERS.some(rx => rx.test(compWindow));
+    if (isComparison) continue;
     found.push({ num, isLabelledMax, ctx: (ctxBefore.slice(-30) + '⟨' + num + '⟩' + ctxAfter.slice(0, 30)) });
   }
 
