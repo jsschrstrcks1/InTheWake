@@ -376,6 +376,52 @@ Each port's content must be **port-specific** — no generic templates. Research
 
 ## GREEN LANE — AI Executes Autonomously
 
+### [G] Phase 3 ai-summary follow-ups — surfaced 2026-05-09
+
+**Source:** Continuation of PR #1466 (Phase 3.2a). After merging the 7 ai-summary boilerplate rewrites + image-reuse-guardrail dependency, three follow-ups remain. Listed in continuation-of-work order.
+
+#### Phase 3.2b — finish ai-summary boilerplate cleanup
+
+- [ ] **7 ships still flagged** by `icp_lite/ai_summary_boilerplate` per the post-merge dashboard refresh (`audit-reports/ship-validation-dashboard.json`, generated 2026-05-09).
+- [ ] Use the `ai-summary-rewriter` skill exactly as in 3.2a: 2 ship-specific facts (class / year / tonnage / distinctive feature) + 1 voice-aligned editorial line, ≤250 chars (validator hard cap from `icp_lite/ai_summary_length`), zero phrases from `ai_summary_boilerplate_phrases`.
+- [ ] Replace **all four** boilerplate occurrences per page: `<meta name="ai-summary">`, `<meta name="description">`, JSON-LD `WebPage` description, JSON-LD `Cruise` description (the trap that bit Explorer in 3.2a).
+- [ ] Per-ship audit log to `audit-reports/ai-summary-rewrites/<slug>.md`. Optional Grok challenge-pass via `consult` skill if any rewrite feels weak.
+- [ ] Regenerate `audit-reports/ship-validation-dashboard.{json,html}` from the merged tree before committing.
+- [ ] Identify the 7 ships:
+  ```bash
+  jq -r '.per_page[] | select(.sh_errors[]?.rule == "icp_lite/ai_summary_boilerplate") | .file' \
+    audit-reports/ship-validation-dashboard.json
+  ```
+- [ ] **Effort:** ~half a session. Skill is warm from 3.2a; pattern is well-rehearsed.
+- [ ] **Done when:** `ai_summary_boilerplate` fleet count = 0 across all 290 ships.
+
+#### Phase 3.5 — image-reuse-guardrail allowlist (issue #1465)
+
+- [ ] **Issue:** https://github.com/jsschrstrcks1/InTheWake/issues/1465
+- [ ] Two complementary fixes inside `.claude/skills/image-reuse-guardrail/` and possibly `admin/scan-image-reuse.cjs`:
+  1. **Same-entity normalizer.** Treat `assets/ships/Carnival_Conquest_3.jpg` and `assets/ships/carnival/carnival-conquest-exterior.jpg` as same-entity (both normalize to `carnival/carnival-conquest`). Applies to authors, ports, articles too.
+  2. **FOM filename allowlist.** Files matching `*-FOM- - *.webp` are intentionally one-image-per-named-ship by convention. Allow-list the pattern (Option A in #1465) unless the FOM convention itself is up for revisit.
+- [ ] **Test cases that must still fail** (Cordelia pattern):
+  - `assets/ships/cordelia/cordelia-1.jpg` ↔ `assets/ships/carnival/carnival-fascination-1.jpg` (different lines, no shared slug)
+  - `assets/ports/dubai/hero.jpg` ↔ `assets/ports/cozumel/hero.jpg` (different ports)
+- [ ] **Test cases that must now pass:** the 4 documented in #1465.
+- [ ] **Effort:** 1–2 hours. Removes the recurring `--no-verify` papercut that blocked PR #1466 commits.
+
+#### Phase 3.6 — `cascade_fully_failed` triage
+
+- [ ] **50 ships** flagged by `js:runtime_data/cascade_fully_failed` per the same dashboard. Top single failure category by count (147 `js:images/few_images` is higher but is mostly warn-tier; cascade is a real user-visible bug — specs / data sections fail to render).
+- [ ] **Investigation first:** root cause unknown. Likely candidates: missing `data-*` attributes the cascade script reads, broken JSON in `assets/data/ships/`, or a script load order issue introduced by an upstream merge.
+- [ ] Use `systematic-debugging` skill before proposing fixes. Pick 1–2 affected ships, reproduce in a browser, instrument the cascade loader, identify the failure mode, then plan the fix scope.
+- [ ] Identify the 50 ships:
+  ```bash
+  jq -r '.per_page[] | select(.js_errors[]?.rule == "runtime_data/cascade_fully_failed") | .file' \
+    audit-reports/ship-validation-dashboard.json
+  ```
+- [ ] **Effort:** unknown until root-caused. Could be a one-line fix affecting all 50, or 50 individual data-shape repairs.
+- [ ] **Why it's higher value than 3.2b for end users:** boilerplate ai-summary is invisible to readers; a fully-failed data cascade means the ship page renders without specs / amenities / itinerary data. Real bug, real impact.
+
+---
+
 ### [G] Noscript Remediation — Port Pages (NEW — 2026-04-09)
 **Status:** Not started — plan ready, scripts needed
 **Priority:** P1 — accessibility and pastoral mandate (exhausted caregivers on hospital WiFi, privacy-conscious travelers using NoScript, disabled users on stripped-down browsers)
