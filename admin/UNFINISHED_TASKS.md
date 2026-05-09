@@ -810,11 +810,26 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 - [x] **Files:** `ships/carnival/carnival-firenze.html`, `carnival-horizon.html`, `carnival-panorama.html`, `carnival-sunshine.html`, `carnival-venezia.html`. These five use a `Planning` dropdown (not the standard `Tools` dropdown) plus a sidebar `Planning Tools` widget — Task 12's bulk update keyed on the `Tools` dropdown pattern and missed them.
 - **Fix shipped:** Added the Tipping Calculator to BOTH surfaces on each of the 5 pages: in the Planning dropdown right after `Drink Calculator`, and in the sidebar Quick Tools widget right after `Budget Calculator`. Each page now has 2 references to the tool. All 5 parse as valid HTML, all 5 serve HTTP 200, no regressions in the cruise-tipping test suite.
 
-### P3 — No Playwright regression spec for the other 8 site tools
+### P3 — Playwright regression baseline for the 8 other site tools ✅ DONE 2026-05-09
 
-- [ ] **Process gap:** The webapp-testing skill says the site has 9 interactive JavaScript tools handling real-money decisions. Only the cruise tipping calculator has a Playwright spec on this branch. Task 13 reported "all Playwright tests pass" but only ran our 6 new tests. Other tools (drink-calculator, drink-calculatorv2, cruise-budget-calculator, port-day-planner, ship-tracker, port-tracker, ship-size-atlas, stateroom-check) have no automated coverage. Risk: a future shared-CSS or shared-nav change breaks one of them silently.
-- **Fix shape:** Backfill at minimum a smoke spec per tool — load the page, click the primary CTA, assert that an output element renders. Could be 9 × ~20-line specs in `tests/playwright/`. Lower the bar: just verify each tool's golden path doesn't 500 / NaN / blank-screen. Higher bar: parity with the cruise-tipping spec (golden path + at least one edge case per tool).
-- **Why P3:** Defensive/process work. No immediate user-facing impact, but the lack of regression coverage is what allowed Task 12's budget-calculator nav miss to escape detection until the careful-not-clever audit caught it manually.
+- [x] **Shipped:** `tests/playwright/tools-smoke.spec.js` — one smoke test per tool (8 total) asserting (a) HTTP 200 on load, (b) primary `<h1>` renders, (c) `<title>` is non-empty. Listens for JS pageerrors via `page.on('pageerror')` and annotates them on the test report (without failing). Suite now runs 19 Playwright tests total (11 cruise-tipping + 8 smoke). When the JS-error finding below is fixed, flip the annotation to a hard assertion.
+- **What this catches going forward:** any future shared-CSS/shared-nav/shared-asset change that 500s, blanks, or swaps out an `<h1>` on those tools. Catches the kind of regression that allowed Task 12's budget-calculator nav miss to escape detection.
+
+### P2 — Pre-existing JS errors on 4 tools (Discovered 2026-05-09 by smoke spec)
+
+- [ ] **Bug surfaced by the smoke spec:** Four tools throw `Invalid or unexpected token` as a `pageerror` during initial load:
+  - `/tools/port-tracker.html`
+  - `/tools/ship-tracker.html`
+  - `/drink-calculator.html`
+  - `/drink-calculatorv2.html`
+  
+  The error has an empty stack trace, suggesting it originates from an inline `<script>` block that errors before any module loads (a syntactic issue that prevents the script from compiling). Likely candidates: a malformed JSON-LD block, a templated string that didn't get rendered, or a `JSON.parse` on a value that's already an object. None of the tools are visibly broken to a casual user — the page renders, the h1 shows, the form widgets load — so whatever the failing script does is non-blocking. But "invisibly broken JS at page load" is a real defect on tools that handle real-money decisions; analytics may not fire correctly, error reporting may silently drop the error itself, and any feature that depended on the failing script is silently absent.
+- **Fix shape:** Open each of the 4 tools in a browser DevTools console; the error will surface with a real stack trace and source location. Probably a single root cause shared across at least the two drink-calculator pages and possibly the two trackers. Once fixed, flip the annotation in `tests/playwright/tools-smoke.spec.js` to `expect(errors).toEqual([])` so the suite enforces it going forward.
+- **Why P2:** Same trust class as the children-handling and region-pricing fixes — silent JS errors on calculators that handle real money are a credibility risk even if no current user complaint maps to them. Lower urgency than the dollar-correctness P1s because nothing visible is wrong; upgrade to P1 if any feature on these pages turns out to depend on the failing script.
+
+### P3 — `[object Object]` 404s in the webserver log during Playwright runs (Discovered 2026-05-09)
+
+- [ ] **Smell:** During Playwright runs of any spec, the test webserver logs repeated `GET /[object%20Object] HTTP/1.1 404` requests. Means somewhere a JavaScript object is being concatenated into a URL string without `JSON.stringify` or a `.toString()` definition, then `fetch()`/`<img src>`-d. Doesn't break tests; doesn't break visible behavior. Likely a third-party script (analytics, consent manager) or a service worker quirk. Investigate by tailing the webserver log while running a single tool page and grepping the repo for `${...}` URL templates that could swallow an unstringified object. Low priority — diagnostic noise, not a user-facing issue.
 
 ### Why these are tracked here
 
