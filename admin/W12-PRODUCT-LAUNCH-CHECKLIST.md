@@ -73,7 +73,7 @@ For both prototypes — repeat for each:
 
 The current prototypes exist at `admin/voyage-packs/*.md` and `admin/voyage-packs/*.html`. Buyers need:
 
-- [ ] **PDF version** — generated from the markdown source via `admin/scripts/voyage-pack-pdf-build.sh`. Workflow:
+- [ ] **PDF version** — generated from the markdown source via `admin/scripts/voyage-pack-pdf-build.sh`. **Full lifecycle documented in `admin/voyage-packs/README.md`.** Workflow summary:
     - **Build once per pack version.** The script is idempotent — re-running it skips packs whose PDF is already newer than the markdown source. `--force` rebuilds anyway. `--check` exits non-zero if any PDF is stale or missing (the pre-commit hook uses this).
     - **Rebuild when the markdown source changes.** A pre-commit hook in `.githooks/pre-commit` blocks commits that change a voyage-pack `.md` without an updated `.pdf`. Bypass with `git commit --no-verify` only when intentionally shipping a `.md` change without regenerating the `.pdf`.
     - **Re-upload to the payment processor only when the PDF actually changes.** Daily commits don't trigger a re-upload because daily commits don't change the PDF (the staleness check enforces correlation).

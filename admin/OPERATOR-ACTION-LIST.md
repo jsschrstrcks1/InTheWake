@@ -221,7 +221,9 @@ Same as the 2026-07-01 audit; second iteration.
 
 ### 18. v0.1 Symphony Voyage Pack HTML render — **✅ shipped 2026-05-07 (commit `c464e1ec`)**
 
-The v0.1 Symphony pack now exists as both markdown (`admin/voyage-packs/v0.1-symphony-western-caribbean-7n.md`) and HTML (`.html`). Both v0.1 Symphony and v0.1.2 NCL Aqua now ship at full feature parity for the offline-PWA experience: fillable Emergency Contacts handoff card, print/PDF download buttons, floating TOC sidebar, the same shared CSS/JS modules. **No further action needed on this item.**
+The v0.1 Symphony pack now exists as both markdown (`admin/voyage-packs/v0.1-symphony-western-caribbean-7n.md`) and HTML (`.html`). Both v0.1 Symphony and v0.1.2 NCL Aqua now ship at full feature parity for the offline-PWA experience: fillable Emergency Contacts handoff card, print/PDF download buttons, floating TOC sidebar, the same shared CSS/JS modules.
+
+**PDF deliverables** are now built via `admin/scripts/voyage-pack-pdf-build.sh` (idempotent; pre-commit hook blocks committing a modified `.md` without a regenerated `.pdf`). **Full lifecycle documented in `admin/voyage-packs/README.md`** — covers source/HTML/PDF sync, engine setup, the staleness check, common errors, and how to add a new pack. **No further action needed on this item.**
 
 ### 19. Voyage Pack discoverability — homepage CTA + nav addition
 
