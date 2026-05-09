@@ -2463,6 +2463,31 @@ h3.seasonal-section-title::after {
   .hero-ship img {
     max-height: 50vh;
   }
+
+  /* Home-page hero: tagline / credit-pill collision (Phase C, 2026-05-09).
+     .tagline used `white-space: nowrap` and was anchored bottom-left while
+     .hero-credit was anchored bottom-right; on narrow phones the long
+     "A Cruise Traveler's Logbook" string ran straight under the photo
+     credit pill. Fix: let the tagline wrap, lift the credit pill to
+     top-right, hide the decorative compass at this width so the new pill
+     position doesn't collide with it. Compass is aria-hidden, safe to
+     hide. */
+  .tagline {
+    white-space: normal;
+  }
+  .hero-credit {
+    top: .85rem;
+    right: .85rem;
+    bottom: auto;
+  }
+  .hero-credit .pill,
+  .hero-credit .pill.long {
+    font-size: .8rem;
+    padding: .35rem .6rem;
+  }
+  .hero-compass {
+    display: none;
+  }
 }
 
 /* --- 360px: Micro viewport floor (Section 3, 8.2) --- */
