@@ -805,11 +805,10 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 - **Fix shipped:** Added a second tier to `virgin-voyages.json` — `slug: "onboard", amount: 22.00, label: "Posted onboard the ship"`. The existing tier was relabeled "Pre-paid before sailing — recommended" so users see both options in the cabin-tier dropdown with their dollar amounts. No new schema field required (the existing `tiers` array already supported this); no Virgin-specific code paths. The cabin-tier dropdown serves both the suite-vs-standard semantic for other lines and the prepaid-vs-onboard semantic for Virgin — labels make the choice clear.
 - **Tests:** 1 new Playwright case verifying $20×7×2 = $280 by default and $22×7×2 = $308 after switching to "onboard." 11/11 Playwright pass total.
 
-### P3 — Five legacy Carnival ship pages have a sidebar Quick Tools widget that lists Budget + Drink Calculator but not Tipping Calculator
+### P3 — Five legacy Carnival ship pages had no Tipping Calculator entry ✅ DONE 2026-05-09
 
-- [ ] **Files:** `ships/carnival/carnival-firenze.html`, `carnival-horizon.html`, `carnival-panorama.html`, `carnival-sunshine.html`, `carnival-venezia.html`. These five do not use the standard Tools dropdown nav (so the 1,217-page bulk update did not reach them); instead they use an older sidebar "Planning Tools" widget that lists Budget Calculator and Drink Package Calculator. The Task 12 wiring agent intentionally left them alone as a curated subset.
-- **Fix shape:** One option — add a third `<li>` to the sidebar widget on each of the five pages pointing at `/tools/cruise-tipping-calculator.html`. Other option — leave them as-is on the principle that the sidebar is a curated "tools that pair with cruise budgeting" list, in which case the Tipping Calculator arguably belongs more than the Drink one. Judgment call.
-- **Why P3:** Discovery/visibility issue, not a correctness issue. A user on `carnival-horizon.html` who wants the tipping calculator can still find it from the global nav (when those pages are eventually upgraded to the standard nav).
+- [x] **Files:** `ships/carnival/carnival-firenze.html`, `carnival-horizon.html`, `carnival-panorama.html`, `carnival-sunshine.html`, `carnival-venezia.html`. These five use a `Planning` dropdown (not the standard `Tools` dropdown) plus a sidebar `Planning Tools` widget — Task 12's bulk update keyed on the `Tools` dropdown pattern and missed them.
+- **Fix shipped:** Added the Tipping Calculator to BOTH surfaces on each of the 5 pages: in the Planning dropdown right after `Drink Calculator`, and in the sidebar Quick Tools widget right after `Budget Calculator`. Each page now has 2 references to the tool. All 5 parse as valid HTML, all 5 serve HTTP 200, no regressions in the cruise-tipping test suite.
 
 ### P3 — No Playwright regression spec for the other 8 site tools
 
