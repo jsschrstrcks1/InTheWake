@@ -380,20 +380,37 @@ Each port's content must be **port-specific** — no generic templates. Research
 
 **Source:** Continuation of PR #1466 (Phase 3.2a). After merging the 7 ai-summary boilerplate rewrites + image-reuse-guardrail dependency, three follow-ups remain. Listed in continuation-of-work order.
 
-#### Phase 3.2b — finish ai-summary boilerplate cleanup
+#### Phase 3.2b — finish ai-summary boilerplate cleanup ✅ IN PR
 
-- [ ] **7 ships still flagged** by `icp_lite/ai_summary_boilerplate` per the post-merge dashboard refresh (`audit-reports/ship-validation-dashboard.json`, generated 2026-05-09).
-- [ ] Use the `ai-summary-rewriter` skill exactly as in 3.2a: 2 ship-specific facts (class / year / tonnage / distinctive feature) + 1 voice-aligned editorial line, ≤250 chars (validator hard cap from `icp_lite/ai_summary_length`), zero phrases from `ai_summary_boilerplate_phrases`.
-- [ ] Replace **all four** boilerplate occurrences per page: `<meta name="ai-summary">`, `<meta name="description">`, JSON-LD `WebPage` description, JSON-LD `Cruise` description (the trap that bit Explorer in 3.2a).
-- [ ] Per-ship audit log to `audit-reports/ai-summary-rewrites/<slug>.md`. Optional Grok challenge-pass via `consult` skill if any rewrite feels weak.
-- [ ] Regenerate `audit-reports/ship-validation-dashboard.{json,html}` from the merged tree before committing.
-- [ ] Identify the 7 ships:
-  ```bash
-  jq -r '.per_page[] | select(.sh_errors[]?.rule == "icp_lite/ai_summary_boilerplate") | .file' \
-    audit-reports/ship-validation-dashboard.json
-  ```
-- [ ] **Effort:** ~half a session. Skill is warm from 3.2a; pattern is well-rehearsed.
-- [ ] **Done when:** `ai_summary_boilerplate` fleet count = 0 across all 290 ships.
+**Status:** All 36 ships fixed on branch `claude/phase3-2b-ai-summary-cleanup`. Validator tightened with 5 atomic boilerplate fragments. Audit log: `audit-reports/ai-summary-rewrites/_phase3-2b-batch-2026-05-09.md`.
+
+The actual scope was bigger than the original 7-ship guess: **17 propagations** (ai-summary already specific; description tag still boilerplate) + **19 rewrites** (ai-summary itself was boilerplate by tightened standards). Mechanism:
+
+- `admin/phase3-2b-propagate.cjs` — copies existing ai-summary into description meta + JSON-LD descriptions
+- `admin/phase3-2b-rewrite.cjs` — accepts a JSON map of `path → new_summary`, replaces ai-summary, then propagates
+
+Tightening the validator (`admin/validator-config.json`) added: `"deck plans, live tracker"`, `"deck plans, live tracking"`, `"deck plans, dining venues, stateroom tours"`, `"deck plans, historical information"`, `"historical information, legacy, and ship details"`.
+
+- [x] All 36 ships silent on `ai_summary_boilerplate` AND `ai_summary_length`
+- [x] Validator tightening lives in same PR
+
+#### Phase 3.2c — newly-surfaced boilerplate (26 ships)
+
+**Source:** Tightening the validator in 3.2b surfaced 26 additional ships carrying boilerplate variants the original phrase list missed. Not a CI blocker (the CI workflow doesn't run the validator's boilerplate rule fleet-wide), so deferred rather than expanding 3.2b's blast radius.
+
+Target list saved to `audit-reports/ai-summary-rewrites/_phase3-2c-targets.txt`. Distribution:
+
+| Cruise line | Count | Representative pattern |
+|---|---:|---|
+| Celebrity Cruises | 12 | "Ship • Celebrity Cruises • In The Wake. Deck plans, dining venues, stateroom tours, and live ship tracker." |
+| Holland America Line | 7 | Same template, HAL line |
+| Royal Caribbean | 6 | "historical information, legacy, and ship details" lazy template + 1 trailing-boilerplate (Radiance), 1 test fixture (`rcl/test/allure-of-the-seas.html`), 2 placeholder pages |
+| MSC | 1 | Real specs followed by trailing boilerplate phrase (only the trailer needs trimming, not full rewrite) |
+
+- [ ] Categorize: same propagate-vs-rewrite split as 3.2b. MSC is likely just "trim the trailer." Celebrity + HAL appear to be pure-template; almost certainly all rewrites.
+- [ ] Use `admin/phase3-2b-propagate.cjs` and `admin/phase3-2b-rewrite.cjs` from 3.2b — they're general-purpose.
+- [ ] Audit log: `audit-reports/ai-summary-rewrites/_phase3-2c-batch-<date>.md`.
+- [ ] **Done when:** `ai_summary_boilerplate` fleet count returns to 0 across all 290 ships, with the tightened validator.
 
 #### Phase 3.5 — image-reuse-guardrail allowlist (issue #1465)
 
