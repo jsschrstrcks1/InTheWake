@@ -73,7 +73,7 @@ For both prototypes — repeat for each:
 
 The current prototypes exist at `admin/voyage-packs/*.md` and `admin/voyage-packs/*.html`. Buyers need:
 
-- [ ] **PDF version** — generated from the markdown source. Tools: `pandoc` (free, simple), or print-to-PDF from the HTML render (cleaner styling but requires manual page-break tuning). Recommend `pandoc -o pack.pdf source.md` with a custom CSS for clean paginated output.
+- [ ] **PDF version** — generated from the markdown source via `admin/scripts/voyage-pack-pdf-build.sh` (added 2026-05-09). The script auto-detects an installed pandoc PDF engine (weasyprint recommended; wkhtmltopdf or xelatex as fallbacks) and uses the styled `admin/voyage-packs/voyage-pack-print.css` for clean paginated output. Run `admin/scripts/voyage-pack-pdf-build.sh` (no args) to build both packs, or pass `symphony` / `ncl-aqua` to build one. Help: `admin/scripts/voyage-pack-pdf-build.sh --help`. Outputs land alongside the .md sources in `admin/voyage-packs/`.
 - [x] **HTML version** — both packs now have HTML renders: `admin/voyage-packs/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.html` and `admin/voyage-packs/v0.1-symphony-western-caribbean-7n.html` (Symphony added 2026-05-07, commit `c464e1ec`). Both have the offline-capable Emergency Contacts handoff card with localStorage persistence.
 - [ ] Bundle: PDF + HTML inside a single zip per pack. Filename: `inthewake-voyage-pack-[shortname]-[saildate].zip`
 - [ ] Test the offline-PWA experience: load the HTML, disconnect Wi-Fi, confirm it still renders + the handoff card persists to localStorage

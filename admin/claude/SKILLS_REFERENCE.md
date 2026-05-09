@@ -202,7 +202,7 @@ Two files together form the careful-not-clever guardrail:
 
 | File | Version | Focus |
 |---|---|---|
-| `.claude/skills/careful-not-clever/CAREFUL.md` | v1.0.0 | Process discipline — read first, verify, document as you go |
+| `.claude/skills/careful-not-clever/CAREFUL.md` | v1.7-alpha | Cognitive discipline — three layers (Execution / Structural / Adversarial); read first, verify, document, red-team when canonical guardrails are touched |
 | `admin/CAREFUL.md` | current | Technical discipline — semantic equivalence, CSS class gotchas, pre-commit checks |
 
 Both are injected into context on every prompt via `session-start-guardrail.sh`.
