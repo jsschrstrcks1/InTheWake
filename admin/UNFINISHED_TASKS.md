@@ -799,11 +799,11 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 - **Tests:** 25 unit, 10 Playwright (added 4: Costa Med EUR, MSC three-region switching, picker visibility on single-region lines, plus the toddler-exemption regression already shipped). All green.
 - **Costa half-rate (ages 4–14)** still not modeled — schema would need a `childRateMultipliers` block. Tracked separately in P-future.
 
-### P2 — Virgin Voyages prepaid vs. onboard not exposed
+### P2 — Virgin Voyages prepaid vs. onboard not exposed ✅ DONE 2026-05-09
 
-- [ ] **Bug:** Tool defaults to Virgin's $20/night prepaid rate. The onboard rate is $22/night (the post-2025-10-07 reclassification documented in `admin/CRUISE_TIPPING_RESEARCH_2026.md`). Notes mention it; UI doesn't switch.
-- **Fix shape:** In `assets/data/tipping/virgin-voyages.json`, add a second tier entry (e.g., `slug: "onboard"`, `amount: 22`) and a friendly toggle in the form ("Prepaid" / "Posted onboard"). Or simpler: an `<input type="radio">` pair under the Virgin-only banner that flips the `cabinTier` slug.
-- **Why P2:** Virgin's audience is smaller than the cruise mass market, and most Virgin guests prepay. Trust impact is real but constrained. Lower priority than children + Costa/MSC.
+- [x] **Bug:** Tool defaulted to Virgin's $20/night prepaid rate. Onboard rate is $22/night.
+- **Fix shipped:** Added a second tier to `virgin-voyages.json` — `slug: "onboard", amount: 22.00, label: "Posted onboard the ship"`. The existing tier was relabeled "Pre-paid before sailing — recommended" so users see both options in the cabin-tier dropdown with their dollar amounts. No new schema field required (the existing `tiers` array already supported this); no Virgin-specific code paths. The cabin-tier dropdown serves both the suite-vs-standard semantic for other lines and the prepaid-vs-onboard semantic for Virgin — labels make the choice clear.
+- **Tests:** 1 new Playwright case verifying $20×7×2 = $280 by default and $22×7×2 = $308 after switching to "onboard." 11/11 Playwright pass total.
 
 ### P3 — Five legacy Carnival ship pages have a sidebar Quick Tools widget that lists Budget + Drink Calculator but not Tipping Calculator
 

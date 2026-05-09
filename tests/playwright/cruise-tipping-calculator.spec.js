@@ -159,4 +159,29 @@ test.describe("Cruise tipping calculator", () => {
     await expect(page.locator("#region-select")).toBeHidden();
     await expect(page.locator("#region-label")).toBeHidden();
   });
+
+  test("Virgin Voyages prepaid vs. onboard: cabin tier toggles between $20 and $22", async ({ page }) => {
+    // Regression for the careful-not-clever audit P2 (2026-05-09): Virgin
+    // Voyages charges $20/night when gratuities are pre-paid before sailing
+    // and $22/night when posted onboard. The tool was hard-coded to the
+    // prepaid rate; users planning to pay onboard saw the wrong number.
+    await page.goto(URL);
+    await page.selectOption("#line-select", "virgin-voyages");
+    await page.fill("#nights", "7");
+    await page.fill("#adults", "2");
+    await page.fill("#children", "0");
+
+    const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
+
+    // Default: pre-paid — $20 × 7 × 2 = $280
+    await page.selectOption("#cabin-tier", "standard");
+    await expect(dailyRow).toContainText("$280");
+
+    // Switch to posted-onboard — $22 × 7 × 2 = $308
+    await page.selectOption("#cabin-tier", "onboard");
+    await expect(dailyRow).toContainText("$308");
+
+    // Single-region line — region picker stays hidden.
+    await expect(page.locator("#region-select")).toBeHidden();
+  });
 });
