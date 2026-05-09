@@ -99,10 +99,19 @@ function compare(goldFp, targetFp, targetFile) {
   // Section differences. Apply equivalence map so cosmetic ID variants
   // do not look like missing/extra sections.
   //   port-map-section ≡ map  — both are valid section-wrapper IDs for the
-  //                             interactive map; dubai uses "map", 189 ports
-  //                             use "port-map-section". Verified 2026-05-08:
-  //                             zero CSS/JS/hash-anchor references to either
-  //                             ID, so the runtime treats them as equivalent.
+  //                             interactive map. dubai (gold standard) uses
+  //                             "map"; 189 ports use "port-map-section".
+  //                             Sibling tools (fix-port-section-order.cjs,
+  //                             repair-port.js, fix-port-missing-sections.cjs,
+  //                             fix-port-to-pass.cjs) hard-code
+  //                             "port-map-section" as their working ID, so
+  //                             the broader codebase actually treats THAT as
+  //                             canonical. This map's direction (right-hand
+  //                             side = "map") is arbitrary for set-diff
+  //                             purposes — both ends are members of the same
+  //                             equivalence class. Verified 2026-05-08: zero
+  //                             CSS/JS/hash-anchor refs to either ID, so the
+  //                             runtime treats them as equivalent regardless.
   // Promotion to a single canonical ID is an editorial decision tracked
   // separately; the comparator's job is to surface real structural drift,
   // not cosmetic variance.
