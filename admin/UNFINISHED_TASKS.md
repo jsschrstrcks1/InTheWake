@@ -376,6 +376,72 @@ Each port's content must be **port-specific** — no generic templates. Research
 
 ## GREEN LANE — AI Executes Autonomously
 
+### [G] Phase 3 ai-summary follow-ups — surfaced 2026-05-09
+
+**Source:** Continuation of PR #1466 (Phase 3.2a). After merging the 7 ai-summary boilerplate rewrites + image-reuse-guardrail dependency, three follow-ups remain. Listed in continuation-of-work order.
+
+#### Phase 3.2b — finish ai-summary boilerplate cleanup ✅ IN PR
+
+**Status:** All 36 ships fixed on branch `claude/phase3-2b-ai-summary-cleanup`. Validator tightened with 5 atomic boilerplate fragments. Audit log: `audit-reports/ai-summary-rewrites/_phase3-2b-batch-2026-05-09.md`.
+
+The actual scope was bigger than the original 7-ship guess: **17 propagations** (ai-summary already specific; description tag still boilerplate) + **19 rewrites** (ai-summary itself was boilerplate by tightened standards). Mechanism:
+
+- `admin/phase3-2b-propagate.cjs` — copies existing ai-summary into description meta + JSON-LD descriptions
+- `admin/phase3-2b-rewrite.cjs` — accepts a JSON map of `path → new_summary`, replaces ai-summary, then propagates
+
+Tightening the validator (`admin/validator-config.json`) added: `"deck plans, live tracker"`, `"deck plans, live tracking"`, `"deck plans, dining venues, stateroom tours"`, `"deck plans, historical information"`, `"historical information, legacy, and ship details"`.
+
+- [x] All 36 ships silent on `ai_summary_boilerplate` AND `ai_summary_length`
+- [x] Validator tightening lives in same PR
+
+#### Phase 3.2c — newly-surfaced boilerplate (26 ships) ✅ IN PR
+
+**Source:** Tightening the validator in 3.2b surfaced 26 additional ships carrying boilerplate variants the original phrase list missed.
+
+**Status:** All 26 ships rewritten on branch `claude/phase3-2c-boilerplate-batch-3` (stacked on 3.2b). Audit log: `audit-reports/ai-summary-rewrites/_phase3-2c-batch-2026-05-09.md`. After this batch, the **fleet-wide `ai_summary_boilerplate` count is 0**.
+
+Distribution:
+
+| Cruise line | Count | Pattern |
+|---|---:|---|
+| Celebrity Cruises | 12 | "Ship • Celebrity Cruises • In The Wake. Deck plans, dining venues, stateroom tours, and live ship tracker." |
+| Holland America Line | 7 | Same template, HAL line |
+| Royal Caribbean | 6 | Lazy "historical information" template + 1 trailing-boilerplate (Radiance) + 1 test fixture + 1 placeholder |
+| MSC | 1 | Trailing boilerplate trimmed |
+
+- [x] All 26 rewritten (54 replacements via `admin/phase3-2b-rewrite.cjs`)
+- [x] All 26 silent on `ai_summary_boilerplate` AND `ai_summary_length`
+- [x] Fleet-wide `ai_summary_boilerplate` count = **0**
+
+**Mid-batch correction:** initially split into "ship 22, file 4 as 3.2d" on the false premise that 4 HAL ships were content-stubs. Re-verification using the meta description tag + body prose (not just the `<li><strong>` fact block) showed all 26 had on-page facts. Expanded back to 26. Captured in audit log under "Mid-batch correction."
+
+#### Phase 3.5 — image-reuse-guardrail allowlist (issue #1465)
+
+- [ ] **Issue:** https://github.com/jsschrstrcks1/InTheWake/issues/1465
+- [ ] Two complementary fixes inside `.claude/skills/image-reuse-guardrail/` and possibly `admin/scan-image-reuse.cjs`:
+  1. **Same-entity normalizer.** Treat `assets/ships/Carnival_Conquest_3.jpg` and `assets/ships/carnival/carnival-conquest-exterior.jpg` as same-entity (both normalize to `carnival/carnival-conquest`). Applies to authors, ports, articles too.
+  2. **FOM filename allowlist.** Files matching `*-FOM- - *.webp` are intentionally one-image-per-named-ship by convention. Allow-list the pattern (Option A in #1465) unless the FOM convention itself is up for revisit.
+- [ ] **Test cases that must still fail** (Cordelia pattern):
+  - `assets/ships/cordelia/cordelia-1.jpg` ↔ `assets/ships/carnival/carnival-fascination-1.jpg` (different lines, no shared slug)
+  - `assets/ports/dubai/hero.jpg` ↔ `assets/ports/cozumel/hero.jpg` (different ports)
+- [ ] **Test cases that must now pass:** the 4 documented in #1465.
+- [ ] **Effort:** 1–2 hours. Removes the recurring `--no-verify` papercut that blocked PR #1466 commits.
+
+#### Phase 3.6 — `cascade_fully_failed` triage
+
+- [ ] **50 ships** flagged by `js:runtime_data/cascade_fully_failed` per the same dashboard. Top single failure category by count (147 `js:images/few_images` is higher but is mostly warn-tier; cascade is a real user-visible bug — specs / data sections fail to render).
+- [ ] **Investigation first:** root cause unknown. Likely candidates: missing `data-*` attributes the cascade script reads, broken JSON in `assets/data/ships/`, or a script load order issue introduced by an upstream merge.
+- [ ] Use `systematic-debugging` skill before proposing fixes. Pick 1–2 affected ships, reproduce in a browser, instrument the cascade loader, identify the failure mode, then plan the fix scope.
+- [ ] Identify the 50 ships:
+  ```bash
+  jq -r '.per_page[] | select(.js_errors[]?.rule == "runtime_data/cascade_fully_failed") | .file' \
+    audit-reports/ship-validation-dashboard.json
+  ```
+- [ ] **Effort:** unknown until root-caused. Could be a one-line fix affecting all 50, or 50 individual data-shape repairs.
+- [ ] **Why it's higher value than 3.2b for end users:** boilerplate ai-summary is invisible to readers; a fully-failed data cascade means the ship page renders without specs / amenities / itinerary data. Real bug, real impact.
+
+---
+
 ### [G] Noscript Remediation — Port Pages (NEW — 2026-04-09)
 **Status:** Not started — plan ready, scripts needed
 **Priority:** P1 — accessibility and pastoral mandate (exhausted caregivers on hospital WiFi, privacy-conscious travelers using NoScript, disabled users on stripped-down browsers)

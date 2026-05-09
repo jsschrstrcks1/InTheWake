@@ -36,6 +36,11 @@
   "ai_summary_boilerplate_phrases": [
     "deck plans, live tracker, dining venues, and stateroom videos. Plan your Royal Caribbean cruise",
     "deck plans, live tracker, dining venues, and stateroom videos. Plan your",
+    "deck plans, live tracker",
+    "deck plans, live tracking",
+    "deck plans, dining venues, stateroom tours",
+    "deck plans, historical information",
+    "historical information, legacy, and ship details",
     "serves as a",
     "represents the perfect",
     "offers something for everyone",
@@ -44,6 +49,6 @@
   "main_entity_whitelist": ["Vehicle", "Product", "TouristAttraction"],
   "main_entity_preferred": "Vehicle",
   "main_entity_blacklist": ["Cruise", "Service", "Thing", "WebPage"],
-  "_doc_boilerplate": "ai_summary_boilerplate_phrases: ≥1 hit on a ship's ai-summary => ICP-018 ERROR. The first phrase is the exact 6-ship boilerplate we found. Other entries are common templated tells that should never appear in a unique summary.",
+  "_doc_boilerplate": "ai_summary_boilerplate_phrases: ≥1 hit on a ship's ai-summary => ICP-018 ERROR. Phrases 1–2 are the exact original boilerplate; 3–7 are atomic fragments added 2026-05-09 (Phase 3.2b) to catch evading variants ('...and videos' without 'stateroom', 'live tracking' gerund, 'historical information' lazy template, 'dining venues, stateroom tours' word-order swap). 8–11 are common templated tells that should never appear in a unique summary.",
   "_doc_main_entity": "main_entity_whitelist/blacklist: drives SCHEMA-002. mainEntity @type must be in whitelist; @type in blacklist is BLOCKING. main_entity_preferred = Vehicle (Schema.org subtype of Product specifically for transport devices including ships). Product is acceptable but raises an info-level 'prefer Vehicle' suggestion. Per orchestra debate 2026-04-29 — see audit-reports/orchestra/2026-04-29-policies-0.1-0.4.json. TouristAttraction should be added as additionalType, not as a sibling graph node."
 }
