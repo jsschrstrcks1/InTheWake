@@ -394,23 +394,26 @@ Tightening the validator (`admin/validator-config.json`) added: `"deck plans, li
 - [x] All 36 ships silent on `ai_summary_boilerplate` AND `ai_summary_length`
 - [x] Validator tightening lives in same PR
 
-#### Phase 3.2c — newly-surfaced boilerplate (26 ships)
+#### Phase 3.2c — newly-surfaced boilerplate (26 ships) ✅ IN PR
 
-**Source:** Tightening the validator in 3.2b surfaced 26 additional ships carrying boilerplate variants the original phrase list missed. Not a CI blocker (the CI workflow doesn't run the validator's boilerplate rule fleet-wide), so deferred rather than expanding 3.2b's blast radius.
+**Source:** Tightening the validator in 3.2b surfaced 26 additional ships carrying boilerplate variants the original phrase list missed.
 
-Target list saved to `audit-reports/ai-summary-rewrites/_phase3-2c-targets.txt`. Distribution:
+**Status:** All 26 ships rewritten on branch `claude/phase3-2c-boilerplate-batch-3` (stacked on 3.2b). Audit log: `audit-reports/ai-summary-rewrites/_phase3-2c-batch-2026-05-09.md`. After this batch, the **fleet-wide `ai_summary_boilerplate` count is 0**.
 
-| Cruise line | Count | Representative pattern |
+Distribution:
+
+| Cruise line | Count | Pattern |
 |---|---:|---|
 | Celebrity Cruises | 12 | "Ship • Celebrity Cruises • In The Wake. Deck plans, dining venues, stateroom tours, and live ship tracker." |
 | Holland America Line | 7 | Same template, HAL line |
-| Royal Caribbean | 6 | "historical information, legacy, and ship details" lazy template + 1 trailing-boilerplate (Radiance), 1 test fixture (`rcl/test/allure-of-the-seas.html`), 2 placeholder pages |
-| MSC | 1 | Real specs followed by trailing boilerplate phrase (only the trailer needs trimming, not full rewrite) |
+| Royal Caribbean | 6 | Lazy "historical information" template + 1 trailing-boilerplate (Radiance) + 1 test fixture + 1 placeholder |
+| MSC | 1 | Trailing boilerplate trimmed |
 
-- [ ] Categorize: same propagate-vs-rewrite split as 3.2b. MSC is likely just "trim the trailer." Celebrity + HAL appear to be pure-template; almost certainly all rewrites.
-- [ ] Use `admin/phase3-2b-propagate.cjs` and `admin/phase3-2b-rewrite.cjs` from 3.2b — they're general-purpose.
-- [ ] Audit log: `audit-reports/ai-summary-rewrites/_phase3-2c-batch-<date>.md`.
-- [ ] **Done when:** `ai_summary_boilerplate` fleet count returns to 0 across all 290 ships, with the tightened validator.
+- [x] All 26 rewritten (54 replacements via `admin/phase3-2b-rewrite.cjs`)
+- [x] All 26 silent on `ai_summary_boilerplate` AND `ai_summary_length`
+- [x] Fleet-wide `ai_summary_boilerplate` count = **0**
+
+**Mid-batch correction:** initially split into "ship 22, file 4 as 3.2d" on the false premise that 4 HAL ships were content-stubs. Re-verification using the meta description tag + body prose (not just the `<li><strong>` fact block) showed all 26 had on-page facts. Expanded back to 26. Captured in audit log under "Mid-batch correction."
 
 #### Phase 3.5 — image-reuse-guardrail allowlist (issue #1465)
 
