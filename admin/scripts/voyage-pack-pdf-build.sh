@@ -5,6 +5,7 @@
 #   admin/scripts/voyage-pack-pdf-build.sh                  # build all packs (skip if up-to-date)
 #   admin/scripts/voyage-pack-pdf-build.sh symphony         # build only Symphony
 #   admin/scripts/voyage-pack-pdf-build.sh ncl-aqua         # build only NCL Aqua
+#   admin/scripts/voyage-pack-pdf-build.sh sisters-sea      # build only Sisters at Sea (Resilient Lady)
 #   admin/scripts/voyage-pack-pdf-build.sh --force          # rebuild even if PDF is newer
 #   admin/scripts/voyage-pack-pdf-build.sh --check          # exit 1 if any PDF is stale (no build)
 #   admin/scripts/voyage-pack-pdf-build.sh --help
@@ -43,6 +44,7 @@ cd "$REPO_ROOT"
 PACKS_DIR="admin/voyage-packs"
 SYMPHONY_MD="$PACKS_DIR/v0.1-symphony-western-caribbean-7n.md"
 NCL_AQUA_MD="$PACKS_DIR/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.md"
+SISTERS_SEA_MD="$PACKS_DIR/v0.1.3-virgin-sisters-sea-feb-2027.md"
 PDF_CSS="$PACKS_DIR/voyage-pack-print.css"
 
 # Mode flags
@@ -100,7 +102,12 @@ build_pack() {
 
   case "$engine" in
     weasyprint|wkhtmltopdf)
-      pandoc "$md" \
+      # Pipe-through sed converts /asset/path style paths in the markdown
+      # (consistent with the HTML version's absolute-from-repo-root convention)
+      # into file:// URLs that weasyprint can resolve as filesystem paths.
+      # Without this, weasyprint reads /assets/... as filesystem-root-absolute
+      # (standards-compliant) and fails to find the images.
+      sed "s|](/|](file://$REPO_ROOT/|g" "$md" | pandoc \
         --pdf-engine="$engine" \
         --css="$PDF_CSS" \
         --metadata title="In the Wake — Voyage Pack" \
@@ -145,7 +152,7 @@ run_check_only() {
   local stale=0
   echo "Voyage Pack PDF staleness check"
   echo ""
-  for md in "$SYMPHONY_MD" "$NCL_AQUA_MD"; do
+  for md in "$SYMPHONY_MD" "$NCL_AQUA_MD" "$SISTERS_SEA_MD"; do
     if [ ! -f "$md" ]; then
       continue  # source missing — not this script's concern
     fi
@@ -182,7 +189,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    symphony|ncl-aqua|aqua|ncl|all) target="$arg" ;;
+    symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|all) target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
       exit 2
