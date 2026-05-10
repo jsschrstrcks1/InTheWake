@@ -40,6 +40,7 @@ fi
 LOCK_CLI="$REPO_ROOT/admin/ship-lock.cjs"
 REGRESSION_CLI="$REPO_ROOT/admin/check-ship-regression.cjs"
 IMAGE_REUSE_CLI="$REPO_ROOT/admin/check-image-reuse.cjs"
+VOYAGE_PACK_PDF_CHECK="$REPO_ROOT/admin/scripts/voyage-pack-pdf-build.sh"
 
 mapfile -t SHIP_FILES < <(
     git diff --cached --name-only --diff-filter=ACMR \
@@ -54,7 +55,13 @@ mapfile -t IMAGE_TARGETS < <(
         || true
 )
 
-if [ "${#SHIP_FILES[@]}" -eq 0 ] && [ "${#IMAGE_TARGETS[@]}" -eq 0 ]; then
+mapfile -t VOYAGE_PACK_MD < <(
+    git diff --cached --name-only --diff-filter=ACMR \
+        | grep -E '^admin/voyage-packs/v[0-9].*\.md$' \
+        || true
+)
+
+if [ "${#SHIP_FILES[@]}" -eq 0 ] && [ "${#IMAGE_TARGETS[@]}" -eq 0 ] && [ "${#VOYAGE_PACK_MD[@]}" -eq 0 ]; then
     exit 0
 fi
 
@@ -84,6 +91,22 @@ if [ -f "$IMAGE_REUSE_CLI" ] && [ "${#IMAGE_TARGETS[@]}" -gt 0 ]; then
     echo "pre-commit: image-reuse-checking ${#IMAGE_TARGETS[@]} target(s)…"
     if ! node "$IMAGE_REUSE_CLI" "${IMAGE_TARGETS[@]}"; then
         # check-image-reuse.cjs prints its own block message
+        exit 1
+    fi
+fi
+
+# 4. Voyage-pack PDF staleness check.
+#    When a pack .md is staged, the corresponding .pdf must exist and be
+#    newer than the .md. The PDF is the paid deliverable; a stale or missing
+#    PDF means buyers receive an outdated document.
+#    Rebuild with: admin/scripts/voyage-pack-pdf-build.sh
+if [ -f "$VOYAGE_PACK_PDF_CHECK" ] && [ "${#VOYAGE_PACK_MD[@]}" -gt 0 ]; then
+    echo "pre-commit: voyage-pack PDF staleness check (${#VOYAGE_PACK_MD[@]} pack source(s) staged)…"
+    if ! bash "$VOYAGE_PACK_PDF_CHECK" --check; then
+        echo ""
+        echo "pre-commit: stale or missing Voyage Pack PDF(s). Commit blocked."
+        echo "  Rebuild:   admin/scripts/voyage-pack-pdf-build.sh"
+        echo "  Bypass:    git commit --no-verify  (only when intentionally shipping a .md change without a regenerated .pdf)"
         exit 1
     fi
 fi
