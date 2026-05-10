@@ -107,12 +107,17 @@ build_pack() {
       # into file:// URLs that weasyprint can resolve as filesystem paths.
       # Without this, weasyprint reads /assets/... as filesystem-root-absolute
       # (standards-compliant) and fails to find the images.
+      # Pipe-through sed converts /asset/path style paths to file:// URLs
+      # weasyprint can resolve.
+      # Note: we deliberately omit --metadata title and --toc here. The
+      # markdown source's first H1 becomes the document title; the cover
+      # page is built into the source so we control its layout. Pandoc's
+      # auto-generated TOC was visually crude and used the broken-encoding
+      # title — better to handle TOC inside the source if needed at all.
       sed "s|](/|](file://$REPO_ROOT/|g" "$md" | pandoc \
         --pdf-engine="$engine" \
         --css="$PDF_CSS" \
-        --metadata title="In the Wake — Voyage Pack" \
         --metadata author="In the Wake" \
-        --toc --toc-depth=2 \
         --standalone \
         -o "$pdf"
       ;;
