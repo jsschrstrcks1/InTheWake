@@ -143,7 +143,28 @@ These sources are reliable for US/Alaska/federal content, downloadable within cu
 
 ---
 
+## P0 — HAL First Look carousels: deferred blocking errors (2026-05-10)
 
+**Source:** Session `claude/fix-carnival-validator-krEdD` 2026-05-10. Flickr-photographer-named contamination on HAL pages: 3 files were not Holland America ships at all (Volvo trucks misnamed BonsaiTruck, Taiwanese event group misnamed Westerdam, Lucas Ensing photo of unrelated subject misnamed Nieuw Amsterdam). Files git-rm'd; references dropped from pages.
+
+**Cleanup completed:**
+- `assets/ships/Veendam_flickr_BonsaiTruck.webp` — DELETED (Volvo trucks)
+- `assets/ships/Westerdam_flickr_.webp` — DELETED (Taiwanese event group)
+- `assets/ships/Nieuw_Amsterdam_flickr_LucasEnsing.webp` — DELETED (subject not Nieuw Amsterdam)
+- `Noordam_flickr_TrekkinD47.webp` → `Noordam_IV_flickr_TrekkinD47.webp` (rename only — image is correct, validator's filename-must-include-roman check needed `IV` token); `noordam-iv.html` updated
+- `westerdam.html` — wrong-image slide dropped, existing TIER 2 placeholder slide retained → page now passes
+- `noordam-iv.html` — passes
+
+**Deferred blocking errors (7 pages, 1 critical error each):**
+- `nieuw-amsterdam-v.html`, `prinsendam-ii.html`, `veendam.html`, `veendam-iv.html`, `volendam-iii.html`, `westerdam-ii.html` — wrong-image slide dropped, leaving carousel empty per direction. Validator's `admin/validate-ship-page.sh` line 636 hard-fails empty First Look carousels (`First Look carousel has NO images — carousel will render empty`). Removing the entire `<section>` trips the section-required check on line 563 (none of these pages declare the alternative `id="overview-title"`).
+- `nieuw-amsterdam.html` — wrong-image slide dropped, but the page has pre-existing malformed swiper-wrapper nesting (truck slide opened without `</div>`, all subsequent slides nested inside it). Removing the truck rebalanced the parser depth and exposed an orphan `<div class="swiper-slide">` at line 490 outside the wrapper. Validator now reports `Carousel has 1 swiper-slide(s) OUTSIDE swiper-wrapper`.
+
+**Resolution paths (defer to a follow-up session):**
+1. Apply TIER 2 placeholder pattern (single ship-map.png slide + "authentic photography pending sourcing" caption) on the 6 empty-carousel pages.
+2. Fix nieuw-amsterdam.html structure: drop the orphan duplicate Vancouver slide (lines 490–495 reference `Nieuw_Amsterdam_at_Vancouver.jpg`, already in slide 416–425 of the same carousel).
+3. Or source new authentic Holland America photography for these 6 ships and add proper slides.
+
+---
 
 ## Google Search Console Audit (2026-03-27)
 
