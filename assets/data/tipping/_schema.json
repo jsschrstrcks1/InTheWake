@@ -64,7 +64,21 @@
           "type": "object",
           "properties": {
             "exemptUnderAge": { "type": ["number", "null"] },
-            "notes":          { "type": "string" }
+            "notes":          { "type": "string" },
+            "ageMultipliers": {
+              "type": "array",
+              "description": "Optional. Tiered child-rate model. Each entry covers an age range with a multiplier applied to the daily rate (0 = exempt, 0.5 = half-rate, 1 = full). When present, calc honors this and ignores exemptUnderAge.",
+              "items": {
+                "type": "object",
+                "required": ["minAge", "maxAge", "multiplier"],
+                "properties": {
+                  "minAge":     { "type": "number", "minimum": 0 },
+                  "maxAge":     { "type": "number", "minimum": 0 },
+                  "multiplier": { "type": "number", "minimum": 0 },
+                  "label":      { "type": "string", "description": "Optional friendly label (e.g., 'Half-rate (ages 4-14)') used in the children-ages note." }
+                }
+              }
+            }
           }
         }
       ]

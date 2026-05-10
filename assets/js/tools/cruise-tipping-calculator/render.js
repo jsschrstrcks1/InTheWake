@@ -89,11 +89,20 @@ export function renderChildAges(el, state, line) {
     return;
   }
   el.hidden = false;
-  // Surface the line's exemption rule so families know what triggers the discount.
-  const exemptUnder = line?.childPolicy?.exemptUnderAge;
-  const note = (typeof exemptUnder === "number")
-    ? `${line.displayName} exempts children under ${exemptUnder}. Enter each child's age — leave at 99 if you want them counted as full-fare.`
-    : `${line?.displayName || "This line"} charges all guests regardless of age. Enter each child's age for record-keeping.`;
+  // Surface the line's child-rate rule so families know what triggers the discount.
+  // Tiered model (Costa) wins; binary exemption (Carnival, Norwegian) is the fallback.
+  const cp = line?.childPolicy || {};
+  let note;
+  if (Array.isArray(cp.ageMultipliers) && cp.ageMultipliers.length > 0) {
+    const tiers = cp.ageMultipliers
+      .map(t => t.label || `Ages ${t.minAge}–${t.maxAge}: ${t.multiplier === 0 ? "free" : t.multiplier === 1 ? "full rate" : `${t.multiplier}× rate`}`)
+      .join("; ");
+    note = `${line.displayName} uses tiered child rates — ${tiers}. Enter each child's age below.`;
+  } else if (typeof cp.exemptUnderAge === "number") {
+    note = `${line.displayName} exempts children under ${cp.exemptUnderAge}. Enter each child's age — leave at 99 if you want them counted as full-fare.`;
+  } else {
+    note = `${line?.displayName || "This line"} charges all guests regardless of age. Enter each child's age for record-keeping.`;
+  }
   const ages = state.childAges || [];
   let html = `<p class="children-ages__note"><small>${note}</small></p>`;
   for (let i = 0; i < n; i++) {
