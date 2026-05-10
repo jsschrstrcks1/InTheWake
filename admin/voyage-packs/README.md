@@ -2,7 +2,7 @@
 
 **Purpose:** This directory holds the source files and deliverables for In the Wake's Voyage Packs (W12 of the v2.5 plan). This README documents the full lifecycle so the next person — Ken, a future contributor, or me on a future session — can pick it up cold.
 
-**Last updated:** 2026-05-09
+**Last updated:** 2026-05-10
 
 ---
 
@@ -22,8 +22,9 @@ The `.md` is the source of truth. If the three diverge, **the `.md` wins** and t
 
 | Pack | Slug | Status |
 |---|---|---|
-| v0.1 — Symphony of the Seas Western Caribbean 7N | `v0.1-symphony-western-caribbean-7n` | md + html shipped; pdf pending build |
-| v0.1.2 — NCL Aqua Veterans/Solo Group Dec 2027 | `v0.1.2-ncl-aqua-veterans-solo-group-dec-2027` | md + html shipped; pdf pending build |
+| v0.1 — Symphony of the Seas Western Caribbean 7N | `v0.1-symphony-western-caribbean-7n` | md + html + pdf shipped |
+| v0.1.2 — NCL Aqua Veterans/Solo Group Dec 2027 | `v0.1.2-ncl-aqua-veterans-solo-group-dec-2027` | md + html + pdf shipped |
+| v0.1.3 — Sisters at Sea (Virgin Voyages Resilient Lady, Feb 14–21 2027) | `v0.1.3-virgin-sisters-sea-feb-2027` | md + html + pdf shipped |
 
 ### Other files in this directory
 
@@ -95,6 +96,7 @@ admin/scripts/voyage-pack-pdf-build.sh --check
 # Build only one pack
 admin/scripts/voyage-pack-pdf-build.sh symphony
 admin/scripts/voyage-pack-pdf-build.sh ncl-aqua
+admin/scripts/voyage-pack-pdf-build.sh sisters-sea
 
 # Combine flags
 admin/scripts/voyage-pack-pdf-build.sh --force symphony
@@ -135,7 +137,7 @@ sudo apt install wkhtmltopdf
 admin/scripts/voyage-pack-pdf-build.sh --check
 ```
 
-If it reports "PDF MISSING" for both packs, you're ready to build.
+If it reports "PDF MISSING" for the existing packs, you're ready to build.
 
 If it reports "No PDF engine found," install one of the engines above and retry.
 

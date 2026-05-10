@@ -236,12 +236,16 @@ case "$target" in
   ncl-aqua|aqua|ncl)
     build_pack "$NCL_AQUA_MD" "NCL Aqua Veterans/Solo Dec 2027" "$ENGINE" || failures=$((failures + 1))
     ;;
+  sisters-sea|sisters|virgin)
+    build_pack "$SISTERS_SEA_MD" "Sisters at Sea — Resilient Lady Feb 2027" "$ENGINE" || failures=$((failures + 1))
+    ;;
   all|"")
     build_pack "$SYMPHONY_MD" "Symphony Western Caribbean 7N" "$ENGINE" || failures=$((failures + 1))
     build_pack "$NCL_AQUA_MD" "NCL Aqua Veterans/Solo Dec 2027" "$ENGINE" || failures=$((failures + 1))
+    build_pack "$SISTERS_SEA_MD" "Sisters at Sea — Resilient Lady Feb 2027" "$ENGINE" || failures=$((failures + 1))
     ;;
   *)
-    echo "✗ Unknown target: $target. Use 'symphony', 'ncl-aqua', or 'all'."
+    echo "✗ Unknown target: $target. Use 'symphony', 'ncl-aqua', 'sisters-sea', or 'all'."
     exit 2
     ;;
 esac
