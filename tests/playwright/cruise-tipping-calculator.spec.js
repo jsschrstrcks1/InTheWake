@@ -160,6 +160,29 @@ test.describe("Cruise tipping calculator", () => {
     await expect(page.locator("#region-label")).toBeHidden();
   });
 
+  test("Costa half-rate: family with one school-age child on Med EUR sailing pays €192.50, not €231", async ({ page }) => {
+    // Regression for the careful-not-clever audit P-future (2026-05-09):
+    // Costa's tipping model has tiered child rates — under 4 free, ages 4-14
+    // half-rate, 15+ full. Without the ageMultipliers schema extension, a
+    // family of 2 adults + 1 child age 8 on a 7-night Costa Med sailing was
+    // billed (2 + 1) × 7 × €11 = €231 (full rate for the 8-year-old).
+    // Correct: (2 + 0.5) × 7 × €11 = €192.50.
+    await page.goto(URL);
+    await page.selectOption("#line-select", "costa");
+    await page.selectOption("#region-select", "med-northern-europe");
+    await page.fill("#nights", "7");
+    await page.fill("#adults", "2");
+    await page.fill("#children", "1");
+    await page.fill('input[data-child-index="0"]', "8");
+
+    const dailyRow = page.locator("#result-breakdown li", { hasText: "Daily auto-charge" });
+    await expect(dailyRow).toContainText("€192.50");
+
+    // Note should explain the tiered model so families understand why the number
+    // dropped from the default-99 baseline.
+    await expect(page.locator(".children-ages__note")).toContainText(/Half[- ]rate/i);
+  });
+
   test("Virgin Voyages prepaid vs. onboard: cabin tier toggles between $20 and $22", async ({ page }) => {
     // Regression for the careful-not-clever audit P2 (2026-05-09): Virgin
     // Voyages charges $20/night when gratuities are pre-paid before sailing

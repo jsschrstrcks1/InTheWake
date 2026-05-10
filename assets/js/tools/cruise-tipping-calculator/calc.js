@@ -69,14 +69,37 @@ function tierAmount(tiers, slug) {
   return def.amount;
 }
 
+// Sum the per-child rate weight across all entered child ages.
+//
+// Resolution order:
+//   1. childPolicy.ageMultipliers (tiered model — Costa under-4 free, 4-14 half,
+//      15+ full). Each child's age picks one tier; missing tier → 1.0 (safe overcharge).
+//   2. childPolicy.exemptUnderAge (binary model — Carnival under-2 free, all others full).
+//   3. Neither set → every child counts as full-rate (1.0 each).
+//
+// Returns a non-integer weight for tiered lines (e.g., 1.5 for one half-rate
+// child + one full-rate child). The daily-total calc multiplies by this directly,
+// which produces fractional dollar/euro amounts that are still meaningful at the
+// cent level (round2 handles the precision).
+export function chargedChildrenWeight(line, childAges) {
+  const cp = line.childPolicy || {};
+  const ages = childAges || [];
+  if (Array.isArray(cp.ageMultipliers) && cp.ageMultipliers.length > 0) {
+    return ages.reduce((sum, age) => {
+      const tier = cp.ageMultipliers.find(t => age >= t.minAge && age <= t.maxAge);
+      return sum + (tier ? tier.multiplier : 1);
+    }, 0);
+  }
+  const exemptUnder = cp.exemptUnderAge ?? 0;
+  return ages.filter(age => age >= exemptUnder).length;
+}
+
 export function calcDailyTotal(line, inputs) {
   if (line.bundledInFare) return 0;
   const tiers = pickTiers(line, inputs.sailingDate, inputs.region);
   if (!tiers) return 0;
   const rate = tierAmount(tiers, inputs.cabinTier);
-  const exemptUnder = line.childPolicy?.exemptUnderAge ?? 0;
-  const chargedChildren = (inputs.childAges || []).filter(age => age >= exemptUnder).length;
-  const charged = inputs.adults + chargedChildren;
+  const charged = inputs.adults + chargedChildrenWeight(line, inputs.childAges);
   return round2(rate * inputs.nights * charged);
 }
 

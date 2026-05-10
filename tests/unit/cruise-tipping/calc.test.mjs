@@ -1,7 +1,7 @@
 // tests/unit/cruise-tipping/calc.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { calcDailyTotal, calcOnboardAutoGrats, calcCashExtras, calcGrandTotal, pickRegion, pickCurrency } from "../../../assets/js/tools/cruise-tipping-calculator/calc.js";
+import { calcDailyTotal, calcOnboardAutoGrats, calcCashExtras, calcGrandTotal, pickRegion, pickCurrency, chargedChildrenWeight } from "../../../assets/js/tools/cruise-tipping-calculator/calc.js";
 
 const carnival = {
   bundledInFare: false,
@@ -48,6 +48,7 @@ const regent = { bundledInFare: true, dailyRates: null, childPolicy: null, autoG
 
 // Multi-region fixture mirroring the costa.json shape post-region-pricing fix.
 // Default region: South America USD $14.50; Med region: EUR 11.
+// Tiered child rates: under 4 free, ages 4-14 half-rate, 15+ full.
 const costa = {
   bundledInFare: false,
   currency: "USD",
@@ -55,7 +56,13 @@ const costa = {
     tiers: [{ slug: "standard", label: "All cabins", amount: 14.50, isDefault: true }],
     upcomingChange: null
   },
-  childPolicy: { exemptUnderAge: 4 },
+  childPolicy: {
+    ageMultipliers: [
+      { minAge: 0,  maxAge: 3,   multiplier: 0 },
+      { minAge: 4,  maxAge: 14,  multiplier: 0.5 },
+      { minAge: 15, maxAge: 999, multiplier: 1 }
+    ]
+  },
   autoGratuities: { bar: { percent: 15 }, spa: { percent: null }, specialtyDining: { percent: null }, roomService: { percent: null } },
   regions: [
     {
@@ -156,6 +163,58 @@ test("Costa default region (South America USD): 7 nights × 2 adults × $14.50 =
 
 test("Costa Med region (EUR): 7 nights × 2 adults × EUR 11 = EUR 154", () => {
   assert.equal(calcDailyTotal(costa, { cabinTier: "standard", nights: 7, adults: 2, childAges: [], region: "med-northern-europe" }), 154);
+});
+
+// Costa half-rate (P-future shipped 2026-05-09): tiered child-rate model.
+test("Costa half-rate: 2 adults + 1 child age 8 (Med EUR) = (2 + 0.5) × 7 × 11 = EUR 192.50", () => {
+  assert.equal(
+    calcDailyTotal(costa, { cabinTier: "standard", nights: 7, adults: 2, childAges: [8], region: "med-northern-europe" }),
+    192.5
+  );
+});
+
+test("Costa under-4 still free under tiered model: 2 adults + 1 toddler age 2 (USD SA) = $203 (toddler exempt)", () => {
+  assert.equal(
+    calcDailyTotal(costa, { cabinTier: "standard", nights: 7, adults: 2, childAges: [2] }),
+    203
+  );
+});
+
+test("Costa age 15+ full rate: 2 adults + 1 teen age 16 (USD SA) = $304.50 (3 full charges)", () => {
+  assert.equal(
+    calcDailyTotal(costa, { cabinTier: "standard", nights: 7, adults: 2, childAges: [16] }),
+    304.5
+  );
+});
+
+test("Costa mixed family: 2 adults + ages [3, 8, 16] (Med EUR) = (2 + 0 + 0.5 + 1) × 7 × 11 = EUR 269.50", () => {
+  assert.equal(
+    calcDailyTotal(costa, { cabinTier: "standard", nights: 7, adults: 2, childAges: [3, 8, 16], region: "med-northern-europe" }),
+    269.5
+  );
+});
+
+test("chargedChildrenWeight: tiered model returns fractional sum", () => {
+  assert.equal(chargedChildrenWeight(costa, [3, 8, 16]), 1.5); // 0 + 0.5 + 1.0
+  assert.equal(chargedChildrenWeight(costa, [8, 8, 8]), 1.5);
+  assert.equal(chargedChildrenWeight(costa, []), 0);
+});
+
+test("chargedChildrenWeight: backwards-compat with exemptUnderAge (Carnival)", () => {
+  // Carnival fixture uses exemptUnderAge: 2 — old binary model still works.
+  assert.equal(chargedChildrenWeight(carnival, [1, 5, 7]), 2); // 1 exempt, 2 charged
+  assert.equal(chargedChildrenWeight(carnival, [1, 1]), 0);
+  assert.equal(chargedChildrenWeight(carnival, [3]), 1);
+});
+
+test("chargedChildrenWeight: missing childPolicy → all kids count as full", () => {
+  const noPolicy = { childPolicy: null };
+  assert.equal(chargedChildrenWeight(noPolicy, [1, 5, 16]), 3);
+});
+
+test("chargedChildrenWeight: age outside any tier → defaults to multiplier 1.0 (safe overcharge)", () => {
+  // ageMultipliers covers 0-999. An impossible age above 999 has no tier.
+  assert.equal(chargedChildrenWeight(costa, [1000]), 1);
 });
 
 test("MSC region switch: Caribbean Yacht Club ($23) vs Med Yacht Club (EUR 16) on the same query", () => {
