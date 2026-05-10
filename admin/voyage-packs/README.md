@@ -159,27 +159,214 @@ Edit the CSS file and re-run `--force` to regenerate the PDFs with new styling.
 
 ---
 
-## Adding a new pack
+## Pack authoring standards
 
-When a third pack is created (custom pack, additional generic itinerary, etc.):
+These standards came out of a design pass on the v0.1 / v0.1.2 / v0.1.3 prototypes. Every future pack — generic itinerary or hosted-group — follows this discipline so the PDF feels like a paid product on first open, not a Google Doc export.
 
-1. **Author the `.md`** in this directory using the existing two as templates. Match the section structure: §1 Ship, §2 Day-by-Day, §3 Pre-Cruise Countdown, §4 Packing, §5 Budget, §6 Emergency Contacts, §7+ as needed.
-2. **Translate to `.html`** matching the `v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.html` conventions:
-   - Same `<head>` template (ICP-Lite metas, OG/Twitter cards, JSON-LD)
+### A. Cover page (mandatory)
+
+Every pack starts with a `<div class="vp-cover">` block as the first content of the markdown — pandoc renders this as a full-page cover with `page-break-after: always` so the document body starts on page 2.
+
+Two variants:
+
+**Standard cover** — when you have a clean ship hero photo:
+
+```html
+<div class="vp-cover">
+
+# [Pack Name]
+
+<p class="vp-cover-sub">[Subtitle — what is it, who is it for, dates]</p>
+
+![Alt text — ship name and one-line context](/assets/path/to/hero.jpg)
+
+<p class="vp-cover-byline">A Voyage Pack from In the Wake[<br/>Hosted by ...]</p>
+
+</div>
+```
+
+**Flyer-style cover** — when the pack is built around a promotional flyer that already contains title + dates + ports + branding:
+
+```html
+<div class="vp-cover vp-cover-flyer">
+
+![Long descriptive alt text — title, subtitle, ship, ports, host](/assets/social/[slug]-flyer.jpg)
+
+<p class="vp-cover-byline">A Voyage Pack from In the Wake[<br/>Hosted by ...]</p>
+
+</div>
+```
+
+The `.vp-cover-flyer` variant relaxes the hero-image size constraint so the flyer fills 6×7.2" of the page.
+
+CSS for both variants lives in `voyage-pack-print.css`.
+
+### B. Image discipline — the "cocktails-as-ship" rule
+
+**Before referencing any image, verify it is what its filename suggests.** During v0.1.3 authoring, `assets/ships/Resilient_Lady_flickr_lorablong.webp` turned out to be a photo of two cocktails, not a ship. The same cruise-line site's other "Resilient Lady" file was a Victorian house. Filenames lie. Always:
+
+1. Open the image (Pillow / `python3 -c "from PIL import Image; Image.open('path').show()"`) and verify it actually shows what the alt text claims.
+2. Check aspect ratio — ship exteriors are landscape (1.5:1 to 2:1); portrait-aspect "ship" files are suspect.
+3. If the only available image doesn't match, drop it and document the asset gap in the markdown as an HTML comment. Do not ship a wrong image.
+
+**Compression standards:** images embedded in PDFs (and in fact site-wide) should be ≤300 KB at ≤1600 px wide, JPEG quality 85%, progressive. The `Norwegian_Aqua_southampton.jpg` was 13.6 MB at 8064 px until we resized it; the v0.1.2 PDF dropped from 5 MB to 1.4 MB. Compress in-place with:
+
+```python
+from PIL import Image
+im = Image.open(path)
+if im.size[0] > 1600:
+    im = im.resize((1600, int(im.size[1] * 1600 / im.size[0])), Image.LANCZOS)
+im.convert('RGB').save(path, 'JPEG', quality=85, optimize=True, progressive=True)
+```
+
+### C. Image references in markdown
+
+Use absolute-from-repo-root paths that match the HTML version's convention:
+
+```markdown
+![Caption](/assets/ships/foo.jpg)
+![Caption](/ports/img/freeport/freeport-hero.webp)
+![Tina Maulsby — your group host](/authors/tina2.webp)
+```
+
+The build script's sed-pipe converts `/path` → `file://$REPO_ROOT/path` at PDF-build time. Don't use `../../` relative paths (renders ugly in the markdown source) or full `https://` URLs (forces network fetch on every build).
+
+### D. Tool integration — wire site tools into the prose, not as a footer dump
+
+Each link earns its place by helping the reader at the moment they encounter it. Tool placement matrix:
+
+| Tool | URL | Section | RCL | NCL | Virgin |
+|---|---|---|---|---|---|
+| Drink Calculator | `/drink-calculator.html` | §1 Drinks / §5 Budget | ✓ | ✓ | skip (Virgin all-included) |
+| Drink Packages | `/drink-packages.html` | §1 Drinks | ✓ | ✓ | skip |
+| Stateroom Sanity Check | `/stateroom-check.html` | §1 Cabin choice | **✓ RCL only** | skip | skip |
+| Countdown | `/countdown.html` | §3 Pre-Cruise Countdown | ✓ | ✓ | ✓ |
+| Packing Lists | `/packing-lists.html` | §4 Packing | ✓ | ✓ | ✓ |
+| First-Cruise reference | `/first-cruise.html` | §11 First Cruise Notes | ✓ | ✓ | ✓ |
+| Cruise Budget Calculator | `/tools/cruise-budget-calculator.html` | §5 Budget | ✓ | ✓ | ✓ |
+| Cruise Tipping Calculator | `/tools/cruise-tipping-calculator.html` | §5 Budget / §8 Tipping | ✓ | ✓ | ✓ |
+| Ship Size Atlas | `/tools/ship-size-atlas.html` | §1 Your Ship | ✓ | ✓ | ✓ |
+| Ship Logbook | `/tools/ship-tracker.html` | §1 / §2 | ✓ | ✓ | ✓ |
+| Port Logbook | `/tools/port-tracker.html` | §2 port days | ✓ | ✓ | ✓ |
+| Port Day Planner | `/tools/port-day-planner.html` | §2 port days | ✓ | ✓ | ✓ |
+| Ship Quiz | `/ships/quiz.html` | §1 OR §11 | ✓ | ✓ | ✓ |
+| Cruise Line Quiz | `/cruise-lines/quiz.html` | §11 First Cruise | ✓ | ✓ | ✓ |
+| Reaching Someone at Sea | `/reaching-someone-at-sea.html` | §6 Emergency Contacts | ✓ | ✓ | ✓ |
+| Voyage Packs catalog | `/voyage-packs.html` | Closing | ✓ | ✓ | ✓ |
+| Audit log | `/audit-log.html` | Closing (light-touch) | ✓ | ✓ | ✓ |
+| Support page | `/support.html` | Welcome | ✓ | ✓ | ✓ |
+
+**Limit each tool to 2–3 references per pack.** More than that reads as spam. Each link gets one sentence of why-click context — "see the [drink calculator](/drink-calculator.html)" alone is dumpy; "[run your specific drink-day numbers in the calculator](/drink-calculator.html) — it works across cruise lines" is helpful.
+
+**Important: stateroom-check.html only covers RCL ships right now.** Do not link it from NCL, Virgin, Carnival, MSC, or any other line's pack. Link it only from RCL packs (Symphony, Anthem, Wonder, etc.). When the tool extends to other lines, this README needs updating.
+
+### E. Wikipedia-style cross-linking — first mention links
+
+Every named entity in the pack that has its own page on the site gets linked at first mention in each major section (don't link every mention; the first one per section is enough):
+
+- **Port names** in §2 Day-by-Day headings link to their port page: `### Day 3 — [Roatan, Honduras](/ports/roatan.html)`
+- **The pack's ship** links to its ship page in §1: `[Symphony of the Seas](/ships/rcl/symphony-of-the-seas.html) is large in a way...`
+- **Specialty restaurants** mentioned in §1 Dining link to their venue pages: `[Coastal Kitchen](/restaurants/coastal-kitchen.html), Chops Grille...`
+- **Articles referenced** (cabin organization, accessibility-at-sea, cruise-tech, etc.) link to their article pages
+- **Authors / hosts** link to their author pages: `[Tina Maulsby](/authors/tina-maulsby.html)`
+- **Logbook entries** referenced (grief stories, solo stories) link to their solo/* paths
+
+Audit at draft time:
+
+```bash
+echo -n "  /ports/* links: " && grep -oE '\(/ports/[a-z-]+\.html' "$pack.md" | sort -u | wc -l
+echo -n "  /ships/* links: " && grep -oE '\(/ships/[a-z-]+/[a-z-]+\.html' "$pack.md" | sort -u | wc -l
+echo -n "  /restaurants/* links: " && grep -oE '\(/restaurants/[a-z-]+\.html' "$pack.md" | sort -u | wc -l
+echo -n "  /articles/* links: " && grep -oE '\(/articles/[a-z-]+\.html' "$pack.md" | sort -u | wc -l
+```
+
+Targets: ports/* count should equal the number of named ports in the itinerary; ships/* should be ≥1; restaurants/* should be ≥3 if specialty venues are discussed; articles/* should be ≥1.
+
+### F. Section structure (11-section template)
+
+Every pack uses the same 11 sections in the same order so buyers who own multiple packs can navigate them identically:
+
+1. Your Ship
+2. Day by Day
+3. Pre-Cruise Countdown
+4. Packing List
+5. Budget Breakdown
+6. **Emergency Contacts** (the family handoff card lives here — never moves)
+7. Seasickness on a Caribbean Cruise (or analogous title for non-Caribbean itineraries)
+8. Practical Logistics
+9. The Group Cruise Rhythm (hosted-group packs only) OR Accessibility Notes (generic packs)
+10. Audience-specific (Veterans Considerations / Solo Female Considerations / etc.) OR Solo Traveler Notes
+11. Solo Cruising Deep-Dive OR First Cruise Notes
+
+For hosted-group packs, §9 / §10 / §11 are typically Group Rhythm / Audience-Specific / Solo Deep-Dive. For generic packs they're typically Accessibility / Solo / First Cruise.
+
+### G. Section anchor convention
+
+When you write internal cross-references in the markdown (`[see Section 6](#section-6-emergency-contacts)`), use **single-hyphen pandoc slugs**: `#section-N-lowercased-title-kebabed`. Don't use the double-hyphen pattern (`#section-6--emergency-contacts`) that em-dashes get slugified to in some markdown renderers — pandoc generates single-hyphen slugs and double-hyphen refs won't resolve in the PDF.
+
+After renumbering sections (e.g., when inserting a new §6 pushes everything down), grep for stale section-N anchors:
+
+```bash
+grep -nE 'section-[0-9]+-(veterans|solo|practical|accessibility|seasickness)' your-pack.md
+```
+
+### H. Banned vocabulary (carried from `admin/CTA-STYLE-GUIDE.md`)
+
+Never use: **must-have, must-do, ultimate, definitive, complete guide, everything you need to know, act now, don't miss, limited time, last chance, only X left, selling out fast, as seen on, world-class, perfect, top-rated**.
+
+The Anti-Theater rule from `careful-not-clever` v1.7-alpha applies: writing rules without enforcing them is performance. Run `grep -ciE 'must-have|definitive|ultimate|complete guide|act now' your-pack.md` before commit; the count must be 0 (the only exception is meta-references in scare-quotes, e.g., the FAQ that explicitly disavows the term).
+
+### I. Pastoral guardrails
+
+The pack must respect the same pastoral surface rules as the site:
+
+- No cruise-line affiliate commissions
+- No shore-excursion booking commissions
+- No display advertising in the pack or on its landing
+- No medication-product affiliate links (motion-sickness patches, sleep aids, etc. — FTC vulnerable-consumer rule)
+- No promotional content on grief, accessibility, or faith content within the pack
+- Calm voice; no urgency framing
+
+### J. Share-bar paragraph in the closing
+
+Every pack ends with a Share/community paragraph that names the floating share bar (X / Facebook / Instagram / WhatsApp / WeChat QR) auto-loaded on the HTML version. Sample wording, adapt per audience:
+
+> **Share or save.** The HTML version of this pack has a floating share bar (lower-right on desktop) — copy a link, ping a friend on WhatsApp, or generate a QR code if you're showing someone the page in person. If you find your sailing community on the trip, an Instagram post tagged with the cruise line and the host's handle helps the next solo cruiser find groups like this one.
+
+### K. Build pipeline guarantees
+
+The build script (`admin/scripts/voyage-pack-pdf-build.sh`) handles:
+
+- Pandoc engine detection (weasyprint > wkhtmltopdf > xelatex > pdflatex)
+- The `/path` → `file://$REPO_ROOT/path` sed-pipe so absolute paths resolve to filesystem
+- Page-break-before:auto on h2 (margin + rope rule for separation, not a forced page break)
+- Cover page detection via the `.vp-cover` class
+- 5.6"-wide centered measure for ~70-char readable line length
+- Footer with page number and site URL
+- Idempotency (`--force` to override) and `--check` mode for the pre-commit staleness gate
+
+Run `admin/scripts/voyage-pack-pdf-build.sh --force <slug>` after any markdown edit. The pre-commit hook blocks commits where a pack `.md` is staged without an updated `.pdf`.
+
+### L. Adding a new pack — 9-step procedure
+
+1. **Author the `.md`** following sections A–J. Use the existing packs as templates.
+2. **Cover page** at the top using the standard or flyer-style block from section A.
+3. **Image discipline** per section B — verify, compress, caption honestly.
+4. **Wikipedia-style cross-links** per section E — link every named port, ship, restaurant, article, author at first mention in each section.
+5. **Tool integration** per section D — pick from the matrix; respect the RCL-only constraint on stateroom-check.
+6. **Translate to `.html`** matching the `v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.html` conventions:
+   - Same `<head>` template (ICP-Lite metas, OG/Twitter cards, JSON-LD, share-bar.js auto-loaded)
    - Same TOC sidebar pattern with `vp-toc` class
-   - Same fillable Emergency Contacts handoff card with a unique `data-storage-key`
+   - Same fillable Emergency Contacts handoff card with a unique `data-storage-key` (e.g., `inthewake-handoff-vN.N-<slug>`)
    - Same print + PDF buttons with the same scope attributes
    - Wire `/assets/css/handoff-card.css`, `/assets/css/handoff-card-print.css`, `/assets/js/handoff-card.js`, `/assets/js/pdf-download.js`
    - Set `<meta name="vp-filename-base" content="inthewake-<short-name>"/>` for the PDF filename
-3. **Add it to the build script.** Open `admin/scripts/voyage-pack-pdf-build.sh` and:
+7. **Add it to the build script.** Open `admin/scripts/voyage-pack-pdf-build.sh` and:
    - Add a constant near the top: `NEW_PACK_MD="$PACKS_DIR/<your-slug>.md"`
-   - Add a target case in the `case "$target"` block at the bottom with a `build_pack` call
+   - Add a target case in the `case "$target"` block with a `build_pack` call
    - Add an entry in `run_check_only`'s loop
-4. **Update `/voyage-packs.html`** to add the new pack as an `<article class="vp-product-card">` with the buy button.
-5. **Document the new pack** in this README's "Current packs" table.
-6. **Build the PDF** with `admin/scripts/voyage-pack-pdf-build.sh <new-slug>`.
-7. **Upload the PDF and HTML zip** to the payment processor as a new product.
-8. **Update `admin/W12-PRODUCT-LAUNCH-CHECKLIST.md`** if the new pack changes any operational item.
+8. **Update `/voyage-packs.html`** to add the new pack as an `<article class="vp-product-card">` with the buy button (placeholder Buy Me A Coffee URL pattern: `https://buymeacoffee.com/inthewake/extras/voyage-pack-<slug>`).
+9. **Document** in this README's "Current packs" table; build the PDF with the script; commit + push.
 
 ---
 
