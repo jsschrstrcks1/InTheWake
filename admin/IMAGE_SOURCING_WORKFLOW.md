@@ -4,11 +4,83 @@
 port / ship / venue pages when the existing files are placeholders or lack
 proper attribution.
 
-**Status:** Proven end-to-end on 2026-04-10/11 (college-fjord repair).
+**Status:** Re-verified 2026-05-10 against the live sandbox; all documented
+sources still reachable, all blocked sources still blocked. Now driven by an
+automation harness (see §"Harness — admin/sourcing.py" below).
 **Audience:** Any future session picking up image work.
 
 > **Prerequisite — read first:** `admin/CAREFUL.md` §"Image Verification Protocol".
 > Every image must be visually verified with the Read tool before it lands in the repo.
+
+---
+
+## Harness — `admin/sourcing.py`
+
+Every mechanical step in this workflow is wrapped by `admin/sourcing.py`. The
+harness is the recommended way to drive sourcing in 2026 and beyond — direct
+curl/Pillow incantations are still valid but are no longer documented in detail
+in §"The six-step workflow" because they drift; the harness is canonical.
+
+```
+python3 admin/sourcing.py doctor                      # preflight
+python3 admin/sourcing.py inventory <slug>            # files vs HTML refs vs gaps
+python3 admin/sourcing.py audit-attr <slug>           # Flickr-889 / placeholder detector
+python3 admin/sourcing.py verify-flickr <photo-url>   # fetch + extract CC license
+python3 admin/sourcing.py verify-loc <item-id>        # JSON API + rights + file URLs
+python3 admin/sourcing.py fetch <url> <local-path>    # --http1.1 --fail + integrity check
+python3 admin/sourcing.py convert <jpg> <webp>        # Pillow -> WebP, q=85, max 1600px
+python3 admin/sourcing.py write-attr <webp> <kv...>   # canonical attr.json shape
+python3 admin/sourcing.py rewrite-html <slug>         # repoint <img> to files on disk
+python3 admin/sourcing.py validate <slug>             # image-section blockers only
+python3 admin/sourcing.py plan <slug>                 # next-actions list
+```
+
+What the harness does NOT do (intentional integrity boundary):
+
+- It does not invent search hits. `WebSearch` and `WebFetch` are tools the
+  calling agent owns; the harness only takes URLs the agent has produced.
+- It does not skip visual verification. `fetch` puts bytes on disk; the agent
+  must `Read()` the image and confirm the scene before calling `convert`.
+  Bypassing that step reintroduces the college-fjord / Flickr-889 failure class.
+- It refuses to write attribution JSON whose `license` field is `Flickr (verify
+  license)`, contains `verify license`, or is any NC/ND/NC-ND/NC-SA variant.
+  This is the same guard as ATTR-003 and was added because 889 such files
+  shipped to production in spring 2026.
+
+### Canonical attribution JSON shape (written by `write-attr`)
+
+```json
+{
+  "sourceUrl": "https://www.loc.gov/item/2024686372/",
+  "license": "No known restrictions",
+  "licenseUrl": "https://www.loc.gov/rr/print/res/107_curt.html",
+  "photographer": "Edward S. Curtis (1868-1952), photographer",
+  "title": "Canoe, Ketchican",
+  "description": "1899 Curtis photograph of a Tlingit canoe near Ketchikan.",
+  "alt": "Wooden canoe with single occupant on calm water at edge of forest",
+  "verifiedBy": "sourcing.py session 2026-05-10",
+  "verifiedDate": "2026-05-10"
+}
+```
+
+`sourceUrl`, `license`, `licenseUrl`, `photographer`, `title`, `description`,
+and `alt` are required. `verifiedBy` and `verifiedDate` auto-fill if omitted.
+The harness rejects writes that are missing required fields (override with
+`--allow-partial` only when the gap is documented in caller's notes).
+
+### Sandbox-egress note (re-verified 2026-05-10)
+
+| Host | Reachable? | Notes |
+|---|:---:|---|
+| `www.loc.gov` (HTML, JSON API) | ✓ | Use `?fo=json` for item lookups |
+| `tile.loc.gov` | ✓ for files | Root path returns 403; specific files return 200. **Force `--http1.1`** — HTTP/2 stream truncation is a known issue on this CDN |
+| `www.flickr.com` (photo pages) | ✓ | Use `verify-flickr` to extract license |
+| `live.staticflickr.com` | ✓ | Static image CDN |
+| `images.unsplash.com`, `images.pexels.com` | ✓ | Permissive licenses by default |
+| `www.nps.gov` | ✓ | National Park Service |
+| `commons.wikimedia.org`, `upload.wikimedia.org` | ✗ 403 | Sandbox blocks Wikimedia entirely |
+| `archive.org` | ✗ 403 | Internet Archive blocked |
+| `cdn.pixabay.com` | ✗ 503 | Pixabay CDN blocked |
 
 ---
 
@@ -29,7 +101,9 @@ the third is caught only by opening the file.
 
 ## Sandbox networking — what works and what doesn't
 
-Tested 2026-04-10:
+Re-verified 2026-05-10 (results shown in §"Harness" above). Original 2026-04-10
+table preserved below for change-tracking; if these diverge from `python3
+admin/sourcing.py doctor`, trust `doctor` and update the table.
 
 | Host | Reachable? | Purpose |
 |------|:---:|---|
@@ -67,11 +141,24 @@ primary working sources.
 ⚠ **Any Flickr URL returned by an LLM must be verified** — see the AI shootout
 section at the bottom of this file. LLMs hallucinate Flickr IDs with high confidence.
 
-## The six-step workflow
+## The six-step workflow (now driven by the harness)
+
+The steps below remain conceptually the same. The commands shown are now the
+harness wrappers; the inline curl / Pillow recipes are kept further down for
+when you need to customise behaviour.
 
 ### 1. Identify the specific subject need
 
-For each port / ship, list what images you need by subject — e.g.:
+Run the inventory + plan commands first; they tell you what's already on disk,
+what HTML refs are broken, and what subjects are still needed:
+
+```
+python3 admin/sourcing.py inventory <slug>
+python3 admin/sourcing.py audit-attr <slug>     # flags Flickr-889 placeholders
+python3 admin/sourcing.py plan <slug>           # ordered next actions
+```
+
+Then list what images you need by subject — e.g.:
 - college-fjord-hero: wide view of College Fjord itself
 - gallery 1: Harvard Glacier face
 - gallery 2: Yale Glacier
@@ -112,6 +199,23 @@ curl -s -A "InTheWakePortPageRepair/1.0 (admin@cruisinginthewake.com)" \
 
 ### 3. Verify existence + license
 
+The harness wraps the verification so you don't have to read schema.org or LoC
+JSON by hand:
+
+```
+python3 admin/sourcing.py verify-flickr 'https://www.flickr.com/photos/USER/ID/'
+python3 admin/sourcing.py verify-loc <ITEM_ID>     # e.g. 2024686372
+```
+
+Both return JSON with a `verdict` of `OK`, `REVIEW`, or `FAIL`. Verdicts:
+`OK` means the license is one of CC BY/BY-SA 1-4, CC0, or "no known
+restrictions / public domain"; `REVIEW` means the source is reachable but the
+license string needs human eyes; `FAIL` means non-200, no CC link, or known-bad
+license.
+
+The raw recipes below are kept for the cases where the harness verdict is
+`REVIEW` and you need to inspect details by hand.
+
 For Flickr:
 ```
 WebFetch(
@@ -147,9 +251,23 @@ Avoid the `u.tif` master (50MB+) and the `_150px.jpg` thumbnail.
 
 ### 5. Download + visually verify
 
+Use the harness — it forces `--http1.1`, fails on non-200, and runs a Pillow
+load to catch the silent truncation that `tile.loc.gov` is known to ship over
+HTTP/2:
+
+```
+python3 admin/sourcing.py fetch <DIRECT_URL> /tmp/cf-src/FILENAME.jpg
+```
+
+The output reports `verdict: OK` only after Pillow successfully loads the file.
+If you see `TRUNCATED — re-fetch`, the bytes are short — re-run.
+
+Direct curl recipe (kept for reference):
+
 ```bash
-curl -s -o /tmp/cf-src/FILENAME.jpg \
+curl -sSL --http1.1 --fail \
   -A "InTheWakePortPageRepair/1.0 (admin@cruisinginthewake.com)" \
+  -o /tmp/cf-src/FILENAME.jpg \
   -w "HTTP=%{http_code} SIZE=%{size_download}\n" \
   "DIRECT_URL"
 ```
@@ -168,6 +286,38 @@ calibration strips and mount borders. Crop those out — see step 6.
 
 ### 6. Convert + save + update metadata
 
+Convert with the harness (sane defaults: WebP quality 85, max width 1600px,
+optional `--crop l,t,r,b` fractions for archival-scan borders):
+
+```
+python3 admin/sourcing.py convert /tmp/cf-src/source.jpg \
+    /home/user/InTheWake/ports/img/PORT/PORT-hero.webp
+# or with crop
+python3 admin/sourcing.py convert /tmp/cf-src/source.jpg \
+    /home/user/InTheWake/ports/img/PORT/PORT-hero.webp \
+    --crop 0.08,0.22,0.87,0.95
+```
+
+Write the attribution JSON in one shot:
+
+```
+python3 admin/sourcing.py write-attr \
+    /home/user/InTheWake/ports/img/PORT/PORT-hero.webp \
+    'sourceUrl=https://www.loc.gov/item/2024686372/' \
+    'license=No known restrictions' \
+    'licenseUrl=https://www.loc.gov/rr/print/res/107_curt.html' \
+    'photographer=Edward S. Curtis (1868-1952), photographer' \
+    'title=Canoe, Ketchican' \
+    'description=1899 Curtis photograph of a Tlingit canoe near Ketchikan.' \
+    'alt=Wooden canoe with single occupant on calm water at edge of forest'
+```
+
+The harness writes to `<image>.attr.json` (canonical `<stem>.webp.attr.json`)
+and refuses any write whose `license` is the Flickr-889 placeholder shape or
+an NC/ND variant.
+
+Direct Pillow recipe (kept for reference):
+
 ```python
 from PIL import Image
 img = Image.open('/tmp/cf-src/source.jpg')
@@ -180,7 +330,8 @@ if img.width > 1600:
 img.save('/home/user/InTheWake/ports/img/PORT/PORT-hero.webp', 'WEBP', quality=85, method=6)
 ```
 
-Then write the attribution JSON at `ports/img/PORT/PORT-hero-attr.json`:
+Direct attribution-JSON recipe (kept for reference) at
+`ports/img/PORT/PORT-hero.webp.attr.json`:
 ```json
 {
   "source": "Library of Congress, Prints & Photographs Division",
