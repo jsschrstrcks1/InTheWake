@@ -1,0 +1,358 @@
+{
+  "file": "ports/hong-kong.html",
+  "valid": false,
+  "score": 16,
+  "blocking_errors": [
+    {
+      "section": "structure",
+      "rule": "collapsible_required",
+      "message": "Sections must use collapsible <details>/<summary> structure: map",
+      "severity": "BLOCKING"
+    },
+    {
+      "section": "image_refs",
+      "rule": "missing_image_file",
+      "message": "18 image(s) referenced in HTML but not found on disk: /ports/img/hong-kong/hk-star-ferry.webp, /ports/img/hong-kong/hk-victoria-peak.webp, /ports/img/hong-kong/hk-big-buddha.webp, /ports/img/hong-kong/hk-harbor.webp, /ports/img/hong-kong/hk-tram.webp (+13 more)",
+      "severity": "BLOCKING"
+    },
+    {
+      "section": "weather_sub",
+      "rule": "weather_validation_failed",
+      "message": "Weather sub-validator failed (BLOCKING) — run node scripts/validate-port-weather.js on this file for details",
+      "severity": "BLOCKING"
+    },
+    {
+      "section": "rendering",
+      "rule": "missing_stylesheet",
+      "message": "Referenced stylesheet not found: /assets/css/common.css",
+      "severity": "BLOCKING"
+    },
+    {
+      "section": "rendering",
+      "rule": "missing_stylesheet",
+      "message": "Referenced stylesheet not found: /assets/css/articles.css",
+      "severity": "BLOCKING"
+    }
+  ],
+  "warnings": [
+    {
+      "section": "images",
+      "rule": "maximum_images",
+      "message": "Page has 26 images, recommended maximum is 25",
+      "severity": "WARNING"
+    },
+    {
+      "section": "images",
+      "rule": "image_reuse_alt_drift",
+      "message": "Image \"hk-star-ferry.webp\" reused 2 times with 2 different alt texts — pick one canonical alt or use distinct images",
+      "severity": "WARNING"
+    },
+    {
+      "section": "images",
+      "rule": "image_reuse_alt_drift",
+      "message": "Image \"hk-victoria-peak.webp\" reused 2 times with 2 different alt texts — pick one canonical alt or use distinct images",
+      "severity": "WARNING"
+    },
+    {
+      "section": "images",
+      "rule": "image_reuse_alt_drift",
+      "message": "Image \"hk-big-buddha.webp\" reused 2 times with 2 different alt texts — pick one canonical alt or use distinct images",
+      "severity": "WARNING"
+    },
+    {
+      "section": "images",
+      "rule": "image_reuse_alt_drift",
+      "message": "Image \"hk-harbor.webp\" reused 2 times with 2 different alt texts — pick one canonical alt or use distinct images",
+      "severity": "WARNING"
+    },
+    {
+      "section": "images",
+      "rule": "image_reuse_alt_drift",
+      "message": "Image \"hk-tram.webp\" reused 2 times with 2 different alt texts — pick one canonical alt or use distinct images",
+      "severity": "WARNING"
+    },
+    {
+      "section": "images",
+      "rule": "image_reuse_alt_drift",
+      "message": "Image \"hk-dim-sum.webp\" reused 2 times with 2 different alt texts — pick one canonical alt or use distinct images",
+      "severity": "WARNING"
+    },
+    {
+      "section": "images",
+      "rule": "image_reuse_alt_drift",
+      "message": "Image \"hk-temple-street.webp\" reused 2 times with 2 different alt texts — pick one canonical alt or use distinct images",
+      "severity": "WARNING"
+    },
+    {
+      "section": "images",
+      "rule": "image_reuse_alt_drift",
+      "message": "Image \"hk-skyline.webp\" reused 2 times with 2 different alt texts — pick one canonical alt or use distinct images",
+      "severity": "WARNING"
+    },
+    {
+      "section": "images",
+      "rule": "filename_slug_mismatch",
+      "message": "18 port image filename(s) do not contain the page slug \"hong-kong\": hk-star-ferry.webp, hk-victoria-peak.webp, hk-big-buddha.webp and 15 more. Naming-convention drift is the precursor to cross-port reuse — verify each is genuinely this port's image.",
+      "severity": "WARNING"
+    },
+    {
+      "section": "html_structure",
+      "rule": "duplicate_html_ids",
+      "message": "Duplicate HTML id attributes found: nearby-ports-title (×2), nearby-ports (×2)",
+      "severity": "WARNING"
+    },
+    {
+      "section": "gallery",
+      "rule": "gallery_credit_low_diversity",
+      "message": "Gallery has 13 photo credits but only 1 unique source URL(s) — possible placeholder images or copy-paste attribution",
+      "severity": "WARNING"
+    },
+    {
+      "section": "weather_widget",
+      "rule": "generic_noscript_weather",
+      "message": "Weather widget has 4/5 generic placeholder values (\"Varies by season\"). Replace with port-specific data.",
+      "severity": "WARNING"
+    },
+    {
+      "section": "basic_html",
+      "rule": "missing_canonical_nav_items",
+      "message": "Navigation missing 1 canonical link(s): /planning.html",
+      "severity": "WARNING"
+    },
+    {
+      "section": "noscript",
+      "rule": "missing_ships_noscript",
+      "message": "Ships Visiting section has no noscript fallback — noscript users see empty section. See: admin/NOSCRIPT_REPAIR_GUIDE.md §1",
+      "severity": "WARNING"
+    },
+    {
+      "section": "noscript",
+      "rule": "missing_stories_noscript",
+      "message": "Recent Stories rail has no noscript fallback — noscript users see empty section. See: admin/NOSCRIPT_REPAIR_GUIDE.md §2",
+      "severity": "WARNING"
+    },
+    {
+      "section": "rendering",
+      "rule": "missing_script",
+      "message": "Referenced script not found: /assets/js/common.js",
+      "severity": "WARNING"
+    }
+  ],
+  "info": [
+    {
+      "section": "logbook_narrative",
+      "rule": "spiritual_content",
+      "message": "Logbook includes 3 spiritual/aspirational markers",
+      "severity": "INFO"
+    }
+  ],
+  "gold_standard_gaps": [
+    {
+      "section": "gold_standard",
+      "rule": "gs_missing_quality_sections",
+      "message": "Gold standard gap: missing quality sections: food, notices, practical",
+      "severity": "WARNING"
+    }
+  ],
+  "analytics": {
+    "hasGoogleAnalytics": true,
+    "hasUmami": true
+  },
+  "icp_lite": {
+    "protocol_version": "ICP-Lite v1.4",
+    "schema_type": "WebPage",
+    "ai_summary_length": 174,
+    "last_reviewed": "2026-02-01",
+    "has_canonical": true,
+    "has_mainEntity": true
+  },
+  "section_order": {
+    "valid": true,
+    "detected_order": [
+      "hero",
+      "logbook",
+      "cruise_port",
+      "getting_around",
+      "map",
+      "excursions",
+      "depth_soundings",
+      "gallery",
+      "faq"
+    ],
+    "missing_sections": [],
+    "out_of_order_sections": []
+  },
+  "word_counts": {
+    "logbook": 1218,
+    "cruise_port": 159,
+    "getting_around": 250,
+    "excursions": 580,
+    "depth_soundings": 217,
+    "faq": 373,
+    "total": 4238
+  },
+  "images": {
+    "total_images": 26,
+    "missing_alt": 0,
+    "missing_credits": 0
+  },
+  "image_reuse": {
+    "reused_srcs": 8
+  },
+  "filename_slug": {
+    "slug": "hong-kong",
+    "mismatch_count": 18
+  },
+  "port_images": {
+    "total_port_images": 8,
+    "placeholder_images": 0,
+    "potential_duplicates": false
+  },
+  "rubric": {
+    "first_person_count": 33,
+    "contrast_count": 15,
+    "accessibility_mentions": 5,
+    "price_mentions": 94,
+    "booking_keywords": 4
+  },
+  "logbook_narrative": {
+    "has_bullet_lists": false,
+    "forbidden_patterns_found": 0,
+    "emotional_pivot_markers": 2,
+    "first_person_pronouns": 33,
+    "pronouns_per_100_words": "2.7",
+    "senses_used": [
+      "visual",
+      "auditory",
+      "tactile",
+      "olfactory",
+      "gustatory"
+    ],
+    "has_reflection": true,
+    "contrast_words": 15,
+    "spiritual_markers": 3
+  },
+  "content_purity": {
+    "violations_found": 0,
+    "stewardship_markers": 6,
+    "stamina_level_mentions": 5
+  },
+  "voice_quality": {
+    "skipped": false,
+    "wordCount": 4238,
+    "totalFindings": 0,
+    "findingsByCheck": {},
+    "promotional_drift": 0,
+    "ai_chorus": 0,
+    "authority_violations": 0,
+    "window_pane_violations": 0,
+    "warmth_violations": 0,
+    "corporate_filler": 0,
+    "authenticity_risk": "low",
+    "authenticity_signals": [],
+    "authority_positive": 0,
+    "fairness_balance": 0
+  },
+  "unique_names": {
+    "names_found": []
+  },
+  "from_the_pier": {
+    "hasComponent": true,
+    "destinationCount": 5,
+    "hasPierNote": true
+  },
+  "emotional_hook": {
+    "anxietyReducersFound": 1
+  },
+  "print_button": {
+    "hasPrintButton": true
+  },
+  "internal_links": {
+    "deadLinks": [],
+    "totalLinks": 109
+  },
+  "recent_stories": {
+    "hasRecentStoriesSection": false,
+    "hasDynamicRail": true,
+    "hardcodedStoryLinks": 0
+  },
+  "site_integration": {
+    "inPortsHtml": true,
+    "inSearchIndex": true
+  },
+  "html_integrity": {
+    "has_meta_author": true,
+    "inline_console_logs": 0
+  },
+  "sidebar": {
+    "hasSidebar": true,
+    "detected": [
+      "Quick Answer",
+      "At a Glance",
+      "Plan Your Visit",
+      "Author's Note Disclaimer",
+      "About the Author",
+      "Nearby Ports",
+      "Recent Stories",
+      "Whimsical Units"
+    ],
+    "missing": []
+  },
+  "swiper_fallback": {
+    "usesSwiper": true,
+    "hasLocalSwiper": true,
+    "hasCDNFallback": true,
+    "hasSwiperReady": true
+  },
+  "service_worker": {
+    "hasServiceWorker": true,
+    "hasSWFile": true
+  },
+  "faq_answer_length": {
+    "totalFAQs": 0,
+    "longAnswers": 0,
+    "longAnswerDetails": []
+  },
+  "answer_line_key_facts": {
+    "hasAnswerLine": true,
+    "hasKeyFacts": true
+  },
+  "sdg_position": {
+    "hasSDG": true,
+    "sdgInFirst3": true
+  },
+  "canonical": {
+    "canonical": "https://cruisinginthewake.com/ports/hong-kong.html"
+  },
+  "poi_manifest": {
+    "hasManifest": true,
+    "poiCount": 11,
+    "poiIdCount": 11,
+    "resolvedCount": 11
+  },
+  "weather_widget": {
+    "hasWidget": true,
+    "lat": "22.3193",
+    "lon": "114.1694",
+    "region": "Asia Pacific",
+    "portId": "hong-kong"
+  },
+  "jsonld_geo": {
+    "checkedBlocks": 3
+  },
+  "author_consistency": {
+    "hasNotVisitedDisclaimer": true,
+    "hasFirstPersonLogbook": false,
+    "hasVividFirstPerson": false
+  },
+  "mexican_notices": {
+    "isMexicanPort": false
+  },
+  "seasonal_data": {
+    "isHurricaneZone": false
+  },
+  "template_filler": {
+    "template_filler_count": 0,
+    "detected_signatures": []
+  }
+}
