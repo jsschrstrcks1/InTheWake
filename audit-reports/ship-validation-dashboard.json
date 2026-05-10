@@ -1,15 +1,15 @@
 {
-  "generated": "2026-05-10T14:12:39.202Z",
+  "generated": "2026-05-10T22:52:00.832Z",
   "scope": "full-fleet",
   "totals": {
     "pages": 290,
-    "sh_errors_total": 38,
-    "sh_warnings_total": 5805,
+    "sh_errors_total": 69,
+    "sh_warnings_total": 5841,
     "js_errors_total": 313,
-    "js_warnings_total": 2703,
+    "js_warnings_total": 2702,
     "sh_pass": 2,
-    "sh_warn_only": 267,
-    "sh_fail": 21,
+    "sh_warn_only": 236,
+    "sh_fail": 52,
     "js_pass": 80,
     "js_fail": 210
   },
@@ -17,8 +17,8 @@
     {
       "line": "carnival",
       "pages": 48,
-      "sh_errors": 0,
-      "sh_warnings": 1877,
+      "sh_errors": 1,
+      "sh_warnings": 1878,
       "js_errors": 59,
       "js_warnings": 574,
       "top_failures": [
@@ -45,20 +45,28 @@
         {
           "code": "js:data_consistency/internal_numeric_inconsistency",
           "count": 3
+        },
+        {
+          "code": "sh:First Look carousel has NO images — carousel will render emp",
+          "count": 1
         }
       ]
     },
     {
       "line": "celebrity-cruises",
       "pages": 29,
-      "sh_errors": 9,
-      "sh_warnings": 828,
+      "sh_errors": 14,
+      "sh_warnings": 833,
       "js_errors": 17,
       "js_warnings": 250,
       "top_failures": [
         {
           "code": "js:images/few_images",
           "count": 17
+        },
+        {
+          "code": "sh:First Look carousel has NO images — carousel will render emp",
+          "count": 5
         },
         {
           "code": "sh:Image filename ship mismatch: celebrity-apex-exterior.jpg do",
@@ -81,8 +89,8 @@
     {
       "line": "costa",
       "pages": 9,
-      "sh_errors": 0,
-      "sh_warnings": 11,
+      "sh_errors": 1,
+      "sh_warnings": 12,
       "js_errors": 18,
       "js_warnings": 85,
       "top_failures": [
@@ -93,6 +101,10 @@
         {
           "code": "js:json_ld/main_entity_blacklisted",
           "count": 9
+        },
+        {
+          "code": "sh:First Look carousel has NO images — carousel will render emp",
+          "count": 1
         }
       ]
     },
@@ -139,14 +151,14 @@
     {
       "line": "holland-america-line",
       "pages": 46,
-      "sh_errors": 7,
-      "sh_warnings": 2174,
+      "sh_errors": 25,
+      "sh_warnings": 2192,
       "js_errors": 2,
-      "js_warnings": 426,
+      "js_warnings": 425,
       "top_failures": [
         {
           "code": "sh:First Look carousel has NO images — carousel will render emp",
-          "count": 6
+          "count": 24
         },
         {
           "code": "js:images/few_images",
@@ -161,8 +173,8 @@
     {
       "line": "msc",
       "pages": 24,
-      "sh_errors": 0,
-      "sh_warnings": 25,
+      "sh_errors": 1,
+      "sh_warnings": 31,
       "js_errors": 28,
       "js_warnings": 256,
       "top_failures": [
@@ -180,6 +192,10 @@
         },
         {
           "code": "js:html_structure/unclosed_section",
+          "count": 1
+        },
+        {
+          "code": "sh:First Look carousel has NO images — carousel will render emp",
           "count": 1
         },
         {
@@ -209,8 +225,8 @@
     {
       "line": "oceania",
       "pages": 8,
-      "sh_errors": 0,
-      "sh_warnings": 8,
+      "sh_errors": 3,
+      "sh_warnings": 11,
       "js_errors": 24,
       "js_warnings": 68,
       "top_failures": [
@@ -225,6 +241,10 @@
         {
           "code": "js:videos/missing_categories",
           "count": 5
+        },
+        {
+          "code": "sh:First Look carousel has NO images — carousel will render emp",
+          "count": 3
         },
         {
           "code": "js:videos/few_videos",
@@ -355,8 +375,8 @@
     {
       "line": "silversea",
       "pages": 12,
-      "sh_errors": 0,
-      "sh_warnings": 303,
+      "sh_errors": 1,
+      "sh_warnings": 304,
       "js_errors": 13,
       "js_warnings": 105,
       "top_failures": [
@@ -371,14 +391,18 @@
         {
           "code": "js:videos/missing_categories",
           "count": 1
+        },
+        {
+          "code": "sh:First Look carousel has NO images — carousel will render emp",
+          "count": 1
         }
       ]
     },
     {
       "line": "virgin-voyages",
       "pages": 4,
-      "sh_errors": 0,
-      "sh_warnings": 4,
+      "sh_errors": 1,
+      "sh_warnings": 5,
       "js_errors": 15,
       "js_warnings": 38,
       "top_failures": [
@@ -397,6 +421,10 @@
         {
           "code": "js:videos/missing_categories",
           "count": 2
+        },
+        {
+          "code": "sh:First Look carousel has NO images — carousel will render emp",
+          "count": 1
         },
         {
           "code": "js:videos/few_videos",
@@ -569,9 +597,9 @@
       "path": "ships/carnival/carnival-fantasy.html",
       "line": "carnival",
       "sh": {
-        "errors": 0,
-        "warnings": 37,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 38,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -581,7 +609,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/carnival/carnival-fascination.html",
@@ -1433,9 +1463,9 @@
       "path": "ships/celebrity-cruises/celebrity-century.html",
       "line": "celebrity-cruises",
       "sh": {
-        "errors": 0,
-        "warnings": 26,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 27,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -1445,7 +1475,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/celebrity-cruises/celebrity-compass.html",
@@ -1759,9 +1791,9 @@
       "path": "ships/celebrity-cruises/celebrity-xpedition.html",
       "line": "celebrity-cruises",
       "sh": {
-        "errors": 0,
-        "warnings": 26,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 27,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -1771,15 +1803,17 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/celebrity-cruises/celebrity-xperience.html",
       "line": "celebrity-cruises",
       "sh": {
-        "errors": 0,
-        "warnings": 29,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 30,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -1790,6 +1824,7 @@
         "ok": true
       },
       "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp",
         "js:images/few_images"
       ]
     },
@@ -1815,9 +1850,9 @@
       "path": "ships/celebrity-cruises/horizon.html",
       "line": "celebrity-cruises",
       "sh": {
-        "errors": 0,
-        "warnings": 26,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 27,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -1827,7 +1862,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/celebrity-cruises/ss-meridian.html",
@@ -1920,9 +1957,9 @@
       "path": "ships/celebrity-cruises/zenith.html",
       "line": "celebrity-cruises",
       "sh": {
-        "errors": 0,
-        "warnings": 38,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 39,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -1932,7 +1969,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/costa/costa-deliziosa.html",
@@ -2106,9 +2145,9 @@
       "path": "ships/costa/costa-venezia.html",
       "line": "costa",
       "sh": {
-        "errors": 0,
-        "warnings": 1,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 2,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2119,6 +2158,7 @@
         "ok": true
       },
       "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp",
         "js:images/few_images",
         "js:json_ld/main_entity_blacklisted"
       ]
@@ -2336,9 +2376,9 @@
       "path": "ships/holland-america-line/amsterdam.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2348,25 +2388,29 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/edam.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 49,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 50,
+        "exit": 1,
         "ok": true
       },
       "js": {
         "errors": 0,
-        "warnings": 11,
-        "score": 78,
+        "warnings": 10,
+        "score": 80,
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/eurodam.html",
@@ -2408,9 +2452,9 @@
       "path": "ships/holland-america-line/leerdam.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2420,15 +2464,17 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/maartensdijk.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2438,7 +2484,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/maasdam.html",
@@ -2480,9 +2528,9 @@
       "path": "ships/holland-america-line/nieuw-amsterdam-iii.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2492,7 +2540,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/nieuw-amsterdam-iv.html",
@@ -2592,9 +2642,9 @@
       "path": "ships/holland-america-line/noordam-ii.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2604,15 +2654,17 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/noordam-iii.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2622,7 +2674,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/noordam-iv.html",
@@ -2682,9 +2736,9 @@
       "path": "ships/holland-america-line/p-caland.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2694,15 +2748,17 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/potsdam.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2712,15 +2768,17 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/prinsendam-i.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2730,7 +2788,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/prinsendam-ii.html",
@@ -2864,9 +2924,9 @@
       "path": "ships/holland-america-line/ryndam.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2876,15 +2936,17 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/statendam-ii.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2894,7 +2956,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/statendam-iii.html",
@@ -2918,9 +2982,9 @@
       "path": "ships/holland-america-line/statendam.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2930,15 +2994,17 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/veendam-ii.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -2948,7 +3014,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/veendam-iii.html",
@@ -3012,9 +3080,9 @@
       "path": "ships/holland-america-line/volendam-ii.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -3024,7 +3092,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/volendam-iii.html",
@@ -3050,9 +3120,9 @@
       "path": "ships/holland-america-line/volendam.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 42,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 43,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -3062,15 +3132,17 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/w-a-scholten.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -3080,15 +3152,17 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/westerdam-i.html",
       "line": "holland-america-line",
       "sh": {
-        "errors": 0,
-        "warnings": 48,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 49,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -3098,7 +3172,9 @@
         "valid": true,
         "ok": true
       },
-      "fail_codes": []
+      "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp"
+      ]
     },
     {
       "path": "ships/holland-america-line/westerdam-ii.html",
@@ -3223,7 +3299,7 @@
       "line": "msc",
       "sh": {
         "errors": 0,
-        "warnings": 1,
+        "warnings": 2,
         "exit": 2,
         "ok": true
       },
@@ -3243,7 +3319,7 @@
       "line": "msc",
       "sh": {
         "errors": 0,
-        "warnings": 1,
+        "warnings": 2,
         "exit": 2,
         "ok": true
       },
@@ -3485,7 +3561,7 @@
       "line": "msc",
       "sh": {
         "errors": 0,
-        "warnings": 1,
+        "warnings": 2,
         "exit": 2,
         "ok": true
       },
@@ -3585,7 +3661,7 @@
       "line": "msc",
       "sh": {
         "errors": 0,
-        "warnings": 1,
+        "warnings": 2,
         "exit": 2,
         "ok": true
       },
@@ -3625,9 +3701,9 @@
       "path": "ships/msc/msc-world-asia.html",
       "line": "msc",
       "sh": {
-        "errors": 0,
-        "warnings": 1,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 3,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -3638,6 +3714,7 @@
         "ok": true
       },
       "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp",
         "js:sections/wrong_section_order",
         "js:images/few_images"
       ]
@@ -4095,9 +4172,9 @@
       "path": "ships/oceania/marina.html",
       "line": "oceania",
       "sh": {
-        "errors": 0,
-        "warnings": 1,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 2,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -4108,6 +4185,7 @@
         "ok": true
       },
       "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp",
         "js:images/few_images",
         "js:json_ld/main_entity_blacklisted"
       ]
@@ -4183,9 +4261,9 @@
       "path": "ships/oceania/sirena.html",
       "line": "oceania",
       "sh": {
-        "errors": 0,
-        "warnings": 1,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 2,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -4196,6 +4274,7 @@
         "ok": true
       },
       "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp",
         "js:images/few_images",
         "js:videos/few_videos",
         "js:videos/missing_categories",
@@ -4206,9 +4285,9 @@
       "path": "ships/oceania/vista.html",
       "line": "oceania",
       "sh": {
-        "errors": 0,
-        "warnings": 1,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 2,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -4219,6 +4298,7 @@
         "ok": true
       },
       "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp",
         "js:images/few_images",
         "js:videos/missing_categories",
         "js:json_ld/main_entity_blacklisted",
@@ -5967,9 +6047,9 @@
       "path": "ships/silversea/silver-nova.html",
       "line": "silversea",
       "sh": {
-        "errors": 0,
-        "warnings": 25,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 26,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -5980,6 +6060,7 @@
         "ok": true
       },
       "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp",
         "js:images/few_images"
       ]
     },
@@ -6129,9 +6210,9 @@
       "path": "ships/virgin-voyages/resilient-lady.html",
       "line": "virgin-voyages",
       "sh": {
-        "errors": 0,
-        "warnings": 1,
-        "exit": 2,
+        "errors": 1,
+        "warnings": 2,
+        "exit": 1,
         "ok": true
       },
       "js": {
@@ -6142,6 +6223,7 @@
         "ok": true
       },
       "fail_codes": [
+        "sh:First Look carousel has NO images — carousel will render emp",
         "js:sections/wrong_section_order",
         "js:images/few_images",
         "js:videos/missing_categories",
@@ -6198,13 +6280,13 @@
   "errors_by_rule": {
     "js:images/few_images": 158,
     "js:runtime_data/cascade_fully_failed": 50,
+    "sh:First Look carousel has NO images — carousel will render emp": 38,
     "js:json_ld/main_entity_blacklisted": 23,
     "js:sections/wrong_section_order": 22,
     "js:videos/missing_categories": 17,
     "js:videos/few_videos": 11,
     "js:sections/missing_required": 8,
     "js:data_attr/invalid_imo": 7,
-    "sh:First Look carousel has NO images — carousel will render emp": 7,
     "js:html_structure/unclosed_section": 7,
     "js:data_consistency/internal_numeric_inconsistency": 4,
     "sh:Image filename ship mismatch: Icon_of_the_Seas_(cropped).web": 4,
