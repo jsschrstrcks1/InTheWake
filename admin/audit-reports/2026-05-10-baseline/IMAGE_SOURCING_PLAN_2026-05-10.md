@@ -226,6 +226,44 @@ The deficiency the validator does flag is **broken references** — pages whose 
 
 ---
 
+## 6b. Fleet-wide attribution audit (added 2026-05-10 after harness build)
+
+`python3 admin/sourcing.py audit-attr` run across all 387 ports surfaced a much
+larger problem than the validator's image-section blockers alone. Detail per
+port in `admin/audit-reports/2026-05-10-baseline/fleet-attr-audit.json`.
+
+| Finding | Ports | Files |
+|---|---:|---:|
+| Attribution JSON with the **Flickr-889 placeholder shape** (`license: "Flickr (verify license)"`, `source_type: "Flickr public feed"`) | **302** | **891** |
+| Ports failing the validator's ATTR-003 source-URL-diversity check | 180 | — |
+
+**Implication.** The validator's ATTR-003 check was written to catch the Flickr-889
+escape (892 files in spring 2026), but it only fires when 4+ images share 1–2
+source URLs. The cleverer pattern that's in production today uses **distinct
+source URLs per image but the same placeholder license string** — so 122 ports
+have 8 placeholder files apiece with 8 different source URLs and pass ATTR-003
+even though their licenses are explicitly marked unverified.
+
+This means **a separate validator rule is needed** for "license string contains
+'verify license'" (or alternatively for `source_type == 'Flickr public feed'`).
+The harness's `audit-attr` enforces it; the canonical validator does not yet.
+
+**Sourcing implication for this plan.** Phase 1 (reference repair) does not
+fix any of these 891 placeholder files — they are a separate, larger problem.
+The honest path is a **Phase 1.5** that re-verifies each placeholder license
+file by license, and either:
+
+- (a) Confirms the cited Flickr URL is actually CC and rewrites the attr.json
+  to the canonical schema, OR
+- (b) Confirms the cited Flickr URL is All-Rights-Reserved, deletes both the
+  webp and the attr.json, and treats the slot as a sourcing gap.
+
+At ~30 sec per file via `verify-flickr` + Read inspection, 891 files is
+roughly 7–10 hours of careful work. **This belongs in the plan and was not
+visible in the original §6 baseline because it required the harness to detect.**
+
+---
+
 ## 7. Per-tier execution order I propose
 
 Smallest, highest-leverage work first. **None of this is started yet — I am asking for sign-off on the order before touching a port.**
@@ -243,6 +281,13 @@ This phase touches no image bytes for the cheap cases — it only fixes HTML poi
 - **13+ broken refs (2 ports):** hong-kong (18), singapore (16). These are the heaviest sourcing work in the entire fleet — and they're high-traffic ports, so they're worth doing well.
 
 Estimated effort: 2–4 days of careful work, gallery-by-gallery, including the special cases (punta-del-este naming mismatch, fortaleza external-Wikimedia rewrite, royal-beach-club-cozumel cross-port pointer correction).
+
+### Phase 1.5 — Placeholder-license audit (302 ports, 891 attr.json files)
+For each port flagged by `audit-attr`, run `verify-flickr` against the cited
+source URL, then either rewrite the attr.json with the canonical schema (real
+license confirmed) or delete the file pair (license actually ARR or NC). This
+is the work the validator cannot currently catch on its own. Estimated effort:
+**7–10 hours sustained**, gated on Flickr availability.
 
 ### Phase 2 — Tier D acute sourcing (callao, catania)
 Full six-step workflow per port. Each port needs ~10 new sourced images to reach the floor. **Estimated effort: 4–6 hours per port** if Flickr + LoC searches go cleanly; longer if rare ports yield few CC hits.
