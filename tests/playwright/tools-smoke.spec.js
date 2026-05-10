@@ -7,19 +7,17 @@
 // change could silently break, say, the drink calculator without anyone
 // noticing until a user reports it.
 //
-// Bar set deliberately low: each tool's page must (a) return 200, (b) render
-// its primary heading, (c) have a non-empty <title>. Detailed behavior tests
-// are for each tool's own future spec; this is the regression baseline.
+// Bar: each tool's page must (a) return 200, (b) render its primary <h1>,
+// (c) have a non-empty <title>, (d) throw zero JS pageerrors during load.
 //
-// Pre-existing JS pageerrors found during initial run on 2026-05-09 — 4 of
-// the 8 tools (port-tracker, ship-tracker, drink-calculator, drink-calculatorv2)
-// throw "Invalid or unexpected token" with an empty stack trace, suggesting
-// an inline script issue. Logged as a separate audit finding in
-// admin/UNFINISHED_TASKS.md. The smoke spec records errors via pageerror
-// listener but does NOT fail on them — that would conflate "this commit
-// regressed something" with "this defect was already here." When those four
-// tools are debugged and fixed, flip the assertion below to require errors
-// to be empty.
+// (d) was originally an annotation rather than an assertion because the
+// smoke spec's first run on 2026-05-09 surfaced four pre-existing inline-
+// script escape bugs (port-tracker / ship-tracker had `\${...}` instead of
+// `${...}` inside template literals; drink-calculator / drink-calculatorv2
+// had `classList.remove(\\'no-js\\')` with backslash-escaped quotes outside
+// a string context). All four were fixed in the same audit pass and the
+// assertion was tightened. Any future regression of the same shape will
+// fail this spec immediately rather than slipping through unnoticed.
 
 import { test, expect } from "@playwright/test";
 
@@ -35,7 +33,7 @@ const TOOLS = [
 ];
 
 for (const tool of TOOLS) {
-  test(`smoke: ${tool.url} loads, renders h1, has title (JS errors annotated)`, async ({ page }) => {
+  test(`smoke: ${tool.url} loads, renders h1, throws zero JS pageerrors`, async ({ page }) => {
     const errors = [];
     page.on("pageerror", (err) => errors.push(err.message));
 
@@ -46,13 +44,6 @@ for (const tool of TOOLS) {
     await expect(page).toHaveTitle(/.+/); // non-empty title
 
     await page.waitForLoadState("networkidle");
-    // Annotate (don't assert) any pageerrors so they show up in the test report
-    // without failing the suite. See file-level comment for the rationale.
-    if (errors.length > 0) {
-      test.info().annotations.push({
-        type: "pre-existing-jserror",
-        description: `${tool.url}: ${errors.join(" | ")}`
-      });
-    }
+    expect(errors, `JS pageerrors during ${tool.url} load`).toEqual([]);
   });
 }

@@ -815,17 +815,13 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 - [x] **Shipped:** `tests/playwright/tools-smoke.spec.js` — one smoke test per tool (8 total) asserting (a) HTTP 200 on load, (b) primary `<h1>` renders, (c) `<title>` is non-empty. Listens for JS pageerrors via `page.on('pageerror')` and annotates them on the test report (without failing). Suite now runs 19 Playwright tests total (11 cruise-tipping + 8 smoke). When the JS-error finding below is fixed, flip the annotation to a hard assertion.
 - **What this catches going forward:** any future shared-CSS/shared-nav/shared-asset change that 500s, blanks, or swaps out an `<h1>` on those tools. Catches the kind of regression that allowed Task 12's budget-calculator nav miss to escape detection.
 
-### P2 — Pre-existing JS errors on 4 tools (Discovered 2026-05-09 by smoke spec)
+### P2 — Pre-existing JS errors on 4 tools ✅ DONE 2026-05-09
 
-- [ ] **Bug surfaced by the smoke spec:** Four tools throw `Invalid or unexpected token` as a `pageerror` during initial load:
-  - `/tools/port-tracker.html`
-  - `/tools/ship-tracker.html`
-  - `/drink-calculator.html`
-  - `/drink-calculatorv2.html`
-  
-  The error has an empty stack trace, suggesting it originates from an inline `<script>` block that errors before any module loads (a syntactic issue that prevents the script from compiling). Likely candidates: a malformed JSON-LD block, a templated string that didn't get rendered, or a `JSON.parse` on a value that's already an object. None of the tools are visibly broken to a casual user — the page renders, the h1 shows, the form widgets load — so whatever the failing script does is non-blocking. But "invisibly broken JS at page load" is a real defect on tools that handle real-money decisions; analytics may not fire correctly, error reporting may silently drop the error itself, and any feature that depended on the failing script is silently absent.
-- **Fix shape:** Open each of the 4 tools in a browser DevTools console; the error will surface with a real stack trace and source location. Probably a single root cause shared across at least the two drink-calculator pages and possibly the two trackers. Once fixed, flip the annotation in `tests/playwright/tools-smoke.spec.js` to `expect(errors).toEqual([])` so the suite enforces it going forward.
-- **Why P2:** Same trust class as the children-handling and region-pricing fixes — silent JS errors on calculators that handle real money are a credibility risk even if no current user complaint maps to them. Lower urgency than the dollar-correctness P1s because nothing visible is wrong; upgrade to P1 if any feature on these pages turns out to depend on the failing script.
+- [x] **Bug:** Four tools threw `Invalid or unexpected token` as a `pageerror` during initial load — invisibly broken inline JS on calculators that handle real money. Used Chrome DevTools Protocol via Playwright (`Runtime.exceptionThrown`) to get exact source line/column.
+- **Root causes (two distinct bugs, same audit symptom):**
+  - **port-tracker.html / ship-tracker.html** — both files' "Recent Articles" rail used template literals with `\${...}` (escaped dollar signs) so 11 interpolations per file were mis-parsed as literal text and the inner conditional template literal `\`<p class=...>\`` ended the outer template prematurely, leaving downstream HTML to be parsed as JavaScript. Hence `Unexpected token 'class'` (pointing at the first `class="..."` HTML attribute). 11 occurrences fixed per file via `\${` → `${`.
+  - **drink-calculator.html / drink-calculatorv2.html** — line 30 of each had `document.documentElement.classList.remove(\'no-js\');` with backslash-escaped quotes outside any string context. JS engine sees `(\` as an unexpected token. Fixed by removing the two backslashes per file (the other backslash-escaped quotes elsewhere in v2 ARE inside single-quoted strings and are correctly valid; left those alone).
+- **Verification:** All 8 tools now load with zero pageerrors. `tests/playwright/tools-smoke.spec.js` (d) assertion flipped from annotation to hard `expect(errors).toEqual([])`. 19/19 Playwright pass.
 
 ### P3 — `[object Object]` 404s in the webserver log during Playwright runs (Discovered 2026-05-09)
 
