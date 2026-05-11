@@ -167,11 +167,12 @@ These sources are reliable for US/Alaska/federal content, downloadable within cu
 
 **Empty First Look carousels from the 2026-05-10 audit cleanup (31 pages — same validator hard-rule as above):**
 - carnival/carnival-fantasy.html
-- celebrity-cruises/celebrity-century.html, celebrity-xperience.html, horizon.html, zenith.html  *(celebrity-xpedition.html rescued 2026-05-11 via assets/ships/celebrity/celebrity-xpedition-exterior.jpg)*
+- celebrity-cruises/celebrity-century.html, celebrity-xperience.html, celebrity-xploration.html, horizon.html, zenith.html  *(celebrity-xpedition.html rescued 2026-05-11 via assets/ships/celebrity/celebrity-xpedition-exterior.jpg; celebrity-xploration.html added 2026-05-11 from UNCLEAR re-verification cleanup)*
 - costa/costa-venezia.html
 - holland-america-line/amsterdam.html, edam.html, leerdam.html, maartensdijk.html, nieuw-amsterdam-iii.html, noordam-ii.html, noordam-iii.html, p-caland.html, potsdam.html, prinsendam-i.html, ryndam.html, statendam-ii.html, statendam.html, veendam-ii.html, volendam-ii.html, w-a-scholten.html, westerdam-i.html  *(volendam.html rescued 2026-05-11 via assets/ships/other/volendam-exterior.jpg)*
 - msc/msc-world-asia.html
 - oceania/marina.html, sirena.html, vista.html
+- rcl/nordic-prince.html  *(added 2026-05-11 from UNCLEAR re-verification cleanup)*
 - silversea/silver-nova.html
 - virgin-voyages/resilient-lady.html
 
