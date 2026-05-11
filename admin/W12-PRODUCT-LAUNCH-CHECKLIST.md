@@ -73,7 +73,13 @@ For both prototypes — repeat for each:
 
 The current prototypes exist at `admin/voyage-packs/*.md` and `admin/voyage-packs/*.html`. Buyers need:
 
-- [ ] **PDF version** — generated from the markdown source via `admin/scripts/voyage-pack-pdf-build.sh` (added 2026-05-09). The script auto-detects an installed pandoc PDF engine (weasyprint recommended; wkhtmltopdf or xelatex as fallbacks) and uses the styled `admin/voyage-packs/voyage-pack-print.css` for clean paginated output. Run `admin/scripts/voyage-pack-pdf-build.sh` (no args) to build both packs, or pass `symphony` / `ncl-aqua` to build one. Help: `admin/scripts/voyage-pack-pdf-build.sh --help`. Outputs land alongside the .md sources in `admin/voyage-packs/`.
+- [ ] **PDF version** — generated from the markdown source via `admin/scripts/voyage-pack-pdf-build.sh`. **Full lifecycle documented in `admin/voyage-packs/README.md`.** Workflow summary:
+    - **Build once per pack version.** The script is idempotent — re-running it skips packs whose PDF is already newer than the markdown source. `--force` rebuilds anyway. `--check` exits non-zero if any PDF is stale or missing (the pre-commit hook uses this).
+    - **Rebuild when the markdown source changes.** A pre-commit hook in `.githooks/pre-commit` blocks commits that change a voyage-pack `.md` without an updated `.pdf`. Bypass with `git commit --no-verify` only when intentionally shipping a `.md` change without regenerating the `.pdf`.
+    - **Re-upload to the payment processor only when the PDF actually changes.** Daily commits don't trigger a re-upload because daily commits don't change the PDF (the staleness check enforces correlation).
+    - **Engine setup (one-time):** install pandoc + ONE PDF engine. `pip3 install weasyprint` is the recommended path (best CSS support); `apt install wkhtmltopdf` is the fallback; `apt install texlive-latex-recommended` is the LaTeX route. The script auto-detects which is installed.
+    - **Targets:** no args = build both packs; `symphony` = Symphony only; `ncl-aqua` = NCL Aqua only.
+    - **Output location:** alongside the `.md` source in `admin/voyage-packs/`. Bundle with the corresponding `.html` per the next sub-item.
 - [x] **HTML version** — both packs now have HTML renders: `admin/voyage-packs/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.html` and `admin/voyage-packs/v0.1-symphony-western-caribbean-7n.html` (Symphony added 2026-05-07, commit `c464e1ec`). Both have the offline-capable Emergency Contacts handoff card with localStorage persistence.
 - [ ] Bundle: PDF + HTML inside a single zip per pack. Filename: `inthewake-voyage-pack-[shortname]-[saildate].zip`
 - [ ] Test the offline-PWA experience: load the HTML, disconnect Wi-Fi, confirm it still renders + the handoff card persists to localStorage

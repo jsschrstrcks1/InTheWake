@@ -19,8 +19,12 @@
     "upcomingChange": null
   },
   "childPolicy": {
-    "exemptUnderAge": 4,
-    "notes": "Under 4: free. Ages 4–14: half rate (USD $7 in South America; EUR 5.50 in Med / Northern Europe)."
+    "notes": "Under 4: free. Ages 4–14: half rate (USD $7 in South America; EUR 5.50 in Med / Northern Europe). 15 and older: full adult rate.",
+    "ageMultipliers": [
+      { "minAge": 0,  "maxAge": 3,   "multiplier": 0,   "label": "Free (under 4)" },
+      { "minAge": 4,  "maxAge": 14,  "multiplier": 0.5, "label": "Half-rate (ages 4–14)" },
+      { "minAge": 15, "maxAge": 999, "multiplier": 1,   "label": "Full rate (ages 15+)" }
+    ]
   },
   "autoGratuities": {
     "bar":             { "percent": 15,   "appliesTo": "Bar beverages (15% beverage gratuity)" },

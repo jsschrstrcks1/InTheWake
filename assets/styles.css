@@ -2471,24 +2471,31 @@ h3.seasonal-section-title::after {
     max-height: 50vh;
   }
 
-  /* Home-page hero: tagline / credit-pill collision (Phase C, 2026-05-09).
+  /* Home-page hero: tagline / credit-pill collision (Phase C, 2026-05-09;
+     scoped 2026-05-09 in Phase G).
      .tagline used `white-space: nowrap` and was anchored bottom-left while
      .hero-credit was anchored bottom-right; on narrow phones the long
      "A Cruise Traveler's Logbook" string ran straight under the photo
      credit pill. Fix: let the tagline wrap, lift the credit pill to
      top-right, hide the decorative compass at this width so the new pill
      position doesn't collide with it. Compass is aria-hidden, safe to
-     hide. */
+     hide.
+
+     Scoped to the pill-bearing variant only. The MSC ship pages (and a
+     few others) use `<p class="hero-credit tiny">` for a longer-text
+     credit; lifting that paragraph to top-right made it overlap the
+     navbar/hamburger. `.hero-credit.tiny` keeps its base bottom-right
+     placement. */
   .tagline {
     white-space: normal;
   }
-  .hero-credit {
+  .hero-credit:not(.tiny) {
     top: .85rem;
     right: .85rem;
     bottom: auto;
   }
-  .hero-credit .pill,
-  .hero-credit .pill.long {
+  .hero-credit:not(.tiny) .pill,
+  .hero-credit:not(.tiny) .pill.long {
     font-size: .8rem;
     padding: .35rem .6rem;
   }

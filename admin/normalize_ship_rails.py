@@ -96,7 +96,7 @@ RIGHT_RAIL_TEMPLATE = '''  <!-- MAIN CONTENT -->
   </style>
 
     <!-- Right Rail -->
-    <aside class="rail" role="complementary" aria-label="Key facts, author & articles" style="grid-column: 2; grid-row: 1;">
+    <aside class="rail col-2" role="complementary" aria-label="Key facts, author & articles">
       <!-- Quick Answer / Best For / Key Facts -->
       <section class="page-intro" style="margin: 0 0 1rem 0;">
         <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
@@ -151,7 +151,7 @@ RIGHT_RAIL_TEMPLATE = '''  <!-- MAIN CONTENT -->
     </aside>
 
     <!-- Main Content Column -->
-    <div style="grid-column: 1; grid-row: 1;">'''
+    <div class="col-1">'''
 
 def get_ship_name(filename):
     """Convert filename to ship name."""
@@ -242,6 +242,29 @@ def normalize_ship_page(filepath):
     return 'success', ship_name
 
 def main():
+    # Self-test: format the emit template against a fixture and verify it
+    # contains no known antipatterns. Anti-Theater Rule: this is runnable.
+    if '--self-test' in sys.argv:
+        emitted = RIGHT_RAIL_TEMPLATE.format(ship_name='Self Test')
+        antipatterns = [
+            (r'<aside\s+class="rail"\s+[^>]*style="grid-column:\s*2',
+             'rail aside with inline grid-column:2 (D-3)'),
+            (r'<div\s+style="grid-column:\s*1;\s*grid-row:\s*1;\s*">',
+             'col-1 wrapper with inline grid-* (D-3)'),
+            (r'href="https://cruisinginthewake\.com/assets/styles\.css',
+             'absolute production URL on stylesheet (D-2)'),
+            (r'styles\.css\?v=2\.\d+',
+             'stale stylesheet version pin (D-2)'),
+        ]
+        failed = [(p, label) for (p, label) in antipatterns if re.search(p, emitted)]
+        if failed:
+            print('SELF-TEST FAILED. Antipatterns matched in emitted template:')
+            for pat, label in failed:
+                print(f'  - {label}: {pat}')
+            sys.exit(1)
+        print('Self-test passed: no known antipatterns in emitted template.')
+        sys.exit(0)
+
     print_banner()
 
     ships_dir = Path('/home/user/InTheWake/ships/rcl')

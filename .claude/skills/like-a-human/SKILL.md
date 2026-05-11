@@ -1,7 +1,7 @@
 ---
 name: like-a-human
 description: "Voice & Presence — fires during cruise content writing. Guards the sound of the prose so it reads as written by someone who has actually sailed the route, not by a brochure or a model. Shapes voice markers, rhythm, vocabulary, and pastoral honesty. For post-draft diagnostics, see voice-audit."
-version: 3.0.0
+version: 3.1.0
 ---
 
 # like-a-human — Cruise Voice & Presence Standard
@@ -59,23 +59,137 @@ Human writing has seams — places the prose changes direction, where a tension 
 - "a short walk" → give meters or minutes
 - "reasonable prices" → give a number, in dollars, with a date
 
-## Machine Tells to Eliminate
+## Plain Language Discipline
 
-**Announcement-Before-Move.** Sentences that narrate the next move instead of executing it: "In this guide, I'll walk you through..." "Let's explore what makes..." Cut the announcement; do the move.
+### Copula Avoidance
 
-**Participial Editorializing.** Trailing `-ing` clauses that interpret instead of report: "...offering visitors an unforgettable experience" or "...providing a glimpse into local culture." End the sentence at the fact.
+AI replaces plain "is/are/has" with inflated constructions. The watchtower IS the watchtower. The buffet IS the buffet. The waterpark IS open from 10 a.m.
 
-**Synonym Cycling.** Rotating `port → destination → locale → stop` to avoid repetition. Pick the right word and reuse it.
+Replacement table:
 
-**False Ranges.** "From budget to luxury," "From relaxing to adventurous" — require actual endpoints, not abstract scales.
+| Inflated | Plain |
+|---|---|
+| serves as | is |
+| stands as | is |
+| represents | is |
+| constitutes | is |
+| marks | is |
+| features | has / includes |
+| offers | has / serves |
+| provides | has / serves |
+| boasts | has |
+| presents | has |
+| showcases | shows / has |
 
-**Synthetic Earnestness.** "Here's the truth:" or "Let me be honest:" followed by content that is not a confession. If it is not a real confession, cut the marker.
+Use `is`. Use `are`. Use `has`. Plain copulas are the backbone of clear cruise reporting.
 
-**Antithetical-Parallelism Stacking.** Multiple "It's not just X, it's Y" or "Not just X. Not just Y. But Z." constructions. One per page max in the cruise voice. (The sermon voice tolerates more; the cruise voice does not.)
+### Decorative Adverbs
 
-**Stat-Grid Opening.** Tonnage / passenger count / crew count before any human context. Open with what the reader will *experience*, not what the ship *contains*.
+Kill decorative adverbs: *quietly, deeply, fundamentally, remarkably, arguably, certainly, really, just, literally, genuinely, honestly, simply, actually, truly, definitely, particularly, especially.*
 
-**Generic Beauty Language.** "Crystal-clear waters," "sun-kissed sand," "vibrant local culture" — cut every one. Replace with what was actually there.
+If an adverb is doing work the verb cannot do alone, keep it. If removing it changes nothing, cut it. "He quietly suggested" → "He suggested." "Genuinely surprising" → "surprising." "Particularly good" → "good" (or name what was good about it). The verb does the work. The adverb watches.
+
+**Exceptions:** adverbs in actual quoted reviews, stated specifications ("sails weekly"), and schedule descriptions are untouchable. The kill list applies to *editorial* adverbs, not factual ones.
+
+### Rule of Three
+
+AI defaults to triads: three adjectives, three examples, three bullet points, three applications. Real cruise reporting follows the shape of the fact, not a template. Sometimes two is right. Sometimes four. Sometimes one strong observation is better than three weak ones.
+
+Let the fact determine the grouping. If a port has five observation decks, use five. If a ship has two main pools, use two. If a buffet station has only one redeeming dish, name it once and stop. **Do not force triads.**
+
+### Synonym Cycling (Elegant Variation)
+
+AI rotates through synonyms to avoid repeating a word: "the port... the destination... the locale... the stop." This is a tell because it prioritizes surface variety over clarity. If you mean the same thing, use the same word or "it."
+
+"The bridge was completed in 1910. The bridge connects the harbor and the old city" is better than "The bridge was completed in 1910. The structure connects the harbor and the old city." Repeat the noun. Don't cycle.
+
+### Low-Probability Details
+
+AI generates the most statistically likely content. Humans include oddly specific, pattern-breaking details that no algorithm would produce: the creak of the gangway, the smell of teak oil after rain, the exact weight of a casino chip, the moment you noticed the ship had moved away from the dock without you feeling it, the sound the elevator makes between decks 8 and 9. These details are what make a logbook feel lived rather than generated.
+
+When writing pastoral application, sensory observation, or first-person attestation, reach for the specific detail that only a person who has been there would know.
+
+### Participial Editorializing (-ing Tailing)
+
+AI tacks present participle phrases onto the end of sentences to add fake depth: "The pool deck filled up by 9 a.m., reflecting the popularity of family cruises." Cut everything after the fact. If the editorial matters, make it its own sentence with its own evidence.
+
+**The rule: end sentences at the fact.** State what happened. Stop. If you need to say why it matters, start a new sentence. The -ing clause is almost always a throat-clear disguised as analysis.
+
+Watch for: "highlighting the appeal," "reflecting broader trends," "underscoring the value," "ensuring continued relevance," "showcasing the line's commitment to," "emphasizing the need for," "solidifying its position as."
+
+### Synthetic Earnestness
+
+Distinguish from gear-shift markers. "Here's the thing:" followed by a genuine reporting move is a gear-shift — keep it. "But here's the truth:" followed by a restatement or platitude is synthetic earnestness — cut it. The marker is fine. The platitude is the tell.
+
+Also watch for: "Perhaps the most striking thing is..." "It is a reminder that..." "But here's what really matters..." If what follows is genuinely new content, the phrase earns its place. If what follows is something already said, the phrase is AI throat-clearing dressed up as insight.
+
+### False Ranges
+
+"From X to Y" requires X and Y to be endpoints of a real scale. "From the pool deck to the engine room" works. "From relaxing to adventurous" does not — those are not on a meaningful scale. AI uses this construction to gesture at breadth without being specific. Name the actual items instead.
+
+### Announcement-Before-Move Tells
+
+A sentence that narrates what the next sentence is about to do, instead of just doing it. Always a throat-clear. Almost always deletable.
+
+**Forbidden openings** (flag all of these at the start of a sentence or paragraph):
+
+- "In this guide, I'll walk you through..."
+- "In this article, we'll explore..."
+- "This guide will cover..."
+- "Let me walk you through..."
+- "Let's explore..."
+- "Let me show you..."
+- "We'll dive into..."
+- "We'll cover..."
+- "I want to tell you about..."
+- "Here's what I'll explain..."
+- "Below, you'll find..."
+- "In what follows..."
+- "If you've ever wondered..."
+
+**The positive rule:**
+
+Gear-shift markers are welcome. Announcements are not. The difference is length and content:
+
+- **Gear-shifts** (short, turn the direction, no justification): *"Here's what to know:"* *"But watch this."* *"Two warnings."* *"And now the catch."*
+- **Announcements** (longer, narrate the move, usually self-justified): *"In this guide, I'll walk you through everything you need to know about Cabo, because it can be confusing for first-timers."*
+
+Gear-shifts turn. Announcements narrate. **Keep the turns. Cut the narration.**
+
+**The fix is almost always deletion.** If you wrote *"Let me walk you through what the tender process looks like. The tender leaves the ship every twenty minutes..."* cut the first sentence and start with the second. The second sentence *is* the walk-through. It does not need to be announced.
+
+### Performing-the-Voice Tells (Image Density)
+
+AI imitates the cruise voice by reaching for clever phrases — metaphors, surprise words, fingerprint-level imagery — when a plain word would serve better. The voice profile permits one or two surprise words per page. The failure mode is producing three to five per paragraph.
+
+**Diagnostic: count images per paragraph.**
+
+- Zero images per paragraph — voice is flat, consider adding one
+- One image per paragraph — voice is sharp, keep it
+- Two images per paragraph — borderline, verify each is doing distinct work
+- Three or more images per paragraph — over-imagery, cut the most clever one
+
+**Test for distinct work:** if two images in the same paragraph name the same thing (both describe the buffet, both describe the harbor, both describe the experience of arrival), keep the more concrete one and cut the more abstract one. The concrete image is what a person who has been on the ship writes. The abstract image is what a machine writes to *sound* like one.
+
+**Test for cleverness vs. truth:** say the plain version aloud. Then say the surprising version aloud. If the plain version lands, keep it. If the surprising version earns its keep by doing work the plain version cannot, keep the surprise. When in doubt, plain wins.
+
+### Dead Metaphor
+
+One metaphor used more than twice across an entire piece becomes invisible — and then becomes a tell. Use a metaphor once at its pressure point and move on. If "home away from home" carries the introduction, do not bring it back in the conclusion. If the ship is described as a "floating city" early on, that's its single use; do not return five paragraphs later to call it a "city at sea."
+
+Let the image do its work and step aside.
+
+### One-Point Dilution
+
+The same observation restated across four paragraphs without adding evidence or texture. AI does this to fill space. A human reporter says it once, adds the specific that earns it, and moves on. If a section feels like it's circling, it is. Cut the circles.
+
+**Example:** if you've already said "the buffet at lunch was mediocre," do not also say "the lunch buffet underwhelmed," "the noon meal disappointed," or "the midday spread was forgettable" in the same section. Pick the sharpest version and cut the rest.
+
+### Syntactic Template Repetition
+
+AI repeats the same sentence structure across consecutive sentences: Subject-Verb-Object, Subject-Verb-Object, Subject-Verb-Object. Vary the machinery, not just the words. Follow an S-V-O with a fragment, a question, a sentence that starts with a dependent clause, or an inversion.
+
+**Rule: if three consecutive sentences have the same grammatical shape, break one.**
 
 ## Native Moves (Protect These)
 
@@ -97,19 +211,58 @@ Human writing has seams — places the prose changes direction, where a tension 
 
 ## Rhythm and Cadence
 
-The cruise voice builds through **short declarative reporting + a longer reflective sentence at the turn**:
+### The Building Pattern
 
-> "The tender was rough. Twenty minutes, swells. We landed wet but laughing, and the dock crew already had towels stacked at the rail."
+The cruise voice has a specific rhythm: short declarative sentences that stack, then a longer sentence or a single phrase that lands.
 
-**Protect:**
+**Example:**
 
-- Shrinking sentences at moments of confidence ("You will see whales.")
-- Em-dash for breath, not decoration
-- Anaphora at parallel beats ("Five decks. Five bars. Five different crowds.")
-- Paragraph-length variation — a one-sentence paragraph after a dense one is a feature, not a problem
-- One surprise word per page (not more)
+> The tender was rough. Twenty minutes, swells. We landed wet but laughing, and the dock crew already had towels stacked at the rail.
 
-**Avoid:**
+**Example:**
+
+> She cost more. She was worth it.
+>
+> Every dollar.
+
+This is not a rhythm trick. It's the way a person reports compression then release. When this pattern appears naturally, leave it alone. When it's being manufactured to *sound* like the author, cut it. The difference is felt, not measured.
+
+### Cadence Escalation
+
+- **Shrinking sentences at confidence moments.** "You will see whales." "Worth it." "Every time." If the climactic moment has even-length sentences, it has been flattened.
+- **Two kinds of acceleration.** Stripping conjunctions speeds up and strips to bone: "No tender. No bus. No way out." Stacking conjunctions slows down and adds weight: "She is the ship, and the home, and the platform." Both rhythms are yours. Protect both.
+- **Pause and pivot.** After a peak observation, drop to a quieter sentence that pulls the reader close. "Then the engine cut. Just the water against the hull." If high moments roll straight into the next checklist item without the soft pivot, a native move has been lost.
+- **Anaphora at parallel beats.** "Five decks. Five bars. Five different crowds."
+- **Em-dash for breath, not decoration.** No more than two per paragraph.
+- **Paragraph-length variation** — a one-sentence paragraph after a dense one is a feature, not a problem.
+- **One surprise word per page** (not more).
+
+### Punctuation Fingerprint
+
+The cruise voice uses:
+
+- **Em-dashes** — sparingly, for genuine interruption or aside, not as all-purpose connectors. **Cap: two per paragraph.** If a passage has more, compress.
+- **Colons** for announcement: "Here's what to know:"
+- **Periods** for finality. Short sentences. Full stops.
+- **Commas** for natural breath, not for listing everything the writer thought of.
+- **Semicolons** rarely; only when two independent clauses genuinely lean on each other.
+
+If a paragraph has more than two em-dashes, compress. Find the clause that's doing the interrupting and decide: does it earn its dash, or is it hiding in one?
+
+### The Controlled Flaw
+
+AI never starts a sentence with "And." AI never uses a sentence fragment on purpose. AI never writes a paragraph that's just one word.
+
+Human writers do all of these.
+
+- **Start a sentence with a conjunction** when it creates forward motion: "And the dock crew was ready with towels." "But Allure had already cast off."
+- **Use intentional fragments** at moments of emphasis: "Worth it." "Every time." "Not this trip."
+- **Leave a question hanging** when the answer needs to arrive later, not immediately. Let two paragraphs of context sit between the question and its resolution.
+- **Allow a sentence that doesn't quite fit the paragraph** — the thought that wandered in because the writer was thinking, not constructing.
+
+These are not tricks. They are the natural movements of a mind reporting in real time, not executing a template.
+
+### Avoid
 
 - Uniform sentence lengths
 - Predictable paragraph rhythm (e.g., always 3-sentence paragraphs)
@@ -136,6 +289,9 @@ For accessibility, solo, and grief content the standard is heightened:
 - Sustained absence of a real number, a real name, or a real date
 - Performance of voice rather than the voice itself
 - Promotional drift (the prose starts selling)
+- Three or more consecutive sentences in identical grammatical shape
+- One metaphor used three or more times across the page
+- One observation restated multiple times without new evidence
 
 ## The Safety Root Cause
 
@@ -146,3 +302,10 @@ When in doubt, trust the specific. Cut the crutch. The reader feels the differen
 ---
 
 *The PDFs are the cron job. The architecture is the mechanism. The voice is what the reader actually feels.*
+
+---
+
+## Version History
+
+- **v3.1.0 (2026-05-10)** — Lifted ten sub-disciplines from Romans's `like-a-human` (in cruise voice): copula avoidance with replacement table, decorative adverb kill list, rule of three, low-probability details, dead metaphor, one-point dilution, syntactic template repetition, punctuation fingerprint, the controlled flaw, the building pattern with concrete examples, cadence escalation (two kinds of acceleration + pause-and-pivot). Reorganized Plain Language Discipline as the spine of the document.
+- **v3.0.0** — Initial cruise-voice version: hard-banned vocabulary, native moves, three borrowed moves, pastoral guardrails.

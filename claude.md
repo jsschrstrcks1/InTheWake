@@ -1,9 +1,17 @@
 # Claude AI Assistant Guide — In the Wake
 
-**Version:** 1.4.1
-**Last Updated:** 2026-03-02
+**Version:** 1.5.0
+**Last Updated:** 2026-05-10
 
 **Soli Deo Gloria.** All work on this project is offered as a gift to God. Excellence as worship means getting it right, not getting it fast.
+
+---
+
+## Skills
+
+Full skill catalog (45 skills) is documented in [`SKILLS.md`](SKILLS.md) — human-facing index with activation modes, trigger keywords, the validator chain, and the ITW-Lite Protocol enforcement. **Read SKILLS.md at session start** before working on any page, tool, or content surface.
+
+The cruise-content authoring skills (`port-page-generator`, `port-content-builder`, `venue-page-writer`, `seasonal-content-planner`, `investigate`), the quality gates (`accessibility-audit`, `seo-schema-audit`, `link-integrity`, `publication-proofreader`, `emotional-hook-test`, `internal-consistency-repair`, `image-reuse-guardrail`, `deployment-validator`, `webapp-testing`), the voice trio + audience-profiles + ai-summary-rewriter, and the standard household kit are all configured under `.claude/skills/`. The orchestrator runs in `cruising` mode with Claude as lead.
 
 ---
 
@@ -12,14 +20,21 @@
 **In the Wake** is a Christ-shaped cruise planning website — for ordinary travelers, grieving widows, disabled adventurers, healing families, and exhausted caregivers. Every line of code and every word of content is stewardship.
 
 Before touching anything:
-1. Read the pastoral guardrails — `admin/claude/PASTORAL_GUARDRAILS.md` — they override everything else
-2. Read the skills system — `admin/claude/SKILLS_REFERENCE.md` — know what's watching
-3. Check your actual task — `admin/UNFINISHED_TASKS.md`
-4. Read the careful-not-clever guardrail — `.claude/skills/careful-not-clever/CAREFUL.md`
+1. Read [`SKILLS.md`](SKILLS.md) — the skills index, with activation modes and the validator chain
+2. Read the pastoral guardrails — `admin/claude/PASTORAL_GUARDRAILS.md` — they override everything else
+3. Read the skills system — `admin/claude/SKILLS_REFERENCE.md` — historical reference (now superseded by SKILLS.md)
+4. Check your actual task — `admin/UNFINISHED_TASKS.md`
+5. Read the careful-not-clever guardrail — `.claude/skills/careful-not-clever/CAREFUL.md`
 
 ---
 
 ## Essential Reading
+
+### Skills Index
+
+| File | Purpose |
+|---|---|
+| [`SKILLS.md`](SKILLS.md) | **Skills index — read at session start** |
 
 ### Integrity & Process
 | File | Purpose |
@@ -27,7 +42,7 @@ Before touching anything:
 | `admin/claude/PASTORAL_GUARDRAILS.md` | Pastoral space first. Theological foundation. Non-negotiable. |
 | `.claude/skills/careful-not-clever/CAREFUL.md` | Process integrity — read before editing, verify, document |
 | `admin/CAREFUL.md` | Technical integrity — CSS semantics, pre-commit checks |
-| `admin/claude/SKILLS_REFERENCE.md` | All 10 skills, both CAREFUL files, task tracking files |
+| `admin/claude/SKILLS_REFERENCE.md` | Historical skills reference (now superseded by SKILLS.md) |
 
 ### Task Management
 | File | Purpose |
@@ -176,9 +191,10 @@ The previous JavaScript validator lives in `admin/legacy/validate-ship-page.js` 
 1. `admin/claude/PASTORAL_GUARDRAILS.md` — pastoral care and theological foundation override everything
 2. `.claude/skills/careful-not-clever/CAREFUL.md` — integrity and carefulness override efficiency
 3. This file — architecture, never-dos, priorities
-4. `admin/claude/TECHNICAL_STANDARDS.md` — implementation patterns
-5. `new-standards/` — page-type specifics
-6. `admin/UNFINISHED_TASKS.md` — current work
+4. [`SKILLS.md`](SKILLS.md) — skills catalog with activation modes
+5. `admin/claude/TECHNICAL_STANDARDS.md` — implementation patterns
+6. `new-standards/` — page-type specifics
+7. `admin/UNFINISHED_TASKS.md` — current work
 
 ---
 
@@ -227,6 +243,7 @@ This is silent when already installed. If `/consult` or `/orchestrate` fails wit
 
 ## Version History
 
+- v1.5.0 (2026-05-10) — Added [`SKILLS.md`](SKILLS.md) skill index. claude.md references it. Documented 45 skills (cruise-content authoring + quality gates + voice + operations + multi-LLM orchestrator + standard kit).
 - v1.4.1 (2026-03-02) — Fixed standards references: new-standards/ (15 files, foundation + v3.010) was completely absent from CLAUDE.md. Replaced broken `standards/*.md` glob with accurate per-file references. Updated Site Architecture tree and Need Help? section.
 - v1.4.0 (2026-03-02) — Restructured as lean navigation hub (~250 lines, down from 919). Extracted 5 subfiles: PASTORAL_GUARDRAILS.md, SKILLS_REFERENCE.md, TECHNICAL_STANDARDS.md, IMAGE_WORKFLOW.md, WORKFLOW.md. Added task tracking files to Essential Reading. Emphasized integrity and SDG throughout. Fixed session-start-guardrail.sh skill count 9→10.
 - v1.3.0 (2026-03-02) — Ground-truth metrics audit: pages 1,238→1,241, ship images 669→682, WebP 3,131→4,475, ports 380→387, JSON 2,455→1,310, inline styles ~16,022→~19,513, ICP-Lite 100%. Added Like-a-human v2.0.0 and voice-audit.

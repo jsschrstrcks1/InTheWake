@@ -428,7 +428,7 @@ All work on this project is offered as a gift to God.
   <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/dining-hero.jpg">
 
   <!-- Site CSS -->
-  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.257">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
 
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
@@ -770,6 +770,33 @@ ${faqHtml}
 </body>
 </html>
 `;
+}
+
+// ─── Self-test: verify emitted HTML contains no known antipatterns ──────────
+// Anti-Theater Rule: this is runnable, not aspirational. CI / pre-flight should
+// invoke `node admin/generate-venue-pages.js --self-test`.
+if (args.includes('--self-test')) {
+  const fixture = {
+    slug: 'self-test-fixture',
+    name: 'Self Test',
+    description: 'Self-test fixture for antipattern detection.',
+    category: 'dining',
+  };
+  const html = generatePage(fixture.slug, fixture);
+  const antipatterns = [
+    [/href="https:\/\/cruisinginthewake\.com\/assets\/styles\.css/, 'absolute production URL on stylesheet (D-2)'],
+    [/styles\.css\?v=2\.\d+/, 'stale stylesheet version pin (D-2)'],
+    [/style="grid-column:\s*[12];\s*grid-row:/, 'inline grid-* antipattern (D-3)'],
+    [/<div\s+style="grid-column:\s*1;\s*grid-row:\s*1;\s*">/, 'col-1 wrapper antipattern (D-3)'],
+  ];
+  const failed = antipatterns.filter(([re]) => re.test(html));
+  if (failed.length) {
+    console.error('SELF-TEST FAILED. Antipatterns matched in emitted HTML:');
+    for (const [re, label] of failed) console.error(`  - ${label}: ${re}`);
+    process.exit(1);
+  }
+  console.log('Self-test passed: no known antipatterns in emitted HTML.');
+  process.exit(0);
 }
 
 // ─── Process venues ─────────────────────────────────────────────────────────
