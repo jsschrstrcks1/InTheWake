@@ -1328,6 +1328,18 @@ function validateImages($) {
  * the .githooks/pre-commit hook (admin/check-image-reuse.cjs). This function
  * checks alt-text drift WITHIN a single page; the guardrail catches the same
  * bytes being reused ACROSS pages. Together they cover both surfaces.
+ *
+ * Deliberate scope (per careful-not-clever retrospective 2026-05-09):
+ *   - Only scans <img src="..."> attributes. Does NOT scan srcset, <picture>
+ *     <source srcset>, CSS background-image, or JSON-LD image fields. The
+ *     cross-page byte-reuse guardrail covers those at the file level. If
+ *     same-image-different-alt becomes a real concern via srcset, extend
+ *     here; for now the bare src reflects the canonical author intent on
+ *     this site.
+ *   - Map keys are case-sensitive. "Dubai-hero.webp" and "dubai-hero.webp"
+ *     are treated as distinct paths. Filesystem case is enforced at the
+ *     deployment layer; in-page mismatch would be a content bug, not an
+ *     image-reuse one.
  */
 function validateImageReuse($) {
   const warnings = [];
@@ -1405,6 +1417,13 @@ function validateImageReuse($) {
  *     port-map/port-pin/ship-map/ship-thumbnail, logo/favicon/sprite/icon-*
  *   - Allowlisted asset prefixes: /assets/social/, /assets/brand/,
  *     /assets/icons/ (per image-reuse-guardrail SKILL.md §The law clause 6)
+ *
+ * Deliberate scope (per careful-not-clever retrospective 2026-05-09):
+ *   Only scans <img src="..."> attributes. Does NOT scan srcset,
+ *   <picture><source srcset>, or CSS background-image. The byte-level
+ *   image-reuse-guardrail catches cross-page reuse on those surfaces
+ *   at the file level; this function focuses on the author-canonical
+ *   src path where filename-slug drift is most diagnostic.
  */
 function validateImageFilenameSlugMatch($, filepath) {
   const warnings = [];

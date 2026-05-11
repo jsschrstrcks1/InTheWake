@@ -1,0 +1,367 @@
+{
+  "file": "ports/torshavn.html",
+  "valid": false,
+  "score": 20,
+  "blocking_errors": [
+    {
+      "section": "structure",
+      "rule": "collapsible_required",
+      "message": "Sections must use collapsible <details>/<summary> structure: map",
+      "severity": "BLOCKING"
+    },
+    {
+      "section": "basic_html",
+      "rule": "missing_main_content",
+      "message": "Missing id=\"main-content\" section",
+      "severity": "BLOCKING"
+    },
+    {
+      "section": "image_refs",
+      "rule": "missing_image_file",
+      "message": "2 image(s) referenced in HTML but not found on disk: /ports/img/torshavn/torshavn-waterfront.webp, /ports/img/torshavn/torshavn-food.webp",
+      "severity": "BLOCKING"
+    },
+    {
+      "section": "weather_sub",
+      "rule": "weather_validation_failed",
+      "message": "Weather sub-validator failed (BLOCKING) — run node scripts/validate-port-weather.js on this file for details",
+      "severity": "BLOCKING"
+    },
+    {
+      "section": "articles_sub",
+      "rule": "recent_articles_validation_failed",
+      "message": "Recent articles/stories pattern validation failed (BLOCKING) — needs nav-top, nav-bottom, loader script. See: admin/NOSCRIPT_REPAIR_GUIDE.md §2b. Details: node admin/validate-recent-articles.js <file>",
+      "severity": "BLOCKING"
+    }
+  ],
+  "warnings": [
+    {
+      "section": "images",
+      "rule": "image_reuse_alt_drift",
+      "message": "Image \"torshavn-hero.webp\" reused 3 times with 3 different alt texts — pick one canonical alt or use distinct images",
+      "severity": "WARNING"
+    },
+    {
+      "section": "logbook_narrative",
+      "rule": "emotional_pivot_weak",
+      "message": "Logbook has 1 emotional pivot marker(s). Consider strengthening the heart moment.",
+      "severity": "WARNING"
+    },
+    {
+      "section": "voice_quality",
+      "rule": "voice_v01",
+      "message": "[V01] ideal for... (found 1x, e.g. \"ideal for\")",
+      "severity": "WARNING"
+    },
+    {
+      "section": "content",
+      "rule": "last_reviewed_stamp_missing",
+      "message": "Missing visible \"Last reviewed\" stamp. Expected: <p class=\"last-reviewed\">Last reviewed: [Month Year]</p>",
+      "severity": "WARNING"
+    },
+    {
+      "section": "service_worker",
+      "rule": "missing_sw_registration",
+      "message": "No Service Worker registration found. Add navigator.serviceWorker.register('/sw.js') for offline support.",
+      "severity": "WARNING"
+    },
+    {
+      "section": "poi_manifest",
+      "rule": "insufficient_pois",
+      "message": "Map has 4 renderable point(s) (4 resolved poi_ids, 0 in pois array), minimum recommended is 10",
+      "severity": "WARNING"
+    },
+    {
+      "section": "poi_manifest",
+      "rule": "poi_ids_without_pois",
+      "message": "Manifest has 4 poi_ids but no pois array. Add a pois array with coordinates for data completeness.",
+      "severity": "WARNING"
+    },
+    {
+      "section": "images",
+      "rule": "generic_alt_text",
+      "message": "1 image(s) have generic template alt text: \"Torshavn skyline and cityscape...\"",
+      "severity": "WARNING"
+    },
+    {
+      "section": "author_consistency",
+      "rule": "disclaimer_logbook_contradiction",
+      "message": "Page has \"haven't visited\" disclaimer but also contains first-person logbook narrative. These contradict each other — either remove the disclaimer or clarify the logbook is illustrative.",
+      "severity": "WARNING"
+    },
+    {
+      "section": "basic_html",
+      "rule": "missing_og_tags",
+      "message": "Missing Open Graph meta tags: og:title, og:description, og:image, og:url (social sharing preview)",
+      "severity": "WARNING"
+    },
+    {
+      "section": "basic_html",
+      "rule": "missing_twitter_cards",
+      "message": "Missing Twitter Card meta tags: twitter:card, twitter:title, twitter:description (should use summary_large_image)",
+      "severity": "WARNING"
+    },
+    {
+      "section": "noscript",
+      "rule": "missing_gallery_noscript",
+      "message": "Photo gallery has no noscript image fallback — noscript users see blank gallery. See: admin/NOSCRIPT_REPAIR_GUIDE.md §3",
+      "severity": "WARNING"
+    },
+    {
+      "section": "noscript",
+      "rule": "missing_ships_noscript",
+      "message": "Ships Visiting section has no noscript fallback — noscript users see empty section. See: admin/NOSCRIPT_REPAIR_GUIDE.md §1",
+      "severity": "WARNING"
+    },
+    {
+      "section": "noscript",
+      "rule": "missing_stories_noscript",
+      "message": "Recent Stories rail has no noscript fallback — noscript users see empty section. See: admin/NOSCRIPT_REPAIR_GUIDE.md §2",
+      "severity": "WARNING"
+    },
+    {
+      "section": "rendering",
+      "rule": "missing_css_version",
+      "message": "Stylesheet link missing cache-bust version query (?v=3.010.400)",
+      "severity": "WARNING"
+    }
+  ],
+  "info": [
+    {
+      "section": "logbook_narrative",
+      "rule": "spiritual_content",
+      "message": "Logbook includes 1 spiritual/aspirational markers",
+      "severity": "INFO"
+    },
+    {
+      "section": "voice_quality",
+      "rule": "voice_v05",
+      "message": "[V05] \"honestly\" — filler word (if overused) (found 1x, e.g. \"honestly\")",
+      "severity": "INFO"
+    }
+  ],
+  "gold_standard_gaps": [
+    {
+      "section": "gold_standard",
+      "rule": "gs_missing_quality_sections",
+      "message": "Gold standard gap: missing quality sections: food, notices, credits",
+      "severity": "WARNING"
+    },
+    {
+      "section": "gold_standard",
+      "rule": "gs_missing_breadcrumb",
+      "message": "Gold standard gap: missing breadcrumb navigation (aria-label=\"Breadcrumb\")",
+      "severity": "WARNING"
+    },
+    {
+      "section": "gold_standard",
+      "rule": "gs_missing_twitter_cards",
+      "message": "Gold standard gap: missing Twitter Card meta tags",
+      "severity": "WARNING"
+    }
+  ],
+  "analytics": {
+    "hasGoogleAnalytics": true,
+    "hasUmami": true
+  },
+  "icp_lite": {
+    "protocol_version": "ICP-Lite v1.4",
+    "schema_type": "WebPage",
+    "ai_summary_length": 211,
+    "last_reviewed": "2026-02-01",
+    "has_canonical": true,
+    "has_mainEntity": true
+  },
+  "section_order": {
+    "valid": true,
+    "detected_order": [
+      "hero",
+      "logbook",
+      "cruise_port",
+      "getting_around",
+      "map",
+      "excursions",
+      "depth_soundings",
+      "practical",
+      "gallery",
+      "faq"
+    ],
+    "missing_sections": [],
+    "out_of_order_sections": []
+  },
+  "word_counts": {
+    "logbook": 1298,
+    "cruise_port": 289,
+    "getting_around": 311,
+    "excursions": 651,
+    "depth_soundings": 259,
+    "faq": 322,
+    "total": 4102
+  },
+  "images": {
+    "total_images": 14,
+    "missing_alt": 0,
+    "missing_credits": 0
+  },
+  "image_reuse": {
+    "reused_srcs": 1
+  },
+  "filename_slug": {
+    "slug": "torshavn",
+    "mismatch_count": 0
+  },
+  "port_images": {
+    "total_port_images": 11,
+    "placeholder_images": 0,
+    "potential_duplicates": false
+  },
+  "rubric": {
+    "first_person_count": 42,
+    "contrast_count": 12,
+    "accessibility_mentions": 3,
+    "price_mentions": 23,
+    "booking_keywords": 3
+  },
+  "logbook_narrative": {
+    "has_bullet_lists": false,
+    "forbidden_patterns_found": 0,
+    "emotional_pivot_markers": 1,
+    "first_person_pronouns": 42,
+    "pronouns_per_100_words": "3.2",
+    "senses_used": [
+      "visual",
+      "auditory",
+      "tactile",
+      "gustatory"
+    ],
+    "has_reflection": true,
+    "contrast_words": 12,
+    "spiritual_markers": 1
+  },
+  "content_purity": {
+    "violations_found": 0,
+    "stewardship_markers": 4,
+    "stamina_level_mentions": 2
+  },
+  "voice_quality": {
+    "skipped": false,
+    "wordCount": 4102,
+    "totalFindings": 2,
+    "findingsByCheck": {
+      "V01": 1,
+      "V05": 1
+    },
+    "promotional_drift": 1,
+    "ai_chorus": 0,
+    "authority_violations": 0,
+    "window_pane_violations": 0,
+    "warmth_violations": 1,
+    "corporate_filler": 0,
+    "authenticity_risk": "low",
+    "authenticity_signals": [],
+    "authority_positive": 0,
+    "fairness_balance": 0
+  },
+  "unique_names": {
+    "names_found": []
+  },
+  "from_the_pier": {
+    "hasComponent": true,
+    "destinationCount": 4,
+    "hasPierNote": true
+  },
+  "emotional_hook": {
+    "anxietyReducersFound": 2
+  },
+  "print_button": {
+    "hasPrintButton": true
+  },
+  "internal_links": {
+    "deadLinks": [],
+    "totalLinks": 61
+  },
+  "recent_stories": {
+    "hasRecentStoriesSection": true,
+    "hasDynamicRail": true,
+    "hardcodedStoryLinks": 0
+  },
+  "site_integration": {
+    "inPortsHtml": true,
+    "inSearchIndex": true
+  },
+  "html_integrity": {
+    "has_meta_author": true,
+    "inline_console_logs": 0
+  },
+  "sidebar": {
+    "hasSidebar": true,
+    "detected": [
+      "Quick Answer",
+      "At a Glance",
+      "Plan Your Visit",
+      "Author's Note Disclaimer",
+      "About the Author",
+      "Nearby Ports",
+      "Recent Stories",
+      "Whimsical Units"
+    ],
+    "missing": []
+  },
+  "swiper_fallback": {
+    "usesSwiper": true,
+    "hasLocalSwiper": true,
+    "hasCDNFallback": true,
+    "hasSwiperReady": true
+  },
+  "service_worker": {
+    "hasServiceWorker": false,
+    "hasSWFile": false
+  },
+  "faq_answer_length": {
+    "totalFAQs": 3,
+    "longAnswers": 0,
+    "longAnswerDetails": []
+  },
+  "answer_line_key_facts": {
+    "hasAnswerLine": true,
+    "hasKeyFacts": true
+  },
+  "sdg_position": {
+    "hasSDG": true,
+    "sdgInFirst3": true
+  },
+  "canonical": {
+    "canonical": "https://cruisinginthewake.com/ports/torshavn"
+  },
+  "poi_manifest": {
+    "hasManifest": true,
+    "poiCount": 0,
+    "poiIdCount": 4,
+    "resolvedCount": 4
+  },
+  "weather_widget": {
+    "hasWidget": true,
+    "lat": "62.0107",
+    "lon": "-6.7716",
+    "region": "Northern Europe",
+    "portId": "torshavn"
+  },
+  "jsonld_geo": {
+    "checkedBlocks": 3
+  },
+  "author_consistency": {
+    "hasNotVisitedDisclaimer": true,
+    "hasFirstPersonLogbook": false,
+    "hasVividFirstPerson": true
+  },
+  "mexican_notices": {
+    "isMexicanPort": false
+  },
+  "seasonal_data": {
+    "isHurricaneZone": false
+  },
+  "template_filler": {
+    "template_filler_count": 0,
+    "detected_signatures": []
+  }
+}

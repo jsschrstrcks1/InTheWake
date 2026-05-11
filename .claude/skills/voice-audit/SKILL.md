@@ -1,7 +1,7 @@
 ---
 name: voice-audit
 description: "Post-draft diagnostic for InTheWake content. Scans for cruise-marketing tells and AI fingerprints, assesses authenticity risk, and checks voice continuity against the measured corpus profile. Fires before committing content edits or before publishing a new page. For during-writing standards, see like-a-human. For corpus measurement, see voice-dna."
-version: 2.0.0
+version: 2.1.0
 ---
 
 # Voice Audit — Post-Draft Diagnostic
@@ -41,9 +41,52 @@ Count instances of:
 
 Report: **count + locations**. Do not paraphrase — quote the exact phrase and line.
 
+#### Announcement-before-move scan (grep pattern)
+
+Search for sentences that narrate the next move instead of executing it. These are throat-clearing sentences that pad the transitions.
+
+**Grep pattern** (run against the page body):
+
+```
+"In this guide, I'll|In this article, I'll|This guide will|This article will|Let me walk you through|Let's explore|Let me show you|Let's take a look at|We'll dive into|We'll cover|I'll explain|I want to tell you|Let me tell you about|Here's what I'll|Below, you'll find|In what follows|We're going to look at|If you've ever wondered"
+```
+
+- Every hit is a presumptive flag
+- For each hit, ask: does this sentence announce a move, or make a move?
+- If announce — cut the sentence and start with the content
+- **Threshold:** zero hits in body prose. A hero/intro paragraph may keep *one* announcement only if it carries real specifics in the same sentence ("In March 2024 I sailed Allure on the western Caribbean…"). Two or more anywhere on the page — flag.
+
+#### Assumed-familiarity scan (grep pattern)
+
+Search for claims about what the reader already knows, has heard, or has been told. Each hit must be either anchored to a specific source/claim or cut.
+
+**Grep pattern** (run against the page body):
+
+```
+"as any cruiser knows|as everyone knows|as we all know|you've probably heard|you've probably been told|everyone agrees|well-known|legendary|famous (without context)|iconic (without context)|of course|naturally|needless to say"
+```
+
+- Every hit must be verified: is the referenced fact actually anchored to a date, source, or named example?
+- If "famous" or "iconic" appears without naming what it's famous *for*, cut or anchor
+- If "of course" or "naturally" leans on shared assumption, cut
+- **Default:** *"the fish-shaped bridge"* works as well as *"the iconic fish-shaped bridge."* Familiarity claims are usually ornamental. When in doubt, cut
+
+#### Image-density scan
+
+Count images, metaphors, and surprise phrases per paragraph. Run especially on confidence-building moments and pastoral pages.
+
+- Zero images per paragraph — voice may be flat
+- One image per paragraph — sharp, keep it
+- Two images per paragraph — borderline, verify each does distinct work
+- Three or more images per paragraph — over-imagery, cut the most clever one and keep the most concrete
+
+**Test for distinct work:** if two images in the same paragraph name the same thing (both describe the buffet, both describe the harbor, both describe the experience of arrival), keep the more concrete one and cut the more abstract one. The concrete image is what a person who has been there writes. The abstract image is what a machine writes to *sound* like one.
+
+**Test for cleverness vs. truth:** say the plain version aloud. Then say the surprising version aloud. If the plain version lands, keep it. If the surprising version earns its keep by doing work the plain version cannot, keep the surprise. When in doubt, plain wins.
+
 ### 2. Voice Continuity Check
 
-Verify presence of **required voice markers**:
+**Must be present** (cruise voice baseline):
 
 - [ ] First-person attestation with a date (at least one per page; logbook entries require multiple)
 - [ ] Honest limitation acknowledged (at least one per long-form page)
@@ -52,8 +95,21 @@ Verify presence of **required voice markers**:
 - [ ] Named real person OR named specific (one per page)
 - [ ] Plain copulas dominant over promotional verbs
 - [ ] Direct reader address for vulnerable-audience pages
+- [ ] Compressed declarative chains where the rhythm calls for them ("Five decks. Five bars. Five different crowds.")
 
-Report markers **present / missing**. If three or more are missing, page is at minimum Medium risk regardless of machine-tell count.
+**Must be absent** (cruise voice anti-baseline):
+
+- [ ] Stacked intensifier adverbs (*deeply, genuinely, truly, particularly, especially*)
+- [ ] AI-overrepresented vocabulary (see Machine Tell Scan)
+- [ ] "Moreover / Furthermore / In conclusion" transitions
+- [ ] Stat-grid openings before human context
+- [ ] Generic beauty language ("crystal-clear waters," "sun-kissed sand," "vibrant culture")
+- [ ] Promotional verbs ("offers," "features," "boasts," "showcases") doing marketing work
+- [ ] Hedged claims where the reporter would speak declaratively ("may offer," "can be considered," "is regarded as")
+- [ ] Antithetical-parallelism stacking beyond one instance per page
+- [ ] Cruise-marketing vocabulary (zero tolerance — see hard-banned list in `like-a-human`)
+
+**Drift indicator:** if **3 or more must-be-present markers are missing**, OR **2 or more must-be-absent items appear**, the page has drifted at minimum to Medium risk regardless of machine-tell count. Both signals are weighted equally; the absence list is *not* a soft warning.
 
 ### 3. Cadence Check
 
@@ -62,8 +118,9 @@ Verify:
 - [ ] Sentence length variance — not uniform
 - [ ] Paragraph length variance — not uniform
 - [ ] At least one short sentence at a confidence-building moment (the "You will see whales." beat)
-- [ ] Em-dash used for breath, not decoration
+- [ ] Em-dash used for breath, not decoration (no more than two per paragraph)
 - [ ] No mechanical compression-release at every section
+- [ ] No three consecutive sentences with the same grammatical shape (S-V-O, S-V-O, S-V-O — break one)
 
 Flag: any uniform stretch (5+ paragraphs of similar length, 5+ sentences of similar length, repeated section rhythm).
 
@@ -109,22 +166,26 @@ Assemble the six-axis output into a risk rating:
 **Low risk** — ship it.
 - Machine tells: 0–2
 - All required voice markers present
+- No must-be-absent items present
 - Cadence varied; specificity present; no promotional drift
 - Pastoral check passes (if applicable)
 
 **Medium risk** — restore before commit.
 - Machine tells: 3–5
-- 1–2 required voice markers missing
+- 1–2 required voice markers missing OR 1 must-be-absent item appears
 - One cadence flag OR one specificity flag
 - Light promotional drift
+- Image-density 3+ in any paragraph
 
 **High risk** — hold for revision.
 - Machine tells: 6+
 - 3+ required voice markers missing
+- 2+ must-be-absent items present
 - Specificity check fails (page is generic)
 - Promotional drift dominant
 - Pastoral honesty failure on a vulnerable-audience page
 - Antithetical-parallelism stacking with 3+ instances
+- Three or more announcement-before-move grep hits in body prose
 
 ## Restoration, Not Rewriting
 
@@ -154,13 +215,16 @@ When the rating is High, the recommendation is to **rewrite the page from the or
 - Antithetical stacking: [N] instances
 - Participial editorializing: [N]
 - Synonym cycling: [N]
-- Announcement-before-move: [N]
+- Announcement-before-move (grep hits): [N]
+- Assumed-familiarity (grep hits): [N]
+- Image-density violations (3+ per paragraph): [N]
 - Synthetic earnestness: [N]
 - False ranges: [N]
 - Stat-grid opening: [yes/no]
 - Generic beauty language: [N]
 
 ### Voice Markers
+#### Must be present
 - First-person attestation: [present/missing]
 - Honest limitation: [present/missing]
 - From-the-pier specificity: [present/missing/N/A]
@@ -168,12 +232,25 @@ When the rating is High, the recommendation is to **rewrite the page from the or
 - Named real person/specific: [present/missing]
 - Plain copulas dominant: [yes/no]
 - Direct reader address (vulnerable): [present/missing/N/A]
+- Compressed declarative chains: [present/missing]
+
+#### Must be absent
+- Stacked intensifier adverbs: [count, list]
+- AI-overrepresented vocab: [count, list]
+- Filler transitions: [count, list]
+- Stat-grid opening: [yes/no]
+- Generic beauty language: [count, list]
+- Promotional verbs: [count, list]
+- Hedged claims: [count, list]
+- Antithetical stacking beyond cap: [count]
+- Cruise-marketing vocabulary: [count, list]
 
 ### Cadence
 - Sentence variance: [varied/uniform]
 - Paragraph variance: [varied/uniform]
 - Confidence-moment short sentence: [present/missing]
 - Em-dash usage: [breath/decorative]
+- Syntactic template repetition (3+ S-V-O in a row): [count]
 
 ### Specificity
 - Tied to this place: [yes/no]
@@ -203,3 +280,10 @@ When the rating is High, the recommendation is to **rewrite the page from the or
 ---
 
 *The audit's job is to remove the mechanical overlay. The author's voice is already there.*
+
+---
+
+## Version History
+
+- **v2.1.0 (2026-05-10)** — Lifted four diagnostics from Romans's `voice-audit` (in cruise voice): grep pattern for announcement-before-move, grep pattern for assumed-familiarity, image-density scan with per-paragraph thresholds, must-be-absent list with explicit drift indicators. Updated risk-rating thresholds and audit-report format to reflect the new checks.
+- **v2.0.0** — Six-axis scan with cruise-marketing vocabulary list and pastoral-honesty axis.

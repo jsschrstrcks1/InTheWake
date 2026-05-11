@@ -191,7 +191,7 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
-  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=2.257">
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
 
   <script type="application/ld+json">
@@ -461,6 +461,37 @@ const shows = singleSlug
 if (shows.length === 0) {
   console.error(singleSlug ? `No show found with slug: ${singleSlug}` : 'No shows in data file');
   process.exit(1);
+}
+
+// ─── Self-test: verify emitted HTML contains no known antipatterns ──────────
+if (args.includes('--self-test')) {
+  const fixture = {
+    slug: 'self-test-fixture',
+    name: 'Self Test',
+    description: 'Self-test fixture for antipattern detection.',
+    type: 'production',
+    ships: [],
+    highlights: ['fixture highlight'],
+    duration: '60 minutes',
+    venue: 'Royal Theater',
+    premiered: '2026',
+    cost: 'Included',
+  };
+  const html = generatePage(fixture);
+  const antipatterns = [
+    [/href="https:\/\/cruisinginthewake\.com\/assets\/styles\.css/, 'absolute production URL on stylesheet (D-2)'],
+    [/styles\.css\?v=2\.\d+/, 'stale stylesheet version pin (D-2)'],
+    [/style="grid-column:\s*[12];\s*grid-row:/, 'inline grid-* antipattern (D-3)'],
+    [/<div\s+style="grid-column:\s*1;\s*grid-row:\s*1;\s*">/, 'col-1 wrapper antipattern (D-3)'],
+  ];
+  const failed = antipatterns.filter(([re]) => re.test(html));
+  if (failed.length) {
+    console.error('SELF-TEST FAILED. Antipatterns matched in emitted HTML:');
+    for (const [re, label] of failed) console.error(`  - ${label}: ${re}`);
+    process.exit(1);
+  }
+  console.log('Self-test passed: no known antipatterns in emitted HTML.');
+  process.exit(0);
 }
 
 let created = 0, skipped = 0, errors = 0;
