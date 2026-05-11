@@ -143,7 +143,49 @@ These sources are reliable for US/Alaska/federal content, downloadable within cu
 
 ---
 
+## P0 — HAL First Look carousels: deferred blocking errors (2026-05-10)
 
+**Source:** Session `claude/fix-carnival-validator-krEdD` 2026-05-10. Flickr-photographer-named contamination on HAL pages: 3 files were not Holland America ships at all (Volvo trucks misnamed BonsaiTruck, Taiwanese event group misnamed Westerdam, Lucas Ensing photo of unrelated subject misnamed Nieuw Amsterdam). Files git-rm'd; references dropped from pages.
+
+**Cleanup completed:**
+- `assets/ships/Veendam_flickr_BonsaiTruck.webp` — DELETED (Volvo trucks)
+- `assets/ships/Westerdam_flickr_.webp` — DELETED (Taiwanese event group)
+- `assets/ships/Nieuw_Amsterdam_flickr_LucasEnsing.webp` — DELETED (subject not Nieuw Amsterdam)
+- `Noordam_flickr_TrekkinD47.webp` → `Noordam_IV_flickr_TrekkinD47.webp` (rename only — image is correct, validator's filename-must-include-roman check needed `IV` token); `noordam-iv.html` updated
+- `westerdam.html` — wrong-image slide dropped, existing TIER 2 placeholder slide retained → page now passes
+- `noordam-iv.html` — passes
+
+**Deferred blocking errors (8 pages, 1 critical error each):**
+- HAL: `nieuw-amsterdam-v.html`, `prinsendam-ii.html`, `veendam.html`, `veendam-iv.html`, `volendam-iii.html`, `westerdam-ii.html` — wrong-image slide dropped, leaving carousel empty per direction. Validator's `admin/validate-ship-page.sh` line 636 hard-fails empty First Look carousels (`First Look carousel has NO images — carousel will render empty`). Removing the entire `<section>` trips the section-required check on line 563 (none of these pages declare the alternative `id="overview-title"`).
+- HAL: `nieuw-amsterdam.html` — wrong-image slide dropped, but the page has pre-existing malformed swiper-wrapper nesting (truck slide opened without `</div>`, all subsequent slides nested inside it). Removing the truck rebalanced the parser depth and exposed an orphan `<div class="swiper-slide">` at line 490 outside the wrapper. Validator now reports `Carousel has 1 swiper-slide(s) OUTSIDE swiper-wrapper`.
+- Princess: `sapphire-princess.html` — all 8 First Look slides referenced files that were never uploaded (`Sapphire_Princess_<exterior|bow|stern|pool|atrium|dining|stateroom|theater>.jpg`). All slides dropped. Same empty-carousel block as the HAL pages. Resolution: source 1+ authentic Sapphire Princess photo, or apply TIER 2 placeholder.
+- Celebrity (TBN/unnamed pages): `unnamed-edge-class.html`, `unnamed-project-nirvana.html`, `unnamed-river-class-x6.html` — each carousel consists ENTIRELY of class-mate exterior references (Edge / Apex / Beyond / Ascent shown as design-similar references for the unnamed future ship). Captions are honest ("Edge-class flagship exterior", "Edge-class sister ship", etc.) and files exist. Validator's filename ship-mismatch check (`admin/validate-ship-page.sh`) rejects on slug-token mismatch — `celebrity-edge-exterior.jpg` doesn't include `unnamed-edge-class` slug tokens. Dropping the references would empty the carousel. Resolution paths: (a) loosen the validator's filename check to accept slides whose caption explicitly frames them as class-mate/sister references, (b) rename the image files to include both ship-name and class-name tokens, or (c) replace with TIER 2 ship-map.png placeholder + caption.
+- RCL TBN class-mate pages (7 pages, 13 errors): `discovery-class-ship-tbn.html`, `icon-class-ship-tbn-2027.html`, `icon-class-ship-tbn-2028.html`, `legend-of-the-seas-icon-class-entering-service-in-2026.html`, `oasis-class-ship-tbn-2028.html`, `quantum-ultra-class-ship-tbn-2028.html`, `quantum-ultra-class-ship-tbn-2029.html`, `star-class-ship-tbn-2028.html`. Each shows class-mate exteriors (Wonder / Icon / Odyssey / Quantum / Oasis / Star, etc.) on TBN class pages. Same validator filename mismatch issue as the celebrity unnamed-* pages.
+- RCL real-ship slug-with-suffix mismatches (2 pages, 6 errors): `enchantment-of-the-seas.html` (3 errors — `enchantment-halifax-2011.webp`, `enchantment-labadee-2013.webp`, `enchantment-tampa-2025.webp` — filenames have `enchantment-` but not full `enchantment-of-the-seas-` slug); `legend-of-the-seas-1995-built.html` (3 errors — `Legend_of_the_Seas_(1).jpg` etc. don't contain the year-build slug suffix; validator's slug-base rule only strips trailing 4-digit years, not `-1995-built`). Resolution: (a) rename files to include the full page slug, (b) extend validator's slug-base regex to strip `-NNNN-built` suffix.
+
+**Site-wide flickr audit findings (2026-05-10):** 5 parallel subagents reviewed all 177 `*flickr*` ship images. **53 confirmed NOT_A_SHIP + 2 WRONG_SHIP files (~31%)** were git-rm'd (Volvo trucks, Dutch town squares, Rolls-Royce cars named "Silver Cloud/Shadow", museum sculptures, fish-market scenes, Renaissance portraits, ice hockey games, etc.). Of the 52 referencing pages, 21 retained at least one valid slide and now pass; **31 pages now have empty First Look carousels** and are added to the deferred-blocker queue below. Pattern: legacy `Capital_Case_flickr_<Photographer>.webp` files have ~36% wrong + ~24% unclear; the curated `lowercase-with-dashes_flickr_new.jpg` set is ~85% correct (only 1 wrong: `resilient-lady_flickr_new.jpg` was a Victorian house). Full audit results saved to `/tmp/flickr_audit_results.md`.
+
+**Empty First Look carousels from the 2026-05-10 audit cleanup (31 pages — same validator hard-rule as above):**
+- carnival/carnival-fantasy.html
+- celebrity-cruises/celebrity-century.html, celebrity-xperience.html, celebrity-xploration.html, horizon.html, zenith.html  *(celebrity-xpedition.html rescued 2026-05-11 via assets/ships/celebrity/celebrity-xpedition-exterior.jpg; celebrity-xploration.html added 2026-05-11 from UNCLEAR re-verification cleanup)*
+- costa/costa-venezia.html
+- holland-america-line/amsterdam.html, edam.html, leerdam.html, maartensdijk.html, nieuw-amsterdam-iii.html, noordam-ii.html, noordam-iii.html, p-caland.html, potsdam.html, prinsendam-i.html, ryndam.html, statendam-ii.html, statendam.html, veendam-ii.html, volendam-ii.html, w-a-scholten.html, westerdam-i.html  *(volendam.html rescued 2026-05-11 via assets/ships/other/volendam-exterior.jpg)*
+- msc/msc-world-asia.html
+- oceania/marina.html, sirena.html, vista.html
+- rcl/nordic-prince.html  *(added 2026-05-11 from UNCLEAR re-verification cleanup)*
+- silversea/silver-nova.html
+- virgin-voyages/resilient-lady.html
+
+Resolution: same as the original 8 deferred-blocker pages (TIER 2 placeholder, source authentic photography, or loosen validator's empty-carousel rule).
+
+**UNCLEAR audit verdicts (39 files):** require deeper investigation — angle, distance, or quality prevented confident identification. Listed in `/tmp/flickr_audit_results.md`. Common pattern: vintage HAL postcards (`Statendam_Iii`, `Rotterdam_Iv`, `Nieuw_Amsterdam_II`) need historical-photo verification, not visual ship-name matching; small luxury fleets (Silver / Seabourn / Regent) look very similar.
+
+**Resolution paths (defer to a follow-up session):**
+1. Apply TIER 2 placeholder pattern (single ship-map.png slide + "authentic photography pending sourcing" caption) on the 6 empty-carousel pages.
+2. Fix nieuw-amsterdam.html structure: drop the orphan duplicate Vancouver slide (lines 490–495 reference `Nieuw_Amsterdam_at_Vancouver.jpg`, already in slide 416–425 of the same carousel).
+3. Or source new authentic Holland America photography for these 6 ships and add proper slides.
+
+---
 
 ## Google Search Console Audit (2026-03-27)
 
