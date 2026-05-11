@@ -154,13 +154,114 @@ Harvard and Yale Glaciers. **Trust nothing on faith.**
 and caregivers making real travel decisions. Showing them a photo of the
 wrong fjord is a lie in a medium where lies cost money and hope.
 
+## Subagent Output is a Hypothesis, Not Ground Truth
+
+**Rule:** Never bulk-act on a subagent's visual or content verdict without
+independently spot-checking a sample. The subagent's report is a candidate
+list; you are the integrator who confirms it before destructive action.
+
+**This rule exists because** in session `claude/fix-carnival-validator-krEdD`
+(2026-05-10), five parallel subagents were tasked with visual audit of 177
+flickr-named ship images. Their CSV verdicts were used to git-rm 53 production
+files in one Python-script run. Later spot-check (53/53 re-read by hand) found
+the verdicts held — but it was luck. The same session found three sequential
+subagent description rows for Silver_Moon / Silver_Muse / Silver_Nova were
+shuffled (each described a different file's content). Verdicts happened to
+agree across the shuffle because all three were NOT_A_SHIP, but the
+descriptions in the commit message were wrong. A subagent error in the
+opposite direction (false-CORRECT verdicts) would have deleted real ship
+photos with no recovery signal.
+
+**Workflow before bulk-acting on subagent output:**
+1. **Sample 10% (minimum 3 items).** Read the underlying file/page yourself
+   for that 10% and confirm the verdict matches.
+2. **Sample the HIGH-CONSEQUENCE verdicts first** — the WRONG_SHIP-type
+   verdicts where action is reversible-but-painful (deletion, rename,
+   restoration).
+3. **Dry-run the cleanup script** on one file first. Read the BEFORE and
+   AFTER content; confirm exactly what changed.
+4. **Run the cleanup script** only after sample + dry-run pass.
+5. **After cleanup, diff a random 5%** of the modified files against the
+   pre-cleanup state. If diffs match expectation, commit. If not, revert.
+
+**Anti-patterns this prevents:**
+- "Script reported 0 NO MATCH so I committed" — that metric only proves
+  every input found *some* match; it doesn't prove the *right* edit was made.
+- Bulk-renaming or bulk-deleting based on a single-pass LLM verdict with no
+  human-in-the-loop sample.
+- Trusting a subagent's natural-language description in the commit message
+  when the actual file content was never re-verified.
+
+## Search the Whole Repo Before Deleting
+
+**Rule:** Before deleting a file, grep the entire repo (not just the
+"obvious" directory) for references to its basename. Image files in
+particular are referenced from:
+
+- `ships/` — page markup
+- `ports/` — page markup
+- `assets/data/*.json` — venue/restaurant/ship metadata
+- `attributions/attributions.csv` — photo credit ledger
+- `audit-reports/*.json` — image-reuse-registry, ship-image-audit
+- `admin/*.json` — internal audits
+- `sitemap.xml`, `sw.js` — service-worker cache lists
+- JSON-LD `<script type="application/ld+json">` blocks inside HTML
+- OG/Twitter meta tags inside HTML
+
+**The minimum command:**
+```bash
+grep -rln --exclude-dir=node_modules --exclude-dir=.git "$basename" .
+```
+
+Scoping the grep to `ships/` alone (because that's where you were just
+working) creates orphan records in the other surfaces. In the
+2026-05-10 audit cleanup, deleting 53 image files left 52 orphan rows in
+`attributions/attributions.csv` until a follow-up pass found them.
+
+## Don't Scope-Expand a User Directive Without Re-Asking
+
+**Rule:** When a user gives direction in the context of a small concrete
+problem (e.g., "drop these slides on these 6 HAL pages"), and the same
+pattern surfaces at materially larger scale (e.g., 31 pages site-wide),
+re-ask before applying the original direction at the new scale.
+
+The size of the consequence determines the threshold for re-asking, not the
+similarity of the pattern. A 5× scope expansion that affects user-visible
+content across 6+ fleets warrants a confirmation. Cite specifically what
+changed in scope so the user can re-decide knowing the cost.
+
+## Check for Cheaper Alternatives Before Leaving Pages in a Bad State
+
+**Rule:** Before committing a destructive change that leaves N pages in a
+known-broken state, scan the working tree for assets that could rescue
+some of those N pages cheaply. Specifically: if you're about to drop the
+last image from a carousel, check whether the page directory or `assets/`
+contains another candidate (curated variant, exterior shot, sister-ship
+photo with disclosure caption).
+
+In the 2026-05-10 audit cleanup, 2 of the 31 empty-carousel pages had
+on-disk alternates in subdirectories (`assets/ships/celebrity/celebrity-
+xpedition-exterior.jpg`, `assets/ships/other/volendam-exterior.jpg`) that
+would have been picked up by a one-line `find assets/ships/ -iname
+'<slug>*'` check before the commit. Both were wired in afterward — but
+they should have been wired in before, in the same commit, to avoid
+leaving the page in a transient "carousel empty" state.
+
+## Commit Message Honesty
+
+**Rule:** When a commit fixes A and breaks B in the same patch, the
+commit subject and the headline number in the body must reflect BOTH.
+"-82% errors" in the subject when the body says "+31 new failures
+deferred" is misleading. Lead with the net, not the best slice.
+
 ## Session Learnings Log
 
 | Date | Issue | Resolution |
 |------|-------|------------|
 | 2026-02-06 | Phase 5 replaced `opacity:0;position:absolute;pointer-events:none;` with `.visually-hidden` class, which is semantically different (SR-accessible vs truly hidden) | Created `.dedication-hidden` class with exact original properties; fixed 873 files |
-| 2026-04-10 | `college-fjord/*.webp` were blue-gradient placeholder rectangles pretending to be glacier photos — same fake Flickr URL on every one — caught only by opening the files with Read | Added Image Verification Protocol above. Flagged college-fjord as needing real image sourcing (human task until sandbox egress opens). Applies to every port repair going forward. |
+| 2026-04-10 | `college-fjord/*.webp` were blue-gradient placeholder rectangles pretending to be glacier photos — same fake Flickr URL on every one — caught only by opening the files with Read | Added Image Verification Protocol above. Flagged college-fjord as needing real image sourcing. |
+| 2026-05-10 | Bulk-deleted 53 flickr-named ship images based on 5 parallel subagents' one-pass visual verdicts. No spot-check, no dry-run. Narrow grep scope (only `ships/`) left 52 orphan rows in `attributions/attributions.csv`. User directive "drop the slides" (6-page HAL context) scope-expanded to 31 pages site-wide without re-asking. Commit headline "-82% errors" omitted "+31 new empty-carousel failures." Two of the 31 empty-carousel pages had on-disk alternates that would have rescued them. | Added: Subagent Output is a Hypothesis · Search the Whole Repo Before Deleting · Don't Scope-Expand a User Directive · Check for Cheaper Alternatives · Commit Message Honesty. All 53 deletions later verified correct by hand, but the workflow was lucky, not careful. |
 
 ---
 
-*Last updated: 2026-04-10*
+*Last updated: 2026-05-11*
