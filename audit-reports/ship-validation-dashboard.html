@@ -21,13 +21,13 @@
 </head>
 <body>
 <h1>Ship Validation Dashboard</h1>
-<p><strong>Scope:</strong> full-fleet · <strong>Generated:</strong> 2026-05-11T05:55:42.067Z</p>
+<p><strong>Scope:</strong> full-fleet · <strong>Generated:</strong> 2026-05-11T11:43:16.264Z</p>
 
 <div class="summary">
   <strong>Totals (290 pages):</strong><br>
-  .sh validator: 2 pass / 253 warn-only / 35 fail<br>
+  .sh validator: 2 pass / 274 warn-only / 14 fail<br>
   .js validator: 80 pass / 210 fail<br>
-  Errors: 52 (sh) + 313 (js)<br>
+  Errors: 31 (sh) + 313 (js)<br>
   Warnings: 5843 (sh) + 2702 (js)
 </div>
 
@@ -40,7 +40,7 @@
     <tr>
       <td>carnival</td>
       <td class="num">48</td>
-      <td class="num err">1</td>
+      <td class="num err">0</td>
       <td class="num warn">1878</td>
       <td class="num err">59</td>
       <td class="num warn">574</td>
@@ -49,20 +49,20 @@
     <tr>
       <td>celebrity-cruises</td>
       <td class="num">29</td>
-      <td class="num err">14</td>
+      <td class="num err">9</td>
       <td class="num warn">833</td>
       <td class="num err">17</td>
       <td class="num warn">250</td>
-      <td class="topfail">17× <code>js:images/few_images</code><br>5× <code>sh:First Look carousel has NO images — carousel will render emp</code><br>3× <code>sh:Image filename ship mismatch: celebrity-apex-exterior.jpg do</code></td>
+      <td class="topfail">17× <code>js:images/few_images</code><br>3× <code>sh:Image filename ship mismatch: celebrity-apex-exterior.jpg do</code><br>2× <code>sh:Image filename ship mismatch: celebrity-edge-exterior.jpg do</code></td>
     </tr>
     <tr>
       <td>costa</td>
       <td class="num">9</td>
-      <td class="num err">1</td>
+      <td class="num err">0</td>
       <td class="num warn">12</td>
       <td class="num err">18</td>
       <td class="num warn">85</td>
-      <td class="topfail">9× <code>js:images/few_images</code><br>9× <code>js:json_ld/main_entity_blacklisted</code><br>1× <code>sh:First Look carousel has NO images — carousel will render emp</code></td>
+      <td class="topfail">9× <code>js:images/few_images</code><br>9× <code>js:json_ld/main_entity_blacklisted</code></td>
     </tr>
     <tr>
       <td>cunard</td>
@@ -85,16 +85,16 @@
     <tr>
       <td>holland-america-line</td>
       <td class="num">46</td>
-      <td class="num err">7</td>
+      <td class="num err">1</td>
       <td class="num warn">2191</td>
       <td class="num err">2</td>
       <td class="num warn">425</td>
-      <td class="topfail">6× <code>sh:First Look carousel has NO images — carousel will render emp</code><br>2× <code>js:images/few_images</code><br>1× <code>sh:Carousel has 1 swiper-slide(s) OUTSIDE swiper-wrapper — they</code></td>
+      <td class="topfail">2× <code>js:images/few_images</code><br>1× <code>sh:Carousel has 1 swiper-slide(s) OUTSIDE swiper-wrapper — they</code></td>
     </tr>
     <tr>
       <td>msc</td>
       <td class="num">24</td>
-      <td class="num err">1</td>
+      <td class="num err">0</td>
       <td class="num warn">32</td>
       <td class="num err">28</td>
       <td class="num warn">256</td>
@@ -112,7 +112,7 @@
     <tr>
       <td>oceania</td>
       <td class="num">8</td>
-      <td class="num err">3</td>
+      <td class="num err">0</td>
       <td class="num warn">11</td>
       <td class="num err">24</td>
       <td class="num warn">68</td>
@@ -121,16 +121,16 @@
     <tr>
       <td>princess</td>
       <td class="num">17</td>
-      <td class="num err">1</td>
+      <td class="num err">0</td>
       <td class="num warn">382</td>
       <td class="num err">18</td>
       <td class="num warn">130</td>
-      <td class="topfail">14× <code>js:images/few_images</code><br>4× <code>js:html_structure/unclosed_section</code><br>1× <code>sh:First Look carousel has NO images — carousel will render emp</code></td>
+      <td class="topfail">14× <code>js:images/few_images</code><br>4× <code>js:html_structure/unclosed_section</code></td>
     </tr>
     <tr>
       <td>rcl</td>
       <td class="num">49</td>
-      <td class="num err">22</td>
+      <td class="num err">21</td>
       <td class="num warn">140</td>
       <td class="num err">60</td>
       <td class="num warn">404</td>
@@ -157,7 +157,7 @@
     <tr>
       <td>silversea</td>
       <td class="num">12</td>
-      <td class="num err">1</td>
+      <td class="num err">0</td>
       <td class="num warn">304</td>
       <td class="num err">13</td>
       <td class="num warn">105</td>
@@ -166,7 +166,7 @@
     <tr>
       <td>virgin-voyages</td>
       <td class="num">4</td>
-      <td class="num err">1</td>
+      <td class="num err">0</td>
       <td class="num warn">5</td>
       <td class="num err">15</td>
       <td class="num warn">38</td>
@@ -175,7 +175,7 @@
 </table>
 
 <h2>Top error rules across fleet</h2>
-<ul class="rules"><li><code>js:images/few_images</code> — 158</li><li><code>js:runtime_data/cascade_fully_failed</code> — 50</li><li><code>js:json_ld/main_entity_blacklisted</code> — 23</li><li><code>js:sections/wrong_section_order</code> — 22</li><li><code>sh:First Look carousel has NO images — carousel will render emp</code> — 21</li><li><code>js:videos/missing_categories</code> — 17</li><li><code>js:videos/few_videos</code> — 11</li><li><code>js:sections/missing_required</code> — 8</li><li><code>js:data_attr/invalid_imo</code> — 7</li><li><code>js:html_structure/unclosed_section</code> — 7</li><li><code>js:data_consistency/internal_numeric_inconsistency</code> — 4</li><li><code>sh:Image filename ship mismatch: Icon_of_the_Seas_(cropped).web</code> — 4</li><li><code>js:template_remnants/placeholder_content</code> — 4</li><li><code>sh:Image filename ship mismatch: celebrity-apex-exterior.jpg do</code> — 3</li><li><code>sh:Image filename ship mismatch: Icon_and_Mariner_Cozumel_Mexic</code> — 3</li><li><code>sh:Image filename ship mismatch: celebrity-edge-exterior.jpg do</code> — 2</li><li><code>sh:Image filename ship mismatch: celebrity-beyond-exterior.jpg </code> — 2</li><li><code>sh:Image filename ship mismatch: celebrity-ascent-exterior.jpg </code> — 2</li><li><code>sh:Image filename ship mismatch: Wonder_of_the_Seas_Jan_30_2025</code> — 2</li><li><code>sh:Image filename ship mismatch: Odyssey_of_the_Seas.webp does </code> — 2</li></ul>
+<ul class="rules"><li><code>js:images/few_images</code> — 158</li><li><code>js:runtime_data/cascade_fully_failed</code> — 50</li><li><code>js:json_ld/main_entity_blacklisted</code> — 23</li><li><code>js:sections/wrong_section_order</code> — 22</li><li><code>js:videos/missing_categories</code> — 17</li><li><code>js:videos/few_videos</code> — 11</li><li><code>js:sections/missing_required</code> — 8</li><li><code>js:data_attr/invalid_imo</code> — 7</li><li><code>js:html_structure/unclosed_section</code> — 7</li><li><code>js:data_consistency/internal_numeric_inconsistency</code> — 4</li><li><code>sh:Image filename ship mismatch: Icon_of_the_Seas_(cropped).web</code> — 4</li><li><code>js:template_remnants/placeholder_content</code> — 4</li><li><code>sh:Image filename ship mismatch: celebrity-apex-exterior.jpg do</code> — 3</li><li><code>sh:Image filename ship mismatch: Icon_and_Mariner_Cozumel_Mexic</code> — 3</li><li><code>sh:Image filename ship mismatch: celebrity-edge-exterior.jpg do</code> — 2</li><li><code>sh:Image filename ship mismatch: celebrity-beyond-exterior.jpg </code> — 2</li><li><code>sh:Image filename ship mismatch: celebrity-ascent-exterior.jpg </code> — 2</li><li><code>sh:Image filename ship mismatch: Wonder_of_the_Seas_Jan_30_2025</code> — 2</li><li><code>sh:Image filename ship mismatch: Odyssey_of_the_Seas.webp does </code> — 2</li><li><code>sh:Image filename ship mismatch: Quantum_of_the_Seas_01.webp do</code> — 2</li></ul>
 
 <p><em>Raw JSON: <a href="ship-validation-dashboard.json">ship-validation-dashboard.json</a></em></p>
 </body>
