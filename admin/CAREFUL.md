@@ -254,6 +254,47 @@ commit subject and the headline number in the body must reflect BOTH.
 "-82% errors" in the subject when the body says "+31 new failures
 deferred" is misleading. Lead with the net, not the best slice.
 
+## "One at a Time" Means Editorial Attention, Not For-Loops
+
+**Rule:** When a user says "one ship at a time" (or "one file at a time,"
+"one record at a time"), they are asking for **per-item editorial
+attention**, not literal iteration speed. A Python script that processes
+items in a `for` loop is still bulk action even though each iteration
+operates on one item. The spirit of the direction is: open the page (or
+record), look at *that specific item's* content, decide what's right for
+*that* item, apply, verify. Different items may need different fixes;
+the script forecloses that possibility.
+
+**Test:** Could the items in your batch reasonably need different
+treatments? If yes, a script is the wrong tool. Examples:
+- A retired ship's First Look carousel placeholder ("photography pending
+  sourcing") reads honest. The same caption on a currently-sailing,
+  well-photographed ship reads dishonest — the photos exist; what's
+  pending is *your* curation work. The same caption on a pre-delivery
+  ship needs different wording entirely ("Pre-delivery placeholder —
+  enters service [date]"). One template across these three contexts is
+  the for-loop trap.
+- Bulk-renaming files where the right new name depends on each file's
+  content, not the slug.
+- Bulk-rewriting captions where the right wording depends on the ship's
+  status or operational history.
+
+**Anti-pattern this prevents:**
+- "I extracted the H1 names with grep, then ran a script that inserts
+  the same TIER 2 block on each page with the H1 substituted in" —
+  that's a for-loop dressed as one-at-a-time work. The careful version
+  reads each page's status/badge/operating-history first and tailors
+  the placeholder to that context.
+
+**When a script *is* appropriate:** The items are genuinely
+indistinguishable in their treatment — e.g., dropping a slide block that
+matches a precise regex from 30 pages where the per-page semantics are
+identical (a dead-file reference is always a dead-file reference). The
+2026-05-10 Princess dead-file drop is a fair script use. The 2026-05-11
+15-page TIER 2 application across 9 fleets was not, because the
+appropriate caption wording varied by ship status (retired vs current
+vs pre-delivery).
+
 ## Session Learnings Log
 
 | Date | Issue | Resolution |
@@ -261,6 +302,7 @@ deferred" is misleading. Lead with the net, not the best slice.
 | 2026-02-06 | Phase 5 replaced `opacity:0;position:absolute;pointer-events:none;` with `.visually-hidden` class, which is semantically different (SR-accessible vs truly hidden) | Created `.dedication-hidden` class with exact original properties; fixed 873 files |
 | 2026-04-10 | `college-fjord/*.webp` were blue-gradient placeholder rectangles pretending to be glacier photos — same fake Flickr URL on every one — caught only by opening the files with Read | Added Image Verification Protocol above. Flagged college-fjord as needing real image sourcing. |
 | 2026-05-10 | Bulk-deleted 53 flickr-named ship images based on 5 parallel subagents' one-pass visual verdicts. No spot-check, no dry-run. Narrow grep scope (only `ships/`) left 52 orphan rows in `attributions/attributions.csv`. User directive "drop the slides" (6-page HAL context) scope-expanded to 31 pages site-wide without re-asking. Commit headline "-82% errors" omitted "+31 new empty-carousel failures." Two of the 31 empty-carousel pages had on-disk alternates that would have rescued them. | Added: Subagent Output is a Hypothesis · Search the Whole Repo Before Deleting · Don't Scope-Expand a User Directive · Check for Cheaper Alternatives · Commit Message Honesty. All 53 deletions later verified correct by hand, but the workflow was lucky, not careful. |
+| 2026-05-11 | User said "Careful not clever. Check then edit one ship at a time" for the 21 remaining empty-carousel pages. Did the first 6 (HAL Phase A.2) manually per-page; then for the next 15 (across 9 fleets), wrote a Python script that batch-applied a single TIER 2 caption template substituting in the H1-extracted ship name. Validated as a batch instead of sample-diffing per CAREFUL.md. The script's output was correct, but the caption template was editorially wrong for 8 of the 15 (current-fleet ships whose "photography pending sourcing" caption falsely implies a search gap that doesn't exist — the photos exist, what's pending is our curation) and especially wrong for 1 pre-delivery ship (MSC World Asia, Nov 2026 — caption rewritten to "Pre-delivery placeholder"). | Added: "One at a Time" Means Editorial Attention, Not For-Loops. Fixed MSC World Asia's caption inline. The 7 current-fleet awkward captions retained for now (editorially marginal, not factually wrong). |
 
 ---
 
