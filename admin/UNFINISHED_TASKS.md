@@ -187,6 +187,159 @@ Resolution: same as the original 8 deferred-blocker pages (TIER 2 placeholder, s
 
 ---
 
+## Items surfaced in session `claude/fix-carnival-validator-krEdD` (2026-05-11)
+
+Surfaced during the multi-turn image-honesty audit + cleanup; not duplicates
+of the P0 HAL section above. Most are downstream consequences of the audit.
+
+### Source-real-photography backlog (39 pages, ordered by priority)
+
+These pages have a TIER 2 ship-map.png placeholder applied — they validate
+clean but the placeholder is a stand-in until real ship-specific photography
+is sourced. Caption wording was tuned per-page:
+
+**Pre-delivery — sourceable on delivery (1)**
+- `ships/msc/msc-world-asia.html` — enters service November 2026; caption
+  reads "Pre-delivery placeholder — MSC World Asia enters service
+  November 2026."
+
+**Current-fleet (10) — caption "verified [Ship] photography pending publication"**
+HAL Active: `nieuw-amsterdam-v.html`, `volendam-iii.html`, `westerdam-ii.html`
+Others: `ships/costa/costa-venezia.html`, `ships/oceania/marina.html`,
+`ships/oceania/sirena.html`, `ships/oceania/vista.html`,
+`ships/princess/sapphire-princess.html`, `ships/silversea/silver-nova.html`,
+`ships/virgin-voyages/resilient-lady.html`
+
+For these, photos exist in the world; what's pending is *our* curation +
+publication after the 2026-05 image-honesty audit removed misattributed
+photos. Best sourced from official press kits, Wikimedia Commons, or
+verified Flickr photographers (NOT the public-feed pattern that caused
+the original contamination).
+
+**Historical (23) — caption "authentic [Ship] photography pending sourcing"**
+Retired or scrapped ships where the original problem (finding photos at
+all) is real. Should be sourced from period archives:
+- HAL historical: 17 pages (`ships/holland-america-line/amsterdam.html`,
+  `edam.html`, `leerdam.html`, `maartensdijk.html`, `nieuw-amsterdam-iii.html`,
+  `noordam-ii.html`, `noordam-iii.html`, `p-caland.html`, `potsdam.html`,
+  `prinsendam-i.html`, `ryndam.html`, `statendam-ii.html`, `statendam.html`,
+  `veendam-ii.html`, `veendam-iv.html` (Historical badge), `veendam.html`,
+  `volendam-ii.html`, `w-a-scholten.html`, `westerdam-i.html`,
+  `prinsendam-ii.html`)
+- Celebrity historical: 3 (`celebrity-century.html`, `horizon.html`, `zenith.html`)
+- Carnival historical: `carnival-fantasy.html`
+- RCL historical: `nordic-prince.html`
+
+**Celebrity Galápagos status mismatch (2)** — these have Historical badges
+on their pages but the ships are still actively operating Galapagos
+itineraries. Worth re-reviewing whether the Historical badge is correct:
+- `ships/celebrity-cruises/celebrity-xperience.html`
+- `ships/celebrity-cruises/celebrity-xploration.html`
+
+### Image audit needed on other directories
+
+The 2026-05-10 audit only covered `assets/ships/*flickr*`. The same
+Flickr-public-feed contamination pattern could exist in:
+- `assets/ports/img/...` — partially cleaned in 2026-04-11/12 per the P0
+  section above, but only specific ports were verified. Site-wide port
+  image audit not yet done.
+- `assets/authors/` — author headshots/photos may include marginal sourcing.
+- Any "venue" or "restaurant" image directories under `assets/`.
+
+Recommended approach: same parallel-subagent visual sweep used for ships
+(see `audit-reports/flickr_audit_2026-05-10.md` for the method), but with
+the lessons in `admin/CAREFUL.md` applied from the start (10% spot-check
++ dry-run + whole-repo orphan search before any bulk deletion).
+
+### Phase B / Phase C — scope clarification needed
+
+**Phase B (image-honesty cleanup on 0E pages):** Earlier todo described a
+~128-page placeholder pass. After the 2026-05-10 audit consumed most of
+the obvious contamination, Phase B's residual scope is unclear. Probably
+overlaps with the source-real-photography backlog above. Needs fresh
+definition or can be marked subsumed.
+
+**Phase C (template version unification across 290 ship pages):** Surveyed
+2026-05-11. The 290 ship pages split:
+- 144 at `v3.010.400`
+- 55 at `v3.010.300` (all in carnival + rcl directories)
+- 91 with no `meta version` tag at all
+
+Diff between a .300 and a .400 page is NOT just a version-string bump —
+involves substantial template differences (different scripture quotes,
+header comment block, meta tag ordering, OG/Twitter handling, service
+worker vs Google Analytics, smart-quote inconsistencies in inline JS).
+Calling this "mechanical, low-priority" in the prior todo was wrong.
+True scope: a per-fleet template-regeneration project, ~50 RCL + 5
+Carnival pages need full rewrites to match the .400 standard. Defer
+until the .400 template itself is verified stable (some .400 pages have
+smart-quote `‘no-js’` in inline JS which would error if executed — see
+below).
+
+### Potential JS bug on `.400` template inline script
+
+Several `.400` ship pages have `<script>document.documentElement
+.classList.remove('no-js');</script>` rendered with **smart quotes**
+(`‘no-js’` instead of straight `'no-js'`) — this is invalid JavaScript.
+A `<system-reminder>` during this session noted this was an "intentional"
+change, so deferring action. But it would cause:
+- A `SyntaxError` if the script tag actually executes
+- The `no-js` class never being removed, breaking progressive enhancement
+
+If the system-reminder note was a misclassification (i.e., this is an
+unintentional Unicode-normalization mistake from some upstream tooling),
+fix is global find/replace `‘no-js’` → `'no-js'` across all affected
+pages.
+
+### Resilient_Lady cocktail image — alternative use case
+
+The 2026-05-10 audit deleted `Resilient_Lady_flickr_lorablong.webp`
+(cocktails on a Virgin Voyages bar table). In the 2026-05-11 merge with
+main, the upstream branch had explicitly used this image with alt text
+"Cocktails onboard Resilient Lady" — framing it as legitimate venue
+content rather than a First Look ship-exterior shot. If the cocktails
+ARE on Resilient Lady (the bar interior matches Virgin's red/blue
+palette), this image could be restored under a "Venues" or "Bars &
+Lounges" gallery section, NOT in First Look. Same logic potentially
+applies to other deleted "cabin interior" / "onboard amenity" files:
+- `Msc_Euribia_flickr_DennisSHurd.webp` (cabin chocolates + champagne)
+- `Msc_Seashore_flickr_Traveloscopy.webp` (empty theater)
+- `Msc_Virtuosa_flickr_janetg48.webp` (atrium glass view)
+- `Celebrity_Galaxy_flickr_CaptainMartini.webp` (twin-bed cabin) — was UNCLEAR (kept)
+- `Volendam_flickr_borichar.webp` (cabin interior) — was UNCLEAR (kept)
+
+Recoverable via `git show 105dd168^:assets/ships/<file>` if a future
+session wants to restore them for a different gallery.
+
+### `seven-seas-mariner.html` retains an editorially marginal slide
+
+After the 2026-05-11 cleanup of `seven-seas-mariner_flickr_new.jpg` (which
+actually showed Seven Seas Navigator, not Mariner), the page retained a
+single slide referencing `Seven_Seas_Mariner_flickr_NicholasCoates.webp`.
+That image was classified UNCLEAR in the audit re-verification — a very
+distant cruise ship across Liverpool's Mersey with a rusty stair railing
+in the foreground, name not legible. Page validates clean but the single
+remaining slide is borderline.
+
+### `enchantment-of-the-seas` + `legend-of-the-seas-1995-built` — slug-suffix rename plan
+
+When the slug-strictness work moves forward, these two pages can be
+fixed via file rename (not the same as the TBN class-mate pages which
+need a validator change). Filenames need to include the full page slug:
+- `enchantment-halifax-2011.webp` → `enchantment-of-the-seas-halifax-2011.webp`
+- `enchantment-labadee-2013.webp` → `enchantment-of-the-seas-labadee-2013.webp`
+- `enchantment-tampa-2025.webp` → `enchantment-of-the-seas-tampa-2025.webp`
+- `Legend_of_the_Seas_(1).jpg` → `Legend_of_the_Seas_1995_built_(1).jpg`
+- `Legend_Of_The_Seas_tied_up_at_Danang,_Vietnam_port.jpg` → `Legend_of_the_Seas_1995_built_at_Danang.jpg`
+- `Rhapsody_of_the_Seas_(3725748454).jpg` → sister-ship reference; class-mate
+  case, not slug-suffix. Either drop the slide or handle as TBN class-mate.
+
+Rename includes: update HTML refs, update `attributions/attributions.csv`,
+git mv the files. Each file is referenced by exactly one page (verified
+2026-05-11) so no cross-page reuse implications.
+
+---
+
 ## Google Search Console Audit (2026-03-27)
 
 **Source:** GSC data pulled 2026-03-23
