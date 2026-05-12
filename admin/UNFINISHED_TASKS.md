@@ -420,42 +420,7 @@ Each port's content must be **port-specific** — no generic templates. Research
 
 ### [G] Phase 3 ai-summary follow-ups — surfaced 2026-05-09
 
-**Source:** Continuation of PR #1466 (Phase 3.2a). After merging the 7 ai-summary boilerplate rewrites + image-reuse-guardrail dependency, three follow-ups remain. Listed in continuation-of-work order.
-
-#### Phase 3.2b — finish ai-summary boilerplate cleanup ✅ IN PR
-
-**Status:** All 36 ships fixed on branch `claude/phase3-2b-ai-summary-cleanup`. Validator tightened with 5 atomic boilerplate fragments. Audit log: `audit-reports/ai-summary-rewrites/_phase3-2b-batch-2026-05-09.md`.
-
-The actual scope was bigger than the original 7-ship guess: **17 propagations** (ai-summary already specific; description tag still boilerplate) + **19 rewrites** (ai-summary itself was boilerplate by tightened standards). Mechanism:
-
-- `admin/phase3-2b-propagate.cjs` — copies existing ai-summary into description meta + JSON-LD descriptions
-- `admin/phase3-2b-rewrite.cjs` — accepts a JSON map of `path → new_summary`, replaces ai-summary, then propagates
-
-Tightening the validator (`admin/validator-config.json`) added: `"deck plans, live tracker"`, `"deck plans, live tracking"`, `"deck plans, dining venues, stateroom tours"`, `"deck plans, historical information"`, `"historical information, legacy, and ship details"`.
-
-- [x] All 36 ships silent on `ai_summary_boilerplate` AND `ai_summary_length`
-- [x] Validator tightening lives in same PR
-
-#### Phase 3.2c — newly-surfaced boilerplate (26 ships) ✅ IN PR
-
-**Source:** Tightening the validator in 3.2b surfaced 26 additional ships carrying boilerplate variants the original phrase list missed.
-
-**Status:** All 26 ships rewritten on branch `claude/phase3-2c-boilerplate-batch-3` (stacked on 3.2b). Audit log: `audit-reports/ai-summary-rewrites/_phase3-2c-batch-2026-05-09.md`. After this batch, the **fleet-wide `ai_summary_boilerplate` count is 0**.
-
-Distribution:
-
-| Cruise line | Count | Pattern |
-|---|---:|---|
-| Celebrity Cruises | 12 | "Ship • Celebrity Cruises • In The Wake. Deck plans, dining venues, stateroom tours, and live ship tracker." |
-| Holland America Line | 7 | Same template, HAL line |
-| Royal Caribbean | 6 | Lazy "historical information" template + 1 trailing-boilerplate (Radiance) + 1 test fixture + 1 placeholder |
-| MSC | 1 | Trailing boilerplate trimmed |
-
-- [x] All 26 rewritten (54 replacements via `admin/phase3-2b-rewrite.cjs`)
-- [x] All 26 silent on `ai_summary_boilerplate` AND `ai_summary_length`
-- [x] Fleet-wide `ai_summary_boilerplate` count = **0**
-
-**Mid-batch correction:** initially split into "ship 22, file 4 as 3.2d" on the false premise that 4 HAL ships were content-stubs. Re-verification using the meta description tag + body prose (not just the `<li><strong>` fact block) showed all 26 had on-page facts. Expanded back to 26. Captured in audit log under "Mid-batch correction."
+**Source:** Continuation of PR #1466 (Phase 3.2a). Phase 3.2b (PR #1497) and Phase 3.2c (PR #1480) shipped 2026-05-09 and were moved to `admin/COMPLETED_TASKS.md` on 2026-05-12 (audit branch `claude/audit-unfinished-tasks-5evPi`). Two follow-ups remain.
 
 #### Phase 3.5 — image-reuse-guardrail allowlist (issue #1465)
 
@@ -888,48 +853,7 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 
 ## Cruise Tipping Calculator — Known Defects (Discovered 2026-05-09 careful-not-clever audit)
 
-**Source:** Post-merge careful-not-clever audit against the v1.7-alpha skill (canonical 2026-05-09). The tool shipped on `claude/explore-inthewake-repo-lIUcX` between 2026-05-08 and 2026-05-09 and lives at `/tools/cruise-tipping-calculator.html` with companion article `/articles/cruise-tipping-2026.html`. The audit caught one wiring miss (fixed in `17584da3`) and four UX defects that affect the dollar amounts the tool reports. Trust requires the tool's output match the user's actual onboard bill; the items below break that promise for specific user populations.
-
-### P1 — Children handling overcharges families on child-exempt lines
-
-- [ ] **Bug:** `assets/js/tools/cruise-tipping-calculator/main.js:36-40` synthesizes `childAges = Array(n).fill(99)` so every entered child is treated as full-fare regardless of the line's exemption policy. Documented as a "v1 simplification" in the implementation plan, but the user-facing impact is real money:
-  - **Carnival** (under 2 exempt): a family of 2 adults + 1 toddler on a 7-night standard cabin sees **$357** instead of **$238** — a $119 over-estimate.
-  - **Norwegian** (under 3 exempt): same shape; under-3 not subtracted.
-  - **MSC** USD regions (under 2 exempt): same.
-  - **Costa** (under 4 free, ages 4–14 half-rate at EUR 5.50 / USD $7): the tool ignores both the exemption AND the half-rate. Costa families get the worst over-estimate of any line.
-- **Fix shape:** The HTML form already has a `<div id="children-ages" hidden>` placeholder. Wire `render.js` to render one numeric `<input type="number">` per child when `children > 0`, populate `state.childAges` from those inputs, and remove the `Array(n).fill(99)` synthesis. Update unit tests to cover toddler-on-Carnival and Costa half-rate. Add a Playwright case for the family-with-toddler golden path.
-- **Why P1:** Direct dollar-correctness bug. A user planning a Disney-substitute Carnival sailing with a 1-year-old sees an inflated total. That's the kind of thing that makes someone stop trusting the rest of the calculator.
-
-### P1 — Region pricing not exposed for Costa and MSC ✅ DONE 2026-05-09
-
-- [x] **Bug:** Costa and MSC publish region- and currency-priced rates. Tool was shipping the USD/Caribbean default with other regions surfaced only in `notes`.
-- **Fix shipped:** Schema v1.1 now has an optional `regions` array. Costa carries 2 regions (South America USD $14.50, Med/Northern Europe EUR 11). MSC carries 3 regions (Caribbean/Alaska USD $17/$23, Med/Northern Europe EUR 12/16, South America USD $19/$23). Form renders a "Sailing region" picker only on multi-region lines. Daily and onboard amounts display in the active region's currency (€ or $); cash extras stay USD with an honest split-currency headline when both are non-zero. Cabin tiers re-render when region changes; the cabin slug is preserved across region switches when valid, otherwise snaps to the new region's default. Caught a CSS bug along the way (`.accordion__panel label { display: grid }` overrode the `hidden` attribute) and added explicit `[hidden] { display: none }` rules.
-- **Tests:** 25 unit, 10 Playwright (added 4: Costa Med EUR, MSC three-region switching, picker visibility on single-region lines, plus the toddler-exemption regression already shipped). All green.
-- **Costa half-rate (ages 4–14)** ✅ shipped 2026-05-09 — schema v1.1 extended with optional `childPolicy.ageMultipliers` array. Costa now models under-4 free, 4–14 half-rate, 15+ full. Calc honors fractional charged-guest weights (a family of 2 adults + 1 child age 8 on Costa Med correctly bills (2 + 0.5) × 7 × €11 = €192.50 instead of €231). Backward-compatible: lines using the binary `exemptUnderAge` model still work via the same `chargedChildrenWeight()` helper. Render layer expresses the tier rules in the children-ages note. 8 new unit tests + 1 Playwright test cover the new path; 33/33 unit + 20/20 Playwright pass.
-
-### P2 — Virgin Voyages prepaid vs. onboard not exposed ✅ DONE 2026-05-09
-
-- [x] **Bug:** Tool defaulted to Virgin's $20/night prepaid rate. Onboard rate is $22/night.
-- **Fix shipped:** Added a second tier to `virgin-voyages.json` — `slug: "onboard", amount: 22.00, label: "Posted onboard the ship"`. The existing tier was relabeled "Pre-paid before sailing — recommended" so users see both options in the cabin-tier dropdown with their dollar amounts. No new schema field required (the existing `tiers` array already supported this); no Virgin-specific code paths. The cabin-tier dropdown serves both the suite-vs-standard semantic for other lines and the prepaid-vs-onboard semantic for Virgin — labels make the choice clear.
-- **Tests:** 1 new Playwright case verifying $20×7×2 = $280 by default and $22×7×2 = $308 after switching to "onboard." 11/11 Playwright pass total.
-
-### P3 — Five legacy Carnival ship pages had no Tipping Calculator entry ✅ DONE 2026-05-09
-
-- [x] **Files:** `ships/carnival/carnival-firenze.html`, `carnival-horizon.html`, `carnival-panorama.html`, `carnival-sunshine.html`, `carnival-venezia.html`. These five use a `Planning` dropdown (not the standard `Tools` dropdown) plus a sidebar `Planning Tools` widget — Task 12's bulk update keyed on the `Tools` dropdown pattern and missed them.
-- **Fix shipped:** Added the Tipping Calculator to BOTH surfaces on each of the 5 pages: in the Planning dropdown right after `Drink Calculator`, and in the sidebar Quick Tools widget right after `Budget Calculator`. Each page now has 2 references to the tool. All 5 parse as valid HTML, all 5 serve HTTP 200, no regressions in the cruise-tipping test suite.
-
-### P3 — Playwright regression baseline for the 8 other site tools ✅ DONE 2026-05-09
-
-- [x] **Shipped:** `tests/playwright/tools-smoke.spec.js` — one smoke test per tool (8 total) asserting (a) HTTP 200 on load, (b) primary `<h1>` renders, (c) `<title>` is non-empty. Listens for JS pageerrors via `page.on('pageerror')` and annotates them on the test report (without failing). Suite now runs 19 Playwright tests total (11 cruise-tipping + 8 smoke). When the JS-error finding below is fixed, flip the annotation to a hard assertion.
-- **What this catches going forward:** any future shared-CSS/shared-nav/shared-asset change that 500s, blanks, or swaps out an `<h1>` on those tools. Catches the kind of regression that allowed Task 12's budget-calculator nav miss to escape detection.
-
-### P2 — Pre-existing JS errors on 4 tools ✅ DONE 2026-05-09
-
-- [x] **Bug:** Four tools threw `Invalid or unexpected token` as a `pageerror` during initial load — invisibly broken inline JS on calculators that handle real money. Used Chrome DevTools Protocol via Playwright (`Runtime.exceptionThrown`) to get exact source line/column.
-- **Root causes (two distinct bugs, same audit symptom):**
-  - **port-tracker.html / ship-tracker.html** — both files' "Recent Articles" rail used template literals with `\${...}` (escaped dollar signs) so 11 interpolations per file were mis-parsed as literal text and the inner conditional template literal `\`<p class=...>\`` ended the outer template prematurely, leaving downstream HTML to be parsed as JavaScript. Hence `Unexpected token 'class'` (pointing at the first `class="..."` HTML attribute). 11 occurrences fixed per file via `\${` → `${`.
-  - **drink-calculator.html / drink-calculatorv2.html** — line 30 of each had `document.documentElement.classList.remove(\'no-js\');` with backslash-escaped quotes outside any string context. JS engine sees `(\` as an unexpected token. Fixed by removing the two backslashes per file (the other backslash-escaped quotes elsewhere in v2 ARE inside single-quoted strings and are correctly valid; left those alone).
-- **Verification:** All 8 tools now load with zero pageerrors. `tests/playwright/tools-smoke.spec.js` (d) assertion flipped from annotation to hard `expect(errors).toEqual([])`. 19/19 Playwright pass.
+**Source:** Post-merge careful-not-clever audit against the v1.7-alpha skill (canonical 2026-05-09). The tool shipped on `claude/explore-inthewake-repo-lIUcX` between 2026-05-08 and 2026-05-09 and lives at `/tools/cruise-tipping-calculator.html` with companion article `/articles/cruise-tipping-2026.html`. Six dollar-correctness defects (P1 children handling, P1 region pricing for Costa/MSC, Costa half-rate, P2 Virgin Voyages prepaid vs onboard, P3 five legacy Carnival ship pages, P3 Playwright regression baseline) and one P2 (pre-existing JS errors on four tools) verified shipped 2026-05-09 to 2026-05-10 and moved to `admin/COMPLETED_TASKS.md` on 2026-05-12 (audit branch `claude/audit-unfinished-tasks-5evPi`). One smell remains:
 
 ### P3 — `[object Object]` 404s in the webserver log during Playwright runs (Discovered 2026-05-09)
 
@@ -937,7 +861,7 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 
 ### Why these are tracked here
 
-The careful-not-clever skill (`.claude/skills/careful-not-clever/CAREFUL.md` v1.7-alpha) requires that material assumptions surfaced by Layer 2 / Layer 3 audits get documented for the next task rather than silently skipped. The tool shipped under the original v1.0 of the skill, which did not require the formal red-team pass; the v1.7-alpha promotion (commit `20797133`) raised the bar retroactively. These five items are exactly what a Layer 3 red-team would have surfaced at the time of the schema revision. Move each to `admin/COMPLETED_TASKS.md` when fixed — do not delete from this list silently.
+The careful-not-clever skill (`.claude/skills/careful-not-clever/CAREFUL.md` v1.7-alpha) requires that material assumptions surfaced by Layer 2 / Layer 3 audits get documented for the next task rather than silently skipped. The tool shipped under the original v1.0 of the skill, which did not require the formal red-team pass; the v1.7-alpha promotion (commit `20797133`) raised the bar retroactively. The original audit surfaced eight items; seven shipped between 2026-05-09 and 2026-05-10 and were moved to `admin/COMPLETED_TASKS.md` on 2026-05-12 with verifying commits and tests. The remaining `[object Object]` smell stays here. Move each remaining item to `admin/COMPLETED_TASKS.md` when fixed — do not delete from this list silently.
 
 ---
 
