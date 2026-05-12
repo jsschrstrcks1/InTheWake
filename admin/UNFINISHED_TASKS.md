@@ -276,20 +276,24 @@ until the .400 template itself is verified stable (some .400 pages have
 smart-quote `‘no-js’` in inline JS which would error if executed — see
 below).
 
-### Potential JS bug on `.400` template inline script
+### Smart-quotes JS bug on `.400` Celebrity ship pages — **RESOLVED 2026-05-12**
 
-Several `.400` ship pages have `<script>document.documentElement
-.classList.remove('no-js');</script>` rendered with **smart quotes**
-(`‘no-js’` instead of straight `'no-js'`) — this is invalid JavaScript.
-A `<system-reminder>` during this session noted this was an "intentional"
-change, so deferring action. But it would cause:
-- A `SyntaxError` if the script tag actually executes
-- The `no-js` class never being removed, breaking progressive enhancement
+26 pages in `ships/celebrity-cruises/` had `<script>document.documentElement
+.classList.remove(‘no-js’);</script>` with U+2018/U+2019 smart quotes
+instead of straight quotes — confirmed as a JS `SyntaxError` ("Invalid
+or unexpected token") via Node.js parser. The script tag failed to
+execute, meaning the `no-js` class was never removed from `<html>` on
+those pages, breaking progressive enhancement.
 
-If the system-reminder note was a misclassification (i.e., this is an
-unintentional Unicode-normalization mistake from some upstream tooling),
-fix is global find/replace `‘no-js’` → `'no-js'` across all affected
-pages.
+Fixed 2026-05-12: global replace `‘no-js’` → `'no-js'` across all 26
+files. Verified residual count = 0; JS is now valid. Per-page sample
+showed the line at line 20 of each file:
+  `<script>document.documentElement.classList.remove('no-js');</script>`
+
+The fix applied to the entire celebrity-cruises directory only — no
+other fleet was affected. (Likely an upstream auto-formatter or
+copy-paste from a smart-quote-converting editor introduced the bug
+during a template regeneration.)
 
 ### Resilient_Lady cocktail image — alternative use case
 
