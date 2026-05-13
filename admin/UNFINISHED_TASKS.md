@@ -104,6 +104,57 @@ Deleted as All Rights Reserved per the 2026-05-13 audit (`admin/audit-reports/po
 
 **Estimated effort to re-source:** ~2-3 careful hours. **Validator impact:** `missing_image_file` blocker count for port-everglades is now 7 (path typo + 6 deleted refs).
 
+#### port-miami — 8 open slots (all deleted; whole directory empty)
+
+The 2026-05-13 license sweep on port-miami found 8 of 8 cited Flickr sources unacceptable for this site: 5 were CC BY-NC-ND 2.0 (Non-Commercial + No-Derivatives — both flags this site rejects per `admin/IMAGE_SOURCING_WORKFLOW.md`), and 3 were All Rights Reserved.
+
+All 8 files + their attr.json siblings deleted; HTML refs in `ports/port-miami.html` left intentionally broken so the validator surfaces the gap. CSV rows removed from `attributions/attributions.csv`.
+
+| Slot | Previous (deleted) | Cited Flickr |
+|---|---|---|
+| `port-miami-hero.webp` | (subject not Read-verified before deletion) | ARR |
+| `port-miami-attraction-1.webp` | (subject not Read-verified) | CC BY-NC-ND 2.0 |
+| `port-miami-attraction-2.webp` | (subject not Read-verified) | CC BY-NC-ND 2.0 |
+| `port-miami-food.webp` | (subject not Read-verified) | CC BY-NC-ND 2.0 |
+| `port-miami-harbor.webp` | (subject not Read-verified) | CC BY-NC-ND 2.0 |
+| `port-miami-landmark.webp` | (subject not Read-verified) | CC BY-NC-ND 2.0 |
+| `port-miami-panorama.webp` | (subject not Read-verified) | ARR |
+| `port-miami-street.webp` | (subject not Read-verified) | ARR |
+
+**Estimated effort:** ~3-4 careful hours (8 slots from scratch).
+
+#### royal-beach-club-antigua — 8 open slots (all deleted; whole directory now empty except `IMAGE-MANIFEST.md`)
+
+The 2026-05-13 license sweep on royal-beach-club-antigua found 8 of 8 cited Flickr sources are All Rights Reserved. (This port also previously referenced a cross-port image from `/ports/img/antigua/` — a separate cross-port-reuse issue that the deletion does not affect.)
+
+All 8 files + their attr.json siblings deleted; HTML refs in `ports/royal-beach-club-antigua.html` left intentionally broken. CSV rows removed.
+
+| Slot | Cited Flickr |
+|---|---|
+| `royal-beach-club-antigua-hero.webp` | ARR |
+| `royal-beach-club-antigua-attraction-1.webp` | ARR |
+| `royal-beach-club-antigua-attraction-2.webp` | ARR |
+| `royal-beach-club-antigua-food.webp` | ARR |
+| `royal-beach-club-antigua-harbor.webp` | ARR |
+| `royal-beach-club-antigua-landmark.webp` | ARR |
+| `royal-beach-club-antigua-panorama.webp` | ARR |
+| `royal-beach-club-antigua-street.webp` | ARR |
+
+**Estimated effort:** ~3-4 careful hours, but this port is a Royal Caribbean private destination (newly opened on Antigua) with limited Creative Commons photographic coverage — may need to start with the cruise line's own press imagery if any is published under a permissive license, or accept that the page ships with fewer images than the validator's 11-floor.
+
+#### sydney-ns + santa-marta — flagged for separate decision
+
+Two ports surfaced in the same broken-ref sweep but were *not* deleted:
+
+- **`santa-marta`** — 12 images, all attributed to **Wikimedia Commons** with what appear to be real CC BY 2.0 / CC BY-SA 3.0 / CC BY-SA 4.0 URLs. The sandbox blocks Commons egress so the licenses cannot be programmatically re-verified, but the URL shape and CC license labels are consistent with proper Commons attribution. Recommend keeping pending production-environment re-verification. The original broken-ref was `/images/author-thumb.jpg` (chrome image, not a port image).
+
+- **`sydney-ns`** — 8 images, all with the college-fjord-class stub attribution shape (`"source": "Sourced under free license"`, empty `source_url`, `"license": "CC BY-SA 4.0 or equivalent"`). **Provably unverifiable** — no source URL means there's no way to confirm the license claim. Per project rules, these are placeholder shape and should be deleted, but I have NOT done so without explicit user direction since:
+  - The bytes could be real photos with real CC licenses whose attribution metadata was simply lost during sourcing
+  - Bulk-deleting 8 files leaves the page with 1 broken ref (the originally-flagged `sydney-ns-9.webp`) plus 8 more = 9 total
+  - This is more aggressive than the ARR-deletion principle, since "unverifiable" is not the same as "verified-bad"
+
+**Open question for the user:** does the "get the ARR photos off the site" principle extend to the sydney-ns unverifiable-attribution class (stub `"CC BY-SA 4.0 or equivalent"` with empty source URL)?
+
 The 2 cleaned ports suggest a reasonable per-port cleanup cost of:
 - ~20–30 minutes of You.com research + WebSearch to find real federal-agency or verified-CC sources
 - ~10–15 curl downloads and visual Read() verifications per port
