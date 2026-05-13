@@ -276,17 +276,38 @@ Each cleaned port should report:
 - `node scripts/validate-port-weather.js ports/<slug>.html` → 0 errors
 - `node admin/validate-port-page-v2.js ports/<slug>.html` → typically PASS (unless an unrelated content_purity / noscript / gallery-credit-diversity issue is independently blocking; flag those separately)
 
-### Companion pattern (less broken — separate from this task)
+### Companion pattern (Pattern A — best-time generic boilerplate) — IN PROGRESS
 
-A different boilerplate template appears on **53 ports** (verified 2026-05-13 via `grep -lE 'Spring and early autumn tend to offer' ports/*.html | wc -l`). The questions themselves are clean (no "Port Guide" template-bug token), but the answer reads:
+A different boilerplate template appeared on **53 ports** initially (verified 2026-05-13 via `grep -lE 'Spring and early autumn tend to offer' ports/*.html | wc -l`). The questions themselves are clean (no "Port Guide" template-bug token), but the answer reads:
 
 > "Spring and early autumn tend to offer the most comfortable conditions for sightseeing — mild temperatures, manageable crowds, and pleasant light for photography. Summer brings the warmest weather but also peak cruise traffic and higher prices. Winter visits can be rewarding for those who prefer quiet streets and authentic atmosphere…"
 
-This is factually wrong for tropical, equatorial, and sub-Antarctic ports (no meaningful spring/autumn/winter). Already rewritten on `ports/falkland-islands.html` during the 2026-05-13 FAQ work because the answer was actively misleading; flagged but not fixed on `apia.html`, `aruba.html`, `ascension.html` because the validator didn't fail and the FAQ work in those commits was scoped to weather-validator passes only.
+This is factually wrong for tropical, equatorial, and sub-Antarctic ports (no meaningful spring/autumn/winter).
 
-Resolution: per-port rewrite of the best-time visible answer using JSON-traced clauses (same recipe as Pattern B, just touching one Q&A per port instead of five).
+**Status as of 2026-05-13 (end of session `claude/continue-port-faq-4pvWk`):** 42 ports rewritten with JSON-traced content; 11 ports remain. All 11 remaining ports are blocked on structural issues from this task's perspective — see "Why these 11 ports aren't fixable as FAQ-only edits" below.
 
-**Regenerate the list:**
+**Remaining 11 ports + their structural block:**
+
+| Port | Block | Cross-ref |
+|---|---|---|
+| `panama-canal` | Repeated FAQ blocks (4×); 32 visible Q&As; needs editorial consolidation | Issue H |
+| `penang` | 14 errors, B_ACT_*, CATCH, H001, H002 — weather section partially absent | Issue E |
+| `port-elizabeth` | B_ACT_SNORKELING/HIKING/CITY_WALKING missing; D_MONTH parse error | Issue E |
+| `punta-arenas` | B_ACT_BEACH/SNORKELING missing (validator requires these for all ports; sub-Antarctic port can't legitimately have them) | Issue E + validator over-strict |
+| `royal-beach-club-antigua` | 5 B_ACT_* missing; private-island stub page | Issue E |
+| `royal-beach-club-nassau` | B_ACT_CITY_WALKING/HIKING missing; private-island stub | Issue E |
+| `santa-marta` | 38 errors; entire weather section absent | Issue E |
+| `stavanger` | 36 errors; entire weather section absent | Issue E |
+| `strait-of-magellan` | 31 errors; entire weather section absent | Issue E |
+| `tobago` | S001 only; missing `<section id="weather-guide">` | Issue E |
+| `ushuaia` | 12 errors including B_ACT_*, CATCH, B_AVOID | Issue E |
+
+Two paths to unblock:
+
+1. **Re-run the seasonal-guide backfill** on these 11 ports with the corrections from `b0c082b6` (no fabrication). This is the simplest path — most of the missing structural elements have data in `seasonal-guides.json` already.
+2. **Loosen `REQUIRED.activities`** in `scripts/port-weather-validator-core.js` (line 121) for ports whose region doesn't support certain activities. Sub-Antarctic ports legitimately have no beach/snorkeling; the validator currently forces all 5 activity rows on every page.
+
+**Regenerate the remaining list:**
 ```bash
 grep -lE 'Spring and early autumn tend to offer' ports/*.html | sort -u
 ```
