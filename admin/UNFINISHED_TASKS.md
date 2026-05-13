@@ -585,7 +585,6 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] Evaluate PDF generation for top 20 ports
 
 **Ship page improvements:**
-- [x] ~~Verify deck plan links load correctly~~ (verified 2026-03-02: external links to cruise line sites, not PDFs)
 - [ ] Add cabin size/amenity quick facts where missing
 - [ ] Ensure refurbishment dates are current
 - [ ] Add crew count and total deck count if missing
@@ -604,10 +603,9 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] Add affiliate article links to 3 remaining port pages (beijing, falmouth-jamaica, kyoto)
 
 ### [G] Quiz Remaining Fixes
-- [x] ~~Add null safety for lineData access~~ (verified 2026-03-02: null guards + optional chaining in quiz.html)
-- [x] ~~Implement 10-ship limit~~ (verified 2026-03-02: 3-10 range with +/- UI, hard cap at 10)
-- [x] ~~Add Comparison Drawer from Ship Atlas~~ (verified 2026-03-02: tray, modal, table, max-5 limit)
 - [ ] Run edge case test personas
+
+(3 prior fixes — null safety, 10-ship limit, Comparison Drawer — verified shipped and moved to `admin/COMPLETED_TASKS.md` on 2026-05-12.)
 
 ### [G] Data Quality
 - [ ] Verify quality of auto-generated seasonal data vs hand-curated
@@ -732,9 +730,10 @@ Comprehensive factors that can disrupt a passenger's port day, to be integrated 
 - [ ] Individual ship images rendering issues
 
 ### [Y] SEO External Tools Setup
-- [x] ~~Set up Google Search Console~~ (active — GSC audit 2026-03-27, see top of file)
 - [ ] Set up Bing Webmaster Tools
 - [ ] Set up Google Analytics dashboard
+
+(GSC setup verified active and moved to `admin/COMPLETED_TASKS.md` on 2026-05-12; see the "Google Search Console Audit (2026-03-27)" section at the top of this file for the operational data.)
 
 ### [Y] Dining Hero Images
 - [ ] 49 RCL ship dining hero images needed (all currently use generic Cordelia placeholder)

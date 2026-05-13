@@ -1046,6 +1046,17 @@ Reconciliation batch dated 2026-05-12 (branch `claude/audit-unfinished-tasks-5ev
 - [x] `tools-smoke.spec.js` flipped from annotation to hard `expect(errors).toEqual([])`. 19/19 Playwright pass
 **Verifying commit:** `9619a9ae` fix(js): repair inline-script parse errors on 4 tools
 
+### Audit sweep batch 2 — five marked-done items - COMPLETE (verified 2026-05-12)
+**Status:** COMPLETE — each item verified against current code during 2026-05-12 audit sweep
+**Lane:** 🟢 Green
+**Note:** these five `- [x]` strikethrough items were noted "verified 2026-03-02" in UNFINISHED_TASKS but never moved. Second-pass sweep found them and verified each is still true in HEAD before moving.
+
+- [x] **Deck plan links load correctly** — verified `ships/rcl/quantum-of-the-seas.html:948,972` link to `https://www.royalcaribbean.com/cruise-ships/quantum-of-the-seas` with `target="_blank" rel="nofollow noopener"`. External links to cruise line sites, not PDFs. Original verification 2026-03-02.
+- [x] **Quiz null safety on lineData access** — verified `ships/quiz.html:2543` uses optional chaining with fallback: `${r.lineData?.colors?.primary || '#0e6e8e'}` and `${r.lineData?.short_name || line}`. Original verification 2026-03-02.
+- [x] **Quiz 10-ship limit** — verified `ships/quiz.html:2624-2631` `adjustResultsLimit(delta)` uses `Math.max(3, Math.min(10, resultsLimit + delta))` clamp. UI controls at `ships/quiz.html:1467-1470` (`btnLimitMinus` / `btnLimitPlus` / `<strong id="limitCount">3</strong>`). Hard cap at 10. Original verification 2026-03-02.
+- [x] **Quiz Comparison Drawer from Ship Atlas** — verified `ships/quiz.html:1657` `const MAX_COMPARE = 5;` with full tray CSS at lines 699-799 (`.compare-tray`, `.compare-tray-header`, `.compare-cards`, `.compare-card-remove`). Cap enforcement at line 2772 with alert: `"You can compare up to ${MAX_COMPARE} ships at a time."`. Original verification 2026-03-02.
+- [x] **Google Search Console set up** — verified active per GSC audit dated 2026-03-27 already documented at the top of UNFINISHED_TASKS.md (now line ~190, "## Google Search Console Audit"). The audit pulled GSC data 2026-03-23 and applied fixes for crawled-not-indexed, redirects, sitemap. Original setup confirmed by data presence.
+
 ---
 
 **END OF COMPLETED TASKS**
