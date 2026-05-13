@@ -242,20 +242,22 @@ The 369 "crawled, not indexed" pages are primarily thin content that Google depr
 
 ---
 
-## Codebase Status (verified 2026-03-02)
+## Codebase Status (refreshed 2026-05-12)
 
-| Asset | Count |
-|-------|-------|
-| Port pages | 387 |
-| Ship pages | 295 |
-| Restaurant pages | 472 |
-| Total HTML pages | 1,241 |
-| WebP images | 4,486 |
-| Logbook JSON files | 285 |
-| Stateroom exception files | 270 |
-| Cruise line directories | 16 |
-| Inline style instances | ~15,626 |
-| Files with `<style>` blocks | 9 |
+| Asset | 2026-03-02 | 2026-05-12 | Delta |
+|-------|-----------:|-----------:|------:|
+| Port pages | 387 | 387 | — |
+| Ship pages | 295 | 294 | −1 (1 retired or renamed) |
+| Restaurant pages | 472 | 472 | — |
+| Total HTML pages | 1,241 | 1,249 | +8 |
+| WebP images | 4,486 | 4,180 | −306 (Flickr ARR + audit deletions) |
+| Logbook JSON files | 285 | not re-counted | — |
+| Stateroom exception files | 270 | not re-counted | — |
+| Cruise line directories | 16 | not re-counted | — |
+| Inline `style=` attributes | ~15,626 | **22,181** | **+6,555 — CSS consolidation is moving backwards** |
+| Files with `<style>` blocks | 9 | **32** | **+23 — more inline style blocks added since 2026-03-02** |
+
+The inline-style and `<style>`-block counts are now WORSE than at the last consolidation date. The 2026-03-02 baseline reflected mid-consolidation progress; new ship/port work has been adding more inline styling than the consolidation has been removing. Flag for the CSS Consolidation entry in GREEN LANE.
 
 ---
 
@@ -536,24 +538,31 @@ Each port's content must be **port-specific** — no generic templates. Research
 - [ ] Add missing grid-2 layout (~30 ships, mostly Carnival)
 
 ### [G] Ship Validation — Content Quality Enhancement
-**Current:** 293/293 passing (100% — all structural validation errors resolved)
-**Remaining quality improvements (beyond validator scope):**
-- [ ] Generic review text (208 ships) — needs editorial content per ship
-- [ ] Few images (137 ships) — needs actual image files (23 ships need just 1 more)
-- [ ] FAQ too short (186 ships) — needs content expansion
-- [ ] Missing whimsical units (~181 ships)
-- [ ] Missing grid-2 layout (~30 ships)
+**Status (refreshed 2026-05-12 from `audit-reports/ship-validation-dashboard.json`, generated 2026-05-11):**
+- 290 ship pages total (was 293)
+- `sh_pass`: 2 (fully clean), `sh_warn_only`: 275, `sh_fail`: 13 — **structural pass rate is NOT 100% anymore**
+- `js_pass`: 80, `js_fail`: 210 — JS-level cascade failures are widespread
+**Top error rules (top 6 by count):** `js:images/few_images` 158 · `js:runtime_data/cascade_fully_failed` 50 · `js:json_ld/main_entity_blacklisted` 23 · `js:sections/wrong_section_order` 22 · `js:videos/missing_categories` 17 · `js:videos/few_videos` 11
+
+**Remaining quality improvements:**
+- [ ] Generic review text (208 ships per 2026-03-02; *count needs refresh*)
+- [ ] Few images — **158 ships per 2026-05-11 dashboard** (was 137 at 2026-03-02; +21)
+- [ ] FAQ too short (186 ships per 2026-03-02; *count needs refresh*)
+- [ ] Missing whimsical units (~181 ships per 2026-03-02; *count needs refresh*)
+- [ ] Missing grid-2 layout (~30 ships per 2026-03-02; *count needs refresh*)
+- [ ] Structural sh_fail regressions (13 ships) — investigate vs the 2026-03-02 "100% structural pass" claim
+- [ ] js_fail (210 ships) — overlaps Phase 3.6 cascade_fully_failed (50) and few_images (158); needs deduplication before triaging
 
 ### [G] Port Validation — Remaining Work
-**Current:** 242/387 passing (62.5%) — drop from prior "338" count is due to `section_order/out_of_order` check now being BLOCKING
-- [ ] ~145 ports still failing (22 at score 0, ~50 at score 2-68, ~73 at score 70-86)
-- [ ] Trim FAQ answers to 80 words (~384 ports)
-- [ ] Build POI manifests (365 ports have < 10 POIs)
-- [ ] Clean promotional drift language (~200 ports)
+**Status (per 2026-03-02 / 2026-03-25 figures — needs fresh validator run):** 242/387 passing (62.5%); ~145 failing. Latest archived results: `.claude/archive/port-validation-history/port-validation-results-2026-03-25.json`. Recent commit log shows continued port work (Phase 1 section reordering on 63 pages, weather FAQs on st-kitts/grenada/dominica/bonaire/split/kotor/marseille/bora-bora) so the current PASS count is almost certainly higher than 242.
+- [ ] ~145 ports failing per 2026-03-02 (22 at score 0, ~50 at score 2-68, ~73 at score 70-86) — **needs fresh `node admin/validate-port-page-v2.js` run**
+- [ ] Trim FAQ answers to 80 words (~384 ports per 2026-03-02 — *count likely lower now*)
+- [ ] Build POI manifests (365 ports per 2026-03-02 had <10 POIs — *POI file scheme unclear, only 2 `poi*.json` files found 2026-05-12*; verify the entry's claim before planning)
+- [ ] Clean promotional drift language (~200 ports per 2026-03-02 — *count needs refresh*)
 
 ### [G] Port Weather — Remaining Coverage
-**Current:** 351/387 ports have weather widgets
-- [ ] Add weather section to remaining ~36 ports
+**Refreshed 2026-05-12:** 365/387 ports now have weather widgets (was 351; gap dropped from 36 to 22).
+- [ ] Add weather section to remaining 22 ports
 
 ### [G] Technical Tasks
 - [ ] Verify WCAG 2.1 AA compliance across new pages
@@ -579,7 +588,7 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] Ensure dock locations clearly marked on all port maps
 - [ ] Add dock location summary to port page intro
 - [ ] Expand DIY vs. excursion comparisons from 38 to top 50 ports
-- [ ] Expand "Real Talk" honest assessments to 75+ ports (currently 46) — *count needs verify*
+- [ ] Expand "Real Talk" honest assessments to 75+ ports (50 ports as of 2026-05-12 spot-check; was 46 at 2026-03-02; gap to target: 25 more)
 
 **Ship page improvements:**
 - [ ] Add cabin size/amenity quick facts where missing
