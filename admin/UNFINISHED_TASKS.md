@@ -83,6 +83,27 @@ Files that cite `www.nps.gov/...`, `www.loc.gov/...`, `science.nasa.gov/...`, `e
 | glacier-bay | All 9 ARR/unverified files deleted; 7 verified NPS public-domain images sourced | `a1f0f2a2` |
 | haines | 5 unverified files deleted + 1 UW Libraries–restricted; 6 verified NPS + LoC public-domain images sourced | `a1f0f2a2` |
 
+### Ports cleaned (2026-05-13)
+
+| Port | Status | Cleanup commit |
+|------|--------|----------------|
+| port-everglades | 6 ARR files deleted; replacements deferred (HTML refs intentionally left broken so the validator tracks the gap until re-sourced — see *port-everglades open slots* below). 2 CC BY 2.0 files (harbor, landmark, both from `prayitnophotography`) kept after Read-verification + verify-flickr confirmation. | (pending) |
+
+#### port-everglades — 6 open slots requiring re-sourcing
+
+Deleted as All Rights Reserved per the 2026-05-13 audit (`admin/audit-reports/port-image-audits/port-everglades-2026-05-13.md`). The HTML in `ports/port-everglades.html` retains the broken `<img src>` references so the validator's `missing_image_file` blocker count surfaces them until a future session re-sources. Two slots are also slot-vs-subject mismatches (`food`, `street`) and should be renamed when re-sourced.
+
+| Slot | Previous (deleted) subject | Notes for re-sourcing |
+|---|---|---|
+| `port-everglades-hero.webp` | HAL Nieuw Statendam at tropical-port sunset | Subject was UNCLEAR; needs a Port Everglades-positive identifier (terminal architecture, FLL approach plane, etc.). HTML path was also typo'd at `/ports/img/port-everglades-hero.webp` (missing subdir) — fix path when re-sourcing. |
+| `port-everglades-attraction-1.webp` | Cruise ship + Southwest plane on FLL approach (subject POSITIVE) | Subject was correct (FLL approach over PE is diagnostic); only license blocked use. Look for CC-licensed FLL-approach-over-port shots. |
+| `port-everglades-attraction-2.webp` | 3 cruise ships at sea (Celebrity + Princess) | Subject UNCLEAR; replace with positively-identified PE scene. |
+| `port-everglades-food.webp` | Fort Lauderdale Hilton marina yacht harbor | **Slot mismatch** — file showed yachts, not food. Rename slot on re-source. Real food/cuisine slot if used should show actual food/dining; otherwise drop the slot. |
+| `port-everglades-panorama.webp` | RCL Oasis-class silhouetted at golden hour | Subject UNCLEAR; replace with a positively-identified PE panorama. |
+| `port-everglades-street.webp` | RCL Freedom of the Seas at night | **Slot mismatch** — file showed ship, not street. Rename slot on re-source or drop. |
+
+**Estimated effort to re-source:** ~2-3 careful hours. **Validator impact:** `missing_image_file` blocker count for port-everglades is now 7 (path typo + 6 deleted refs).
+
 The 2 cleaned ports suggest a reasonable per-port cleanup cost of:
 - ~20–30 minutes of You.com research + WebSearch to find real federal-agency or verified-CC sources
 - ~10–15 curl downloads and visual Read() verifications per port
