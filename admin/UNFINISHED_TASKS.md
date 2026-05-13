@@ -367,6 +367,26 @@ grep -E '"shoulder season|Best Months? (for|to)|Weather Guide|Climate Overview|W
 
 …and update the registry entries to use replacement phrasing the validator accepts. Then any port that mirrors `packing_nudges` verbatim won't inherit forbidden phrases.
 
+### Issue H — Repeated FAQ blocks (panama-canal observed)
+
+`ports/panama-canal.html` has the same 4-question FAQ block inserted
+verbatim 4 times across the page (lines ~487-489, ~567-572, ~620,
+~675), each followed by the same Pattern-A best-time Q. The page
+appears structured for multiple ports along the canal transit but the
+FAQ backfill duplicated rather than customizing per section. Total
+visible: 32 Q&As; FAQ_DUP fires 4× on the best-time match.
+
+Fix is beyond per-port FAQ work — needs editorial decision on whether
+to keep 4 sections (each with distinct Q&As) or consolidate to one.
+
+Search:
+```bash
+for p in ports/*.html; do
+  c=$(grep -c '<strong>Q:' "$p" 2>/dev/null)
+  [ "$c" -gt 15 ] && echo "$p: $c visible Q&As"
+done
+```
+
 ### Issue G — Generic currency-schema entries (deferrable)
 
 Many ports have schema `FAQPage` currency entries that read:
