@@ -10,7 +10,7 @@
   size: letter;
   margin: 0.85in 0.85in 1.0in 0.85in;
   @bottom-center {
-    content: "In the Wake — Voyage Pack — Page " counter(page);
+    content: "In the Wake — Voyage Pack — Page " counter(page) " of " counter(pages);
     font-family: Georgia, "Times New Roman", serif;
     font-size: 9pt;
     color: #555;
@@ -30,9 +30,12 @@
 
 body {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 11pt;
+  font-size: 11.5pt;
   line-height: 1.55;
   color: #083041;
+  /* Tighten readable measure to ~70 chars/line on a 6.8" content area */
+  max-width: 5.6in;
+  margin: 0 auto;
 }
 
 /* Headings */
@@ -43,14 +46,75 @@ h1, h2, h3, h4, h5, h6 {
   page-break-inside: avoid;
 }
 h1 { font-size: 24pt; margin-top: 0; margin-bottom: 0.4em; line-height: 1.2; }
+
+/* Section h2 — visual separation via top margin + rope underline rather
+ * than a forced page break. Forced breaks (page-break-before:always) led
+ * to ~15 pages of mostly-blank tail-of-section padding in v0.1; the
+ * section-rule + breathing room is enough to mark the boundary. Use a
+ * forbidden orphan rule so a section title can't end up alone at the
+ * bottom of a page. */
 h2 {
   font-size: 17pt;
-  margin-top: 0;
-  page-break-before: always;
-  border-bottom: 2px solid #d9b382;
+  margin-top: 2.4em;
+  padding-top: 0.6em;
+  border-top: 2px solid #d9b382;
   padding-bottom: 0.2em;
+  break-before: auto;
+  break-after: avoid;
 }
-h2:first-of-type { page-break-before: auto; }
+h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+/* Cover page — first .vp-cover element gets full-page treatment.
+ * Big title, hero image, by-line, and a forced break to the next
+ * page so the document body starts cleanly on page 2. */
+.vp-cover {
+  page-break-after: always;
+  break-after: page;
+  text-align: center;
+  padding-top: 1.5in;
+}
+.vp-cover h1 {
+  font-size: 32pt;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+.vp-cover .vp-cover-sub {
+  font-size: 14pt;
+  font-style: italic;
+  color: #0e6e8e;
+  margin: 0 0 1.5em;
+}
+.vp-cover .vp-cover-ship {
+  font-size: 12pt;
+  letter-spacing: 0.04em;
+  color: #083041;
+  margin: 2em 0 1em;
+}
+.vp-cover img {
+  display: block;
+  max-width: 5in;
+  max-height: 4in;
+  margin: 1em auto 1.5em;
+  border-radius: 4px;
+}
+.vp-cover .vp-cover-byline {
+  font-size: 11pt;
+  color: #555;
+  margin-top: 2em;
+}
+
+/* Flyer-style cover — for packs where the cover IS a self-contained
+ * promotional flyer (title + dates + ports + pricing all in the image).
+ * Override the standard cover's hero-image size constraint so the flyer
+ * fills most of the page. */
+.vp-cover-flyer {
+  padding-top: 0.6in;
+}
+.vp-cover-flyer img {
+  max-width: 6in;
+  max-height: 7.2in;
+  margin: 0 auto 0.8em;
+}
 h3 { font-size: 13pt; margin-top: 1.5em; color: #0e6e8e; }
 h4 { font-size: 11pt; margin-top: 1em; }
 

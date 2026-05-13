@@ -1,33 +1,25 @@
 # Site-wide image-reuse audit
 
-**Generated:** 2026-05-08T22:23:06.297Z
-**Images scanned:** 1259
-**Unique image bytes:** 1203
+**Generated:** 2026-05-13T01:18:09.744Z
+**Images scanned:** 1197
+**Unique image bytes:** 1141
 **Storage waste:** 56 duplicate file(s) on disk
 
 **⛔ SYMLINKS (always blocking):** 0
-**🔴 CRITICAL findings:** 3
+**🔴 CRITICAL findings:** 1
 **🟠 ERROR findings:** 1
 **🟡 WARN (filename does not match a slug):** 0
-**ℹ️  INFO (intra-entity duplicates):** 9
+**ℹ️  INFO (intra-entity duplicates):** 11
 
 Allowlisted sections (brand / icons / social) are not flagged for reuse.
 
 ---
 
-## 🔴 CRITICAL — Cross-section / cross-line image reuse (3)
+## 🔴 CRITICAL — Cross-section / cross-line image reuse (1)
 
 - **md5 `47d160f86e40207350ab806996f2dd85`** — same bytes appear in legacy/root bucket without a resolvable slug — provenance unclear
   - `assets/ships/grandeur-of-the-seas_01.webp`  *(section: ships, line: _root, slug: grandeur-of-the-seas)*
   - `assets/ships/template_01.webp`  *(section: ships, line: _root)*
-
-- **md5 `263499439f2ac50abc28157308a5807d`** — same bytes used across DIFFERENT sections: articles, authors
-  - `assets/articles/ken1.jpg`  *(section: articles, line: _generic)*
-  - `authors/img/ken1.jpg`  *(section: authors, line: _generic)*
-
-- **md5 `6d1872f821b6370fadbb8085677a4e05`** — same bytes used across DIFFERENT sections: articles, authors
-  - `assets/articles/ken1.png`  *(section: articles, line: _generic)*
-  - `authors/img/ken1.png`  *(section: authors, line: _generic)*
 
 ## 🟠 ERROR — Same-section different-entity reuse (1)
 
@@ -60,35 +52,43 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
   - `authors/img/author-avatar.jpg`  *(section: authors, line: _generic)*
   - `assets/brand/placeholder-port.webp`  *(section: brand, line: _allow)*
 
-## ℹ️ INFO — Storage-only duplicates within one entity (9)
+## ℹ️ INFO — Storage-only duplicates within one entity (11)
 
-- **md5 `14fdd48416a3394a80058c0c5b970b59`** — same bytes under multiple filenames for slug "quantum-of-the-seas" — pick one and delete duplicates
+- **md5 `14fdd48416a3394a80058c0c5b970b59`** — same bytes for ship slug "quantum-of-the-seas" across _root/line buckets — pick one and delete duplicates (same-entity)
   - `assets/ships/0016_Quantum_of_the_Seas.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
   - `assets/ships/Quantum_of_the_Seas_01.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
 
-- **md5 `dfe98868bbf48a04f9ee714ae5cc0b0c`** — same bytes under multiple filenames for slug "quantum-of-the-seas" — pick one and delete duplicates
+- **md5 `dfe98868bbf48a04f9ee714ae5cc0b0c`** — same bytes for ship slug "quantum-of-the-seas" across _root/line buckets — pick one and delete duplicates (same-entity)
   - `assets/ships/0018_Quantum_of_the_Seas_(2).webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
   - `assets/ships/Quantum_of_the_Seas_02.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
 
-- **md5 `cd02f782e08577fe4dbeb2f8e650aec0`** — same bytes under multiple filenames for slug "discovery-princess" — pick one and delete duplicates
+- **md5 `cd02f782e08577fe4dbeb2f8e650aec0`** — same bytes for ship slug "discovery-princess" across _root/line buckets — pick one and delete duplicates (same-entity)
   - `assets/ships/Discovery_Princess_profile.jpg`  *(section: ships, line: _root, slug: discovery-princess)*
   - `assets/ships/Discovery_Princess_sea.jpg`  *(section: ships, line: _root, slug: discovery-princess)*
 
-- **md5 `848deba86406a3994a963899ab193ee7`** — same bytes under multiple filenames for slug "quantum-of-the-seas" — pick one and delete duplicates
+- **md5 `848deba86406a3994a963899ab193ee7`** — same bytes for ship slug "quantum-of-the-seas" across _root/line buckets — pick one and delete duplicates (same-entity)
   - `assets/ships/Quantum_of_the_Seas_-_Wedel_04.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
   - `assets/ships/Quantum_of_the_Seas_03.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
 
-- **md5 `931f0598453416d7c3f3a9d4ce05f2a9`** — same bytes under multiple filenames for slug "song-of-norway" — pick one and delete duplicates
+- **md5 `931f0598453416d7c3f3a9d4ce05f2a9`** — same bytes for ship slug "song-of-norway" across _root/line buckets — pick one and delete duplicates (same-entity)
   - `assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped)-2.webp`  *(section: ships, line: _root, slug: song-of-norway)*
   - `assets/ships/Song_of_Norway_Vigo_(cropped)_(cropped).webp`  *(section: ships, line: _root, slug: song-of-norway)*
 
-- **md5 `c98a620b816a668050e6ca1e605f0bb6`** — same bytes under multiple filenames for slug "carnival-jubilee" — pick one and delete duplicates
+- **md5 `c98a620b816a668050e6ca1e605f0bb6`** — same bytes for ship slug "carnival-jubilee" across _root/line buckets — pick one and delete duplicates (same-entity)
   - `assets/ships/carnival/carnival-jubilee/carnival-jubilee1.jpg`  *(section: ships, line: carnival, slug: carnival-jubilee)*
   - `assets/ships/carnival/carnival-jubilee-exterior.jpg`  *(section: ships, line: carnival, slug: carnival-jubilee)*
 
-- **md5 `b8341f60867a73a82cbe9ae0ad630b42`** — same bytes under multiple filenames for slug "emerald-princess" — pick one and delete duplicates
+- **md5 `b8341f60867a73a82cbe9ae0ad630b42`** — same bytes for ship slug "emerald-princess" across _root/line buckets — pick one and delete duplicates (same-entity)
   - `assets/ships/emerald-princess2_flickr.jpg`  *(section: ships, line: _root, slug: emerald-princess)*
   - `assets/ships/emerald-princess_flickr_new.jpg`  *(section: ships, line: _root, slug: emerald-princess)*
+
+- **md5 `263499439f2ac50abc28157308a5807d`** — same bytes across authors↔articles for shared filename root — documented same-entity pattern
+  - `assets/articles/ken1.jpg`  *(section: articles, line: _generic)*
+  - `authors/img/ken1.jpg`  *(section: authors, line: _generic)*
+
+- **md5 `6d1872f821b6370fadbb8085677a4e05`** — same bytes across authors↔articles for shared filename root — documented same-entity pattern
+  - `assets/articles/ken1.png`  *(section: articles, line: _generic)*
+  - `authors/img/ken1.png`  *(section: authors, line: _generic)*
 
 - **md5 `32572a8dca2b53acf12bd1c0a0551583`** — same bytes under multiple filenames within one entity — pick one and delete duplicates
   - `authors/img/tina2.webp`  *(section: authors, line: _generic)*

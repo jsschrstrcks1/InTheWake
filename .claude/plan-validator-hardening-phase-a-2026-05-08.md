@@ -111,6 +111,35 @@ These are NOT auto-fixable — each needs human review to decide whether the ima
 
 ---
 
+## Phase A addendum — comparator equivalence (PR 4 reframed)
+
+**Original PR 4 framing** (in `.claude/plan-port-normalization-2026-05-07.md`): rename 168 ports from `id="port-map-section"` to `id="port-map"` to resolve the "map ID schism" the gold-standard comparator was reporting.
+
+**On survey, the framing was wrong.** The schism I was about to fix at the largest possible blast radius was actually a comparator-side false positive:
+
+- 0 CSS / 0 JS / 0 hash-anchor references to any of the three IDs
+- The leaflet container ID (`<slug>-port-map`) is generated dynamically and has no relationship to the section-wrapper IDs
+- The only place treating `map` and `port-map-section` as inequivalent was `admin/gold-standard-compare.cjs`'s `compare()` function
+
+**Doctrine-aligned fix:** 1-line equivalence map in the comparator instead of renaming 189 HTML files. (Per the doctrine's "Leave things alone when risk outweighs benefit" + "smallest careful change.")
+
+**Implementation:** added `SECTION_EQUIV = { 'port-map-section': 'map' }` and applied a canonicalization map to the section sets before set-diff in `admin/gold-standard-compare.cjs`.
+
+**Verified delta** (full fleet, 383 pages compared):
+
+| Measure | Before | After | Δ |
+|---|---:|---:|---:|
+| "Extra sections: …port-map-section…" | 189 | 0 | −189 |
+| "Missing sections: …map…" | 277 | 88 | −189 |
+| Total diff entries fleet-wide | 1087 | 913 | −174 |
+| Pages matching gold exactly | 9 | 11 | +2 |
+
+The 88 remaining "missing: map" findings are pages with no map section at all — genuine content gaps, not cosmetic variance. That's the honest signal the comparator was previously drowning in noise.
+
+**Editorial follow-up that's now properly scoped:** if/when there's a gold-standard-parity sprint, the documented standard is `id="map"` (matches dubai, the gold standard, and the SKILL.md canonical order). Renaming the 189 `port-map-section` ports to `id="map"` is a separate editorial decision — not required to fix the comparator's noise, and not required for any runtime correctness.
+
+---
+
 ## Execution sequence
 
 1. **PR A:** activate hook → verify with one negative test → done.

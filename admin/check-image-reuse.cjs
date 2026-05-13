@@ -40,6 +40,20 @@ const REGISTRY = path.join(REPO_ROOT, 'audit-reports', 'image-reuse-registry.jso
 const IMG_RE = /\.(webp|jpe?g|png|gif|avif)$/i;
 const ALLOWLIST_PREFIXES = ['assets/brand/', 'assets/icons/', 'assets/social/'];
 
+// Phase 3.5 (issue #1465): mirrors the same-entity rules added to
+// admin/scan-image-reuse.cjs. Audit and pre-commit must agree about which
+// reuses are "Cordelia pattern" (block) vs "documented convention" (allow).
+const FOM_NAMED_RE = /[-_]FOM[-_ ]/i;
+const SAME_ENTITY_CROSS_SECTION_PAIRS = [new Set(['authors', 'articles'])];
+
+function isFomNamed(filename) {
+  return FOM_NAMED_RE.test(filename);
+}
+
+function filenameRoot(filename) {
+  return filename.replace(/\.[^.]+$/, '').replace(/[-_ ]?\d+(?:\s*\([\d ]+\))?$/, '').toLowerCase();
+}
+
 function ensureRegistry() {
   if (fs.existsSync(REGISTRY)) return;
   console.error('[image-reuse] registry missing; rebuilding via admin/scan-image-reuse.cjs');
@@ -68,19 +82,85 @@ function entityKeyFromMeta(meta) {
 function classifyOnDemand(rel) {
   // Lightweight reproduction of scan-image-reuse.cjs:classify() for paths
   // that may not be in the registry yet (e.g., a brand-new image being added).
+  // Phase 3.5 (issue #1465): also derive slug so entityKeyFromMeta can
+  // collapse _root + line for ships (Carnival_Conquest_3.jpg ≡
+  // carnival/carnival-conquest-exterior.jpg, both → ships:carnival-conquest).
   let m = rel.match(/^assets\/ships\/([^/]+)\/(.+)$/);
-  if (m) return { section: 'ships', line: m[1], filename: m[2] };
+  if (m) {
+    const meta = { section: 'ships', line: m[1], filename: m[2] };
+    meta.slug = deriveSlug(meta.filename, 'ships');
+    return meta;
+  }
   m = rel.match(/^assets\/ships\/(.+)$/);
-  if (m) return { section: 'ships', line: '_root', filename: m[1] };
+  if (m) {
+    const meta = { section: 'ships', line: '_root', filename: m[1] };
+    meta.slug = deriveSlug(meta.filename, 'ships');
+    return meta;
+  }
   m = rel.match(/^images\/ports\/([^/]+)\/(.+)$/);
-  if (m) return { section: 'ports', line: m[1], filename: m[2] };
+  if (m) {
+    const meta = { section: 'ports', line: m[1], filename: m[2] };
+    meta.slug = deriveSlug(meta.filename, 'ports') || (m[1].match(/^[a-z0-9-]+$/) ? m[1] : null);
+    return meta;
+  }
   m = rel.match(/^images\/ports\/(.+)$/);
-  if (m) return { section: 'ports', line: '_root', filename: m[1] };
+  if (m) {
+    const meta = { section: 'ports', line: '_root', filename: m[1] };
+    meta.slug = deriveSlug(meta.filename, 'ports');
+    return meta;
+  }
   if (rel.startsWith('assets/venues/'))   return { section: 'venues',  line: '_generic', filename: path.basename(rel) };
   if (rel.startsWith('assets/articles/')) return { section: 'articles', line: '_generic', filename: path.basename(rel) };
   if (rel.startsWith('authors/'))         return { section: 'authors',  line: '_generic', filename: path.basename(rel) };
-  if (rel.startsWith('assets/img/'))      return { section: 'ships',   line: '_legacy', filename: path.basename(rel) };
+  if (rel.startsWith('assets/img/')) {
+    const meta = { section: 'ships', line: '_legacy', filename: path.basename(rel) };
+    meta.slug = deriveSlug(meta.filename, 'ships');
+    return meta;
+  }
   return null;
+}
+
+// Cached slug sources, lazy-built from filesystem.
+let _slugSources = null;
+function slugSources() {
+  if (_slugSources) return _slugSources;
+  _slugSources = { ships: new Set(), ports: new Set() };
+  // ships/<line>/<slug>.html — nested
+  const shipsRoot = path.join(REPO_ROOT, 'ships');
+  if (fs.existsSync(shipsRoot)) {
+    for (const lineEntry of fs.readdirSync(shipsRoot, { withFileTypes: true })) {
+      if (!lineEntry.isDirectory()) continue;
+      for (const f of fs.readdirSync(path.join(shipsRoot, lineEntry.name))) {
+        if (f.endsWith('.html') && f !== 'index.html') _slugSources.ships.add(f.replace(/\.html$/, '').toLowerCase());
+      }
+    }
+  }
+  // ports/<slug>.html — flat
+  const portsRoot = path.join(REPO_ROOT, 'ports');
+  if (fs.existsSync(portsRoot)) {
+    for (const f of fs.readdirSync(portsRoot)) {
+      if (f.endsWith('.html') && f !== 'index.html') _slugSources.ports.add(f.replace(/\.html$/, '').toLowerCase());
+    }
+  }
+  return _slugSources;
+}
+
+function normalize(s) {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function deriveSlug(filename, section) {
+  const src = slugSources()[section];
+  if (!src) return null;
+  const norm = normalize(filename);
+  let best = null;
+  for (const slug of src) {
+    const ns = normalize(slug);
+    if (ns.length >= 6 && norm.includes(ns)) {
+      if (!best || ns.length > normalize(best).length) best = slug;
+    }
+  }
+  return best;
 }
 
 function extractImageRefs(htmlPath) {
@@ -137,11 +217,32 @@ function checkOneImage(rel, registry) {
   if (!myMeta) return null;
   const myKey = entityKeyFromMeta(myMeta);
 
-  // Find any registry entry that resolves to a DIFFERENT entity-key.
+  // Find any registry entry that resolves to a DIFFERENT entity-key, after
+  // applying the Phase 3.5 (issue #1465) documented-pattern allowlists.
   const conflicts = entries.filter(e => {
     if (e.rel === rel) return false;
     const otherKey = entityKeyFromMeta(e);
-    return otherKey !== myKey;
+    if (otherKey === myKey) return false;
+
+    // Cross-section authors↔articles same-entity: same filename root means
+    // it's the author's portrait legitimately reused on their article.
+    const sectionPair = new Set([myMeta.section, e.section]);
+    const isCrossSectionSameEntity = SAME_ENTITY_CROSS_SECTION_PAIRS.some(allowed =>
+      sectionPair.size === 2 && [...sectionPair].every(s => allowed.has(s))
+    );
+    if (isCrossSectionSameEntity) {
+      const myRoot = filenameRoot(myMeta.filename);
+      const otherRoot = filenameRoot(e.filename || path.basename(e.rel));
+      if (myRoot && otherRoot && myRoot === otherRoot) return false;
+    }
+
+    // FOM convention: same-section ships, both filenames FOM-named → allow.
+    if (myMeta.section === 'ships' && e.section === 'ships' &&
+        isFomNamed(myMeta.filename) && isFomNamed(e.filename || path.basename(e.rel))) {
+      return false;
+    }
+
+    return true;
   });
   if (conflicts.length === 0) return null;
   return { rel, hash, conflicts };

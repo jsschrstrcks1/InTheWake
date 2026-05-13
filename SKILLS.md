@@ -64,6 +64,7 @@ This document is the human-facing index of all Claude Code skills configured in 
 | `consult` | `/consult` | on | Multi-LLM second opinion |
 | `orchestrate` | `/orchestrate cruising` | on | Multi-LLM pipeline (cruising mode) |
 | `orchestra` | `/orchestra` | on | Multi-LLM round-robin |
+| `adversarial-review` | `/adversarial-review [base-ref] [model]` | on | External-audit backstop named in careful-not-clever v1.8.1-alpha §"Limit of this rule." Sends commit range to an adversarial reviewer (default: grok) for a ruthless first-pass critique. Implementation: `admin/external-audit.sh`. Orchestra mode: `ken/orchestrator/modes/adversarial-review.yaml`. |
 
 ### Standard household kit (16 skills) — see [section below](#standard-household-kit)
 
