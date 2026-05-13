@@ -187,7 +187,9 @@ Resolution: same as the original 8 deferred-blocker pages (TIER 2 placeholder, s
 
 ---
 
-## P1 — Port FAQ "Cruise Port Guide" template-bug cleanup (2026-05-13)
+## P1 — Port FAQ "Cruise Port Guide" template-bug cleanup (2026-05-13) — **COMPLETE**
+
+**Status:** Resolved in session `claude/continue-port-faq-4pvWk` (2026-05-13). All 25 affected ports rewritten with JSON-traced FAQ content. Verification: `grep -lE 'Port Guide.{0,3}(have|'"'"'s)|Port Guide\?' ports/*.html | wc -l` returns 0.
 
 **Source:** Session `claude/continue-port-faq-4pvWk` 2026-05-13. While shipping weather-FAQ fixes one port at a time, encountered a recurring template substitution bug on the page's last 3–5 FAQ entries.
 
@@ -222,11 +224,41 @@ seattle, tampa, valencia, venice, zihuatanejo
 grep -lE 'Port Guide.{0,3}(have|'"'"'s)|Port Guide\?' ports/*.html | sort -u
 ```
 
-### Three ports already cleaned (2026-05-13 session)
+### All 25 ports cleaned in 2026-05-13 session
 
-- `ports/grand-cayman.html` — 5 broken FAQs rewritten; commit `b73370c8`
-- `ports/ft-lauderdale.html` — 5 broken FAQs rewritten; commit `3b0cdad4`
-- `ports/galveston.html` — 3 broken FAQs rewritten + 1 hurricane added; commit `68875533`
+All commits on branch `claude/continue-port-faq-4pvWk` (single-file
+per port, per-clause source maps in commit messages):
+
+- `grand-cayman` (`b73370c8`), `ft-lauderdale` (`3b0cdad4`),
+  `galveston` (`68875533`), `amber-cove` (`f397fcf1`),
+  `bermuda` (`95a11e67`), `honolulu` (`23b0e577`), `miami` (`6f67d16f`),
+  `seattle` (`bbb9b057`), `tampa` (`e133acf5`),
+  `port-canaveral` (`4efc2d8c`), `new-orleans` (`a6d0d3dc`),
+  `los-angeles` (`0b3de342`), `puerto-vallarta` (`037e153f`),
+  `mazatlan` (`b7cd4f41`), `zihuatanejo` (`c6aa9bf7`),
+  `manzanillo` (`ca80ef5b`), `progreso` (`937aa24f`),
+  `ensenada` (`2fe4dda7`), `aqaba` (`d7c45d4e`),
+  `barcelona` (`1d079e0c`), `naples` (`adf3358a`),
+  `venice` (`be0a5da5`), `malaga` (`5e55a0dd`),
+  `valencia` (`3d2b7776`), `lanzarote` (`e325f8ed`),
+  `mykonos` (`4217cac8`), `antigua` (`0630fef8`).
+
+Edge cases encountered:
+- Some ports had the Pattern-B content in NON-`faq-item` `<details>`
+  blocks the validator ignored as visible (malaga, valencia, aqaba) —
+  converted those blocks to inline `<p><strong>Q:...` format.
+- Mediterranean climate ports (barcelona, naples, venice, malaga,
+  valencia, mykonos) trigger `SPEC_CLIMATE_BAD` on the word
+  "hurricane" — renamed those Qs to "storm season" while still
+  matching the FAQ regex.
+- antigua additionally needed structural season-label renames
+  (`Shoulder Season → Transitional Season`,
+  `Hurricane Season → Low Season`) to pass
+  `B_CRUISE-SEASON-TRANSITIONAL` and `B_CRUISE-SEASON-LOW`.
+- ensenada had Pattern-A duplicates of new Pattern-B rewrites
+  (FAQ_DUP) — Pattern-A generic best-time and bring questions
+  removed; Hussong's margarita visible mirror added to restore
+  count parity.
 
 ### Rewrite recipe (per port)
 
