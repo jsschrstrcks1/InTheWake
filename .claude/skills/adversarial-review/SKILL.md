@@ -53,7 +53,7 @@ This skill is that external check, automated. It is a triage aid, not a gate.
 | Routine refactor with full test coverage | OPTIONAL |
 | Trivial typo fix | NO (wasteful) |
 
-Cost per invocation (Grok): roughly `$0.04` for a 9-commit batch (in=5555, out=1768 tokens at grok-3 pricing). Smaller ranges cost proportionally less.
+Cost per invocation (Grok): roughly `$0.04` for a 9-commit batch (in=5555, out=1768 tokens at grok-3 pricing). Smaller ranges cost proportionally less. GPT-4o on the same range runs about `$0.02` but produces fewer unique findings — see "Choosing a model" below.
 
 ## How to invoke
 
@@ -72,6 +72,20 @@ admin/external-audit.sh                       # origin/main..HEAD, grok
 admin/external-audit.sh HEAD~5 grok           # last 5 commits, grok
 admin/external-audit.sh origin/main gpt       # alternate model
 ```
+
+### Choosing a model
+
+Empirical from two reviews (audit-reports 2026-05-13):
+
+| Model | Cost / 9 commits | Findings produced | Unique findings vs other models in same run | Bias |
+|---|---|---|---|---|
+| `grok` (grok-3, role challenge) | `$0.04` | 6 | 3 unique (GPT echoed the others) | Highest adversarial output; finds Mode B and narrow-claim patterns reliably |
+| `gpt` (gpt-4o, role challenge) | `$0.02` | 3 | 0 unique on this run | More collegial framing despite "challenge" role; tends to echo Grok's top findings with weaker severity |
+| `gemini` | currently broken in this env (`_cffi_backend` import error) | — | — | — |
+
+**Default `grok`** because it produces the most unique findings per dollar. Switch to `gpt` only if Grok is rate-limited or you want a second opinion on a specific finding.
+
+**Multi-model sweep:** when reviewing a process change (rule update, skill addition, guardrail modification), run grok AND gpt in separate invocations, read the union of findings. Don't run them through deliberation — that softens the framing.
 
 ### From inside Claude Code
 
