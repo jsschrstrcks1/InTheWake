@@ -846,20 +846,13 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 
 ## Cruise Tipping Calculator — Known Defects (Discovered 2026-05-09 careful-not-clever audit)
 
-**Source:** Post-merge careful-not-clever audit against the v1.7-alpha skill (canonical 2026-05-09). The tool shipped on `claude/explore-inthewake-repo-lIUcX` between 2026-05-08 and 2026-05-09 and lives at `/tools/cruise-tipping-calculator.html` with companion article `/articles/cruise-tipping-2026.html`. Six dollar-correctness defects (P1 children handling, P1 region pricing for Costa/MSC, Costa half-rate, P2 Virgin Voyages prepaid vs onboard, P3 five legacy Carnival ship pages, P3 Playwright regression baseline) and one P2 (pre-existing JS errors on four tools) verified shipped 2026-05-09 to 2026-05-10 and moved to `admin/COMPLETED_TASKS.md` on 2026-05-12 (audit branch `claude/audit-unfinished-tasks-5evPi`). One smell remains:
+**Source:** Post-merge careful-not-clever audit against the v1.7-alpha skill (canonical 2026-05-09). All eight items from the original audit are now shipped and moved to `admin/COMPLETED_TASKS.md`:
 
-### P3 — `[object Object]` 404s in the webserver log during Playwright runs (Discovered 2026-05-09)
+- Six dollar-correctness defects (P1 children handling, P1 region pricing for Costa/MSC, Costa half-rate, P2 Virgin Voyages prepaid vs onboard, P3 five legacy Carnival ship pages, P3 Playwright regression baseline) — shipped 2026-05-09 to 2026-05-10, moved 2026-05-12.
+- One P2 (pre-existing JS errors on four tools) — shipped 2026-05-09, moved 2026-05-12.
+- P3 `[object Object]` 404s — root-caused, fixed, and regression-tested 2026-05-13 (B1.2 of the audit batch plan). The smell was `sw.js:warmPrecache()` treating manifest `{url, priority}` entries as bare URL strings, producing 64 `/[object Object]` 404s per page load. Fix extracts `.url` explicitly + hardens `isSameOrigin`. See `admin/COMPLETED_TASKS.md`.
 
-- [ ] **Smell:** During Playwright runs of any spec, the test webserver logs repeated `GET /[object%20Object] HTTP/1.1 404` requests. Means somewhere a JavaScript object is being concatenated into a URL string without `JSON.stringify` or a `.toString()` definition, then `fetch()`/`<img src>`-d. Doesn't break tests; doesn't break visible behavior. Likely a third-party script (analytics, consent manager) or a service worker quirk. Investigate by tailing the webserver log while running a single tool page and grepping the repo for `${...}` URL templates that could swallow an unstringified object. Low priority — diagnostic noise, not a user-facing issue.
-- **B1.2 attempt 2026-05-12 (static analysis only — Playwright module not present in sandbox; could not reproduce):**
-  - Common scripts loaded by every tool page: gtag (analytics), cloud.umami.is (analytics), a CMP script (`data-cmp-ab="1"`), `assets/js/dropdown.js`, `assets/js/site-cache.js`, `assets/js/in-app-browser-escape.js`. The smell fires on ANY page load so the culprit is in shared logic.
-  - Grep for `fetch(\`/...${...}\`)`, `.src = \`...${...}\``, `href="...${...}"`, `new URL(...)` patterns surfaces nothing obviously wrong in repo-owned JS. The one suspect inline-script-with-template-literal in `solo.html:661` would produce `GET /solo/[object Object].html` (with prefix), not `GET /[object Object]` (root).
-  - Top remaining suspects: (a) `assets/js/sw-bridge.js` URL constructions at lines 204/238 if `a.href` ever returns a non-string; (b) the third-party CMP script's silent failure path when its consent state is an object; (c) gtag/umami beacon URL coercion when an event payload object lands where a string is expected.
-  - **Next step requires Playwright in the environment.** Reproduction recipe: `npx playwright test tools-smoke.spec.js` while tailing `python3 -m http.server` stderr in a second terminal; grep the failing request for the source bytes; then the static grep narrows by URL surface.
-
-### Why these are tracked here
-
-The careful-not-clever skill (`.claude/skills/careful-not-clever/CAREFUL.md` v1.7-alpha) requires that material assumptions surfaced by Layer 2 / Layer 3 audits get documented for the next task rather than silently skipped. The tool shipped under the original v1.0 of the skill, which did not require the formal red-team pass; the v1.7-alpha promotion (commit `20797133`) raised the bar retroactively. The original audit surfaced eight items; seven shipped between 2026-05-09 and 2026-05-10 and were moved to `admin/COMPLETED_TASKS.md` on 2026-05-12 with verifying commits and tests. The remaining `[object Object]` smell stays here. Move each remaining item to `admin/COMPLETED_TASKS.md` when fixed — do not delete from this list silently.
+The section is retained as historical context for the v1.7-alpha careful-not-clever audit pattern; nothing remains open here.
 
 ---
 

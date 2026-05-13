@@ -1046,6 +1046,17 @@ Reconciliation batch dated 2026-05-12 (branch `claude/audit-unfinished-tasks-5ev
 - [x] `tools-smoke.spec.js` flipped from annotation to hard `expect(errors).toEqual([])`. 19/19 Playwright pass
 **Verifying commit:** `9619a9ae` fix(js): repair inline-script parse errors on 4 tools
 
+### Cruise Tipping Calculator P3 — `[object Object]` 404s root-caused and fixed - COMPLETE (2026-05-13)
+**Status:** COMPLETE — root cause identified, fix shipped, regression test added
+**Thread:** `claude/audit-unfinished-tasks-5evPi` (B1.2 of the 2026-05-12 batch plan)
+**Lane:** 🟢 Green
+- [x] **Root cause:** `sw.js:warmPrecache()` spread `manifest.pages/assets/images/data` arrays directly into `new URL(entry, location.origin)`. The precache-manifest entries are `{ url, priority, type? }` objects, not bare strings. `new URL({}, base)` coerces the object to the literal text `"[object Object]"`, producing `http://127.0.0.1:8765/[object Object]` — and `isSameOrigin(obj)` was permissive (also coerced) so the filter let everything through. 64 manifest entries (20 pages + 24 assets + 3 images + 17 data) = 64 404s per page load, exactly matching the audit count.
+- [x] **Fix:** `sw.js:warmPrecache()` now extracts `.url` explicitly with a `typeof === 'string'` filter; `isSameOrigin()` rejects non-strings up front. Belt-and-suspenders against any future manifest consumer with the same bug.
+- [x] **Diagnosis method:** built a one-off diagnostic spec that hooked `page.on('request')` AND `context.on('request')` (the latter catches service-worker traffic; `page.on` alone does not). Captured offender URL + referer. All 64 hits had referer = `http://127.0.0.1:8765/sw.js?v=3.010.300`. Spec deleted after fix; its purpose is now served by the smoke spec assertion below.
+- [x] **Regression test:** `tests/playwright/tools-smoke.spec.js` extended with `(e) zero requests to /[object Object] from anywhere`. Hooks `context.on('request')` to catch service-worker requests, waits 2s past networkidle to give warmPrecache time to fire, asserts the offender array is empty. 8/8 smoke tests pass with the new assertion.
+**Verifying commit:** see below (this same audit branch).
+**Verifying tests:** `tests/playwright/tools-smoke.spec.js` 8/8 pass with the new `(e)` assertion enabled.
+
 ### Audit sweep batch 2 — five marked-done items - COMPLETE (verified 2026-05-12)
 **Status:** COMPLETE — each item verified against current code during 2026-05-12 audit sweep
 **Lane:** 🟢 Green
