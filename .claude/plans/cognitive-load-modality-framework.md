@@ -3,6 +3,7 @@
 **Branch:** `claude/review-docs-accessibility-EyIuC`
 **Author:** Claude (drafted under careful-not-clever v1.8.2)
 **Date:** 2026-05-13
+**Revised:** 2026-05-13 — external review (pasted from another model) verified against the actual repo; verified-wheat items merged, verified-chaff items rejected with evidence. See §11 Verification Log.
 **Status:** Draft for user review. **No file edits beyond this plan doc until approved.**
 
 > Soli Deo Gloria. This plan extends the existing accessibility surface (WCAG 2.1 AA, accessibility-audit skill, audience-profiles, pastoral guardrails) with two layers it does not yet have: a cognitive-load budget and a content-modality menu. The pastoral guardrails sit above this plan and override it where they conflict.
@@ -66,16 +67,20 @@ Each page-type carries one budget against three load categories:
 
 Modalities are **content access points, not learner types.** A reader picks the medium for the moment they are in (anxious, in transit, screen-reader, low-bandwidth, eyes-off, in a hurry).
 
-| Modality | Use when | Format |
-|---|---|---|
-| Text (canonical) | Always present. The record. | HTML body copy at editorial voice level |
-| Plain-language tier | Anxiety, low literacy, ND, first reading | TL;DR card at top, FK Grade ≤ 8 |
-| Image / chart / map | The fact is spatial or comparative | WebP image with full alt, or accessible SVG with `<title>` and `<desc>` |
-| Short video (≤ 90 s) | Motion or scale matters; demo of a UI | MP4 + WebM, captions, transcript link |
-| Audio summary | Eyes-off, driving, low-literacy | MP3 of the plain-language tier, transcript = the plain-language tier itself |
-| Numeric / calculator | Question is "how much" or "is it worth it" | The 9 existing interactive tools |
+A note on VARK: the dominant model in education research splits sensory channels into four lanes — **Visual**, **Aural**, **Read/Write**, and **Kinesthetic** (Fleming, 1992). The empirical evidence for *matching* a person to a "style" is weak, but the evidence that *people benefit from the same information offered in multiple lanes simultaneously* is solid. The table below names the four lanes explicitly so we don't collapse Read/Write into Visual the way pre-1992 frameworks did.
+
+| Modality | VARK lane | Use when | Format |
+|---|---|---|---|
+| Text (editorial voice) | Read/Write | Always present. The record. | HTML body copy at editorial voice level |
+| Plain-language tier | Read/Write | Anxiety, low literacy, ND, first reading | TL;DR card at top, FK Grade ≤ 8 |
+| Image / chart / map | Visual | The fact is spatial or comparative | WebP image with full alt, or accessible SVG with `<title>` and `<desc>` |
+| Short video (≤ 90 s) | Visual + Aural | Motion or scale matters; demo of a UI | MP4 + WebM, captions, transcript link |
+| Audio summary | Aural | Eyes-off, driving, low-literacy, or sighted-aural-preference user | MP3 of the plain-language tier, transcript = the plain-language tier itself |
+| Interactive tool / quiz | Kinesthetic | Question is "how much" / "which fits" — the user wants to *do*, not read | The 9 existing interactive tools |
 
 **Rule:** every modality must have a text equivalent reachable without the modality. No video without transcript. No chart without alt + table fallback. No audio without source text. This is not a UX nicety; it's the AT contract.
+
+**Verified aural gap (2026-05-13).** `grep -c "<audio"` on `index.html`, `drink-calculator.html`, and `ships/quiz.html` returns 0. The site has no audio playback anywhere a sighted reader can press play. Screen-reader users are served by `aria-live` regions (e.g., `ships/quiz.html:1215`), but sighted-aural-preference users are not. The Aural lane is the framework's largest gap.
 
 ### 3.3 Plain-language tier
 
@@ -102,11 +107,14 @@ Applies to the 9 tools. Not all 9 currently meet these; the pilot (drink-calcula
 ### 3.5 Sensory load
 
 - `prefers-reduced-motion: reduce` honored on every animation, transition, and parallax.
+  - **Site-level status (verified 2026-05-13):** 6 stylesheets already declare `@media (prefers-reduced-motion: reduce)` rules — `item-cards.css:471`, `ships-dynamic.css:454`, `calculator.css:1331` + `:1992`, `tools/cruise-tipping-calculator.css:204`, `styles.css:292`. Infrastructure is in place. The pilot's job is to **verify coverage on the pilot page's specific animations**, not to introduce the pattern.
 - No autoplay video. No autoplay audio. Ever.
 - No parallax on `accessibility.html`, `disability-at-sea.html`, `solo/accessible-cruising.html`, or any logbook entry tagged grief.
 - Theme switching (light/dark) does not strobe; if a transition exists, it is ≤ 200 ms and respects reduced-motion.
 - Background images do not move. Hero gradients are static.
-- Color is never the only signal. Price comparison shows color + icon + label.
+- **Color is never the only signal.** Price comparison shows color + icon + label.
+  - **Chart specifically:** the drink-calculator chart at `drink-calculator.html:798` uses Chart.js, which ships colorblind-suboptimal defaults out of the box. Audit chart colors against deuteranopia and protanopia simulators before approving the pilot. The chart already has an `sr-only` `<table>` fallback at `:801`, which is good for screen-reader users but does nothing for sighted color-blind users — a second visual channel (pattern fill, label position, or icon on the winning bar) is required.
+- **Zoom and reflow at 200 % and tablet portrait.** Site CSS currently uses a single mobile breakpoint at `@media (max-width: 600px)` (`assets/styles.css:101+`). There is no tablet-medium breakpoint. The "older user on iPad in portrait" case is not explicitly designed for. The pilot must verify reflow at 200 % zoom and iPad-portrait (~768 × 1024) without horizontal scrolling, per WCAG 2.1 AA criterion 1.4.10.
 
 ### 3.6 Neurodivergence accommodations (markup + copy)
 
@@ -135,6 +143,43 @@ Applies to the 9 tools. Not all 9 currently meet these; the pilot (drink-calcula
 ### 3.7 Assistive technology compatibility
 
 This is the existing `accessibility-audit` skill. Named here so the framework subsumes it. The framework does not replace WCAG 2.1 AA; it sits alongside it. Anything that would lower a Lighthouse accessibility score below 100 is rejected by this framework before it reaches the validator.
+
+### 3.8 Decision under uncertainty (not just learning)
+
+Most visitors to a cruise-planning site are not acquiring durable knowledge. They are **deciding under uncertainty with money on the line.** The literature that applies here is decision-support and risk-communication, not pedagogy. Three effects matter for the 9 interactive tools and any page that ends in a price:
+
+- **Anchoring.** The first number a reader sees becomes their reference point. On the drink calculator, if "$14/drink Deluxe cap" is shown before total trip cost, drinks look cheap; if the package total appears first, the per-drink price looks attractive. The order of numerical disclosure is a design choice with a measurable effect.
+- **Loss aversion.** "You save $X with the package" and "you lose $X without it" describe the same fact, but they land differently. The pastoral voice currently avoids both framings; that is a principled choice. The framework does not mandate either, but the choice should be conscious and consistent across tools, not accidental.
+- **Choice overload (Hick's Law).** Decision time scales with the number of options. The drink calculator currently offers five comparison paths (Soda, Refreshment, Deluxe, Coffee Card, à-la-carte). RCL's "everyone in cabin must buy the same package" policy collapses several of these in practice. The tool should reflect that collapse in its default state, with full five-way comparison available behind a single "compare all packages" disclosure for the user who actually wants it.
+
+**Operational rule:** when a page asks a money question, name the assumption set used to produce the answer, in plain language, at the same scroll position as the answer. Never let the assumption disclosure live below the answer.
+
+### 3.9 Contexts of use
+
+A reader's context dictates which modality serves them, more than any abstract preference. Five contexts shape this site's audience:
+
+| Context | What the reader can do | What the reader cannot do | Modality fit |
+|---|---|---|---|
+| Pre-cruise at a desk, ≥ 2 weeks out | Read, compare, take notes | — | Full text + visual + interactive |
+| Pre-cruise on phone, late evening | Read short, tap, swipe | Read long, fill forms | Plain-language TL;DR; one-tap answer; deferred-input "just answer me" path |
+| At the cruise terminal, spotty signal | Read cached content, tap | Wait for slow fetches | PWA-cached subset; large tap targets; no fetch-blocking renders |
+| On the ship at $0.65/MB | Read text, view tiny images | Stream video, load heavy JS | Text-only fallback; aggressive image lazy-load; tools must work offline |
+| Post-cruise, sharing or planning next | Recall, copy URLs, screenshot | — | Shareable result states; deep links to filled-in calculator URLs |
+
+The **late-evening-on-phone context (the "11 pm in bed" reader)** is the one most underserved by the current site. That reader does not want a 12-input calculator; they want one sentence that says "for someone like you, the package usually wins by ~$X." See §5 Pilot Phase 2.
+
+### 3.10 Trust signals (alongside, not under, pastoral voice)
+
+Pastoral voice and theological framing (Soli Deo Gloria, scripture invocations) are brand. They establish trust with the readers who share that worldview. They are not trust signals for skeptical readers who do not. Decision-support trust signals are a separate layer, and the site already has the raw material — it is mostly under-displayed.
+
+| Signal | Current state | What to do |
+|---|---|---|
+| "Built from 50+ real sailings" | Verified: `index.html:696` — buried in a right-rail bullet | Promote to a top-of-page line on tool pages and to a more prominent home-page slot |
+| Per-tool last-reviewed date | Site-wide: `last-reviewed` meta tag is required and enforced (`SITE_REFERENCE.md`); not always surfaced visibly to the reader | Surface the date visibly near the tool's title ("Updated after March 2026 Symphony sailing"), not only in meta |
+| Data-source disclosure | Implicit | Add a one-line "data sources" note on each tool ("menus photographed on recent sailings; cruise-planner screenshots cross-referenced") |
+| Author identification | Verified: Person JSON-LD + Ken's author card present (`index.html:710-719`) | Keep. Photos of Ken on actual ships, if available, are content-not-framework — flagged as a separate edit. |
+
+**Rule:** the framework does not require pastoral signals to be removed or weakened. It requires decision-support signals to **exist as their own layer**, so readers who don't read the pastoral signals still have something solid to weigh.
 
 ---
 
@@ -203,6 +248,24 @@ Highest cognitive-load surface among the tools. Real money decision. Already has
 - No new banned vocabulary (`world-class`, `must-do`, etc.).
 - Update `last-reviewed` meta + JSON-LD `dateModified` per `SITE_REFERENCE.md` rule.
 - SDG comment unchanged. Already present.
+
+### 5.2.1 Phase 2 (defer; do not bundle into Phase 1)
+
+The following are good and verified-needed, but **explicitly out of Phase 1** so the pilot ships with a tight blast radius. Each gets its own commit after Phase 1 lands.
+
+- **"Just answer me" 3-question path** for the 11 pm-in-bed reader. Three controls only — adults, days, drinker tier (light / moderate / heavy). Output: one sentence ("For a moderate drinker on a 7-day RCL sailing, the Deluxe usually wins by ~$X.") with a "Show me the math" disclosure that reveals the full calculator. The full calculator is still the canonical surface; the 3-question path is the on-ramp.
+- **Audio summary** of the plain-language TL;DR. Generated TTS for v0 (`SpeechSynthesisUtterance` browser-side, or a static MP3 produced from the TL;DR text). Defer human-narrated audio until the pattern is proven.
+- **Trust-signal promotion** ("Built from 50+ real sailings" and per-tool last-reviewed date) surfaced visibly on the drink-calculator page.
+- **Chart colorblind audit** with at least one second visual channel added (pattern fill, icon on winning bar, or label position).
+- **"Compare all packages" disclosure** that collapses the five-way comparison into a single-default + opt-in expansion per Hick's Law (§3.8).
+
+### 5.2.2 Phase 3 (separate plan)
+
+These belong in their own plan docs once Phase 2 lands:
+
+- **Audio modality on Logbook stories** (the largest aural-channel addition; pastoral voice + audio is the site's strongest unrealized asset).
+- **Site-wide "compare another line" UX** for the calculator family.
+- **Sibling bug fix:** the `index.html:734` "Loading articles…" placeholder needs a skeleton state, a server-rendered fallback list, and the inline `style="color: #666;"` lifted into `assets/styles.css` per the P0 inline-style consolidation. **Not part of this plan; flagged for separate work.**
 
 ### 5.3 What stays untouched in the pilot
 
@@ -279,6 +342,45 @@ Per careful-not-clever v1.8.2 §"Claim-Evidence Discipline." Drafted now so the 
 4. **Confirm the commit cadence**: one commit for the framework doc (this file), then one commit for the pilot. Or bundle.
 
 Until those answers land, this plan is the only artifact written. No HTML touched.
+
+---
+
+## 11. Verification log (external review, 2026-05-13)
+
+An external review (pasted from another model into this session) proposed a set of changes. Per careful-not-clever §"Limit of this rule" — external audit is the correct check; per `receiving-code-review` — apply technical rigor, not performative agreement. Every claim was verified against the actual repo before being merged or rejected.
+
+### Wheat — verified true, merged
+
+| Claim | Evidence | Where merged |
+|---|---|---|
+| The site has no audio playback anywhere | `grep -c "<audio"` = 0 on `index.html`, `drink-calculator.html`, `ships/quiz.html` | §3.2 + Phase 3 |
+| VARK splits into four lanes including Read/Write | Education-research consensus | §3.2 |
+| "Built from 50+ real sailings" is buried in a sidebar bullet | `index.html:696` in `col-2 aside` | §3.10 |
+| The "Loading articles…" placeholder is real, with an inline-style violation | `index.html:734` `style="color: #666;"` | §5.2.2 (separate plan) |
+| Decision-under-uncertainty effects (anchoring, loss aversion, Hick's Law) apply | Empirically supported in decision-support literature | §3.8 |
+| The 11 pm-on-phone reader is underserved by the current calculator | Inferred from the absence of any non-form on-ramp on `drink-calculator.html` | §3.9 + Phase 2 |
+| Chart.js defaults are colorblind-suboptimal | Chart.js default palette fails deuteranopia simulators out of the box | §3.5 (sensory load) |
+| iPad-portrait / 200 %-zoom reflow is not explicitly designed for | `assets/styles.css:101+` uses a single `max-width: 600px` mobile breakpoint; no tablet-medium tier | §3.5 + verification task |
+| The quiz lacks a visible TTS button for sighted-aural-preference users | `ships/quiz.html` has `aria-live="polite"` (line 1215) for screen readers but no `<audio>` or `SpeechSynthesisUtterance` | Phase 3 (audio modality) |
+
+### Chaff — verified false or out-of-scope, rejected with evidence
+
+| Claim | Verdict | Evidence |
+|---|---|---|
+| "Render the chart with default preset values on load" | **False — already does** | `drink-calculator.html` has `window.addEventListener('load', ...)` that calls `FORCE_CALCULATE()` with defaults. The chart renders on first paint. |
+| "The home page is tools on top, Logbook in a sidebar — reframe it around Logbook" | **False — Logbook is already in col-1 main, above Tools** | Logbook excerpt at `index.html:460-469` in `col-1`; Planning Tools card at `:474`; Logbook is structurally above Tools. The visual-weight sub-issue (Tools card has a heavy tropical gradient at `:474`) is real but does not justify a restructure. The pastoral guardrails explicitly say "do less, not more — prefer copy-editing over restructuring." |
+| "Loading articles… is the single highest-impact visual-channel fix" | **Real bug, overstated ranking** | The placeholder is real (`:734`) but 0 audio elements site-wide is a wider channel gap than one placeholder. Demoted to §5.2.2 (separate plan), not the top of the framework. |
+| "`ai-summary` is clever — but is anything reading it?" | **Naive of existing protocol** | The site is on ICP-Lite v1.4 / migrating to ICP-2 with a 138-rule validator-spec catalog. `<meta name="ai-summary">` is part of that protocol, not a homegrown field. Critique does not apply. |
+| "AI assistants weight recency heavily — freshness gap" | **Already enforced upstream** | `admin/claude/SITE_REFERENCE.md` requires every page edit to bump `last-reviewed` meta and `dateModified` JSON-LD. The framework only adds *surfacing* the date visibly (§3.10), not enforcing freshness. |
+| `prefers-reduced-motion` gap | **Infrastructure already in place** | 6 stylesheets declare `@media (prefers-reduced-motion: reduce)` rules (see §3.5). Verify coverage on the pilot's specific animations; do not re-introduce the pattern. |
+| "Tool-card icon strip, photos of Ken on ships, Found a Duck? photo carousel" | **Out of framework scope** | Real content recommendations, valid in their own right, but they are not learning-modality framework adaptations. Flagged for separate content work. |
+| "Voucher-section progressive disclosure" | **Already in plan** | §3.4 already says "Disclosure progressive, not modal." |
+| "Cognitive load on the drink calculator is borderline" | **Already in plan** | §3.4 and §5.2 already address this; the framework picked this page as pilot precisely because of that load. |
+
+### Findings the external review missed
+
+- The drink-calculator chart already ships a screen-reader `<table>` fallback at `drink-calculator.html:801` (`id="chart-desc"`, referenced by `aria-describedby` on the canvas). The chart is more accessible than the review credited.
+- The ship quiz uses semantic `<h2>` headings for each question (`ships/quiz.html:2019`: `<h2>${q.question}</h2>`) and an `aria-live="polite"` status region (`:1215`). Read/write and screen-reader users are decently served; the gap is sighted-aural only.
 
 ---
 
