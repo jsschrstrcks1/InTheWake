@@ -199,7 +199,7 @@ Pastoral voice and theological framing (Soli Deo Gloria, scripture invocations) 
 
 | Signal | Current state | What to do |
 |---|---|---|
-| "Built from 50+ real sailings" | Verified: `index.html:696` — buried in a right-rail bullet | Promote to a top-of-page line on tool pages and to a more prominent home-page slot |
+| "Built from 150+ days at sea" | The string at `index.html:696` previously read "50+ real sailings" — verified to exist on the page but **not verified against ground truth.** The author (Ken) named 150+ days at sea as the accurate figure on 2026-05-13. Trust-bytes-not-strings failure; see §11.1.1. Now corrected at `index.html:696`, `index.html:267`, and `first-cruise.html:306` | Promote the corrected figure to a top-of-page line on tool pages and to a more prominent home-page slot. Days at sea is a more honest unit than sailings — it tracks exposure time, which is what trust-from-experience actually depends on |
 | Per-tool last-reviewed date | Site-wide: `last-reviewed` meta tag is required and enforced (`SITE_REFERENCE.md`); not always surfaced visibly to the reader | Surface the date visibly near the tool's title ("Updated after March 2026 Symphony sailing"), not only in meta |
 | Data-source disclosure | Implicit | Add a one-line "data sources" note on each tool ("menus photographed on recent sailings; cruise-planner screenshots cross-referenced") |
 | Author identification | Verified: Person JSON-LD + Ken's author card present (`index.html:710-719`) | Keep. Photos of Ken on actual ships, if available, are content-not-framework — flagged as a separate edit. |
@@ -409,7 +409,7 @@ Formatted per careful-not-clever v1.8.2 §"Claim-Evidence Discipline" — every 
 |---|---|---|
 | The site has no audio playback anywhere | `grep -c "<audio" index.html drink-calculator.html ships/quiz.html` → `0` for all three (run 2026-05-13) | §3.2 modality table + §5.2.2 Phase 3 |
 | VARK splits into four lanes including Read/Write | Fleming (1992); current education-research consensus on the four-lane model | §3.2 (clarification) |
-| "Built from 50+ real sailings" is buried in a sidebar bullet | `index.html:696` in `col-2 aside`: `<li><strong>Built from 50+ real sailings</strong></li>` | §3.10 trust signals |
+| "Built from 50+ real sailings" string is buried in a sidebar bullet | `index.html:696` in `col-2 aside`: `<li><strong>Built from 50+ real sailings</strong></li>` (this is the STRING placement — the underlying CLAIM was inaccurate; see §11.1.1) | §3.10 trust signals (placement is right; figure needed correction) |
 | The "Loading articles…" placeholder is real, with an inline-style violation | `index.html:734`: `<p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>` | §5.2.2 (separate plan) |
 | Decision-under-uncertainty effects (anchoring, loss aversion, Hick's Law) apply | Tversky & Kahneman (1981) on framing; Hick (1952) on choice reaction time; standard decision-support literature | §3.8 |
 | The 11 pm-on-phone reader is underserved | No non-form on-ramp exists on `drink-calculator.html`; `grep -n "quick\|just\|simple" drink-calculator.html` returns only marketing copy at `:429` ("💡 Use the calculator below to find your exact break-even point"), not a deferred-input path | §3.9 + Phase 2 |
@@ -417,7 +417,42 @@ Formatted per careful-not-clever v1.8.2 §"Claim-Evidence Discipline" — every 
 | iPad-portrait / 200 % zoom reflow is not explicitly designed for | `grep -n "@media" assets/styles.css` shows `@media (max-width: 600px)` at `:101, :116, :133, :144, :159, :199` — a single mobile breakpoint, no tablet-medium tier | §3.5 + verification task |
 | The quiz lacks a visible TTS button for sighted-aural-preference users | `grep -c "<audio" ships/quiz.html` → `0`; `grep -n "aria-live" ships/quiz.html` shows `:1215` and `:1301` (screen-reader served, sighted-aural not) | §5.2.2 Phase 3 (audio modality) |
 
-### 11.2 Chaff — verified false or out-of-scope, rejected with evidence
+### 11.1.1 Trust-bytes-not-strings failure (2026-05-13, user-caught)
+
+When merging the external review's wheat into §3.10, I verified that the string `Built from 50+ real sailings` existed at `index.html:696` and treated that as evidence the trust signal was real. The author then pointed out that he has spent 150+ days at sea, which is "a far cry from 50 sailings." The string was on the page; the underlying *claim* was inaccurate. I propagated the inaccurate claim onward into `first-cruise.html:306` in the Phase 1 pilot edit.
+
+This is exactly the failure named in `admin/claude/CLAUDE.md` §"Verification Discipline": "Trust bytes, not strings. When asked whether something is correct, unique, working, or consistent — run the ground-truth check, not the proxy check. The proxy can be clean while the ground truth is broken." I ran the proxy check (string exists in repo). I did not run the ground-truth check (does the count match the author's actual sailing history). The user ran the ground-truth check and the proxy lost.
+
+**Anti-Mode-B widening (2026-05-13).** Initial fix targeted only the two instances I had explicit context for (`first-cruise.html:306` and `index.html:696`). Plus `index.html:267` because the same factual claim appeared inside the same file in a different surface (ai-breadcrumbs). After running a `grep -rn "50+ cruises\|50+ sailings\|50 sailings\|50 real sailings"` across `*.html`, three additional instances surfaced that the same correction must cover, or the table understates scope (the v1.8.2 anti-Mode-B failure mode):
+
+- `drink-calculator.html:306` — `expertise: 50+ cruises, drink package analysis since 2020` (ai-breadcrumbs)
+- `about-us.html:248` — `expertise: Ken Baker (founder, 50+ cruises, ...)` (ai-breadcrumbs)
+- `about-us.html:250` — `answer-first: ...Ken Baker (50+ cruises) and team` (ai-breadcrumbs)
+- `drink-calculatorv2.html:315` — same as v1 — **deliberately excluded** because v2 is in active P2 development with a pending math fix per plan §5.1 ("v2 file. Not opened. Not edited."). Flagged here for separate user-led correction once the math fix lands.
+
+**Corrections applied** (commit at integrity-correction commit SHA; cite at commit time):
+
+| File:line | Before | After |
+|---|---|---|
+| `first-cruise.html:306` | `Built from 50+ real sailings, not a brochure` | `Built from 150+ days at sea, not a brochure` |
+| `index.html:267` | `expertise: Royal Caribbean specialist, 50+ cruises, accessibility advocate, pastor, photographer` | `expertise: Royal Caribbean specialist, 150+ days at sea, accessibility advocate, pastor, photographer` |
+| `index.html:696` | `<li><strong>Built from 50+ real sailings</strong></li>` | `<li><strong>Built from 150+ days at sea</strong></li>` |
+| `index.html:41` | `last-reviewed content="2026-05-03"` | `last-reviewed content="2026-05-13"` |
+| `index.html:231` | `dateModified: "2026-05-03"` | `dateModified: "2026-05-13"` |
+| `drink-calculator.html:306` | `expertise: 50+ cruises, drink package analysis since 2020` | `expertise: 150+ days at sea, drink package analysis since 2020` |
+| `drink-calculator.html:39` | `last-reviewed content="2026-04-13"` | `last-reviewed content="2026-05-13"` |
+| `drink-calculator.html:278` | `dateModified: "2025-11-19"` (WebPage schema; SoftwareApplication's separate dateModified at :217 left unchanged because it tracks software version, not page review) | `dateModified: "2026-05-13"` |
+| `about-us.html:248` | `expertise: Ken Baker (founder, 50+ cruises, pastor, photographer), ...` | `expertise: Ken Baker (founder, 150+ days at sea, pastor, photographer), ...` |
+| `about-us.html:250` | `answer-first: ...Ken Baker (50+ cruises) and team` | `answer-first: ...Ken Baker (150+ days at sea) and team` |
+| `about-us.html:29` | `last-reviewed content="2026-02-12"` | `last-reviewed content="2026-05-13"` |
+| `about-us.html:187` | `dateModified: "2026-02-12"` | `dateModified: "2026-05-13"` |
+| `drink-calculatorv2.html:315` | `expertise: 50+ cruises, drink package analysis since 2020` | **NOT MODIFIED** — P2 collision risk; user-led fix pending |
+
+**Lesson preserved (do not rewrite history).** Wheat row in §11.1 was updated to acknowledge that what was verified was the *placement* of the string, not the *truth* of the claim. The failure is named here, not erased. Future authors lifting trust signals from existing pages must run the ground-truth check on the underlying claim, not just confirm the string exists.
+
+**Why "days at sea" instead of a corrected sailing count.** The author offered "150+ days at sea" directly; that is the ground truth. Days at sea is also a more honest unit than sailings — a count of trips can include short repeat sailings on a familiar route; days at sea measures total exposure to the operating reality of a ship, which is what trust-from-experience actually rests on. Adopt the unit the author named.
+
+
 
 | Claim | Verdict | Specific evidence |
 |---|---|---|
