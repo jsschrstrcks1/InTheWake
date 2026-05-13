@@ -1,0 +1,120 @@
+{
+  "_format": "1.0",
+  "_purpose": "Per-photographer audit log of sources used by admin/sourcing.py. Records: photographer name, Flickr account, license-claim consistency, spot-check date and outcome. NO PHOTOGRAPHER IS 'TRUSTED' WITHOUT INDIVIDUAL verify-* PER PHOTO — this log is confidence calibration, not a shortcut for verification.",
+  "_policy": "Per Rule D of admin/SOURCING_HARDENING_PLAN_2026-05-12.md: every 5 commits from the same photographer, pick 1 random other photo from their feed and Read-verify the subject matches the photographer's claimed pattern. If it doesn't, deprecate.",
+  "photographers": [
+    {
+      "name": "David Stanley",
+      "flickr": "davidstanleytravel",
+      "license_claim": "CC BY 2.0 across visible photos",
+      "uses_in_this_session": [
+        {"slug": "callao", "file": "callao-larco-museum.webp", "source": "https://www.flickr.com/photos/davidstanleytravel/52974824052"},
+        {"slug": "callao", "file": "callao-barranco-bridge.webp", "source": "https://www.flickr.com/photos/davidstanleytravel/52964785582"},
+        {"slug": "south-shetland-islands", "file": "south-shetland-islands-hero.webp", "source": "https://www.flickr.com/photos/davidstanleytravel/15599975184"}
+      ],
+      "spot_checks": [
+        {
+          "date": "2026-05-13",
+          "session": "claude/baseline-port-validation-Nbcst",
+          "sample_size": 3,
+          "samples": [
+            {"url": "https://www.flickr.com/photos/davidstanleytravel/4899629268", "title": "Seamens Monument, Isafjordur", "verify_flickr": "CC BY 2.0 OK", "subject_match": "match", "notes": "Bronze sculpture of two fishermen pulling net; plaque at base; mountain at left consistent with Isafjordur Westfjords town"},
+            {"url": "https://www.flickr.com/photos/davidstanleytravel/4899031983", "title": "Parliament in Reykjavik", "verify_flickr": "CC BY 2.0 OK", "subject_match": "match", "notes": "Alpingishusid (Parliament 1881) basalt-block civic building with Reykjavik Cathedral clock-tower beside it on Austurvollur square"},
+            {"url": "https://www.flickr.com/photos/davidstanleytravel/52411230192", "title": "Akureyri", "verify_flickr": "CC BY 2.0 OK", "subject_match": "match", "notes": "Traditional Akureyri wooden house in foreground; town descending to Eyjafjordur fjord; cruise ships in port; snow patches on opposite ridge"}
+          ],
+          "overall": "3 of 3 subjects match David Stanley's claimed titles. License consistent. Confidence: continue using as a source, but every individual photo still runs through verify-flickr — no shortcuts."
+        }
+      ]
+    },
+    {
+      "name": "Municipalidad de Miraflores (Lima district government)",
+      "flickr": "munimiraflores",
+      "license_claim": "CC BY 2.0",
+      "uses_in_this_session": [
+        {"slug": "callao", "file": "callao-huaca-pucllana.webp", "source": "https://www.flickr.com/photos/munimiraflores/7839533612", "photographer_credit": "Evelyn Merino Reyna Buchanan (for Lima Mas Arriba)"}
+      ],
+      "spot_checks": [],
+      "_note": "Only 1 use; spot-check not yet required by Rule D (triggers at 5)."
+    },
+    {
+      "name": "Carole Raddato",
+      "flickr": "carolemage",
+      "license_claim": "CC BY-SA 2.0",
+      "uses_in_this_session": [
+        {"slug": "zadar", "file": "zadar-hero.webp", "source": "https://www.flickr.com/photos/carolemage/15903279727"}
+      ],
+      "spot_checks": [],
+      "_note": "Specialist photographer of Roman archaeological sites — independent reputation as a careful documentarian. Only 1 use; spot-check not yet required."
+    },
+    {
+      "name": "Carlos Esquives",
+      "flickr": "carlosesquives",
+      "license_claim": "CC BY 2.0",
+      "uses_in_this_session": [
+        {"slug": "callao", "file": "callao-parque-del-amor.webp", "source": "https://www.flickr.com/photos/carlosesquives/6790108071"}
+      ],
+      "spot_checks": [],
+      "_note": "Only 1 use; spot-check not yet required."
+    },
+    {
+      "name": "David (Flickr user davidw)",
+      "flickr": "davidw",
+      "license_claim": "CC BY 2.0",
+      "uses_in_this_session": [
+        {"slug": "ushuaia", "file": "ushuaia-beagle-channel.webp", "source": "https://www.flickr.com/photos/davidw/2294656841"}
+      ],
+      "spot_checks": [],
+      "_note": "Only 1 use; spot-check not yet required."
+    },
+    {
+      "name": "Liam Quinn",
+      "flickr": "liamq",
+      "license_claim": "CC BY-SA 2.0",
+      "uses_in_this_session": [
+        {"slug": "south-shetland-islands", "file": "south-shetland-islands-gallery-1.webp", "source": "https://www.flickr.com/photos/liamq/6019401782"}
+      ],
+      "spot_checks": [],
+      "_note": "Only 1 use; spot-check not yet required."
+    },
+    {
+      "name": "Library of Congress Prints & Photographs Division",
+      "flickr": null,
+      "source_type": "Library of Congress JSON API + tile.loc.gov CDN",
+      "license_claim": "No known restrictions on publication (public-domain or pre-1928)",
+      "uses_in_this_session": [
+        {"slug": "callao", "file": "callao-real-felipe-1866.webp", "loc_item": "2006676643"},
+        {"slug": "callao", "file": "callao-plaza-mayor.webp", "loc_item": "93511954"},
+        {"slug": "callao", "file": "callao-san-francisco-library.webp", "loc_item": "2021640119"}
+      ],
+      "spot_checks": [],
+      "_note": "Institutional source with standardized rights metadata via the LoC JSON API. Per-item rights still verified via verify-loc each time."
+    },
+    {
+      "name": "Soly Moses (Pexels)",
+      "source_type": "Pexels",
+      "license_claim": "Pexels License (commercial use permitted)",
+      "uses_in_this_session": [
+        {"slug": "callao", "file": "callao-miraflores-coast.webp", "source": "https://www.pexels.com/photo/coastal-view-of-miraflores-in-lima-peru-37430652/"}
+      ],
+      "spot_checks": []
+    },
+    {
+      "name": "Nano Erdozain (Pexels)",
+      "source_type": "Pexels",
+      "license_claim": "Pexels License",
+      "uses_in_this_session": [
+        {"slug": "callao", "file": "callao-ceviche.webp", "source": "https://www.pexels.com/photo/gourmet-peruvian-ceviche-with-fried-seafood-28448397/"}
+      ],
+      "spot_checks": []
+    },
+    {
+      "name": "Willian Justen de Vasconcellos (Pexels)",
+      "source_type": "Pexels",
+      "license_claim": "Pexels License",
+      "uses_in_this_session": [
+        {"slug": "callao", "file": "callao-miraflores-skyline.webp", "source": "https://www.pexels.com/photo/scenic-view-of-the-coastline-of-lima-peru-22484275/"}
+      ],
+      "spot_checks": []
+    }
+  ]
+}
