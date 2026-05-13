@@ -62,6 +62,38 @@ const IMAGE_TREES = [
 // Sections where cross-entity reuse is FINE (icons, brand, fallback graphics).
 const ALLOWLISTED_SECTIONS = new Set(['brand', 'icons', 'social']);
 
+// Filename pattern for the Flickers of Majesty convention. FOM-named files are
+// intentionally one-image-per-named-ship within the ships section — the
+// convention predates this guardrail and represents single-source-of-truth
+// photography that legitimately serves multiple ships of the same line. The
+// guardrail downgrades cross-slug same-section ship reuse to INFO when both
+// filenames match this pattern. Cross-section reuse remains blocking.
+const FOM_NAMED_RE = /[-_]FOM[-_ ]/i;
+
+// Cross-section same-entity pairs. The author of an article legitimately
+// places their portrait at the top of their article; the same bytes appearing
+// in authors/ and articles/ for matching filenames is the documented pattern,
+// not the Cordelia pattern. Pairs listed here have their cross-section
+// CRITICAL finding downgraded when filenames share a root.
+const SAME_ENTITY_CROSS_SECTION_PAIRS = [
+  new Set(['authors', 'articles']),
+];
+
+function isFomNamed(filename) {
+  return FOM_NAMED_RE.test(filename);
+}
+
+function filenameRoot(filename) {
+  return filename.replace(/\.[^.]+$/, '').replace(/[-_ ]?\d+(?:\s*\([\d ]+\))?$/, '').toLowerCase();
+}
+
+function sharesFilenameRoot(a, b) {
+  const ra = filenameRoot(a);
+  const rb = filenameRoot(b);
+  if (!ra || !rb) return false;
+  return ra === rb;
+}
+
 // Slug source per section: which directory holds the canonical .html files
 // from which we derive the list of valid slugs.
 const SLUG_SOURCES = {
@@ -229,6 +261,42 @@ function main() {
     const lines = new Set(files.map(f => f.line));
     const slugs = new Set(files.map(f => f.slug).filter(Boolean));
     const allShareSlug = slugs.size === 1 && files.every(f => f.slug === [...slugs][0]);
+
+    // Phase 3.5 (issue #1465): same-entity normalizer.
+    // For ships, _root + line are the SAME entity when both files resolve to
+    // the same slug. The cross-line CRITICAL check below already excludes
+    // _root/_legacy buckets, but the legacy-bucket fallthrough still fires
+    // CRITICAL when slug isn't perfectly aligned. Surface the slug-collapse
+    // explicitly so the report shows it as INFO with attribution.
+    if (allShareSlug && [...sections][0] === 'ships') {
+      findings.INFO.push({ hash, files, reason: `same bytes for ship slug "${[...slugs][0]}" across _root/line buckets — pick one and delete duplicates (same-entity)` });
+      continue;
+    }
+
+    // Phase 3.5 (issue #1465): cross-section authors↔articles same-entity rule.
+    // The author of an article legitimately places their portrait at the top
+    // of their article. The same bytes in authors/ and articles/ for
+    // matching filename roots is the documented pattern, not the Cordelia
+    // pattern.
+    if (sections.size >= 2 && SAME_ENTITY_CROSS_SECTION_PAIRS.some(pair =>
+      [...sections].every(s => pair.has(s)) && pair.size >= sections.size
+    )) {
+      const filenames = files.map(f => f.filename);
+      if (filenames.every((fn, i) => i === 0 || sharesFilenameRoot(filenames[0], fn))) {
+        findings.INFO.push({ hash, files, reason: `same bytes across authors↔articles for shared filename root — documented same-entity pattern` });
+        continue;
+      }
+    }
+
+    // Phase 3.5 (issue #1465): FOM-named convention allowlist.
+    // Files matching the *-FOM-* pattern are intentionally one-image-per-named-
+    // ship within the ships section. Cross-slug same-section reuse for FOM
+    // pairs is convention, not Cordelia. Cross-section reuse remains blocking.
+    if (sections.size === 1 && [...sections][0] === 'ships' &&
+        files.every(f => isFomNamed(f.filename))) {
+      findings.INFO.push({ hash, files, reason: `same bytes under FOM-named files — Flickers of Majesty single-source-of-truth convention; cross-ship reuse intentional` });
+      continue;
+    }
 
     if (sections.size > 1 && !sections.has('brand') && !sections.has('icons') && !sections.has('social')) {
       findings.CRITICAL.push({ hash, files, reason: `same bytes used across DIFFERENT sections: ${[...sections].join(', ')}` });

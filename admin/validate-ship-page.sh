@@ -1743,6 +1743,21 @@ PAGE_SLUG=$(basename "$FILE" .html)
 # Strip trailing 4-digit year (historical fleet pages: mardi-gras-1972 etc.)
 PAGE_SLUG_BASE=$(echo "$PAGE_SLUG" | sed -E 's/-[0-9]{4}$//')
 
+# Detect TBN (to-be-named) or Historical pages. On those, the filename-vs-slug
+# check downgrades from check_fail to check_warn — class-mate / sister-ship
+# references on TBN pages and historical-archive cross-references are
+# legitimate uses where the filename can't structurally contain the page slug
+# (e.g., unnamed-edge-class.html showing celebrity-edge-exterior.jpg as a
+# design preview; or historical pages showing class-mate ships from the
+# same era). Scoped narrowly per 2026-05-11 user direction.
+IS_TBN_HISTORIC=0
+case "$PAGE_SLUG" in
+    unnamed-*|*-tbn-*|*-tbn|*-class-ship-*|*-class-entering-*) IS_TBN_HISTORIC=1 ;;
+esac
+if [ "$IS_TBN_HISTORIC" = "0" ] && echo "$CONTENT" | grep -qE '>Historical</span>'; then
+    IS_TBN_HISTORIC=1
+fi
+
 MISMATCH_COUNT=0
 while IFS= read -r img_path; do
     [ -z "$img_path" ] && continue
@@ -1763,8 +1778,12 @@ while IFS= read -r img_path; do
     if [ "$PAGE_SLUG_BASE" != "$PAGE_SLUG" ] && echo "$BASE_NORM" | grep -qF -- "$PAGE_SLUG_BASE"; then
         continue
     fi
-    check_fail "Image filename ship mismatch: $BASE does not contain page slug '$PAGE_SLUG' (#1501)"
-    MISMATCH_COUNT=$((MISMATCH_COUNT + 1))
+    if [ "$IS_TBN_HISTORIC" = "1" ]; then
+        check_warn "Image filename does not contain page slug '$PAGE_SLUG' (#1501, TBN/historic page — class-mate or archival reference assumed): $BASE"
+    else
+        check_fail "Image filename ship mismatch: $BASE does not contain page slug '$PAGE_SLUG' (#1501)"
+        MISMATCH_COUNT=$((MISMATCH_COUNT + 1))
+    fi
 done <<< "$(echo "$CONTENT" | grep -oP 'src="(/assets/ships/[^"]+\.(jpg|jpeg|png|webp|gif))"' | grep -oP '/[^"]+' || true)"
 if [ "$MISMATCH_COUNT" -eq 0 ]; then
     check_pass "All /assets/ships/ image filenames contain the page's ship slug"
