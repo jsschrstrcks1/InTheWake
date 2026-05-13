@@ -293,6 +293,90 @@ grep -lE 'Spring and early autumn tend to offer' ports/*.html | sort -u
 
 ---
 
+## P1 — Additional template-bug + data-integrity surfaces (2026-05-13, in-flight)
+
+While shipping the Pattern A best-time rewrites (the companion task in the section above), encountered five distinct shoulder issues that the existing P1 entries don't already cover. Documenting separately so a future audit can address them in isolation if the in-flight session doesn't.
+
+### Pattern C — "Cruise"/"Shore Excursion" suffix template bug
+
+A third template-substitution failure where the literal token "Cruise" or "Shore Excursion" is appended to the port name in question text. Distinct from Pattern B ("Port Guide" suffix) — same shape, different filler. Examples encountered (rewritten in-flight):
+
+```
+Q: What is the best time to visit Manila Cruise?
+Q: What is the best time to visit Trinidad Cruise?
+Q: What is the best time to visit Port Arthur Cruise?
+Q: What is the best time to visit Port Said Cruise?
+Q: What is the best time to visit San Diego Cruise?
+Q: What is the best time to visit Tórshavn Cruise?
+Q: What is the best time to visit Rotorua Shore Excursion?
+```
+
+**Find remaining instances:**
+```bash
+grep -lE 'Q:[^<]*(Cruise|Shore Excursion)\?' ports/*.html
+```
+
+7 ports already fixed in the 2026-05-13 session: manila, trinidad, port-arthur, port-said, san-diego, torshavn, rotorua. Run the grep above to check whether others remain.
+
+### Pattern D — Half-filled "currency is used in" answer
+
+A different template failure where the currency-name slot was never substituted, leaving the literal "The local currency is used in." as the answer. Distinct from Pattern A/B/C — it's not a question-text issue; the answer text itself is incomplete.
+
+```
+A: The local currency is used in. Most tourist-facing businesses accept major credit cards…
+```
+
+**Ports affected (verified 2026-05-13):**
+```bash
+grep -l 'The local currency is used in' ports/*.html
+```
+Returns: porto, rhodes, riga, stavanger, tallinn, trieste, st-petersburg — 7 ports. Fixed in-flight on porto, rhodes, riga, tallinn (rewrote or removed the broken sentence). Remaining: stavanger (full structural rebuild needed; see below), trieste (verify), st-petersburg.
+
+The fix per port is normally one of:
+- Remove the broken Q entirely if the page already has a working currency Q elsewhere.
+- Rewrite the answer using the actual local currency name (which IS in the page metadata or can be sourced from the country — verify against existing on-page meta or admin/PORT_CURRENCIES if exists; do NOT invent from training).
+
+### Issue E — Ports with the entire weather/seasonal section missing
+
+Some ports never received the seasonal-guide backfill — they're missing the `<section id="weather-guide">`, all glance labels, the cruise-seasons-grid, packing-list, hazards section, etc. Weather validator reports 30+ errors per port, all structural. FAQ-only work on these ports is wasted (the validator stays FAIL on the structural absence regardless of FAQ correctness).
+
+**Ports affected (verified by running the validator on a fresh checkout):**
+- `stavanger` — 36 errors (entire weather section absent)
+- `santa-marta` — 38 errors (entire weather section absent)
+- `strait-of-magellan` — 31 errors
+- `ushuaia` — 12 errors (many structural)
+- `penang` — 14 errors (B_ACT_*, CATCH, H001, H002 — most structural)
+- `tobago` — only S001 (missing weather-guide section id) but otherwise scored well
+
+These need a content/template pass that wires the seasonal-guide section in, not a FAQ-topic pass. Probable cause: the 2026-02 backfill (`a69f1471`) skipped these ports. A re-run of the backfill (with fabrication branches removed per the `b0c082b6` revert) should restore the section for ports where seasonal-guides.json has data.
+
+### Issue F — Forbidden phrases inside `seasonal-guides.json`
+
+The DEDUP layer of `scripts/validate-port-weather.js` forbids `Shoulder Season` (FORBIDDEN_PATTERNS line 102), but the JSON registry itself contains the phrase in `packing_nudges`:
+
+```
+seattle.packing_nudges:    [..., "Small umbrella or rain jacket for shoulder seasons", ...]
+victoria-bc.packing_nudges: [..., "Light rain jacket for shoulder season", ...]
+```
+
+When a page's packing answer mirrors `packing_nudges` verbatim (the doctrine's "quote rich phrasing verbatim" rule), it inherits the forbidden phrase and trips TERM_001/DEDUP. Fixed in-flight by replacing the forbidden phrase with specific months from `cruise_seasons.transitional` (e.g., "shoulder season" → "April and October" for victoria-bc). The doctrine-clean fix would be a one-shot scan of the JSON registry for forbidden phrases:
+
+```bash
+grep -E '"shoulder season|Best Months? (for|to)|Weather Guide|Climate Overview|When to (Go|Visit)|Typical Weather"' assets/data/ports/seasonal-guides.json
+```
+
+…and update the registry entries to use replacement phrasing the validator accepts. Then any port that mirrors `packing_nudges` verbatim won't inherit forbidden phrases.
+
+### Issue G — Generic currency-schema entries (deferrable)
+
+Many ports have schema `FAQPage` currency entries that read:
+
+> "Check local currency requirements before your visit. Major credit cards are typically accepted at tourist areas, but having some local currency is useful for smaller vendors and markets."
+
+This is generic boilerplate with no port-specific info. The visible currency answer on most ports IS port-specific (correct currency code, ATM tips, sometimes export rules). Mirroring the visible to schema would replace the generic schema with the port-specific text. Encountered on most Pattern A ports in the 2026-05-13 session — fixed where the port was edited for other reasons; not a separate dedicated pass.
+
+---
+
 ## Items surfaced in session `claude/fix-carnival-validator-krEdD` (2026-05-11)
 
 Surfaced during the multi-turn image-honesty audit + cleanup; not duplicates
