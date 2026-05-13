@@ -14,7 +14,7 @@
 | 1 | `attraction-1.webp` | **correct** | Tourists in geothermal pool at Deception Island, black volcanic beach, expedition ship offshore | keep |
 | 2 | `attraction-2.webp` | **wrong-subject** | Green grass hill + sandy beach + small pier — temperate Atlantic, no Antarctic markers. Same Scottish-Shetland conflation pattern as the original hero. | delete + replace or drop HTML ref |
 | 3 | `attraction-3.webp` | **correct (map)** | Historic British Admiralty chart "THE SOUTH SHETLAND AND SOUTH ORKNEY ISLANDS — WITH THE TRACKS OF THE SEVERAL DISCOVERERS" with RGS stamp | keep with caption noting it's a chart |
-| 4 | `food.webp` | **correct subject / wrong slot** | NASA-style satellite image of Antarctic archipelago with tabular iceberg | rename or rewrite caption (no actual "food" subject possible — no restaurants in South Shetland Islands) |
+| 4 |  `iceberg-a23a.webp` | **correct subject / wrong slot** | NASA-style satellite image of Antarctic archipelago with tabular iceberg | rename or rewrite caption (no actual "food" subject possible — no restaurants in South Shetland Islands) |
 | 5 | `gallery-1.webp` | **wrong-subject** (high confidence) | Sunset behind sea-stacks with gulls; no penguins, no snow, no ice. Temperate Atlantic latitude. | delete + replace or drop HTML ref |
 | 6 | `gallery-2.webp` | **correct** | Three Adelie penguins on snow with iceberg field and jagged peaks behind | keep |
 | 7 | `gallery-3.webp` | **correct** | Chinstrap penguin (diagnostic black chin-strap) on moss-covered ground — chinstrap is the dominant breeding species on South Shetlands | keep |
@@ -28,7 +28,7 @@
 
 - **Correct subject:** 9 / 12
 - **Wrong subject (Scottish Shetland conflation):** 3 / 12 — `attraction-2`, `gallery-1`, `panorama`
-- **Wrong slot, correct subject:** 1 / 12 — `food` (Antarctic satellite filed as cuisine)
+- **Wrong slot, correct subject:** 1 / 12 — `iceberg-a23a` (renamed 2026-05-13 from `food` — attr canonicalized, alt updated)
 
 The 3 wrong-subject files share a pattern: Wikipedia / Flickr photos of the *Shetland Islands of Scotland* harvested by name-keyword without geographic verification. The Adelies, chinstraps, Deception Island satellites, and Admiralty chart are all real Antarctic content — those were sourced separately. So the original sourcing produced two distinct streams: ~75% correct Antarctica, ~25% wrong Scotland.
 
@@ -36,6 +36,6 @@ The 3 wrong-subject files share a pattern: Wikipedia / Flickr photos of the *She
 
 1. Delete `attraction-2.webp` + `gallery-1.webp` + `panorama.webp` plus their attr.json siblings.
 2. Check what HTML references these files; either source replacements or remove the refs and let the gallery shrink.
-3. Rename `food.webp` to a slot consistent with its content (e.g., `archipelago-satellite.webp`) and update HTML caption.
+3. Rename  `iceberg-a23a.webp` to a slot consistent with its content (e.g., `archipelago-satellite.webp`) and update HTML caption.
 
 *Soli Deo Gloria.*
