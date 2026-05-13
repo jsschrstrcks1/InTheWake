@@ -851,6 +851,11 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 ### P3 — `[object Object]` 404s in the webserver log during Playwright runs (Discovered 2026-05-09)
 
 - [ ] **Smell:** During Playwright runs of any spec, the test webserver logs repeated `GET /[object%20Object] HTTP/1.1 404` requests. Means somewhere a JavaScript object is being concatenated into a URL string without `JSON.stringify` or a `.toString()` definition, then `fetch()`/`<img src>`-d. Doesn't break tests; doesn't break visible behavior. Likely a third-party script (analytics, consent manager) or a service worker quirk. Investigate by tailing the webserver log while running a single tool page and grepping the repo for `${...}` URL templates that could swallow an unstringified object. Low priority — diagnostic noise, not a user-facing issue.
+- **B1.2 attempt 2026-05-12 (static analysis only — Playwright module not present in sandbox; could not reproduce):**
+  - Common scripts loaded by every tool page: gtag (analytics), cloud.umami.is (analytics), a CMP script (`data-cmp-ab="1"`), `assets/js/dropdown.js`, `assets/js/site-cache.js`, `assets/js/in-app-browser-escape.js`. The smell fires on ANY page load so the culprit is in shared logic.
+  - Grep for `fetch(\`/...${...}\`)`, `.src = \`...${...}\``, `href="...${...}"`, `new URL(...)` patterns surfaces nothing obviously wrong in repo-owned JS. The one suspect inline-script-with-template-literal in `solo.html:661` would produce `GET /solo/[object Object].html` (with prefix), not `GET /[object Object]` (root).
+  - Top remaining suspects: (a) `assets/js/sw-bridge.js` URL constructions at lines 204/238 if `a.href` ever returns a non-string; (b) the third-party CMP script's silent failure path when its consent state is an object; (c) gtag/umami beacon URL coercion when an event payload object lands where a string is expected.
+  - **Next step requires Playwright in the environment.** Reproduction recipe: `npx playwright test tools-smoke.spec.js` while tailing `python3 -m http.server` stderr in a second terminal; grep the failing request for the source bytes; then the static grep narrows by URL surface.
 
 ### Why these are tracked here
 
