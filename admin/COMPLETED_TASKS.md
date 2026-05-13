@@ -1057,6 +1057,17 @@ Reconciliation batch dated 2026-05-12 (branch `claude/audit-unfinished-tasks-5ev
 **Verifying commit:** see below (this same audit branch).
 **Verifying tests:** `tests/playwright/tools-smoke.spec.js` 8/8 pass with the new `(e)` assertion enabled.
 
+### Affiliate Phase 3 — planning-resources card on 4 Carnival ships - COMPLETE (2026-05-13)
+**Status:** COMPLETE — body card with 4 affiliate article links added; ship validator passes (0 errors) on all 4
+**Thread:** `claude/audit-unfinished-tasks-5evPi` (B2.4 of the 2026-05-12 batch plan)
+**Lane:** 🟢 Green
+- [x] `ships/carnival/carnival-adventure.html` — inserted before recent-rail (single-column layout)
+- [x] `ships/carnival/carnivale-1956.html` — inserted before `</section><!-- End Main Content Column -->` (two-column layout)
+- [x] `ships/carnival/jubilee-1986.html` — inserted before `</section><!-- End Main Content Column -->` (two-column layout)
+- [x] `ships/carnival/mardi-gras-1972.html` — inserted before `</section><!-- End Main Content Column -->` (two-column layout)
+- [x] Block reused verbatim from the 44 done Carnival ships (canonical: `carnival-jubilee.html:878-887`). Four `<li>` items linking `/packing-lists.html`, `/articles/cruise-cabin-organization.html`, `/internet-at-sea.html`, `/articles/cruise-tech-photography-guide.html`. All four targets exist on disk.
+- [x] Validator spot-check on carnival-adventure (single-column) + jubilee-1986 (two-column) — both pass with 0 errors
+
 ### Audit sweep batch 2 — five marked-done items - COMPLETE (verified 2026-05-12)
 **Status:** COMPLETE — each item verified against current code during 2026-05-12 audit sweep
 **Lane:** 🟢 Green
