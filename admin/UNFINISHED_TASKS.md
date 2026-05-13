@@ -187,6 +187,237 @@ Resolution: same as the original 8 deferred-blocker pages (TIER 2 placeholder, s
 
 ---
 
+## P1 — Port FAQ "Cruise Port Guide" template-bug cleanup (2026-05-13) — **COMPLETE**
+
+**Status:** Resolved in session `claude/continue-port-faq-4pvWk` (2026-05-13). All 25 affected ports rewritten with JSON-traced FAQ content. Verification: `grep -lE 'Port Guide.{0,3}(have|'"'"'s)|Port Guide\?' ports/*.html | wc -l` returns 0.
+
+**Source:** Session `claude/continue-port-faq-4pvWk` 2026-05-13. While shipping weather-FAQ fixes one port at a time, encountered a recurring template substitution bug on the page's last 3–5 FAQ entries.
+
+### The bug
+
+A boilerplate FAQ template was applied to many ports during an earlier backfill but the `{{port_name}}` substitution failed — the literal token "Cruise Port Guide" (or "Port Guide") is embedded directly in the visible question text. Three observed signatures:
+
+```
+Q: What's the best time of year to visit Fort Lauderdale Cruise Port Guide?
+Q: Does Grand Cayman Port Guide have extreme weather to worry about?
+Q: What should I pack for Galveston Cruise Port Guide's weather?
+```
+
+The answers attached to these questions are also generic boilerplate ("Peak cruise season offers the most reliable weather..." / "Like most destinations, weather conditions vary by season...") AND contain forbidden phrases caught by the weather sub-validator's DEDUP layer:
+
+- `weather guide` → forbidden, must be replaced with `seasonal guide`
+- `best months to visit` → forbidden, must be replaced (the validator regex is `/Best Months? (for|to)/i`)
+
+### Scope
+
+**25 ports affected** (verified 2026-05-13 via `grep -lE 'Port Guide.{0,3}(have|'"'"'s)|Port Guide\?' ports/*.html`):
+
+```
+amber-cove, antigua, aqaba, barcelona, bermuda, costa-maya, ensenada,
+honolulu, lanzarote, los-angeles, malaga, manzanillo, mazatlan, miami,
+mykonos, naples, new-orleans, port-canaveral, progreso, puerto-vallarta,
+seattle, tampa, valencia, venice, zihuatanejo
+```
+
+**Regenerate the list:**
+```bash
+grep -lE 'Port Guide.{0,3}(have|'"'"'s)|Port Guide\?' ports/*.html | sort -u
+```
+
+### All 25 ports cleaned in 2026-05-13 session
+
+All commits on branch `claude/continue-port-faq-4pvWk` (single-file
+per port, per-clause source maps in commit messages):
+
+- `grand-cayman` (`b73370c8`), `ft-lauderdale` (`3b0cdad4`),
+  `galveston` (`68875533`), `amber-cove` (`f397fcf1`),
+  `bermuda` (`95a11e67`), `honolulu` (`23b0e577`), `miami` (`6f67d16f`),
+  `seattle` (`bbb9b057`), `tampa` (`e133acf5`),
+  `port-canaveral` (`4efc2d8c`), `new-orleans` (`a6d0d3dc`),
+  `los-angeles` (`0b3de342`), `puerto-vallarta` (`037e153f`),
+  `mazatlan` (`b7cd4f41`), `zihuatanejo` (`c6aa9bf7`),
+  `manzanillo` (`ca80ef5b`), `progreso` (`937aa24f`),
+  `ensenada` (`2fe4dda7`), `aqaba` (`d7c45d4e`),
+  `barcelona` (`1d079e0c`), `naples` (`adf3358a`),
+  `venice` (`be0a5da5`), `malaga` (`5e55a0dd`),
+  `valencia` (`3d2b7776`), `lanzarote` (`e325f8ed`),
+  `mykonos` (`4217cac8`), `antigua` (`0630fef8`).
+
+Edge cases encountered:
+- Some ports had the Pattern-B content in NON-`faq-item` `<details>`
+  blocks the validator ignored as visible (malaga, valencia, aqaba) —
+  converted those blocks to inline `<p><strong>Q:...` format.
+- Mediterranean climate ports (barcelona, naples, venice, malaga,
+  valencia, mykonos) trigger `SPEC_CLIMATE_BAD` on the word
+  "hurricane" — renamed those Qs to "storm season" while still
+  matching the FAQ regex.
+- antigua additionally needed structural season-label renames
+  (`Shoulder Season → Transitional Season`,
+  `Hurricane Season → Low Season`) to pass
+  `B_CRUISE-SEASON-TRANSITIONAL` and `B_CRUISE-SEASON-LOW`.
+- ensenada had Pattern-A duplicates of new Pattern-B rewrites
+  (FAQ_DUP) — Pattern-A generic best-time and bring questions
+  removed; Hussong's margarita visible mirror added to restore
+  count parity.
+
+### Rewrite recipe (per port)
+
+The doctrine requires every clause to trace to `assets/data/ports/seasonal-guides.json` for that port, or to verbatim text already on the page. Three established Q&A templates work across all ports:
+
+**Best Time** — `cruise_seasons.high` + `avoid_months` + `at_a_glance.temp_range`
+**Hurricane / Storm Season** — `hazards.hurricane_zone` (+ `hurricane_season`, `peak_risk_months`, `note` when hurricane_zone is true)
+**Rain** — `at_a_glance.rain` + `cruise_seasons.high` (drier window framing)
+**Packing** — `packing_nudges` array (verbatim items)
+**Extreme Weather (when present)** — `hazards.note` + `catches_off_guard` (verbatim)
+
+### Validator expectations after fix
+
+Each cleaned port should report:
+- `node scripts/validate-port-weather.js ports/<slug>.html` → 0 errors
+- `node admin/validate-port-page-v2.js ports/<slug>.html` → typically PASS (unless an unrelated content_purity / noscript / gallery-credit-diversity issue is independently blocking; flag those separately)
+
+### Companion pattern (Pattern A — best-time generic boilerplate) — IN PROGRESS
+
+A different boilerplate template appeared on **53 ports** initially (verified 2026-05-13 via `grep -lE 'Spring and early autumn tend to offer' ports/*.html | wc -l`). The questions themselves are clean (no "Port Guide" template-bug token), but the answer reads:
+
+> "Spring and early autumn tend to offer the most comfortable conditions for sightseeing — mild temperatures, manageable crowds, and pleasant light for photography. Summer brings the warmest weather but also peak cruise traffic and higher prices. Winter visits can be rewarding for those who prefer quiet streets and authentic atmosphere…"
+
+This is factually wrong for tropical, equatorial, and sub-Antarctic ports (no meaningful spring/autumn/winter).
+
+**Status as of 2026-05-13 (end of session `claude/continue-port-faq-4pvWk`):** 42 ports rewritten with JSON-traced content; 11 ports remain. All 11 remaining ports are blocked on structural issues from this task's perspective — see "Why these 11 ports aren't fixable as FAQ-only edits" below.
+
+**Remaining 11 ports + their structural block:**
+
+| Port | Block | Cross-ref |
+|---|---|---|
+| `panama-canal` | Repeated FAQ blocks (4×); 32 visible Q&As; needs editorial consolidation | Issue H |
+| `penang` | 14 errors, B_ACT_*, CATCH, H001, H002 — weather section partially absent | Issue E |
+| `port-elizabeth` | B_ACT_SNORKELING/HIKING/CITY_WALKING missing; D_MONTH parse error | Issue E |
+| `punta-arenas` | B_ACT_BEACH/SNORKELING missing (validator requires these for all ports; sub-Antarctic port can't legitimately have them) | Issue E + validator over-strict |
+| `royal-beach-club-antigua` | 5 B_ACT_* missing; private-island stub page | Issue E |
+| `royal-beach-club-nassau` | B_ACT_CITY_WALKING/HIKING missing; private-island stub | Issue E |
+| `santa-marta` | 38 errors; entire weather section absent | Issue E |
+| `stavanger` | 36 errors; entire weather section absent | Issue E |
+| `strait-of-magellan` | 31 errors; entire weather section absent | Issue E |
+| `tobago` | S001 only; missing `<section id="weather-guide">` | Issue E |
+| `ushuaia` | 12 errors including B_ACT_*, CATCH, B_AVOID | Issue E |
+
+Two paths to unblock:
+
+1. **Re-run the seasonal-guide backfill** on these 11 ports with the corrections from `b0c082b6` (no fabrication). This is the simplest path — most of the missing structural elements have data in `seasonal-guides.json` already.
+2. **Loosen `REQUIRED.activities`** in `scripts/port-weather-validator-core.js` (line 121) for ports whose region doesn't support certain activities. Sub-Antarctic ports legitimately have no beach/snorkeling; the validator currently forces all 5 activity rows on every page.
+
+**Regenerate the remaining list:**
+```bash
+grep -lE 'Spring and early autumn tend to offer' ports/*.html | sort -u
+```
+
+---
+
+## P1 — Additional template-bug + data-integrity surfaces (2026-05-13, in-flight)
+
+While shipping the Pattern A best-time rewrites (the companion task in the section above), encountered five distinct shoulder issues that the existing P1 entries don't already cover. Documenting separately so a future audit can address them in isolation if the in-flight session doesn't.
+
+### Pattern C — "Cruise"/"Shore Excursion" suffix template bug
+
+A third template-substitution failure where the literal token "Cruise" or "Shore Excursion" is appended to the port name in question text. Distinct from Pattern B ("Port Guide" suffix) — same shape, different filler. Examples encountered (rewritten in-flight):
+
+```
+Q: What is the best time to visit Manila Cruise?
+Q: What is the best time to visit Trinidad Cruise?
+Q: What is the best time to visit Port Arthur Cruise?
+Q: What is the best time to visit Port Said Cruise?
+Q: What is the best time to visit San Diego Cruise?
+Q: What is the best time to visit Tórshavn Cruise?
+Q: What is the best time to visit Rotorua Shore Excursion?
+```
+
+**Find remaining instances:**
+```bash
+grep -lE 'Q:[^<]*(Cruise|Shore Excursion)\?' ports/*.html
+```
+
+7 ports already fixed in the 2026-05-13 session: manila, trinidad, port-arthur, port-said, san-diego, torshavn, rotorua. Run the grep above to check whether others remain.
+
+### Pattern D — Half-filled "currency is used in" answer
+
+A different template failure where the currency-name slot was never substituted, leaving the literal "The local currency is used in." as the answer. Distinct from Pattern A/B/C — it's not a question-text issue; the answer text itself is incomplete.
+
+```
+A: The local currency is used in. Most tourist-facing businesses accept major credit cards…
+```
+
+**Ports affected (verified 2026-05-13):**
+```bash
+grep -l 'The local currency is used in' ports/*.html
+```
+Returns: porto, rhodes, riga, stavanger, tallinn, trieste, st-petersburg — 7 ports. Fixed in-flight on porto, rhodes, riga, tallinn (rewrote or removed the broken sentence). Remaining: stavanger (full structural rebuild needed; see below), trieste (verify), st-petersburg.
+
+The fix per port is normally one of:
+- Remove the broken Q entirely if the page already has a working currency Q elsewhere.
+- Rewrite the answer using the actual local currency name (which IS in the page metadata or can be sourced from the country — verify against existing on-page meta or admin/PORT_CURRENCIES if exists; do NOT invent from training).
+
+### Issue E — Ports with the entire weather/seasonal section missing
+
+Some ports never received the seasonal-guide backfill — they're missing the `<section id="weather-guide">`, all glance labels, the cruise-seasons-grid, packing-list, hazards section, etc. Weather validator reports 30+ errors per port, all structural. FAQ-only work on these ports is wasted (the validator stays FAIL on the structural absence regardless of FAQ correctness).
+
+**Ports affected (verified by running the validator on a fresh checkout):**
+- `stavanger` — 36 errors (entire weather section absent)
+- `santa-marta` — 38 errors (entire weather section absent)
+- `strait-of-magellan` — 31 errors
+- `ushuaia` — 12 errors (many structural)
+- `penang` — 14 errors (B_ACT_*, CATCH, H001, H002 — most structural)
+- `tobago` — only S001 (missing weather-guide section id) but otherwise scored well
+
+These need a content/template pass that wires the seasonal-guide section in, not a FAQ-topic pass. Probable cause: the 2026-02 backfill (`a69f1471`) skipped these ports. A re-run of the backfill (with fabrication branches removed per the `b0c082b6` revert) should restore the section for ports where seasonal-guides.json has data.
+
+### Issue F — Forbidden phrases inside `seasonal-guides.json`
+
+The DEDUP layer of `scripts/validate-port-weather.js` forbids `Shoulder Season` (FORBIDDEN_PATTERNS line 102), but the JSON registry itself contains the phrase in `packing_nudges`:
+
+```
+seattle.packing_nudges:    [..., "Small umbrella or rain jacket for shoulder seasons", ...]
+victoria-bc.packing_nudges: [..., "Light rain jacket for shoulder season", ...]
+```
+
+When a page's packing answer mirrors `packing_nudges` verbatim (the doctrine's "quote rich phrasing verbatim" rule), it inherits the forbidden phrase and trips TERM_001/DEDUP. Fixed in-flight by replacing the forbidden phrase with specific months from `cruise_seasons.transitional` (e.g., "shoulder season" → "April and October" for victoria-bc). The doctrine-clean fix would be a one-shot scan of the JSON registry for forbidden phrases:
+
+```bash
+grep -E '"shoulder season|Best Months? (for|to)|Weather Guide|Climate Overview|When to (Go|Visit)|Typical Weather"' assets/data/ports/seasonal-guides.json
+```
+
+…and update the registry entries to use replacement phrasing the validator accepts. Then any port that mirrors `packing_nudges` verbatim won't inherit forbidden phrases.
+
+### Issue H — Repeated FAQ blocks (panama-canal observed)
+
+`ports/panama-canal.html` has the same 4-question FAQ block inserted
+verbatim 4 times across the page (lines ~487-489, ~567-572, ~620,
+~675), each followed by the same Pattern-A best-time Q. The page
+appears structured for multiple ports along the canal transit but the
+FAQ backfill duplicated rather than customizing per section. Total
+visible: 32 Q&As; FAQ_DUP fires 4× on the best-time match.
+
+Fix is beyond per-port FAQ work — needs editorial decision on whether
+to keep 4 sections (each with distinct Q&As) or consolidate to one.
+
+Search:
+```bash
+for p in ports/*.html; do
+  c=$(grep -c '<strong>Q:' "$p" 2>/dev/null)
+  [ "$c" -gt 15 ] && echo "$p: $c visible Q&As"
+done
+```
+
+### Issue G — Generic currency-schema entries (deferrable)
+
+Many ports have schema `FAQPage` currency entries that read:
+
+> "Check local currency requirements before your visit. Major credit cards are typically accepted at tourist areas, but having some local currency is useful for smaller vendors and markets."
+
+This is generic boilerplate with no port-specific info. The visible currency answer on most ports IS port-specific (correct currency code, ATM tips, sometimes export rules). Mirroring the visible to schema would replace the generic schema with the port-specific text. Encountered on most Pattern A ports in the 2026-05-13 session — fixed where the port was edited for other reasons; not a separate dedicated pass.
+
+---
+
 ## Items surfaced in session `claude/fix-carnival-validator-krEdD` (2026-05-11)
 
 Surfaced during the multi-turn image-honesty audit + cleanup; not duplicates
