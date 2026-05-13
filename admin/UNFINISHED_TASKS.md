@@ -695,20 +695,32 @@ Each port's content must be **port-specific** — no generic templates. Research
 - [ ] Add missing grid-2 layout (~30 ships, mostly Carnival)
 
 ### [G] Ship Validation — Content Quality Enhancement
-**Status (refreshed 2026-05-12 from `audit-reports/ship-validation-dashboard.json`, generated 2026-05-11):**
-- 290 ship pages total (was 293)
-- `sh_pass`: 2 (fully clean), `sh_warn_only`: 275, `sh_fail`: 13 — **structural pass rate is NOT 100% anymore**
-- `js_pass`: 80, `js_fail`: 210 — JS-level cascade failures are widespread
-**Top error rules (top 6 by count):** `js:images/few_images` 158 · `js:runtime_data/cascade_fully_failed` 50 · `js:json_ld/main_entity_blacklisted` 23 · `js:sections/wrong_section_order` 22 · `js:videos/missing_categories` 17 · `js:videos/few_videos` 11
+**Status (refreshed 2026-05-13 from a live `node admin/validate.js --all-ships` run):**
+- 312 files validated (297 ship pages + 15 hub/index pages)
+- **96 passing / 216 failing** — 27% ship pass rate
+- Note vs the 2026-05-11 dashboard: that snapshot had `sh_pass`: 2 + `sh_warn_only`: 275 + `sh_fail`: 13 + `js_fail`: 210. The current run aggregates sh+js into one pass/fail criterion — definition is stricter, not a fleet regression.
+
+**Top error rules (top 8 by count, 2026-05-13 live run):**
+- `template_remnants`: **301** (was not in top 6 of 2026-05-11 dashboard — likely a rule-definition tightening, not 301 new regressions; verify rule before remediation)
+- `few_images`: **230** (was 158 on 2026-05-11; +72 — primary contributor is Flickr ARR / unclear-photo cleanup pushing ships below the minimum)
+- `cascade_fully_failed`: **51** (matches Phase 3.6 entry)
+- `main_entity_blacklisted`: **26** (was 23)
+- `wrong_section_order`: **23** (was 22)
+- `missing_required`: **11** (was 8)
+- `few_videos`: **11**
+- `placeholder_content`: **7**
 
 **Remaining quality improvements:**
-- [ ] Generic review text (208 ships per 2026-03-02; *count needs refresh*)
-- [ ] Few images — **158 ships per 2026-05-11 dashboard** (was 137 at 2026-03-02; +21)
-- [ ] FAQ too short (186 ships per 2026-03-02; *count needs refresh*)
+- [ ] **template_remnants: 301 ships** — verify rule definition first; the jump from ~0 to 301 between 2026-05-11 and 2026-05-13 is too large to be organic, almost certainly a validator rule expansion that surfaced latent template-placeholder strings
+- [ ] **few_images: 230 ships** (refreshed 2026-05-13; up from 158; right fix is sourcing replacement images, not relaxing the threshold)
+- [ ] **cascade_fully_failed: 51 ships** (Phase 3.6 — investigation-first)
+- [ ] **main_entity_blacklisted: 26 ships** (JSON-LD `mainEntity` references blocked schema.org types; investigate)
+- [ ] **wrong_section_order: 23 ships** (matches the 2026-03-25 port-page-normalization pattern but on ships)
+- [ ] **missing_required + placeholder_content + few_videos: 29 ships combined** (smaller categories)
+- [ ] Generic review text (208 ships per 2026-03-02; validator no longer surfaces a rule by that name — needs human content-review pass, not validator)
+- [ ] FAQ too short (186 ships per 2026-03-02; validator no longer surfaces by name)
 - [ ] Missing whimsical units (~181 ships per 2026-03-02; *count needs refresh*)
 - [ ] Missing grid-2 layout (~30 ships per 2026-03-02; *count needs refresh*)
-- [ ] Structural sh_fail regressions (13 ships) — investigate vs the 2026-03-02 "100% structural pass" claim
-- [ ] js_fail (210 ships) — overlaps Phase 3.6 cascade_fully_failed (50) and few_images (158); needs deduplication before triaging
 
 ### [G] Port Validation — Remaining Work
 **Status (per 2026-03-02 / 2026-03-25 figures — needs fresh validator run):** 242/387 passing (62.5%); ~145 failing. Latest archived results: `.claude/archive/port-validation-history/port-validation-results-2026-03-25.json`. Recent commit log shows continued port work (Phase 1 section reordering on 63 pages, weather FAQs on st-kitts/grenada/dominica/bonaire/split/kotor/marseille/bora-bora) so the current PASS count is almost certainly higher than 242.
