@@ -642,6 +642,200 @@ def cmd_plan(args) -> int:
     return 0
 
 
+# ---------- audit-port-images ----------
+
+def cmd_audit_port_images(args) -> int:
+    """Per-port image audit — generates a checklist for Read-verification
+    of every image file in the directory. Writes a per-port audit-trail
+    markdown into admin/audit-reports/port-image-audits/.
+
+    Use when a wrong-subject or placeholder image is found in a port dir.
+    A diversity check (audit-attr) doesn't measure subject correctness;
+    only Read-verifying every file does.
+    """
+    slug = args.slug
+    img_dir = PORTS_IMG / slug
+    if not img_dir.exists():
+        print(f"ERROR: no image dir at {img_dir}", file=sys.stderr)
+        return 1
+    files = sorted([p for p in img_dir.glob("*") if p.suffix.lower() in (".webp", ".jpg", ".jpeg", ".png")])
+    if not files:
+        print(json.dumps({"slug": slug, "files": [], "message": "empty dir"}, indent=2))
+        return 0
+    import hashlib
+    audit_dir = ROOT / "admin" / "audit-reports" / "port-image-audits"
+    audit_dir.mkdir(parents=True, exist_ok=True)
+    out_path = audit_dir / f"{slug}-{_today()}.md"
+    if out_path.exists() and not args.overwrite:
+        print(f"audit file already exists at {out_path} (pass --overwrite to replace)")
+    rows = []
+    for f in files:
+        h = hashlib.md5(f.read_bytes()).hexdigest()
+        attr = _attr_path_for(f)
+        attr_data = {}
+        if attr.exists():
+            try:
+                attr_data = json.loads(attr.read_text())
+            except Exception:
+                pass
+        rows.append({
+            "file": f.name,
+            "size_bytes": f.stat().st_size,
+            "md5": h,
+            "attr_title": attr_data.get("title", "") or attr_data.get("description", ""),
+            "attr_source": attr_data.get("sourceUrl") or attr_data.get("source") or attr_data.get("url") or "",
+            "attr_license": attr_data.get("license", ""),
+        })
+    # Write the audit-trail md
+    lines = [f"# Port image audit — {slug}", f"**Date:** {_today()}",
+             f"**Files:** {len(files)}", "",
+             "Read every file with the Read tool. Record the verdict in the table.",
+             "Verdicts: `correct` · `wrong-subject` · `placeholder` · `unclear` · `pending`",
+             "",
+             "| # | File | Size | MD5 | Attr title | Attr source | Verdict | Visible identifier / notes |",
+             "|---:|---|---:|---|---|---|---|---|"]
+    for i, r in enumerate(rows, 1):
+        title = (r["attr_title"] or "")[:60].replace("|", "&#124;")
+        src = r["attr_source"][:60] if r["attr_source"] else ""
+        lines.append(f"| {i} | `{r['file']}` | {r['size_bytes']} | `{r['md5'][:8]}…` | {title} | {src} | pending | |")
+    out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    # Also print so the caller can immediately start Reading
+    print(json.dumps({
+        "slug": slug,
+        "files_count": len(files),
+        "audit_file": str(out_path.relative_to(ROOT)),
+        "files_to_read": [str((img_dir / r["file"]).relative_to(ROOT)) for r in rows],
+    }, indent=2))
+    return 0
+
+
+# ---------- reuse-check ----------
+
+def cmd_reuse_check(args) -> int:
+    """Byte-level reuse check for one port's images. Reports md5 collisions
+    within the port, against the cross-port allowlist, and (if check-image-reuse.cjs
+    exists) against the whole site.
+    """
+    slug = args.slug
+    img_dir = PORTS_IMG / slug
+    if not img_dir.exists():
+        print(f"ERROR: no image dir at {img_dir}", file=sys.stderr)
+        return 1
+    import hashlib
+    files = sorted([p for p in img_dir.glob("*.webp")])
+    md5s = {}
+    for f in files:
+        h = hashlib.md5(f.read_bytes()).hexdigest()
+        md5s.setdefault(h, []).append(f.name)
+    intra_dupes = {h: v for h, v in md5s.items() if len(v) > 1}
+
+    # Cross-port allowlist
+    allowlist_hashes = set()
+    if ALLOWLIST.exists():
+        try:
+            data = json.loads(ALLOWLIST.read_text())
+            for entry in data.get("reviewed", []):
+                allowlist_hashes.add(entry.get("hash"))
+        except Exception:
+            pass
+
+    # Whole-site scan for cross-port duplicates
+    cross_port_dupes = []
+    site_hashes = {}
+    for other_dir in PORTS_IMG.glob("*"):
+        if not other_dir.is_dir() or other_dir.name == slug:
+            continue
+        for f in other_dir.glob("*.webp"):
+            try:
+                h = hashlib.md5(f.read_bytes()).hexdigest()
+                site_hashes.setdefault(h, []).append(str(f.relative_to(ROOT)))
+            except Exception:
+                pass
+    for h, names in md5s.items():
+        if h in site_hashes:
+            cross_port_dupes.append({
+                "md5": h,
+                "this_port": names,
+                "other_ports": site_hashes[h],
+                "allowlisted": h in allowlist_hashes,
+            })
+
+    print(json.dumps({
+        "slug": slug,
+        "files_count": len(files),
+        "intra_port_duplicates": intra_dupes,
+        "cross_port_duplicates": cross_port_dupes,
+        "allowlist_entries": len(allowlist_hashes),
+    }, indent=2))
+    return 0 if not intra_dupes and not any(
+        not d["allowlisted"] for d in cross_port_dupes
+    ) else 2
+
+
+# ---------- register ----------
+
+REGISTRY_PATH = ROOT / "admin" / "sourced-images-registry.json"
+
+
+def cmd_register(args) -> int:
+    """Register a sourced image in the byte-level registry.
+
+    Records: slug, filename, md5, source URL, photographer, license,
+    license URL, fetch timestamp, verify-* verdict at time of sourcing.
+
+    Refuses to register if the md5 already exists for another slug
+    AND that hash is not in the cross-port allowlist.
+    """
+    import hashlib
+    f = Path(args.file)
+    if not f.exists():
+        print(f"ERROR: file missing: {f}", file=sys.stderr)
+        return 1
+    md5 = hashlib.md5(f.read_bytes()).hexdigest()
+
+    if REGISTRY_PATH.exists():
+        registry = json.loads(REGISTRY_PATH.read_text())
+    else:
+        registry = {"_format": "1.0", "_purpose": "Byte-level record of every image sourced via admin/sourcing.py. Hashes are md5 of the on-disk WebP after convert.", "entries": []}
+
+    # Check for cross-port duplicate
+    allowlist_hashes = set()
+    if ALLOWLIST.exists():
+        try:
+            data = json.loads(ALLOWLIST.read_text())
+            for entry in data.get("reviewed", []):
+                allowlist_hashes.add(entry.get("hash"))
+        except Exception:
+            pass
+    existing = [e for e in registry["entries"] if e.get("md5") == md5 and e.get("slug") != args.slug]
+    if existing and md5 not in allowlist_hashes:
+        print(json.dumps({
+            "verdict": "REFUSE",
+            "reason": "md5 already registered for another slug and not allowlisted",
+            "existing_entries": existing,
+            "md5": md5,
+        }, indent=2))
+        return 2
+
+    entry = {
+        "slug": args.slug,
+        "file": str(f.relative_to(ROOT)) if f.is_absolute() else args.file,
+        "md5": md5,
+        "size_bytes": f.stat().st_size,
+        "source_url": args.source,
+        "photographer": args.photographer or "",
+        "license": args.license or "",
+        "license_url": args.license_url or "",
+        "verify_verdict": args.verdict or "",
+        "registered_at": _dt.datetime.utcnow().isoformat() + "Z",
+        "session": args.session or "",
+    }
+    registry["entries"].append(entry)
+    REGISTRY_PATH.write_text(json.dumps(registry, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    print(json.dumps({"verdict": "REGISTERED", "entry": entry}, indent=2))
+    return 0
+
+
 # ---------- argparse plumbing ----------
 
 def main() -> int:
@@ -689,6 +883,23 @@ def main() -> int:
     s = sub.add_parser("plan", help="end-to-end work plan for one port")
     s.add_argument("slug")
 
+    s = sub.add_parser("audit-port-images", help="per-file Read-verification checklist for a port dir")
+    s.add_argument("slug")
+    s.add_argument("--overwrite", action="store_true", help="overwrite existing audit file")
+
+    s = sub.add_parser("reuse-check", help="byte-level reuse check (intra-port + cross-port + allowlist)")
+    s.add_argument("slug")
+
+    s = sub.add_parser("register", help="register a sourced image in the byte-level registry")
+    s.add_argument("file", help="path to the on-disk image (webp/jpg/png)")
+    s.add_argument("--slug", required=True, help="port slug this image belongs to")
+    s.add_argument("--source", required=True, help="source URL the image was fetched from")
+    s.add_argument("--photographer", help="photographer name")
+    s.add_argument("--license", help="license label, e.g. 'CC BY 2.0'")
+    s.add_argument("--license-url", help="license URL")
+    s.add_argument("--verdict", help="verify-flickr/verify-loc verdict at sourcing time")
+    s.add_argument("--session", help="session id or label")
+
     args = p.parse_args()
     handler = {
         "doctor": cmd_doctor,
@@ -702,6 +913,9 @@ def main() -> int:
         "rewrite-html": cmd_rewrite_html,
         "validate": cmd_validate,
         "plan": cmd_plan,
+        "audit-port-images": cmd_audit_port_images,
+        "reuse-check": cmd_reuse_check,
+        "register": cmd_register,
     }[args.cmd]
     return handler(args)
 
