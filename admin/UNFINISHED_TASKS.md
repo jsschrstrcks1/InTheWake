@@ -926,27 +926,72 @@ Each port's content must be **port-specific** — no generic templates. Research
 - [ ] Add missing grid-2 layout (~30 ships, mostly Carnival)
 
 ### [G] Ship Validation — Content Quality Enhancement
-**Status (refreshed 2026-05-12 from `audit-reports/ship-validation-dashboard.json`, generated 2026-05-11):**
-- 290 ship pages total (was 293)
-- `sh_pass`: 2 (fully clean), `sh_warn_only`: 275, `sh_fail`: 13 — **structural pass rate is NOT 100% anymore**
-- `js_pass`: 80, `js_fail`: 210 — JS-level cascade failures are widespread
-**Top error rules (top 6 by count):** `js:images/few_images` 158 · `js:runtime_data/cascade_fully_failed` 50 · `js:json_ld/main_entity_blacklisted` 23 · `js:sections/wrong_section_order` 22 · `js:videos/missing_categories` 17 · `js:videos/few_videos` 11
+**Status (refreshed 2026-05-13 from a live `node admin/validate.js --all-ships` run):**
+- 312 files validated (297 ship pages + 15 hub/index pages)
+- **96 passing / 216 failing** — 27% ship pass rate
+- Note vs the 2026-05-11 dashboard: that snapshot had `sh_pass`: 2 + `sh_warn_only`: 275 + `sh_fail`: 13 + `js_fail`: 210. The current run aggregates sh+js into one pass/fail criterion — definition is stricter, not a fleet regression.
+
+**Top error rules (top 8 by count, 2026-05-13 live run):**
+- `template_remnants`: **301** (was not in top 6 of 2026-05-11 dashboard — likely a rule-definition tightening, not 301 new regressions; verify rule before remediation)
+- `few_images`: **230** (was 158 on 2026-05-11; +72 — primary contributor is Flickr ARR / unclear-photo cleanup pushing ships below the minimum)
+- `cascade_fully_failed`: **51** (matches Phase 3.6 entry)
+- `main_entity_blacklisted`: **26** (was 23)
+- `wrong_section_order`: **23** (was 22)
+- `missing_required`: **11** (was 8)
+- `few_videos`: **11**
+- `placeholder_content`: **7**
 
 **Remaining quality improvements:**
-- [ ] Generic review text (208 ships per 2026-03-02; *count needs refresh*)
-- [ ] Few images — **158 ships per 2026-05-11 dashboard** (was 137 at 2026-03-02; +21)
-- [ ] FAQ too short (186 ships per 2026-03-02; *count needs refresh*)
+- [ ] **template_remnants: 301 ships** — verify rule definition first; the jump from ~0 to 301 between 2026-05-11 and 2026-05-13 is too large to be organic, almost certainly a validator rule expansion that surfaced latent template-placeholder strings
+- [ ] **few_images: 230 ships** (refreshed 2026-05-13; up from 158; right fix is sourcing replacement images, not relaxing the threshold)
+- [ ] **cascade_fully_failed: 51 ships** (Phase 3.6 — investigation-first)
+- [ ] **main_entity_blacklisted: 26 ships** (JSON-LD `mainEntity` references blocked schema.org types; investigate)
+- [ ] **wrong_section_order: 23 ships** (matches the 2026-03-25 port-page-normalization pattern but on ships)
+- [ ] **missing_required + placeholder_content + few_videos: 29 ships combined** (smaller categories)
+- [ ] Generic review text (208 ships per 2026-03-02; validator no longer surfaces a rule by that name — needs human content-review pass, not validator)
+- [ ] FAQ too short (186 ships per 2026-03-02; validator no longer surfaces by name)
 - [ ] Missing whimsical units (~181 ships per 2026-03-02; *count needs refresh*)
 - [ ] Missing grid-2 layout (~30 ships per 2026-03-02; *count needs refresh*)
-- [ ] Structural sh_fail regressions (13 ships) — investigate vs the 2026-03-02 "100% structural pass" claim
-- [ ] js_fail (210 ships) — overlaps Phase 3.6 cascade_fully_failed (50) and few_images (158); needs deduplication before triaging
 
 ### [G] Port Validation — Remaining Work
-**Status (per 2026-03-02 / 2026-03-25 figures — needs fresh validator run):** 242/387 passing (62.5%); ~145 failing. Latest archived results: `.claude/archive/port-validation-history/port-validation-results-2026-03-25.json`. Recent commit log shows continued port work (Phase 1 section reordering on 63 pages, weather FAQs on st-kitts/grenada/dominica/bonaire/split/kotor/marseille/bora-bora) so the current PASS count is almost certainly higher than 242.
-- [ ] ~145 ports failing per 2026-03-02 (22 at score 0, ~50 at score 2-68, ~73 at score 70-86) — **needs fresh `node admin/validate-port-page-v2.js` run**
-- [ ] Trim FAQ answers to 80 words (~384 ports per 2026-03-02 — *count likely lower now*)
-- [ ] Build POI manifests (365 ports per 2026-03-02 had <10 POIs — *POI file scheme unclear, only 2 `poi*.json` files found 2026-05-12*; verify the entry's claim before planning)
-- [ ] Clean promotional drift language (~200 ports per 2026-03-02 — *count needs refresh*)
+**Status (refreshed 2026-05-13 from a live per-port `node admin/validate-port-page-v2.js --json-output` sweep — 385 of 387 ports completed; 2 missed due to runtime hiccups):**
+
+- **47 passing / 338 failing (12% pass rate)** — sharp drop from the 2026-03-02 figure of 242/387 (62.5%). **Root cause identified 2026-05-13:** the weather sub-validator was MERGED into `admin/validate-port-page-v2.js` on 2026-04-13 (commit `2058711f` / PR #1411) — AFTER the 2026-03-02 baseline. Before that commit, weather wasn't checked at all. The pass-rate drop is the rule that wasn't there before now blocking ports that were never built to satisfy it.
+- **The per-port weather errors ARE real content gaps**, not a misfiring rule. 30-port sample's dominant patterns: missing FAQ "Hurricane/storm season" (77%), missing FAQ "Rain concerns" (73%), missing FAQ "Packing for weather" (67%), missing FAQ "Best time to visit" (50%), FAQ_COUNT mismatch (87%). The recent merged commits (st-kitts/grenada/dominica/bonaire/split/kotor/marseille/bora-bora) ARE this work — each fixes one port (~30 min hand-edit).
+- **Empirical opportunity for batch automation:** `assets/data/ports/seasonal-guides.json` contains structured data for **335 of the 338 failing ports** (only `petersburg`, `valdez`, `wrangell` lack entries). The 4 weather FAQs in successful fix commits are templated verbatim from JSON fields (`hazards.hurricane_season`, `monthly_averages.rain_days`, `packing_nudges`, `cruise_seasons.high`, etc.). A script that reads `seasonal-guides.json` and generates the 4 FAQs (visible HTML + JSON-LD schema) per port would unblock 335 ports in one batch. Estimated: ~0.5 day to write + a sample-review pass.
+- Score distribution among the 385: 0 ports at score 0 (none completely broken); 310 in the 1-68 range; 50 at 70-85; 25 at 86+. Mean score 62.
+
+**Top blocking-error rules (2026-05-13 live, 385 ports):**
+- `weather_validation_failed`: **338** (one shared cause, see above)
+- `missing_image_file`: 53 (broken image refs — real per-port work)
+- `missing_stylesheet`: 37
+- `collapsible_required`: 36
+- `missing_main_content`: 13
+- `missing_tender_indicator`: 4
+- `forbidden_hype` / `out_of_order`: 3 each
+- `forbidden_drinking` / `forbidden_nightlife` / `recent_articles_validation_failed`: 2 each
+
+**Top warning rules (2026-05-13 live, 385 ports):**
+- `image_reuse_alt_drift`: **738** (alt-text drift on shared images — touches every port using hero or author photos)
+- `missing_canonical_nav_items`: 368 (nav missing canonical /planning.html link site-wide)
+- `missing_stories_noscript`: 346 *(quantifies the Noscript Phase 1 — Recent Stories item: every port needs the fallback)*
+- `missing_ships_noscript`: 342 *(quantifies the Noscript Phase 1 — Ships Visiting item)*
+- `missing_css_version`: 328 (cache-bust version query missing on stylesheet link)
+- `insufficient_pois`: **288** *(confirms — and lowers — the "365 ports <10 POIs" 2026-03-02 claim; real number is 288 of 385)*
+- `poi_ids_without_pois`: 259 (POI IDs referenced but POIs not resolved — related to insufficient_pois)
+- `placeholder_map_noscript`: 249 *(quantifies the Noscript Phase 2 — Map placeholder item)*
+- `gallery_credit_low_diversity`: 181 (4+ gallery images cite ≤2 unique source URLs)
+- `first_person_maximum`: 178 (voice — first-person occurrence above the like-a-human ceiling)
+
+**Remaining quality improvements:**
+- [ ] **Investigate `weather_validation_failed` root cause** (BEFORE any port-by-port remediation) — the 338-count is too clean to be 338 individual problems. Compare current `scripts/validate-port-weather.js` against its state when 242 ports were passing (2026-03-02). Either restore the prior bar or document the change and start a fleet backfill plan.
+- [ ] `missing_image_file`: 53 ports (real per-port broken-image work)
+- [ ] `missing_stylesheet` + `collapsible_required` + `missing_main_content`: 86 ports combined (smaller categories; likely fixable in batches by file pattern)
+- [ ] Noscript Phase 1 (already in queue under [G] Noscript Remediation): now empirically scoped — 346 stories + 342 ships + 249 map = 280-350 ports per fallback type
+- [ ] POI manifest work (already in queue): 288 ports below the 10-POI minimum (was claimed as 365 in 2026-03-02; actual scope is smaller and more bounded)
+- [ ] `image_reuse_alt_drift` site-wide: 738 warnings — likely concentrated on a few shared images (author portraits, hero variants); fix the source images' canonical alt text and the warning drops across all referencing pages
+- [ ] FAQ trim, promotional drift cleanup, first_person_maximum: voice-touch passes (use `voice-audit` skill); 178+ ports affected by first-person alone
+- [ ] 2 ports missed by the validator sweep (runtime hiccups) — re-run on those after the weather rule is sorted
 
 ### [G] Port Weather — Remaining Coverage
 **Refreshed 2026-05-12:** 365/387 ports now have weather widgets (was 351; gap dropped from 36 to 22).
