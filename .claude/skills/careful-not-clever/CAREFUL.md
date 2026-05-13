@@ -1,11 +1,17 @@
 # Careful, Not Clever
 
-**Version:** 1.7-alpha
+**Version:** 1.8.2-alpha
 **Created:** 2026-01-31
-**Revised:** 2026-02-18
+**Revised:** 2026-05-13 (1.8.2: back-map validation + historical-fixture + state-over-timeout + table-as-whole-coverage after multi-model adversarial review caught recurrent Mode B)
 **Promoted to canonical:** 2026-05-09 (replaces v1.0)
 **Purpose:** A cognitive discipline framework for Claude that enforces verified, scoped, adversarially resilient work over clever shortcuts.
 **Priority:** CRITICAL — overrides speed bias, optimization impulse, aesthetic drift, and ego-driven expansion.
+
+## Revision history
+- **v1.8.2-alpha (2026-05-13)** — Five tightening items added after a second adversarial review (grok + gpt, run via the new `/adversarial-review` skill). The trigger was Mode B recurrence: v1.8.1's commit shipped a "stays under 500 lines" table row that was itself a narrow claim — and v1.8.0's commit shipped one too. The rule was being violated by the commits that *introduced* it. Recurrence means the rule isn't self-enforcing through normal compliance; the process needs additional teeth. v1.8.2 adds: (a) **back-map validation** — when extending the rule, walk the existing failure log and confirm every recent failure maps to at least one sub-pattern; (b) **historical-fixture requirement** — adversarial-fixture tests must include at least one fixture derived from a real past bug or near-miss, not just synthetic cases; (c) **state-over-timeout pattern** — prefer waiting on observable state (SW lifecycle, cache population, DOM mutation) over fixed timeouts with empirical justification; (d) **table-as-whole coverage** — individual table rows may be narrow if they are specific, but the table *collectively* must cover the actual scope of the change; (e) **forward-reference allowance** — evidence may cite a prior commit + artifact when the verifying check ran there, instead of re-running.
+- **v1.8.1-alpha (2026-05-13)** — Added "Misuse mode B — Narrow claim" to the "Limit of this rule" subsection. Surfaced by Grok's adversarial review (Finding 5, MEDIUM): the v1.8-alpha self-administered red-team identified the vague-evidence failure vector but missed the distinct case where authors shrink the claim to something trivially true rather than risk a broader unsupported claim. v1.8-alpha is the worked example: claim "no `/[object Object]` requests" was narrower than the actual change "SW warmPrecache populates the precache correctly," and the symptom-only test green-lit the gap. v1.8.1 names this mode, gives the mitigation question, and re-scopes the external audit's job to widen claims first, then verify evidence.
+- **v1.8-alpha (2026-05-13)** — Added Claim-Evidence Discipline section between Anti-Theater Rule and Integrity Test. Surfaced after a self-audit found that a properly-careful B1.2 fix to `sw.js` shipped with several claim-broader-than-evidence gaps the existing rules didn't catch. The new section names the gap explicitly, requires a claim-evidence table on Layer 2/3 commits, lists five concrete sub-patterns, and acknowledges the rule's limit — external audit catches what the forcing function misses.
+- **v1.7-alpha (2026-02-18)** — Promoted to canonical 2026-05-09. Layers + Adversarial discipline + Anti-Theater Rule.
 
 ---
 
@@ -242,6 +248,70 @@ The following are invalid behaviors:
 - Ritual compliance without substance.
 
 **Rigor must be observable.**
+
+---
+
+## Claim-Evidence Discipline
+
+**Why this exists.** Anti-Theater says rigor must be observable. In practice, the gap that slips through is not "no method stated" — it is "method too narrow for the claim." An author convinced their work is done can review their own evidence and not notice that the claim quietly exceeds it. This section makes the gap observable as a *table*.
+
+### Required artifact
+
+Before any commit that triggers Layer 2 or Layer 3 (Layer 1 is encouraged), write a claim-evidence table:
+
+| Claim | Specific evidence |
+|---|---|
+| <one-line, what is now true> | <test name + `file:line`, OR command + observed output, OR file inspection + line range> |
+
+**Acceptable evidence cites a specific artifact.** A test name, a file path with line numbers, a command and its output. Vague entries — "tests pass," "verified," "checked," "looks right" — do not satisfy the rule.
+
+**If the evidence is narrower than the claim, narrow the claim or gather more evidence.** The point is not the table; the point is the comparison the table forces.
+
+### Five concrete forms of the same rule
+
+Each names a verification gap that has produced a real shipped-but-incomplete fix in this codebase's history.
+
+1. **Outcome ≥ symptom.** When fixing a bug, the regression test must assert both that the symptom is gone (negative) AND that the original intent is met (positive). A symptom-only test green-lights a partial fix. For B1.2 (the `[object Object]` 404s in `sw.js`): a test asserting "0 `/[object Object]` requests" is symptom-only. A complete test would also assert "precache cache contains the expected 64 manifest entries after `warmPrecache` completes."
+
+2. **Adversarial fixtures for safety logic.** Allowlists, exemptions, downgrades, conditional skip logic — any rule that *permits* what would otherwise be rejected — requires two test fixtures: a positive case (the exemption applies as intended) AND a negative case (a similar input without the exempt condition is still rejected). Code with only a positive test has unbounded permissiveness. For B1.1 (the image-reuse-guardrail FOM allowlist): the rule shipped with no failing-input fixture to prove it does anything; the in-repo data happens not to trigger the rule.
+
+3. **Anomaly disposition.** Every unexpected outcome during verification — unexplained test failure, partial success, run-to-run variance, surprise output — must be either root-caused or explicitly logged as "did not investigate, accepted risk, here is why I am accepting it." "Probably a flake" is a hypothesis, not a disposition. The two Chromium SEGV failures during B1.2 verification were dismissed without reproduction; that was clever, not careful.
+
+4. **Deployment-lifecycle disclosure.** When the change ships through an indirect path — service workers, caches, CDN, edge config, browser cache, package version bumps, prebuilt assets — the commit message must state the rollout timeline. "Existing users still hit the bug until their SW cycles to the next version" belongs in the record, not only in the author's head.
+
+5. **Pre-flight validation of grep / regex / sed / template strings.** Before running a pattern against real data, run it against one hand-crafted positive case AND one hand-crafted negative case. The cost is seconds. The cost of a regex with a silent character-class bug run against thousands of files (or a Playwright listener that misses the URL it was built to catch) is much higher and harder to detect.
+
+### Five additional patterns (v1.8.2, added after second adversarial review)
+
+6. **Back-map validation when extending the rule.** When you add a new sub-pattern to *this* rule, you are claiming the augmented rule covers more failure modes than the previous version. Verify by walking the recent failure log (the last 5-10 commits' anomaly dispositions, plus any newly self-acknowledged cleverness) and confirming every entry maps to at least one sub-pattern. If a recent failure does NOT map, the rule has a remaining gap — either the new sub-pattern needs to widen, or another sub-pattern is missing.
+
+7. **Historical-fixture requirement for safety logic.** Sub-rule 2 (adversarial fixtures) requires positive + negative fixtures. v1.8.2 adds: at least ONE fixture must be derived from a real past bug or near-miss, not just synthetic adversarial cases. Synthetic fixtures test the logic against the patterns the author imagined; historical fixtures test the logic against the patterns that have actually broken this codebase. The bug that recurs is the bug you didn't write a fixture for.
+
+8. **State over timeout.** When a test or runtime check needs to wait for an async outcome, prefer observable state (service-worker lifecycle, cache key population, DOM mutation, event-fired flag) over a fixed timeout with empirical justification. Empirical justification is bounded by the environment it was measured in; state checks generalize. If a state check isn't available, the timeout must (a) be at least 2× the observed worst case, AND (b) carry a comment naming the environments it was validated against AND the environments it wasn't.
+
+9. **Table-as-a-whole coverage.** Individual table rows may be narrow if they are specific (a single concrete fact with a single observable artifact). What must be wide enough to cover the change is the *table itself*. After filling out the table, read it back and ask: "If a reviewer who hadn't seen this change read only these rows, would they understand what changed?" If the answer is "they'd see a list of facts that don't sum to the change I made," the table has a coverage gap — add one or more rows asserting the broader scope, with appropriate evidence.
+
+10. **Forward-reference allowance.** Evidence may cite a prior commit + artifact when the verifying check ran there and the artifact is still valid. The citation must include: (a) the prior commit SHA, (b) the specific artifact (test name, file:line, command + output), AND (c) why the evidence still applies (e.g., "smoke test in `2f772b01` verified script end-to-end against a real commit range; this commit only adds documentation, no behavior change"). Plain "see prior commit" is not acceptable.
+
+### Recurrent self-deception note
+
+Two consecutive rule-introducing commits (v1.8.0 and v1.8.1) each shipped a Mode B narrow-claim table row that the rule itself names as an anti-pattern. The rule does not auto-internalize on first reading; the author must actively widen claims to the actual scope of each change. Pattern observation: the easier the table row is to write, the more likely it is narrow. Hard-to-write rows force the author to confront what they actually changed.
+
+### The limit of this rule
+
+Even with the table and the five patterns, an author convinced their work is done can fill in entries that look compliant. The forcing function reduces the gap. It does not close it. Two distinct misuse modes survive:
+
+**Misuse mode A — Vague evidence.** Author writes evidence like "tests pass" or "verified" without citing a specific artifact. The "specific artifact citation" requirement above is the explicit defense. A reviewer can spot this on inspection.
+
+**Misuse mode B — Narrow claim.** Author shrinks the claim to something trivially true rather than risk a broader claim they can't fully support. E.g., the real change is "SW warmPrecache now correctly populates the precache" but the table-row claim says only "404 requests for `/[object Object]` no longer appear." Evidence supports the claim; the gap is between the claim and the *actual scope of the change.* This is harder for the author to see than vague evidence, because the narrow-claim entry passes their own self-review (the evidence really does support what they wrote).
+
+Mitigation against B requires asking, for each row: *"Is this claim as wide as the change I actually made?"* If the change touched code paths the claim does not assert, the claim is too narrow.
+
+The most reliable check for both modes is external: a separate pass — by a human reviewer, a second agent, a `/consult <model> challenge` invocation, or any party that did not write the change — that looks specifically at the claim-evidence gap AND the claim-scope gap.
+
+*"Would this survive a line-by-line audit?"* is rhetorical when the author asks it of themselves. It becomes operational when someone else runs the audit. The audit's first job is to widen any claim back to the actual scope of the change; the second job is to verify the evidence still supports the widened claim.
+
+Treat the table as a forcing function, not a guarantee. The forcing function helps. The audit catches what the forcing function misses.
 
 ---
 
