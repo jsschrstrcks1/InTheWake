@@ -187,7 +187,81 @@ Resolution: same as the original 8 deferred-blocker pages (TIER 2 placeholder, s
 
 ---
 
-## Google Search Console Audit (2026-03-27)
+## P1 — Port FAQ "Cruise Port Guide" template-bug cleanup (2026-05-13)
+
+**Source:** Session `claude/continue-port-faq-4pvWk` 2026-05-13. While shipping weather-FAQ fixes one port at a time, encountered a recurring template substitution bug on the page's last 3–5 FAQ entries.
+
+### The bug
+
+A boilerplate FAQ template was applied to many ports during an earlier backfill but the `{{port_name}}` substitution failed — the literal token "Cruise Port Guide" (or "Port Guide") is embedded directly in the visible question text. Three observed signatures:
+
+```
+Q: What's the best time of year to visit Fort Lauderdale Cruise Port Guide?
+Q: Does Grand Cayman Port Guide have extreme weather to worry about?
+Q: What should I pack for Galveston Cruise Port Guide's weather?
+```
+
+The answers attached to these questions are also generic boilerplate ("Peak cruise season offers the most reliable weather..." / "Like most destinations, weather conditions vary by season...") AND contain forbidden phrases caught by the weather sub-validator's DEDUP layer:
+
+- `weather guide` → forbidden, must be replaced with `seasonal guide`
+- `best months to visit` → forbidden, must be replaced (the validator regex is `/Best Months? (for|to)/i`)
+
+### Scope
+
+**25 ports affected** (verified 2026-05-13 via `grep -lE 'Port Guide.{0,3}(have|'"'"'s)|Port Guide\?' ports/*.html`):
+
+```
+amber-cove, antigua, aqaba, barcelona, bermuda, costa-maya, ensenada,
+honolulu, lanzarote, los-angeles, malaga, manzanillo, mazatlan, miami,
+mykonos, naples, new-orleans, port-canaveral, progreso, puerto-vallarta,
+seattle, tampa, valencia, venice, zihuatanejo
+```
+
+**Regenerate the list:**
+```bash
+grep -lE 'Port Guide.{0,3}(have|'"'"'s)|Port Guide\?' ports/*.html | sort -u
+```
+
+### Three ports already cleaned (2026-05-13 session)
+
+- `ports/grand-cayman.html` — 5 broken FAQs rewritten; commit `b73370c8`
+- `ports/ft-lauderdale.html` — 5 broken FAQs rewritten; commit `3b0cdad4`
+- `ports/galveston.html` — 3 broken FAQs rewritten + 1 hurricane added; commit `68875533`
+
+### Rewrite recipe (per port)
+
+The doctrine requires every clause to trace to `assets/data/ports/seasonal-guides.json` for that port, or to verbatim text already on the page. Three established Q&A templates work across all ports:
+
+**Best Time** — `cruise_seasons.high` + `avoid_months` + `at_a_glance.temp_range`
+**Hurricane / Storm Season** — `hazards.hurricane_zone` (+ `hurricane_season`, `peak_risk_months`, `note` when hurricane_zone is true)
+**Rain** — `at_a_glance.rain` + `cruise_seasons.high` (drier window framing)
+**Packing** — `packing_nudges` array (verbatim items)
+**Extreme Weather (when present)** — `hazards.note` + `catches_off_guard` (verbatim)
+
+### Validator expectations after fix
+
+Each cleaned port should report:
+- `node scripts/validate-port-weather.js ports/<slug>.html` → 0 errors
+- `node admin/validate-port-page-v2.js ports/<slug>.html` → typically PASS (unless an unrelated content_purity / noscript / gallery-credit-diversity issue is independently blocking; flag those separately)
+
+### Companion pattern (less broken — separate from this task)
+
+A different boilerplate template appears on **53 ports** (verified 2026-05-13 via `grep -lE 'Spring and early autumn tend to offer' ports/*.html | wc -l`). The questions themselves are clean (no "Port Guide" template-bug token), but the answer reads:
+
+> "Spring and early autumn tend to offer the most comfortable conditions for sightseeing — mild temperatures, manageable crowds, and pleasant light for photography. Summer brings the warmest weather but also peak cruise traffic and higher prices. Winter visits can be rewarding for those who prefer quiet streets and authentic atmosphere…"
+
+This is factually wrong for tropical, equatorial, and sub-Antarctic ports (no meaningful spring/autumn/winter). Already rewritten on `ports/falkland-islands.html` during the 2026-05-13 FAQ work because the answer was actively misleading; flagged but not fixed on `apia.html`, `aruba.html`, `ascension.html` because the validator didn't fail and the FAQ work in those commits was scoped to weather-validator passes only.
+
+Resolution: per-port rewrite of the best-time visible answer using JSON-traced clauses (same recipe as Pattern B, just touching one Q&A per port instead of five).
+
+**Regenerate the list:**
+```bash
+grep -lE 'Spring and early autumn tend to offer' ports/*.html | sort -u
+```
+
+---
+
+
 
 **Source:** GSC data pulled 2026-03-23
 **Session:** claude/explore-repos-docs-YYFnR
