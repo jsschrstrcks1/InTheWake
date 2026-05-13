@@ -71,9 +71,26 @@ for (const tool of TOOLS) {
     await expect(page).toHaveTitle(/.+/); // non-empty title
 
     await page.waitForLoadState("networkidle");
-    // Give the service worker (if registered on this page) time to fire
-    // warmPrecache. The pre-fix bug surfaced AFTER networkidle.
-    await page.waitForTimeout(2000);
+
+    // Phase 3.5 / B1.2 regression: the pre-fix warmPrecache() in sw.js fires
+    // its fetches AFTER networkidle (the SW install runs lazily). Wait
+    // deterministically for the SW lifecycle to reach 'activated' so any
+    // warmPrecache fetches have had time to start; then a small fixed
+    // buffer to let them complete. The buffer is justified empirically:
+    // the pre-fix WebServer log showed all 64 offending requests landing
+    // within ~1 second of page load on this localhost test server (run
+    // timestamps 01:24:15-01:24:16 for a goto starting just before
+    // 01:24:15). 1500ms is 50% margin over the observed window. If a
+    // future SW change pushes warmPrecache further out, this margin will
+    // need to be revisited — flagged in the deterministic-wait comment
+    // so the assumption stays visible.
+    await page.evaluate(async () => {
+      if (!('serviceWorker' in navigator)) return; // no SW = nothing to wait for
+      const reg = await navigator.serviceWorker.ready;
+      // ready resolves when the service worker is active for this page
+      void reg;
+    });
+    await page.waitForTimeout(1500);
 
     expect(errors, `JS pageerrors during ${tool.url} load`).toEqual([]);
     expect(objectObjectHits, `[object Object] requests during ${tool.url} load`).toEqual([]);
