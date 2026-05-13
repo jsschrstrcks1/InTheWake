@@ -579,22 +579,16 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] Ensure dock locations clearly marked on all port maps
 - [ ] Add dock location summary to port page intro
 - [ ] Expand DIY vs. excursion comparisons from 38 to top 50 ports
-- [ ] Expand "Real Talk" honest assessments to 75+ ports (currently 46)
-- [ ] Include "Skip this port if..." honest guidance where appropriate
-- [ ] Add "Best for / Not ideal for" profile guidance per port
-- [ ] Evaluate PDF generation for top 20 ports
+- [ ] Expand "Real Talk" honest assessments to 75+ ports (currently 46) — *count needs verify*
 
 **Ship page improvements:**
 - [ ] Add cabin size/amenity quick facts where missing
 - [ ] Ensure refurbishment dates are current
 - [ ] Add crew count and total deck count if missing
 - [ ] Promote Stateroom Checker more prominently on ship pages
-- [ ] Add "cabin location tips" section to ship pages
 
 **Site-wide:**
-- [ ] Add author expertise callouts ("Ken has visited this port X times")
-- [ ] Test service worker caching for complete offline access
-- [ ] Market PWA install as "your offline cruise companion"
+*All three site-wide bullets retired 2026-05-12 (audit). See `admin/AUDIT_TRIAGE_2026-05-12.md`.*
 
 ### [G] Affiliate Link Infrastructure
 **Phase 1 (Infrastructure) DONE. Phase 2 (Articles) DONE. Phase 3 (Site-wide) ~99% DONE.**
@@ -603,13 +597,10 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 - [ ] Add affiliate article links to 3 remaining port pages (beijing, falmouth-jamaica, kyoto)
 
 ### [G] Quiz Remaining Fixes
-- [ ] Run edge case test personas
-
-(3 prior fixes — null safety, 10-ship limit, Comparison Drawer — verified shipped and moved to `admin/COMPLETED_TASKS.md` on 2026-05-12.)
+*All 3 prior fixes verified shipped and moved to `admin/COMPLETED_TASKS.md` on 2026-05-12. The "Run edge case test personas" bullet retired 2026-05-12 (audit) as undefined scope. Section retained as a marker for future quiz work.*
 
 ### [G] Data Quality
-- [ ] Verify quality of auto-generated seasonal data vs hand-curated
-- [ ] Verify quality of auto-generated stateroom exception files vs manually audited
+*Both "Verify quality of auto-generated …" bullets retired 2026-05-12 (audit) as lacking acceptance criteria. See `admin/AUDIT_TRIAGE_2026-05-12.md`.*
 
 ---
 
@@ -765,8 +756,6 @@ Comprehensive factors that can disrupt a passenger's port day, to be integrated 
 - [ ] `warmCalculatorShell` predictive prefetch
 - [ ] `FORCE_DATA_REFRESH` and `GET_CACHE_STATS` message handlers
 - [ ] UI integration: "Refresh Rates" button, cache age display, toast notifications
-- [ ] Header hero size inconsistent across hub pages
-- [ ] Logo size standardization
 - [ ] solo.html article loading (28 article references, uses fetch for fragments)
 - [ ] index.html FAQ positioning
 
@@ -844,10 +833,6 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
   2. Remove the alaska `<li>` from each port-page noscript fallback. Cleaner if no plan to write the article.
 - See remaining hits: `grep -rln "/solo/articles/alaska-cruise-first-timer" --include="*.html" .`
 
-### `/travel.html` is also the "Top 20 First-Cruise Questions" article (Discovered 2026-05-08)
-
-- [ ] **Architectural quirk, low priority.** `assets/data/articles/index.json` lists "Top 20 First-Cruise Questions (Answered)" with `url: /travel.html`. The travel hub *is* the article — its `<title>`, `<h1>`, and JSON-LD all confirm. Works today. Future cleanup option: split out to `/articles/top-20-first-cruise-questions.html` so the URL matches the article title, leave `/travel.html` as a hub that links to it. Touches sitemap, internal links, JSON-LD, and the JSON entry — non-trivial. Don't act unless we're doing a broader articles-hub refactor.
-
 ---
 
 ## Cruise Tipping Calculator — Known Defects (Discovered 2026-05-09 careful-not-clever audit)
@@ -861,6 +846,30 @@ While the rail and article-hub-grid renderers fall back gracefully to `/assets/s
 ### Why these are tracked here
 
 The careful-not-clever skill (`.claude/skills/careful-not-clever/CAREFUL.md` v1.7-alpha) requires that material assumptions surfaced by Layer 2 / Layer 3 audits get documented for the next task rather than silently skipped. The tool shipped under the original v1.0 of the skill, which did not require the formal red-team pass; the v1.7-alpha promotion (commit `20797133`) raised the bar retroactively. The original audit surfaced eight items; seven shipped between 2026-05-09 and 2026-05-10 and were moved to `admin/COMPLETED_TASKS.md` on 2026-05-12 with verifying commits and tests. The remaining `[object Object]` smell stays here. Move each remaining item to `admin/COMPLETED_TASKS.md` when fixed — do not delete from this list silently.
+
+---
+
+## Retired during 2026-05-12 audit
+
+Per the careful-not-clever rule ("do not delete silently"), these 13 items were removed from the active queue with explicit rationale during the 2026-05-12 audit pass. Full triage report: `admin/AUDIT_TRIAGE_2026-05-12.md`. User approved retirement.
+
+| # | Item | Original section | Rationale |
+|---|---|---|---|
+| D1 | Evaluate PDF generation for top 20 ports | Competitor Analysis → Port page improvements | "Evaluate" not commit; overlap with Strategic Don't Chase ("Native mobile app — PWA sufficient") |
+| D2 | Add "Best for / Not ideal for" profile guidance per port | Competitor Analysis → Port page improvements | Strategic Don't Chase explicitly rejects "Profile-based voyage paths — Impossible at scale" |
+| D3 | Add author expertise callouts ("Ken has visited this port X times") | Competitor Analysis → Site-wide | Vague; no concrete spec |
+| D4 | Run edge case test personas (Quiz) | Quiz Remaining Fixes | Personas were never written down. Unscoped |
+| D5 | Header hero size inconsistent across hub pages | Uncategorized | One-liner with no detail; covered by CLAUDE.md's active "Site-wide hero/logo standardization" |
+| D6 | Logo size standardization | Uncategorized | Duplicate of CLAUDE.md's active "Site-wide hero/logo standardization" |
+| D7 | Verify quality of auto-generated seasonal data vs hand-curated | Data Quality | No acceptance criteria |
+| D8 | Verify quality of auto-generated stateroom exception files | Data Quality | No acceptance criteria |
+| D9 | `/travel.html` is also "Top 20 First-Cruise Questions" architectural quirk | Missing pages | Entry itself said "Don't act unless we're doing a broader articles-hub refactor"; future-cleanup note, not a task |
+| D10 | Test service worker caching for complete offline access | Competitor Analysis → Site-wide | Vague continuous test; if real, scope as one Playwright spec |
+| D11 | Market PWA install as "your offline cruise companion" | Competitor Analysis → Site-wide | Marketing copy = R-lane, not G-lane |
+| D12 | Include "Skip this port if..." honest guidance where appropriate | Competitor Analysis → Port page improvements | Subjective; duplicates "Real Talk" expansion |
+| D14 | Add "cabin location tips" section to ship pages | Competitor Analysis → Ship page improvements | Vague + fleet-wide (295 ships) = unscoped giant; if revived, needs design spec |
+
+Item D13 ("Expand Real Talk honest assessments to 75+ ports") was NOT retired — it stays as a count-verify item in the Port page improvements section.
 
 ---
 
