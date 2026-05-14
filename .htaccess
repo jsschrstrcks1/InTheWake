@@ -75,6 +75,9 @@
   # carnival-cruise-line → carnival (only phantom path that needs redirecting)
   RewriteRule ^ships/carnival-cruise-line/(.*)$ /ships/carnival/$1 [R=301,L]
 
+  # royal-caribbean → rcl (Ship Size Atlas uses wrong path; real pages live at /ships/rcl/)
+  RewriteRule ^ships/royal-caribbean/(.*)$ /ships/rcl/$1 [R=301,L]
+
   # Fix double-cruise-line naming (ships/carnival/carnival-carnival-*.html)
   RewriteRule ^ships/carnival/carnival-carnival-(.*)$ /ships/carnival/carnival-$1 [R=301,L]
 
