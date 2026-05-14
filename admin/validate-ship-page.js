@@ -282,7 +282,12 @@ const TEMPLATE_REMNANT_PATTERNS = [
   { pattern: /INSERT_SHIP_NAME/i, label: 'INSERT_SHIP_NAME template variable' },
   { pattern: /INSERT_CRUISE_LINE/i, label: 'INSERT_CRUISE_LINE template variable' },
   { pattern: /\{\{.*?\}\}/i, label: '{{...}} template placeholder' },
-  { pattern: /\$\{[A-Z_]+\}/i, label: '${VARIABLE} template placeholder' },
+  // Uppercase only (case-sensitive) — distinguishes unfilled SSG placeholders
+  // from legitimate JavaScript template literal interpolations like `${imo}`
+  // inside <script> blocks. Verified 2026-05-14: no ${...} occurrences exist
+  // outside <script> in any ship page; every flagged hit prior to this change
+  // was a false positive (e.g., Virgin Voyages live-tracker JS).
+  { pattern: /\$\{[A-Z][A-Z_]*\}/, label: '${VARIABLE} template placeholder' },
   { pattern: /TBD_/i, label: 'TBD_ prefix placeholder' },
   { pattern: /REPLACE_ME/i, label: 'REPLACE_ME marker' },
   { pattern: /example\.com/i, label: 'example.com placeholder URL' }
