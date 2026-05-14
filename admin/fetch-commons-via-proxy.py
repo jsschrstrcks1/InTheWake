@@ -71,13 +71,19 @@ TIMEOUT = 90
 COMMONSAPI = "https://magnustools.toolforge.org/commonsapi.php"
 PETSCAN = "https://petscan.wmcloud.org/"
 FLY_PROXY = "https://cors-anywhere.fly.dev/"
+MW_API_VIA_RELAY = (
+    "https://cors-anywhere.fly.dev/https://commons.wikimedia.org/w/api.php"
+)
 
 ACCEPTABLE_LICENSES = (
-    "cc-zero", "cc0", "public domain", "publicdomain",
+    "cc-zero", "cc0", "public domain", "publicdomain", "pd",
     "cc-by", "cc-by-sa", "cc-by-2", "cc-by-3", "cc-by-4",
     "cc-by-sa-2", "cc-by-sa-3", "cc-by-sa-4",
     "gfdl",
 )
+
+# Stop-words removed when subject-matching Commons filename against ship slug
+_SUBJECT_STOPWORDS = {"of", "the", "and", "in", "at", "on", "ship", "ms", "ss", "mv"}
 
 
 def http_get(url: str, accept: str = "*/*", attempts: int = 3) -> bytes:
@@ -137,21 +143,52 @@ def list_category_files(category: str, max_files: int = 60) -> list[str]:
 
 def get_file_metadata(commons_filename: str) -> dict | None:
     """Look up real upload URL, SHA-1, license, author, description.
-    Returns None on any failure (HTTP or parse) so a bad file does not abort the batch.
+
+    Tries magnustools.toolforge.org/commonsapi.php first (fast, on Wikimedia
+    infra). Falls back to the MediaWiki action API at commons.wikimedia.org
+    relayed via fly.dev when commonsapi.php errors or returns malformed XML
+    — notably for filenames with non-ASCII characters (Coruña, Málaga, Comète)
+    where commonsapi.php returns HTTP 500.
+
+    Returns None on any failure (HTTP or parse) so a bad file does not abort
+    the batch.
     """
-    url = f"{COMMONSAPI}?{urllib.parse.urlencode({'image': commons_filename})}"
-    raw = http_get_soft(url)
+    # --- primary: magnustools.toolforge.org/commonsapi.php ----------------
+    primary_url = f"{COMMONSAPI}?{urllib.parse.urlencode({'image': commons_filename})}"
+    raw = http_get_soft(primary_url)
+    if raw is not None:
+        txt = raw.decode("utf-8", errors="replace")
+        # commonsapi.php emits unescaped '&' inside URL query strings
+        # (utm_source=...&utm_campaign=...) — patch lone ampersands.
+        txt = re.sub(r"&(?!(amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)", "&amp;", txt)
+        try:
+            root = ET.fromstring(txt)
+            return _parse_commonsapi_xml(root, commons_filename)
+        except ET.ParseError as e:
+            sys.stderr.write(f"  commonsapi XML parse error for {commons_filename}: {e}\n")
+
+    # --- fallback: MediaWiki action API relayed via fly.dev ---------------
+    sys.stderr.write(f"  falling back to MediaWiki action API for {commons_filename}\n")
+    params = {
+        "action": "query",
+        "prop": "imageinfo",
+        "iiprop": "url|sha1|size|mime|user|extmetadata",
+        "format": "json",
+        "titles": f"File:{commons_filename}",
+    }
+    fallback_url = f"{MW_API_VIA_RELAY}?{urllib.parse.urlencode(params)}"
+    raw = http_get_soft(fallback_url)
     if raw is None:
         return None
-    # commonsapi.php emits unescaped '&' inside URL query strings (utm_source=...&utm_campaign=...)
-    # which makes the XML technically malformed. Patch lone ampersands before parsing.
-    txt = raw.decode("utf-8", errors="replace")
-    txt = re.sub(r"&(?!(amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)", "&amp;", txt)
     try:
-        root = ET.fromstring(txt)
-    except ET.ParseError as e:
-        sys.stderr.write(f"  XML parse error for {commons_filename}: {e}\n")
+        data = json.loads(raw)
+        return _parse_mw_actionapi_json(data, commons_filename)
+    except (json.JSONDecodeError, KeyError, IndexError) as e:
+        sys.stderr.write(f"  action API parse error for {commons_filename}: {e}\n")
         return None
+
+
+def _parse_commonsapi_xml(root: ET.Element, commons_filename: str) -> dict | None:
     f = root.find("file")
     if f is None:
         return None
@@ -180,14 +217,83 @@ def get_file_metadata(commons_filename: str) -> dict | None:
         "license": (lic_el.text if lic_el is not None else None),
         "description": (desc_el.text or "").strip() if desc_el is not None else "",
         "description_url": f"https://commons.wikimedia.org/wiki/File:{commons_filename.replace(' ', '_')}",
+        "metadata_source": "commonsapi.php",
     }
+
+
+def _parse_mw_actionapi_json(data: dict, commons_filename: str) -> dict | None:
+    pages = data.get("query", {}).get("pages", {})
+    if not pages:
+        return None
+    page = next(iter(pages.values()))
+    if page.get("missing") is not None or page.get("invalid") is not None:
+        return None
+    ii_list = page.get("imageinfo") or []
+    if not ii_list:
+        return None
+    ii = ii_list[0]
+    em = ii.get("extmetadata", {}) or {}
+
+    def em_val(key: str, default: str = "") -> str:
+        return (em.get(key) or {}).get("value", default) or default
+
+    # Author field is HTML — strip tags for the registry / sidecar
+    author_html = em_val("Artist") or ii.get("user", "")
+    author_text = re.sub(r"<[^>]+>", "", author_html).strip() or ii.get("user", "")
+    desc = re.sub(r"<[^>]+>", "", em_val("ImageDescription")).strip()
+
+    file_url = (ii.get("url") or "").split("?")[0]
+    upload_date_raw = em_val("DateTimeOriginal") or em_val("DateTime") or ii.get("timestamp", "")
+
+    return {
+        "filename": commons_filename,
+        "url": file_url,
+        "sha1": ii.get("sha1"),
+        "size": ii.get("size"),
+        "width": ii.get("width"),
+        "height": ii.get("height"),
+        "uploader": author_text,
+        "upload_date": upload_date_raw,
+        "license": em_val("LicenseShortName") or em_val("License"),
+        "description": desc,
+        "description_url": f"https://commons.wikimedia.org/wiki/File:{commons_filename.replace(' ', '_')}",
+        "metadata_source": "mediawiki-action-api-via-fly",
+    }
+
+
+def subject_matches_filename(commons_filename: str, ship_slug: str) -> tuple[bool, str]:
+    """Heuristic: does the Commons filename look like it depicts this ship?
+
+    Returns (matches, reason). Treats name tokens (excluding stop-words like
+    "of"/"the") as required substrings of the filename, case-insensitive.
+
+    Designed to catch the Norwegian_Jewel_in_Miami situation: PETScan listed
+    that file inside the Wonder of the Seas category because both ships are
+    in the same Miami frame, but the subject is the wrong ship.
+    """
+    name_lower = commons_filename.lower().replace("_", " ").replace("-", " ")
+    slug_tokens = [
+        t for t in ship_slug.lower().replace("_", "-").split("-")
+        if t and t not in _SUBJECT_STOPWORDS
+    ]
+    if not slug_tokens:
+        return True, "no tokens to check"
+    missing = [t for t in slug_tokens if t not in name_lower]
+    if missing:
+        return False, f"missing tokens {missing} in '{commons_filename}'"
+    return True, "all tokens present"
+
+
+def _normalize_license(s: str) -> str:
+    """Lower-case and strip out spaces, dots, hyphens for tolerant comparison."""
+    return re.sub(r"[\s.\-_/]+", "", s.lower())
 
 
 def license_acceptable(license_name: str | None) -> bool:
     if not license_name:
         return False
-    name = license_name.lower().replace(" ", "").replace(".", "-")
-    return any(name.startswith(k.replace(" ", "").replace(".", "-")) for k in ACCEPTABLE_LICENSES)
+    name = _normalize_license(license_name)
+    return any(name.startswith(_normalize_license(k)) for k in ACCEPTABLE_LICENSES)
 
 
 def fetch_bytes_verified(meta: dict) -> bytes | None:
@@ -305,6 +411,11 @@ def main() -> int:
     ap.add_argument("--max", type=int, default=8, help="Stop after N accepted files")
     ap.add_argument("--inspect-only", action="store_true", help="List category, do not download")
     ap.add_argument("--dry-run", action="store_true", help="Fetch metadata, do not save")
+    ap.add_argument(
+        "--strict-subject",
+        action="store_true",
+        help="Hard-skip files whose names don't contain the ship-slug tokens. Default is WARN-and-include.",
+    )
     args = ap.parse_args()
 
     target_dir = ASSETS_SHIPS / args.line / args.ship_slug
@@ -337,6 +448,17 @@ def main() -> int:
         if not meta.get("width") or meta["width"] < 800:
             print(f"  [skip] width<800 ({meta.get('width')}): {bare}")
             continue
+        subject_ok, subject_reason = subject_matches_filename(bare, args.ship_slug)
+        if not subject_ok:
+            # WARN, don't skip: real ships sometimes appear under abbreviations
+            # ("MS" = Mariner of the Seas) or single-feature filenames
+            # (RockwallMS, BusinesscenterMS) where the slug tokens are absent
+            # but the depicted subject is genuinely the target ship.
+            # The human review step in the HTML insertion phase is the last gate.
+            print(f"  [WARN subject-match] {subject_reason} — accepting, please verify manually before embedding")
+            if args.strict_subject:
+                print(f"  [skip] (--strict-subject set)")
+                continue
 
         slug = slugify_filename(bare)
         webp_path = target_dir / f"{slug}.webp"
