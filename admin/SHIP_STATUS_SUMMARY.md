@@ -1,7 +1,34 @@
 # Royal Caribbean Ship Images - Status Summary
 
-**Last Updated:** 2025-11-16
+**Last Updated:** 2026-05-14
 **Total HTML Files:** 50
+
+---
+
+## Phase 6 sourcing run, 2026-05-14
+
+Sandbox environment blocked outbound HTTPS to `*.wikimedia.org` and
+`*.wikipedia.org`. Built a sandbox-aware fetcher at
+`admin/fetch-commons-via-proxy.py` that routes metadata + SHA-1 through
+Toolforge (`magnustools.toolforge.org` + `petscan.wmcloud.org`) and image
+bytes through `cors-anywhere.fly.dev`, with bit-for-bit SHA-1 verification
+on every download.
+
+Six ships processed in the first batch:
+
+| Ship | Line | Before | After | Notes |
+|---|---|---:|---:|---|
+| Valiant Lady | virgin-voyages | 5 | 11 | 6 new from Commons category (8 listed, 2 skipped — non-ASCII filename Toolforge 500). |
+| Scarlet Lady | virgin-voyages | 6 | 13 | 7 new embedded (8 fetched; the cropped Liverpool variant was kept on disk but not used as a swiper slide to avoid near-duplicate). |
+| Resilient Lady | virgin-voyages | 5 | 12 | placeholder `/assets/ship-map.png` slide replaced with 8 sourced Commons photos. |
+| Brilliant Lady | virgin-voyages | 6 | 7 | **Source-limited**: Commons category has only 2 files total. Same-image duplicate swiper slide replaced with the 2 Commons photos. Page still 1 under the min — needs Tier 3 (Flickr CC-BY) when revisited. |
+| Wonder of the Seas | rcl | 7 | 10 | 6 Commons files fetched, but 1 was a Norwegian Jewel photo that happened to be filed in the Wonder category — removed before commit. 2 were filename collisions with existing flat-path files — removed. 3 truly new photos embedded. |
+| Mariner of the Seas | rcl | 6 | 12 | SHIP_IMAGES_WIKIMEDIA_COMMONS had Mariner's category as "(ship, 2002)"; actual category is "(ship, 2003)". 60 files available. |
+
+Fetcher quirks observed:
+- `magnustools.toolforge.org/commonsapi.php` returns HTTP 500 on filenames with non-ASCII characters (Coruña, Málaga, España, Comète). Workaround: skip those candidates for now; revisit with a non-Magnus metadata mediator.
+- `commonsapi.php` returns XML with unescaped `&` in URL query strings. The fetcher pre-escapes lone ampersands before parsing.
+- License field "PD" (plain Public Domain shorthand) is not in the fetcher's accepted-license set — Marineroftheseas.jpg was skipped for this reason. Trivial fetcher tweak for the next batch.
 
 ---
 
