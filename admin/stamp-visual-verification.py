@@ -92,6 +92,48 @@ VERIFICATIONS = {
         "ambiguous", "Climbing wall is a Voyager-class amenity present on all 5 sister ships (Mariner / Voyager / Explorer / Adventure / Navigator); visual evidence cannot confirm specifically Mariner"),
     "assets/ships/rcl/mariner-of-the-seas/BusinesscenterMS.webp.attr.json": (
         "ambiguous", "Generic Voyager-class business-centre interior; visual evidence cannot confirm specifically Mariner"),
+
+    # ---- Queen Mary 2 (batch B, 2026-05-14) --------------------------------
+    "assets/ships/cunard/queen-mary-2/QM2.webp.attr.json": (
+        "confirmed", "Distant port-side profile in known QM2 livery (black hull, red Cunard funnel); \"Queen Mary 2\" lettering visible on hull"),
+    "assets/ships/cunard/queen-mary-2/Quema.webp.attr.json": (
+        "confirmed", "Bow-on at Hamburg; \"Cunard\" and \"Queen Mary 2\" lettering visible"),
+    "assets/ships/cunard/queen-mary-2/Qm2_1.webp.attr.json": (
+        "confirmed", "Crowd alongside; \"CUNARD\" lettering visible on hull; QM2 distinctive proportions"),
+    "assets/ships/cunard/queen-mary-2/Queen_Mary_2_Hamburg.webp.attr.json": (
+        "confirmed", "QM2 black-hull profile at Hamburg; \"Cunard\" lettering visible"),
+    "assets/ships/cunard/queen-mary-2/Queen_Mary_2_Turn.webp.attr.json": (
+        "confirmed", "QM2 making a turn; distinctive ocean-liner silhouette + Cunard funnel"),
+    "assets/ships/cunard/queen-mary-2/Qm2-dock-17.webp.attr.json": (
+        "consistent", "QM2 in Blohm + Voss Dock Elbe 17 (known QM2 refit dock) viewed from a smaller vessel; ship matches QM2 profile"),
+    "assets/ships/cunard/queen-mary-2/Queen-Mary-II-Elbe-051119-0.webp.attr.json": (
+        "confirmed", "Bow-on shot with \"Queen Mary 2 / SOUTHAMPTON\" lettering clearly visible on hull"),
+
+    # ---- Queen Victoria (batch B, 2026-05-14) ------------------------------
+    "assets/ships/cunard/queen-victoria/Queen_Victoria_2007.webp.attr.json": (
+        "confirmed", "Port-side profile with \"Queen Victoria\" lettering on bow + \"Cunard\" lettering on hull"),
+    "assets/ships/cunard/queen-victoria/MS_Queen_Victoria_Circular_Quay.webp.attr.json": (
+        "ambiguous", "Distant Cunard ship at Sydney Circular Quay; no name visible. Vista-class sister Queen Elizabeth also calls here, so visual evidence cannot disambiguate"),
+    "assets/ships/cunard/queen-victoria/Cunard_Queen_Victoria.webp.attr.json": (
+        "ambiguous", "Broadside view of a Cunard ship; \"CUNARD\" lettering visible but no Queen name. Vista-class sister Queen Elizabeth is visually identical"),
+    "assets/ships/cunard/queen-victoria/Queen_Victoria_Station_Pier.webp.attr.json": (
+        "confirmed", "Bow-on at Station Pier, Melbourne; \"Queen Victoria\" lettering visible on hull"),
+    "assets/ships/cunard/queen-victoria/Queen_Victoria_Sydney_with_bear.webp.attr.json": (
+        "ambiguous", "Night shot at Sydney Harbour Bridge with an inflatable bear in foreground; Cunard ship visible but no name; Vista-class sister could match"),
+    "assets/ships/cunard/queen-victoria/Queen_Victoria_and_Spirit_of_Tasmania_I.webp.attr.json": (
+        "ambiguous", "Cunard ship beside the Spirit of Tasmania I ferry; Cunard funnel visible but no Queen name; Vista-class sister ambiguity"),
+    "assets/ships/cunard/queen-victoria/Queen_Victoria_in_Sydney.webp.attr.json": (
+        "ambiguous", "Night shot of a lit-up Cunard ship at Sydney Harbour with the Harbour Bridge behind; no name visible; Vista-class sister ambiguity"),
+
+    # ---- Zuiderdam (batch B, 2026-05-14) -----------------------------------
+    "assets/ships/holland-america-line/zuiderdam/20080921-Piraeus-MS_Zuiderdam.webp.attr.json": (
+        "confirmed", "Bow-on at Piraeus; \"Holland America Line\" and partial \"Zuiderdam\" lettering visible on hull"),
+    "assets/ships/holland-america-line/zuiderdam/Celestina_on_Zuiderdam_top_deck.webp.attr.json": (
+        "confirmed", "Ship name \"Zuiderdam\" engraved into a top-deck wooden bench in foreground; Alaska mountains behind"),
+    "assets/ships/holland-america-line/zuiderdam/03-057_Esclusas_de_Gat_n_-_Flickr_-_Andre_Pantin.webp.attr.json": (
+        "confirmed", "Stern view in Gatún Locks, Panama Canal; \"ZUIDERDAM / ROTTERDAM\" lettering clearly visible"),
+    "assets/ships/holland-america-line/zuiderdam/Zuiderdam_(ship,_2002).webp.attr.json": (
+        "confirmed", "Profile shot underway; \"ZUIDERDAM\" + \"Holland America Line\" lettering on hull, \"Zuiderdam\" above bridge"),
 }
 
 
