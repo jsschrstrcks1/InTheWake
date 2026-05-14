@@ -490,6 +490,24 @@ def main() -> int:
     print(f"Accepted {len(accepted)} file(s).")
     for p, m in accepted:
         print(f"  - {p.relative_to(PROJECT_ROOT)}  [{m.get('license')}]  by {m.get('uploader')}")
+
+    if accepted and not args.dry_run:
+        print()
+        print("=" * 70)
+        print("MANUAL VISUAL VERIFICATION REQUIRED before committing.")
+        print("SHA-1 proves the bytes match Commons. It does NOT prove the depicted")
+        print("subject is the ship you sourced for. Open each file below with the Read")
+        print("tool and confirm the ship in the frame. Then run:")
+        print()
+        print(f"  python3 admin/stamp-visual-verification.py")
+        print()
+        print("(or stamp each .attr.json's visual_verification field manually with one")
+        print("of: 'confirmed' (name visible), 'consistent' (class + location match,")
+        print("no contradiction), or 'ambiguous' (visually indistinguishable from")
+        print("sister ships)). Files to verify:")
+        for p, _ in accepted:
+            print(f"  Read {p.relative_to(PROJECT_ROOT)}")
+        print("=" * 70)
     return 0
 
 

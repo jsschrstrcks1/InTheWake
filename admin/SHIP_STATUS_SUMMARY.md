@@ -26,9 +26,54 @@ Six ships processed in the first batch:
 | Mariner of the Seas | rcl | 6 | 12 | SHIP_IMAGES_WIKIMEDIA_COMMONS had Mariner's category as "(ship, 2002)"; actual category is "(ship, 2003)". 60 files available. |
 
 Fetcher quirks observed:
-- `magnustools.toolforge.org/commonsapi.php` returns HTTP 500 on filenames with non-ASCII characters (Coruña, Málaga, España, Comète). Workaround: skip those candidates for now; revisit with a non-Magnus metadata mediator.
+- `magnustools.toolforge.org/commonsapi.php` returns HTTP 500 on filenames with non-ASCII characters (Coruña, Málaga, España, Comète). **Fixed in followup `541fae2c`**: fetcher now falls back to the MediaWiki action API at `commons.wikimedia.org/w/api.php` (also relayed via `cors-anywhere.fly.dev`, returns JSON, handles non-ASCII).
 - `commonsapi.php` returns XML with unescaped `&` in URL query strings. The fetcher pre-escapes lone ampersands before parsing.
-- License field "PD" (plain Public Domain shorthand) is not in the fetcher's accepted-license set — Marineroftheseas.jpg was skipped for this reason. Trivial fetcher tweak for the next batch.
+- License field "PD" (plain Public Domain shorthand) was not in the fetcher's accepted-license set. **Fixed in followup `541fae2c`**: license normalization rewritten to strip all spaces / dots / hyphens / underscores before comparison; `PD`, `CC BY-SA 4.0` (with spaces), and `CC-BY-SA-4.0,3.0,2.5,2.0,1.0` (multi-license) all accepted.
+
+---
+
+## Visual verification — integrity layer beyond SHA-1 (2026-05-14)
+
+**The gap:** the fetcher SHA-1-verifies every byte stream against Toolforge's
+published hash. That proves the bytes match Commons. **It does NOT prove the
+depicted subject is the ship we sourced for.** PETScan-listed Commons
+categories legitimately contain files where the target ship shares the frame
+with other ships, or where the depicted vessel cannot be visually distinguished
+from a same-class sister.
+
+**The remediation:** every committed image must be opened with the Read tool
+and stamped with a `visual_verification` field in its `.attr.json` sidecar.
+Three levels:
+
+- **confirmed** — ship name, IMO number, registry-port lettering, or other
+  unambiguous identifier visible in the frame.
+- **consistent** — right hull-class + livery + location, no contradicting
+  evidence, but no unique identifier visible. Identification rests partly on
+  Commons attribution + the photographer's context.
+- **ambiguous** — visually indistinguishable from a same-class sister ship.
+  Identification rests entirely on the Commons uploader's claim.
+
+Phase 6 batch-1 (32 images) re-scored post-hoc on 2026-05-14:
+
+| Ship | Confirmed | Consistent | Ambiguous | Wrong |
+|---|---:|---:|---:|---:|
+| Valiant Lady | 5 | 1 | 0 | 0 |
+| Wonder of the Seas | 2 | 0 | 1 (cropped variant) | 0 |
+| Mariner of the Seas | 1 | 3 | 2 (RockwallMS, BusinesscenterMS — generic Voyager-class amenities) | 0 |
+| Scarlet Lady | 2 | 0 | 5 | 0 |
+| Resilient Lady | 0 | 0 | 8 | 0 |
+| Brilliant Lady | 0 | 0 | 2 | 0 |
+| **Total** | **10** | **4** | **18** | **0** |
+
+Zero are visually *wrong*, but 18 of 32 (the Lady-class and Voyager-class
+sister-ambiguous shots) ultimately rely on the Commons uploader's claim.
+The chain of trust is now explicit in each sidecar's `visual_verification.note`
+so a reviewer or future agent can see exactly why each file passed.
+
+`admin/fetch-commons-via-proxy.py` now prints a MANUAL VISUAL VERIFICATION
+REQUIRED summary at end-of-batch with a Read command per accepted file.
+`admin/stamp-visual-verification.py` is the helper that writes the
+`visual_verification` block into each sidecar.
 
 ---
 
