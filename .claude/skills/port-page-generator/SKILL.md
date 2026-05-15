@@ -218,6 +218,17 @@ Required skeleton inside `<details class="port-section" id="weather-guide" open=
 
 The validator's `FAQ_COUNT` rule compares on-page FAQ count to FAQPage schema `Question` count. Keep them equal — add a schema `Question` entry for every on-page FAQ. Supported on-page formats (any one): `<details class="faq-item"><summary>question`, `<summary>Q: question`, or `<p><strong>Q: question</strong>...</p>`.
 
+**Regex collision avoidance.** The validator counts a single FAQ against every topic regex it matches. Two FAQs matching the same topic regex trigger `FAQ_DUP`; one FAQ matching two topic regexes can starve a topic of its own match. Watched cases observed in production ports:
+
+1. **`what…wear` collides with Packing** even when the question is about dress code, not weather. Pattern caught on abu-dhabi.html ("What should I wear to the Sheikh Zayed Grand Mosque?") and bali.html ("What should I wear to Balinese temples?"). Mitigation: for non-weather dress-code questions, reword as "What is the dress code at [VENUE]?" — no `wear` / `pack` / `bring`, no match.
+2. **`when…cruise` collides with Best time** because the regex substring matches `cruises` inside any question that contains both `when` and the word `cruise[s]`. Pattern caught on baltimore.html (draft Q "When is hurricane and storm season for Baltimore cruises?" double-matched Storm + Best-time). Mitigation: for non-best-time "When…" questions, do not use the word `cruise` or `cruises` anywhere in the question. "When is hurricane and storm season in Baltimore?" is safe.
+
+Default-safe phrasings (won't collide):
+- Best time: "When is the best time to visit [PORT]?" (uses `best time` + `visit`)
+- Storm season: "When is [PORT]'s storm season?" or "When is hurricane season in [PORT]?" (uses `storm season` or `hurricane`; avoid the word `cruise`)
+- Packing: "What should I pack for [PORT]'s weather?" (uses `pack` + `weather`; avoid `wear` and `bring` in other FAQs on the same page)
+- Rain: "Will rain ruin my visit to [PORT]?" (uses `rain` + `ruin`)
+
 **Sourcing rule.** For an existing port being repaired, draw weather content from what is already verifiable on its page: lat/lon, region, existing climate references, existing Author's Note, existing notices. Do not fabricate temperatures, hurricane seasons, hazards, or activities that aren't supported by the page.
 
 ### Sidebar (`<aside>`)
