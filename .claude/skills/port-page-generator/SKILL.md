@@ -229,6 +229,8 @@ Default-safe phrasings (won't collide):
 - Packing: "What should I pack for [PORT]'s weather?" (uses `pack` + `weather`; avoid `wear` and `bring` in other FAQs on the same page)
 - Rain: "Will rain ruin my visit to [PORT]?" (uses `rain` + `ruin`)
 
+**Forbidden seasonal terms.** The validator enforces the cruise-seasons-grid terminology via `TERM_001` / `DEDUP`. Do not write the phrase `Shoulder Season` (or lowercase `shoulder season`) anywhere on the page — the validator treats it as a forbidden term that conflicts with the canonical Peak / Transitional / Low labels. Caught on bodrum.html mid-pilot. Acceptable substitutes when describing the in-between months in prose: `transitional months`, `transitional season` (matches the grid label), `the May/October shoulders` only if you genuinely need the word "shoulders" (the validator allows the noun in a non-Season context, but the safer move is to avoid it).
+
 **Sourcing rule.** For an existing port being repaired, draw weather content from what is already verifiable on its page: lat/lon, region, existing climate references, existing Author's Note, existing notices. Do not fabricate temperatures, hurricane seasons, hazards, or activities that aren't supported by the page.
 
 ### Sidebar (`<aside>`)
