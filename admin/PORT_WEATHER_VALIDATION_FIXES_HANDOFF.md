@@ -25,13 +25,13 @@ Flip every failing port from FAIL → WARN (or PASS) on `scripts/validate-port-w
 
 Source: `data/port-validation-detail.json` from the 2026-05-14 batch sweep. Counts shift by 1 per port fixed.
 
-## Bucket A progress (45 / 96 fixed)
+## Bucket A progress (96 / 96 = 100% — COMPLETE)
 
-Done — all 45 verified WARN (or PASS for civitavecchia which is in registry) with 0 errors, 55+ checks passed:
+Bucket A is finished. All 96 ports validated: **94 WARN + 2 PASS** (civitavecchia and st-maarten are in the registry so `SPEC_REG` doesn't fire; both pass cleanly). Zero failures.
 
-bergen, abu-dhabi, bali, baltimore, belfast, belize, antarctic-peninsula, bangkok, bilbao, bimini, bodrum, bordeaux, boston, brisbane, buenos-aires, busan, cabo-san-lucas, cairns, callao, cartagena, catania, cephalonia, charleston, cherbourg, chilean-fjords, civitavecchia (PASS — registry port), cococay, colombo, colon, copenhagen, corfu, curacao, da-nang, dakar, darwin, denali, drake-passage, dublin, dubrovnik, dunedin, fairbanks, fiji, freeport, genoa, gran-canaria.
+Done list — every port in Bucket A is now WARN/PASS with 0 weather-validator blocking errors:
 
-Next 3 ports — `head -52 /tmp/bucket-A-remaining.txt | tail -3` or use the rebuild-list command in Resuming work below.
+bergen, abu-dhabi, bali, baltimore, belfast, belize, antarctic-peninsula, bangkok, bilbao, bimini, bodrum, bordeaux, boston, brisbane, buenos-aires, busan, cabo-san-lucas, cairns, callao, cartagena, catania, cephalonia, charleston, cherbourg, chilean-fjords, civitavecchia (PASS), cococay, colombo, colon, copenhagen, corfu, curacao, da-nang, dakar, darwin, denali, drake-passage, dublin, dubrovnik, dunedin, fairbanks, fiji, freeport, genoa, gran-canaria, guadeloupe, heraklion, hilo, hong-kong, honningsvag, huatulco, hvar, jakarta, kagoshima, key-west, komodo, labadee, langkawi, lautoka, lifou, livorno, manta, mombasa, montego-bay, moorea, mumbai, muscat, mystery-island, nagasaki, nha-trang, nosy-be, noumea, oslo, palma, panama-canal, ponta-delgada, port-moresby, portimao, puerto-limon, puerto-montt, safaga, salalah, samana, santorini, seychelles, southampton, st-lucia, st-maarten (PASS), stockholm, taormina, tauranga, vancouver, vanuatu, virgin-gorda, yangon, zanzibar.
 
 ## Validator gotchas — codified in SKILL.md
 
