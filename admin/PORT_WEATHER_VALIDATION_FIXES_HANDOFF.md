@@ -64,6 +64,37 @@ The validator recognizes three FAQ formats only:
 
 Catania had `<p><strong>Question</strong><br>Answer</p>` (no Q:/A: prefixes) which silently produces Page=0. When seen, reformat in-place before adding new weather FAQs.
 
+**FAQ_COUNT regex is strict about whitespace.** `extractVisibleFAQQuestions` (line 361) handles whitespace flexibly between `<details>` and `<summary>` for topic matching, but the FAQ_COUNT page-count regex at line 388 (`/<details class="faq-item"><summary>/`) requires the tags on a single line. Chilean-fjords had `<details class="faq-item">\n              <summary>` and produced Page=0 even though topic-matching saw the questions. Compact each faq-item to a single line.
+
+**Inline-styled details produce Page=0.** Cococay used `<details style="margin:...">` instead of `<details class="faq-item">` — none of its 14 FAQs were visible to the validator. Replace inline-style details with `<details class="faq-item">` (and inline-style summaries with plain `<summary>`).
+
+**Bulk identification.** Before processing the remaining catania-family ports, run:
+```bash
+for p in $(tail -N /tmp/bucket-A-remaining.txt); do
+  node scripts/validate-port-weather.js ports/$p.html --json 2>/dev/null | \
+    jq -r --arg p "$p" 'select(.reports[0].errors[]? | .detail | tostring | contains("Page: 0")) | $p'
+done | sort -u
+```
+to identify which remaining ports need the reformat treatment.
+
+### "months-to-avoid" is a reserved literal
+
+The validator enforces (via `B_AVOID` at line 305) that the exact string `months-to-avoid` appears exactly once on the page — intended for the single `<div class="months-to-avoid">` structural element. Do NOT write the literal phrase `months-to-avoid` in FAQ answers or prose. Caught on cococay where a draft FAQ answer said "per the months-to-avoid panel on this page". Substitute: "the avoidance window noted in the seasonal panel" or similar paraphrase.
+
+### Climate-specific forbidden tokens (registry ports only)
+
+Three climate patterns in `scripts/port-weather-validator-core.js` lines 82-95 forbid specific tokens for ports in `scripts/files-7/port-registry.json` (10 total registered):
+
+| Climate pattern | Forbidden tokens |
+|---|---|
+| `tropical-hurricane` | snow, freeze, polar, arctic, glacier, tundra |
+| `mediterranean` | hurricane, monsoon, typhoon, tropical storm, glacier |
+| `alaska` | hurricane, tropical, reef, snorkel, beach club |
+
+For non-registered ports the climate check is skipped because of the SPEC_REG early-return.
+
+For registered Mediterranean ports (civitavecchia, barcelona): write the Storm FAQ matching the `storm season` or `severe weather` regex alternatives rather than `hurricane` — and honestly so, since the Mediterranean has no tropical cyclones. Caught on civitavecchia.
+
 ### Accidental topic coverage by existing FAQs
 
 Several Bucket A ports have an existing non-weather FAQ that accidentally matches a weather topic regex (e.g. buenos-aires Q4 "What currency should I bring?" matches `what...bring` → Packing). When this happens, do NOT add an additional FAQ for that topic — it will trigger `FAQ_DUP`. Add only the genuinely missing topics. The validator only cares about regex match, not content alignment.
