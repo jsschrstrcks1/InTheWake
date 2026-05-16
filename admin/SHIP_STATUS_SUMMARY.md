@@ -1,7 +1,79 @@
 # Royal Caribbean Ship Images - Status Summary
 
-**Last Updated:** 2025-11-16
+**Last Updated:** 2026-05-14
 **Total HTML Files:** 50
+
+---
+
+## Phase 6 sourcing run, 2026-05-14
+
+Sandbox environment blocked outbound HTTPS to `*.wikimedia.org` and
+`*.wikipedia.org`. Built a sandbox-aware fetcher at
+`admin/fetch-commons-via-proxy.py` that routes metadata + SHA-1 through
+Toolforge (`magnustools.toolforge.org` + `petscan.wmcloud.org`) and image
+bytes through `cors-anywhere.fly.dev`, with bit-for-bit SHA-1 verification
+on every download.
+
+Six ships processed in the first batch:
+
+| Ship | Line | Before | After | Notes |
+|---|---|---:|---:|---|
+| Valiant Lady | virgin-voyages | 5 | 11 | 6 new from Commons category (8 listed, 2 skipped — non-ASCII filename Toolforge 500). |
+| Scarlet Lady | virgin-voyages | 6 | 13 | 7 new embedded (8 fetched; the cropped Liverpool variant was kept on disk but not used as a swiper slide to avoid near-duplicate). |
+| Resilient Lady | virgin-voyages | 5 | 12 | placeholder `/assets/ship-map.png` slide replaced with 8 sourced Commons photos. |
+| Brilliant Lady | virgin-voyages | 6 | 7 | **Source-limited**: Commons category has only 2 files total. Same-image duplicate swiper slide replaced with the 2 Commons photos. Page still 1 under the min — needs Tier 3 (Flickr CC-BY) when revisited. |
+| Wonder of the Seas | rcl | 7 | 10 | 6 Commons files fetched, but 1 was a Norwegian Jewel photo that happened to be filed in the Wonder category — removed before commit. 2 were filename collisions with existing flat-path files — removed. 3 truly new photos embedded. |
+| Mariner of the Seas | rcl | 6 | 12 | SHIP_IMAGES_WIKIMEDIA_COMMONS had Mariner's category as "(ship, 2002)"; actual category is "(ship, 2003)". 60 files available. |
+
+Fetcher quirks observed:
+- `magnustools.toolforge.org/commonsapi.php` returns HTTP 500 on filenames with non-ASCII characters (Coruña, Málaga, España, Comète). **Fixed in followup `541fae2c`**: fetcher now falls back to the MediaWiki action API at `commons.wikimedia.org/w/api.php` (also relayed via `cors-anywhere.fly.dev`, returns JSON, handles non-ASCII).
+- `commonsapi.php` returns XML with unescaped `&` in URL query strings. The fetcher pre-escapes lone ampersands before parsing.
+- License field "PD" (plain Public Domain shorthand) was not in the fetcher's accepted-license set. **Fixed in followup `541fae2c`**: license normalization rewritten to strip all spaces / dots / hyphens / underscores before comparison; `PD`, `CC BY-SA 4.0` (with spaces), and `CC-BY-SA-4.0,3.0,2.5,2.0,1.0` (multi-license) all accepted.
+
+---
+
+## Visual verification — integrity layer beyond SHA-1 (2026-05-14)
+
+**The gap:** the fetcher SHA-1-verifies every byte stream against Toolforge's
+published hash. That proves the bytes match Commons. **It does NOT prove the
+depicted subject is the ship we sourced for.** PETScan-listed Commons
+categories legitimately contain files where the target ship shares the frame
+with other ships, or where the depicted vessel cannot be visually distinguished
+from a same-class sister.
+
+**The remediation:** every committed image must be opened with the Read tool
+and stamped with a `visual_verification` field in its `.attr.json` sidecar.
+Three levels:
+
+- **confirmed** — ship name, IMO number, registry-port lettering, or other
+  unambiguous identifier visible in the frame.
+- **consistent** — right hull-class + livery + location, no contradicting
+  evidence, but no unique identifier visible. Identification rests partly on
+  Commons attribution + the photographer's context.
+- **ambiguous** — visually indistinguishable from a same-class sister ship.
+  Identification rests entirely on the Commons uploader's claim.
+
+Phase 6 batch-1 (32 images) re-scored post-hoc on 2026-05-14:
+
+| Ship | Confirmed | Consistent | Ambiguous | Wrong |
+|---|---:|---:|---:|---:|
+| Valiant Lady | 5 | 1 | 0 | 0 |
+| Wonder of the Seas | 2 | 0 | 1 (cropped variant) | 0 |
+| Mariner of the Seas | 1 | 3 | 2 (RockwallMS, BusinesscenterMS — generic Voyager-class amenities) | 0 |
+| Scarlet Lady | 2 | 0 | 5 | 0 |
+| Resilient Lady | 0 | 0 | 8 | 0 |
+| Brilliant Lady | 0 | 0 | 2 | 0 |
+| **Total** | **10** | **4** | **18** | **0** |
+
+Zero are visually *wrong*, but 18 of 32 (the Lady-class and Voyager-class
+sister-ambiguous shots) ultimately rely on the Commons uploader's claim.
+The chain of trust is now explicit in each sidecar's `visual_verification.note`
+so a reviewer or future agent can see exactly why each file passed.
+
+`admin/fetch-commons-via-proxy.py` now prints a MANUAL VISUAL VERIFICATION
+REQUIRED summary at end-of-batch with a Read command per accepted file.
+`admin/stamp-visual-verification.py` is the helper that writes the
+`visual_verification` block into each sidecar.
 
 ---
 
