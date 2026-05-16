@@ -156,7 +156,82 @@ All sections inside `<article class="card">` within `<main class="wrap page-grid
 | **practical** | 100 | Currency, language, tipping, safety, communication |
 | **gallery** | — | 6+ images in `<figure class="gallery-item">` with `<figcaption>` + photo-credit |
 | **credits** | — | List every image with source attribution |
-| **faq** | 200 | 5+ port-specific questions with detailed answers |
+| **faq** | 200 | 5+ port-specific questions with detailed answers; **MUST include the 4 weather FAQ topics** (see Weather Guide Section below) |
+| **weather-guide** | — | Canonical seasonal-guide skeleton inside `port-weather-widget`; honest content per port. See Weather Guide Section below — BLOCKING via `scripts/validate-port-weather.js` |
+
+### Weather Guide Section (BLOCKING — `scripts/validate-port-weather.js`)
+
+Structurally mandated by `scripts/port-weather-validator-core.js` for every port — tropical, temperate, polar, inland. The skeleton is the same for all ports; content inside each slot must be honest to the port. Reference template: `ports/cozumel.html` (passing). For non-Caribbean comparison: `ports/bergen.html` already uses this skeleton with North Atlantic content — note `"Beach: N/A"` is an acceptable honest activity-row value.
+
+Required skeleton inside `<details class="port-section" id="weather-guide" open="">`:
+
+```html
+<div id="port-weather-widget" data-port-id="[SLUG]" data-port-name="[PORT]" data-lat="[LAT]" data-lon="[LON]" data-region="[REGION]">
+  <noscript>
+    <div class="seasonal-guide seasonal-guide-static">
+      <!-- 1. At a Glance — all 5 metrics required (Temperature/Humidity/Rain/Wind/Daylight) -->
+      <div class="seasonal-glance-grid">
+        <div class="seasonal-glance-item"><span class="glance-label">Temperature</span><span class="glance-value">[honest range]</span></div>
+        <!-- + Humidity, Rain, Wind, Daylight -->
+      </div>
+      <!-- 2. Best Time — 3 cruise-seasons + 5 activity-rows + months-to-avoid -->
+      <div class="cruise-seasons-grid">
+        <div class="cruise-season cruise-season-high"><span class="season-label">Peak Season</span><span class="season-months">[months]</span></div>
+        <div class="cruise-season cruise-season-transitional"><span class="season-label">Transitional Season</span><span class="season-months">[months]</span></div>
+        <div class="cruise-season cruise-season-low"><span class="season-label">Low Season</span><span class="season-months">[months]</span></div>
+      </div>
+      <div class="best-months-activities">
+        <!-- All 5 activity-rows are required by label. For ports where an activity does not apply, the months value may be "N/A" or a brief honest note ("nearest swimmable beach is 90 min by car"). Never invent. -->
+        <div class="activity-row"><span class="activity-label">Beach</span><span class="activity-months">[honest]</span></div>
+        <div class="activity-row"><span class="activity-label">Snorkeling</span><span class="activity-months">[honest]</span></div>
+        <div class="activity-row"><span class="activity-label">Hiking</span><span class="activity-months">[honest]</span></div>
+        <div class="activity-row"><span class="activity-label">City Walking</span><span class="activity-months">[honest]</span></div>
+        <div class="activity-row"><span class="activity-label">Low Crowds</span><span class="activity-months">[honest]</span></div>
+      </div>
+      <div class="months-to-avoid">
+        <span class="avoid-label">Consider avoiding:</span>
+        <span class="avoid-months">[months OR "None"]</span>
+        <span class="avoid-reason">([honest regional reason])</span>
+      </div>
+      <!-- 3. What Catches Visitors Off Guard — 3-7 items -->
+      <ul class="catches-list"><li>…</li></ul>
+      <!-- 4. Packing Tips — 3-7 items -->
+      <ul class="packing-list"><li>…</li></ul>
+      <!-- 5. Weather Hazards — always present; for low-hazard regions, state that honestly -->
+      <div class="hazard-warning">
+        <span class="hazard-icon">⚠️</span>
+        <div class="hazard-content"><strong>[Honest regional hazard name]</strong><p>[Season / risk window]</p></div>
+      </div>
+    </div>
+  </noscript>
+</div>
+```
+
+**Weather FAQ topics (BLOCKING — 4 required, must appear in BOTH on-page FAQ list AND FAQPage JSON-LD schema).** From `scripts/port-weather-validator-core.js` lines 127–132, the validator matches any of these regex patterns:
+
+| Topic | Validator regex (alternatives) | Honest phrasing per port |
+|---|---|---|
+| Best time to visit | `best time…(visit\|go\|cruise)` OR `when…(visit\|go\|cruise)` | "When is the best time to visit [PORT]?" — answer with THAT port's actual peak season |
+| Hurricane/storm season | `hurricane\|cyclone\|typhoon\|storm season\|severe weather\|bad weather\|weather…(bad\|severe\|stormy\|concern)` | Hurricane zone → "When is hurricane season?". Non-hurricane → "When is the storm season?" or "Are there severe weather periods?" — Bergen: "North Atlantic storm season Oct–Feb"; Mediterranean: "Meltemi winds Jul–Aug" |
+| Packing for weather | `pack…(weather\|clothes\|clothing\|jacket\|layer)` OR `what…(pack\|bring\|wear)` OR `how…(dress\|pack)` | "What should I pack for [PORT]'s weather?" or "How should I dress?" |
+| Rain concerns | `rain…(ruin\|cancel\|affect\|stop)` OR `will…rain` OR `weather…ruin` | "Will rain affect my visit?" or "Does rain ruin excursions?" |
+
+The validator's `FAQ_COUNT` rule compares on-page FAQ count to FAQPage schema `Question` count. Keep them equal — add a schema `Question` entry for every on-page FAQ. Supported on-page formats (any one): `<details class="faq-item"><summary>question`, `<summary>Q: question`, or `<p><strong>Q: question</strong>...</p>`.
+
+**Regex collision avoidance.** The validator counts a single FAQ against every topic regex it matches. Two FAQs matching the same topic regex trigger `FAQ_DUP`; one FAQ matching two topic regexes can starve a topic of its own match. Watched cases observed in production ports:
+
+1. **`what…wear` collides with Packing** even when the question is about dress code, not weather. Pattern caught on abu-dhabi.html ("What should I wear to the Sheikh Zayed Grand Mosque?") and bali.html ("What should I wear to Balinese temples?"). Mitigation: for non-weather dress-code questions, reword as "What is the dress code at [VENUE]?" — no `wear` / `pack` / `bring`, no match.
+2. **`when…cruise` collides with Best time** because the regex substring matches `cruises` inside any question that contains both `when` and the word `cruise[s]`. Pattern caught on baltimore.html (draft Q "When is hurricane and storm season for Baltimore cruises?" double-matched Storm + Best-time). Mitigation: for non-best-time "When…" questions, do not use the word `cruise` or `cruises` anywhere in the question. "When is hurricane and storm season in Baltimore?" is safe.
+
+Default-safe phrasings (won't collide):
+- Best time: "When is the best time to visit [PORT]?" (uses `best time` + `visit`)
+- Storm season: "When is [PORT]'s storm season?" or "When is hurricane season in [PORT]?" (uses `storm season` or `hurricane`; avoid the word `cruise`)
+- Packing: "What should I pack for [PORT]'s weather?" (uses `pack` + `weather`; avoid `wear` and `bring` in other FAQs on the same page)
+- Rain: "Will rain ruin my visit to [PORT]?" (uses `rain` + `ruin`)
+
+**Forbidden seasonal terms.** The validator enforces the cruise-seasons-grid terminology via `TERM_001` / `DEDUP`. Do not write the phrase `Shoulder Season` (or lowercase `shoulder season`) anywhere on the page — the validator treats it as a forbidden term that conflicts with the canonical Peak / Transitional / Low labels. Caught on bodrum.html mid-pilot. Acceptable substitutes when describing the in-between months in prose: `transitional months`, `transitional season` (matches the grid label), `the May/October shoulders` only if you genuinely need the word "shoulders" (the validator allows the noun in a non-Season context, but the safer move is to avoid it).
+
+**Sourcing rule.** For an existing port being repaired, draw weather content from what is already verifiable on its page: lat/lon, region, existing climate references, existing Author's Note, existing notices. Do not fabricate temperatures, hurricane seasons, hazards, or activities that aren't supported by the page.
 
 ### Sidebar (`<aside>`)
 
@@ -180,12 +255,11 @@ All sections inside `<article class="card">` within `<main class="wrap page-grid
 - Every `<img>` in a `<figure>` must have `<figcaption>` with `<span class="photo-credit">`
 - All internal port links must end with `.html`
 - Use `<div class="navbar">` for outer wrapper, `<nav class="site-nav">` for inner
+- Populate all 5 weather-guide activity-rows (Beach/Snorkeling/Hiking/City Walking/Low Crowds) and all 4 weather FAQ topics for every port. For activities or hazards that do not apply to a port, write the honest answer ("Beach: N/A — nearest swimmable beach is 90 min by car"); never fabricate to satisfy the slot, but never omit the slot
 
 ### MUST NOT
 - Use identical text from other port pages (template filler)
-- Use generic weather data ("Varies by season — check forecast")
-- Use "Beach/Snorkeling" activities for non-tropical ports
-- Use "Hurricane season" FAQ for non-hurricane-zone ports
+- Use generic weather data ("Varies by season — check forecast"). Substitute real ranges grounded in the port's existing climate references; if data is missing, say so honestly ("Cool maritime; expect 50–65°F summer, 30–45°F winter — verify against current forecast")
 - Use "Tap water safety varies by destination" (specify actual water safety)
 - Use forbidden words: nightlife, once-in-a-lifetime, must-do, life-changing, YOLO
 - Repeat same emotional phrases across pages ("breath caught" is on 46 pages already)
@@ -215,19 +289,21 @@ Choose DIFFERENT ones for each port — avoid "breath caught" and "whispered a q
 Before delivering a new port page, verify:
 
 1. [ ] `node admin/validate-port-page-v2.js ports/[SLUG].html` → PASS
-2. [ ] `node admin/port-page-audit.cjs ports/[SLUG].html` → 0 CRITICAL, 0 HIGH
-3. [ ] `node admin/validate-port-page-v2.js ports/[SLUG].html --gold-standard` → 0 gold standard gaps
-4. [ ] `node admin/gold-standard-compare.cjs ports/[SLUG].html` → 0 differences
-5. [ ] Port slug matches filename
-6. [ ] `last-reviewed` set to today's date
-7. [ ] `dateModified` in JSON-LD matches `last-reviewed`
-8. [ ] Disclaimer level matches port-disclaimer-registry.json
-9. [ ] All images exist on disk at `/ports/img/[SLUG]/`
-10. [ ] Each image has `-attr.json` attribution file
+2. [ ] `node scripts/validate-port-weather.js ports/[SLUG].html` → PASS or WARN (BLOCKING sub-validator that v2 spawns; WARN with only `SPEC_REG` is acceptable when the port is not yet in `scripts/files-7/port-registry.json`)
+3. [ ] `node admin/port-page-audit.cjs ports/[SLUG].html` → 0 CRITICAL, 0 HIGH
+4. [ ] `node admin/validate-port-page-v2.js ports/[SLUG].html --gold-standard` → 0 gold standard gaps
+5. [ ] `node admin/gold-standard-compare.cjs ports/[SLUG].html` → 0 differences
+6. [ ] Port slug matches filename
+7. [ ] `last-reviewed` set to today's date
+8. [ ] `dateModified` in JSON-LD matches `last-reviewed`
+9. [ ] Disclaimer level matches port-disclaimer-registry.json
+10. [ ] All images exist on disk at `/ports/img/[SLUG]/`
+11. [ ] Each image has `-attr.json` attribution file
 
 ## Integration
 
 - **validate-port-page-v2.js** — Must pass with score 90+
+- **validate-port-weather.js** — BLOCKING sub-validator spawned by v2. Required structural template + 4 FAQ topics; `SPEC_REG` (port-not-in-registry) is a non-blocking warning
 - **port-page-audit.cjs** — Must have 0 CRITICAL/HIGH issues
 - **gold-standard-compare.cjs** — Should match dubai.html structure
 - **icp-2** — ICP-2 v2.1 compliance (ai-summary, last-reviewed, JSON-LD)
