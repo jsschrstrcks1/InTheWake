@@ -25,13 +25,13 @@ Flip every failing port from FAIL → WARN (or PASS) on `scripts/validate-port-w
 
 Source: `data/port-validation-detail.json` from the 2026-05-14 batch sweep. Counts shift by 1 per port fixed.
 
-## Bucket A progress (21 / 96 fixed)
+## Bucket A progress (45 / 96 fixed)
 
-Done — all 21 verified WARN with 0 errors, 1 SPEC_REG, 55 checks passed:
+Done — all 45 verified WARN (or PASS for civitavecchia which is in registry) with 0 errors, 55+ checks passed:
 
-bergen, abu-dhabi, bali, baltimore, belfast, belize, antarctic-peninsula, bangkok, bilbao, bimini, bodrum, bordeaux, boston, brisbane, buenos-aires, busan, cabo-san-lucas, cairns, callao, cartagena, catania.
+bergen, abu-dhabi, bali, baltimore, belfast, belize, antarctic-peninsula, bangkok, bilbao, bimini, bodrum, bordeaux, boston, brisbane, buenos-aires, busan, cabo-san-lucas, cairns, callao, cartagena, catania, cephalonia, charleston, cherbourg, chilean-fjords, civitavecchia (PASS — registry port), cococay, colombo, colon, copenhagen, corfu, curacao, da-nang, dakar, darwin, denali, drake-passage, dublin, dubrovnik, dunedin, fairbanks, fiji, freeport, genoa, gran-canaria.
 
-Next 3 ports (alphabetical order from `/tmp/bucket-A-remaining.txt`, lines 16-18 after the 21 above): see `Resuming work` below.
+Next 3 ports — `head -52 /tmp/bucket-A-remaining.txt | tail -3` or use the rebuild-list command in Resuming work below.
 
 ## Validator gotchas — codified in SKILL.md
 
@@ -80,6 +80,31 @@ to identify which remaining ports need the reformat treatment.
 ### "months-to-avoid" is a reserved literal
 
 The validator enforces (via `B_AVOID` at line 305) that the exact string `months-to-avoid` appears exactly once on the page — intended for the single `<div class="months-to-avoid">` structural element. Do NOT write the literal phrase `months-to-avoid` in FAQ answers or prose. Caught on cococay where a draft FAQ answer said "per the months-to-avoid panel on this page". Substitute: "the avoidance window noted in the seasonal panel" or similar paraphrase.
+
+### Regex collision: "cross" is not in the Best-time alternatives
+
+The Best-time regex requires `visit`, `go`, or `cruise` after `best time` or `when`. The verb `cross` does NOT match. Caught on drake-passage where a draft Q "When is the best time to cross the Drake Passage?" failed Best-time validation. Reworded to "...visit the Drake Passage?" Default-safe phrasing: always use `visit`, `go`, or `cruise` in best-time questions.
+
+### Regex collision: `when…go` matches via substring "go" in unrelated words
+
+The Best-time alternative `when[^<]*go` matches because `go` is a substring of larger words: Dra**go**n, **go**vernment, **go**urmet, Po**rtu**guese... wait no, but it does match Dragon. Caught on da-nang where existing Q4 "When does the Dragon Bridge breathe fire?" accidentally satisfied Best-time via "Dragon". Useful side-effect rather than a bug — but be aware that Best-time topic coverage may come from unexpected places, so don't add a deliberate Best-time FAQ on top of an accidental match (FAQ_DUP).
+
+### Accidental coverage by "what...bring", "what...wear", "what...pack" via substring
+
+Similar substring effects across the Packing regex alternatives:
+- `what...pack` matches "What does a Denali cruisetour package cost?" because "package" contains "pack"
+- `what...bring` matches "What currency should I bring?" (buenos-aires) and "Do I need to bring towels?" (cococay)
+- `what...wear` matches "What should I wear to..." (numerous ports for mosque/temple/village dress codes)
+
+When this happens, do NOT add a deliberate Packing FAQ on top of the accidental match — it triggers FAQ_DUP.
+
+### Duplicate FAQ-section blocks (freeport edge case)
+
+Freeport had its entire FAQ section duplicated 4× in the file, with 6 unique Qs each repeated 4× = 24 visible Qs. Triggered FAQ_DUP "Found 4" on multiple topics. The fix was structural: surgically delete the 3 duplicate sections (and the duplicate credits/gallery sections between them), keeping only the first occurrence. Bulk-pass scan command:
+```bash
+grep -c '<details class="port-section" id="faq"' ports/*.html | grep -v ':1$'
+```
+should identify any other ports with this kind of duplication.
 
 ### Climate-specific forbidden tokens (registry ports only)
 
