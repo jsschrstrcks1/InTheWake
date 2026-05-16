@@ -7,6 +7,7 @@
 #   admin/scripts/voyage-pack-pdf-build.sh ncl-aqua         # build only NCL Aqua
 #   admin/scripts/voyage-pack-pdf-build.sh sisters-sea      # build only Sisters at Sea (Resilient Lady)
 #   admin/scripts/voyage-pack-pdf-build.sh anthem-alaska    # build only Anthem of the Seas Alaska 7N
+#   admin/scripts/voyage-pack-pdf-build.sh seaside-bahamas  # build only MSC Seaside Bahamas 4N
 #   admin/scripts/voyage-pack-pdf-build.sh --force          # rebuild even if PDF is newer
 #   admin/scripts/voyage-pack-pdf-build.sh --check          # exit 1 if any PDF is stale (no build)
 #   admin/scripts/voyage-pack-pdf-build.sh --help
@@ -47,6 +48,7 @@ SYMPHONY_MD="$PACKS_DIR/v0.1-symphony-western-caribbean-7n.md"
 NCL_AQUA_MD="$PACKS_DIR/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.md"
 SISTERS_SEA_MD="$PACKS_DIR/v0.1.3-virgin-sisters-sea-feb-2027.md"
 ANTHEM_ALASKA_MD="$PACKS_DIR/v0.1.4-rcl-anthem-alaska-7n.md"
+SEASIDE_BAHAMAS_MD="$PACKS_DIR/v0.1.5-msc-seaside-bahamas-4n.md"
 PDF_CSS="$PACKS_DIR/voyage-pack-print.css"
 
 # Mode flags
@@ -159,7 +161,7 @@ run_check_only() {
   local stale=0
   echo "Voyage Pack PDF staleness check"
   echo ""
-  for md in "$SYMPHONY_MD" "$NCL_AQUA_MD" "$SISTERS_SEA_MD" "$ANTHEM_ALASKA_MD"; do
+  for md in "$SYMPHONY_MD" "$NCL_AQUA_MD" "$SISTERS_SEA_MD" "$ANTHEM_ALASKA_MD" "$SEASIDE_BAHAMAS_MD"; do
     if [ ! -f "$md" ]; then
       continue  # source missing — not this script's concern
     fi
@@ -196,7 +198,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|all) target="$arg" ;;
+    symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|seaside-bahamas|seaside|msc|all) target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
       exit 2
@@ -249,14 +251,18 @@ case "$target" in
   anthem-alaska|anthem|alaska)
     build_pack "$ANTHEM_ALASKA_MD" "Anthem of the Seas — Alaska 7N" "$ENGINE" || failures=$((failures + 1))
     ;;
+  seaside-bahamas|seaside|msc)
+    build_pack "$SEASIDE_BAHAMAS_MD" "MSC Seaside — Bahamas 4N" "$ENGINE" || failures=$((failures + 1))
+    ;;
   all|"")
     build_pack "$SYMPHONY_MD" "Symphony Western Caribbean 7N" "$ENGINE" || failures=$((failures + 1))
     build_pack "$NCL_AQUA_MD" "NCL Aqua Veterans/Solo Dec 2027" "$ENGINE" || failures=$((failures + 1))
     build_pack "$SISTERS_SEA_MD" "Sisters at Sea — Resilient Lady Feb 2027" "$ENGINE" || failures=$((failures + 1))
     build_pack "$ANTHEM_ALASKA_MD" "Anthem of the Seas — Alaska 7N" "$ENGINE" || failures=$((failures + 1))
+    build_pack "$SEASIDE_BAHAMAS_MD" "MSC Seaside — Bahamas 4N" "$ENGINE" || failures=$((failures + 1))
     ;;
   *)
-    echo "✗ Unknown target: $target. Use 'symphony', 'ncl-aqua', 'sisters-sea', 'anthem-alaska', or 'all'."
+    echo "✗ Unknown target: $target. Use 'symphony', 'ncl-aqua', 'sisters-sea', 'anthem-alaska', 'seaside-bahamas', or 'all'."
     exit 2
     ;;
 esac
