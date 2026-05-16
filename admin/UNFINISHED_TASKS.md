@@ -1107,7 +1107,7 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 ### [G] Affiliate Link Infrastructure
 **Phase 1 (Infrastructure) DONE. Phase 2 (Articles) DONE. Phase 3 (Site-wide) ~99% DONE.**
 - [ ] Update about-us.html "Our Promise" section to acknowledge Amazon Associates participation
-- [ ] Add affiliate article links to 4 remaining ship pages (carnival-adventure, carnivale-1956, jubilee-1986, mardi-gras-1972)
+- [x] Add affiliate article links to 4 remaining ship pages (carnival-adventure, carnivale-1956, jubilee-1986, mardi-gras-1972) — completed 2026-05-13 (B2.4)
 - [ ] Add affiliate article links to 3 remaining port pages (beijing, falmouth-jamaica, kyoto)
 
 ### [G] Quiz Remaining Fixes
