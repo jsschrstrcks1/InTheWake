@@ -4,6 +4,7 @@
 **Author:** Claude (drafted under careful-not-clever v1.8.2)
 **Date:** 2026-05-13
 **Revised:** 2026-05-13 — external review (pasted from another model) verified against the actual repo; verified-wheat items merged, verified-chaff items rejected with evidence. See §11 Verification Log.
+**Revised again:** 2026-05-13 — adversarial-review (grok, audit-reports/external-audit-2026-05-13T182913Z) + orchestra debate (GPT-4o + Perplexity/Gemini-3-flash + Grok-3, ~$0.06). Findings that survived cross-examination merged. See §12 Debate Log.
 **Status:** Draft for user review. **No file edits beyond this plan doc until approved.**
 
 > Soli Deo Gloria. This plan extends the existing accessibility surface (WCAG 2.1 AA, accessibility-audit skill, audience-profiles, pastoral guardrails) with two layers it does not yet have: a cognitive-load budget and a content-modality menu. The pastoral guardrails sit above this plan and override it where they conflict.
@@ -140,9 +141,24 @@ Applies to the 9 tools. Not all 9 currently meet these; the pilot (drink-calcula
 - Cost ranges given honestly with the date attached (consistent with `like-a-human`).
 - Calculator results never stack a hidden "but actually" caveat below a green number; caveats are visible at the same scroll position.
 
-### 3.7 Assistive technology compatibility
+### 3.7 Assistive technology and motor compatibility
 
-This is the existing `accessibility-audit` skill. Named here so the framework subsumes it. The framework does not replace WCAG 2.1 AA; it sits alongside it. Anything that would lower a Lighthouse accessibility score below 100 is rejected by this framework before it reaches the validator.
+This subsumes the existing `accessibility-audit` skill. The framework does not replace WCAG; it sits alongside it. Anything that would lower a Lighthouse accessibility score below 100 is rejected by this framework before it reaches the validator.
+
+**WCAG version — 2.2 AA, not 2.1.** Web-grounded debate (Perplexity, 2026-05-13) surfaced that WCAG 2.2 AA is the current standard as of late 2025/early 2026; the site's `accessibility-audit` skill and `WCAG_2.1_AA_STANDARDS_v3.100.md` still reference 2.1. The two criteria that matter most for this framework are new in 2.2:
+
+- **SC 2.4.11 Focus Not Obscured (Minimum).** When a UI element gets keyboard focus, no other element (sticky header, cookie banner, scroll-snap overlay) should obscure it. The "11 pm-in-bed" reader using a sticky mobile header is the worst case.
+- **SC 2.5.8 Target Size (Minimum).** Interactive targets are at least 24 × 24 CSS pixels, with documented exceptions (inline-in-text links, browser-defined controls). This affects the drink-calculator sliders, the cruise-line picker chips, and every tool's reset button.
+
+This framework references **WCAG 2.2 AA** explicitly. The `accessibility-audit` skill update from 2.1 to 2.2 is flagged as a separate sibling task; the framework does not block on that update but must not regress against the new criteria.
+
+**Motor disabilities beyond AT.** Motor accommodations are not automatically covered by the AT contract:
+
+- **Target size: 24 × 24 CSS pixels minimum** (per SC 2.5.8) for every interactive target on the pilot. Verify with a measurement pass.
+- **Keyboard navigation paths complete** — every interaction reachable without a pointing device, in a sensible tab order, with visible focus indicators (per SC 2.4.7).
+- **Hover-not-required.** Information that only appears on `:hover` must also appear on `:focus` and on tap. The drink-calculator package cards must not hide voucher details behind hover.
+- **Drag alternatives.** Any drag-and-drop interaction needs a keyboard or click-based alternative (per SC 2.5.7). The pilot has no drag interactions today; this rule applies if any are added.
+- **Timing not relied on.** No interaction times out without user-initiated extension (per SC 2.2.1, already in 2.1).
 
 ### 3.8 Decision under uncertainty (not just learning)
 
@@ -168,13 +184,22 @@ A reader's context dictates which modality serves them, more than any abstract p
 
 The **late-evening-on-phone context (the "11 pm in bed" reader)** is the one most underserved by the current site. That reader does not want a 12-input calculator; they want one sentence that says "for someone like you, the package usually wins by ~$X." See §5 Pilot Phase 2.
 
+**Low-bandwidth concrete metrics (the on-ship-at-$0.65/MB context).** Naming the context without numbers is not enough. Operational rules:
+
+- **Page weight at first paint ≤ 200 KB** including HTML + critical CSS + above-the-fold images. Verify with Lighthouse + a network-throttled DevTools run.
+- **No above-the-fold image larger than 50 KB.** WebP, properly sized via `width` + `height`, served at `fetchpriority="high"` only on the LCP image.
+- **Lazy-load every below-fold image.** `loading="lazy"` on `<img>`; `loading="lazy"` on `<iframe>` if any.
+- **Defer non-critical JS.** Analytics, dropdown chrome, and tool logic with `defer` or `async`; never block the parser on a non-critical script.
+- **No autoplay anything.** Already in §3.5; restated here because autoplay video on a $0.65/MB connection is a measurable harm.
+- **The PWA Service Worker (v14.3.0) already caches text and JSON.** This framework does not propose changes to the Service Worker; it does require that tool pages remain fully usable from the cached state, which is the existing PWA contract.
+
 ### 3.10 Trust signals (alongside, not under, pastoral voice)
 
 Pastoral voice and theological framing (Soli Deo Gloria, scripture invocations) are brand. They establish trust with the readers who share that worldview. They are not trust signals for skeptical readers who do not. Decision-support trust signals are a separate layer, and the site already has the raw material — it is mostly under-displayed.
 
 | Signal | Current state | What to do |
 |---|---|---|
-| "Built from 50+ real sailings" | Verified: `index.html:696` — buried in a right-rail bullet | Promote to a top-of-page line on tool pages and to a more prominent home-page slot |
+| "Built from 150+ days at sea" | The string at `index.html:696` previously read "50+ real sailings" — verified to exist on the page but **not verified against ground truth.** The author (Ken) named 150+ days at sea as the accurate figure on 2026-05-13. Trust-bytes-not-strings failure; see §11.1.1. Now corrected at `index.html:696`, `index.html:267`, and `first-cruise.html:306` | Promote the corrected figure to a top-of-page line on tool pages and to a more prominent home-page slot. Days at sea is a more honest unit than sailings — it tracks exposure time, which is what trust-from-experience actually depends on |
 | Per-tool last-reviewed date | Site-wide: `last-reviewed` meta tag is required and enforced (`SITE_REFERENCE.md`); not always surfaced visibly to the reader | Surface the date visibly near the tool's title ("Updated after March 2026 Symphony sailing"), not only in meta |
 | Data-source disclosure | Implicit | Add a one-line "data sources" note on each tool ("menus photographed on recent sailings; cruise-planner screenshots cross-referenced") |
 | Author identification | Verified: Person JSON-LD + Ken's author card present (`index.html:710-719`) | Keep. Photos of Ken on actual ships, if available, are content-not-framework — flagged as a separate edit. |
@@ -229,6 +254,9 @@ Highest cognitive-load surface among the tools. Real money decision. Already has
 - Audit every animation/transition for `prefers-reduced-motion: reduce` respect; add the media query where missing.
 - Verify no autoplay on any video/audio (none currently expected, but verify).
 - Price comparison shows color + icon + text label, never color alone.
+- **Chart colorblind audit (promoted to Phase 1).** Cross-examination during the orchestra debate confirmed this is load-bearing: ~8 % of male readers have red-green color vision deficiency, and Chart.js defaults are not deuteranopia-safe. Pilot ships with at least one second visual channel on the `breakeven-chart` canvas — pattern fill on bars, an icon on the winning bar, or label position that does not depend on color. Verify with a deuteranopia/protanopia simulator before the pilot commit.
+- **WCAG 2.2 SC 2.4.11 Focus Not Obscured.** Verify on the pilot page that any sticky header or floating element does not obscure a focused input or button.
+- **WCAG 2.2 SC 2.5.8 Target Size.** Verify every interactive target on the pilot is ≥ 24 × 24 CSS pixels.
 
 **Neurodivergence**
 - Paragraph length cap in the explainer copy (≤ 4 sentences).
@@ -256,8 +284,9 @@ The following are good and verified-needed, but **explicitly out of Phase 1** so
 - **"Just answer me" 3-question path** for the 11 pm-in-bed reader. Three controls only — adults, days, drinker tier (light / moderate / heavy). Output: one sentence ("For a moderate drinker on a 7-day RCL sailing, the Deluxe usually wins by ~$X.") with a "Show me the math" disclosure that reveals the full calculator. The full calculator is still the canonical surface; the 3-question path is the on-ramp.
 - **Audio summary** of the plain-language TL;DR. Generated TTS for v0 (`SpeechSynthesisUtterance` browser-side, or a static MP3 produced from the TL;DR text). Defer human-narrated audio until the pattern is proven.
 - **Trust-signal promotion** ("Built from 50+ real sailings" and per-tool last-reviewed date) surfaced visibly on the drink-calculator page.
-- **Chart colorblind audit** with at least one second visual channel added (pattern fill, icon on winning bar, or label position).
 - **"Compare all packages" disclosure** that collapses the five-way comparison into a single-default + opt-in expansion per Hick's Law (§3.8).
+
+*(Note: "chart colorblind audit" was originally in this Phase-2 list. Promoted to Phase 1 after the orchestra debate flagged colorblindness as load-bearing for a measurable population segment. See §5.2 Sensory load.)*
 
 ### 5.2.2 Phase 3 (separate plan)
 
@@ -310,6 +339,29 @@ Per careful-not-clever v1.8.2 §"Claim-Evidence Discipline." Drafted now so the 
 
 **Anti-Mode-B reminder:** if the table after edits ends up describing only TL;DR-card existence and ignores the slider, modality menu, color-contrast, and reduced-motion changes, the table is too narrow. Widen to the actual scope of the change before committing.
 
+### 7.1 Defining "is the framework working"
+
+The orchestra debate flagged that the framework needs a definition of "working" before it can claim success. Two layers:
+
+**Pre-launch (must hold before the pilot commit is approved):**
+- Lighthouse accessibility = 100 on the pilot page.
+- Flesch-Kincaid Grade ≤ 8 on the TL;DR text.
+- All claim-evidence rows in §7's table verified with cited artifacts (file:line or command output).
+- Manual deuteranopia + protanopia screenshots show the chart's winner is identifiable without color.
+- No new inline `style=` attributes; no `console.log`; v2 file and math engine unchanged.
+
+**Post-launch (30-day measurement window after the pilot ships):**
+
+| Dimension | Signal | Source |
+|---|---|---|
+| Bounce-rate direction on pilot page | Trend, not a fixed percentage target (specific numbers like "10 % drop" surfaced in debate are illustrative, not researched) | GA4 (already required per `TECHNICAL_STANDARDS.md`) |
+| Tool-engagement direction | Event-tracking on slider interaction, "compare another line" disclosure, reset button | GA4 events to be added (sibling task) |
+| Time-to-first-result | Measured from page paint to first chart render | Custom timing event |
+| Accessibility-audit regression check | Lighthouse re-run, axe-core on the pilot page | Manual + the existing accessibility-audit skill |
+| Pastoral-voice regression | `voice-audit` skill run on the TL;DR + body copy | The existing voice-audit skill |
+
+**The honest part.** This site's traffic profile probably does not produce statistically robust pre/post numbers within 30 days. The measurement window is for *direction*, not *significance.* If the framework is doing measurable harm (bounce up, engagement down), that is detectable even with thin data. If it is doing measurable good, the bar is lower than "p < 0.05"; the bar is "did not make things worse, and we can name specific signals that improved." If we cannot name those signals, we revert the pilot and re-plan.
+
 ---
 
 ## 8. Risks named
@@ -345,42 +397,125 @@ Until those answers land, this plan is the only artifact written. No HTML touche
 
 ---
 
-## 11. Verification log (external review, 2026-05-13)
+## 11. Verification log — external review (2026-05-13)
 
 An external review (pasted from another model into this session) proposed a set of changes. Per careful-not-clever §"Limit of this rule" — external audit is the correct check; per `receiving-code-review` — apply technical rigor, not performative agreement. Every claim was verified against the actual repo before being merged or rejected.
 
-### Wheat — verified true, merged
+### 11.1 Wheat — verified true, merged
 
-| Claim | Evidence | Where merged |
+Formatted per careful-not-clever v1.8.2 §"Claim-Evidence Discipline" — every row cites a specific artifact (file:line, command + output, or attribute reference). Grok finding 5 (LOW) against the prior commit `c9df21f9` named this format gap; this section addresses it.
+
+| Claim | Specific evidence | Merge target |
 |---|---|---|
-| The site has no audio playback anywhere | `grep -c "<audio"` = 0 on `index.html`, `drink-calculator.html`, `ships/quiz.html` | §3.2 + Phase 3 |
-| VARK splits into four lanes including Read/Write | Education-research consensus | §3.2 |
-| "Built from 50+ real sailings" is buried in a sidebar bullet | `index.html:696` in `col-2 aside` | §3.10 |
-| The "Loading articles…" placeholder is real, with an inline-style violation | `index.html:734` `style="color: #666;"` | §5.2.2 (separate plan) |
-| Decision-under-uncertainty effects (anchoring, loss aversion, Hick's Law) apply | Empirically supported in decision-support literature | §3.8 |
-| The 11 pm-on-phone reader is underserved by the current calculator | Inferred from the absence of any non-form on-ramp on `drink-calculator.html` | §3.9 + Phase 2 |
-| Chart.js defaults are colorblind-suboptimal | Chart.js default palette fails deuteranopia simulators out of the box | §3.5 (sensory load) |
-| iPad-portrait / 200 %-zoom reflow is not explicitly designed for | `assets/styles.css:101+` uses a single `max-width: 600px` mobile breakpoint; no tablet-medium tier | §3.5 + verification task |
-| The quiz lacks a visible TTS button for sighted-aural-preference users | `ships/quiz.html` has `aria-live="polite"` (line 1215) for screen readers but no `<audio>` or `SpeechSynthesisUtterance` | Phase 3 (audio modality) |
+| The site has no audio playback anywhere | `grep -c "<audio" index.html drink-calculator.html ships/quiz.html` → `0` for all three (run 2026-05-13) | §3.2 modality table + §5.2.2 Phase 3 |
+| VARK splits into four lanes including Read/Write | Fleming (1992); current education-research consensus on the four-lane model | §3.2 (clarification) |
+| "Built from 50+ real sailings" string is buried in a sidebar bullet | `index.html:696` in `col-2 aside`: `<li><strong>Built from 50+ real sailings</strong></li>` (this is the STRING placement — the underlying CLAIM was inaccurate; see §11.1.1) | §3.10 trust signals (placement is right; figure needed correction) |
+| The "Loading articles…" placeholder is real, with an inline-style violation | `index.html:734`: `<p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>` | §5.2.2 (separate plan) |
+| Decision-under-uncertainty effects (anchoring, loss aversion, Hick's Law) apply | Tversky & Kahneman (1981) on framing; Hick (1952) on choice reaction time; standard decision-support literature | §3.8 |
+| The 11 pm-on-phone reader is underserved | No non-form on-ramp exists on `drink-calculator.html`; `grep -n "quick\|just\|simple" drink-calculator.html` returns only marketing copy at `:429` ("💡 Use the calculator below to find your exact break-even point"), not a deferred-input path | §3.9 + Phase 2 |
+| Chart.js defaults are colorblind-suboptimal | Chart.js v4 default palette uses `#36a2eb` / `#ff6384` etc., which fail deuteranopia simulators without a second visual channel; verified against the canvas at `drink-calculator.html:798` | §3.5 (Phase 1 audit) |
+| iPad-portrait / 200 % zoom reflow is not explicitly designed for | `grep -n "@media" assets/styles.css` shows `@media (max-width: 600px)` at `:101, :116, :133, :144, :159, :199` — a single mobile breakpoint, no tablet-medium tier | §3.5 + verification task |
+| The quiz lacks a visible TTS button for sighted-aural-preference users | `grep -c "<audio" ships/quiz.html` → `0`; `grep -n "aria-live" ships/quiz.html` shows `:1215` and `:1301` (screen-reader served, sighted-aural not) | §5.2.2 Phase 3 (audio modality) |
 
-### Chaff — verified false or out-of-scope, rejected with evidence
+### 11.1.1 Trust-bytes-not-strings failure (2026-05-13, user-caught)
 
-| Claim | Verdict | Evidence |
+When merging the external review's wheat into §3.10, I verified that the string `Built from 50+ real sailings` existed at `index.html:696` and treated that as evidence the trust signal was real. The author then pointed out that he has spent 150+ days at sea, which is "a far cry from 50 sailings." The string was on the page; the underlying *claim* was inaccurate. I propagated the inaccurate claim onward into `first-cruise.html:306` in the Phase 1 pilot edit.
+
+This is exactly the failure named in `admin/claude/CLAUDE.md` §"Verification Discipline": "Trust bytes, not strings. When asked whether something is correct, unique, working, or consistent — run the ground-truth check, not the proxy check. The proxy can be clean while the ground truth is broken." I ran the proxy check (string exists in repo). I did not run the ground-truth check (does the count match the author's actual sailing history). The user ran the ground-truth check and the proxy lost.
+
+**Anti-Mode-B widening (2026-05-13).** Initial fix targeted only the two instances I had explicit context for (`first-cruise.html:306` and `index.html:696`). Plus `index.html:267` because the same factual claim appeared inside the same file in a different surface (ai-breadcrumbs). After running a `grep -rn "50+ cruises\|50+ sailings\|50 sailings\|50 real sailings"` across `*.html`, three additional instances surfaced that the same correction must cover, or the table understates scope (the v1.8.2 anti-Mode-B failure mode):
+
+- `drink-calculator.html:306` — `expertise: 50+ cruises, drink package analysis since 2020` (ai-breadcrumbs)
+- `about-us.html:248` — `expertise: Ken Baker (founder, 50+ cruises, ...)` (ai-breadcrumbs)
+- `about-us.html:250` — `answer-first: ...Ken Baker (50+ cruises) and team` (ai-breadcrumbs)
+- `drink-calculatorv2.html:315` — same as v1 — **deliberately excluded** because v2 is in active P2 development with a pending math fix per plan §5.1 ("v2 file. Not opened. Not edited."). Flagged here for separate user-led correction once the math fix lands.
+
+**Corrections applied** (commit at integrity-correction commit SHA; cite at commit time):
+
+| File:line | Before | After |
 |---|---|---|
-| "Render the chart with default preset values on load" | **False — already does** | `drink-calculator.html` has `window.addEventListener('load', ...)` that calls `FORCE_CALCULATE()` with defaults. The chart renders on first paint. |
-| "The home page is tools on top, Logbook in a sidebar — reframe it around Logbook" | **False — Logbook is already in col-1 main, above Tools** | Logbook excerpt at `index.html:460-469` in `col-1`; Planning Tools card at `:474`; Logbook is structurally above Tools. The visual-weight sub-issue (Tools card has a heavy tropical gradient at `:474`) is real but does not justify a restructure. The pastoral guardrails explicitly say "do less, not more — prefer copy-editing over restructuring." |
-| "Loading articles… is the single highest-impact visual-channel fix" | **Real bug, overstated ranking** | The placeholder is real (`:734`) but 0 audio elements site-wide is a wider channel gap than one placeholder. Demoted to §5.2.2 (separate plan), not the top of the framework. |
-| "`ai-summary` is clever — but is anything reading it?" | **Naive of existing protocol** | The site is on ICP-Lite v1.4 / migrating to ICP-2 with a 138-rule validator-spec catalog. `<meta name="ai-summary">` is part of that protocol, not a homegrown field. Critique does not apply. |
-| "AI assistants weight recency heavily — freshness gap" | **Already enforced upstream** | `admin/claude/SITE_REFERENCE.md` requires every page edit to bump `last-reviewed` meta and `dateModified` JSON-LD. The framework only adds *surfacing* the date visibly (§3.10), not enforcing freshness. |
-| `prefers-reduced-motion` gap | **Infrastructure already in place** | 6 stylesheets declare `@media (prefers-reduced-motion: reduce)` rules (see §3.5). Verify coverage on the pilot's specific animations; do not re-introduce the pattern. |
-| "Tool-card icon strip, photos of Ken on ships, Found a Duck? photo carousel" | **Out of framework scope** | Real content recommendations, valid in their own right, but they are not learning-modality framework adaptations. Flagged for separate content work. |
-| "Voucher-section progressive disclosure" | **Already in plan** | §3.4 already says "Disclosure progressive, not modal." |
-| "Cognitive load on the drink calculator is borderline" | **Already in plan** | §3.4 and §5.2 already address this; the framework picked this page as pilot precisely because of that load. |
+| `first-cruise.html:306` | `Built from 50+ real sailings, not a brochure` | `Built from 150+ days at sea, not a brochure` |
+| `index.html:267` | `expertise: Royal Caribbean specialist, 50+ cruises, accessibility advocate, pastor, photographer` | `expertise: Royal Caribbean specialist, 150+ days at sea, accessibility advocate, pastor, photographer` |
+| `index.html:696` | `<li><strong>Built from 50+ real sailings</strong></li>` | `<li><strong>Built from 150+ days at sea</strong></li>` |
+| `index.html:41` | `last-reviewed content="2026-05-03"` | `last-reviewed content="2026-05-13"` |
+| `index.html:231` | `dateModified: "2026-05-03"` | `dateModified: "2026-05-13"` |
+| `drink-calculator.html:306` | `expertise: 50+ cruises, drink package analysis since 2020` | `expertise: 150+ days at sea, drink package analysis since 2020` |
+| `drink-calculator.html:39` | `last-reviewed content="2026-04-13"` | `last-reviewed content="2026-05-13"` |
+| `drink-calculator.html:278` | `dateModified: "2025-11-19"` (WebPage schema; SoftwareApplication's separate dateModified at :217 left unchanged because it tracks software version, not page review) | `dateModified: "2026-05-13"` |
+| `about-us.html:248` | `expertise: Ken Baker (founder, 50+ cruises, pastor, photographer), ...` | `expertise: Ken Baker (founder, 150+ days at sea, pastor, photographer), ...` |
+| `about-us.html:250` | `answer-first: ...Ken Baker (50+ cruises) and team` | `answer-first: ...Ken Baker (150+ days at sea) and team` |
+| `about-us.html:29` | `last-reviewed content="2026-02-12"` | `last-reviewed content="2026-05-13"` |
+| `about-us.html:187` | `dateModified: "2026-02-12"` | `dateModified: "2026-05-13"` |
+| `drink-calculatorv2.html:315` | `expertise: 50+ cruises, drink package analysis since 2020` | **NOT MODIFIED** — P2 collision risk; user-led fix pending |
 
-### Findings the external review missed
+**Lesson preserved (do not rewrite history).** Wheat row in §11.1 was updated to acknowledge that what was verified was the *placement* of the string, not the *truth* of the claim. The failure is named here, not erased. Future authors lifting trust signals from existing pages must run the ground-truth check on the underlying claim, not just confirm the string exists.
 
-- The drink-calculator chart already ships a screen-reader `<table>` fallback at `drink-calculator.html:801` (`id="chart-desc"`, referenced by `aria-describedby` on the canvas). The chart is more accessible than the review credited.
-- The ship quiz uses semantic `<h2>` headings for each question (`ships/quiz.html:2019`: `<h2>${q.question}</h2>`) and an `aria-live="polite"` status region (`:1215`). Read/write and screen-reader users are decently served; the gap is sighted-aural only.
+**Why "days at sea" instead of a corrected sailing count.** The author offered "150+ days at sea" directly; that is the ground truth. Days at sea is also a more honest unit than sailings — a count of trips can include short repeat sailings on a familiar route; days at sea measures total exposure to the operating reality of a ship, which is what trust-from-experience actually rests on. Adopt the unit the author named.
+
+
+
+| Claim | Verdict | Specific evidence |
+|---|---|---|
+| "Render the chart with default preset values on load" | **False — already does** | `drink-calculator.html` ll. 1420–1450 wires reset; `window.addEventListener('load', ...)` near line 1450 contains the comment `// Auto-trigger calculation after page loads` and a `FORCE_CALCULATE()` invocation that runs with default inputs |
+| "The home page is tools-on-top, Logbook in a sidebar — reframe it around Logbook" | **False — Logbook is already in col-1 main, above Tools** | `index.html:460-469` (Logbook excerpt "From the Logbook" / "In the Wake of Grief: When Loss Needs Water") is inside `<section class="col-1">`; `index.html:474` opens the Planning Tools card *after* it. Visual-weight sub-issue (Tools card has heavy tropical gradient at `:474`) is real but does not justify a restructure; pastoral guardrails explicitly say "do less, not more — prefer copy-editing over restructuring" |
+| "Loading articles… is the single highest-impact visual-channel fix" | **Real bug, overstated ranking** | Placeholder real (`index.html:734`); 0 audio elements is a wider channel gap than one placeholder. Demoted to §5.2.2 (separate plan) |
+| "`ai-summary` is clever — but is anything reading it?" | **Naive of existing protocol** | `admin/claude/ITW-LITE_PROTOCOL.md` defines `<meta name="ai-summary">` as part of ICP-Lite v1.4; `admin/validator-spec/` catalogs 138 rules built on it. Field is protocol, not homegrown |
+| "AI assistants weight recency heavily — freshness gap" | **Already enforced upstream** | `admin/claude/SITE_REFERENCE.md` "Last-Reviewed Date Updates" section requires every page edit to bump `<meta name="last-reviewed">` and JSON-LD `dateModified`; rule is enforced by validator |
+| `prefers-reduced-motion` gap | **Infrastructure already in place** | `grep -rn "prefers-reduced-motion" assets/css/ assets/styles.css`: 6 declarations at `item-cards.css:471`, `ships-dynamic.css:454`, `calculator.css:1331`, `calculator.css:1992`, `tools/cruise-tipping-calculator.css:204`, `styles.css:292`. Verify per-page coverage, do not re-introduce |
+| "Tool-card icon strip, photos of Ken on ships, Found-a-Duck? photo carousel" | **Out of framework scope** | "Found a Duck?" card exists at `index.html:624-637`; Ken's author card at `:710-719`. Real content recommendations, not learning-modality framework adaptations |
+| "Voucher-section progressive disclosure" | **Already in plan** | §3.4: "Disclosure progressive, not modal. Detail expands inline; modals only for confirmation, never for content." |
+| "Cognitive load on the drink calculator is borderline" | **Already in plan** | §3.4 and §5.2 already address this; pilot picked precisely because of that load |
+
+### 11.3 Findings the external review missed
+
+| Observation | Evidence |
+|---|---|
+| The drink-calculator chart already ships a screen-reader `<table>` fallback | `drink-calculator.html:798` `<canvas ... aria-describedby="chart-desc">`; `:801` `<table id="chart-desc" class="sr-only" aria-label="Package cost comparison data">` |
+| The ship quiz uses semantic `<h2>` headings + `aria-live="polite"` status region | `ships/quiz.html:2019` `<h2>${q.question}</h2>`; `:1215` `<div id="a11y-status" role="status" aria-live="polite">`; `:1301` `<div class="quiz-progress" aria-live="polite">` |
+
+---
+
+## 12. Debate log — adversarial review + orchestra (2026-05-13)
+
+The plan after §11 was sent to two independent checks:
+
+1. **Adversarial review** (`admin/external-audit.sh` → grok, role challenge). Report: `audit-reports/external-audit-2026-05-13T182913Z-grok.md`. Cost: `$0.0783`.
+2. **Orchestra debate** (cruising mode → GPT-4o + Perplexity-via-Gemini-3-flash + Grok-3). Cost: approx. `$0.06` across three models.
+
+### 12.1 Adversarial findings (against the plan commits)
+
+Only Finding 5 is about the plan commits; findings 1–4 and 6 are against prior session commits in the same `origin/main..HEAD` range and are covered by their own dispositions in earlier audit reports.
+
+| Finding | Severity | Disposition |
+|---|---|---|
+| F5 — `c9df21f9` §11 verification log used narrative file:line citations instead of the formal claim-evidence TABLE that v1.8.2 §"Required Artifact" mandates | LOW | **Fixed.** §11 above is now formatted as three tables (wheat, chaff, missed-by-external-review) per v1.8.2. Each row cites a specific artifact (file:line or command + output) |
+| F1, F2, F3, F4, F6 — against prior commits (`b3523629`, `5e0f9dad`, `2f772b01`, `679eec27`, `63930dc3`) | HIGH / MEDIUM | **Out of this plan's scope.** Dispositions belong to the sessions that authored those commits; tracked in their own audit-report dispositions |
+
+### 12.2 Orchestra debate — what survived cross-examination
+
+**Multi-model consensus (merged):**
+
+| Item | Models converging | Merge target |
+|---|---|---|
+| WCAG **2.2 AA, not 2.1** — specifically SC 2.4.11 (Focus Not Obscured) + SC 2.5.8 (Target Size ≥ 24 × 24 CSS px) | Perplexity (cited W3C spec), Grok (confirmed in verifications) | §3.7 |
+| Chart colorblind audit → **Phase 1, not Phase 2** (~8 % of male population affected) | Perplexity, Grok, GPT (all three confirmed) | §5.2 Sensory load |
+| Motor disabilities deserve **explicit treatment beyond AT** (target size, keyboard, hover-not-required, drag alternatives) | GPT proposed, Grok confirmed | §3.7 |
+| Low-bandwidth context needs **concrete metrics**, not just a label (page weight, lazy-load, JS defer) | Perplexity proposed, Grok confirmed | §3.9 |
+| Define "working" with **measurable post-launch dimensions** (direction, not p-values) | Grok proposed | §7.1 (new) |
+
+**Single-model proposals (rejected after cross-examination):**
+
+| Item | Model | Reason rejected |
+|---|---|---|
+| Reorganize §3 by merging cognitive / sensory / neurodivergence into one "User Cognitive Profile" | GPT | Grok correctly challenged as "bureaucratic reshuffling without user-outcome evidence"; rejected |
+| "Executive Function Scaffolds" claiming "63 % reduction in real-time decision fatigue" | Perplexity | Specific 63 % number has no citation, smells fabricated; the underlying concept (step-completion signifiers, failure buffers) is reasonable but applies more to port pages than calculators — deferred as a sibling plan |
+| Language / translation toggle as new §3 dimension | Grok | Real audience question but adds significant scope; not load-bearing for Phase 1; defer |
+| Offline-first Service Worker for port data | Perplexity | Site already runs SW v14.3.0 with the existing PWA caching strategy; this overlaps prior work, not framework-defining |
+| WCAG 2.2 as "regulatory mandate" framing | Perplexity | Grok correctly pushed back: no regulation cited. WCAG 2.2 is adopted because it's the current standard, not because of legal pressure |
+
+**Debate pushed back on the pilot choice.** GPT and Grok both suggested **first-cruise.html** (First-Timer persona, higher-stakes). Perplexity suggested **port-page-template** (387 pages, scale leverage). All three challenged drink-calculator.html as low-leverage relative to alternatives.
+
+**Disposition:** the user chose drink-calculator.html in an earlier AskUserQuestion. The debate is logged here as a flagged dissent. The pilot stays on drink-calculator.html unless the user reopens that decision. Adopting the framework on first-cruise.html or port-page-template after Phase 1 lands is a natural follow-on plan; rejecting the user's prior decision unilaterally would be clever-not-careful.
 
 ---
 
