@@ -947,6 +947,140 @@ These ports already had cruise_port, getting_around, and excursions sections. Th
 
 ---
 
+## May 2026 Completions
+
+Reconciliation batch dated 2026-05-12 (branch `claude/audit-unfinished-tasks-5evPi`). Each entry was verified against HEAD via file read + git log + test run before being moved from `admin/UNFINISHED_TASKS.md` per that file's stated rule ("Move each to `admin/COMPLETED_TASKS.md` when fixed — do not delete from this list silently").
+
+### Phase 3.2b — ai-summary boilerplate cleanup (36 ships) - COMPLETE (2026-05-09)
+**Status:** COMPLETE — merged via PR #1497
+**Thread:** `claude/phase3-2b-ai-summary-cleanup`
+**Lane:** 🟢 Green
+- [x] 17 propagations (ai-summary already specific; description meta still boilerplate)
+- [x] 19 rewrites (ai-summary itself was boilerplate by tightened standards)
+- [x] Validator tightened with 5 atomic boilerplate fragments in `admin/validator-config.json` ("deck plans, live tracker", "deck plans, live tracking", "deck plans, dining venues, stateroom tours", "deck plans, historical information", "historical information, legacy, and ship details")
+- [x] `admin/phase3-2b-propagate.cjs` + `admin/phase3-2b-rewrite.cjs` shipped
+- [x] All 36 ships silent on `ai_summary_boilerplate` AND `ai_summary_length`
+**Verifying commit:** `f6e23318` Phase 3.2b: ai-summary boilerplate cleanup, 36 ships + validator tightening
+**Merge commit:** `01cc9ab4`
+**Audit log:** `audit-reports/ai-summary-rewrites/_phase3-2b-batch-2026-05-09.md`
+
+### Phase 3.2c — additional ai-summary boilerplate (26 ships) - COMPLETE (2026-05-09)
+**Status:** COMPLETE — merged via PR #1480
+**Thread:** `claude/phase3-2c-boilerplate-batch-3` (stacked on 3.2b)
+**Lane:** 🟢 Green
+- [x] 26 ships rewritten via 54 replacements (`admin/phase3-2b-rewrite.cjs`)
+- [x] Distribution: Celebrity 12, HAL 7, RCL 6, MSC 1
+- [x] All 26 silent on `ai_summary_boilerplate` AND `ai_summary_length`
+- [x] Fleet-wide `ai_summary_boilerplate` count = **0**
+- [x] Mid-batch correction documented (initially split 22+4; re-verification using meta description + body prose, not just `<li><strong>` fact block, showed all 26 had on-page facts)
+**Verifying commit:** `f88f3099` Phase 3.2c: clear remaining 26 ai-summary boilerplate ships
+**Merge commit:** `46596673`
+**Audit log:** `audit-reports/ai-summary-rewrites/_phase3-2c-batch-2026-05-09.md`
+
+### Cruise Tipping Calculator P1 — per-child age inputs honor exemption rule - COMPLETE (2026-05-09 / 2026-05-10)
+**Status:** COMPLETE — verified via file read + 33/33 unit tests pass during 2026-05-12 audit
+**Lane:** 🟢 Green
+- [x] `assets/js/tools/cruise-tipping-calculator/main.js:66-72` per-child `data-child-index` handler updates one age slot at a time (replaces the documented `Array(n).fill(99)` synthesis)
+- [x] `main.js:77-83` children-count change preserves existing ages, defaults only new slots to 99
+- [x] `assets/js/tools/cruise-tipping-calculator/render.js:84-115` `renderChildAges()` renders one numeric input per child plus a policy note pulled from `line.childPolicy`
+- [x] `assets/js/tools/cruise-tipping-calculator/calc.js:84-95` `chargedChildrenWeight()` honors `ageMultipliers` (Costa tiered) and `exemptUnderAge` (Carnival/NCL/MSC binary)
+- [x] Carnival 2-adult + 1-toddler family now shows $238, not $357 (verified via Playwright)
+**Verifying commits:** `747eec6c` fix(tipping): per-child age inputs honor each line's exemption rule; `2262eb47` feat(tipping): tiered child-rate model for Costa (under 4 free, 4-14 half, 15+ full)
+**Verifying tests:** `tests/unit/cruise-tipping/calc.test.mjs` "daily total: skip exempt children (Carnival under 2)"; `tests/playwright/cruise-tipping-calculator.spec.js:84` "Carnival toddler exemption: setting age=1 drops daily charge from $357 to $238"
+
+### Cruise Tipping Calculator P1 — region pricing for Costa and MSC - COMPLETE (2026-05-09)
+**Status:** COMPLETE — verified via JSON inspection + test pass during 2026-05-12 audit
+**Lane:** 🟢 Green
+- [x] Schema v1.1 optional `regions` array
+- [x] Costa: 2 regions (South America USD $14.50, Med/Northern Europe EUR 11)
+- [x] MSC: 3 regions (Caribbean/Alaska USD $17/$23, Med/Northern Europe EUR 12/16, South America USD $19/$23)
+- [x] Form renders "Sailing region" picker only on multi-region lines
+- [x] Cabin tiers re-render when region changes; cabin slug preserved across valid region switches
+- [x] Honest split-currency headline when cruise charges (€) and cash extras (USD) differ
+- [x] CSS bug fixed: explicit `[hidden] { display: none }` overrides `.accordion__panel label { display: grid }`
+**Verifying commit:** `dbb2e4d0` feat(tipping): region pricing for Costa and MSC with currency-aware display
+**Verifying files:** `assets/data/tipping/costa.json` (2 regions), `assets/data/tipping/msc.json` (3 regions)
+**Verifying tests:** 25 unit + 10 Playwright pass
+
+### Cruise Tipping Calculator P1 — Costa half-rate (ages 4–14) - COMPLETE (2026-05-09)
+**Status:** COMPLETE — verified via JSON inspection + test pass during 2026-05-12 audit
+**Lane:** 🟢 Green
+- [x] Schema v1.1 extended with optional `childPolicy.ageMultipliers` array
+- [x] Costa: under-4 free, 4–14 half rate, 15+ full
+- [x] `chargedChildrenWeight()` produces fractional weights; 2 adults + 1 child age 8 on Costa Med bills (2 + 0.5) × 7 × €11 = €192.50 instead of €231
+- [x] Backward-compatible with binary `exemptUnderAge` lines via the same helper
+- [x] Render layer expresses tier rules in the children-ages note
+**Verifying commit:** `2262eb47` feat(tipping): tiered child-rate model for Costa (under 4 free, 4-14 half, 15+ full)
+**Verifying tests:** `tests/unit/cruise-tipping/calc.test.mjs:169` "Costa half-rate: 2 adults + 1 child age 8 (Med EUR) = (2 + 0.5) × 7 × 11 = EUR 192.50"; `tests/playwright/cruise-tipping-calculator.spec.js:163` "Costa half-rate: family with one school-age child on Med EUR sailing pays €192.50, not €231"
+
+### Cruise Tipping Calculator P2 — Virgin Voyages prepaid vs. onboard - COMPLETE (2026-05-09)
+**Status:** COMPLETE — verified via JSON inspection during 2026-05-12 audit
+**Lane:** 🟢 Green
+- [x] Added second tier `slug: "onboard", amount: 22.00, label: "Posted onboard the ship"` in `assets/data/tipping/virgin-voyages.json`
+- [x] Existing tier relabeled "Pre-paid before sailing — recommended"
+- [x] No schema changes — existing `tiers` array supported the dual semantics
+**Verifying file:** `assets/data/tipping/virgin-voyages.json` (both tiers visible at $20 and $22)
+**Verifying test:** Playwright case ($20×7×2 = $280 default, $22×7×2 = $308 onboard)
+
+### Cruise Tipping Calculator P3 — Tipping Calculator on 5 legacy Carnival ship pages - COMPLETE (2026-05-09)
+**Status:** COMPLETE — verified via grep during 2026-05-12 audit (2 hits per file)
+**Lane:** 🟢 Green
+- [x] Tipping Calculator added to both Planning dropdown + sidebar Quick Tools on `ships/carnival/carnival-firenze.html`, `carnival-horizon.html`, `carnival-panorama.html`, `carnival-sunshine.html`, `carnival-venezia.html`
+- [x] Each page has 2 references to the tool (verified via `grep -c cruise-tipping-calculator`)
+- [x] All 5 parse as valid HTML, serve HTTP 200, no regressions in the cruise-tipping test suite
+
+### Cruise Tipping Calculator P3 — Playwright regression baseline for 8 site tools - COMPLETE (2026-05-09)
+**Status:** COMPLETE — verified via file existence during 2026-05-12 audit
+**Lane:** 🟢 Green
+- [x] Shipped `tests/playwright/tools-smoke.spec.js` — one smoke test per tool (8 total)
+- [x] Each test asserts HTTP 200, primary `<h1>` rendered, non-empty `<title>`
+- [x] Page-error listener via `page.on('pageerror')` — flipped to hard `expect(errors).toEqual([])` after the P2 JS-error fix below
+- [x] Suite runs 19 Playwright tests total (11 cruise-tipping + 8 smoke)
+**Verifying file:** `tests/playwright/tools-smoke.spec.js`
+
+### Cruise Tipping Calculator P2 — pre-existing JS errors on 4 tools - COMPLETE (2026-05-09)
+**Status:** COMPLETE — verified via grep + commit during 2026-05-12 audit
+**Lane:** 🟢 Green
+- [x] `tools/port-tracker.html` and `tools/ship-tracker.html`: 11 backslash-escaped `\${` interpolations per file in the "Recent Articles" rail caused template-literal mis-parse → fixed via `\${` → `${` (0 hits in HEAD)
+- [x] `tools/drink-calculator.html` and `tools/drink-calculatorv2.html`: line 30 `document.documentElement.classList.remove(\'no-js\');` had backslash-escaped quotes outside any string context → backslashes removed
+- [x] `tools-smoke.spec.js` flipped from annotation to hard `expect(errors).toEqual([])`. 19/19 Playwright pass
+**Verifying commit:** `9619a9ae` fix(js): repair inline-script parse errors on 4 tools
+
+### Cruise Tipping Calculator P3 — `[object Object]` 404s root-caused and fixed - COMPLETE (2026-05-13)
+**Status:** COMPLETE — root cause identified, fix shipped, regression test added
+**Thread:** `claude/audit-unfinished-tasks-5evPi` (B1.2 of the 2026-05-12 batch plan)
+**Lane:** 🟢 Green
+- [x] **Root cause:** `sw.js:warmPrecache()` spread `manifest.pages/assets/images/data` arrays directly into `new URL(entry, location.origin)`. The precache-manifest entries are `{ url, priority, type? }` objects, not bare strings. `new URL({}, base)` coerces the object to the literal text `"[object Object]"`, producing `http://127.0.0.1:8765/[object Object]` — and `isSameOrigin(obj)` was permissive (also coerced) so the filter let everything through. 64 manifest entries (20 pages + 24 assets + 3 images + 17 data) = 64 404s per page load, exactly matching the audit count.
+- [x] **Fix:** `sw.js:warmPrecache()` now extracts `.url` explicitly with a `typeof === 'string'` filter; `isSameOrigin()` rejects non-strings up front. Belt-and-suspenders against any future manifest consumer with the same bug.
+- [x] **Diagnosis method:** built a one-off diagnostic spec that hooked `page.on('request')` AND `context.on('request')` (the latter catches service-worker traffic; `page.on` alone does not). Captured offender URL + referer. All 64 hits had referer = `http://127.0.0.1:8765/sw.js?v=3.010.300`. Spec deleted after fix; its purpose is now served by the smoke spec assertion below.
+- [x] **Regression test:** `tests/playwright/tools-smoke.spec.js` extended with `(e) zero requests to /[object Object] from anywhere`. Hooks `context.on('request')` to catch service-worker requests, waits 2s past networkidle to give warmPrecache time to fire, asserts the offender array is empty. 8/8 smoke tests pass with the new assertion.
+**Verifying commit:** see below (this same audit branch).
+**Verifying tests:** `tests/playwright/tools-smoke.spec.js` 8/8 pass with the new `(e)` assertion enabled.
+
+### Affiliate Phase 3 — planning-resources card on 4 Carnival ships - COMPLETE (2026-05-13)
+**Status:** COMPLETE — body card with 4 affiliate article links added; ship validator passes (0 errors) on all 4
+**Thread:** `claude/audit-unfinished-tasks-5evPi` (B2.4 of the 2026-05-12 batch plan)
+**Lane:** 🟢 Green
+- [x] `ships/carnival/carnival-adventure.html` — inserted before recent-rail (single-column layout)
+- [x] `ships/carnival/carnivale-1956.html` — inserted before `</section><!-- End Main Content Column -->` (two-column layout)
+- [x] `ships/carnival/jubilee-1986.html` — inserted before `</section><!-- End Main Content Column -->` (two-column layout)
+- [x] `ships/carnival/mardi-gras-1972.html` — inserted before `</section><!-- End Main Content Column -->` (two-column layout)
+- [x] Block reused verbatim from the 44 done Carnival ships (canonical: `carnival-jubilee.html:878-887`). Four `<li>` items linking `/packing-lists.html`, `/articles/cruise-cabin-organization.html`, `/internet-at-sea.html`, `/articles/cruise-tech-photography-guide.html`. All four targets exist on disk.
+- [x] Validator spot-check on carnival-adventure (single-column) + jubilee-1986 (two-column) — both pass with 0 errors
+
+### Audit sweep batch 2 — five marked-done items - COMPLETE (verified 2026-05-12)
+**Status:** COMPLETE — each item verified against current code during 2026-05-12 audit sweep
+**Lane:** 🟢 Green
+**Note:** these five `- [x]` strikethrough items were noted "verified 2026-03-02" in UNFINISHED_TASKS but never moved. Second-pass sweep found them and verified each is still true in HEAD before moving.
+
+- [x] **Deck plan links load correctly** — verified `ships/rcl/quantum-of-the-seas.html:948,972` link to `https://www.royalcaribbean.com/cruise-ships/quantum-of-the-seas` with `target="_blank" rel="nofollow noopener"`. External links to cruise line sites, not PDFs. Original verification 2026-03-02.
+- [x] **Quiz null safety on lineData access** — verified `ships/quiz.html:2543` uses optional chaining with fallback: `${r.lineData?.colors?.primary || '#0e6e8e'}` and `${r.lineData?.short_name || line}`. Original verification 2026-03-02.
+- [x] **Quiz 10-ship limit** — verified `ships/quiz.html:2624-2631` `adjustResultsLimit(delta)` uses `Math.max(3, Math.min(10, resultsLimit + delta))` clamp. UI controls at `ships/quiz.html:1467-1470` (`btnLimitMinus` / `btnLimitPlus` / `<strong id="limitCount">3</strong>`). Hard cap at 10. Original verification 2026-03-02.
+- [x] **Quiz Comparison Drawer from Ship Atlas** — verified `ships/quiz.html:1657` `const MAX_COMPARE = 5;` with full tray CSS at lines 699-799 (`.compare-tray`, `.compare-tray-header`, `.compare-cards`, `.compare-card-remove`). Cap enforcement at line 2772 with alert: `"You can compare up to ${MAX_COMPARE} ships at a time."`. Original verification 2026-03-02.
+- [x] **Google Search Console set up** — verified active per GSC audit dated 2026-03-27 already documented at the top of UNFINISHED_TASKS.md (now line ~190, "## Google Search Console Audit"). The audit pulled GSC data 2026-03-23 and applied fixes for crawled-not-indexed, redirects, sitemap. Original setup confirmed by data presence.
+
+---
+
 **END OF COMPLETED TASKS**
 
 This file is append-only. New completions are added at the bottom of the relevant section.

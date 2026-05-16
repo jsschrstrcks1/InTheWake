@@ -30,7 +30,29 @@ v2 is the single authoritative port validator. It runs internally and orchestrat
 
 ## Baseline Status
 
-**Last full batch run:** Pending (validator consolidated 2026-04-09 — run `batch-validate.js` for fresh numbers)
+**Last full batch run:** 2026-05-14 (validator: `admin/validate-port-page-v2.js --all-ports`; full report at `admin/audit-reports/port-validation-2026-05-14/REPORT.md`; raw JSON at `admin/audit-reports/port-validation-2026-05-14/all-ports-results.json`)
+
+**2026-05-14 baseline (post-consolidation, every-port-to-100/0/0 sweep starting):**
+
+| Bucket | Count | % |
+|---|---:|---:|
+| Score 100, 0 warnings (all are validator-skipped redirects/non-port pages) | 5 | 1.3% |
+| Score 100 with light warnings (real port: `south-pacific`) | 1 | 0.3% |
+| Score 90–99 | 16 | 4.1% |
+| Score 80–89 | 30 | 7.8% |
+| Score 70–79 | 57 | 14.7% |
+| Score 60–69 | 170 | 43.9% |
+| Score 50–59 | 73 | 18.9% |
+| Score 30–49 | 25 | 6.5% |
+| Score 1–29 | 10 | 2.6% |
+| **Truly perfect non-skipped port pages** | **0** | **0.0%** |
+| **Failing (≥1 blocking error)** | **283** | **73.1%** |
+| **Passing with warnings** | **99** | **25.6%** |
+| **Total port pages** | **387** | 100% |
+
+Total findings to clear for 100/0/0 fleet: **5,259** (417 blocking-error instances + 4,842 warning instances).
+
+Dominant blockers: `weather_sub/weather_validation_failed` (260 ports), `image_refs/missing_image_file` (49 ports), `structure/collapsible_required` (36 ports), `rendering/missing_stylesheet` (25 ports), `basic_html/missing_main_content` (13 ports). Full breakdown in `admin/audit-reports/port-validation-2026-05-14/REPORT.md`.
 
 **Previous baselines (for reference, pre-consolidation):**
 

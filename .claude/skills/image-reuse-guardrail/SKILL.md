@@ -84,7 +84,13 @@ Before you create, edit, fetch, or reference an image:
 3. **The bytes must be unique site-wide.** Run `node admin/scan-image-reuse.cjs` if you are unsure. If your image's MD5 matches anything in `audit-reports/image-reuse-registry.json` outside this entity, you do not have a new image; you have someone else's image.
 4. **The image must not be a visual recrop of an existing one.** `node admin/scan-image-recrops.cjs` runs dHash on every site image and flags pairs within Hamming-8 of each other. Recompressing / cropping / mirroring an existing photo to make a "new" image for a different entity defeats md5 but doesn't defeat dHash. We caught Costa Deliziosa being passed off as Celebrity Millennium this way. Don't be the next entry.
 5. **Every committed image must have a row in `assets/data/atribution_registry.json`** with a matching `path`, `author`, `license`, and `credit_line`. No row, no commit.
-6. **Allowlisted sections** — `assets/brand/`, `assets/icons/`, `assets/social/` — may legitimately reuse imagery (a logo is a logo). Nothing else.
+6. **Allowlisted sections** — `assets/brand/`, `assets/icons/`, `assets/social/` — may legitimately reuse imagery (a logo is a logo).
+7. **Documented same-entity patterns (Phase 3.5, issue #1465).** Three patterns are intentionally not Cordelia:
+   - **Ship `_root` ↔ line bucket for same slug.** `assets/ships/Carnival_Conquest_3.jpg` and `assets/ships/carnival/carnival-conquest-exterior.jpg` are the same ship — the scanner now collapses these onto one entity key (`ships:carnival-conquest`) and reports the duplicate as INFO, not CRITICAL. Pick one canonical path and delete the other; the lie isn't there.
+   - **Author portrait in their article.** `authors/img/ken1.<ext>` and `assets/articles/ken1.<ext>` for the same author photo is the documented pattern, not Cordelia. The same-entity rule applies when the filename roots match across the `authors`/`articles` section pair.
+   - **Flickers of Majesty convention.** Files matching the `*-FOM-*` filename pattern within the ships section are intentionally one-image-per-named-ship by FOM's licensing arrangement; cross-slug reuse here is convention, not laundering. Cross-section reuse of an FOM image (e.g., into ports) remains blocking.
+
+The three patterns above are the only allowlisted reuses. Anything outside them is still Cordelia.
 
 If you are tempted to break any of these because finding the right image is
 hard: stop. **Leaving a slot empty is honest. Filling it with the wrong image

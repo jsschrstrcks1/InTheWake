@@ -452,12 +452,19 @@ async function warmPrecache() {
     if (!response.ok) return;
 
     const manifest = await response.json();
+    // Manifest entries are { url, priority, type? } objects, not bare strings.
+    // Extracting the URL explicitly avoids `new URL({}, base)` coercing the
+    // whole object to the literal text "[object Object]" and producing a
+    // wave of /[object%20Object] 404s during precache warming.
     const urls = [
       ...(manifest.pages || []),
       ...(manifest.assets || []),
       ...(manifest.images || []),
       ...(manifest.data || [])
-    ].filter(url => isSameOrigin(url));
+    ]
+      .map(entry => typeof entry === 'string' ? entry : (entry && entry.url))
+      .filter(url => typeof url === 'string' && url.length > 0)
+      .filter(url => isSameOrigin(url));
 
     const precache = await caches.open(CACHES.PRECACHE);
 
@@ -941,6 +948,7 @@ function logError(context, error, url = '') {
 /* ==================== URL HELPERS ==================== */
 
 function isSameOrigin(url) {
+  if (typeof url !== 'string' || url.length === 0) return false;
   try {
     return new URL(url, location.origin).origin === location.origin;
   } catch (e) {
