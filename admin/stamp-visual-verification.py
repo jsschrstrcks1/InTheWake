@@ -205,6 +205,24 @@ VERIFICATIONS = {
         "ambiguous", "Distant Grand-class Princess off a beach; no name visible; Grand-class sister ambiguity"),
     "assets/ships/princess/caribbean-princess/Caribbean_princess_-b.webp.attr.json": (
         "ambiguous", "Grand-class Princess stern view; no name visible; Grand-class sister ambiguity"),
+
+    # ---- Carnival Breeze (batch C, 2026-05-14) -----------------------------
+    "assets/ships/carnival/carnival-breeze/Non_aux_grands_navires___Venise___(8157935541).webp.attr.json": (
+        "confirmed", "Carnival Breeze passing through Venice; \"CARNIVAL BREEZE\" lettering visible on hull"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698070).webp.attr.json": (
+        "confirmed", "Carnival Breeze alongside at La Luz harbour, Las Palmas; \"CARNIVAL BREEZE\" lettering visible"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698418).webp.attr.json": (
+        "confirmed", "Upper-deck close-up at Las Palmas with \"CARNIVAL BREEZE\" lettering visible"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698968).webp.attr.json": (
+        "confirmed", "Funnel close-up at Las Palmas with \"CARNIVAL BREEZE\" lettering visible"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179697968).webp.attr.json": (
+        "consistent", "Wide view of Las Palmas harbour with Carnival Breeze visible; same series/day as the four confirmed Las Palmas shots; no individual name visible from this distance"),
+    "assets/ships/carnival/carnival-breeze/Carnival_Breeze.webp.attr.json": (
+        "ambiguous", "Distant Dream-class Carnival ship at Monaco; sister ships Carnival Dream and Carnival Magic visually similar from this distance"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698282).webp.attr.json": (
+        "ambiguous", "Upper-deck WaterWorks aqua-park close-up; same amenity exists on Dream-class sisters Dream and Magic"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698748).webp.attr.json": (
+        "ambiguous", "Water-slide close-up; same Dream-class amenity exists on Dream and Magic"),
 }
 
 
