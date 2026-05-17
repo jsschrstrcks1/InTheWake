@@ -168,6 +168,43 @@ VERIFICATIONS = {
         "ambiguous", "Cunard Vista-class ship at Southampton; sister Queen Victoria visually identical"),
     "assets/ships/cunard/queen-elizabeth/MS_Queen_Elizabeth_on_maiden_voyage_in_the_Solent.webp.attr.json": (
         "ambiguous", "Lit-up Cunard ship at dusk in the Solent; uploader claims maiden voyage Oct 2010, no visual identifier in frame"),
+
+    # ---- Norwegian Breakaway (batch C, 2026-05-14) -------------------------
+    # Norwegian Breakaway carries a distinctive Peter Max-designed hull art
+    # (Statue-of-Liberty pop-art + NYC skyline + "Peter Max" signature) that
+    # no other ship shares. Any photo showing that art is uniquely Breakaway.
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_01.webp.attr.json": (
+        "confirmed", "Bow with Peter Max signature and Statue-of-Liberty pop-art — Norwegian Breakaway's unique hull art"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_02.webp.attr.json": (
+        "confirmed", "Side profile with \"NORWEGIAN BREAKAWAY\" lettering and Peter Max hull art"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_03.webp.attr.json": (
+        "confirmed", "Departing Meyer Werft (\"MEYER PAPENBURG\" sign visible behind), Peter Max signature and Statue of Liberty visible on bow"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_04.webp.attr.json": (
+        "confirmed", "Bow with Peter Max signature; tugboat \"BREMERHAVEN\" alongside during delivery transit"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_05.webp.attr.json": (
+        "consistent", "Distant wide shot of a ship with the blue Peter Max bow visible; details muted by mist"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_06.webp.attr.json": (
+        "confirmed", "Side view with \"NORWEGIAN BREA[KAWAY]\" lettering and Peter Max hull art"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_07.webp.attr.json": (
+        "confirmed", "Full broadside with \"NORWEGIAN BREAKAWAY\" lettering and Peter Max hull art across the hull"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_08.webp.attr.json": (
+        "confirmed", "Bow close-up with Peter Max signature and Statue-of-Liberty pop-art (Breakaway's signature hull art)"),
+
+    # ---- Caribbean Princess (batch C, 2026-05-14) --------------------------
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess.webp.attr.json": (
+        "confirmed", "Bow close-up with \"CARIBBEAN PRINCESS\" lettering visible on hull at Fort Lauderdale"),
+    "assets/ships/princess/caribbean-princess/Caribbean_princess2.webp.attr.json": (
+        "confirmed", "Bow detail at sea with \"CARIBBEAN PRINCESS\" lettering visible on hull"),
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess3.webp.attr.json": (
+        "ambiguous", "Grand-class Princess from beach foreground; sister ships (Crown, Emerald, Ruby, Grand Princess) are visually identical"),
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess_at_St_Maartin.webp.attr.json": (
+        "ambiguous", "Grand-class Princess approaching St Maarten pier; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess_in_2010.webp.attr.json": (
+        "ambiguous", "Grand-class Princess profile, 2010; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/caribbean-princess/Caribbean_princess.webp.attr.json": (
+        "ambiguous", "Distant Grand-class Princess off a beach; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/caribbean-princess/Caribbean_princess_-b.webp.attr.json": (
+        "ambiguous", "Grand-class Princess stern view; no name visible; Grand-class sister ambiguity"),
 }
 
 
