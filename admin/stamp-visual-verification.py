@@ -278,6 +278,24 @@ VERIFICATIONS = {
         "consistent", "Bridge close-up with distinctive blue rounded observation deck; Epic-class signature bridge architecture"),
     "assets/ships/norwegian/norwegian-epic/Florencia_and_Norwegian_Epic_-_Port_of_Barcelona_-_June_2011.webp.attr.json": (
         "consistent", "Foreground subject is the Grimaldi ferry Florencia; the cruise ship at quay behind is Epic-class profile (Epic-class is one-ship; no sister to confuse)"),
+
+    # ---- Carnival Magic (batch C tail, 2026-05-14) -------------------------
+    "assets/ships/carnival/carnival-magic/Carnival_Magic,_in_port-Galveston,_TX_September_30,_2012.webp.attr.json": (
+        "confirmed", "Three-quarter view at Galveston; \"CARNIVAL MAGIC\" lettering visible twice on hull"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_in_Venedig.webp.attr.json": (
+        "confirmed", "Bow detail in Venice with \"CARNIVAL MAGIC\" lettering on the hull"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_(12385606213).webp.attr.json": (
+        "confirmed", "Bow close-up with \"CARNIVAL MAGIC\" and \"PANAMA R.P.\" registry-port lettering visible"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_(7706567392).webp.attr.json": (
+        "confirmed", "Alongside in port; \"CARNIVAL MAGIC\" lettering visible on upper deck"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_(12385914894).webp.attr.json": (
+        "confirmed", "Funnel and waterpark close-up; \"CARNIVAL MAGIC\" lettering visible"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_(12385424915).webp.attr.json": (
+        "confirmed", "Broadside near a Caribbean shoreline; \"CARNIVAL MAGIC\" lettering visible on upper deck"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_Monaco.webp.attr.json": (
+        "confirmed", "At Monaco; \"CARNIVAL MAGIC\" lettering visible on hull"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_near_Belize_City.webp.attr.json": (
+        "ambiguous", "Distant Carnival Dream-class profile off Belize City; sister ships Carnival Dream / Breeze are visually similar from this distance"),
 }
 
 
