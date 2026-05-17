@@ -2,7 +2,33 @@
 
 **Branch:** `claude/port-validation-fixes-qajFr`
 **Started:** 2026-05-14 (diagnosis), 2026-05-16 (bulk pass began)
-**Status:** In progress — Bucket A bulk pass, 21 of 96 ports complete.
+**Status:** Phase 1 of careful-rewrite COMPLETE — 42 of 96 Bucket A ports rewritten from on-page elements only. Phase 2 (real-data ports where FAQs still recycled template phrases) ~50 ports pending.
+
+## Careful-rewrite progress (Phase 1: boilerplate-source ports) — COMPLETE
+
+Per `admin/CAREFUL_REWRITE_PLAN.md`, all Bucket A ports are being rewritten so each weather-FAQ answer is grounded only in elements verifiable on its specific page. Phase 1 ports completed (42 of 42):
+
+cabo-san-lucas, civitavecchia, cococay, curacao, da-nang, dubrovnik, dunedin, freeport, gran-canaria, hong-kong, huatulco, hvar, komodo, labadee, langkawi, lifou, manta, moorea, mumbai, mystery-island, nagasaki, nha-trang, noumea, oslo, palma, panama-canal, ponta-delgada, portimao, puerto-limon, safaga, salalah, samana, santorini, southampton, st-lucia, st-maarten, stockholm, taormina, tauranga, vancouver, vanuatu, zanzibar
+
+Each commit names the specific page elements quoted + the cleverness removed.
+
+## Weather-guide data issues flagged (out-of-scope for this branch)
+
+Several pages have weather-guide data that is itself templated and incorrect for their geography. The FAQ rewrites surface these inconsistencies rather than papering over them. Ports flagged in commit bodies for separate cleanup:
+
+- **dunedin** — Weather Hazards panel labels Monsoon/Typhoon (South Island NZ is not monsoon/typhoon territory)
+- **huatulco** — Hurricane Zone label says "(Atlantic)" but Huatulco is Pacific coast
+- **komodo** — Peak Season Oct-Mar contradicts the page's monsoon-forest content
+- **lifou, mystery-island, noumea, tauranga, vanuatu** — NH-templated seasonal panels and hazard panels applied to SH Pacific ports
+- **manta, moorea, ponta-delgada, vancouver, zanzibar** — generic "Season: Varies / Peak risk: Varies" hazard panels (under-populated)
+- **gran-canaria, salalah** — generic hazard-note "Check local conditions before your cruise"
+
+## Phase 2 (next)
+
+~50 ports in Bucket A have rich weather-guide data (real temperature ranges, rain figures, etc.) but FAQs that recycled template phrases ("Brief tropical showers...30-60 minutes," "all work in any weather," storm-name citations). These need the same rewrite treatment — but with more room to quote actual on-page glance values and hazard data.
+
+---
+
 
 This document captures the state of an in-flight repair of `weather_validation_failed` blocking errors across the port corpus. The starting state was 265 of 387 port pages failing `scripts/validate-port-weather.js` (the BLOCKING sub-validator spawned by `admin/validate-port-page-v2.js`).
 
