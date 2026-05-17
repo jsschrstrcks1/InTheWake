@@ -134,6 +134,24 @@ VERIFICATIONS = {
         "confirmed", "Stern view in Gatún Locks, Panama Canal; \"ZUIDERDAM / ROTTERDAM\" lettering clearly visible"),
     "assets/ships/holland-america-line/zuiderdam/Zuiderdam_(ship,_2002).webp.attr.json": (
         "confirmed", "Profile shot underway; \"ZUIDERDAM\" + \"Holland America Line\" lettering on hull, \"Zuiderdam\" above bridge"),
+
+    # ---- Queen Anne (batch C, 2026-05-14) ----------------------------------
+    "assets/ships/cunard/queen-anne/Queen_Anne_at_Pier_26_in_Port_of_Tallinn_7_July_2024.webp.attr.json": (
+        "confirmed", "Three-quarter view at Tallinn Pier 26; \"QUEEN ANNE\" lettering visible on bow"),
+    "assets/ships/cunard/queen-anne/Queen_Anne_Bow_Pier_26_Port_of_Tallinn_7_July_2024.webp.attr.json": (
+        "consistent", "Bow-on at Tallinn Pier 26; same ship and pier as the name-sign photos (same photographer, same day); profile matches Queen Anne"),
+    "assets/ships/cunard/queen-anne/Queen_Anne_Name_Sign_Starboard_Side_Pier_26_Port_of_Tallinn_7_July_2024.webp.attr.json": (
+        "confirmed", "Close-up of the \"QUEEN ANNE\" name sign painted on the starboard hull"),
+    "assets/ships/cunard/queen-anne/Queen_Anne_Name_Sign_Port_Side_Pier_26_Port_of_Tallinn_7_July_2024.webp.attr.json": (
+        "confirmed", "Close-up of the \"QUEEN ANNE\" name sign painted on the port hull"),
+    "assets/ships/cunard/queen-anne/Queen_Anne_Funnel_Port_Side_Pier_26_Port_of_Tallinn_7_July_2024.webp.attr.json": (
+        "confirmed", "Cunard funnel close-up with \"QUEEN ANNE\" lettering visible on the bridge wing below"),
+    "assets/ships/cunard/queen-anne/Queen_Anne_arriving_in_Tallinn_7_July_2024.webp.attr.json": (
+        "consistent", "Distant port-side profile of a Cunard ship approaching Tallinn; matches Queen Anne profile and uploader's same-day series"),
+    "assets/ships/cunard/queen-anne/MS_Queen_Anne.webp.attr.json": (
+        "consistent", "Cunard ship at Liverpool with Royal Liver Building behind; livery + funnel pattern match Queen Anne but no name visible"),
+    "assets/ships/cunard/queen-anne/Ms_queen_anne_southampton.webp.attr.json": (
+        "consistent", "Distant profile in Southampton; Cunard livery; no name visible at this distance"),
 }
 
 
