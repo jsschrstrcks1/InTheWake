@@ -189,6 +189,22 @@ VERIFICATIONS = {
         "confirmed", "Full broadside with \"NORWEGIAN BREAKAWAY\" lettering and Peter Max hull art across the hull"),
     "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_08.webp.attr.json": (
         "confirmed", "Bow close-up with Peter Max signature and Statue-of-Liberty pop-art (Breakaway's signature hull art)"),
+
+    # ---- Caribbean Princess (batch C, 2026-05-14) --------------------------
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess.webp.attr.json": (
+        "confirmed", "Bow close-up with \"CARIBBEAN PRINCESS\" lettering visible on hull at Fort Lauderdale"),
+    "assets/ships/princess/caribbean-princess/Caribbean_princess2.webp.attr.json": (
+        "confirmed", "Bow detail at sea with \"CARIBBEAN PRINCESS\" lettering visible on hull"),
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess3.webp.attr.json": (
+        "ambiguous", "Grand-class Princess from beach foreground; sister ships (Crown, Emerald, Ruby, Grand Princess) are visually identical"),
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess_at_St_Maartin.webp.attr.json": (
+        "ambiguous", "Grand-class Princess approaching St Maarten pier; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess_in_2010.webp.attr.json": (
+        "ambiguous", "Grand-class Princess profile, 2010; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/caribbean-princess/Caribbean_princess.webp.attr.json": (
+        "ambiguous", "Distant Grand-class Princess off a beach; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/caribbean-princess/Caribbean_princess_-b.webp.attr.json": (
+        "ambiguous", "Grand-class Princess stern view; no name visible; Grand-class sister ambiguity"),
 }
 
 
