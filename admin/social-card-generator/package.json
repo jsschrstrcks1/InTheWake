@@ -1,0 +1,23 @@
+{
+  "name": "@inthewake/social-card-generator",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Generates 1200x630 typographic social cards for InTheWake articles whose og:image points at a missing per-article path.",
+  "scripts": {
+    "generate": "node generate.js",
+    "generate:one": "node generate.js --article",
+    "generate:all": "node generate.js --force-all",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@fontsource/eb-garamond": "^5.2.0",
+    "@fontsource/public-sans": "^5.2.0",
+    "cheerio": "^1.1.2",
+    "satori": "^0.16.0",
+    "sharp": "^0.34.5"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
