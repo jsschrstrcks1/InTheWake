@@ -13,6 +13,7 @@ export function extractArticleMeta(html) {
   const canonicalUrl  = $('link[rel="canonical"]').attr('href');
   const publishedDate = $('meta[property="article:published_time"]').attr('content') || null;
   const authorUrl     = $('meta[property="article:author"]').attr('content') || null;
+  const aiSummary     = $('meta[name="ai-summary"]').attr('content') || null;
 
   const missing = [];
   if (!ogTitle)       missing.push('og:title');
@@ -37,5 +38,5 @@ export function extractArticleMeta(html) {
     }
   }
 
-  return { title: ogTitle, description: ogDescription, canonicalUrl, ogImageUrl: ogImage, ogImagePath, publishedDate, authorName, slug };
+  return { title: ogTitle, description: ogDescription, canonicalUrl, ogImageUrl: ogImage, ogImagePath, publishedDate, authorName, slug, aiSummary };
 }

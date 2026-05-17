@@ -41,3 +41,14 @@ test('derives author name from URL slug (e.g. tina-maulsby -> Tina Maulsby)', ()
   const meta = extractArticleMeta(swapped);
   assert.equal(meta.authorName, "Tina Maulsby");
 });
+
+test('extracts ai-summary when present', () => {
+  const meta = extractArticleMeta(fixture);
+  assert.ok(meta.aiSummary.includes('$17–$25 per guest per day'));
+});
+
+test('aiSummary is null when absent', () => {
+  const stripped = fixture.replace(/<meta name="ai-summary"[^/]*\/>/, '');
+  const meta = extractArticleMeta(stripped);
+  assert.equal(meta.aiSummary, null);
+});
