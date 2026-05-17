@@ -152,6 +152,22 @@ VERIFICATIONS = {
         "consistent", "Cunard ship at Liverpool with Royal Liver Building behind; livery + funnel pattern match Queen Anne but no name visible"),
     "assets/ships/cunard/queen-anne/Ms_queen_anne_southampton.webp.attr.json": (
         "consistent", "Distant profile in Southampton; Cunard livery; no name visible at this distance"),
+
+    # ---- Queen Elizabeth (batch C, 2026-05-14) -----------------------------
+    "assets/ships/cunard/queen-elizabeth/Queen_Elizabeth_au_port_de_Monaco.webp.attr.json": (
+        "confirmed", "Alongside at Monaco; \"Queen Elizabeth\" lettering clearly visible on hull"),
+    "assets/ships/cunard/queen-elizabeth/Queen_Elizabeth(2)_au_port_de_Monaco.webp.attr.json": (
+        "consistent", "Stern view at Monaco same day as the confirmed bow shot; same Cunard livery and pier"),
+    "assets/ships/cunard/queen-elizabeth/Queen_Elizabeth_liner-2.webp.attr.json": (
+        "ambiguous", "Daylight Vista-class profile; visually indistinguishable from sister Queen Victoria"),
+    "assets/ships/cunard/queen-elizabeth/Queen_Elizabeth_cruise_liner.webp.attr.json": (
+        "ambiguous", "Distant Vista-class profile at evening; sister Queen Victoria visually identical"),
+    "assets/ships/cunard/queen-elizabeth/Queen_Elizabeth_liner_2.webp.attr.json": (
+        "ambiguous", "Distant Vista-class profile near land; sister Queen Victoria visually identical"),
+    "assets/ships/cunard/queen-elizabeth/Cunard_MS_Queen_Elizabeth_Southampton.webp.attr.json": (
+        "ambiguous", "Cunard Vista-class ship at Southampton; sister Queen Victoria visually identical"),
+    "assets/ships/cunard/queen-elizabeth/MS_Queen_Elizabeth_on_maiden_voyage_in_the_Solent.webp.attr.json": (
+        "ambiguous", "Lit-up Cunard ship at dusk in the Solent; uploader claims maiden voyage Oct 2010, no visual identifier in frame"),
 }
 
 
