@@ -9,7 +9,14 @@
 
 ## Purpose
 
-When a new article is added to `articles/` and pushed to `main`, automatically publish a single Facebook Page post linking to it. v1 is Facebook only; Bluesky and X land in v1.1 once accounts are provisioned. The system is designed so v1.1 is purely additive — no architectural rework.
+When a new article is added to `articles/` and pushed to `main`, automatically publish a single Facebook Page post linking to it, with a typographically-generated social card whenever no per-article photograph exists. v1 is Facebook only; Bluesky and X land in v1.1 once accounts are provisioned. The system is designed so v1.1 is purely additive — no architectural rework.
+
+v1 has two cooperating subsystems:
+
+- **Social card generator** (runs in CI, pre-deploy): renders a per-article 1200×630 social card for any article that lacks a real photograph at its canonical `og:image` path. Commits the card back to the repo.
+- **Auto-publisher** (runs in CI, post-deploy): detects new articles, composes the Facebook post, calls the Graph API, commits the manifest.
+
+The two subsystems communicate only through the article's `og:image` URL on disk. They share no state.
 
 ## Why Facebook first
 
@@ -130,7 +137,130 @@ Cheap insurance against stale OG cards from earlier crawls.
 
 FB collapses the URL from the message body once it auto-detects it; readers see the `ai-summary` paragraph and the OG card.
 
-**Known visual issue (not blocking v1):** two of the existing 5 articles (`cruise-duck-tradition`, `cruise-tipping-2026`) still use the generic `articles-hero.jpg` because no honest Wikimedia match exists. Three article-specific cards were sourced and committed on this branch (Caribbean trends, cabin organization, photography guide). The duck and tipping articles will look identical on social until a per-article image is sourced or a typographic-card generator is built (deferred v2).
+**The duck and tipping articles** currently still reference the generic `articles-hero.jpg`. The card generator (next section) writes a typographic card for them at their canonical per-article path, and we'll update their `og:image` meta to point at that path.
+
+## Social card generator
+
+A separate subsystem that renders a 1200×630 typographic JPG for any article that doesn't already have a real photograph as its `og:image`.
+
+### Convention
+
+Every article's `og:image` points to `/assets/social/articles/<slug>.jpg`. The generator's behavior is determined by whether a file exists at that path *and* whether it was created by a human:
+
+- File missing → generator writes a typographic card.
+- File present and tagged in `assets/social/articles/.generated-manifest.json` as generator-authored → regenerate if article title/description changed.
+- File present and NOT in the generated-manifest → treat as author's photograph, leave alone.
+
+This means the three Wikimedia-sourced photos (caribbean / cabin / photography) are untouched. The duck and tipping articles get generated cards. Future articles default to generated cards unless the author commits a real photo to the canonical path before deploy.
+
+### Renderer
+
+`satori` (Vercel's JSX → SVG) plus `sharp` (SVG → JPG). Pure JS, no headless browser. ~2–3 seconds per card. Both libraries are tiny in CI footprint compared to Playwright. The template is a single JSX file that takes the article's extracted metadata as props and returns the card markup.
+
+### Design language — lifted from cruise-document genre, not from any one site
+
+Visual references (paperwork-as-design) are well-established in this category. The cards use parallel conventions, not specific copied designs, and use InTheWake's existing assets (compass-rose SVG, `#0e6e8e` teal).
+
+**Layout — default ("voyage card") variant:**
+
+```
+┌─────────────────────────────────────────────┐
+│ >>>>> IN THE WAKE  ·  CRUISE LOG >>>>>      │  ← top stamp band, white-on-teal
+├─────────────────────────────────────────────┤
+│                                             │
+│ CRUISE TIPPING FOR 2026:                    │  ← title, smallcaps bold, 2 lines max
+│ WHAT YOU'LL ACTUALLY OWE, BY LINE           │
+│                                             │
+│ 2026 daily rates across all 15 major lines, │  ← og:description, lighter weight
+│ the auto-grats most calculators miss.       │
+│                                             │
+│           [ compass rose watermark ]        │  ← muted, ~30% opacity
+│                                             │
+├─────────────────────────────────────────────┤
+│ KEN BAKER  ·  8 MAY 2026                    │  ← byline + date
+│ >>>>> CRUISINGINTHEWAKE.COM >>>>>           │  ← bottom stamp band
+└─────────────────────────────────────────────┘
+```
+
+**Layout — "stats" variant** (opt-in via `<meta name="social-card-style" content="stats">` per article):
+
+```
+┌─────────────────────────────────────────────┐
+│ >>>>> IN THE WAKE  ·  CRUISE LOG >>>>>      │
+├─────────────────────────────────────────────┤
+│ CRUISE TIPPING FOR 2026                     │
+│                                             │
+│   $17–$25       18–20%        15            │  ← stats row, big numbers
+│   PER GUEST     ON EXTRAS     LINES         │  ← smallcaps labels
+│   PER DAY       ITEMIZED      COMPARED      │
+│                                             │
+│ KEN BAKER · cruisinginthewake.com           │
+└─────────────────────────────────────────────┘
+```
+
+Stats values come from a new optional meta tag: `<meta name="social-card-stats" content="$17–$25|PER GUEST|PER DAY||18–20%|ON EXTRAS|ITEMIZED||15|LINES|COMPARED">` — triple-pipe field separator, double-pipe column separator. Three columns max. If absent, default voyage-card variant is used regardless of `social-card-style`.
+
+### Color palette
+
+- Background: `#0a4d63` (slightly darker than InTheWake's `#0e6e8e` to differentiate from any specific competitor and to give the white card better contrast)
+- Card background: `#ffffff`
+- Top/bottom stamp band: `#0a4d63` on `#ffffff`, or inverted with white on `#0a4d63`
+- Title text: `#0a4d63` on white
+- Description text: `#3a3a3a`
+- Compass watermark: `#0a4d63` at 12% opacity
+
+### Typography
+
+Self-hosted, license-clean: **Inter** for body/labels, **Playfair Display** for the title (the editorial pairing already cited in the site's style guidance). Both Open Font License. Bundled in `admin/social-card-generator/fonts/`. No remote font fetches at CI time.
+
+### Generator inputs (read from article `<head>`)
+
+- `og:title` → card title (truncated at 80 chars, two lines via word-break)
+- `og:description` → subtitle (single line, ~120 chars max with ellipsis)
+- `article:author` Person URL → byline name (resolved from author page or fallback to "Ken Baker")
+- `article:published_time` → date (formatted "D MMM YYYY")
+- `meta[name="social-card-style"]` (optional) → "voyage" (default) or "stats"
+- `meta[name="social-card-stats"]` (optional, required if style=stats) → pipe-delimited stats
+
+### Generator workflow
+
+New job in `.github/workflows/social-cards.yml`, triggered on `push: branches: [main]` for changes to `articles/*.html`. Steps:
+
+1. Checkout (depth 2 for diff).
+2. Node 20 setup, `npm ci` in `admin/social-card-generator/`.
+3. For each changed article: read metadata, check generated-manifest, decide regenerate/skip/use-as-photo.
+4. For each card to (re)generate: render JSX via satori, convert to JPG via sharp (quality 88, optimize, progressive), write to `assets/social/articles/<slug>.jpg`.
+5. Update generated-manifest with `{slug, generatedAt, titleHash, descriptionHash}` so subsequent runs only regenerate when source text changes.
+6. Commit changed JPGs + manifest with `[skip ci]` so the publish workflow doesn't fire on this commit.
+
+`workflow_dispatch` allows manual run for a single article or all articles (force-regenerate).
+
+### Article HTML one-time update
+
+The duck and tipping articles currently point `og:image` at the generic `articles-hero.jpg`. Before the generator runs, update those two articles to point at their canonical per-article paths (`/assets/social/articles/cruise-duck-tradition.jpg` and `/assets/social/articles/cruise-tipping-2026.jpg`). First generator run then writes those cards. This is a five-line HTML edit, done as part of the v1 implementation plan.
+
+### Generator code layout
+
+```
+admin/social-card-generator/
+  generate.js                 # entry; diff detection, dispatch
+  package.json                # deps: satori, sharp, cheerio, opentype-loader-light
+  lib/extract.js              # shared with social-publish OR duplicated for module isolation
+  lib/manifest.js             # generated-manifest read/write
+  lib/render.js               # satori + sharp pipeline
+  templates/voyage-card.jsx   # default layout
+  templates/stats-card.jsx    # stats layout
+  fonts/
+    Inter-Regular.woff2
+    Inter-Bold.woff2
+    PlayfairDisplay-Bold.woff2
+  assets/
+    compass-rose.svg          # copied from /assets/ (do not symlink across workflows)
+```
+
+### Visual review process
+
+PRs that change article titles or descriptions trigger the generator; the resulting JPG diff is visible in the PR's Files tab (GitHub renders image diffs side-by-side). Before merge, the operator visually approves the regenerated card. No automated visual-regression test in v1; the human eye is the gate.
 
 ## Credentials & token strategy
 
@@ -179,15 +309,27 @@ admin/social-publish/
 
 v1.1 adds `lib/bluesky.js` + `lib/x.js` + `templates/bluesky.js` + `templates/x.js`. No changes to `publish.js`, `manifest.js`, `extract.js`. The platform list and composition router are the only edits.
 
-## Workflow file
+## Workflow files
 
-New `.github/workflows/social-publish.yml`:
+Two new workflows under `.github/workflows/`. They share a runner image but no state — each reads what the other has committed.
+
+**`.github/workflows/social-cards.yml`** — runs first on every push that touches `articles/`:
+
+- `on: push: branches: [main], paths: [articles/**]` and `workflow_dispatch` with `article_path` + `force_regenerate` inputs
+- `permissions: contents: write` (card + manifest commit-back)
+- `concurrency: group: social-cards`
+- Steps: checkout (`fetch-depth: 2`), Node 20, `npm ci` in `admin/social-card-generator/`, `node generate.js`, commit changed JPGs + generated-manifest with `[skip ci]`
+- No external secrets — generator runs entirely offline
+
+**`.github/workflows/social-publish.yml`** — runs on the same trigger, after social-cards completes (workflow chaining via `needs:` is not possible across separate workflows; we use `concurrency` + the manifest's "already-posted" check so order doesn't matter for correctness, but in practice social-cards runs first because it lands its commit before the publish workflow's checkout):
 
 - `on: push: branches: [main]` and `workflow_dispatch` with `article_path` + `dry_run` inputs
 - `permissions: contents: write` (manifest commit-back)
 - `concurrency: group: social-publish` — never two posts at once
-- Steps: checkout (`fetch-depth: 2` for diff), Node 20 setup, `npm ci`, `node admin/social-publish/publish.js`, commit manifest if changed and `[skip ci]`
+- Steps: checkout (`fetch-depth: 2` for diff), Node 20, `npm ci` in `admin/social-publish/`, `node publish.js`, commit manifest if changed with `[skip ci]`
 - Secrets pulled from repo-scoped Encrypted Secrets
+
+**On the ordering question:** if the publish workflow runs before social-cards finishes (race), it just posts using whatever `og:image` is at the canonical path at that moment — either the prior card or, for a brand-new article, a 404 image URL (Facebook's scraper will still post the link, just without a card preview). The next deploy lands the card; the post stays as-is. This is acceptable for v1 — Facebook re-scrapes OG metadata on a cadence anyway. We can revisit in v1.1 if it bites.
 
 ## Testing strategy before going live
 
@@ -199,7 +341,7 @@ New `.github/workflows/social-publish.yml`:
 ## Non-goals (v1)
 
 1. No Bluesky, X, LinkedIn, Threads, Instagram, Pinterest, Reddit, Mastodon.
-2. No auto-generated social card images. Existing `og:image` is used as-is.
+2. No mid-publish image generation. Cards are generated in their own pre-deploy workflow and committed to the repo; the publish workflow reads from disk only.
 3. No re-post on article edits. Manual dispatch only.
 4. No multi-paragraph threading or carousels.
 5. No scheduling — publishes when the article lands.
@@ -212,10 +354,9 @@ New `.github/workflows/social-publish.yml`:
 **v1.1 (next):**
 - Bluesky module + template.
 - X module + template (parent post without URL + URL reply).
-- Token-rotation watcher (v1 has warnings; v1.1 could auto-open an issue).
+- Token-rotation watcher — v1 handles expired tokens at call time with a clear error message; v1.1 could auto-open a GitHub issue ~7 days before expiry.
 
 **v2 (later):**
-- Per-article social card image generator (Playwright/satori) — fixes the duck/tipping generic-image problem.
 - LLM-composed post copy with voice-corpus constraints.
 - Engagement-tracking dashboard.
 
