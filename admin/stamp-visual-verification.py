@@ -223,6 +223,24 @@ VERIFICATIONS = {
         "ambiguous", "Upper-deck WaterWorks aqua-park close-up; same amenity exists on Dream-class sisters Dream and Magic"),
     "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698748).webp.attr.json": (
         "ambiguous", "Water-slide close-up; same Dream-class amenity exists on Dream and Magic"),
+
+    # ---- Westerdam (batch C tail, 2026-05-14) ------------------------------
+    "assets/ships/holland-america-line/westerdam/MS_Westerdam_heaving_up_its_anchor_in_Half_Moon_Cay.webp.attr.json": (
+        "confirmed", "Close-up at Half Moon Cay; \"Holland America Line\" and \"WESTERDAM\" lettering visible on hull"),
+    "assets/ships/holland-america-line/westerdam/MS_Westerdam_Getting_Underway.webp.attr.json": (
+        "confirmed", "Stern view at sea; \"WESTERDAM\" + \"ROTTERDAM\" registry-port lettering visible on transom"),
+    "assets/ships/holland-america-line/westerdam/Westerdam_bell.webp.attr.json": (
+        "confirmed", "Ship's bell engraved \"WESTERDAM 2004\" on the bridge wing"),
+    "assets/ships/holland-america-line/westerdam/Westerdam_from_Mt_Roberts.webp.attr.json": (
+        "ambiguous", "Aerial view of HAL Vista-class ship at the Juneau cruise pier from Mt Roberts; sisters Zuiderdam / Oosterdam / Noordam / Eurodam are visually similar"),
+    "assets/ships/holland-america-line/westerdam/Maasdam_and_Westerdam_anchored_in_Half_Moon_Cay.webp.attr.json": (
+        "ambiguous", "Two ships in frame: Maasdam (S-class, left) + a Vista-class HAL ship (right). Right ship's class matches Westerdam but name not visible; Vista-class sister ambiguity"),
+    "assets/ships/holland-america-line/westerdam/Westerdam_Atrium.webp.attr.json": (
+        "ambiguous", "Interior atrium with crystal chandelier; similar Vista-class atrium design exists on sister ships"),
+    "assets/ships/holland-america-line/westerdam/Westerdam_Vista_dining_entrance.webp.attr.json": (
+        "ambiguous", "Vista Dining Room entrance with patterned glass partitions; same Vista-class signature decor used on sister ships"),
+    "assets/ships/holland-america-line/westerdam/Westerdam_rear_Lido_pool.webp.attr.json": (
+        "ambiguous", "Aft Lido pool deck with chevron-tile pool and hot tubs; similar Vista-class amenity on sister ships"),
 }
 
 
