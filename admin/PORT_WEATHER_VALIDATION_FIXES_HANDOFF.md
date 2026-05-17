@@ -2,7 +2,22 @@
 
 **Branch:** `claude/port-validation-fixes-qajFr`
 **Started:** 2026-05-14 (diagnosis), 2026-05-16 (bulk pass began)
-**Status:** In progress — Bucket A bulk pass, 21 of 96 ports complete.
+**Status:** In progress — Bucket A FAQ rewrite pass, 21 of 96 ports rewritten from on-page elements only (see `CAREFUL_REWRITE_PLAN.md`).
+
+## Careful-rewrite progress (Phase 1: boilerplate-source ports)
+
+Per `admin/CAREFUL_REWRITE_PLAN.md`, all Bucket A ports are being rewritten so each weather-FAQ answer is grounded only in elements verifiable on its specific page. Ports completed so far (21):
+
+- cabo-san-lucas, civitavecchia, cococay, curacao, da-nang, dubrovnik, dunedin, freeport, gran-canaria, hong-kong, huatulco, hvar, komodo, labadee, langkawi, lifou, manta, moorea, mumbai, mystery-island, nagasaki
+
+Remaining Phase 1 (~25 ports): nha-trang, noumea, oslo, palma, panama-canal, ponta-delgada, portimao, puerto-limon, safaga, salalah, samana, santorini, southampton, st-lucia, st-maarten, stockholm, taormina, tauranga, vancouver, vanuatu, zanzibar, plus any Phase-2 (real-data-but-clever) ports.
+
+Each commit names the specific page elements quoted + the cleverness removed.
+
+Several pages flagged in commits as needing weather-guide data cleanup (templated-default labels for the wrong climate zone): dunedin (Monsoon/Typhoon label for South Island NZ), huatulco ("(Atlantic)" label for Pacific port), komodo (Peak Oct-Mar inverted), lifou (NH template on SH port), mystery-island (same), and others to come. Weather-guide repairs are out of scope for this FAQ rewrite pass.
+
+---
+
 
 This document captures the state of an in-flight repair of `weather_validation_failed` blocking errors across the port corpus. The starting state was 265 of 387 port pages failing `scripts/validate-port-weather.js` (the BLOCKING sub-validator spawned by `admin/validate-port-page-v2.js`).
 
