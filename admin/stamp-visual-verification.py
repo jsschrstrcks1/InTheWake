@@ -241,6 +241,22 @@ VERIFICATIONS = {
         "ambiguous", "Vista Dining Room entrance with patterned glass partitions; same Vista-class signature decor used on sister ships"),
     "assets/ships/holland-america-line/westerdam/Westerdam_rear_Lido_pool.webp.attr.json": (
         "ambiguous", "Aft Lido pool deck with chevron-tile pool and hot tubs; similar Vista-class amenity on sister ships"),
+
+    # ---- Diamond Princess (batch C tail, 2026-05-14) -----------------------
+    "assets/ships/princess/diamond-princess/Diamond_Princess_in_Hobart.webp.attr.json": (
+        "confirmed", "Bow detail at Hobart, Tasmania; \"DIAMOND PRINCESS\" lettering visible on hull"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_at_Hong_Kong_-_IMO_9228198_(3614138858).webp.attr.json": (
+        "confirmed", "Stern view at Hong Kong; \"DIAMOND PRINCESS\" and \"HAMILTON\" registry-port visible on transom; filename IMO 9228198 matches Diamond Princess"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_from_Mt_Roberts.webp.attr.json": (
+        "ambiguous", "Aerial view of Princess Grand-class ship at Juneau cruise pier from Mt Roberts; Grand-class sisters (Sapphire/Caribbean/Crown/Ruby/Emerald/Star) visually similar from above"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_in_Tauranga.webp.attr.json": (
+        "ambiguous", "Princess Grand-class ship at Tauranga, NZ; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_at_Circular_Quay.webp.attr.json": (
+        "ambiguous", "Princess Grand-class ship at Circular Quay, Sydney with Harbour Bridge behind; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_Vancouver_September_2012.webp.attr.json": (
+        "ambiguous", "Princess Grand-class ship at Vancouver, Sept 2012, with celebratory bunting; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_(ship,_2004)_001.webp.attr.json": (
+        "ambiguous", "Princess Grand-class ship near green coastline; no name visible; Grand-class sister ambiguity"),
 }
 
 
