@@ -2,13 +2,21 @@
 
 **Branch:** `claude/port-validation-fixes-qajFr`
 **Started:** 2026-05-14 (diagnosis), 2026-05-16 (bulk pass began)
-**Status:** Phase 1 of careful-rewrite COMPLETE — 42 of 96 Bucket A ports rewritten from on-page elements only. Phase 2 (real-data ports where FAQs still recycled template phrases) ~50 ports pending.
+**Status:** Phase 1 COMPLETE (42/96). Phase 2 in progress — all storm-name citations have been removed from the corpus. Template-phrase ports next.
 
-## Careful-rewrite progress (Phase 1: boilerplate-source ports) — COMPLETE
+## Careful-rewrite progress
 
-Per `admin/CAREFUL_REWRITE_PLAN.md`, all Bucket A ports are being rewritten so each weather-FAQ answer is grounded only in elements verifiable on its specific page. Phase 1 ports completed (42 of 42):
+### Phase 1: boilerplate-source ports (42/42) — COMPLETE
 
 cabo-san-lucas, civitavecchia, cococay, curacao, da-nang, dubrovnik, dunedin, freeport, gran-canaria, hong-kong, huatulco, hvar, komodo, labadee, langkawi, lifou, manta, moorea, mumbai, mystery-island, nagasaki, nha-trang, noumea, oslo, palma, panama-canal, ponta-delgada, portimao, puerto-limon, safaga, salalah, samana, santorini, southampton, st-lucia, st-maarten, stockholm, taormina, tauranga, vancouver, vanuatu, zanzibar
+
+### Phase 2: ports with real on-page data + clever FAQs — IN PROGRESS (14 of ~54)
+
+**Sub-phase 2a: storm-name citation removal — COMPLETE.** All previously cited external storm/cyclone names with dates (Irma 2017, Maria 2017, Pam 2015, Harold 2020, Yasi 2011, Larry 2006, Bob 1991, Irene 2011, Sandy 2012, Iselle 2014, Mekunu 2018, Luban 2018, Gonu 2007, Shaheen 2021, Nargis 2008, Idai 2019, Beryl 2024, Ivan 2004, Hugo 1989, Hato 2017, Mangkhut 2018, Tauktae 2021, Tracy 1974, Lorenzo 2019, Andrew, Matthew, Dorian 2019, Fiona 2022) have been audited and removed from FAQs unless the storm name is explicitly referenced on the port's own page (e.g., Maria 2017 in dominica's logbook quoting a vendor; Maria 2017 in guadeloupe's hazard-note; Irma 2017 in tortola's hazard-note). Ports cleaned in this sub-phase: antigua, boston, cairns, dominica, guadeloupe, hilo, muscat, montego-bay, nosy-be, tortola, yangon.
+
+**Sub-phase 2b: template-phrase removal — IN PROGRESS.** Ports cleaned so far: brisbane, bordeaux, cartagena.
+
+**Remaining Phase 2 (~40 ports):** colombo, dakar, darwin, jakarta, kagoshima, honningsvag, livorno, port-moresby, seychelles, and others with template phrases like "all provide reliable shelter," "all work in any weather," "Brief tropical showers are common," etc.
 
 Each commit names the specific page elements quoted + the cleverness removed.
 
