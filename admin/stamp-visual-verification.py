@@ -296,6 +296,16 @@ VERIFICATIONS = {
         "confirmed", "At Monaco; \"CARNIVAL MAGIC\" lettering visible on hull"),
     "assets/ships/carnival/carnival-magic/Carnival_Magic_near_Belize_City.webp.attr.json": (
         "ambiguous", "Distant Carnival Dream-class profile off Belize City; sister ships Carnival Dream / Breeze are visually similar from this distance"),
+
+    # ---- MSC Seascape (batch C tail, 2026-05-14) ---------------------------
+    "assets/ships/msc/msc-seascape/MSC_Seascape_cruise_ship_3.webp.attr.json": (
+        "confirmed", "Alongside in port with \"MSC SEASCAPE\" lettering visible on bow"),
+    "assets/ships/msc/msc-seascape/MSC_Seascape_in_Cozumel_2024_(3).webp.attr.json": (
+        "confirmed", "MSC Seaside-Evo-class ship at Cozumel 2024; \"MSC SEASCAPE\" lettering visible on bow"),
+    "assets/ships/msc/msc-seascape/MSC_Seascape_cruise_ship_1.webp.attr.json": (
+        "consistent", "MSC corporate badge visible at bow; Seaside-Evo class profile; sister MSC Seashore is visually similar"),
+    "assets/ships/msc/msc-seascape/MSC_Seascape_cruise_ship_2.webp.attr.json": (
+        "consistent", "MSC corporate badge visible; Seaside-Evo class profile; sister MSC Seashore is visually similar"),
 }
 
 
