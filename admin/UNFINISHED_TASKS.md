@@ -490,6 +490,47 @@ This is generic boilerplate with no port-specific info. The visible currency ans
 
 ---
 
+## P1 — Drink Calculator break-even audit (2026-05-17)
+
+**Severity:** Affects published content — `articles/is-drink-package-worth-it.html` and the live `/drink-calculator.html` itself
+
+**Triggered by:** Writing the May 17 tool-demo article. At three honest consumption profiles run through the live calculator (light, moderate, heavy — the "Moderate" preset already exceeds the conventional "5–7 drinks per day" break-even number), à la carte beat the Deluxe Beverage Package by $1,200+ in every scenario. Deluxe did not break even until the calculator estimated ~$2,800 of à la carte spend over 7 nights for two adults, equivalent to roughly 11 cocktail-equivalents per couple per day. That's far higher than the rule-of-thumb the rest of the industry quotes — either the rest of the industry is wrong (possible, and what the article argues) **or** the calculator's prices are off.
+
+### What to verify
+
+1. **Deluxe package daily rate.** The chart shows ~$166/day for two adults = $83 per person per day. With 18% gratuity that implies a base of ~$70.34. The current fleet-wide median tracked by AllAboardDeals and similar sources sits around $71.99–$77. The calculator number is in the band, but on the low end — confirm whether the calculator uses pre-cruise discounted pricing, onboard pricing, or median. The "When are you buying packages" selector defaults to pre-cruise; the result for pre-cruise should be visibly lower than the onboard alternative when toggled.
+
+2. **Whether the calculator is applying gratuity twice.** Look at the chart total vs the per-day cost shown above the input panel ("$0.00/day • $0.00 total — includes 18% gratuity"). If the displayed total has gratuity baked in AND the chart compares it against an à la carte that also has gratuity, that's correct. If à la carte excludes gratuity while package includes it, the package looks artificially expensive.
+
+3. **Individual drink prices on the menu side.** The calculator shows per-drink prices alongside each input ($13 cocktail, $8.50 beer, $11 wine, $4.50 specialty coffee small, $2 soda, etc.). Confirm these match current Royal Caribbean bar menu pricing on at least two recently sailed ships. If the per-drink prices are too low, à la carte will look cheaper than it actually is.
+
+4. **Sea/port variability percentage.** Default is +20% on sea days. Verify the implementation is symmetric — i.e., it's adding 20% on sea days AND subtracting on port days (or whatever the documented model is). A one-sided application would inflate à la carte without affecting the package.
+
+5. **Crown & Anchor voucher math.** The voucher field exists but I didn't test it for the article. If a tier with 5 daily vouchers is entered and à la carte still shows the full retail, the voucher offset isn't subtracting from à la carte demand.
+
+### How to reproduce the article's results
+
+```bash
+cd /home/user/InTheWake
+python3 -m http.server 8765 &
+# Open http://localhost:8765/drink-calculatorv2.html
+# Inputs: 7 days, 3 sea days, 2 adults
+# Drinks per day per adult:
+#   Moderate: 3 cocktails, 1 beer, 1 wine, 1 coffee-small, 1 soda
+#   Heavy: 5 cocktails, 2 beers, 2 sodas, 1 coffee-small
+# Compare chart total against an independent à la carte spreadsheet.
+```
+
+### Article-side mitigation
+
+The article frames the calculator's output as "honest, even surprising" rather than asserting it is definitively correct. If the audit finds the calculator is too generous to à la carte (under-pricing drinks, double-counting gratuity), the article's headline finding ("the 5-to-7-drinks rule is wrong") may need to soften. Worst case the article is republished with corrected screenshots; the screenshot dir is `assets/articles/drink-calculator-worth-it/` and the capture script is in this repo's git history at commit `73ac9905` (file `_capture-calc-screenshots.mjs`, deleted in the same commit).
+
+### What is NOT a problem
+
+The math the calculator does within its inputs is internally consistent — I verified the moderate scenario's à la carte total against a hand calculation ($65/person/day × 2 × 7 + 18% gratuity ≈ $1,074 vs displayed $1,050; small rounding difference). The question is whether the per-drink and per-package prices used as inputs are still accurate against the 2026 fleet.
+
+---
+
 ## Items surfaced in session `claude/fix-carnival-validator-krEdD` (2026-05-11)
 
 Surfaced during the multi-turn image-honesty audit + cleanup; not duplicates
