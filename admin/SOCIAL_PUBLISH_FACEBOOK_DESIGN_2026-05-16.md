@@ -141,126 +141,145 @@ FB collapses the URL from the message body once it auto-detects it; readers see 
 
 ## Social card generator
 
-A separate subsystem that renders a 1200×630 typographic JPG for any article that doesn't already have a real photograph as its `og:image`.
+A separate subsystem that renders a 1200×630 typographic JPG for any article that doesn't already have a real photograph as its `og:image`. This section reflects the working prototype (see commit history for the renders).
 
 ### Convention
 
-Every article's `og:image` points to `/assets/social/articles/<slug>.jpg`. The generator's behavior is determined by whether a file exists at that path *and* whether it was created by a human:
+Every article's `og:image` points to `/assets/social/articles/<slug>.jpg`. The generator's behavior is determined by what exists at that path:
 
 - File missing → generator writes a typographic card.
-- File present and tagged in `assets/social/articles/.generated-manifest.json` as generator-authored → regenerate if article title/description changed.
-- File present and NOT in the generated-manifest → treat as author's photograph, leave alone.
+- File present and listed in `assets/social/articles/.generated-manifest.json` → regenerate if article title or description text changed (sha1 comparison).
+- File present and NOT in the generated-manifest → author's photograph, leave alone.
 
-This means the three Wikimedia-sourced photos (caribbean / cabin / photography) are untouched. The duck and tipping articles get generated cards. Future articles default to generated cards unless the author commits a real photo to the canonical path before deploy.
+This leaves the three Wikimedia-sourced photos (caribbean-cruise-trends-2026, cruise-cabin-organization, cruise-tech-photography-guide) untouched. The duck and tipping articles get generated cards. Future articles default to generated cards unless the author commits a photo to the canonical path before deploy.
 
 ### Renderer
 
-`satori` (Vercel's JSX → SVG) plus `sharp` (SVG → JPG). Pure JS, no headless browser. ~2–3 seconds per card. Both libraries are tiny in CI footprint compared to Playwright. The template is a single JSX file that takes the article's extracted metadata as props and returns the card markup.
+`satori` (Vercel's vDOM → SVG) plus `sharp` (SVG → JPG). Pure JS, no headless browser. ~1.5 seconds per card on a GitHub Actions runner. Both libraries are tiny in CI footprint compared to Playwright. The template is a plain JS object tree, not JSX — avoids the React + JSX compiler dependency that JSX form would require.
 
-### Design language — lifted from cruise-document genre, not from any one site
+### Design language
 
-Visual references (paperwork-as-design) are well-established in this category. The cards use parallel conventions, not specific copied designs, and use InTheWake's existing assets (compass-rose SVG, `#0e6e8e` teal).
+Restraint, not pageantry. The cards use the site's existing visual register (Palatino-family serif title, system-sans subtitle, sea-and-rope palette, compass-rose mark) rather than any specific competitor's signature moves. No ASCII stamp bands, no member badges, no map insets — those belong to other brands.
 
-**Layout — default ("voyage card") variant:**
-
-```
-┌─────────────────────────────────────────────┐
-│ >>>>> IN THE WAKE  ·  CRUISE LOG >>>>>      │  ← top stamp band, white-on-teal
-├─────────────────────────────────────────────┤
-│                                             │
-│ CRUISE TIPPING FOR 2026:                    │  ← title, smallcaps bold, 2 lines max
-│ WHAT YOU'LL ACTUALLY OWE, BY LINE           │
-│                                             │
-│ 2026 daily rates across all 15 major lines, │  ← og:description, lighter weight
-│ the auto-grats most calculators miss.       │
-│                                             │
-│           [ compass rose watermark ]        │  ← muted, ~30% opacity
-│                                             │
-├─────────────────────────────────────────────┤
-│ KEN BAKER  ·  8 MAY 2026                    │  ← byline + date
-│ >>>>> CRUISINGINTHEWAKE.COM >>>>>           │  ← bottom stamp band
-└─────────────────────────────────────────────┘
-```
-
-**Layout — "stats" variant** (opt-in via `<meta name="social-card-style" content="stats">` per article):
+**Layout (single variant — no "stats" alternate in v1):**
 
 ```
-┌─────────────────────────────────────────────┐
-│ >>>>> IN THE WAKE  ·  CRUISE LOG >>>>>      │
-├─────────────────────────────────────────────┤
-│ CRUISE TIPPING FOR 2026                     │
-│                                             │
-│   $17–$25       18–20%        15            │  ← stats row, big numbers
-│   PER GUEST     ON EXTRAS     LINES         │  ← smallcaps labels
-│   PER DAY       ITEMIZED      COMPARED      │
-│                                             │
-│ KEN BAKER · cruisinginthewake.com           │
-└─────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────┐
+│                                                      │
+│  Cruise Tipping for 2026: What                       │  ← title in EB Garamond Bold,
+│  You'll Actually Owe, by Line                        │     color --sea, auto-sized
+│                                                      │
+│  ───  ← 5×84px rope rule                             │
+│                                                      │
+│  2026 daily rates across all 15 major lines,         │  ← subtitle in Public Sans Regular,
+│  plus the auto-grats most calculators miss.          │     color --ink-mid, 32 pt
+│                                                      │
+│                                  [compass rose]      │  ← inline SVG, 300×300, opacity 0.16
+│                                                      │
+│  KEN BAKER · 8 MAY 2026         CRUISINGINTHEWAKE.COM│  ← Public Sans 22pt smallcaps,
+│                                                      │     color --text-muted
+└──────────────────────────────────────────────────────┘
 ```
 
-Stats values come from a new optional meta tag: `<meta name="social-card-stats" content="$17–$25|PER GUEST|PER DAY||18–20%|ON EXTRAS|ITEMIZED||15|LINES|COMPARED">` — triple-pipe field separator, double-pipe column separator. Three columns max. If absent, default voyage-card variant is used regardless of `social-card-style`.
+The "stats" variant proposed earlier was dropped during prototyping — it added template complexity and a new meta tag for no observable benefit at the 1200×630 size. Stats can live in the article body; the card's job is to make the title sing.
 
-### Color palette
+### Adaptive title sizing
 
-- Background: `#0a4d63` (slightly darker than InTheWake's `#0e6e8e` to differentiate from any specific competitor and to give the white card better contrast)
-- Card background: `#ffffff`
-- Top/bottom stamp band: `#0a4d63` on `#ffffff`, or inverted with white on `#0a4d63`
-- Title text: `#0a4d63` on white
-- Description text: `#3a3a3a`
-- Compass watermark: `#0a4d63` at 12% opacity
+Title font size scales by character count to keep the layout balanced across short and long titles:
+
+| Title chars | Title font size |
+|---|---|
+| ≤ 22 | 104 pt |
+| 23–32 | 88 pt |
+| 33–48 | 78 pt |
+| 49–64 | 68 pt |
+| > 64 | 60 pt |
+
+Tuned empirically against EB Garamond Bold at `max-width: 1020 px` on a 1200-px canvas. Verified against 4 real article titles plus a short synthetic test. Subtitle stays fixed at 32 pt.
+
+### Color palette (site tokens only)
+
+| Role | Token | Hex | Used as |
+|---|---|---|---|
+| Background | `--sky` | `#f7fdff` | Card field |
+| Title | `--sea` | `#0a3d62` | Title text on `--sky` — 10.6:1 contrast |
+| Subtitle | `--ink-mid` | `#3d5a6a` | Subtitle text on `--sky` — 6.8:1 contrast |
+| Byline | `--text-muted` | `#2a4a5a` | Byline + URL on `--sky` — 8.6:1 contrast |
+| Rope rule | `--rope` | `#d9b382` | Decorative horizontal rule only (rope-on-pale fails AA for text — must never carry text) |
+| Compass | `--accent` + `--sea` | `#0e6e8e`, `#0a3d62` | Native SVG colors at 0.16 element opacity |
+
+No invented colors. No CSS filters (satori doesn't render them).
 
 ### Typography
 
-Self-hosted, license-clean: **Inter** for body/labels, **Playfair Display** for the title (the editorial pairing already cited in the site's style guidance). Both Open Font License. Bundled in `admin/social-card-generator/fonts/`. No remote font fetches at CI time.
+Self-hosted, license-clean, bundled in-repo at `admin/social-card-generator/fonts/`. No remote font fetches at CI time.
+
+- **EB Garamond** (Bold) — display/title. SIL OFL 1.1. Stands in for the site's Palatino-family display stack — same old-style serif silhouette.
+- **Public Sans** (Regular) — subtitle, byline, URL. SIL OFL 1.1. Designed as a system-ui-like alternative, matches the site's native sans body stack.
+
+Both are shipped via `@fontsource/eb-garamond` and `@fontsource/public-sans` as WOFF1 (satori-compatible). Prototype confirmed both render correctly through the satori pipeline.
 
 ### Generator inputs (read from article `<head>`)
 
-- `og:title` → card title (truncated at 80 chars, two lines via word-break)
-- `og:description` → subtitle (single line, ~120 chars max with ellipsis)
-- `article:author` Person URL → byline name (resolved from author page or fallback to "Ken Baker")
-- `article:published_time` → date (formatted "D MMM YYYY")
-- `meta[name="social-card-style"]` (optional) → "voyage" (default) or "stats"
-- `meta[name="social-card-stats"]` (optional, required if style=stats) → pipe-delimited stats
+- `og:title` → card title
+- `og:description` → subtitle (line-wraps automatically at `max-width: 920 px`)
+- Author name — extracted from `article:author` URL slug, or fallback to "Ken Baker"
+- `article:published_time` → date (formatted `D MMM YYYY`, uppercased for smallcaps display)
+
+No new meta tags required for v1. The four existing tags every article carries are enough.
+
+### Accessibility
+
+- Auto-generated alt text: `og:image:alt` is set to the article's `og:title` (the most useful single string for a screen-reader user — they hear the article title; the visual card is presentation, not content).
+- A CI check verifies every article whose `og:image` points at a generated card has a non-empty `og:image:alt` and `twitter:image:alt`. If missing, the generator writes them; if the article already specifies them, they're preserved.
+- All text/background pairings hold WCAG 2.1 AA (4.5:1+ for normal text, 3:1+ for large text). The `--rope` color is barred from text use against pale backgrounds in the renderer (enforced in `lib/render.js` — passing rope as a `color` prop throws).
+- Mobile feed legibility verified at 360 px source-rendered (~30% of native): title legible at all four prototype variants; subtitle legible; byline legible (small but clear).
+- Push-notification thumbnail (96 px): title silhouette + color block + compass mark carry the recognition; finer text is not the design target at this size.
 
 ### Generator workflow
 
-New job in `.github/workflows/social-cards.yml`, triggered on `push: branches: [main]` for changes to `articles/*.html`. Steps:
+`.github/workflows/social-cards.yml`, triggered on `push: branches: [main]` for changes to `articles/**/*.html`. Steps:
 
-1. Checkout (depth 2 for diff).
+1. Checkout (`fetch-depth: 2`).
 2. Node 20 setup, `npm ci` in `admin/social-card-generator/`.
-3. For each changed article: read metadata, check generated-manifest, decide regenerate/skip/use-as-photo.
-4. For each card to (re)generate: render JSX via satori, convert to JPG via sharp (quality 88, optimize, progressive), write to `assets/social/articles/<slug>.jpg`.
-5. Update generated-manifest with `{slug, generatedAt, titleHash, descriptionHash}` so subsequent runs only regenerate when source text changes.
-6. Commit changed JPGs + manifest with `[skip ci]` so the publish workflow doesn't fire on this commit.
+3. For each changed article: read `<head>` metadata; compute `sha1(title + description)`; check `assets/social/articles/.generated-manifest.json`.
+4. Decide: skip (file is human photo, not in manifest) / skip (file in manifest and hashes match) / regenerate (file in manifest and hashes differ) / generate (file missing).
+5. For each card to (re)generate: render via satori, JPG via sharp (quality 90, progressive, mozjpeg), write to `assets/social/articles/<slug>.jpg`. Force a new content-hashed query string in the article's `og:image` reference (`?v=<sha1[:8]>`) so Facebook re-scrapes — eliminates the cache-staleness problem from the prior spec pass.
+6. Update generated-manifest entries.
+7. Commit changed JPGs + manifest + any updated `og:image` URLs with `[skip ci]`.
 
-`workflow_dispatch` allows manual run for a single article or all articles (force-regenerate).
+`workflow_dispatch` allows manual run for one article or force-regenerate-all.
 
 ### Article HTML one-time update
 
-The duck and tipping articles currently point `og:image` at the generic `articles-hero.jpg`. Before the generator runs, update those two articles to point at their canonical per-article paths (`/assets/social/articles/cruise-duck-tradition.jpg` and `/assets/social/articles/cruise-tipping-2026.jpg`). First generator run then writes those cards. This is a five-line HTML edit, done as part of the v1 implementation plan.
+The duck and tipping articles point `og:image` at the generic `articles-hero.jpg`. Before the generator's first run, update both articles to point at their canonical per-article paths:
+
+- `cruise-duck-tradition.html`: og:image, twitter:image, JSON-LD `image` → `/assets/social/articles/cruise-duck-tradition.jpg`
+- `cruise-tipping-2026.html`: same swap → `/assets/social/articles/cruise-tipping-2026.jpg`
+
+First generator run then writes the cards at those paths. Five edits per article (og:image, og:image:alt, twitter:image, twitter:image:alt, JSON-LD image). Done as the first step of the implementation plan.
 
 ### Generator code layout
 
 ```
 admin/social-card-generator/
-  generate.js                 # entry; diff detection, dispatch
-  package.json                # deps: satori, sharp, cheerio, opentype-loader-light
-  lib/extract.js              # shared with social-publish OR duplicated for module isolation
-  lib/manifest.js             # generated-manifest read/write
-  lib/render.js               # satori + sharp pipeline
-  templates/voyage-card.jsx   # default layout
-  templates/stats-card.jsx    # stats layout
-  fonts/
-    Inter-Regular.woff2
-    Inter-Bold.woff2
-    PlayfairDisplay-Bold.woff2
-  assets/
-    compass-rose.svg          # copied from /assets/ (do not symlink across workflows)
+  generate.js                 # entry; diff detection, manifest, dispatch
+  package.json                # deps: satori, sharp, cheerio, @fontsource/eb-garamond, @fontsource/public-sans
+  lib/extract.js              # parse article <head> via cheerio
+  lib/manifest.js             # .generated-manifest.json read/write
+  lib/render.js               # satori call + sharp JPG; titleSize() adaptive sizing
+  lib/palette.js              # site tokens + rope-on-pale guard
+  templates/voyage-card.js    # the vDOM tree (plain JS objects, no JSX)
+  test/render.test.js         # snapshot test against 4 reference articles
 ```
 
-### Visual review process
+### Visual review
 
-PRs that change article titles or descriptions trigger the generator; the resulting JPG diff is visible in the PR's Files tab (GitHub renders image diffs side-by-side). Before merge, the operator visually approves the regenerated card. No automated visual-regression test in v1; the human eye is the gate.
+The generator commits JPGs back to `main` with `[skip ci]`. GitHub renders image diffs side-by-side in the commit view; a maintainer eyeballs unexpected changes before they hit production. No automated visual-regression test in v1 — the human eye is the gate, and the cardset is small enough to scan in seconds.
+
+### Local development
+
+`node admin/social-card-generator/generate.js --article articles/cruise-tipping-2026.html --out /tmp/preview.jpg` renders a single card to an arbitrary path without touching the repo. Use during template iteration; CI-mode commits to `assets/social/articles/`.
 
 ## Credentials & token strategy
 
