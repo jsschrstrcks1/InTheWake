@@ -257,6 +257,27 @@ VERIFICATIONS = {
         "ambiguous", "Princess Grand-class ship at Vancouver, Sept 2012, with celebratory bunting; no name visible; Grand-class sister ambiguity"),
     "assets/ships/princess/diamond-princess/Diamond_Princess_(ship,_2004)_001.webp.attr.json": (
         "ambiguous", "Princess Grand-class ship near green coastline; no name visible; Grand-class sister ambiguity"),
+
+    # ---- Norwegian Epic (batch C tail, 2026-05-14) -------------------------
+    # Norwegian Epic is a one-of-a-kind class — Epic-class contains only this
+    # one ship. Class signature features (Aqua Park waterslide complex on top
+    # deck + Epic-specific hull-art canvas) are uniquely Epic.
+    "assets/ships/norwegian/norwegian-epic/Norwegian_Epic_water_chute_3.webp.attr.json": (
+        "confirmed", "Bow with \"NORWEGIAN EPIC\" lettering and Epic-class colorful hull art"),
+    "assets/ships/norwegian/norwegian-epic/Norwegian_Epic_water_chute_2.webp.attr.json": (
+        "confirmed", "Funnel close-up; \"NORWEGIAN EPIC\" + NCL logo visible alongside the Aqua Park waterslide structure"),
+    "assets/ships/norwegian/norwegian-epic/Norwegian_Epic_1.webp.attr.json": (
+        "confirmed", "Full broadside at sea; Epic-class colorful hull art visible across hull"),
+    "assets/ships/norwegian/norwegian-epic/Norwegian_Epic_water_chute_1.webp.attr.json": (
+        "confirmed", "Distant view of Epic underway; distinctive Aqua Park waterslide complex visible on top deck (Epic-class signature)"),
+    "assets/ships/norwegian/norwegian-epic/Norwegian_Epic_-_Port_of_Naples_-_June_2011.webp.attr.json": (
+        "confirmed", "Norwegian Epic alongside at Naples; \"NORWEGIAN EPIC\" lettering visible on hull"),
+    "assets/ships/norwegian/norwegian-epic/Rotterdam_cruiseschip_Norwegian_Epic.webp.attr.json": (
+        "consistent", "Distant view at Rotterdam; NCL livery + colorful hull art consistent with Epic; Epic-class is single-ship class so no sister to disambiguate against"),
+    "assets/ships/norwegian/norwegian-epic/Bridge_of_the_Norwegian_Epic.webp.attr.json": (
+        "consistent", "Bridge close-up with distinctive blue rounded observation deck; Epic-class signature bridge architecture"),
+    "assets/ships/norwegian/norwegian-epic/Florencia_and_Norwegian_Epic_-_Port_of_Barcelona_-_June_2011.webp.attr.json": (
+        "consistent", "Foreground subject is the Grimaldi ferry Florencia; the cruise ship at quay behind is Epic-class profile (Epic-class is one-ship; no sister to confuse)"),
 }
 
 
