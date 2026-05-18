@@ -38,7 +38,7 @@ All work on this project is offered as a gift to God.
   <meta name="referrer" content="no-referrer">
   <meta name="ai-summary" content="MSC Yacht Club Restaurant — private dining for YC suite guests. Open seating, no fixed times. Daily-changing Mediterranean + international menu steps up from the MDRs. On MSC Seaside: Deck 18, balcony above Top Sail Lounge.">
   <meta name="last-reviewed" content="2026-05-17">
-  <meta name="content-protocol" content="ICP-Lite-v1.0">
+  <meta name="content-protocol" content="ICP-2">
   <meta name="venue-tags" content="msc yacht club restaurant, suite enclave, private dining, msc cruises, premium"/>
 
   <!-- Open Graph / Twitter -->
@@ -57,6 +57,14 @@ All work on this project is offered as a gift to God.
 
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Absolute URL normalizer -->
+  <script>
+  (function(){
+    var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+    window._abs = function(path){ path = String(path||''); if(!path.startsWith('/')) path = '/' + path; return ORIGIN + path; };
+  })();
+  </script>
 
   <!-- Service Worker Registration -->
   <script>
@@ -108,7 +116,7 @@ All work on this project is offered as a gift to God.
       "name": "Which MSC ships have a Yacht Club Restaurant?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Every MSC ship that carries an MSC Yacht Club enclave has its own Yacht Club Restaurant — the private restaurant is part of the YC concept. That includes MSC Seaside and MSC Seaview (original Seaside class), MSC Seashore and MSC Seascape (Seaside EVO), the Fantasia class (MSC Fantasia, Splendida, Divina, Preziosa), MSC Meraviglia-class (Bellissima, Meraviglia, Grandiosa, Virtuosa), and the World-class flagships (MSC World Europa, MSC World America, MSC World Asia). The deck and the room differ by ship; the access rule, the open-seating model, and the menu standard stay the same."
+        "text": "Every MSC ship that carries an MSC Yacht Club enclave has its own Yacht Club Restaurant — the private restaurant is part of the YC concept. That includes MSC Seaside and MSC Seaview (original Seaside class), MSC Seashore and MSC Seascape (Seaside EVO), the Fantasia class (MSC Fantasia, Splendida, Divina, Preziosa), MSC Meraviglia-class (Bellissima, Meraviglia, Grandiosa, Virtuosa), and the newest ships MSC World Europa, MSC World America, and MSC World Asia. The deck and the room differ by ship; the access rule, the open-seating model, and the menu standard stay the same."
       }
     },
     {
@@ -142,6 +150,8 @@ All work on this project is offered as a gift to God.
 
 <body class="venue-page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
 <header class="hero-header" role="banner">
   <div class="navbar">
@@ -242,7 +252,7 @@ All work on this project is offered as a gift to God.
 
       <p class="answer-line"><strong>Quick Answer:</strong> The private dining room of the MSC Yacht Club enclave, accessible to YC suite guests only. Open seating &mdash; no fixed times, no assigned tables. Breakfast, lunch, and dinner daily; a daily-changing Mediterranean and international menu that&rsquo;s a step up from the main dining room; attentive sommelier service. On MSC Seaside: Deck 18 on the balcony directly above the Top Sail Lounge.</p>
 
-      <p class="fit-guidance"><strong>Best For:</strong> MSC Yacht Club guests across every meal of the day &mdash; especially couples and small parties who value flexibility over fixed-time tradition. The lighter sea-day seafood lunch is a highlight; the dinner kitchen is the strongest single argument for the YC food program.</p>
+      <p class="fit-guidance"><strong>Best For:</strong> MSC Yacht Club guests across every meal of the day &mdash; couples and small parties who value flexibility over fixed-time tradition. The lighter sea-day seafood lunch is a highlight; the dinner kitchen is the strongest single argument for the YC food program.</p>
 
       <div class="key-facts">
         <h3>Key Facts</h3>
@@ -350,7 +360,7 @@ All work on this project is offered as a gift to God.
   <section class="card" id="availability">
     <div class="card__content">
       <h2>Where You&rsquo;ll Find It</h2>
-      <p>The MSC Yacht Club Restaurant exists on every MSC ship that carries the MSC Yacht Club enclave. On <a href="/ships/msc/msc-seaside.html">MSC Seaside</a> and <a href="/ships/msc/msc-seaview.html">MSC Seaview</a>, the restaurant sits on Deck 18, on the balcony directly above the <a href="/restaurants/msc/top-sail-lounge.html">Top Sail Lounge</a> with the same forward floor-to-ceiling windows from a two-story room. On the Seaside EVO sisters (<a href="/ships/msc/msc-seashore.html">MSC Seashore</a>, <a href="/ships/msc/msc-seascape.html">MSC Seascape</a>), the Fantasia class, the Meraviglia class, and the World-class flagships, the deck and layout differ but the room concept (private, open-seating, daily-changing menu) is consistent. Access is via the YC entrance with your suite key card.</p>
+      <p>The MSC Yacht Club Restaurant exists on every MSC ship that carries the MSC Yacht Club enclave. On <a href="/ships/msc/msc-seaside.html">MSC Seaside</a> and <a href="/ships/msc/msc-seaview.html">MSC Seaview</a>, the restaurant sits on Deck 18, on the balcony directly above the <a href="/restaurants/msc/top-sail-lounge.html">Top Sail Lounge</a> with the same forward floor-to-ceiling windows from a two-story room. On the Seaside EVO sisters (<a href="/ships/msc/msc-seashore.html">MSC Seashore</a>, <a href="/ships/msc/msc-seascape.html">MSC Seascape</a>), the Fantasia class, the Meraviglia class, and the newest ships MSC World Europa, MSC World America, and MSC World Asia, the deck and layout differ but the room concept (private, open-seating, daily-changing menu) is consistent. Access is via the YC entrance with your suite key card.</p>
     </div>
   </section>
 
@@ -375,7 +385,7 @@ All work on this project is offered as a gift to God.
       <p>Most coverage of the YC Restaurant focuses on dinner. The morning and midday services are where the small-volume kitchen quietly outclasses the rest of the ship. Breakfast is a full a la carte sit &mdash; eggs cooked to order at the table (or the open kitchen), real bread, smoked salmon, an Italian cheese plate, espresso that arrives in a proper cup. On a sea day, the seafood lunch set turns up &mdash; lobster tails, scallops, jumbo shrimp on ice, the daily fish off a working station &mdash; and is the dish travelers most often single out as the YC&rsquo;s sleeper highlight. Lunches on port days lean lighter (a Caesar, a daily pasta, a fish of the day) and arrive quickly enough that you can still make a 12:30 PM tour-bus departure.</p>
 
       <h4>Dinner</h4>
-      <p>The menu rotates daily and lifts a meaningful step over the main dining rooms. The Italian heritage shows up first in the pasta and risotto courses &mdash; Champagne risotto, paccheri with seafood, Ligurian cioppino all turn up on recent menus and the kitchen plates them properly. Mains step into the higher cuts: grilled tournedos and filet mignon arrive at temperature, the lobster tail is whole rather than portioned, and Dover sole gets butter-poached at the table on some sailings. Gala Night is genuinely Gala here in a way the main MDR aspires to: lobster bisque, foie-gras preparations, soufflé to close. Across reviewers the recurring line is that misses are &ldquo;rare&rdquo; rather than &ldquo;occasional&rdquo; &mdash; meaningful when paired with the volume of meals across a week.</p>
+      <p>The menu rotates daily and lifts a meaningful step over the main dining rooms. The Italian heritage shows up first in the pasta and risotto courses &mdash; Champagne risotto, paccheri with seafood, Ligurian cioppino all turn up on recent menus and the kitchen plates them properly. Mains step into the higher cuts: grilled tournedos and filet mignon arrive at temperature, the lobster tail is whole rather than portioned, and Dover sole gets butter-poached at the table on some sailings. Gala Night earns its name here in a way the main MDR aspires to: lobster bisque, foie-gras preparations, soufflé to close. Across reviewers the recurring line is that misses are &ldquo;rare&rdquo; rather than &ldquo;occasional&rdquo; &mdash; meaningful when paired with the volume of meals across a week.</p>
 
       <h4>Service and sommelier</h4>
       <p>The room is staffed for service that knows you. By Night 3 a waiter who&rsquo;s been on the floor your full sailing will bring the wine before you order it, plate the bread you eat (not the basket version), and pace the table for the kind of evening you&rsquo;ve made it clear you want &mdash; conversation-paced or efficient. The sommelier works the floor as a separate role rather than a shared duty; ask for a specific region or grape variety and you&rsquo;ll get a real recommendation. The table wines included with the meal cover a wide spread; the deeper list (premium reserves) sits on a separate sheet and the sommelier will tell you the upcharge before you decide. This transparency is the right way to do it.</p>
@@ -396,7 +406,7 @@ All work on this project is offered as a gift to God.
       </ul>
 
       <h4>Conclusion</h4>
-      <p><strong>Rating: 4.4/5.</strong> The MSC Yacht Club Restaurant is the room the YC is genuinely selling. Open seating that respects your time, a kitchen plating for a fraction of the covers the main MDRs handle, a sommelier who works the floor rather than a wine list, and three meals a day that mostly outperform the comparable public venues. It loses fractional points on the reserve-list upcharge surprise and brief peak-time waits. <em>Tip:</em> the meal here is the one you&rsquo;ll remember from the cruise. If you booked the Yacht Club for one reason, this is the reason that earns it.</p>
+      <p><strong>Rating: 4.4/5.</strong> The MSC Yacht Club Restaurant is the room the YC is selling. Open seating that respects your time, a kitchen plating for a fraction of the covers the main MDRs handle, a sommelier who works the floor rather than a wine list, and three meals a day that mostly outperform the comparable public venues. It loses fractional points on the reserve-list upcharge surprise and brief peak-time waits. <em>Tip:</em> the meal here is the one you&rsquo;ll remember from the cruise. If you booked the Yacht Club for one reason, this is the reason that earns it.</p>
 
             <p class="tiny mt-075">Related venues: <a href="/restaurants/msc/top-sail-lounge.html">Top Sail Lounge</a> &middot; <a href="/restaurants/msc/butchers-cut.html">Butcher&rsquo;s Cut</a> &middot; <a href="/restaurants/msc/asian-market-kitchen.html">Asian Market Kitchen</a> &middot; <a href="/restaurants.html">All Restaurants &rarr;</a></p>
 
@@ -429,7 +439,7 @@ All work on this project is offered as a gift to God.
       </details>
       <details class="section-divider">
         <summary>Which MSC ships have a Yacht Club Restaurant?</summary>
-        <p class="list-indent">Every MSC ship that carries an MSC Yacht Club enclave has its own Yacht Club Restaurant &mdash; the private restaurant is part of the YC concept. That includes MSC Seaside and MSC Seaview (original Seaside class), MSC Seashore and MSC Seascape (Seaside EVO), the Fantasia class (MSC Fantasia, Splendida, Divina, Preziosa), MSC Meraviglia-class (Bellissima, Meraviglia, Grandiosa, Virtuosa), and the World-class flagships (MSC World Europa, MSC World America, MSC World Asia). The deck and the room differ by ship; the access rule, the open-seating model, and the menu standard stay the same.</p>
+        <p class="list-indent">Every MSC ship that carries an MSC Yacht Club enclave has its own Yacht Club Restaurant &mdash; the private restaurant is part of the YC concept. That includes MSC Seaside and MSC Seaview (original Seaside class), MSC Seashore and MSC Seascape (Seaside EVO), the Fantasia class (MSC Fantasia, Splendida, Divina, Preziosa), MSC Meraviglia-class (Bellissima, Meraviglia, Grandiosa, Virtuosa), and the newest ships MSC World Europa, MSC World America, and MSC World Asia. The deck and the room differ by ship; the access rule, the open-seating model, and the menu standard stay the same.</p>
       </details>
       <details class="section-divider">
         <summary>How much does the MSC Yacht Club Restaurant cost?</summary>

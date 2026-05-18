@@ -182,11 +182,15 @@ else
     check_fail "last-reviewed meta tag MISSING or invalid date"
 fi
 
-# content-protocol
-if echo "$CONTENT" | grep -q 'content="ICP-Lite v1.0"'; then
-    check_pass "content-protocol is 'ICP-Lite v1.0'"
+# content-protocol — current active standard is ICP-2 (v2.1; see .claude/skills/icp-2/SKILL.md).
+# Predecessors ICP-Lite v1.4 and ICP-Lite-v1.0 still exist on legacy pages and are tolerated
+# while migration proceeds, but new pages must use ICP-2.
+if echo "$CONTENT" | grep -q 'content="ICP-2"'; then
+    check_pass "content-protocol is 'ICP-2' (current standard)"
+elif echo "$CONTENT" | grep -qE 'content="(ICP-Lite v1\.4|ICP-Lite v1\.0|ICP-Lite-v1\.0)"'; then
+    check_warn "content-protocol uses a legacy ICP-Lite value — migrate to 'ICP-2'"
 else
-    check_fail "content-protocol meta tag MISSING or incorrect (required: ICP-Lite v1.0)"
+    check_fail "content-protocol meta tag MISSING or invalid (required: ICP-2)"
 fi
 
 # =============================================================================
