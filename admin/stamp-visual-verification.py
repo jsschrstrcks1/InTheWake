@@ -320,6 +320,22 @@ VERIFICATIONS = {
         "ambiguous", "Grand-class Princess docked at Juneau, Alaska in evening light; no name visible; Grand-class sister ambiguity"),
     "assets/ships/princess/grand-princess/Bosfor_B18-39.webp.attr.json": (
         "ambiguous", "Grand-class Princess passing through the Bosphorus; no name visible; Grand-class sister ambiguity"),
+
+    # ---- Crown Princess (batch D, 2026-05-18) ------------------------------
+    "assets/ships/princess/crown-princess/Crown_Princess.webp.attr.json": (
+        "confirmed", "Bow detail with \"CROWN PRINCESS\" lettering visible on hull, swimmers in foreground"),
+    "assets/ships/princess/crown-princess/Crown_Princess2.webp.attr.json": (
+        "confirmed", "Full broadside; \"CROWN PRINCESS\" lettering visible above the lifeboats"),
+    "assets/ships/princess/crown-princess/Crown_Princess_en_el_Puerto_de_C_diz.webp.attr.json": (
+        "confirmed", "Bow detail at Cadiz; \"CROWN PRINCESS\" lettering visible on upper deck"),
+    "assets/ships/princess/crown-princess/Crown_Princess-1.webp.attr.json": (
+        "confirmed", "Underway; \"CROWN PRINCESS\" lettering visible on upper deck near funnel"),
+    "assets/ships/princess/crown-princess/Crown_Princess_at_Liverpool_26-08-10_-_DSC00624.webp.attr.json": (
+        "confirmed", "Alongside at Liverpool 2010; \"CROWN PRINCESS\" lettering visible on hull"),
+    "assets/ships/princess/crown-princess/Crown_Princess_en_el_Puerto_de_C_diz_(2).webp.attr.json": (
+        "consistent", "Broadside at Cadiz, second angle of the same call as the confirmed Cadiz shot; same ship, same day"),
+    "assets/ships/princess/crown-princess/Crown_princess.webp.attr.json": (
+        "ambiguous", "Bow-on Grand-class Princess profile at port; no name visible; Grand-class sister ambiguity"),
 }
 
 
