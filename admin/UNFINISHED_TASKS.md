@@ -490,6 +490,68 @@ This is generic boilerplate with no port-specific info. The visible currency ans
 
 ---
 
+## P1 — Drink Calculator copy contradicts its own chart re: "6-7 drinks break-even" (2026-05-17)
+
+**Severity:** Affects published content — both `/drink-calculator.html` and `/drink-calculatorv2.html` carry copy/schema that the chart on the same page contradicts. The new article `articles/is-drink-package-worth-it.html` documents the chart-side result and explicitly calls the 5-to-7 rule wrong.
+
+**Triggered by:** Writing the May 17 tool-demo article. Captured live chart output at three honest consumption levels and found à la carte beats Deluxe by $1,000+ in every typical scenario — chart break-even sits around 11+ cocktail-equivalents per couple per day, not 5-7. Then noticed the same tool's own FAQ schema and rate-table copy still say "6-7 drinks per day breaks even."
+
+### What's actually inconsistent
+
+The tool says two different things on the same page:
+
+| Source | Number quoted |
+|---|---|
+| `drink-calculatorv2.html:129` (FAQ schema answer) | "break even at 6-7 drinks per day" |
+| `drink-calculatorv2.html:318` (answer-first comment) | "Most cruisers break even at 6-7 drinks/day on Deluxe package" |
+| `drink-calculatorv2.html:1709` (comparison table cell) | "5-6 drinks" |
+| `drink-calculatorv2.html:1739` (rate-table prose) | "break even at 6-7 drinks per day" |
+| Same page's chart output, run honestly | À la carte still winning at 10+ drinks/day; break-even ~11 cocktail-equivalents/couple/day |
+| `drink-calculator.html:127, 309, 1110, 1140` | Same "6-7" / "5-6" copy as v2 |
+
+Both `/drink-calculator.html` (v1) and `/drink-calculatorv2.html` (v2) carry the same wrong copy.
+
+### Why this is happening
+
+There is an existing internal investigation in `.claude/plans/math-issues-investigation.md` that catalogues 12+ math bugs in the engine. The single most relevant one for this entry:
+
+> **Bug 2: Gratuity on Packages but Not on À La Carte.** Package costs include gratuity; individual drink costs do not. In reality, bars charge the same percentage on every drink. À la carte is understated by 18-20%. Carnival proof: break-even should be 5.4 cocktails/day at $15.60 each with grat. Engine shows break-even at 7 using $13 without grat.
+
+So there are two compounding things going on:
+1. **The "6-7 drinks" copy is using pre-gratuity arithmetic** to derive its break-even (same math that produced Bug 2). It's a stale rule-of-thumb that ignores both the gratuity and the realistic drink mix.
+2. **The chart, despite Bug 2 making à la carte look cheaper than reality, still shows packages losing badly** because the per-person Deluxe price is ~$83/day post-gratuity and most cruisers don't actually drink $83 worth.
+
+Fixing Bug 2 would push à la carte UP by ~18% across all scenarios, which would lower the chart's break-even somewhat — but probably to around 8 cocktail-equivalents/couple/day, still nowhere near the "6-7 per person" the copy quotes.
+
+### Two paths
+
+**Path A — Copy fix only (fast).** Update the four locations in each calculator (FAQ schema, answer-first comment, table cell, prose) to match the chart's actual output. Reword the FAQ answers along the lines of: "The widely repeated 5-to-7 drinks per day rule is based on pre-gratuity arithmetic and assumes only $14 cocktails. At realistic consumption mixes with the 18% gratuity included, most cruisers break even closer to 11 cocktail-equivalents per couple per day. Use the calculator above with your real drinks." This brings the tool internally consistent immediately. ~30 min of work.
+
+**Path B — Fix the engine first, then copy (correct).** Work through the bug list in `.claude/plans/math-issues-investigation.md` (gratuity on à la carte, sea-day weighting, 15-drink limit, break-even drink price mismatches, etc.). After fixes, re-derive the break-even number from the corrected engine and update copy to match. Then recapture the article's screenshots, since they'd be stale.
+
+Path A unblocks honesty fast. Path B is the proper fix. Recommended: do A now, schedule B against the broader calculator-v2 work already in P2.
+
+### Article dependencies
+
+`articles/is-drink-package-worth-it.html` and its four screenshots in `assets/articles/drink-calculator-worth-it/` reflect the **current** chart output. If Path B happens and the chart shifts:
+
+- Headline finding ("5-to-7 rule is wrong") survives — bug fixes shift the break-even down but probably still above 5-7 for typical consumption mixes.
+- Specific dollar numbers in the body and screenshots become stale.
+- Recapture is mechanical: server, headless Playwright, the script lived at `_capture-calc-screenshots.mjs` in commit `73ac9905` history (deleted in same commit).
+
+### Find the affected copy
+
+```bash
+grep -nE "(5|6).?(to|-|—).?(6|7) drinks|break even at [567]" \
+  drink-calculator.html drink-calculatorv2.html
+```
+
+### What is NOT a problem
+
+The chart-side math, even with the bugs in `math-issues-investigation.md`, is *more accurate than the 5-7 copy*. The bugs make à la carte look cheaper than reality, but the chart still beats the 5-7 narrative because the package is genuinely overpriced for most cruisers. Removing the 5-7 copy is correct in both the pre-fix and post-fix worlds.
+
+---
+
 ## Items surfaced in session `claude/fix-carnival-validator-krEdD` (2026-05-11)
 
 Surfaced during the multi-turn image-honesty audit + cleanup; not duplicates
@@ -1107,7 +1169,7 @@ These items appeared across 7+ individual competitor analysis sections. Deduplic
 ### [G] Affiliate Link Infrastructure
 **Phase 1 (Infrastructure) DONE. Phase 2 (Articles) DONE. Phase 3 (Site-wide) ~99% DONE.**
 - [ ] Update about-us.html "Our Promise" section to acknowledge Amazon Associates participation
-- [ ] Add affiliate article links to 4 remaining ship pages (carnival-adventure, carnivale-1956, jubilee-1986, mardi-gras-1972)
+- [x] Add affiliate article links to 4 remaining ship pages (carnival-adventure, carnivale-1956, jubilee-1986, mardi-gras-1972) — completed 2026-05-13 (B2.4)
 - [ ] Add affiliate article links to 3 remaining port pages (beijing, falmouth-jamaica, kyoto)
 
 ### [G] Quiz Remaining Fixes

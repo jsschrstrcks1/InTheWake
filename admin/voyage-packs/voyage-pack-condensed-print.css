@@ -1,0 +1,127 @@
+/* In the Wake — Voyage Pack CONDENSED print stylesheet
+ * Companion to voyage-pack-print.css for the 3-page condensed format.
+ * Tightens font, line-height, measure, and margins so the entire pack
+ * fits in three pages: day-by-day, arrival/debark, emergency handoff.
+ *
+ * Soli Deo Gloria.
+ */
+
+@page {
+  size: letter;
+  margin: 0.55in 0.55in 0.7in 0.55in;
+  @bottom-center {
+    content: "In the Wake — Voyage Pack (condensed) — Page " counter(page) " of " counter(pages);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 8pt;
+    color: #555;
+  }
+  @bottom-right {
+    content: "cruisinginthewake.com";
+    font-family: Georgia, serif;
+    font-size: 8pt;
+    color: #888;
+  }
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 9pt;
+  line-height: 1.28;
+  color: #083041;
+  max-width: 7.4in;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+  color: #0a3d62;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+}
+h1 { font-size: 17pt; margin: 0 0 0.2em; line-height: 1.15; }
+h2 {
+  font-size: 13pt;
+  margin: 0.6em 0 0.3em;
+  padding-top: 0.25em;
+  border-top: 1.5px solid #d9b382;
+}
+h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+h3 { font-size: 11pt; margin: 0.5em 0 0.15em; }
+
+p { margin: 0 0 0.4em; }
+
+/* Cover-mini (compact header instead of full-page cover) */
+.vp-cover-mini {
+  text-align: left;
+  border-bottom: 2px solid #d9b382;
+  padding-bottom: 0.4em;
+  margin-bottom: 0.6em;
+}
+.vp-cover-mini h1 { margin-bottom: 0.05em; }
+.vp-cover-mini h2 {
+  font-size: 11pt;
+  border-top: none;
+  margin: 0 0 0.3em;
+  padding-top: 0;
+  color: #555;
+  font-weight: normal;
+  font-style: italic;
+}
+.vp-cover-mini em { color: #666; font-size: 8.5pt; }
+
+/* Tables: tight, full-measure */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.3em 0 0.5em;
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+}
+th, td {
+  padding: 3px 5px;
+  vertical-align: top;
+  border-bottom: 0.5px solid #ccc;
+  line-height: 1.22;
+}
+th {
+  background: #f0e4cf;
+  color: #0a3d62;
+  font-weight: bold;
+  text-align: left;
+  border-bottom: 1.5px solid #d9b382;
+}
+tr { page-break-inside: avoid; }
+
+/* Lists: tight */
+ul, ol {
+  margin: 0.2em 0 0.5em 1.2em;
+  padding: 0;
+}
+li { margin: 0 0 0.15em; }
+
+/* Code block (handoff card): monospace, tight */
+pre, code {
+  font-family: "Menlo", "Consolas", monospace;
+  font-size: 7.6pt;
+  line-height: 1.22;
+}
+pre {
+  background: #f6f3ec;
+  border-left: 2px solid #d9b382;
+  padding: 0.4em 0.7em;
+  margin: 0.3em 0;
+  page-break-inside: avoid;
+}
+
+/* Strong color for key callouts */
+strong { color: #0a3d62; }
+
+/* Horizontal rule */
+hr {
+  border: none;
+  border-top: 0.5px solid #d9b382;
+  margin: 0.6em 0;
+}
+
+/* Footer italic note tighter */
+p > em:last-child { font-size: 8pt; color: #555; }

@@ -1,0 +1,75 @@
+name: Social Publish (Facebook)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'articles/**/*.html'
+  workflow_dispatch:
+    inputs:
+      article:
+        description: 'Force-publish a specific article (e.g. articles/cruise-tipping-2026.html)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Compose-only, do not call Facebook'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # SAFETY GATE: until the gate is removed (Task 6.3), only manual
+    # dispatch can post. Push-driven runs are skipped.
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: admin/social-publish/package-lock.json
+
+      - name: Install
+        working-directory: admin/social-publish
+        run: npm ci
+
+      - name: Test
+        working-directory: admin/social-publish
+        run: npm test
+
+      - name: Publish
+        env:
+          FACEBOOK_PAGE_ID:           ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+        run: |
+          ARGS=""
+          if [ -n "${{ inputs.article }}" ]; then ARGS="$ARGS --article ${{ inputs.article }}"; fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          node admin/social-publish/publish.js $ARGS
+
+      - name: Commit manifest
+        if: ${{ inputs.dry_run != 'true' }}
+        run: |
+          if git diff --quiet admin/social-publish-manifest.json 2>/dev/null; then
+            echo "No manifest changes."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add admin/social-publish-manifest.json
+          git commit -m "chore(social-publish): record published posts [skip ci]"
+          git push

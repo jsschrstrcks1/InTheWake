@@ -7,6 +7,8 @@
 #   admin/scripts/voyage-pack-pdf-build.sh ncl-aqua         # build only NCL Aqua
 #   admin/scripts/voyage-pack-pdf-build.sh sisters-sea      # build only Sisters at Sea (Resilient Lady)
 #   admin/scripts/voyage-pack-pdf-build.sh anthem-alaska    # build only Anthem of the Seas Alaska 7N
+#   admin/scripts/voyage-pack-pdf-build.sh seaside-bahamas  # build only MSC Seaside Bahamas 4N
+#   admin/scripts/voyage-pack-pdf-build.sh luna-solo        # build only NCL Luna Tina solo group May 2026
 #   admin/scripts/voyage-pack-pdf-build.sh --force          # rebuild even if PDF is newer
 #   admin/scripts/voyage-pack-pdf-build.sh --check          # exit 1 if any PDF is stale (no build)
 #   admin/scripts/voyage-pack-pdf-build.sh --help
@@ -17,6 +19,10 @@
 #   - --force always rebuilds
 #   - --check exits non-zero if any pack PDF is stale (used by pre-commit)
 #   - Writes the PDF alongside the markdown source in admin/voyage-packs/
+#     by default. Packs may opt out by setting a non-empty *_PDF variable
+#     at the top of the script — e.g. SEASIDE_BAHAMAS_PDF="ships/msc/..."
+#     routes that pack's PDF to a custom path. The .md source stays
+#     canonical in admin/voyage-packs/ regardless.
 #
 # Workflow:
 #   - Generate the PDF once per pack version (one-time, not on every build)
@@ -47,6 +53,21 @@ SYMPHONY_MD="$PACKS_DIR/v0.1-symphony-western-caribbean-7n.md"
 NCL_AQUA_MD="$PACKS_DIR/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.md"
 SISTERS_SEA_MD="$PACKS_DIR/v0.1.3-virgin-sisters-sea-feb-2027.md"
 ANTHEM_ALASKA_MD="$PACKS_DIR/v0.1.4-rcl-anthem-alaska-7n.md"
+SEASIDE_BAHAMAS_MD="$PACKS_DIR/v0.1.5-msc-seaside-bahamas-4n.md"
+LUNA_SOLO_MD="$PACKS_DIR/v0.1.6-ncl-luna-solo-group-may-2026.md"
+BLISS_SOLO_MD="$PACKS_DIR/v0.1.7-ncl-bliss-alaska-solo-group-jul-2026.md"
+
+# PDF output path per pack. Empty = default (next to the .md source).
+# Override when a pack wants its PDF co-located somewhere else (e.g. alongside
+# its ship page). The .md source stays canonical in $PACKS_DIR regardless.
+SYMPHONY_PDF=""
+NCL_AQUA_PDF=""
+SISTERS_SEA_PDF=""
+ANTHEM_ALASKA_PDF=""
+SEASIDE_BAHAMAS_PDF="ships/msc/v0.1.5-msc-seaside-bahamas-4n.pdf"
+LUNA_SOLO_PDF="ships/norwegian/v0.1.6-ncl-luna-solo-group-may-2026.pdf"
+BLISS_SOLO_PDF="ships/norwegian/v0.1.7-ncl-bliss-alaska-solo-group-jul-2026.pdf"
+
 PDF_CSS="$PACKS_DIR/voyage-pack-print.css"
 
 # Mode flags
@@ -64,12 +85,26 @@ detect_pdf_engine() {
   return 1
 }
 
+# ----- output-path resolver ---------------------------------------------------
+# Resolve the PDF output path for a pack: override if non-empty, else default
+# (next to the .md source).
+pdf_path_for() {
+  local md="$1"
+  local override="${2:-}"
+  if [ -n "$override" ]; then
+    echo "$override"
+  else
+    echo "${md%.md}.pdf"
+  fi
+}
+
 # ----- staleness check --------------------------------------------------------
 # Bash convention: returns 0 (success/yes) if PDF IS stale, 1 if up-to-date.
 # A PDF is stale if it is missing OR if the .md source is newer than the .pdf.
 pdf_is_stale() {
   local md="$1"
-  local pdf="${md%.md}.pdf"
+  local pdf
+  pdf="$(pdf_path_for "$md" "${2:-}")"
 
   if [ ! -f "$pdf" ]; then return 0; fi      # missing → stale
   if [ "$md" -nt "$pdf" ]; then return 0; fi # source newer → stale
@@ -77,10 +112,13 @@ pdf_is_stale() {
 }
 
 # ----- per-pack build ---------------------------------------------------------
+# Args: md_path  label  engine  [output_pdf_override]
+# If output_pdf_override is empty/omitted, PDF lands next to the .md source.
 build_pack() {
   local md="$1"
   local label="$2"
   local engine="$3"
+  local output_pdf="${4:-}"
 
   if [ ! -f "$md" ]; then
     echo "  ✗ $label: source not found at $md" >&2
@@ -92,7 +130,12 @@ build_pack() {
     return 1
   fi
 
-  local pdf="${md%.md}.pdf"
+  local pdf
+  pdf="$(pdf_path_for "$md" "$output_pdf")"
+
+  # Ensure the output directory exists (may differ from the .md's directory
+  # when a pack uses an output_pdf override).
+  mkdir -p "$(dirname "$pdf")"
 
   # Idempotency: skip if PDF is newer than .md (unless --force)
   if [ "$FORCE" -eq 0 ] && [ -f "$pdf" ] && [ "$pdf" -nt "$md" ]; then
@@ -155,18 +198,26 @@ build_pack() {
 
 # ----- check-only mode --------------------------------------------------------
 # Used by pre-commit. Lists every stale pack and exits 1 if any are stale.
+# Parallel arrays: pack md path and its corresponding output_pdf override.
+# Keep these two arrays in sync — index N is the same pack in both.
 run_check_only() {
   local stale=0
   echo "Voyage Pack PDF staleness check"
   echo ""
-  for md in "$SYMPHONY_MD" "$NCL_AQUA_MD" "$SISTERS_SEA_MD" "$ANTHEM_ALASKA_MD"; do
+  local mds=("$SYMPHONY_MD" "$NCL_AQUA_MD" "$SISTERS_SEA_MD" "$ANTHEM_ALASKA_MD" "$SEASIDE_BAHAMAS_MD" "$LUNA_SOLO_MD" "$BLISS_SOLO_MD")
+  local pdfs=("$SYMPHONY_PDF" "$NCL_AQUA_PDF" "$SISTERS_SEA_PDF" "$ANTHEM_ALASKA_PDF" "$SEASIDE_BAHAMAS_PDF" "$LUNA_SOLO_PDF" "$BLISS_SOLO_PDF")
+  local i
+  for i in "${!mds[@]}"; do
+    local md="${mds[$i]}"
+    local override="${pdfs[$i]}"
     if [ ! -f "$md" ]; then
       continue  # source missing — not this script's concern
     fi
-    local pdf="${md%.md}.pdf"
+    local pdf
+    pdf="$(pdf_path_for "$md" "$override")"
     local label
     label=$(basename "$md" .md)
-    if pdf_is_stale "$md"; then
+    if pdf_is_stale "$md" "$override"; then
       if [ ! -f "$pdf" ]; then
         echo "  ✗ $label: PDF MISSING ($pdf)"
       else
@@ -196,7 +247,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|all) target="$arg" ;;
+    symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|seaside-bahamas|seaside|msc|luna-solo|luna|bliss-solo|bliss|all) target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
       exit 2
@@ -238,25 +289,37 @@ failures=0
 
 case "$target" in
   symphony)
-    build_pack "$SYMPHONY_MD" "Symphony Western Caribbean 7N" "$ENGINE" || failures=$((failures + 1))
+    build_pack "$SYMPHONY_MD" "Symphony Western Caribbean 7N" "$ENGINE" "$SYMPHONY_PDF" || failures=$((failures + 1))
     ;;
   ncl-aqua|aqua|ncl)
-    build_pack "$NCL_AQUA_MD" "NCL Aqua Veterans/Solo Dec 2027" "$ENGINE" || failures=$((failures + 1))
+    build_pack "$NCL_AQUA_MD" "NCL Aqua Veterans/Solo Dec 2027" "$ENGINE" "$NCL_AQUA_PDF" || failures=$((failures + 1))
     ;;
   sisters-sea|sisters|virgin)
-    build_pack "$SISTERS_SEA_MD" "Sisters at Sea — Resilient Lady Feb 2027" "$ENGINE" || failures=$((failures + 1))
+    build_pack "$SISTERS_SEA_MD" "Sisters at Sea — Resilient Lady Feb 2027" "$ENGINE" "$SISTERS_SEA_PDF" || failures=$((failures + 1))
     ;;
   anthem-alaska|anthem|alaska)
-    build_pack "$ANTHEM_ALASKA_MD" "Anthem of the Seas — Alaska 7N" "$ENGINE" || failures=$((failures + 1))
+    build_pack "$ANTHEM_ALASKA_MD" "Anthem of the Seas — Alaska 7N" "$ENGINE" "$ANTHEM_ALASKA_PDF" || failures=$((failures + 1))
+    ;;
+  seaside-bahamas|seaside|msc)
+    build_pack "$SEASIDE_BAHAMAS_MD" "MSC Seaside — Bahamas 4N" "$ENGINE" "$SEASIDE_BAHAMAS_PDF" || failures=$((failures + 1))
+    ;;
+  luna-solo|luna)
+    build_pack "$LUNA_SOLO_MD" "NCL Luna — Tina Solo Group May 2026" "$ENGINE" "$LUNA_SOLO_PDF" || failures=$((failures + 1))
+    ;;
+  bliss-solo|bliss)
+    build_pack "$BLISS_SOLO_MD" "NCL Bliss — Kristie Solo Group Jul 2026" "$ENGINE" "$BLISS_SOLO_PDF" || failures=$((failures + 1))
     ;;
   all|"")
-    build_pack "$SYMPHONY_MD" "Symphony Western Caribbean 7N" "$ENGINE" || failures=$((failures + 1))
-    build_pack "$NCL_AQUA_MD" "NCL Aqua Veterans/Solo Dec 2027" "$ENGINE" || failures=$((failures + 1))
-    build_pack "$SISTERS_SEA_MD" "Sisters at Sea — Resilient Lady Feb 2027" "$ENGINE" || failures=$((failures + 1))
-    build_pack "$ANTHEM_ALASKA_MD" "Anthem of the Seas — Alaska 7N" "$ENGINE" || failures=$((failures + 1))
+    build_pack "$SYMPHONY_MD" "Symphony Western Caribbean 7N" "$ENGINE" "$SYMPHONY_PDF" || failures=$((failures + 1))
+    build_pack "$NCL_AQUA_MD" "NCL Aqua Veterans/Solo Dec 2027" "$ENGINE" "$NCL_AQUA_PDF" || failures=$((failures + 1))
+    build_pack "$SISTERS_SEA_MD" "Sisters at Sea — Resilient Lady Feb 2027" "$ENGINE" "$SISTERS_SEA_PDF" || failures=$((failures + 1))
+    build_pack "$ANTHEM_ALASKA_MD" "Anthem of the Seas — Alaska 7N" "$ENGINE" "$ANTHEM_ALASKA_PDF" || failures=$((failures + 1))
+    build_pack "$SEASIDE_BAHAMAS_MD" "MSC Seaside — Bahamas 4N" "$ENGINE" "$SEASIDE_BAHAMAS_PDF" || failures=$((failures + 1))
+    build_pack "$LUNA_SOLO_MD" "NCL Luna — Tina Solo Group May 2026" "$ENGINE" "$LUNA_SOLO_PDF" || failures=$((failures + 1))
+    build_pack "$BLISS_SOLO_MD" "NCL Bliss — Kristie Solo Group Jul 2026" "$ENGINE" "$BLISS_SOLO_PDF" || failures=$((failures + 1))
     ;;
   *)
-    echo "✗ Unknown target: $target. Use 'symphony', 'ncl-aqua', 'sisters-sea', 'anthem-alaska', or 'all'."
+    echo "✗ Unknown target: $target. Use 'symphony', 'ncl-aqua', 'sisters-sea', 'anthem-alaska', 'seaside-bahamas', 'luna-solo', 'bliss-solo', or 'all'."
     exit 2
     ;;
 esac

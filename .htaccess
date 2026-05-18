@@ -77,6 +77,14 @@
 
   # royal-caribbean → rcl (Ship Size Atlas uses wrong path; real pages live at /ships/rcl/)
   RewriteRule ^ships/royal-caribbean/(.*)$ /ships/rcl/$1 [R=301,L]
+  # celebrity -> celebrity-cruises (path mismatch - real pages live at /ships/celebrity-cruises/)
+  RewriteRule ^ships/celebrity/(.*)$ /ships/celebrity-cruises/$1 [R=301,L]
+
+  # holland-america -> holland-america-line (path mismatch - real pages live at /ships/holland-america-line/)
+  RewriteRule ^ships/holland-america/(.*)$ /ships/holland-america-line/$1 [R=301,L]
+
+  # ncl -> norwegian (path mismatch - real pages live at /ships/norwegian/)
+  RewriteRule ^ships/ncl/(.*)$ /ships/norwegian/$1 [R=301,L]
 
   # Fix double-cruise-line naming (ships/carnival/carnival-carnival-*.html)
   RewriteRule ^ships/carnival/carnival-carnival-(.*)$ /ships/carnival/carnival-$1 [R=301,L]
