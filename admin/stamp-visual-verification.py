@@ -350,6 +350,22 @@ VERIFICATIONS = {
         "confirmed", "Night photo at Acapulco terminal; \"NORWEGIAN STAR\" lettering visible on hull"),
     "assets/ships/norwegian/norwegian-star/Cruise_Pictures_089.webp.attr.json": (
         "ambiguous", "Distant NCL profile off a Mexican coastline; no name visible; profile matches Norwegian Star per uploader claim"),
+
+    # ---- Celebrity Eclipse (batch D, 2026-05-18) ---------------------------
+    "assets/ships/celebrity-cruises/celebrity-eclipse/Celebrity_Eclipse_Name_Sign_on_the_Starboard_Side_Port_of_Tallinn_26_June_2011.webp.attr.json": (
+        "confirmed", "Close-up of the painted \"Celebrity ECLIPSE\" name sign on the starboard hull"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/Celebrity_Eclipse-1.webp.attr.json": (
+        "confirmed", "Full broadside underway; \"ECLIPSE\" lettering and Celebrity \"X\" funnel logo visible"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/Celebrity_Eclipse_IMG_5898_C.webp.attr.json": (
+        "confirmed", "Alongside at Tallinn with \"Celebrity ECLIPSE\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/IMG_5903_Celebrity_Eclipse_C.webp.attr.json": (
+        "confirmed", "Approaching Tallinn; \"Celebrity ECLIPSE\" + Celebrity X Cruises lettering visible"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/Celebrityeclipsebalticsea2010.webp.attr.json": (
+        "confirmed", "Underway in the Baltic Sea 2010; \"Celebrity ECLIPSE\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/Celebrity_Eclipse_IMG_5905_C.webp.attr.json": (
+        "ambiguous", "Distant Celebrity Solstice-class ship off Tallinn; sisters Solstice/Equinox/Silhouette/Reflection visually similar; no name visible"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/The__X__signature_on_the_Celebrity_Eclipse,_Tallinn,_Estonia_-_26_June_2011.webp.attr.json": (
+        "ambiguous", "Celebrity \"X\" funnel logo close-up; the X mark appears on every Celebrity ship, not Eclipse-specific. Commons uploader claims same-day Tallinn series as the confirmed name-sign shot"),
 }
 
 
