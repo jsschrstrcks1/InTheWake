@@ -503,6 +503,24 @@ VERIFICATIONS = {
         "confirmed", "Alongside in Copenhagen with bunting; \"SEVEN SEAS VOYAGER\" lettering visible on hull"),
     "assets/ships/regent/seven-seas-voyager/Kristina_Regina_og_Seven_Seas_Voyager_in_Trondheim_2009.webp.attr.json": (
         "consistent", "Two-ship scene in Trondheim fjord: smaller Kristina Regina ferry left, Seven Seas Voyager right. Both named in filename; Voyager profile visible on right"),
+
+    # ---- Costa Favolosa (batch G, 2026-05-18) ------------------------------
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa.webp.attr.json": (
+        "confirmed", "Alongside in port with \"COSTA FAVOLOSA\" lettering visible on hull"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_2011-10-18.webp.attr.json": (
+        "confirmed", "Costa ship in port October 2011 with \"COSTA FAVOLOSA\" lettering visible on hull"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_at_Marghera_2010.webp.attr.json": (
+        "consistent", "Cruise ship under construction at Marghera/Fincantieri shipyard 2010 with Costa funnel visible; build date matches Costa Favolosa"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_in_Dubrovnik.webp.attr.json": (
+        "ambiguous", "Costa Concordia-class ship at sea off Dubrovnik; sister ships Pacifica/Serena/Concordia visually similar; no name visible"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_2011-10-20.webp.attr.json": (
+        "ambiguous", "Costa ship transiting the Bosphorus near Istanbul; Costa logo on funnel visible but no ship name"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_in_Valletta_2013-11-10.webp.attr.json": (
+        "ambiguous", "Upper-deck close-up at Valletta with Costa funnel 'C' logo; Costa branding visible but no ship name"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_in_Valletta_2013-11-09.webp.attr.json": (
+        "ambiguous", "Costa ship at Valletta showing waterslide deck and rim pool; no name visible"),
+    "assets/ships/costa/costa-favolosa/Savona_IT,_mit_Costa_Favolosa.webp.attr.json": (
+        "ambiguous", "Savona harbour panorama with Costa Favolosa berthed at right; town buildings dominate the frame; ship partially visible"),
 }
 
 
