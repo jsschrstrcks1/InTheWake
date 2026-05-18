@@ -473,6 +473,22 @@ VERIFICATIONS = {
         "ambiguous", "Distant view across the Ketchikan channel; sister Pride/Legend/Miracle ambiguity"),
     "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Ketchikan,_Alaska_2_cropped.webp.attr.json": (
         "ambiguous", "Cropped tighter version of the Ketchikan channel view; same sister ambiguity"),
+
+    # ---- Seabourn Sojourn (batch F, 2026-05-18) ----------------------------
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_at_Geiranger.webp.attr.json": (
+        "confirmed", "Alongside in Geiranger fjord; \"SEABOURN SOJOURN\" lettering visible on hull"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_IMO_9417098_Starboard_Side_Tallinn_15_July_2012.webp.attr.json": (
+        "ambiguous", "Full starboard side at Tallinn; IMO 9417098 in filename matches Seabourn Sojourn; sisters Odyssey/Quest are Odyssey-class with very similar profile"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_IMO_9417098_departing_Tallinn_15_July_2012.webp.attr.json": (
+        "ambiguous", "Departing Tallinn; Odyssey-class profile; sister ambiguity"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_in_front_of_Helsinki_2010-07-21.webp.attr.json": (
+        "ambiguous", "Distant Seabourn Odyssey-class ship off Helsinki July 2010; sister Odyssey was new at the time, Sojourn entered service June 2010"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_IMO_9417098_Funnels_Tallinn_15_July_2012.webp.attr.json": (
+        "ambiguous", "Distinctive Odyssey-class twin-funnel close-up with gold Seabourn shield; same design across Odyssey/Sojourn/Quest"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn__Funnel_Tallinn_28_May_2012.webp.attr.json": (
+        "ambiguous", "Funnel + lifeboats close-up at Tallinn May 2012; Odyssey-class shared detail"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_IMO_9417098_Top_Tallinn_15_July_2012.webp.attr.json": (
+        "ambiguous", "Top of bridge with Estonian flag flying; generic detail, no ship-specific marker visible"),
 }
 
 
