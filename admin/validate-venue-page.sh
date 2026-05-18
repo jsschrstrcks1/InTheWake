@@ -182,11 +182,13 @@ else
     check_fail "last-reviewed meta tag MISSING or invalid date"
 fi
 
-# content-protocol
-if echo "$CONTENT" | grep -q 'content="ICP-Lite v1.0"'; then
-    check_pass "content-protocol is 'ICP-Lite v1.0'"
+# content-protocol — accept the current site protocols (matches admin/validate-ship-page.js
+# ACCEPTED_PROTOCOLS list). Legacy ICP-Lite v1.0 and ICP-Lite-v1.0 are still tolerated for
+# the older MSC fleet pages until they are migrated.
+if echo "$CONTENT" | grep -qE 'content="(ICP-2|ICP-Lite v1\.4|ICP-Lite v1\.0|ICP-Lite-v1\.0)"'; then
+    check_pass "content-protocol is a recognised ICP protocol"
 else
-    check_fail "content-protocol meta tag MISSING or incorrect (required: ICP-Lite v1.0)"
+    check_fail "content-protocol meta tag MISSING or incorrect (accepted: ICP-2, ICP-Lite v1.4, ICP-Lite v1.0, ICP-Lite-v1.0)"
 fi
 
 # =============================================================================

@@ -38,7 +38,7 @@ All work on this project is offered as a gift to God.
   <meta name="referrer" content="no-referrer">
   <meta name="ai-summary" content="Asian Market Kitchen by Roy Yamaguchi — MSC Seaside and Seaview only, Deck 16. Three concepts under one chef: Pan-Asian (32 seats), sushi counter (42), teppanyaki (32). Specialty cover charge. Not MSC's Kaito brand.">
   <meta name="last-reviewed" content="2026-05-17">
-  <meta name="content-protocol" content="ICP-Lite-v1.0">
+  <meta name="content-protocol" content="ICP-Lite v1.4">
   <meta name="venue-tags" content="asian market kitchen, roy yamaguchi, msc seaside, msc seaview, specialty dining, sushi, teppanyaki, pan-asian"/>
 
   <!-- Open Graph / Twitter -->
@@ -57,6 +57,14 @@ All work on this project is offered as a gift to God.
 
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Absolute URL normalizer -->
+  <script>
+  (function(){
+    var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+    window._abs = function(path){ path = String(path||''); if(!path.startsWith('/')) path = '/' + path; return ORIGIN + path; };
+  })();
+  </script>
 
   <!-- Service Worker Registration -->
   <script>
@@ -142,6 +150,8 @@ All work on this project is offered as a gift to God.
 
 <body class="venue-page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
 <header class="hero-header" role="banner">
   <div class="navbar">
