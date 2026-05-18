@@ -306,6 +306,20 @@ VERIFICATIONS = {
         "consistent", "MSC corporate badge visible at bow; Seaside-Evo class profile; sister MSC Seashore is visually similar"),
     "assets/ships/msc/msc-seascape/MSC_Seascape_cruise_ship_2.webp.attr.json": (
         "consistent", "MSC corporate badge visible; Seaside-Evo class profile; sister MSC Seashore is visually similar"),
+
+    # ---- Grand Princess (batch D, 2026-05-18) ------------------------------
+    "assets/ships/princess/grand-princess/Grand_Princess_en_el_Puerto_de_C_diz.webp.attr.json": (
+        "confirmed", "Alongside at Cadiz with \"GRAND PRINCESS\" lettering visible on hull above lifeboats"),
+    "assets/ships/princess/grand-princess/Grand_Princess.webp.attr.json": (
+        "ambiguous", "Grand-class Princess underway; sister ships Star/Golden/Caribbean/Crown/Ruby/Emerald visually similar"),
+    "assets/ships/princess/grand-princess/GrandPrincess-Scotland.webp.attr.json": (
+        "ambiguous", "Grand-class Princess in Scottish waters viewed from a passenger ferry; no name visible; sister ambiguity"),
+    "assets/ships/princess/grand-princess/Harbour_Dubrovnik.webp.attr.json": (
+        "ambiguous", "Grand-class Princess approaching Dubrovnik harbour; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/grand-princess/Juneau,_Alaska.webp.attr.json": (
+        "ambiguous", "Grand-class Princess docked at Juneau, Alaska in evening light; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/grand-princess/Bosfor_B18-39.webp.attr.json": (
+        "ambiguous", "Grand-class Princess passing through the Bosphorus; no name visible; Grand-class sister ambiguity"),
 }
 
 
