@@ -415,6 +415,20 @@ VERIFICATIONS = {
         "ambiguous", "Bow-on view of a Costa ship at port; Costa funnel visible but no ship name in frame"),
     "assets/ships/costa/costa-fortuna/Costa_Fortuna_im_Juli_2011_beim_Auslaufen_aus_Venedig.webp.attr.json": (
         "ambiguous", "Costa ship's bow visible through a pier structure at Venice 2011; no ship name in frame"),
+
+    # ---- Regal Princess (batch E, 2026-05-18) ------------------------------
+    "assets/ships/princess/regal-princess/Regal_Princess_2014_7_17_3817.webp.attr.json": (
+        "confirmed", "Bow detail at port July 2014; \"Regal Princess\" lettering visible on hull"),
+    "assets/ships/princess/regal-princess/Regal_Princess_16_05_2014.webp.attr.json": (
+        "consistent", "Royal-class Princess at port May 2014; no name visible but same uploader/series as confirmed shot; Royal-class sisters (Royal/Majestic/Sky) visually similar"),
+    "assets/ships/princess/regal-princess/Regal_Princess_Starboard_Side_Tallinn_29_May_2015.webp.attr.json": (
+        "ambiguous", "Royal-class Princess profile at Tallinn; no name visible; Royal-class sister ambiguity"),
+    "assets/ships/princess/regal-princess/Regal_Princess_at_Pier_27_in_Tallinn_29_May_2015.webp.attr.json": (
+        "ambiguous", "Royal-class Princess at Tallinn Pier 27 with city skyline; no name visible; Royal-class sister ambiguity"),
+    "assets/ships/princess/regal-princess/Regal_Princess_turning_to_Starboard_Side_Tallinn_29_May_2015.webp.attr.json": (
+        "consistent", "Royal-class Princess turning at Tallinn with Princess Cruises emblem visible on funnel; same uploader/series as Pier 27 shot"),
+    "assets/ships/princess/regal-princess/Regal_Princess_leaving_Tallinn_18_May_2015.webp.attr.json": (
+        "ambiguous", "Royal-class Princess leaving Tallinn; no name visible; Royal-class sister ambiguity"),
 }
 
 
