@@ -366,6 +366,14 @@ VERIFICATIONS = {
         "ambiguous", "Distant Celebrity Solstice-class ship off Tallinn; sisters Solstice/Equinox/Silhouette/Reflection visually similar; no name visible"),
     "assets/ships/celebrity-cruises/celebrity-eclipse/The__X__signature_on_the_Celebrity_Eclipse,_Tallinn,_Estonia_-_26_June_2011.webp.attr.json": (
         "ambiguous", "Celebrity \"X\" funnel logo close-up; the X mark appears on every Celebrity ship, not Eclipse-specific. Commons uploader claims same-day Tallinn series as the confirmed name-sign shot"),
+
+    # ---- Costa Diadema (batch D, 2026-05-18) -------------------------------
+    "assets/ships/costa/costa-diadema/Costa_Diadema_(24922971025).webp.attr.json": (
+        "confirmed", "Alongside in port; \"COSTA DIADEMA\" lettering visible on hull"),
+    "assets/ships/costa/costa-diadema/Costa_Diadema_docked_at_Dubrovnik.webp.attr.json": (
+        "confirmed", "Docked at Dubrovnik with Italian flag flying; \"COSTA DIADEMA\" lettering visible on hull"),
+    "assets/ships/costa/costa-diadema/Costa_Diadema_(103)_(16310776402).webp.attr.json": (
+        "ambiguous", "Distant Costa ship viewed past Savona's medieval clock tower; Costa funnel logo visible but no name; multiple Costa sisters share similar livery"),
 }
 
 
