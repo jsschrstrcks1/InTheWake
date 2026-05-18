@@ -489,6 +489,20 @@ VERIFICATIONS = {
         "ambiguous", "Funnel + lifeboats close-up at Tallinn May 2012; Odyssey-class shared detail"),
     "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_IMO_9417098_Top_Tallinn_15_July_2012.webp.attr.json": (
         "ambiguous", "Top of bridge with Estonian flag flying; generic detail, no ship-specific marker visible"),
+
+    # ---- Seven Seas Voyager (batch G, 2026-05-18) --------------------------
+    "assets/ships/regent/seven-seas-voyager/Benkid77_Seven_Seas_Voyager.webp.attr.json": (
+        "confirmed", "Bow detail with \"SEVEN SEAS VOYAGER\" lettering clearly visible on hull"),
+    "assets/ships/regent/seven-seas-voyager/MS_Seven_Seas_Voyager.webp.attr.json": (
+        "confirmed", "Bow-on at port; \"SEVEN SEAS VOYAGER\" lettering visible"),
+    "assets/ships/regent/seven-seas-voyager/MS_Seven_Seas_Voyager_1.webp.attr.json": (
+        "confirmed", "Three-quarter bow shot; \"SEVEN SEAS VOYAGER\" lettering visible"),
+    "assets/ships/regent/seven-seas-voyager/MS_Seven_Seas_Voyager_stern.webp.attr.json": (
+        "confirmed", "Stern view; \"SEVEN SEAS VOYAGER / NASSAU\" registry-port lettering visible"),
+    "assets/ships/regent/seven-seas-voyager/Seven_Seas_Voyager-Copenhagen.webp.attr.json": (
+        "confirmed", "Alongside in Copenhagen with bunting; \"SEVEN SEAS VOYAGER\" lettering visible on hull"),
+    "assets/ships/regent/seven-seas-voyager/Kristina_Regina_og_Seven_Seas_Voyager_in_Trondheim_2009.webp.attr.json": (
+        "consistent", "Two-ship scene in Trondheim fjord: smaller Kristina Regina ferry left, Seven Seas Voyager right. Both named in filename; Voyager profile visible on right"),
 }
 
 
