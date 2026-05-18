@@ -507,6 +507,17 @@ def main() -> int:
         print("sister ships)). Files to verify:")
         for p, _ in accepted:
             print(f"  Read {p.relative_to(PROJECT_ROOT)}")
+        print()
+        print("BEFORE WRITING THE COMMIT MESSAGE, run the validator on the ship")
+        print("page you just edited and copy the \"Images: N\" line verbatim into")
+        print("the commit subject and the claim-evidence row:")
+        print()
+        guessed_html = f"ships/{args.line}/{args.ship_slug}.html"
+        print(f"  node admin/validate-ship-page.js {guessed_html} | grep Images:")
+        print()
+        print("Do NOT compute the after-count from memory or from the fetched-file")
+        print("count -- that is the Mode B slip recorded in audit-reports/")
+        print("phase6-count-corrections.md and cognitive memory 9e4d2c08.")
         print("=" * 70)
     return 0
 
