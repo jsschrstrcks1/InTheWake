@@ -304,6 +304,67 @@ function renderTotals(results) {
   totalsEl.textContent = `${perDay}/day • ${trip} total`;
 }
 
+/* ==================== RISK SUMMARY (NEW-1) ==================== */
+
+function renderRiskSummary(results) {
+  let container = document.getElementById('risk-summary');
+  if (!container) {
+    // Create it if it doesn't exist yet
+    const banner = document.querySelector('.banner');
+    if (!banner) return;
+    container = document.createElement('div');
+    container.id = 'risk-summary';
+    container.setAttribute('role', 'status');
+    container.setAttribute('aria-live', 'polite');
+    container.style.cssText = 'margin:0.5rem 0;padding:0.6rem 1rem;border-radius:6px;font-size:0.9rem;line-height:1.5;';
+    banner.parentNode.insertBefore(container, banner.nextSibling);
+  }
+
+  const lc = window.ITW_LINE_CONFIG;
+  if (!lc || !results || lc.allInclusive || lc.noPackages) {
+    container.style.display = 'none';
+    return;
+  }
+
+  const formatMoney = window.ITW?.formatMoney || ((v) => `$${v.toFixed(2)}`);
+
+  // Compute break-even drinks/day for deluxe package
+  const deluxePkg = lc.packages?.deluxe;
+  const be = deluxePkg?.breakEvenDrink;
+  if (!be || !be.price || be.price === 0) {
+    container.style.display = 'none';
+    return;
+  }
+
+  const grat = lc.rules?.gratuity || 0;
+  const dailyPkgCost = deluxePkg.priceMid * (1 + grat);
+  const drinkWithGrat = be.price * (1 + grat);
+  const breakEvenCount = dailyPkgCost / drinkWithGrat;
+
+  // CDC moderate: ≤2/day men, ≤1/day women. Use 2 as the reference.
+  const cdcModerate = 2;
+
+  if (results.winnerKey === 'alc' || results.winnerKey === 'soda') {
+    // Package not recommended — show why
+    container.style.display = '';
+    container.style.background = '#e8f5e9';
+    container.style.color = '#2e7d32';
+    container.textContent = `💡 At your current drink level, paying as you go is cheaper. You'd need about ${Math.ceil(breakEvenCount)} ${be.name} per day to break even on the ${deluxePkg.shortName || deluxePkg.name}.`;
+  } else if (breakEvenCount > cdcModerate * 2) {
+    // Package recommended but break-even is high — note it
+    container.style.display = '';
+    container.style.background = '#fff3e0';
+    container.style.color = '#e65100';
+    container.textContent = `📊 The ${deluxePkg.shortName || deluxePkg.name} saves you money, but break-even requires about ${Math.ceil(breakEvenCount)} ${be.name} per day — above typical moderation guidelines. The savings come partly from high-volume drinking.`;
+  } else {
+    // Package recommended at moderate levels
+    container.style.display = '';
+    container.style.background = '#e3f2fd';
+    container.style.color = '#1565c0';
+    container.textContent = `✅ The ${deluxePkg.shortName || deluxePkg.name} is your best value — break-even at about ${Math.ceil(breakEvenCount)} ${be.name} per day.`;
+  }
+}
+
 /* ==================== CHART RENDERING ==================== */
 
 function renderChart(bars, winnerKey) {
@@ -1379,6 +1440,8 @@ function renderAll() {
 
   try {
     renderBanner(results);
+
+    renderRiskSummary(results);
 
     renderTotals(results);
 
