@@ -22,9 +22,19 @@ cabo-san-lucas, civitavecchia, cococay, curacao, da-nang, dubrovnik, dunedin, fr
 
 ## Final corpus state for Bucket A
 
-- 0 unanchored storm-name citations across the corpus
-- 0 ports contain `all provide reliable shelter`, `all work in any weather`, or related template phrases inside a FAQ answer (within scope)
-- 84 of 96 Bucket A ports rewritten in this careful pass. The 12 not individually rewritten in Phase 2 are ports whose existing FAQs were already well-anchored to on-page elements (no template phrases, no storm-name citations) — they were inspected during audit sweeps and left intact.
+- 0 unanchored storm-name citations across the corpus (only tortola retains Irma 2017 — anchored in the page's own hazard-note)
+- 0 ports contain `all provide reliable shelter`, `all work in any weather`, or related template phrases inside a FAQ answer (within scope; the one remaining `st-barts.html` match is in a Bucket B port currently failing structural validation, out of scope)
+- 97 ports touched in this branch all validate WARN/PASS (95 WARN + 2 PASS, 0 FAIL)
+
+## Phase 3 verification (COMPLETE)
+
+- Re-ran `validate-port-weather.js` across all 387 ports — all 97 touched ports validate WARN/PASS, 0 FAIL
+- Re-grepped for the 11 boilerplate phrases — 0 matches inside any in-scope FAQ
+- Re-grepped for the 32 storm-name citations — 0 matches except tortola (anchored on page)
+- Random-sample audit: 23 ports inspected (5 + 8 + 10) caught 2 outliers (copenhagen, cephalonia) that had been missed by template-phrase greps because their cleverness was external geographic claims rather than the specific template phrases I'd targeted. Both rewritten and pushed.
+- Diff audit: `comm` of touched-vs-rewritten-in-careful-pass surfaced 9 additional ports that had been touched in the original bulk-add pass but never carefully rewritten (antarctic-peninsula, bilbao, buenos-aires, busan, chilean-fjords, denali, drake-passage, fairbanks, fiji). All 9 rewritten and pushed.
+
+Total ports rewritten in this careful pass: **95** (84 from Phase 1+2 + 11 additional from Phase-3 audit).
 
 Each commit names the specific page elements quoted + the cleverness removed.
 
