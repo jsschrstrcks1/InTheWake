@@ -134,6 +134,95 @@ VERIFICATIONS = {
         "confirmed", "Stern view in Gatún Locks, Panama Canal; \"ZUIDERDAM / ROTTERDAM\" lettering clearly visible"),
     "assets/ships/holland-america-line/zuiderdam/Zuiderdam_(ship,_2002).webp.attr.json": (
         "confirmed", "Profile shot underway; \"ZUIDERDAM\" + \"Holland America Line\" lettering on hull, \"Zuiderdam\" above bridge"),
+
+    # ---- Queen Anne (batch C, 2026-05-14) ----------------------------------
+    "assets/ships/cunard/queen-anne/Queen_Anne_at_Pier_26_in_Port_of_Tallinn_7_July_2024.webp.attr.json": (
+        "confirmed", "Three-quarter view at Tallinn Pier 26; \"QUEEN ANNE\" lettering visible on bow"),
+    "assets/ships/cunard/queen-anne/Queen_Anne_Bow_Pier_26_Port_of_Tallinn_7_July_2024.webp.attr.json": (
+        "consistent", "Bow-on at Tallinn Pier 26; same ship and pier as the name-sign photos (same photographer, same day); profile matches Queen Anne"),
+    "assets/ships/cunard/queen-anne/Queen_Anne_Name_Sign_Starboard_Side_Pier_26_Port_of_Tallinn_7_July_2024.webp.attr.json": (
+        "confirmed", "Close-up of the \"QUEEN ANNE\" name sign painted on the starboard hull"),
+    "assets/ships/cunard/queen-anne/Queen_Anne_Name_Sign_Port_Side_Pier_26_Port_of_Tallinn_7_July_2024.webp.attr.json": (
+        "confirmed", "Close-up of the \"QUEEN ANNE\" name sign painted on the port hull"),
+    "assets/ships/cunard/queen-anne/Queen_Anne_Funnel_Port_Side_Pier_26_Port_of_Tallinn_7_July_2024.webp.attr.json": (
+        "confirmed", "Cunard funnel close-up with \"QUEEN ANNE\" lettering visible on the bridge wing below"),
+    "assets/ships/cunard/queen-anne/Queen_Anne_arriving_in_Tallinn_7_July_2024.webp.attr.json": (
+        "consistent", "Distant port-side profile of a Cunard ship approaching Tallinn; matches Queen Anne profile and uploader's same-day series"),
+    "assets/ships/cunard/queen-anne/MS_Queen_Anne.webp.attr.json": (
+        "consistent", "Cunard ship at Liverpool with Royal Liver Building behind; livery + funnel pattern match Queen Anne but no name visible"),
+    "assets/ships/cunard/queen-anne/Ms_queen_anne_southampton.webp.attr.json": (
+        "consistent", "Distant profile in Southampton; Cunard livery; no name visible at this distance"),
+
+    # ---- Queen Elizabeth (batch C, 2026-05-14) -----------------------------
+    "assets/ships/cunard/queen-elizabeth/Queen_Elizabeth_au_port_de_Monaco.webp.attr.json": (
+        "confirmed", "Alongside at Monaco; \"Queen Elizabeth\" lettering clearly visible on hull"),
+    "assets/ships/cunard/queen-elizabeth/Queen_Elizabeth(2)_au_port_de_Monaco.webp.attr.json": (
+        "consistent", "Stern view at Monaco same day as the confirmed bow shot; same Cunard livery and pier"),
+    "assets/ships/cunard/queen-elizabeth/Queen_Elizabeth_liner-2.webp.attr.json": (
+        "ambiguous", "Daylight Vista-class profile; visually indistinguishable from sister Queen Victoria"),
+    "assets/ships/cunard/queen-elizabeth/Queen_Elizabeth_cruise_liner.webp.attr.json": (
+        "ambiguous", "Distant Vista-class profile at evening; sister Queen Victoria visually identical"),
+    "assets/ships/cunard/queen-elizabeth/Queen_Elizabeth_liner_2.webp.attr.json": (
+        "ambiguous", "Distant Vista-class profile near land; sister Queen Victoria visually identical"),
+    "assets/ships/cunard/queen-elizabeth/Cunard_MS_Queen_Elizabeth_Southampton.webp.attr.json": (
+        "ambiguous", "Cunard Vista-class ship at Southampton; sister Queen Victoria visually identical"),
+    "assets/ships/cunard/queen-elizabeth/MS_Queen_Elizabeth_on_maiden_voyage_in_the_Solent.webp.attr.json": (
+        "ambiguous", "Lit-up Cunard ship at dusk in the Solent; uploader claims maiden voyage Oct 2010, no visual identifier in frame"),
+
+    # ---- Norwegian Breakaway (batch C, 2026-05-14) -------------------------
+    # Norwegian Breakaway carries a distinctive Peter Max-designed hull art
+    # (Statue-of-Liberty pop-art + NYC skyline + "Peter Max" signature) that
+    # no other ship shares. Any photo showing that art is uniquely Breakaway.
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_01.webp.attr.json": (
+        "confirmed", "Bow with Peter Max signature and Statue-of-Liberty pop-art — Norwegian Breakaway's unique hull art"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_02.webp.attr.json": (
+        "confirmed", "Side profile with \"NORWEGIAN BREAKAWAY\" lettering and Peter Max hull art"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_03.webp.attr.json": (
+        "confirmed", "Departing Meyer Werft (\"MEYER PAPENBURG\" sign visible behind), Peter Max signature and Statue of Liberty visible on bow"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_04.webp.attr.json": (
+        "confirmed", "Bow with Peter Max signature; tugboat \"BREMERHAVEN\" alongside during delivery transit"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_05.webp.attr.json": (
+        "consistent", "Distant wide shot of a ship with the blue Peter Max bow visible; details muted by mist"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_06.webp.attr.json": (
+        "confirmed", "Side view with \"NORWEGIAN BREA[KAWAY]\" lettering and Peter Max hull art"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_07.webp.attr.json": (
+        "confirmed", "Full broadside with \"NORWEGIAN BREAKAWAY\" lettering and Peter Max hull art across the hull"),
+    "assets/ships/norwegian/norwegian-breakaway/Norwegian_Breakaway_08.webp.attr.json": (
+        "confirmed", "Bow close-up with Peter Max signature and Statue-of-Liberty pop-art (Breakaway's signature hull art)"),
+
+    # ---- Caribbean Princess (batch C, 2026-05-14) --------------------------
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess.webp.attr.json": (
+        "confirmed", "Bow close-up with \"CARIBBEAN PRINCESS\" lettering visible on hull at Fort Lauderdale"),
+    "assets/ships/princess/caribbean-princess/Caribbean_princess2.webp.attr.json": (
+        "confirmed", "Bow detail at sea with \"CARIBBEAN PRINCESS\" lettering visible on hull"),
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess3.webp.attr.json": (
+        "ambiguous", "Grand-class Princess from beach foreground; sister ships (Crown, Emerald, Ruby, Grand Princess) are visually identical"),
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess_at_St_Maartin.webp.attr.json": (
+        "ambiguous", "Grand-class Princess approaching St Maarten pier; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/caribbean-princess/Caribbean_Princess_in_2010.webp.attr.json": (
+        "ambiguous", "Grand-class Princess profile, 2010; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/caribbean-princess/Caribbean_princess.webp.attr.json": (
+        "ambiguous", "Distant Grand-class Princess off a beach; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/caribbean-princess/Caribbean_princess_-b.webp.attr.json": (
+        "ambiguous", "Grand-class Princess stern view; no name visible; Grand-class sister ambiguity"),
+
+    # ---- Carnival Breeze (batch C, 2026-05-14) -----------------------------
+    "assets/ships/carnival/carnival-breeze/Non_aux_grands_navires___Venise___(8157935541).webp.attr.json": (
+        "confirmed", "Carnival Breeze passing through Venice; \"CARNIVAL BREEZE\" lettering visible on hull"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698070).webp.attr.json": (
+        "confirmed", "Carnival Breeze alongside at La Luz harbour, Las Palmas; \"CARNIVAL BREEZE\" lettering visible"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698418).webp.attr.json": (
+        "confirmed", "Upper-deck close-up at Las Palmas with \"CARNIVAL BREEZE\" lettering visible"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698968).webp.attr.json": (
+        "confirmed", "Funnel close-up at Las Palmas with \"CARNIVAL BREEZE\" lettering visible"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179697968).webp.attr.json": (
+        "consistent", "Wide view of Las Palmas harbour with Carnival Breeze visible; same series/day as the four confirmed Las Palmas shots; no individual name visible from this distance"),
+    "assets/ships/carnival/carnival-breeze/Carnival_Breeze.webp.attr.json": (
+        "ambiguous", "Distant Dream-class Carnival ship at Monaco; sister ships Carnival Dream and Carnival Magic visually similar from this distance"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698282).webp.attr.json": (
+        "ambiguous", "Upper-deck WaterWorks aqua-park close-up; same amenity exists on Dream-class sisters Dream and Magic"),
+    "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698748).webp.attr.json": (
+        "ambiguous", "Water-slide close-up; same Dream-class amenity exists on Dream and Magic"),
 }
 
 
