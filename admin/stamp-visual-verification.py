@@ -455,6 +455,24 @@ VERIFICATIONS = {
         "ambiguous", "Cruise ship under construction at Saint-Nazaire shipyard; Commons category assigns to MSC Preziosa"),
     "assets/ships/msc/msc-preziosa/Paquebot_en_construction_(2).webp.attr.json": (
         "ambiguous", "Distant Saint-Nazaire shipyard view with cruise ship in build; Commons category assigns to MSC Preziosa"),
+
+    # ---- Carnival Spirit (batch F, 2026-05-18) -----------------------------
+    "assets/ships/carnival/carnival-spirit/Carnival_spirit.webp.attr.json": (
+        "confirmed", "Large \"Carnival Spirit\" name lettering on the ship's superstructure with clock — close-up portrait shot"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_docked_at_San_Diego_2009-12-21_1.webp.attr.json": (
+        "confirmed", "Docked at San Diego December 2009; \"CARNIVAL SPIRIT\" lettering visible on bow"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Acapulco.webp.attr.json": (
+        "confirmed", "Stern close-up at Acapulco; \"CARNIVAL SPIRIT / PANAMA R.P.\" registry-port lettering visible"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Ketchikan,_Alaska.webp.attr.json": (
+        "confirmed", "At Ketchikan, Alaska; \"CARNIVAL SPIRIT\" lettering visible on stern"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Acapulco_2.webp.attr.json": (
+        "ambiguous", "Carnival Spirit-class ship at Acapulco; sister ships Pride/Legend/Miracle visually similar; no name visible from this angle"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit1.webp.attr.json": (
+        "ambiguous", "Carnival Spirit-class ship off a Hawaiian coastline; sister ambiguity at this distance"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Ketchikan,_Alaska_2.webp.attr.json": (
+        "ambiguous", "Distant view across the Ketchikan channel; sister Pride/Legend/Miracle ambiguity"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Ketchikan,_Alaska_2_cropped.webp.attr.json": (
+        "ambiguous", "Cropped tighter version of the Ketchikan channel view; same sister ambiguity"),
 }
 
 
