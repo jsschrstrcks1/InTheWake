@@ -521,6 +521,14 @@ VERIFICATIONS = {
         "ambiguous", "Costa ship at Valletta showing waterslide deck and rim pool; no name visible"),
     "assets/ships/costa/costa-favolosa/Savona_IT,_mit_Costa_Favolosa.webp.attr.json": (
         "ambiguous", "Savona harbour panorama with Costa Favolosa berthed at right; town buildings dominate the frame; ship partially visible"),
+
+    # ---- Silver Spirit (batch G, 2026-05-18) -------------------------------
+    "assets/ships/silversea/silver-spirit/MV_Silver_Spirit-1.webp.attr.json": (
+        "confirmed", "Underway in calm water; \"SILVER SPIRIT\" lettering visible on bow"),
+    "assets/ships/silversea/silver-spirit/MV_Silver_Spirit-2.webp.attr.json": (
+        "confirmed", "Second angle from the same photographer/day series; \"SILVER SPIRIT\" lettering visible on bow"),
+    "assets/ships/silversea/silver-spirit/MV_Silver_Spirit-3.webp.attr.json": (
+        "confirmed", "Stern-on view passing a navigation buoy; \"Silver Spirit\" lettering visible on bow"),
 }
 
 
