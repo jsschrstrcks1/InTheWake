@@ -98,6 +98,13 @@ page is created:
 When the page is created, these can be embedded directly. Sidecars and
 registry rows are already in place.
 
+**Known side-effect:** `admin/scan-image-reuse.cjs` currently emits 7
+WARN-level findings ("filename does not contain a known ships-slug") for
+these files because `costa-fortuna` is not yet in the active-slug list
+the scanner checks against. The findings are WARN, not BLOCKING, and
+self-resolve as soon as the Costa Fortuna page exists. See
+`audit-reports/image-reuse-report.md` for the current count.
+
 ---
 
 ## Ship Categories
