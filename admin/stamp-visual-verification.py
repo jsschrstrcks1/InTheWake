@@ -437,6 +437,24 @@ VERIFICATIONS = {
         "ambiguous", "Aft pool deck interior view; no ship name visible; could be Dawn or Star-class sister"),
     "assets/ships/norwegian/norwegian-dawn/Norwegian_Dawn_2.webp.attr.json": (
         "ambiguous", "Aft sun-loungers and twin tent canopies on funnel deck; characteristic Norwegian Dawn/Star deck design but no name visible"),
+
+    # ---- MSC Preziosa (batch F, 2026-05-18) --------------------------------
+    "assets/ships/msc/msc-preziosa/MSC_Preziosa_Chantiers_de_Saint_Nazaire_01.webp.attr.json": (
+        "confirmed", "Bow-on at Chantiers de l'Atlantique, Saint-Nazaire; \"MSC PREZIOSA\" lettering visible on bow with MSC logo"),
+    "assets/ships/msc/msc-preziosa/MSC_Preziosa_Chantiers_de_Saint_Nazaire_06.webp.attr.json": (
+        "ambiguous", "Outdoor rim-pool deck during shipyard fitting-out; design consistent with Fantasia-class but no name visible"),
+    "assets/ships/msc/msc-preziosa/MSC_Preziosa_Chantiers_de_Saint_Nazaire_02.webp.attr.json": (
+        "ambiguous", "Interior atrium pool with glass-dome roof; Fantasia-class signature interior design — sisters Fantasia/Splendida/Divina share this layout"),
+    "assets/ships/msc/msc-preziosa/MSC_Preziosa_Chantiers_de_Saint_Nazaire_03.webp.attr.json": (
+        "ambiguous", "Interior pool with palm-tree sculpture; Fantasia-class signature interior — sister ship ambiguity"),
+    "assets/ships/msc/msc-preziosa/MSC_Preziosa_Chantiers_de_Saint_Nazaire_04.webp.attr.json": (
+        "ambiguous", "Interior pool mosaic detail; Fantasia-class shared decor"),
+    "assets/ships/msc/msc-preziosa/Paquebot_en_construction_(4).webp.attr.json": (
+        "ambiguous", "Cruise ship under construction at Saint-Nazaire shipyard; Commons category assigns to MSC Preziosa"),
+    "assets/ships/msc/msc-preziosa/Paquebot_en_construction_(1).webp.attr.json": (
+        "ambiguous", "Cruise ship under construction at Saint-Nazaire shipyard; Commons category assigns to MSC Preziosa"),
+    "assets/ships/msc/msc-preziosa/Paquebot_en_construction_(2).webp.attr.json": (
+        "ambiguous", "Distant Saint-Nazaire shipyard view with cruise ship in build; Commons category assigns to MSC Preziosa"),
 }
 
 
