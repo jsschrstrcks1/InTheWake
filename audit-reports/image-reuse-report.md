@@ -1,8 +1,8 @@
 # Site-wide image-reuse audit
 
-**Generated:** 2026-05-18T20:26:41.830Z
-**Images scanned:** 1404
-**Unique image bytes:** 1348
+**Generated:** 2026-05-18T22:24:43.050Z
+**Images scanned:** 1472
+**Unique image bytes:** 1416
 **Storage waste:** 56 duplicate file(s) on disk
 
 **⛔ SYMLINKS (always blocking):** 0
