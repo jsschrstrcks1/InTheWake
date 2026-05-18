@@ -978,6 +978,41 @@
             }
           }
 
+          // ── Data source transparency panel ──
+          function updateDataSourcesPanel(lc) {
+            var content = document.getElementById('data-sources-content');
+            var panel = document.getElementById('data-sources-panel');
+            if (!content || !panel) return;
+            var src = lc._sources;
+            if (!src) { panel.style.display = 'none'; return; }
+            panel.style.display = '';
+            var html = '';
+            if (src.note) {
+              html += '<p style="margin:0 0 0.5rem;"><strong>Verification:</strong> ' + esc(src.note) + '</p>';
+            }
+            if (Array.isArray(src.pricingDates)) {
+              html += '<p style="margin:0 0 0.5rem;"><strong>Key pricing:</strong></p><ul style="margin:0 0 0.5rem;padding-left:1.25rem;">';
+              src.pricingDates.forEach(function(d) { html += '<li>' + esc(d) + '</li>'; });
+              html += '</ul>';
+            }
+            if (src.gratuityNote) {
+              html += '<p style="margin:0 0 0.5rem;"><strong>Gratuity:</strong> ' + esc(src.gratuityNote) + '</p>';
+            }
+            if (Array.isArray(src.references) && src.references.length > 0) {
+              html += '<p style="margin:0 0 0.25rem;"><strong>Sources (' + src.references.length + '):</strong></p>';
+              html += '<ul style="margin:0;padding-left:1.25rem;font-size:0.8rem;color:#777;">';
+              src.references.slice(0, 8).forEach(function(r) {
+                var display = r.replace(/^https?:\/\//, '').replace(/\/$/, '');
+                html += '<li>' + esc(display) + '</li>';
+              });
+              if (src.references.length > 8) {
+                html += '<li>...and ' + (src.references.length - 8) + ' more</li>';
+              }
+              html += '</ul>';
+            }
+            content.innerHTML = html || '<p>No source data available for this line.</p>';
+          }
+
           // ── Critical policy badges ──
           function updateCriticalPolicyBadges(lc) {
             var container = document.getElementById('critical-policy-badges');
@@ -1023,6 +1058,7 @@
             updateBookingDatePicker(lc);
             updateAllInclusiveBanner(lc);
             updateCriticalPolicyBadges(lc);
+            updateDataSourcesPanel(lc);
           }
 
           // ── Wire Events ──
@@ -1126,6 +1162,12 @@
 
         <!-- Critical policy badges (mandatory-purchase warnings, etc.) -->
         <div id="critical-policy-badges" style="display:none; margin:0.75rem 0;" role="region" aria-label="Important package policies"></div>
+
+        <!-- Data source transparency panel -->
+        <details id="data-sources-panel" style="margin:0.75rem 0; background:#f8f9fa; border:1px solid #dee2e6; border-radius:8px; font-size:0.85rem;">
+          <summary style="padding:0.6rem 1rem; cursor:pointer; font-weight:600; color:#495057;">📋 Where do these prices come from?</summary>
+          <div id="data-sources-content" style="padding:0.5rem 1rem 0.75rem; color:#555; line-height:1.6;"></div>
+        </details>
           <p style="margin:0 0 0.75rem 0;font-size:1.125rem;line-height:1.6;color:#01579b;">
             <strong>⚡ Quick Answer:</strong> Most cruisers break even on the Deluxe Beverage Package at <strong>6-7 drinks per day</strong> (mix of cocktails, beer, specialty coffee).
             The Soda Package breaks even at ~4 sodas/day, and the Refreshment Package at ~5 specialty drinks/day.
