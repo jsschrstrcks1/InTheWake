@@ -390,6 +390,12 @@ VERIFICATIONS = {
         "confirmed", "Lifeboat used as a tender; \"CELEBRITY EQUINOX\" lettering visible on the boat"),
     "assets/ships/celebrity-cruises/celebrity-equinox/Celebrity_Equinox_s_lifeboat_in_port_in_Cartagena,_Colombia.webp.attr.json": (
         "confirmed", "Lifeboat from Celebrity Equinox at Cartagena, Colombia; \"CELEBRITY EQUINOX VALLETTA\" lettering visible on the boat"),
+
+    # ---- Costa Pacifica (batch E, 2026-05-18) ------------------------------
+    "assets/ships/costa/costa-pacifica/Costa_Pacifica_in_Savona_2010.webp.attr.json": (
+        "confirmed", "Alongside at Savona 2010; \"COSTA PACIFICA / GENOVA\" registry lettering visible on hull"),
+    "assets/ships/costa/costa-pacifica/Costa_Pacifica_sailing.webp.attr.json": (
+        "confirmed", "Underway at sea; \"COSTA PACIFICA\" lettering visible on hull"),
 }
 
 
