@@ -537,6 +537,16 @@ VERIFICATIONS = {
         "confirmed", "Broadside at Benoa with bunker tanker alongside; \"SEABOURN ENCORE\" lettering visible on bow"),
     "assets/ships/seabourn/seabourn-encore/Seabourn_Encore_at_Benoa_(1).webp.attr.json": (
         "consistent", "Distant view across Benoa harbour from same photographer's series; Seabourn gold shield on funnel; matches Encore-class profile and same-day series with confirmed (2) and (3)"),
+
+    # ---- Seabourn Odyssey (batch H, 2026-05-18) ----------------------------
+    "assets/ships/seabourn/seabourn-odyssey/Seabourn_Odyssey_(ship,_2009)_IMO_9417086_in_Split,_2011-11-16_(2).webp.attr.json": (
+        "confirmed", "Calm harbour at Split; \"SEABOURN ODYSSEY\" lettering clearly readable on bow"),
+    "assets/ships/seabourn/seabourn-odyssey/Seabourn-Odyssey-Burnie-20160208-003.webp.attr.json": (
+        "confirmed", "Berthed at Burnie, Tasmania; \"SEABOURN ODYSSEY\" lettering clearly readable on bow"),
+    "assets/ships/seabourn/seabourn-odyssey/Seabourn_Odyssey_(ship,_2009)_IMO_9417086__in_Split,_2011-11-16.webp.attr.json": (
+        "confirmed", "Broadside off Split at dusk; faint \"SEABOURN ODYSSEY\" lettering visible on bow"),
+    "assets/ships/seabourn/seabourn-odyssey/Seabourn_Odyssey_turning_in_Grand_Harbour,_Valletta.webp.attr.json": (
+        "consistent", "Odyssey-class ship turning in Valletta Grand Harbour with Saluting Battery cannons in foreground; sister-class ambiguity (Odyssey/Sojourn/Quest share profile)"),
 }
 
 
