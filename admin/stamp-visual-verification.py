@@ -547,6 +547,14 @@ VERIFICATIONS = {
         "confirmed", "Broadside off Split at dusk; faint \"SEABOURN ODYSSEY\" lettering visible on bow"),
     "assets/ships/seabourn/seabourn-odyssey/Seabourn_Odyssey_turning_in_Grand_Harbour,_Valletta.webp.attr.json": (
         "consistent", "Odyssey-class ship turning in Valletta Grand Harbour with Saluting Battery cannons in foreground; sister-class ambiguity (Odyssey/Sojourn/Quest share profile)"),
+
+    # ---- Seabourn Ovation (batch H, 2026-05-18) ----------------------------
+    "assets/ships/seabourn/seabourn-ovation/Croisi_re_SEABOURN_OVATION_au_port.webp.attr.json": (
+        "confirmed", "Alongside at Casablanca with city skyline behind; \"SEABOURN OVATION\" lettering clearly readable on stern"),
+    "assets/ships/seabourn/seabourn-ovation/Seabourn_Ovation_Name_Sign_Port_of_Tallinn_1_July_2018.webp.attr.json": (
+        "confirmed", "Close-up of bow with very large \"SEABOURN OVATION\" lettering — definitive identification"),
+    "assets/ships/seabourn/seabourn-ovation/Seabourn_Ovation_at_Morrison_Pier,_Lerwick_(geograph_5873907).webp.attr.json": (
+        "confirmed", "Berthed at Morrison Pier, Lerwick, Shetland; \"SEABOURN OVATION\" lettering visible on bow; wind turbine on hillside"),
 }
 
 

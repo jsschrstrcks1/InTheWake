@@ -154,8 +154,14 @@ def get_file_metadata(commons_filename: str) -> dict | None:
     the batch.
     """
     # --- primary: magnustools.toolforge.org/commonsapi.php ----------------
-    primary_url = f"{COMMONSAPI}?{urllib.parse.urlencode({'image': commons_filename})}"
-    raw = http_get_soft(primary_url)
+    # Known to HTTP 500 on filenames containing non-ASCII characters
+    # (Coruña, Málaga, Comète, Croisière). Skip directly to the action API
+    # in that case to avoid wasting 3×90s on a guaranteed failure.
+    is_ascii = all(ord(c) < 128 for c in commons_filename)
+    raw = None
+    if is_ascii:
+        primary_url = f"{COMMONSAPI}?{urllib.parse.urlencode({'image': commons_filename})}"
+        raw = http_get_soft(primary_url)
     if raw is not None:
         txt = raw.decode("utf-8", errors="replace")
         # commonsapi.php emits unescaped '&' inside URL query strings
@@ -168,6 +174,9 @@ def get_file_metadata(commons_filename: str) -> dict | None:
             sys.stderr.write(f"  commonsapi XML parse error for {commons_filename}: {e}\n")
 
     # --- fallback: MediaWiki action API relayed via fly.dev ---------------
+    # cors-anywhere.fly.dev rate-limits and occasionally stalls indefinitely.
+    # Cap retries at 1 with a short 30s timeout so a single hung request can't
+    # block the whole batch — failures here just mean skip this file and move on.
     sys.stderr.write(f"  falling back to MediaWiki action API for {commons_filename}\n")
     params = {
         "action": "query",
@@ -177,7 +186,7 @@ def get_file_metadata(commons_filename: str) -> dict | None:
         "titles": f"File:{commons_filename}",
     }
     fallback_url = f"{MW_API_VIA_RELAY}?{urllib.parse.urlencode(params)}"
-    raw = http_get_soft(fallback_url)
+    raw = http_get_soft(fallback_url, attempts=2)
     if raw is None:
         return None
     try:
@@ -416,6 +425,12 @@ def main() -> int:
         action="store_true",
         help="Hard-skip files whose names don't contain the ship-slug tokens. Default is WARN-and-include.",
     )
+    ap.add_argument(
+        "--skip-substr",
+        action="append",
+        default=[],
+        help="Skip any candidate whose Commons title contains this substring (case-insensitive). Repeatable. Use to bypass known-slow files (e.g. non-ASCII names where commonsapi.php 500s and the fly.dev fallback stalls).",
+    )
     args = ap.parse_args()
 
     target_dir = ASSETS_SHIPS / args.line / args.ship_slug
@@ -434,10 +449,14 @@ def main() -> int:
         return 0
 
     accepted = []
+    skip_substrs = [s.lower() for s in args.skip_substr]
     for title in files:
         if len(accepted) >= args.max:
             break
         bare = title.replace("File:", "").replace(" ", "_")
+        if any(s in bare.lower() for s in skip_substrs):
+            print(f"  [skip] --skip-substr matched: {bare}")
+            continue
         meta = get_file_metadata(bare)
         if not meta:
             print(f"  [skip] no metadata: {bare}")
