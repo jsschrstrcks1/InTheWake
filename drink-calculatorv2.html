@@ -978,6 +978,61 @@
             }
           }
 
+          // ── Marketing decoder ──
+          function updateMarketingDecoder(lc) {
+            var content = document.getElementById('marketing-decoder-content');
+            var panel = document.getElementById('marketing-decoder');
+            if (!content || !panel) return;
+            if (lc.allInclusive || lc.noPackages) { panel.style.display = 'none'; return; }
+            panel.style.display = '';
+            var grat = lc.rules && lc.rules.gratuity ? lc.rules.gratuity : 0;
+            var gratPct = Math.round(grat * 100);
+            var deluxe = lc.packages && lc.packages.deluxe;
+            var be = deluxe && deluxe.breakEvenDrink;
+            var html = '<ul style="margin:0;padding-left:1.25rem;">';
+
+            // 1. "X% off" decoder
+            if (grat > 0) {
+              var base = deluxe ? deluxe.priceMid : 0;
+              var withGrat = base * (1 + grat);
+              html += '<li><strong>"Up to 40% off onboard price"</strong> — The "onboard price" is inflated. Pre-cruise pricing is usually the real price. ' +
+                'Your actual cost is <strong>$' + withGrat.toFixed(2) + '/day</strong> ($' + base.toFixed(2) + ' + ' + gratPct + '% gratuity). ' +
+                'Watch the dollar amount, not the percentage.</li>';
+            }
+
+            // 2. "Unlimited" decoder
+            if (deluxe && be && be.price > 0) {
+              var drinkWithGrat = be.price * (1 + grat);
+              var beCount = Math.ceil((deluxe.priceMid * (1 + grat)) / drinkWithGrat);
+              html += '<li><strong>"Unlimited drinks"</strong> — You still need about <strong>' + beCount + ' ' + esc(be.name) +
+                ' per day</strong> to break even. Below that, paying per drink is cheaper.</li>';
+            }
+
+            // 3. "All adults must buy" decoder
+            if (lc.rules && lc.rules.allAdultsSamePackage) {
+              html += '<li><strong>"Everyone in your cabin must purchase"</strong> — If your cabinmate doesn\'t drink, they still pay full price. ' +
+                'Non-drinkers, designated drivers, and those in recovery have no opt-out' +
+                (lc.rules.allAdultsSamePackageNote ? ' (' + esc(lc.name) + ' policy).' : '.') + '</li>';
+            }
+
+            // 4. Daily cap decoder
+            if (lc.rules && lc.rules.deluxeDailyLimit) {
+              html += '<li><strong>"Unlimited" has a cap</strong> — ' + esc(lc.name) + ' limits alcoholic beverages to <strong>' +
+                lc.rules.deluxeDailyLimit + ' per person per day</strong>. Drinks beyond this are charged à la carte at full price.</li>';
+            }
+
+            // 5. Gratuity decoder
+            if (grat > 0) {
+              html += '<li><strong>The ' + gratPct + '% is real</strong> — ' + esc(lc.name) + ' adds ' + gratPct + '% automatic gratuity to both packages AND individual drinks. ' +
+                'A $' + (be ? be.price.toFixed(0) : '13') + ' cocktail actually costs $' + (be ? (be.price * (1+grat)).toFixed(2) : '') + ' at the bar.</li>';
+            } else {
+              html += '<li><strong>Gratuity is included</strong> — ' + esc(lc.name) + ' includes gratuity in the listed price. No hidden surcharges.</li>';
+            }
+
+            html += '</ul>';
+            content.innerHTML = html;
+          }
+
           // ── Data source transparency panel ──
           function updateDataSourcesPanel(lc) {
             var content = document.getElementById('data-sources-content');
@@ -1059,6 +1114,7 @@
             updateAllInclusiveBanner(lc);
             updateCriticalPolicyBadges(lc);
             updateDataSourcesPanel(lc);
+            updateMarketingDecoder(lc);
           }
 
           // ── Wire Events ──
@@ -1167,6 +1223,12 @@
         <details id="data-sources-panel" style="margin:0.75rem 0; background:#f8f9fa; border:1px solid #dee2e6; border-radius:8px; font-size:0.85rem;">
           <summary style="padding:0.6rem 1rem; cursor:pointer; font-weight:600; color:#495057;">📋 Where do these prices come from?</summary>
           <div id="data-sources-content" style="padding:0.5rem 1rem 0.75rem; color:#555; line-height:1.6;"></div>
+        </details>
+
+        <!-- Marketing decoder — what the fine print really means -->
+        <details id="marketing-decoder" style="margin:0.75rem 0; background:#fce4ec; border:1px solid #e57373; border-radius:8px; font-size:0.85rem;">
+          <summary style="padding:0.6rem 1rem; cursor:pointer; font-weight:600; color:#c62828;">🔍 What the marketing really means</summary>
+          <div id="marketing-decoder-content" style="padding:0.5rem 1rem 0.75rem; color:#4e342e; line-height:1.6;"></div>
         </details>
           <p style="margin:0 0 0.75rem 0;font-size:1.125rem;line-height:1.6;color:#01579b;">
             <strong>⚡ Quick Answer:</strong> Most cruisers break even on the Deluxe Beverage Package at <strong>6-7 drinks per day</strong> (mix of cocktails, beer, specialty coffee).
