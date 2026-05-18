@@ -336,6 +336,20 @@ VERIFICATIONS = {
         "consistent", "Broadside at Cadiz, second angle of the same call as the confirmed Cadiz shot; same ship, same day"),
     "assets/ships/princess/crown-princess/Crown_princess.webp.attr.json": (
         "ambiguous", "Bow-on Grand-class Princess profile at port; no name visible; Grand-class sister ambiguity"),
+
+    # ---- Norwegian Star (batch D, 2026-05-18) ------------------------------
+    "assets/ships/norwegian/norwegian-star/Norwegian_Star_in_Seattle.webp.attr.json": (
+        "confirmed", "Alongside in Seattle with Space Needle behind; \"NORWEGIAN STAR\" lettering visible on hull"),
+    "assets/ships/norwegian/norwegian-star/Norwegian_Star_-_Seattle2.webp.attr.json": (
+        "confirmed", "Second Seattle angle showing \"NORWEGIAN STAR\" lettering and the colorful hull art"),
+    "assets/ships/norwegian/norwegian-star/Norwegian_Star_Kauai_2002.webp.attr.json": (
+        "confirmed", "Alongside at Kauai 2002; \"NORWEGIAN STAR\" lettering visible on hull"),
+    "assets/ships/norwegian/norwegian-star/Norwegian_Star_in_Prince_Rupert,_BC.webp.attr.json": (
+        "confirmed", "Panorama view alongside at Prince Rupert, BC; \"NORWEGIAN STAR\" lettering visible"),
+    "assets/ships/norwegian/norwegian-star/Crucero_en_la_Terminal_Mar_tima_de_Acapulco,_M_xico.webp.attr.json": (
+        "confirmed", "Night photo at Acapulco terminal; \"NORWEGIAN STAR\" lettering visible on hull"),
+    "assets/ships/norwegian/norwegian-star/Cruise_Pictures_089.webp.attr.json": (
+        "ambiguous", "Distant NCL profile off a Mexican coastline; no name visible; profile matches Norwegian Star per uploader claim"),
 }
 
 
