@@ -1,14 +1,14 @@
 # Site-wide image-reuse audit
 
-**Generated:** 2026-05-17T12:48:00.162Z
-**Images scanned:** 1291
-**Unique image bytes:** 1235
+**Generated:** 2026-05-18T22:24:43.050Z
+**Images scanned:** 1472
+**Unique image bytes:** 1416
 **Storage waste:** 56 duplicate file(s) on disk
 
 **⛔ SYMLINKS (always blocking):** 0
 **🔴 CRITICAL findings:** 1
 **🟠 ERROR findings:** 1
-**🟡 WARN (filename does not match a slug):** 0
+**🟡 WARN (filename does not match a slug):** 7
 **ℹ️  INFO (intra-entity duplicates):** 11
 
 Allowlisted sections (brand / icons / social) are not flagged for reuse.
@@ -51,6 +51,29 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
   - `images/ports/port-moresby-hero.webp`  *(section: ports, line: _root, slug: port-moresby)*
   - `authors/img/author-avatar.jpg`  *(section: authors, line: _generic)*
   - `assets/brand/placeholder-port.webp`  *(section: brand, line: _allow)*
+
+## 🟡 WARN — Filename does not match a known slug (7)
+
+- **md5 `ecd45cee15b17385a954768aaa3211d2`** — filename does not contain a known ships-slug
+  - `assets/ships/costa/costa-fortuna/Costa_Fortuna.webp`  *(section: ships, line: costa)*
+
+- **md5 `e61458073c55208cbe358e2e9c6686c5`** — filename does not contain a known ships-slug
+  - `assets/ships/costa/costa-fortuna/Costa_Fortuna_-a.webp`  *(section: ships, line: costa)*
+
+- **md5 `8c79028a18204d6f466b75b05dbaf17b`** — filename does not contain a known ships-slug
+  - `assets/ships/costa/costa-fortuna/Costa_Fortuna_Ponte.webp`  *(section: ships, line: costa)*
+
+- **md5 `c7eb0f12aea37d56b57599886a89d126`** — filename does not contain a known ships-slug
+  - `assets/ships/costa/costa-fortuna/Costa_Fortuna_Prua.webp`  *(section: ships, line: costa)*
+
+- **md5 `cb01192df25509120e97e4349b5547db`** — filename does not contain a known ships-slug
+  - `assets/ships/costa/costa-fortuna/Costa_Fortuna_at_Fort_Lauderdale_-_IMO_9239783_(3306462221).webp`  *(section: ships, line: costa)*
+
+- **md5 `241c8b501ad635a38de6605d31b8a43c`** — filename does not contain a known ships-slug
+  - `assets/ships/costa/costa-fortuna/Costa_Fortuna_im_Juli_2011_beim_Auslaufen_aus_Venedig.webp`  *(section: ships, line: costa)*
+
+- **md5 `24421a65269d4408024530c882e51278`** — filename does not contain a known ships-slug
+  - `assets/ships/costa/costa-fortuna/TorrettaLeonPancaldoSAVONAFeb2006.webp`  *(section: ships, line: costa)*
 
 ## ℹ️ INFO — Storage-only duplicates within one entity (11)
 
