@@ -396,6 +396,25 @@ VERIFICATIONS = {
         "confirmed", "Alongside at Savona 2010; \"COSTA PACIFICA / GENOVA\" registry lettering visible on hull"),
     "assets/ships/costa/costa-pacifica/Costa_Pacifica_sailing.webp.attr.json": (
         "confirmed", "Underway at sea; \"COSTA PACIFICA\" lettering visible on hull"),
+
+    # ---- Costa Fortuna (batch E, 2026-05-18; staged for future page) -------
+    # Costa Fortuna does not yet have a page at ships/costa/costa-fortuna.html.
+    # Operator confirmed Fortuna will be covered; these assets are staged so
+    # the page can adopt them when it is created.
+    "assets/ships/costa/costa-fortuna/TorrettaLeonPancaldoSAVONAFeb2006.webp.attr.json": (
+        "confirmed", "Costa ship at Savona quay viewed past Torretta Leon Pancaldo; \"COSTA FORTUNA\" lettering visible on hull"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna.webp.attr.json": (
+        "confirmed", "Aerial alongside view; \"COSTA FORTUNA\" lettering visible on hull beside Costa funnel"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna_-a.webp.attr.json": (
+        "confirmed", "Bow detail at port; \"COSTA FORTUNA\" lettering visible on hull"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna_at_Fort_Lauderdale_-_IMO_9239783_(3306462221).webp.attr.json": (
+        "confirmed", "Alongside at Fort Lauderdale; \"COSTA FORTUNA\" lettering visible twice (bow + upper deck); IMO 9239783 in filename matches Costa Fortuna's IMO"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna_Ponte.webp.attr.json": (
+        "ambiguous", "Sunset deck view with waterslide and partial \"COSTA\" lettering on stack; brand visible, ship name not"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna_Prua.webp.attr.json": (
+        "ambiguous", "Bow-on view of a Costa ship at port; Costa funnel visible but no ship name in frame"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna_im_Juli_2011_beim_Auslaufen_aus_Venedig.webp.attr.json": (
+        "ambiguous", "Costa ship's bow visible through a pier structure at Venice 2011; no ship name in frame"),
 }
 
 
