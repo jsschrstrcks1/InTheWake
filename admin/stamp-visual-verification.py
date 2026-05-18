@@ -529,6 +529,14 @@ VERIFICATIONS = {
         "confirmed", "Second angle from the same photographer/day series; \"SILVER SPIRIT\" lettering visible on bow"),
     "assets/ships/silversea/silver-spirit/MV_Silver_Spirit-3.webp.attr.json": (
         "confirmed", "Stern-on view passing a navigation buoy; \"Silver Spirit\" lettering visible on bow"),
+
+    # ---- Seabourn Encore (batch H, 2026-05-18) -----------------------------
+    "assets/ships/seabourn/seabourn-encore/Seabourn_Encore_at_Benoa_(2).webp.attr.json": (
+        "confirmed", "Bow detail at Benoa; \"SEABOURN ENCORE\" lettering clearly readable on hull"),
+    "assets/ships/seabourn/seabourn-encore/Seabourn_Encore_at_Benoa_(3).webp.attr.json": (
+        "confirmed", "Broadside at Benoa with bunker tanker alongside; \"SEABOURN ENCORE\" lettering visible on bow"),
+    "assets/ships/seabourn/seabourn-encore/Seabourn_Encore_at_Benoa_(1).webp.attr.json": (
+        "consistent", "Distant view across Benoa harbour from same photographer's series; Seabourn gold shield on funnel; matches Encore-class profile and same-day series with confirmed (2) and (3)"),
 }
 
 
