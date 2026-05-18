@@ -429,6 +429,14 @@ VERIFICATIONS = {
         "consistent", "Royal-class Princess turning at Tallinn with Princess Cruises emblem visible on funnel; same uploader/series as Pier 27 shot"),
     "assets/ships/princess/regal-princess/Regal_Princess_leaving_Tallinn_18_May_2015.webp.attr.json": (
         "ambiguous", "Royal-class Princess leaving Tallinn; no name visible; Royal-class sister ambiguity"),
+
+    # ---- Norwegian Dawn (batch F, 2026-05-18) ------------------------------
+    "assets/ships/norwegian/norwegian-dawn/NYC_Norwegian_Dawn.webp.attr.json": (
+        "confirmed", "Underway in NYC harbour; \"NORWEGIAN DAWN\" lettering visible on bow with colorful NCL hull art"),
+    "assets/ships/norwegian/norwegian-dawn/Norwegian_Dawn_1.webp.attr.json": (
+        "ambiguous", "Aft pool deck interior view; no ship name visible; could be Dawn or Star-class sister"),
+    "assets/ships/norwegian/norwegian-dawn/Norwegian_Dawn_2.webp.attr.json": (
+        "ambiguous", "Aft sun-loungers and twin tent canopies on funnel deck; characteristic Norwegian Dawn/Star deck design but no name visible"),
 }
 
 
