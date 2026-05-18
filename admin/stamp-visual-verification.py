@@ -374,6 +374,22 @@ VERIFICATIONS = {
         "confirmed", "Docked at Dubrovnik with Italian flag flying; \"COSTA DIADEMA\" lettering visible on hull"),
     "assets/ships/costa/costa-diadema/Costa_Diadema_(103)_(16310776402).webp.attr.json": (
         "ambiguous", "Distant Costa ship viewed past Savona's medieval clock tower; Costa funnel logo visible but no name; multiple Costa sisters share similar livery"),
+
+    # ---- Celebrity Equinox (batch E, 2026-05-18) ---------------------------
+    "assets/ships/celebrity-cruises/celebrity-equinox/Cozumel_-_Celebrity_Equinox.webp.attr.json": (
+        "confirmed", "Alongside at Cozumel cruise pier; \"Celebrity EQUINOX\" lettering clearly visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/CelebrityEquinox-maidenvoyage.webp.attr.json": (
+        "confirmed", "Underway on maiden voyage; \"Celebrity Cruises\" + \"Celebrity EQUINOX\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/Cruise_ship_Celebrity_Equinox_2009.webp.attr.json": (
+        "confirmed", "Alongside in Southampton 2009; \"EQUINOX\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/Celebrity_Equinox-05.webp.attr.json": (
+        "confirmed", "Panorama alongside in port; \"Celebrity EQUINOX\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/Celebrity_Equinox_Istanbul.webp.attr.json": (
+        "confirmed", "Underway in Istanbul waters; \"Celebrity Equinox\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/Equinox_-_Lifeboat_Used_as_Tender.webp.attr.json": (
+        "confirmed", "Lifeboat used as a tender; \"CELEBRITY EQUINOX\" lettering visible on the boat"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/Celebrity_Equinox_s_lifeboat_in_port_in_Cartagena,_Colombia.webp.attr.json": (
+        "confirmed", "Lifeboat from Celebrity Equinox at Cartagena, Colombia; \"CELEBRITY EQUINOX VALLETTA\" lettering visible on the boat"),
 }
 
 
