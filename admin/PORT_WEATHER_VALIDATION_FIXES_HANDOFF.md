@@ -14,9 +14,27 @@ cabo-san-lucas, civitavecchia, cococay, curacao, da-nang, dubrovnik, dunedin, fr
 
 **Sub-phase 2a: storm-name citation removal — COMPLETE.** All previously cited external storm/cyclone names with dates (Irma 2017, Maria 2017, Pam 2015, Harold 2020, Yasi 2011, Larry 2006, Bob 1991, Irene 2011, Sandy 2012, Iselle 2014, Mekunu 2018, Luban 2018, Gonu 2007, Shaheen 2021, Nargis 2008, Idai 2019, Beryl 2024, Ivan 2004, Hugo 1989, Hato 2017, Mangkhut 2018, Tauktae 2021, Tracy 1974, Lorenzo 2019, Andrew, Matthew, Dorian 2019, Fiona 2022) have been audited and removed from FAQs unless the storm name is explicitly referenced on the port's own page (e.g., Maria 2017 in dominica's logbook quoting a vendor; Maria 2017 in guadeloupe's hazard-note; Irma 2017 in tortola's hazard-note). Ports cleaned in this sub-phase: antigua, boston, cairns, dominica, guadeloupe, hilo, muscat, montego-bay, nosy-be, tortola, yangon.
 
-**Sub-phase 2b: template-phrase removal — IN PROGRESS.** Ports cleaned so far: brisbane, bordeaux, cartagena.
+**Sub-phase 2b: template-phrase removal — COMPLETE for Bucket A.** Ports cleaned: brisbane, bordeaux, cartagena, colombo, dakar, darwin, jakarta, kagoshima, honningsvag, livorno, port-moresby, seychelles, bangkok, baltimore, belfast, belize, bodrum, bimini, callao, catania, cherbourg, charleston, colon, corfu, dublin, genoa, heraklion, key-west, lautoka, martinique, mombasa, puerto-montt, virgin-gorda — plus three earlier-touched ports that had a residual rain FAQ template (boston, muscat, yangon).
 
-**Remaining Phase 2 (~40 ports):** colombo, dakar, darwin, jakarta, kagoshima, honningsvag, livorno, port-moresby, seychelles, and others with template phrases like "all provide reliable shelter," "all work in any weather," "Brief tropical showers are common," etc.
+**Skipped (out-of-scope):**
+- `ho-chi-minh.html`, `mobile.html` — only "Lightweight, breathable clothing for" hit is in the page's own Packing Tips list (page content, not a FAQ).
+- `st-barts.html` — page is currently FAIL (37 errors); it's a Bucket B port (FAQ + structural), out of scope for this FAQ rewrite branch.
+
+## Final corpus state for Bucket A
+
+- 0 unanchored storm-name citations across the corpus (only tortola retains Irma 2017 — anchored in the page's own hazard-note)
+- 0 ports contain `all provide reliable shelter`, `all work in any weather`, or related template phrases inside a FAQ answer (within scope; the one remaining `st-barts.html` match is in a Bucket B port currently failing structural validation, out of scope)
+- 97 ports touched in this branch all validate WARN/PASS (95 WARN + 2 PASS, 0 FAIL)
+
+## Phase 3 verification (COMPLETE)
+
+- Re-ran `validate-port-weather.js` across all 387 ports — all 97 touched ports validate WARN/PASS, 0 FAIL
+- Re-grepped for the 11 boilerplate phrases — 0 matches inside any in-scope FAQ
+- Re-grepped for the 32 storm-name citations — 0 matches except tortola (anchored on page)
+- Random-sample audit: 23 ports inspected (5 + 8 + 10) caught 2 outliers (copenhagen, cephalonia) that had been missed by template-phrase greps because their cleverness was external geographic claims rather than the specific template phrases I'd targeted. Both rewritten and pushed.
+- Diff audit: `comm` of touched-vs-rewritten-in-careful-pass surfaced 9 additional ports that had been touched in the original bulk-add pass but never carefully rewritten (antarctic-peninsula, bilbao, buenos-aires, busan, chilean-fjords, denali, drake-passage, fairbanks, fiji). All 9 rewritten and pushed.
+
+Total ports rewritten in this careful pass: **95** (84 from Phase 1+2 + 11 additional from Phase-3 audit).
 
 Each commit names the specific page elements quoted + the cleverness removed.
 
