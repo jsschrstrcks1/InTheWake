@@ -1521,6 +1521,38 @@ function setupNonAlcoholicToggle() {
       'Standard view restored. All beverages visible.'
     );
   });
+
+  // v2.1: Recovery-sensitive presets
+  document.querySelectorAll('.recovery-preset').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const preset = btn.dataset.preset;
+      const store = window.ITW?.store;
+      if (!store) return;
+
+      // Ensure non-alcohol view is on
+      if (!toggle.checked) {
+        toggle.checked = true;
+        toggle.dispatchEvent(new Event('change'));
+      }
+
+      // Set drink values based on preset
+      const presets = {
+        'sober': { coffeeSmall: 2, coffeeLarge: 0, teaprem: 1, soda: 2, mocktail: 0, freshjuice: 1, energy: 0, milkshake: 0, bottledwater: 2 },
+        'light': { coffeeSmall: 1, coffeeLarge: 0, teaprem: 1, soda: 1, mocktail: 1, freshjuice: 0, energy: 0, milkshake: 0, bottledwater: 1 },
+        'na-focus': { coffeeSmall: 2, coffeeLarge: 1, teaprem: 1, soda: 1, mocktail: 2, freshjuice: 1, energy: 1, milkshake: 1, bottledwater: 2 }
+      };
+      const values = presets[preset];
+      if (!values) return;
+
+      for (const [key, val] of Object.entries(values)) {
+        const input = document.querySelector(`[data-input="${key}"]`);
+        if (input) { input.value = val; store.patch(`inputs.drinks.${key}`, val); }
+      }
+
+      if (window.ITW?.scheduleCalc) window.ITW.scheduleCalc();
+      announce('Preset applied: ' + btn.textContent.trim());
+    });
+  });
 }
 
 /**
