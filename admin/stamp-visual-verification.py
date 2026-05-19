@@ -569,6 +569,16 @@ VERIFICATIONS = {
         "consistent", "Bare hull at T. Mariotti shipyard fitout berth in Porto Nogaro — Pursuit's build name was yard number Mar 173; T. MARIOTTI gantry lettering visible; Commons-categorized as Seabourn Pursuit construction"),
     "assets/ships/seabourn/seabourn-pursuit/Porto_Nogaro_-_Mar_173_dal_basso.webp.attr.json": (
         "consistent", "Pre-livery hull section on launch barge with Mar 173 yard number visible; Commons-categorized as Seabourn Pursuit pre-delivery"),
+
+    # ---- Seabourn Quest (batch H, 2026-05-18) ------------------------------
+    "assets/ships/seabourn/seabourn-quest/Seeabourn_Quest_2012_092.webp.attr.json": (
+        "confirmed", "Broadside at anchor with tender operations; \"SEABOURN QUEST\" lettering visible on bow (filename typo \"Seeabourn\" inherited from Commons)"),
+    "assets/ships/seabourn/seabourn-quest/Seabourn_Quest_2012_096.webp.attr.json": (
+        "confirmed", "Tender close-up; \"SEABOURN QUEST / NASSAU\" lettering clearly visible on tender side; Nassau registry matches Seabourn Quest"),
+    "assets/ships/seabourn/seabourn-quest/Seabourn_Quest_2012_091.webp.attr.json": (
+        "consistent", "Distant anchored view from hillside above Mediterranean port; same photographer/series (Gordito1869) as confirmed 092 and 096; sister-class ambiguity (Odyssey/Sojourn/Quest share profile)"),
+    "assets/ships/seabourn/seabourn-quest/Seabourn_Quest_2012_094.webp.attr.json": (
+        "consistent", "Distant Quest with same Nassau-marked tender visible in foreground; same series as confirmed 092 and 096"),
 }
 
 
