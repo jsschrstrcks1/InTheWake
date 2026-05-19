@@ -856,6 +856,14 @@ VERIFICATIONS = {
     "assets/ships/msc/msc-magnifica/MSC_Magnifica_3.webp.attr.json": (
         "consistent", "Wider Saint-Nazaire harbour view with Magnifica at left in fitout berth; MSC Musica-class profile + classic red/white livery"),
 
+    # ---- MSC Lirica (batch H, 2026-05-19) ----------------------------------
+    "assets/ships/msc/msc-lirica/MSC_Lirica.webp.attr.json": (
+        "confirmed", "Stern view alongside; \"MSC LIRICA / PANAMA\" lettering clearly readable on stern"),
+    "assets/ships/msc/msc-lirica/MSC_Lirica_Kiel.webp.attr.json": (
+        "confirmed", "Alongside at Kiel; \"MSC LIRICA\" lettering visible on bow"),
+    "assets/ships/msc/msc-lirica/HPIM0200.webp.attr.json": (
+        "consistent", "Wide aerial view of Geirangerfjord, Norway, with MSC ship at anchor; Commons categorized as Lirica; Lirica-class profile match"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
