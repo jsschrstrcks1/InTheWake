@@ -750,6 +750,18 @@ VERIFICATIONS = {
     "assets/ships/carnival/mardi-gras/Mardi_Gras___RPA_16_(50747707406).webp.attr.json": (
         "confirmed", "Distant broadside passing wind turbines in the Maas approach; \"Mardi Gras\" + \"Carnival\" lettering visible; Carnival livery"),
 
+    # ---- Carnival Paradise (batch H, 2026-05-18) ---------------------------
+    "assets/ships/carnival/carnival-paradise/Carnival_Paradise_Docked_In_Cozumel,Mexico.webp.attr.json": (
+        "confirmed", "Broadside at Cozumel; Carnival whale-tail funnel + Fantasy-class profile + Carnival livery; turquoise water"),
+    "assets/ships/carnival/carnival-paradise/Carnival_Paradise_stern_close-up.webp.attr.json": (
+        "confirmed", "Stern close-up; \"Carnival PARADISE\" lettering clearly readable + whale-tail funnel"),
+    "assets/ships/carnival/carnival-paradise/Carnival_Paradise_docked_in_Havana,_Cuba.webp.attr.json": (
+        "confirmed", "Alongside at Havana Cuba at golden hour; \"Carnival Paradise\" lettering visible on hull; cars on Malecón in foreground"),
+    "assets/ships/carnival/carnival-paradise/Carnival_Paradise_20100216.webp.attr.json": (
+        "confirmed", "Under way at sea, broadside in calm water; Carnival whale-tail funnel + Fantasy-class profile"),
+    "assets/ships/carnival/carnival-paradise/Carnival_(3901409522)_(2).webp.attr.json": (
+        "consistent", "Top-down aerial of a Carnival Fantasy-class ship alongside; lido deck visible; sister-class ambiguity among Fantasy-class but Commons categorization + uploader identifies as Paradise"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
