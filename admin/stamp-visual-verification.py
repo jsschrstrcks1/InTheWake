@@ -589,6 +589,20 @@ VERIFICATIONS = {
         "consistent", "Valletta waterfront sunset by Continentaleurope; filename explicitly claims Seven Seas Explorer; Explorer-class profile matches; no on-hull lettering legible at the angle/distance but Commons attribution + series context support the identification"),
     "assets/ships/regent/seven-seas-explorer/Cruise_liner_at_Valletta_Waterfromt.webp.attr.json": (
         "consistent", "Same photographer series as the explicitly-named Seven Seas Explorer file; Valletta sunset; Explorer-class profile; Commons categorized under Seven Seas Explorer (ship, 2016)"),
+
+    # ---- Seven Seas Navigator (batch H, 2026-05-18) ------------------------
+    "assets/ships/regent/seven-seas-navigator/7SeasNav.webp.attr.json": (
+        "confirmed", "Close stern view; \"SEVEN SEAS NAVIGATOR / HAMILTON\" lettering clearly readable on stern"),
+    "assets/ships/regent/seven-seas-navigator/Seven_Seas_Navigator_in_Venice.webp.attr.json": (
+        "confirmed", "Broadside at Venice with tender boat in foreground; \"Seven Seas Navigator\" lettering visible on bow"),
+    "assets/ships/regent/seven-seas-navigator/MS_Seven_Seas_Navigator_(4190594236).webp.attr.json": (
+        "confirmed", "Stern view at port; \"SEVEN SEAS NAVIGATOR\" lettering visible on stern"),
+    "assets/ships/regent/seven-seas-navigator/Regent_Seven_Seas__Navigator__(16149878575).webp.attr.json": (
+        "consistent", "Caribbean broadside viewed from a beach with palm fronds in foreground; distinctive Navigator dome and profile match; same photographer (Ahecht) as confirmed file 4190594236"),
+    "assets/ships/regent/seven-seas-navigator/US-port-canav-seven-seas-navigator.webp.attr.json": (
+        "consistent", "Port Canaveral alongside view across the parking lot; distinctive Navigator dome and profile match; filename explicitly identifies the ship"),
+    "assets/ships/regent/seven-seas-navigator/MS_Seven_Seas_Navigator_(4171640179).webp.attr.json": (
+        "consistent", "Distant broadside in tropical waters near a small island; Navigator profile match; period film softness; filename explicitly identifies the ship"),
 }
 
 
