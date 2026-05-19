@@ -780,6 +780,18 @@ VERIFICATIONS = {
     "assets/ships/carnival/carnival-sunshine/Carnival_Sunshine_in_Charleston_November_2017.webp.attr.json": (
         "confirmed", "On Charleston harbor at golden hour with marsh grass foreground; Carnival livery + whale-tail funnel; broadside view"),
 
+    # ---- Owner-provided (Nassau, 2026-05-19) -------------------------------
+    "assets/ships/carnival/carnival-sunrise/Carnival_Sunrise_bow_Nassau_2026-05-19.webp.attr.json": (
+        "confirmed", "Owner-photographed at Nassau 2026-05-19; \"CARNIVAL SUNRISE\" + \"NASSAU\" lettering clearly readable on bow; Carnival whale-tail funnel above"),
+    "assets/ships/disney-cruise-line/disney-wish/Disney_Wish_broadside_Nassau_2026-05-19.webp.attr.json": (
+        "confirmed", "Owner-photographed at Nassau 2026-05-19; classic Disney livery (dark blue + yellow trim + red waterline); Disney Wish-class profile"),
+    "assets/ships/rcl/wonder-of-the-seas/Wonder_of_the_Seas_bow_Nassau_2026-05-19.webp.attr.json": (
+        "consistent", "Owner-photographed at Nassau 2026-05-19; Oasis-class bow with the AquaDome visible on top deck; owner attribution to Wonder of the Seas"),
+    "assets/ships/rcl/wonder-of-the-seas/Wonder_of_the_Seas_alongside_Carnival_Sunrise_Nassau_2026-05-19.webp.attr.json": (
+        "consistent", "Owner-photographed at Nassau 2026-05-19; \"...y OF THE SEAS\" lettering partially visible (matches Wonder); same berth as the confirmed Carnival Sunrise bow shot"),
+    "assets/ships/rcl/vision-of-the-seas/Vision_of_the_Seas_bow_Nassau_2026-05-19.webp.attr.json": (
+        "confirmed", "Owner-photographed at Nassau 2026-05-19; \"VISION OF THE SEAS / NASSAU\" lettering visible on bow; bow-on dock view"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
