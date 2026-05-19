@@ -738,6 +738,18 @@ VERIFICATIONS = {
     "assets/ships/carnival/carnival-splendor/Carnival_Splendor_Under_Construction_on_5_August_2007.webp.attr.json": (
         "confirmed", "At Fincantieri Sestri Ponente shipyard during construction, August 2007; distinctive Carnival whale-tail funnel + livery; sailboats in foreground"),
 
+    # ---- Mardi Gras (batch H, 2026-05-18) ----------------------------------
+    "assets/ships/carnival/mardi-gras/Mardi_Gras_ship_22-12-2020_front_view.webp.attr.json": (
+        "confirmed", "Bow view with name visible; blue hull + Carnival whale-tail funnel + \"Carnival\" lettering on stern"),
+    "assets/ships/carnival/mardi-gras/Mardi_Gras_ship_22-12-2020_back_view.webp.attr.json": (
+        "confirmed", "Stern view with \"Mardi Gras\" and Carnival lettering visible; same Tunestoons 22-12-2020 series"),
+    "assets/ships/carnival/mardi-gras/Mardi_Gras_ship_22-12-2020_top_deck.webp.attr.json": (
+        "confirmed", "Top deck with the BOLT roller coaster wrapping around the Carnival whale-tail funnel — distinctive Excel-class feature unique to Mardi Gras at this time"),
+    "assets/ships/carnival/mardi-gras/Mardi_Gras_(2020_ship)_in_September_2020_(cropped).webp.attr.json": (
+        "confirmed", "At Meyer Turku shipyard during fitout, September 2020; Carnival whale-tail funnel + \"Carnival\" lettering on hull"),
+    "assets/ships/carnival/mardi-gras/Mardi_Gras___RPA_16_(50747707406).webp.attr.json": (
+        "confirmed", "Distant broadside passing wind turbines in the Maas approach; \"Mardi Gras\" + \"Carnival\" lettering visible; Carnival livery"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
