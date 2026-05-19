@@ -349,20 +349,56 @@ function renderRiskSummary(results) {
     container.style.display = '';
     container.style.background = '#e8f5e9';
     container.style.color = '#2e7d32';
-    container.textContent = `💡 At your current drink level, paying as you go is cheaper. You'd need about ${Math.ceil(breakEvenCount)} ${be.name} per day to break even on the ${deluxePkg.shortName || deluxePkg.name}.`;
+    const u = getActiveDrinkUnits();
+    container.textContent = `💡 At your current drink level, paying as you go is cheaper. You'd need about ${formatDrinkCount(Math.ceil(breakEvenCount), u)} (${be.name}) per day to break even on the ${deluxePkg.shortName || deluxePkg.name}.`;
   } else if (breakEvenCount > cdcModerate * 2) {
     // Package recommended but break-even is high — note it
     container.style.display = '';
     container.style.background = '#fff3e0';
     container.style.color = '#e65100';
-    container.textContent = `📊 The ${deluxePkg.shortName || deluxePkg.name} saves you money, but break-even requires about ${Math.ceil(breakEvenCount)} ${be.name} per day — above typical moderation guidelines. The savings come partly from high-volume drinking.`;
+    container.textContent = `📊 The ${deluxePkg.shortName || deluxePkg.name} saves you money, but break-even requires about ${formatDrinkCount(Math.ceil(breakEvenCount))} (${be.name}) per day — above typical moderation guidelines.`;
   } else {
     // Package recommended at moderate levels
     container.style.display = '';
     container.style.background = '#e3f2fd';
     container.style.color = '#1565c0';
-    container.textContent = `✅ The ${deluxePkg.shortName || deluxePkg.name} is your best value — break-even at about ${Math.ceil(breakEvenCount)} ${be.name} per day.`;
+    container.textContent = `✅ The ${deluxePkg.shortName || deluxePkg.name} is your best value — break-even at about ${formatDrinkCount(Math.ceil(breakEvenCount))} (${be.name}) per day.`;
   }
+}
+
+/* ==================== DRINK UNITS CONVERTER (NEW-13) ==================== */
+
+// 1 US standard drink = 14g alcohol. 1 UK unit = 10g alcohol.
+// Conversion: 1 US drink = 1.4 UK units.
+const DRINK_UNITS = {
+  us: { label: 'drinks', factor: 1, moderate: 2, description: 'US standard drinks (14g alcohol each)' },
+  uk: { label: 'units', factor: 1.4, moderate: 2.8, description: 'UK alcohol units (10g each)' }
+};
+
+function getActiveDrinkUnits() {
+  const sel = document.getElementById('drink-units-select');
+  return DRINK_UNITS[sel?.value || 'us'] || DRINK_UNITS.us;
+}
+
+function formatDrinkCount(count, unitSystem) {
+  const u = unitSystem || getActiveDrinkUnits();
+  const converted = count * u.factor;
+  const rounded = Math.round(converted * 10) / 10;
+  return rounded + ' ' + u.label;
+}
+
+function setupDrinkUnitsSelector() {
+  const sel = document.getElementById('drink-units-select');
+  const note = document.getElementById('drink-units-note');
+  if (!sel) return;
+
+  sel.addEventListener('change', function() {
+    const u = DRINK_UNITS[sel.value] || DRINK_UNITS.us;
+    if (note) note.textContent = u.description;
+    // Re-render risk summary with new units
+    const results = window.ITW?.store?.get('results');
+    if (results) renderRiskSummary(results);
+  });
 }
 
 /* ==================== CHART RENDERING ==================== */
@@ -1610,6 +1646,7 @@ function initializeUI() {
   // ✅ NEW v1.003.000: Integrated from feature shim
   setupNonAlcoholicToggle();
   setupPricingToggle();
+  setupDrinkUnitsSelector();
 
   // Subscribe to store changes (debounced)
   window.ITW.store.subscribe('results', (newResults, fullState) => {
