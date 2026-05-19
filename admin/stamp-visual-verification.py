@@ -555,6 +555,12 @@ VERIFICATIONS = {
         "confirmed", "Close-up of bow with very large \"SEABOURN OVATION\" lettering — definitive identification"),
     "assets/ships/seabourn/seabourn-ovation/Seabourn_Ovation_at_Morrison_Pier,_Lerwick_(geograph_5873907).webp.attr.json": (
         "confirmed", "Berthed at Morrison Pier, Lerwick, Shetland; \"SEABOURN OVATION\" lettering visible on bow; wind turbine on hillside"),
+
+    # ---- Seabourn Venture (batch H, 2026-05-18) ----------------------------
+    "assets/ships/seabourn/seabourn-venture/SEABOURN_VENTURE_01.webp.attr.json": (
+        "confirmed", "Broadside view; faint \"SEABOURN VENTURE\" lettering visible on dark green expedition hull; characteristic angular Venture-class superstructure"),
+    "assets/ships/seabourn/seabourn-venture/SEABOURN_VENTURE_02.webp.attr.json": (
+        "consistent", "Same photographer (D-AIFF), same day series as confirmed file 01; sister ambiguity with Seabourn Pursuit but Commons categorization + series context match Venture"),
 }
 
 
