@@ -762,6 +762,24 @@ VERIFICATIONS = {
     "assets/ships/carnival/carnival-paradise/Carnival_(3901409522)_(2).webp.attr.json": (
         "consistent", "Top-down aerial of a Carnival Fantasy-class ship alongside; lido deck visible; sister-class ambiguity among Fantasy-class but Commons categorization + uploader identifies as Paradise"),
 
+    # ---- Carnival Sunshine (batch H, 2026-05-18) ---------------------------
+    "assets/ships/carnival/carnival-sunshine/Carnival_Sunshine_03.webp.attr.json": (
+        "confirmed", "Close-up at a port with salt mounds; \"CARNIVAL SUNSHINE\" lettering clearly readable on hull"),
+    "assets/ships/carnival/carnival-sunshine/Carnival_Sunshine_02.webp.attr.json": (
+        "confirmed", "Broadside; \"Carnival Sunshine\" lettering visible + whale-tail funnel + red-striped livery"),
+    "assets/ships/carnival/carnival-sunshine/Carnival_Sunshine_01.webp.attr.json": (
+        "confirmed", "Alongside at shipyard quay with construction equipment foreground; \"CARNIVAL S...\" lettering partially visible; same Chesipiero series"),
+    "assets/ships/carnival/carnival-sunshine/Carnival_Sunshine_04.webp.attr.json": (
+        "consistent", "Top deck close-up with whale-tail funnel + waterslides; same Chesipiero series; no on-hull name visible at this zoom level"),
+    "assets/ships/carnival/carnival-sunshine/CarnivalSunshineCL.webp.attr.json": (
+        "consistent", "In dry dock at a shipyard; distinctive Carnival whale-tail funnel + red-striped hull; bow-on view"),
+    "assets/ships/carnival/carnival-sunshine/Carnival_Sunshine_Curacao_2014.webp.attr.json": (
+        "confirmed", "Alongside at Curaçao with rocks foreground; \"CARNIVAL SUNSHINE\" lettering clearly visible on hull"),
+    "assets/ships/carnival/carnival-sunshine/Leaving_Nyc_(165435867).webp.attr.json": (
+        "confirmed", "Leaving New York Harbor with Statue of Liberty behind; \"Carnival Sunshine\" lettering visible on bow; Carnival whale-tail funnel"),
+    "assets/ships/carnival/carnival-sunshine/Carnival_Sunshine_in_Charleston_November_2017.webp.attr.json": (
+        "confirmed", "On Charleston harbor at golden hour with marsh grass foreground; Carnival livery + whale-tail funnel; broadside view"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
