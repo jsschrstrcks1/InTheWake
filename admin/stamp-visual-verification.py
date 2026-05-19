@@ -579,6 +579,10 @@ VERIFICATIONS = {
         "consistent", "Distant anchored view from hillside above Mediterranean port; same photographer/series (Gordito1869) as confirmed 092 and 096; sister-class ambiguity (Odyssey/Sojourn/Quest share profile)"),
     "assets/ships/seabourn/seabourn-quest/Seabourn_Quest_2012_094.webp.attr.json": (
         "consistent", "Distant Quest with same Nassau-marked tender visible in foreground; same series as confirmed 092 and 096"),
+
+    # ---- Seven Seas Splendor (batch H, 2026-05-18) -------------------------
+    "assets/ships/regent/seven-seas-splendor/AaIMG_2409_Seven_Seas_Splendor.webp.attr.json": (
+        "consistent", "Explorer-class ship at Fincantieri Ancona shipyard with FINCANTIERI red gantry behind; characteristic curved Observation Lounge dome on top; Commons categorization as Splendor + Ancona setting where she was built; sister-class ambiguity with Explorer and Grandeur applies"),
 }
 
 
