@@ -870,6 +870,14 @@ VERIFICATIONS = {
     "assets/ships/msc/msc-musica/Venice_MSC_Musica_001.webp.attr.json": (
         "confirmed", "Alongside at Venice with tug and pilot boat; MSC bow lettering visible; Musica-class profile"),
 
+    # ---- MSC Opera (batch H, 2026-05-19) -----------------------------------
+    "assets/ships/msc/msc-opera/MSC_Opera.webp.attr.json": (
+        "confirmed", "Broadside at sunset; \"MSC OPERA\" lettering visible on bow"),
+    "assets/ships/msc/msc-opera/MSC_Opera_Heck.webp.attr.json": (
+        "confirmed", "Stern view; \"MSC OPERA\" lettering clearly visible on stern; passengers on upper deck"),
+    "assets/ships/msc/msc-opera/MSC_Opera_Bug.webp.attr.json": (
+        "confirmed", "Head-on bow view alongside in harbour; \"MSC OPERA\" name visible on hull below bridge"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
