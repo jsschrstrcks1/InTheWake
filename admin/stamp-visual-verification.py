@@ -686,6 +686,14 @@ VERIFICATIONS = {
     "assets/ships/silversea/silver-nova/Silver_Nova_docked_in_Auckland_PA03.webp.attr.json": (
         "consistent", "Wide Auckland view with Sky Tower and city skyline framing Silver Nova; Nova-class profile; sister ambiguity"),
 
+    # ---- Silver Cloud (batch H, 2026-05-18) --------------------------------
+    "assets/ships/silversea/silver-cloud/Silver_Cloud_Isafjordur_18.webp.attr.json": (
+        "confirmed", "Alongside at Ísafjörður, Iceland; \"SILVER CLOUD\" lettering visible on hull"),
+    "assets/ships/silversea/silver-cloud/Silver_Cloud_Isafjordur_17.webp.attr.json": (
+        "confirmed", "Broadside view at Ísafjörður with snow-streaked Westfjords mountains; \"SILVER CLOUD\" lettering visible on bow"),
+    "assets/ships/silversea/silver-cloud/Silver_Cloud_Isafjordur_16.webp.attr.json": (
+        "confirmed", "Wide view at Ísafjörður with fishing boats in foreground; \"SILVER CLOUD\" name visible on hull, same Christian Bickel series"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
