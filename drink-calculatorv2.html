@@ -1033,6 +1033,40 @@
             content.innerHTML = html;
           }
 
+          // ── Line-specific fine print ──
+          function updateFinePrint(lc) {
+            var content = document.getElementById('fine-print-content');
+            var panel = document.getElementById('fine-print-panel');
+            var title = document.getElementById('fine-print-title');
+            if (!content || !panel) return;
+            if (lc.allInclusive) { panel.style.display = 'none'; return; }
+            panel.style.display = '';
+            if (title) title.textContent = esc(lc.name) + ' fine print';
+            var grat = lc.rules && lc.rules.gratuity ? lc.rules.gratuity : 0;
+            var gratPct = Math.round(grat * 100);
+            var notes = [];
+            if (lc.rules && lc.rules.deluxeDailyLimit) notes.push(lc.rules.deluxeDailyLimit + ' alcoholic drinks per person per day — drinks beyond this are charged at full price');
+            if (lc.rules && lc.rules.deluxeCap) notes.push('Per-drink cap: $' + lc.rules.deluxeCap.toFixed(2) + ' — you pay the difference on anything above');
+            if (grat > 0) notes.push(gratPct + '% automatic gratuity on all packages AND individual drinks');
+            else notes.push('Gratuity is included in all listed prices — no hidden surcharges');
+            if (lc.rules && lc.rules.allAdultsSamePackage) notes.push('If one adult in the cabin buys the alcohol package, all adults must buy it');
+            if (lc.rules && lc.rules.allAdultsSamePackage === false && !lc.noPackages) notes.push('Individual adults can buy packages independently — no cabin-mate requirement');
+            if (lc.coffeeCard && lc.coffeeCard.enabled) notes.push('Coffee card: ' + lc.coffeeCard.punches + ' punches for $' + lc.coffeeCard.price.toFixed(2));
+            if (lc.freeAtSea && lc.freeAtSea.available) notes.push('Free-at-Sea: package is "free" but $' + lc.freeAtSea.serviceChargePerDay.toFixed(2) + '/person/day service charge applies');
+            if (lc.packages && lc.packages.soda && lc.packages.soda.childPriceMid) notes.push('Child soda package: $' + lc.packages.soda.childPriceMid.toFixed(2) + '/day (vs adult $' + lc.packages.soda.priceMid.toFixed(2) + ')');
+            if (lc.rules && lc.rules.minorsForceRefreshment) notes.push('When adults buy the top package, minors must buy the mid-tier package (no opt-out)');
+            if (lc.rules && lc.rules.minorsForceSoda) notes.push('Minors under 21 must purchase the soda package when adults buy the alcohol package');
+            if (lc.noPackages) notes.push('No drink packages available — all beverages are à la carte with no automatic gratuity');
+            if (lc.barTab && lc.barTab.available) notes.push('Bar Tab pre-load available ($200–$1,000 with bonus credit) — not a package, just prepaid credit');
+            // Line-specific policies that aren't critical severity
+            (lc.policies || []).filter(function(p) { return p.severity === 'info' || p.severity === 'warning'; }).forEach(function(p) {
+              notes.push(p.title);
+            });
+            content.innerHTML = notes.length > 0
+              ? '<ul style="margin:0;padding-left:1.25rem;">' + notes.map(function(n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>'
+              : '<p>No special fine print for this line.</p>';
+          }
+
           // ── Data source transparency panel ──
           function updateDataSourcesPanel(lc) {
             var content = document.getElementById('data-sources-content');
@@ -1115,6 +1149,7 @@
             updateCriticalPolicyBadges(lc);
             updateDataSourcesPanel(lc);
             updateMarketingDecoder(lc);
+            updateFinePrint(lc);
           }
 
           // ── Wire Events ──
@@ -1229,6 +1264,12 @@
         <details id="marketing-decoder" style="margin:0.75rem 0; background:#fce4ec; border:1px solid #e57373; border-radius:8px; font-size:0.85rem;">
           <summary style="padding:0.6rem 1rem; cursor:pointer; font-weight:600; color:#c62828;">🔍 What the marketing really means</summary>
           <div id="marketing-decoder-content" style="padding:0.5rem 1rem 0.75rem; color:#4e342e; line-height:1.6;"></div>
+        </details>
+
+        <!-- Line-specific fine print -->
+        <details id="fine-print-panel" style="margin:0.75rem 0; background:#f3e5f5; border:1px solid #ce93d8; border-radius:8px; font-size:0.85rem;">
+          <summary style="padding:0.6rem 1rem; cursor:pointer; font-weight:600; color:#6a1b9a;">📝 <span id="fine-print-title">Fine print</span></summary>
+          <div id="fine-print-content" style="padding:0.5rem 1rem 0.75rem; color:#4a148c; line-height:1.6;"></div>
         </details>
           <p style="margin:0 0 0.75rem 0;font-size:1.125rem;line-height:1.6;color:#01579b;">
             <strong>⚡ Quick Answer:</strong> Most cruisers break even on the Deluxe Beverage Package at <strong>6-7 drinks per day</strong> (mix of cocktails, beer, specialty coffee).
