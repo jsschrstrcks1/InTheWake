@@ -611,6 +611,14 @@ VERIFICATIONS = {
         "confirmed", "Three-quarter bow view at Osaka with the same Tempozan Ferris wheel; \"SEVEN SEAS MARINER\" lettering visible on bow"),
     "assets/ships/regent/seven-seas-mariner/Osaka_Seven-Seas-Mariner04s3200.webp.attr.json": (
         "confirmed", "Full broadside at Osaka; \"SEVEN SEAS MARINER\" lettering visible on bow; same photographer series as 01n and 02n"),
+
+    # ---- Silver Endeavour (batch H, 2026-05-18) ----------------------------
+    "assets/ships/silversea/silver-endeavour/Silver_Endeavour_-_Gerlache_Strait_-_Antarctica_-_V-P.webp.attr.json": (
+        "confirmed", "Broadside in Antarctica's Gerlache Strait with iceberg behind; \"SILVER ENDEAVOUR\" lettering visible on bow"),
+    "assets/ships/silversea/silver-endeavour/2025_Silver_Endeavour_-_IMO_9821873_-_by_2eight_-_9SC0463.webp.attr.json": (
+        "confirmed", "Alongside at port (likely Ushuaia, 2025); \"SILVER ENDEAVOUR\" lettering visible on bow; IMO 9821873 in filename matches Silver Endeavour"),
+    "assets/ships/silversea/silver-endeavour/Silver_Endeavour_in_Loch_Dunvegan_-_geograph.org.uk_-_7759264.webp.attr.json": (
+        "consistent", "At anchor in Loch Dunvegan, Isle of Skye; distinctive Crystal Endeavor / Silver Endeavour expedition hull profile; geograph.org.uk attribution + filename + Loch Dunvegan setting support identification"),
 }
 
 
