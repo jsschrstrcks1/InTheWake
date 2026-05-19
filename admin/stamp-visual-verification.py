@@ -812,6 +812,20 @@ VERIFICATIONS = {
     "assets/ships/carnival/carnival-radiance/Carnival_Radiance_(ex._Carnival_Victory)_(ship,_2000)_Comes_Back_in_Long_Beach,_California_(December_2025).webp.attr.json": (
         "consistent", "Docked in Long Beach with the Spruce Goose dome visible at left; Carnival livery + whale-tail funnel; filename explicitly identifies the ship including its IMO/year"),
 
+    # ---- Carnival Luminosa (batch H, 2026-05-19) ---------------------------
+    "assets/ships/carnival/carnival-luminosa/Carnival_Luminosa_at_Brisbane_Australia.webp.attr.json": (
+        "confirmed", "Alongside at Brisbane; \"CARNIVAL LUMINOSA\" lettering clearly readable on bow; Carnival 2.0 livery (blue hull bow + red whale-tail funnel)"),
+    "assets/ships/carnival/carnival-luminosa/Luminosa_5680.webp.attr.json": (
+        "consistent", "Broadside in calm Pacific Northwest water; Concordia/Vista-class profile + Carnival whale-tail funnel; same uploader series as Juan de Fuca shots"),
+    "assets/ships/carnival/carnival-luminosa/With_Mt_Baker_5669.webp.attr.json": (
+        "consistent", "Passing in front of snow-capped Mount Baker; Carnival livery + whale-tail funnel match"),
+    "assets/ships/carnival/carnival-luminosa/Juan_de_Fuca_Straits_5677.webp.attr.json": (
+        "consistent", "On the Juan de Fuca Strait approach to Vancouver Island; Carnival livery + whale-tail funnel; same Pacific Northwest series"),
+    "assets/ships/carnival/carnival-luminosa/Juan_de_Fuca_Straits_5676.webp.attr.json": (
+        "consistent", "Distant on the horizon on the Juan de Fuca Strait viewed from shore; same series"),
+    "assets/ships/carnival/carnival-luminosa/Outbound_5666.webp.attr.json": (
+        "consistent", "Outbound on a hazy day, distant horizon shot; same Carnival whale-tail funnel + livery; same series"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
