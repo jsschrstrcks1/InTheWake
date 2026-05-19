@@ -619,6 +619,12 @@ VERIFICATIONS = {
         "confirmed", "Alongside at port (likely Ushuaia, 2025); \"SILVER ENDEAVOUR\" lettering visible on bow; IMO 9821873 in filename matches Silver Endeavour"),
     "assets/ships/silversea/silver-endeavour/Silver_Endeavour_in_Loch_Dunvegan_-_geograph.org.uk_-_7759264.webp.attr.json": (
         "consistent", "At anchor in Loch Dunvegan, Isle of Skye; distinctive Crystal Endeavor / Silver Endeavour expedition hull profile; geograph.org.uk attribution + filename + Loch Dunvegan setting support identification"),
+
+    # ---- Silver Wind (batch H, 2026-05-18) ---------------------------------
+    "assets/ships/silversea/silver-wind/Silver_Wind_-_Port_of_Bay_of_Cadiz_-_Photo_1.webp.attr.json": (
+        "consistent", "Silversea Wind-class ship alongside at Port of Cádiz; iconic Silversea \"S\" funnel logo visible; sister-class ambiguity with Cloud/Shadow/Whisper but Commons attribution + Cádiz setting + Emijrp series match"),
+    "assets/ships/silversea/silver-wind/Silver_Wind_-_Port_of_Bay_of_Cadiz_-_Photo_3.webp.attr.json": (
+        "consistent", "Wider Cádiz view from same Emijrp series; Silversea Wind-class profile with city skyline framing; same-day series as Photo 1"),
 }
 
 
