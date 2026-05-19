@@ -625,6 +625,12 @@ VERIFICATIONS = {
         "consistent", "Silversea Wind-class ship alongside at Port of Cádiz; iconic Silversea \"S\" funnel logo visible; sister-class ambiguity with Cloud/Shadow/Whisper but Commons attribution + Cádiz setting + Emijrp series match"),
     "assets/ships/silversea/silver-wind/Silver_Wind_-_Port_of_Bay_of_Cadiz_-_Photo_3.webp.attr.json": (
         "consistent", "Wider Cádiz view from same Emijrp series; Silversea Wind-class profile with city skyline framing; same-day series as Photo 1"),
+
+    # ---- Silver Shadow (batch H, 2026-05-18) -------------------------------
+    "assets/ships/silversea/silver-shadow/Silver_shadow_ovik01.webp.attr.json": (
+        "consistent", "Elevated view of Silver Shadow alongside at Örnsköldsvik, Sweden; Silversea \"S\" funnel logo visible; Shadow-class profile; sister-class ambiguity with Silver Whisper applies"),
+    "assets/ships/silversea/silver-shadow/Silver_shadow_ovik02.webp.attr.json": (
+        "consistent", "Underway in Örnsköldsvik bay under cloudy skies; same photographer (Petey21) series as ovik01; Silversea \"S\" funnel logo visible; Shadow-class profile"),
 }
 
 
