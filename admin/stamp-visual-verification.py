@@ -864,6 +864,12 @@ VERIFICATIONS = {
     "assets/ships/msc/msc-lirica/HPIM0200.webp.attr.json": (
         "consistent", "Wide aerial view of Geirangerfjord, Norway, with MSC ship at anchor; Commons categorized as Lirica; Lirica-class profile match"),
 
+    # ---- MSC Musica (batch H, 2026-05-19) ----------------------------------
+    "assets/ships/msc/msc-musica/MSC_Musica.webp.attr.json": (
+        "confirmed", "Broadside underway; faint MSC Musica name visible on bow; classic Musica-class white hull profile"),
+    "assets/ships/msc/msc-musica/Venice_MSC_Musica_001.webp.attr.json": (
+        "confirmed", "Alongside at Venice with tug and pilot boat; MSC bow lettering visible; Musica-class profile"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
