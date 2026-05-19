@@ -826,6 +826,18 @@ VERIFICATIONS = {
     "assets/ships/carnival/carnival-luminosa/Outbound_5666.webp.attr.json": (
         "consistent", "Outbound on a hazy day, distant horizon shot; same Carnival whale-tail funnel + livery; same series"),
 
+    # ---- Carnival Elation (batch H, 2026-05-19) ----------------------------
+    "assets/ships/carnival/carnival-elation/Carnival_Elation.webp.attr.json": (
+        "confirmed", "Docked at San Diego with SilverGate ferry alongside; \"Carnival Elation\" lettering visible twice on hull; whale-tail funnel + classic Carnival livery"),
+    "assets/ships/carnival/carnival-elation/Carnival_Elation_Bow.webp.attr.json": (
+        "confirmed", "Water-level bow shot; \"CARNIVAL ELATION\" lettering visible; tug alongside; faded photographer credit visible in corner"),
+    "assets/ships/carnival/carnival-elation/Gallery_du_carnival_elation.webp.attr.json": (
+        "confirmed", "Distinctive Joe Farcus \"Gallery\" promenade interior with stained-glass panels and chandeliers — interior decor unique to Carnival Elation"),
+    "assets/ships/carnival/carnival-elation/Carnival_Elation_docked_at_San_Diego_2009-12-22_1.webp.attr.json": (
+        "consistent", "Docked at San Diego 22 Dec 2009; classic Carnival livery + whale-tail funnel; Fantasy-class profile"),
+    "assets/ships/carnival/carnival-elation/Carnival_Elation_docked_at_San_Diego_2009-12-22_7.webp.attr.json": (
+        "consistent", "Same San Diego 22 Dec 2009 series, different angle; BrokenSphere uploader documented as Elation"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
