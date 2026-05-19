@@ -583,6 +583,12 @@ VERIFICATIONS = {
     # ---- Seven Seas Splendor (batch H, 2026-05-18) -------------------------
     "assets/ships/regent/seven-seas-splendor/AaIMG_2409_Seven_Seas_Splendor.webp.attr.json": (
         "consistent", "Explorer-class ship at Fincantieri Ancona shipyard with FINCANTIERI red gantry behind; characteristic curved Observation Lounge dome on top; Commons categorization as Splendor + Ancona setting where she was built; sister-class ambiguity with Explorer and Grandeur applies"),
+
+    # ---- Seven Seas Explorer (batch H, 2026-05-18) -------------------------
+    "assets/ships/regent/seven-seas-explorer/Seven_Seas_Explorer.webp.attr.json": (
+        "consistent", "Valletta waterfront sunset by Continentaleurope; filename explicitly claims Seven Seas Explorer; Explorer-class profile matches; no on-hull lettering legible at the angle/distance but Commons attribution + series context support the identification"),
+    "assets/ships/regent/seven-seas-explorer/Cruise_liner_at_Valletta_Waterfromt.webp.attr.json": (
+        "consistent", "Same photographer series as the explicitly-named Seven Seas Explorer file; Valletta sunset; Explorer-class profile; Commons categorized under Seven Seas Explorer (ship, 2016)"),
 }
 
 
