@@ -649,6 +649,12 @@ VERIFICATIONS = {
         "consistent", "Broadside at anchor off Sorrento; Muse-class profile; IMO 9857937 in filename matches Silver Dawn; Wolfgang Fricke series with matching IMO; sister-class ambiguity with Moon/Nova applies"),
     "assets/ships/silversea/silver-dawn/Silver_Dawn_IMO_9857937_P_Sorrento_20-04-2022_(2).webp.attr.json": (
         "consistent", "Same Sorrento series from Wolfgang Fricke, slightly different angle; IMO match in filename"),
+
+    # ---- Insignia (batch H, 2026-05-18) ------------------------------------
+    "assets/ships/oceania/insignia/Bordeaux_-_MS_Insignia_(2).webp.attr.json": (
+        "confirmed", "Bow shot of Insignia berthed on the Garonne at Bordeaux with Saint-Michel basilica spires behind; \"Insignia\" lettering visible on bow"),
+    "assets/ships/oceania/insignia/MS_Insignia_Istanbul.webp.attr.json": (
+        "consistent", "Broadside of an R-class ship underway at Istanbul with pilot boat alongside and container port behind; R-class profile matches; sister-class ambiguity with Nautica/Regatta/Sirena applies"),
 }
 
 
