@@ -603,6 +603,14 @@ VERIFICATIONS = {
         "consistent", "Port Canaveral alongside view across the parking lot; distinctive Navigator dome and profile match; filename explicitly identifies the ship"),
     "assets/ships/regent/seven-seas-navigator/MS_Seven_Seas_Navigator_(4171640179).webp.attr.json": (
         "consistent", "Distant broadside in tropical waters near a small island; Navigator profile match; period film softness; filename explicitly identifies the ship"),
+
+    # ---- Seven Seas Mariner (batch H, 2026-05-18) --------------------------
+    "assets/ships/regent/seven-seas-mariner/Osaka_Seven-Seas-Mariner01n3200.webp.attr.json": (
+        "confirmed", "Bow close-up at Osaka with Tempozan Ferris wheel behind; \"SEVEN SEAS MARINER\" lettering clearly readable on bow"),
+    "assets/ships/regent/seven-seas-mariner/Osaka_Seven-Seas-Mariner02n3200.webp.attr.json": (
+        "confirmed", "Three-quarter bow view at Osaka with the same Tempozan Ferris wheel; \"SEVEN SEAS MARINER\" lettering visible on bow"),
+    "assets/ships/regent/seven-seas-mariner/Osaka_Seven-Seas-Mariner04s3200.webp.attr.json": (
+        "confirmed", "Full broadside at Osaka; \"SEVEN SEAS MARINER\" lettering visible on bow; same photographer series as 01n and 02n"),
 }
 
 
