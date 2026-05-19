@@ -637,6 +637,12 @@ VERIFICATIONS = {
         "confirmed", "Bow shot alongside at Split, Croatia; \"SILVER WHISPER\" lettering clearly visible on bow; mountains and city behind"),
     "assets/ships/silversea/silver-whisper/Silver_Whisper7.webp.attr.json": (
         "consistent", "Broadside view with reeds and waterway in foreground; Silversea \"S\" funnel logo visible; Shadow-class profile (sister of Silver Shadow)"),
+
+    # ---- Silver Moon (batch H, 2026-05-18) ---------------------------------
+    "assets/ships/silversea/silver-moon/Silver_Moon_approaching_Pier_26_in_Port_of_Tallinn_26_June_2022.webp.attr.json": (
+        "confirmed", "Stern view approaching Pier 26 at Port of Tallinn; \"SILVER MOON / NASSAU\" lettering clearly readable on stern"),
+    "assets/ships/silversea/silver-moon/AaIMG_2422_Silver_Moon.webp.attr.json": (
+        "consistent", "Alongside at a Fincantieri shipyard with construction cranes overhead; Muse-class profile; sister-class ambiguity with Silver Dawn / Silver Nova applies; Commons filename and uploader (Xocolatl) explicitly identifies Silver Moon"),
 }
 
 
