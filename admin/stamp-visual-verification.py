@@ -792,6 +792,16 @@ VERIFICATIONS = {
     "assets/ships/rcl/vision-of-the-seas/Vision_of_the_Seas_bow_Nassau_2026-05-19.webp.attr.json": (
         "confirmed", "Owner-photographed at Nassau 2026-05-19; \"VISION OF THE SEAS / NASSAU\" lettering visible on bow; bow-on dock view"),
 
+    # ---- Carnival Sunrise (Commons, batch H, 2026-05-19) -------------------
+    "assets/ships/carnival/carnival-sunrise/Sunset_Ship.webp.attr.json": (
+        "confirmed", "Broadside at sunset; \"Carnival Sunrise\" lettering visible on bow + whale-tail funnel + Carnival livery"),
+    "assets/ships/carnival/carnival-sunrise/Carnival_Sunrise_Cruise.webp.attr.json": (
+        "confirmed", "At anchor in the Caribbean at golden hour; Carnival Sunrise name visible on bow; whale-tail funnel silhouetted"),
+    "assets/ships/carnival/carnival-sunrise/Carnival_Sunrise_Anchored_in_Grand_Cayman_(May_2025).webp.attr.json": (
+        "consistent", "Anchored off Grand Cayman May 2025 with Carnival Liberty visible at right; Carnival livery + whale-tail funnel match"),
+    "assets/ships/carnival/carnival-sunrise/Carnival_Sunrise_(ship,_1999)_and_Carnival_Liberty_(ship,_2005).webp.attr.json": (
+        "consistent", "Both Carnival ships at anchor off a Caribbean beach; Sunrise on left, Liberty on right; same Jack Adamenko series as the Grand Cayman shot"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
