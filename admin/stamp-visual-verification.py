@@ -561,6 +561,14 @@ VERIFICATIONS = {
         "confirmed", "Broadside view; faint \"SEABOURN VENTURE\" lettering visible on dark green expedition hull; characteristic angular Venture-class superstructure"),
     "assets/ships/seabourn/seabourn-venture/SEABOURN_VENTURE_02.webp.attr.json": (
         "consistent", "Same photographer (D-AIFF), same day series as confirmed file 01; sister ambiguity with Seabourn Pursuit but Commons categorization + series context match Venture"),
+
+    # ---- Seabourn Pursuit (batch H, 2026-05-18) ----------------------------
+    "assets/ships/seabourn/seabourn-pursuit/Seabourn_Pursuit.webp.attr.json": (
+        "confirmed", "Underway at sea; \"SEABOURN PURSUIT\" lettering clearly visible on dark green expedition hull"),
+    "assets/ships/seabourn/seabourn-pursuit/Porto_Nogaro_banchina_Cimolai_-_Mar_173.webp.attr.json": (
+        "consistent", "Bare hull at T. Mariotti shipyard fitout berth in Porto Nogaro — Pursuit's build name was yard number Mar 173; T. MARIOTTI gantry lettering visible; Commons-categorized as Seabourn Pursuit construction"),
+    "assets/ships/seabourn/seabourn-pursuit/Porto_Nogaro_-_Mar_173_dal_basso.webp.attr.json": (
+        "consistent", "Pre-livery hull section on launch barge with Mar 173 yard number visible; Commons-categorized as Seabourn Pursuit pre-delivery"),
 }
 
 
