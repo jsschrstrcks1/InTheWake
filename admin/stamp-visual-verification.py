@@ -666,6 +666,16 @@ VERIFICATIONS = {
     "assets/ships/oceania/allura/AlluraCantiere.webp.attr.json": (
         "confirmed", "Alongside at Fincantieri Sestri Ponente shipyard with construction cranes overhead; \"Allura\" lettering visible on bow; Oceania crown emblem on funnel"),
 
+    # ---- Oceania Vista (batch H, 2026-05-18) -------------------------------
+    "assets/ships/oceania/vista/Cabin_on_Oceania_Vista.webp.attr.json": (
+        "confirmed", "Vista-class balcony stateroom; \"OCEANIA CRUISES\" runner across bed visible; uploader RL0919 documented as Vista"),
+    "assets/ships/oceania/vista/Grand_Lounge_on_Oceania_Vista.webp.attr.json": (
+        "consistent", "Vista's Grand Lounge with distinctive gilded chandelier installation; Allura-class interior — sister ambiguity with Allura applies, uploader RL0919 attribution to Vista"),
+    "assets/ships/oceania/vista/Central_staircase_on_Oceania_Vista.webp.attr.json": (
+        "consistent", "Central atrium spiral metalwork sculpture; Allura-class interior — sister ambiguity, uploader RL0919 series attribution"),
+    "assets/ships/oceania/vista/Casino_on_Oceania_Vista.webp.attr.json": (
+        "consistent", "Casino with blackjack tables; Allura-class interior — sister ambiguity, uploader RL0919 series attribution"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
