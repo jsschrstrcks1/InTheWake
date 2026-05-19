@@ -643,6 +643,12 @@ VERIFICATIONS = {
         "confirmed", "Stern view approaching Pier 26 at Port of Tallinn; \"SILVER MOON / NASSAU\" lettering clearly readable on stern"),
     "assets/ships/silversea/silver-moon/AaIMG_2422_Silver_Moon.webp.attr.json": (
         "consistent", "Alongside at a Fincantieri shipyard with construction cranes overhead; Muse-class profile; sister-class ambiguity with Silver Dawn / Silver Nova applies; Commons filename and uploader (Xocolatl) explicitly identifies Silver Moon"),
+
+    # ---- Silver Dawn (batch H, 2026-05-18) ---------------------------------
+    "assets/ships/silversea/silver-dawn/Silver_Dawn_IMO_9857937_P_Sorrento_20-04-2022_(1).webp.attr.json": (
+        "consistent", "Broadside at anchor off Sorrento; Muse-class profile; IMO 9857937 in filename matches Silver Dawn; Wolfgang Fricke series with matching IMO; sister-class ambiguity with Moon/Nova applies"),
+    "assets/ships/silversea/silver-dawn/Silver_Dawn_IMO_9857937_P_Sorrento_20-04-2022_(2).webp.attr.json": (
+        "consistent", "Same Sorrento series from Wolfgang Fricke, slightly different angle; IMO match in filename"),
 }
 
 
