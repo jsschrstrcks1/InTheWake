@@ -676,6 +676,16 @@ VERIFICATIONS = {
     "assets/ships/oceania/vista/Casino_on_Oceania_Vista.webp.attr.json": (
         "consistent", "Casino with blackjack tables; Allura-class interior — sister ambiguity, uploader RL0919 series attribution"),
 
+    # ---- Silver Nova (batch H, 2026-05-18) ---------------------------------
+    "assets/ships/silversea/silver-nova/Silver_nova.webp.attr.json": (
+        "consistent", "Wide broadside at shipyard quay at dusk; distinctive Nova-class twin-island superstructure; sister-class ambiguity with Silver Ray applies"),
+    "assets/ships/silversea/silver-nova/Silver_Nova_docked_in_Auckland_PA01.webp.attr.json": (
+        "consistent", "Auckland harbour port-side superstructure with heritage Pier Master House in foreground; Nova-class profile; sister ambiguity"),
+    "assets/ships/silversea/silver-nova/Silver_Nova_docked_in_Auckland_PA02.webp.attr.json": (
+        "consistent", "Same Auckland location from slightly different angle; same uploader Paora series"),
+    "assets/ships/silversea/silver-nova/Silver_Nova_docked_in_Auckland_PA03.webp.attr.json": (
+        "consistent", "Wide Auckland view with Sky Tower and city skyline framing Silver Nova; Nova-class profile; sister ambiguity"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
