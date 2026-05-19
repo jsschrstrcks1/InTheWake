@@ -694,6 +694,16 @@ VERIFICATIONS = {
     "assets/ships/silversea/silver-cloud/Silver_Cloud_Isafjordur_16.webp.attr.json": (
         "confirmed", "Wide view at Ísafjörður with fishing boats in foreground; \"SILVER CLOUD\" name visible on hull, same Christian Bickel series"),
 
+    # ---- Carnival Pride (batch H, 2026-05-18) ------------------------------
+    "assets/ships/carnival/carnival-pride/Carnival_Pride_at_Mazatlan_3.webp.attr.json": (
+        "confirmed", "Bow alongside at Mazatlán; \"CARNIVAL PRIDE\" lettering clearly readable; mooring lines + bollards in foreground"),
+    "assets/ships/carnival/carnival-pride/Carnival_Pride_in_Cabo_San_Lucas.webp.attr.json": (
+        "confirmed", "At anchor off Cabo San Lucas; \"Carnival Pride\" lettering visible on bow; distinctive Carnival whale-tail funnel + red/white/blue hull stripe"),
+    "assets/ships/carnival/carnival-pride/Carnival_Pride_at_Mazatlan_1.webp.attr.json": (
+        "confirmed", "Departing Mazatlán with harbour tug alongside; whale-tail funnel + Carnival livery; same Stan Shebs series with confirmed file 3"),
+    "assets/ships/carnival/carnival-pride/Carnival_Pride_at_Mazatlan_2.webp.attr.json": (
+        "confirmed", "Alongside at Mazatlán with Celebrity ship adjacent; \"CARNIVAL PRIDE\" lettering readable on bow; Pride is centered subject"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
