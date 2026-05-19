@@ -631,6 +631,12 @@ VERIFICATIONS = {
         "consistent", "Elevated view of Silver Shadow alongside at Örnsköldsvik, Sweden; Silversea \"S\" funnel logo visible; Shadow-class profile; sister-class ambiguity with Silver Whisper applies"),
     "assets/ships/silversea/silver-shadow/Silver_shadow_ovik02.webp.attr.json": (
         "consistent", "Underway in Örnsköldsvik bay under cloudy skies; same photographer (Petey21) series as ovik01; Silversea \"S\" funnel logo visible; Shadow-class profile"),
+
+    # ---- Silver Whisper (batch H, 2026-05-18) ------------------------------
+    "assets/ships/silversea/silver-whisper/Silver_Whisper_Split.webp.attr.json": (
+        "confirmed", "Bow shot alongside at Split, Croatia; \"SILVER WHISPER\" lettering clearly visible on bow; mountains and city behind"),
+    "assets/ships/silversea/silver-whisper/Silver_Whisper7.webp.attr.json": (
+        "consistent", "Broadside view with reeds and waterway in foreground; Silversea \"S\" funnel logo visible; Shadow-class profile (sister of Silver Shadow)"),
 }
 
 
