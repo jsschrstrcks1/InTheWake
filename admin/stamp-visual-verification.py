@@ -657,6 +657,15 @@ VERIFICATIONS = {
         "consistent", "Broadside of an R-class ship underway at Istanbul with pilot boat alongside and container port behind; R-class profile matches; sister-class ambiguity with Nautica/Regatta/Sirena applies"),
 
     # ---- Regatta (batch H, 2026-05-18) -------------------------------------
+    "assets/ships/oceania/allura/Allura_Lettering_Port_of_Rhodes_11_August_2025.webp.attr.json": (
+        "confirmed", "Bow close-up at Port of Rhodes; \"Allura / MAJURO\" script lettering clearly readable"),
+    "assets/ships/oceania/allura/Allura_Stern_Port_of_Rhodes_11_August_2025.webp.attr.json": (
+        "confirmed", "Stern view at Port of Rhodes; \"Allura\" stern name visible; Oceania crown emblem on funnel"),
+    "assets/ships/oceania/allura/Allura_moored_at_Quay_in_Port_of_Rhodes_11_August_2025.webp.attr.json": (
+        "consistent", "Moored at Rhodes quay viewed across a roadway with tree in foreground; PjotrMahh1 series + Rhodes 11-Aug-2025 context match the confirmed close-up and stern files"),
+    "assets/ships/oceania/allura/AlluraCantiere.webp.attr.json": (
+        "confirmed", "Alongside at Fincantieri Sestri Ponente shipyard with construction cranes overhead; \"Allura\" lettering visible on bow; Oceania crown emblem on funnel"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
