@@ -802,6 +802,16 @@ VERIFICATIONS = {
     "assets/ships/carnival/carnival-sunrise/Carnival_Sunrise_(ship,_1999)_and_Carnival_Liberty_(ship,_2005).webp.attr.json": (
         "consistent", "Both Carnival ships at anchor off a Caribbean beach; Sunrise on left, Liberty on right; same Jack Adamenko series as the Grand Cayman shot"),
 
+    # ---- Carnival Radiance (batch H, 2026-05-19) ---------------------------
+    "assets/ships/carnival/carnival-radiance/Carnival_Radiance_in_Ensenada_2023.webp.attr.json": (
+        "confirmed", "Alongside at Ensenada with mountains behind; \"CARNIVAL RADIANCE\" lettering clearly readable on bow and side"),
+    "assets/ships/carnival/carnival-radiance/Carnival_Radiance.webp.attr.json": (
+        "confirmed", "Departing harbor at golden hour; \"Carnival Radiance\" lettering visible on hull + whale-tail funnel + Carnival livery"),
+    "assets/ships/carnival/carnival-radiance/Carnival_Radiance_at_Avalon_October_2023.webp.attr.json": (
+        "confirmed", "At anchor off Avalon, Catalina Island, October 2023; \"Carnival Radiance\" lettering visible on hull"),
+    "assets/ships/carnival/carnival-radiance/Carnival_Radiance_(ex._Carnival_Victory)_(ship,_2000)_Comes_Back_in_Long_Beach,_California_(December_2025).webp.attr.json": (
+        "consistent", "Docked in Long Beach with the Spruce Goose dome visible at left; Carnival livery + whale-tail funnel; filename explicitly identifies the ship including its IMO/year"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
