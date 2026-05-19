@@ -655,6 +655,12 @@ VERIFICATIONS = {
         "confirmed", "Bow shot of Insignia berthed on the Garonne at Bordeaux with Saint-Michel basilica spires behind; \"Insignia\" lettering visible on bow"),
     "assets/ships/oceania/insignia/MS_Insignia_Istanbul.webp.attr.json": (
         "consistent", "Broadside of an R-class ship underway at Istanbul with pilot boat alongside and container port behind; R-class profile matches; sister-class ambiguity with Nautica/Regatta/Sirena applies"),
+
+    # ---- Regatta (batch H, 2026-05-18) -------------------------------------
+    "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
+        "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
+    "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
+        "confirmed", "Dramatic bow shot at Saint Petersburg with film-grain processing; \"Regatta\" lettering clearly visible on bow"),
 }
 
 
