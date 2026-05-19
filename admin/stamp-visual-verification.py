@@ -838,6 +838,16 @@ VERIFICATIONS = {
     "assets/ships/carnival/carnival-elation/Carnival_Elation_docked_at_San_Diego_2009-12-22_7.webp.attr.json": (
         "consistent", "Same San Diego 22 Dec 2009 series, different angle; BrokenSphere uploader documented as Elation"),
 
+    # ---- MSC Euribia (batch H, 2026-05-19) ---------------------------------
+    "assets/ships/msc/msc-euribia/MSC_Euribia_-_Saint-Nazaire_-_3_juin_2023.webp.attr.json": (
+        "confirmed", "Under way off Saint-Nazaire 3 June 2023; distinctive blue/white whale-themed hull livery — unique to MSC Euribia"),
+    "assets/ships/msc/msc-euribia/MSC_Euribia,_Chantiers_de_l_Atlantique_shipyard,_Saint-Nazaire-5017.webp.attr.json": (
+        "confirmed", "Stern close-up during fitout at Chantiers de l'Atlantique; \"MSC EURIBIA / VALLETTA\" lettering clearly visible on stern"),
+    "assets/ships/msc/msc-euribia/Chantiers_Atlantique_paquebot_armement.webp.attr.json": (
+        "consistent", "MSC ship at Chantiers de l'Atlantique shipyard during fitout; Commons categorized as Euribia; Meraviglia-Plus-class profile"),
+    "assets/ships/msc/msc-euribia/MSC_Euribia,_Chantiers_de_l_Atlantique_shipyard,_Saint-Nazaire-5015.webp.attr.json": (
+        "consistent", "Wider view at Saint-Nazaire with shipyard cranes; same fitout series as 5017"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
