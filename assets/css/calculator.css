@@ -1127,39 +1127,248 @@ details[open] summary::before {
 
 /* ==================== 20. PRINT STYLES ==================== */
 @media print {
+  /* --- Hide interactive / non-essential chrome --- */
   .skip-link,
+  .hero-header,
   .navbar,
   .hero,
-  .action-buttons,
   .quiz-cta,
   .email-cta,
-  .rail,
-  footer {
+  .author-card-vertical,
+  .page-intro,
+  footer,
+  #quiz-modal,
+  #line-selector,
+  #free-at-sea-toggle,
+  #booking-date-wrap,
+  #package-selector-status,
+  #fallback-banner,
+  #offline-rates-chip,
+  #email-cta,
+  #recent-rail-title,
+  [aria-labelledby="recent-rail-title"],
+  [aria-labelledby="authors-rail-title"],
+  .related-resources,
+  .action-buttons,
+  .calculate-with-btn,
+  .btn-reset,
+  .toggle-switch,
+  .selector-status,
+  #preset-buttons,
+  #preset-explanation,
+  #recovery-affirmation,
+  #a11y-status,
+  #a11y-alerts,
+  #aria-live-region,
+  .controls-inline.action-buttons {
     display: none !important;
   }
-  
+
+  /* --- Reset colours & backgrounds --- */
+  *,
+  *::before,
+  *::after {
+    color: #000 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
   body {
-    background: #fff;
-    color: #000;
+    font-size: 11pt;
+    line-height: 1.45;
+    margin: 0;
+    padding: 0;
   }
-  
+
+  /* --- Single-column layout --- */
+  .calculator-grid {
+    display: block !important;
+  }
+
+  .wrap {
+    max-width: 100%;
+    padding: 0.5cm;
+  }
+
+  .col-2 {
+    margin-top: 0.5cm;
+  }
+
+  /* --- Cards --- */
   .card {
-    border: 1px solid #000;
+    border: 1pt solid #999 !important;
+    padding: 0.4cm;
+    margin: 0.3cm 0;
     page-break-inside: avoid;
+    break-inside: avoid;
   }
-  
-  #breakeven-wrap {
-    page-break-inside: avoid;
-  }
-  
-  a {
-    color: #000;
-    text-decoration: underline;
-  }
-  
-  h1, h2, h3 {
-    color: #000;
+
+  /* --- Headings --- */
+  h1, h2, h3, h4 {
     page-break-after: avoid;
+    break-after: avoid;
+    margin-top: 0.15cm;
+  }
+
+  h1 { font-size: 16pt; }
+  h2 { font-size: 13pt; }
+  h3 { font-size: 11pt; }
+
+  /* --- Links: show URL --- */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    font-weight: 400;
+    word-break: break-all;
+  }
+
+  a[href^="/"]::after,
+  a[href^="#"]::after {
+    content: none;
+  }
+
+  /* --- Chart --- */
+  #breakeven-wrap {
+    border: 1pt solid #999 !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  #best-stamp {
+    background: #eee !important;
+    color: #000 !important;
+    border: 1pt solid #000;
+  }
+
+  /* --- Package cards in sidebar --- */
+  .package-card {
+    border: 1pt solid #999 !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    cursor: default;
+    transform: none !important;
+  }
+
+  .package-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .package-card.winner {
+    border: 2pt solid #000 !important;
+  }
+
+  .package-card.user-selected {
+    outline: 2pt solid #000;
+    transform: none !important;
+  }
+
+  .package-card.user-selected::before {
+    content: '✓ SELECTED';
+    background: #eee !important;
+    color: #000 !important;
+    font-size: 8pt;
+  }
+
+  .package-card .price {
+    font-size: 14pt;
+  }
+
+  /* --- Tables --- */
+  .group-table {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .group-table th {
+    border-bottom: 1.5pt solid #000 !important;
+  }
+
+  .group-table td {
+    border-bottom: 0.5pt solid #999 !important;
+  }
+
+  /* --- Inputs: show values only --- */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  select {
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    font-weight: 700;
+  }
+
+  input[type="range"],
+  input[type="checkbox"] {
+    display: none !important;
+  }
+
+  /* --- Banners & badges --- */
+  .banner {
+    border: 1pt solid #999 !important;
+    padding: 0.3cm;
+  }
+
+  .badge {
+    border: 1pt solid #000 !important;
+    background: #eee !important;
+    color: #000 !important;
+  }
+
+  .banner-warn {
+    border: 1pt solid #000 !important;
+  }
+
+  /* --- Details panels: force open for print --- */
+  details {
+    border: 0.5pt solid #bbb !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  details summary::before {
+    content: none !important;
+  }
+
+  /* --- Policy alerts --- */
+  .policy-alert {
+    border: 1.5pt solid #000 !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* --- Category breakdown --- */
+  .category-summary {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* --- Stewardship block --- */
+  .legal-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    font-size: 9pt;
+  }
+
+  /* --- FAQ --- */
+  #faq {
+    page-break-before: auto;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* --- Page header: add site name --- */
+  @page {
+    margin: 1.5cm 1cm;
+    size: auto;
+  }
+
+  /* --- Orphan/widow control --- */
+  p, li {
+    orphans: 3;
+    widows: 3;
   }
 }
 
@@ -2030,32 +2239,7 @@ details[open] summary::before {
   border: 0;
 }
 
-/* ==========================================
-   PRINT STYLES (Bonus)
-   ========================================== */
-
-@media print {
-  .selector-status,
-  .calculate-with-btn,
-  .btn-reset,
-  .toggle-switch {
-    display: none;
-  }
-  
-  .package-card.user-selected {
-    outline: 2px solid #000;
-    transform: none;
-  }
-  
-  .package-card.user-selected::before {
-    content: '✓ SELECTED';
-    background: #000;
-  }
-  
-  .policy-alert {
-    page-break-inside: avoid;
-  }
-}
+/* Print overrides for interactive package features are consolidated in Section 20 above */
 
 /* ==========================================
    DARK MODE (Future Enhancement)
