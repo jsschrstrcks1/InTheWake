@@ -724,6 +724,20 @@ VERIFICATIONS = {
     "assets/ships/carnival/carnival-vista/Trieste_(26740757246).webp.attr.json": (
         "confirmed", "Carnival Vista off Trieste at dusk with another cruise ship distant on right; Carnival livery + whale-tail funnel; Vista is the dominant centered subject"),
 
+    # ---- Carnival Splendor (batch H, 2026-05-18) ---------------------------
+    "assets/ships/carnival/carnival-splendor/Cruise_Ship_Carnival_Splendor_-_Stern_View_-_San_Francisco_-_March_2009.webp.attr.json": (
+        "confirmed", "Stern view at San Francisco with Transamerica Pyramid skyline behind; \"CARNIVAL SPLENDOR\" lettering clearly readable on stern"),
+    "assets/ships/carnival/carnival-splendor/Carnival_Splendor_In_Vancouver_on_May_14,_2009.webp.attr.json": (
+        "confirmed", "Berthed at Canada Place, Vancouver; \"CARNIVAL SPLENDOR\" lettering clearly readable on hull"),
+    "assets/ships/carnival/carnival-splendor/Le_carnival_splendor_au_depart_de_port_everglade.webp.attr.json": (
+        "confirmed", "Broadside view departing Port Everglades at golden hour; Carnival whale-tail funnel + livery; \"CARNIVAL SPLENDOR\" lettering visible on hull"),
+    "assets/ships/carnival/carnival-splendor/Carnival_Splendor_-_San_Diego_repairs.webp.attr.json": (
+        "confirmed", "Alongside at San Diego with harbour tugs in foreground after the November 2010 engine-room fire incident; \"CARNIVAL SPLENDOR\" lettering visible on hull"),
+    "assets/ships/carnival/carnival-splendor/Passagiers_Terminal_Amsterdam_2.webp.attr.json": (
+        "confirmed", "Port-side superstructure close-up at Amsterdam Passenger Terminal; \"CARNIVAL SPLENDOR\" lettering faintly visible on hull; lifeboats + people + bicycles in foreground"),
+    "assets/ships/carnival/carnival-splendor/Carnival_Splendor_Under_Construction_on_5_August_2007.webp.attr.json": (
+        "confirmed", "At Fincantieri Sestri Ponente shipyard during construction, August 2007; distinctive Carnival whale-tail funnel + livery; sailboats in foreground"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
