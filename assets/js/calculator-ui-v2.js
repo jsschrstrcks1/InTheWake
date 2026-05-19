@@ -573,6 +573,205 @@ function renderChartTable(chartData, winnerKey) {
 
 }
 
+/* ==================== BREAK-EVEN CROSSOVER CHART (Feature E) ==================== */
+
+let crossoverInstance = null;
+
+function renderCrossoverChart() {
+  const canvas = document.getElementById('crossover-chart');
+  const wrap = document.getElementById('crossover-wrap');
+  const lc = window.ITW_LINE_CONFIG;
+  if (!canvas || !wrap || !lc || !window.Chart) return;
+  if (lc.allInclusive || lc.noPackages) {
+    wrap.style.display = 'none';
+    return;
+  }
+
+  const grat = lc.rules?.gratuity || 0;
+  const formatMoney = window.ITW?.formatMoney || ((v) => '$' + v.toFixed(2));
+
+  const pkgs = [];
+  const pkgColors = {
+    soda: { line: 'rgba(255, 159, 64, 0.9)', bg: 'rgba(255, 159, 64, 0.1)' },
+    refreshment: { line: 'rgba(75, 192, 192, 0.9)', bg: 'rgba(75, 192, 192, 0.1)' },
+    deluxe: { line: 'rgba(153, 102, 255, 0.9)', bg: 'rgba(153, 102, 255, 0.1)' },
+    deluxePlus: { line: 'rgba(255, 99, 132, 0.9)', bg: 'rgba(255, 99, 132, 0.1)' }
+  };
+
+  for (const [key, pkg] of Object.entries(lc.packages || {})) {
+    if (!pkg.priceMid || pkg.priceMid === 0) continue;
+    const be = pkg.breakEvenDrink;
+    if (!be || !be.price || be.price === 0) continue;
+    const dailyCost = pkg.priceMid * (1 + grat);
+    const drinkCost = be.price * (1 + grat);
+    const breakEven = dailyCost / drinkCost;
+    pkgs.push({ key, name: pkg.shortName || pkg.name, dailyCost, drinkCost, drinkName: be.name, drinkPrice: be.price, breakEven });
+  }
+
+  if (pkgs.length === 0) {
+    wrap.style.display = 'none';
+    return;
+  }
+
+  const mainPkg = pkgs.find(p => p.key === 'deluxe') || pkgs[pkgs.length - 1];
+  const maxX = Math.min(Math.ceil(mainPkg.breakEven * 2), 20);
+  const step = maxX <= 10 ? 0.5 : 1;
+  const labels = [];
+  for (let x = 0; x <= maxX; x += step) labels.push(x);
+
+  const alaCarteData = labels.map(x => +(x * mainPkg.drinkCost).toFixed(2));
+
+  const datasets = [{
+    label: 'À la carte (' + mainPkg.drinkName + ' @ ' + formatMoney(mainPkg.drinkPrice) + ')',
+    data: alaCarteData,
+    borderColor: 'rgba(14, 110, 142, 1)',
+    backgroundColor: 'rgba(14, 110, 142, 0.05)',
+    borderWidth: 3,
+    fill: false,
+    tension: 0,
+    pointRadius: 0
+  }];
+
+  for (const pkg of pkgs) {
+    const colors = pkgColors[pkg.key] || { line: '#999', bg: 'rgba(153,153,153,0.1)' };
+    datasets.push({
+      label: pkg.name + ' (' + formatMoney(pkg.dailyCost) + '/day)',
+      data: labels.map(() => +pkg.dailyCost.toFixed(2)),
+      borderColor: colors.line,
+      backgroundColor: colors.bg,
+      borderWidth: 2,
+      borderDash: [6, 3],
+      fill: false,
+      tension: 0,
+      pointRadius: 0
+    });
+  }
+
+  const cdcModerate = 2;
+  const industryAvg = 4.7;
+
+  const annotationPlugin = {
+    id: 'crossoverAnnotations',
+    afterDraw: function(chart) {
+      const ctx = chart.ctx;
+      const xScale = chart.scales.x;
+      const yScale = chart.scales.y;
+
+      function drawVertical(xVal, color, label, labelY) {
+        const xIdx = labels.indexOf(xVal);
+        let xPx;
+        if (xIdx >= 0) {
+          xPx = xScale.getPixelForValue(xIdx);
+        } else {
+          const frac = xVal / step;
+          xPx = xScale.getPixelForValue(frac);
+        }
+        if (xPx < xScale.left || xPx > xScale.right) return;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.5;
+        ctx.moveTo(xPx, yScale.top);
+        ctx.lineTo(xPx, yScale.bottom);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = color;
+        ctx.font = 'bold 10px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(label, xPx, labelY);
+        ctx.restore();
+      }
+
+      drawVertical(cdcModerate, '#ef4444', 'CDC moderate (2/day)', yScale.top + 12);
+      drawVertical(industryAvg, '#f59e0b', 'Avg cruiser ~4.7/day*', yScale.top + 26);
+
+      for (const pkg of pkgs) {
+        const beIdx = pkg.breakEven / step;
+        const bePx = xScale.getPixelForValue(beIdx);
+        const beCost = pkg.dailyCost;
+        const yPx = yScale.getPixelForValue(beCost);
+        if (bePx >= xScale.left && bePx <= xScale.right) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(bePx, yPx, 6, 0, Math.PI * 2);
+          ctx.fillStyle = '#fff';
+          ctx.fill();
+          ctx.strokeStyle = '#0a3d62';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.fillStyle = '#0a3d62';
+          ctx.font = 'bold 10px system-ui, sans-serif';
+          ctx.textAlign = 'left';
+          ctx.fillText(Math.round(pkg.breakEven * 10) / 10 + ' drinks', bePx + 10, yPx - 4);
+          ctx.restore();
+        }
+      }
+    }
+  };
+
+  if (crossoverInstance) {
+    crossoverInstance.destroy();
+    crossoverInstance = null;
+  }
+
+  try {
+    crossoverInstance = new Chart(canvas.getContext('2d'), {
+      type: 'line',
+      data: { labels: labels.map(String), datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { size: 11 } } },
+          tooltip: {
+            callbacks: {
+              title: function(items) { return items[0].label + ' drinks/day'; },
+              label: function(ctx) { return ctx.dataset.label.split('(')[0].trim() + ': ' + formatMoney(ctx.parsed.y); }
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Drinks per day', font: { weight: 'bold' } },
+            ticks: { callback: function(val, idx) { const v = labels[idx]; return Number.isInteger(v) ? v : ''; } }
+          },
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: 'Daily cost (incl. gratuity)', font: { weight: 'bold' } },
+            ticks: { callback: function(v) { return formatMoney(v); } }
+          }
+        }
+      },
+      plugins: [annotationPlugin]
+    });
+
+    wrap.style.display = '';
+
+    const srTable = document.getElementById('crossover-sr-table');
+    if (srTable) {
+      srTable.innerHTML = '';
+      for (const pkg of pkgs) {
+        const row = document.createElement('tr');
+        row.innerHTML = '<td>' + pkg.name + '</td><td>' + (Math.round(pkg.breakEven * 10) / 10) + ' ' + pkg.drinkName + '</td><td>' + formatMoney(pkg.dailyCost) + '</td>';
+        srTable.appendChild(row);
+      }
+    }
+
+    const note = document.getElementById('crossover-note');
+    if (note) {
+      note.innerHTML = '*4.7 drinks/day is a consumer-app estimate (Shipmate), not an official CLIA or academic figure. ' +
+        'CDC defines moderate as ≤2 drinks/day for men, ≤1 for women (14g standard drink). ' +
+        'Break-even assumes all drinks are ' + mainPkg.drinkName + ' at ' + formatMoney(mainPkg.drinkPrice) + ' each; a mix of cheaper drinks raises the break-even count.';
+    }
+  } catch (e) {
+    wrap.style.display = 'none';
+  }
+}
+
 /* ==================== PACKAGE CARDS (TWO-WINNER SYSTEM) ==================== */
 
 /**
@@ -1483,6 +1682,8 @@ function renderAll() {
 
     renderChart(results.bars, results.winnerKey);
 
+    renderCrossoverChart();
+
     renderPackageCards(results);
 
     renderSummary(results);
@@ -1692,6 +1893,7 @@ window.ITW_UI = Object.freeze({
   applyPreset,
   renderChart,
   renderChartTable,
+  renderCrossoverChart,
   renderBanner,
   renderTotals,
   renderPackageCards,
@@ -1699,7 +1901,7 @@ window.ITW_UI = Object.freeze({
   renderHealthNote,
   renderCostSummary,
   announce,
-  version: '1.007.000' // ✅ UPDATED: Transparent package breakdown
+  version: '1.008.000'
 });
 
 window.applyPreset = applyPreset;

@@ -126,7 +126,7 @@
         "name": "When does a Royal Caribbean drink package break even?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "For the Deluxe Beverage Package at approximately $89/day (pre-cruise pricing), you break even at 6-7 drinks per day when factoring in the 18% automatic gratuity. The exact break-even point depends on your drink preferences (cocktails vs beer vs specialty coffee), whether you have Crown & Anchor vouchers, and whether you buy pre-cruise vs onboard. Use the calculator to find your personalized break-even number."
+          "text": "For the Deluxe Beverage Package at the fleet median of ~$77/day pre-cruise (range $55–$125 depending on ship), you break even at about 6 cocktails per day or 7-8 mixed drinks when factoring in the 18% automatic gratuity. Newer ships like Utopia price closer to $90–$105/day. The exact break-even depends on your drink preferences, Crown & Anchor vouchers, and whether you buy pre-cruise vs onboard."
         }
       },
       {
@@ -1270,15 +1270,6 @@
           <summary style="padding:0.6rem 1rem; cursor:pointer; font-weight:600; color:#6a1b9a;">📝 <span id="fine-print-title">Fine print</span></summary>
           <div id="fine-print-content" style="padding:0.5rem 1rem 0.75rem; color:#4a148c; line-height:1.6;"></div>
         </details>
-          <p style="margin:0 0 0.75rem 0;font-size:1.125rem;line-height:1.6;color:#01579b;">
-            <strong>⚡ Quick Answer:</strong> Most cruisers break even on the Deluxe Beverage Package at <strong>6-7 drinks per day</strong> (mix of cocktails, beer, specialty coffee).
-            The Soda Package breaks even at ~4 sodas/day, and the Refreshment Package at ~5 specialty drinks/day.
-          </p>
-          <p style="margin:0;font-size:1rem;line-height:1.5;color:#0277bd;">
-            💡 Use the calculator below to find <em>your exact break-even point</em> based on your drinking habits, Crown & Anchor vouchers, and trip length.
-            It takes 60 seconds and includes all current pricing (updated Nov 2025).
-          </p>
-        </div>
 
         <!-- Best Value Banner -->
         <div class="banner" role="status" aria-live="polite">
@@ -1651,6 +1642,21 @@
             Hover over bars to see exact dollar amounts.
           </div>
           
+          <!-- Break-Even Crossover Chart (Feature E) -->
+          <div id="crossover-wrap" style="display:none; margin:1.5rem 0; padding:1rem; background:#fff; border-radius:14px; border:2px solid #e6c9a0;">
+            <h4 style="margin:0 0 0.5rem; color:#0a3d62;">Break-Even Crossover: Drinks vs. Cost</h4>
+            <p class="tiny muted" style="margin:0 0 0.75rem;">Shows daily cost at different drink levels. Where the à-la-carte line crosses a package line is the break-even point.</p>
+            <div style="position:relative; max-height:320px;">
+              <canvas id="crossover-chart" role="img" aria-label="Break-even crossover chart showing where package and à la carte costs intersect" aria-describedby="crossover-desc"></canvas>
+            </div>
+            <table id="crossover-desc" class="sr-only" aria-label="Break-even crossover data">
+              <caption>Break-even points by package</caption>
+              <thead><tr><th scope="col">Package</th><th scope="col">Break-Even Drinks/Day</th><th scope="col">Daily Cost at Break-Even</th></tr></thead>
+              <tbody id="crossover-sr-table"></tbody>
+            </table>
+            <p id="crossover-note" class="tiny muted" style="margin:0.5rem 0 0;"></p>
+          </div>
+
           <!-- ✅ NEW: Nudges Container (dynamically populated) -->
           <div id="nudges-container" role="region" aria-label="Breakeven tips" style="display:none;">
             <!-- JavaScript will populate nudges here -->
@@ -1886,32 +1892,32 @@
           <tbody>
             <tr>
               <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;"><strong>Soda Package</strong></td>
-              <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">~$12.99</td>
-              <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">Fountain soda, refillable Coca-Cola cup</td>
-              <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e8eef2;">4-5 sodas</td>
+              <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">~$14/day (+18% grat)</td>
+              <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">Fountain soda, Coca-Cola Freestyle, souvenir cup</td>
+              <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e8eef2;">4 sodas/day</td>
             </tr>
             <tr>
               <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;"><strong>Refreshment Package</strong></td>
-              <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">~$38</td>
+              <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">~$34.50/day (+18% grat)</td>
               <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">Soda, specialty coffee, fresh juice, mocktails, water, energy drinks — no alcohol</td>
-              <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e8eef2;">5-6 drinks</td>
+              <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e8eef2;">8-9 specialty coffees/day</td>
             </tr>
             <tr>
               <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;"><strong>Deluxe Beverage</strong></td>
-              <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">~$89</td>
+              <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">~$77/day median (+18% grat)</td>
               <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">Everything in Refreshment + cocktails, wine, beer, spirits (up to $14/drink)</td>
-              <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e8eef2;">6-7 drinks</td>
+              <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e8eef2;">6 cocktails or 7-8 mixed drinks/day</td>
             </tr>
             <tr>
               <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;"><strong>Coffee Card</strong></td>
-              <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">~$31 (15 drinks)</td>
+              <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">$31 one-time (15 punches)</td>
               <td style="padding: 0.75rem; border-bottom: 1px solid #e8eef2;">15 specialty coffees — lattes, cappuccinos, espresso drinks</td>
-              <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e8eef2;">2 coffees/day (7-night)</td>
+              <td style="padding: 0.75rem; text-align: center; border-bottom: 1px solid #e8eef2;">~2 coffees/day (7-night)</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="tiny muted" style="margin-top: 0.75rem;">Prices are approximate pre-cruise rates as of 2026. Onboard pricing is typically 20-30% higher. All packages add 18% gratuity. Use the calculator above for your personalized break-even analysis.</p>
+      <p class="tiny muted" style="margin-top: 0.75rem;">Prices are fleet-median pre-cruise rates as of 2026 (Royal Caribbean uses dynamic pricing — actual price varies by ship, sailing date, and demand). Onboard pricing is typically 20-30% higher. All packages add 18% gratuity. Break-even assumes all drinks are at the noted price; a mix of drink types changes the count. Use the calculator above for your personalized break-even.</p>
     </section>
 
     <section class="card faq" id="faq" style="margin: 1.5rem 0; padding: 1rem;">
@@ -1924,7 +1930,7 @@
 
       <details class="section-divider">
         <summary>What is the break-even point for Royal Caribbean drink packages?</summary>
-        <p class="list-indent">For the Deluxe Beverage Package at approximately $89/day (pre-cruise pricing), you break even at 6-7 drinks per day when factoring in the 18% automatic gratuity. The exact break-even point depends on your drink preferences — cocktails break even faster than soda. Crown &amp; Anchor Diamond+ members with free vouchers need even more drinks to justify the package.</p>
+        <p class="list-indent">For the Deluxe Beverage Package at the fleet median of ~$77/day pre-cruise ($55–$125 depending on ship), you break even at about 6 cocktails per day or 7-8 mixed drinks when factoring in the 18% automatic gratuity. Newer ships like Utopia price closer to $90–$105/day. Crown &amp; Anchor Diamond+ members with free vouchers need even more drinks to justify the package.</p>
       </details>
 
       <details class="section-divider">
