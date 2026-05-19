@@ -704,6 +704,16 @@ VERIFICATIONS = {
     "assets/ships/carnival/carnival-pride/Carnival_Pride_at_Mazatlan_2.webp.attr.json": (
         "confirmed", "Alongside at Mazatlán with Celebrity ship adjacent; \"CARNIVAL PRIDE\" lettering readable on bow; Pride is centered subject"),
 
+    # ---- Carnival Legend (batch H, 2026-05-18) -----------------------------
+    "assets/ships/carnival/carnival-legend/Carnival_Legend_Roatan,_Honduras.webp.attr.json": (
+        "confirmed", "Bow view at Roatán; Carnival \"C\" emblem on hull + whale-tail funnel partial; tropical foreground"),
+    "assets/ships/carnival/carnival-legend/Carnival_Legend_seen_from_Tampa_Tribune_Streetcar_Stop.webp.attr.json": (
+        "confirmed", "Bow seen through palm trees from Tampa Tribune Station; \"CARNIVAL LEGEND\" lettering visible on bow"),
+    "assets/ships/carnival/carnival-legend/Carnival_Legend_in_Tampa,_Florida_August_2008.webp.attr.json": (
+        "confirmed", "Rising behind palm-lined waterfront buildings at Tampa August 2008; \"CARNIVAL LEGEND\" lettering visible on bow"),
+    "assets/ships/carnival/carnival-legend/TampaTrackChanelsideAug2008ToShip.webp.attr.json": (
+        "consistent", "Distant view at end of streetcar tracks along Tampa Channelside; whale-tail funnel + Carnival livery visible; same Infrogmation Aug 2008 series"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
