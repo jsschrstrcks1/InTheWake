@@ -714,6 +714,16 @@ VERIFICATIONS = {
     "assets/ships/carnival/carnival-legend/TampaTrackChanelsideAug2008ToShip.webp.attr.json": (
         "consistent", "Distant view at end of streetcar tracks along Tampa Channelside; whale-tail funnel + Carnival livery visible; same Infrogmation Aug 2008 series"),
 
+    # ---- Carnival Vista (batch H, 2026-05-18) ------------------------------
+    "assets/ships/carnival/carnival-vista/TRIESTE_NAVI_(26741042616).webp.attr.json": (
+        "confirmed", "Close-up at Trieste; \"CARNIVAL VISTA\" lettering clearly readable; Carnival whale-tail funnel prominent"),
+    "assets/ships/carnival/carnival-vista/TRIESTE_NAVI_(26741045166).webp.attr.json": (
+        "confirmed", "Broadside at Trieste with onlookers from quay; Angelgreat series match with confirmed file 26741042616"),
+    "assets/ships/carnival/carnival-vista/TRIESTE_NAVI_(26741047546).webp.attr.json": (
+        "confirmed", "Wider quay shot at Trieste with crowds; same Angelgreat series"),
+    "assets/ships/carnival/carnival-vista/Trieste_(26740757246).webp.attr.json": (
+        "confirmed", "Carnival Vista off Trieste at dusk with another cruise ship distant on right; Carnival livery + whale-tail funnel; Vista is the dominant centered subject"),
+
     "assets/ships/oceania/regatta/Regatta_Stockholm.webp.attr.json": (
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
