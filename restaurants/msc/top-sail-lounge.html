@@ -38,7 +38,7 @@ All work on this project is offered as a gift to God.
   <meta name="referrer" content="no-referrer">
   <meta name="ai-summary" content="Top Sail Lounge — two-story MSC Yacht Club lounge. Crystal staircase to YC Restaurant above. Forward windows; 24-hour, YC suite guests only; complimentary drinks, high tea, piano evenings. On Seaside: Deck 16.">
   <meta name="last-reviewed" content="2026-05-17">
-  <meta name="content-protocol" content="ICP-Lite-v1.0">
+  <meta name="content-protocol" content="ICP-2">
   <meta name="venue-tags" content="top sail lounge, msc yacht club, suite enclave, msc cruises, premium, lounge"/>
 
   <!-- Open Graph / Twitter -->
@@ -57,6 +57,14 @@ All work on this project is offered as a gift to God.
 
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Absolute URL normalizer -->
+  <script>
+  (function(){
+    var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+    window._abs = function(path){ path = String(path||''); if(!path.startsWith('/')) path = '/' + path; return ORIGIN + path; };
+  })();
+  </script>
 
   <!-- Service Worker Registration -->
   <script>
@@ -108,7 +116,7 @@ All work on this project is offered as a gift to God.
       "name": "Which MSC ships have the Top Sail Lounge?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Every MSC ship with an MSC Yacht Club enclave carries a Top Sail Lounge — the lounge is core to the YC concept and not optional. The location varies by ship class: on MSC Seaside (2017) and MSC Seaview (2018) it's on Deck 16 forward, two stories with the YC Restaurant on the balcony above. On the Seaside EVO sisters (MSC Seashore, MSC Seascape), the Fantasia-class earlier ships, and the World-class flagships, the layout differs but the room concept and the access rules stay the same."
+        "text": "Every MSC ship with an MSC Yacht Club enclave carries a Top Sail Lounge — the lounge is core to the YC concept and not optional. The location varies by ship class: on MSC Seaside (2017) and MSC Seaview (2018) it's on Deck 16 forward, two stories with the YC Restaurant on the balcony above. On the Seaside EVO sisters (MSC Seashore, MSC Seascape), the Fantasia-class earlier ships, and the newest ships MSC World Europa, MSC World America, and MSC World Asia, the layout differs but the room concept and the access rules stay the same."
       }
     },
     {
@@ -142,6 +150,8 @@ All work on this project is offered as a gift to God.
 
 <body class="venue-page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
 <header class="hero-header" role="banner">
   <div class="navbar">
@@ -240,7 +250,7 @@ All work on this project is offered as a gift to God.
       <h1 class="page-title">Top Sail Lounge</h1>
       <p class="subtitle">MSC Cruises &mdash; MSC Yacht Club (suite-only)</p>
 
-      <p class="answer-line"><strong>Quick Answer:</strong> The two-story private lounge inside the MSC Yacht Club enclave. A crystal/glass staircase connects the bar level to the Yacht Club Restaurant balcony directly above. Forward-facing floor-to-ceiling windows; 24-hour access for YC suite guests only; complimentary drinks (most wines and liquors), light snacks through the day, high tea, and an evening piano set with hors d&rsquo;oeuvres.</p>
+      <p class="answer-line"><strong>Quick Answer:</strong> The two-story private lounge inside the MSC Yacht Club enclave. Forward-facing floor-to-ceiling windows; 24-hour access for YC suite guests only; most drinks included. A crystal staircase climbs to the Yacht Club Restaurant balcony above. Across the day: morning espresso, afternoon high tea, evening piano with hors d&rsquo;oeuvres.</p>
 
       <p class="fit-guidance"><strong>Best For:</strong> MSC Yacht Club suite guests who want a quiet corner of the ship that doesn&rsquo;t feel like a ship &mdash; the room reads more international-airline first-class lounge than cruise venue. Couples for the morning coffee with a view, families for the late-afternoon tea, the whole enclave for the evening piano hour.</p>
 
@@ -250,7 +260,7 @@ All work on this project is offered as a gift to God.
           <li><strong>Access:</strong> MSC Yacht Club suite guests only</li>
           <li><strong>Configuration:</strong> Two-story, with the YC Restaurant on the balcony above</li>
           <li><strong>Signature:</strong> Crystal / glass winding staircase between the two levels</li>
-          <li><strong>Location:</strong> Varies by ship class &mdash; MSC Seaside: Deck 16 forward</li>
+          <li><strong>Location:</strong> Varies by ship class &mdash; MSC Seaside: Deck 16 forward, 152 seats, 377 m&sup2;</li>
           <li><strong>Hours:</strong> 24-hour (full bar service typically morning through late evening)</li>
           <li><strong>Price:</strong> Complimentary (most wines/liquors included with YC booking)</li>
           <li><strong>Dress Code:</strong> Smart casual; jacket-and-dress feel on Gala Night</li>
@@ -295,7 +305,7 @@ All work on this project is offered as a gift to God.
   <section class="card" id="availability">
     <div class="card__content">
       <h2>Where You&rsquo;ll Find It</h2>
-      <p>The Top Sail Lounge is on every MSC ship that carries the MSC Yacht Club enclave &mdash; the lounge is the room around which the YC is organised. On <a href="/ships/msc/msc-seaside.html">MSC Seaside</a> and <a href="/ships/msc/msc-seaview.html">MSC Seaview</a>, it sits on Deck 16 forward, two stories, with the <a href="/restaurants/msc/yacht-club-restaurant.html">MSC Yacht Club Restaurant</a> on the balcony above. On the Seaside EVO sisters (<a href="/ships/msc/msc-seashore.html">MSC Seashore</a>, <a href="/ships/msc/msc-seascape.html">MSC Seascape</a>), the Fantasia-class older ships, and the World-class flagships, the deck and orientation differ but the two-story layout, the forward windows, and the access rules are the same. Access is via the dedicated YC entrance with your suite key card.</p>
+      <p>The Top Sail Lounge is on every MSC ship that carries the MSC Yacht Club enclave &mdash; the lounge is the room around which the YC is organised. On <a href="/ships/msc/msc-seaside.html">MSC Seaside</a> and <a href="/ships/msc/msc-seaview.html">MSC Seaview</a>, it sits on Deck 16 forward, two stories, with the <a href="/restaurants/msc/yacht-club-restaurant.html">MSC Yacht Club Restaurant</a> on the balcony above. On the Seaside EVO sisters (<a href="/ships/msc/msc-seashore.html">MSC Seashore</a>, <a href="/ships/msc/msc-seascape.html">MSC Seascape</a>), the Fantasia-class older ships, and the newest ships MSC World Europa, MSC World America, and MSC World Asia, the deck and orientation differ but the two-story layout, the forward windows, and the access rules are the same. Access is via the dedicated YC entrance with your suite key card.</p>
     </div>
   </section>
 
@@ -371,7 +381,7 @@ All work on this project is offered as a gift to God.
       </details>
       <details class="section-divider">
         <summary>Which MSC ships have the Top Sail Lounge?</summary>
-        <p class="list-indent">Every MSC ship with an MSC Yacht Club enclave carries a Top Sail Lounge &mdash; the lounge is core to the YC concept and not optional. The location varies by ship class: on MSC Seaside (2017) and MSC Seaview (2018) it's on Deck 16 forward, two stories with the YC Restaurant on the balcony above. On the Seaside EVO sisters (MSC Seashore, MSC Seascape), the Fantasia-class earlier ships, and the World-class flagships, the layout differs but the room concept and the access rules stay the same.</p>
+        <p class="list-indent">Every MSC ship with an MSC Yacht Club enclave carries a Top Sail Lounge &mdash; the lounge is core to the YC concept and not optional. The location varies by ship class: on MSC Seaside (2017) and MSC Seaview (2018) it's on Deck 16 forward, two stories with the YC Restaurant on the balcony above. On the Seaside EVO sisters (MSC Seashore, MSC Seascape), the Fantasia-class earlier ships, and the newest ships MSC World Europa, MSC World America, and MSC World Asia, the layout differs but the room concept and the access rules stay the same.</p>
       </details>
       <details class="section-divider">
         <summary>How much does the Top Sail Lounge cost?</summary>

@@ -223,6 +223,312 @@ VERIFICATIONS = {
         "ambiguous", "Upper-deck WaterWorks aqua-park close-up; same amenity exists on Dream-class sisters Dream and Magic"),
     "assets/ships/carnival/carnival-breeze/Fotos_del_crucero_Carnival_Breeze_en_el_puerto_de_La_Luz_y_de_Las_Palmas_en_Gran_Canaria_(8179698748).webp.attr.json": (
         "ambiguous", "Water-slide close-up; same Dream-class amenity exists on Dream and Magic"),
+
+    # ---- Westerdam (batch C tail, 2026-05-14) ------------------------------
+    "assets/ships/holland-america-line/westerdam/MS_Westerdam_heaving_up_its_anchor_in_Half_Moon_Cay.webp.attr.json": (
+        "confirmed", "Close-up at Half Moon Cay; \"Holland America Line\" and \"WESTERDAM\" lettering visible on hull"),
+    "assets/ships/holland-america-line/westerdam/MS_Westerdam_Getting_Underway.webp.attr.json": (
+        "confirmed", "Stern view at sea; \"WESTERDAM\" + \"ROTTERDAM\" registry-port lettering visible on transom"),
+    "assets/ships/holland-america-line/westerdam/Westerdam_bell.webp.attr.json": (
+        "confirmed", "Ship's bell engraved \"WESTERDAM 2004\" on the bridge wing"),
+    "assets/ships/holland-america-line/westerdam/Westerdam_from_Mt_Roberts.webp.attr.json": (
+        "ambiguous", "Aerial view of HAL Vista-class ship at the Juneau cruise pier from Mt Roberts; sisters Zuiderdam / Oosterdam / Noordam / Eurodam are visually similar"),
+    "assets/ships/holland-america-line/westerdam/Maasdam_and_Westerdam_anchored_in_Half_Moon_Cay.webp.attr.json": (
+        "ambiguous", "Two ships in frame: Maasdam (S-class, left) + a Vista-class HAL ship (right). Right ship's class matches Westerdam but name not visible; Vista-class sister ambiguity"),
+    "assets/ships/holland-america-line/westerdam/Westerdam_Atrium.webp.attr.json": (
+        "ambiguous", "Interior atrium with crystal chandelier; similar Vista-class atrium design exists on sister ships"),
+    "assets/ships/holland-america-line/westerdam/Westerdam_Vista_dining_entrance.webp.attr.json": (
+        "ambiguous", "Vista Dining Room entrance with patterned glass partitions; same Vista-class signature decor used on sister ships"),
+    "assets/ships/holland-america-line/westerdam/Westerdam_rear_Lido_pool.webp.attr.json": (
+        "ambiguous", "Aft Lido pool deck with chevron-tile pool and hot tubs; similar Vista-class amenity on sister ships"),
+
+    # ---- Diamond Princess (batch C tail, 2026-05-14) -----------------------
+    "assets/ships/princess/diamond-princess/Diamond_Princess_in_Hobart.webp.attr.json": (
+        "confirmed", "Bow detail at Hobart, Tasmania; \"DIAMOND PRINCESS\" lettering visible on hull"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_at_Hong_Kong_-_IMO_9228198_(3614138858).webp.attr.json": (
+        "confirmed", "Stern view at Hong Kong; \"DIAMOND PRINCESS\" and \"HAMILTON\" registry-port visible on transom; filename IMO 9228198 matches Diamond Princess"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_from_Mt_Roberts.webp.attr.json": (
+        "ambiguous", "Aerial view of Princess Grand-class ship at Juneau cruise pier from Mt Roberts; Grand-class sisters (Sapphire/Caribbean/Crown/Ruby/Emerald/Star) visually similar from above"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_in_Tauranga.webp.attr.json": (
+        "ambiguous", "Princess Grand-class ship at Tauranga, NZ; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_at_Circular_Quay.webp.attr.json": (
+        "ambiguous", "Princess Grand-class ship at Circular Quay, Sydney with Harbour Bridge behind; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_Vancouver_September_2012.webp.attr.json": (
+        "ambiguous", "Princess Grand-class ship at Vancouver, Sept 2012, with celebratory bunting; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/diamond-princess/Diamond_Princess_(ship,_2004)_001.webp.attr.json": (
+        "ambiguous", "Princess Grand-class ship near green coastline; no name visible; Grand-class sister ambiguity"),
+
+    # ---- Norwegian Epic (batch C tail, 2026-05-14) -------------------------
+    # Norwegian Epic is a one-of-a-kind class — Epic-class contains only this
+    # one ship. Class signature features (Aqua Park waterslide complex on top
+    # deck + Epic-specific hull-art canvas) are uniquely Epic.
+    "assets/ships/norwegian/norwegian-epic/Norwegian_Epic_water_chute_3.webp.attr.json": (
+        "confirmed", "Bow with \"NORWEGIAN EPIC\" lettering and Epic-class colorful hull art"),
+    "assets/ships/norwegian/norwegian-epic/Norwegian_Epic_water_chute_2.webp.attr.json": (
+        "confirmed", "Funnel close-up; \"NORWEGIAN EPIC\" + NCL logo visible alongside the Aqua Park waterslide structure"),
+    "assets/ships/norwegian/norwegian-epic/Norwegian_Epic_1.webp.attr.json": (
+        "confirmed", "Full broadside at sea; Epic-class colorful hull art visible across hull"),
+    "assets/ships/norwegian/norwegian-epic/Norwegian_Epic_water_chute_1.webp.attr.json": (
+        "confirmed", "Distant view of Epic underway; distinctive Aqua Park waterslide complex visible on top deck (Epic-class signature)"),
+    "assets/ships/norwegian/norwegian-epic/Norwegian_Epic_-_Port_of_Naples_-_June_2011.webp.attr.json": (
+        "confirmed", "Norwegian Epic alongside at Naples; \"NORWEGIAN EPIC\" lettering visible on hull"),
+    "assets/ships/norwegian/norwegian-epic/Rotterdam_cruiseschip_Norwegian_Epic.webp.attr.json": (
+        "consistent", "Distant view at Rotterdam; NCL livery + colorful hull art consistent with Epic; Epic-class is single-ship class so no sister to disambiguate against"),
+    "assets/ships/norwegian/norwegian-epic/Bridge_of_the_Norwegian_Epic.webp.attr.json": (
+        "consistent", "Bridge close-up with distinctive blue rounded observation deck; Epic-class signature bridge architecture"),
+    "assets/ships/norwegian/norwegian-epic/Florencia_and_Norwegian_Epic_-_Port_of_Barcelona_-_June_2011.webp.attr.json": (
+        "consistent", "Foreground subject is the Grimaldi ferry Florencia; the cruise ship at quay behind is Epic-class profile (Epic-class is one-ship; no sister to confuse)"),
+
+    # ---- Carnival Magic (batch C tail, 2026-05-14) -------------------------
+    "assets/ships/carnival/carnival-magic/Carnival_Magic,_in_port-Galveston,_TX_September_30,_2012.webp.attr.json": (
+        "confirmed", "Three-quarter view at Galveston; \"CARNIVAL MAGIC\" lettering visible twice on hull"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_in_Venedig.webp.attr.json": (
+        "confirmed", "Bow detail in Venice with \"CARNIVAL MAGIC\" lettering on the hull"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_(12385606213).webp.attr.json": (
+        "confirmed", "Bow close-up with \"CARNIVAL MAGIC\" and \"PANAMA R.P.\" registry-port lettering visible"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_(7706567392).webp.attr.json": (
+        "confirmed", "Alongside in port; \"CARNIVAL MAGIC\" lettering visible on upper deck"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_(12385914894).webp.attr.json": (
+        "confirmed", "Funnel and waterpark close-up; \"CARNIVAL MAGIC\" lettering visible"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_(12385424915).webp.attr.json": (
+        "confirmed", "Broadside near a Caribbean shoreline; \"CARNIVAL MAGIC\" lettering visible on upper deck"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_Monaco.webp.attr.json": (
+        "confirmed", "At Monaco; \"CARNIVAL MAGIC\" lettering visible on hull"),
+    "assets/ships/carnival/carnival-magic/Carnival_Magic_near_Belize_City.webp.attr.json": (
+        "ambiguous", "Distant Carnival Dream-class profile off Belize City; sister ships Carnival Dream / Breeze are visually similar from this distance"),
+
+    # ---- MSC Seascape (batch C tail, 2026-05-14) ---------------------------
+    "assets/ships/msc/msc-seascape/MSC_Seascape_cruise_ship_3.webp.attr.json": (
+        "confirmed", "Alongside in port with \"MSC SEASCAPE\" lettering visible on bow"),
+    "assets/ships/msc/msc-seascape/MSC_Seascape_in_Cozumel_2024_(3).webp.attr.json": (
+        "confirmed", "MSC Seaside-Evo-class ship at Cozumel 2024; \"MSC SEASCAPE\" lettering visible on bow"),
+    "assets/ships/msc/msc-seascape/MSC_Seascape_cruise_ship_1.webp.attr.json": (
+        "consistent", "MSC corporate badge visible at bow; Seaside-Evo class profile; sister MSC Seashore is visually similar"),
+    "assets/ships/msc/msc-seascape/MSC_Seascape_cruise_ship_2.webp.attr.json": (
+        "consistent", "MSC corporate badge visible; Seaside-Evo class profile; sister MSC Seashore is visually similar"),
+
+    # ---- Grand Princess (batch D, 2026-05-18) ------------------------------
+    "assets/ships/princess/grand-princess/Grand_Princess_en_el_Puerto_de_C_diz.webp.attr.json": (
+        "confirmed", "Alongside at Cadiz with \"GRAND PRINCESS\" lettering visible on hull above lifeboats"),
+    "assets/ships/princess/grand-princess/Grand_Princess.webp.attr.json": (
+        "ambiguous", "Grand-class Princess underway; sister ships Star/Golden/Caribbean/Crown/Ruby/Emerald visually similar"),
+    "assets/ships/princess/grand-princess/GrandPrincess-Scotland.webp.attr.json": (
+        "ambiguous", "Grand-class Princess in Scottish waters viewed from a passenger ferry; no name visible; sister ambiguity"),
+    "assets/ships/princess/grand-princess/Harbour_Dubrovnik.webp.attr.json": (
+        "ambiguous", "Grand-class Princess approaching Dubrovnik harbour; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/grand-princess/Juneau,_Alaska.webp.attr.json": (
+        "ambiguous", "Grand-class Princess docked at Juneau, Alaska in evening light; no name visible; Grand-class sister ambiguity"),
+    "assets/ships/princess/grand-princess/Bosfor_B18-39.webp.attr.json": (
+        "ambiguous", "Grand-class Princess passing through the Bosphorus; no name visible; Grand-class sister ambiguity"),
+
+    # ---- Crown Princess (batch D, 2026-05-18) ------------------------------
+    "assets/ships/princess/crown-princess/Crown_Princess.webp.attr.json": (
+        "confirmed", "Bow detail with \"CROWN PRINCESS\" lettering visible on hull, swimmers in foreground"),
+    "assets/ships/princess/crown-princess/Crown_Princess2.webp.attr.json": (
+        "confirmed", "Full broadside; \"CROWN PRINCESS\" lettering visible above the lifeboats"),
+    "assets/ships/princess/crown-princess/Crown_Princess_en_el_Puerto_de_C_diz.webp.attr.json": (
+        "confirmed", "Bow detail at Cadiz; \"CROWN PRINCESS\" lettering visible on upper deck"),
+    "assets/ships/princess/crown-princess/Crown_Princess-1.webp.attr.json": (
+        "confirmed", "Underway; \"CROWN PRINCESS\" lettering visible on upper deck near funnel"),
+    "assets/ships/princess/crown-princess/Crown_Princess_at_Liverpool_26-08-10_-_DSC00624.webp.attr.json": (
+        "confirmed", "Alongside at Liverpool 2010; \"CROWN PRINCESS\" lettering visible on hull"),
+    "assets/ships/princess/crown-princess/Crown_Princess_en_el_Puerto_de_C_diz_(2).webp.attr.json": (
+        "consistent", "Broadside at Cadiz, second angle of the same call as the confirmed Cadiz shot; same ship, same day"),
+    "assets/ships/princess/crown-princess/Crown_princess.webp.attr.json": (
+        "ambiguous", "Bow-on Grand-class Princess profile at port; no name visible; Grand-class sister ambiguity"),
+
+    # ---- Norwegian Star (batch D, 2026-05-18) ------------------------------
+    "assets/ships/norwegian/norwegian-star/Norwegian_Star_in_Seattle.webp.attr.json": (
+        "confirmed", "Alongside in Seattle with Space Needle behind; \"NORWEGIAN STAR\" lettering visible on hull"),
+    "assets/ships/norwegian/norwegian-star/Norwegian_Star_-_Seattle2.webp.attr.json": (
+        "confirmed", "Second Seattle angle showing \"NORWEGIAN STAR\" lettering and the colorful hull art"),
+    "assets/ships/norwegian/norwegian-star/Norwegian_Star_Kauai_2002.webp.attr.json": (
+        "confirmed", "Alongside at Kauai 2002; \"NORWEGIAN STAR\" lettering visible on hull"),
+    "assets/ships/norwegian/norwegian-star/Norwegian_Star_in_Prince_Rupert,_BC.webp.attr.json": (
+        "confirmed", "Panorama view alongside at Prince Rupert, BC; \"NORWEGIAN STAR\" lettering visible"),
+    "assets/ships/norwegian/norwegian-star/Crucero_en_la_Terminal_Mar_tima_de_Acapulco,_M_xico.webp.attr.json": (
+        "confirmed", "Night photo at Acapulco terminal; \"NORWEGIAN STAR\" lettering visible on hull"),
+    "assets/ships/norwegian/norwegian-star/Cruise_Pictures_089.webp.attr.json": (
+        "ambiguous", "Distant NCL profile off a Mexican coastline; no name visible; profile matches Norwegian Star per uploader claim"),
+
+    # ---- Celebrity Eclipse (batch D, 2026-05-18) ---------------------------
+    "assets/ships/celebrity-cruises/celebrity-eclipse/Celebrity_Eclipse_Name_Sign_on_the_Starboard_Side_Port_of_Tallinn_26_June_2011.webp.attr.json": (
+        "confirmed", "Close-up of the painted \"Celebrity ECLIPSE\" name sign on the starboard hull"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/Celebrity_Eclipse-1.webp.attr.json": (
+        "confirmed", "Full broadside underway; \"ECLIPSE\" lettering and Celebrity \"X\" funnel logo visible"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/Celebrity_Eclipse_IMG_5898_C.webp.attr.json": (
+        "confirmed", "Alongside at Tallinn with \"Celebrity ECLIPSE\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/IMG_5903_Celebrity_Eclipse_C.webp.attr.json": (
+        "confirmed", "Approaching Tallinn; \"Celebrity ECLIPSE\" + Celebrity X Cruises lettering visible"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/Celebrityeclipsebalticsea2010.webp.attr.json": (
+        "confirmed", "Underway in the Baltic Sea 2010; \"Celebrity ECLIPSE\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/Celebrity_Eclipse_IMG_5905_C.webp.attr.json": (
+        "ambiguous", "Distant Celebrity Solstice-class ship off Tallinn; sisters Solstice/Equinox/Silhouette/Reflection visually similar; no name visible"),
+    "assets/ships/celebrity-cruises/celebrity-eclipse/The__X__signature_on_the_Celebrity_Eclipse,_Tallinn,_Estonia_-_26_June_2011.webp.attr.json": (
+        "ambiguous", "Celebrity \"X\" funnel logo close-up; the X mark appears on every Celebrity ship, not Eclipse-specific. Commons uploader claims same-day Tallinn series as the confirmed name-sign shot"),
+
+    # ---- Costa Diadema (batch D, 2026-05-18) -------------------------------
+    "assets/ships/costa/costa-diadema/Costa_Diadema_(24922971025).webp.attr.json": (
+        "confirmed", "Alongside in port; \"COSTA DIADEMA\" lettering visible on hull"),
+    "assets/ships/costa/costa-diadema/Costa_Diadema_docked_at_Dubrovnik.webp.attr.json": (
+        "confirmed", "Docked at Dubrovnik with Italian flag flying; \"COSTA DIADEMA\" lettering visible on hull"),
+    "assets/ships/costa/costa-diadema/Costa_Diadema_(103)_(16310776402).webp.attr.json": (
+        "ambiguous", "Distant Costa ship viewed past Savona's medieval clock tower; Costa funnel logo visible but no name; multiple Costa sisters share similar livery"),
+
+    # ---- Celebrity Equinox (batch E, 2026-05-18) ---------------------------
+    "assets/ships/celebrity-cruises/celebrity-equinox/Cozumel_-_Celebrity_Equinox.webp.attr.json": (
+        "confirmed", "Alongside at Cozumel cruise pier; \"Celebrity EQUINOX\" lettering clearly visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/CelebrityEquinox-maidenvoyage.webp.attr.json": (
+        "confirmed", "Underway on maiden voyage; \"Celebrity Cruises\" + \"Celebrity EQUINOX\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/Cruise_ship_Celebrity_Equinox_2009.webp.attr.json": (
+        "confirmed", "Alongside in Southampton 2009; \"EQUINOX\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/Celebrity_Equinox-05.webp.attr.json": (
+        "confirmed", "Panorama alongside in port; \"Celebrity EQUINOX\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/Celebrity_Equinox_Istanbul.webp.attr.json": (
+        "confirmed", "Underway in Istanbul waters; \"Celebrity Equinox\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/Equinox_-_Lifeboat_Used_as_Tender.webp.attr.json": (
+        "confirmed", "Lifeboat used as a tender; \"CELEBRITY EQUINOX\" lettering visible on the boat"),
+    "assets/ships/celebrity-cruises/celebrity-equinox/Celebrity_Equinox_s_lifeboat_in_port_in_Cartagena,_Colombia.webp.attr.json": (
+        "confirmed", "Lifeboat from Celebrity Equinox at Cartagena, Colombia; \"CELEBRITY EQUINOX VALLETTA\" lettering visible on the boat"),
+
+    # ---- Costa Pacifica (batch E, 2026-05-18) ------------------------------
+    "assets/ships/costa/costa-pacifica/Costa_Pacifica_in_Savona_2010.webp.attr.json": (
+        "confirmed", "Alongside at Savona 2010; \"COSTA PACIFICA / GENOVA\" registry lettering visible on hull"),
+    "assets/ships/costa/costa-pacifica/Costa_Pacifica_sailing.webp.attr.json": (
+        "confirmed", "Underway at sea; \"COSTA PACIFICA\" lettering visible on hull"),
+
+    # ---- Costa Fortuna (batch E, 2026-05-18; staged for future page) -------
+    # Costa Fortuna does not yet have a page at ships/costa/costa-fortuna.html.
+    # Operator confirmed Fortuna will be covered; these assets are staged so
+    # the page can adopt them when it is created.
+    "assets/ships/costa/costa-fortuna/TorrettaLeonPancaldoSAVONAFeb2006.webp.attr.json": (
+        "confirmed", "Costa ship at Savona quay viewed past Torretta Leon Pancaldo; \"COSTA FORTUNA\" lettering visible on hull"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna.webp.attr.json": (
+        "confirmed", "Aerial alongside view; \"COSTA FORTUNA\" lettering visible on hull beside Costa funnel"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna_-a.webp.attr.json": (
+        "confirmed", "Bow detail at port; \"COSTA FORTUNA\" lettering visible on hull"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna_at_Fort_Lauderdale_-_IMO_9239783_(3306462221).webp.attr.json": (
+        "confirmed", "Alongside at Fort Lauderdale; \"COSTA FORTUNA\" lettering visible twice (bow + upper deck); IMO 9239783 in filename matches Costa Fortuna's IMO"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna_Ponte.webp.attr.json": (
+        "ambiguous", "Sunset deck view with waterslide and partial \"COSTA\" lettering on stack; brand visible, ship name not"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna_Prua.webp.attr.json": (
+        "ambiguous", "Bow-on view of a Costa ship at port; Costa funnel visible but no ship name in frame"),
+    "assets/ships/costa/costa-fortuna/Costa_Fortuna_im_Juli_2011_beim_Auslaufen_aus_Venedig.webp.attr.json": (
+        "ambiguous", "Costa ship's bow visible through a pier structure at Venice 2011; no ship name in frame"),
+
+    # ---- Regal Princess (batch E, 2026-05-18) ------------------------------
+    "assets/ships/princess/regal-princess/Regal_Princess_2014_7_17_3817.webp.attr.json": (
+        "confirmed", "Bow detail at port July 2014; \"Regal Princess\" lettering visible on hull"),
+    "assets/ships/princess/regal-princess/Regal_Princess_16_05_2014.webp.attr.json": (
+        "consistent", "Royal-class Princess at port May 2014; no name visible but same uploader/series as confirmed shot; Royal-class sisters (Royal/Majestic/Sky) visually similar"),
+    "assets/ships/princess/regal-princess/Regal_Princess_Starboard_Side_Tallinn_29_May_2015.webp.attr.json": (
+        "ambiguous", "Royal-class Princess profile at Tallinn; no name visible; Royal-class sister ambiguity"),
+    "assets/ships/princess/regal-princess/Regal_Princess_at_Pier_27_in_Tallinn_29_May_2015.webp.attr.json": (
+        "ambiguous", "Royal-class Princess at Tallinn Pier 27 with city skyline; no name visible; Royal-class sister ambiguity"),
+    "assets/ships/princess/regal-princess/Regal_Princess_turning_to_Starboard_Side_Tallinn_29_May_2015.webp.attr.json": (
+        "consistent", "Royal-class Princess turning at Tallinn with Princess Cruises emblem visible on funnel; same uploader/series as Pier 27 shot"),
+    "assets/ships/princess/regal-princess/Regal_Princess_leaving_Tallinn_18_May_2015.webp.attr.json": (
+        "ambiguous", "Royal-class Princess leaving Tallinn; no name visible; Royal-class sister ambiguity"),
+
+    # ---- Norwegian Dawn (batch F, 2026-05-18) ------------------------------
+    "assets/ships/norwegian/norwegian-dawn/NYC_Norwegian_Dawn.webp.attr.json": (
+        "confirmed", "Underway in NYC harbour; \"NORWEGIAN DAWN\" lettering visible on bow with colorful NCL hull art"),
+    "assets/ships/norwegian/norwegian-dawn/Norwegian_Dawn_1.webp.attr.json": (
+        "ambiguous", "Aft pool deck interior view; no ship name visible; could be Dawn or Star-class sister"),
+    "assets/ships/norwegian/norwegian-dawn/Norwegian_Dawn_2.webp.attr.json": (
+        "ambiguous", "Aft sun-loungers and twin tent canopies on funnel deck; characteristic Norwegian Dawn/Star deck design but no name visible"),
+
+    # ---- MSC Preziosa (batch F, 2026-05-18) --------------------------------
+    "assets/ships/msc/msc-preziosa/MSC_Preziosa_Chantiers_de_Saint_Nazaire_01.webp.attr.json": (
+        "confirmed", "Bow-on at Chantiers de l'Atlantique, Saint-Nazaire; \"MSC PREZIOSA\" lettering visible on bow with MSC logo"),
+    "assets/ships/msc/msc-preziosa/MSC_Preziosa_Chantiers_de_Saint_Nazaire_06.webp.attr.json": (
+        "ambiguous", "Outdoor rim-pool deck during shipyard fitting-out; design consistent with Fantasia-class but no name visible"),
+    "assets/ships/msc/msc-preziosa/MSC_Preziosa_Chantiers_de_Saint_Nazaire_02.webp.attr.json": (
+        "ambiguous", "Interior atrium pool with glass-dome roof; Fantasia-class signature interior design — sisters Fantasia/Splendida/Divina share this layout"),
+    "assets/ships/msc/msc-preziosa/MSC_Preziosa_Chantiers_de_Saint_Nazaire_03.webp.attr.json": (
+        "ambiguous", "Interior pool with palm-tree sculpture; Fantasia-class signature interior — sister ship ambiguity"),
+    "assets/ships/msc/msc-preziosa/MSC_Preziosa_Chantiers_de_Saint_Nazaire_04.webp.attr.json": (
+        "ambiguous", "Interior pool mosaic detail; Fantasia-class shared decor"),
+    "assets/ships/msc/msc-preziosa/Paquebot_en_construction_(4).webp.attr.json": (
+        "ambiguous", "Cruise ship under construction at Saint-Nazaire shipyard; Commons category assigns to MSC Preziosa"),
+    "assets/ships/msc/msc-preziosa/Paquebot_en_construction_(1).webp.attr.json": (
+        "ambiguous", "Cruise ship under construction at Saint-Nazaire shipyard; Commons category assigns to MSC Preziosa"),
+    "assets/ships/msc/msc-preziosa/Paquebot_en_construction_(2).webp.attr.json": (
+        "ambiguous", "Distant Saint-Nazaire shipyard view with cruise ship in build; Commons category assigns to MSC Preziosa"),
+
+    # ---- Carnival Spirit (batch F, 2026-05-18) -----------------------------
+    "assets/ships/carnival/carnival-spirit/Carnival_spirit.webp.attr.json": (
+        "confirmed", "Large \"Carnival Spirit\" name lettering on the ship's superstructure with clock — close-up portrait shot"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_docked_at_San_Diego_2009-12-21_1.webp.attr.json": (
+        "confirmed", "Docked at San Diego December 2009; \"CARNIVAL SPIRIT\" lettering visible on bow"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Acapulco.webp.attr.json": (
+        "confirmed", "Stern close-up at Acapulco; \"CARNIVAL SPIRIT / PANAMA R.P.\" registry-port lettering visible"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Ketchikan,_Alaska.webp.attr.json": (
+        "confirmed", "At Ketchikan, Alaska; \"CARNIVAL SPIRIT\" lettering visible on stern"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Acapulco_2.webp.attr.json": (
+        "ambiguous", "Carnival Spirit-class ship at Acapulco; sister ships Pride/Legend/Miracle visually similar; no name visible from this angle"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit1.webp.attr.json": (
+        "ambiguous", "Carnival Spirit-class ship off a Hawaiian coastline; sister ambiguity at this distance"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Ketchikan,_Alaska_2.webp.attr.json": (
+        "ambiguous", "Distant view across the Ketchikan channel; sister Pride/Legend/Miracle ambiguity"),
+    "assets/ships/carnival/carnival-spirit/Carnival_Spirit_in_Ketchikan,_Alaska_2_cropped.webp.attr.json": (
+        "ambiguous", "Cropped tighter version of the Ketchikan channel view; same sister ambiguity"),
+
+    # ---- Seabourn Sojourn (batch F, 2026-05-18) ----------------------------
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_at_Geiranger.webp.attr.json": (
+        "confirmed", "Alongside in Geiranger fjord; \"SEABOURN SOJOURN\" lettering visible on hull"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_IMO_9417098_Starboard_Side_Tallinn_15_July_2012.webp.attr.json": (
+        "ambiguous", "Full starboard side at Tallinn; IMO 9417098 in filename matches Seabourn Sojourn; sisters Odyssey/Quest are Odyssey-class with very similar profile"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_IMO_9417098_departing_Tallinn_15_July_2012.webp.attr.json": (
+        "ambiguous", "Departing Tallinn; Odyssey-class profile; sister ambiguity"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_in_front_of_Helsinki_2010-07-21.webp.attr.json": (
+        "ambiguous", "Distant Seabourn Odyssey-class ship off Helsinki July 2010; sister Odyssey was new at the time, Sojourn entered service June 2010"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_IMO_9417098_Funnels_Tallinn_15_July_2012.webp.attr.json": (
+        "ambiguous", "Distinctive Odyssey-class twin-funnel close-up with gold Seabourn shield; same design across Odyssey/Sojourn/Quest"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn__Funnel_Tallinn_28_May_2012.webp.attr.json": (
+        "ambiguous", "Funnel + lifeboats close-up at Tallinn May 2012; Odyssey-class shared detail"),
+    "assets/ships/seabourn/seabourn-sojourn/Seabourn_Sojourn_IMO_9417098_Top_Tallinn_15_July_2012.webp.attr.json": (
+        "ambiguous", "Top of bridge with Estonian flag flying; generic detail, no ship-specific marker visible"),
+
+    # ---- Seven Seas Voyager (batch G, 2026-05-18) --------------------------
+    "assets/ships/regent/seven-seas-voyager/Benkid77_Seven_Seas_Voyager.webp.attr.json": (
+        "confirmed", "Bow detail with \"SEVEN SEAS VOYAGER\" lettering clearly visible on hull"),
+    "assets/ships/regent/seven-seas-voyager/MS_Seven_Seas_Voyager.webp.attr.json": (
+        "confirmed", "Bow-on at port; \"SEVEN SEAS VOYAGER\" lettering visible"),
+    "assets/ships/regent/seven-seas-voyager/MS_Seven_Seas_Voyager_1.webp.attr.json": (
+        "confirmed", "Three-quarter bow shot; \"SEVEN SEAS VOYAGER\" lettering visible"),
+    "assets/ships/regent/seven-seas-voyager/MS_Seven_Seas_Voyager_stern.webp.attr.json": (
+        "confirmed", "Stern view; \"SEVEN SEAS VOYAGER / NASSAU\" registry-port lettering visible"),
+    "assets/ships/regent/seven-seas-voyager/Seven_Seas_Voyager-Copenhagen.webp.attr.json": (
+        "confirmed", "Alongside in Copenhagen with bunting; \"SEVEN SEAS VOYAGER\" lettering visible on hull"),
+    "assets/ships/regent/seven-seas-voyager/Kristina_Regina_og_Seven_Seas_Voyager_in_Trondheim_2009.webp.attr.json": (
+        "consistent", "Two-ship scene in Trondheim fjord: smaller Kristina Regina ferry left, Seven Seas Voyager right. Both named in filename; Voyager profile visible on right"),
+
+    # ---- Costa Favolosa (batch G, 2026-05-18) ------------------------------
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa.webp.attr.json": (
+        "confirmed", "Alongside in port with \"COSTA FAVOLOSA\" lettering visible on hull"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_2011-10-18.webp.attr.json": (
+        "confirmed", "Costa ship in port October 2011 with \"COSTA FAVOLOSA\" lettering visible on hull"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_at_Marghera_2010.webp.attr.json": (
+        "consistent", "Cruise ship under construction at Marghera/Fincantieri shipyard 2010 with Costa funnel visible; build date matches Costa Favolosa"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_in_Dubrovnik.webp.attr.json": (
+        "ambiguous", "Costa Concordia-class ship at sea off Dubrovnik; sister ships Pacifica/Serena/Concordia visually similar; no name visible"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_2011-10-20.webp.attr.json": (
+        "ambiguous", "Costa ship transiting the Bosphorus near Istanbul; Costa logo on funnel visible but no ship name"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_in_Valletta_2013-11-10.webp.attr.json": (
+        "ambiguous", "Upper-deck close-up at Valletta with Costa funnel 'C' logo; Costa branding visible but no ship name"),
+    "assets/ships/costa/costa-favolosa/Costa_Favolosa_in_Valletta_2013-11-09.webp.attr.json": (
+        "ambiguous", "Costa ship at Valletta showing waterslide deck and rim pool; no name visible"),
+    "assets/ships/costa/costa-favolosa/Savona_IT,_mit_Costa_Favolosa.webp.attr.json": (
+        "ambiguous", "Savona harbour panorama with Costa Favolosa berthed at right; town buildings dominate the frame; ship partially visible"),
+
+    # ---- Silver Spirit (batch G, 2026-05-18) -------------------------------
+    "assets/ships/silversea/silver-spirit/MV_Silver_Spirit-1.webp.attr.json": (
+        "confirmed", "Underway in calm water; \"SILVER SPIRIT\" lettering visible on bow"),
+    "assets/ships/silversea/silver-spirit/MV_Silver_Spirit-2.webp.attr.json": (
+        "confirmed", "Second angle from the same photographer/day series; \"SILVER SPIRIT\" lettering visible on bow"),
+    "assets/ships/silversea/silver-spirit/MV_Silver_Spirit-3.webp.attr.json": (
+        "confirmed", "Stern-on view passing a navigation buoy; \"Silver Spirit\" lettering visible on bow"),
 }
 
 
