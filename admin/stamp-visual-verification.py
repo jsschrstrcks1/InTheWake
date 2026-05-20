@@ -914,6 +914,16 @@ VERIFICATIONS = {
         "consistent", "Three-quarter view from Ajaccio quay; MSC bow logo + same Ajaccio series"),
     "assets/ships/msc/msc-seaview/MSC_Seaview_Ajaccio-a.webp.attr.json": (
         "consistent", "Wider view at Ajaccio with marina foreground; Seaside-class profile + MSC livery; same series"),
+
+    # ---- MSC Divina (batch H, 2026-05-19) ----------------------------------
+    "assets/ships/msc/msc-divina/MSC_Divina_in_Malta_2.webp.attr.json": (
+        "confirmed", "At Valletta; \"MSC DIVINA\" lettering CLEARLY visible on stern + MSC logo on hull"),
+    "assets/ships/msc/msc-divina/MSC_Divina_in_Malta.webp.attr.json": (
+        "confirmed", "Broadside at Valletta; \"MSC Divina\" lettering visible on bow + big MSC logo on hull"),
+    "assets/ships/msc/msc-divina/MSC_Divina_a_Istanbul.webp.attr.json": (
+        "confirmed", "Alongside at Istanbul; \"MSC Divina\" lettering visible on bow"),
+    "assets/ships/msc/msc-divina/MSC_Divina.webp.attr.json": (
+        "consistent", "At anchor off Dubrovnik viewed across the harbour; Fantasia-class profile + MSC livery; sister-class ambiguity with Fantasia/Splendida/Preziosa noted"),
 }
 
 
