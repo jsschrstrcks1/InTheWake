@@ -882,6 +882,14 @@ VERIFICATIONS = {
         "confirmed", "Three-quarter bow view alongside at Stockholm; \"Regatta\" lettering visible on bow"),
     "assets/ships/oceania/regatta/MS_Regatta_in_Saint_Petersburg,_Russia.webp.attr.json": (
         "confirmed", "Dramatic bow shot at Saint Petersburg with film-grain processing; \"Regatta\" lettering clearly visible on bow"),
+
+    # ---- MSC Sinfonia (batch H, 2026-05-19) --------------------------------
+    "assets/ships/msc/msc-sinfonia/MSC_Sinfonia_2.webp.attr.json": (
+        "confirmed", "Stern view from water; \"MSC SINFONIA\" lettering visible"),
+    "assets/ships/msc/msc-sinfonia/MSC_Sinfonia_3.webp.attr.json": (
+        "confirmed", "Bow close-up with \"MSC SINFONIA\" lettering visible (water reflections distort the bow art)"),
+    "assets/ships/msc/msc-sinfonia/Cruise_Ship_(8948848326).webp.attr.json": (
+        "consistent", "Bow-on at a Mediterranean port; large MSC logo on bow + Lirica-class profile; sister-class ambiguity with Lirica/Opera/Armonia applies"),
 }
 
 
