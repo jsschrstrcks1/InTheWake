@@ -898,6 +898,14 @@ VERIFICATIONS = {
         "confirmed", "Broadside at a Mediterranean port; \"MSC Splendida\" lettering visible on bow + MSC funnel logo"),
     "assets/ships/msc/msc-splendida/MSC_Splendida_passes_under_25_de_Abril_Bridge.webp.attr.json": (
         "consistent", "Passing under the 25 de Abril Bridge in Lisbon; Fantasia-class profile + MSC livery; sister-class ambiguity with Fantasia/Divina/Preziosa applies"),
+
+    # ---- MSC Meraviglia (batch H, 2026-05-19) ------------------------------
+    "assets/ships/msc/msc-meraviglia/MSC_Meraviglia_Bow_Shot_Civitavecchia.webp.attr.json": (
+        "confirmed", "Bow alongside at Civitavecchia; \"MSC MERAVIGLIA\" lettering visible on hull + MSC bow logo; orientation EXIF-corrected post-fetch"),
+    "assets/ships/msc/msc-meraviglia/MSC_Meraviglia_de_nuit.webp.attr.json": (
+        "confirmed", "Night view at Saint-Nazaire shipyard with construction crane at left; \"MSC MERAVIGLIA\" lettering visible on bow + MSC logo"),
+    "assets/ships/msc/msc-meraviglia/Le__Maraviglia__(MSC)_au_Havre.webp.attr.json": (
+        "consistent", "Alongside at Le Havre cruise terminal viewed across the harbour; Meraviglia-class profile + MSC livery; sister-class ambiguity with Bellissima/Virtuosa/Grandiosa applies"),
 }
 
 
