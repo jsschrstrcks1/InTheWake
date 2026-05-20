@@ -906,6 +906,14 @@ VERIFICATIONS = {
         "confirmed", "Night view at Saint-Nazaire shipyard with construction crane at left; \"MSC MERAVIGLIA\" lettering visible on bow + MSC logo"),
     "assets/ships/msc/msc-meraviglia/Le__Maraviglia__(MSC)_au_Havre.webp.attr.json": (
         "consistent", "Alongside at Le Havre cruise terminal viewed across the harbour; Meraviglia-class profile + MSC livery; sister-class ambiguity with Bellissima/Virtuosa/Grandiosa applies"),
+
+    # ---- MSC Seaview (batch H, 2026-05-19) ---------------------------------
+    "assets/ships/msc/msc-seaview/MSC_Seaview_Ajaccio-b.webp.attr.json": (
+        "consistent", "Broadside at Ajaccio with prominent MSC bow logo; Seaside-class profile; sister ambiguity with Seaside/Seashore noted"),
+    "assets/ships/msc/msc-seaview/MSC_Seaview_Ajaccio-c.webp.attr.json": (
+        "consistent", "Three-quarter view from Ajaccio quay; MSC bow logo + same Ajaccio series"),
+    "assets/ships/msc/msc-seaview/MSC_Seaview_Ajaccio-a.webp.attr.json": (
+        "consistent", "Wider view at Ajaccio with marina foreground; Seaside-class profile + MSC livery; same series"),
 }
 
 
