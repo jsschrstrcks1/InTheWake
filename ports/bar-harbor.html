@@ -53,10 +53,15 @@ Soli Deo Gloria
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {"@type": "Question", "name": "Is Bar Harbor a tender port?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Bar Harbor is a tender port. Ships anchor in Frenchman Bay and passengers take small boats to the town pier. Rough seas can occasionally delay or cancel tendering."}},
-      {"@type": "Question", "name": "How do I get to Acadia National Park from Bar Harbor?", "acceptedAnswer": {"@type": "Answer", "text": "The Island Explorer free shuttle runs late June through Columbus Day. Alternatives include Oli's Trolley narrated tours (book early), ship excursions, taxis, or rental bikes for closer areas."}},
-      {"@type": "Question", "name": "Do I need reservations for Cadillac Mountain?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, from May through October, Cadillac Mountain requires timed entry reservations ($6 per vehicle) available at recreation.gov. Book ahead as sunrise times fill quickly."}},
-      {"@type": "Question", "name": "What is the best time to visit Bar Harbor?", "acceptedAnswer": {"@type": "Answer", "text": "September and October offer spectacular fall foliage and smaller crowds than summer peak. May-June brings wildflowers. Summer has warmest weather but most visitors."}}
+      {"@type": "Question", "name": "Is Bar Harbor a tender port?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Ships anchor in Frenchman Bay and passengers take small boats to the town pier. The tender ride takes about 15 minutes. Rough seas can delay or cancel service."}},
+      {"@type": "Question", "name": "How do I get to Acadia from the pier?", "acceptedAnswer": {"@type": "Answer", "text": "Island Explorer free shuttle (late June-Columbus Day), Oli's Trolley narrated tours (book early), ship excursions, or taxis. No Uber/Lyft available. The shuttle is excellent for budget-conscious, flexible travelers."}},
+      {"@type": "Question", "name": "Do I need reservations for Cadillac Mountain?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, from May through October. Timed entry costs $6 per vehicle through recreation.gov. Sunrise reservations sell out quickly. Book ahead — this is not optional during peak season."}},
+      {"@type": "Question", "name": "When is the best time to visit?", "acceptedAnswer": {"@type": "Answer", "text": "September-October for fall foliage and smaller crowds. Summer (July-August) is warmest but busiest. May-June brings wildflowers and fewer visitors. Each season offers different rewards."}},
+      {"@type": "Question", "name": "Can I walk across to Bar Island?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, at low tide a sandbar connects to Bar Island. Check tide tables carefully — the bar floods quickly. Allow time for return crossing. Free and unique experience."}},
+      {"@type": "Question", "name": "Is Acadia wheelchair accessible?", "acceptedAnswer": {"@type": "Answer", "text": "Partially. Cadillac Mountain summit, Jordan Pond House, and some viewpoints are accessible. Many trails are not. The carriage roads offer smoother surfaces for limited distances. Contact park rangers for specific accessibility information."}},
+      {"@type": "Question", "name": "When is hurricane and storm season in Bar Harbor?", "acceptedAnswer": {"@type": "Answer", "text": "Bar Harbor sits at ~44°N on Maine's Atlantic coast — north of the main Atlantic-hurricane tracks but within the late-season recurvature window. The North Atlantic hurricane season runs Jun 1 – Nov 30; New England impacts (when they happen) most often come Aug-Oct when systems track up the eastern seaboard. Bar Harbor is also a tender port, so swell and high winds matter more here than at a piered port. Cruise itineraries can shift to skip the tender call during active storms. For current tropical-system status on a specific sailing date, the live weather widget in the seasonal panel above is the primary source."}},
+      {"@type": "Question", "name": "What should I pack for Bar Harbor's weather?", "acceptedAnswer": {"@type": "Answer", "text": "Layers are essential — even peak-summer mornings can start cool with sea fog rolling in off Frenchman Bay before burning off. A light fleece or windbreaker matters for the tender ride and for Cadillac Mountain at any hour (the summit runs ~10°F cooler than the bay). Comfortable walking shoes for Acadia's carriage roads and the granite ledges along Ocean Path. Sunscreen for clear days, a compact rain jacket for fast-moving Atlantic systems, and bug spray Jun-Aug for the mosquito and blackfly windows."}},
+      {"@type": "Question", "name": "Will rain ruin my Bar Harbor port day?", "acceptedAnswer": {"@type": "Answer", "text": "Bar Harbor is a tender port, so rough conditions matter more than rain itself — heavy weather can delay or cancel tender service from Frenchman Bay. Light rain rarely shuts down the town; Main Street's shops, restaurants, and the Abbe Museum are walkable indoor refuges, and Jordan Pond House's popovers taste even better with windows fogging from the weather outside. Acadia's carriage roads and forested trails are atmospheric in rain but the granite summit slabs become slippery — most cruise visitors swap a wet-day Cadillac visit for the museum or a long lunch. The live weather widget in the seasonal panel above is the primary source for short-term forecasts on a specific sailing date."}}
     ]
   }
   </script>
@@ -166,6 +171,15 @@ Soli Deo Gloria
     <nav aria-label="Breadcrumb" style="margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #666;"><li class="inline"><a href="/">Home</a> › </li><li class="inline"><a href="/ports.html">Ports</a> › </li><li aria-current="page" class="inline">Bar Harbor</li></ol></nav>
 
     <article class="card" style="grid-column: 1; grid-row: 1;">
+      <!-- Tender Port Indicator -->
+      <div class="tender-port-indicator" role="status" aria-label="This is a tender port">
+        <img class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" loading="lazy" aria-hidden="true" width="48" height="36">
+        <div class="tender-text">
+          <p class="tender-title">Tender Port</p>
+          <p class="tender-desc">Ships anchor in Frenchman Bay and passengers take small boats (tenders) to the Bar Harbor town pier. The ride takes about 15 minutes; rough seas can delay or cancel service.</p>
+        </div>
+      </div>
+
       <!-- HERO SECTION -->
       <section class="port-hero" id="hero">
         <div class="port-hero-image">
@@ -466,6 +480,12 @@ Soli Deo Gloria
         <p><strong>Q: Can I walk across to Bar Island?</strong><br>A: Yes, at low tide a sandbar connects to Bar Island. Check tide tables carefully — the bar floods quickly. Allow time for return crossing. Free and unique experience.</p>
 
         <p><strong>Q: Is Acadia wheelchair accessible?</strong><br>A: Partially. Cadillac Mountain summit, Jordan Pond House, and some viewpoints are accessible. Many trails are not. The carriage roads offer smoother surfaces for limited distances. Contact park rangers for specific accessibility information.</p>
+
+        <p><strong>Q: When is hurricane and storm season in Bar Harbor?</strong><br>A: Bar Harbor sits at ~44°N on Maine's Atlantic coast — north of the main Atlantic-hurricane tracks but within the late-season recurvature window. The North Atlantic hurricane season runs Jun 1 – Nov 30; New England impacts (when they happen) most often come Aug-Oct when systems track up the eastern seaboard. Bar Harbor is also a tender port, so swell and high winds matter more here than at a piered port. Cruise itineraries can shift to skip the tender call during active storms. For current tropical-system status on a specific sailing date, the live weather widget in the seasonal panel above is the primary source.</p>
+
+        <p><strong>Q: What should I pack for Bar Harbor's weather?</strong><br>A: Layers are essential — even peak-summer mornings can start cool with sea fog rolling in off Frenchman Bay before burning off. A light fleece or windbreaker matters for the tender ride and for Cadillac Mountain at any hour (the summit runs ~10°F cooler than the bay). Comfortable walking shoes for Acadia's carriage roads and the granite ledges along Ocean Path. Sunscreen for clear days, a compact rain jacket for fast-moving Atlantic systems, and bug spray Jun-Aug for the mosquito and blackfly windows.</p>
+
+        <p><strong>Q: Will rain ruin my Bar Harbor port day?</strong><br>A: Bar Harbor is a tender port, so rough conditions matter more than rain itself — heavy weather can delay or cancel tender service from Frenchman Bay. Light rain rarely shuts down the town; Main Street's shops, restaurants, and the Abbe Museum are walkable indoor refuges, and Jordan Pond House's popovers taste even better with windows fogging from the weather outside. Acadia's carriage roads and forested trails are atmospheric in rain but the granite summit slabs become slippery — most cruise visitors swap a wet-day Cadillac visit for the museum or a long lunch. The live weather widget in the seasonal panel above is the primary source for short-term forecasts on a specific sailing date.</p>
       </details>
 
       
@@ -593,7 +613,7 @@ Soli Deo Gloria
           <dt>State</dt><dd>Maine</dd>
           <dt>Port Type</dt><dd>Tender</dd>
           <dt>Currency</dt><dd>USD</dd>
-          <dt>Peak Season</dt><dd>Sept-Oct</dd>
+          <dt>Cruise Peak</dt><dd>Sept-Oct</dd>
           <dt>Park Entry</dt><dd>$35/vehicle</dd>
         </dl>
       </section>
