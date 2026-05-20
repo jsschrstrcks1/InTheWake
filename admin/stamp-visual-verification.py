@@ -944,6 +944,16 @@ VERIFICATIONS = {
         "confirmed", "Alongside at a Greek port; \"MSC Armonia\" lettering on bow + MSC funnel logo"),
     "assets/ships/msc/msc-armonia/MSCARMONIABHV.webp.attr.json": (
         "confirmed", "Under way in calm water; \"MSC Armonia\" lettering visible on bow + MSC logo"),
+
+    # ---- MSC Bellissima (batch H, 2026-05-19) ------------------------------
+    "assets/ships/msc/msc-bellissima/MSC_Bellissima_20190226_190137.webp.attr.json": (
+        "confirmed", "Saint-Nazaire delivery 26 Feb 2019; \"MSC BELLISSIMA\" lettering clearly visible on hull + MSC logo"),
+    "assets/ships/msc/msc-bellissima/MSC_Bellissima_20190226_190502.webp.attr.json": (
+        "confirmed", "Saint-Nazaire delivery 26 Feb 2019; broadside with prominent MSC logo + faint Bellissima lettering visible"),
+    "assets/ships/msc/msc-bellissima/MSC_Bellissima_20190226_185438.webp.attr.json": (
+        "consistent", "Saint-Nazaire delivery 26 Feb 2019; bow-on at dusk with partial \"MSC ___SIMA\" lettering visible; same uploader series as confirmed files"),
+    "assets/ships/msc/msc-bellissima/MSC_Bellissima_20190226_190829.webp.attr.json": (
+        "consistent", "Saint-Nazaire delivery 26 Feb 2019; side close-up with large MSC funnel logo; same uploader series"),
 }
 
 
