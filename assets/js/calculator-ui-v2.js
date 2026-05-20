@@ -796,6 +796,82 @@ function renderCrossoverChart() {
   }
 }
 
+/* ==================== BUDGET RISK INDICATOR (NEW-4) ==================== */
+
+function setupBudgetRisk() {
+  const input = document.getElementById('trip-cost-input');
+  const wrap = document.getElementById('budget-risk');
+  if (!input || !wrap) return;
+
+  function prefill() {
+    const lc = window.ITW_LINE_CONFIG;
+    if (lc?.cabinPrice?.pp7) {
+      input.value = lc.cabinPrice.pp7;
+      input.setAttribute('placeholder', lc.cabinPrice.pp7);
+    }
+    wrap.style.display = '';
+  }
+
+  prefill();
+
+  input.addEventListener('input', function() {
+    updateBudgetRisk();
+  });
+
+  window.addEventListener('itw:line-changed', function() {
+    prefill();
+    updateBudgetRisk();
+  });
+
+  updateBudgetRisk();
+}
+
+function updateBudgetRisk() {
+  const input = document.getElementById('trip-cost-input');
+  const pctEl = document.getElementById('budget-pct');
+  const ctxEl = document.getElementById('budget-context');
+  if (!input || !pctEl || !ctxEl) return;
+
+  const formatMoney = window.ITW?.formatMoney || ((v) => '$' + v.toFixed(2));
+  const results = window.ITW?.store?.get('results');
+  const fare = parseFloat(input.value.replace(/[^0-9.]/g, '')) || 0;
+
+  if (!results || fare <= 0) {
+    pctEl.textContent = '';
+    ctxEl.textContent = '';
+    return;
+  }
+
+  const winnerCost = results.bars?.[results.winnerKey]?.mean || 0;
+  const inputs = window.ITW?.store?.get('inputs');
+  const adults = inputs?.adults || 1;
+  const perPersonDrinkCost = adults > 0 ? winnerCost / adults : winnerCost;
+  const pct = (perPersonDrinkCost / fare) * 100;
+
+  let label, color;
+  if (pct <= 15) {
+    label = 'LOW';
+    color = '#10b981';
+  } else if (pct <= 30) {
+    label = 'MODERATE';
+    color = '#f59e0b';
+  } else {
+    label = 'HIGH';
+    color = '#ef4444';
+  }
+
+  pctEl.textContent = label + ': ' + Math.round(pct) + '% of fare';
+  pctEl.style.color = color;
+
+  if (pct <= 15) {
+    ctxEl.textContent = 'Drinks add ' + formatMoney(perPersonDrinkCost) + ' per person to a ' + formatMoney(fare) + ' cruise — a modest addition to your trip budget.';
+  } else if (pct <= 30) {
+    ctxEl.textContent = 'At ' + formatMoney(perPersonDrinkCost) + ' per person, drinks are a significant budget item on top of your ' + formatMoney(fare) + ' fare. Consider whether the package saves enough to justify.';
+  } else {
+    ctxEl.textContent = 'At ' + formatMoney(perPersonDrinkCost) + ' per person, drinks would add over ' + Math.round(pct) + '% to your ' + formatMoney(fare) + ' cruise fare. That is a major budget item — review your drink plan carefully.';
+  }
+}
+
 /* ==================== PACKAGE CARDS (TWO-WINNER SYSTEM) ==================== */
 
 /**
@@ -1722,6 +1798,8 @@ function renderAll() {
 
     renderCostSummary(results);
 
+    updateBudgetRisk();
+
   } catch (error) {
 
   }
@@ -1874,6 +1952,7 @@ function initializeUI() {
   setupNonAlcoholicToggle();
   setupPricingToggle();
   setupDrinkUnitsSelector();
+  setupBudgetRisk();
 
   // Subscribe to store changes (debounced)
   window.ITW.store.subscribe('results', (newResults, fullState) => {
@@ -1927,7 +2006,8 @@ window.ITW_UI = Object.freeze({
   renderHealthNote,
   renderCostSummary,
   announce,
-  version: '1.008.000'
+  updateBudgetRisk,
+  version: '1.009.000'
 });
 
 window.applyPreset = applyPreset;

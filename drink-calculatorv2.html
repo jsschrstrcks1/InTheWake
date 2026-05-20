@@ -1706,7 +1706,18 @@
               </p>
             </div>
           </div>
-          
+
+          <!-- Budget Risk Indicator (NEW-4) -->
+          <div id="budget-risk" style="display:none; margin:1rem 0; padding:1rem; background:#f8f9fa; border:2px solid #dee2e6; border-radius:8px;" role="region" aria-label="Budget risk indicator">
+            <h4 style="margin:0 0 0.5rem; font-size:0.95rem; color:#0a3d62;">📊 Budget Context: Drinks vs. Cruise Fare</h4>
+            <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+              <label style="font-size:0.85rem; font-weight:600; color:#345; margin:0; white-space:nowrap;">Your cruise fare (pp):</label>
+              <input type="text" id="trip-cost-input" inputmode="numeric" style="width:110px; padding:0.4rem 0.6rem; border:1px solid #ccc; border-radius:6px; font-size:0.9rem; text-align:right;" aria-label="Cruise fare per person in dollars" />
+              <span id="budget-pct" style="font-weight:700; font-size:1.1rem; color:#0a3d62;"></span>
+            </div>
+            <p id="budget-context" class="tiny" style="margin:0.4rem 0 0; color:#555; line-height:1.4;"></p>
+          </div>
+
           <!-- Category Breakdown -->
           <div id="category-breakdown" class="category-summary" hidden>
             <h4 style="margin-top:0">💰 Where Your Money Goes (per day)</h4>
