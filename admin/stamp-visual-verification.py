@@ -934,6 +934,16 @@ VERIFICATIONS = {
         "confirmed", "Broadside leaving a Mediterranean port; MSC logo on bow + Fantasia-class profile"),
     "assets/ships/msc/msc-fantasia/MSC_Fantasia_pool.webp.attr.json": (
         "consistent", "Main pool deck interior; distinctive Fantasia-class pool architecture; sister-class ambiguity but uploaded under Fantasia category"),
+
+    # ---- MSC Armonia (batch H, 2026-05-19) ---------------------------------
+    "assets/ships/msc/msc-armonia/MSC_Armonia_in_Venice_on_27.05.2007.webp.attr.json": (
+        "confirmed", "Stern view in Venice; \"MSC ARMONIA / PANAMA\" lettering clearly readable on stern"),
+    "assets/ships/msc/msc-armonia/MSC_Armonia_in_the_Bay_of_Kotor.webp.attr.json": (
+        "confirmed", "Broadside in Bay of Kotor; \"MSC Armonia\" lettering visible + MSC funnel logo + Lirica-class profile"),
+    "assets/ships/msc/msc-armonia/Mscarmonia.webp.attr.json": (
+        "confirmed", "Alongside at a Greek port; \"MSC Armonia\" lettering on bow + MSC funnel logo"),
+    "assets/ships/msc/msc-armonia/MSCARMONIABHV.webp.attr.json": (
+        "confirmed", "Under way in calm water; \"MSC Armonia\" lettering visible on bow + MSC logo"),
 }
 
 
