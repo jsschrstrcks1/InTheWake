@@ -349,20 +349,23 @@ function renderRiskSummary(results) {
     container.style.display = '';
     container.style.background = '#e8f5e9';
     container.style.color = '#2e7d32';
+    container.style.borderLeft = '4px solid #2e7d32';
     const u = getActiveDrinkUnits();
-    container.textContent = `💡 At your current drink level, paying as you go is cheaper. You'd need about ${formatDrinkCount(Math.ceil(breakEvenCount), u)} (${be.name}) per day to break even on the ${deluxePkg.shortName || deluxePkg.name}.`;
+    container.textContent = `💡 SAVING: At your current drink level, paying as you go is cheaper. You'd need about ${formatDrinkCount(Math.ceil(breakEvenCount), u)} (${be.name}) per day to break even on the ${deluxePkg.shortName || deluxePkg.name}.`;
   } else if (breakEvenCount > cdcModerate * 2) {
     // Package recommended but break-even is high — note it
     container.style.display = '';
     container.style.background = '#fff3e0';
     container.style.color = '#e65100';
-    container.textContent = `📊 The ${deluxePkg.shortName || deluxePkg.name} saves you money, but break-even requires about ${formatDrinkCount(Math.ceil(breakEvenCount))} (${be.name}) per day — above typical moderation guidelines.`;
+    container.style.borderLeft = '4px solid #e65100';
+    container.textContent = `📊 CAUTION: The ${deluxePkg.shortName || deluxePkg.name} saves you money, but break-even requires about ${formatDrinkCount(Math.ceil(breakEvenCount))} (${be.name}) per day — above typical moderation guidelines.`;
   } else {
     // Package recommended at moderate levels
     container.style.display = '';
     container.style.background = '#e3f2fd';
     container.style.color = '#1565c0';
-    container.textContent = `✅ The ${deluxePkg.shortName || deluxePkg.name} is your best value — break-even at about ${formatDrinkCount(Math.ceil(breakEvenCount))} (${be.name}) per day.`;
+    container.style.borderLeft = '4px solid #1565c0';
+    container.textContent = `✅ RECOMMENDED: The ${deluxePkg.shortName || deluxePkg.name} is your best value — break-even at about ${formatDrinkCount(Math.ceil(breakEvenCount))} (${be.name}) per day.`;
   }
 }
 
@@ -462,6 +465,26 @@ function renderChart(bars, winnerKey) {
     }]
   };
 
+  const packageKeys = ['alc', 'soda', 'refresh', 'deluxe'];
+  const winnerIdx = packageKeys.indexOf(winnerKey);
+
+  const barWinnerPlugin = {
+    id: 'barWinnerLabel',
+    afterDraw: function(chart) {
+      if (winnerIdx < 0) return;
+      const meta = chart.getDatasetMeta(0);
+      const bar = meta.data[winnerIdx];
+      if (!bar) return;
+      const ctx2 = chart.ctx;
+      ctx2.save();
+      ctx2.fillStyle = '#0a3d62';
+      ctx2.font = 'bold 11px system-ui, sans-serif';
+      ctx2.textAlign = 'center';
+      ctx2.fillText('✓ Best', bar.x, bar.y - 6);
+      ctx2.restore();
+    }
+  };
+
   try {
     chartInstance = new Chart(ctx, {
       type: 'bar',
@@ -485,7 +508,8 @@ function renderChart(bars, winnerKey) {
             }
           }
         }
-      }
+      },
+      plugins: [barWinnerPlugin]
     });
 
     // ✅ NEW: Update screen reader table
@@ -809,6 +833,7 @@ function renderPackageCards(results) {
     const badge = document.createElement('div');
     badge.className = 'winner-badge';
     badge.textContent = results.showTwoWinners ? '✓ Best for Adults' : '✓ Best Value';
+    badge.style.cssText = 'background:#10b981;color:#fff;padding:4px 10px;border-radius:6px;font-size:0.8rem;font-weight:700;margin-bottom:6px;display:inline-block;';
     badge.setAttribute('role', 'status');
     badge.setAttribute('aria-label', results.showTwoWinners
       ? `${results.winnerLabel} is best value for adults`
@@ -826,6 +851,7 @@ function renderPackageCards(results) {
       const badge = document.createElement('div');
       badge.className = 'winner-badge winner-badge-minors';
       badge.textContent = '✓ Best for Kids';
+      badge.style.cssText = 'background:#3b82f6;color:#fff;padding:4px 10px;border-radius:6px;font-size:0.8rem;font-weight:700;margin-bottom:6px;display:inline-block;';
       badge.setAttribute('role', 'status');
       badge.setAttribute('aria-label', `${results.minorWinnerLabel} is best value for children under 21`);
 

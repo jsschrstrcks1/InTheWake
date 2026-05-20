@@ -823,9 +823,9 @@
             var el = document.querySelector('.chart-help');
             if (!el) return;
             var gratPct = lc.rules && lc.rules.gratuity ? Math.round(lc.rules.gratuity * 100) : 18;
-            el.innerHTML = '<strong>\uD83D\uDCA1 How to read:</strong> Blue bar = your actual drinking cost per day (including ' + gratPct + '% gratuity). ' +
-              'Gray bars = what you\'d pay for each package. <strong>Lower = better value.</strong> ' +
-              'Hover over bars to see exact dollar amounts.';
+            el.innerHTML = '<strong>\uD83D\uDCA1 How to read:</strong> Each bar shows the total cost for that option (including ' + gratPct + '% gratuity). ' +
+              'The bar marked \u201C\u2713 Best\u201D is the cheapest. <strong>Lower = better value.</strong> ' +
+              'Hover or tap bars to see exact dollar amounts.';
           }
 
           // ── Family Policy Note (minors + deluxe) ──
@@ -1637,9 +1637,9 @@
           
           <!-- Chart Help Text -->
           <div class="chart-help">
-            <strong>💡 How to read:</strong> Blue bar = your actual drinking cost per day (including 18% gratuity). 
-            Gray bars = what you'd pay for each package. <strong>Lower = better value.</strong>
-            Hover over bars to see exact dollar amounts.
+            <strong>💡 How to read:</strong> Each bar shows the total cost for that option.
+            The bar marked "✓ Best" is the cheapest. <strong>Lower = better value.</strong>
+            Hover or tap bars to see exact dollar amounts.
           </div>
           
           <!-- Break-Even Crossover Chart (Feature E) -->
