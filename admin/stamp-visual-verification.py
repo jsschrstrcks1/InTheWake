@@ -924,6 +924,16 @@ VERIFICATIONS = {
         "confirmed", "Alongside at Istanbul; \"MSC Divina\" lettering visible on bow"),
     "assets/ships/msc/msc-divina/MSC_Divina.webp.attr.json": (
         "consistent", "At anchor off Dubrovnik viewed across the harbour; Fantasia-class profile + MSC livery; sister-class ambiguity with Fantasia/Splendida/Preziosa noted"),
+
+    # ---- MSC Fantasia (batch H, 2026-05-19) --------------------------------
+    "assets/ships/msc/msc-fantasia/MSC_Fantasia.webp.attr.json": (
+        "confirmed", "Broadside at sunset; \"MSC FANTASIA\" lettering visible on hull + huge MSC logo"),
+    "assets/ships/msc/msc-fantasia/MSC_Fantasia2.webp.attr.json": (
+        "confirmed", "Bow-on at Mediterranean port (Barcelona) with Costa ship adjacent; Fantasia-class profile + MSC livery"),
+    "assets/ships/msc/msc-fantasia/Msc_fantasia.webp.attr.json": (
+        "confirmed", "Broadside leaving a Mediterranean port; MSC logo on bow + Fantasia-class profile"),
+    "assets/ships/msc/msc-fantasia/MSC_Fantasia_pool.webp.attr.json": (
+        "consistent", "Main pool deck interior; distinctive Fantasia-class pool architecture; sister-class ambiguity but uploaded under Fantasia category"),
 }
 
 
