@@ -890,6 +890,14 @@ VERIFICATIONS = {
         "confirmed", "Bow close-up with \"MSC SINFONIA\" lettering visible (water reflections distort the bow art)"),
     "assets/ships/msc/msc-sinfonia/Cruise_Ship_(8948848326).webp.attr.json": (
         "consistent", "Bow-on at a Mediterranean port; large MSC logo on bow + Lirica-class profile; sister-class ambiguity with Lirica/Opera/Armonia applies"),
+
+    # ---- MSC Splendida (batch H, 2026-05-19) -------------------------------
+    "assets/ships/msc/msc-splendida/MSC-Splendida-2012-Messina.webp.attr.json": (
+        "confirmed", "Alongside at Messina; \"MSC SPLENDIDA\" lettering clearly visible on bow"),
+    "assets/ships/msc/msc-splendida/MSC_Splendida.webp.attr.json": (
+        "confirmed", "Broadside at a Mediterranean port; \"MSC Splendida\" lettering visible on bow + MSC funnel logo"),
+    "assets/ships/msc/msc-splendida/MSC_Splendida_passes_under_25_de_Abril_Bridge.webp.attr.json": (
+        "consistent", "Passing under the 25 de Abril Bridge in Lisbon; Fantasia-class profile + MSC livery; sister-class ambiguity with Fantasia/Divina/Preziosa applies"),
 }
 
 
