@@ -1274,6 +1274,14 @@ VERIFICATIONS = {
         "confirmed", "Broadside at Puerto Vallarta Oct 2024 golden hour; \"Carnival Fun Italian Style\" livery visible + Costa-derived yellow C funnel (preserved from Costa Firenze)"),
     "assets/ships/carnival/carnival-firenze/Carnival_Firenze_(ex._Costa_Firenze)_(ship,_2020)___Oceania_Vista_(ship,_2023)_in_Cabo_San_Lucas_(December_2025).webp.attr.json": (
         "confirmed", "Broadside at Cabo San Lucas Dec 2025 with Oceania Vista in background; \"Carnival Fun Italian Style\" livery + yellow C funnel visible (Carnival rebrand of Costa Firenze)"),
+
+    # ---- Oceania Marina (batch FF, 2026-05-21) -----------------------------
+    "assets/ships/oceania/marina/Passenger_ship_Marina_in_the_turning_basin_of_the_port_of_Hamburg.webp.attr.json": (
+        "consistent", "Bow head-on at Hamburg turning basin; red Oceania O funnel mark visible; sister Riviera identical (Oceania-class); Commons attribution names Marina"),
+    "assets/ships/oceania/marina/MS_Marina_and_MV_Mein_Schiff_1_La_Rochelle.webp.attr.json": (
+        "confirmed", "Marina (Oceania, white hull, left half) and Mein Schiff 1 (TUI, dark blue, right half) at La Rochelle-Pallice 2015; Oceania O funnel mark visible on Marina"),
+    "assets/ships/oceania/marina/Marina_(ship,_2011)_in_Portugal.webp.attr.json": (
+        "consistent", "Broadside at Lisbon Portugal with red-tiled rooftops in foreground; red Oceania O funnel mark visible; sister Riviera identical; Commons attribution names Marina"),
 }
 
 
