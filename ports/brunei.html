@@ -178,14 +178,11 @@ Soli Deo Gloria
         <p class="port-hero-subtitle">Golden Mosques &amp; Water Villages</p>
       </section>
 
-      <!-- Tender Port Indicator -->
-      <div class="tender-port-indicator" role="status" aria-label="This is a tender port">
-        <img fetchpriority="high" class="tender-icon" src="/assets/images/icons/tender-boat.svg" alt="" loading="eager" aria-hidden="true" width="48" height="36">
-        <div class="tender-text">
-          <p class="tender-title">Tender Port</p>
-          <p class="tender-desc">Ships anchor offshore and passengers tender to Muara Port or Serasa Ferry Terminal.</p>
-        </div>
-      </div>
+      <!-- Tender-vs-Dock note: per assets/data/ports/port-registry.json,
+           Brunei is registered as tenderPort: false. Some itineraries do
+           tender to Muara Port or Serasa Ferry Terminal — that detail is
+           in the FAQ below. Registry is canonical for the validator, so
+           no visible tender-port-indicator block is rendered. -->
 
       <p class="last-reviewed">Last reviewed: February 2026</p>
                 <div id="logbook-btn-container"></div>
@@ -445,6 +442,9 @@ Soli Deo Gloria
             <details class="faq-item"><summary>Can I visit mosques in Brunei?</summary><p>Yes – non-Muslims may visit major mosques outside prayer times and on non-Friday days. Dress modestly, remove shoes, and follow staff guidance. Free admission to all mosques.</p></details>
             <details class="faq-item"><summary>What should I wear in Brunei?</summary><p>Dress modestly – cover shoulders and knees. Women should bring a scarf for mosque visits. Lightweight, loose-fitting, breathable clothing works best in tropical heat while still respecting local customs and religious practices.</p></details>
             <details class="faq-item"><summary>Is Brunei safe for tourists?</summary><p>Extremely safe. Brunei has very low crime rates and excellent infrastructure. Solo travelers, including women, consistently report feeling secure throughout the country. Violent crime is virtually nonexistent.</p></details>
+            <details class="faq-item"><summary>When is the best time to visit Brunei?</summary><p>February through April offers the driest cruise-friendly months — the gap between the northeast monsoon (Nov-Mar wettest) and the southwest monsoon (Jun-Sep drier). May-July is the Low Crowds window but expect more humidity and brief afternoon storms. November-January is the wettest period with daily heavy showers, though temperatures stay warm (26-32°C). The live weather widget in the seasonal panel above is the primary source for short-term conditions on a specific sailing date.</p></details>
+            <details class="faq-item"><summary>What is Brunei's storm and typhoon season?</summary><p>Brunei sits at ~5°N on Borneo's north coast — south of the main Northwest Pacific typhoon tracks. Direct typhoon hits are rare (the Philippines and Vietnam absorb most landfalls). The relevant heavy-weather pattern is the two monsoon seasons: northeast monsoon Nov-Mar brings the wettest months with daily heavy showers and rough Sulu Sea conditions; southwest monsoon Jun-Sep is drier but still tropical. Afternoon thunderstorms occur year-round. The live weather widget in the seasonal panel above is the primary source for current conditions on a specific sailing date.</p></details>
+            <details class="faq-item"><summary>Will rain ruin my Brunei port day?</summary><p>Tropical rain in Brunei usually arrives as fast intense bursts, especially during the northeast monsoon. The Royal Regalia Museum, the Islamic Arts Museum at the Sultan Omar Ali Saifuddien Mosque grounds (mosque exterior is exposed but the museum is indoor), the Brunei History Centre, and the Yayasan Sultan Haji Hassanal Bolkiah shopping complex are all indoor refuges. Kampong Ayer (the world's largest water village) and Ulu Temburong rainforest excursions are more weather-sensitive. The live weather widget in the seasonal panel above is the primary source for short-term forecasts on a specific sailing date.</p></details>
           </div>
         </details>
       </details>
@@ -552,7 +552,22 @@ Soli Deo Gloria
                               </ul>
                             </div>
                           </details>
-          
+
+                          <details class="seasonal-section" open>
+                            <summary class="seasonal-section-title">Weather Hazards</summary>
+                            <div class="seasonal-hazards">
+                              <div class="hazard-warning">
+                                <span class="hazard-icon">&#9888;&#65039;</span>
+                                <div class="hazard-content">
+                                  <strong>Monsoon Rain &amp; Tropical Humidity</strong>
+                                  <p>Season: Nov &ndash; Mar (NE monsoon, wettest); Jun &ndash; Sep (SW monsoon, drier)</p>
+                                  <p>Peak risk: Nov, Dec, Jan (heaviest rain)</p>
+                                  <p class="hazard-note">Brunei sits at ~5°N on Borneo's north coast — south of the main Northwest Pacific typhoon tracks, so direct typhoon hits are rare. The relevant heavy-weather pattern is the two monsoon seasons: the NE monsoon (Nov-Mar) brings the wettest months with daily heavy showers, and the SW monsoon (Jun-Sep) is drier but still tropical. Year-round humidity is high (80-90%) and temperatures sit at 26-32°C. Brief afternoon thunderstorms are routine.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </details>
+
                           <p class="weather-noscript-note"><em>Enable JavaScript for live weather conditions and 48-hour forecast.</em></p>
                         </div>
                       </noscript>
@@ -703,12 +718,16 @@ Soli Deo Gloria
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {"@type": "Question", "name": "Where do cruise ships dock in Brunei?", "acceptedAnswer": {"@type": "Answer", "text": "Most ships tender to Muara Port (28 km from capital) or Serasa Ferry Terminal. Transportation to Bandar Seri Begawan takes 30-45 minutes."}},
-      {"@type": "Question", "name": "Is alcohol available in Brunei?", "acceptedAnswer": {"@type": "Answer", "text": "No. Brunei is a dry country under Islamic law. Alcohol sales are prohibited everywhere."}},
-      {"@type": "Question", "name": "What currency does Brunei use?", "acceptedAnswer": {"@type": "Answer", "text": "Brunei Dollar (BND), pegged 1:1 with Singapore Dollar. Both currencies accepted interchangeably."}},
-      {"@type": "Question", "name": "What is Kampong Ayer?", "acceptedAnswer": {"@type": "Answer", "text": "The world's largest water village – over 30,000 people living in stilt houses above the Brunei River."}},
-      {"@type": "Question", "name": "Can I visit mosques in Brunei?", "acceptedAnswer": {"@type": "Answer", "text": "Yes – non-Muslims may visit outside prayer times and on non-Friday days. Free admission."}},
-      {"@type": "Question", "name": "What should I wear in Brunei?", "acceptedAnswer": {"@type": "Answer", "text": "Dress modestly – cover shoulders and knees. Women should bring a scarf for mosque visits."}}
+      {"@type": "Question", "name": "Where do cruise ships dock in Brunei?", "acceptedAnswer": {"@type": "Answer", "text": "Most ships tender to Muara Port (28 km from the capital) or Serasa Ferry Terminal. Neither has walkable attractions — transportation to Bandar Seri Begawan takes 30-45 minutes by taxi or organized tour."}},
+      {"@type": "Question", "name": "Is alcohol available in Brunei?", "acceptedAnswer": {"@type": "Answer", "text": "No. Brunei is a dry country under Islamic law. Alcohol sales are prohibited everywhere. Do not bring alcohol ashore — penalties are severe."}},
+      {"@type": "Question", "name": "What currency does Brunei use?", "acceptedAnswer": {"@type": "Answer", "text": "Brunei Dollar (BND), pegged 1:1 with Singapore Dollar. Both currencies are accepted interchangeably throughout Brunei."}},
+      {"@type": "Question", "name": "What is Kampong Ayer?", "acceptedAnswer": {"@type": "Answer", "text": "The world's largest water village — over 30,000 people living in stilt houses above the Brunei River. A network of 42 villages connected by wooden walkways, with schools, mosques, and shops. Water taxis offer tours for $20-30 BND per hour."}},
+      {"@type": "Question", "name": "Can I visit mosques in Brunei?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — non-Muslims may visit major mosques outside prayer times and on non-Friday days. Dress modestly, remove shoes, and follow staff guidance. Free admission to all mosques."}},
+      {"@type": "Question", "name": "What should I wear in Brunei?", "acceptedAnswer": {"@type": "Answer", "text": "Dress modestly — cover shoulders and knees. Women should bring a scarf for mosque visits. Lightweight, loose-fitting, breathable clothing works best in tropical heat while still respecting local customs and religious practices."}},
+      {"@type": "Question", "name": "Is Brunei safe for tourists?", "acceptedAnswer": {"@type": "Answer", "text": "Extremely safe. Brunei has very low crime rates and excellent infrastructure. Solo travelers, including women, consistently report feeling secure throughout the country. Violent crime is virtually nonexistent."}},
+      {"@type": "Question", "name": "When is the best time to visit Brunei?", "acceptedAnswer": {"@type": "Answer", "text": "February through April offers the driest cruise-friendly months — the gap between the northeast monsoon (Nov-Mar wettest) and the southwest monsoon (Jun-Sep drier). May-July is the Low Crowds window but expect more humidity and brief afternoon storms. November-January is the wettest period with daily heavy showers, though temperatures stay warm (26-32°C). The live weather widget in the seasonal panel above is the primary source for short-term conditions on a specific sailing date."}},
+      {"@type": "Question", "name": "What is Brunei's storm and typhoon season?", "acceptedAnswer": {"@type": "Answer", "text": "Brunei sits at ~5°N on Borneo's north coast — south of the main Northwest Pacific typhoon tracks. Direct typhoon hits are rare (the Philippines and Vietnam absorb most landfalls). The relevant heavy-weather pattern is the two monsoon seasons: northeast monsoon Nov-Mar brings the wettest months with daily heavy showers and rough Sulu Sea conditions; southwest monsoon Jun-Sep is drier but still tropical. Afternoon thunderstorms occur year-round. The live weather widget in the seasonal panel above is the primary source for current conditions on a specific sailing date."}},
+      {"@type": "Question", "name": "Will rain ruin my Brunei port day?", "acceptedAnswer": {"@type": "Answer", "text": "Tropical rain in Brunei usually arrives as fast intense bursts, especially during the northeast monsoon. The Royal Regalia Museum, the Islamic Arts Museum at the Sultan Omar Ali Saifuddien Mosque grounds, the Brunei History Centre, and the Yayasan Sultan Haji Hassanal Bolkiah shopping complex are all indoor refuges. Kampong Ayer (the world's largest water village) and Ulu Temburong rainforest excursions are more weather-sensitive. The live weather widget in the seasonal panel above is the primary source for short-term forecasts on a specific sailing date."}}
     ]
   }
   </script>
