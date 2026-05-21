@@ -1210,6 +1210,14 @@ VERIFICATIONS = {
         "consistent", "At Sydney Overseas Passenger Terminal between Harbour Bridge and Opera House; NCL blue/sun funnel mark visible; Commons attribution identifies as Norwegian Spirit"),
     "assets/ships/norwegian/norwegian-spirit/The__Norwegian_Spirit_,_Belfast_harbour_(June_2019)_-_geograph.org.uk_-_6172815.webp.attr.json": (
         "confirmed", "Broadside at Belfast harbour June 2019; \"NORWEGIAN SPIRIT\" lettering visible amidships AND bow + distinctive Spirit-specific colorful hull artwork"),
+
+    # ---- Norwegian Bliss (batch W, 2026-05-21) -----------------------------
+    "assets/ships/norwegian/norwegian-bliss/Norwegian_Bliss_in_Seattle_0311.webp.attr.json": (
+        "confirmed", "At Seattle pier; \"NORWEGIAN BLISS\" lettering clearly visible above lifeboats on hull + Pacific Northwest-inspired Robert Wyland hull artwork"),
+    "assets/ships/norwegian/norwegian-bliss/Norwegian_Bliss_at_Bell_Street_Pier,_Seattle.webp.attr.json": (
+        "confirmed", "Aerial view at Bell Street Pier (Pier 66) Seattle; distinctive Breakaway Plus class profile; Commons attribution identifies as Norwegian Bliss"),
+    "assets/ships/norwegian/norwegian-bliss/Queen_Elizabeth___Norwegian_Bliss_(50511912068).webp.attr.json": (
+        "confirmed", "Norwegian Bliss (right) anchored off Weymouth 2020 alongside Cunard Queen Elizabeth (left); \"Norwegian Bliss\" lettering visible on bow of right ship; Commons attribution names both ships"),
 }
 
 
