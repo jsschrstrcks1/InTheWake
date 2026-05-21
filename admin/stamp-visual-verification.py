@@ -1008,6 +1008,16 @@ VERIFICATIONS = {
         "consistent", "Alongside at Porto Genova; broadside + MSC funnel logo visible; same uploader series as confirmed file 19"),
     "assets/ships/msc/msc-orchestra/Mscorchestra.webp.attr.json": (
         "consistent", "Broadside at Istanbul on the Bosphorus; Musica-class profile + MSC livery; sister ambiguity with Musica/Poesia/Magnifica applies"),
+
+    # ---- Celebrity Apex (batch H, 2026-05-21) ------------------------------
+    "assets/ships/celebrity-cruises/celebrity-apex/Celebrity_Apex.webp.attr.json": (
+        "confirmed", "At dusk in Saint-Nazaire shipyard; \"CelebrityAPEX\" lettering visible on hull + lit X on stern"),
+    "assets/ships/celebrity-cruises/celebrity-apex/Celebrity_Apex_-_The_Magic_Carpet.webp.attr.json": (
+        "confirmed", "Close-up of orange Magic Carpet platform — distinctive Edge-class feature (Apex/Edge/Beyond/Ascent share this design)"),
+    "assets/ships/celebrity-cruises/celebrity-apex/Celebrity_APEX_at_Saint_Nazaire_Jan_2020.webp.attr.json": (
+        "confirmed", "At Saint-Nazaire January 2020; \"Celebrity APEX\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-apex/Celebrity_Apex_-_inside_The_Magic_Carpet_in_the_evening.webp.attr.json": (
+        "consistent", "Interior of Magic Carpet venue with blue LED accent lighting; Edge-class signature venue; sister-class ambiguity with Edge/Beyond/Ascent but Commons attribution to Apex"),
 }
 
 
