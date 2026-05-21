@@ -1176,6 +1176,10 @@ VERIFICATIONS = {
     # ---- Costa Deliziosa (batch O, 2026-05-21) -----------------------------
     "assets/ships/costa/costa-deliziosa/CostaDeliziosa_at_Helsinki_29072010.webp.attr.json": (
         "confirmed", "Broadside departing Helsinki West Harbour July 2010; yellow Costa C funnel mark + ship lettering visible"),
+
+    # ---- Costa Fascinosa (batch P, 2026-05-21) -----------------------------
+    "assets/ships/costa/costa-fascinosa/Costa_Fascinosa_2022_in_Kiel.webp.attr.json": (
+        "confirmed", "Broadside at Kiel 2022; \"Costa Fascinosa\" lettering clearly visible amidships + yellow Costa C funnel mark"),
 }
 
 
