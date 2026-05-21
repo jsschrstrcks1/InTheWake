@@ -12,69 +12,35 @@ This document is named in `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md` as th
 
 ## Open issues
 
-### REGEX-01 — `best time` regex matches `go` inside place names
-
-**Validator:** `scripts/port-weather-validator-core.js` — `REQUIRED.faqTopics[0].pattern`
-**Pattern:** `/best time[^<]*(?:visit|go|cruise)|when[^<]*(?:visit|go|cruise)/i`
-**Bug:** The `(?:visit|go|cruise)` alternation matches the substring `go` inside any word. Combined with the `when[^<]*` prefix, any FAQ question containing `when` plus a place name that contains `go` will match the best-time regex regardless of the question's actual topic.
-
-**Affected port names (non-exhaustive):**
-- Glasgow (`Glas**go**w`)
-- Bogota (`Bo**go**ta`)
-- Goa (`**Go**a`)
-- Otago (`Ota**go**`)
-- Gothenburg (`**Go**thenburg`)
-- Sargasso (`Sar**ga**sso` — false hit on `go`? No, that's `ga` — but `Sarga**sso**` has no `go`. Verify before assuming.)
-- Cargo, Mango, Mongolia (unlikely as port names but worth flagging)
-
-**Observed collision:**
-- Port: `ports/glasgow.html` (2026-05-21)
-- FAQ: "When is hurricane and storm season in Glasgow?"
-- Effect: regex matched best-time topic via `when … Glasgow` because `Glasgow` contains `go`. Triggered `FAQ_DUP: Best time to visit` since a real best-time FAQ also existed.
-- Worked around in commit `61c8cf9e` by rewording to "What is the hurricane and storm season here?" — see `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md` §3.
-
-**Suggested fix (validator-side):**
-```diff
-- /best time[^<]*(?:visit|go|cruise)|when[^<]*(?:visit|go|cruise)/i
-+ /best time[^<]*\b(?:visit|go|cruise)\b|when[^<]*\b(?:visit|go|cruise)\b/i
-```
-Add `\b` (word boundary) around each alternation to prevent substring matches.
-
-**Cleanup after fix:**
-- Restore Glasgow's natural phrasing "When is hurricane and storm season in Glasgow?" if the validator's fix passes.
-- Re-run `node admin/validate-port-page-v2.js ports/glasgow.html` to confirm.
-- Audit other ports added during the 2026-05 batch for similar rewords (search commit history for "regex collision" in `git log --grep`).
-
----
-
-### REGEX-02 — `packing` regex matches `bring` in non-packing contexts
-
-**Validator:** `scripts/port-weather-validator-core.js` — `REQUIRED.faqTopics[2].pattern` (packing topic)
-**Pattern:** `/pack[^<]*(?:weather|clothes|clothing|jacket|layer)|what[^<]*(?:pack|bring|wear)|how[^<]*(?:dress|pack)/i`
-**Bug:** The middle alternation `what[^<]*(?:pack|bring|wear)` matches `bring` anywhere after `what`. Any FAQ starting with "What" that contains "bring" later will match the packing topic, even when the question is about something else entirely (currency to bring, souvenirs to bring back, paperwork to bring along).
-
-**Observed collision:**
-- Port: `ports/mauritius.html` (2026-05-21)
-- FAQ: "What currency should I bring?"
-- Effect: regex matched packing topic via `what currency should I bring`. Triggered `FAQ_DUP: Packing for weather` since a real packing FAQ ("What should I pack for a port day in Mauritius?") also existed.
-- Worked around in commit `46c1eee0` by rewording to "What currency is used in Mauritius?" — see `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md` §3.
-
-**Suggested fix (validator-side):**
-```diff
-- /pack[^<]*(?:weather|clothes|clothing|jacket|layer)|what[^<]*(?:pack|bring|wear)|how[^<]*(?:dress|pack)/i
-+ /pack[^<]*(?:weather|clothes|clothing|jacket|layer)|what[^<]*(?:to\s+pack|to\s+bring|to\s+wear)\b|how[^<]*(?:dress|pack)/i
-```
-Narrow `bring` and `wear` to packing-context phrases ("to bring", "to wear"). Plain `bring` and `wear` elsewhere in a Q are too ambiguous to count as packing intent.
-
-**Cleanup after fix:**
-- Audit ports for FAQs containing `What … bring` reworded during the 2026-05 batch.
-- Restore natural phrasing where the original Q was clearer.
+*(All issues from the 2026-05 batch are now closed — see the Closed issues section.)*
 
 ---
 
 ---
 
 ## Closed issues
+
+### REGEX-01 — `best time` regex matched `go` inside place names *(closed 2026-05-21)*
+
+**Fix:** `scripts/port-weather-validator-core.js` — `REQUIRED.faqTopics[0].pattern` now wraps each alternative in `\b` word boundaries, so `go` only matches when it's a standalone word, not when it appears as a substring inside Glasgow, Bogota, Otago, Gothenburg, or similar.
+
+**Page where the natural phrasing was restored:**
+- `ports/glasgow.html` — restored "When is hurricane and storm season in Glasgow?" (both the JSON-LD `mainEntity` Q and the visible HTML Q). The reword "What is the hurricane and storm season here?" is gone.
+
+**Audit still owed:** other place names containing `go` (Bogota, Otago, Goa, Gothenburg, Connemara-go-?, port-name-with-cruise-substring etc.) added during the 2026-05 batch may have been silently reworded to avoid the same trap. Worth grepping the batch's commits for "season here" / "season in" rewrites.
+
+---
+
+### REGEX-02 — `packing` regex matched `bring` in non-packing contexts *(closed 2026-05-21)*
+
+**Fix:** `scripts/port-weather-validator-core.js` — `REQUIRED.faqTopics[2].pattern` now excludes bare `bring` from the alternation. `pack` and `wear` remain as packing-intent markers (both are unambiguous enough in English); `bring` was too generic. Clothing-context "bring" (e.g., "What should I pack — should I bring a jacket?") still matches via the first alternation's `pack ... jacket/layer/clothes`.
+
+**Page where the natural phrasing was restored:**
+- `ports/mauritius.html` — restored "What currency should I bring to Mauritius?" (both the JSON-LD `mainEntity` Q and the visible HTML Q). The reword "What currency is used in Mauritius?" is gone.
+
+**Audit still owed:** other ports with `What ... bring` FAQs reworded during the 2026-05 batch (currency Qs, souvenir Qs, paperwork Qs) should be restored to natural phrasing.
+
+---
 
 ### REGEX-03 — `D_MONTH` rejects parenthetical qualifiers in activity-row months *(closed 2026-05-21)*
 
