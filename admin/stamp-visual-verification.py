@@ -1172,6 +1172,10 @@ VERIFICATIONS = {
         "confirmed", "Broadside at sea; \"Costa Firenze\" lettering visible amidships + yellow Costa C funnel mark"),
     "assets/ships/costa/costa-firenze/D7K_3592.webp.attr.json": (
         "confirmed", "Bow closeup at Ibiza 2021; \"Costa Firenze\" lettering clearly visible on hull + Italian tricolor stripes"),
+
+    # ---- Costa Deliziosa (batch O, 2026-05-21) -----------------------------
+    "assets/ships/costa/costa-deliziosa/CostaDeliziosa_at_Helsinki_29072010.webp.attr.json": (
+        "confirmed", "Broadside departing Helsinki West Harbour July 2010; yellow Costa C funnel mark + ship lettering visible"),
 }
 
 
