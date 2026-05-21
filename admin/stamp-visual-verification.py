@@ -1044,6 +1044,16 @@ VERIFICATIONS = {
         "consistent", "At anchor off Grand Cayman January 2009; Grand-class profile + Princess livery"),
     "assets/ships/princess/ruby-princess/Ruby_Princess_at_port_in_Grenada.webp.attr.json": (
         "consistent", "At port in Grenada with Caribbean hillside behind; Grand-class profile"),
+
+    # ---- Sky Princess (batch H, 2026-05-21) --------------------------------
+    "assets/ships/princess/sky-princess/Sky_Princess_Trieste_2019-10-16_16-46-44.webp.attr.json": (
+        "confirmed", "At Trieste 16 Oct 2019; bronze sculpture foreground + golden hour; Princess wave logo + \"SKY PRINCESS\" lettering visible"),
+    "assets/ships/princess/sky-princess/Sky_Princess_Trieste_(48916851448).webp.attr.json": (
+        "confirmed", "Bow detail at Trieste; \"SKY PRINCESS\" lettering + Princess wave logo clearly visible (photographer signature Ph. Antonio Marano)"),
+    "assets/ships/princess/sky-princess/Sky_Princess_Trieste_(48917377436).webp.attr.json": (
+        "confirmed", "Broadside at Trieste with sculptures foreground; same Antonio Marano series; \"SKY PRINCESS\" lettering visible"),
+    "assets/ships/princess/sky-princess/Sky_Princess_Trieste_(48917377551).webp.attr.json": (
+        "confirmed", "Black-and-white art shot at Trieste with sculptures observing; same Antonio Marano series; \"SKY PRINCESS\" name + Princess wave logo visible"),
 }
 
 
