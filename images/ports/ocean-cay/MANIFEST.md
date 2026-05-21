@@ -8,9 +8,22 @@ To complete the page: place each photo at the filename listed below. Filenames a
 
 ## Final-call selection
 
-All 10 supplied photos are worth including. Each does a distinct narrative job, and the set deliberately mixes brochure-pretty (the lighthouse-from-water postcard) with honest texture (the construction cranes, the conch midden, the chalkboard menu) — that mix is the whole editorial point of this site versus a cruise-line brochure page.
+All 15 supplied photos are worth including (10 in the first delivery, 5 added 2026-05-21 after the lunch + signage walk). Each does a distinct narrative job, and the set deliberately mixes brochure-pretty (the lighthouse-from-water postcard) with honest texture (the construction cranes, the conch midden, the chalkboard menu) and counter-narrative (the buffet lunch plate against the chalkboard) — that mix is the whole editorial point of this site versus a cruise-line brochure page.
 
-One photo is hero. Nine are body images.
+One photo is hero. Fourteen are body images, distributed across these page sections:
+
+| Page section | Images (in order) |
+|---|---|
+| Hero | #4 we-love-ocean-cay-boat-and-lighthouse |
+| First impressions / arrival | #2 lighthouse-from-pier → #11 welcome-to-ocean-cay-sign |
+| Lay of the land | #12 ocean-cay-map-board-context → #13 ocean-cay-island-map |
+| The lighthouse | #3 lighthouse-from-beach-across-shallows → #4 lighthouse-base-looking-up |
+| The swim cove / beaches | #5 swim-lagoon-through-breakwater → #6 clear-water-from-the-swim |
+| Food on the cay | #10 beach-shack-menu-board → #14 ocean-cay-buffet-lunch-plate |
+| Marine Reserve / conservation | #15 marine-conservation-center-sign |
+| Sense of place | #9 conch-midden-on-limestone |
+| Still being built | #8 cay-under-construction |
+| Your ship at the pier | #7 msc-seaside-at-ocean-cay-pier |
 
 ---
 
@@ -156,13 +169,83 @@ One photo is hero. Nine are body images.
 
 White line-drawing illustrations of conch shells / wave forms on the lower wall. Strong direct sun, hard shadow on right edge of the frame.
 
-**Section:** "Food on the cay / what to expect" — section image.
+**Section:** "Food on the cay / what to expect" — section image. **Pair with #13 (`ocean-cay-buffet-lunch-plate.jpg`) to show the spread between shack and table-service food.**
 
 **Alt text:** Hand-chalked menu board at the Ocean Cay Beach Shack listing cheeseburger, hot dog, French fries, chicken nuggets, and brownie, open 11 to 4.
 
-**Caption:** Beachside food on the cay is one chalkboard: cheeseburger, hot dog, fries, nuggets, brownie. 11 to 4. If you want anything else, eat on the ship before you walk off or after you walk back.
+**Caption:** Beachside food at the Beach Shack is one chalkboard: cheeseburger, hot dog, fries, nuggets, brownie. 11 to 4. If you want anything else, eat on the ship before you walk off — or sit down at one of the table-service venues (see #13).
 
-**Crop / straighten:** Slight CW rotation, ~1°, to true the chalkboard frame. Crop tight on the menu (frame the board + a thin band of thatch above and the conch line-drawings below). The "Chicken nugget's" rogue apostrophe is part of the honesty of the photo — do not edit it out.
+**Crop / straighten executed:** Rotated −1° (CW) to true the chalkboard frame, then 5% chopped from each edge for a tight crop on the board (1125×1500 → 1015×1336). "Chicken nugget's" rogue apostrophe preserved.
+
+---
+
+### 11. `welcome-to-ocean-cay-sign.jpg`
+
+**What it shows:** Painted teal-blue clapboard building entrance. "WELCOME TO" arched in yellow above; the "Ocean Cay" wordmark below in white painterly script, with a stylised yellow-and-red taco / conch-shell / sun emblem between the two words; "MSC MARINE RESERVE — BAHAMAS" in smaller white sans-serif underneath. A whitewashed doorway sits below the wordmark, with the white-trimmed window/vent above.
+
+**Section:** "First impressions / arrival" — pairs with or substitutes for #2 (`lighthouse-from-pier.jpg`) as the arrival image. The lighthouse photo is the cinematic from-the-ship view; this welcome-sign photo is the from-the-feet "you are here" view. Both belong; place this one immediately after the lighthouse-from-pier on the page.
+
+**Alt text:** Painted teal-blue clapboard entrance reading "Welcome to Ocean Cay — MSC Marine Reserve, Bahamas" at the cruise pier.
+
+**Caption:** The welcome wall at the Ocean Cay pier. The little yellow-and-red emblem in the wordmark is meant to evoke a sun rising over the cay; the spelling "Ocean Cay" rather than "Ocean Cay MSC Marine Reserve" everywhere is the cruise line's preferred shorter name.
+
+**Crop / straighten executed:** Passthrough — byte-identical copy of the original (1500×1125, 466,702 bytes). Clapboard horizontal lines already read level; the wordmark is centred; no edit improves on the original.
+
+---
+
+### 12. `ocean-cay-map-board-context.jpg`
+
+**What it shows:** Wide framed view of the painted island-map signboard mounted between two posts on sand, with palm trees flanking it and additional palms behind. The Ocean Cay logo is in the upper-left corner of the sign; the painted island shape with named beaches and amenities fills the rest. Beach grass, a few seated visitors, and a tropical understory complete the scene.
+
+**Section:** "Lay of the land" — first image. The atmospheric setup shot: "you walk along the boardwalk, you encounter this sign at the beach edge."
+
+**Alt text:** A large painted Ocean Cay island-map signboard mounted between two posts on the sand, palm trees framing it on both sides.
+
+**Caption:** The map board sits in the sand at the start of the beach path. It's where you orient yourself on day one.
+
+**Crop / straighten executed:** Passthrough — byte-identical copy of the original (1125×844, 432,631 bytes). The palms-framing composition is intentional and works as shot.
+
+---
+
+### 13. `ocean-cay-island-map.jpg`
+
+**What it shows:** Close detail of the painted island-map signboard. The "Ocean Cay — MSC Marine Reserve — Bahamas" logo at upper left; legend below ("You are here", "Welcome center", "Restaurants", "Bar", "Toilets", "Diving", "Water Sports", "Yacht Club", "Marine Conservation Center"). The painted island spans the centre with labelled features: Ocean House, Ocean House Beach, Crew Cove, Ocean Cay Marina, Smiling Fish, Springers Bar, Welcome Center, Ocean Village, Pineapple Beach, Seakers Family Cove, Bimini Beach, North Island, Ocean Cay Lagoon, South Beach, Seakers, Boho House, Lighthouse Bay, Lighthouse Bar, Paradise Sands, The Spa Ocean Cay, Nature Area, Sunset Beach. A circular inset bottom-right zooms into the Ocean Village / Welcome Center / Tours / Shops / Lost+Found cluster.
+
+**Section:** "Lay of the land" — second image, immediately after #12. Use this as the orientation reference readers actually look at to plan their day.
+
+**Alt text:** Close-up detail of the Ocean Cay island map showing named beaches (Ocean House Beach, Pineapple Beach, Bimini Beach, South Beach, Sunset Beach, Lighthouse Bay, Paradise Sands), restaurants, bars, the Marine Conservation Center, and the Ocean Village cluster.
+
+**Caption:** What the map actually shows: a fish-tail-shaped cay with the cruise pier at the right (you arrive at the Welcome Center), four named swimming beaches along the lagoon side, the Marine Conservation Center tucked at the very north tip, and the lighthouse area on the east. The thumbnail bottom-right is the Ocean Village square at the pier — shops, tours, lost-and-found.
+
+**Crop / straighten executed:** Rotated +0.5° CCW to true the sign frame (1125×844 → 1107×834). Frame edges now read horizontal/vertical.
+
+---
+
+### 14. `ocean-cay-buffet-lunch-plate.jpg`
+
+**What it shows:** A white oval ceramic plate ("Ocean" branding partially visible on the rim) sitting on weathered blue-painted wooden plank table. On the plate: a grilled flour-tortilla quesadilla (charred grill-mark lines), two pieces of grilled beef topped with a green chimichurri-style sauce, two crispy spring rolls, a wedge of watermelon, and cubes of honeydew and cantaloupe. A white paper napkin tucked under the plate at the top.
+
+**Section:** "Food on the cay / what to expect" — section image. **Pairs with #10 (`beach-shack-menu-board.jpg`)** so the page shows both ends of the food spectrum on the cay.
+
+**Alt text:** A buffet lunch plate at Ocean Cay holding a grilled quesadilla, two pieces of chimichurri beef, two spring rolls, and tropical fruit (watermelon, honeydew, cantaloupe) on a blue plank table.
+
+**Caption:** And here's the other end of the food spectrum. The buffet venues (Marketplace Buffet, Bohème, Sea Spray) plate quesadillas, grilled beef with chimichurri, spring rolls, fresh fruit — actual cooked food, included in your fare. The Beach Shack chalkboard (#10) is not the only option; many guests don't realize the table-service venues exist until day two.
+
+**Crop / straighten executed:** Passthrough — byte-identical copy of the original (1500×2000, 460,120 bytes). The slight top-down hand-held angle is the photo's character and reads as authentic food documentation; "fixing" it would require rotating the table planks horizontal which would clip the plate and lose the genuine feel.
+
+---
+
+### 15. `marine-conservation-center-sign.jpg`
+
+**What it shows:** A white-framed signboard on two posts at the edge of a paved walkway, set against tropical greenery (sea-grape leaves on either side). Teal-bordered white field carries a stylised coral / staghorn-coral line drawing above the words "MARINE CONSERVATION CENTER" in teal sans-serif, with "MSC FOUNDATION" and the small "msc" logo at the bottom. A single small white cloud sits in the blue sky above the sign.
+
+**Section:** "Marine Reserve / conservation" — section image. This signboard is the credential the cay's branding leans on. The page should use this image to anchor a section that explains: it's a real MSC Foundation facility, it does coral nursery work and turtle nesting protection on the cay, and (per honest reporting) it's also a cruise-line marketing instrument as much as a research station.
+
+**Alt text:** The Marine Conservation Center signboard at Ocean Cay, run by the MSC Foundation, set on a paved walkway under tropical greenery.
+
+**Caption:** The Marine Conservation Center sits at the northeast tip of the cay (see #13's map). It runs coral nursery work and supports turtle nesting protection on the cay's beaches. It's a real research facility AND a brand asset — both can be true.
+
+**Crop / straighten executed:** Top 5% chopped to reduce dead sky and bring the sign higher in the frame (1125×1500 → 1125×1425). Sign frame still rectangular; the single cloud is preserved for sense of place.
 
 ---
 
@@ -200,8 +283,17 @@ Python + Pillow 12.2 installed in-session via `pip3 install Pillow`. Per-photo e
 | 8 | msc-seaside-at-ocean-cay-pier.jpg | 467,338 | 229,175 | 1275×844 (was 1500×844) | right 15% chopped — closed umbrella gone, ship dominates frame, "MSC SEASIDE" legible on bow. **Major improvement.** |
 | 9 | clear-water-from-the-swim.jpg | 335,919 | 335,919 | 1125×2000 | **passthrough byte-identical** (no-edit confirmed, lens-droplet softness is the atmosphere, do not "fix"). **Neutral/preserved.** |
 | 10 | swim-lagoon-through-breakwater.jpg | 406,381 | 282,170 | 1500×1069 (was 1500×1125) | top 5% chopped — lagoon expanse gets the frame. **Improved.** |
+| 11 | welcome-to-ocean-cay-sign.jpg | 466,702 | 466,702 | 1500×1125 | **passthrough byte-identical** — clapboard horizontals already level, wordmark centred. **Neutral/preserved.** |
+| 12 | ocean-cay-map-board-context.jpg | 432,631 | 432,631 | 1125×844 | **passthrough byte-identical** — palms-framing composition intentional and works as shot. **Neutral/preserved.** |
+| 13 | ocean-cay-island-map.jpg | 444,938 | 235,759 | 1107×834 (was 1125×844) | rotated +0.5° CCW — sign frame now reads level, map content remains fully readable. **Improved.** |
+| 14 | ocean-cay-buffet-lunch-plate.jpg | 460,120 | 460,120 | 1500×2000 | **passthrough byte-identical** — top-down hand-held angle is the photo's character; rotating to align planks would clip the plate. **Neutral/preserved.** |
+| 15 | marine-conservation-center-sign.jpg | 468,525 | 247,880 | 1125×1425 (was 1125×1500) | top 5% chopped — sign sits higher in frame, single cloud preserved for sense of place. **Improved.** |
 
-Total weight on disk: ~5.0 MB across both `originals/` and the canonical edited set. All 10 photos web-ready at JPEG quality 86 (Pillow optimize+progressive) where edits were applied; originals kept losslessly for any future re-edit.
+Total weight on disk: ~7.7 MB across both `originals/` and the canonical edited set. All 15 photos web-ready at JPEG quality 86 (Pillow optimize+progressive) where edits were applied; originals kept losslessly for any future re-edit.
+
+## Extraction-pipeline note for the next session
+
+Claude Code split this session's transcript across two JSONL files (`bfef9d2c-…jsonl` and `401aa240-…jsonl`) because a context compaction occurred between the two photo deliveries — `401aa240` opens with a `compact_boundary` system entry that points back to the prior session's parent. When future extraction work hits this codebase, the extractor at `/tmp/extract_images2.py` walks both transcripts and dedups by SHA-256, which is what made the second batch's 5 photos surface cleanly without re-saving the first batch's 10.
 
 ## Adjacent finding — Nassau photos in the same session
 
