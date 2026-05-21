@@ -1156,6 +1156,10 @@ VERIFICATIONS = {
         "confirmed", "Bow at St. John's Antigua with \"celebrity ASCENT VALLETTA\" port-of-registry visible; Norwegian Getaway sister-ship at right (separate cruise line, different design)"),
     "assets/ships/celebrity-cruises/celebrity-ascent/Celebrity_Ascent_construit_par_les_Chantiers_de_l_Atlantique_(cropped).webp.attr.json": (
         "confirmed", "Under construction at Chantiers de l'Atlantique Saint-Nazaire; partial \"CelebrityAS\" lettering visible on hull amidships"),
+
+    # ---- Costa Smeralda (batch L, 2026-05-21) ------------------------------
+    "assets/ships/costa/costa-smeralda/Costa_Smeralda_in_Savona_(September_2020).webp.attr.json": (
+        "confirmed", "Bow at Savona September 2020; \"Costa Smeralda\" lettering clearly visible on hull near bow + Costa Cruises yellow funnel mark"),
 }
 
 
