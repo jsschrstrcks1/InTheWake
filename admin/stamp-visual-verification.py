@@ -1198,6 +1198,10 @@ VERIFICATIONS = {
     # ---- Norwegian Sky (batch T, 2026-05-21) -------------------------------
     "assets/ships/norwegian/norwegian-sky/Norwegian_Sky_December_10,_2013.webp.attr.json": (
         "confirmed", "Stern view December 2013; \"NORWEGIAN SKY / NASSAU\" port-of-registry clearly visible + NCL blue/sun funnel mark"),
+
+    # ---- Norwegian Sun (batch U, 2026-05-21) -------------------------------
+    "assets/ships/norwegian/norwegian-sun/Norwegian_Sun_Vancouver_01.webp.attr.json": (
+        "confirmed", "At Canada Place, Vancouver 2015; distinctive Sun-specific sun-burst hull artwork (Sun-class livery) + NCL blue/sun funnel mark"),
 }
 
 
