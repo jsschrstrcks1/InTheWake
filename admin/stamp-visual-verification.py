@@ -1126,6 +1126,16 @@ VERIFICATIONS = {
         "confirmed", "At Meyer Werft Papenburg shipyard viewed from road; \"SOLSTICE\" lettering faintly visible (motion-blurred from moving vehicle)"),
     "assets/ships/celebrity-cruises/celebrity-solstice/Celebrity_Solstice_(ship,_2008)_001.webp.attr.json": (
         "confirmed", "Bow at golden hour; \"Celebrity SOLSTICE\" lettering clearly visible + Celebrity X mark on hull"),
+
+    # ---- Celebrity Beyond (batch I, 2026-05-21) ----------------------------
+    "assets/ships/celebrity-cruises/celebrity-beyond/Celebrity_BEYOND_La_Rochelle.webp.attr.json": (
+        "confirmed", "Broadside at La Rochelle-Pallice; both \"BEYOND\" forward and \"Celebrity BEYOND\" amidships lettering visible + orange Magic Carpet platform (Edge-class signature)"),
+    "assets/ships/celebrity-cruises/celebrity-beyond/Pool_Deck_on_the_Celebrity_Beyond_(54357888481).webp.attr.json": (
+        "consistent", "Pool deck interior with orange Magic Carpet platform visible (Edge-class signature); Commons attribution states Celebrity Beyond"),
+    "assets/ships/celebrity-cruises/celebrity-beyond/Trignac_-_44570_-_2021.06.16_-___Celebrity_Beyond___en_construction___Saint-Nazaire___Anthony_Levrot.webp.attr.json": (
+        "consistent", "Under construction at Chantiers de l'Atlantique Saint-Nazaire June 2021; Edge-class hull silhouette + cranes visible; Commons attribution names Celebrity Beyond"),
+    "assets/ships/celebrity-cruises/celebrity-beyond/Celebrity_Beyond_logo.webp.attr.json": (
+        "confirmed", "Text logo reading \"Celebrity BEYOND\" — PD-textlogo official cruise line wordmark"),
 }
 
 
