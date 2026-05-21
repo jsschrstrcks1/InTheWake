@@ -37,9 +37,17 @@ Cite-or-flag becomes a system invariant. Unverified specifics get flagged or hel
 
 Existing skill, already deployed. The theological-model build informs technique cross-repo but does not transfer voice content. Sermon voice is prophetic / compressed / pastoral; cruise voice is steady observer / experiential precision (`shared/e291a2c0`).
 
-### 4. Hallucination-elimination as deliverable
+### 4. Hallucination-elimination as deliverable (load-bearing)
+
+Operator framing (2026-05-21): "100% super important. Don't forget this."
 
 The "AI-generated content with specific-sounding details" failure mode already named in memory (`cruising/4918b2a5`) is the exact problem the RAG-citation invariant addresses. Specific-sounding-but-unverified prose is worse than no prose; the system must hold or flag it.
+
+**Concrete operationalization on InTheWake**:
+- Every price, menu item, deck location, IMO number, terminal, address, phone number, or operator name in cruise content must resolve to a verified source ID before publish.
+- If a model produces a specific detail without a backing source, the system flags or holds, not publishes. The "$8-12 CAD taxi" and "Rapid Cabs (+353 51 858 585)" worked examples from memory are exactly what this gate prevents.
+- Two-source minimum on factual claims (`ken/2085caa2`).
+- Named-uncertainty in prose is preferred over fabricated confidence (`ken/14bea502`, `ken/39de9e17`).
 
 ## What InTheWake does **not** get
 
