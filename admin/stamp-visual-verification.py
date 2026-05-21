@@ -1054,6 +1054,16 @@ VERIFICATIONS = {
         "confirmed", "Broadside at Trieste with sculptures foreground; same Antonio Marano series; \"SKY PRINCESS\" lettering visible"),
     "assets/ships/princess/sky-princess/Sky_Princess_Trieste_(48917377551).webp.attr.json": (
         "confirmed", "Black-and-white art shot at Trieste with sculptures observing; same Antonio Marano series; \"SKY PRINCESS\" name + Princess wave logo visible"),
+
+    # ---- Island Princess (batch H, 2026-05-21) -----------------------------
+    "assets/ships/princess/island-princess/Island_Princess_in_Port_Everglades.webp.attr.json": (
+        "consistent", "Broadside at Port Everglades; Coral-class profile + Princess livery; sister-class ambiguity with Coral Princess applies"),
+    "assets/ships/princess/island-princess/Cruise_in_Acapulco,_Mexico.webp.attr.json": (
+        "consistent", "Alongside at Acapulco from elevated viewpoint; Coral-class profile + Princess livery"),
+    "assets/ships/princess/island-princess/MS_Island_Princess_(4197456987).webp.attr.json": (
+        "consistent", "At a Caribbean port with green hillside; Coral-class Princess profile; filename explicitly identifies Island Princess"),
+    "assets/ships/princess/island-princess/MS_Island_Princess_(5654577732).webp.attr.json": (
+        "consistent", "Distant broadside in calm waters with film-grade tones; Coral-class profile + Princess livery; filename explicit"),
 }
 
 
