@@ -1000,6 +1000,14 @@ VERIFICATIONS = {
         "confirmed", "At Ocean Cay (MSC Marine Reserve) 2024 viewed from beach; Seaside Evo class profile + MSC livery; same setting as MSC's flagship Bahamas private island"),
     "assets/ships/msc/msc-seashore/Msc_seashore.webp.attr.json": (
         "consistent", "Alongside at Genoa; Seaside Evo class profile + MSC livery; sister-class ambiguity with Seaside/Seaview/Seascape applies"),
+
+    # ---- MSC Orchestra (batch H, 2026-05-21) -------------------------------
+    "assets/ships/msc/msc-orchestra/Porto_Genova_(19).webp.attr.json": (
+        "confirmed", "Bow detail at Porto Genova; \"MSC ORCHESTRA\" lettering clearly visible + small fishing boat foreground"),
+    "assets/ships/msc/msc-orchestra/Porto_Genova_(17).webp.attr.json": (
+        "consistent", "Alongside at Porto Genova; broadside + MSC funnel logo visible; same uploader series as confirmed file 19"),
+    "assets/ships/msc/msc-orchestra/Mscorchestra.webp.attr.json": (
+        "consistent", "Broadside at Istanbul on the Bosphorus; Musica-class profile + MSC livery; sister ambiguity with Musica/Poesia/Magnifica applies"),
 }
 
 
