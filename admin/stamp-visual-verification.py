@@ -1166,6 +1166,12 @@ VERIFICATIONS = {
         "confirmed", "Broadside at Savona November 2022; \"Costa Toscana\" lettering clearly visible on hull near bow"),
     "assets/ships/costa/costa-toscana/Costa_Toscana_from_rear.webp.attr.json": (
         "confirmed", "Stern at Savona; \"Costa Toscana\" + \"GENOVA\" port-of-registry visible + Italian flag"),
+
+    # ---- Costa Firenze (batch N, 2026-05-21) -------------------------------
+    "assets/ships/costa/costa-firenze/Costa_Firenze_(48111131563).webp.attr.json": (
+        "confirmed", "Broadside at sea; \"Costa Firenze\" lettering visible amidships + yellow Costa C funnel mark"),
+    "assets/ships/costa/costa-firenze/D7K_3592.webp.attr.json": (
+        "confirmed", "Bow closeup at Ibiza 2021; \"Costa Firenze\" lettering clearly visible on hull + Italian tricolor stripes"),
 }
 
 
