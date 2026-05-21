@@ -134,7 +134,8 @@ const REQUIRED = {
 
 const VALID_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 // Special values for activities that don't apply to a port (e.g., City Walking on a remote island)
-const VALID_SPECIAL_VALUES = ['N/A', 'None', '-'];
+// or that span the full calendar (Year-round for things like markets, museums).
+const VALID_SPECIAL_VALUES = ['N/A', 'None', '-', 'Year-round'];
 
 // ============================================================================
 // UTILITY FUNCTIONS
@@ -338,7 +339,12 @@ class PortWeatherValidator {
                    ...(this.content.match(/class="season-months">([^<]+)</g) || [])];
     let ok = true;
     spans.forEach(s => {
-      const ms = s.replace(/class="(activity|season)-months">|</g, '');
+      const ms = s.replace(/class="(activity|season)-months">|</g, '')
+                  // Strip parenthetical qualifiers like "(Saturdays)", "(last Tuesday)",
+                  // "(freshest Oct-Mar)". They carry planning-relevant info the renderer
+                  // shows; the month-parse below only checks the remaining month list.
+                  // See admin/VALIDATOR_REGEX_ISSUES.md REGEX-03 for context.
+                  .replace(/\s*\([^)]*\)/g, '');
       ms.split(/,\s*/).forEach(m => {
         if (m.trim() && !VALID_MONTHS.includes(m.trim()) && !VALID_SPECIAL_VALUES.includes(m.trim())) {
           this.log('error', 'D_MONTH', `Invalid month: "${m.trim()}"`);

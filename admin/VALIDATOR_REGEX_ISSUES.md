@@ -72,39 +72,20 @@ Narrow `bring` and `wear` to packing-context phrases ("to bring", "to wear"). Pl
 
 ---
 
-### REGEX-03 — `D_MONTH` rejects parenthetical qualifiers in activity-row months
-
-**Validator:** `scripts/port-weather-validator-core.js` — D-series month-parse check (search the file for `D_MONTH`)
-**Pattern:** rejects month strings that are not a comma-separated list of three-letter month abbreviations.
-**Bug:** Real activity-row content sometimes carries a meaningful qualifier:
-- `Year-round (Saturdays)` — Hobart Salamanca Market (Saturdays only)
-- `Year-round (freshest Oct-Mar)` — La Coruna seafood
-- `Jan (last Tuesday)` — Lerwick Up Helly Aa Festival
-- `May, Jun, Jul, Aug, Sep (puffin nesting only)` — hypothetical Sumburgh Head
-
-The current check accepts only `Jan, Feb, …` form. Anything in parentheses is rejected.
-
-**Affected ports (observed in 2026-05 batch):**
-- `ports/hobart.html` — Salamanca Market `(Saturdays)` constraint stripped in commit `6e45536a`
-- `ports/la-coruna.html` — Seafood `(freshest Oct-Mar)` constraint stripped in commit `0075a43d`
-- `ports/lerwick.html` — Up Helly Aa `(last Tuesday)` constraint stripped in commit `e28cc6fc`
-
-**Suggested fix (validator-side):**
-- Option A: accept parenthetical qualifiers anywhere in the months string; ignore them for the month-parse but preserve them as a free-text annotation.
-- Option B: introduce a sibling field `<span class="activity-qualifier">` that the check ignores but renderers can show alongside the months.
-- Option C: keep `D_MONTH` strict and require qualifiers to live in an adjacent `<p class="scheduling-note">` paragraph below the activity-rows block.
-
-Option A is the smallest change. The qualifiers are a real planning fact and stripping them is the **constraint stripping** pattern documented in `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md` §2.
-
-**Cleanup after fix:**
-- Restore the three stripped qualifiers to Hobart / La Coruna / Lerwick activity rows.
-- Add the planning-relevant qualifiers to other ports where they were stripped or never added (Salamanca Market in Hobart is the biggest miss — without "(Saturdays)" the row tells a midweek visitor the market is open when it is not).
-
 ---
 
 ## Closed issues
 
-*(none yet — entries move here with a commit hash and a list of pages whose rewords were reverted)*
+### REGEX-03 — `D_MONTH` rejects parenthetical qualifiers in activity-row months *(closed 2026-05-21)*
+
+**Fix:** `scripts/port-weather-validator-core.js` — `validateMonths()` now strips parenthetical qualifiers (`\s*\([^)]*\)`) before parsing the month list, and `VALID_SPECIAL_VALUES` now includes `Year-round`. Both changes land in the same commit as the qualifier restorations.
+
+**Pages where the stripped qualifier was restored:**
+- `ports/hobart.html` — Salamanca Market `Year-round (Saturdays)` and MONA `Year-round` restored
+- `ports/lerwick.html` — Up Helly Aa Festival `Jan (last Tuesday)` and Otter Spotting `Year-round (best Oct-Mar)` restored
+- `ports/la-coruna.html` — Seafood `Year-round (freshest Oct-Mar)` restored
+
+**Audit still owed:** other ports may have had similar qualifiers stripped or never written. Worth a sweep of the 66-port batch for activity-rows whose `<span class="activity-label">` describes a calendar-constrained venue (markets, festivals, seasonal-only sites) but whose `<span class="activity-months">` shows a bare 12-month list.
 
 ---
 
