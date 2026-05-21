@@ -1246,6 +1246,10 @@ VERIFICATIONS = {
     # ---- Norwegian Aqua (batch AA, 2026-05-21) -----------------------------
     "assets/ships/norwegian/norwegian-aqua/Norwegian_Aqua.webp.attr.json": (
         "confirmed", "In Hudson River with One World Trade Center backdrop, NYC; signature Aqua-specific colorful Reef hull artwork (Prime-class livery) clearly visible"),
+
+    # ---- MSC World America (batch BB, 2026-05-21) --------------------------
+    "assets/ships/msc/msc-world-america/MSC_World_America.webp.attr.json": (
+        "confirmed", "Broadside in fitting-out basin; \"MSC World America\" lettering clearly visible amidships + MSC compass star logo on hull near bow"),
 }
 
 
