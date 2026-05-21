@@ -1282,6 +1282,12 @@ VERIFICATIONS = {
         "confirmed", "Marina (Oceania, white hull, left half) and Mein Schiff 1 (TUI, dark blue, right half) at La Rochelle-Pallice 2015; Oceania O funnel mark visible on Marina"),
     "assets/ships/oceania/marina/Marina_(ship,_2011)_in_Portugal.webp.attr.json": (
         "consistent", "Broadside at Lisbon Portugal with red-tiled rooftops in foreground; red Oceania O funnel mark visible; sister Riviera identical; Commons attribution names Marina"),
+
+    # ---- Oceania Riviera (batch GG, 2026-05-21) ----------------------------
+    "assets/ships/oceania/riviera/Oceania_Cruises_Riviera_01.webp.attr.json": (
+        "confirmed", "Broadside at port; red Oceania O funnel mark visible; \"Riviera\" lettering visible at stern (Marina identical sister)"),
+    "assets/ships/oceania/riviera/Oceania_Cruises_Riviera_02.webp.attr.json": (
+        "confirmed", "Stern view; \"Riviera VALLETTA\" port-of-registry clearly visible; red Oceania O funnel mark"),
 }
 
 
