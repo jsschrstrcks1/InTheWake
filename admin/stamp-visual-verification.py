@@ -1316,6 +1316,10 @@ VERIFICATIONS = {
     # ---- Celebrity Flora (batch LL, 2026-05-21) ----------------------------
     "assets/ships/celebrity-cruises/celebrity-flora/Celebrity_FLORA_(46874800674).webp.attr.json": (
         "confirmed", "Broadside; \"Celebrity X Cruises\" hull mark + \"Celebrity FLORA\" lettering clearly visible; distinctive Galapagos expedition yacht profile (unique ship, no sister)"),
+
+    # ---- Explora I (batch MM, 2026-05-21) ----------------------------------
+    "assets/ships/explora-journeys/explora-i/Explora_I.webp.attr.json": (
+        "confirmed", "Broadside at shipyard; \"EXPLORA 1\" lettering visible on bow + distinctive dark-blue/teal Explora Journeys hull"),
 }
 
 
