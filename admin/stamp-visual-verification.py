@@ -1084,6 +1084,14 @@ VERIFICATIONS = {
         "confirmed", "Alongside April 2018; Princess wave bow logo + LED display + Royal-class profile visible"),
     "assets/ships/princess/majestic-princess/Majestic_Princess_Build_2015.webp.attr.json": (
         "consistent", "Under construction at Fincantieri Monfalcone shipyard 2015; documentary build photo; sister-class ambiguity with Royal/Regal Princess but Commons categorization explicit"),
+
+    # ---- Enchanted Princess (batch H, 2026-05-21) --------------------------
+    "assets/ships/princess/enchanted-princess/Enchanted_Princes_Cruise_Ship,_Southampton_-_geograph.org.uk_-_7231169.webp.attr.json": (
+        "confirmed", "Broadside at Southampton; \"ENCHANTED PRINCESS\" lettering + Princess wave bow logo visible"),
+    "assets/ships/princess/enchanted-princess/Enchanted_Princess,_Southampton_Cruise_Terminal_-_geograph.org.uk_-_7631307.webp.attr.json": (
+        "confirmed", "Close-up at Southampton Cruise Terminal; \"ENCHANTED PRINCESS\" name plaque + \"PRINCESS CRUISES\" lettering on hull"),
+    "assets/ships/princess/enchanted-princess/Princess_Cruise_Lines_Enchanted_Princess.webp.attr.json": (
+        "consistent", "Broadside at Fort Lauderdale at golden hour with dramatic clouds; Princess wave bow logo + Royal-class profile; sister-class ambiguity with Sky/Discovery/Royal/Regal Princess applies"),
 }
 
 
