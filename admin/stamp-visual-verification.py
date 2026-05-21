@@ -1146,6 +1146,16 @@ VERIFICATIONS = {
         "confirmed", "Broadside at Saint-Nazaire September 2018 (shortly after delivery); \"Celebrity EDGE\" lettering visible amidships, golden hour"),
     "assets/ships/celebrity-cruises/celebrity-edge/Celebrity_Edge_in_Sydney_Harbour.webp.attr.json": (
         "confirmed", "Departing Sydney Harbour January 2025; \"Celebrity EDGE\" lettering visible amidships + orange Magic Carpet platform"),
+
+    # ---- Celebrity Ascent (batch K, 2026-05-21) ----------------------------
+    "assets/ships/celebrity-cruises/celebrity-ascent/Celebrity_Ascent_-_Le_Pir_e_-_June_2024.webp.attr.json": (
+        "confirmed", "Broadside at Le Pirée Greece, June 2024; \"Celebrity ASCENT\" lettering visible amidships + orange Magic Carpet"),
+    "assets/ships/celebrity-cruises/celebrity-ascent/Celebrity_Ascent_St._John_s_20251205_1.webp.attr.json": (
+        "confirmed", "Broadside at St. John's Antigua December 2025; \"Celebrity X Cruises\" hull mark visible + \"ASCENT\" lettering on funnel + Magic Carpet platform"),
+    "assets/ships/celebrity-cruises/celebrity-ascent/Celebrity_Ascent_St._John_s_20251205_2.webp.attr.json": (
+        "confirmed", "Bow at St. John's Antigua with \"celebrity ASCENT VALLETTA\" port-of-registry visible; Norwegian Getaway sister-ship at right (separate cruise line, different design)"),
+    "assets/ships/celebrity-cruises/celebrity-ascent/Celebrity_Ascent_construit_par_les_Chantiers_de_l_Atlantique_(cropped).webp.attr.json": (
+        "confirmed", "Under construction at Chantiers de l'Atlantique Saint-Nazaire; partial \"CelebrityAS\" lettering visible on hull amidships"),
 }
 
 
