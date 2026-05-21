@@ -1064,6 +1064,18 @@ VERIFICATIONS = {
         "consistent", "At a Caribbean port with green hillside; Coral-class Princess profile; filename explicitly identifies Island Princess"),
     "assets/ships/princess/island-princess/MS_Island_Princess_(5654577732).webp.attr.json": (
         "consistent", "Distant broadside in calm waters with film-grade tones; Coral-class profile + Princess livery; filename explicit"),
+
+    # ---- Coral Princess (batch H, 2026-05-21) ------------------------------
+    "assets/ships/princess/coral-princess/Coral_Princess_pulls_away_from_the_Port_of_Ketchikan_pier_-_June_2011.webp.attr.json": (
+        "confirmed", "Stern \"CORAL PRINCESS / HAMILTON\" lettering clearly visible pulling away from Ketchikan pier"),
+    "assets/ships/princess/coral-princess/Coral_Princess.webp.attr.json": (
+        "confirmed", "Broadside at anchor; \"CORAL PRINCESS\" lettering visible on bow + Princess wave logo + \"Coral Princess\" lettering visible on funnel structure"),
+    "assets/ships/princess/coral-princess/Esclusas_de_Miraflores_III.webp.attr.json": (
+        "consistent", "Transiting Miraflores Locks of the Panama Canal; Princess Cruises livery + Coral-class profile; sister ambiguity with Island Princess applies"),
+    "assets/ships/princess/coral-princess/Coral_Princess_-_IMO_9229659_(2937202430).webp.attr.json": (
+        "consistent", "Distant broadside under way; Coral-class profile + Princess livery; filename includes IMO 9229659 matching Coral Princess"),
+    "assets/ships/princess/coral-princess/Coral_Princess_plaque.webp.attr.json": (
+        "confirmed", "Builder's plaque inside the ship — \"CORAL PRINCESS / ALSTOM CHANTIERS DE L'ATLANTIQUE / 2002 / NEW BUILDING N° C32\" — documentary photo of the ship's identity plate"),
 }
 
 
