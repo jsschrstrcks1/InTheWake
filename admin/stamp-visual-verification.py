@@ -1092,6 +1092,16 @@ VERIFICATIONS = {
         "confirmed", "Close-up at Southampton Cruise Terminal; \"ENCHANTED PRINCESS\" name plaque + \"PRINCESS CRUISES\" lettering on hull"),
     "assets/ships/princess/enchanted-princess/Princess_Cruise_Lines_Enchanted_Princess.webp.attr.json": (
         "consistent", "Broadside at Fort Lauderdale at golden hour with dramatic clouds; Princess wave bow logo + Royal-class profile; sister-class ambiguity with Sky/Discovery/Royal/Regal Princess applies"),
+
+    # ---- Celebrity Reflection (batch H, 2026-05-21) ------------------------
+    "assets/ships/celebrity-cruises/celebrity-reflection/CelebrityReflection.webp.attr.json": (
+        "confirmed", "Panoramic broadside at Meyer Werft shipyard; \"Celebrity REFLECTION\" + \"Celebrity X Cruises\" lettering clearly visible"),
+    "assets/ships/celebrity-cruises/celebrity-reflection/Celebrity_Reflection-Ueberfuehrung.webp.attr.json": (
+        "confirmed", "Conveyance along the Ems river under cloudy skies with sluice bridge; Solstice-class profile + Meyer Werft delivery context"),
+    "assets/ships/celebrity-cruises/celebrity-reflection/Celebrity_REFLECTION.webp.attr.json": (
+        "confirmed", "Closer broadside at Meyer Werft; \"Celebrity REFLECTION\" + \"Celebrity X Cruises\" lettering visible"),
+    "assets/ships/celebrity-cruises/celebrity-reflection/Celebrity_REFLECTION_by_Moehre1992.webp.attr.json": (
+        "confirmed", "Meyer Werft from another angle; \"Celebrity REFLECTION\" lettering + X funnel marks visible; same Solstice-class profile"),
 }
 
 
