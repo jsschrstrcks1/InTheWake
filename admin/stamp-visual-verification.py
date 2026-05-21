@@ -1028,6 +1028,14 @@ VERIFICATIONS = {
         "confirmed", "Side close-up; \"SAPPHIRE PRINCESS\" lettering + lifeboats visible"),
     "assets/ships/princess/sapphire-princess/Sapphire_Princess_03.webp.attr.json": (
         "consistent", "Across Ketchikan harbour marina with fishing boats foreground; same uploader Alaska series; Grand-class Princess profile + livery"),
+
+    # ---- Sun Princess (batch H, 2026-05-21) --------------------------------
+    "assets/ships/princess/sun-princess/Sue_Princess_(1).webp.attr.json": (
+        "confirmed", "Broadside at port; \"SUN PRINCESS\" lettering + Princess emblem visible (filename typo Sue->Sun; actual ship is Sun Princess per visible hull lettering)"),
+    "assets/ships/princess/sun-princess/Sun_Princess_at_Piraeus_Harbour.webp.attr.json": (
+        "confirmed", "At Piraeus Harbour with tugboats alongside; \"SUN PRINCESS\" + Princess Cruises lettering visible"),
+    "assets/ships/princess/sun-princess/Sue_Princess_(2).webp.attr.json": (
+        "consistent", "Stern detail showing the distinctive Sphere-class dome architecture; same uploader series as confirmed file (1); sister-class ambiguity with Star Princess applies"),
 }
 
 
