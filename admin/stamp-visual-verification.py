@@ -1136,6 +1136,16 @@ VERIFICATIONS = {
         "consistent", "Under construction at Chantiers de l'Atlantique Saint-Nazaire June 2021; Edge-class hull silhouette + cranes visible; Commons attribution names Celebrity Beyond"),
     "assets/ships/celebrity-cruises/celebrity-beyond/Celebrity_Beyond_logo.webp.attr.json": (
         "confirmed", "Text logo reading \"Celebrity BEYOND\" — PD-textlogo official cruise line wordmark"),
+
+    # ---- Celebrity Edge (batch J, 2026-05-21) ------------------------------
+    "assets/ships/celebrity-cruises/celebrity-edge/Celebrity_Edge.webp.attr.json": (
+        "confirmed", "Bow head-on at Naples; \"Celebrity EDGE\" lettering clearly visible on port bow"),
+    "assets/ships/celebrity-cruises/celebrity-edge/Magic_Carpet_2.webp.attr.json": (
+        "confirmed", "Orange Magic Carpet cantilevered platform (Edge-class signature, deployed mid-ship) + Celebrity X mark on hull at left"),
+    "assets/ships/celebrity-cruises/celebrity-edge/Celebrity_Edge_-_Sept_2018.webp.attr.json": (
+        "confirmed", "Broadside at Saint-Nazaire September 2018 (shortly after delivery); \"Celebrity EDGE\" lettering visible amidships, golden hour"),
+    "assets/ships/celebrity-cruises/celebrity-edge/Celebrity_Edge_in_Sydney_Harbour.webp.attr.json": (
+        "confirmed", "Departing Sydney Harbour January 2025; \"Celebrity EDGE\" lettering visible amidships + orange Magic Carpet platform"),
 }
 
 
