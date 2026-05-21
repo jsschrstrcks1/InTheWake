@@ -966,6 +966,14 @@ VERIFICATIONS = {
         "confirmed", "Owner-photographed at Ocean Cay 2026-05-21; pier-level view alongside; \"MSC SEASIDE\" lettering visible on lifeboat + Seaside-class profile"),
     "assets/ships/msc/msc-seaside/MSC_Seaside_from_water_Ocean_Cay_2026-05-21.webp.attr.json": (
         "consistent", "Owner-photographed at Ocean Cay 2026-05-21; viewed across the harbour with palms and beach shacks foreground; Seaside-class profile + MSC livery; same owner series as confirmed bow shots"),
+
+    # ---- MSC Virtuosa (batch H, 2026-05-21) --------------------------------
+    "assets/ships/msc/msc-virtuosa/MSC_Virtuosa_-_Saint-Nazaire.webp.attr.json": (
+        "confirmed", "Bow at Saint-Nazaire shipyard; \"MSC VIRTUOSA\" lettering clearly readable"),
+    "assets/ships/msc/msc-virtuosa/MSC_Virtuosa,_Saint-Nazaire_september_2020.webp.attr.json": (
+        "confirmed", "At Saint-Nazaire shipyard September 2020; \"MSC Virtuosa\" lettering visible on bow"),
+    "assets/ships/msc/msc-virtuosa/Msc_virtuosa_2021.webp.attr.json": (
+        "consistent", "Broadside underway in calm water; MSC funnel logo + Meraviglia-class profile; sister-class ambiguity with Meraviglia/Bellissima/Grandiosa applies"),
 }
 
 
