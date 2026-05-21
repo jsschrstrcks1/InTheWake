@@ -1254,6 +1254,20 @@ VERIFICATIONS = {
     # ---- Carnival Radiance (batch CC, 2026-05-21) --------------------------
     "assets/ships/carnival/carnival-radiance/220207-H-NI589-0360_Carnival_Radiance_with_CBP_patrol_boat.webp.attr.json": (
         "confirmed", "Port of Long Beach Feb 2022; CBP patrol boat in foreground, Carnival Radiance large in background with \"Carnival Radiance\" lettering clearly legible + signature whale-tail funnel"),
+
+    # ---- Carnival Venezia (batch DD, 2026-05-21) ---------------------------
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_s_maiden_arrival_at_Bermuda_2.webp.attr.json": (
+        "confirmed", "Bow at Bermuda maiden arrival; \"CARNIVAL VENEZIA\" lettering clearly visible + Carnival flag on jackstaff"),
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_s_maiden_arrival_at_Bermuda.webp.attr.json": (
+        "confirmed", "Bow at Bermuda maiden arrival; partial \"VENEZIA\" lettering visible, transitional Carnival livery (post-Costa rebrand)"),
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_-_03.webp.attr.json": (
+        "confirmed", "Broadside in Hudson River with Lower Manhattan/One World Trade Center backdrop; Costa-derived yellow C funnel + Carnival 'Fun Italian Style' tribute livery visible"),
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_(Formerly_Costa_Venezia)_(ship,_2019)_Docked_in_Grand_Cayman_-_April_24,_2025.cropped.webp.attr.json": (
+        "consistent", "Bow head-on at Grand Cayman April 2025; tender alongside; Costa-derived yellow C funnel visible (Carnival 'Fun Italian Style' tribute, preserved from Costa)"),
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_(Formerly_Costa_Venezia)_(ship,_2019)_Docked_in_Grand_Cayman_-_April_24,_2025_(2).cropped.webp.attr.json": (
+        "consistent", "Broadside at Grand Cayman April 2025 (motion-blurred); Costa-derived yellow C funnel visible (Carnival 'Fun Italian Style' tribute, preserved from Costa)"),
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_-_08.webp.attr.json": (
+        "confirmed", "Broadside in Hudson River with One World Trade Center backdrop; \"Carnival Fun Italian Style\" lettering visible + yellow C funnel (post-Costa rebrand)"),
 }
 
 
