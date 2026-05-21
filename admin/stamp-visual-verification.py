@@ -1288,6 +1288,22 @@ VERIFICATIONS = {
         "confirmed", "Broadside at port; red Oceania O funnel mark visible; \"Riviera\" lettering visible at stern (Marina identical sister)"),
     "assets/ships/oceania/riviera/Oceania_Cruises_Riviera_02.webp.attr.json": (
         "confirmed", "Stern view; \"Riviera VALLETTA\" port-of-registry clearly visible; red Oceania O funnel mark"),
+
+    # ---- Oceania Nautica (batch HH, 2026-05-21) ----------------------------
+    "assets/ships/oceania/nautica/Nautica,_Liverpool_Cruise_Terminal_(geograph_4554997).webp.attr.json": (
+        "confirmed", "Broadside at Liverpool Cruise Terminal; \"Nautica\" lettering amidships + Oceania O funnel mark visible"),
+    "assets/ships/oceania/nautica/Nautica_and_the_Liver_Building,_Liverpool_(geograph_4555005).webp.attr.json": (
+        "confirmed", "Bow at Liverpool with Royal Liver Building backdrop; \"Nautica\" lettering visible"),
+    "assets/ships/oceania/nautica/Liverpool_Pilot__Petrel_,_River_Mersey_(geograph_4555042).webp.attr.json": (
+        "confirmed", "Bow closeup with pilot boat 'Petrel' alongside; \"Nautica\" lettering clearly visible on hull"),
+
+    # ---- Oceania Sirena (batch II, 2026-05-21) -----------------------------
+    "assets/ships/oceania/sirena/Rio_Tejo_-_Lisboa_-_Portugal___(53787162327).webp.attr.json": (
+        "consistent", "On Tagus River (Rio Tejo) at Lisbon Portugal; Oceania O funnel mark visible; R-class sisters (Nautica/Regatta/Insignia/Sirena) visually similar; Commons attribution names Sirena"),
+    "assets/ships/oceania/sirena/Rio_Tejo_-_Lisboa_-_Portugal___(54128223519).webp.attr.json": (
+        "consistent", "On Tagus River at Lisbon with Padrão dos Descobrimentos backdrop; Oceania O funnel mark visible; R-class sisters identical; Commons attribution names Sirena"),
+    "assets/ships/oceania/sirena/Sirena_IMO_9187899_P_Hamburg_31-07-24_(2).webp.attr.json": (
+        "confirmed", "Bow at Hamburg 31-Jul-2024 dressed with international signal flags; partial \"Sirena\" lettering visible on hull near bow + IMO 9187899 confirms identity"),
 }
 
 
