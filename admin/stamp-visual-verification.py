@@ -1304,6 +1304,10 @@ VERIFICATIONS = {
         "consistent", "On Tagus River at Lisbon with Padrão dos Descobrimentos backdrop; Oceania O funnel mark visible; R-class sisters identical; Commons attribution names Sirena"),
     "assets/ships/oceania/sirena/Sirena_IMO_9187899_P_Hamburg_31-07-24_(2).webp.attr.json": (
         "confirmed", "Bow at Hamburg 31-Jul-2024 dressed with international signal flags; partial \"Sirena\" lettering visible on hull near bow + IMO 9187899 confirms identity"),
+
+    # ---- Silversea Silver Ray (batch JJ, 2026-05-21) -----------------------
+    "assets/ships/silversea/silver-ray/SILVER_RAY_(54516976411).webp.attr.json": (
+        "consistent", "At anchor with tender alongside; distinctive Silversea Nova-class light-grey hull profile; sister Silver Nova identical; Commons attribution names Silver Ray"),
 }
 
 
