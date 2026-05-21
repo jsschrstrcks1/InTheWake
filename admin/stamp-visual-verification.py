@@ -1226,6 +1226,14 @@ VERIFICATIONS = {
         "confirmed", "Bow head-on at Meyer Werft Papenburg shipyard 2019; distinctive Encore-specific vibrant multi-color hull artwork by Eduardo Arranz-Bravo (signature Encore livery)"),
     "assets/ships/norwegian/norwegian-encore/Southampton_,_Norwegian_Encore_-_geograph.org.uk_-_6928574.webp.attr.json": (
         "confirmed", "Broadside at Southampton; \"NORWEGIAN ENCORE\" lettering visible amidships + signature Encore-specific Eduardo Arranz-Bravo hull artwork"),
+
+    # ---- Norwegian Escape (batch Y, 2026-05-21) ----------------------------
+    "assets/ships/norwegian/norwegian-escape/Norwegian_escape.webp.attr.json": (
+        "confirmed", "Bow head-on at Meyer Werft Papenburg; signature Escape-specific Guy Harvey marlin/dolphin/sea-life hull artwork"),
+    "assets/ships/norwegian/norwegian-escape/Norwegian_escape_03.webp.attr.json": (
+        "confirmed", "At Meyer Werft Papenburg shipyard; \"NORWEGIAN ESCAPE\" lettering clearly visible on hull near bow"),
+    "assets/ships/norwegian/norwegian-escape/Bahamas_(Nassau)_Norwegian_Escape_welcomes_to_Nassau_Port_(32059594135).webp.attr.json": (
+        "confirmed", "At Nassau Port Bahamas; \"NORWEGIAN ESCAPE\" lettering visible amidships + signature Guy Harvey marlin/dolphin hull artwork"),
 }
 
 
