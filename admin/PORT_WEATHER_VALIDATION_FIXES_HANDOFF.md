@@ -38,16 +38,34 @@ Total ports rewritten in this careful pass: **95** (84 from Phase 1+2 + 11 addit
 
 Each commit names the specific page elements quoted + the cleverness removed.
 
-## Weather-guide data issues flagged (out-of-scope for this branch)
+## Weather-guide data issues — CLOSED 2026-05-19
 
-Several pages have weather-guide data that is itself templated and incorrect for their geography. The FAQ rewrites surface these inconsistencies rather than papering over them. Ports flagged in commit bodies for separate cleanup:
+Previously flagged as "out-of-scope for this branch": pages where the weather-guide hazard panel was itself templated and incorrect for the port's geography. The Bucket A FAQs surfaced these inconsistencies (each FAQ honestly named the templated/generic state of its panel) but did not fix the panels themselves. The 2026-05-19 session worked the list and closed it:
 
-- **dunedin** — Weather Hazards panel labels Monsoon/Typhoon (South Island NZ is not monsoon/typhoon territory)
-- **huatulco** — Hurricane Zone label says "(Atlantic)" but Huatulco is Pacific coast
-- **komodo** — Peak Season Oct-Mar contradicts the page's monsoon-forest content
-- **lifou, mystery-island, noumea, tauranga, vanuatu** — NH-templated seasonal panels and hazard panels applied to SH Pacific ports
-- **manta, moorea, ponta-delgada, vancouver, zanzibar** — generic "Season: Varies / Peak risk: Varies" hazard panels (under-populated)
-- **gran-canaria, salalah** — generic hazard-note "Check local conditions before your cruise"
+- **huatulco** ✅ — Hurricane Zone "(Atlantic)" → "(Eastern Pacific)" with correct May 15 – Nov 30 dates (commit `48ebc83b`)
+- **dunedin** ✅ — "Monsoon/Typhoon Season Jun-Nov" → "Heavy Weather (Winter)" Jun-Aug with cold-southerly-fronts note (commit `48ebc83b`)
+- **komodo** ✅ — "Monsoon/Typhoon Season Jun-Nov" → "Northwest Monsoon (Wet Season)" Dec-Mar (commit `c4e2ba8e`). Bonus: page also had a pre-existing structural FAIL from duplicate gallery + image-credits `<details>` blocks (unclosed `</details>`) — repaired in commit `2ec7f8c9`.
+- **lifou, mystery-island, noumea, vanuatu** ✅ — NH-templated "Monsoon/Typhoon Season" → "South Pacific Cyclone Season" Nov-Apr / peak Jan-Feb-Mar with FMS/NIWA reference (commit `ad2d81de`)
+- **tauranga** ✅ — same templated NH panel → "Heavy Weather (Winter & Ex-Tropical)" Jun-Aug + occasional ex-tropical Jan-Mar (commit `ad2d81de`)
+- **manta** ✅ — "Seasonal Weather / Varies / Varies" → "ENSO-Driven Wet Season" Dec-May with explicit note that Manta is too close to the equator for tropical cyclones (commit `dd0d6c1d`)
+- **moorea** ✅ — placeholder → "South Pacific Cyclone Season" Nov-Apr (commit `dd0d6c1d`)
+- **ponta-delgada** ✅ — placeholder → "Atlantic Storm Season" Oct-Mar winter storms + occasional ex-hurricanes Aug-Oct (commit `dd0d6c1d`)
+- **vancouver** ✅ — placeholder → "Pacific Northwest Storm Season" Oct-Mar with atmospheric-rivers note (commit `dd0d6c1d`)
+- **zanzibar** ✅ — placeholder → "Long Rains & Indian Ocean Cyclone Window" with both Vuli/Masika rainy seasons and the "cyclones mostly track south toward Madagascar" qualifier (commit `dd0d6c1d`)
+- **gran-canaria** ✅ — placeholder → "Calima (Saharan Dust) & Winter Atlantic Storms" Feb-Apr / Nov-Mar (commit `af41b786`)
+- **salalah** ✅ no-op — handoff flag was stale; a prior careful-rewrite pass had already replaced salalah's hazards panel with an "Extreme Summer Heat" panel (khareef-aware, hazard-note "Stay hydrated; limit outdoor exposure"). The salalah FAQ already quotes that panel correctly.
+
+Per-port Best Time avoid-reason text also updated alongside each panel where the existing reason no longer matched the new panel (e.g., "(monsoon/typhoon season)" → "(South Pacific cyclone peak)" / "(winter storms, cold rain, shorter daylight)" / "(calima season starts; winter Atlantic storms)" / etc.).
+
+All 13 fixed pages PASS `validate-port-page-v2.js` with same or lower warning counts after the fix.
+
+### Out-of-scope items NOT addressed in the 2026-05-19 closeout
+
+These were noted during the cleanup but deliberately left for future passes:
+
+- **komodo seasonal panel ambiguity** — Peak Season Oct-Mar / Low Season May-Aug looks templated against the page's "dry savannah and monsoon forest" logbook content (which implies dry-season visits Apr-Oct), but the same pattern appears on bali + jakarta and may be defensible as "peak cruise visit volume" (Australian summer repositioning, NH winter escape) rather than "peak weather quality." Holding off on flipping until that interpretation is decided.
+- **Four tropical SP ports' avoid-reason still says "(monsoon/typhoon season)"** on Jul-Aug-Sep months (lifou, mystery-island, noumea, vanuatu). After the hazards-panel fix to SP Cyclone Nov-Apr, the Jul-Aug-Sep avoidance is geographically the cool dry season, not the storm window. Rewriting requires deciding whether the avoidance is for cyclone risk (months would flip to Jan-Mar but conflict with the Oct-Mar Peak Season) or weather-quality (currently inverted). Held for a deliberate seasonal-panel pass.
+- **Duplicate `id="gallery"` / `id="credits"` HTML-validity bug across 20+ ports** — surfaced during the komodo structural repair. Dunedin, freeport, funchal, guayaquil, ho-chi-minh-city, hurghada (×4), lombok, luanda, lyttelton, manta, mauritius, mindelo (×4), moorea, panama-canal, port-moresby, portofino, puerto-limon, safaga, salalah, and more all have the same templated-stub-plus-real-content collision komodo had. Systemic, not port-specific; needs its own dedicated pass once the team confirms the right fix shape (delete generic stub vs merge content vs case-by-case).
 
 ## Phase 2 (next)
 
