@@ -1194,6 +1194,10 @@ VERIFICATIONS = {
     # ---- Norwegian Pearl (batch S, 2026-05-21) -----------------------------
     "assets/ships/norwegian/norwegian-pearl/Norwegian_Pearl_at_Seattle_01.webp.attr.json": (
         "confirmed", "At Seattle waterfront; distinctive multi-color gem-spiral hull artwork (Pearl-specific Jewel-class livery) + Norwegian Cruise Line branding visible"),
+
+    # ---- Norwegian Sky (batch T, 2026-05-21) -------------------------------
+    "assets/ships/norwegian/norwegian-sky/Norwegian_Sky_December_10,_2013.webp.attr.json": (
+        "confirmed", "Stern view December 2013; \"NORWEGIAN SKY / NASSAU\" port-of-registry clearly visible + NCL blue/sun funnel mark"),
 }
 
 
