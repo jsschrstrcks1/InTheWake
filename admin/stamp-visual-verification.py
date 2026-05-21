@@ -1116,6 +1116,16 @@ VERIFICATIONS = {
         "confirmed", "Broadside under way; \"Celebrity X Cruises\" + Celebrity X funnel marks + Silhouette lettering visible"),
     "assets/ships/celebrity-cruises/celebrity-silhouette/Celebrity_Silhouette.webp.attr.json": (
         "confirmed", "Broadside at sea; \"Celebrity SILHOUETTE\" lettering visible + Celebrity X mark on hull"),
+
+    # ---- Celebrity Solstice (batch H, 2026-05-21) --------------------------
+    "assets/ships/celebrity-cruises/celebrity-solstice/Celebrity_Solstice.webp.attr.json": (
+        "confirmed", "Broadside at port; \"Celebrity SOLSTICE\" lettering clearly visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-solstice/Celebrity_Solstice_at_night.webp.attr.json": (
+        "confirmed", "Night view at Meyer Werft Papenburg shipyard; bow floodlights + \"Celebrity SOLSTICE\" lettering visible"),
+    "assets/ships/celebrity-cruises/celebrity-solstice/CelebritySolsticePapenburgCropped.webp.attr.json": (
+        "confirmed", "At Meyer Werft Papenburg shipyard viewed from road; \"SOLSTICE\" lettering faintly visible (motion-blurred from moving vehicle)"),
+    "assets/ships/celebrity-cruises/celebrity-solstice/Celebrity_Solstice_(ship,_2008)_001.webp.attr.json": (
+        "confirmed", "Bow at golden hour; \"Celebrity SOLSTICE\" lettering clearly visible + Celebrity X mark on hull"),
 }
 
 
