@@ -1186,6 +1186,10 @@ VERIFICATIONS = {
         "confirmed", "At 2019 Trieste christening; \"Costa Venezia\" lettering visible below funnel + yellow Costa C funnel mark + Frecce Tricolori smoke trail above"),
     "assets/ships/costa/costa-venezia/-1_COSTA_VENEZIA_FRECCE_XT2_1-3-2019_(40283690483).webp.attr.json": (
         "confirmed", "At 2019 Trieste christening; full broadside with crowd on quayside watching Frecce Tricolori flypast + yellow Costa C funnel mark"),
+
+    # ---- MSC Poesia (batch R, 2026-05-21) ----------------------------------
+    "assets/ships/msc/msc-poesia/MSC_Cruise_ship_at_Bergen-2.webp.attr.json": (
+        "confirmed", "At Bergen; \"MSC POESIA\" lettering clearly visible amidships near stern + MSC compass/star logo on hull"),
 }
 
 
