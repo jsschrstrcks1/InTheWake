@@ -974,6 +974,16 @@ VERIFICATIONS = {
         "confirmed", "At Saint-Nazaire shipyard September 2020; \"MSC Virtuosa\" lettering visible on bow"),
     "assets/ships/msc/msc-virtuosa/Msc_virtuosa_2021.webp.attr.json": (
         "consistent", "Broadside underway in calm water; MSC funnel logo + Meraviglia-class profile; sister-class ambiguity with Meraviglia/Bellissima/Grandiosa applies"),
+
+    # ---- MSC Grandiosa (batch H, 2026-05-21) -------------------------------
+    "assets/ships/msc/msc-grandiosa/Vertrek_MSC_GRANDIOSA_(49018344746).webp.attr.json": (
+        "confirmed", "Departing the Maas with stern \"MSC GRANDIOSA / VALLETTA\" lettering clearly readable"),
+    "assets/ships/msc/msc-grandiosa/Vertrek_MSC_GRANDIOSA_(49018550362).webp.attr.json": (
+        "confirmed", "Broadside in Rotterdam approach; \"MSC GRANDIOSA\" lettering + large MSC logo on hull"),
+    "assets/ships/msc/msc-grandiosa/Vertrek_MSC_GRANDIOSA_(49018346231).webp.attr.json": (
+        "confirmed", "Stern view departing; \"MSC GRANDIOSA\" + MSC funnel logo visible"),
+    "assets/ships/msc/msc-grandiosa/MSC_GRANDIOSA_(49010599428).webp.attr.json": (
+        "confirmed", "Night atmospheric shot with deck lights + \"MSC GRANDIOSA\" lettering on hull"),
 }
 
 
