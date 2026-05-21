@@ -1250,6 +1250,10 @@ VERIFICATIONS = {
     # ---- MSC World America (batch BB, 2026-05-21) --------------------------
     "assets/ships/msc/msc-world-america/MSC_World_America.webp.attr.json": (
         "confirmed", "Broadside in fitting-out basin; \"MSC World America\" lettering clearly visible amidships + MSC compass star logo on hull near bow"),
+
+    # ---- Carnival Radiance (batch CC, 2026-05-21) --------------------------
+    "assets/ships/carnival/carnival-radiance/220207-H-NI589-0360_Carnival_Radiance_with_CBP_patrol_boat.webp.attr.json": (
+        "confirmed", "Port of Long Beach Feb 2022; CBP patrol boat in foreground, Carnival Radiance large in background with \"Carnival Radiance\" lettering clearly legible + signature whale-tail funnel"),
 }
 
 
