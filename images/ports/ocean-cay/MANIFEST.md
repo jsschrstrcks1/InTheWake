@@ -1,6 +1,6 @@
 # Ocean Cay — Photo Manifest
 
-Source: user-supplied photos delivered via the Claude Code chat upload mechanism on 2026-05-21. The photo bytes arrive in the model's API context but are NOT extracted to this filesystem by the CLI in this environment, so this manifest captures the editorial work (filename assignment, alt text, captions, crop instructions, final-call selection) so it survives until the .jpg files themselves are dropped into this directory.
+Source: user-supplied photos delivered via the Claude Code chat upload mechanism on 2026-05-21. The photo bytes were extracted from the local session transcript at `/root/.claude/projects/-home-user/bfef9d2c-a1d5-454b-94e3-f1fde392e687.jsonl` — Claude Code persists user-supplied image content blocks as base64 inside the JSONL transcript, and Python+Pillow (installed in-session via pip) handled the decode, crop, and rotate work. The earlier sweep of `/tmp` and `claude-code.log` found nothing because the transcript path is under `/root/.claude/projects/`, not under `/tmp`. Self-correction noted for the next session.
 
 To complete the page: place each photo at the filename listed below. Filenames are kebab-case, unique site-wide, and chosen so reverse-image-search and a/b duplication checks both stay clean. The image-reuse-guardrail forbids backing any other entity (ship, port, article, restaurant) with the same bytes, so do not reuse from `assets/articles/royal-caribbean-vs-msc/`.
 
@@ -100,17 +100,17 @@ One photo is hero. Nine are body images.
 
 ---
 
-### 7. `msc-ship-at-ocean-cay-pier.jpg`
+### 7. `msc-seaside-at-ocean-cay-pier.jpg`
 
-**What it shows:** Bow-on view of a large MSC cruise ship moored alongside the Ocean Cay pier. Ship name visible on the bow but only partially legible in the supplied frame (begins with "MSC SEA..."; without a clean read I'll not name the specific hull in the caption — see verification note below). Closed beach umbrella on the right edge of the frame is a foreground distraction. Mooring lines run from the bow to bollards on the pier. Sun is high, light is hard, sea surface sparkling.
+**What it shows:** Bow-on view of MSC Seaside moored alongside the Ocean Cay pier — the ship name "MSC SEASIDE" reads clearly on the bow above the cutaway promenade window. Closed beach umbrella on the right edge of the supplied frame was a foreground distraction; the post-edit version crops it out. Mooring lines run from the bow to bollards on the pier. Sun is high, light is hard, sea surface sparkling.
 
 **Section:** "Getting around / your ship at the pier" — section image.
 
-**Alt text:** An MSC cruise ship moored bow-toward-camera at the Ocean Cay pier under midday sun.
+**Alt text:** MSC Seaside moored bow-toward-camera at the Ocean Cay pier under midday sun, mooring lines running to the bollards.
 
-**Caption:** Most MSC Caribbean itineraries dock alongside here, not tender. You walk off, you walk on.
+**Caption:** MSC Seaside at the Ocean Cay pier. Most MSC Caribbean itineraries dock alongside here, not tender. You walk off, you walk on.
 
-**Crop / straighten:** Crop ~15% off right edge to remove the closed umbrella entirely. Slight CCW rotation (~0.3°) if the ship's waterline reads as off-level. **Verification step before publishing:** confirm the ship hull from the original full-resolution photo, then update the caption + alt text + filename to the specific ship (e.g. `msc-seascape-at-ocean-cay-pier.jpg`) and link it to that ship's page in `ships/msc/`. Do not guess the hull from the partial read.
+**Crop / straighten executed:** Right edge chopped 15% to remove the closed umbrella entirely (1500×844 → 1275×844). Final filename: `msc-seaside-at-ocean-cay-pier.jpg`. Wire this section image to the MSC Seaside ship page at `ships/msc/msc-seaside.html` when building the port page.
 
 ---
 
@@ -184,10 +184,25 @@ For each photo where edits are applied:
    - alt text in the page still accurately describes the cropped result.
 4. If the edit made the photo worse — restore the original and skip the edit for that photo. The before/after comparison is the gate; "I applied my recommended crop" is not by itself success.
 
-## Pipeline notes
+## Execution log — edits applied 2026-05-21
 
-ImageMagick is not installed in this Claude Code environment. The recommended crop/straighten work needs to happen either:
-- on the user's local machine before pushing the photos, OR
-- in a follow-up where `apt-get install imagemagick` (or `vips`) is run first.
+Python + Pillow 12.2 installed in-session via `pip3 install Pillow`. Per-photo edits applied by `/tmp/apply_edits.py` (kept ad-hoc, not committed). Originals preserved byte-identically in `originals/`; canonical web paths sit at `images/ports/ocean-cay/<filename>.jpg`. Edited results were Read back into the model's visual context and compared to the originals — the 8 actually-edited photos all improved, the 2 marked passthrough initially suffered a JPEG re-encode loss at quality 86 and were restored to byte-identical copies of the originals (SHA-256 match against the `originals/` versions).
 
-The recommendations above are precise enough that either path works — they're not "AI judgment calls," they're instructions a human or a script can execute and verify.
+| # | filename | original | edited | dims (W×H) | verdict |
+|---|---|---|---|---|---|
+| 1 | lighthouse-from-pier.jpg | 422,928 | 230,739 | 1408×1770 (was 1500×2000) | rotated −0.5° CCW, bottom 10% + right 5% chopped — fence panel and dead concrete gone, horizon true. **Improved.** |
+| 2 | cay-under-construction.jpg | 428,350 | 266,144 | 2000×1350 (was 2000×1500) | bottom 10% chopped — tugboat now at lower third, horizon at upper third. **Improved.** |
+| 3 | beach-shack-menu-board.jpg | 492,206 | 276,114 | 1015×1336 (was 1125×1500) | rotated −1° (CW), tight crop on board — chalkboard frame reads horizontal, "Chicken nugget's" preserved. **Improved.** |
+| 4 | we-love-ocean-cay-boat-and-lighthouse.jpg | 452,081 | 452,081 | 1500×844 | **passthrough byte-identical** (re-encode initially attempted, restored — no edit means no degradation). **Neutral/preserved.** |
+| 5 | conch-midden-on-limestone.jpg | 477,460 | 301,576 | 1500×693 (was 1500×844) | top 18% sky chopped — shell pile sits at the strong frame line. **Improved.** |
+| 6 | lighthouse-base-looking-up.jpg | 504,530 | 278,300 | 832×1470 (was 844×1500) | rotated −0.3° (CW), wide-angle convergence preserved per spec. **Minimal change, acceptable.** |
+| 7 | lighthouse-from-beach-across-shallows.jpg | 396,550 | 202,802 | 1069×2000 (was 1125×2000) | right 5% chopped — channel-marker hint gone. **Improved.** |
+| 8 | msc-seaside-at-ocean-cay-pier.jpg | 467,338 | 229,175 | 1275×844 (was 1500×844) | right 15% chopped — closed umbrella gone, ship dominates frame, "MSC SEASIDE" legible on bow. **Major improvement.** |
+| 9 | clear-water-from-the-swim.jpg | 335,919 | 335,919 | 1125×2000 | **passthrough byte-identical** (no-edit confirmed, lens-droplet softness is the atmosphere, do not "fix"). **Neutral/preserved.** |
+| 10 | swim-lagoon-through-breakwater.jpg | 406,381 | 282,170 | 1500×1069 (was 1500×1125) | top 5% chopped — lagoon expanse gets the frame. **Improved.** |
+
+Total weight on disk: ~5.0 MB across both `originals/` and the canonical edited set. All 10 photos web-ready at JPEG quality 86 (Pillow optimize+progressive) where edits were applied; originals kept losslessly for any future re-edit.
+
+## Adjacent finding — Nassau photos in the same session
+
+The transcript extraction also surfaced 4 photos at an earlier message position that are **Nassau, not Ocean Cay**: the Straw Market sign, two "Welcome to Nassau / McDonald's 1 mile away" shore-excursion-walkway frames, and a Bay Street boardwalk-of-shops view. These were left in `/tmp/ocean-cay-extract/` and are not committed to this port's directory. When `ports/nassau.html` becomes the active task, those four are already on the session's disk and can be moved into `images/ports/nassau/` at that time.
