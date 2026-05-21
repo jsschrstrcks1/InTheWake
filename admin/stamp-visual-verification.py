@@ -994,6 +994,12 @@ VERIFICATIONS = {
         "consistent", "At Saint-Nazaire shipyard viewed across estuary; MSC funnel logo + distinctive World-class profile (first of class so no sister-class ambiguity yet at time of photo)"),
     "assets/ships/msc/msc-world-europa/MSC_World_Europa_-_Saint-Nazaire_-_June_2022.webp.attr.json": (
         "consistent", "Saint-Nazaire June 2022; World-class profile + MSC livery; same Atlantic shipyard delivery context"),
+
+    # ---- MSC Seashore (batch H, 2026-05-21) --------------------------------
+    "assets/ships/msc/msc-seashore/MSC_Seashore_Ocean_Cay_2024.webp.attr.json": (
+        "confirmed", "At Ocean Cay (MSC Marine Reserve) 2024 viewed from beach; Seaside Evo class profile + MSC livery; same setting as MSC's flagship Bahamas private island"),
+    "assets/ships/msc/msc-seashore/Msc_seashore.webp.attr.json": (
+        "consistent", "Alongside at Genoa; Seaside Evo class profile + MSC livery; sister-class ambiguity with Seaside/Seaview/Seascape applies"),
 }
 
 
