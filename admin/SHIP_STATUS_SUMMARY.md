@@ -107,6 +107,15 @@ self-resolve as soon as the Costa Fortuna page exists. See
 
 ---
 
+## Phase 6 batch H (post-merge resumption), 2026-05-18
+
+| Ship | Line | Before | After | Notes |
+|---|---|---:|---:|---|
+| Seabourn Encore | seabourn | 7 | 10 | 3 from "Seabourn Encore at Benoa" series; (2)(3) confirmed by bow lettering, (1) consistent (same-day series). |
+| Seabourn Odyssey | seabourn | 7 | 11 | 4 embedded (2x Split confirmed, 1x Burnie confirmed, 1x Valletta consistent); 4 fetched but skipped (Aerial Venice sister-ambiguous, Istanbul low-res, Zadar foreground subject) — deleted from disk + registry to keep tree clean. |
+
+---
+
 ## Ship Categories
 
 ### 1. ✅ Ships with FOM Images (11 ships - COMPLETE)
