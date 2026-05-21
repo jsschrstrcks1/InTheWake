@@ -1018,6 +1018,16 @@ VERIFICATIONS = {
         "confirmed", "At Saint-Nazaire January 2020; \"Celebrity APEX\" lettering visible on hull"),
     "assets/ships/celebrity-cruises/celebrity-apex/Celebrity_Apex_-_inside_The_Magic_Carpet_in_the_evening.webp.attr.json": (
         "consistent", "Interior of Magic Carpet venue with blue LED accent lighting; Edge-class signature venue; sister-class ambiguity with Edge/Beyond/Ascent but Commons attribution to Apex"),
+
+    # ---- Sapphire Princess (batch H, 2026-05-21) ---------------------------
+    "assets/ships/princess/sapphire-princess/Sapphire_Princess_04.webp.attr.json": (
+        "confirmed", "Stern view at Ketchikan; \"SAPPHIRE PRINCESS / HAMILTON\" lettering clearly readable"),
+    "assets/ships/princess/sapphire-princess/Sapphire_Princess_01.webp.attr.json": (
+        "confirmed", "Bow detail at Ketchikan with sailboat marina foreground; \"SAPPHIRE PRINCESS\" lettering visible"),
+    "assets/ships/princess/sapphire-princess/Sapphire_Princess_02.webp.attr.json": (
+        "confirmed", "Side close-up; \"SAPPHIRE PRINCESS\" lettering + lifeboats visible"),
+    "assets/ships/princess/sapphire-princess/Sapphire_Princess_03.webp.attr.json": (
+        "consistent", "Across Ketchikan harbour marina with fishing boats foreground; same uploader Alaska series; Grand-class Princess profile + livery"),
 }
 
 
