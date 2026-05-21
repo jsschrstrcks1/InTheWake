@@ -1102,6 +1102,20 @@ VERIFICATIONS = {
         "confirmed", "Closer broadside at Meyer Werft; \"Celebrity REFLECTION\" + \"Celebrity X Cruises\" lettering visible"),
     "assets/ships/celebrity-cruises/celebrity-reflection/Celebrity_REFLECTION_by_Moehre1992.webp.attr.json": (
         "confirmed", "Meyer Werft from another angle; \"Celebrity REFLECTION\" lettering + X funnel marks visible; same Solstice-class profile"),
+
+    # ---- Celebrity Silhouette (batch H, 2026-05-21) ------------------------
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Meyer_Werft_Papenburg_Celbrity_Silhouette.webp.attr.json": (
+        "confirmed", "Broadside at Meyer Werft Papenburg; \"Celebrity SILHOUETTE\" lettering clearly visible"),
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Liner_Silhouette.webp.attr.json": (
+        "confirmed", "Alongside at Meyer Werft with parking lot foreground; \"Celebrity SILHOUETTE\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Meyer_Werft.webp.attr.json": (
+        "confirmed", "Meyer Werft from road-side angle; \"SILHOUETTE\" hull lettering visible + Celebrity X funnel marks"),
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Celebrity_Silhouette_Saluting_Battery_Valletta.webp.attr.json": (
+        "confirmed", "Bow at Valletta's Saluting Battery at golden hour; \"Celebrity SILHOUETTE\" lettering clearly readable"),
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Celebrity_Silhouette_(ship,_2011)_001.webp.attr.json": (
+        "confirmed", "Broadside under way; \"Celebrity X Cruises\" + Celebrity X funnel marks + Silhouette lettering visible"),
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Celebrity_Silhouette.webp.attr.json": (
+        "confirmed", "Broadside at sea; \"Celebrity SILHOUETTE\" lettering visible + Celebrity X mark on hull"),
 }
 
 
