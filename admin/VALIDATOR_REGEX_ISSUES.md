@@ -38,7 +38,14 @@ This document is named in `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md` as th
 **Page where the natural phrasing was restored:**
 - `ports/mauritius.html` — restored "What currency should I bring to Mauritius?" (both the JSON-LD `mainEntity` Q and the visible HTML Q). The reword "What currency is used in Mauritius?" is gone.
 
-**Audit still owed:** other ports with `What ... bring` FAQs reworded during the 2026-05 batch (currency Qs, souvenir Qs, paperwork Qs) should be restored to natural phrasing.
+**Collateral: ports where the fix exposed missing packing FAQs**
+
+The regex fix exposed that some ports had been "satisfying" the FAQ_PACKING_FOR_WEATHER requirement via the buggy `bring` match rather than via a real packing FAQ. Of the 21 ports newly failing after the fix:
+
+- **8 ports were my responsibility** (touched in this branch): Amalfi, Cochin, Denali, Gdansk, Lifou, Moorea, Noumea, Punta Arenas. Each now has a real climate-keyed "What should I pack" FAQ added in the same commit as the regex fix. Validators clean.
+- **13 ports are pre-existing corpus debt** (not touched in this branch): Alexandria, Apia, Aruba, Ascension, Buenos Aires, Da Nang, Dakar, Jamaica, Nosy Be, Recife, Seychelles, St. Maarten, Trieste. These had been silently relying on the buggy regex before this branch existed; they need real packing FAQs added in a separate session. Not in scope for this cleverness-cleanup.
+
+**Audit still owed (outside this branch):** the 13 pre-existing ports above should each get a real packing FAQ. A wider audit of the ~113 ports currently failing the weather sub-validator (pre-fix baseline) is also owed but separate from this branch's work.
 
 ---
 
