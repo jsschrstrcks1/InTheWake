@@ -1076,6 +1076,14 @@ VERIFICATIONS = {
         "consistent", "Distant broadside under way; Coral-class profile + Princess livery; filename includes IMO 9229659 matching Coral Princess"),
     "assets/ships/princess/coral-princess/Coral_Princess_plaque.webp.attr.json": (
         "confirmed", "Builder's plaque inside the ship — \"CORAL PRINCESS / ALSTOM CHANTIERS DE L'ATLANTIQUE / 2002 / NEW BUILDING N° C32\" — documentary photo of the ship's identity plate"),
+
+    # ---- Majestic Princess (batch H, 2026-05-21) ---------------------------
+    "assets/ships/princess/majestic-princess/MAJESTIC_PRINCESS_Port_TokushimaKomatsushima.webp.attr.json": (
+        "confirmed", "Broadside at Tokushima-Komatsushima port; \"PRINCESS CRUISES\" + \"MAJESTIC PRINCESS\" lettering visible + Princess wave bow logo + Japanese script"),
+    "assets/ships/princess/majestic-princess/MAJESTIC_PRINCESS_20180405-1.webp.attr.json": (
+        "confirmed", "Alongside April 2018; Princess wave bow logo + LED display + Royal-class profile visible"),
+    "assets/ships/princess/majestic-princess/Majestic_Princess_Build_2015.webp.attr.json": (
+        "consistent", "Under construction at Fincantieri Monfalcone shipyard 2015; documentary build photo; sister-class ambiguity with Royal/Regal Princess but Commons categorization explicit"),
 }
 
 
