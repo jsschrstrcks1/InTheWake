@@ -984,6 +984,16 @@ VERIFICATIONS = {
         "confirmed", "Stern view departing; \"MSC GRANDIOSA\" + MSC funnel logo visible"),
     "assets/ships/msc/msc-grandiosa/MSC_GRANDIOSA_(49010599428).webp.attr.json": (
         "confirmed", "Night atmospheric shot with deck lights + \"MSC GRANDIOSA\" lettering on hull"),
+
+    # ---- MSC World Europa (batch H, 2026-05-21) ----------------------------
+    "assets/ships/msc/msc-world-europa/MSC_World_Europa_(ship,_2022).webp.attr.json": (
+        "confirmed", "Berthed at Genoa with mountains behind; \"MSC WORLD EUROPA\" lettering visible on hull; distinctive World-class superstructure"),
+    "assets/ships/msc/msc-world-europa/MSC_World_Europa_La_Rochelle.webp.attr.json": (
+        "confirmed", "Broadside off La Rochelle viewed from beach; large MSC bow logo visible + World-class profile"),
+    "assets/ships/msc/msc-world-europa/MSC_World_Europa_in_Saint-Nazaire.webp.attr.json": (
+        "consistent", "At Saint-Nazaire shipyard viewed across estuary; MSC funnel logo + distinctive World-class profile (first of class so no sister-class ambiguity yet at time of photo)"),
+    "assets/ships/msc/msc-world-europa/MSC_World_Europa_-_Saint-Nazaire_-_June_2022.webp.attr.json": (
+        "consistent", "Saint-Nazaire June 2022; World-class profile + MSC livery; same Atlantic shipyard delivery context"),
 }
 
 
