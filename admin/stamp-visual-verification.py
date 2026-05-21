@@ -1218,6 +1218,14 @@ VERIFICATIONS = {
         "confirmed", "Aerial view at Bell Street Pier (Pier 66) Seattle; distinctive Breakaway Plus class profile; Commons attribution identifies as Norwegian Bliss"),
     "assets/ships/norwegian/norwegian-bliss/Queen_Elizabeth___Norwegian_Bliss_(50511912068).webp.attr.json": (
         "confirmed", "Norwegian Bliss (right) anchored off Weymouth 2020 alongside Cunard Queen Elizabeth (left); \"Norwegian Bliss\" lettering visible on bow of right ship; Commons attribution names both ships"),
+
+    # ---- Norwegian Encore (batch X, 2026-05-21) ----------------------------
+    "assets/ships/norwegian/norwegian-encore/NORWEGIAN_ENCORE_7696.webp.attr.json": (
+        "confirmed", "Broadside at Meyer Werft Papenburg shipyard 2019 with water reflection; \"Norwegian Encore\" lettering visible amidships + distinctive Encore-specific Eduardo Arranz-Bravo multi-color hull artwork"),
+    "assets/ships/norwegian/norwegian-encore/NORWEGIAN_ENCORE_7702.webp.attr.json": (
+        "confirmed", "Bow head-on at Meyer Werft Papenburg shipyard 2019; distinctive Encore-specific vibrant multi-color hull artwork by Eduardo Arranz-Bravo (signature Encore livery)"),
+    "assets/ships/norwegian/norwegian-encore/Southampton_,_Norwegian_Encore_-_geograph.org.uk_-_6928574.webp.attr.json": (
+        "confirmed", "Broadside at Southampton; \"NORWEGIAN ENCORE\" lettering visible amidships + signature Encore-specific Eduardo Arranz-Bravo hull artwork"),
 }
 
 
