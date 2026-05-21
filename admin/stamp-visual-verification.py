@@ -1160,6 +1160,12 @@ VERIFICATIONS = {
     # ---- Costa Smeralda (batch L, 2026-05-21) ------------------------------
     "assets/ships/costa/costa-smeralda/Costa_Smeralda_in_Savona_(September_2020).webp.attr.json": (
         "confirmed", "Bow at Savona September 2020; \"Costa Smeralda\" lettering clearly visible on hull near bow + Costa Cruises yellow funnel mark"),
+
+    # ---- Costa Toscana (batch M, 2026-05-21) -------------------------------
+    "assets/ships/costa/costa-toscana/Costa_Toscana_in_Savona.webp.attr.json": (
+        "confirmed", "Broadside at Savona November 2022; \"Costa Toscana\" lettering clearly visible on hull near bow"),
+    "assets/ships/costa/costa-toscana/Costa_Toscana_from_rear.webp.attr.json": (
+        "confirmed", "Stern at Savona; \"Costa Toscana\" + \"GENOVA\" port-of-registry visible + Italian flag"),
 }
 
 
