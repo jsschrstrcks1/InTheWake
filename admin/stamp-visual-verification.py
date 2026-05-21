@@ -1242,6 +1242,10 @@ VERIFICATIONS = {
         "confirmed", "Bow closeup at Papenburg; \"NORWEGIAN GEM\" lettering clearly visible + multi-color gem-cluster hull artwork in detail"),
     "assets/ships/norwegian/norwegian-gem/Norwegian_Gem_2010_Port_of_Venice.webp.attr.json": (
         "confirmed", "Stern at Port of Venice 2010; \"NORWEGIAN GEM\" lettering clearly visible on stern + gem-cluster artwork on aft superstructure"),
+
+    # ---- Norwegian Aqua (batch AA, 2026-05-21) -----------------------------
+    "assets/ships/norwegian/norwegian-aqua/Norwegian_Aqua.webp.attr.json": (
+        "confirmed", "In Hudson River with One World Trade Center backdrop, NYC; signature Aqua-specific colorful Reef hull artwork (Prime-class livery) clearly visible"),
 }
 
 
