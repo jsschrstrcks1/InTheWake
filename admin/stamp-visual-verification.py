@@ -1234,6 +1234,14 @@ VERIFICATIONS = {
         "confirmed", "At Meyer Werft Papenburg shipyard; \"NORWEGIAN ESCAPE\" lettering clearly visible on hull near bow"),
     "assets/ships/norwegian/norwegian-escape/Bahamas_(Nassau)_Norwegian_Escape_welcomes_to_Nassau_Port_(32059594135).webp.attr.json": (
         "confirmed", "At Nassau Port Bahamas; \"NORWEGIAN ESCAPE\" lettering visible amidships + signature Guy Harvey marlin/dolphin hull artwork"),
+
+    # ---- Norwegian Gem (batch Z, 2026-05-21) -------------------------------
+    "assets/ships/norwegian/norwegian-gem/Norwegian_gem.webp.attr.json": (
+        "confirmed", "Bow at golden hour; \"NORWEGIAN GEM\" lettering clearly visible on bow + signature Gem-specific colorful gem-cluster hull artwork"),
+    "assets/ships/norwegian/norwegian-gem/Papenburg-NorwegianGem1-Asio.webp.attr.json": (
+        "confirmed", "Bow closeup at Papenburg; \"NORWEGIAN GEM\" lettering clearly visible + multi-color gem-cluster hull artwork in detail"),
+    "assets/ships/norwegian/norwegian-gem/Norwegian_Gem_2010_Port_of_Venice.webp.attr.json": (
+        "confirmed", "Stern at Port of Venice 2010; \"NORWEGIAN GEM\" lettering clearly visible on stern + gem-cluster artwork on aft superstructure"),
 }
 
 
