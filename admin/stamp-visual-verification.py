@@ -954,6 +954,18 @@ VERIFICATIONS = {
         "consistent", "Saint-Nazaire delivery 26 Feb 2019; bow-on at dusk with partial \"MSC ___SIMA\" lettering visible; same uploader series as confirmed files"),
     "assets/ships/msc/msc-bellissima/MSC_Bellissima_20190226_190829.webp.attr.json": (
         "consistent", "Saint-Nazaire delivery 26 Feb 2019; side close-up with large MSC funnel logo; same uploader series"),
+
+    # ---- MSC Seaside owner photos (Ocean Cay, 2026-05-21) ------------------
+    "assets/ships/msc/msc-seaside/MSC_Seaside_bow_Ocean_Cay_2026-05-21.webp.attr.json": (
+        "confirmed", "Owner-photographed at Ocean Cay 2026-05-21; \"MSC SEASIDE\" lettering visible on bow; beach parasol in foreground"),
+    "assets/ships/msc/msc-seaside/MSC_Seaside_alongside_Ocean_Cay_2026-05-21.webp.attr.json": (
+        "confirmed", "Owner-photographed at Ocean Cay 2026-05-21; \"MSC SEASIDE\" lettering visible on bow; beach + swimmers + Seaside in same frame"),
+    "assets/ships/msc/msc-seaside/MSC_Seaside_from_water_low_Ocean_Cay_2026-05-21.webp.attr.json": (
+        "confirmed", "Owner-photographed at Ocean Cay 2026-05-21; \"MSC SEASIDE\" lettering visible on bow; sea-level water foreground"),
+    "assets/ships/msc/msc-seaside/MSC_Seaside_pier_view_Ocean_Cay_2026-05-21.webp.attr.json": (
+        "confirmed", "Owner-photographed at Ocean Cay 2026-05-21; pier-level view alongside; \"MSC SEASIDE\" lettering visible on lifeboat + Seaside-class profile"),
+    "assets/ships/msc/msc-seaside/MSC_Seaside_from_water_Ocean_Cay_2026-05-21.webp.attr.json": (
+        "consistent", "Owner-photographed at Ocean Cay 2026-05-21; viewed across the harbour with palms and beach shacks foreground; Seaside-class profile + MSC livery; same owner series as confirmed bow shots"),
 }
 
 
