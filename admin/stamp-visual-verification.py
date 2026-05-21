@@ -1190,6 +1190,10 @@ VERIFICATIONS = {
     # ---- MSC Poesia (batch R, 2026-05-21) ----------------------------------
     "assets/ships/msc/msc-poesia/MSC_Cruise_ship_at_Bergen-2.webp.attr.json": (
         "confirmed", "At Bergen; \"MSC POESIA\" lettering clearly visible amidships near stern + MSC compass/star logo on hull"),
+
+    # ---- Norwegian Pearl (batch S, 2026-05-21) -----------------------------
+    "assets/ships/norwegian/norwegian-pearl/Norwegian_Pearl_at_Seattle_01.webp.attr.json": (
+        "confirmed", "At Seattle waterfront; distinctive multi-color gem-spiral hull artwork (Pearl-specific Jewel-class livery) + Norwegian Cruise Line branding visible"),
 }
 
 
