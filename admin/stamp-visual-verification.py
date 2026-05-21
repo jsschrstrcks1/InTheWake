@@ -1202,6 +1202,14 @@ VERIFICATIONS = {
     # ---- Norwegian Sun (batch U, 2026-05-21) -------------------------------
     "assets/ships/norwegian/norwegian-sun/Norwegian_Sun_Vancouver_01.webp.attr.json": (
         "confirmed", "At Canada Place, Vancouver 2015; distinctive Sun-specific sun-burst hull artwork (Sun-class livery) + NCL blue/sun funnel mark"),
+
+    # ---- Norwegian Spirit (batch V, 2026-05-21) ----------------------------
+    "assets/ships/norwegian/norwegian-spirit/Norwegian_Spirit_in_Auckland_PA02.webp.attr.json": (
+        "confirmed", "At Auckland Queens Wharf January 2026; \"NORWEGIAN SPIRIT\" lettering clearly visible amidships near bow"),
+    "assets/ships/norwegian/norwegian-spirit/Norwegian_Spirit_at_Sydney_Overseas_Passenger_Terminal,_Circular_Quay.webp.attr.json": (
+        "consistent", "At Sydney Overseas Passenger Terminal between Harbour Bridge and Opera House; NCL blue/sun funnel mark visible; Commons attribution identifies as Norwegian Spirit"),
+    "assets/ships/norwegian/norwegian-spirit/The__Norwegian_Spirit_,_Belfast_harbour_(June_2019)_-_geograph.org.uk_-_6172815.webp.attr.json": (
+        "confirmed", "Broadside at Belfast harbour June 2019; \"NORWEGIAN SPIRIT\" lettering visible amidships AND bow + distinctive Spirit-specific colorful hull artwork"),
 }
 
 
