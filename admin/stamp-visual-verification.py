@@ -1036,6 +1036,14 @@ VERIFICATIONS = {
         "confirmed", "At Piraeus Harbour with tugboats alongside; \"SUN PRINCESS\" + Princess Cruises lettering visible"),
     "assets/ships/princess/sun-princess/Sue_Princess_(2).webp.attr.json": (
         "consistent", "Stern detail showing the distinctive Sphere-class dome architecture; same uploader series as confirmed file (1); sister-class ambiguity with Star Princess applies"),
+
+    # ---- Ruby Princess (batch H, 2026-05-21) -------------------------------
+    "assets/ships/princess/ruby-princess/Ruby_Princess_-Fort_Lauderdale,_Florida-24Nov2009.webp.attr.json": (
+        "consistent", "Broadside at Fort Lauderdale with palm trees foreground; Grand-class Princess profile; sister-class ambiguity with Crown/Emerald/Caribbean Princess applies"),
+    "assets/ships/princess/ruby-princess/Ruby_Princess_Grand_Cayman_Jan_27_2009.webp.attr.json": (
+        "consistent", "At anchor off Grand Cayman January 2009; Grand-class profile + Princess livery"),
+    "assets/ships/princess/ruby-princess/Ruby_Princess_at_port_in_Grenada.webp.attr.json": (
+        "consistent", "At port in Grenada with Caribbean hillside behind; Grand-class profile"),
 }
 
 
