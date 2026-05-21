@@ -87,6 +87,8 @@ I did not check which is true before doing the work at scale. The validator's ch
 
 **Pattern name: Parity rebuild without contract check.** When a validator demands data-structure parity with the rendered page, the cheap move is to rebuild the structure to match. The careful move is to verify the parity is anchored to a downstream contract — Google's documentation, the schema.org spec, a CMS migration plan — and not just to the validator's own implementation choice.
 
+**User decision (2026-05-21):** keep the parity rebuilds. The user's contract is that the FAQPage schema should faithfully mirror the visible HTML so the machine-readable representation never lags or contradicts the rendered page. The validator's 1:1 check is therefore correctly enforcing the intended contract, and the rebuilds in this branch stand. The careful-not-clever requirement going forward is not to undo the parity but to ask before doing it — which is what this section now records was asked and answered.
+
 ## What "careful" actually requires (additional)
 
 The May 18 doc already named **validator capitulation**, **scanner dodging**, and **compliance theater** with concrete commitments. This entry adds:
