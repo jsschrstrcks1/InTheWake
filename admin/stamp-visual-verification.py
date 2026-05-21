@@ -1308,6 +1308,10 @@ VERIFICATIONS = {
     # ---- Silversea Silver Ray (batch JJ, 2026-05-21) -----------------------
     "assets/ships/silversea/silver-ray/SILVER_RAY_(54516976411).webp.attr.json": (
         "consistent", "At anchor with tender alongside; distinctive Silversea Nova-class light-grey hull profile; sister Silver Nova identical; Commons attribution names Silver Ray"),
+
+    # ---- Star Princess (batch KK, 2026-05-21) ------------------------------
+    "assets/ships/princess/star-princess/Star_princess_cruise_ship.webp.attr.json": (
+        "confirmed", "Star Princess (2025 Sphere-class) at anchor with tender alongside; \"STAR PRINCESS\" lettering visible on hull amidships + Princess Sea Witch wave logo on bow"),
 }
 
 
