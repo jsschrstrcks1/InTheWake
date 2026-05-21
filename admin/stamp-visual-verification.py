@@ -1312,6 +1312,10 @@ VERIFICATIONS = {
     # ---- Star Princess (batch KK, 2026-05-21) ------------------------------
     "assets/ships/princess/star-princess/Star_princess_cruise_ship.webp.attr.json": (
         "confirmed", "Star Princess (2025 Sphere-class) at anchor with tender alongside; \"STAR PRINCESS\" lettering visible on hull amidships + Princess Sea Witch wave logo on bow"),
+
+    # ---- Celebrity Flora (batch LL, 2026-05-21) ----------------------------
+    "assets/ships/celebrity-cruises/celebrity-flora/Celebrity_FLORA_(46874800674).webp.attr.json": (
+        "confirmed", "Broadside; \"Celebrity X Cruises\" hull mark + \"Celebrity FLORA\" lettering clearly visible; distinctive Galapagos expedition yacht profile (unique ship, no sister)"),
 }
 
 
