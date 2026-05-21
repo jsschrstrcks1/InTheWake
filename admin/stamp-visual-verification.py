@@ -1268,6 +1268,12 @@ VERIFICATIONS = {
         "consistent", "Broadside at Grand Cayman April 2025 (motion-blurred); Costa-derived yellow C funnel visible (Carnival 'Fun Italian Style' tribute, preserved from Costa)"),
     "assets/ships/carnival/carnival-venezia/Carnival_Venezia_-_08.webp.attr.json": (
         "confirmed", "Broadside in Hudson River with One World Trade Center backdrop; \"Carnival Fun Italian Style\" lettering visible + yellow C funnel (post-Costa rebrand)"),
+
+    # ---- Carnival Firenze (batch EE, 2026-05-21) ---------------------------
+    "assets/ships/carnival/carnival-firenze/Carnival_Firenze_at_Puerto_Vallarta_Oct_2024.webp.attr.json": (
+        "confirmed", "Broadside at Puerto Vallarta Oct 2024 golden hour; \"Carnival Fun Italian Style\" livery visible + Costa-derived yellow C funnel (preserved from Costa Firenze)"),
+    "assets/ships/carnival/carnival-firenze/Carnival_Firenze_(ex._Costa_Firenze)_(ship,_2020)___Oceania_Vista_(ship,_2023)_in_Cabo_San_Lucas_(December_2025).webp.attr.json": (
+        "confirmed", "Broadside at Cabo San Lucas Dec 2025 with Oceania Vista in background; \"Carnival Fun Italian Style\" livery + yellow C funnel visible (Carnival rebrand of Costa Firenze)"),
 }
 
 
