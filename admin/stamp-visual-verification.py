@@ -1320,6 +1320,20 @@ VERIFICATIONS = {
     # ---- Explora I (batch MM, 2026-05-21) ----------------------------------
     "assets/ships/explora-journeys/explora-i/Explora_I.webp.attr.json": (
         "confirmed", "Broadside at shipyard; \"EXPLORA 1\" lettering visible on bow + distinctive dark-blue/teal Explora Journeys hull"),
+
+    # ---- Carnival Adventure (batch NN, 2026-05-21) -------------------------
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_in_Sydney.webp.attr.json": (
+        "confirmed", "Passing under Sydney Harbour Bridge; \"Carnival\" lettering visible at stern + signature whale-tail funnel"),
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_in_Sydney_-_11th_April,_2025.webp.attr.json": (
+        "confirmed", "Broadside at Sydney 11 Apr 2025; \"Carnival\" + \"Adventure\" lettering clearly visible on hull + whale-tail funnel"),
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_in_Sydney_-_24th_April,_2025.webp.attr.json": (
+        "confirmed", "Broadside at Sydney 24 Apr 2025 with Harbour Bridge backdrop; partial 'Carnival Adventure' lettering visible above lifeboats + whale-tail funnel"),
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_in_Sydney_-_20th_June,_2025.webp.attr.json": (
+        "confirmed", "Broadside at Sydney OPT 20 Jun 2025 with Opera House backdrop; partial \"Carnival Adventure\" lettering visible + whale-tail funnel"),
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_in_Sydney_-_14th_July,_2025.webp.attr.json": (
+        "consistent", "Bow detail at Sydney 14 Jul 2025; Grand-class superstructure profile + whale-tail Carnival funnel visible"),
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_Rear.webp.attr.json": (
+        "confirmed", "Stern view at Sydney OPT with whale-tail Carnival funnel and Sydney CBD skyline behind"),
 }
 
 
