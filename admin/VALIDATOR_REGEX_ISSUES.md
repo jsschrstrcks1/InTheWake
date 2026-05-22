@@ -12,99 +12,53 @@ This document is named in `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md` as th
 
 ## Open issues
 
-### REGEX-01 — `best time` regex matches `go` inside place names
-
-**Validator:** `scripts/port-weather-validator-core.js` — `REQUIRED.faqTopics[0].pattern`
-**Pattern:** `/best time[^<]*(?:visit|go|cruise)|when[^<]*(?:visit|go|cruise)/i`
-**Bug:** The `(?:visit|go|cruise)` alternation matches the substring `go` inside any word. Combined with the `when[^<]*` prefix, any FAQ question containing `when` plus a place name that contains `go` will match the best-time regex regardless of the question's actual topic.
-
-**Affected port names (non-exhaustive):**
-- Glasgow (`Glas**go**w`)
-- Bogota (`Bo**go**ta`)
-- Goa (`**Go**a`)
-- Otago (`Ota**go**`)
-- Gothenburg (`**Go**thenburg`)
-- Sargasso (`Sar**ga**sso` — false hit on `go`? No, that's `ga` — but `Sarga**sso**` has no `go`. Verify before assuming.)
-- Cargo, Mango, Mongolia (unlikely as port names but worth flagging)
-
-**Observed collision:**
-- Port: `ports/glasgow.html` (2026-05-21)
-- FAQ: "When is hurricane and storm season in Glasgow?"
-- Effect: regex matched best-time topic via `when … Glasgow` because `Glasgow` contains `go`. Triggered `FAQ_DUP: Best time to visit` since a real best-time FAQ also existed.
-- Worked around in commit `61c8cf9e` by rewording to "What is the hurricane and storm season here?" — see `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md` §3.
-
-**Suggested fix (validator-side):**
-```diff
-- /best time[^<]*(?:visit|go|cruise)|when[^<]*(?:visit|go|cruise)/i
-+ /best time[^<]*\b(?:visit|go|cruise)\b|when[^<]*\b(?:visit|go|cruise)\b/i
-```
-Add `\b` (word boundary) around each alternation to prevent substring matches.
-
-**Cleanup after fix:**
-- Restore Glasgow's natural phrasing "When is hurricane and storm season in Glasgow?" if the validator's fix passes.
-- Re-run `node admin/validate-port-page-v2.js ports/glasgow.html` to confirm.
-- Audit other ports added during the 2026-05 batch for similar rewords (search commit history for "regex collision" in `git log --grep`).
+*(All issues from the 2026-05 batch are now closed — see the Closed issues section.)*
 
 ---
-
-### REGEX-02 — `packing` regex matches `bring` in non-packing contexts
-
-**Validator:** `scripts/port-weather-validator-core.js` — `REQUIRED.faqTopics[2].pattern` (packing topic)
-**Pattern:** `/pack[^<]*(?:weather|clothes|clothing|jacket|layer)|what[^<]*(?:pack|bring|wear)|how[^<]*(?:dress|pack)/i`
-**Bug:** The middle alternation `what[^<]*(?:pack|bring|wear)` matches `bring` anywhere after `what`. Any FAQ starting with "What" that contains "bring" later will match the packing topic, even when the question is about something else entirely (currency to bring, souvenirs to bring back, paperwork to bring along).
-
-**Observed collision:**
-- Port: `ports/mauritius.html` (2026-05-21)
-- FAQ: "What currency should I bring?"
-- Effect: regex matched packing topic via `what currency should I bring`. Triggered `FAQ_DUP: Packing for weather` since a real packing FAQ ("What should I pack for a port day in Mauritius?") also existed.
-- Worked around in commit `46c1eee0` by rewording to "What currency is used in Mauritius?" — see `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md` §3.
-
-**Suggested fix (validator-side):**
-```diff
-- /pack[^<]*(?:weather|clothes|clothing|jacket|layer)|what[^<]*(?:pack|bring|wear)|how[^<]*(?:dress|pack)/i
-+ /pack[^<]*(?:weather|clothes|clothing|jacket|layer)|what[^<]*(?:to\s+pack|to\s+bring|to\s+wear)\b|how[^<]*(?:dress|pack)/i
-```
-Narrow `bring` and `wear` to packing-context phrases ("to bring", "to wear"). Plain `bring` and `wear` elsewhere in a Q are too ambiguous to count as packing intent.
-
-**Cleanup after fix:**
-- Audit ports for FAQs containing `What … bring` reworded during the 2026-05 batch.
-- Restore natural phrasing where the original Q was clearer.
-
----
-
-### REGEX-03 — `D_MONTH` rejects parenthetical qualifiers in activity-row months
-
-**Validator:** `scripts/port-weather-validator-core.js` — D-series month-parse check (search the file for `D_MONTH`)
-**Pattern:** rejects month strings that are not a comma-separated list of three-letter month abbreviations.
-**Bug:** Real activity-row content sometimes carries a meaningful qualifier:
-- `Year-round (Saturdays)` — Hobart Salamanca Market (Saturdays only)
-- `Year-round (freshest Oct-Mar)` — La Coruna seafood
-- `Jan (last Tuesday)` — Lerwick Up Helly Aa Festival
-- `May, Jun, Jul, Aug, Sep (puffin nesting only)` — hypothetical Sumburgh Head
-
-The current check accepts only `Jan, Feb, …` form. Anything in parentheses is rejected.
-
-**Affected ports (observed in 2026-05 batch):**
-- `ports/hobart.html` — Salamanca Market `(Saturdays)` constraint stripped in commit `6e45536a`
-- `ports/la-coruna.html` — Seafood `(freshest Oct-Mar)` constraint stripped in commit `0075a43d`
-- `ports/lerwick.html` — Up Helly Aa `(last Tuesday)` constraint stripped in commit `e28cc6fc`
-
-**Suggested fix (validator-side):**
-- Option A: accept parenthetical qualifiers anywhere in the months string; ignore them for the month-parse but preserve them as a free-text annotation.
-- Option B: introduce a sibling field `<span class="activity-qualifier">` that the check ignores but renderers can show alongside the months.
-- Option C: keep `D_MONTH` strict and require qualifiers to live in an adjacent `<p class="scheduling-note">` paragraph below the activity-rows block.
-
-Option A is the smallest change. The qualifiers are a real planning fact and stripping them is the **constraint stripping** pattern documented in `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md` §2.
-
-**Cleanup after fix:**
-- Restore the three stripped qualifiers to Hobart / La Coruna / Lerwick activity rows.
-- Add the planning-relevant qualifiers to other ports where they were stripped or never added (Salamanca Market in Hobart is the biggest miss — without "(Saturdays)" the row tells a midweek visitor the market is open when it is not).
 
 ---
 
 ## Closed issues
 
-*(none yet — entries move here with a commit hash and a list of pages whose rewords were reverted)*
+### REGEX-01 — `best time` regex matched `go` inside place names *(closed 2026-05-21)*
+
+**Fix:** `scripts/port-weather-validator-core.js` — `REQUIRED.faqTopics[0].pattern` now wraps each alternative in `\b` word boundaries, so `go` only matches when it's a standalone word, not when it appears as a substring inside Glasgow, Bogota, Otago, Gothenburg, or similar.
+
+**Page where the natural phrasing was restored:**
+- `ports/glasgow.html` — restored "When is hurricane and storm season in Glasgow?" (both the JSON-LD `mainEntity` Q and the visible HTML Q). The reword "What is the hurricane and storm season here?" is gone.
+
+**Audit still owed:** other place names containing `go` (Bogota, Otago, Goa, Gothenburg, Connemara-go-?, port-name-with-cruise-substring etc.) added during the 2026-05 batch may have been silently reworded to avoid the same trap. Worth grepping the batch's commits for "season here" / "season in" rewrites.
+
+---
+
+### REGEX-02 — `packing` regex matched `bring` in non-packing contexts *(closed 2026-05-21)*
+
+**Fix:** `scripts/port-weather-validator-core.js` — `REQUIRED.faqTopics[2].pattern` now excludes bare `bring` from the alternation. `pack` and `wear` remain as packing-intent markers (both are unambiguous enough in English); `bring` was too generic. Clothing-context "bring" (e.g., "What should I pack — should I bring a jacket?") still matches via the first alternation's `pack ... jacket/layer/clothes`.
+
+**Page where the natural phrasing was restored:**
+- `ports/mauritius.html` — restored "What currency should I bring to Mauritius?" (both the JSON-LD `mainEntity` Q and the visible HTML Q). The reword "What currency is used in Mauritius?" is gone.
+
+**Collateral: ports where the fix exposed missing packing FAQs**
+
+The regex fix exposed that some ports had been "satisfying" the FAQ_PACKING_FOR_WEATHER requirement via the buggy `bring` match rather than via a real packing FAQ. Of the 21 ports newly failing after the fix:
+
+- **8 ports were my responsibility** (touched in this branch): Amalfi, Cochin, Denali, Gdansk, Lifou, Moorea, Noumea, Punta Arenas. Each now has a real climate-keyed "What should I pack" FAQ added in the same commit as the regex fix. Validators clean.
+- **13 ports are pre-existing corpus debt** (not touched in this branch): Alexandria, Apia, Aruba, Ascension, Buenos Aires, Da Nang, Dakar, Jamaica, Nosy Be, Recife, Seychelles, St. Maarten, Trieste. These had been silently relying on the buggy regex before this branch existed; they need real packing FAQs added in a separate session. Not in scope for this cleverness-cleanup.
+
+**Audit still owed (outside this branch):** the 13 pre-existing ports above should each get a real packing FAQ. A wider audit of the ~113 ports currently failing the weather sub-validator (pre-fix baseline) is also owed but separate from this branch's work.
+
+---
+
+### REGEX-03 — `D_MONTH` rejects parenthetical qualifiers in activity-row months *(closed 2026-05-21)*
+
+**Fix:** `scripts/port-weather-validator-core.js` — `validateMonths()` now strips parenthetical qualifiers (`\s*\([^)]*\)`) before parsing the month list, and `VALID_SPECIAL_VALUES` now includes `Year-round`. Both changes land in the same commit as the qualifier restorations.
+
+**Pages where the stripped qualifier was restored:**
+- `ports/hobart.html` — Salamanca Market `Year-round (Saturdays)` and MONA `Year-round` restored
+- `ports/lerwick.html` — Up Helly Aa Festival `Jan (last Tuesday)` and Otter Spotting `Year-round (best Oct-Mar)` restored
+- `ports/la-coruna.html` — Seafood `Year-round (freshest Oct-Mar)` restored
+
+**Audit still owed:** other ports may have had similar qualifiers stripped or never written. Worth a sweep of the 66-port batch for activity-rows whose `<span class="activity-label">` describes a calendar-constrained venue (markets, festivals, seasonal-only sites) but whose `<span class="activity-months">` shows a bare 12-month list.
 
 ---
 
