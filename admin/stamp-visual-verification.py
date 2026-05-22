@@ -1334,6 +1334,10 @@ VERIFICATIONS = {
         "consistent", "Bow detail at Sydney 14 Jul 2025; Grand-class superstructure profile + whale-tail Carnival funnel visible"),
     "assets/ships/carnival/carnival-adventure/Carnival_Adventure_Rear.webp.attr.json": (
         "confirmed", "Stern view at Sydney OPT with whale-tail Carnival funnel and Sydney CBD skyline behind"),
+
+    # ---- Explora II (batch OO, 2026-05-22) ---------------------------------
+    "assets/ships/explora-journeys/explora-ii/ExploraII.webp.attr.json": (
+        "confirmed", "Broadside at port at golden hour; \"EXPLORA II\" lettering visible on bow + distinctive Explora Journeys dark-hull livery"),
 }
 
 
