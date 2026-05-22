@@ -1018,6 +1018,334 @@ VERIFICATIONS = {
         "confirmed", "At Saint-Nazaire January 2020; \"Celebrity APEX\" lettering visible on hull"),
     "assets/ships/celebrity-cruises/celebrity-apex/Celebrity_Apex_-_inside_The_Magic_Carpet_in_the_evening.webp.attr.json": (
         "consistent", "Interior of Magic Carpet venue with blue LED accent lighting; Edge-class signature venue; sister-class ambiguity with Edge/Beyond/Ascent but Commons attribution to Apex"),
+
+    # ---- Sapphire Princess (batch H, 2026-05-21) ---------------------------
+    "assets/ships/princess/sapphire-princess/Sapphire_Princess_04.webp.attr.json": (
+        "confirmed", "Stern view at Ketchikan; \"SAPPHIRE PRINCESS / HAMILTON\" lettering clearly readable"),
+    "assets/ships/princess/sapphire-princess/Sapphire_Princess_01.webp.attr.json": (
+        "confirmed", "Bow detail at Ketchikan with sailboat marina foreground; \"SAPPHIRE PRINCESS\" lettering visible"),
+    "assets/ships/princess/sapphire-princess/Sapphire_Princess_02.webp.attr.json": (
+        "confirmed", "Side close-up; \"SAPPHIRE PRINCESS\" lettering + lifeboats visible"),
+    "assets/ships/princess/sapphire-princess/Sapphire_Princess_03.webp.attr.json": (
+        "consistent", "Across Ketchikan harbour marina with fishing boats foreground; same uploader Alaska series; Grand-class Princess profile + livery"),
+
+    # ---- Sun Princess (batch H, 2026-05-21) --------------------------------
+    "assets/ships/princess/sun-princess/Sue_Princess_(1).webp.attr.json": (
+        "confirmed", "Broadside at port; \"SUN PRINCESS\" lettering + Princess emblem visible (filename typo Sue->Sun; actual ship is Sun Princess per visible hull lettering)"),
+    "assets/ships/princess/sun-princess/Sun_Princess_at_Piraeus_Harbour.webp.attr.json": (
+        "confirmed", "At Piraeus Harbour with tugboats alongside; \"SUN PRINCESS\" + Princess Cruises lettering visible"),
+    "assets/ships/princess/sun-princess/Sue_Princess_(2).webp.attr.json": (
+        "consistent", "Stern detail showing the distinctive Sphere-class dome architecture; same uploader series as confirmed file (1); sister-class ambiguity with Star Princess applies"),
+
+    # ---- Ruby Princess (batch H, 2026-05-21) -------------------------------
+    "assets/ships/princess/ruby-princess/Ruby_Princess_-Fort_Lauderdale,_Florida-24Nov2009.webp.attr.json": (
+        "consistent", "Broadside at Fort Lauderdale with palm trees foreground; Grand-class Princess profile; sister-class ambiguity with Crown/Emerald/Caribbean Princess applies"),
+    "assets/ships/princess/ruby-princess/Ruby_Princess_Grand_Cayman_Jan_27_2009.webp.attr.json": (
+        "consistent", "At anchor off Grand Cayman January 2009; Grand-class profile + Princess livery"),
+    "assets/ships/princess/ruby-princess/Ruby_Princess_at_port_in_Grenada.webp.attr.json": (
+        "consistent", "At port in Grenada with Caribbean hillside behind; Grand-class profile"),
+
+    # ---- Sky Princess (batch H, 2026-05-21) --------------------------------
+    "assets/ships/princess/sky-princess/Sky_Princess_Trieste_2019-10-16_16-46-44.webp.attr.json": (
+        "confirmed", "At Trieste 16 Oct 2019; bronze sculpture foreground + golden hour; Princess wave logo + \"SKY PRINCESS\" lettering visible"),
+    "assets/ships/princess/sky-princess/Sky_Princess_Trieste_(48916851448).webp.attr.json": (
+        "confirmed", "Bow detail at Trieste; \"SKY PRINCESS\" lettering + Princess wave logo clearly visible (photographer signature Ph. Antonio Marano)"),
+    "assets/ships/princess/sky-princess/Sky_Princess_Trieste_(48917377436).webp.attr.json": (
+        "confirmed", "Broadside at Trieste with sculptures foreground; same Antonio Marano series; \"SKY PRINCESS\" lettering visible"),
+    "assets/ships/princess/sky-princess/Sky_Princess_Trieste_(48917377551).webp.attr.json": (
+        "confirmed", "Black-and-white art shot at Trieste with sculptures observing; same Antonio Marano series; \"SKY PRINCESS\" name + Princess wave logo visible"),
+
+    # ---- Island Princess (batch H, 2026-05-21) -----------------------------
+    "assets/ships/princess/island-princess/Island_Princess_in_Port_Everglades.webp.attr.json": (
+        "consistent", "Broadside at Port Everglades; Coral-class profile + Princess livery; sister-class ambiguity with Coral Princess applies"),
+    "assets/ships/princess/island-princess/Cruise_in_Acapulco,_Mexico.webp.attr.json": (
+        "consistent", "Alongside at Acapulco from elevated viewpoint; Coral-class profile + Princess livery"),
+    "assets/ships/princess/island-princess/MS_Island_Princess_(4197456987).webp.attr.json": (
+        "consistent", "At a Caribbean port with green hillside; Coral-class Princess profile; filename explicitly identifies Island Princess"),
+    "assets/ships/princess/island-princess/MS_Island_Princess_(5654577732).webp.attr.json": (
+        "consistent", "Distant broadside in calm waters with film-grade tones; Coral-class profile + Princess livery; filename explicit"),
+
+    # ---- Coral Princess (batch H, 2026-05-21) ------------------------------
+    "assets/ships/princess/coral-princess/Coral_Princess_pulls_away_from_the_Port_of_Ketchikan_pier_-_June_2011.webp.attr.json": (
+        "confirmed", "Stern \"CORAL PRINCESS / HAMILTON\" lettering clearly visible pulling away from Ketchikan pier"),
+    "assets/ships/princess/coral-princess/Coral_Princess.webp.attr.json": (
+        "confirmed", "Broadside at anchor; \"CORAL PRINCESS\" lettering visible on bow + Princess wave logo + \"Coral Princess\" lettering visible on funnel structure"),
+    "assets/ships/princess/coral-princess/Esclusas_de_Miraflores_III.webp.attr.json": (
+        "consistent", "Transiting Miraflores Locks of the Panama Canal; Princess Cruises livery + Coral-class profile; sister ambiguity with Island Princess applies"),
+    "assets/ships/princess/coral-princess/Coral_Princess_-_IMO_9229659_(2937202430).webp.attr.json": (
+        "consistent", "Distant broadside under way; Coral-class profile + Princess livery; filename includes IMO 9229659 matching Coral Princess"),
+    "assets/ships/princess/coral-princess/Coral_Princess_plaque.webp.attr.json": (
+        "confirmed", "Builder's plaque inside the ship — \"CORAL PRINCESS / ALSTOM CHANTIERS DE L'ATLANTIQUE / 2002 / NEW BUILDING N° C32\" — documentary photo of the ship's identity plate"),
+
+    # ---- Majestic Princess (batch H, 2026-05-21) ---------------------------
+    "assets/ships/princess/majestic-princess/MAJESTIC_PRINCESS_Port_TokushimaKomatsushima.webp.attr.json": (
+        "confirmed", "Broadside at Tokushima-Komatsushima port; \"PRINCESS CRUISES\" + \"MAJESTIC PRINCESS\" lettering visible + Princess wave bow logo + Japanese script"),
+    "assets/ships/princess/majestic-princess/MAJESTIC_PRINCESS_20180405-1.webp.attr.json": (
+        "confirmed", "Alongside April 2018; Princess wave bow logo + LED display + Royal-class profile visible"),
+    "assets/ships/princess/majestic-princess/Majestic_Princess_Build_2015.webp.attr.json": (
+        "consistent", "Under construction at Fincantieri Monfalcone shipyard 2015; documentary build photo; sister-class ambiguity with Royal/Regal Princess but Commons categorization explicit"),
+
+    # ---- Enchanted Princess (batch H, 2026-05-21) --------------------------
+    "assets/ships/princess/enchanted-princess/Enchanted_Princes_Cruise_Ship,_Southampton_-_geograph.org.uk_-_7231169.webp.attr.json": (
+        "confirmed", "Broadside at Southampton; \"ENCHANTED PRINCESS\" lettering + Princess wave bow logo visible"),
+    "assets/ships/princess/enchanted-princess/Enchanted_Princess,_Southampton_Cruise_Terminal_-_geograph.org.uk_-_7631307.webp.attr.json": (
+        "confirmed", "Close-up at Southampton Cruise Terminal; \"ENCHANTED PRINCESS\" name plaque + \"PRINCESS CRUISES\" lettering on hull"),
+    "assets/ships/princess/enchanted-princess/Princess_Cruise_Lines_Enchanted_Princess.webp.attr.json": (
+        "consistent", "Broadside at Fort Lauderdale at golden hour with dramatic clouds; Princess wave bow logo + Royal-class profile; sister-class ambiguity with Sky/Discovery/Royal/Regal Princess applies"),
+
+    # ---- Celebrity Reflection (batch H, 2026-05-21) ------------------------
+    "assets/ships/celebrity-cruises/celebrity-reflection/CelebrityReflection.webp.attr.json": (
+        "confirmed", "Panoramic broadside at Meyer Werft shipyard; \"Celebrity REFLECTION\" + \"Celebrity X Cruises\" lettering clearly visible"),
+    "assets/ships/celebrity-cruises/celebrity-reflection/Celebrity_Reflection-Ueberfuehrung.webp.attr.json": (
+        "confirmed", "Conveyance along the Ems river under cloudy skies with sluice bridge; Solstice-class profile + Meyer Werft delivery context"),
+    "assets/ships/celebrity-cruises/celebrity-reflection/Celebrity_REFLECTION.webp.attr.json": (
+        "confirmed", "Closer broadside at Meyer Werft; \"Celebrity REFLECTION\" + \"Celebrity X Cruises\" lettering visible"),
+    "assets/ships/celebrity-cruises/celebrity-reflection/Celebrity_REFLECTION_by_Moehre1992.webp.attr.json": (
+        "confirmed", "Meyer Werft from another angle; \"Celebrity REFLECTION\" lettering + X funnel marks visible; same Solstice-class profile"),
+
+    # ---- Celebrity Silhouette (batch H, 2026-05-21) ------------------------
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Meyer_Werft_Papenburg_Celbrity_Silhouette.webp.attr.json": (
+        "confirmed", "Broadside at Meyer Werft Papenburg; \"Celebrity SILHOUETTE\" lettering clearly visible"),
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Liner_Silhouette.webp.attr.json": (
+        "confirmed", "Alongside at Meyer Werft with parking lot foreground; \"Celebrity SILHOUETTE\" lettering visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Meyer_Werft.webp.attr.json": (
+        "confirmed", "Meyer Werft from road-side angle; \"SILHOUETTE\" hull lettering visible + Celebrity X funnel marks"),
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Celebrity_Silhouette_Saluting_Battery_Valletta.webp.attr.json": (
+        "confirmed", "Bow at Valletta's Saluting Battery at golden hour; \"Celebrity SILHOUETTE\" lettering clearly readable"),
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Celebrity_Silhouette_(ship,_2011)_001.webp.attr.json": (
+        "confirmed", "Broadside under way; \"Celebrity X Cruises\" + Celebrity X funnel marks + Silhouette lettering visible"),
+    "assets/ships/celebrity-cruises/celebrity-silhouette/Celebrity_Silhouette.webp.attr.json": (
+        "confirmed", "Broadside at sea; \"Celebrity SILHOUETTE\" lettering visible + Celebrity X mark on hull"),
+
+    # ---- Celebrity Solstice (batch H, 2026-05-21) --------------------------
+    "assets/ships/celebrity-cruises/celebrity-solstice/Celebrity_Solstice.webp.attr.json": (
+        "confirmed", "Broadside at port; \"Celebrity SOLSTICE\" lettering clearly visible on hull"),
+    "assets/ships/celebrity-cruises/celebrity-solstice/Celebrity_Solstice_at_night.webp.attr.json": (
+        "confirmed", "Night view at Meyer Werft Papenburg shipyard; bow floodlights + \"Celebrity SOLSTICE\" lettering visible"),
+    "assets/ships/celebrity-cruises/celebrity-solstice/CelebritySolsticePapenburgCropped.webp.attr.json": (
+        "confirmed", "At Meyer Werft Papenburg shipyard viewed from road; \"SOLSTICE\" lettering faintly visible (motion-blurred from moving vehicle)"),
+    "assets/ships/celebrity-cruises/celebrity-solstice/Celebrity_Solstice_(ship,_2008)_001.webp.attr.json": (
+        "confirmed", "Bow at golden hour; \"Celebrity SOLSTICE\" lettering clearly visible + Celebrity X mark on hull"),
+
+    # ---- Celebrity Beyond (batch I, 2026-05-21) ----------------------------
+    "assets/ships/celebrity-cruises/celebrity-beyond/Celebrity_BEYOND_La_Rochelle.webp.attr.json": (
+        "confirmed", "Broadside at La Rochelle-Pallice; both \"BEYOND\" forward and \"Celebrity BEYOND\" amidships lettering visible + orange Magic Carpet platform (Edge-class signature)"),
+    "assets/ships/celebrity-cruises/celebrity-beyond/Pool_Deck_on_the_Celebrity_Beyond_(54357888481).webp.attr.json": (
+        "consistent", "Pool deck interior with orange Magic Carpet platform visible (Edge-class signature); Commons attribution states Celebrity Beyond"),
+    "assets/ships/celebrity-cruises/celebrity-beyond/Trignac_-_44570_-_2021.06.16_-___Celebrity_Beyond___en_construction___Saint-Nazaire___Anthony_Levrot.webp.attr.json": (
+        "consistent", "Under construction at Chantiers de l'Atlantique Saint-Nazaire June 2021; Edge-class hull silhouette + cranes visible; Commons attribution names Celebrity Beyond"),
+    "assets/ships/celebrity-cruises/celebrity-beyond/Celebrity_Beyond_logo.webp.attr.json": (
+        "confirmed", "Text logo reading \"Celebrity BEYOND\" — PD-textlogo official cruise line wordmark"),
+
+    # ---- Celebrity Edge (batch J, 2026-05-21) ------------------------------
+    "assets/ships/celebrity-cruises/celebrity-edge/Celebrity_Edge.webp.attr.json": (
+        "confirmed", "Bow head-on at Naples; \"Celebrity EDGE\" lettering clearly visible on port bow"),
+    "assets/ships/celebrity-cruises/celebrity-edge/Magic_Carpet_2.webp.attr.json": (
+        "confirmed", "Orange Magic Carpet cantilevered platform (Edge-class signature, deployed mid-ship) + Celebrity X mark on hull at left"),
+    "assets/ships/celebrity-cruises/celebrity-edge/Celebrity_Edge_-_Sept_2018.webp.attr.json": (
+        "confirmed", "Broadside at Saint-Nazaire September 2018 (shortly after delivery); \"Celebrity EDGE\" lettering visible amidships, golden hour"),
+    "assets/ships/celebrity-cruises/celebrity-edge/Celebrity_Edge_in_Sydney_Harbour.webp.attr.json": (
+        "confirmed", "Departing Sydney Harbour January 2025; \"Celebrity EDGE\" lettering visible amidships + orange Magic Carpet platform"),
+
+    # ---- Celebrity Ascent (batch K, 2026-05-21) ----------------------------
+    "assets/ships/celebrity-cruises/celebrity-ascent/Celebrity_Ascent_-_Le_Pir_e_-_June_2024.webp.attr.json": (
+        "confirmed", "Broadside at Le Pirée Greece, June 2024; \"Celebrity ASCENT\" lettering visible amidships + orange Magic Carpet"),
+    "assets/ships/celebrity-cruises/celebrity-ascent/Celebrity_Ascent_St._John_s_20251205_1.webp.attr.json": (
+        "confirmed", "Broadside at St. John's Antigua December 2025; \"Celebrity X Cruises\" hull mark visible + \"ASCENT\" lettering on funnel + Magic Carpet platform"),
+    "assets/ships/celebrity-cruises/celebrity-ascent/Celebrity_Ascent_St._John_s_20251205_2.webp.attr.json": (
+        "confirmed", "Bow at St. John's Antigua with \"celebrity ASCENT VALLETTA\" port-of-registry visible; Norwegian Getaway sister-ship at right (separate cruise line, different design)"),
+    "assets/ships/celebrity-cruises/celebrity-ascent/Celebrity_Ascent_construit_par_les_Chantiers_de_l_Atlantique_(cropped).webp.attr.json": (
+        "confirmed", "Under construction at Chantiers de l'Atlantique Saint-Nazaire; partial \"CelebrityAS\" lettering visible on hull amidships"),
+
+    # ---- Costa Smeralda (batch L, 2026-05-21) ------------------------------
+    "assets/ships/costa/costa-smeralda/Costa_Smeralda_in_Savona_(September_2020).webp.attr.json": (
+        "confirmed", "Bow at Savona September 2020; \"Costa Smeralda\" lettering clearly visible on hull near bow + Costa Cruises yellow funnel mark"),
+
+    # ---- Costa Toscana (batch M, 2026-05-21) -------------------------------
+    "assets/ships/costa/costa-toscana/Costa_Toscana_in_Savona.webp.attr.json": (
+        "confirmed", "Broadside at Savona November 2022; \"Costa Toscana\" lettering clearly visible on hull near bow"),
+    "assets/ships/costa/costa-toscana/Costa_Toscana_from_rear.webp.attr.json": (
+        "confirmed", "Stern at Savona; \"Costa Toscana\" + \"GENOVA\" port-of-registry visible + Italian flag"),
+
+    # ---- Costa Firenze (batch N, 2026-05-21) -------------------------------
+    "assets/ships/costa/costa-firenze/Costa_Firenze_(48111131563).webp.attr.json": (
+        "confirmed", "Broadside at sea; \"Costa Firenze\" lettering visible amidships + yellow Costa C funnel mark"),
+    "assets/ships/costa/costa-firenze/D7K_3592.webp.attr.json": (
+        "confirmed", "Bow closeup at Ibiza 2021; \"Costa Firenze\" lettering clearly visible on hull + Italian tricolor stripes"),
+
+    # ---- Costa Deliziosa (batch O, 2026-05-21) -----------------------------
+    "assets/ships/costa/costa-deliziosa/CostaDeliziosa_at_Helsinki_29072010.webp.attr.json": (
+        "confirmed", "Broadside departing Helsinki West Harbour July 2010; yellow Costa C funnel mark + ship lettering visible"),
+
+    # ---- Costa Fascinosa (batch P, 2026-05-21) -----------------------------
+    "assets/ships/costa/costa-fascinosa/Costa_Fascinosa_2022_in_Kiel.webp.attr.json": (
+        "confirmed", "Broadside at Kiel 2022; \"Costa Fascinosa\" lettering clearly visible amidships + yellow Costa C funnel mark"),
+
+    # ---- Costa Venezia (batch Q, 2026-05-21) -------------------------------
+    "assets/ships/costa/costa-venezia/-1_COSTA_VENEZIA_FRECCE_XT2_1-3-2019_(40283689863).webp.attr.json": (
+        "confirmed", "At 2019 Trieste christening; \"Costa Venezia\" lettering visible below funnel + yellow Costa C funnel mark + Frecce Tricolori smoke trail above"),
+    "assets/ships/costa/costa-venezia/-1_COSTA_VENEZIA_FRECCE_XT2_1-3-2019_(40283690483).webp.attr.json": (
+        "confirmed", "At 2019 Trieste christening; full broadside with crowd on quayside watching Frecce Tricolori flypast + yellow Costa C funnel mark"),
+
+    # ---- MSC Poesia (batch R, 2026-05-21) ----------------------------------
+    "assets/ships/msc/msc-poesia/MSC_Cruise_ship_at_Bergen-2.webp.attr.json": (
+        "confirmed", "At Bergen; \"MSC POESIA\" lettering clearly visible amidships near stern + MSC compass/star logo on hull"),
+
+    # ---- Norwegian Pearl (batch S, 2026-05-21) -----------------------------
+    "assets/ships/norwegian/norwegian-pearl/Norwegian_Pearl_at_Seattle_01.webp.attr.json": (
+        "confirmed", "At Seattle waterfront; distinctive multi-color gem-spiral hull artwork (Pearl-specific Jewel-class livery) + Norwegian Cruise Line branding visible"),
+
+    # ---- Norwegian Sky (batch T, 2026-05-21) -------------------------------
+    "assets/ships/norwegian/norwegian-sky/Norwegian_Sky_December_10,_2013.webp.attr.json": (
+        "confirmed", "Stern view December 2013; \"NORWEGIAN SKY / NASSAU\" port-of-registry clearly visible + NCL blue/sun funnel mark"),
+
+    # ---- Norwegian Sun (batch U, 2026-05-21) -------------------------------
+    "assets/ships/norwegian/norwegian-sun/Norwegian_Sun_Vancouver_01.webp.attr.json": (
+        "confirmed", "At Canada Place, Vancouver 2015; distinctive Sun-specific sun-burst hull artwork (Sun-class livery) + NCL blue/sun funnel mark"),
+
+    # ---- Norwegian Spirit (batch V, 2026-05-21) ----------------------------
+    "assets/ships/norwegian/norwegian-spirit/Norwegian_Spirit_in_Auckland_PA02.webp.attr.json": (
+        "confirmed", "At Auckland Queens Wharf January 2026; \"NORWEGIAN SPIRIT\" lettering clearly visible amidships near bow"),
+    "assets/ships/norwegian/norwegian-spirit/Norwegian_Spirit_at_Sydney_Overseas_Passenger_Terminal,_Circular_Quay.webp.attr.json": (
+        "consistent", "At Sydney Overseas Passenger Terminal between Harbour Bridge and Opera House; NCL blue/sun funnel mark visible; Commons attribution identifies as Norwegian Spirit"),
+    "assets/ships/norwegian/norwegian-spirit/The__Norwegian_Spirit_,_Belfast_harbour_(June_2019)_-_geograph.org.uk_-_6172815.webp.attr.json": (
+        "confirmed", "Broadside at Belfast harbour June 2019; \"NORWEGIAN SPIRIT\" lettering visible amidships AND bow + distinctive Spirit-specific colorful hull artwork"),
+
+    # ---- Norwegian Bliss (batch W, 2026-05-21) -----------------------------
+    "assets/ships/norwegian/norwegian-bliss/Norwegian_Bliss_in_Seattle_0311.webp.attr.json": (
+        "confirmed", "At Seattle pier; \"NORWEGIAN BLISS\" lettering clearly visible above lifeboats on hull + Pacific Northwest-inspired Robert Wyland hull artwork"),
+    "assets/ships/norwegian/norwegian-bliss/Norwegian_Bliss_at_Bell_Street_Pier,_Seattle.webp.attr.json": (
+        "confirmed", "Aerial view at Bell Street Pier (Pier 66) Seattle; distinctive Breakaway Plus class profile; Commons attribution identifies as Norwegian Bliss"),
+    "assets/ships/norwegian/norwegian-bliss/Queen_Elizabeth___Norwegian_Bliss_(50511912068).webp.attr.json": (
+        "confirmed", "Norwegian Bliss (right) anchored off Weymouth 2020 alongside Cunard Queen Elizabeth (left); \"Norwegian Bliss\" lettering visible on bow of right ship; Commons attribution names both ships"),
+
+    # ---- Norwegian Encore (batch X, 2026-05-21) ----------------------------
+    "assets/ships/norwegian/norwegian-encore/NORWEGIAN_ENCORE_7696.webp.attr.json": (
+        "confirmed", "Broadside at Meyer Werft Papenburg shipyard 2019 with water reflection; \"Norwegian Encore\" lettering visible amidships + distinctive Encore-specific Eduardo Arranz-Bravo multi-color hull artwork"),
+    "assets/ships/norwegian/norwegian-encore/NORWEGIAN_ENCORE_7702.webp.attr.json": (
+        "confirmed", "Bow head-on at Meyer Werft Papenburg shipyard 2019; distinctive Encore-specific vibrant multi-color hull artwork by Eduardo Arranz-Bravo (signature Encore livery)"),
+    "assets/ships/norwegian/norwegian-encore/Southampton_,_Norwegian_Encore_-_geograph.org.uk_-_6928574.webp.attr.json": (
+        "confirmed", "Broadside at Southampton; \"NORWEGIAN ENCORE\" lettering visible amidships + signature Encore-specific Eduardo Arranz-Bravo hull artwork"),
+
+    # ---- Norwegian Escape (batch Y, 2026-05-21) ----------------------------
+    "assets/ships/norwegian/norwegian-escape/Norwegian_escape.webp.attr.json": (
+        "confirmed", "Bow head-on at Meyer Werft Papenburg; signature Escape-specific Guy Harvey marlin/dolphin/sea-life hull artwork"),
+    "assets/ships/norwegian/norwegian-escape/Norwegian_escape_03.webp.attr.json": (
+        "confirmed", "At Meyer Werft Papenburg shipyard; \"NORWEGIAN ESCAPE\" lettering clearly visible on hull near bow"),
+    "assets/ships/norwegian/norwegian-escape/Bahamas_(Nassau)_Norwegian_Escape_welcomes_to_Nassau_Port_(32059594135).webp.attr.json": (
+        "confirmed", "At Nassau Port Bahamas; \"NORWEGIAN ESCAPE\" lettering visible amidships + signature Guy Harvey marlin/dolphin hull artwork"),
+
+    # ---- Norwegian Gem (batch Z, 2026-05-21) -------------------------------
+    "assets/ships/norwegian/norwegian-gem/Norwegian_gem.webp.attr.json": (
+        "confirmed", "Bow at golden hour; \"NORWEGIAN GEM\" lettering clearly visible on bow + signature Gem-specific colorful gem-cluster hull artwork"),
+    "assets/ships/norwegian/norwegian-gem/Papenburg-NorwegianGem1-Asio.webp.attr.json": (
+        "confirmed", "Bow closeup at Papenburg; \"NORWEGIAN GEM\" lettering clearly visible + multi-color gem-cluster hull artwork in detail"),
+    "assets/ships/norwegian/norwegian-gem/Norwegian_Gem_2010_Port_of_Venice.webp.attr.json": (
+        "confirmed", "Stern at Port of Venice 2010; \"NORWEGIAN GEM\" lettering clearly visible on stern + gem-cluster artwork on aft superstructure"),
+
+    # ---- Norwegian Aqua (batch AA, 2026-05-21) -----------------------------
+    "assets/ships/norwegian/norwegian-aqua/Norwegian_Aqua.webp.attr.json": (
+        "confirmed", "In Hudson River with One World Trade Center backdrop, NYC; signature Aqua-specific colorful Reef hull artwork (Prime-class livery) clearly visible"),
+
+    # ---- MSC World America (batch BB, 2026-05-21) --------------------------
+    "assets/ships/msc/msc-world-america/MSC_World_America.webp.attr.json": (
+        "confirmed", "Broadside in fitting-out basin; \"MSC World America\" lettering clearly visible amidships + MSC compass star logo on hull near bow"),
+
+    # ---- Carnival Radiance (batch CC, 2026-05-21) --------------------------
+    "assets/ships/carnival/carnival-radiance/220207-H-NI589-0360_Carnival_Radiance_with_CBP_patrol_boat.webp.attr.json": (
+        "confirmed", "Port of Long Beach Feb 2022; CBP patrol boat in foreground, Carnival Radiance large in background with \"Carnival Radiance\" lettering clearly legible + signature whale-tail funnel"),
+
+    # ---- Carnival Venezia (batch DD, 2026-05-21) ---------------------------
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_s_maiden_arrival_at_Bermuda_2.webp.attr.json": (
+        "confirmed", "Bow at Bermuda maiden arrival; \"CARNIVAL VENEZIA\" lettering clearly visible + Carnival flag on jackstaff"),
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_s_maiden_arrival_at_Bermuda.webp.attr.json": (
+        "confirmed", "Bow at Bermuda maiden arrival; partial \"VENEZIA\" lettering visible, transitional Carnival livery (post-Costa rebrand)"),
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_-_03.webp.attr.json": (
+        "confirmed", "Broadside in Hudson River with Lower Manhattan/One World Trade Center backdrop; Costa-derived yellow C funnel + Carnival 'Fun Italian Style' tribute livery visible"),
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_(Formerly_Costa_Venezia)_(ship,_2019)_Docked_in_Grand_Cayman_-_April_24,_2025.cropped.webp.attr.json": (
+        "consistent", "Bow head-on at Grand Cayman April 2025; tender alongside; Costa-derived yellow C funnel visible (Carnival 'Fun Italian Style' tribute, preserved from Costa)"),
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_(Formerly_Costa_Venezia)_(ship,_2019)_Docked_in_Grand_Cayman_-_April_24,_2025_(2).cropped.webp.attr.json": (
+        "consistent", "Broadside at Grand Cayman April 2025 (motion-blurred); Costa-derived yellow C funnel visible (Carnival 'Fun Italian Style' tribute, preserved from Costa)"),
+    "assets/ships/carnival/carnival-venezia/Carnival_Venezia_-_08.webp.attr.json": (
+        "confirmed", "Broadside in Hudson River with One World Trade Center backdrop; \"Carnival Fun Italian Style\" lettering visible + yellow C funnel (post-Costa rebrand)"),
+
+    # ---- Carnival Firenze (batch EE, 2026-05-21) ---------------------------
+    "assets/ships/carnival/carnival-firenze/Carnival_Firenze_at_Puerto_Vallarta_Oct_2024.webp.attr.json": (
+        "confirmed", "Broadside at Puerto Vallarta Oct 2024 golden hour; \"Carnival Fun Italian Style\" livery visible + Costa-derived yellow C funnel (preserved from Costa Firenze)"),
+    "assets/ships/carnival/carnival-firenze/Carnival_Firenze_(ex._Costa_Firenze)_(ship,_2020)___Oceania_Vista_(ship,_2023)_in_Cabo_San_Lucas_(December_2025).webp.attr.json": (
+        "confirmed", "Broadside at Cabo San Lucas Dec 2025 with Oceania Vista in background; \"Carnival Fun Italian Style\" livery + yellow C funnel visible (Carnival rebrand of Costa Firenze)"),
+
+    # ---- Oceania Marina (batch FF, 2026-05-21) -----------------------------
+    "assets/ships/oceania/marina/Passenger_ship_Marina_in_the_turning_basin_of_the_port_of_Hamburg.webp.attr.json": (
+        "consistent", "Bow head-on at Hamburg turning basin; red Oceania O funnel mark visible; sister Riviera identical (Oceania-class); Commons attribution names Marina"),
+    "assets/ships/oceania/marina/MS_Marina_and_MV_Mein_Schiff_1_La_Rochelle.webp.attr.json": (
+        "confirmed", "Marina (Oceania, white hull, left half) and Mein Schiff 1 (TUI, dark blue, right half) at La Rochelle-Pallice 2015; Oceania O funnel mark visible on Marina"),
+    "assets/ships/oceania/marina/Marina_(ship,_2011)_in_Portugal.webp.attr.json": (
+        "consistent", "Broadside at Lisbon Portugal with red-tiled rooftops in foreground; red Oceania O funnel mark visible; sister Riviera identical; Commons attribution names Marina"),
+
+    # ---- Oceania Riviera (batch GG, 2026-05-21) ----------------------------
+    "assets/ships/oceania/riviera/Oceania_Cruises_Riviera_01.webp.attr.json": (
+        "confirmed", "Broadside at port; red Oceania O funnel mark visible; \"Riviera\" lettering visible at stern (Marina identical sister)"),
+    "assets/ships/oceania/riviera/Oceania_Cruises_Riviera_02.webp.attr.json": (
+        "confirmed", "Stern view; \"Riviera VALLETTA\" port-of-registry clearly visible; red Oceania O funnel mark"),
+
+    # ---- Oceania Nautica (batch HH, 2026-05-21) ----------------------------
+    "assets/ships/oceania/nautica/Nautica,_Liverpool_Cruise_Terminal_(geograph_4554997).webp.attr.json": (
+        "confirmed", "Broadside at Liverpool Cruise Terminal; \"Nautica\" lettering amidships + Oceania O funnel mark visible"),
+    "assets/ships/oceania/nautica/Nautica_and_the_Liver_Building,_Liverpool_(geograph_4555005).webp.attr.json": (
+        "confirmed", "Bow at Liverpool with Royal Liver Building backdrop; \"Nautica\" lettering visible"),
+    "assets/ships/oceania/nautica/Liverpool_Pilot__Petrel_,_River_Mersey_(geograph_4555042).webp.attr.json": (
+        "confirmed", "Bow closeup with pilot boat 'Petrel' alongside; \"Nautica\" lettering clearly visible on hull"),
+
+    # ---- Oceania Sirena (batch II, 2026-05-21) -----------------------------
+    "assets/ships/oceania/sirena/Rio_Tejo_-_Lisboa_-_Portugal___(53787162327).webp.attr.json": (
+        "consistent", "On Tagus River (Rio Tejo) at Lisbon Portugal; Oceania O funnel mark visible; R-class sisters (Nautica/Regatta/Insignia/Sirena) visually similar; Commons attribution names Sirena"),
+    "assets/ships/oceania/sirena/Rio_Tejo_-_Lisboa_-_Portugal___(54128223519).webp.attr.json": (
+        "consistent", "On Tagus River at Lisbon with Padrão dos Descobrimentos backdrop; Oceania O funnel mark visible; R-class sisters identical; Commons attribution names Sirena"),
+    "assets/ships/oceania/sirena/Sirena_IMO_9187899_P_Hamburg_31-07-24_(2).webp.attr.json": (
+        "confirmed", "Bow at Hamburg 31-Jul-2024 dressed with international signal flags; partial \"Sirena\" lettering visible on hull near bow + IMO 9187899 confirms identity"),
+
+    # ---- Silversea Silver Ray (batch JJ, 2026-05-21) -----------------------
+    "assets/ships/silversea/silver-ray/SILVER_RAY_(54516976411).webp.attr.json": (
+        "consistent", "At anchor with tender alongside; distinctive Silversea Nova-class light-grey hull profile; sister Silver Nova identical; Commons attribution names Silver Ray"),
+
+    # ---- Star Princess (batch KK, 2026-05-21) ------------------------------
+    "assets/ships/princess/star-princess/Star_princess_cruise_ship.webp.attr.json": (
+        "confirmed", "Star Princess (2025 Sphere-class) at anchor with tender alongside; \"STAR PRINCESS\" lettering visible on hull amidships + Princess Sea Witch wave logo on bow"),
+
+    # ---- Celebrity Flora (batch LL, 2026-05-21) ----------------------------
+    "assets/ships/celebrity-cruises/celebrity-flora/Celebrity_FLORA_(46874800674).webp.attr.json": (
+        "confirmed", "Broadside; \"Celebrity X Cruises\" hull mark + \"Celebrity FLORA\" lettering clearly visible; distinctive Galapagos expedition yacht profile (unique ship, no sister)"),
+
+    # ---- Explora I (batch MM, 2026-05-21) ----------------------------------
+    "assets/ships/explora-journeys/explora-i/Explora_I.webp.attr.json": (
+        "confirmed", "Broadside at shipyard; \"EXPLORA 1\" lettering visible on bow + distinctive dark-blue/teal Explora Journeys hull"),
+
+    # ---- Carnival Adventure (batch NN, 2026-05-21) -------------------------
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_in_Sydney.webp.attr.json": (
+        "confirmed", "Passing under Sydney Harbour Bridge; \"Carnival\" lettering visible at stern + signature whale-tail funnel"),
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_in_Sydney_-_11th_April,_2025.webp.attr.json": (
+        "confirmed", "Broadside at Sydney 11 Apr 2025; \"Carnival\" + \"Adventure\" lettering clearly visible on hull + whale-tail funnel"),
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_in_Sydney_-_24th_April,_2025.webp.attr.json": (
+        "confirmed", "Broadside at Sydney 24 Apr 2025 with Harbour Bridge backdrop; partial 'Carnival Adventure' lettering visible above lifeboats + whale-tail funnel"),
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_in_Sydney_-_20th_June,_2025.webp.attr.json": (
+        "confirmed", "Broadside at Sydney OPT 20 Jun 2025 with Opera House backdrop; partial \"Carnival Adventure\" lettering visible + whale-tail funnel"),
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_in_Sydney_-_14th_July,_2025.webp.attr.json": (
+        "consistent", "Bow detail at Sydney 14 Jul 2025; Grand-class superstructure profile + whale-tail Carnival funnel visible"),
+    "assets/ships/carnival/carnival-adventure/Carnival_Adventure_Rear.webp.attr.json": (
+        "confirmed", "Stern view at Sydney OPT with whale-tail Carnival funnel and Sydney CBD skyline behind"),
+
+    # ---- Explora II (batch OO, 2026-05-22) ---------------------------------
+    "assets/ships/explora-journeys/explora-ii/ExploraII.webp.attr.json": (
+        "confirmed", "Broadside at port at golden hour; \"EXPLORA II\" lettering visible on bow + distinctive Explora Journeys dark-hull livery"),
+
+    # ---- Seven Seas Grandeur (batch PP, 2026-05-22) ------------------------
+    "assets/ships/regent/seven-seas-grandeur/Regent_Seven_Seas_Grandeur_(53824101578).webp.attr.json": (
+        "confirmed", "Broadside at anchor; \"SEVEN SEAS GRANDEUR\" lettering visible on bow + Regent's yellow funnel branding"),
+
+    # ---- Silver Origin (batch QQ, 2026-05-22) ------------------------------
+    "assets/ships/silversea/silver-origin/Silver_Origin.webp.attr.json": (
+        "confirmed", "Underway broadside; \"SILVER ORIGIN\" lettering visible on bow + \"SILVERSEA\" branding amidships"),
 }
 
 
