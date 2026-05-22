@@ -1338,6 +1338,14 @@ VERIFICATIONS = {
     # ---- Explora II (batch OO, 2026-05-22) ---------------------------------
     "assets/ships/explora-journeys/explora-ii/ExploraII.webp.attr.json": (
         "confirmed", "Broadside at port at golden hour; \"EXPLORA II\" lettering visible on bow + distinctive Explora Journeys dark-hull livery"),
+
+    # ---- Seven Seas Grandeur (batch PP, 2026-05-22) ------------------------
+    "assets/ships/regent/seven-seas-grandeur/Regent_Seven_Seas_Grandeur_(53824101578).webp.attr.json": (
+        "confirmed", "Broadside at anchor; \"SEVEN SEAS GRANDEUR\" lettering visible on bow + Regent's yellow funnel branding"),
+
+    # ---- Silver Origin (batch QQ, 2026-05-22) ------------------------------
+    "assets/ships/silversea/silver-origin/Silver_Origin.webp.attr.json": (
+        "confirmed", "Underway broadside; \"SILVER ORIGIN\" lettering visible on bow + \"SILVERSEA\" branding amidships"),
 }
 
 
