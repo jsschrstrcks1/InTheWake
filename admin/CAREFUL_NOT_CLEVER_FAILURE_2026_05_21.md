@@ -117,3 +117,64 @@ If I am asked again to batch-repair port pages or run a validator-driven sweep a
 - Before rebuilding JSON-LD `FAQPage.mainEntity` (or any data-structure parity) across many pages to satisfy a validator, **name the downstream contract** the parity is supposed to serve. If the contract is unclear, ask the user.
 
 **Soli Deo Gloria.** Excellence is the gift; a green checkmark is not.
+
+---
+
+## Round 2 — Ocean Cay port-page build (later same day, 2026-05-21)
+
+A second batch of cleverness surfaced during the Ocean Cay port-page work later the same day. The author asked plainly, "Were you careful or clever?" and the model self-audited. This section catalogs the patterns the audit surfaced, with the rules that should keep them from recurring.
+
+### §7 Venue-name fabrication by sound-alike
+
+**What happened:** When writing the Ocean Cay food section, the model named "Bohème" as a buffet venue on the cay. The cay's labeled map (visible in a user-supplied photo already in context) shows the venue as **"Boho House."** The model pattern-matched to a sound-alike cruise-restaurant name from training data instead of reading the source material it already had. A second venue named in the same paragraph, "Sea Spray," does not appear on the user's map at all and may have been invented entirely.
+
+**Why it's clever-not-careful:** Every venue, restaurant, bar, beach, or named feature on a port page is a verifiable fact. A fabrication that sounds plausible to a reader will pass surface review and then propagate — into sitemaps, search indexes, AI summaries, voyage packs, and the user's own institutional memory. The reader who actually arrives at the port and asks "where's Bohème?" gets nothing.
+
+**The rule:** Every venue name introduced on a port page must be verifiable against either (a) a source the user has explicitly provided this session (a photo of the venue's signage, a labeled island map, prior correspondence), or (b) the cruise line's official documentation linked inline in the page. Sound-alike substitution, plausible-sounding invention, and "I'm pretty sure that's what it's called" are all forbidden. When the model is uncertain, the right move is to leave the venue unnamed or to ask the user.
+
+### §8 Asserted specifics without sources
+
+**What happened:** The Ocean Cay page listed paid add-on price ranges ("Basic cabanas: ~$200–400", "Premium beach-side cabanas: ~$500–700", "Snorkel gear rental: ~$25–40", "Specialty-restaurant lunch: ~$25–60 per person", "Beach beds reserved: ~$80–150 each", "Spa Ocean Cay treatments: ~$120–250") under an "Indicative Pricing" header. The ranges were hedged as indicative but they were fabricated — no primary source, no firsthand verification. The page also asserted tactical specifics with no source: "Conservation Center tours run 20–30 minutes," "Mid-morning tours are less crowded," "Lighthouse climb before noon (metal panels heat aggressively at midday)," "Lagoon water is clearest mid-morning before swim activity stirs up the sand."
+
+**Why it's clever-not-careful:** This is §5 (plausible fabrication at scale) repeated, on a smaller surface but in a freshly committed page on a freshly settled doc. The §5 lesson generalizes: *any plausible-sounding specific without a source is a fabrication, regardless of the specific's domain*. Hedging language ("approximately," "indicative," "around") does not promote a fabrication into a fact; it labels the fabrication.
+
+**The rule:** Specific prices (in any currency or range), tour durations, capacities, "best times," "less crowded then" claims, and any other tactical-advice numbers must either carry an inline citation to a verifiable source, OR be reframed as "Verify current information through the MSC for Me app / Royal Caribbean Cruise Planner / cruise line's official channel before booking." The reframe is not a copout — it is the honest position when no primary source is available. The page is stronger admitting the absence of data than fabricating around it.
+
+### §9 First-person voice attribution without confirmation
+
+**What happened:** The Ocean Cay logbook section was written in first-person voice attributed to the site's author — "I came off the gangway and the welcome wall met me first," "Halfway through the day I walked the rocky east shore," "I stood there for a while," "It was the most honest place I went all day." The author supplied photos that prove they visited and provide visual anchors. The photos do not confirm the specific narrative beats, sensory details, or value judgments the model constructed around them. The narrative was committed before the author had a chance to review whether the constructed voice matched their actual experience.
+
+**Why it's clever-not-careful:** First-person voice on an author-bylined page carries the author's credibility. Writing in someone else's voice without their explicit confirmation borrows credibility the model has not earned and the author has not granted. A reader who trusts the byline trusts the voice; constructing the voice from training-data conventions of "what cruise-blog narration sounds like" is the failure.
+
+**The rule:** First-person narrative passages on author-voiced pages must be flagged inside the file as `<!-- DRAFT — author review required: invented narrative beats, sensory details, and value judgments need author confirmation -->`, and must not be presented to the user as completed work pending sign-off. The model may describe what photos literally show — structural observations, named features, captured details, what readers will see. The model may not construct personal narrative beats, sensory details, or value judgments in the author's voice unless the author has explicitly supplied them.
+
+### §10 Source-photo facts left on the floor
+
+**What happened:** The Ocean Cay map photo and the existing `articles/royal-caribbean-vs-msc.html` jointly establish at least two verifiable facts the model did not put on the page: (a) "Smiling Fish" is a labeled restaurant on the cay's map, and (b) Ocean Cay carries a Mission Blue Hope Spot designation from Dr. Sylvia Earle's marine-protection network (documented in the comparison article with sources). Both were available in the model's context. Both went unused. Meanwhile the model fabricated content (Bohème, Sea Spray, made-up tour durations) in the same sections those verified facts would have anchored. The inverse of fabrication: cleverness fills gaps the model could have filled with real material the user already supplied.
+
+**Why it's clever-not-careful:** The reader gets weaker content than the available evidence supports. The model reached past verified material to plausible invention because the verified material took an extra step of attention.
+
+**The rule:** Before writing any prose about a place, the model must inventory every verifiable fact present in (a) photos the user has supplied this session, (b) the manifest documenting those photos, and (c) prior commits, articles, or pages on the same site that reference the same place. Prose must use the inventoried facts before reaching for general knowledge or training-data associations. If the page would be weaker by including only what's verifiable, that's the page — *verified-thin beats fabricated-rich*.
+
+## What "careful" actually requires (Round 2 additions)
+
+Extending the Round 1 commitments above:
+
+7. **Venue names are facts, not vibes.** Every restaurant, bar, beach, dive site, excursion, or named feature on a port page must be sourced. The model checks the user's photos and the site's existing material before introducing any venue. Sound-alike substitution is the named failure mode; "Bohème" was the example.
+
+8. **Specifics need citations or reframes.** Any number on a port page — price, duration, capacity, "best time" claim — must be sourced or reframed to "verify through the cruise line's official channel." Hedging language is not a substitute.
+
+9. **First-person prose is flagged DRAFT.** Author-voiced narrative is marked inside the file pending author review, and the model does not claim that work is complete until the author has signed off on the specific narrative beats.
+
+10. **Source material before training data.** Photos, manifests, and prior site content are inventoried before writing. The verified-thin page is the better page.
+
+## Concrete commitment (Round 2)
+
+If I am asked again to build a new port page or any author-voiced content page:
+
+- Before introducing any venue name, **either** point to the source in context (a photo, the manifest, an existing site page), **or** leave the venue unnamed and ask the user.
+- Before writing any specific number (price, duration, capacity), **either** cite a primary source inline, **or** reframe as "verify through [official channel]."
+- Before committing any first-person narrative passage, **either** mark the file with the `DRAFT — author review required` HTML comment so the user can see it before publication, **or** strip the unverified narrative beats and keep only the observational backbone the photos support.
+- Before publishing a page about a place the user has supplied material for, **inventory the user's photos and the site's existing references to the place**, and use what they actually show before reaching for training-data generalities.
+
+**Soli Deo Gloria.** Excellence is the gift; a green checkmark is not. A confident sentence is not.
