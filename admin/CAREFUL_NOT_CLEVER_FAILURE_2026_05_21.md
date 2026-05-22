@@ -156,6 +156,29 @@ A second batch of cleverness surfaced during the Ocean Cay port-page work later 
 
 **The rule:** Before writing any prose about a place, the model must inventory every verifiable fact present in (a) photos the user has supplied this session, (b) the manifest documenting those photos, and (c) prior commits, articles, or pages on the same site that reference the same place. Prose must use the inventoried facts before reaching for general knowledge or training-data associations. If the page would be weaker by including only what's verifiable, that's the page — *verified-thin beats fabricated-rich*.
 
+### §11 Skill-gate elision
+
+**What happened:** After building `ports/ocean-cay.html` (a 1,100+ line author-bylined cruise port page with substantial prose), the model committed and pushed it without running the voice and content skills the repository carries specifically for that content type. The site has at least four skills that explicitly gate this kind of work — `voice-audit` ("Fires before committing content edits or before publishing a new page"), `like-a-human` ("Fires during cruise content writing"), `emotional-hook-test` ("Pre-publication quality gate"), `publication-proofreader` ("Before deploying any content changes"). None were invoked. The user's "Have you ran the text through all our voice skills?" was the catch.
+
+When the skills were finally run — at the user's prompt, after the commit — they caught roughly **two dozen** distinct voice and authenticity issues across the page: seven `"exclusive"` (banned cruise-marketing vocab), ten `"genuinely"` (stacked intensifier adverb, a clear must-be-absent failure on its own), two `"Both, honestly"` (synthetic earnestness), one `"famous for"` (assumed-familiarity), multiple promotional `"offers"` verbs, one false range, several decorative adverbs (`actually`, `simply`, editorial `especially`), and — found by `publication-proofreader` on the final sweep — a residual three-sentence block of fabricated tactical specifics in the Depth Soundings Ashore section that the prior repair passes had missed (`"Mid-morning is the quietest time. Twenty to thirty minutes. Genuinely educational."`). All of these would have been caught before the first commit if the skills had been run before the commit, which is what the skills are for.
+
+**Why it's clever-not-careful:** When a site has skills explicitly built to gate a content type, NOT running them is relying on the model's general voice intuition instead of the calibrated, site-specific checks the repository already maintains. The skills exist because the site has measured what cruise-marketing-fluff looks like in this corpus, what AI fingerprints look like in this voice, what the emotional-hook test asks of a port-day reader. The model's "this reads OK to me" intuition is exactly the surface that `voice-audit` was built to second-guess. Skipping the skill is skipping the calibration the site has already paid for.
+
+There is also a separate cost: the skill's own findings are part of the institutional learning loop. `voice-audit` feeds `voice-dna`; `voice-dna` re-baselines `like-a-human`. When a page ships without going through the skills, the corpus learns nothing from that page; the next page's calibration is no sharper than the last.
+
+**The rule:** Before committing any author-voiced content page — port, ship, restaurant, article, logbook, accessibility, solo — the model must run every skill scoped to that content type, in the order the skills' own "Integration With Other Skills" sections name. The available-skills list in the harness's system reminder is not a menu of optional tools; it is the gate manifest for content the site cares about. A skill that says "fires before committing content edits" means before the commit, not after the user asks why the commit happened without it.
+
+For cruise port pages specifically, the gate order is:
+
+1. `like-a-human` — during writing, as a voice standard the writer holds in mind
+2. `voice-audit` — post-draft diagnostic, BEFORE the first commit
+3. `emotional-hook-test` — pre-publication feeling-level pass
+4. `publication-proofreader` — final typographic and content polish
+
+`voice-dna` is not a per-page gate; it is a corpus-measurement tool that runs periodically and re-baselines the other two. It does not need to fire on a single new page.
+
+For other content types the list adjusts (`venue-page-writer` for restaurants, `accessibility-audit` for accessibility pages, `seo-schema-audit` for any page with structured data, `link-integrity` and `internal-consistency-repair` for any page added to the corpus). The principle holds: site-specific skills exist for site-specific gates, and the gates are not optional.
+
 ## What "careful" actually requires (Round 2 additions)
 
 Extending the Round 1 commitments above:
@@ -168,6 +191,8 @@ Extending the Round 1 commitments above:
 
 10. **Source material before training data.** Photos, manifests, and prior site content are inventoried before writing. The verified-thin page is the better page.
 
+11. **Run the gate skills before the commit, not after.** The available-skills list in the harness is the gate manifest for content the site cares about. For author-voiced content pages, the gate order is `like-a-human` → `voice-audit` → `emotional-hook-test` → `publication-proofreader`, run before the page lands in a commit. A skill that says "fires before committing" means before the commit.
+
 ## Concrete commitment (Round 2)
 
 If I am asked again to build a new port page or any author-voiced content page:
@@ -176,5 +201,6 @@ If I am asked again to build a new port page or any author-voiced content page:
 - Before writing any specific number (price, duration, capacity), **either** cite a primary source inline, **or** reframe as "verify through [official channel]."
 - Before committing any first-person narrative passage, **either** mark the file with the `DRAFT — author review required` HTML comment so the user can see it before publication, **or** strip the unverified narrative beats and keep only the observational backbone the photos support.
 - Before publishing a page about a place the user has supplied material for, **inventory the user's photos and the site's existing references to the place**, and use what they actually show before reaching for training-data generalities.
+- **Before the first commit on any author-voiced content page, run the gate skills the repository carries for that content type.** For cruise port pages: `voice-audit`, `emotional-hook-test`, `publication-proofreader` at minimum, in addition to using `like-a-human` as the during-writing standard. Findings get remediated before the commit, not after.
 
-**Soli Deo Gloria.** Excellence is the gift; a green checkmark is not. A confident sentence is not.
+**Soli Deo Gloria.** Excellence is the gift; a green checkmark is not. A confident sentence is not. A finished commit without the gate skills run is not either.
