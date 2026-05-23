@@ -308,3 +308,87 @@ If I am asked again to write any author-voiced content on this site — port log
 7. **Do not** use the DRAFT marker as a license to construct. The marker is for material the user has not yet reviewed, not material the model has fabricated.
 
 **Soli Deo Gloria.** A page held empty is more faithful than a page filled with fabrication. Excellence as worship resists the productivity reflex specifically when the productivity reflex feels most virtuous.
+
+---
+
+## Round 4 — same day, after operator caught the persona behaving implausibly
+
+After Round 3 stripped the fabricated logbook and the model wrote a research-anchored persona story ("What the Lighthouse Was For", commit `19f603d7`), the operator caught two compound errors:
+
+> *"There is only one lighthouse show. You obviously didn't research it well, there is a dance party before — the grieving widow in need of peace … naturally went to the rave. Sure. Try again."*
+
+The model had:
+- Trusted published reviews ("twice each night," "multiple shows per evening") over the author's first-hand testimony (one show)
+- Written a widow seeking peace as voluntarily attending a DJ rave to reach the show that doesn't exist
+
+The operator's response — *"Fix it so you never make that mistake again. :/"* — was correct. Documentation alone has not been enough; Rounds 1–3 added eleven rules and the next attempt still produced two errors the rules should have caught. Round 4 needs to be operational, not advisory.
+
+### §16 Persona-behavior plausibility and author-as-authoritative-source
+
+The error has two compounding parts that need separate rules and one combined check.
+
+**§16A — Author > reviews > training data.** When the author has been to a venue, the author's first-hand statements OVERRIDE published reviews, marketing copy, training data, and the model's own synthesis. The hierarchy is fixed:
+
+1. **Author testimony** (the user, who has actually been there) — authoritative
+2. **Published reviews / official sources** — secondary
+3. **Model training data / internalized cruise knowledge** — tertiary
+
+When the author corrects a factual claim, the model treats the correction as the source of truth, updates all related work in the same commit, and records the correction in the file's HTML comment so the next session inherits the corrected fact. The published-review citation that was wrong stays in the comment for traceability — labelled as superseded by the author's first-hand account.
+
+This mirrors CLAUDE.md's *"Trust bytes, not strings"* / Verification Discipline rule: when proxies (reviews) conflict with ground truth (the person who was there), the ground truth wins.
+
+**§16B — Persona drives venue, not the other way around.** Before writing any persona beat, the model must ask: *would this specific person, given their specific situation, actually do this?* Pattern-matching the persona to the venue's program is the failure mode — picking the venue's signature event (lighthouse show, headline dinner, headline excursion) and shoehorning the persona into it without checking whether the persona's interior would permit the journey there.
+
+If the venue's signature event would require the persona to act against type, the story routes the persona around it, has her experience it in a way consistent with her condition, or uses a different pivot moment. The story does NOT bend the persona to fit the venue's program.
+
+### The Pre-Write Persona Plausibility Check (operational template)
+
+Before writing or rewriting any persona logbook beat, state these four lines **in chat**, in the open, before any prose is drafted:
+
+> **Persona condition:** [one sentence describing the persona's defining state, with their grief/anxiety/joy/limitation explicit]
+> **Venue facts (author-verified where available):** [what is actually true about the venue at this hour, with the author's testimony marked authoritative where it exists]
+> **Beat plan:** [what the persona will do, in sequence, at this venue]
+> **Plausibility check:** [does each beat follow from the condition, given the facts? Walk each beat. Name what would invalidate any beat. If anything fails, change the beat.]
+
+The check is not optional. It is not satisfied by writing it in a commit message after the prose is done. It must run in chat, in the open, before the prose is written, so the user can see the check happened. If the check passes, write the prose. If any beat fails the check, change the plan first.
+
+**Demonstration: the current Ocean Cay logbook's Pre-Write Plausibility Check (run retroactively on the corrected version, commit `3f66dbca`):**
+
+> **Persona condition:** A widow, six months from her husband Aaron's death, on a cruise Aaron had booked, seeking the calm she'd read about in reviews. Solo by grief. The word "calm" had stopped meaning anything in October but she still recognized its shape.
+>
+> **Venue facts (author-verified — Ken Baker, May 2026 visit):** ONE lighthouse show per evening (author correction; supersedes msccruisefan and Cruise Critic descriptions of "multiple shows"). A DJ beach party builds at Lighthouse Bay before the show — speakers and fire pits set by ~6 PM, music through the evening. The cay's far north end is described by reviewers as "quiet and meditative" — far enough from Lighthouse Bay to mute the music to a distant rhythm. Moon rises in the east in the Bahamas around 7:45 PM in the late-spring window. MSC's Italian-trained crew uses formal warm address.
+>
+> **Beat plan:**
+> 1. ~6 PM: walks back from the limestone shelf, hears the DJ bass starting at Lighthouse Bay
+> 2. Skips the party; walks north along the cay's spine (~1 km)
+> 3. Finds a bench at the far north end; sits
+> 4. ~7:45 PM: watches the moon rise above the outer reef, past the lit silhouette of the lighthouse to the south
+> 5. ~10 PM: walks back south toward Lighthouse Bay; party crowd is thinning for the show
+> 6. ~10:36 PM: the ONE light show begins; she stands at the edge of the gathering, away from the speakers; show lasts 15 minutes; she stands through all of it
+> 7. ~11 PM: walks back to the gangway
+>
+> **Plausibility check:**
+> - Does a grieving widow seeking calm avoid a DJ rave? ✓ Yes, behaviorally consistent.
+> - Does she use the cay's geography to find quiet? ✓ Yes, reviewer-confirmed quiet at the north end.
+> - Is the lighthouse show count factually right? ✓ Yes, one show (author-authoritative).
+> - Does the persona return for the ONE show consistent with why she came (Aaron had booked the cruise for the overnight call)? ✓ Yes — the show is the moment she came back for.
+> - Does she stay "through all of it" but not for a "next show"? ✓ Yes; there is no next show.
+> - Does the cay fix her grief? ✗ Correctly no — the reflection paragraph is explicit: "the cay did not fix her grief… the cay knew better than to try."
+>
+> **Verdict: passes.**
+
+This is what the check looks like when run. The format above gets recorded in chat before any persona logbook beat is written from this point forward.
+
+### What "careful" actually requires (Round 4 additions)
+
+16. **Author > reviews > training data.** First-hand author testimony about a venue is authoritative. When in conflict with published reviews or training data, the author wins. Corrections propagate to all related work in the same commit, with the superseded source kept in the file's HTML comment for traceability.
+
+17. **Persona drives venue, not the other way around.** The persona's interior governs which venue beats are reachable. Bending the persona to fit the venue's signature event is the failure mode the model has now demonstrated three times in this branch (cococay-style first-person fabrication, marriage-thaw arc, widow-attending-rave). The Pre-Write Persona Plausibility Check runs in chat before any persona beat is written.
+
+### Concrete commitment (Round 4)
+
+For every future persona logbook beat — on this site, in this repo, in any session — the Pre-Write Persona Plausibility Check runs in chat **before** any prose is drafted. The four lines (persona condition / venue facts / beat plan / plausibility check) are stated in the open. If the plausibility check fails on any beat, the plan changes before the prose is written. The check is not optional and is not satisfied by writing it in a commit message after the work.
+
+When the author corrects a factual claim, the model treats the correction as authoritative, updates all related work in the same commit, and records the correction in the file's HTML comment so the next session inherits it. Published reviews that contradict the author's testimony are kept in the comment as superseded sources, labelled as such.
+
+**Soli Deo Gloria.** The persona's interior is sacred ground; the venue is the setting that admits or refuses the persona's actual condition. Never write a beat the persona would not actually live.
