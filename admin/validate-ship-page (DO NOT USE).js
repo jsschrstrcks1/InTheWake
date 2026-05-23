@@ -1,5 +1,33 @@
 #!/usr/bin/env node
 /**
+ * ============================================================================
+ *   DO NOT USE — DEPRECATED VALIDATOR
+ * ============================================================================
+ *
+ * This validator is SUPERSEDED by admin/validate-ship-page.sh (the canonical
+ * shell validator). Per claude.md v1.5+: the previous JavaScript validator
+ * enforces obsolete rules (ICP-Lite v1.4, ai-breadcrumbs comments,
+ * character-identical descriptions) that ICP-2 explicitly removed. It also
+ * disagrees with the canonical validator on Review JSON-LD reviewRating
+ * (this file flags presence as "unverified"; the canonical .sh validator
+ * flags absence as a Google rich-snippet eligibility loss).
+ *
+ * Filename was changed from validate-ship-page.js to
+ *   validate-ship-page (DO NOT USE).js
+ * on 2026-05-23 after a session used this validator's scores as the basis
+ * for fabricated logbook "fixes" that violated LOGBOOK_ENTRY_STANDARDS,
+ * PASTORAL_GUARDRAILS, and the Soli Deo Gloria contract. See cognitive
+ * memory 337e4d25 and the new INVIOLABLE rule in claude.md v1.6.0.
+ *
+ * If you are an agent reading this file: STOP. Use the canonical validator:
+ *   bash admin/validate-ship-page.sh <path-to-ship-page.html>
+ *
+ * If you are sure you want to consult this file as historical reference,
+ * read claude.md v1.5+ "Canonical Ship Validator" section first.
+ *
+ * Soli Deo Gloria.
+ * ============================================================================
+ *
  * Ship Page Validator - ITW-SHIP-002 v2.5
  * Soli Deo Gloria
  *

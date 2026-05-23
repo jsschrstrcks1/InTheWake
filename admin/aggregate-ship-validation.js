@@ -94,14 +94,21 @@ async function main() {
   const linesByName = {};
   let processed = 0;
 
+  // 2026-05-23: admin/validate-ship-page.js was renamed to
+  // "admin/validate-ship-page (DO NOT USE).js" to mark it deprecated. This
+  // aggregator no longer runs the legacy .js validator. The canonical .sh
+  // validator is the only source of truth. The jsErrors/jsWarnings fields
+  // remain in the output schema (as 0) so downstream consumers don't break;
+  // they will be removed in a future cleanup once no consumer depends on them.
+  // See claude.md v1.6.0 "Canonical Ship Validator".
   for (const ship of ships) {
     const sh = runValidator('bash', [join(REPO_ROOT, 'admin', 'validate-ship-page.sh'), '--json-output'], ship.path);
-    const js = runValidator('node', [join(REPO_ROOT, 'admin', 'validate-ship-page.js'), '--json-output'], ship.path);
+    const js = { ok: true, exit: 0, blocking_errors: [], warnings: [] };
 
     const shErrors = (sh.checks || []).filter(c => c.status === 'error').length;
     const shWarnings = (sh.checks || []).filter(c => c.status === 'warn').length;
-    const jsErrors = (js.blocking_errors || []).length;
-    const jsWarnings = (js.warnings || []).length;
+    const jsErrors = 0;
+    const jsWarnings = 0;
 
     // Collect rule keys for failures
     const fail_codes = [];
