@@ -327,15 +327,21 @@ The operator's response — *"Fix it so you never make that mistake again. :/"* 
 
 The error has two compounding parts that need separate rules and one combined check.
 
-**§16A — Author > reviews > training data.** When the author has been to a venue, the author's first-hand statements OVERRIDE published reviews, marketing copy, training data, and the model's own synthesis. The hierarchy is fixed:
+**§16A — Triangulate: author + original research, reconciled when they conflict.** Author testimony is highly authoritative because the author was there, but it is not infallible. Training data can be wrong. Published reviews can be wrong. The author can be wrong, or partially right, or right-for-their-visit-but-not-in-general. The careful rule is *not* "author always wins"; it is *triangulate the conflict and write prose robust to the residual uncertainty.*
 
-1. **Author testimony** (the user, who has actually been there) — authoritative
-2. **Published reviews / official sources** — secondary
-3. **Model training data / internalized cruise knowledge** — tertiary
+When sources conflict, the model:
 
-When the author corrects a factual claim, the model treats the correction as the source of truth, updates all related work in the same commit, and records the correction in the file's HTML comment so the next session inherits the corrected fact. The published-review citation that was wrong stays in the comment for traceability — labelled as superseded by the author's first-hand account.
+1. **Treats the author's correction as the working source of truth** for the immediate persona's experience (the persona experienced what the author says happens on the cay).
+2. **Does original research** — multi-source — to verify, contextualize, or reconcile the correction. The §16 trigger is itself an instruction to research, not just defer.
+3. **Looks for reconciliations** before assuming one side is wrong. Possible reconciliations include: different sailings have different programming, the author's visit was a specific season/itinerary, terminology differs (one "show" vs one "program that loops"), schedules changed since the reviews were written.
+4. **Writes prose robust to the residual uncertainty.** If the contested fact is a venue program detail (show count, hours, restaurant lineup), the prose describes the persona's specific experience without asserting global counts. Example: instead of "there is one show per evening" (asserts global) or "she stayed for the second show" (asserts multiple), write "the lighthouse show — the cay's evening centerpiece — was posted in the app for ten thirty" (describes the persona's experience).
+5. **Records all sources in the HTML comment**, labelling the author's testimony as primary and contradicting published sources as either superseded *or* possibly-applicable-to-other-conditions. The traceability is for the next session, which may have new data and need to know what the prior conflict was.
 
-This mirrors CLAUDE.md's *"Trust bytes, not strings"* / Verification Discipline rule: when proxies (reviews) conflict with ground truth (the person who was there), the ground truth wins.
+The hierarchy: author testimony is weighted heavily for the persona's specific experience; original research provides context and identifies possible variations; training data is tertiary. All three can be wrong. The careful path is verification, reconciliation, and prose that doesn't break if the residual uncertainty resolves either way.
+
+This is a generalization of CLAUDE.md's *"Trust bytes, not strings"* / Verification Discipline rule: when sources conflict, default to the stronger check — usually the author for venue-specific experience, but always verified through original research, never blindly accepted.
+
+**Historical fixture for §16A:** the 2026-05-21 lighthouse-show count. Author corrected the model's "multiple shows" claim to "only one show." The model's first response was to accept the correction absolutely. The user's second response was the rule: *"I can be wrong but so can your training data."* Original research surfaced multiple consistent published sources (msccruisefan, Cruise Critic, Travel Weekly, eatsleepcruise) saying "twice each night" and "two nightly light shows." The reconciliation: the prose hedges by describing what the persona experiences ("the lighthouse show was posted for ten thirty") rather than asserting a global count. Both the author's correction and the published sources stay in the HTML comment.
 
 **§16B — Persona drives venue, not the other way around.** Before writing any persona beat, the model must ask: *would this specific person, given their specific situation, actually do this?* Pattern-matching the persona to the venue's program is the failure mode — picking the venue's signature event (lighthouse show, headline dinner, headline excursion) and shoehorning the persona into it without checking whether the persona's interior would permit the journey there.
 
