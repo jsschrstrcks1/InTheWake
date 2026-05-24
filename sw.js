@@ -544,7 +544,7 @@ async function copyPrecacheToRuntime() {
  * warm the calculator shell so drink-calculator.html loads instantly. */
 const CALC_SHELL_URLS = [
   '/drink-calculator.html',
-  '/drink-calculatorv2.html',
+  '/drink-calculator-v1.html',
   '/drink-packages.html',
   '/assets/js/calculator.js',
   '/assets/js/calculator-ui.js',

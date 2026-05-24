@@ -99,3 +99,72 @@ The work is done when:
 - A random 10-port sample audit by reading every FAQ word-by-word confirms each answer is anchored to that port's data
 
 If those criteria cannot be met for a given port (e.g., the underlying weather-guide is boilerplate and there is genuinely nothing to source from), the FAQ for that port is shortened to what little can be said honestly, and the port is flagged in a known-issues list for separate weather-guide cleanup later.
+
+---
+
+## Addendum — 2026-05-18: Second-pass failure and the hard rules going forward
+
+The first pass produced the failure documented in `CAREFUL_NOT_CLEVER_FAILURE_2026_05.md`. The "careful rewrite" Phase 1/2a/2b/3 above was then executed across ~70 ports in one session (82 commits in ~24h). User audit flagged it as a second failure in the same category: I replaced the old generic phrasing with a NEW structural template.
+
+Quantified evidence after the rewrite session:
+- `the live weather widget in the seasonal panel above` — 94/96 ports
+- Verbatim closing sentence — 41 ports
+- `the Rain entry reads "Seasonal variation — check forecast."` identically — 41 ports
+- Best-Time and Packing FAQs across 6 sampled ports — same structural scaffold, different glance values
+
+The factual citations were real. The scaffolding was not.
+
+### Why the first plan's safeguards did not save the work
+
+This plan's "spot-check at end of each batch of 6" and "diff my last 3 generated answers every 10 batches" were stated commitments. I did not actually run those diffs. The plan was a rulebook I had in my hands while I broke its rules.
+
+### The hard rules — replace the soft commitments above
+
+The diff-every-N-ports rule is replaced by mechanical guards that fire per-port, not per-batch:
+
+1. **ONE port per user-visible turn.** No bundling multiple ports into a single commit, no "I'll do these 6 next" cadence. Each rewrite is its own conversation cycle.
+
+2. **Write blind.** Before drafting a port's rewrite, do NOT scroll up in the conversation to look at the previous port's rewrite. Do NOT open another port file for "inspiration." If a sentence shape comes to mind that I've used before, that is the signal to use a different shape, not to repeat.
+
+3. **Post-commit grep abort.** After each commit, grep the ports/ directory for the rewrite's distinctive opener sentence (whichever sentence is most structurally specific). If the count is greater than 2 (this port + 1 acceptable echo), revert the commit and rewrite from a different angle.
+
+   Commands to run after every per-port commit:
+   ```
+   # Pick the most distinctive ~6-10 word string from each new FAQ answer
+   grep -rln "EXACT STRING" ports/ | wc -l
+   # If > 2, revert and rewrite
+   ```
+
+4. **Five-port pairwise diff.** After every 5 rewrites, diff the new 5 rewrites against each other. If any pair shares >50% of structural sentences (not glance-value content — structural sentences), STOP. Do not start port 6. Revert the offending pair and rewrite both.
+
+5. **Pace alarm.** If a port's rewrite takes less than ~10 minutes of actual reading + thinking + writing, that's the alarm. The previous session averaged about 17 minutes per commit (82 commits / 24h with sleep), but most of that was clock-time-not-thinking-time. Real per-port work should be unhurried: read the page, list the verifiable elements, sit with what the page actually offers, write prose that respects that.
+
+6. **No structural openers in common across the corpus.** Specifically:
+   - `the live weather widget in the seasonal panel above` — already in 94 ports; any new rewrite that adds another occurrence is rejected
+   - `The glance X reads "Y"` — already over-used; do not repeat
+   - `seasonal panel on this page does not give` — already in 41 ports; do not repeat
+   - `For short-term forecasts on a specific sailing date` — already in 41 ports; do not repeat
+   - `the Rain entry reads` — already in 52 ports; do not repeat
+
+7. **Targeted scope — the worst offenders first.** The remediation set is the ports where the rewrite is most templated:
+   - 41 ports whose Rain FAQ contains `the Rain entry reads "Seasonal variation — check forecast."` identically
+   - Subset of the Best-Time/Packing rewrites whose scaffold is the `glance X reads "Y" and Z reads "W"` form with no port-specific reasoning
+
+   List to be derived by grep before each port's turn. We do NOT pre-batch the list — each port is selected fresh, written, committed, and verified before the next is started.
+
+8. **Stop signal honored without argument.** If the user says "stop," "careful or clever?", "audit your work," or any equivalent — stop. Run the audit. Report honestly without softening. Do not continue the queue.
+
+### What "one port at a time" means operationally
+
+- One Read of the port file
+- One verifiable-elements list (extracted to a scratch note in this turn, not persisted)
+- One draft of each FAQ being rewritten
+- One Edit per FAQ (not bulk Edit across multiple ports)
+- One commit naming the specific elements quoted
+- One post-commit grep of the distinctive opener
+- One user-visible status update
+- WAIT for the user's next signal before starting the next port
+
+If the user is silent and a session-pulse-equivalent is needed, default to stopping after one port rather than continuing.
+
+Soli Deo Gloria.

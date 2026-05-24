@@ -77,6 +77,45 @@ REQUIRED summary at end-of-batch with a Read command per accepted file.
 
 ---
 
+## Staged assets — Costa Fortuna (no page yet)
+
+Costa Fortuna (IMO 9239783, ship_built 2003) does not yet have a page at
+`ships/costa/costa-fortuna.html`. Operator (2026-05-18) confirmed Fortuna
+will be covered. Seven Commons photos were sourced and staged under
+`assets/ships/costa/costa-fortuna/` so they're ready to adopt when the
+page is created:
+
+| File | Visual verification |
+|---|---|
+| `TorrettaLeonPancaldoSAVONAFeb2006.webp` | confirmed (name visible) |
+| `Costa_Fortuna.webp` | confirmed (name visible) |
+| `Costa_Fortuna_-a.webp` | confirmed (name visible) |
+| `Costa_Fortuna_at_Fort_Lauderdale_-_IMO_9239783_(3306462221).webp` | confirmed (name + IMO match) |
+| `Costa_Fortuna_Ponte.webp` | ambiguous (deck sunset view) |
+| `Costa_Fortuna_Prua.webp` | ambiguous (bow-on, no name) |
+| `Costa_Fortuna_im_Juli_2011_beim_Auslaufen_aus_Venedig.webp` | ambiguous (Venice partial view) |
+
+When the page is created, these can be embedded directly. Sidecars and
+registry rows are already in place.
+
+**Known side-effect:** `admin/scan-image-reuse.cjs` currently emits 7
+WARN-level findings ("filename does not contain a known ships-slug") for
+these files because `costa-fortuna` is not yet in the active-slug list
+the scanner checks against. The findings are WARN, not BLOCKING, and
+self-resolve as soon as the Costa Fortuna page exists. See
+`audit-reports/image-reuse-report.md` for the current count.
+
+---
+
+## Phase 6 batch H (post-merge resumption), 2026-05-18
+
+| Ship | Line | Before | After | Notes |
+|---|---|---:|---:|---|
+| Seabourn Encore | seabourn | 7 | 10 | 3 from "Seabourn Encore at Benoa" series; (2)(3) confirmed by bow lettering, (1) consistent (same-day series). |
+| Seabourn Odyssey | seabourn | 7 | 11 | 4 embedded (2x Split confirmed, 1x Burnie confirmed, 1x Valletta consistent); 4 fetched but skipped (Aerial Venice sister-ambiguous, Istanbul low-res, Zadar foreground subject) — deleted from disk + registry to keep tree clean. |
+
+---
+
 ## Ship Categories
 
 ### 1. ✅ Ships with FOM Images (11 ships - COMPLETE)

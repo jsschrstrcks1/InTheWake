@@ -38,7 +38,7 @@ All work on this project is offered as a gift to God.
   <meta name="referrer" content="no-referrer">
   <meta name="ai-summary" content="Biscayne Bay Restaurant & Buffet — MSC Seaside's upper-deck buffet on Deck 16 Miami Beach. 430 seats, family-oriented, made-to-order pizzeria, better view than Marketplace on Deck 8. Launch name: Colonial Buffet & Pizzeria. Included.">
   <meta name="last-reviewed" content="2026-05-17">
-  <meta name="content-protocol" content="ICP-Lite-v1.0">
+  <meta name="content-protocol" content="ICP-2">
   <meta name="venue-tags" content="biscayne bay, buffet, msc seaside, miami beach deck, family, pizza, complimentary, included"/>
 
   <!-- Open Graph / Twitter -->
@@ -57,6 +57,14 @@ All work on this project is offered as a gift to God.
 
   <!-- Analytics -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Absolute URL normalizer -->
+  <script>
+  (function(){
+    var ORIGIN = (location.origin || (location.protocol + '//' + location.host)).replace(/\/$/,'');
+    window._abs = function(path){ path = String(path||''); if(!path.startsWith('/')) path = '/' + path; return ORIGIN + path; };
+  })();
+  </script>
 
   <!-- Service Worker Registration -->
   <script>
@@ -142,6 +150,8 @@ All work on this project is offered as a gift to God.
 
 <body class="venue-page">
   <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div id="a11y-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  <div id="a11y-alerts" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
 <header class="hero-header" role="banner">
   <div class="navbar">

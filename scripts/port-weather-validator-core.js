@@ -125,16 +125,26 @@ const REQUIRED = {
   // Patterns are deliberately broad to cover tropical + subarctic ports and
   // the three question formats used in the repo.
   faqTopics: [
-    { pattern: /best time[^<]*(?:visit|go|cruise)|when[^<]*(?:visit|go|cruise)/i, name: 'Best time to visit' },
+    // Word-boundaries on each alternative so "go" doesn't match the "go" in
+    // Glasgow / Bogota / Otago / Gothenburg. See admin/VALIDATOR_REGEX_ISSUES.md
+    // REGEX-01.
+    { pattern: /best time[^<]*\b(?:visit|go|cruise)\b|when[^<]*\b(?:visit|go|cruise)\b/i, name: 'Best time to visit' },
     { pattern: /hurricane|cyclone|typhoon|storm season|severe weather|bad weather|weather[^<]*(?:bad|severe|stormy|concern)/i, name: 'Hurricane/storm season' },
-    { pattern: /pack[^<]*(?:weather|clothes|clothing|jacket|layer)|what[^<]*(?:pack|bring|wear)|how[^<]*(?:dress|pack)/i, name: 'Packing for weather' },
+    // Drop bare `bring` from the alternation — too ambiguous in English. A
+    // question like "What currency should I bring?" was matching as packing
+    // intent and triggering FAQ_DUP. `pack` and `wear` are unambiguous enough
+    // to stay; clothing-context "bring" still matches the first alternation
+    // ("pack ... clothes/jacket/layer") when present. See
+    // admin/VALIDATOR_REGEX_ISSUES.md REGEX-02.
+    { pattern: /pack[^<]*(?:weather|clothes|clothing|jacket|layer)|what[^<]*\b(?:pack|wear)\b|how[^<]*(?:dress|pack)/i, name: 'Packing for weather' },
     { pattern: /rain[^<]*(?:ruin|cancel|affect|stop)|will[^<]*rain|weather[^<]*ruin/i, name: 'Rain concerns' }
   ]
 };
 
 const VALID_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 // Special values for activities that don't apply to a port (e.g., City Walking on a remote island)
-const VALID_SPECIAL_VALUES = ['N/A', 'None', '-'];
+// or that span the full calendar (Year-round for things like markets, museums).
+const VALID_SPECIAL_VALUES = ['N/A', 'None', '-', 'Year-round'];
 
 // ============================================================================
 // UTILITY FUNCTIONS
@@ -338,7 +348,12 @@ class PortWeatherValidator {
                    ...(this.content.match(/class="season-months">([^<]+)</g) || [])];
     let ok = true;
     spans.forEach(s => {
-      const ms = s.replace(/class="(activity|season)-months">|</g, '');
+      const ms = s.replace(/class="(activity|season)-months">|</g, '')
+                  // Strip parenthetical qualifiers like "(Saturdays)", "(last Tuesday)",
+                  // "(freshest Oct-Mar)". They carry planning-relevant info the renderer
+                  // shows; the month-parse below only checks the remaining month list.
+                  // See admin/VALIDATOR_REGEX_ISSUES.md REGEX-03 for context.
+                  .replace(/\s*\([^)]*\)/g, '');
       ms.split(/,\s*/).forEach(m => {
         if (m.trim() && !VALID_MONTHS.includes(m.trim()) && !VALID_SPECIAL_VALUES.includes(m.trim())) {
           this.log('error', 'D_MONTH', `Invalid month: "${m.trim()}"`);

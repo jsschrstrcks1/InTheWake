@@ -240,7 +240,7 @@ async function browserTests() {
       return new Promise((resolve) => {
         const server = http.createServer((req, res) => {
           let urlPath = req.url.split('?')[0];
-          let filePath = path.join(ROOT, urlPath === '/' ? 'drink-calculatorv2.html' : urlPath);
+          let filePath = path.join(ROOT, urlPath === '/' ? 'drink-calculator.html' : urlPath);
           if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) { res.writeHead(404); res.end('Not found'); return; }
           const ext = path.extname(filePath);
           const types = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg' };
@@ -255,7 +255,7 @@ async function browserTests() {
     const browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
 
-    await page.goto(`http://localhost:${PORT}/drink-calculatorv2.html`, { waitUntil: 'networkidle', timeout: 15000 });
+    await page.goto(`http://localhost:${PORT}/drink-calculator.html`, { waitUntil: 'networkidle', timeout: 15000 });
     await page.waitForTimeout(4000);
 
     // Simulate P71: Switch to Celebrity, enter 6 cocktails, verify overcap shows
