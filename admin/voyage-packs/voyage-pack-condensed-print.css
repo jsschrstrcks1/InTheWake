@@ -89,12 +89,17 @@ p { margin: 0 0 0.4em; }
   font-style: italic;
 }
 .vp-cover-mini em { color: #666; font-size: 8.5pt; }
-.vp-cover-mini .vp-cover-logo {
-  display: inline-block;
-  vertical-align: middle;
-  max-height: 0.45in;
-  width: auto;
-  margin-right: 0.4em;
+/* Logo: natively 4:1 wide (256×64 or 560×144 px). Higher specificity
+ * than any potential parent img rule so aspect ratio is preserved. */
+.vp-cover-mini img.vp-cover-logo,
+img.vp-cover-logo {
+  display: block;
+  width: 1.4in;
+  height: auto;
+  max-width: 1.4in;
+  max-height: 0.4in;
+  margin: 0 0 0.3em;
+  border-radius: 0;
 }
 
 /* Tables: tight, full-measure */

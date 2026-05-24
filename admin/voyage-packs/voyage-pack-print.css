@@ -97,12 +97,19 @@ h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
   padding-top: 0.4in;
 }
 
-/* Cover logo — In the Wake wordmark at top of cover page */
-.vp-cover-logo {
+/* Cover logo — In the Wake wordmark at top of cover page.
+ * Logo is natively 4:1 wide (560×144 px). Higher specificity than
+ * the generic .vp-cover img rule below so the 5in max-width doesn't
+ * blow up the logo into a 5in-wide hero. */
+.vp-cover img.vp-cover-logo,
+img.vp-cover-logo {
   display: block;
-  max-height: 0.75in;
-  width: auto;
-  margin: 0 auto 0.3em;
+  width: 2in;
+  height: auto;
+  max-width: 2in;
+  max-height: 0.55in;
+  margin: 0 auto 0.4em;
+  border-radius: 0;
 }
 .vp-cover-wordmark {
   font-family: "Helvetica Neue", Arial, sans-serif;
