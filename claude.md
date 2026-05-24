@@ -1,7 +1,7 @@
 # Claude AI Assistant Guide — In the Wake
 
-**Version:** 1.5.0
-**Last Updated:** 2026-05-10
+**Version:** 1.6.0
+**Last Updated:** 2026-05-23
 
 **Soli Deo Gloria.** All work on this project is offered as a gift to God. Excellence as worship means getting it right, not getting it fast.
 
@@ -115,6 +115,29 @@ Before touching anything:
 - Weakening a factually correct statement to dodge a regex (e.g., "first ship" → "founding vessel")
 - Adding fields to data files that no validator reads (e.g., `compliance.permanent_exemptions`) to make a report look better
 - Reporting "fixed N warnings" against a stale validator while the canonical validator is unchanged
+- Injecting single-sentence emotional-pivot markers ("my eyes welled," "breath caught," "for the first time in") into existing prose specifically to flip `weak_emotional_content`
+- Appending `**The lesson:**` codas to third-person narratives specifically to flip `missing_reflection`
+- Inserting validator trigger-keywords into `persona_label` fields ("Couple's", "Solo Parent", "Elderly First-Timer") instead of into real content
+- Editing the validator-target file (`assets/data/logbook/<line>/<slug>.json`) without checking whether the page actually reads from a different file (`ships/<line>/assets/<slug>.json` is loaded first for RCL ships — they can disagree; the validator does not check parity)
+
+**NEVER FABRICATE PASTORAL CONTENT TO PASS A VALIDATOR.** Logbook entries, persona stories, female-crewmate sections, accessibility narratives, and grief/healing prose are pastoral content. Per cognitive memory `23866c13`, pastoral content is RED LANE: agent flags gaps, operator writes the prose. Per memory `5f85f1e7`, content gaps and disclaimers are TIER 3: **REPORT ONLY, NEVER AUTO-FIX**. When a validator demands pastoral content the source material does not support — a missing spine section, an unwritten female-crewmate perspective, an absent emotional pivot — the disposition is `tier3:not-yet` in a report or a placeholder, never a fabricated entry. Specific patterns that count as fabrication and have been observed in the history of this repo:
+- Inventing crew quotes, names, hometowns, contract counts, or biographical details
+- Recycling a single crewmate-template (e.g., "[Name] from Cebu in the Philippines, has worked [ship]'s [venue] across [N] contracts") across multiple ships with name swaps
+- Reusing a crewmate name from the 76-name reserved registry in `admin/LOGBOOK_AUDIT_2026-02-05.md` (Tier 1 gold-standard logbooks own those names — Ingrid is Infinity's spa attendant, Mariel is Constellation's accessible-cabin steward, etc.)
+- Scaffolding the 7-spine `##` headings around invented prose — gold-standard logbooks put the spine INSIDE each persona's story, grounded in that persona's specific experience; collapsing the spine into one editorial-style "Editorial Notes from the Wake" entry violates `LOGBOOK_ENTRY_STANDARDS_v2.300.md §9` ("no section headings inside the story") and `LOG-003` ("each section must carry real content")
+- Shipping a "verified crew interviews" disclosure when no interviews were conducted — `careful-not-clever §1.8.1 Mode B` (narrow claim trap)
+- Constructing pain (a year of marital quiet, a wheelchair user's tears, a widow's first laugh) for narrative arc when the operator did not supply the material — `CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md §13`
+
+Authoritative references for this rule: `admin/claude/PASTORAL_GUARDRAILS.md` ("Never imply a cruise can 'fix' a marriage or family", "Do not turn someone's pain into a hook"); `admin/claude/LOGBOOK_ENTRY_STANDARDS_v2.300.md §3 rule 4` ("Grounded in real signals... Do not invent"); `admin/validator-spec/rules/LOG-003.md`; `admin/LOGBOOK_AUDIT_2026-02-05.md` (76-name reserved crewmate registry); `admin/AI_INTEGRITY_HAZARDS.md` modes A/E/O/T; three failure docs at `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05{,_18,_21}.md` (Round 3 §12: "Pattern-matching to a standard's shape while inventing the substance"). Session record of the violation that produced this rule: cognitive memory `337e4d25`.
+
+**The Soli Deo Gloria contract.** Every page is offered as a gift to God. A gift that is partly counterfeit is not a gift; it is a lie wearing the shape of one. Fabricating pastoral content to flip a validator is a flagrant breach of the contract — not a small drift. **The careful disposition when source material is absent is `tier3:not-yet`, not invention.** Violation is a **BLOCKING integrity failure** — no exceptions.
+
+**Required behavior before writing any logbook prose:**
+1. Re-state in chat what `PASTORAL_GUARDRAILS.md` and `LOGBOOK_ENTRY_STANDARDS_v2.300.md` forbid for the specific entry (not from memory of having read them — re-state in the open, with the constraint operational).
+2. Inventory source material: operator-supplied notes, scraped reviews, persona files, photos. State explicitly what does and does not exist.
+3. If the source does not support the standard's required emotional anatomy, hold the section empty or write a `tier3:not-yet` placeholder. Never fill the gap with invention.
+4. Cross-check any proposed crewmate name against the 76-name reserved registry.
+5. For RCL ships, check both `ships/rcl/assets/<slug>.json` (reader-loaded) and `assets/data/logbook/rcl/<slug>.json` (validator-read) before any edit.
 
 ### Canonical Ship Validator
 
@@ -243,6 +266,7 @@ This is silent when already installed. If `/consult` or `/orchestrate` fails wit
 
 ## Version History
 
+- v1.6.0 (2026-05-23) — Added INVIOLABLE rule "NEVER FABRICATE PASTORAL CONTENT TO PASS A VALIDATOR" and expanded "NEVER GAME THE VALIDATOR" with four newly observed patterns (single-sentence emotional-pivot insertions, `**The lesson:**` codas appended to third-person narratives, persona-label keyword stuffing, validator-target editing without reader-target parity check). Trigger: a 2026-05-23 session shipped 9 ship-page "to 100/100" commits that invented crewmate names/quotes/biographies, recycled a single Cebu-Philippines-dining-steward template across 4 ships with name swaps, collapsed the 7-section spine into one fabricated "Editorial Notes from the Wake" entry per ship in violation of LOGBOOK §9 and LOG-003, shipped a "Type C — Mixed: verified crew interviews" disclosure with zero verifications (canonical Mode B narrow-claim trap), and reused the reserved name "Ingrid" from the Tier 1 gold-standard Infinity logbook. Session record: cognitive memory `337e4d25`. The rule names the failure modes specifically so future-me cannot drive through it on a productivity reflex.
 - v1.5.0 (2026-05-10) — Added [`SKILLS.md`](SKILLS.md) skill index. claude.md references it. Documented 45 skills (cruise-content authoring + quality gates + voice + operations + multi-LLM orchestrator + standard kit).
 - v1.4.1 (2026-03-02) — Fixed standards references: new-standards/ (15 files, foundation + v3.010) was completely absent from CLAUDE.md. Replaced broken `standards/*.md` glob with accurate per-file references. Updated Site Architecture tree and Need Help? section.
 - v1.4.0 (2026-03-02) — Restructured as lean navigation hub (~250 lines, down from 919). Extracted 5 subfiles: PASTORAL_GUARDRAILS.md, SKILLS_REFERENCE.md, TECHNICAL_STANDARDS.md, IMAGE_WORKFLOW.md, WORKFLOW.md. Added task tracking files to Essential Reading. Emphasized integrity and SDG throughout. Fixed session-start-guardrail.sh skill count 9→10.

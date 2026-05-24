@@ -1,9 +1,30 @@
 #!/usr/bin/env node
 /**
- * Batch Ship Validation Script
- * Runs validation on all ship pages and outputs a JSON file with scores
+ * ============================================================================
+ *   DEPRECATED — DO NOT USE
+ * ============================================================================
+ * This script invokes admin/validate-ship-page.js (renamed 2026-05-23 to
+ * "validate-ship-page (DO NOT USE).js") which enforces obsolete rules and
+ * disagrees with the canonical validator on at least one rule (Review
+ * reviewRating). Use the canonical validator instead:
+ *
+ *   bash admin/validate-ship-page.sh <path-to-ship-page.html>
+ *
+ * For batch runs, use admin/aggregate-ship-validation.js (which runs the
+ * canonical .sh validator across the fleet and writes a dashboard).
+ *
+ * See claude.md v1.6.0 "Canonical Ship Validator" section.
+ * Soli Deo Gloria.
+ * ============================================================================
  */
 
+console.error('scripts/batch-validate-ships.js is DEPRECATED.');
+console.error('Use: bash admin/validate-ship-page.sh <ship-page>');
+console.error('Or:  node admin/aggregate-ship-validation.js   (canonical batch)');
+console.error('See claude.md v1.6.0 for details.');
+process.exit(2);
+
+// Original implementation below — preserved for reference only. Never executes.
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
