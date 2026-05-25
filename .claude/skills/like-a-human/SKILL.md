@@ -315,17 +315,57 @@ If the prose says "the mission," the next sentence (or the one after) names the 
 
 Test during composition: when an abstract phrase is drafted, ask whether the reader could trace it to a specific referent without re-reading the whole document. If not, the abstraction is filler and either gets a referent or gets cut.
 
+**✗ Negative example (abstraction without referent):**
+> "MSC's service can be inconsistent on the day-to-day touchpoints. The challenges show up in the small moments. The cruise line needs to do better on this kind of thing."
+
+Three abstractions in three sentences: "the day-to-day touchpoints," "the challenges," "this kind of thing." Each could be tested by asking "which touchpoint? which challenge? what kind of thing?" — and none can be answered from the prose itself. This is filler with the shape of analysis.
+
+**✓ Positive example (every abstraction earns its referent):**
+> "MSC's service ran inconsistent on the day-to-day touchpoints. On this MSC Seaside sailing in May 2026, drinks sat empty longer than is comfortable, the cabin steward came in past a lit Do Not Disturb light, and two luggage tags came off the same checked bag on the night the guest firmly refused that same steward for the third time."
+
+Same opening abstraction, but the next sentence names the specific touchpoints: drinks, steward entry, luggage tags. Each named. Each verifiable. Each traceable to surrounding context (the sailing, the date, the incidents). The abstraction earned its place by being immediately specified.
+
 ### Rule 2 — Triplet closures and parallel structures must do work, not just sound like work
 
 Parallel constructions and triplet closures are powerful — and they are everywhere in skilled human writing (Paul, Spurgeon, Robinson, Berry). They are also what AI overproduces because they sound resonant without requiring substance.
 
 Test during composition: if the third item in a triplet is deleted, does the meaning collapse or does the sentence only lose its musical close? If only the music is lost, the closure was decorative — cut it or replace the third item with one that carries distinct content.
 
+**✗ Negative example (decorative triplet that collapses to one claim if any item is cut):**
+> "Royal Caribbean delivers excellent service, prioritizes guest experience, and exceeds expectations."
+
+Cut any item. The sentence still says the same thing — "Royal Caribbean is good." The three items are paraphrases of one another, not distinct substantive claims. The triplet is doing rhythm work, not argument work.
+
+**✓ Positive example (triplet where each item carries distinct substance):**
+> "One steward. One ship. One trip."
+
+Cut "one trip" and the n=1 hedge becomes incomplete — the verdict could now be read as generalizable across sailings. Cut "one ship" and the same incident could be claimed to generalize across the MSC fleet. Cut "one steward" and the incident becomes a structural critique of MSC's training program rather than a bounded report on a single crew member. Each item is a distinct scope hedge. The triplet is the substantive claim.
+
+**✓ Another positive (working triplet from real article evidence):**
+> "Tag group 4. Cart 22. Several hours of disembarkation delay."
+
+Three concrete facts establishing the luggage-tag incident's stakes. Cut "cart 22" and the spatial distance from where the bag should have been is lost. Cut "several hours" and the consequence disappears. Each item is evidence the argument depends on.
+
 ### Rule 3 — Cluster, not single
 
 No individual feature determines verdict. A single chiasmus is human rhetoric. A single triplet is human cadence. A single stock phrase is laziness, not AI. The signal is density — multiple features stacking in a short span without counter-signals (named specifics, authorial hedging, friction, unexpected word choice) to balance them.
 
 The discipline during composition: notice when several features are clustering. Then deliberately add a counter-signal — a specific dollar amount, a named meeting, an admitted contradiction, an awkward unexpected phrase, a hedge that names the limit of the claim. Counter-signals are what keep skilled writing on the human side of the framework.
+
+**✗ Negative example (real AI-cluster — multiple Layer 1 signals, zero counter-signals):**
+> "I have been in the rooms where decisions get made. I have watched what happens when nobody asks the hard questions in time. That's not a resume. That's a different kind of knowing. I live in this world. I understand the mission. And I know how to protect it."
+
+The cluster: semantic placeholders ("the rooms," "the hard questions," "this world," "the mission") + sustained parallel structure + manufactured-quotable contrast reframing ("That's not X. That's Y") + triplet closure ("I live... I understand... I know") + zero named specifics + zero hedging. Every Layer 1 signal triggered. No counter-signal arrives to break it. The cluster is the verdict.
+
+**✓ Positive example (parallel structures retained, but counter-signals dominate):**
+> "Twenty years inside nonprofits, food banks, farms, community groups, and small businesses — not as a consultant, as part of the work. In the rooms where the budget gets cut and the program gets reshaped. In the rooms where the database gets bought without anyone asking what happens to the data afterward."
+
+The parallel construction is still there ("In the rooms where... In the rooms where..."). But "twenty years," "food banks," "farms," "the budget gets cut," "the program gets reshaped," "the database gets bought" — each is a named concrete referent. The single specific failure mode at the end ("without anyone asking what happens to the data afterward") is the kind of friction that AI rarely generates without prompt-specific direction. Counter-signals override the structural cluster.
+
+**✓ Another positive (high structural density that passes because of cluster-breaking specificity):**
+> "Pattern across all three beats: apology format, no structural follow-through. n=1 on this steward and this sailing — fleet-wide MSC service can't be judged from one cabin. Within this cabin on this sailing, MSC service was a clear loser."
+
+Parallel construction. Repeated phrase ("on this steward and this sailing," "within this cabin on this sailing"). Manufactured-quotable closer ("MSC service was a clear loser"). All Layer 1 / Layer 2 signals. But the explicit n=1 hedge, the named scope ("this cabin on this sailing," not "MSC service generally"), and the bounded verdict ("can't be judged from one cabin") are three counter-signals that name the limit of the claim. The cluster passes.
 
 ### Read alongside
 
