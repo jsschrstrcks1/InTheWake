@@ -26,6 +26,38 @@
 
 ---
 
+## P0 — Three articles 404 on live site after main force-push (2026-05-25)
+
+**Severity:** BLOCKING for the three articles — currently 404 on cruisinginthewake.com
+**Scope:** Three article URLs unreachable on live site; content exists intact on `claude/review-website-docs-W1n7w` branch
+**Triggered by:** Force-push on `origin/main` between `e662b9dd` and `32296f1d` reverted PR merges `#1572`, `#1573`, `#1574`
+
+### Articles affected (all 404)
+
+- `articles/cruise-travel-safety-shore-side-net.html` (published 2026-05-24)
+- `articles/perfect-day-mexico-rejected-2026.html` (published 2026-05-24)
+- `articles/msc-voyagers-club-status-match-from-rcl-diamond.html` (published 2026-05-24)
+
+### Skill updates also missing from main
+
+- `.claude/skills/voice-audit/SKILL.md` — AI-Tell Detection Framework v3 section
+- `.claude/skills/like-a-human/SKILL.md` — AI-Tell Discipline rules with positive/negative examples
+- `.claude/skills/voice-audit/falsification-test.md` — new file with Spurgeon falsification anchors
+
+### Recovery
+
+Work is intact on `claude/review-website-docs-W1n7w`. Recovery is a new PR merge from that branch to main (do not push to main directly per CLAUDE.md). Before re-merging, confirm whether the force-push was intentional revert — if so, the dropped content may need editing rather than direct re-land.
+
+Full session detail: `admin/SESSION_HANDOFF_2026-05-25_W1n7w.md`
+
+### Verification
+
+- 404 confirmed via WebFetch on all three URLs on 2026-05-25
+- Files present on disk on `claude/review-website-docs-W1n7w` branch
+- Files absent from `git cat-file -e origin/main:<path>` checks
+
+---
+
 ## P0 — Flickr "public feed" Attribution Audit (2026-04-12)
 
 **Severity:** BLOCKING for affected ports — legal/attribution liability
