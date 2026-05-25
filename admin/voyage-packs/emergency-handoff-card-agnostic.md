@@ -102,4 +102,11 @@ MOST RECENT KNOWN POSITION:
 - Travel insurance policy number, printed
 - This handoff card, in your phone's notes app and shared with one trusted person ashore
 
+## Useful In the Wake tools
+
+- **[Ship Tracker](https://cruisinginthewake.com/tools/ship-tracker.html)** — live position of any cruise ship; share the link with your at-home contact so they have it before you sail.
+- **[Drink Calculator](https://cruisinginthewake.com/drink-calculator.html)** — pencil out whether the unlimited drink package is worth it for your actual drinking pattern, before you board (mid-sail upgrades cost more).
+- **[Budget Calculator](https://cruisinginthewake.com/tools/cruise-budget-calculator.html)** — build the total-fare picture including drinks, tips, excursions, Wi-Fi, and spa before you commit.
+- **[Tipping Calculator](https://cruisinginthewake.com/tools/cruise-tipping-calculator.html)** — auto-grats plus typical cash tips by line and cabin tier.
+
 *A Voyage Pack from [In the Wake](https://cruisinginthewake.com). Soli Deo Gloria.*
