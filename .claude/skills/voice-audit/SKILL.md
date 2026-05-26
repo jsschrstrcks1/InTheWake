@@ -1,7 +1,7 @@
 ---
 name: voice-audit
 description: "Post-draft diagnostic for InTheWake content. Scans for cruise-marketing tells and AI fingerprints, assesses authenticity risk, and checks voice continuity against the measured corpus profile. Fires before committing content edits or before publishing a new page. For during-writing standards, see like-a-human. For corpus measurement, see voice-dna."
-version: 2.1.0
+version: 2.3.0
 ---
 
 # Voice Audit — Post-Draft Diagnostic
@@ -283,7 +283,70 @@ When the rating is High, the recommendation is to **rewrite the page from the or
 
 ---
 
+## AI-Tell Detection Framework (v3)
+
+Added 2026-05-25. This section codifies a layered framework for identifying probable AI authorship in completed prose. The framework was refined through adversarial iteration; the prior versions overclaimed on isolated features (chiasmus, performative tone, "humans don't usually open this way"). The v3 version corrects those errors and operationalizes the core insight: **AI authorship is detected by clustering and density, not by individual features.**
+
+### The operational rule: cluster, don't single
+
+No single feature is a verdict. A passage flagged only for one item in any layer below is at most a yellow flag, not a finding. The framework requires clustering across layers — at least one strong signal and one or more supporting signals, with counter-signals weighed against them — before any AI-likelihood claim is made.
+
+### Layer 1 — Strong signals (high confidence when clustered)
+
+- **Semantic placeholders where concrete referents could go.** AI gravitates to "the mission," "the work," "the hard questions," "the rooms where decisions get made," "the journey," "the challenge." Test each instance: can the abstraction be traced to a concrete referent in surrounding context? If yes, the placeholder is shorthand and acceptable. If no, the placeholder is filler.
+- **Broad authority claims with no specifics.** "I've been in the rooms where decisions get made" without naming a single room is the canonical case. Acceptable form: the claim with the anchor ("the budget review on the third Tuesday, the program redesign that landed on my desk in October"). Unacceptable form: the claim without the anchor.
+- **Triplet closures carrying rhythm but not content.** Test: if the third item in the triplet is deleted, does meaning collapse or does the sentence just lose its musical close? If only the music is lost, the closure was decoration.
+- **Clean, linear persuasion arc** with no digression, no authorial uncertainty, no moment where the writer admits something doesn't fit cleanly. Human prose has friction; optimized AI output rarely does.
+- **Predictable identity archetype.** AI gravitates to a recognizable narrative arc: the writer saw what others missed, was first to notice the change, bridges what insiders cannot bridge. In cruise writing this surfaces as "before everyone discovered this port," "I knew the line had changed years ago," "most travelers don't realize that...," "I've been doing this long enough to see what's coming." Test each instance: is the claim anchored to a dated sailing, a named change, a specific observation? Generic posture without anchor is the tell. The signal is the archetype itself — a known piece of skilled human writing that names a real change at a real time on a real ship is not flagged.
+
+### Layer 2 — Supporting signals (need Layer 1 to confirm)
+
+- Stock consultant phrases ("seamlessly," "robust," "leverage," "best-in-class," "world-class")
+- Clichés ("every shape and size," "more with less")
+- Sustained staccato fragment-clustering without rhythm variation
+- Parallel structures and chiasmus when they read manufactured-clean (chiasmus is ancient rhetoric — its presence is human-first; the signal is overuse and unbroken cleanness, not appearance)
+- "Too smooth" delivery — no awkwardness, no recovered phrases, no second thoughts
+- **Template reinforcement.** Any rhetorical template (other than antithetical parallelism, already flagged in §1) reused two or more times in slightly varied form across the page — e.g., the "It is not about X — it is about Y" frame appearing in three different sections, or the "What looks like X is actually Y" frame recurring with different fillers. The signal is the template repeating without being earned by the argument. A skilled human writer who deploys the same frame deliberately at three pressure points — each pressure point named, each frame doing distinct work — is not flagged.
+
+### Layer 3 — Counter-signals (favor human authorship)
+
+- Named entities, places, dates, dollar amounts, document numbers, statute citations, ship/port/venue names
+- Mild awkwardness, sentence-shape variation, unexpected word choices
+- Localized claims with bounded scope ("on this sailing in May 2026," "on a four-night Caribbean itinerary," "in the November budget cycle")
+- Authorial hedging that names the limit of what's claimable ("n=1," "what I observed; what generalizes is a separate question")
+- Specific verifiable quotes with attribution
+- Friction, contradiction, or admitted uncertainty within the prose
+
+### Hard constraints (non-negotiable; these override the cluster test)
+
+Earlier framework versions produced false positives by violating these. They are absolute:
+
+- **Performative is not artificial.** Humans are routinely performative — especially in testimony, advocacy, preaching, public speaking. A passage that reads "performed" is not on that basis AI-generated.
+- **Rhetorical devices are human first.** Chiasmus, anaphora, parallelism, triplet closures, contrast reframing — all are ancient rhetoric, all predate AI by centuries. Their presence is never evidence of AI authorship. Their clean, mechanized overuse without substance is the actual signal.
+- **Specificity strongly favors human authorship; lack of specificity does not prove AI.** Many human writers are vague. Vagueness alone is not a verdict.
+- **All conclusions are probabilistic.** The framework produces "likely AI," "likely human," or "unclear" — never a definitive label.
+- **Context matters.** Testimony, preaching, advocacy, sermon, eulogy, and political address operate at elevated register by genre convention. Apply the framework with awareness of which register the passage is in.
+
+### Cluster scoring (operational)
+
+To produce a verdict, count by layer:
+
+- 0 Layer 1 signals → likely human regardless of Layer 2
+- 1 Layer 1 + 0 Layer 2 → unclear (yellow flag, no verdict)
+- 1 Layer 1 + 2+ Layer 2 → likely AI, modulo counter-signals
+- 2+ Layer 1 → likely AI, modulo counter-signals
+
+Counter-signals modulate the verdict downward by one notch each (likely AI → unclear; unclear → likely human). Three or more counter-signals override any combination of Layer 1 + Layer 2 signals; this is what protects skilled human writing from false positives.
+
+### Falsification test
+
+Before any change to this framework, run the modified framework against the passages in `falsification-test.md` in this directory. Those passages are highly polished human writing with multiple features the framework lists as AI signals. They should pass the cluster test (counter-signals outweigh) and produce "likely human" verdicts. If a framework update causes any of those passages to be flagged as AI, the update is too aggressive and must be revised.
+
+---
+
 ## Version History
 
+- **v2.3.0 (2026-05-25)** — Named two patterns previously covered only by general framework rules: **predictable identity archetype** added to Layer 1 (catches "I saw what others missed" arc with anchor-required test) and **template reinforcement** added to Layer 2 (catches rhetorical frames other than antithetical parallelism that recur with variation but no argument). Both additions carry explicit skilled-human-writing protection in their wording so the falsification-test passages still pass.
+- **v2.2.0 (2026-05-25)** — Added AI-Tell Detection Framework section (v3 of the underlying framework). Refines prior overclaims on chiasmus, performative tone, and statistical claims about human writing patterns. Operationalizes the cluster-density rule and adds a falsification-test file (Spurgeon passages) the framework must not flag as AI before any further refinement is accepted.
 - **v2.1.0 (2026-05-10)** — Lifted four diagnostics from Romans's `voice-audit` (in cruise voice): grep pattern for announcement-before-move, grep pattern for assumed-familiarity, image-density scan with per-paragraph thresholds, must-be-absent list with explicit drift indicators. Updated risk-rating thresholds and audit-report format to reflect the new checks.
 - **v2.0.0** — Six-axis scan with cruise-marketing vocabulary list and pastoral-honesty axis.

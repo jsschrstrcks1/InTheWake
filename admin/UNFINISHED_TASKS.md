@@ -26,6 +26,38 @@
 
 ---
 
+## P0 — Three articles 404 on live site after main force-push (2026-05-25)
+
+**Severity:** BLOCKING for the three articles — currently 404 on cruisinginthewake.com
+**Scope:** Three article URLs unreachable on live site; content exists intact on `claude/review-website-docs-W1n7w` branch
+**Triggered by:** Force-push on `origin/main` between `e662b9dd` and `32296f1d` reverted PR merges `#1572`, `#1573`, `#1574`
+
+### Articles affected (all 404)
+
+- `articles/cruise-travel-safety-shore-side-net.html` (published 2026-05-24)
+- `articles/perfect-day-mexico-rejected-2026.html` (published 2026-05-24)
+- `articles/msc-voyagers-club-status-match-from-rcl-diamond.html` (published 2026-05-24)
+
+### Skill updates also missing from main
+
+- `.claude/skills/voice-audit/SKILL.md` — AI-Tell Detection Framework v3 section
+- `.claude/skills/like-a-human/SKILL.md` — AI-Tell Discipline rules with positive/negative examples
+- `.claude/skills/voice-audit/falsification-test.md` — new file with Spurgeon falsification anchors
+
+### Recovery
+
+Work is intact on `claude/review-website-docs-W1n7w`. Recovery is a new PR merge from that branch to main (do not push to main directly per CLAUDE.md). Before re-merging, confirm whether the force-push was intentional revert — if so, the dropped content may need editing rather than direct re-land.
+
+Full session detail: `admin/SESSION_HANDOFF_2026-05-25_W1n7w.md`
+
+### Verification
+
+- 404 confirmed via WebFetch on all three URLs on 2026-05-25
+- Files present on disk on `claude/review-website-docs-W1n7w` branch
+- Files absent from `git cat-file -e origin/main:<path>` checks
+
+---
+
 ## P0 — Flickr "public feed" Attribution Audit (2026-04-12)
 
 **Severity:** BLOCKING for affected ports — legal/attribution liability
@@ -549,6 +581,66 @@ grep -nE "(5|6).?(to|-|—).?(6|7) drinks|break even at [567]" \
 ### What is NOT a problem
 
 The chart-side math, even with the bugs in `math-issues-investigation.md`, is *more accurate than the 5-7 copy*. The bugs make à la carte look cheaper than reality, but the chart still beats the 5-7 narrative because the package is genuinely overpriced for most cruisers. Removing the 5-7 copy is correct in both the pre-fix and post-fix worlds.
+
+---
+
+## P2 — Ship-page logbook infrastructure (surfaced 2026-05-23)
+
+Three related issues surfaced while rolling out the Editor's Logbook Note convention (`editor_note` + `nights_stood_watch`) onto Grandeur, Quantum, and MSC Seaside. The convention itself shipped (commit `1cc80e1a` — static `<aside class="editor-note">` rendered from JSON content). These three items are the infrastructure shortcuts that ship took, plus a pre-existing path asymmetry it surfaced.
+
+### Issue 1 — MSC ship-page `initShipLogbook()` is dead code
+
+The MSC ship pages define `function initShipLogbook(){...}` but never invoke it anywhere in the file. Confirmed on `ships/msc/msc-seaside.html` (line 800 defines, no caller). Same pattern present on at least 5 other MSC ship pages: `msc-euribia.html`, `msc-magnifica.html`, `msc-bellissima.html`, `msc-orchestra.html`, `msc-grandiosa.html` (incomplete scan — run the grep below for the full list).
+
+Consequence: any persona/story content authored in the corresponding `assets/data/logbook/msc/<ship>.json` is never rendered to visitors. Only the `<noscript>` fallback FAQ inside the logbook section is visible. The MSC Seaside JSON in particular contains ~6+ fully-written Appendix-D-conformant stories that no human will ever read on the live page until the loader is wired up.
+
+Also worth flagging: the MSC loader expects a root-level array (`entries.length`, `entries.map(e => ...)`) but the actual JSON shape is an object with a `stories` array — so even if the loader were invoked, it would silently fail on `.length` of an object. The RCL loader's fallback chain (`data.personas||data.perspectives||data.logbook||data.stories||data.entries||[]`) handles this; the MSC loader does not.
+
+**Find scope:**
+```bash
+grep -l "function initShipLogbook" ships/msc/*.html | wc -l
+grep -L "initShipLogbook()" $(grep -l "function initShipLogbook" ships/msc/*.html)
+# Pages where the function is defined but never called are the affected set.
+```
+
+**Resolution options:**
+1. Replace each MSC loader with the RCL IIFE-style loader (`(function initShipLogbook(){...})()`) which auto-runs and already handles the `stories` fallback. Most surgical fix; aligns MSC and RCL loader behavior.
+2. Extract the RCL loader to `assets/js/ship-logbook.js` (single source of truth) and reference from every ship page. Larger blast radius but eliminates the per-page duplicate copies on ~150+ RCL pages too.
+3. Add a single `initShipLogbook();` call near the existing `DOMContentLoaded` block on each MSC page, AND fix the loader to handle the object root with `stories`. Smallest patch; leaves the dual-implementation asymmetry intact.
+
+### Issue 2 — Editor's Logbook Note text duplicated in JSON + HTML
+
+The commit `1cc80e1a` rollout chose static HTML rendering for the Editor's Logbook Note rather than a JSON-driven loader path (rationale: works regardless of loader state, visible without JS, doesn't pull in the Issue 1 fleet-wide loader scope). The tradeoff: the editor_note sentence now lives in two places per ship:
+
+- Canonical source: `editor_note` field in the ship JSON
+- Rendered output: `<aside class="editor-note">` block in the ship HTML
+
+Three ships currently affected: `grandeur-of-the-seas.html` + `assets/grandeur-of-the-seas.json`, `quantum-of-the-seas.html` + `assets/quantum-of-the-seas.json`, `msc-seaside.html` + `assets/data/logbook/msc/msc-seaside.json`.
+
+Drift risk: if a future session updates `nights_stood_watch` in the JSON (and re-spells the count in `editor_note`), the HTML `<aside>` will silently keep showing the old number until manually updated.
+
+**Resolution options:**
+1. Extend the RCL loader to read `data.editor_note` and prepend it to the carousel, then remove the static HTML `<aside>` from Grandeur + Quantum. (Doesn't help MSC Seaside until Issue 1 is fixed.)
+2. Write a small generator script `scripts/sync-editor-note.js` that reads JSON `editor_note` and patches the matching `<aside class="editor-note">` block in the HTML. Run on demand or as a pre-commit hook.
+3. Accept the duplication as an intentional cost; add a comment to the HTML aside pointing at the JSON source ("source of truth: `editor_note` in `<json path>` — update both together"). Lowest-effort; honest about the constraint.
+
+### Issue 3 — Ship logbook JSON path asymmetry (pre-existing, not new)
+
+RCL ship logbook JSONs live at `ships/rcl/assets/<slug>.json`. MSC ship logbook JSONs live at `assets/data/logbook/msc/<slug>.json`. Same content type, two different filesystem conventions.
+
+Not introduced by this session — pre-existing in the repo. The RCL loader's fallback chain (`SOURCES` array in `initShipLogbook`) already tries both paths, so the loader itself is path-tolerant. But the asymmetry shows up in:
+- File-finding cognitive overhead ("where does Ship X's JSON live?")
+- Validators and scripts that have to know both conventions
+- Image/attribution registries that may be path-coupled
+
+**Resolution options:**
+1. Pick one convention (probably `assets/data/logbook/<line>/<slug>.json` since it's more generic and already used by MSC) and migrate the RCL files. Update the loader's `SOURCES` array. ~150+ file moves; need to update all HTML references and any registry/validator references.
+2. Pick the per-fleet convention (`ships/<line>/assets/<slug>.json`) and migrate MSC files there. Smaller migration but loses the cross-line uniformity.
+3. Accept the asymmetry; document both paths in `admin/PATH_CONVENTIONS.md` (or similar) so future authors don't have to grep to find a ship's JSON.
+
+### Why these are P2
+
+None of the three is user-blocking. The Editor's Logbook Note renders correctly today on all three target pages. The MSC dead-loader issue means MSC stories aren't visible, but that's been true for some time and no one has flagged it as a content gap. The path asymmetry has been tolerated for the lifetime of the repo. Triage these whenever the next ship-page infrastructure session opens; do not block content work on them.
 
 ---
 
