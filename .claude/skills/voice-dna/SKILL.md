@@ -1,7 +1,7 @@
 ---
 name: voice-dna
 description: "Discovers voice patterns from the InTheWake content corpus. Measures rhythm, vocabulary, and experiential fingerprints across port guides, ship profiles, logbook entries, and restaurant pages — data-driven voice profiling that feeds like-a-human and voice-audit."
-version: 2.1.0
+version: 2.0.0
 ---
 
 # Voice DNA — Voice Discovery from the Cruise Corpus
@@ -80,21 +80,6 @@ For each sample, measure:
 - Closing pattern (logbook signoff? practical checklist? pastoral note?)
 - Image-to-prose ratio
 - Schema/data-block density (should be low in body prose, contained in headers/sidebars)
-
-### Abstract Authority Density
-- Frequency of abstract authority nouns per page (`the experience, the adventure, the journey, the memory, the moment, the destination`) — measured by grep
-- For each instance found in the sample, classify: **anchored** (specific referent within the surrounding two sentences — named ship, dated sailing, deck number, real port stop) or **floating** (no concrete anchor)
-- Baseline expectation: floating instances per page should be near zero; anchored instances are corpus vocabulary, not tells. A page with three or more floating instances should be removed from the sample (or the page itself has drifted and needs revision)
-
-### Template Frequency
-- Count antithetical-parallelism instances per page (`"not X — Y"`, `"it's not about X, it's about Y"`) — measured by grep
-- Compute the average + standard deviation across the sample; use this to set the cap in `voice-audit` (the cap should be roughly mean + 1σ rounded down — currently 1 per page; verify against measured corpus)
-- Also count broader template repetition: any rhetorical frame (`"what looks like X is actually Y"`, `"the real story is..."`) that appears 2+ times on a single sample page. Flag sample pages with 3+ template repetitions for re-baselining — they may have drifted
-
-### Identity-Archetype Absence
-- Grep the sample for identity-archetype patterns: `"I saw .* coming|I knew .* before|most travelers don't realize|before everyone discovered|I've been doing this long enough"`
-- The corpus baseline should produce zero hits for unanchored uses. Hits with anchors (named change, dated observation, specific ship) are corpus voice and acceptable; unanchored hits flag the sample page as drifted
-- Use this measurement to confirm the falsification protection in `voice-audit` — the corpus itself should never produce a Layer 1 archetype flag
 
 ## Profile Output
 

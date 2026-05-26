@@ -3,17 +3,12 @@
 #
 # Usage:
 #   admin/scripts/voyage-pack-pdf-build.sh                  # build all packs (skip if up-to-date)
-#   admin/scripts/voyage-pack-pdf-build.sh long             # build all long-form packs
-#   admin/scripts/voyage-pack-pdf-build.sh condensed        # build all condensed (3-page) packs
-#   admin/scripts/voyage-pack-pdf-build.sh handoff          # build all handoff cards (incl. agnostic)
-#   admin/scripts/voyage-pack-pdf-build.sh symphony         # build only Symphony (long-form)
-#   admin/scripts/voyage-pack-pdf-build.sh ncl-aqua         # build only NCL Aqua (long-form)
-#   admin/scripts/voyage-pack-pdf-build.sh sisters-sea      # build only Sisters at Sea (long-form)
-#   admin/scripts/voyage-pack-pdf-build.sh anthem-alaska    # build only Anthem of the Seas Alaska 7N (long-form)
-#   admin/scripts/voyage-pack-pdf-build.sh seaside-bahamas  # build only MSC Seaside Bahamas 4N (long-form)
-#   admin/scripts/voyage-pack-pdf-build.sh luna-solo        # build only NCL Luna Tina solo group May 2026 (long-form)
-#   admin/scripts/voyage-pack-pdf-build.sh bliss-solo       # build only NCL Bliss Kristie Alaska Jul 2026 (long-form)
-#   admin/scripts/voyage-pack-pdf-build.sh world-america    # build only MSC World America Denise Apr 2027 (long-form)
+#   admin/scripts/voyage-pack-pdf-build.sh symphony         # build only Symphony
+#   admin/scripts/voyage-pack-pdf-build.sh ncl-aqua         # build only NCL Aqua
+#   admin/scripts/voyage-pack-pdf-build.sh sisters-sea      # build only Sisters at Sea (Resilient Lady)
+#   admin/scripts/voyage-pack-pdf-build.sh anthem-alaska    # build only Anthem of the Seas Alaska 7N
+#   admin/scripts/voyage-pack-pdf-build.sh seaside-bahamas  # build only MSC Seaside Bahamas 4N
+#   admin/scripts/voyage-pack-pdf-build.sh luna-solo        # build only NCL Luna Tina solo group May 2026
 #   admin/scripts/voyage-pack-pdf-build.sh --force          # rebuild even if PDF is newer
 #   admin/scripts/voyage-pack-pdf-build.sh --check          # exit 1 if any PDF is stale (no build)
 #   admin/scripts/voyage-pack-pdf-build.sh --help
@@ -23,11 +18,10 @@
 #   - Idempotent by default: only rebuilds a pack if the .pdf is missing or older than the .md
 #   - --force always rebuilds
 #   - --check exits non-zero if any pack PDF is stale (used by pre-commit)
-#   - Long-form packs use voyage-pack-print.css; condensed packs and handoff cards
-#     use voyage-pack-condensed-print.css (tighter layout for 3-page / 1-page formats)
-#   - Writes PDFs alongside markdown sources in admin/voyage-packs/ by default.
-#     Long-form packs may opt out by setting a non-empty *_PDF override variable
-#     to route to a custom path (e.g. ships/norwegian/...). The .md source stays
+#   - Writes the PDF alongside the markdown source in admin/voyage-packs/
+#     by default. Packs may opt out by setting a non-empty *_PDF variable
+#     at the top of the script — e.g. SEASIDE_BAHAMAS_PDF="ships/msc/..."
+#     routes that pack's PDF to a custom path. The .md source stays
 #     canonical in admin/voyage-packs/ regardless.
 #
 # Workflow:
@@ -55,44 +49,26 @@ REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
 PACKS_DIR="admin/voyage-packs"
-PDF_CSS_LONG="$PACKS_DIR/voyage-pack-print.css"
-PDF_CSS_CONDENSED="$PACKS_DIR/voyage-pack-condensed-print.css"
+SYMPHONY_MD="$PACKS_DIR/v0.1-symphony-western-caribbean-7n.md"
+NCL_AQUA_MD="$PACKS_DIR/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.md"
+SISTERS_SEA_MD="$PACKS_DIR/v0.1.3-virgin-sisters-sea-feb-2027.md"
+ANTHEM_ALASKA_MD="$PACKS_DIR/v0.1.4-rcl-anthem-alaska-7n.md"
+SEASIDE_BAHAMAS_MD="$PACKS_DIR/v0.1.5-msc-seaside-bahamas-4n.md"
+LUNA_SOLO_MD="$PACKS_DIR/v0.1.6-ncl-luna-solo-group-may-2026.md"
+BLISS_SOLO_MD="$PACKS_DIR/v0.1.7-ncl-bliss-alaska-solo-group-jul-2026.md"
 
-# ----- Pack registry ---------------------------------------------------------
-# Long-form packs: full multi-page Voyage Pack PDFs. Use voyage-pack-print.css.
-# Each entry: "md_stem|pdf_output_path" (pdf path is optional override; empty
-# = default which is "$PACKS_DIR/$stem.pdf")
-LONG_FORM_PACKS=(
-  "v0.1-symphony-western-caribbean-7n|"
-  "v0.1.2-ncl-aqua-veterans-solo-group-dec-2027|"
-  "v0.1.3-virgin-sisters-sea-feb-2027|"
-  "v0.1.4-rcl-anthem-alaska-7n|"
-  "v0.1.5-msc-seaside-bahamas-4n|ships/msc/v0.1.5-msc-seaside-bahamas-4n.pdf"
-  "v0.1.6-ncl-luna-solo-group-may-2026|ships/norwegian/v0.1.6-ncl-luna-solo-group-may-2026.pdf"
-  "v0.1.7-ncl-bliss-alaska-solo-group-jul-2026|ships/norwegian/v0.1.7-ncl-bliss-alaska-solo-group-jul-2026.pdf"
-  "v0.1.8-msc-world-america-solo-group-apr-2027|ships/msc/v0.1.8-msc-world-america-solo-group-apr-2027.pdf"
-)
+# PDF output path per pack. Empty = default (next to the .md source).
+# Override when a pack wants its PDF co-located somewhere else (e.g. alongside
+# its ship page). The .md source stays canonical in $PACKS_DIR regardless.
+SYMPHONY_PDF=""
+NCL_AQUA_PDF=""
+SISTERS_SEA_PDF=""
+ANTHEM_ALASKA_PDF=""
+SEASIDE_BAHAMAS_PDF="ships/msc/v0.1.5-msc-seaside-bahamas-4n.pdf"
+LUNA_SOLO_PDF="ships/norwegian/v0.1.6-ncl-luna-solo-group-may-2026.pdf"
+BLISS_SOLO_PDF="ships/norwegian/v0.1.7-ncl-bliss-alaska-solo-group-jul-2026.pdf"
 
-# Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.
-# Always next to source (no override convention).
-CONDENSED_PACKS=(
-  "v0.1-symphony-western-caribbean-condensed"
-  "v0.1.2-ncl-aqua-veterans-solo-group-condensed"
-  "v0.1.3-virgin-sisters-sea-condensed"
-  "v0.1.4-rcl-anthem-alaska-condensed"
-  "v0.1.5-msc-seaside-bahamas-condensed"
-  "v0.1.6-ncl-luna-solo-group-condensed"
-  "v0.1.7-ncl-bliss-alaska-condensed"
-  "v0.1.8-msc-world-america-condensed"
-)
-
-# Handoff cards: 1-2 page emergency contact docs. Use voyage-pack-condensed-print.css.
-# Two sailing-specific (Bliss, World America) + one sailing-agnostic master card.
-HANDOFF_CARDS=(
-  "v0.1.7-ncl-bliss-handoff-card"
-  "v0.1.8-msc-world-america-handoff-card"
-  "emergency-handoff-card-agnostic"
-)
+PDF_CSS="$PACKS_DIR/voyage-pack-print.css"
 
 # Mode flags
 FORCE=0
@@ -109,67 +85,61 @@ detect_pdf_engine() {
   return 1
 }
 
-# ----- registry helpers -------------------------------------------------------
-# Parse a LONG_FORM_PACKS entry "stem|pdf" into stem + resolved PDF path
-long_form_md() {
-  local entry="$1"
-  echo "$PACKS_DIR/${entry%%|*}.md"
-}
-long_form_pdf() {
-  local entry="$1"
-  local override="${entry#*|}"
+# ----- output-path resolver ---------------------------------------------------
+# Resolve the PDF output path for a pack: override if non-empty, else default
+# (next to the .md source).
+pdf_path_for() {
+  local md="$1"
+  local override="${2:-}"
   if [ -n "$override" ]; then
     echo "$override"
   else
-    echo "$PACKS_DIR/${entry%%|*}.pdf"
+    echo "${md%.md}.pdf"
   fi
-}
-long_form_label() {
-  local entry="$1"
-  echo "${entry%%|*}"
-}
-
-# For condensed and handoff (no override), simpler resolvers
-simple_md() {
-  echo "$PACKS_DIR/$1.md"
-}
-simple_pdf() {
-  echo "$PACKS_DIR/$1.pdf"
 }
 
 # ----- staleness check --------------------------------------------------------
-# Returns 0 (stale) if PDF is missing OR if .md source is newer than .pdf
+# Bash convention: returns 0 (success/yes) if PDF IS stale, 1 if up-to-date.
+# A PDF is stale if it is missing OR if the .md source is newer than the .pdf.
 pdf_is_stale() {
   local md="$1"
-  local pdf="$2"
-  if [ ! -f "$pdf" ]; then return 0; fi
-  if [ "$md" -nt "$pdf" ]; then return 0; fi
-  return 1
+  local pdf
+  pdf="$(pdf_path_for "$md" "${2:-}")"
+
+  if [ ! -f "$pdf" ]; then return 0; fi      # missing → stale
+  if [ "$md" -nt "$pdf" ]; then return 0; fi # source newer → stale
+  return 1                                   # not stale (PDF exists and is newer than source)
 }
 
 # ----- per-pack build ---------------------------------------------------------
-# Args: md_path  label  engine  pdf_output  css_file
+# Args: md_path  label  engine  [output_pdf_override]
+# If output_pdf_override is empty/omitted, PDF lands next to the .md source.
 build_pack() {
   local md="$1"
   local label="$2"
   local engine="$3"
-  local pdf="$4"
-  local css="$5"
+  local output_pdf="${4:-}"
 
   if [ ! -f "$md" ]; then
     echo "  ✗ $label: source not found at $md" >&2
     return 1
   fi
-  if [ ! -f "$css" ]; then
-    echo "  ✗ $label: stylesheet not found at $css" >&2
+
+  if [ ! -f "$PDF_CSS" ]; then
+    echo "  ✗ $label: stylesheet not found at $PDF_CSS" >&2
     return 1
   fi
 
+  local pdf
+  pdf="$(pdf_path_for "$md" "$output_pdf")"
+
+  # Ensure the output directory exists (may differ from the .md's directory
+  # when a pack uses an output_pdf override).
   mkdir -p "$(dirname "$pdf")"
 
-  # Idempotency: skip if PDF is newer than .md (unless --force) and CSS too
-  if [ "$FORCE" -eq 0 ] && [ -f "$pdf" ] && [ "$pdf" -nt "$md" ] && [ "$pdf" -nt "$css" ]; then
-    echo "  · $label: up-to-date, skipping"
+  # Idempotency: skip if PDF is newer than .md (unless --force)
+  if [ "$FORCE" -eq 0 ] && [ -f "$pdf" ] && [ "$pdf" -nt "$md" ]; then
+    echo "  · $label: up-to-date, skipping ($pdf newer than source)"
     return 0
   fi
 
@@ -177,11 +147,21 @@ build_pack() {
 
   case "$engine" in
     weasyprint|wkhtmltopdf)
-      # Convert /asset/path-style markdown image refs into file:// URLs
-      # weasyprint can resolve. Also handles src="/..." in inline HTML img tags.
-      sed "s|](/|](file://$REPO_ROOT/|g; s|src=\"/|src=\"file://$REPO_ROOT/|g" "$md" | pandoc \
+      # Pipe-through sed converts /asset/path style paths in the markdown
+      # (consistent with the HTML version's absolute-from-repo-root convention)
+      # into file:// URLs that weasyprint can resolve as filesystem paths.
+      # Without this, weasyprint reads /assets/... as filesystem-root-absolute
+      # (standards-compliant) and fails to find the images.
+      # Pipe-through sed converts /asset/path style paths to file:// URLs
+      # weasyprint can resolve.
+      # Note: we deliberately omit --metadata title and --toc here. The
+      # markdown source's first H1 becomes the document title; the cover
+      # page is built into the source so we control its layout. Pandoc's
+      # auto-generated TOC was visually crude and used the broken-encoding
+      # title — better to handle TOC inside the source if needed at all.
+      sed "s|](/|](file://$REPO_ROOT/|g" "$md" | pandoc \
         --pdf-engine="$engine" \
-        --css="$css" \
+        --css="$PDF_CSS" \
         --metadata author="In the Wake" \
         --standalone \
         -o "$pdf"
@@ -196,7 +176,7 @@ build_pack() {
         -V fontsize=11pt \
         -V mainfont="Georgia" \
         -V colorlinks=true \
-        -V linkcolor="0e6e8e" \
+        -V linkcolor="0a3d62" \
         -o "$pdf"
       ;;
     *)
@@ -217,115 +197,44 @@ build_pack() {
 }
 
 # ----- check-only mode --------------------------------------------------------
+# Used by pre-commit. Lists every stale pack and exits 1 if any are stale.
+# Parallel arrays: pack md path and its corresponding output_pdf override.
+# Keep these two arrays in sync — index N is the same pack in both.
 run_check_only() {
   local stale=0
   echo "Voyage Pack PDF staleness check"
   echo ""
-
-  echo "Long-form packs:"
-  for entry in "${LONG_FORM_PACKS[@]}"; do
-    local md pdf label
-    md="$(long_form_md "$entry")"
-    pdf="$(long_form_pdf "$entry")"
-    label="$(long_form_label "$entry")"
-    [ -f "$md" ] || continue
-    if pdf_is_stale "$md" "$pdf"; then
-      if [ ! -f "$pdf" ]; then echo "  ✗ $label: PDF MISSING ($pdf)"
-      else echo "  ✗ $label: PDF STALE ($pdf older than source)"; fi
+  local mds=("$SYMPHONY_MD" "$NCL_AQUA_MD" "$SISTERS_SEA_MD" "$ANTHEM_ALASKA_MD" "$SEASIDE_BAHAMAS_MD" "$LUNA_SOLO_MD" "$BLISS_SOLO_MD")
+  local pdfs=("$SYMPHONY_PDF" "$NCL_AQUA_PDF" "$SISTERS_SEA_PDF" "$ANTHEM_ALASKA_PDF" "$SEASIDE_BAHAMAS_PDF" "$LUNA_SOLO_PDF" "$BLISS_SOLO_PDF")
+  local i
+  for i in "${!mds[@]}"; do
+    local md="${mds[$i]}"
+    local override="${pdfs[$i]}"
+    if [ ! -f "$md" ]; then
+      continue  # source missing — not this script's concern
+    fi
+    local pdf
+    pdf="$(pdf_path_for "$md" "$override")"
+    local label
+    label=$(basename "$md" .md)
+    if pdf_is_stale "$md" "$override"; then
+      if [ ! -f "$pdf" ]; then
+        echo "  ✗ $label: PDF MISSING ($pdf)"
+      else
+        echo "  ✗ $label: PDF STALE ($pdf older than $md)"
+      fi
       stale=$((stale + 1))
     else
-      echo "  ✓ $label"
+      echo "  ✓ $label: PDF up-to-date"
     fi
   done
-
-  echo ""
-  echo "Condensed packs:"
-  for stem in "${CONDENSED_PACKS[@]}"; do
-    local md pdf
-    md="$(simple_md "$stem")"
-    pdf="$(simple_pdf "$stem")"
-    [ -f "$md" ] || continue
-    if pdf_is_stale "$md" "$pdf"; then
-      if [ ! -f "$pdf" ]; then echo "  ✗ $stem: PDF MISSING"
-      else echo "  ✗ $stem: PDF STALE"; fi
-      stale=$((stale + 1))
-    else
-      echo "  ✓ $stem"
-    fi
-  done
-
-  echo ""
-  echo "Handoff cards:"
-  for stem in "${HANDOFF_CARDS[@]}"; do
-    local md pdf
-    md="$(simple_md "$stem")"
-    pdf="$(simple_pdf "$stem")"
-    [ -f "$md" ] || continue
-    if pdf_is_stale "$md" "$pdf"; then
-      if [ ! -f "$pdf" ]; then echo "  ✗ $stem: PDF MISSING"
-      else echo "  ✗ $stem: PDF STALE"; fi
-      stale=$((stale + 1))
-    else
-      echo "  ✓ $stem"
-    fi
-  done
-
   echo ""
   if [ "$stale" -gt 0 ]; then
-    echo "$stale PDF(s) need a rebuild. Run:"
+    echo "$stale pack(s) need a rebuilt PDF. Run:"
     echo "    admin/scripts/voyage-pack-pdf-build.sh"
     return 1
   fi
   return 0
-}
-
-# ----- batch builders ---------------------------------------------------------
-build_all_long_form() {
-  local engine="$1" failures=0
-  for entry in "${LONG_FORM_PACKS[@]}"; do
-    local md pdf label
-    md="$(long_form_md "$entry")"
-    pdf="$(long_form_pdf "$entry")"
-    label="$(long_form_label "$entry")"
-    build_pack "$md" "$label" "$engine" "$pdf" "$PDF_CSS_LONG" || failures=$((failures + 1))
-  done
-  return $failures
-}
-
-build_all_condensed() {
-  local engine="$1" failures=0
-  for stem in "${CONDENSED_PACKS[@]}"; do
-    build_pack "$(simple_md "$stem")" "$stem" "$engine" "$(simple_pdf "$stem")" "$PDF_CSS_CONDENSED" || failures=$((failures + 1))
-  done
-  return $failures
-}
-
-build_all_handoff() {
-  local engine="$1" failures=0
-  for stem in "${HANDOFF_CARDS[@]}"; do
-    build_pack "$(simple_md "$stem")" "$stem" "$engine" "$(simple_pdf "$stem")" "$PDF_CSS_CONDENSED" || failures=$((failures + 1))
-  done
-  return $failures
-}
-
-# Build a specific long-form pack by stem prefix
-build_one_long() {
-  local prefix="$1" engine="$2" failures=0 found=0
-  for entry in "${LONG_FORM_PACKS[@]}"; do
-    if [[ "$(long_form_label "$entry")" == *"$prefix"* ]]; then
-      local md pdf label
-      md="$(long_form_md "$entry")"
-      pdf="$(long_form_pdf "$entry")"
-      label="$(long_form_label "$entry")"
-      build_pack "$md" "$label" "$engine" "$pdf" "$PDF_CSS_LONG" || failures=$((failures + 1))
-      found=1
-    fi
-  done
-  if [ "$found" -eq 0 ]; then
-    echo "✗ No long-form pack matched prefix: $prefix" >&2
-    return 1
-  fi
-  return $failures
 }
 
 # ----- main -------------------------------------------------------------------
@@ -338,8 +247,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|seaside-bahamas|seaside|msc|luna-solo|luna|bliss-solo|bliss|world-america|wa|all)
-      target="$arg" ;;
+    symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|seaside-bahamas|seaside|msc|luna-solo|luna|bliss-solo|bliss|all) target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
       exit 2
@@ -347,6 +255,7 @@ for arg in "$@"; do
   esac
 done
 
+# --check mode short-circuits — no engine needed
 if [ "$CHECK_ONLY" -eq 1 ]; then
   run_check_only
   exit $?
@@ -379,50 +288,51 @@ target="${target:-all}"
 failures=0
 
 case "$target" in
-  long|long-form)
-    echo "── Long-form packs ──"
-    build_all_long_form "$ENGINE" || failures=$((failures + $?))
+  symphony)
+    build_pack "$SYMPHONY_MD" "Symphony Western Caribbean 7N" "$ENGINE" "$SYMPHONY_PDF" || failures=$((failures + 1))
     ;;
-  condensed)
-    echo "── Condensed packs ──"
-    build_all_condensed "$ENGINE" || failures=$((failures + $?))
+  ncl-aqua|aqua|ncl)
+    build_pack "$NCL_AQUA_MD" "NCL Aqua Veterans/Solo Dec 2027" "$ENGINE" "$NCL_AQUA_PDF" || failures=$((failures + 1))
     ;;
-  handoff)
-    echo "── Handoff cards ──"
-    build_all_handoff "$ENGINE" || failures=$((failures + $?))
+  sisters-sea|sisters|virgin)
+    build_pack "$SISTERS_SEA_MD" "Sisters at Sea — Resilient Lady Feb 2027" "$ENGINE" "$SISTERS_SEA_PDF" || failures=$((failures + 1))
     ;;
-  symphony) build_one_long "symphony" "$ENGINE" || failures=$((failures + $?)) ;;
-  ncl-aqua|aqua|ncl) build_one_long "ncl-aqua" "$ENGINE" || failures=$((failures + $?)) ;;
-  sisters-sea|sisters|virgin) build_one_long "sisters-sea" "$ENGINE" || failures=$((failures + $?)) ;;
-  anthem-alaska|anthem|alaska) build_one_long "anthem-alaska" "$ENGINE" || failures=$((failures + $?)) ;;
-  seaside-bahamas|seaside|msc) build_one_long "seaside" "$ENGINE" || failures=$((failures + $?)) ;;
-  luna-solo|luna) build_one_long "luna" "$ENGINE" || failures=$((failures + $?)) ;;
-  bliss-solo|bliss) build_one_long "bliss" "$ENGINE" || failures=$((failures + $?)) ;;
-  world-america|wa) build_one_long "world-america" "$ENGINE" || failures=$((failures + $?)) ;;
+  anthem-alaska|anthem|alaska)
+    build_pack "$ANTHEM_ALASKA_MD" "Anthem of the Seas — Alaska 7N" "$ENGINE" "$ANTHEM_ALASKA_PDF" || failures=$((failures + 1))
+    ;;
+  seaside-bahamas|seaside|msc)
+    build_pack "$SEASIDE_BAHAMAS_MD" "MSC Seaside — Bahamas 4N" "$ENGINE" "$SEASIDE_BAHAMAS_PDF" || failures=$((failures + 1))
+    ;;
+  luna-solo|luna)
+    build_pack "$LUNA_SOLO_MD" "NCL Luna — Tina Solo Group May 2026" "$ENGINE" "$LUNA_SOLO_PDF" || failures=$((failures + 1))
+    ;;
+  bliss-solo|bliss)
+    build_pack "$BLISS_SOLO_MD" "NCL Bliss — Kristie Solo Group Jul 2026" "$ENGINE" "$BLISS_SOLO_PDF" || failures=$((failures + 1))
+    ;;
   all|"")
-    echo "── Long-form packs ──"
-    build_all_long_form "$ENGINE" || failures=$((failures + $?))
-    echo ""
-    echo "── Condensed packs ──"
-    build_all_condensed "$ENGINE" || failures=$((failures + $?))
-    echo ""
-    echo "── Handoff cards ──"
-    build_all_handoff "$ENGINE" || failures=$((failures + $?))
+    build_pack "$SYMPHONY_MD" "Symphony Western Caribbean 7N" "$ENGINE" "$SYMPHONY_PDF" || failures=$((failures + 1))
+    build_pack "$NCL_AQUA_MD" "NCL Aqua Veterans/Solo Dec 2027" "$ENGINE" "$NCL_AQUA_PDF" || failures=$((failures + 1))
+    build_pack "$SISTERS_SEA_MD" "Sisters at Sea — Resilient Lady Feb 2027" "$ENGINE" "$SISTERS_SEA_PDF" || failures=$((failures + 1))
+    build_pack "$ANTHEM_ALASKA_MD" "Anthem of the Seas — Alaska 7N" "$ENGINE" "$ANTHEM_ALASKA_PDF" || failures=$((failures + 1))
+    build_pack "$SEASIDE_BAHAMAS_MD" "MSC Seaside — Bahamas 4N" "$ENGINE" "$SEASIDE_BAHAMAS_PDF" || failures=$((failures + 1))
+    build_pack "$LUNA_SOLO_MD" "NCL Luna — Tina Solo Group May 2026" "$ENGINE" "$LUNA_SOLO_PDF" || failures=$((failures + 1))
+    build_pack "$BLISS_SOLO_MD" "NCL Bliss — Kristie Solo Group Jul 2026" "$ENGINE" "$BLISS_SOLO_PDF" || failures=$((failures + 1))
     ;;
   *)
-    echo "✗ Unknown target: $target. See --help for valid options."
+    echo "✗ Unknown target: $target. Use 'symphony', 'ncl-aqua', 'sisters-sea', 'anthem-alaska', 'seaside-bahamas', 'luna-solo', 'bliss-solo', or 'all'."
     exit 2
     ;;
 esac
 
 echo ""
 if [ "$failures" -eq 0 ]; then
-  echo "Done. PDFs are alongside their .md sources (or at override paths for long-form packs)."
+  echo "Done. PDFs are alongside their .md sources."
   echo "Re-uploading the .pdf to your payment processor's product entry is only"
   echo "needed when the .md source changes (the pre-commit hook will block"
   echo "commits that change a pack .md without an updated .pdf)."
   exit 0
 else
-  echo "$failures build(s) failed. See errors above."
+  echo "$failures pack(s) failed to build. See errors above."
   exit 1
 fi
+
