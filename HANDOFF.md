@@ -1,63 +1,103 @@
-# Issue #1364 — Carnival Horizon Duplicate Sections
+# HANDOFF.md — InTheWake Audit State
+**Last updated:** 2026-05-26 (evening session)
+
+---
+
+## Issue #1364 — Carnival Horizon Duplicate Sections
 **Status:** COMPLETE — Ready for merge to main
 **Branch:** `fix/1364-carnival-horizon`
-**Last updated:** 2026-05-26
+
+See `ISSUE_1364_ANALYSIS.md`, `ISSUE_1364_SUMMARY.md`, `ISSUE_1364_VERIFICATION.md` for full details.
 
 ---
 
-## What Was Done
+## Systematic Audit — Session 2 (2026-05-26 Evening)
 
-### Root Cause
-Carnival Horizon (`ships/carnival/carnival-horizon.html`) had 3+ duplicate sections introduced during a template refactor. Additionally, ICP metadata was outdated and JS guards were incorrectly written.
+### What Was Done
 
-### Changes Made (10 commits, all verified)
+Complete JS/CSS/HTML nav audit across all 1,282 pages. Built Python validators. Found and documented 10 new issues filed to GitHub.
 
-| # | Change | Lines |
-|---|--------|-------|
-| 1 | Removed hardcoded stats grid duplicate | -41 |
-| 2 | Removed duplicate photo attribution blocks (kept 1 of 3) | -17 |
-| 3 | Removed duplicate video Swiper inits (kept `__swiperReady` version) | -7 |
-| 4 | Updated ICP metadata to ICP-2 in `<head>` | 0 |
-| 5 | Removed legacy ai-breadcrumbs comment | -15 |
-| 6 | Added deck plans section with Carnival official link | +23 |
-| 7 | Updated stale ICP-Lite comment in body | 0 |
-| 8 | Corrected inverted Swiper guard (`!window.__swiperReady`) | 0 |
-| 9 | Removed orphaned video fetch block | -8 |
-| **Total** | | **-57 net** |
+### Issues Filed This Session
 
-**Before:** 1,123 lines → **After:** 981 lines (-13%)
+| # | Title | Severity | Scope |
+|---|-------|----------|-------|
+| [#1628](https://github.com/jsschrstrcks1/InTheWake/issues/1628) | `/assets/nav.js` missing (404) | **CRITICAL** | 97 restaurant pages |
+| [#1629](https://github.com/jsschrstrcks1/InTheWake/issues/1629) | Fleet restaurant subdirs missing dropdown.js | **CRITICAL** | 198 pages (NCL/MSC/Carnival/Virgin) |
+| [#1630](https://github.com/jsschrstrcks1/InTheWake/issues/1630) | Article pages missing dropdown.js | HIGH | 23 pages |
+| [#1631](https://github.com/jsschrstrcks1/InTheWake/issues/1631) | Port pages missing dropdown.js | HIGH | 42 ports |
+| [#1632](https://github.com/jsschrstrcks1/InTheWake/issues/1632) | CSS unversioned/stale cache-busting | MEDIUM | 342 pages (+ 259 ships w/ stale ship-page.css) |
+| [#1633](https://github.com/jsschrstrcks1/InTheWake/issues/1633) | Nav inconsistency: /planning.html ships-only | MEDIUM | 312 ships + others |
+| [#1634](https://github.com/jsschrstrcks1/InTheWake/issues/1634) | `in-app-browser-escape.js` missing | MEDIUM | 455 pages |
+| [#1635](https://github.com/jsschrstrcks1/InTheWake/issues/1635) | Broken JS references (common.js, recent-rail.js, etc.) | MEDIUM | 10 port pages |
+| [#1636](https://github.com/jsschrstrcks1/InTheWake/issues/1636) | Port pages missing og:url / canonical mismatch | MEDIUM | 16 ports |
+| [#1637](https://github.com/jsschrstrcks1/InTheWake/issues/1637) | Duplicate `<script>` tags on 17 pages | LOW | 17 pages |
 
-### Integration Test Results
-- ✅ 14 PASS
-- ❌ 1 FAIL (pre-existing orphaned JS targets — out of scope)
-- ⚠️ 2 WARN (pre-existing)
+### Key Findings Summary
 
-### Orchestra Review
-Reviewed via GPT triad mode. All flagged issues resolved.
+**JavaScript (most impactful):**
+- `/assets/nav.js` — file deleted but 97 pages still reference it (404)
+- 198 fleet restaurant pages (NCL/MSC/Carnival/Virgin) — no nav JS at all
+- 23 article pages — no nav JS at all
+- 42 port pages — no nav JS at all
+- Total broken mobile nav: **~360 pages**
+- `/assets/js/newnav.js` exists but 0 pages reference it (orphaned)
+
+**CSS:**
+- 329 port pages + 10 ship index pages: unversioned `styles.css` (no cache-busting)
+- 259 ship pages: `ship-page.css?v=3.010.300` stale (current is v=3.010.400)
+- Norwegian fleet + Virgin + Cunard are current; most others are stale
+
+**Nav HTML:**
+- Ship pages have `/planning.html` in Planning dropdown; all other page types don't
+- Nav HTML structure is otherwise consistent (same classes, same link set)
+
+**Other:**
+- 455 pages missing `in-app-browser-escape.js` (Facebook/Instagram escape banner)
+- 12 ports reference `common.js` (deleted), 12 reference `recent-rail.js` (deleted)
+- 16 ports: og:url missing or has canonical mismatch
+- 17 pages: duplicate `<script>` tags
+
+### Validator Script Location
+
+No standalone validator saved. All analysis was done via inline Python during the session. Key commands:
+
+```bash
+# Pages missing dropdown.js by section
+find . -name "*.html" | grep -v ".claude" | xargs grep -L "dropdown.js" 2>/dev/null \
+  | awk -F'/' '{print $2}' | sort | uniq -c | sort -rn
+
+# Pages referencing missing JS files
+python3 -c "
+import os, re, glob
+all_refs = set()
+for path in glob.glob('./**/*.html', recursive=True):
+    if '.claude' in path: continue
+    content = open(path).read()
+    refs = re.findall(r'src=\"(/assets/[^\"?]*\.js)', content)
+    all_refs.update(refs)
+for ref in sorted(all_refs):
+    if not os.path.exists(ref.lstrip('/')): print('MISSING:', ref)
+"
+```
+
+### Previously Filed (Session 1, same day)
+
+Issues #1596, #1598, #1599, #1601, #1602, #1604, #1606, #1608, #1609, #1611, #1616, #1618, #1620, #1624 — homepage, about, robots.txt, sitemap, accessible-cruising audit.
 
 ---
 
-## Pre-Existing Issues (Tracked, Not Fixed Here)
+## How to Resume Next Audit Session
 
-| Issue | Description |
-|-------|-------------|
-| Orphaned JS targets | `featuredVideos`, `videoFallback`, `vf-tracker-container`, `dining-content`, `logbook-stories` — JS targets that don't exist in HTML. Pre-existed this PR. |
-
----
-
-## Tools Created (New Safeguards)
-
-| Tool | Location | Purpose |
-|------|----------|---------|
-| `impact-analysis.py` | `tools/impact-analysis.py` | Generates impact analysis doc for any ship page |
-| `integration-test.py` | `tools/integration-test.py` | BeautifulSoup-based integration tests |
-| `deep-review-checklist.sh` | `tools/deep-review-checklist.sh` | Pre-commit checklist (duplicates, guards, ICP) |
-
----
-
-## How to Resume
-
-1. Review `ships/carnival/IMPACT_ANALYSIS_carnival-horizon.md`
-2. Review `ships/carnival/INTEGRATION_TEST_carnival-horizon.md`
-3. Merge `fix/1364-carnival-horizon` → `main`
-4. Next: Fix pre-existing orphaned JS targets (new issue)
+1. Read this file
+2. Check open issues: `https://github.com/jsschrstrcks1/InTheWake/issues`
+3. The highest-priority remaining work:
+   - **Batch fix**: Add `dropdown.js` + `in-app-browser-escape.js` to all 360 broken pages (#1628-#1631, #1634) — this is a batch operation
+   - **Nav consistency**: Decide on /planning.html in nav globally (#1633)
+   - **CSS version sweep**: Update all unversioned/stale CSS params (#1632)
+4. Next pages to deep-audit (haven't been individually audited yet):
+   - `ships.html` hub page
+   - `cruise-lines.html` hub
+   - First Carnival ship page (full deep dive)
+   - A restaurant page in each fleet subdir
+   - `search.html`
+   - `tools/*.html` pages
