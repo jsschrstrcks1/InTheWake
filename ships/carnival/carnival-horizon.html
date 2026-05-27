@@ -658,18 +658,7 @@ Dining Venues</h2>
           const title=String(v.title||'Carnival Horizon').replace(/</g,'&lt;');
           return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
         }).join('');
-        if(mount.children.length&&window.Swiper){
-          setTimeout(()=>{
-            try{
-              new Swiper('.swiper.videos',{
-                loop:false,rewind:false,lazy:true,watchOverflow:true,
-                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
-                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
-                a11y:{enabled:true}
-              });
-            }catch(_){}
-          },150);
-        }
+
       }
       function fetchVideoData(){
         const SOURCES=[abs('/assets/data/videos/carnival/carnival-horizon.json')];
@@ -779,12 +768,7 @@ Dining Venues</h2>
             <p class="photo-caption">${v.title}</p>
           </div>
         `).join('');
-        new Swiper('#video-swiper',{loop:false,rewind:false,
-          slidesPerView: 1,
-          spaceBetween: 16,rewind:false,
-          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-          breakpoints: { 640: { slidesPerView: 2 }, 900: { slidesPerView: 3 } }
-        });
+
       }
     })
     .catch(() => {});
