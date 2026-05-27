@@ -1,5 +1,5 @@
 # Integration Test Results — carnival-horizon.html
-Generated: 2026-05-26 20:35:04
+Generated: 2026-05-26 20:36:53
 BeautifulSoup: available
 
 ## Required Sections
@@ -22,7 +22,7 @@ BeautifulSoup: available
 
 ## JavaScript Integrity
 - ✅ **PASS:** Swiper guard uses ! operator: True
-- ❌ **FAIL:** Orphaned JS targets: ['featuredVideos', 'videoFallback', 'vf-tracker-container', 'dining-content', 'logbook-stories']
+- ❌ **FAIL:** Orphaned JS targets: ['featuredVideos', 'dining-content', 'videoFallback', 'vf-tracker-container', 'logbook-stories']
 - ✅ **PASS:** Duplicate fetch() calls: none
 
 ## Accessibility
