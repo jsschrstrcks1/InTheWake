@@ -14,6 +14,7 @@
 #   admin/scripts/voyage-pack-pdf-build.sh luna-solo        # build only NCL Luna Tina solo group May 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh bliss-solo       # build only NCL Bliss Kristie Alaska Jul 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh world-america    # build only MSC World America Denise Apr 2027 (long-form)
+#   admin/scripts/voyage-pack-pdf-build.sh prima            # build only NCL Prima Tina Solo Group Sep 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh --force          # rebuild even if PDF is newer
 #   admin/scripts/voyage-pack-pdf-build.sh --check          # exit 1 if any PDF is stale (no build)
 #   admin/scripts/voyage-pack-pdf-build.sh --help
@@ -71,6 +72,7 @@ LONG_FORM_PACKS=(
   "v0.1.6-ncl-luna-solo-group-may-2026|ships/norwegian/v0.1.6-ncl-luna-solo-group-may-2026.pdf"
   "v0.1.7-ncl-bliss-alaska-solo-group-jul-2026|ships/norwegian/v0.1.7-ncl-bliss-alaska-solo-group-jul-2026.pdf"
   "v0.1.8-msc-world-america-solo-group-apr-2027|ships/msc/v0.1.8-msc-world-america-solo-group-apr-2027.pdf"
+  "v0.1.9-ncl-prima-solo-group-sep-2026|ships/norwegian/v0.1.9-ncl-prima-solo-group-sep-2026.pdf"
 )
 
 # Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.
@@ -84,13 +86,15 @@ CONDENSED_PACKS=(
   "v0.1.6-ncl-luna-solo-group-condensed"
   "v0.1.7-ncl-bliss-alaska-condensed"
   "v0.1.8-msc-world-america-condensed"
+  "v0.1.9-ncl-prima-solo-group-condensed"
 )
 
 # Handoff cards: 1-2 page emergency contact docs. Use voyage-pack-condensed-print.css.
-# Two sailing-specific (Bliss, World America) + one sailing-agnostic master card.
+# Sailing-specific cards (Bliss, World America, Prima) + one sailing-agnostic master card.
 HANDOFF_CARDS=(
   "v0.1.7-ncl-bliss-handoff-card"
   "v0.1.8-msc-world-america-handoff-card"
+  "v0.1.9-ncl-prima-handoff-card"
   "emergency-handoff-card-agnostic"
 )
 
@@ -338,7 +342,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|seaside-bahamas|seaside|msc|luna-solo|luna|bliss-solo|bliss|world-america|wa|all)
+    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|seaside-bahamas|seaside|msc|luna-solo|luna|bliss-solo|bliss|world-america|wa|prima|prima-solo|all)
       target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
@@ -399,6 +403,7 @@ case "$target" in
   luna-solo|luna) build_one_long "luna" "$ENGINE" || failures=$((failures + $?)) ;;
   bliss-solo|bliss) build_one_long "bliss" "$ENGINE" || failures=$((failures + $?)) ;;
   world-america|wa) build_one_long "world-america" "$ENGINE" || failures=$((failures + $?)) ;;
+  prima|prima-solo) build_one_long "prima" "$ENGINE" || failures=$((failures + $?)) ;;
   all|"")
     echo "── Long-form packs ──"
     build_all_long_form "$ENGINE" || failures=$((failures + $?))
