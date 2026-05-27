@@ -798,10 +798,7 @@ Dining Venues</h2>
   <script>
   (function initFirstLook(){
     function go(){
-      if(typeof Swiper==='undefined'){
-        if(window.__swiperReady) return setTimeout(go,50);
-        return setTimeout(go,100);
-      }
+      if(!window.__swiperReady||!window.Swiper) return setTimeout(go,120);
       try{
         new Swiper('.swiper.firstlook',{
           loop:false,rewind:false,lazy:true,watchOverflow:true,
