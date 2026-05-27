@@ -1,38 +1,31 @@
 {
   "_meta": {
     "description": "Port disclaimer level registry - tracks author's personal visit history",
-    "version": "1.1.0",
-    "updated": "2026-05-23",
+    "version": "1.0.0",
+    "updated": "2025-12-26",
     "disclaimer_levels": {
       "1": "Not yet visited (default)",
       "2": "Visit planned/scheduled",
       "3": "Personally visited"
     }
   },
+
   "level_3_visited": {
-    "antigua": {
-      "visit_count": 1,
-      "notes": "Visited once"
-    },
     "aruba": {
       "visit_count": 3,
       "notes": "Visited 3 times"
+    },
+    "antigua": {
+      "visit_count": 1,
+      "notes": "Visited once"
     },
     "auckland": {
       "visit_count": 1,
       "notes": "Visited once"
     },
-    "belize": {
-      "visit_count": 1,
-      "notes": "Visited once - Belize City and Harvest Caye"
-    },
     "bonaire": {
       "visit_count": 3,
       "notes": "Visited 3 times"
-    },
-    "cabo-san-lucas": {
-      "visit_count": 1,
-      "notes": "Recently visited (was Level 2 planned; moved to Level 3 on 2026-05-23)"
     },
     "cartagena": {
       "visit_count": 1,
@@ -54,10 +47,6 @@
       "visit_count": 3,
       "notes": "Visited 3 times - ABC islands"
     },
-    "ensenada": {
-      "visit_count": 1,
-      "notes": "Recently visited (was Level 2 planned; moved to Level 3 on 2026-05-23)"
-    },
     "freeport": {
       "visit_count": 1,
       "notes": "Visited once - Grand Bahama"
@@ -70,6 +59,10 @@
     "gatun-lake": {
       "visit_count": 1,
       "notes": "Visited once - Panama Canal transit"
+    },
+    "belize": {
+      "visit_count": 1,
+      "notes": "Visited once - Belize City and Harvest Caye"
     },
     "harvest-caye": {
       "visit_count": 1,
@@ -96,20 +89,14 @@
       "visit_count": 4,
       "notes": "Visited 4 times - Bahamas capital"
     },
-    "ocean-cay": {
+    "papeete": {
       "visit_count": 1,
-      "notes": "Visited once - MSC Cruises' private island in the Bimini chain, Bahamas, on MSC Seaside overnight call"
+      "notes": "Visited once - Tahiti, French Polynesia",
+      "alternate_names": ["tahiti"]
     },
     "panama-canal": {
       "visit_count": 1,
       "notes": "Visited once - transit"
-    },
-    "papeete": {
-      "visit_count": 1,
-      "notes": "Visited once - Tahiti, French Polynesia",
-      "alternate_names": [
-        "tahiti"
-      ]
     },
     "philipsburg": {
       "visit_count": 1,
@@ -150,7 +137,16 @@
       "embarkation_port": true
     }
   },
+
   "level_2_planned": {
+    "cabo-san-lucas": {
+      "planned_visits": 1,
+      "notes": "Scheduled future cruise"
+    },
+    "ensenada": {
+      "planned_visits": 2,
+      "notes": "Scheduled 2 future cruises"
+    },
     "juneau": {
       "planned_visits": 1,
       "notes": "Scheduled Alaska cruise"
@@ -178,9 +174,11 @@
       "notes": "Scheduled - Victoria BC, Canada"
     }
   },
+
   "level_1_default": {
     "note": "All ports not listed above default to Level 1 (not yet visited)"
   },
+
   "special_locations": {
     "equator-crossing": {
       "type": "milestone",
