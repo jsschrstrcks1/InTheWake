@@ -8,17 +8,37 @@
 
 @page {
   size: letter;
-  margin: 0.55in 0.55in 0.7in 0.55in;
+  margin: 0.75in 0.55in 0.7in 0.55in;
+  @top-left {
+    content: "IN THE WAKE";
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 9pt;
+    font-weight: bold;
+    color: #0e6e8e;
+    letter-spacing: 0.08em;
+    border-bottom: 1.2px solid #d9b382;
+    padding-bottom: 0.08in;
+    width: 100%;
+  }
+  @top-right {
+    content: "cruisinginthewake.com";
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 8pt;
+    color: #0e6e8e;
+    border-bottom: 1.2px solid #d9b382;
+    padding-bottom: 0.08in;
+    width: 100%;
+  }
   @bottom-center {
-    content: "In the Wake — Voyage Pack (condensed) — Page " counter(page) " of " counter(pages);
+    content: "Voyage Pack (condensed) · Page " counter(page) " of " counter(pages);
     font-family: Georgia, "Times New Roman", serif;
     font-size: 8pt;
     color: #555;
   }
   @bottom-right {
-    content: "cruisinginthewake.com";
+    content: "© In the Wake · Soli Deo Gloria";
     font-family: Georgia, serif;
-    font-size: 8pt;
+    font-size: 7.5pt;
     color: #888;
   }
 }
@@ -34,7 +54,7 @@ body {
 
 h1, h2, h3, h4 {
   font-family: "Helvetica Neue", "Arial", sans-serif;
-  color: #0a3d62;
+  color: #0e6e8e;
   page-break-after: avoid;
   page-break-inside: avoid;
 }
@@ -56,8 +76,9 @@ p { margin: 0 0 0.4em; }
   border-bottom: 2px solid #d9b382;
   padding-bottom: 0.4em;
   margin-bottom: 0.6em;
+  position: relative;
 }
-.vp-cover-mini h1 { margin-bottom: 0.05em; }
+.vp-cover-mini h1 { margin-bottom: 0.05em; color: #0d5d7a; }
 .vp-cover-mini h2 {
   font-size: 11pt;
   border-top: none;
@@ -68,6 +89,18 @@ p { margin: 0 0 0.4em; }
   font-style: italic;
 }
 .vp-cover-mini em { color: #666; font-size: 8.5pt; }
+/* Logo PNG is ~1:1 square (256×259 px). Higher specificity than any
+ * potential parent img rule so the explicit dimensions win. */
+.vp-cover-mini img.vp-cover-logo,
+img.vp-cover-logo {
+  display: block;
+  width: 0.55in;
+  height: 0.55in;
+  max-width: 0.55in;
+  max-height: 0.55in;
+  margin: 0 0 0.25em;
+  border-radius: 0;
+}
 
 /* Tables: tight, full-measure */
 table {
