@@ -111,4 +111,42 @@ if [ -f "$VOYAGE_PACK_PDF_CHECK" ] && [ "${#VOYAGE_PACK_MD[@]}" -gt 0 ]; then
     fi
 fi
 
+# 5. no-getbets hard ban — the string "getbets" (case-insensitive) must
+#    never appear in any production-facing file. Skill rationale:
+#    .claude/skills/no-getbets/SKILL.md
+#    Exempt paths (documentation about the ban): .claude/skills/no-getbets/,
+#    .claude/hooks/no-getbets-*, .claude/standards/no-getbets*,
+#    .githooks/pre-commit (this file), claude.md, SKILLS.md, AGENT.md,
+#    audit-reports/, admin/check-no-getbets*. Exemptions MUST mirror those
+#    in .claude/hooks/no-getbets-guard.js EXEMPT_PATH_PATTERNS.
+mapfile -t PRODUCTION_FILES < <(
+    git diff --cached --name-only --diff-filter=ACMR \
+        | grep -Ev '^\.claude/(skills/no-getbets/|hooks/no-getbets-|standards/no-getbets)' \
+        | grep -Ev '^\.githooks/pre-commit$' \
+        | grep -Ev '^(audit-reports|node_modules|\.git)/' \
+        | grep -Ev '^admin/check-no-getbets' \
+        | grep -Ev '^(claude|SKILLS|AGENT)\.md$' \
+        || true
+)
+if [ "${#PRODUCTION_FILES[@]}" -gt 0 ]; then
+    GETBETS_HITS=()
+    for f in "${PRODUCTION_FILES[@]}"; do
+        if [ -f "$REPO_ROOT/$f" ] && grep -liq 'getbets' "$REPO_ROOT/$f"; then
+            GETBETS_HITS+=("$f")
+        fi
+    done
+    if [ "${#GETBETS_HITS[@]}" -gt 0 ]; then
+        echo ""
+        echo "pre-commit: HARD BAN — 'getbets' string detected in production file(s):"
+        for h in "${GETBETS_HITS[@]}"; do echo "  - $h"; done
+        echo ""
+        echo "  cruisinginthewake.com does not reference getbets.us. See:"
+        echo "    .claude/skills/no-getbets/SKILL.md"
+        echo ""
+        echo "  Bypass (only when intentionally editing ban-documentation files):"
+        echo "    git commit --no-verify"
+        exit 1
+    fi
+fi
+
 exit 0
