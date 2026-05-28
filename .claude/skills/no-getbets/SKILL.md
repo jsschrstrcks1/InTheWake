@@ -26,7 +26,7 @@ The diagnosis: **adversarial co-mention**, not organic demand. Any defensive ref
 
 ## Exempt paths
 
-Documentation about the ban itself is the only legitimate context for the string `getbets` in this repo. The following paths are exempt:
+Documentation about the ban itself, and the private admin tooling that defends against it, are the only legitimate contexts for the string `getbets` in this repo. The following paths are exempt:
 
 - `.claude/skills/no-getbets/**` (this skill)
 - `.claude/hooks/no-getbets-*` (the enforcement hook)
@@ -35,6 +35,7 @@ Documentation about the ban itself is the only legitimate context for the string
 - `claude.md`, `SKILLS.md`, `AGENT.md` (rule discoverability)
 - `audit-reports/**` (investigation artifacts)
 - `admin/check-no-getbets*` (any admin tooling for the check)
+- `admin/seo/**` (Search Console disavow files and related defensive SEO artifacts — never served)
 
 The exempt list is duplicated in `.claude/hooks/no-getbets-guard.js` (`EXEMPT_PATH_PATTERNS`) and `.githooks/pre-commit` (path-filter grep). Any new exemption must be added in both places.
 

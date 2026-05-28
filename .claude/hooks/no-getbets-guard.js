@@ -32,6 +32,7 @@ const EXEMPT_PATH_PATTERNS = [
   /(^|\/)AGENT\.md$/,
   /\/audit-reports\//,
   /admin\/check-no-getbets/,
+  /admin\/seo\//,
 ];
 
 let input = '';

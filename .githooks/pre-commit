@@ -125,6 +125,7 @@ mapfile -t PRODUCTION_FILES < <(
         | grep -Ev '^\.githooks/pre-commit$' \
         | grep -Ev '^(audit-reports|node_modules|\.git)/' \
         | grep -Ev '^admin/check-no-getbets' \
+        | grep -Ev '^admin/seo/' \
         | grep -Ev '^(claude|SKILLS|AGENT)\.md$' \
         || true
 )
