@@ -641,6 +641,13 @@
           </a>
         </div>
       </article>
+      <script>
+        // Keep the duck card hidden for visitors who already dismissed it.
+        if (localStorage.getItem('duckCardDismissed') === 'true') {
+          var duckCard = document.getElementById('duck-card');
+          if (duckCard) { duckCard.style.display = 'none'; }
+        }
+      </script>
 
       <!-- FAQ Section (ICP-Lite) - Moved from right rail for better accessibility -->
       <section class="card mt-15" aria-labelledby="faq-heading">
