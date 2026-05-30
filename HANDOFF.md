@@ -1,231 +1,103 @@
-# Issue #1364 Handoff — Carnival Horizon Duplicate Sections
-
-**Status:** ✅ COMPLETE & PUSHED  
-**Commits:** 2 (6440272c4 + 25ce39d87)  
-**Branch:** main  
-**Date:** 2026-05-25  
+# HANDOFF.md — InTheWake Audit State
+**Last updated:** 2026-05-26 (evening session)
 
 ---
 
-## What Was Done
+## Issue #1364 — Carnival Horizon Duplicate Sections
+**Status:** COMPLETE — Ready for merge to main
+**Branch:** `fix/1364-carnival-horizon`
 
-### Phase 1: Analysis (Research)
-- Identified **3 duplicate section groups** in carnival-horizon.html
-- Root cause: Template refactor left both old and new layouts in file
-- Secondary issue: Photo carousel has **nested swiper-slide structure** (broken)
-
-**Output:** ISSUE_1364_ANALYSIS.md (11 KB detailed breakdown)
-
-### Phase 2: Resolution (Implementation)
-**File:** `/ships/carnival/carnival-horizon.html`
-
-**Changes:**
-1. **Removed duplicate video carousel** (lines 677-690)
-   - Deleted: "Watch: Carnival Horizon Highlights" section
-   - Kept: "Video Tours & Reviews" as single source
-   - Result: One Swiper instance instead of two
-
-2. **Removed duplicate tracker** (lines 698-704)
-   - Deleted: Empty `#ship-tracker-container` placeholder
-   - Kept: Functional MarineTraffic iframe tracker
-   - Result: One tracker, fully functional
-
-3. **Fixed photo carousel** (lines 299-347)
-   - Before: 24 nested `<div class="swiper-slide">` (broken)
-   - After: 7 clean, non-nested slides (working)
-   - Removed: Duplicate/redundant images
-   - Result: Carousel renders 7 distinct ship photos
-
-4. **Cleaned footer sections**
-   - Removed incomplete Deck Plans grid layout
-   - Removed duplicate Attribution section
-
-**Impact:**
-- File size: 1,221 → 1,123 lines (-98 lines, -8%)
-- Performance: -1 to -2 unnecessary JS initializations
-- UX: Single video carousel, single tracker, working photo gallery
-
-### Phase 3: Verification (Testing)
-**Output:** ISSUE_1364_VERIFICATION.md (6.8 KB test results)
-
-Tests Passed:
-- ✅ HTML structure validation (no orphaned tags)
-- ✅ Photo carousel renders 7 distinct images
-- ✅ Video carousel loads dynamically
-- ✅ Live tracker iframe displays
-- ✅ Accessibility: Unique IDs, ARIA labels
-- ✅ Navigation: All anchor links valid
-- ✅ Regression: No broken sections
-
-### Phase 4: Documentation (Knowledge Transfer)
-**Output:** ISSUE_1364_SUMMARY.md (4.5 KB quick reference)
-
-Three comprehensive documents created:
-1. ISSUE_1364_ANALYSIS.md — Technical deep dive
-2. ISSUE_1364_VERIFICATION.md — Test results & sign-off
-3. ISSUE_1364_SUMMARY.md — One-page overview
+See `ISSUE_1364_ANALYSIS.md`, `ISSUE_1364_SUMMARY.md`, `ISSUE_1364_VERIFICATION.md` for full details.
 
 ---
 
-## Git Log
+## Systematic Audit — Session 2 (2026-05-26 Evening)
 
-```
-commit 25ce39d87  [CURRENT]
-Author: Skynet
-Date:   2026-05-25
+### What Was Done
 
-docs(#1364): add analysis and verification documentation
-- ISSUE_1364_ANALYSIS.md
-- ISSUE_1364_VERIFICATION.md
-- ISSUE_1364_SUMMARY.md
+Complete JS/CSS/HTML nav audit across all 1,282 pages. Built Python validators. Found and documented 10 new issues filed to GitHub.
 
+### Issues Filed This Session
 
-commit 6440272c4
-Author: Skynet
-Date:   2026-05-25
+| # | Title | Severity | Scope |
+|---|-------|----------|-------|
+| [#1628](https://github.com/jsschrstrcks1/InTheWake/issues/1628) | `/assets/nav.js` missing (404) | **CRITICAL** | 97 restaurant pages |
+| [#1629](https://github.com/jsschrstrcks1/InTheWake/issues/1629) | Fleet restaurant subdirs missing dropdown.js | **CRITICAL** | 198 pages (NCL/MSC/Carnival/Virgin) |
+| [#1630](https://github.com/jsschrstrcks1/InTheWake/issues/1630) | Article pages missing dropdown.js | HIGH | 23 pages |
+| [#1631](https://github.com/jsschrstrcks1/InTheWake/issues/1631) | Port pages missing dropdown.js | HIGH | 42 ports |
+| [#1632](https://github.com/jsschrstrcks1/InTheWake/issues/1632) | CSS unversioned/stale cache-busting | MEDIUM | 342 pages (+ 259 ships w/ stale ship-page.css) |
+| [#1633](https://github.com/jsschrstrcks1/InTheWake/issues/1633) | Nav inconsistency: /planning.html ships-only | MEDIUM | 312 ships + others |
+| [#1634](https://github.com/jsschrstrcks1/InTheWake/issues/1634) | `in-app-browser-escape.js` missing | MEDIUM | 455 pages |
+| [#1635](https://github.com/jsschrstrcks1/InTheWake/issues/1635) | Broken JS references (common.js, recent-rail.js, etc.) | MEDIUM | 10 port pages |
+| [#1636](https://github.com/jsschrstrcks1/InTheWake/issues/1636) | Port pages missing og:url / canonical mismatch | MEDIUM | 16 ports |
+| [#1637](https://github.com/jsschrstrcks1/InTheWake/issues/1637) | Duplicate `<script>` tags on 17 pages | LOW | 17 pages |
 
-fix(#1364): remove duplicate Video/Tracker sections and fix photo carousel nesting
-- Remove duplicate 'Watch: Carnival Horizon Highlights' video section
-- Remove duplicate 'Live Ship Tracker' in grid-2 layout
-- Fix photo carousel: remove nested swiper-slide elements
-- Reduce file size by ~100 lines (1221 → 1123 lines)
-- Validate HTML structure: no orphaned tags or nesting violations
+### Key Findings Summary
 
-Fixes: https://github.com/cruisinginthewake/site/issues/1364
+**JavaScript (most impactful):**
+- `/assets/nav.js` — file deleted but 97 pages still reference it (404)
+- 198 fleet restaurant pages (NCL/MSC/Carnival/Virgin) — no nav JS at all
+- 23 article pages — no nav JS at all
+- 42 port pages — no nav JS at all
+- Total broken mobile nav: **~360 pages**
+- `/assets/js/newnav.js` exists but 0 pages reference it (orphaned)
+
+**CSS:**
+- 329 port pages + 10 ship index pages: unversioned `styles.css` (no cache-busting)
+- 259 ship pages: `ship-page.css?v=3.010.300` stale (current is v=3.010.400)
+- Norwegian fleet + Virgin + Cunard are current; most others are stale
+
+**Nav HTML:**
+- Ship pages have `/planning.html` in Planning dropdown; all other page types don't
+- Nav HTML structure is otherwise consistent (same classes, same link set)
+
+**Other:**
+- 455 pages missing `in-app-browser-escape.js` (Facebook/Instagram escape banner)
+- 12 ports reference `common.js` (deleted), 12 reference `recent-rail.js` (deleted)
+- 16 ports: og:url missing or has canonical mismatch
+- 17 pages: duplicate `<script>` tags
+
+### Validator Script Location
+
+No standalone validator saved. All analysis was done via inline Python during the session. Key commands:
+
+```bash
+# Pages missing dropdown.js by section
+find . -name "*.html" | grep -v ".claude" | xargs grep -L "dropdown.js" 2>/dev/null \
+  | awk -F'/' '{print $2}' | sort | uniq -c | sort -rn
+
+# Pages referencing missing JS files
+python3 -c "
+import os, re, glob
+all_refs = set()
+for path in glob.glob('./**/*.html', recursive=True):
+    if '.claude' in path: continue
+    content = open(path).read()
+    refs = re.findall(r'src=\"(/assets/[^\"?]*\.js)', content)
+    all_refs.update(refs)
+for ref in sorted(all_refs):
+    if not os.path.exists(ref.lstrip('/')): print('MISSING:', ref)
+"
 ```
 
----
+### Previously Filed (Session 1, same day)
 
-## What Still Needs Doing
-
-### High Priority
-1. **Audit similar pages** for same duplication pattern
-   - Carnival Vista (prob has same issue)
-   - Carnival Panorama (sister ship)
-   - Other fleet pages
-   - Time estimate: 2-4 hours
-
-2. **Add pre-commit linter**
-   - Detect duplicate IDs in HTML
-   - Catch nested carousel slides
-   - Time estimate: 1-2 hours
-
-### Medium Priority
-3. **Template documentation**
-   - Document best practices for carousel markup
-   - Show example: proper nesting, unique IDs, Swiper config
-   - Time estimate: 30-45 minutes
-
-4. **Cross-repo check**
-   - Are other InTheWake repos affected?
-   - Automated script to find duplicates
-   - Time estimate: 1 hour
-
-### Low Priority
-5. **Related issues** (separate work)
-   - #1465: `image-reuse-guardrail` false positives
-   - #1384: `Full Port Crawl Audit` (387 pages)
+Issues #1596, #1598, #1599, #1601, #1602, #1604, #1606, #1608, #1609, #1611, #1616, #1618, #1620, #1624 — homepage, about, robots.txt, sitemap, accessible-cruising audit.
 
 ---
 
-## Key Decisions Made
+## How to Resume Next Audit Session
 
-1. **Kept MarineTraffic tracker, deleted empty placeholder**
-   - Reason: MarineTraffic is functional; placeholder was incomplete
-   - Alternative rejected: Implement custom tracker (too complex for this issue)
-
-2. **Removed ALL 17 redundant photo slides**
-   - Reason: They were exact duplicates of slides 2-5
-   - Kept 7 unique images: intro, 4 variants, Naples, exterior
-
-3. **Deleted entire "Deck Plans & Tracker Grid" section**
-   - Reason: Incomplete implementation; Deck Plans link works in FAQ
-   - Alternative: Could have moved to proper location, but scope creep
-
-4. **Did NOT split fix into smaller commits**
-   - Reason: All three duplicate groups stem from same root cause
-   - Benefit: Single commit to revert if needed
-
----
-
-## Testing Checklist
-
-- [x] HTML structure validation
-- [x] Photo carousel renders
-- [x] Video carousel initializes
-- [x] Live tracker loads
-- [x] No JavaScript console errors expected
-- [x] Accessibility (heading IDs, ARIA labels)
-- [x] Navigation links valid
-- [x] No broken sections
-- [x] File size reduction confirmed
-- [x] Git commit clean
-
----
-
-## How to Resume If Issues Arise
-
-1. **If photo carousel still doesn't render:**
-   - Check Swiper JS library loads: `window.Swiper` should exist
-   - Verify swiper-wrapper has 7 direct children (swiper-slide divs)
-   - Check browser console for JS errors in swiper init
-
-2. **If video carousel fails:**
-   - Check `/assets/data/videos/carnival/carnival-horizon.json` exists
-   - Verify JSON structure: `{ videos: [...] }`
-   - Test JSON endpoint: `fetch('/assets/data/videos/carnival/carnival-horizon.json')`
-
-3. **If live tracker is blank:**
-   - MarineTraffic API may be down or blocked
-   - Try accessing iframe URL directly in new tab
-   - Check MMSI is correct: 370039000
-
-4. **To revert all changes:**
-   ```bash
-   git revert 6440272c4
-   git push origin main
-   ```
-
----
-
-## Related Tickets
-
-- **#1365** (hypothetical): Audit Carnival Vista for same issue
-- **#1466** (hypothetical): Add carousel linter to CI/CD
-- **#1384**: Full Port Crawl Audit (separate, larger scope)
-- **#1465**: Image reuse validator false positives
-
----
-
-## Stakeholder Notes
-
-For QA/Product:
-- ✅ Issue is resolved and tested
-- ✅ No regression on existing functionality
-- ✅ Page load performance improved
-- ✅ User-facing changes: Single video section, working photo gallery
-
-For Developers:
-- ✅ Code is clean and validated
-- ✅ Documentation is comprehensive
-- ✅ Easy to reproduce or revert if needed
-- ✅ Commit message explains why, not just what
-
-For Management:
-- ✅ ~2 hours of focused work
-- ✅ Medium-severity bug fixed
-- ✅ Ready for production deployment
-- ✅ Follow-up work identified and scoped
-
----
-
-## Sign-Off
-
-**Issue Fixed:** ✅  
-**Tests Passed:** ✅  
-**Code Reviewed:** ✅ (self-reviewed, validated)  
-**Documentation Complete:** ✅  
-**Ready for Merge:** ✅  
-
-**Next Action:** Monitor for edge cases; plan Phase 2 (audit other ships).
-
+1. Read this file
+2. Check open issues: `https://github.com/jsschrstrcks1/InTheWake/issues`
+3. The highest-priority remaining work:
+   - **Batch fix**: Add `dropdown.js` + `in-app-browser-escape.js` to all 360 broken pages (#1628-#1631, #1634) — this is a batch operation
+   - **Nav consistency**: Decide on /planning.html in nav globally (#1633)
+   - **CSS version sweep**: Update all unversioned/stale CSS params (#1632)
+4. Next pages to deep-audit (haven't been individually audited yet):
+   - `ships.html` hub page
+   - `cruise-lines.html` hub
+   - First Carnival ship page (full deep dive)
+   - A restaurant page in each fleet subdir
+   - `search.html`
+   - `tools/*.html` pages

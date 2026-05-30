@@ -233,6 +233,21 @@ for file in $FILES; do
         ((TOTAL_ERRORS++))
       fi
 
+      # Anchor tag inside <title> — invalid HTML, breaks SEO and crawlers
+      if python3 -c "
+import sys
+content = open('$file').read()
+import re
+title_match = re.search(r'<title[^>]*>(.*?)</title>', content, re.DOTALL)
+if title_match and '<a' in title_match.group(1):
+    sys.exit(1)
+" 2>/dev/null; then
+        echo -e "   ${GREEN}✓${NC} No anchor tags inside <title>"
+      else
+        echo -e "   ${RED}✗${NC} Anchor tag found inside <title> — invalid HTML"
+        ((TOTAL_ERRORS++))
+      fi
+
       if grep -q 'lang="en"' "$file" 2>/dev/null; then
         echo -e "   ${GREEN}✓${NC} Language attribute"
       else
