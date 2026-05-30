@@ -121,7 +121,11 @@ fi
 if [ -f "$FACTCHECK_GATE" ] && [ "${#VOYAGE_PACK_MD[@]}" -gt 0 ]; then
     if ! bash "$FACTCHECK_GATE"; then
         # factcheck-gate.sh prints its own block message and remediation steps
-# 5. no-getbets hard ban — the string "getbets" (case-insensitive) must
+        exit 1
+    fi
+fi
+
+# 6. no-getbets hard ban — the string "getbets" (case-insensitive) must
 #    never appear in any production-facing file. Skill rationale:
 #    .claude/skills/no-getbets/SKILL.md
 #    Exempt paths (documentation about the ban): .claude/skills/no-getbets/,
