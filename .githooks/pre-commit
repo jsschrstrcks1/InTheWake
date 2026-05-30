@@ -41,6 +41,7 @@ LOCK_CLI="$REPO_ROOT/admin/ship-lock.cjs"
 REGRESSION_CLI="$REPO_ROOT/admin/check-ship-regression.cjs"
 IMAGE_REUSE_CLI="$REPO_ROOT/admin/check-image-reuse.cjs"
 VOYAGE_PACK_PDF_CHECK="$REPO_ROOT/admin/scripts/voyage-pack-pdf-build.sh"
+FACTCHECK_GATE="$REPO_ROOT/admin/scripts/factcheck-gate.sh"
 
 mapfile -t SHIP_FILES < <(
     git diff --cached --name-only --diff-filter=ACMR \
@@ -107,6 +108,19 @@ if [ -f "$VOYAGE_PACK_PDF_CHECK" ] && [ "${#VOYAGE_PACK_MD[@]}" -gt 0 ]; then
         echo "pre-commit: stale or missing Voyage Pack PDF(s). Commit blocked."
         echo "  Rebuild:   admin/scripts/voyage-pack-pdf-build.sh"
         echo "  Bypass:    git commit --no-verify  (only when intentionally shipping a .md change without a regenerated .pdf)"
+        exit 1
+    fi
+fi
+
+# 5. Voyage-pack factual-claim gate (original-research skill).
+#    When a pack .md is staged, a fresh complete .factcheck.json sidecar must
+#    exist citing primary sources for every factual claim. Enforces the doctrine
+#    at .claude/skills/original-research/ORIGINAL-RESEARCH.md.
+#    Built 2026-05-30 after an audit found ~50 confabulated facts across 11 packs.
+#    Soli Deo Gloria — the closing requires the contents be true.
+if [ -f "$FACTCHECK_GATE" ] && [ "${#VOYAGE_PACK_MD[@]}" -gt 0 ]; then
+    if ! bash "$FACTCHECK_GATE"; then
+        # factcheck-gate.sh prints its own block message and remediation steps
         exit 1
     fi
 fi

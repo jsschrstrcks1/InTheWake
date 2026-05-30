@@ -1,0 +1,216 @@
+{
+  "_comment": "Fact-check sidecar template. Copy to <pack_filename>.factcheck.json next to the .md source. Fill EVERY claim category that appears in the pack. Sources MUST be primary (cruise-line press release, FAQ, Wikipedia ship article with citation, cruisedeckplans, cruise-industry-news). NEVER cite another pack in this repo. Update last_factcheck_date whenever the pack .md is edited. The pre-commit hook blocks if sidecar is missing, stale (older than .md mtime), or missing required categories.",
+  "_required_categories": ["pack_filename", "last_factcheck_date", "ship_specs", "christening", "policies", "superlatives"],
+  "_optional_categories": ["maiden_voyage", "port_prices", "venues", "deployment_history", "itinerary_notes"],
+
+  "pack_filename": "vX.Y.Z-line-ship-itinerary.md",
+  "last_factcheck_date": "YYYY-MM-DD",
+  "verified_by": "Claude (operator-supervised) | Operator | <name>",
+  "verification_session": "Brief note on the session that performed this audit",
+
+  "ship_specs": {
+    "gross_tonnage": {
+      "value": "<e.g., 168,666 GT>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "<any discrepancy between sources, which was chosen and why>"
+    },
+    "length_ft_m": {
+      "value": "<e.g., 1,138 ft / 347 m>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "decks": {
+      "value": "<e.g., 16 total (14 passenger-accessible)>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "staterooms": {
+      "value": "<integer>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "capacity_double_max": {
+      "value": "<e.g., 4,180 double / 4,905 max>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "crew": {
+      "value": "<e.g., ~1,500>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "DO NOT copy-paste from another pack. Per-ship verification required (the 1,388 crew copy-pasted across Aqua/Luna/Prima caused three errors in one trap)."
+    },
+    "year_built": {
+      "value": "<YYYY>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "builder": {
+      "value": "<e.g., Meyer Werft, Papenburg, Germany>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "registry": {
+      "value": "<e.g., Nassau, Bahamas>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "class": {
+      "value": "<e.g., Quantum-class, second ship>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "sister_ships": {
+      "value": "<comma-separated list with years>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "Verify the list is COMPLETE — missing siblings is a recurring error (Anthem pack initially omitted Odyssey, the 5th Quantum-class ship)."
+    }
+  },
+
+  "christening": {
+    "godparent": {
+      "value": "<name and any title>",
+      "source": "<primary URL — cruise line press release strongly preferred>",
+      "verified": "YYYY-MM-DD",
+      "notes": "HIGH-RISK CATEGORY. Verified failures: Prima 'Katarina Witt' (actually Katy Perry); Aqua missing godparent (Eric Stonestreet); ELLE 'from Napa, CA' (actually NYC/London)."
+    },
+    "date": {
+      "value": "<YYYY-MM-DD>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "location": {
+      "value": "<port + city>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "selection_mechanism": {
+      "value": "<how the godparent was chosen, if relevant>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "Anthem pack 'chosen from general public' was wrong; Emma Wilby was from 'a search for travel agents who could sing.'"
+    }
+  },
+
+  "maiden_voyage": {
+    "date": {
+      "value": "<YYYY-MM-DD>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "route": {
+      "value": "<from / to / nights>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    }
+  },
+
+  "policies": {
+    "auto_gratuity_rate": {
+      "value": "<e.g., $18.50/day standard, $21.00/day suites>",
+      "source": "<URL to cruise line's current FAQ>",
+      "verified": "YYYY-MM-DD",
+      "notes": "RATES CHANGE. Re-verify on every pack edit. RCL raised to $18.50/$21 (prior packs had $16); MSC raised to $17/$23 effective May 11 2026; NCL $20/$25."
+    },
+    "wine_alcohol_policy": {
+      "value": "<carry-on allowance specifics>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "RCL moved from per-stateroom to per-adult in March 2023; old per-stateroom phrasing is incorrect."
+    },
+    "drink_package_name_and_pricing": {
+      "value": "<package name + current price per day>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "PACKAGE NAMES CHANGE. MSC retired Easy / Easy Plus (NA Dec 2024, global Aug 2025). NCL bundles via Free at Sea. Virgin bundles in fare. Verify the current name AND pricing every edit."
+    },
+    "laundry_availability": {
+      "value": "<e.g., 'no self-service; full-service via cabin steward only'>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "TRAP CATEGORY. RCL: DIY laundry is WORLD-CRUISE-ONLY. MSC: NO self-service fleet-wide. NCL: NO self-service fleet-wide. Virgin: NO self-service on Lady Class. Princess and HAL: yes self-service. Verify per-line per-ship."
+    },
+    "app_naming": {
+      "value": "<e.g., 'Royal Caribbean app (includes Royal iQ chat)'>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "RCL consolidated 'Royal IQ' into the unified app. NCL: 'NCL app' or 'Cruise Norwegian.' Verify current naming."
+    },
+    "single_supplement": {
+      "value": "<e.g., '200% baseline; 150-175% during solo promotions'>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    }
+  },
+
+  "port_prices": {
+    "_comment": "List each priced port-day claim with current source. Prices change with operator and season. Verify on every pack edit if the pack will sail more than 60 days out.",
+    "<port_or_excursion_slug>": {
+      "value": "<current price range>",
+      "source": "<primary URL — operator site preferred>",
+      "verified": "YYYY-MM-DD",
+      "notes": "<which operator the price is from>"
+    }
+  },
+
+  "superlatives": {
+    "_comment": "EVERY 'first at sea,' 'world's largest,' 'longest,' 'only,' 'best,' 'originally' claim in the pack body gets an entry here. If the claim cannot be sourced to the cruise line's own press release with a date, REMOVE THE SUPERLATIVE from the pack. The descriptive claim ('a three-level go-kart track') is almost always sufficient and always defensible.",
+    "<exact wording of the claim in the pack>": {
+      "claim": "<exact phrase from the pack>",
+      "source": "<primary URL or null if claim was removed>",
+      "verified": "YYYY-MM-DD",
+      "disposition": "<one of: sourced | softened-and-sourced | removed>"
+    }
+  },
+
+  "venues": {
+    "specialty_dining_list": {
+      "value": "<list of specialty restaurants on this specific ship>",
+      "source": "<primary URL — ship-specific deck plan or cruise-line ship page>",
+      "verified": "YYYY-MM-DD",
+      "notes": "Specialty venues vary by ship even within a class (Escape has Pincho Tapas; Bliss does not). Verify per-ship, not per-class."
+    },
+    "included_dining_list": {
+      "value": "<list of fare-included venues on this specific ship>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD"
+    },
+    "indulge_food_hall_venues_if_applicable": {
+      "value": "<exact venue names>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "Naming has been wrong before: 'Q Texas Smokehouse' is the Breakaway Plus name; 'Texas Q Steakhouse' is the Prima-class name. 'Esagono' and 'Hexagon' are the SAME venue (Italian translation), not two separate ones."
+    }
+  },
+
+  "deployment_history": {
+    "current_homeport": {
+      "value": "<e.g., 'Pier 91, Seattle (summer 2025 onward)'>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "Year of deployment shift matters. Anthem moved to Alaska in 2025, not 2024 as one pack had it."
+    },
+    "drydocks": {
+      "value": "<list of dates and locations>",
+      "source": "<primary URL>",
+      "verified": "YYYY-MM-DD",
+      "notes": "TRAP. Anthem pack invented a '2018 drydock' that never happened — Anthem's first major drydock was March 2025 Singapore (April 2020 was cancelled due to COVID). If you cannot find a drydock in a cruise-industry source, it did not happen."
+    }
+  },
+
+  "itinerary_notes": {
+    "day_date_alignment": {
+      "value": "<e.g., 'Nov 20 2026 = Friday; Nov 26 = Thanksgiving Thursday'>",
+      "source": "calendar verification",
+      "verified": "YYYY-MM-DD"
+    },
+    "port_hours": {
+      "value": "<arrival / departure times if claimed>",
+      "source": "<URL to cruise line itinerary or operator confirmation>",
+      "verified": "YYYY-MM-DD",
+      "notes": "Port hours vary per sailing. Frame as 'typical' unless the cruise line has published this sailing's specific times."
+    }
+  }
+}
