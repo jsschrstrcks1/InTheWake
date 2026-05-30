@@ -4,7 +4,7 @@
 
 This document is the human-facing index of all Claude Code skills configured in this repository. The agent-facing pointer lives in [`claude.md`](claude.md). Skills follow the agent-skills-spec format and live under `.claude/skills/`.
 
-**Total skills configured: 45.** This is the largest skill surface in the household. The repo serves 1,241 pages with a triple validator chain, so the skill stack covers content authoring, voice, accessibility, SEO, deployment, and the ITW-Lite Protocol.
+**Total skills configured: 46.** This is the largest skill surface in the household. The repo serves 1,241 pages with a triple validator chain, so the skill stack covers content authoring, voice, accessibility, SEO, deployment, the ITW-Lite Protocol, and hard-ban guardrails.
 
 ---
 
@@ -31,6 +31,7 @@ This document is the human-facing index of all Claude Code skills configured in 
 | [`emotional-hook-test`](#emotional-hook-test) | explicit pre-publish | on | Reader emotional resonance |
 | [`internal-consistency-repair`](#internal-consistency-repair) | explicit | on | Cross-page consistency repair |
 | [`image-reuse-guardrail`](#image-reuse-guardrail) | automatic on image use | on | Refuses copyrighted-image reuse |
+| [`no-getbets`](#no-getbets) | automatic on every Write/Edit/MultiEdit + every commit | on | Hard ban on external scam-flagged casino domain reference |
 | [`deployment-validator`](#deployment-validator) | explicit pre-deploy | on | Cloudflare Pages, redirects, custom domain |
 | [`webapp-testing`](#webapp-testing) | explicit | on | Tests interactive tools |
 
@@ -140,6 +141,10 @@ Repairs cross-page inconsistencies (e.g., ship stats that drifted between ship p
 ### `image-reuse-guardrail`
 
 Refuses to reuse copyrighted cruise-line images without proper attribution. WebP-only enforcement; Wikimedia Commons attribution required.
+
+### `no-getbets`
+
+Hard ban on the string `getbets` (case-insensitive) appearing in any production-facing file. Enforced via Claude Code PreToolUse hook (`.claude/hooks/no-getbets-guard.js`) which denies any Write/Edit/MultiEdit containing the string, and via `.githooks/pre-commit` check #5 which blocks any commit with the string in a non-exempt staged file. Documentation files explaining the ban itself are the only exempt context. Rationale: AI grounding probes pairing an external scam-flagged casino site with cruise-casino content — any reference, even defensive, would strengthen the adversarial SEO co-mention. Full rule: `.claude/skills/no-getbets/SKILL.md`.
 
 ### `deployment-validator`
 

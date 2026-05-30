@@ -7,6 +7,18 @@
 
 ---
 
+## Hard bans
+
+These strings must never appear in any production-facing file on cruisinginthewake.com. Enforced by Claude Code PreToolUse hooks AND `.githooks/pre-commit` — both layers block on violation, no `--no-verify` bypass for production paths.
+
+| String | Skill | Rationale |
+|---|---|---|
+| `getbets` (case-insensitive) | [`no-getbets`](./.claude/skills/no-getbets/SKILL.md) | External scam-flagged casino site. AI grounding probes have been pairing the domain with our cruise-casino content; any reference would strengthen the adversarial SEO co-mention they are trying to create. Defense is structural absence. |
+
+Exempt paths (the documentation files allowed to name the banned string): `.claude/skills/no-getbets/`, `.claude/hooks/no-getbets-*`, `.claude/standards/no-getbets*`, `.githooks/pre-commit`, `claude.md`, `SKILLS.md`, `AGENT.md`, `audit-reports/`, `admin/check-no-getbets*`.
+
+---
+
 ## Skills
 
 Full skill catalog (45 skills) is documented in [`SKILLS.md`](SKILLS.md) — human-facing index with activation modes, trigger keywords, the validator chain, and the ITW-Lite Protocol enforcement. **Read SKILLS.md at session start** before working on any page, tool, or content surface.

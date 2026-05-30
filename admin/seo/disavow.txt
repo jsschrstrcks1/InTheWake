@@ -1,0 +1,24 @@
+# Google Search Console — disavow file.
+#
+# Reason: external co-mention pattern detected; no legitimate inbound
+# association. Any backlink from the listed domain(s) should be discounted
+# for ranking purposes.
+#
+# Format: one entry per line. "domain:<host>" disavows all URLs on that
+# host. Bare URLs disavow a single page.
+#
+# Upload procedure (manual, ~5 minutes):
+#   1. https://search.google.com/search-console/disavow-links
+#   2. Select the property for this site
+#   3. Click "Upload disavow list"
+#   4. Choose this file (or download a copy)
+#   5. Confirm
+#
+# Effect window: ~weeks for Google to recrawl and re-evaluate. Reversible
+# by uploading a revised list or by removing the file entirely.
+#
+# Maintenance: when new co-mention probes appear in AI grounding analytics
+# or Search Console backlinks, append the new host here and re-upload.
+# Keep this file as the single source of truth.
+
+domain:getbets.us
