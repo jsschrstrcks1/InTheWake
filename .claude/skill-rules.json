@@ -729,6 +729,50 @@
         "note": "All consultation feedback must be verified before incorporation."
       }
     },
+    "original-research": {
+      "enabled": true,
+      "type": "guardrail",
+      "enforcement": "block",
+      "priority": "critical",
+      "description": "Factual claim discipline. Every factual claim in shipped content must trace to a primary source verified in-session, recorded in a .factcheck.json sidecar. Blocks three confabulation modes: training-data echo, copy-propagation, superlative-by-default. Pre-commit hook (admin/scripts/factcheck-gate.sh) gates voyage-pack .md commits on sidecar presence + freshness. Peer to careful-not-clever. Created 2026-05-30 after audit found ~50 confabulated facts across 11 voyage packs.",
+      "fileTriggers": {
+        "pathPatterns": [
+          "admin/voyage-packs/v*.md",
+          "ships/**/*.html",
+          "ports/**/*.html",
+          "restaurants/**/*.html"
+        ],
+        "exclude": [
+          "node_modules/**",
+          ".git/**",
+          "admin/voyage-packs/FACTCHECK_TEMPLATE.json"
+        ]
+      },
+      "toolTriggers": [
+        "Edit",
+        "Write",
+        "MultiEdit"
+      ],
+      "autoLoad": {
+        "mainFile": ".claude/skills/original-research/ORIGINAL-RESEARCH.md",
+        "maxLines": 500,
+        "loadOnFirstFileEdit": true,
+        "note": "Loaded on first edit of any reader-facing content file. Pre-commit gate at admin/scripts/factcheck-gate.sh is the mechanical enforcement."
+      },
+      "activationMessage": "📋 Original-research skill active. No factual claim from memory — every claim cites a primary source in the .factcheck.json sidecar.",
+      "coActivation": {
+        "always_with": [
+          "careful-not-clever",
+          "verification-before-completion"
+        ],
+        "note": "careful-not-clever governs HOW; original-research governs WHERE FACTS COME FROM; verification-before-completion governs WHEN TO CLAIM DONE."
+      },
+      "preCommitGate": {
+        "script": "admin/scripts/factcheck-gate.sh",
+        "blocks": ["voyage-pack .md commits without fresh .factcheck.json sidecar"],
+        "bypass": "git commit --no-verify (log as anomaly disposition; operator approval required)"
+      }
+    },
     "careful-not-clever": {
       "enabled": true,
       "type": "guardrail",
