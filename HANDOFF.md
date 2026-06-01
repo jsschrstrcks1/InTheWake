@@ -1,5 +1,5 @@
 # HANDOFF.md — InTheWake Audit State
-**Last updated:** 2026-05-26 (evening session)
+**Last updated:** 2026-05-29 (Session 3+ ongoing)
 
 ---
 
@@ -86,18 +86,43 @@ Issues #1596, #1598, #1599, #1601, #1602, #1604, #1606, #1608, #1609, #1611, #16
 
 ---
 
-## How to Resume Next Audit Session
+## Systematic Audit — Session 3 (2026-05-29 Ongoing)
+
+### What's Been Done This Session
+
+**Issues filed: 244+ total in tracker** (up from 187 at start of session)
+
+**Ship-page comprehensive audit launched** — per user directive "1 ship by ship, line of code by line of code, page by page until all ships are checked."
+
+**Fleet-wide findings (all 290 ship pages):**
+- 100% contain `/ships.html` forbidden pattern (1,029 occurrences)
+- 68% contain "undefined" (dynamic render bug symptom)
+- 287/290 have First Look carousel structure
+- 275/290 have dining sections
+
+**Content gap issues filed (#1788–#1799):**
+- #1794: 95% missing dining-hero images
+- #1795: 71% use generic ship-map.png placeholder
+- #1796: 12% have swiper carousels with no JS
+- #1797: 31% missing "Tales From the Wake" section
+- #1799: **85% missing "Who this ship is for" section**
+
+**Non-ship pages also affected:**
+- "undefined" in 373 ports/restaurants/cruise-lines
+- `/ships.html` pattern spans multiple page types
+
+### How to Resume Next Session
 
 1. Read this file
-2. Check open issues: `https://github.com/jsschrstrcks1/InTheWake/issues`
-3. The highest-priority remaining work:
-   - **Batch fix**: Add `dropdown.js` + `in-app-browser-escape.js` to all 360 broken pages (#1628-#1631, #1634) — this is a batch operation
-   - **Nav consistency**: Decide on /planning.html in nav globally (#1633)
-   - **CSS version sweep**: Update all unversioned/stale CSS params (#1632)
-4. Next pages to deep-audit (haven't been individually audited yet):
-   - `ships.html` hub page
-   - `cruise-lines.html` hub
-   - First Carnival ship page (full deep dive)
-   - A restaurant page in each fleet subdir
-   - `search.html`
-   - `tools/*.html` pages
+2. Check issues: `https://github.com/jsschrstrcks1/InTheWake/issues` (244 open)
+3. Continue systematic crawl:
+   - Ship-by-ship deep audit (content gaps #1788–#1799)
+   - Port pages exhaustive review
+   - Restaurant completeness check
+   - Tools accessibility audit
+4. **Critical infrastructure fixes pending**:
+   - #1628–#1631, #1634: Missing JS on ~360 pages
+   - #1691: 280+ broken port images
+   - #1680: .htaccess 301→404 chain
+   - #1720: Custom 404.html
+   - #1684: GDPR/GA4 consent on 1,229 pages
