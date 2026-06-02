@@ -117,7 +117,7 @@ function generatePage(config) {
       <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
         <a class="nav-pill" href="/ports.html">Ports</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
+        <a class="nav-pill" href="/ships/">Ships</a>
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
       </nav>
@@ -155,15 +155,25 @@ function generatePage(config) {
       </section>
 
       <!-- ═══════════════════════════════════════════════════════════════ -->
-      <!-- FROM THE PIER (navigation distances) -->
+      <!-- FROM THE PIER (early orientation — spirit priority per composite) -->
       <!-- ═══════════════════════════════════════════════════════════════ -->
-      <nav class="from-the-pier" id="from-the-pier" aria-label="Walking distances from ${port} cruise terminal">
-        <h2>From the Pier</h2>
-        <ul>
-          <li><!-- FILL: Key destination 1 with walking time --></li>
-          <li><!-- FILL: Key destination 2 with walking time --></li>
-          <li><!-- FILL: Key destination 3 with walking time --></li>
+      <nav class="from-the-pier" id="from-the-pier" data-pier-type="${dockType || 'dock'}" aria-label="Walking distances from ${port} cruise pier">
+        <h3>From the Pier</h3>
+        <ul class="pier-distances">
+          <li class="pier-distance-item">
+            <div><span class="pier-dest"><!-- FILL: e.g. Town Center --></span><div class="pier-detail"><!-- FILL: short desc --></div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> <!-- FILL: e.g. 8 min --></span>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest"><!-- FILL: Key attraction --></span><div class="pier-detail"><!-- FILL: short desc --></div></div>
+            <span class="pier-time"><span class="walk-icon" aria-hidden="true">🚶</span> <!-- FILL: time or taxi note --></span>
+          </li>
+          <li class="pier-distance-item">
+            <div><span class="pier-dest"><!-- FILL: Another --></span><div class="pier-detail"><!-- FILL: --></div></div>
+            <span class="pier-time"><!-- FILL: time/price --></span>
+          </li>
         </ul>
+        <p class="pier-note"><!-- FILL: e.g. "All times from the main cruise pier. Taxis negotiate before boarding. Prices in ${currency}." --></p>
       </nav>
 
       <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -207,7 +217,7 @@ function generatePage(config) {
       <details class="port-section" id="map" open="">
         <summary><h2>Port Map</h2></summary>
         <p class="map-intro">Interactive map showing cruise terminal and ${port} area points of interest.</p>
-        <div id="${slug}-port-map" class="port-map-container" role="application"
+        <div id="port-map-section" class="port-map-container" role="application"
              aria-label="Interactive map of ${port} port and points of interest"
              data-port-id="${slug}" data-lat="${lat || 0}" data-lon="${lon || 0}">
           <noscript><p>Interactive map requires JavaScript. <a href="https://www.openstreetmap.org/?mlat=${lat || 0}&mlon=${lon || 0}#map=12/${lat || 0}/${lon || 0}" target="_blank" rel="noopener">View on OpenStreetMap</a>.</p></noscript>
@@ -431,8 +441,10 @@ function main() {
     console.log(`Meta: ai-summary, description, OG, Twitter Cards, canonical`);
     console.log(`JSON-LD: BreadcrumbList, WebPage+Place, FAQPage`);
     console.log(`\nTemplate has <!-- FILL --> markers for content that needs human/AI writing.`);
-    console.log(`\nTo validate: node admin/validate-port-page-v2.js ${outPath}`);
-    console.log(`To audit:    node admin/port-page-audit.cjs ${outPath}`);
+    console.log(`\n[DRY RUN] On real run the generator will *automatically* invoke:`);
+    console.log(`  node admin/validate-port-page-v2.js ${outPath}`);
+    console.log(`  node admin/port-page-audit.cjs ${outPath}`);
+    console.log(`(This is the key fix — no more "remember to validate later" — problems surface at generation time.)`);
     console.log(`To compare:  node admin/gold-standard-compare.cjs ${outPath}`);
     return;
   }
@@ -442,18 +454,39 @@ function main() {
     process.exit(1);
   }
 
-  fs.writeFileSync(outPath, html, 'utf8');
+  // Atomic write: write to temporary file then rename. Prevents half-written files if the process is killed.
+  const tmpPath = outPath + '.tmp';
+  fs.writeFileSync(tmpPath, html, 'utf8');
+  fs.renameSync(tmpPath, outPath);
   console.log(`✓ Created: ${outPath}`);
   console.log(`  Port: ${config.port} (${slug})`);
   console.log(`  Template has <!-- FILL --> markers for content.`);
-  console.log(`\nNext steps:`);
-  console.log(`  1. Fill in all <!-- FILL --> markers with port-specific content`);
+
+  // Root cause fix (generator bypass documented in #1707/#1712 + 388-page audit):
+  // The generator now *executes* the validator and audit right after writing, instead of only printing "run these later" instructions.
+  // Blocking issues are now impossible to miss at generation time.
+  console.log(`\n[Generator] Running validator immediately...`);
+  const { execSync } = require('child_process');
+  try {
+    execSync(`node admin/validate-port-page-v2.js ${outPath}`, { stdio: 'inherit' });
+    console.log('[Generator] validate-port-page-v2.js completed — review any BLOCKING/WARNING output above.');
+  } catch (e) {
+    console.error('[Generator] Validator found problems (see above). File written, but fix before using.');
+  }
+
+  try {
+    console.log(`[Generator] Also running port-page-audit.cjs...`);
+    execSync(`node admin/port-page-audit.cjs ${outPath}`, { stdio: 'inherit' });
+  } catch (e) {
+    // informational only
+  }
+
+  console.log(`\nNext steps (validator/audit output above must be addressed):`);
+  console.log(`  1. Fill in all <!-- FILL --> markers with port-specific content (use the composite for spirit targets: early from-the-pier, inline logbook images, real notices/food, etc.)`);
   console.log(`  2. Source images to /ports/img/${slug}/`);
   console.log(`  3. Create -attr.json files for each image`);
   console.log(`  4. Update port-disclaimer-registry.json`);
-  console.log(`  5. Validate: node admin/validate-port-page-v2.js ${outPath}`);
-  console.log(`  6. Audit:    node admin/port-page-audit.cjs ${outPath}`);
-  console.log(`  7. Compare:  node admin/gold-standard-compare.cjs ${outPath}`);
+  console.log(`  5. Re-validate after edits: node admin/validate-port-page-v2.js ${outPath}`);
 }
 
 main();
