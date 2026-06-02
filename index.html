@@ -38,7 +38,7 @@
 
   <!-- ICP-Lite v1.4: AI-First Metadata -->
   <meta name="ai-summary" content="Planning tools, travel tips, and faith-scented reflections for smoother sailings. Compare ships, scan menus, scout cabins, and find accessibility notes."/>
-  <meta name="last-reviewed" content="2026-05-13"/>
+  <meta name="last-reviewed" content="2026-05-30"/>
   <meta name="content-protocol" content="ICP-Lite v1.4"/>
 
   <!-- SEO: Geographic -->
@@ -48,7 +48,6 @@
   <!-- Title & SEO -->
   <title>In the Wake — A Cruise Traveler's Logbook | Planning Tools & Travel Tips</title>
   <meta name="description" content="Planning tools, travel tips, and faith-scented reflections for smoother sailings. Compare ships, scan menus, scout cabins, and find accessibility notes."/>
-  <meta name="keywords" content="cruise planning, cruise tips, travel guide, Royal Caribbean, cruising, ship comparison, cruise menus, accessibility"/>
   <link rel="canonical" href="https://cruisinginthewake.com/"/>
 
   <!-- SEO: Author & Copyright -->
@@ -226,9 +225,9 @@
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "In the Wake",
-  "url": "https://cruisinginthewake.com/index.html",
+  "url": "https://cruisinginthewake.com/",
   "description": "Planning tools, travel tips, and faith-scented reflections for smoother sailings. Compare ships, scan menus, scout cabins, and find accessibility notes.",
-  "dateModified": "2026-05-13",
+  "dateModified": "2026-05-30",
   "datePublished": "2024-01-15"
 }
   </script><!-- Favicon / PWA -->
@@ -240,9 +239,10 @@
   <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
 
   <!-- Performance: DNS Prefetch & Preconnect -->
+  <!-- Preconnect to the Google Analytics origin the page actually loads (gtag.js). Third-party origins only — never the first-party domain. -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
   <link rel="dns-prefetch" href="https://www.flickersofmajesty.com"/>
-  <link rel="preconnect" href="https://cruisinginthewake.com"/>
-  <link rel="preload" as="image" href="/assets/index_hero.jpg" imagesrcset="/assets/index_hero.jpg" fetchpriority="high"/>
 
   <!-- Styles -->
   <!-- Service Worker Registration -->
@@ -258,25 +258,6 @@
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
 </head>
 <body class="page">
-  <!-- ai-breadcrumbs
-       entity: In the Wake Homepage
-       type: Website Homepage
-       category: Cruise Planning Hub
-       updated: 2025-11-15
-       version: 3.010.400
-       expertise: Royal Caribbean specialist, 150+ days at sea, accessibility advocate, pastor, photographer
-       primary-tools: Drink Calculator, Ships Database, Restaurant Guide, Stateroom Check
-       target-audience: Cruise planners, Royal Caribbean travelers, solo cruisers, accessibility-focused travelers
-       faith-perspective: Christian-integrated travel writing (Soli Deo Gloria)
-       answer-first: Cruise planning tools and real-voyage insights for smoother sailings
-
-       subject: In the Wake is a cruise planning hub offering practical tools, ship comparisons, dining guides, and travel reflections to help travelers plan smoother sailings
-       intended-reader: Cruisers planning their next voyage, comparing ships or dining options, researching accessibility features, or seeking practical travel wisdom
-       core-facts: Free planning tools, Royal Caribbean focus, real-voyage insights, accessibility advocacy, faith-integrated perspective, no affiliate sales
-       decisions-informed: Which ship class suits your travel style, whether drink packages are worth it, how to navigate solo cruising, accessibility options available
-       cautions: Information current as of last-reviewed date, cruise line policies and prices change frequently, always verify critical details with your cruise line before booking
-       -->
-
   <!-- Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -289,7 +270,6 @@
     <div class="navbar">
       <div class="brand">
         <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" title="In the Wake wordmark" decoding="async"/>
-        <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span>
       </div>
       <!-- Mobile hamburger button -->
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
@@ -644,6 +624,13 @@
           </a>
         </div>
       </article>
+      <script>
+        // Keep the duck card hidden for visitors who already dismissed it.
+        if (localStorage.getItem('duckCardDismissed') === 'true') {
+          var duckCard = document.getElementById('duck-card');
+          if (duckCard) { duckCard.style.display = 'none'; }
+        }
+      </script>
 
       <!-- FAQ Section (ICP-Lite) - Moved from right rail for better accessibility -->
       <section class="card mt-15" aria-labelledby="faq-heading">
@@ -690,7 +677,7 @@
       <section class="card mb-1" style="background: linear-gradient(135deg, #f7fdff 0%, #fff 100%); border: 1px solid #e0f0f5;">
         <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Site Highlights</h3>
         <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.6;">
-          <li><strong>296 ship profiles</strong> across 15 cruise lines</li>
+          <li><strong>290+ ship profiles</strong> across 15 cruise lines</li>
           <li><strong>388 port guides</strong> with pier-side tips</li>
           <li><strong>11 interactive tools</strong> — quizzes, calculators, logbooks, planner, atlas &amp; packing lists</li>
           <li><strong>Built from 150+ days at sea</strong></li>
@@ -749,7 +736,7 @@
   <!-- FOOTER -->
     <footer class="wrap" role="contentinfo">
     <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny" style="color: var(--text-muted);">Last reviewed: <time datetime="2026-05-03">May 3, 2026</time> · Site version: 3.010.400</p>
+    <p class="tiny" style="color: var(--text-muted);">Last reviewed: <time datetime="2026-05-30">May 30, 2026</time> · Site version: 3.010.400</p>
     <p class="tiny mt-05">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
