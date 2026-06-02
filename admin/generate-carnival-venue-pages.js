@@ -12,6 +12,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -825,6 +826,13 @@ for (const venue of venues) {
 
   if (!dryRun) {
     fs.writeFileSync(filepath, html, 'utf8');
+    // Auto-run validator on creation (like the port generator fix in this branch).
+    // Addresses the "documents audit but does not call" gap found in crawl.
+    try {
+      execSync(`node admin/validate-venue-page-v2.js ${filepath}`, { stdio: 'inherit' });
+    } catch (e) {
+      console.error(`Validator issues for ${slug} (see above).`);
+    }
   }
   console.log(`  ${dryRun ? '[DRY]' : '  \u2713 '} ${slug}.html`);
   created++;
