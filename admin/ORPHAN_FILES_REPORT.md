@@ -634,4 +634,44 @@ Many files from 2025-11 to 2026-05 audit sessions have 0 or 1 references. These 
 
 ---
 
+## 17. Images Pre-Deletion Review (2026-06-02)
+
+**Context:** User directive during orphan cleanup: "before deleting any images, look at them, determine what they are photos of, and if they can be used on the site, and find them on wikicommons or flickr so you can determine whether or not they can be legally used with whatever license they ahve."
+
+**Process followed (careful, not clever):**
+- Started from `admin/ORPHANED_IMAGES_CATALOG.md` (491 listed in 2025 analysis) + cross-ref other orphan reports.
+- Filtered to 341 still physically present on disk.
+- Built current active reference set (one-pass regex over all *.html *.js *.css *.json *.webmanifest, excluding admin/ + *.md reports) → 100 images with zero hits in active loading contexts (true low-ref candidates).
+- For every candidate: inspected filename/path for subject, ran Pillow (dimensions, format, EXIF DateTimeOriginal/camera/GPS/desc where present) + ls/file, inferred "what it is a photo of".
+- Grouped: PWA icons/legacy logos, restaurant SVGs, author avatars, article/solo illustrations (low relevance), old ship heroes (Flickr-style with numeric IDs in name), RCL user-taken deck/pier/pool photos (Adventure of the Seas series), misc.
+- For all with cruise relevance or unclear origin: performed targeted web_search + web_fetch on Wikimedia Commons (exact title + ID matches) and Flickr (CC filters + photo ID) to locate originals and parse licenses (CC-BY-2.0, CC-BY-SA-2.0/4.0, etc.).
+- Usability: cross-ref port-page-composite.md gaps (pier photos, deck detail, inline logbook support, 1 photo / 250-500 words range, real texture vs stock) + 3-lens (letter compliance, spirit from exemplars like nassau/costa-maya, intelligent deviation).
+- **No deletions, no rm, no destructive ops.** All work is inspection + documentation only. Full record in `admin/IMAGES_LICENSE_REVIEW.md`.
+
+**Key findings (summarized):**
+- ~10-12 high-confidence CC-licensed ship/pier photos (exact matches on Commons): Splendour of the Seas at Las Palmas pier x2 (CC-BY-SA-2.0, Juan Ramón Rodriguez Sosa, 2011-11-29, Muelle Santa Catalina — **excellent specific pier visuals** for a Gran Canaria port page), multiple Rhapsody/Voyager (CC BY 2.0, Sid Mosdell + others, NZ sounds / Sydney — good for NZ ports or Vision-class ships), Majesty 2009 Bahamas (CC-BY-SA-2.0), 2018 Enchantment interior (CC-BY-SA-4.0), etc. These were downloaded years ago, never integrated into media/ JSONs, flagged as "orphans", but are legally clear for reuse with attribution.
+- RCL "Adventure of the Seas" pool/docked Aruba 2024 / Willemstad series (ships/rcl/images/): real, specific, high-usability for Aruba/Curacao ports or Adventure ship page. **No public Commons/Flickr free-license match found** for these exact recent photos. Private/unknown provenance → **cannot publish**. Archive or confirm rights holder.
+- Cordelia Empress Food Court (Sony a7iii personal 2021): private; known from image-reuse-guardrail (wrong-ship misuse cost 194 repairs) → **do not use**.
+- Solo generic (suburb street, cupcake flag) + many article thumbs: non-cruise or tied to old solo articles. Low/no fit for current 388-port + ship focus.
+- PWA icons + restaurant SVGs + legacy logos: our assets. Many icon sizes unused (manifest declares only a few + versioned). Restaurant SVGs appear superseded by real venue photos.
+- Old ship heroes/thumbs (grandeur, sovereign, radiance variants, msc-world-america, etc.): mostly Flickr downloads now superseded by per-ship media/ JSON system + image-reuse-guardrail. Low value.
+
+**Legal summary for the CC-matched ones:** All are CC-BY or CC-BY-SA (2.0/3.0/4.0). Usable on commercial site with proper credit to photographer + license link + (for SA) share derivatives under compatible terms. Attribution example in figcaption: "Photo © Juan Ramón Rodriguez Sosa, CC-BY-SA-2.0 via Wikimedia Commons" linking to the Commons file page.
+
+**Usability for site:** Pier-specific ones (Las Palmas) directly support "From the Pier" + honest assessments + inline logbook (spirit over letter). Deck/pool on Adventure would be perfect for real onboard texture. Recommend selective integration rather than blind keep-forever.
+
+**Recommendations:**
+- Create `admin/archive/deprecated-images/` (or similar) and move private/unknown + low-fit + unused-variant images there with this review as sidecar. Do **not** `git rm` the CC ones yet — they are now known-good assets that can fill gaps.
+- For the confirmed CC pier/ship photos: if a matching port page exists (search "las-palmas", "gran-canaria", "picton", "marlborough", "canary"), add 1-2 as properly credited <figure class="logbook-image"> or in gallery. Update the port-page-composite.md examples if used.
+- Prune only: excess PWA icon sizes (after manifest audit), restaurant svgs (confirm no dynamic use in venue-photo-config or tools), solo generic, article images for removed articles.
+- Re-run full image ref scan post any archive (newer files since 2025 report may exist).
+- Link: See `admin/IMAGES_LICENSE_REVIEW.md` for the 100-item table, full per-photo subject/metadata/license details, and "looked at" evidence.
+- Update this section + the images catalog after decisions.
+
+**No action on images until explicit user approval on the review doc.** Every listed image was looked at via metadata + filename + external source verification where relevant.
+
+**Soli Deo Gloria.**
+
+---
+
 **Report End**
