@@ -140,7 +140,7 @@ def generate_page(slug, venue):
     <nav class="nav" aria-label="Main site navigation">
       <div class="nav-item"><a href="/">Home</a></div>
       <div class="nav-item"><a href="/planning.html">Planning</a></div>
-      <div class="nav-item"><a href="/ships.html">Ships</a></div>
+      <div class="nav-item"><a href="/ships/">Ships</a></div>
       <div class="nav-item"><a href="/restaurants.html" aria-current="page">Restaurants</a></div>
       <div class="nav-item"><a href="/about-us.html">About</a></div>
     </nav>
