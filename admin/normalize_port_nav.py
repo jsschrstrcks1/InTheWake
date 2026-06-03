@@ -30,7 +30,7 @@ NORMALIZED_NAV = '''      <nav class="site-nav" id="site-nav" aria-label="Main s
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
-            <a href="/ships.html">Ships</a>
+            <a href="/ships/">Ships</a>
             <a href="/ships/quiz.html">Ship Quiz</a>
             <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/ports.html">Ports</a>

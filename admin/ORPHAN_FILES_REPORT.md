@@ -558,4 +558,80 @@ The site is well-structured with good SEO coverage. Focus cleanup efforts on ima
 
 ---
 
+---
+
+## 16. 2026-06 Continued Codebase Crawl – Additional Orphaned/Unnecessary Admin Files (Post Generator/Validator PR Work)
+
+**Context:** After fixing root causes in `generate-port-page.cjs` (auto-validate, nav fixes) and related, a continued grep/reference audit of `admin/` revealed many one-off "batch-fix-*" and "fix-*" scripts, plus duplicate/outdated reports, that have zero (or near-zero) references in current code/docs. These are historical artifacts from the pre-generator-fix era of incremental patching (see #1711 symptom scripts).
+
+These were not in the original 2025-11 graph analysis (which focused on content files: HTML/images/JSON). This section adds **admin/ script and report orphans** identified in 2026-06.
+
+### 16.1 High-Confidence Orphaned/Superseded Batch-Fix Scripts (0 references)
+These versioned or one-off scripts have **0 mentions** anywhere in the tree (greps across .md, .js, .cjs, .py, .txt). Superseded by root generator improvements + our nav/validator fixes in this branch. Safe candidates for deletion or archival to `admin/archive/`.
+
+**Versioned Carnival ships (v2–v8; base `batch-fix-carnival-ships.js` has the 1 ref):**
+- batch-fix-carnival-ships-v2.js through v8.js (7 files)
+
+**Other 0-ref batch-fix-*:**
+- batch-fix-data-attrs.js
+- batch-fix-enhanced-stats.js
+- batch-fix-icp-lite.js
+- batch-fix-missing-sections.js
+- batch-fix-nav-top.js
+- batch-fix-org-jsonld-v2.js (and v3)
+- batch-fix-organization-jsonld.js
+- batch-fix-review-jsonld.js
+- batch-fix-ship-class-siblings.js
+- batch-fix-siblings.js
+- batch-fix-stats-fallback.js
+- batch-fix-universal.js
+
+**Note:** Some org-jsonld-v* may have had purpose for JSON-LD back-compat during transitions, but the .js files themselves are unreferenced.
+
+### 16.2 Duplicate/Superseded Orphan Reports
+Multiple similar reports from different sessions; content is either outdated, image-specific, or duplicated. The main `admin/ORPHAN_FILES_REPORT.md` (comprehensive) + `admin/validator-spec/ORPHANS.md` (active, generated for rules) are the keepers.
+
+- `admin/orphaned-files-report.md` (small, ~6k, media-JSON focused, 100 "orphaned" items – overlaps with images section of main report)
+- `admin/reports/ORPHANED_FILES_REPORT.md` (21k, dated "post-catastrophe cleanup after /new-standards/", 2025-11-23)
+- `admin/ORPHANED_IMAGES_CATALOG.md` (25k, images only – can be merged into main if not already)
+
+**Recommendation:** Delete the dups after verifying no unique data; consolidate images list into main report or a single `admin/orphaned-images.md`.
+
+### 16.3 Low/Zero-Ref Dated Plans, Audits, and Session Artifacts (admin/ clutter)
+Many files from 2025-11 to 2026-05 audit sessions have 0 or 1 references. These are superseded by the current full 388-port audit, `port-page-composite.md`, this PR, and ongoing validator work. Keeping them bloats the tree.
+
+**Examples with 0 refs (from grep):**
+- COMPETITOR_GAP_AUDIT_2026_01_29.md
+- COMPREHENSIVE_AUDIT_2025_12_29.json
+- CRUISEDECKPLANS_RAW.md
+- EMOTIONAL_HOOK_TEST_PLAN.md
+- FLEET_QUALITY_PLAN.md
+- ISSUE_XREF_2026-05-13.md
+- PHASE_1_5_PLAN_2026-05-13.md
+- PLAN_RCL_FLEET_100_PERCENT_2026_02_14.md
+- PLAN_SHIP_PAGE_REVIEW_2026_02_14.md
+- RCL_FLEET_FIX_PLAN.md
+- REPOSITORY_AUDIT_2025-11-18.md
+- (plus others like LOGBOOK_AUDIT_2026-02-05.md, FOM_MERGE_PLAN.md, SHIP_STANDARDIZATION_PLAN*.md, CAREFUL_NOT_CLEVER_FAILURE_*.md, AUDIT_PLAN_2026-05-12.md, SESSION_AUDIT_2025_11_23.md, SOURCING_HARDENING_PLAN_2026-05-12.md, VENUE_AUDIT_REPORT_2026_01_31.md, etc.)
+
+**With 1 ref (historical only):**
+- AI_CHORUS_EVALUATION_2026_02_08.md, AUDIT_PLAN_2026-05-12.md, AUDIT_REPORT_2025_11_19.md, CAREFUL_AUDIT_2026_03_27.md, CAREFUL_NOT_CLEVER_FAILURE_2026_05_18.md, CAREFUL_REWRITE_PLAN.md, COMPETITOR_COMPREHENSIVE_LIST_2026_02_08.md, DEPLOYMENT_AUDIT_2026_02_21.md, etc.
+
+**Recommendation:** Archive to `admin/archive/2025-2026-audits/` or delete after review. Update `UNFINISHED_TASKS.md` to reference only active plans.
+
+### 16.4 Other Notes from This Crawl
+- The root `68e691d21e304db593e4aaac3b92e9e4.txt` (32 bytes) is **not** orphaned – referenced in `.claude/skills/indexnow/SKILL.md` as IndexNow verification token.
+- `admin/claude/` (18 .md files, e.g. CLAUDE.md, STANDARDS_*, LOGBOOK_*, PLANS, WORKFLOW.md) all have 1–62 references (mostly in root `claude.md` and skills). Keep; these are active internal docs.
+- Many `fix-port-*.cjs` and `batch-fix-*-port-*.js` / `*-ships-*.js` (beyond the v* listed) now have reduced purpose post our generator fixes (auto-validate, no bad /ships.html). Review the full ~60+ "fix/batch" family for retirement.
+- `admin/reports/` contains several other low-ref dated audits (e.g. SHIP_PAGE_ISSUES_2025-12-27.md has 0 refs). Same cleanup applies.
+- The `find-orphans.cjs` (and sibling generators in validator-spec/scripts/) are active and useful (they power ORPHANS.md, BACKFILL.md, etc.).
+
+**Total admin/ clutter identified here:** ~20–30 clear candidates (batch v* + dups + dated 0-ref) + the broader fix-script ecosystem. This is in addition to the ~653 content orphans in the 2025 report.
+
+**Next:** After this PR lands, run a deliberate archival pass. Update this report or `UNFINISHED_TASKS.md` with decisions. The improved generator (now with auto-validate) + our nav fixes should prevent future need for most of these one-offs.
+
+**Soli Deo Gloria** – cleaning historical debt so the core (generators, validators, standards) can shine.
+
+---
+
 **Report End**

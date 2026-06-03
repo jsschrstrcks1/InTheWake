@@ -272,7 +272,7 @@ All work on this project is offered as a gift to God.
       <div class="nav-dropdown" id="nav-planning">
         <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
         <div class="dropdown-menu" role="menu">
-          <a href="/planning.html">Planning (overview)</a><a href="/ships.html">Ships</a><a href="/restaurants.html">Restaurants &amp; Menus</a><a href="/ports.html">Ports</a><a href="/drink-packages.html">Drink Packages</a><a href="/drink-calculator.html">Drink Calculator</a><a href="/stateroom-check.html">Stateroom Check</a><a href="/cruise-lines.html">Cruise Lines</a><a href="/packing-lists.html">Packing Lists</a><a href="/accessibility.html">Accessibility</a>
+          <a href="/planning.html">Planning (overview)</a><a href="/ships/">Ships</a><a href="/restaurants.html">Restaurants &amp; Menus</a><a href="/ports.html">Ports</a><a href="/drink-packages.html">Drink Packages</a><a href="/drink-calculator.html">Drink Calculator</a><a href="/stateroom-check.html">Stateroom Check</a><a href="/cruise-lines.html">Cruise Lines</a><a href="/packing-lists.html">Packing Lists</a><a href="/accessibility.html">Accessibility</a>
         </div>
       </div>
       <div class="nav-dropdown" id="nav-travel">
