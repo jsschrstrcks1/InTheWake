@@ -84,6 +84,64 @@ Count images, metaphors, and surprise phrases per paragraph. Run especially on c
 
 **Test for cleverness vs. truth:** say the plain version aloud. Then say the surprising version aloud. If the plain version lands, keep it. If the surprising version earns its keep by doing work the plain version cannot, keep the surprise. When in doubt, plain wins.
 
+#### Local-model tells (Qwen / Gemma accents)
+
+The scans above were calibrated on Claude/GPT-drafted pages. Local models (Qwen, Gemma) carry their own fingerprints those scans miss. Run this block whenever a page was generated or edited by a local model. Quote the exact phrase and line for each hit.
+
+**1. Both-sides reflex (vulnerable-audience pages: load-bearing).** RLHF trains local models to soften an honest assessment by appending the opposite view — "however, it's worth considering…", "it's a balance between…", "some travelers may disagree." On a page whose job is an honest verdict (is this ship right for a wheelchair user? is this excursion worth $200?), this neutralizes the very guidance the reader came for. Distinct from the hedge already flagged below ("may offer," "can be considered") — this is a *both-sides append*, not a single softened claim.
+
+**Grep pattern:**
+```
+"however,? it'?s (also )?(worth|important) (to )?(note|consider)|on the other hand|that said,|to be fair,|it'?s a balance between|striking a balance|some (travelers|cruisers|people) (would|might|may) (argue|disagree)|there (are|is) (also )?valid (points|concerns) on (both|the other)|reasonable people (can|may) disagree"
+```
+- Every hit is a presumptive flag. The reporter gives the honest call; it does not editorialize toward neutrality. Keep a genuine two-side comparison only when both sides carry real, specific evidence the reader needs. **Threshold:** zero on a page's core recommendation.
+
+**2. Manufactured drama (Gemma).** Strings of one-line contrast sentences and trailing ellipses ("And then the bill came…") to fake urgency. This *collides with the native voice* — compressed declarative chains are baseline here ("Five decks. Five bars. Five different crowds."). The test is earned-ness.
+- For each cluster of 2+ consecutive ultra-short (<6-word) sentences: does the rhythm serve real reporting, or manufacture drama? Manufactured → cut.
+- **Ellipsis grep:** count `…` and `...`. **Threshold:** at most one per page, for a genuine trailing pause.
+
+**3. Translationese / precision-bias (Qwen).** Overly formal "dictionary" diction with no traveler idiom — "manifestation" / "utilize" / "a multitude of" where a person says "sign" / "use" / "a lot of."
+
+**Grep pattern:**
+```
+"\b(utilize|manifestation|endeavou?r|commence|prior to|subsequent to|in order to|a multitude of|a plethora of|individuals|possess(es|ed)?|aforementioned|delineate|elucidate)\b"
+```
+- Replace with the plain word a traveler uses (use / sign / start / before / after / to / a lot of / people / have).
+
+**4. Inline self-correction (Qwen, thinking mode).** "Actually, to clarify…", "let me restate," "or rather" — reasoning-transcript leakage into a finished page.
+
+**Grep pattern:**
+```
+"Actually,? to clarify|let me restate|to be (more )?precise|on second thought|let me rephrase|or rather,|to put it (differently|another way)|correction:|what I mean (to say )?is"
+```
+- Every hit cut. A published page is not a reasoning transcript.
+
+**5. Numeric / stepwise scaffolding (Qwen).** "Firstly… Secondly…", "In terms of…", "When it comes to…" inside flowing prose where the page's own headings carry the order.
+
+**Grep pattern:**
+```
+"\b(Firstly|Secondly|Thirdly|Fourthly|First and foremost)\b|\bIn terms of\b|\bWith regard to\b|\bWhen it comes to\b|\bPoint (one|two|three|[0-9])\b|\bStep [0-9]\b"
+```
+- A genuine numbered list (packing list, step-by-step) is fine; numbered *sentences* in narrative prose are the tell.
+
+**6. Summary loop (Gemma).** "In short… / Essentially…" restating the previous sentence.
+
+**Grep pattern:**
+```
+"\b(In short|In summary|Simply put|To put it simply|The bottom line|At the end of the day|To sum up|Essentially|Basically)\b,?"
+```
+- For each hit, check the next clause: new content or restatement? Restatement → cut.
+
+**7. Markdown / tokenizer artifacts (Gemma 2).** Stray `▁`, doubled spaces, or accidental markdown bleeding into rendered HTML body copy.
+
+**Grep pattern:**
+```
+"▁|  +| _[A-Za-z]| \*[A-Za-z]"
+```
+- Strip in post-processing — these render visibly on the page.
+
+> **Coverage-architecture note:** these scans only help if they run. If a local model ever drafts or edits page copy, wire the grep patterns above (plus the existing announcement / assumed-familiarity scans) into the pre-publish path so local-model output is audited before it ships — InTheWake pages are public, and an un-audited local-model accent ships straight to a vulnerable reader.
+
 ### 2. Voice Continuity Check
 
 **Must be present** (cruise voice baseline):
@@ -285,5 +343,6 @@ When the rating is High, the recommendation is to **rewrite the page from the or
 
 ## Version History
 
+- **v2.2.0 (2026-06-02)** — Added the "Local-model tells (Qwen / Gemma accents)" scan (seven grep-able fingerprints local models carry that the Claude/GPT-tuned scans miss): the both-sides/conviction-neutralizing reflex, Gemma manufactured-drama staccato + ellipsis overuse, Qwen translationese, inline self-correction, numeric scaffolding, Gemma summary loops, and Gemma-2 markdown artifacts. Includes a coverage-architecture note: wire these into the pre-publish path if a local model ever drafts page copy. Mirrors the same addition in `like-a-human`.
 - **v2.1.0 (2026-05-10)** — Lifted four diagnostics from Romans's `voice-audit` (in cruise voice): grep pattern for announcement-before-move, grep pattern for assumed-familiarity, image-density scan with per-paragraph thresholds, must-be-absent list with explicit drift indicators. Updated risk-rating thresholds and audit-report format to reflect the new checks.
 - **v2.0.0** — Six-axis scan with cruise-marketing vocabulary list and pastoral-honesty axis.
