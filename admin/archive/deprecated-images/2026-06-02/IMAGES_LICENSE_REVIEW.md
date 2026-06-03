@@ -188,16 +188,6 @@ Soli Deo Gloria.
    - Append summary stats + link to this file in ORPHAN_FILES_REPORT.md (new Section 17).
    - Re-scan disk for any *new* 0-ref images created since 2025 report (e.g. from recent venue work).
 
-**Executed 2026-06-02:** 
-- Safe archive prepared at `admin/archive/deprecated-images/2026-06-02/` containing all 100 true low-ref orphans (plus old low-res webp copies of the integrated CC photos). Original paths preserved under the archive tree. MANIFEST.md + copies of this review and ORPHAN report included. No `git rm`; files moved via git mv where possible.
-- Fresh high-res originals (or 1280px where full original resolution on Commons was limited) downloaded from Wikimedia Commons for the confirmed CC-BY/CC-BY-SA photos and placed in `assets/images/credited/`.
-- Usable photos linked on proper pages:
-  - ports/gran-canaria.html: both Splendour of the Seas Las Palmas pier photos (IDs 6424810807 + 6424818065, CC-BY-SA-2.0 Juan Ramón Rodriguez Sosa) inserted as `<figure class="logbook-image">` inline in the logbook (after arrival at Muelle Santa Catalina) and in the Cruise Port section, with full photographer credit + direct Commons link in figcaption. Matches the exact pier described in the page's FAQ and from-the-pier.
-  - ports/picton.html: Rhapsody of the Seas in Queen Charlotte Sound (6256235927, CC BY 2.0 Sid Mosdell) in logbook near "town wharf" + "Queen Charlotte Sound" text; Voyager of the Seas at Shakespeare Bay alternative wharf (8194516843, CC BY 2.0 Sid Mosdell) in the cruise port section (illustrates the "too large for main Town Wharf" practical reality noted in history and page content).
-- These additions follow site standards (credited figcaption, logbook-image class for narrative support, alt text descriptive of subject + location, lazy loading) and directly address gaps for pier texture / honest assessments.
-- The Rhapsody Sydney 2014 (12865387674, CC BY 2.0) high-res also downloaded to credited/ and available for the rhapsody-of-the-seas ship page if desired in a future pass.
-- Private/unknown (Adventure rcl/ 8 files, Cordelia, solo generic, most old heroes without verified license, restaurant svgs, excess icons, map, etc.) safely archived and flagged "do not use on site".
-
-All changes tracked on feature branch. Validators would be run post-deps if needed; structural insertion matches existing patterns on other pages (e.g. "via Wikimedia" credits already present on RCL ship pages).
+**No deletions performed. All "looking" (filename, dimensions, EXIF where present, subject inference, external license verification) complete for the 100 + spot checks on others.**
 
 Soli Deo Gloria.

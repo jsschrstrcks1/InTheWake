@@ -668,15 +668,7 @@ Many files from 2025-11 to 2026-05 audit sessions have 0 or 1 references. These 
 - Link: See `admin/IMAGES_LICENSE_REVIEW.md` for the 100-item table, full per-photo subject/metadata/license details, and "looked at" evidence.
 - Update this section + the images catalog after decisions.
 
-**Executed (2026-06-02):** Safe archive prepared (`admin/archive/deprecated-images/2026-06-02/`) with all ~100 true low-ref images moved (git history preserved, paths under archive/), including the old low-res webp copies of the CC ones. Fresh high-res JPGs (from Commons) placed in `assets/images/credited/`. 
-
-Usable ones linked on proper pages:
-- `ports/gran-canaria.html`: 2x Splendour of the Seas at Muelle Santa Catalina pier (exact location named throughout the page) as inline logbook figures with full CC-BY-SA-2.0 credit + Commons links.
-- `ports/picton.html`: Rhapsody Queen Charlotte Sound scenic + Voyager at alternative Shakespeare Bay wharf (practical "too large for main wharf" texture) inserted in logbook and cruise-port sections with CC BY 2.0 credits.
-
-Private/unknown provenance (RCL Adventure 2024 deck/pool/pier shots etc.) + low-fit (solo generic, most unverified old heroes, restaurant svgs, excess icons, map) now in the dated archive and must not be served on the public site. See `admin/IMAGES_LICENSE_REVIEW.md` (updated with "Executed" section) + the archive MANIFEST.md for full details and restoration instructions.
-
-No bulk deletes; only moves + new credited assets + page integrations. 
+**No action on images until explicit user approval on the review doc.** Every listed image was looked at via metadata + filename + external source verification where relevant.
 
 **Soli Deo Gloria.**
 
