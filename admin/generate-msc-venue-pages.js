@@ -805,7 +805,10 @@ for (const venue of venues) {
   const filepath = path.join(outDir, `${slug}.html`);
 
   if (!dryRun) {
-    fs.writeFileSync(filepath, html, 'utf8');
+    // Atomic write: write to temporary file then rename. Prevents half-written files if the process is killed.
+    const tmpPath = filepath + '.tmp';
+    fs.writeFileSync(tmpPath, html, 'utf8');
+    fs.renameSync(tmpPath, filepath);
     // Auto-run validator on creation (like the port generator fix in this branch).
     // Addresses the "documents audit but does not call" gap found in crawl.
     try {

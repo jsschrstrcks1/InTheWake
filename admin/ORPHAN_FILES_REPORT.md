@@ -1240,3 +1240,33 @@ Soli Deo Gloria.
 - No new GH (verification only).
 - Soli Deo Gloria. Careful: distinguished pending rcl.
 
+## 51. Generator Write Safety: Atomic Writes + Show Generator Lacked Post-Write Validation (2026-06-04)
+
+**Findings (from this "go" round synthesis of greps on versions/ICP/R2/Coming Soon/ships.html + generator source reads):**
+- All 5 venue generators (generate-venue-pages.js + per-line carnival/msc/ncl/virgin) + generate-show-pages.js used plain `fs.writeFileSync(..., html, 'utf8')` immediately before (or without) the post-validate execSync we added in prior generator fixes.
+- Contrast: generate-port-page.cjs already had the full safe pattern: `const tmpPath = outPath + '.tmp'; fs.writeFileSync(tmpPath, html...); fs.renameSync(tmpPath, outPath);` then exec validate + audit.
+- generate-show-pages.js had *no* validate exec at all after write (only ICP/version header fix previously applied; it also guards "skip if exists" for hand-crafted protection). JSDoc was thin, no mention of audit enforcement.
+- This is a distinct root gap in the "generator bypass" family (#1707 etc.): even after wiring validate calls for venues, the write itself was not crash-safe/atomic, and show generator was not enforcing the validator at emit time (symptom: could emit non-compliant show pages silently until manual check).
+- No impact on current emitted files (the atomic is for future runs + safety); lagging content versions/ICP/R2/Coming Soon patterns remain pre-existing (no new roots from these greps; rcl ships + ports still show 3.010.300 / ICP-Lite until regen).
+- "Coming Soon" and R2 and v=3.010.300 and ICP-Lite hits all trace to already-tracked issues (#1823, #1829, #1813-15, #1821); the /ships.html remaining are either #anchor xrefs (intentional to ships.html hub) or lagging generated rcl (not source).
+- Image uniqueness for the 5 CC credited (gran-canaria x2 splendour, picton x2 rhapsody+voyager, rhapsody-of-the-seas ship x1 sydney) re-verified by exact filename grep (only on their assigned pages) + registry "Uniquely assigned" notes + re-run scan-image-reuse (no new CRIT/ERR involving them; pre-existing only).
+- Indexnow hook stdin fallback already in place from prior pass.
+- ships/template.html clean (/ships/ not .html).
+
+**Actions:**
+- Applied the atomic write pattern (with explanatory comment) + kept/added the validate exec to: generate-show-pages.js (added import + call to validate-venue-page-v2.js since outputs to restaurants/), and the 5 venue generators (carnival/msc/ncl/virgin + main).
+- Updated JSDoc on generate-show-pages.js to reflect "v2 — audit-proof" and auto-validate.
+- No changes to emitted content or generated files (only the 6 generator sources in admin/).
+- Appended this ORPHAN section 51.
+- Will commit generator sources + this report update + the prior nav-clean M files (static root + articles with only hub canonical fixes, verified via diff) on feature branch.
+- GH: exactly-once style update to relevant open issues (#1813 ICP-Lite, #1814 versions, #1815 venue tags?, #1821 regen/generator, #1823 placeholders) noting the atomic safety + show enforcement as incremental root hardening in same family; cross-ref this section + "Soli Deo Gloria".
+- Re-ran image scanner (pre-existing only).
+- Soli Deo Gloria. Careful: only root generators touched (no bulk on content); atomic is 3-line duplication per "not clever" (no new shared util yet); evidence from source reads + greps before edit; lagging generated explicitly not edited.
+
+**Evidence (key):**
+- Generator reads confirmed plain writes at the 6 sites.
+- Port gen had atomic at L457-460 + exec at L471+.
+- Post-edit: all venue/show now match the safe write-then-validate.
+- No new distinct clusters from the parallel "go" greps (R2 still only jsdelivr; Coming Soon only cruise-lines ship-guide stubs; versions/ICP only lag; ships.html only # or lag).
+- Attribution registry + cognitive note context + grep uniqueness hold for the 5 images.
+

@@ -3,7 +3,7 @@
  * generate-venue-pages.js  (v2 — audit-proof)
  *
  * Generates HTML venue pages from venues-v2.json that pass the
- * validate-venue-page-v2.js audit on first creation.
+ * validate-venue-page-v2.js audit on first creation. Uses atomic writes + post-validate exec.
  *
  * Fixes every root cause that caused T01–T10, S01–S05, W01–W04
  * failures in the original generate_restaurant_pages.py:
@@ -829,7 +829,10 @@ for (const venue of venues) {
   const filepath = path.join(outDir, `${slug}.html`);
 
   if (!dryRun) {
-    fs.writeFileSync(filepath, html, 'utf8');
+    // Atomic write: write to temporary file then rename. Prevents half-written files if the process is killed.
+    const tmpPath = filepath + '.tmp';
+    fs.writeFileSync(tmpPath, html, 'utf8');
+    fs.renameSync(tmpPath, filepath);
     // Auto-run validator on creation (like the port generator fix in this branch).
     // Addresses the "documents audit but does not call" gap found in crawl.
     try {

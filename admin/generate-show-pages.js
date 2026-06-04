@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
- * generate-show-pages.js
+ * generate-show-pages.js  (v2 — audit-proof)
+ *
  * Generates HTML pages for all Royal Caribbean shows/productions
  * using data from assets/data/shows.json and assets/data/venues-v2.json.
+ * Emits to restaurants/ and auto-runs validate-venue-page-v2.js on creation.
  *
  * Usage: node admin/generate-show-pages.js [--dry-run] [--slug=<slug>]
  */
@@ -10,6 +12,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -509,7 +512,17 @@ for (const show of shows) {
   try {
     const html = generatePage(show);
     if (!dryRun) {
-      fs.writeFileSync(filePath, html, 'utf8');
+      // Atomic write: write to temporary file then rename. Prevents half-written files if the process is killed.
+      const tmpPath = filePath + '.tmp';
+      fs.writeFileSync(tmpPath, html, 'utf8');
+      fs.renameSync(tmpPath, filePath);
+      // Auto-run validator on creation (matches port + venue generators in this branch).
+      // Enforces ICP-2 / venue standards at write time; addresses bypass gap.
+      try {
+        execSync(`node admin/validate-venue-page-v2.js ${filePath}`, { stdio: 'inherit' });
+      } catch (e) {
+        console.error(`[Generator] Validator issues for ${show.slug} (see above).`);
+      }
     }
     console.log(`  ✓  ${show.slug}.html — ${dryRun ? 'would create' : 'created'} (${show.type})`);
     created++;
