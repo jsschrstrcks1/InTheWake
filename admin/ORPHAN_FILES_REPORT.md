@@ -806,3 +806,16 @@ Soli Deo Gloria. Careful audit.
 - Reported to #1818 (accessibility/tech audit, as versions affect compliance).
 - Soli Deo Gloria.
 
+
+## 24. Content Placeholders and Audit Wrap (2026-06-04)
+
+**Findings:**
+- Per #1823, 'Coming Soon' text in pages (grep hits).
+- Placeholders like TBD/Lorem per PROOF-005 standard in validators (count low in html).
+- These are content errors to clean.
+
+**Actions:**
+- Reported to #1823.
+- Documented.
+- Soli Deo Gloria.
+
