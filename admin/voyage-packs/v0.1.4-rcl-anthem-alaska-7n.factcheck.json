@@ -260,6 +260,159 @@
     }
   },
 
+  "voice_audit": {
+    "_doctrine": ".claude/skills/voice-audit/SKILL.md (v2.2.0)",
+    "_note": "First voice_audit sidecar block produced under voice-audit v2.2.0 — worked example for subsequent packs. Triggered by the Anthem June 2026 reader-feedback failure (Erin Upshur Jones, public Facebook comment: 'reads like this was AI generated and not proofread'). This block is Claude's first-pass audit; an orchestra-driven adversarial review (GPT, Gemini, Grok red-team) is scheduled to extend it. The block here is the baseline.",
+
+    "audited_against": "voice-audit v2.2.0",
+    "audit_date": "2026-06-04",
+    "audited_by": "Claude (operator-supervised) — first-pass; orchestra adversarial review pending",
+    "audit_scope": "full pack body",
+    "audit_scope_detail": "849 lines, ~60,000 characters of admin/voyage-packs/v0.1.4-rcl-anthem-alaska-7n.md, from cover Welcome through Closing. Earlier voice-audit passes covered only short excerpts; this run covers the entire pack — the historical correction.",
+
+    "machine_tells": {
+      "banned_cruise_vocab_count": 0,
+      "banned_cruise_vocab_locations": [],
+      "generic_ai_tells_count": 5,
+      "generic_ai_tells_locations": [
+        "line 11: 'iconic North Star observation pod' — defensible (anchored to the pod itself, which is a real feature with public marketing as 'iconic')",
+        "line 96: 'when much of the most magical light is happening' — soft superlative; Layer 1 candidate but anchored to 6 AM Inside Passage cruising context",
+        "line 225: 'the iconic Skagway excursion' — anchored (the pack defends the claim with the bridges/gorges specifics immediately following)",
+        "line 269: 'the iconic up-the-mountain ride' — anchored (specifies it's Mount Roberts Tramway)",
+        "line 316: 'the iconic Parliament Buildings' — anchored (specifies lit up at night, Inner Harbour context)"
+      ],
+      "filler_transitions_count": 0,
+      "promotional_verbs_count": 0,
+      "copulative_avoidance_count": 0,
+      "outline_conclusion_count": 0,
+      "lack_of_conviction_count": 0,
+      "antithetical_stacking_count": 1,
+      "antithetical_stacking_locations": [
+        "line 796: 'Embarkation is logistical, not magical' — contrarian undercut; counts as one antithetical but functions as a Layer 3 counter-signal (deliberate human reversal of a corpus-cliche). Under the cap of one per page."
+      ],
+      "participial_editorializing_count": 0,
+      "synonym_cycling_count": 0,
+      "announcement_before_move_count": 0,
+      "assumed_familiarity_count": 5,
+      "assumed_familiarity_note": "All 'iconic' instances above; verified each is anchored to a named specific in the same or adjacent sentence.",
+      "image_density_violations": 0,
+      "synthetic_earnestness_count": 0,
+      "false_ranges_count": 0,
+      "stat_grid_opening": false,
+      "stat_grid_opening_note": "Section 1 opens with class history and Meyer Werft delivery date, not raw specs. The At-a-Glance table is appropriately framed AFTER the Welcome.",
+      "generic_beauty_language_count": 0
+    },
+
+    "must_be_present": {
+      "first_person_attestation_with_date": {
+        "count": 0,
+        "verdict": "MISSING — no 'I sailed' / 'on my [date] sailing' / 'when I was at [place]' anchors anywhere in 849 lines",
+        "colophon_disclosure_escape": "NOT INVOKED — pack closing has 'Soli Deo Gloria' but does not disclose authorship mode. This is the primary deficiency."
+      },
+      "honest_limitation_acknowledged": {
+        "count": 2,
+        "verdict": "MARGINAL — present but light",
+        "locations": [
+          "line 83: 'We Will Rock You was Anthem's signature show for years and may still be running' — proper hedge of an uncertain fact",
+          "line 796: 'Embarkation is logistical, not magical' — contrarian undercut of a corpus-cliche; counts as honest"
+        ]
+      },
+      "from_the_pier_specificity": {
+        "count": 6,
+        "verdict": "present",
+        "locations": [
+          "line 142: 'Pier 91 evenings can be 55°F even in late June'",
+          "line 245: 'the safety distance is set by ice fall risk' + calving sound carries half a mile",
+          "line 263: AJ Dock and Cruise Ship Terminal in Juneau",
+          "line 288: Ogden Point breakwater ~3 km from downtown Victoria",
+          "line 274: Capital Transit route 3 + route 8 combo for Mendenhall",
+          "line 188: Sheldon Jackson Museum — Alaska's oldest"
+        ]
+      },
+      "real_numbers": {
+        "count": "30+",
+        "verdict": "strong — gross tonnage, length in ft/m, deck count, capacity, crew, prices in $ for excursions/shuttles/auto-gratuity, distances, temperatures, dates"
+      },
+      "named_real_specifics": {
+        "count": 6,
+        "verdict": "present but research-grade, not lived-grade",
+        "locations": [
+          "Emma Wilby — godmother",
+          "TEMSCO — Skagway helicopter operator",
+          "Harv & Marv's — Juneau whale watching",
+          "Capital Transit — Juneau city bus",
+          "M&M Tours — Blue Bus Glacier Express",
+          "Tuas Shipyard, Singapore — March 2025 drydock"
+        ],
+        "note": "All are research-discoverable. None are lived-experience anchors (no specific crew member by name, no fellow-cruiser anecdote, no named guide on a specific excursion)."
+      },
+      "plain_copulas_dominant": true,
+      "direct_reader_address_for_vulnerable_audience": "N/A — not a vulnerable-audience page",
+      "compressed_declarative_chains": {
+        "count": 3,
+        "verdict": "present",
+        "locations": [
+          "line 832: 'Pack early. Sleep before you fly. Get to Pier 91 with margin.' — corpus-native triplet, each item concrete",
+          "line 161: 'Reading on your balcony with binoculars.' — short declarative",
+          "line 832: 'the goal is calm' — closing fragment"
+        ]
+      }
+    },
+
+    "absent_markers_count": 3,
+    "absent_markers_drift_indicator": "DRIFT — first-person attestation absent, honest limitation marginal, named lived-specifics absent. Triggers Medium-minimum risk per voice-audit v2.2.0 drift indicator.",
+
+    "cluster_detection": {
+      "_framework": "AI-Authorship Cluster Detection v3 (adapted from ken voice-audit)",
+      "layer_1_strong_signals": {
+        "count": 2,
+        "signals": [
+          "Semantic placeholders: 'the most magical light' (line 96), 'the day Alaska reveals itself' (line 150), 'the goal is calm' (line 832). All are anchored loosely; in isolation each is acceptable, but the cluster signals 'AI gravitating to rhythm over substance' per the framework.",
+          "Broad authority claim with no specifics: 'Most first-time Alaska cruisers do' (line 786 — 'You'll come home wanting to go back. Most first-time Alaska cruisers do.') — claim has no anchor (no source, no cited cruiser, no survey data)."
+        ]
+      },
+      "layer_2_supporting_signals": {
+        "count": 3,
+        "signals": [
+          "Stock cruise-content phrases: 'calm by design' (line 21), 'no urgency, no upsell, no countdown' (line 21), 'You'll come home wanting to go back' (line 786) — these are brand phrases that any LLM can produce in this voice",
+          "Too-smooth delivery: the day-by-day section has clean transitions throughout; no admitted complication beyond the Day-5/Day-6 itinerary variance (recently added). For 849 lines, the friction count is low.",
+          "Triplet closures carrying rhythm: 'Pack early. Sleep before you fly. Get to Pier 91 with margin.' (line 832) — defensible because each item is concrete (counter-signal absorbs this)"
+        ]
+      },
+      "layer_3_counter_signals": {
+        "count": 7,
+        "signals": [
+          "Named entities (research-grade): Emma Wilby, TEMSCO, Harv & Marv's, Capital Transit, M&M Tours, Tuas Shipyard, Meyer Werft Papenburg — 7+",
+          "Real numbers, real dates, real prices: 30+",
+          "Localized claims with bounded scope: 'on this Mon-Mon sailing' (Section 2 day-by-day note), 'this specific 2026 sailing'",
+          "Specific verifiable details: 168,666 GT, 1,138 ft / 347 m, March 22 2025 Tuas drydock",
+          "Authorial hedging that names limits: 'verify your specific sailing's day order in the Royal Caribbean app' (multiple places), 'may still be running' (line 83)",
+          "Contrarian/friction moment: 'Embarkation is logistical, not magical' (line 796) — undercuts the corpus-cliche directly",
+          "Specific sailing-specific weather detail: 'Alaska summer cruising means weather contingencies are the rule' + Pier 91 55°F evening in late June"
+        ]
+      },
+      "scoring_walkthrough": "2 Layer 1 + 3 Layer 2 → 'likely AI, modulo counter-signals.' Counter-signals modulate downward by one notch each (per framework). With 7 counter-signals, the rule says '3 or more override any combination' — verdict overridden to unclear or likely_human. BUT the counter-signals here are RESEARCH-GRADE (names from press releases, numbers from spec sheets), not LIVED-GRADE (no named crew member, no fellow-cruiser anecdote). The framework was tuned for ken docs where research-grade specifics are the native form; for InTheWake the counter-signals should be lived-grade to fully override. Applying that interpretation: counter-signals partially modulate but don't fully override. Final verdict: UNCLEAR.",
+      "verdict": "unclear"
+    },
+
+    "promotional_drift_check": "pass — no CTAs, no 'perfect for,' no 'must,' no closing pitch. The 'Soli Deo Gloria' close is the brand's doctrinal signature, not promotional.",
+    "specificity_check": "pass for Anthem-the-ship (North Star, RipCord, SeaPlex, Two70, Solarium, Bionic Bar all named specifically). Marginal for the EXPERIENCE — most narrative passages could be lifted to another Quantum-class Alaska sailing without major edits.",
+    "cadence_check": "pass — varied sentence length, varied paragraph length, em-dash within cap.",
+    "local_model_tells_count": 0,
+
+    "risk_rating": "Medium",
+    "risk_rating_justification": "Three independent triggers each force Medium minimum: (1) first-person attestation absent without colophon-disclosure escape, (2) cluster verdict 'unclear' with non-lived counter-signals, (3) Anthem June 2026 reader-feedback citing 'reads like AI' — independent escalation trigger per voice-audit v2.2.0. None force High. Restoration path: add colophon-disclosure note OR insert lived-experience anchors.",
+
+    "recommended_edits": [
+      "Add colophon-disclosure note to the Closing section (line ~819 area): 'This pack is research synthesis — port operators called, deck plans cross-referenced, current rates verified, no first-hand June 2026 Anthem Alaska experience claimed by the author. Where lived-experience anchors are needed, the closing logbook section of the Anthem ship page (linked at /ships/rcl/anthem-of-the-seas.html#logbook) carries first-hand notes from sailors who have actually done the route.'",
+      "OR insert one or two first-person attestations from a verified contributor — Ken's own May 2025 sailing notes, or a passenger logbook entry from the ship page — into the Day 2, Day 5, or Section 1 narrative",
+      "Tighten 'the day Alaska reveals itself' (line 150) → 'Day 2 is the Inside Passage day' (drops the AI-rhythm phrasing, gains concreteness)",
+      "Tighten 'Most first-time Alaska cruisers do' (line 786) → 'Most first-time Alaska cruisers want to go back — a pattern documented across logbook entries from this site's contributors' (anchors the broad claim)"
+    ],
+
+    "outstanding_drift_notes": "Audit is first-pass by Claude. Adversarial orchestra review pending (GPT + Gemini fan-out, Grok adversarial). Block will be updated with additional findings + verdict reconciliation after orchestra pass."
+  },
+
   "itinerary_notes": {
     "day_by_day_structure": {
       "value": "Per Royal Caribbean's published 'Alaska Adventure' template (URL: AN07A399): Day 1 Seattle, Day 2 At Sea, Day 3 Sitka, Day 4 Skagway, Day 5 Endicott Arm & Dawes Glacier, Day 6 Juneau, Day 7 At Sea, Day 8 Victoria + Seattle return. For specific 2026 Mon-Mon sailings (e.g., June 29 - July 6), the practical schedule appears to COMBINE Endicott Arm AM and Juneau PM into Day 5, with sea Day 6, Victoria Day 7 evening, Seattle Day 8 morning. Reader on the June 29 2026 sailing confirmed via public Facebook comment that her booking shows the combined structure.",
