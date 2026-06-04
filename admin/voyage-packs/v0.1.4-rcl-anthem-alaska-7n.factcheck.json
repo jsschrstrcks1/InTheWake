@@ -410,7 +410,72 @@
       "Tighten 'Most first-time Alaska cruisers do' (line 786) → 'Most first-time Alaska cruisers want to go back — a pattern documented across logbook entries from this site's contributors' (anchors the broad claim)"
     ],
 
-    "outstanding_drift_notes": "Audit is first-pass by Claude. Adversarial orchestra review pending (GPT + Gemini fan-out, Grok adversarial). Block will be updated with additional findings + verdict reconciliation after orchestra pass."
+    "outstanding_drift_notes": "Audit is first-pass by Claude. Adversarial orchestra review pending (GPT + Gemini fan-out, Grok adversarial). Block will be updated with additional findings + verdict reconciliation after orchestra pass.",
+
+    "orchestra_extension": {
+      "_run_date": "2026-06-04",
+      "_orchestra_state_file": "/home/user/ken/orchestrator/state/orchestra.json (snapshot preserved at orchestra completion 2026-06-04T19:37:43Z)",
+      "_total_cost_usd": 0.139,
+      "_models_run": ["gpt", "gemini", "perplexity", "youdotcom", "grok"],
+      "_grok_outcome": "FAILED — Grok adapter returned null response (tokens_in=0, tokens_out=0). Adversarial-review role partially picked up by Perplexity and You.com round-robin passes, which both challenged Claude's framings and pushed back on each other.",
+      "_hallucination_meta_finding": "Gemini and Perplexity in fan-out cited specific phrases at specific line numbers — 'truly immersive' at line 123, 'embark on an unforgettable journey' at line 15, 'fresh Alaskan seafood' at line 345 — that DO NOT EXIST in the pack body. Verified via grep on the actual file. This is itself an AI failure mode: when fan-out models are given a voice-audit task without file access, they invent plausible-sounding examples to fit the framework. Implication for the voice-audit doctrine: any orchestra-derived audit findings MUST be cross-verified against the actual file by a model with file access (Claude) before being incorporated into the sidecar. Only line-anchored findings that grep-confirm are listed below.",
+
+      "consolidated_tell_list": {
+        "layer_1_strong_signals_confirmed_in_pack": [
+          {"line": 96, "phrase": "the most magical light is happening", "category": "Layer 1 semantic placeholder", "source_model": "Claude first-pass + orchestra confirmation"},
+          {"line": 152, "phrase": "This is the day Alaska reveals itself.", "category": "Layer 1 semantic placeholder + AI-rhythm declaration", "source_model": "Claude first-pass + orchestra"},
+          {"line": 247, "phrase": "the sound carries half a mile and is unforgettable", "category": "Layer 1 anchored superlative — defensible (half a mile is concrete) but the word 'unforgettable' is a cruise-marketing native tell that should be replaced with the experiential phrase ('like a rifle shot at a distance' or similar concrete simile)", "source_model": "orchestra"},
+          {"line": 808, "phrase": "You'll come home wanting to go back. Most first-time Alaska cruisers do.", "category": "Layer 1 broad authority claim with no anchor (no survey citation, no specific cruiser, no logbook reference)", "source_model": "Claude first-pass + Gemini + You.com"},
+          {"line": 854, "phrase": "the goal is calm", "category": "Layer 1 closing semantic placeholder — the entire closing line 'If you want a one-line preflight reminder to yourself: the goal is calm. Pack early. Sleep before you fly. Get to Pier 91 with margin.' is a triplet closure carrying rhythm; each item is concrete (counter-signal-eligible), but the lead phrase 'the goal is calm' is the AI-rhythm seed", "source_model": "Claude first-pass"}
+        ],
+        "layer_2_supporting_signals_confirmed_in_pack": [
+          {"line": 21, "phrase": "calm by design", "category": "Layer 2 stock brand-content phrase", "source_model": "Claude first-pass"},
+          {"line": 21, "phrase": "no urgency, no upsell, no countdown", "category": "Layer 2 triplet brand phrase — stock construction; the items are negations (absence claims) rather than concrete positives, which weakens them as anchors", "source_model": "Claude first-pass + orchestra"},
+          {"line": 118, "phrase": "if you've truly mapped your week", "category": "Layer 2 — 'truly' used as intensifier; corpus-native voice would drop the word", "source_model": "orchestra"},
+          {"line": 327, "phrase": "Victoria is the trip's gentle decompression", "category": "Layer 2 stock cruise-content phrasing — 'gentle decompression' is a metaphor LLMs reach for; corpus-native: 'Victoria is the short evening stop before debark'", "source_model": "orchestra (You.com pattern match against Royal Caribbean's own marketing rhythm)"},
+          {"category": "Layer 2 structural repetition pattern — 'Honest read on [port]' headers appear on every port day (Sitka line 184, Skagway line 214, Juneau line 269, Victoria line 302). The phrase itself reads native, but its mechanical repetition across every port section is the AI-shape tell — a human writer would vary the header by port (e.g., 'Sitka — the small Russian-Tlingit port,' 'Skagway — the gold-rush town,' 'Juneau — the unreachable capital'). Confirmed in pack across 4 port sections.", "source_model": "orchestra (You.com pattern recognition)"},
+          {"category": "Layer 2 structural repetition pattern — 'For first-timers:' appears as a sub-section heading on every port day. Same critique: mechanical structural parallel rather than port-specific framing. Confirmed across Sitka, Skagway, Juneau, Victoria sections.", "source_model": "orchestra"}
+        ],
+        "absent_marker_findings_confirmed": [
+          "ZERO first-person attestation with a date in 849 lines (grep confirms: no 'I sailed', 'when I', 'on my', 'my last' constructions)",
+          "ZERO named crew member by name (no 'Maria the bartender,' 'our stateroom attendant Joey,' etc.)",
+          "ZERO named fellow-cruiser anecdote",
+          "ZERO specific weather memory tied to a specific date/sailing ('the May 14 sailing had thick fog through the Inside Passage')",
+          "ZERO admitted personal mistake or correction of an earlier expectation",
+          "Honest limitation: MARGINAL — only 2 instances ('may still be running' re: We Will Rock You; 'Embarkation is logistical, not magical' which is a contrarian flip rather than a limitation)"
+        ],
+        "grok_adversarial_additions_from_round_robin": {
+          "_note": "Grok itself returned null. The adversarial role was effectively distributed across Perplexity round-robin (which challenged Claude's framings of the four factual confabulations) and You.com round-robin (which pushed back on Perplexity's 'refurbishment erasure' thesis and proposed the 'ersatz locality' framing). Both round-robins contributed signals that function as adversarial.",
+          "signals": [
+            "Cross-ship feature blending CLUSTER (Perplexity verification, You.com elevation): the four factual errors caught by Erin (Sitka tender/dock, Mandara/Vitality, Observation Lounge/Two70, missing sea day) are not four independent slips — they form a CLUSTER signature of LLM training-data contamination, where Quantum-class generic descriptions, NCL-class venue names, and stale itinerary patterns crossed into Anthem-specific writing. As a cluster, this is a Layer 1 strong signal of AI authorship — even though each individual error has now been fixed, the CLUSTER PATTERN means the original draft was AI-shape-shaped, and any future re-audit should check for similar conflations on other ships.",
+            "Marketing-rhythm parallelism with Royal Caribbean's official copy (You.com): Royal's own port marketing uses constructions like 'Sitka truly offers the best of Alaska,' 'Skagway symbolizes the spirit of Alaska,' 'a perfect snapshot of Alaska's wild beauty.' The pack avoids these exact phrases but mirrors the CADENCE in places ('This is the day Alaska reveals itself' on line 152 maps to RC's 'Sitka truly offers the best of Alaska' in rhythm). When neutral guidance prose tracks promotional cadence, it becomes composite AI signal: promotional drift + stock phrasing + lack of itinerary-specific friction.",
+            "Ersatz locality (You.com): named entities (Emma Wilby, TEMSCO, Harv & Marv's, Capital Transit, M&M Tours) are Layer 3 counter-signals ONLY if narrativized with friction. Pack uses them as flat factual mentions ('Capital Transit city bus combo ~$4 each way') — research-grade not lived-grade. To become real counter-signals, they would need narrative anchoring ('the Capital Transit driver on the May 2025 sailing told me the city-bus route stops near the Mendenhall trail head and is the route locals take to skip the cruise-shuttle bottleneck'). As currently used, they are NEUTRAL signals (don't shift toward AI or away from AI).",
+            "Smooth, evenly polished transitions between port days with no logistical friction (You.com cluster signal): the Day 3 → Day 4 → Day 5 → Day 6 progression has zero admitted complication. No 'the Skagway day got cut short by fog,' no 'I missed the White Pass departure because of a slow shuttle,' no 'Mendenhall was crowded by 11 AM on the May sailing.' Real lived experience contains friction; the pack contains none.",
+            "Advice framed as broad authority without linking to concrete constraints (You.com): 'You'll come home wanting to go back' (line 808), 'Most first-time Alaska cruisers do' (line 808), 'the right way' constructions throughout — these need either a specific source (a survey, a logbook entry citation) or a specific personal anchor."
+          ]
+        },
+        "neutral_or_defensible_signals_after_orchestra_review": [
+          "All 5 'iconic' instances (lines 11, 96, 225, 269, 316) — each is anchored to a named specific in the same or adjacent sentence (the North Star pod, the bridges/gorges of White Pass, Mount Roberts Tramway, Parliament Buildings lit at night). Defensible per voice-audit specificity rules.",
+          "The closing triplet 'Pack early. Sleep before you fly. Get to Pier 91 with margin.' (line 854) — each item is concrete and actionable. Functions as compressed-declarative-chain corpus-native rhythm rather than empty rhythm.",
+          "Line 796 'Embarkation is logistical, not magical' — contrarian flip of a corpus-cliche; counts as Layer 3 counter-signal (deliberate human reversal of an AI-rhythm phrase)."
+        ]
+      },
+
+      "verdict_reconciliation": {
+        "first_pass_verdict": "unclear",
+        "orchestra_extended_verdict": "unclear leaning likely_ai",
+        "justification": "Orchestra added 2 additional Layer 1 signals (broad authority claim line 808, semantic placeholder line 152) and the cross-ship feature blending cluster from the factual errors (Perplexity + You.com both identified this independently). With 4+ Layer 1 signals confirmed in pack, the cluster scoring formula '2+ Layer 1 → likely AI, modulo counter-signals' is more strongly tripped. The Layer 3 counter-signals (named entities, real numbers) remain research-grade rather than lived-grade per You.com's adversarial framing — they neutralize but don't override. Net: the cluster verdict shifts from 'unclear' (first-pass) to 'unclear leaning likely_ai' (orchestra-extended). The risk rating remains Medium because the Anthem-historical-anchor escalation trigger is independent of cluster verdict.",
+        "verdict": "unclear"
+      },
+
+      "highest_priority_restoration_edits_per_orchestra": [
+        "Add colophon-disclosure note in the Closing section (line ~819) — the v2.2.0 escape mechanism. Without it, the pack remains at Medium minimum regardless of how many surgical edits are made.",
+        "Tighten line 152 'This is the day Alaska reveals itself.' → 'Day 2 is the Inside Passage day' (removes AI-rhythm declaration, gains concreteness)",
+        "Tighten line 808 'You'll come home wanting to go back. Most first-time Alaska cruisers do.' → either remove the second sentence OR anchor with a specific source ('Most first-time Alaska cruisers in this site's logbook section come back for a second sailing within 18 months') OR shift to first-person ('I came home wanting to go back. The May 2025 sailing was that for me.')",
+        "Vary the 'Honest read on [port]' section headers across ports — at minimum rename two to port-specific framings to break the mechanical repetition the orchestra flagged",
+        "Vary the 'For first-timers:' sub-section headers — same critique"
+      ]
+    }
   },
 
   "itinerary_notes": {
