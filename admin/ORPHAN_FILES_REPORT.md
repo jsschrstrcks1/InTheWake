@@ -1100,3 +1100,19 @@ Soli Deo Gloria.
 - GH not updated (no new distinct cluster; avoid duplicate reports).
 - Soli Deo Gloria. Careful: only reported new distinct findings.
 
+
+## 42. Bad Canonical Links in Solo Content Pages (2026-06-04)
+
+**Findings:**
+- solo/accessible-cruising.html and solo/freedom-of-your-own-wake.html contain old href="/ships.html", /ports.html, etc. in nav/links.
+- Distinct new cluster: solo editorial pages (separate from articles/cruise-lines previously fixed).
+- No similar in travel/ or packing top-level from quick search.
+- Root: likely copied nav HTML in these content pages (no generator found).
+
+**Actions:**
+- Fixed with python replace in solo/*.html.
+- Verified 0 remaining.
+- Added ORPHAN section 42.
+- GH update on #1821 (this solo cluster).
+- Soli Deo Gloria. Careful: only these two files; no over-assumption.
+
