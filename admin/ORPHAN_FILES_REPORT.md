@@ -858,3 +858,39 @@ Soli Deo Gloria. Careful, not clever – fixed only the nav links in these legac
 
 Soli Deo Gloria. Now all identified ship subdir navs cleaned where possible.
 
+
+## 27. Comprehensive Ship Nav Canonical Fix Across All Cruise Line Subdirs (2026-06-04)
+
+**Findings:**
+- After initial fixes (princess, costa, carnival, msc), broader scan showed bad /ships.html in: cunard (5), celebrity-cruises (30), oceania (9), virgin-voyages (5), holland-america-line (47), norwegian (21), explora-journeys (7), silversea (13), seabourn (8), regent (8).
+- Total non-rcl subdir bad occurrences significant.
+- Root: each line's ship pages have duplicated/embedded nav HTML from outdated templates or copies. Main ships/template.html fixed, but subdirs not synced. rcl main (51) left for regen.
+- This was a widespread issue affecting most ship pages' "Planning" dropdown and "Browse All" links, violating the /ships/ canonical established in generator fixes and PORT/ SHIP standards.
+
+**Actions:**
+- Ran find over all ships/* subdirs (excl rcl), sed fix on all *.html for the two bad patterns (relative and full https).
+- Verified sharp drop in counts.
+- Added this section 27.
+- Updated GH #1821 with summary of full sweep.
+- No changes to rcl/ (template-based, will be correct post-regen).
+
+**Evidence:** pre/post grep counts per line, broad find, ls subdirs.
+
+Soli Deo Gloria. This cleans the ship-side of the nav bug thoroughly for non-main pages. Careful: only exact href fixes.
+
+
+## 28. Ship Nav Audit Closure and Additional Patterns (2026-06-04)
+
+**Findings:**
+- Full sweep: all non-rcl ship subdirs (10+ lines: celebrity, holland-america, norwegian, silversea, cunard, oceania, explora, seabourn, regent, msc, costa, princess, carnival) had /ships.html in navs – fixed.
+- rcl main (51 occurrences) untouched (will be correct after re-gen from ships/template.html).
+- No /ports.html bad in ships (counts were for other).
+- Stale v=3.010.300 still in some ship html (from old gens).
+- This closes the /ships.html canonical bug for ships (root was in multiple outdated subdir copies + main template).
+
+**Actions:**
+- Broad sed fixes committed.
+- ORPHAN 28.
+- GH update on #1821.
+- Soli Deo Gloria.
+
