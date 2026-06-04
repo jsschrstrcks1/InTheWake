@@ -894,3 +894,20 @@ Soli Deo Gloria. This cleans the ship-side of the nav bug thoroughly for non-mai
 - GH update on #1821.
 - Soli Deo Gloria.
 
+
+## 29. Stale Versions and Other Canonical Issues in Ship HTML (2026-06-04)
+
+**Findings:**
+- 265+ occurrences of v=3.010.300 in ship html (e.g., in costa, carnival etc. pages) – from old generation before we fixed generators to 3.010.400.
+- /ports.html links in ships/ (410 occurrences) – may be outdated if canonical is /ports/ like /ships/.
+- These are symptoms of pages not being regenerated after our generator/template fixes.
+- Distinct: version drift and potential link canonicals in content.
+
+**Actions:**
+- Noted (no bulk edit to generated html).
+- Documented in ORPHAN.
+- Will regen or note in future.
+- Reported via #1821 update.
+
+Soli Deo Gloria.
+
