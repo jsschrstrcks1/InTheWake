@@ -11,6 +11,23 @@
 # The file that was just edited/written
 FILE_PATH="${CLAUDE_FILE_PATH:-}"
 
+# Fallback to stdin JSON if env not set (standard for Claude Code hooks)
+if [ -z "$FILE_PATH" ] && [ ! -t 0 ]; then
+  FILE_PATH=$(python3 -c '
+import sys, json
+try:
+  data = json.load(sys.stdin)
+  # Common keys in PostToolUse payload
+  path = data.get("file_path") or data.get("path") or ""
+  if not path:
+    tool_input = data.get("tool_input", {})
+    path = tool_input.get("file_path") or tool_input.get("path") or ""
+  print(path)
+except Exception as e:
+  print("")
+' 2>/dev/null || echo "")
+fi
+
 # Exit silently if no file path
 if [ -z "$FILE_PATH" ]; then
     exit 0
