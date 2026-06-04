@@ -1039,3 +1039,17 @@ Soli Deo Gloria.
 - GH comment update on #1821 (distinct from previous subdir/root fixes).
 - Soli Deo Gloria. Careful: only these identified files; no bulk or generated rcl/.
 
+
+## 38. Additional Author Page Canonical Fix (2026-06-04)
+
+**Findings:**
+- authors/tina-maulsby.html had the same bad href="/ships.html", /ports.html, /cruise-lines.html, /restaurants.html as ken-baker.html.
+- These are distinct author pages with embedded old links in content (e.g., "See <a href=...>ports</a>").
+
+**Actions:**
+- Fixed with sed (same patterns as previous author fix).
+- Verified 0 remaining in this file.
+- Added ORPHAN section 38.
+- GH update on #1821 (this cluster of author pages).
+- Soli Deo Gloria. Careful: only the identified author pages; no assumption of more without search.
+
