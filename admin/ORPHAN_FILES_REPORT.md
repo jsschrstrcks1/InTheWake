@@ -1210,3 +1210,18 @@ Soli Deo Gloria.
 - Scanner re-run in prior steps.
 - Soli Deo Gloria. Careful: audit complete for this theme; only pre-existing image issues noted.
 
+
+## 49. Other Pre-existing Patterns: Stale Versions and ICP in Content (2026-06-04)
+
+**Findings:**
+- ~265+ occurrences of v=3.010.300 in .html (mostly in ship subdirs and ports, from pre-fix generation).
+- ICP-Lite v1 references in content (legacy).
+- These are pre-existing, not introduced by our canonical fixes (which focused on hrefs).
+- Distinct from the nav canonical cluster.
+
+**Actions:**
+- Noted (no new bulk fixes for versions, as tied to regen).
+- Added ORPHAN 49.
+- No new GH (pre-existing, referenced in prior).
+- Soli Deo Gloria. Careful: distinguished from our new findings.
+
