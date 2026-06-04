@@ -1022,3 +1022,20 @@ Soli Deo Gloria.
 - GH on #1821.
 - Soli Deo Gloria. The ship nav canonical bug is resolved at source; only generated rcl pages pending update via build/regen process.
 
+
+## 37. Additional Hub and Author Page Canonical Fixes (2026-06-04)
+
+**Findings:**
+- ships/index.html, ships/quiz.html, ships/rooms.html, ships/allshipquiz.html (non-rcl ship hub/special pages): still contained multiple <a href="/ships.html">, /ports.html, /cruise-lines.html, /restaurants.html in nav, links, JSON-LD.
+- authors/ken-baker.html: had /ports.html, /restaurants.html, /cruise-lines.html in content/links.
+- These are distinct from the line-specific ship subdirs (e.g. princess/, costa/) and root/tools pages already addressed. They are hub or author pages with embedded old links.
+- Not covered by ships/template.html (which is for individual ship profiles).
+- Root cause: duplicated old nav/HTML in these special pages, similar to the generator/template drift we fixed elsewhere.
+
+**Actions:**
+- Fixed the specific href patterns in these 5 files using sed (to /ships/, /ports/, etc.).
+- Verified 0 remaining for the 4 hubs in these files.
+- Added ORPHAN section 37.
+- GH comment update on #1821 (distinct from previous subdir/root fixes).
+- Soli Deo Gloria. Careful: only these identified files; no bulk or generated rcl/.
+
