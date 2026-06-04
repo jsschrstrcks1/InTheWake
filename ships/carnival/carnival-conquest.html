@@ -13,21 +13,7 @@
 
 <html lang="en" class="no-js">
 <head>
-<!-- ai-breadcrumbs
-     entity: Ship
-     name: Carnival Conquest
-     type: Ship Information Page
-     parent: /ships.html
-     category: Carnival Fleet
-     cruise-line: Carnival Cruise Line
-     ship-class: Conquest Class
-     siblings: /ships/carnival/carnival-adventure.html, /ships/carnival/carnival-breeze.html, /ships/carnival/carnival-celebration.html, /ships/carnival/carnival-dream.html, /ships/carnival/carnival-ecstasy.html
-     related: New Orleans, French Quarter, Cozumel, Costa Maya, Fincantieri
-     updated: 2025-12-03
-     expertise: Carnival cruise planning, Conquest-class ships, New Orleans cruising
-     target-audience: Gulf Coast cruisers, New Orleans travelers, Conquest-class enthusiasts
-     answer-first: Carnival Conquest is a 110,239 GT Conquest-class lead ship sailing from New Orleans, featuring French Impressionist décor in the Renoir and Monet dining rooms and classic Fun Ship entertainment.
--->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
 
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -223,11 +209,11 @@
             Planning <span class="caret">&#9662;</span>
           </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning</a>
+            <a href="/planning/">Planning</a>
             <a href="/first-cruise.html">Your First Cruise</a>
-            <a href="/ships.html">Ships</a>
-            <a href="/cruise-lines.html">Cruise Lines</a>
-            <a href="/ports.html">Ports</a>
+            <a href="/ships/">Ships</a>
+            <a href="/cruise-lines/">Cruise Lines</a>
+            <a href="/ports/">Ports</a>
             <a href="/packing-lists.html">Packing Lists</a>
             <a href="/accessibility.html">Accessibility</a>
           </div>
@@ -258,7 +244,7 @@
             Onboard <span class="caret">&#9662;</span>
           </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/restaurants/">Restaurants &amp; Menus</a>
             <a href="/drink-packages.html">Drink Packages</a>
             <a href="/internet-at-sea.html">Internet at Sea</a>
             <a href="/articles.html">Articles</a>
@@ -743,7 +729,7 @@ fetch('/assets/data/logbook/carnival/carnival-conquest.json').then(r=>r.json()).
         byCategory[cat].push(v);
       });
       const catOrder=['mdr','specialty','casual','bar'];
-      const catLabels={dining:'Dining',mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
+      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',bars:'Bars & Lounges',dining:'Dining',activities:'Activities',entertainment:'Entertainment',neighborhoods:'Neighborhoods',other:'Other Venues'};
       let html='';
       catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
         const arr=byCategory[cat]; if(!arr) return;

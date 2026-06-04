@@ -10,16 +10,6 @@ STANDARDS: Every Page v3.010.300 · Offline Fallback · A11y/WCAG 2.1 AA Complia
 <html lang="en" class="no-js">
 <head>
   <script>(function(h){h.className=h.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
-<!-- ai-breadcrumbs
-     entity: Offline
-     type: System Page
-     parent: /
-     category: Utility
-     updated: 2025-11-27
-     expertise: Site functionality
-     target-audience: Users without internet connection
-     answer-first: You're currently offline. Some cached pages are still available, and you can search them below.
-     -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="no-referrer-when-downgrade"/>
@@ -533,9 +523,9 @@ STANDARDS: Every Page v3.010.300 · Offline Fallback · A11y/WCAG 2.1 AA Complia
         <h3>Quick Links (may be cached)</h3>
         <div class="link-pills">
           <a class="link-pill" href="/">Home</a>
-          <a class="link-pill" href="/ships.html">Ships</a>
-          <a class="link-pill" href="/ports.html">Ports</a>
-          <a class="link-pill" href="/restaurants.html">Restaurants</a>
+          <a class="link-pill" href="/ships/">Ships</a>
+          <a class="link-pill" href="/ports/">Ports</a>
+          <a class="link-pill" href="/restaurants/">Restaurants</a>
           <a class="link-pill" href="/planning.html">Planning</a>
           <a class="link-pill" href="/drink-calculator.html">Drink Calculator</a>
           <a class="link-pill" href="/solo.html">Solo Cruising</a>
@@ -552,7 +542,7 @@ STANDARDS: Every Page v3.010.300 · Offline Fallback · A11y/WCAG 2.1 AA Complia
 
   <!-- FOOTER -->
   <footer class="wrap" role="contentinfo" style="text-align:center;padding:1.5rem 1rem;color:var(--muted);font-size:0.9rem;">
-    <p style="margin:0;">© <span id="year">2025</span> In the Wake · A Cruise Traveler's Logbook <span class="tiny version-badge" aria-label="Site version V1.Beta">V1.Beta</span></p>
+    <p style="margin:0;">© <span id="year"><script>document.write(new Date().getFullYear())</script></span> In the Wake · A Cruise Traveler's Logbook</p>
     <p class="tiny" style="margin-top:0.5rem;opacity:0;position:absolute;pointer-events:none;" aria-hidden="true">Soli Deo Gloria</p>
     <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
@@ -590,7 +580,7 @@ STANDARDS: Every Page v3.010.300 · Offline Fallback · A11y/WCAG 2.1 AA Complia
       { title: "Navigator of the Seas", url: "/ships/rcl/navigator-of-the-seas.html", category: "ship", keywords: "voyager class" },
       { title: "Mariner of the Seas", url: "/ships/rcl/mariner-of-the-seas.html", category: "ship", keywords: "voyager class" },
       // Hub Pages
-      { title: "All Ships", url: "/ships.html", category: "hub", keywords: "fleet royal caribbean rcl" },
+      { title: "All Ships", url: "/ships/", category: "hub", keywords: "fleet royal caribbean rcl" },
       { title: "All Ports", url: "/ports.html", category: "hub", keywords: "destinations cruise ports" },
       { title: "All Restaurants", url: "/restaurants.html", category: "hub", keywords: "dining food menus" },
       { title: "Planning Guide", url: "/planning.html", category: "hub", keywords: "cruise planning tips" },

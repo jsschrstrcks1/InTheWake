@@ -36,7 +36,7 @@ NAV_HEADER = '''<body class="page">
           </button>
                               <div id="menu-planning" class="submenu" role="menu" aria-label="Planning submenu">
             <a role="menuitem" href="/planning.html">Planning (overview)</a>
-            <a role="menuitem" href="/ships.html">Ships</a>
+            <a role="menuitem" href="/ships/">Ships</a>
             <a role="menuitem" href="/restaurants.html">Restaurants &amp; Menus</a>
             <a role="menuitem" href="/ports.html">Ports</a>
             <a role="menuitem" href="/drink-packages.html">Drink Packages</a>

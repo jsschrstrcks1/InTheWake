@@ -13,6 +13,7 @@
 
 <html lang="en" class="no-js">
 <head>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
 
 
 <meta charset="utf-8"/>
@@ -218,17 +219,17 @@
   <div class="nav-dropdown" id="nav-planning">
     <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">▾</span></button>
     <div class="dropdown-menu" role="menu">
-      <a href="/planning.html">Planning Overview</a>
-      <a href="/ships.html">Ships</a>
+      <a href="/planning/">Planning Overview</a>
+      <a href="/ships/">Ships</a>
       <a href="/ships/quiz.html">Ship Quiz</a>
-      <a href="/restaurants.html">Restaurants &amp; Menus</a>
-      <a href="/ports.html">Ports</a>
+      <a href="/restaurants/">Restaurants &amp; Menus</a>
+      <a href="/ports/">Ports</a>
       <a href="/internet-at-sea.html">Internet at Sea</a>
       <a href="/drink-packages.html">Drink Packages</a>
       <a href="/drink-calculator.html">Drink Calculator</a>
       <a href="/tools/cruise-tipping-calculator.html">Cruise Tipping</a>
       <a href="/stateroom-check.html">Stateroom Check</a>
-      <a href="/cruise-lines.html">Cruise Lines</a>
+      <a href="/cruise-lines/">Cruise Lines</a>
       <a href="/packing-lists.html">Packing Lists</a>
       <a href="/accessibility.html">Accessibility</a>
     </div>
@@ -925,7 +926,7 @@ Dining Venues</h2>
         byCategory[cat].push(v);
       });
       const catOrder=['mdr','specialty','casual','bar'];
-      const catLabels={dining:'Dining',mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',other:'Other Venues'};
+      const catLabels={mdr:'Main Dining Room',specialty:'Specialty Dining',casual:'Casual Dining',bar:'Bars & Lounges',bars:'Bars & Lounges',dining:'Dining',activities:'Activities',entertainment:'Entertainment',neighborhoods:'Neighborhoods',other:'Other Venues'};
       let html='';
       catOrder.concat(Object.keys(byCategory).filter(c=>!catOrder.includes(c))).forEach(cat=>{
         const arr=byCategory[cat]; if(!arr) return;

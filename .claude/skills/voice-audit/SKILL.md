@@ -98,6 +98,64 @@ A superlative claim with a concrete anchor is partially defensible — but only 
 
 A triplet rhythm built from *negations* rather than concrete positives. Example from the Anthem orchestra audit: "no urgency, no upsell, no countdown." Each item names what the brand *isn't*; none names what the brand *is*. Triplets of negations are a corpus-specific brand move (defensible once per page; the In the Wake brand voice depends on naming what it rejects), but the *pattern* is also a known LLM rhythm-shortcut — a way to manufacture authority without committing to a positive claim. **Cap:** one triplet-of-absences per top-level document. Two or more is a Layer 2 supporting signal. The corpus-native alternative is to pair the absence-triplet with at least one concrete positive ("no urgency, no upsell, no countdown — this pack is the calm read on one specific week" — the second half anchors the brand claim).
 
+#### Local-model tells (Qwen / Gemma accents)
+
+The scans above were calibrated on Claude/GPT-drafted pages. Local models (Qwen, Gemma) carry their own fingerprints those scans miss. Run this block whenever a page was generated or edited by a local model. Quote the exact phrase and line for each hit.
+
+**1. Both-sides reflex (vulnerable-audience pages: load-bearing).** RLHF trains local models to soften an honest assessment by appending the opposite view — "however, it's worth considering…", "it's a balance between…", "some travelers may disagree." On a page whose job is an honest verdict (is this ship right for a wheelchair user? is this excursion worth $200?), this neutralizes the very guidance the reader came for. Distinct from the hedge already flagged below ("may offer," "can be considered") — this is a *both-sides append*, not a single softened claim.
+
+**Grep pattern:**
+```
+"however,? it'?s (also )?(worth|important) (to )?(note|consider)|on the other hand|that said,|to be fair,|it'?s a balance between|striking a balance|some (travelers|cruisers|people) (would|might|may) (argue|disagree)|there (are|is) (also )?valid (points|concerns) on (both|the other)|reasonable people (can|may) disagree"
+```
+- Every hit is a presumptive flag. The reporter gives the honest call; it does not editorialize toward neutrality. Keep a genuine two-side comparison only when both sides carry real, specific evidence the reader needs. **Threshold:** zero on a page's core recommendation.
+
+**2. Manufactured drama (Gemma).** Strings of one-line contrast sentences and trailing ellipses ("And then the bill came…") to fake urgency. This *collides with the native voice* — compressed declarative chains are baseline here ("Five decks. Five bars. Five different crowds."). The test is earned-ness.
+- For each cluster of 2+ consecutive ultra-short (<6-word) sentences: does the rhythm serve real reporting, or manufacture drama? Manufactured → cut.
+- **Ellipsis grep:** count `…` and `...`. **Threshold:** at most one per page, for a genuine trailing pause.
+
+**3. Translationese / precision-bias (Qwen).** Overly formal "dictionary" diction with no traveler idiom — "manifestation" / "utilize" / "a multitude of" where a person says "sign" / "use" / "a lot of."
+
+**Grep pattern:**
+```
+"\b(utilize|manifestation|endeavou?r|commence|prior to|subsequent to|in order to|a multitude of|a plethora of|individuals|possess(es|ed)?|aforementioned|delineate|elucidate)\b"
+```
+- Replace with the plain word a traveler uses (use / sign / start / before / after / to / a lot of / people / have).
+
+**4. Inline self-correction (Qwen, thinking mode).** "Actually, to clarify…", "let me restate," "or rather" — reasoning-transcript leakage into a finished page.
+
+**Grep pattern:**
+```
+"Actually,? to clarify|let me restate|to be (more )?precise|on second thought|let me rephrase|or rather,|to put it (differently|another way)|correction:|what I mean (to say )?is"
+```
+- Every hit cut. A published page is not a reasoning transcript.
+
+**5. Numeric / stepwise scaffolding (Qwen).** "Firstly… Secondly…", "In terms of…", "When it comes to…" inside flowing prose where the page's own headings carry the order.
+
+**Grep pattern:**
+```
+"\b(Firstly|Secondly|Thirdly|Fourthly|First and foremost)\b|\bIn terms of\b|\bWith regard to\b|\bWhen it comes to\b|\bPoint (one|two|three|[0-9])\b|\bStep [0-9]\b"
+```
+- A genuine numbered list (packing list, step-by-step) is fine; numbered *sentences* in narrative prose are the tell.
+
+**6. Summary loop (Gemma).** "In short… / Essentially…" restating the previous sentence.
+
+**Grep pattern:**
+```
+"\b(In short|In summary|Simply put|To put it simply|The bottom line|At the end of the day|To sum up|Essentially|Basically)\b,?"
+```
+- For each hit, check the next clause: new content or restatement? Restatement → cut.
+
+**7. Markdown / tokenizer artifacts (Gemma 2).** Stray `▁`, doubled spaces, or accidental markdown bleeding into rendered HTML body copy.
+
+**Grep pattern:**
+```
+"▁|  +| _[A-Za-z]| \*[A-Za-z]"
+```
+- Strip in post-processing — these render visibly on the page.
+
+> **Coverage-architecture note:** these scans only help if they run. If a local model ever drafts or edits page copy, wire the grep patterns above (plus the existing announcement / assumed-familiarity scans) into the pre-publish path so local-model output is audited before it ships — InTheWake pages are public, and an un-audited local-model accent ships straight to a vulnerable reader.
+
 ### 2. Voice Continuity Check
 
 **Must be present** (cruise voice baseline):
@@ -246,19 +304,6 @@ Per page or per section, count by layer:
 ### Falsification test
 
 Before any change to this framework, run the modified framework against the passages in `examples/falsification-test.md` (to be created — known-good cruise prose passages with multiple structural features the framework lists as AI signals, plus enough counter-signals that they should produce "likely human" verdicts). If a framework update causes any of those passages to be flagged as AI, the update is too aggressive and must be revised. Companion to the existing `good-voice.md` / `bad-voice.md` examples in the skill.
-
----
-
-## Local-Model Tells (Qwen / Gemma accents)
-
-The Six-Axis scan was tuned on Claude/GPT-drafted prose. If a draft was produced or edited by a local model (Qwen, Gemma) — increasingly common as local inference improves — also run these. Each one is a Layer 2 signal that needs Layer 1 to confirm; in clusters of three or more, they shift the verdict regardless.
-
-- **Both-sides reflex** — a recommendation softened by an appended opposite ("however, you could also…", "it's a balance between…"). InTheWake content states the decision and the reason. Grep: `however,? (you|one|it) (could|might|can) also|on the other hand|that said,|it'?s a balance between|there are (valid )?arguments (for|on) both`
-- **Translationese (Qwen)** — formal diction where a plain word fits. Grep: `\b(utilize|facilitate|commence|prior to|subsequent to|in order to|a multitude of|individuals|possess(es|ed)?|aforementioned|delineate|elucidate)\b` → use / help / start / before / after / to / many / people / have / mentioned / show / explain.
-- **Inline self-correction (Qwen, thinking mode)** — reasoning residue left in the prose. Grep: `Actually,? to clarify|let me restate|or rather,|to be (more )?precise|correction:|what I mean (to say )?is`. Cut; published prose has already decided.
-- **Prose enumeration (Qwen)** — "Firstly… Secondly…" *in sentences*. Grep: `\b(Firstly|Secondly|Thirdly|First and foremost)\b|\bIn terms of\b|\bWith regard to\b|\bWhen it comes to\b`. **Native exception:** numbered lists / step sequences are correct — flag only enumerated *prose*, never real lists or tables.
-- **Summary loop (Gemma)** — "In short… / Essentially…" restating the prior line (compressed Conclusion Bloat). Grep: `\b(In short|In summary|Essentially|Simply put|The bottom line|To sum up|Basically)\b,?`
-- **Faux-drama / ellipsis (Gemma)** — trailing `…` and one-line dramatic beats. Cruise voice is steady, not dramatic. Grep: `…|\.\.\.`  **Threshold:** zero ellipses in factual or planning prose. A logbook entry may keep one if it's actually a pause; never more than one per page.
 
 ---
 
@@ -548,5 +593,6 @@ When the rating is High, the recommendation is to **rewrite the page from the or
 
 - **v2.3.0 (2026-06-04)** — Seven additions distilled from the first orchestra-pass audit (Anthem voyage pack, multi-LLM fan-out via /home/user/ken/orchestrator/orchestra.py with GPT, Gemini, Perplexity, You.com, Grok). Three new detection patterns: **(1)** cross-line/cross-ship feature blending CLUSTER as a Layer 1 strong signal — when factual errors cluster as cross-entity confusions (RC venue called by NCL name, Quantum feature attributed to Breakaway, etc.), the cluster itself is an AI signal even after individual errors are fixed; **(2)** marketing-rhythm parallelism with the cruise line's own official copy as a Layer 2 supporting signal — packs that mirror RC/NCL/MSC port-marketing cadence without quoting it; **(3)** mechanical structural repetition across sibling sections (same header pattern applied identically across all port days) as a Layer 2 supporting signal. Two doctrine refinements: **(4)** Layer 3 counter-signals must be **narrativized with friction** to count — research-grade named entities (operators, suppliers, drydock yards) without first-person attestation or friction-note are neutral, not counter-signals; **(5)** anchored-superlative test — even when a superlative claim has a concrete anchor, if the *adjective itself* is cruise-marketing native ("unforgettable," "magical," "stunning"), the anchor saves Layer 1 but the word remains Layer 2 until replaced with experiential language. One new procedural section: **(6)** Orchestra-Audit Discipline — fan-out models produce HALLUCINATED examples (Gemini cited "truly immersive" line 123, "embark on an unforgettable journey" line 15, "fresh Alaskan seafood" line 345 — none exist in the pack, grep-verified) when given audit tasks without file access. Any orchestra-derived finding must be grep-verified before incorporation into the sidecar. Documented also: when the designated adversarial model fails (Grok returned null in the Anthem run), the adversarial role redistributes to whichever round-robin passes pick up adversarial framings (Perplexity + You.com in that case). One new pattern: **(7)** triplet-of-absences ("no urgency, no upsell, no countdown") capped at one per top-level document; subsequent instances are Layer 2 supporting signals. Single-instance "truly" as intensifier rule sharpened — delete the word and check if meaning persists; if yes, it was padding. Anthem voice_audit.orchestra_extension sidecar block (committed deec4022) is the worked-example reference.
 - **v2.2.0 (2026-06-04)** — Six substantive additions after the Anthem June 2026 reader-feedback failure (public Facebook comment from Erin Upshur Jones on the brand's own post: "reads like this was AI generated and not proofread"). The voyage pack had passed every Six-Axis Scan check (zero banned vocab, zero machine tells, zero promotional drift) yet a domain-knowledgeable reader correctly diagnosed it as AI on first read. The failure mode wasn't *presence of machine tells* — it was *absence of authenticity markers* (no first-person attestation with a date, no honest limitation tied to lived experience, no named real specifics, no friction). v2.2.0 closes the gap with: **(1)** an AI-Authorship Cluster Detection framework lifted and adapted from ken voice-audit v3 (Layer 1 strong signals, Layer 2 supporting signals, Layer 3 counter-signals, hard constraints, cluster scoring rules, falsification-test reference). **(2)** New machine-tell categories from June 2026 research (Wikipedia "Signs of AI writing," industry AI-detection literature): copulative-avoidance tells ("serves as," "marks a"), outline-conclusion formula ("Despite X, faces challenges, future prospects"), lack-of-conviction tells, expanded AI-vocabulary list. **(3)** Required Sidecar Attestation — voice-audit results recorded in the pack's `.factcheck.json` alongside the original-research factual sidecar; pre-commit gate will check for the `voice_audit` block. **(4)** Colophon-disclosure escape — research-synthesis packs (no direct lived experience of the specific itinerary) can pass the audit if the pack itself names the authorship mode honestly in a closing colophon. **(5)** Local-Model Tells section (Qwen, Gemma accents) for drafts produced or edited by local models. **(6)** Independent escalation triggers — cluster-verdict `likely_ai`, reader feedback citing "reads like AI," and downstream factual errors caught by a reader all force Medium minimum regardless of other axes. Sources: ken voice-audit v3, Wikipedia "Signs of AI writing" article, oliviacal.com "AI Writing Tells" inventory, Google E-E-A-T 2022+ "Experience" addition.
+- **v2.1.5 (2026-06-02, parallel branch later merged from main)** — Added the "Local-model tells (Qwen / Gemma accents)" scan inside Section 1 with seven grep-able fingerprints local models carry that the Claude/GPT-tuned scans miss: the both-sides/conviction-neutralizing reflex (load-bearing on vulnerable-audience pages), Gemma manufactured-drama staccato + ellipsis overuse, Qwen translationese, inline self-correction, numeric scaffolding, Gemma summary loops, and Gemma-2 markdown artifacts. Includes a coverage-architecture note: wire these into the pre-publish path if a local model ever drafts page copy. This work shipped on main as v2.2.0 (2026-06-02) but was merged into the branch alongside the parallel v2.2.0 work (2026-06-04) and renumbered to v2.1.5 for chronological clarity. The v2.2.0 entry above lists Local-Model Tells as one of its additions; the richer Section-1 grep-pattern block from this v2.1.5 supersedes the simpler standalone version, which was removed during the merge.
 - **v2.1.0 (2026-05-10)** — Lifted four diagnostics from Romans's `voice-audit` (in cruise voice): grep pattern for announcement-before-move, grep pattern for assumed-familiarity, image-density scan with per-paragraph thresholds, must-be-absent list with explicit drift indicators. Updated risk-rating thresholds and audit-report format to reflect the new checks.
 - **v2.0.0** — Six-axis scan with cruise-marketing vocabulary list and pastoral-honesty axis.

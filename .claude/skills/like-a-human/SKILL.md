@@ -215,6 +215,18 @@ If you find yourself reaching for a venue name and you're not certain it belongs
 Royal Caribbean's port marketing uses constructions like "Sitka truly offers the best of Alaska," "Skagway symbolizes the spirit of Alaska," "a perfect snapshot of Alaska's wild beauty." Your pack can avoid those exact phrases and still mirror the *cadence* — "This is the day Alaska reveals itself" is corpus-marketing rhythm even without overlapping vocabulary.
 
 **Test while writing:** if a sentence feels like it could appear on the cruise line's own marketing page (or in a third-party port guide that gets its language from the cruise line), rewrite. Replace with a specific, friction-bearing observation. Marketing voice telegraphs research-synthesis even when the words are different.
+### Local-Model Accents (Qwen / Gemma)
+
+Everything above guards against general AI-slop and the Claude/GPT tells. A draft from a *local* model (Qwen, Gemma) carries its own accent. While writing or editing such a draft, also strip:
+
+- **The both-sides reflex (most important on vulnerable-audience pages).** Local models reflexively soften an honest call by appending the opposite view — "however, it's worth considering…", "it's a balance between…", "some travelers may disagree." On a page whose job is a real verdict (is this accessible? is this worth the money?), that neutralizes the guidance the reader came for. This is not the conditional hedge ("may offer") already covered — it is a reflex to avoid taking a side. Make the honest call.
+- **Manufactured drama (Gemma).** One-line contrast sentences and trailing ellipses ("And then the bill came…") to fake urgency. It *mimics* the native compressed chains ("Five decks. Five bars.") — but the real move reports; the fake one performs. Hold ellipses to at most one per page.
+- **Translationese (Qwen).** Formal "dictionary" diction: *utilize, manifestation, a multitude of, individuals.* Use the word a traveler says: use, sign, a lot of, people.
+- **Self-correction leakage (Qwen).** "Actually, to clarify…", "let me restate," "or rather" — reasoning residue. A published page has already decided. Cut.
+- **Numbered scaffolding (Qwen).** "Firstly… Secondly…", "In terms of…", "When it comes to…" inside narrative prose. The page's headings carry the order; a real packing list is fine.
+- **Summary loops (Gemma).** "In short… / Essentially…" restating the prior sentence. Say it once.
+
+Full grep-able detection lives in `voice-audit`; these are the during-writing reflexes to catch first.
 
 ## Native Moves (Protect These)
 
@@ -333,5 +345,6 @@ When in doubt, trust the specific. Cut the crutch. The reader feels the differen
 ## Version History
 
 - **v3.2.0 (2026-06-04)** — Folded the v2.3.0 voice-audit findings into the during-writing companion. Four additions: **(1)** Section-Header Repetition Across Sibling Sections — mechanical template parallel across all parallel sections (every port day getting "Honest read on [port]") is an AI-shape tell; let each section's header be shaped by what the section contains. **(2)** Cross-Line / Cross-Ship Feature Integrity — venue names, brand partners, and class-generic features from sibling lines drift into prose as a training-data-echo signal (Mandara/Vitality, Observation Lounge/Two70, tender/dock — caught publicly on Anthem). When in doubt, look up the deck plan before writing. **(3)** Marketing-Rhythm Mirroring — packs can avoid quoting cruise-line marketing verbatim and still mirror its cadence ("This is the day Alaska reveals itself" maps to RC's "Sitka truly offers the best of Alaska"); read aloud, ask if it could appear on the cruise line's own marketing page. **(4)** Triplet-of-absences sub-rule under Rule of Three — capped at one per top-level document; subsequent instances need a concrete positive to anchor or restructure.
+- **v3.1.5 (2026-06-02, parallel branch later merged from main)** — Added "Local-Model Accents (Qwen / Gemma)" under Plain Language Discipline: during-writing reflexes for the both-sides conviction-neutralizing reflex, Gemma manufactured drama, Qwen translationese, self-correction leakage, numbered scaffolding, and summary loops. Full grep detection lives in `voice-audit`. This work shipped on main as v3.2.0 (2026-06-02) but was merged into the branch alongside the parallel v3.2.0 work (2026-06-04) and renumbered to v3.1.5 for chronological clarity.
 - **v3.1.0 (2026-05-10)** — Lifted ten sub-disciplines from Romans's `like-a-human` (in cruise voice): copula avoidance with replacement table, decorative adverb kill list, rule of three, low-probability details, dead metaphor, one-point dilution, syntactic template repetition, punctuation fingerprint, the controlled flaw, the building pattern with concrete examples, cadence escalation (two kinds of acceleration + pause-and-pivot). Reorganized Plain Language Discipline as the spine of the document.
 - **v3.0.0** — Initial cruise-voice version: hard-banned vocabulary, native moves, three borrowed moves, pastoral guardrails.
