@@ -1053,3 +1053,20 @@ Soli Deo Gloria.
 - GH update on #1821 (this cluster of author pages).
 - Soli Deo Gloria. Careful: only the identified author pages; no assumption of more without search.
 
+
+## 39. Bad Canonical Links in Individual Restaurant/Venue Pages (2026-06-04)
+
+**Findings:**
+- Multiple individual restaurant pages (e.g. stage-to-screen.html, thrill-island.html, the-grande.html, casino.html, desserted.html, and likely 100s more) contain <a href="/ships.html">Ships</a> and similar for other hubs (/ports.html, /cruise-lines.html, /restaurants.html) in their nav or content links.
+- Distinct from previous: these are per-venue pages under restaurants/, not the top-level restaurants.html (already fixed), not ship pages, not authors, not root/tools.
+- Scope: grep -l found at least 5, but pattern suggests many (venue pages often include shared nav).
+- Root cause: the venue page generators (generate-*-venue-pages.js) or their templates hard-code the old .html links in the Planning dropdown or footer nav (similar to the ship template issue we fixed earlier).
+
+**Actions:**
+- Confirmed with grep.
+- Fixed at root: updated the 5 venue generators with sed/python replace for the bad href patterns (ships.html -> /ships/, etc.).
+- Will need to re-generate the affected restaurant pages to propagate (not editing generated files directly).
+- Added ORPHAN section 39.
+- GH comment on #1821 (distinct cluster: restaurant pages).
+- Soli Deo Gloria. Careful: only root generators; no bulk edit of 100s of venue HTMLs.
+
