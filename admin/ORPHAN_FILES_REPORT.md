@@ -765,3 +765,18 @@ Soli Deo Gloria. (All per careful audit, no clever bulk on generated.)
 
 Soli Deo Gloria.
 
+
+## 21. Hook and Regeneration Process Issues (2026-06-04)
+
+**Findings:**
+- IndexNow hook still relies solely on $CLAUDE_FILE_PATH (unset in some contexts per GH #1837). Script doesn't parse stdin JSON as expected for PostToolUse hooks.
+- Ship page regeneration: no automated process or CI step to rebuild main ship pages (rcl/* etc.) from updated ships/template.html. Leads to persistent stale nav in hundreds of files. Princess/quiz fixed ad-hoc. (Related to missing pages audits #1821 etc.)
+- Top-level pages now clean for nav (only 2 remaining 'ships.html' likely in quiz/anchors or text).
+
+**Actions:**
+- Documented.
+- GH update on #1821 for regen.
+- (Hook fix would require updating to read stdin, e.g. using jq or node to parse, then call python. Left as finding since orchestrator python not local.)
+
+Soli Deo Gloria. Careful audit.
+
