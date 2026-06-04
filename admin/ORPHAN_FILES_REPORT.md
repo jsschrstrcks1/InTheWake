@@ -780,3 +780,16 @@ Soli Deo Gloria.
 
 Soli Deo Gloria. Careful audit.
 
+
+## 22. Version Inconsistencies and Hook/Regen Followup (2026-06-04)
+
+**Findings:**
+- Top-level pages have inconsistent "Version: x.y.z" and "STANDARDS: Every Page vX" in headers/comments (e.g. restaurants.html 3.010.300, accessibility 3.010.200, while index/main use 3.010.400). Generators fixed to current, but static pages lag.
+- IndexNow hook fix applied (stdin fallback).
+- Ship regen process gap noted (main pages need rebuild from template to clear stale navs).
+
+**Actions:**
+- Documented.
+- GH updates on relevant issues.
+- Soli Deo Gloria.
+
