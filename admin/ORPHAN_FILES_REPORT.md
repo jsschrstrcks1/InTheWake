@@ -839,3 +839,22 @@ Soli Deo Gloria. Careful audit.
 
 Soli Deo Gloria. Careful, not clever – fixed only the nav links in these legacy subdirs.
 
+
+## 26. Final Ship Nav Canonical Sweep: MSC and Other Subdirs (2026-06-04)
+
+**Findings:**
+- ships/msc/ had 25 bad /ships.html links (per earlier count).
+- Other potential: no more subdirs with counts >0 after checks (costa, carnival, msc, princess fixed; rcl main noted for regen; ncl/virgin clean).
+- ships-hub.html clean.
+- This completes the ship-side nav cleanup for non-main-template subdirs.
+
+**Actions:**
+- Fixed msc/*.html with sed.
+- Verified no other subdirs.
+- Added to ORPHAN.
+- Reported update to #1821.
+
+**Evidence:** find loop over ships/*/, grep counts pre/post.
+
+Soli Deo Gloria. Now all identified ship subdir navs cleaned where possible.
+
