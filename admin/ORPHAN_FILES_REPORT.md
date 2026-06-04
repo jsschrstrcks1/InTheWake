@@ -729,3 +729,24 @@ Next crawl could target: IndexNow hook (1837), R2 asset refs (1829), full ship p
 
 **Soli Deo Gloria.**
 
+## 19. Continued Crawl Round (post "go" 2026-06)
+
+**New distinct findings (careful, evidence from tools, reported via gh):**
+
+- **generate-show-pages.js:** Still emitted ICP-Lite v1.4 and v=3.010.300 (compass/preload). Root fixed to ICP-2 / 3.010.400 (parallel to venue gens). Reported in comment on #1821.
+
+- **Top-level static pages (~30 root *.html: index, restaurants, about-us, planning, cruise-lines, ports, ships.html, articles, travel, packing, drink-calculator, etc.):** Duplicated hard-coded nav and text links used /ships.html (and full URL variant). These are source (no shared include/partial; unlike generated from templates). Fixed with safe python replace to /ships/ canonical (only root *.html, not subdir generated). Matches prior nav canonical work. Some pages also had old version headers (e.g. 3.010.200/300). 
+
+- **R2 migration (#1829):** Confirmed 0 r2 URLs in any root or sample HTML. Local /assets/ (including our new credited images) still everywhere. .attr.json metadata in assets/ships/ (from prior image sourcing, with CC licenses etc.), but migration scripts/plan not applied to content or generators (generators emit local paths). Updated issue with evidence.
+
+- Generated ship pages still show old links (51+ counts in rcl/), as expected (template fixed, pages need re-gen; no bulk edit to generated).
+
+**Actions:**
+- Fixed show generator.
+- Safe fix to static top-level pages.
+- gh comments on #1821 and #1829 (with evidence, roots, fixes).
+- Appended this section.
+- Will commit.
+
+Soli Deo Gloria. (All per careful audit, no clever bulk on generated.)
+
