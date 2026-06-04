@@ -1179,3 +1179,18 @@ Soli Deo Gloria.
 - GH not new comment (to #1821 for verification note; avoid dups).
 - Soli Deo Gloria. Careful: confirmed scope of fixes; pre-existing issues noted but not re-reported.
 
+
+## 47. Bad Canonical Links in Admin/Voyage-Packs Versioned Files (2026-06-04)
+
+**Findings:**
+- admin/voyage-packs/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.html (and likely others in the dir) contain old href="/restaurants.html", /ships.html etc. in content/links.
+- Distinct new cluster: versioned/draft admin files (not the main content clusters fixed before).
+- Scope: at least 1 confirmed, search shows the dir has more HTMLs with potential.
+
+**Actions:**
+- Fixed the identified file with sed.
+- Searched the dir (count from tool).
+- Added ORPHAN section 47.
+- GH update on #1821 (this admin/voyage-packs cluster).
+- Soli Deo Gloria. Careful: fixed identified; note these may be historical/drafts.
+
