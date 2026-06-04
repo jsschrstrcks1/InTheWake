@@ -793,3 +793,16 @@ Soli Deo Gloria. Careful audit.
 - GH updates on relevant issues.
 - Soli Deo Gloria.
 
+
+## 23. Code Smells, TODOs, and Version Lag (2026-06-04)
+
+**Findings:**
+- Scattered TODO/FIXME/HACK in admin scripts and .claude (e.g. validators mention legacy ICP, hooks, batch). Not cleaned.
+- Page versions inconsistent (stateroom-check v1.000, several with 3.010.300 or older STANDARDS while current 3.010.400/ICP-2).
+- These are symptoms of incomplete migration to new standards post generator fixes.
+
+**Actions:**
+- Documented.
+- Reported to #1818 (accessibility/tech audit, as versions affect compliance).
+- Soli Deo Gloria.
+
