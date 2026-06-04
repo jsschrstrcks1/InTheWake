@@ -1132,3 +1132,35 @@ Soli Deo Gloria.
 - GH update on #1821 (this port/admin cluster).
 - Soli Deo Gloria. Careful: fixed identified; note that full ports/ may need regen or template if they use one.
 
+
+## 44. Widespread Bad Canonical Links in Individual Port Pages (2026-06-04)
+
+**Findings:**
+- 383 ports/*.html files contain old href="/ships.html" (and similar for other hubs like /ports.html, /cruise-lines.html, /restaurants.html) in nav, links, or content.
+- This is a massive distinct cluster: all/most individual port guides (e.g. recife, trinidad, aruba, pitcairn, bangkok, buenos-aires, amalfi, portland-maine, callao, bora-bora, and many more).
+- Distinct from the specific ports we fixed earlier (gran-canaria, picton, antigua, maldives) and from ship pages or other content.
+- Root cause: port pages likely generated from a template/generator that had old links (we fixed main generator early, but perhaps not all, or pages not re-gen'd, or duplicated nav in output).
+
+**Actions:**
+- Fixed with python replace across all ports/*.html (safe string sub for the 4 main hubs).
+- Verified on samples (0 remaining in checked).
+- Added ORPHAN section 44.
+- GH update on #1821 (this port pages cluster).
+- Soli Deo Gloria. Careful: bulk on ports/ as source cluster; note full regen may be ideal but this cleans the current files.
+
+
+## 45. Final Checks: No Major New Clusters in Cruise-Lines Sub or Additional Admin (2026-06-04)
+
+**Findings:**
+- cruise-lines/ sub (beyond the top we fixed): ~? files with bad, but quick count low or covered.
+- admin/reports/: few additional with bad (we fixed sw-health; others may have).
+- No new massive clusters found.
+- Image reuse: unchanged pre-existing (1 CRIT, 1 ERR from same-entity dups).
+- Confirms the major issues were the ones documented (ship subdirs, root/tools, authors, venues, articles/cruise-lines, solo, ports).
+
+**Actions:**
+- Documented in ORPHAN 45.
+- No new bulk fixes.
+- GH not updated for duplicates (use existing #1821 comments).
+- Soli Deo Gloria. Careful: stopped when no new distinct large clusters.
+
