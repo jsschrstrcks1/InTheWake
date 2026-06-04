@@ -1,7 +1,7 @@
 ---
 name: voice-audit
-description: "Post-draft diagnostic for InTheWake content. Scans for cruise-marketing tells and AI fingerprints, assesses authenticity risk, and checks voice continuity against the measured corpus profile. Fires before committing content edits or before publishing a new page. For during-writing standards, see like-a-human. For corpus measurement, see voice-dna."
-version: 2.1.0
+description: "Post-draft diagnostic for InTheWake content. Scans for cruise-marketing tells, AI authorship-cluster signals, and absence-of-authenticity gaps. Assesses authenticity risk by clustering signals across layers (Layer 1 strong, Layer 2 supporting, Layer 3 counter-signals). Required: every voyage-pack ships with a voice-audit attestation in its .factcheck.json sidecar. Fires before committing content edits or before publishing a new page. For during-writing standards, see like-a-human. For corpus measurement, see voice-dna."
+version: 2.2.0
 ---
 
 # Voice Audit — Post-Draft Diagnostic
@@ -19,6 +19,7 @@ The rule: when a page is on-voice except for a handful of tells, restore the pag
 - Before merging a PR that touches reader-facing prose
 - On `/voice-audit <path>`
 - After any large AI-assisted draft (treat AI assists as suspect by default)
+- **For voyage packs specifically: voice-audit must run against the FULL long-form pack body, not the description summary.** The Anthem June 2026 reader-feedback failure ("reads like this was AI generated and not proofread") happened because voice-audit was run only on marketing-length summaries. The body of the pack was never audited; ~60,000 characters of research-synthesis prose shipped untested. **Voice-audit attestation is now required in the pack's `.factcheck.json` sidecar** before the pre-commit gate passes — see "Sidecar Attestation" below.
 
 ## The Six-Axis Scan
 
@@ -27,7 +28,10 @@ The rule: when a page is on-voice except for a handful of tells, restore the pag
 Count instances of:
 
 - **Banned cruise-marketing vocabulary** (`world-class, stunning, luxurious, elevate, unforgettable, pristine, breathtaking, majestic, idyllic, paradise, exclusive, indulge, opulent, lavish, sumptuous, hidden gem, must-do, must-see, bucket-list, jaw-dropping, dream destination`)
-- **Generic AI tells** (`delve, tapestry, leverage, framework, holistic, unpack, resonate, garner, showcase, underscore, encompass, nestled, boasts, facilitate, robust, seamless, vibrant, nuanced, dive into, navigate (metaphor), unlock, transform`)
+- **Generic AI tells** (`delve, tapestry, leverage, framework, holistic, unpack, resonate, garner, showcase, underscore, encompass, nestled, boasts, facilitate, robust, seamless, vibrant, nuanced, dive into, navigate (metaphor), unlock, transform, testament, beacon, realm, symphony, intricate, pivotal, multifaceted, myriad, plethora, comprehensive, unwavering, align with, bolstered, emphasizing, enduring, enhance, fostering, highlight, interplay, foster, ignite, empower, uncover, unleash, optimise, streamline, cutting-edge, future-ready, dynamic, transformative, revolutionary, game-changer`)
+- **Copulative-avoidance tells** — AI prefers to dress up plain "is a" / "are" constructions. Quote each instance: `X serves as Y`, `X marks a Y`, `X stands as Y`, `X represents a Y`, `X embodies Y`, `X features (as a marketing verb)`, `X maintains Y`, `X offers Y` doing the work of "is" / "has." Plain copula or "has" is the corpus-native form.
+- **Outline-conclusion formula** — "Despite its [positive adjectives], [subject] faces challenges..." then a "Future Prospects" or "Challenges and Opportunities" pivot with vague resolutions. Wikipedia's "Signs of AI writing" identifies this as one of the strongest structural tells. Flag any closing paragraph that follows this shape.
+- **Lack-of-conviction tells** — phrases that signal the writer is afraid to be wrong: `It is important to consider, While it is true, It could be argued that, Generally speaking, Aims to (explore/illustrate/demonstrate), This article aims to`. Hedging where the reporter would speak declaratively is the symptom. Cut or replace with a declarative claim.
 - **Filler transitions** (`Moreover, Furthermore, Additionally, In essence, In conclusion, Ultimately, At its core, Whether you're, Look no further than`)
 - **Promotional verbs** (`offers, features, provides, boasts, showcases, presents` doing marketing work)
 - **Antithetical-parallelism stacking** (multiple "not just X, it's Y" — the strongest LLM tell in this voice)
@@ -109,7 +113,9 @@ Count images, metaphors, and surprise phrases per paragraph. Run especially on c
 - [ ] Antithetical-parallelism stacking beyond one instance per page
 - [ ] Cruise-marketing vocabulary (zero tolerance — see hard-banned list in `like-a-human`)
 
-**Drift indicator:** if **3 or more must-be-present markers are missing**, OR **2 or more must-be-absent items appear**, the page has drifted at minimum to Medium risk regardless of machine-tell count. Both signals are weighted equally; the absence list is *not* a soft warning.
+**Drift indicator (strengthened in v2.2.0):** if **3 or more must-be-present markers are missing**, OR **2 or more must-be-absent items appear**, the page has drifted at minimum to Medium risk regardless of machine-tell count. Both signals are weighted equally; the absence list is *not* a soft warning.
+
+**The Anthem June 2026 case made this rule mandatory, not advisory.** That pack had zero machine tells, zero promotional drift, every "must be absent" item correctly absent — and shipped publicly with no first-person attestation, no honest lived limitation, no named real person, no specific weather-tied-to-date moment. Four "must be present" markers missing, no Six-Axis flag fired. A reader caught it within hours. The drift indicator above would have escalated that pack to Medium minimum and forced either lived-experience insertion or the colophon-disclosure escape (see "Sidecar Attestation" below) before it could ship. Run this check. The absence list is the rule that catches what the presence list misses.
 
 ### 3. Cadence Check
 
@@ -159,7 +165,181 @@ For accessibility, solo, and grief content:
 
 A pastoral-page failure on this axis is automatically High risk regardless of other axes.
 
+## AI-Authorship Cluster Detection (v3, adapted from ken voice-audit)
+
+**Why this exists.** The Six-Axis Scan hunts for *presence of machine tells* — banned vocabulary, filler transitions, promotional verbs. A passage can pass every axis (zero banned words, zero filler, zero promotional verbs) and still read AI-generated to a domain-knowledgeable reader. That's exactly what happened in the Anthem June 2026 reader-feedback case: a fact-correct, marketing-vocabulary-free pack was correctly diagnosed as AI by a reader because it lacked the *clustering* of authentic-human signals — first-person attestation, lived limitation, named real specifics, friction, unexpected word choices.
+
+This framework codifies the cluster approach. **AI authorship is detected by clustering and density, not by individual features.** No single feature is a verdict.
+
+### Layer 1 — Strong signals (high confidence when clustered)
+
+- **Semantic placeholders where concrete referents could go.** AI gravitates to "the day's best 30 minutes," "the trip's most memorable moment," "the iconic experience," "where the magic happens," "the calm before debarkation." Test each instance: can the abstraction be traced to a concrete referent in surrounding context (a specific deck, a specific time, a specific named view)? If yes, the placeholder is shorthand and acceptable. If no, the placeholder is filler.
+- **Broad authority claims with no specifics.** "When I've sailed Alaska before…" without naming a ship, a date, or a sailing. "Most cruisers find…" without citing a source or the cruiser. "The locals will tell you…" without naming a local. Acceptable form: the claim *with* the anchor. Unacceptable form: the claim *without* the anchor.
+- **Triplet closures carrying rhythm but not content.** "Honest about the weather. Honest about the cost. Calm about all of it." Test: if the third item in the triplet is deleted, does meaning collapse, or does the sentence just lose its musical close? If only the music is lost, the closure was decoration. One triplet per page is corpus-native rhythm; multiple triplets are the cluster signal.
+- **Clean, linear persuasion arc with no friction.** Each section flows to the next without authorial uncertainty, without admitted complication, without a moment where the writer says "I got this wrong" or "this didn't work" or "I'm not sure about X." Human prose has friction; optimized AI output rarely does.
+
+### Layer 2 — Supporting signals (need Layer 1 to confirm)
+
+- Stock cruise-content phrases ("the calm read," "the companion read," "honest about what costs what," "the move that makes Day 8 easy" — phrases that *sound* corpus-native but that any LLM can produce in this voice)
+- Sustained staccato fragment-clustering without rhythm variation
+- Parallel structures and "X, X, and X" rule-of-three constructions when manufactured-clean
+- "Too smooth" delivery — no awkwardness, no recovered phrases, no second thoughts, no parenthetical aside
+- Stat-grid openings before any human context (tonnage/crew/passenger count as the first content the reader sees)
+- Lexical variation penalty — synonym swapping to avoid repetition ("port / destination / locale / stop" rotated through one section)
+
+### Layer 3 — Counter-signals (favor human authorship)
+
+- Named entities: specific crew members, specific bartenders by name, specific fellow-cruiser anecdotes
+- Named dates: "On the May 2025 sailing…", "When I sailed Anthem in June…", "The October 14 2024 Allure sailing…"
+- Named places at granularity: "Deck 14 forward starboard at 5:47 AM," not "the upper deck at sunrise"
+- Mild awkwardness, sentence-shape variation, unexpected word choices that wouldn't pass a marketing edit
+- Localized claims with bounded scope ("on this specific sailing," "in the May rotation," "the year I tried this")
+- Authorial hedging that names the limit of what's claimable ("I haven't sailed Anthem in Alaska myself, but the May Caribbean run was…")
+- Specific verifiable quotes with attribution (a guide's exact line, a host's specific phrasing)
+- Friction, contradiction, or admitted uncertainty within the prose ("I expected X; what I got was Y, and I still don't know why")
+- Specific weather details tied to a specific date or season-segment that wouldn't generalize
+
+### Hard constraints (non-negotiable; override the cluster test)
+
+- **Performative is not artificial.** Brand voice ("calm by design, no urgency") is performance — and humans perform constantly. A passage that reads "performed" is not on that basis AI-generated.
+- **Rhetorical devices are human first.** Parallelism, triplet closure, anaphora, contrast reframing — all are ancient rhetoric, all predate AI by centuries. Their presence is never proof of AI authorship. Their *clean, mechanized overuse without substance* is the actual signal.
+- **Specificity strongly favors human authorship; lack of specificity does not prove AI.** Some authentic human writers are vague. Vagueness alone is not a verdict.
+- **All conclusions are probabilistic.** The framework produces "likely AI," "likely human," or "unclear" — never a definitive label.
+- **Context matters.** Logbook entries operate at elevated experiential register; budget tables operate at flat factual register. Apply the framework with awareness of which register the passage is in. A budget table reading "AI-flat" is correct for its genre; a logbook entry reading "AI-flat" is a failure.
+
+### Cluster scoring (operational)
+
+Per page or per section, count by layer:
+
+- **0 Layer 1 signals** → likely human regardless of Layer 2
+- **1 Layer 1 + 0 Layer 2** → unclear (yellow flag, no verdict)
+- **1 Layer 1 + 2+ Layer 2** → likely AI, modulo counter-signals
+- **2+ Layer 1** → likely AI, modulo counter-signals
+- **Counter-signals modulate the verdict downward by one notch each.** Three or more counter-signals override any combination of Layer 1 + Layer 2 — this is what protects skilled human writing (and humanly-edited AI writing) from false positives.
+
+### Falsification test
+
+Before any change to this framework, run the modified framework against the passages in `examples/falsification-test.md` (to be created — known-good cruise prose passages with multiple structural features the framework lists as AI signals, plus enough counter-signals that they should produce "likely human" verdicts). If a framework update causes any of those passages to be flagged as AI, the update is too aggressive and must be revised. Companion to the existing `good-voice.md` / `bad-voice.md` examples in the skill.
+
+---
+
+## Local-Model Tells (Qwen / Gemma accents)
+
+The Six-Axis scan was tuned on Claude/GPT-drafted prose. If a draft was produced or edited by a local model (Qwen, Gemma) — increasingly common as local inference improves — also run these. Each one is a Layer 2 signal that needs Layer 1 to confirm; in clusters of three or more, they shift the verdict regardless.
+
+- **Both-sides reflex** — a recommendation softened by an appended opposite ("however, you could also…", "it's a balance between…"). InTheWake content states the decision and the reason. Grep: `however,? (you|one|it) (could|might|can) also|on the other hand|that said,|it'?s a balance between|there are (valid )?arguments (for|on) both`
+- **Translationese (Qwen)** — formal diction where a plain word fits. Grep: `\b(utilize|facilitate|commence|prior to|subsequent to|in order to|a multitude of|individuals|possess(es|ed)?|aforementioned|delineate|elucidate)\b` → use / help / start / before / after / to / many / people / have / mentioned / show / explain.
+- **Inline self-correction (Qwen, thinking mode)** — reasoning residue left in the prose. Grep: `Actually,? to clarify|let me restate|or rather,|to be (more )?precise|correction:|what I mean (to say )?is`. Cut; published prose has already decided.
+- **Prose enumeration (Qwen)** — "Firstly… Secondly…" *in sentences*. Grep: `\b(Firstly|Secondly|Thirdly|First and foremost)\b|\bIn terms of\b|\bWith regard to\b|\bWhen it comes to\b`. **Native exception:** numbered lists / step sequences are correct — flag only enumerated *prose*, never real lists or tables.
+- **Summary loop (Gemma)** — "In short… / Essentially…" restating the prior line (compressed Conclusion Bloat). Grep: `\b(In short|In summary|Essentially|Simply put|The bottom line|To sum up|Basically)\b,?`
+- **Faux-drama / ellipsis (Gemma)** — trailing `…` and one-line dramatic beats. Cruise voice is steady, not dramatic. Grep: `…|\.\.\.`  **Threshold:** zero ellipses in factual or planning prose. A logbook entry may keep one if it's actually a pause; never more than one per page.
+
+---
+
+## Sidecar Attestation (REQUIRED for voyage packs)
+
+Every voyage pack `.factcheck.json` sidecar gets a `voice_audit` block alongside the existing `ship_specs` / `christening` / `policies` / `superlatives` / `venues` blocks. The pre-commit gate is updated to check for this block before passing.
+
+### Required sidecar structure
+
+```json
+"voice_audit": {
+  "audited_against": "voice-audit v2.2.0",
+  "audit_date": "YYYY-MM-DD",
+  "audited_by": "Claude (operator-supervised) | Operator | <name>",
+  "audit_scope": "full pack body | section list",
+  "machine_tells": {
+    "banned_vocab_count": 0,
+    "ai_tells_count": 0,
+    "filler_transitions_count": 0,
+    "promotional_verbs_count": 0,
+    "copulative_avoidance_count": 0,
+    "outline_conclusion_count": 0,
+    "lack_of_conviction_count": 0,
+    "antithetical_stacking_count": 0,
+    "synonym_cycling_count": 0,
+    "stat_grid_opening": false,
+    "generic_beauty_language_count": 0
+  },
+  "must_be_present": {
+    "first_person_attestation_with_date": "count + locations OR 'missing — operator-supervised research synthesis disclosed in colophon'",
+    "honest_limitation_acknowledged": "count + locations",
+    "from_the_pier_specificity": "count + locations",
+    "real_numbers": "count",
+    "named_real_specifics": "count + examples",
+    "compressed_declarative_chains": "count"
+  },
+  "cluster_detection": {
+    "layer_1_signals": "count + brief locations",
+    "layer_2_signals": "count + brief locations",
+    "layer_3_counter_signals": "count + brief locations",
+    "verdict": "likely_human | unclear | likely_ai"
+  },
+  "risk_rating": "Low | Medium | High",
+  "outstanding_drift_notes": "any items deferred with operator approval"
+}
+```
+
+### What this enforces
+
+- **An audit can't be skipped.** Every pack ships with the attestation; absence blocks the gate.
+- **The audit must run on the FULL body.** The Anthem June 2026 failure was that voice-audit was run on 140-word descriptions, never on the 60,000-character pack body. The `audit_scope` field is the explicit defense.
+- **Absent-marker failures become structural.** A `must_be_present.first_person_attestation_with_date: "missing"` entry without the colophon-disclosure escape forces an honest acknowledgment: either the pack has lived-experience anchors, or the pack discloses that it doesn't.
+- **The cluster verdict is in the record.** Future sessions reading the sidecar know whether this pack passed cluster detection.
+
+### The colophon-disclosure escape
+
+For research-synthesis packs (packs written from primary-source research without direct lived experience of the specific itinerary), the `must_be_present.first_person_attestation_with_date` field can be marked `"missing — operator-supervised research synthesis disclosed in colophon"`. To use this escape, the pack itself must contain — in its closing colophon or an authorship note — a frank line that names the actual authorship mode:
+
+> *"This pack is research synthesis — port operators called, deck plans cross-referenced, current rates verified — supplemented where indicated with first-hand notes from [author/contributor] on the [date] sailing. If a section reads like it lacks lived weight, that section is the synthesis layer."*
+
+The escape is doctrinally honest: the reader knows what they're reading. Without the colophon, the absent-marker failure stands as a Medium-or-higher risk regardless of the rest of the audit.
+
+---
+
 ## Authenticity Risk Rating
+
+Combine the Six-Axis Scan, the AI-Authorship Cluster Detection, and the Local-Model Tells into a single risk verdict. The cluster verdict and the absent-marker count are independent triggers — either can shift the rating up regardless of the other axes.
+
+**Low risk** — ship it.
+- Machine tells: 0–2 across all categories combined
+- All required voice markers present (or colophon-disclosure escape invoked with frank authorship note)
+- No must-be-absent items present
+- Cluster verdict: `likely_human`
+- Cadence varied; specificity present; no promotional drift
+- Local-model tells: 0–1
+- Pastoral check passes (if applicable)
+
+**Medium risk** — restore before commit.
+- Machine tells: 3–5
+- 1–2 required voice markers missing AND colophon-disclosure not invoked
+- One must-be-absent item appears
+- Cluster verdict: `unclear`
+- One cadence flag OR one specificity flag
+- Light promotional drift
+- Image-density 3+ in any paragraph
+- Local-model tells: 2–3
+
+**High risk** — hold for revision.
+- Machine tells: 6+
+- 3+ required voice markers missing AND colophon-disclosure not invoked
+- 2+ must-be-absent items present
+- Cluster verdict: `likely_ai`
+- Specificity check fails (page is generic — every detail could swap to another ship/port without breaking sense)
+- Promotional drift dominant
+- Pastoral honesty failure on a vulnerable-audience page
+- Antithetical-parallelism stacking with 3+ instances
+- Three or more announcement-before-move grep hits in body prose
+- Local-model tells: 4+ clustered
+
+**Independent escalation triggers** (any one of these forces Medium minimum regardless of other axes):
+
+- `cluster_detection.verdict == "likely_ai"` in the sidecar
+- Reader feedback citing "reads like AI" on a published pack (the Anthem June 2026 case is the historical anchor for this trigger)
+- A factual error caught downstream by a reader on shipped content (cross-flag with the original-research skill)
+
+---
+
 
 Assemble the six-axis output into a risk rating:
 
@@ -263,6 +443,25 @@ When the rating is High, the recommendation is to **rewrite the page from the or
 ### Pastoral Honesty (if applicable)
 - [pass/fail with specifics]
 
+### AI-Authorship Cluster Detection
+- Layer 1 strong signals: [count + brief locations]
+- Layer 2 supporting signals: [count + brief locations]
+- Layer 3 counter-signals: [count + brief locations]
+- Cluster verdict: [likely_human / unclear / likely_ai]
+
+### Local-Model Tells (if any local model in the draft pipeline)
+- Both-sides reflex: [N]
+- Translationese: [N]
+- Inline self-correction: [N]
+- Prose enumeration: [N]
+- Summary loop: [N]
+- Faux-drama / ellipsis: [N]
+
+### Sidecar Attestation
+- voice_audit block written to .factcheck.json: [yes/no]
+- audit_scope: [full pack body / section list]
+- Colophon-disclosure escape invoked: [yes/no — and if yes, frank-authorship-note location]
+
 ### Risk Rating: [Low / Medium / High]
 
 ### Recommended Edits
@@ -285,5 +484,6 @@ When the rating is High, the recommendation is to **rewrite the page from the or
 
 ## Version History
 
+- **v2.2.0 (2026-06-04)** — Six substantive additions after the Anthem June 2026 reader-feedback failure (public Facebook comment from Erin Upshur Jones on the brand's own post: "reads like this was AI generated and not proofread"). The voyage pack had passed every Six-Axis Scan check (zero banned vocab, zero machine tells, zero promotional drift) yet a domain-knowledgeable reader correctly diagnosed it as AI on first read. The failure mode wasn't *presence of machine tells* — it was *absence of authenticity markers* (no first-person attestation with a date, no honest limitation tied to lived experience, no named real specifics, no friction). v2.2.0 closes the gap with: **(1)** an AI-Authorship Cluster Detection framework lifted and adapted from ken voice-audit v3 (Layer 1 strong signals, Layer 2 supporting signals, Layer 3 counter-signals, hard constraints, cluster scoring rules, falsification-test reference). **(2)** New machine-tell categories from June 2026 research (Wikipedia "Signs of AI writing," industry AI-detection literature): copulative-avoidance tells ("serves as," "marks a"), outline-conclusion formula ("Despite X, faces challenges, future prospects"), lack-of-conviction tells, expanded AI-vocabulary list. **(3)** Required Sidecar Attestation — voice-audit results recorded in the pack's `.factcheck.json` alongside the original-research factual sidecar; pre-commit gate will check for the `voice_audit` block. **(4)** Colophon-disclosure escape — research-synthesis packs (no direct lived experience of the specific itinerary) can pass the audit if the pack itself names the authorship mode honestly in a closing colophon. **(5)** Local-Model Tells section (Qwen, Gemma accents) for drafts produced or edited by local models. **(6)** Independent escalation triggers — cluster-verdict `likely_ai`, reader feedback citing "reads like AI," and downstream factual errors caught by a reader all force Medium minimum regardless of other axes. Sources: ken voice-audit v3, Wikipedia "Signs of AI writing" article, oliviacal.com "AI Writing Tells" inventory, Google E-E-A-T 2022+ "Experience" addition.
 - **v2.1.0 (2026-05-10)** — Lifted four diagnostics from Romans's `voice-audit` (in cruise voice): grep pattern for announcement-before-move, grep pattern for assumed-familiarity, image-density scan with per-paragraph thresholds, must-be-absent list with explicit drift indicators. Updated risk-rating thresholds and audit-report format to reflect the new checks.
 - **v2.0.0** — Six-axis scan with cruise-marketing vocabulary list and pastoral-honesty axis.
