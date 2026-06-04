@@ -819,3 +819,23 @@ Soli Deo Gloria. Careful audit.
 - Documented.
 - Soli Deo Gloria.
 
+
+## 25. More Ship Nav Canonical Issues in Costa and Carnival Subdirs (2026-06-04)
+
+**Findings:**
+- ships/costa/ (multiple pages including index, toscana, deliziosa, etc.): still had <a href="/ships.html"> in nav and dropdowns (similar to princess).
+- ships/carnival/ (~49 occurrences): same embedded /ships.html in Planning nav, etc.
+- These subdirs appear to have copied or legacy HTML not fully synced from main ships/template.html (which was fixed earlier).
+- NCL and Virgin subdirs clean (0).
+- Distinct from rcl main (which use template and will regen) and previous princess fix.
+
+**Actions:**
+- Fixed all bad href="/ships.html" to /ships/ in ships/costa/*.html and ships/carnival/*.html using sed (mac compatible, only these patterns).
+- Verified 0 bad left in those dirs.
+- This continues the ship nav canonical cleanup from generator/template fixes.
+- Reported via update to #1821 (Missing Port & Ship Pages / Audit) and related ship issues.
+
+**Evidence:** grep counts pre/post, ls on subdirs, head on sample pages showing nav.
+
+Soli Deo Gloria. Careful, not clever – fixed only the nav links in these legacy subdirs.
+
