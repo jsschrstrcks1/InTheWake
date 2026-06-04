@@ -991,3 +991,18 @@ Soli Deo Gloria.
 - GH on #1821.
 - Soli Deo Gloria. The ship nav bug (from initial generator audit) is now cleaned at source and in legacy subdirs.
 
+
+## 35. Root Pages and Tools/ Canonical Nav Cleanup (2026-06-04)
+
+**Findings:**
+- Even after previous root fixes, some about-us.html, accessibility.html etc. still had /cruise-lines.html, /ports.html, /restaurants.html (and possibly others).
+- tools/*.html (release-notes, calculators, tracker, planner) all had <a href="/ships.html">Ships</a> etc. – these are static tool pages, not generated from ship template.
+- Similar to the top-level static pages issue.
+
+**Actions:**
+- Python safe replace for the 4 main hubs (/ships/, /ports/, /cruise-lines/, /restaurants/) in *.html and tools/*.html.
+- Verified 0 remaining for those in root/tools.
+- ORPHAN 35.
+- GH on #1821.
+- Soli Deo Gloria. Now the static nav sources are consistent with the canonicals we established.
+
