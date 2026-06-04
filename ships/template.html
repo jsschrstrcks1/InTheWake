@@ -198,7 +198,7 @@ All work on this project is offered as a gift to God.
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning</a>
             <a href="/first-cruise.html">Your First Cruise</a>
-            <a href="/ships.html">Ships</a>
+            <a href="/ships/">Ships</a>
             <a href="/cruise-lines.html">Cruise Lines</a>
             <a href="/ports.html">Ports</a>
             <a href="/packing-lists.html">Packing Lists</a>
@@ -428,7 +428,7 @@ All work on this project is offered as a gift to God.
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
       </div>
-      <p><a href="https://cruisinginthewake.com/ships.html" class="btn">See All Ships</a></p>
+      <p><a href="/ships/" class="btn">See All Ships</a></p>
     </div>
 
     <!-- ===== NEW: Explore by Class (canon) ===== -->
@@ -678,7 +678,7 @@ All work on this project is offered as a gift to God.
         classes.forEach(cn=>{
           const slide = document.createElement('div'); slide.className='swiper-slide';
           const clsSlug = cn.toLowerCase().replace(/[^a-z0-9]+/g,'-');
-          slide.innerHTML = `<a href="/ships.html#rcl-${clsSlug}">${cn || 'Other Class'}</a>`;
+          slide.innerHTML = `<a href="/ships/#rcl-${clsSlug}">${cn || 'Other Class'}</a>`;
           classWrap.appendChild(slide);
         });
         new Swiper('.related-classes .swiper-container', {

@@ -412,7 +412,7 @@ All work on this project is offered as a gift to God.
   <meta name="referrer" content="no-referrer">
   <meta name="ai-summary" content="${name} — ${desc}">
   <meta name="last-reviewed" content="${today}">
-  <meta name="content-protocol" content="ICP-Lite-v1.0">
+  <meta name="content-protocol" content="ICP-2">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="article">
@@ -550,7 +550,7 @@ ${faqJsonLd}
 
   <div class="hero" role="img" aria-label="Ship wake at sunrise">
     <div class="latlon-grid" aria-hidden="true"></div>
-    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
     <div class="hero-title">
       <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
     </div>
@@ -683,7 +683,7 @@ ${faqHtml}
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
           <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
         </picture>
       </a>

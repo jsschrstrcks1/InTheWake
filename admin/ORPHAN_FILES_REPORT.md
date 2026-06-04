@@ -683,3 +683,49 @@ No bulk deletes; only moves + new credited assets + page integrations.
 ---
 
 **Report End**
+
+## 18. Continued Codebase Crawl & Generator Findings (2026-06-03, post image guardrail)
+
+**Context:** Continuing exhaustive audit ("continue finding errors, and reporting to git hub. carefully. soli deo gloria.") after image review, uniqueness memory (1ef4b963 then v2 da932fee), and guardrail compliance for the 5 new CC photos (unique per-page: 2 on gran-canaria, 2 on picton, 1 on rhapsody-of-the-seas).
+
+**New distinct findings (reported exactly once via gh comments on open issues; evidence from grep/read):**
+
+1. **Ship nav canonical bug persists in 51+ ship pages (RCL sample: adventure-of-the-seas.html ... independence-of-the-seas.html):**
+   - Planning dropdown still emits `<a href="/ships.html">Ships</a>` (and some "See All Ships", class links).
+   - Root: `ships/template.html` (lines ~201, ~431, ~681 pre-fix) was outdated (parallel to the port generator bug that hit 385/388 ports, previously fixed in generate-port-page.cjs + PR 1834 work).
+   - Fixed (this session): 3 instances in ships/template.html changed to `/ships/` (and `/ships/#anchor`).
+   - Impact: all generated ship pages lag until re-gen via template or the many update-ship-*.js / fix-ship-*.js / transform scripts.
+   - Note: lots of vN batch-fix-ship-*.js clutter (cf. prior Section 16).
+   - Reported: gh comment on #1800 (Ship Pages validator/deck plans issues).
+   - Evidence: `grep -l 'href="/ships.html"' ships/rcl/*.html | wc -l` (>51); template read; validator-ship now expects /ships/ in gold nav arrays.
+
+2. **Venue / restaurant generators are source of multiple open issues (stale assets, ICP, cross-pollination):**
+   - All generators (generate-venue-pages.js + generate-*-venue-pages.js for carnival/msc/ncl/virgin) contain duplicated HTML template strings with:
+     - `ICP-Lite-v1.0` (should be ICP-2 per current standards/validators).
+     - Mixed asset pins: `?v=3.010.300` (compass_rose.svg, ken1.webp, author sources) while styles sometimes .400.
+   - Authoritative current: 3.010.400 (package.json, index.html, validate-*.js pins for styles.css cache-bust).
+   - This directly emits the problems on 478 restaurant pages (stale ?v= on assets, old ICP meta, and likely venue-tag cross-pollination from per-line template reuse).
+   - Fixed (this session): 
+     - All 5 generators: ICP-Lite-v1.0 -> "ICP-2".
+     - All v=3.010.300 -> 3.010.400 (python safe replace + manual).
+   - Existing pages will need re-generation to update (generators are the root).
+   - Reported: gh comments on #1814 (stale asset versions), #1813 (ICP-Lite), #1815 (cross-pollinated venue-tags wrong cruise line).
+   - Evidence: direct grep in the 5 generator files pre/post (showed the strings); restaurants.html still has old (generated); validators updated to .400/ICP-2.
+
+**Other notes from crawl:**
+- gh issue list shows many related open (1829 R2 local assets refs, 1837 IndexNow hook $CLAUDE_FILE_PATH bug, 1821 missing pages audit, etc.). Recommend targeted follow (e.g. grep for local /assets/ in recent HTML vs expected post-migration).
+- Image work (prior): all 5 new credited photos confirmed unique by grep (only their assigned page/ship); memory updated; attribution registry entries; scanner clean for new (pre-existing CRITICAL/ERROR=1 remain in audit-reports).
+- Many "add-*-ships.py", "fix-ship-*.js vN", "update-ship-*.js" scripts (clutter, low-ref, pre-root-generator era – cf. Section 16 recommendation to archive post-fixes).
+- No new /ships.html in main generators (only in fix/batch/validate/historical); template was the ship equivalent.
+
+**Actions taken (careful, not clever):**
+- Root fixes in templates/generators (no bulk page edits; pages lag until regen).
+- gh comments posted exactly once per distinct cluster (with evidence, root, fix, Soli Deo Gloria).
+- Local: this section appended; generators/template updated + committed.
+- Uniqueness memory for images maintained.
+- Scanner re-run post-changes.
+
+Next crawl could target: IndexNow hook (1837), R2 asset refs (1829), full ship page regen or more missing pages, venue tag logic in generators, remaining batch clutter.
+
+**Soli Deo Gloria.**
+
