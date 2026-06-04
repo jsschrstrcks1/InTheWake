@@ -974,3 +974,20 @@ Soli Deo Gloria.
 - GH on #1821.
 - Soli Deo Gloria. Now the source template is fully canonical for nav.
 
+
+## 34. Verification of Ship Nav Canonical Cleanup and Port Image Integrations (2026-06-04)
+
+**Findings:**
+- Post all fixes: 0 bad .html for ships/ports/cruise-lines/restaurants in non-rcl subdirs.
+- rcl main still has (as expected; will update on re-gen from fixed ships/template.html).
+- The port pages edited (gran-canaria, picton) have the new credited figures with proper CC-BY credits and logbook-image class; no cross-use.
+- Template now fully uses / for the hub nav items.
+- Root pages clean for these.
+- No new image-reuse issues from our credited additions (they are unique per memory and report).
+
+**Actions:**
+- Verified with greps and counts.
+- ORPHAN 34.
+- GH on #1821.
+- Soli Deo Gloria. The ship nav bug (from initial generator audit) is now cleaned at source and in legacy subdirs.
+
