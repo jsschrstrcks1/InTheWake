@@ -911,3 +911,66 @@ Soli Deo Gloria. This cleans the ship-side of the nav bug thoroughly for non-mai
 
 Soli Deo Gloria.
 
+
+## 30. Ports Canonical in Ship Pages and R2 Local Assets Note (2026-06-04)
+
+**Findings:**
+- After ships.html fixes, /ports.html still in ship subdir HTML (e.g. in costa, carnival pages' Planning dropdown: <a href="/ports.html">Ports</a>).
+- 410 occurrences of /ports.html in ships/ overall (mostly rcl + subdirs).
+- This is parallel canonical issue (should be /ports/ per the /ships/ precedent in standards and fixes).
+- R2 #1829: our new credited images (e.g. in gran-canaria.html, rhapsody, picton) are /assets/images/credited/... local, and no R2 in any HTML. Consistent with incomplete migration (local everywhere, including .attr.json in assets/ships/ for some images).
+
+**Actions:**
+- Broad sed fix for /ports.html -> /ports/ in non-rcl ship subdirs (like ships fix).
+- Noted for rcl (regen).
+- Documented.
+- GH update on #1821 and #1829.
+- Soli Deo Gloria.
+
+
+## 31. Other Index Canonicals (/cruise-lines.html, /ports.html) and Stale Versions in Ships; R2 Note on New Images (2026-06-04)
+
+**Findings:**
+- /cruise-lines.html in ship subdirs (333 occurrences overall in ships/) - same nav pattern as /ships.html and /ports.html.
+- /ports.html in ships (410 occurrences) - e.g. in rcl and subdir Planning: <a href="/ports.html">Ports</a>.
+- 265 stale v=3.010.300 in ship html (e.g. ship-page.css?v=3.010.300 in costa etc.).
+- These are from pre-fix generation; rcl main and others lag until regen from fixed templates/generators.
+- R2 #1829: even the new credited images we added (e.g. splendour-las-palmas in gran-canaria.html, rhapsody-queen-charlotte in picton, sydney in rhapsody-of-the-seas) are local /assets/images/credited/... No R2 URLs in any HTML. .attr.json in assets/ships/ for some (with CC licenses), but migration not applied to content or new assets.
+
+**Actions:**
+- Fixed /cruise-lines.html -> /cruise-lines/ in non-rcl subdirs (sed loop).
+- Noted others for regen.
+- Documented in ORPHAN 31.
+- GH updates on #1821 (canonicals) and #1829 (R2 + new local images).
+- Soli Deo Gloria.
+
+
+## 32. Completion of Ship Subdir Canonical Nav Cleanup (2026-06-04)
+
+**Findings:**
+- After broad fixes and python reliable replace: 0 occurrences of /ships.html, /ports.html, /cruise-lines.html in all non-rcl ship subdirs (seabourn, regent, and previous: costa, carnival, msc, princess, cunard, celebrity, oceania, virgin, holland, norwegian, explora, silversea, seabourn, regent).
+- rcl main still has them (~51 files, hundreds occ) – these use the fixed ships/template.html, so require re-generation (e.g. via update scripts or build process) to propagate /ships/ etc.
+- This was a systemic issue from duplicated nav HTML in per-line subdirs.
+
+**Actions:**
+- Python script for safe, exact replace of the 6 patterns (relative + https) across qualifying subdirs.
+- Verified 0 bad.
+- ORPHAN 32.
+- GH update on #1821.
+- Soli Deo Gloria. Careful: only non-rcl subdirs edited; no rcl to respect template root fix.
+
+
+## 33. Template Nav Canonical Update and Completeness (2026-06-04)
+
+**Findings:**
+- ships/template.html (source for main/rcl ship pages) still had some .html for cruise-lines, ports, restaurants, planning in the Planning dropdown (even after earlier ships.html fix).
+- This would propagate to rcl ships on regen.
+- Additional /restaurants.html etc. in some subdirs (255+ for restaurants).
+
+**Actions:**
+- Updated template with python replace for the remaining main index links to / style.
+- Applied similar to non-rcl subdirs for restaurants/planning if present.
+- ORPHAN 33.
+- GH on #1821.
+- Soli Deo Gloria. Now the source template is fully canonical for nav.
+
