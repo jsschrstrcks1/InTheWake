@@ -4037,7 +4037,7 @@ function validateBasicHTML($, html) {
   // The canonical ship validator is admin/validate-ship-page.sh; if its nav
   // expectations diverge from this list, update both.
   const NAV_REQUIRED = [
-    '/planning.html', '/ships.html', '/restaurants.html', '/ports.html',
+    '/planning.html', '/ships/', '/restaurants.html', '/ports.html',
     '/internet-at-sea.html', '/drink-packages.html', '/drink-calculator.html',
     '/stateroom-check.html', '/cruise-lines.html', '/packing-lists.html',
     '/accessibility.html', '/travel.html', '/solo.html',

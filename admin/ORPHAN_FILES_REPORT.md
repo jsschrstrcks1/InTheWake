@@ -750,3 +750,18 @@ Next crawl could target: IndexNow hook (1837), R2 asset refs (1829), full ship p
 
 Soli Deo Gloria. (All per careful audit, no clever bulk on generated.)
 
+
+## 20. Additional Nav and Validator Cleanup (2026-06-04)
+
+**Findings:**
+- Remaining /ships.html in ship sub-pages: princess/* (18 pages), allshipquiz.html. Fixed at page level since no central generator for all ship pages (template used for some, but princess and quiz have embedded nav).
+- validate-port-page-v2.js NAV_REQUIRED list still referenced /ships.html (updated to /ships/ for canonical consistency).
+- Image reuse report shows only pre-existing same-entity duplicates and documented patterns (no new from our changes).
+
+**Actions:**
+- Fixed nav links in the 19 ship files using sed (to /ships/).
+- Updated validator.
+- These are distinct from previous generator fixes; reported via continued audit.
+
+Soli Deo Gloria.
+
