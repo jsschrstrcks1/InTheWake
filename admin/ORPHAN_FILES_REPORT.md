@@ -1070,3 +1070,33 @@ Soli Deo Gloria.
 - GH comment on #1821 (distinct cluster: restaurant pages).
 - Soli Deo Gloria. Careful: only root generators; no bulk edit of 100s of venue HTMLs.
 
+
+## 40. Bad Canonical Links in Articles and Cruise-Lines Content Pages (2026-06-04)
+
+**Findings:**
+- Multiple articles/*.html (e.g., bahamas-election-day-cruise-decisions-2026.html, caribbean-cruise-trends-2026.html, costa-maya-mesoamerican-reef-diving.html) and cruise-lines/*.html (carnival.html, celebrity.html, costa.html) contain old href="/ships.html", /ports.html, /cruise-lines.html, /restaurants.html in their nav or inline links.
+- Distinct from previous clusters: these are editorial content pages (articles, cruise-line overviews), not ship profiles, not venues, not authors, not root/tools.
+- Scope: at least 3+ articles and 3+ cruise-lines pages; likely more.
+- Root cause: these pages appear to have copied or templated nav HTML with outdated .html links (no shared include found in quick search; possibly manual or from older build process).
+
+**Actions:**
+- Fixed with safe python replace in articles/ and cruise-lines/ (to /ships/ etc.).
+- Verified reduction (counts dropped).
+- Added ORPHAN section 40.
+- GH comment on #1821 (new distinct cluster: content pages).
+- Soli Deo Gloria. Careful: treated as source content; no assumption of generation without evidence.
+
+
+## 41. Broader Search: No Major New Clusters in Solo/Travel/Packing (2026-06-04)
+
+**Findings:**
+- Quick grep: no (or minimal) bad /ships.html in solo/*.html, travel/*.html, packing*.html.
+- Confirms the main clusters were: ship subdirs (fixed), root/tools (fixed), authors (fixed), venues/restaurants (fixed at gen), articles/cruise-lines (just fixed).
+- Image reuse: still only pre-existing 1 CRIT/1 ERR (same-entity dups, documented patterns) -- no new from our canonical or image work.
+
+**Actions:**
+- Documented in ORPHAN 41.
+- No new fixes needed from this search.
+- GH not updated (no new distinct cluster; avoid duplicate reports).
+- Soli Deo Gloria. Careful: only reported new distinct findings.
+
