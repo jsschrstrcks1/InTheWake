@@ -1164,3 +1164,18 @@ Soli Deo Gloria.
 - GH not updated for duplicates (use existing #1821 comments).
 - Soli Deo Gloria. Careful: stopped when no new distinct large clusters.
 
+
+## 46. Verification: No Major New Canonical Clusters; Pre-existing Image Issues and R2 Note (2026-06-04)
+
+**Findings:**
+- Broad search: no significant remaining href="/ships.html" etc. for the 4 hubs outside the addressed clusters (rcl ships pending regen, ports fixed, etc.). Isolated cases in tools or specific may remain but not massive.
+- Image reuse: scanner shows same pre-existing 1 CRIT (cross-bucket dups?), 1 ERR, 12 WARN, 16 INFO (mostly same-entity or documented like authors/articles, ocean-cay dups). No new from our port bulk fixes or credited images (they don't appear in report as issues).
+- R2 #1829: Confirmed - new credited images (e.g. in gran-canaria.html, picton.html, rhapsody) use local /assets/images/credited/... ; ports/ have hundreds of local /assets/ refs. Migration not applied to content.
+- No other massive clusters found in this round (e.g., no in cruise-lines sub beyond fixed).
+
+**Actions:**
+- Verified with greps/scans.
+- Added ORPHAN 46.
+- GH not new comment (to #1821 for verification note; avoid dups).
+- Soli Deo Gloria. Careful: confirmed scope of fixes; pre-existing issues noted but not re-reported.
+
