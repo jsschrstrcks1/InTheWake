@@ -1,7 +1,7 @@
 ---
 name: voice-audit
 description: "Post-draft diagnostic for InTheWake content. Scans for cruise-marketing tells, AI authorship-cluster signals, and absence-of-authenticity gaps. Assesses authenticity risk by clustering signals across layers (Layer 1 strong, Layer 2 supporting, Layer 3 counter-signals). Required: every voyage-pack ships with a voice-audit attestation in its .factcheck.json sidecar. Fires before committing content edits or before publishing a new page. For during-writing standards, see like-a-human. For corpus measurement, see voice-dna."
-version: 2.2.0
+version: 2.3.0
 ---
 
 # Voice Audit — Post-Draft Diagnostic
@@ -88,6 +88,16 @@ Count images, metaphors, and surprise phrases per paragraph. Run especially on c
 
 **Test for cleverness vs. truth:** say the plain version aloud. Then say the surprising version aloud. If the plain version lands, keep it. If the surprising version earns its keep by doing work the plain version cannot, keep the surprise. When in doubt, plain wins.
 
+#### Anchored-superlative test (v2.3.0)
+
+A superlative claim with a concrete anchor is partially defensible — but only partially. Example from the Anthem orchestra audit: "the sound carries half a mile and is unforgettable" pairs a concrete measurable ("half a mile") with a cruise-marketing-native adjective ("unforgettable"). The concrete half mile saves the claim from being a pure machine tell, but the word "unforgettable" is itself a Layer 2 stock phrasing that any cruise marketer would reach for. Replace with an experiential simile or specific descriptor: "the sound carries half a mile and lands like a rifle shot" or "the sound carries half a mile — close-by, it shakes the rail." Both replace the marketing-native adjective with an experiential anchor.
+
+**Test:** when a superlative claim is anchored, ask whether the adjective itself is a marketing-native word ("unforgettable," "stunning," "breathtaking," "magical," "iconic without a named specific," "majestic," "incredible," "amazing"). If yes, the anchor saves the claim from Layer 1 but the adjective itself remains a Layer 2 supporting signal until replaced with experiential language.
+
+#### Triplet-of-absences pattern (v2.3.0)
+
+A triplet rhythm built from *negations* rather than concrete positives. Example from the Anthem orchestra audit: "no urgency, no upsell, no countdown." Each item names what the brand *isn't*; none names what the brand *is*. Triplets of negations are a corpus-specific brand move (defensible once per page; the In the Wake brand voice depends on naming what it rejects), but the *pattern* is also a known LLM rhythm-shortcut — a way to manufacture authority without committing to a positive claim. **Cap:** one triplet-of-absences per top-level document. Two or more is a Layer 2 supporting signal. The corpus-native alternative is to pair the absence-triplet with at least one concrete positive ("no urgency, no upsell, no countdown — this pack is the calm read on one specific week" — the second half anchors the brand claim).
+
 ### 2. Voice Continuity Check
 
 **Must be present** (cruise voice baseline):
@@ -103,7 +113,7 @@ Count images, metaphors, and surprise phrases per paragraph. Run especially on c
 
 **Must be absent** (cruise voice anti-baseline):
 
-- [ ] Stacked intensifier adverbs (*deeply, genuinely, truly, particularly, especially*)
+- [ ] Stacked intensifier adverbs (*deeply, genuinely, truly, particularly, especially*) — note (v2.3.0 sharpening): single instances of "truly" used to mean "actually" or "honestly" usually pass; the flag is rhetorical-pad use ("Sitka truly offers the best of Alaska" → cut "truly" entirely; the sentence is stronger without it). Test: delete the adverb. If the sentence retains its meaning unchanged, the adverb was padding.
 - [ ] AI-overrepresented vocabulary (see Machine Tell Scan)
 - [ ] "Moreover / Furthermore / In conclusion" transitions
 - [ ] Stat-grid openings before human context
@@ -177,6 +187,7 @@ This framework codifies the cluster approach. **AI authorship is detected by clu
 - **Broad authority claims with no specifics.** "When I've sailed Alaska before…" without naming a ship, a date, or a sailing. "Most cruisers find…" without citing a source or the cruiser. "The locals will tell you…" without naming a local. Acceptable form: the claim *with* the anchor. Unacceptable form: the claim *without* the anchor.
 - **Triplet closures carrying rhythm but not content.** "Honest about the weather. Honest about the cost. Calm about all of it." Test: if the third item in the triplet is deleted, does meaning collapse, or does the sentence just lose its musical close? If only the music is lost, the closure was decoration. One triplet per page is corpus-native rhythm; multiple triplets are the cluster signal.
 - **Clean, linear persuasion arc with no friction.** Each section flows to the next without authorial uncertainty, without admitted complication, without a moment where the writer says "I got this wrong" or "this didn't work" or "I'm not sure about X." Human prose has friction; optimized AI output rarely does.
+- **Cross-line / cross-ship feature blending cluster** (added v2.3.0 from orchestra findings on the Anthem pack). When factual errors cluster as cross-entity confusions — a Royal venue called by an NCL name, a Quantum-class feature attributed to a Breakaway-class ship, a port docking type from one operator applied to a different operator — they are not four independent factual slips. They form a cluster signature of LLM training-data contamination, where generic class-level descriptions, sibling-line venue names, and stale itinerary patterns crossed into ship-specific writing. As a cluster, the cross-entity-confusion *pattern* is a Layer 1 strong signal of AI authorship even when each individual error has been fixed downstream. Test: when factual corrections are applied, is the corrected text still riding generic class-level rhythm, or has the writing been re-anchored to the specific ship/line/itinerary? If still generic, the Layer 1 cluster signal persists. Historical anchor: the four Anthem-pack factual errors caught publicly on 2026-06-04 (Sitka tender vs Royal-docks-here, Mandara-brand vs Vitality, Observation-Lounge vs Two70, missing sea day) — independently identified by Perplexity and You.com as a cross-line/cross-ship blending cluster, not four independent confabulations.
 
 ### Layer 2 — Supporting signals (need Layer 1 to confirm)
 
@@ -186,18 +197,33 @@ This framework codifies the cluster approach. **AI authorship is detected by clu
 - "Too smooth" delivery — no awkwardness, no recovered phrases, no second thoughts, no parenthetical aside
 - Stat-grid openings before any human context (tonnage/crew/passenger count as the first content the reader sees)
 - Lexical variation penalty — synonym swapping to avoid repetition ("port / destination / locale / stop" rotated through one section)
+- **Marketing-rhythm parallelism with the cruise line's own official copy** (added v2.3.0). Royal Caribbean's port marketing uses constructions like "Sitka truly offers the best of Alaska," "Skagway symbolizes the spirit of Alaska," "a perfect snapshot of Alaska's wild beauty." A pack can avoid quoting these phrases directly but still mirror the *cadence* in places — "This is the day Alaska reveals itself" maps to the RC marketing rhythm even with no shared vocabulary. When neutral planning prose tracks the cadence of the cruise line's own promotional copy, it becomes composite AI signal: promotional drift + stock phrasing + lack of itinerary-specific friction. Test: read the suspect passage aloud, then read a Royal/NCL/MSC port-description page aloud; if the rhythm matches even without word overlap, the pack has drifted toward marketing voice.
+- **Mechanical structural repetition across sibling sections** (added v2.3.0). The same header or sub-section frame applied identically across all parallel sections — "Honest read on [port]" appearing on every port day, "For first-timers:" as a sub-section heading on every port day. The phrase itself may read native, but its mechanical repetition across all sibling sections is the AI-shape tell. A human writer would vary the framing by what each section actually contains: "Sitka — the small Russian-Tlingit port," "Skagway — the gold-rush town," "Juneau — the unreachable capital." Test: collect all section headers at the same level (Day-1, Day-2, ..., Day-N) and read them in sequence. If they're parallel-shaped templates with the [variable] filled in, that's mechanical. If each is shaped by what that section is actually about, that's varied. Three or more identical-shape headers at the same level is the threshold for Layer 2 flag.
 
 ### Layer 3 — Counter-signals (favor human authorship)
 
-- Named entities: specific crew members, specific bartenders by name, specific fellow-cruiser anecdotes
-- Named dates: "On the May 2025 sailing…", "When I sailed Anthem in June…", "The October 14 2024 Allure sailing…"
-- Named places at granularity: "Deck 14 forward starboard at 5:47 AM," not "the upper deck at sunrise"
+**Crucial refinement (v2.3.0, from orchestra adversarial review of the Anthem pack):** Counter-signals only count if they are **narrativized with friction** — i.e., the named entity, the date, or the specific place is *used* in a story about lived experience rather than merely *mentioned* as a flat factual reference. The Anthem pack's named entities (Emma Wilby, TEMSCO, Capital Transit, Harv & Marv's, M&M Tours) all appear as flat factual mentions ("Capital Transit city bus combo ~$4 each way"). Any LLM with WebFetch can produce that kind of named-entity specificity from public sources — it is *research-grade*, not *lived-grade*. As research-grade, these counter-signals neutralize toward AI but do not override Layer 1 + Layer 2 combinations.
+
+A counter-signal is **lived-grade** when it has at least one of:
+
+- A first-person attestation attached ("I rode the M&M Blue Bus on the May 2025 sailing")
+- A friction note ("the Capital Transit driver told me locals skip the cruise-shuttle bottleneck by taking route 3 + 8 at 8 AM before the cruisers arrive")
+- An idiosyncratic micro-observation that wouldn't appear in marketing or third-party port guides ("the bus had a hand-lettered sign on the front window about the Saturday bingo at the Eagles Lodge")
+- A contradiction with public-source expectation ("the operator's website says 4-hour minimum; in practice the driver waited 20 minutes past pickup time and we still made the 3 PM tender")
+
+**Examples of valid Layer 3 counter-signals (all require lived-grade anchoring):**
+
+- Named entities (lived-grade only): specific crew members by name encountered, specific bartenders, specific fellow-cruiser anecdotes — *with* the encounter context attached
+- Named dates with attestation: "On the May 2025 sailing…", "When I sailed Anthem in June…", "The October 14 2024 Allure sailing…" — the date alone is research-grade; the date + first-person attestation is lived-grade
+- Named places at granularity: "Deck 14 forward starboard at 5:47 AM" — this granularity is hard to fake without having been there, since marketing rarely descends to deck-section-time
 - Mild awkwardness, sentence-shape variation, unexpected word choices that wouldn't pass a marketing edit
 - Localized claims with bounded scope ("on this specific sailing," "in the May rotation," "the year I tried this")
 - Authorial hedging that names the limit of what's claimable ("I haven't sailed Anthem in Alaska myself, but the May Caribbean run was…")
 - Specific verifiable quotes with attribution (a guide's exact line, a host's specific phrasing)
 - Friction, contradiction, or admitted uncertainty within the prose ("I expected X; what I got was Y, and I still don't know why")
-- Specific weather details tied to a specific date or season-segment that wouldn't generalize
+- Specific weather details tied to a specific date or season-segment that wouldn't generalize ("the May 14 sailing had thick fog through the Inside Passage; the July 22 sailing had a 75°F windless afternoon at Skagway that didn't repeat the next week")
+
+**Anti-counter-signal pattern (does NOT count):** flat factual mention of a named entity without narrativization. Research-grade only.
 
 ### Hard constraints (non-negotiable; override the cluster test)
 
@@ -233,6 +259,42 @@ The Six-Axis scan was tuned on Claude/GPT-drafted prose. If a draft was produced
 - **Prose enumeration (Qwen)** — "Firstly… Secondly…" *in sentences*. Grep: `\b(Firstly|Secondly|Thirdly|First and foremost)\b|\bIn terms of\b|\bWith regard to\b|\bWhen it comes to\b`. **Native exception:** numbered lists / step sequences are correct — flag only enumerated *prose*, never real lists or tables.
 - **Summary loop (Gemma)** — "In short… / Essentially…" restating the prior line (compressed Conclusion Bloat). Grep: `\b(In short|In summary|Essentially|Simply put|The bottom line|To sum up|Basically)\b,?`
 - **Faux-drama / ellipsis (Gemma)** — trailing `…` and one-line dramatic beats. Cruise voice is steady, not dramatic. Grep: `…|\.\.\.`  **Threshold:** zero ellipses in factual or planning prose. A logbook entry may keep one if it's actually a pause; never more than one per page.
+
+---
+
+## Orchestra-Audit Discipline (added v2.3.0)
+
+**Why this exists.** v2.2.0 introduced the AI-Authorship Cluster Detection framework and the Sidecar Attestation requirement. The first orchestra-pass audit (Anthem pack, 2026-06-04) immediately surfaced a procedural failure: when fan-out models (GPT, Gemini, Perplexity, You.com, Grok) are asked to do voice-audit *without file access*, **they invent plausible-sounding examples to fit the framework.** Verified instances from the Anthem orchestra run:
+
+- Gemini cited "truly immersive" at line 123 — phrase does not exist in the pack (grep-verified).
+- Gemini cited "embark on an unforgettable journey" at line 15 — does not exist.
+- Gemini cited "fresh Alaskan seafood" at line 345 — does not exist.
+- Perplexity cited "Mandara Spa" on a line that no longer contains it (the brand was corrected days earlier; Perplexity's line reference reflected the pre-fix state but was attributed as current).
+
+The hallucinated examples *fit the framework* — they are plausible cruise-marketing phrases that would, if real, be Layer 2 supporting signals. The fan-out models filled in plausible content because they had no actual file content to work from. This is the framework eating its own tail: an AI-detection audit producing AI-hallucinated findings.
+
+### The rule (v2.3.0)
+
+**Any orchestra-derived voice-audit finding MUST be grep-verified against the actual pack body by Claude (with file access) before being incorporated into the sidecar.** Findings that fail grep verification are flagged in the orchestra-extension block under a `_hallucination_meta_finding` field and excluded from the consolidated tell list. Only findings with grep-confirmed line anchors are written to `consolidated_tell_list.layer_X_signals_confirmed_in_pack`.
+
+### Adversarial-role failover
+
+The Anthem orchestra run also surfaced an operational pattern: when the designated adversarial model (Grok in that run) fails — null response, API error, timeout — the adversarial role does not disappear. **It redistributes to whichever round-robin pass picks up adversarial framings.** In the Anthem run, Perplexity round-robin challenged Claude's framings of the four factual confabulations; You.com round-robin pushed back on Perplexity's "refurbishment erasure" thesis. Both functioned as adversarial without the designation.
+
+**Rule:** when the designated adversarial model fails, document the redistribution in `orchestra_extension._grok_outcome` (or equivalent), name which round-robin models picked up adversarial responsibility, and treat their challenges as the adversarial findings of record. Do not re-run orchestra just to satisfy a single-model adversarial role — the redistribution is the practical equivalent and may even be stronger (two adversarial voices challenging each other, not just one model challenging the lead).
+
+### Orchestra-extension block in the sidecar
+
+The `voice_audit.orchestra_extension` sub-block should contain at minimum:
+
+- `_run_date`, `_orchestra_state_file`, `_total_cost_usd`, `_models_run`
+- `_grok_outcome` (or named-adversarial-outcome) — failure mode if any, and which round-robin models picked up adversarial role
+- `_hallucination_meta_finding` — list of findings cited by fan-out models that grep-verification rejected
+- `consolidated_tell_list` — only grep-verified findings, organized by layer
+- `verdict_reconciliation` — first-pass verdict, orchestra-extended verdict, justification, final verdict
+- `highest_priority_restoration_edits_per_orchestra` — actionable list
+
+This block is the worked example; the Anthem `voice_audit.orchestra_extension` (committed 2026-06-04, sidecar at admin/voyage-packs/v0.1.4-rcl-anthem-alaska-7n.factcheck.json) is the reference template.
 
 ---
 
@@ -484,6 +546,7 @@ When the rating is High, the recommendation is to **rewrite the page from the or
 
 ## Version History
 
+- **v2.3.0 (2026-06-04)** — Seven additions distilled from the first orchestra-pass audit (Anthem voyage pack, multi-LLM fan-out via /home/user/ken/orchestrator/orchestra.py with GPT, Gemini, Perplexity, You.com, Grok). Three new detection patterns: **(1)** cross-line/cross-ship feature blending CLUSTER as a Layer 1 strong signal — when factual errors cluster as cross-entity confusions (RC venue called by NCL name, Quantum feature attributed to Breakaway, etc.), the cluster itself is an AI signal even after individual errors are fixed; **(2)** marketing-rhythm parallelism with the cruise line's own official copy as a Layer 2 supporting signal — packs that mirror RC/NCL/MSC port-marketing cadence without quoting it; **(3)** mechanical structural repetition across sibling sections (same header pattern applied identically across all port days) as a Layer 2 supporting signal. Two doctrine refinements: **(4)** Layer 3 counter-signals must be **narrativized with friction** to count — research-grade named entities (operators, suppliers, drydock yards) without first-person attestation or friction-note are neutral, not counter-signals; **(5)** anchored-superlative test — even when a superlative claim has a concrete anchor, if the *adjective itself* is cruise-marketing native ("unforgettable," "magical," "stunning"), the anchor saves Layer 1 but the word remains Layer 2 until replaced with experiential language. One new procedural section: **(6)** Orchestra-Audit Discipline — fan-out models produce HALLUCINATED examples (Gemini cited "truly immersive" line 123, "embark on an unforgettable journey" line 15, "fresh Alaskan seafood" line 345 — none exist in the pack, grep-verified) when given audit tasks without file access. Any orchestra-derived finding must be grep-verified before incorporation into the sidecar. Documented also: when the designated adversarial model fails (Grok returned null in the Anthem run), the adversarial role redistributes to whichever round-robin passes pick up adversarial framings (Perplexity + You.com in that case). One new pattern: **(7)** triplet-of-absences ("no urgency, no upsell, no countdown") capped at one per top-level document; subsequent instances are Layer 2 supporting signals. Single-instance "truly" as intensifier rule sharpened — delete the word and check if meaning persists; if yes, it was padding. Anthem voice_audit.orchestra_extension sidecar block (committed deec4022) is the worked-example reference.
 - **v2.2.0 (2026-06-04)** — Six substantive additions after the Anthem June 2026 reader-feedback failure (public Facebook comment from Erin Upshur Jones on the brand's own post: "reads like this was AI generated and not proofread"). The voyage pack had passed every Six-Axis Scan check (zero banned vocab, zero machine tells, zero promotional drift) yet a domain-knowledgeable reader correctly diagnosed it as AI on first read. The failure mode wasn't *presence of machine tells* — it was *absence of authenticity markers* (no first-person attestation with a date, no honest limitation tied to lived experience, no named real specifics, no friction). v2.2.0 closes the gap with: **(1)** an AI-Authorship Cluster Detection framework lifted and adapted from ken voice-audit v3 (Layer 1 strong signals, Layer 2 supporting signals, Layer 3 counter-signals, hard constraints, cluster scoring rules, falsification-test reference). **(2)** New machine-tell categories from June 2026 research (Wikipedia "Signs of AI writing," industry AI-detection literature): copulative-avoidance tells ("serves as," "marks a"), outline-conclusion formula ("Despite X, faces challenges, future prospects"), lack-of-conviction tells, expanded AI-vocabulary list. **(3)** Required Sidecar Attestation — voice-audit results recorded in the pack's `.factcheck.json` alongside the original-research factual sidecar; pre-commit gate will check for the `voice_audit` block. **(4)** Colophon-disclosure escape — research-synthesis packs (no direct lived experience of the specific itinerary) can pass the audit if the pack itself names the authorship mode honestly in a closing colophon. **(5)** Local-Model Tells section (Qwen, Gemma accents) for drafts produced or edited by local models. **(6)** Independent escalation triggers — cluster-verdict `likely_ai`, reader feedback citing "reads like AI," and downstream factual errors caught by a reader all force Medium minimum regardless of other axes. Sources: ken voice-audit v3, Wikipedia "Signs of AI writing" article, oliviacal.com "AI Writing Tells" inventory, Google E-E-A-T 2022+ "Experience" addition.
 - **v2.1.0 (2026-05-10)** — Lifted four diagnostics from Romans's `voice-audit` (in cruise voice): grep pattern for announcement-before-move, grep pattern for assumed-familiarity, image-density scan with per-paragraph thresholds, must-be-absent list with explicit drift indicators. Updated risk-rating thresholds and audit-report format to reflect the new checks.
 - **v2.0.0** — Six-axis scan with cruise-marketing vocabulary list and pastoral-honesty axis.

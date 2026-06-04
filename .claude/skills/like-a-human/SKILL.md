@@ -1,7 +1,7 @@
 ---
 name: like-a-human
 description: "Voice & Presence — fires during cruise content writing. Guards the sound of the prose so it reads as written by someone who has actually sailed the route, not by a brochure or a model. Shapes voice markers, rhythm, vocabulary, and pastoral honesty. For post-draft diagnostics, see voice-audit."
-version: 3.1.0
+version: 3.2.0
 ---
 
 # like-a-human — Cruise Voice & Presence Standard
@@ -97,6 +97,8 @@ AI defaults to triads: three adjectives, three examples, three bullet points, th
 
 Let the fact determine the grouping. If a port has five observation decks, use five. If a ship has two main pools, use two. If a buffet station has only one redeeming dish, name it once and stop. **Do not force triads.**
 
+**Triplet-of-absences sub-rule (v3.2.0).** A triplet built entirely from *negations* ("no urgency, no upsell, no countdown") is a corpus-native brand move and defensible — once per top-level document. Twice in the same document slides into AI-rhythm shortcut. **Cap: one triplet-of-absences per document.** If you reach for a second, either pair it with a concrete positive ("...no countdown — this pack is the calm read on one specific week" — the second half anchors the brand claim) or restructure.
+
 ### Synonym Cycling (Elegant Variation)
 
 AI rotates through synonyms to avoid repeating a word: "the port... the destination... the locale... the stop." This is a tell because it prioritizes surface variety over clarity. If you mean the same thing, use the same word or "it."
@@ -190,6 +192,29 @@ The same observation restated across four paragraphs without adding evidence or 
 AI repeats the same sentence structure across consecutive sentences: Subject-Verb-Object, Subject-Verb-Object, Subject-Verb-Object. Vary the machinery, not just the words. Follow an S-V-O with a fragment, a question, a sentence that starts with a dependent clause, or an inversion.
 
 **Rule: if three consecutive sentences have the same grammatical shape, break one.**
+
+### Section-Header Repetition Across Sibling Sections (v3.2.0)
+
+Caught by orchestra audit of the Anthem voyage pack: the same header pattern applied identically across all parallel sections. "Honest read on [port]" appearing on every port day; "For first-timers:" as a sub-section heading on every port day. The phrase itself can be corpus-native, but its mechanical repetition across all sibling sections is the AI-shape tell. A human writer varies the framing by what each section actually contains.
+
+**Rule:** When writing parallel sections (port-day sections, day-by-day entries, ship-feature breakdowns), let each section's header be shaped by the content it covers, not by a shared template. "Sitka — the small Russian-Tlingit port" + "Skagway — the gold-rush town" + "Juneau — the unreachable capital" + "Victoria — the foreign-port stop" reads written. "Honest read on Sitka" + "Honest read on Skagway" + "Honest read on Juneau" + "Honest read on Victoria" reads templated. Three or more identical-shape headers at the same level is the during-writing equivalent of running an LLM template across siblings.
+
+### Cross-Line / Cross-Ship Feature Integrity (v3.2.0)
+
+Caught by orchestra audit and by reader feedback (Erin Upshur Jones, Anthem pack, 2026-06-04): when writing about a specific ship, do not let venue names, brand partners, or class-generic features from sibling lines or sibling classes drift into the prose. Each ship/line has its own naming:
+
+- **Royal Caribbean** uses Vitality at Sea Spa; NCL uses Mandara Spa. Do not write "Mandara Spa" on a Royal ship.
+- **Royal Caribbean Quantum-class** has Two70 and a forward Solarium; NCL Breakaway-Plus and Prima class have the Observation Lounge. Do not write "Observation Lounge" on a Royal ship.
+- **Anthem of the Seas docks at the Sitka Sound Cruise Terminal** as of the 2025-26 Alaska seasons; smaller ships tender. Do not write "tender" on a ship that docks.
+- Royal uses the "Royal Caribbean app" (with in-app Royal iQ chat); the standalone "Royal IQ" brand was folded in. NCL has its own app.
+
+If you find yourself reaching for a venue name and you're not certain it belongs on this specific ship, look it up in the deck plan before writing. Cross-ship name-drift is the AI-shape signal of training-data contamination — the kind of error a reader who has been on the ship catches immediately.
+
+### Marketing-Rhythm Mirroring (v3.2.0)
+
+Royal Caribbean's port marketing uses constructions like "Sitka truly offers the best of Alaska," "Skagway symbolizes the spirit of Alaska," "a perfect snapshot of Alaska's wild beauty." Your pack can avoid those exact phrases and still mirror the *cadence* — "This is the day Alaska reveals itself" is corpus-marketing rhythm even without overlapping vocabulary.
+
+**Test while writing:** if a sentence feels like it could appear on the cruise line's own marketing page (or in a third-party port guide that gets its language from the cruise line), rewrite. Replace with a specific, friction-bearing observation. Marketing voice telegraphs research-synthesis even when the words are different.
 
 ## Native Moves (Protect These)
 
@@ -307,5 +332,6 @@ When in doubt, trust the specific. Cut the crutch. The reader feels the differen
 
 ## Version History
 
+- **v3.2.0 (2026-06-04)** — Folded the v2.3.0 voice-audit findings into the during-writing companion. Four additions: **(1)** Section-Header Repetition Across Sibling Sections — mechanical template parallel across all parallel sections (every port day getting "Honest read on [port]") is an AI-shape tell; let each section's header be shaped by what the section contains. **(2)** Cross-Line / Cross-Ship Feature Integrity — venue names, brand partners, and class-generic features from sibling lines drift into prose as a training-data-echo signal (Mandara/Vitality, Observation Lounge/Two70, tender/dock — caught publicly on Anthem). When in doubt, look up the deck plan before writing. **(3)** Marketing-Rhythm Mirroring — packs can avoid quoting cruise-line marketing verbatim and still mirror its cadence ("This is the day Alaska reveals itself" maps to RC's "Sitka truly offers the best of Alaska"); read aloud, ask if it could appear on the cruise line's own marketing page. **(4)** Triplet-of-absences sub-rule under Rule of Three — capped at one per top-level document; subsequent instances need a concrete positive to anchor or restructure.
 - **v3.1.0 (2026-05-10)** — Lifted ten sub-disciplines from Romans's `like-a-human` (in cruise voice): copula avoidance with replacement table, decorative adverb kill list, rule of three, low-probability details, dead metaphor, one-point dilution, syntactic template repetition, punctuation fingerprint, the controlled flaw, the building pattern with concrete examples, cadence escalation (two kinds of acceleration + pause-and-pivot). Reorganized Plain Language Discipline as the spine of the document.
 - **v3.0.0** — Initial cruise-voice version: hard-banned vocabulary, native moves, three borrowed moves, pastoral guardrails.
