@@ -184,7 +184,7 @@ All work on this project is offered as a gift to God.
   <meta name="referrer" content="no-referrer">
   <meta name="ai-summary" content="${escAttr(`${show.name} is a ${typeLabel.toLowerCase()} on Royal Caribbean. ${show.description.split('.')[0]}. Performs in the ${show.venue}. ${show.cost}.`)}">
   <meta name="last-reviewed" content="${dateStr}">
-  <meta name="content-protocol" content="ICP-Lite v1.4">
+  <meta name="content-protocol" content="ICP-2">
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
@@ -251,7 +251,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
 </head>
 
 <body class="venue-page">
@@ -284,7 +284,7 @@ All work on this project is offered as a gift to God.
   </div>
   <div class="hero" role="img" aria-label="Ship wake at sunrise">
     <div class="latlon-grid" aria-hidden="true"></div>
-    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
     <div class="hero-title"><img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/></div>
     <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
     <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo &copy; Flickers of Majesty</a></div>
