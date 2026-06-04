@@ -1225,3 +1225,18 @@ Soli Deo Gloria.
 - No new GH (pre-existing, referenced in prior).
 - Soli Deo Gloria. Careful: distinguished from our new findings.
 
+
+## 50. Final Commit of Reports and Verification Search (2026-06-04)
+
+**Findings:**
+- Image reuse reports committed (pre-existing issues only).
+- Broad search for remaining bad /xxx.html (hubs) outside rcl and archives: none found in the filtered search.
+- Confirms the canonical cleanup is complete for addressed clusters; only rcl ship pages remain with old links (pending regeneration from fixed template).
+
+**Actions:**
+- Committed reports.
+- Verified with broad grep.
+- Added ORPHAN 50.
+- No new GH (verification only).
+- Soli Deo Gloria. Careful: distinguished pending rcl.
+
