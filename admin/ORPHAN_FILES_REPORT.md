@@ -1006,3 +1006,19 @@ Soli Deo Gloria.
 - GH on #1821.
 - Soli Deo Gloria. Now the static nav sources are consistent with the canonicals we established.
 
+
+## 36. Final Verification: No Remaining Bad Hub Links Outside Pending rcl Ships (2026-06-04)
+
+**Findings:**
+- After all fixes (template, subdirs, root, tools): search shows no href="/ships.html" etc. for the 4 hubs outside ships/rcl/ and archives.
+- Only the rcl ship pages (and perhaps some in rcl sub structure) still have the old .html versions – these are the ones generated from (now fixed) ships/template.html, so require a regeneration pass to update.
+- generate-show-pages.js clean of the stale we fixed.
+- Image reports updated by scanner, but issues are pre-existing (1 CRIT, 1 ERR – same-entity dups).
+- Our changes (new credited images in ports/gran-canaria.html, ports/picton.html, ships/rcl/rhapsody-of-the-seas.html) are properly credited, unique (per memory), and not flagged in reuse report.
+
+**Actions:**
+- Verified with broad grep.
+- ORPHAN 36.
+- GH on #1821.
+- Soli Deo Gloria. The ship nav canonical bug is resolved at source; only generated rcl pages pending update via build/regen process.
+
