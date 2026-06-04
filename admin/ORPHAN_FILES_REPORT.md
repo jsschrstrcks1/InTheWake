@@ -1116,3 +1116,19 @@ Soli Deo Gloria.
 - GH update on #1821 (this solo cluster).
 - Soli Deo Gloria. Careful: only these two files; no over-assumption.
 
+
+## 43. Bad Canonical Links in Select Port Pages and Admin Reports (2026-06-04)
+
+**Findings:**
+- ports/antigua.html and ports/maldives.html (and likely others) have <a href="/ships.html"> in nav and "Browse all" links.
+- admin/reports/sw-health.html has <a href="/ships.html">Ships</a>.
+- Distinct: specific port pages (not the main ones like gran-canaria/picton we edited before) and admin report pages with old embedded nav.
+- Not in rcl/ ships (those pending regen), not in the broad subdir fixes.
+
+**Actions:**
+- Fixed with sed in the identified files.
+- Broader search showed more in ports/ (count ~? from tool).
+- Added ORPHAN section 43.
+- GH update on #1821 (this port/admin cluster).
+- Soli Deo Gloria. Careful: fixed identified; note that full ports/ may need regen or template if they use one.
+
