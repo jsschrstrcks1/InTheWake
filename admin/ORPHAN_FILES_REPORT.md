@@ -1194,3 +1194,19 @@ Soli Deo Gloria.
 - GH update on #1821 (this admin/voyage-packs cluster).
 - Soli Deo Gloria. Careful: fixed identified; note these may be historical/drafts.
 
+
+## 48. Final Broad Search: No Additional Major Clusters; Pre-existing Image Reuse Notes (2026-06-04)
+
+**Findings:**
+- Filtered broad grep for remaining /ships.html etc. (excluding all previously addressed areas like rcl, ports bulk, authors, articles, cruise-lines, restaurants, solo, admin/voyage-packs, sw-health): none found in the search.
+- Confirms completeness of the canonical nav cleanup for the 4 main hubs.
+- Image reuse report: still 1 CRITICAL (e.g., same bytes across _root/line for some ships like Quantum, Song of Norway, Carnival Jubilee, Emerald Princess – same-entity or bucket issues), 1 ERROR, 12 WARN (filename), 16 INFO (duplicates within entity or documented like authors/articles, ocean-cay). No new from our fixes (our new credited images and port bulk not flagged as cross-entity).
+- R2 #1829 still relevant: local assets persist (including our 5 new credited in /assets/images/credited/ for gran-canaria, picton, rhapsody).
+
+**Actions:**
+- Verified with broad filtered search.
+- Added ORPHAN 48.
+- No new GH report (no new distinct cluster; referenced existing in prior #1821 comments and image notes).
+- Scanner re-run in prior steps.
+- Soli Deo Gloria. Careful: audit complete for this theme; only pre-existing image issues noted.
+
