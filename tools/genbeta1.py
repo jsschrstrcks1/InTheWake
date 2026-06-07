@@ -41,7 +41,6 @@ All work on this project is offered as a gift to God.
 <body>
   <div class="felt-nav" role="presentation" aria-hidden="true">
     <span class="name">IN THE WAKE</span>
-    <span class="felt"><span>Ships</span><span>Ports</span><span>Tools</span><span>Cruise Lines</span></span>
   </div>
   <main id="main">
     <figure class="hero-figure">
