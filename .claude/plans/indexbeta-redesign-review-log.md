@@ -89,3 +89,19 @@ Superseded design spec: `indexbeta-redesign-design.md` **v2**.
 **Roster update (2026-06-06):** boardroom re-fetched — now **7 built personas**. Two added since the review above: **the Restraint Designer** (Design panel — the design-critique lens the board lacked when this review ran) and **the Offline-Caching Architect** (PWA panel). Both are now available as per-beta lifelines (spec §13).
 
 **Roster update 2 (2026-06-06, post-merge):** all **14 personas now built** — the merge landed a full **Design panel (8 lenses):** Restraint Designer, Minimalist, Simplicity Maximalist, Moments Designer, Interaction-Polish Engineer, Canvas Interactionist, CSS Artist, Immersive-Experience Artist. The design bench now maps onto the three theses (spec §13). The earlier boardroom review (section E) predates the Design panel; if re-run, the design lenses would add the critique that section E's technical/business panel could not.
+
+---
+
+## F. Design jury — judge phase (2026-06-07)
+
+Five jurors, blind to standings, comparative vote over all three betas on the five behavioral criteria: Restraint Designer, Interaction-Polish Engineer, Simplicity Maximalist, Frontend Performance Engineer, Positioning Sage. (Cost ≈ $0.02.)
+
+**Result: Quiet Harbor (beta1) ranked #1 — unanimous, 5/5.** Second place split: Aft Deck 2nd by Simplicity-Max + Positioning Sage; Charthouse 2nd by Restraint Designer.
+
+- **Deciding factor (consensus):** calm + low cognitive load + first-paint clarity for the vulnerable-among-everyone audience. Quiet Harbor gets out of the way.
+- **Disqualifiers raised:** Aft Deck — dark theme + scrim + engineered reveal + motion = cognitive load / "oppressive" for vulnerable readers (Restraint Designer). Charthouse — the in-hero search box is a *second competing primary action*, and the rail counts induce comparison/choice anxiety = "travel-agent, not guide" (Simplicity Maximalist **and** Positioning Sage, two DQs).
+- **Quiet Harbor's one weakness (consensus):** remarkability / "would they tell a friend" — several jurors warned it risks reading "too plain." Convergent fixes: give the path-finder a touch more visual affordance (understated buttons), and commit to an audience.
+- **Audience carryover confirmed:** Positioning Sage — *all three* fail to commit ("everyone is the anti-position"); Quiet Harbor is the best *foundation* because it has the least noise to strip when the audience is finally named.
+- **Recommended splice:** Quiet Harbor's calm foundation + Aft Deck's single engineered wake+motto moment — fixes Q's only weakness (remarkability) with A's only strength.
+
+**Operator divergence (surfaced, not resolved):** the operator's gut favored Aft Deck (wonder / the horizon); the blind jury favored Quiet Harbor (calm / restraint for the vulnerable). This is the original Comeau-vs-Rams tension resolving on the page. The jury informs; the operator decides.
