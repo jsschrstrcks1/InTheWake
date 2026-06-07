@@ -69,6 +69,8 @@ Each line below is the *expected* editorial instinct of the philosophy — **not
 - **beta2 · Aft Deck (Freiberg / Comeau)** — feel and motion. Likely keeps and amplifies the full-bleed wake hero, the motto as *the* moment, the grief logbook, a delightful detail (the duck, reimagined), recent stories as scroll-revealed moments. Likely cuts every flat utilitarian card. May lean into the underserved-but-cared-for tribe.
 - **beta3 · Charthouse (synthesis)** — structured editor. Likely keeps a path-finder inside the hero, quiet search, a consolidated task-zone directory, the logbook as one note, a trimmed rail.
 
+Each beta ships **four artifacts**, not one page — see §11.
+
 ---
 
 ## 6. The raw material (page inventory each designer edits)
@@ -107,6 +109,8 @@ Editing `index.html` or any live file · promotion/cutover of any beta · fixing
 | D5 | Use existing resources only; wake-at-sunrise photo is the hero. | resource constraint |
 | D6 | **Felt-nav** — beta nav need not link, may exist to be felt. | **fully resolves Systems Maintainer's nav-as-contract / blast-radius finding** |
 | D7 | **Per-designer authority over everything** — cuts, primary action, positioning/audience. Maximum freedom. | resolves the Positioning Sage "everyone is anti-position" challenge by making it a per-beta experiment; converts the "five deletions" question into each designer's call |
+| D8 | Bind every beta to **our voice** (`like-a-human` + `voice-audit`), **`careful-not-clever`**, and **`cognitive-memory`**; each beta also ships a **template generator + validator** (§11–§12). | resolves the Content-Quality persona (voice gate); folds the Frontend Performance Engineer's perf budget into a per-beta validator; serves Future-Self (memory) |
+| D9 | Each beta gets a **boardroom lifeline**: one persona consult, once, of the designer's choosing (§13). | adds an expert pressure-test per thesis without diluting per-designer authority |
 
 **Board findings still in force (apply within each beta):** Engineer-Founder "delete first" (each thesis must genuinely reduce) and Frontend Performance Engineer "perf budget" (folded into the §3 floor). Systems Maintainer resolved by D6. Performance Coach's scope warning acknowledged and overridden by D4.
 
@@ -115,3 +119,43 @@ Editing `index.html` or any live file · promotion/cutover of any beta · fixing
 ## 10. Sources
 
 Rauno Freiberg — [ui.land](https://ui.land/interviews/rauno-freiberg) · Jony Ive — [minimalism to meaning](https://www.designative.info/2025/05/21/jony-ives-design-reckoning-from-minimalism-to-meaning/) · Dieter Rams — [10 principles (IxDF)](https://ixdf.org/literature/article/dieter-rams-10-timeless-commandments-for-good-design) · Josh Comeau — [joshwcomeau.com](https://www.joshwcomeau.com/).
+
+---
+
+## 11. Per-beta deliverables (each thesis ships four artifacts)
+
+A beta is not just a page. So a winning thesis can propagate and stay honest, each ships:
+
+1. **`indexbeta{N}.html`** — the homepage in that thesis.
+2. **`stylesbeta{N}.css`** — its isolated stylesheet (no inline `style=`).
+3. **Template generator — `tools/genbeta{N}.{py,sh}`.** Emits a *new* page skeleton in that beta's design language: hero slot, the felt-nav, the directory pattern, SDG comment before line 20, ICP-2 metas, and the §3 floor baked in. If a thesis wins, new pages are generated in its style, not hand-copied. Writes to a scratch path; never overwrites a live page.
+4. **Validator — `tools/validate-beta{N}.{sh,js}`.** Checks a page against that beta's design contract — its layout invariants **plus** the shared floor: SDG before line 20, WebP-only, absolute HTTPS, no placeholder image, `prefers-reduced-motion` present, no inline styles, and an LCP/page-weight budget. Modeled on `admin/validate-ship-page.sh`.
+
+**Generator and validator are a pair: the generator emits exactly what the validator accepts** — one source of truth for the thesis's rules (the Frontend Performance Engineer's "one neutral schema, no re-parsing" instinct, and the Systems Maintainer's "contract" instinct, applied per thesis). The validator is also how the §7 winner-criteria get enforced mechanically rather than "by feel," and it carries the perf budget the FPE demanded.
+
+---
+
+## 12. Process bindings — voice, careful-not-clever, memory
+
+Every beta is built under the household disciplines, using **InTheWake's cruise-calibrated skills** (not ken's utility-prose voice, not flickers' photography voice). The canonical kit is shared across the household (`ken/.claude/skills/`); the betas bind the InTheWake cruise copies.
+
+**Voice — `like-a-human` v3.2.0 (during writing) + `voice-audit` v2.3.0 (gate).** All reader-facing copy — hero line, path-finder labels, directory labels, any logbook text — written under like-a-human: plain copulas (`is`/`has`, not `serves as`/`offers`), zero banned cruise-marketing or AI vocabulary (`world-class, stunning, seamless, delve, elevate, unforgettable, …`), no announcement-before-move, specifics over vague, em-dash ≤ 2/paragraph. **Before any beta is "done," run `voice-audit` on its full copy and record a one-line attestation** (the spec's analog of the `.factcheck.json` sidecar). A beta with marketing drift is not done, however good it looks.
+
+**`careful-not-clever` v1.8.3 (process).** Read before edit; one logical change at a time; verify before "done." Three betas + generators + validators trips **Layer 2** (>5 files) → Deep Audit Mode; **each beta's commit carries a claim-evidence table** (claim ↔ test name / `file:line` / command + observed output). "Judge by feel" never substitutes for a validator pass. Anomaly disposition mandatory; sample claims named ("spot-checked on N").
+
+**Memory — `cognitive-memory` v3 (`cruising` domain).**
+- *Build start:* `python3 /home/user/ken/orchestrator/memory_ops.py recall "homepage redesign betas" --domain cruising` to surface prior decisions.
+- *Encode the load-bearing decisions (protected):* e.g. `… encode cruising decision "Homepage redesign: 3 autonomous betas (Quiet Harbor/Aft Deck/Charthouse); per-designer authority over cuts+action+positioning; felt-nav; judged on behavioral outcomes. Spec: .claude/plans/indexbeta-redesign-design.md v2" --tags homepage,redesign,betas --protected`
+- *Per beta:* encode what that thesis chose to cut/keep and why (the skill's "content decision" memory type).
+- *Session end:* `consolidate --domain cruising`.
+
+---
+
+## 13. Per-beta boardroom lifeline (one consult, once, each)
+
+Each designer may convene **one** persona from the `ken` boardroom (`ken/.claude/skills/boardroom`) **exactly once** during its build — the designer's choice, fit to its philosophy. **One persona, one consult, per beta** — three consults total across the bake-off. The consult runs the skill's normal Round 1 + cross-vendor Round 2 discipline. Record in the beta's notes and a `cruising` memory: which persona, the single question asked, and the verdict.
+
+**Available personas (boardroom re-fetched 2026-06-06):** **7 of 14 are now built and runnable** — Positioning Sage, Engineer-Founder, Performance Coach, Frontend Performance Engineer, Systems Maintainer, and (newly added) **the Restraint Designer** (Design panel — editorial restraint, typographic-grid discipline, design-as-quality-not-style) and **the Offline-Caching Architect** (PWA panel — service-worker lifecycle, precache vs runtime, PWA update discipline). The Restraint Designer is the design-critique lens the board was missing; it is now the natural lifeline for a homepage. (Grok's seat is down; Round 2 falls to Gemini/GPT.) Likely fits — the choice is the designer's:
+- **Quiet Harbor →** the Restraint Designer (design-as-quality, restraint) or the Engineer-Founder ("what else can be cut?").
+- **Aft Deck →** the Restraint Designer (does the feeling hold without sliding into style?) or the Positioning Sage (is the tribe landing?).
+- **Charthouse →** the Frontend Performance Engineer / Systems Maintainer (does the structure hold + perform?) or the Offline-Caching Architect (PWA/caching).
