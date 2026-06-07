@@ -47,5 +47,11 @@ if grep -qE 'class="content-grid"|class="prose"' "$f"; then
   if printf '%s' "$flat" | grep -q '<figure'; then printf '%s' "$flat" | grep -q '<figcaption' && ok "figures have captions" || bad "figure(s) missing figcaption"; else ok "no figures (text-only content is fine)"; fi
 fi
 
+if grep -q 'class="hub-grid"' "$f"; then
+  echo "  -- hub page --"
+  grep -q 'class="content-hero"' "$f" && ok "content-hero present" || bad "content-hero missing"
+  n=$(grep -oc 'class="hub-card"' "$f"); [ "$n" -ge 3 ] && ok "hub grid present ($n cards)" || bad "hub grid sparse ($n cards)"
+fi
+
 echo "---"
 [ "$fails" -eq 0 ] && { echo "PASS (The Wake)"; exit 0; } || { echo "FAIL: $fails issue(s)"; exit 1; }
