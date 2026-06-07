@@ -39,7 +39,11 @@ img { max-width: 100%; height: auto; }
 .hero .purpose { margin: 1rem 0 1.6rem; color: #eaf6fb; font-size: var(--t-lead); max-width: 46ch; text-shadow: 0 1px 14px rgba(0,0,0,.5); }
 /* Hub gateway moment — one level down from the homepage, still immersive. Kicker rides the scrim. */
 .hero--hub { min-height: clamp(22rem, 66svh, 40rem); }
+/* Ship page moment — the vessel is the decisive event, name overlaid on its own photo. */
+.hero--ship { min-height: clamp(22rem, 70svh, 42rem); }
 .hero .kicker { font-size: var(--t-fine); letter-spacing: .14em; text-transform: uppercase; color: #bfe7f6; margin: 0 0 .5rem; text-shadow: 0 1px 14px rgba(0,0,0,.5); }
+.hero .credit { position: absolute; top: .6rem; right: .6rem; z-index: 1; margin: 0; padding: .12rem .55rem; font-size: .68rem; line-height: 1.5; color: #eef7fb; background: rgba(8,48,65,.55); border-radius: 3px; }
+.hero .credit a { color: #eef7fb; }
 
 /* Path-finder — clear button affordance (gold-accented, not gold-roped). */
 .pathfinder { display: flex; flex-wrap: wrap; gap: .8rem; }
@@ -85,12 +89,23 @@ img { max-width: 100%; height: auto; }
 .prose blockquote { border-left: 3px solid var(--gold); margin: 1.5rem 0; padding: .25rem 0 .25rem 1.1rem; font-style: italic; color: var(--muted); }
 .prose ul, .prose ol { padding-left: 1.3rem; }
 .prose li { margin: .35rem 0; }
+.prose details { border-top: 1px solid var(--rule); padding: .85rem 0; margin: 0; }
+.prose details summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.prose details[open] summary { color: var(--sea); }
+.prose details > p { margin: .6rem 0 0; color: var(--muted); }
+/* venue columns: dining / onboard lists sit two-up on wide screens, one-up on narrow */
+.cols { columns: 2; column-gap: 2rem; }
+.cols ul { margin: 0; }
+.cols li { break-inside: avoid; }
+@media (max-width: 540px) { .cols { columns: 1; } }
 .prose table { width: 100%; border-collapse: collapse; font-size: .95rem; }
 .prose th, .prose td { text-align: left; padding: .55rem .6rem; border-bottom: 1px solid var(--rule); }
 .prose th { color: var(--sea); }
 /* multimedia row (e.g. ship "first look" gallery) — fluid, no breakpoint ladder */
 .media-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem,1fr)); gap: .9rem; margin: 1.5rem 0; }
 .media-row figure { margin: 0; }
+.media-row img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; display: block; }
+.media-row figcaption { margin-top: .4rem; }
 .rail { font-size: .95rem; }
 .rail .card { background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 1rem 1.1rem; margin-bottom: 1rem; }
 .rail h2 { font-size: 1rem; color: var(--sea); margin: 0 0 .5rem; font-weight: 600; }
