@@ -178,3 +178,78 @@ footer .counts b { color: var(--ink); font-family: Georgia,serif; }
   .ship-card img { transition: transform .6s ease; }
   .ship-card > a:hover img, .ship-card > a:focus-visible img { transform: scale(1.04); }
 }
+
+/* ============================================================
+   Ship editorial page (shipbeta4) — composed rhythm, not enumeration.
+   Alternates monumental / text / image-vista / designed-cards / quote.
+   ============================================================ */
+.ship-wrap { max-width: 62rem; margin: 0 auto; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.ship-wrap > h2 { font-size: clamp(1.5rem,3vw,2.1rem); font-weight: 400; color: var(--sea); margin: clamp(2rem,5vw,3rem) 0 .6rem; line-height: 1.15; }
+.ship-wrap > p { margin: 0 0 1.1rem; }
+.ship-wrap .lede { font-size: var(--t-lead); line-height: 1.5; color: var(--ink); margin: clamp(1.5rem,4vw,2.25rem) 0 0; }
+
+/* numeric band — a designed full-width beat right after the hero */
+.statband { background: linear-gradient(180deg,#eaf6fb,var(--paper)); border-bottom: 1px solid var(--rule); }
+.statband .inner { max-width: 72rem; margin: 0 auto; padding: clamp(1.3rem,3.2vw,2.1rem) clamp(1.25rem,4vw,2.5rem);
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(8rem,1fr)); gap: 1.25rem 1.5rem; }
+.statband b { display: block; font-family: Georgia,serif; font-size: clamp(1.9rem,3.6vw,2.8rem); color: var(--sea); line-height: 1; }
+.statband span { color: var(--muted); font-size: .88rem; }
+
+/* who-she's-for as a decision fork, not two bold paragraphs */
+.fork { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin: 1.25rem 0; }
+.fork div { padding: 1.1rem 1.3rem; border-radius: 6px; background: var(--panel); border: 1px solid var(--rule); }
+.fork .yes { border-top: 3px solid var(--accent); }
+.fork .no { border-top: 3px solid var(--gold); }
+.fork h3 { margin: 0 0 .5rem; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; color: var(--sea); }
+.fork p { margin: 0; color: var(--ink); }
+@media (max-width:560px){ .fork { grid-template-columns: 1fr; } }
+
+/* the memorable handful — given weight, not buried in a 9-item list */
+.signature { display: grid; grid-template-columns: repeat(auto-fit,minmax(12rem,1fr)); gap: 1rem; margin: 1.25rem 0; }
+.sig { background: var(--panel); border: 1px solid var(--rule); border-left: 3px solid var(--gold); border-radius: 6px; padding: 1.1rem 1.2rem; }
+.sig h3 { margin: 0 0 .3rem; font-size: 1.2rem; font-weight: 400; color: var(--sea); }
+.sig p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.5; }
+
+/* full-bleed image vista — the horizon / rhythm break */
+.vista { position: relative; margin: clamp(2.5rem,7vw,4.5rem) 0; overflow: hidden; }
+.vista img { width: 100%; height: clamp(15rem,52vh,30rem); object-fit: cover; display: block; }
+.vista figcaption { position: absolute; right: .6rem; bottom: .6rem; margin: 0; padding: .15rem .55rem;
+  font-size: .7rem; color: #eef7fb; background: rgba(8,48,65,.55); border-radius: 3px; }
+.vista figcaption a { color: #eef7fb; }
+
+/* monumental pull-quote — the one beat of silence + scale */
+.pullquote { max-width: 52rem; margin: clamp(2.5rem,7vw,4.5rem) auto; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.pullquote blockquote { margin: 0; font-family: Georgia,serif; font-style: italic; font-size: clamp(1.5rem,3.2vw,2.4rem); line-height: 1.25; color: var(--sea); }
+.pullquote .by { margin: 1rem 0 0; color: var(--muted); font-size: .95rem; }
+
+/* dining as a typographic set, not bullet dumps */
+.venues { columns: 3; column-gap: 2rem; margin: 1rem 0; }
+.venues section { break-inside: avoid; margin: 0 0 1rem; }
+.venues h3 { margin: 0 0 .35rem; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.venues ul { list-style: none; margin: 0; padding: 0; }
+.venues li { padding: .12rem 0; color: var(--ink); font-size: .98rem; }
+@media (max-width:680px){ .venues { columns: 2; } }
+@media (max-width:440px){ .venues { columns: 1; } }
+
+/* plan band — two decisive outbound actions */
+.planband { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.25rem 0; }
+.planband a { display: block; padding: 1.1rem 1.25rem; border: 1px solid var(--rule); border-bottom: 3px solid var(--gold);
+  border-radius: 6px; text-decoration: none; background: var(--panel); }
+.planband a:hover, .planband a:focus-visible { border-bottom-color: var(--accent); }
+.planband b { display: block; color: var(--sea); font-size: 1.05rem; }
+.planband span { color: var(--muted); font-size: .9rem; }
+@media (max-width:560px){ .planband { grid-template-columns: 1fr; } }
+
+/* at-a-glance facts table */
+.facts { display: grid; grid-template-columns: repeat(auto-fit,minmax(15rem,1fr)); gap: 0 2.5rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-bottom: 1px solid var(--rule); }
+.facts .k { color: var(--muted); }
+.facts .v { color: var(--ink); font-weight: 600; text-align: right; }
+
+/* faq outside .prose */
+.faq details { border-top: 1px solid var(--rule); padding: .85rem 0; }
+.faq details summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.faq details[open] summary { color: var(--sea); }
+.faq details p { margin: .6rem 0 0; color: var(--muted); }
+.shipfoot { max-width: 62rem; margin: clamp(2rem,5vw,3rem) auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.shipfoot a { margin-right: 1.3rem; line-height: 2.2; }
