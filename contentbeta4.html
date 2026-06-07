@@ -15,6 +15,7 @@ All work on this project is offered as a gift to God.
 <meta name="last-reviewed" content="2026-06-07"/>
 <meta name="content-protocol" content="ICP-2"/>
 <!-- beta4 CONTENT-PAGE demo: proves the design scales to article / ship / port pages (prose + media + table + rail). Static: no scripts, no audio, no video. Copy true to the site's approach (no invented facts). noindex; not linked. -->
+<link rel="preload" as="image" href="/assets/beta/wake-hero-1280.webp" imagesrcset="/assets/beta/wake-hero-800.webp 800w, /assets/beta/wake-hero-1280.webp 1280w" imagesizes="100vw"/>
 <link rel="stylesheet" href="/stylesbeta4.css?v=beta4"/>
 <script type="application/ld+json">
 {
@@ -30,6 +31,8 @@ All work on this project is offered as a gift to God.
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Skip to main content</a>
+
   <nav class="nav" aria-label="Main">
     <span class="name serif">In the Wake</span>
     <a href="https://cruisinginthewake.com/ships/">Ships</a>
@@ -38,12 +41,19 @@ All work on this project is offered as a gift to God.
     <a href="https://cruisinginthewake.com/restaurants/">Restaurants</a>
     <a href="https://cruisinginthewake.com/articles.html">Articles</a>
     <a href="https://cruisinginthewake.com/planning.html">Tools</a>
+    <a href="https://cruisinginthewake.com/accessibility.html">Accessibility</a>
+  </nav>
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="https://cruisinginthewake.com/">Home</a> &rsaquo;
+    <a href="https://cruisinginthewake.com/articles.html">Articles</a> &rsaquo;
+    <span aria-current="page">From the back of the boat</span>
   </nav>
 
   <article class="content-hero">
     <img src="/assets/beta/wake-hero-1280.webp"
          srcset="/assets/beta/wake-hero-800.webp 800w, /assets/beta/wake-hero-1280.webp 1280w"
-         sizes="100vw" width="1280" height="960" decoding="async"
+         sizes="100vw" width="1280" height="960" fetchpriority="high" decoding="async"
          alt="A ship's wake trailing across the water toward a sunrise — the view from the stern."/>
     <div class="ch-title">
       <p class="kicker">From the Logbook</p>
