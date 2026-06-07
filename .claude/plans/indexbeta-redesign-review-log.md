@@ -87,3 +87,5 @@ Five built personas, grouped by department. Round 1 = Claude (embodied); Round 2
 Superseded design spec: `indexbeta-redesign-design.md` **v2**.
 
 **Roster update (2026-06-06):** boardroom re-fetched — now **7 built personas**. Two added since the review above: **the Restraint Designer** (Design panel — the design-critique lens the board lacked when this review ran) and **the Offline-Caching Architect** (PWA panel). Both are now available as per-beta lifelines (spec §13).
+
+**Roster update 2 (2026-06-06, post-merge):** all **14 personas now built** — the merge landed a full **Design panel (8 lenses):** Restraint Designer, Minimalist, Simplicity Maximalist, Moments Designer, Interaction-Polish Engineer, Canvas Interactionist, CSS Artist, Immersive-Experience Artist. The design bench now maps onto the three theses (spec §13). The earlier boardroom review (section E) predates the Design panel; if re-run, the design lenses would add the critique that section E's technical/business panel could not.
