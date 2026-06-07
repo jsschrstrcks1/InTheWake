@@ -64,3 +64,24 @@ Verdict: **revise the spec before building.** Single highest-aggregate comment p
 7. Move winner-criteria up front, behavioral form.
 
 **Two forks still need the user's call:** (a) search-as-secondary everywhere (lean: yes); (b) keep the binary, replace with intent-led, or test both (lean: test both).
+
+---
+
+## E. Boardroom (ken `boardroom` skill — the real advisory board)
+
+Five built personas, grouped by department. Round 1 = Claude (embodied); Round 2 = cross-vendor (Gemini/GPT; Grok key invalid). All verdicts `consensus`, cross-vendor. Cost ≈ $0.02. Note: external vendors got a paraphrased lens, not the private profile — faithful approximation, not the exact skill pipeline.
+
+- **Engineer-Founder** (requirement deletion): delete before optimizing — kill the redundant doorways and the binary before building; three prototypes / "directory survives" under-delete. *high.*
+- **Systems Maintainer** (backward-compat as contract): nav is a contract across 1,241 pages on the off-limits `styles.css`; a per-beta nav is un-shippable, and beta files proliferate without a promote/delete contract. *high.*
+- **Frontend Performance Engineer** (runtime/perf): no perf budget; full-bleed hero is an LCP risk without srcset/dimensions/preload; three stylesheets drift without a token layer. *high.*
+- **Positioning Sage** (differentiation): "everyone is the audience" is the anti-position; the underserved-but-cared-for tribe is the only defensible differentiation. *high.* (Within-persona divergence: care as **the position** vs. care as a **risk to segment away**.)
+- **Performance Coach** (execution): scope is a program, not a task; this repo's unfinished-work pattern predicts a stall; ship the 80/20. *high.*
+
+**Chair tension surfaced:** board pushed "delete to one" vs. operator's "let them compete."
+
+### Resolution (operator decisions, 2026-06-06)
+- **Keep three** (D4) — overrides "delete to one"; board's delete-first + perf-budget findings now apply *within* each beta.
+- **Felt-nav** (D6) — fully resolves the Systems Maintainer finding (beta nav is a design element, not a contract).
+- **Per-designer authority + per-beta positioning** (D7) — resolves the Positioning Sage "everyone" challenge by making audience a per-beta experiment; the "five deletions" become each designer's call.
+
+Superseded design spec: `indexbeta-redesign-design.md` **v2**.
