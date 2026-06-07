@@ -37,6 +37,9 @@ img { max-width: 100%; height: auto; }
 .hero .moment { position: absolute; left: 0; right: 0; bottom: clamp(2.5rem,9vh,6rem); padding: 0 clamp(1.25rem,6vw,4rem); z-index: 1; }
 .hero h1 { font-size: var(--t-hero); line-height: 1.1; font-weight: 400; margin: 0; max-width: 20ch; color: #fff; text-shadow: 0 1px 22px rgba(0,0,0,.5); }
 .hero .purpose { margin: 1rem 0 1.6rem; color: #eaf6fb; font-size: var(--t-lead); max-width: 46ch; text-shadow: 0 1px 14px rgba(0,0,0,.5); }
+/* Hub gateway moment — one level down from the homepage, still immersive. Kicker rides the scrim. */
+.hero--hub { min-height: clamp(22rem, 66svh, 40rem); }
+.hero .kicker { font-size: var(--t-fine); letter-spacing: .14em; text-transform: uppercase; color: #bfe7f6; margin: 0 0 .5rem; text-shadow: 0 1px 14px rgba(0,0,0,.5); }
 
 /* Path-finder — clear button affordance (gold-accented, not gold-roped). */
 .pathfinder { display: flex; flex-wrap: wrap; gap: .8rem; }
@@ -61,8 +64,11 @@ img { max-width: 100%; height: auto; }
 .logbook .byline a { font-weight: 600; white-space: nowrap; }
 
 /* ---- Reusable CONTENT layout: articles / ship / port pages (text + multimedia) ---- */
-.content-hero { position: relative; }
-.content-hero img { width: 100%; height: clamp(12rem, 34vh, 22rem); object-fit: cover; display: block; }
+.content-hero { position: relative; overflow: hidden; }
+.content-hero .ch-media { position: relative; overflow: hidden; }
+.content-hero img { width: 100%; height: clamp(12rem, 34vh, 22rem); object-fit: cover; display: block; transform-origin: 50% 58%; }
+.content-hero .ch-credit { position: absolute; right: .55rem; bottom: .55rem; margin: 0; padding: .12rem .55rem; font-size: .68rem; line-height: 1.5; color: #eef7fb; background: rgba(8,48,65,.62); border-radius: 3px; }
+.content-hero .ch-credit a { color: #eef7fb; text-underline-offset: 2px; }
 .content-hero .ch-title { max-width: 72rem; margin: 0 auto; padding: 1.25rem clamp(1.25rem,4vw,2.5rem) 0; }
 .content-hero h1 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 400; color: var(--sea); margin: 0; line-height: 1.12; }
 .content-hero .kicker { font-size: var(--t-fine); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 .4rem; }
@@ -104,6 +110,33 @@ footer .counts b { color: var(--ink); font-family: Georgia,serif; }
 .hub-card a:hover, .hub-card a:focus-visible { border-left-color: var(--accent); outline: none; }
 .hub-card .line { font-size: 1.1rem; color: var(--accent); font-weight: 600; }
 .hub-card .count { font-size: var(--t-fine); color: var(--muted); white-space: nowrap; }
+.hub-intro .who { color: var(--muted); margin-top: .75rem; }
+.hub-keyfacts { display: flex; gap: 2.5rem; flex-wrap: wrap; max-width: 72rem; margin: 1.5rem auto 0; padding: 1.25rem clamp(1.25rem,4vw,2.5rem); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.hub-keyfacts b { display: block; font-family: Georgia, serif; font-size: 1.9rem; color: var(--sea); line-height: 1; }
+.hub-keyfacts span { color: var(--muted); font-size: .9rem; }
+.hub-note { max-width: 72rem; margin: .8rem auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); color: var(--muted); font-size: .9rem; }
+.hub-h { max-width: 72rem; margin: 2.25rem auto .25rem; padding: 0 clamp(1.25rem,4vw,2.5rem); font-size: var(--t-h2); font-weight: 400; color: var(--sea); }
+.hub-section { max-width: 72rem; margin: 2.25rem auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.hub-section h2 { font-size: var(--t-h2); font-weight: 400; color: var(--sea); margin: 0 0 .6rem; }
+.hub-section details { border-top: 1px solid var(--rule); padding: .8rem 0; }
+.hub-section details summary { cursor: pointer; color: var(--ink); font-weight: 600; }
+.hub-section details p { margin: .5rem 0 0; color: var(--muted); }
+.hub-cta { display: inline-block; padding: .7rem 1.2rem; border: 1px solid var(--accent); border-bottom: 3px solid var(--gold); border-radius: 4px; text-decoration: none; color: var(--accent); font-weight: 600; }
+.hub-cta:hover, .hub-cta:focus-visible { background: var(--paper); border-bottom-color: var(--accent); outline: none; }
+.hub-links a { margin-right: 1.4rem; line-height: 2.3; text-underline-offset: 3px; }
+
+/* Featured ships — real, identity-verified Wikimedia exteriors. One image per ship, never reused. */
+.ship-feature { max-width: 72rem; margin: 1.75rem auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.ship-feature .lead { color: var(--muted); margin: .25rem 0 0; }
+.ship-grid { list-style: none; margin: 1.1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem,1fr)); gap: 1.1rem; }
+.ship-card { background: var(--panel); border: 1px solid var(--rule); border-bottom: 3px solid var(--gold); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
+.ship-card > a { text-decoration: none; color: var(--ink); display: block; }
+.ship-card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.ship-card .sc-line { display: block; margin: .7rem 1rem 0; font-size: var(--t-fine); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.ship-card .sc-name { display: block; margin: .1rem 1rem .35rem; font-size: 1.25rem; color: var(--sea); }
+.ship-card > a:hover .sc-name, .ship-card > a:focus-visible .sc-name { text-decoration: underline; text-underline-offset: 3px; }
+.ship-card .sc-credit { margin: auto 1rem .75rem; font-size: .72rem; color: var(--muted); line-height: 1.45; }
+.ship-card .sc-credit a { color: var(--muted); }
 
 /* Accessibility + deep-page navigation (board: skip link, breadcrumbs) */
 .skip-link { position: absolute; left: -9999px; top: 0; background: var(--sea); color: #fff; padding: .6rem 1rem; z-index: 10; border-radius: 0 0 4px 0; }
@@ -125,4 +158,8 @@ footer .counts b { color: var(--ink); font-family: Georgia,serif; }
   @keyframes resolve { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   .hero img { animation: breathe 34s ease-in-out infinite alternate; }
   .hero .moment { animation: resolve 1.4s ease both; }
+  /* Movement on every content page: the banner breathes too, slower and quieter than the homepage moment. */
+  .content-hero img { animation: breathe 40s ease-in-out infinite alternate; }
+  .ship-card img { transition: transform .6s ease; }
+  .ship-card > a:hover img, .ship-card > a:focus-visible img { transform: scale(1.04); }
 }
