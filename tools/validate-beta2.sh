@@ -22,6 +22,7 @@ withalt=$(printf '%s' "$flat" | grep -oiE '<img\b[^>]*\balt="[^"]+"' | wc -l | t
 if [ "$imgs" -gt 0 ] && [ "$imgs" -eq "$withalt" ]; then ok "all $imgs <img> have non-empty alt"; else bad "$((imgs-withalt)) of $imgs <img> missing alt"; fi
 noWH=$(printf '%s' "$flat" | grep -oiE '<img\b[^>]*>' | grep -vc 'width='); [ "$noWH" -eq 0 ] && ok "<img> carry width/height" || bad "$noWH <img> lack width/height"
 grep -qE 'href="http://' "$f" && bad "insecure http:// link" || ok "no http:// links"
+grep -qiE '<audio|<video|autoplay|\.(mp3|mp4|wav|ogg|webm)\b' "$f" && bad "audio/video/autoplay present (policy: no audio)" || ok "no audio/video/autoplay"
 
 # --- Linked stylesheet: motion must be gated opt-in, not always-on ---
 css=$(grep -oE 'href="[^"]+\.css' "$f" | head -1 | sed 's/href="//'); cssfile="$root/${css#/}"
