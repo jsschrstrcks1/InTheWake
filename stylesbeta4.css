@@ -37,6 +37,9 @@ img { max-width: 100%; height: auto; }
 .hero .moment { position: absolute; left: 0; right: 0; bottom: clamp(2.5rem,9vh,6rem); padding: 0 clamp(1.25rem,6vw,4rem); z-index: 1; }
 .hero h1 { font-size: var(--t-hero); line-height: 1.1; font-weight: 400; margin: 0; max-width: 20ch; color: #fff; text-shadow: 0 1px 22px rgba(0,0,0,.5); }
 .hero .purpose { margin: 1rem 0 1.6rem; color: #eaf6fb; font-size: var(--t-lead); max-width: 46ch; text-shadow: 0 1px 14px rgba(0,0,0,.5); }
+/* Hub gateway moment — one level down from the homepage, still immersive. Kicker rides the scrim. */
+.hero--hub { min-height: clamp(22rem, 66svh, 40rem); }
+.hero .kicker { font-size: var(--t-fine); letter-spacing: .14em; text-transform: uppercase; color: #bfe7f6; margin: 0 0 .5rem; text-shadow: 0 1px 14px rgba(0,0,0,.5); }
 
 /* Path-finder — clear button affordance (gold-accented, not gold-roped). */
 .pathfinder { display: flex; flex-wrap: wrap; gap: .8rem; }
@@ -61,8 +64,8 @@ img { max-width: 100%; height: auto; }
 .logbook .byline a { font-weight: 600; white-space: nowrap; }
 
 /* ---- Reusable CONTENT layout: articles / ship / port pages (text + multimedia) ---- */
-.content-hero { position: relative; }
-.content-hero img { width: 100%; height: clamp(12rem, 34vh, 22rem); object-fit: cover; display: block; }
+.content-hero { position: relative; overflow: hidden; }
+.content-hero img { width: 100%; height: clamp(12rem, 34vh, 22rem); object-fit: cover; display: block; transform-origin: 50% 58%; }
 .content-hero .ch-title { max-width: 72rem; margin: 0 auto; padding: 1.25rem clamp(1.25rem,4vw,2.5rem) 0; }
 .content-hero h1 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 400; color: var(--sea); margin: 0; line-height: 1.12; }
 .content-hero .kicker { font-size: var(--t-fine); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 .4rem; }
@@ -139,4 +142,6 @@ footer .counts b { color: var(--ink); font-family: Georgia,serif; }
   @keyframes resolve { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   .hero img { animation: breathe 34s ease-in-out infinite alternate; }
   .hero .moment { animation: resolve 1.4s ease both; }
+  /* Movement on every content page: the banner breathes too, slower and quieter than the homepage moment. */
+  .content-hero img { animation: breathe 40s ease-in-out infinite alternate; }
 }
