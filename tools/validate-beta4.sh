@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
-# validate-beta3.sh — "Charthouse" design contract + shared floor.
-# Usage: tools/validate-beta3.sh <page.html>
+# validate-beta4.sh — "The Wake" contract. Validates a HOMEPAGE or a CONTENT page,
+# plus the shared floor and a hard no-audio/video/autoplay rule.
+# Usage: tools/validate-beta4.sh <page.html>
 set -u
-f="${1:?usage: validate-beta3.sh <page.html>}"
+f="${1:?usage: validate-beta4.sh <page.html>}"
 [ -f "$f" ] || { echo "FAIL: no such file: $f"; exit 1; }
 root="$(cd "$(dirname "$0")/.." && pwd)"
-fails=0
-ok(){ printf '  ok   %s\n' "$1"; }
-bad(){ printf '  FAIL %s\n' "$1"; fails=$((fails+1)); }
-echo "validate-beta3 (Charthouse): $f"
+fails=0; ok(){ printf '  ok   %s\n' "$1"; }; bad(){ printf '  FAIL %s\n' "$1"; fails=$((fails+1)); }
+echo "validate-beta4 (The Wake): $f"
 
 # --- Shared floor ---
 head -n 20 "$f" | grep -q "Soli Deo Gloria" && ok "SDG comment before line 20" || bad "SDG comment missing in first 20 lines"
@@ -22,29 +21,31 @@ withalt=$(printf '%s' "$flat" | grep -oiE '<img\b[^>]*\balt="[^"]+"' | wc -l | t
 if [ "$imgs" -gt 0 ] && [ "$imgs" -eq "$withalt" ]; then ok "all $imgs <img> have non-empty alt"; else bad "$((imgs-withalt)) of $imgs <img> missing alt"; fi
 noWH=$(printf '%s' "$flat" | grep -oiE '<img\b[^>]*>' | grep -vc 'width='); [ "$noWH" -eq 0 ] && ok "<img> carry width/height" || bad "$noWH <img> lack width/height"
 grep -qE 'href="http://' "$f" && bad "insecure http:// link" || ok "no http:// links"
-grep -qiE '<audio|<video|autoplay|\.(mp3|mp4|wav|ogg|webm)\b' "$f" && bad "audio/video/autoplay present (policy: no audio)" || ok "no audio/video/autoplay"
+# KILL THE AUDIO: no audio/video/autoplay anywhere, ever.
+if grep -qiE '<audio|<video|autoplay|\.(mp3|mp4|wav|ogg|webm)\b' "$f"; then bad "audio/video/autoplay present (policy: no audio)"; else ok "no audio/video/autoplay"; fi
 css=$(grep -oE 'href="[^"]+\.css' "$f" | head -1 | sed 's/href="//'); cssfile="$root/${css#/}"
 [ -f "$cssfile" ] && { grep -q 'prefers-reduced-motion' "$cssfile" && ok "stylesheet honors prefers-reduced-motion" || bad "stylesheet lacks prefers-reduced-motion"; } || bad "stylesheet not found: $css"
 [ "$(grep -c '<style' "$f")" -eq 0 ] && ok "no <style> blocks" || bad "<style> block present"
 [ "$(grep -oc '<h1' "$f")" -le 1 ] && ok "single <h1>" || bad "more than one <h1>"
-grep -q 'class="felt-nav"' "$f" && ok "felt-nav present" || bad "felt-nav missing"
-
-# --- Charthouse invariants ---
-lh=$(grep -n 'class="hero"' "$f" | head -1 | cut -d: -f1)
-lp=$(grep -n 'class="pathfinder"' "$f" | head -1 | cut -d: -f1)
-lz=$(grep -n 'class="zones"' "$f" | head -1 | cut -d: -f1)
-if [ -n "$lh" ] && [ -n "$lp" ] && [ -n "$lz" ] && [ "$lh" -lt "$lp" ] && [ "$lp" -lt "$lz" ]; then ok "primary action integrated inside the hero (above the directory)"; else bad "path-finder not integrated in hero / ordering wrong"; fi
-grep -qE 'role="search"|name="q"' "$f" && ok "quiet search affordance present" || bad "search affordance missing"
-zc=$(awk '/<ol class="zones"/{x=1} x&&/<li/{c++} /<\/ol>/{x=0} END{print c+0}' "$f")
-[ "$zc" -eq 3 ] && ok "directory ordered into exactly 3 zones" || bad "expected 3 ordered zones, found $zc"
-
-# --- Voice floor ---
 banned='world-class|stunning|luxurious|unforgettable|breathtaking|must-see|must-do|bucket-list|hidden gem|seamless|delve|elevate|vibrant|nestled|boasts'
 if grep -oiE ">[^<]*($banned)[^<]*<" "$f" | grep -qiE "$banned"; then bad "banned vocabulary in copy"; else ok "no banned vocabulary in copy"; fi
 
-# --- Perf budget ---
-hero=$(grep -oE '/assets/beta/[^" ]+\.webp' "$f" | head -1)
-[ -n "$hero" ] && [ -f "$root/${hero#/}" ] && { bytes=$(wc -c < "$root/${hero#/}"); [ "$bytes" -le 204800 ] && ok "hero webp ${bytes}b within 200KB budget" || bad "hero webp ${bytes}b over budget"; }
+# --- Page-type contract ---
+if grep -q 'class="hero"' "$f"; then
+  echo "  -- homepage --"
+  grep -q 'class="nav"' "$f" && ok "real nav present" || bad "nav missing"
+  grep -q 'class="pathfinder"' "$f" && ok "single primary action (path-finder)" || bad "path-finder missing"
+  grep -q 'class="zones"' "$f" && ok "ordered task zones present" || bad "task zones missing"
+  grep -q 'class="logbook"' "$f" && grep -q 'authors/ken-baker' "$f" && ok "logbook byline links the author" || bad "logbook byline / author link missing"
+  hero=$(grep -oE '/assets/beta/[^" ]+\.webp' "$f" | head -1)
+  [ -n "$hero" ] && [ -f "$root/${hero#/}" ] && { b=$(wc -c < "$root/${hero#/}"); [ "$b" -le 204800 ] && ok "hero webp ${b}b within 200KB budget" || bad "hero webp ${b}b over budget"; }
+elif grep -qE 'class="content-grid"|class="prose"'; then :; fi
+if grep -qE 'class="content-grid"|class="prose"' "$f"; then
+  echo "  -- content page --"
+  grep -q 'class="content-hero"' "$f" && ok "content-hero present" || bad "content-hero missing"
+  grep -q 'class="prose"' "$f" && ok "prose column present" || bad "prose column missing"
+  printf '%s' "$flat" | grep -q '<figure' && printf '%s' "$flat" | grep -q '<figcaption' && ok "figure(s) with captions" || bad "content page should carry captioned figure(s)"
+fi
 
 echo "---"
-[ "$fails" -eq 0 ] && { echo "PASS (Charthouse)"; exit 0; } || { echo "FAIL: $fails issue(s)"; exit 1; }
+[ "$fails" -eq 0 ] && { echo "PASS (The Wake)"; exit 0; } || { echo "FAIL: $fails issue(s)"; exit 1; }

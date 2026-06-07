@@ -29,6 +29,7 @@ noWH=$(printf '%s' "$flat" | grep -oiE '<img\b[^>]*>' | grep -vc 'width=')
 if [ "$noWH" -eq 0 ]; then ok "<img> carry width/height"; else bad "$noWH <img> lack width/height"; fi
 # No raw http:// (absolute HTTPS only)
 grep -qE 'href="http://' "$f" && bad "insecure http:// link" || ok "no http:// links"
+grep -qiE '<audio|<video|autoplay|\.(mp3|mp4|wav|ogg|webm)\b' "$f" && bad "audio/video/autoplay present (policy: no audio)" || ok "no audio/video/autoplay"
 
 # --- Linked stylesheet: reduced-motion + no @import bloat -------------------
 css=$(grep -oE 'href="[^"]+\.css' "$f" | head -1 | sed 's/href="//')
