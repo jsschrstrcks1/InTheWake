@@ -122,6 +122,19 @@ footer .counts b { color: var(--ink); font-family: Georgia,serif; }
 .hub-cta:hover, .hub-cta:focus-visible { background: var(--paper); border-bottom-color: var(--accent); outline: none; }
 .hub-links a { margin-right: 1.4rem; line-height: 2.3; text-underline-offset: 3px; }
 
+/* Featured ships — real, identity-verified Wikimedia exteriors. One image per ship, never reused. */
+.ship-feature { max-width: 72rem; margin: 1.75rem auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.ship-feature .lead { color: var(--muted); margin: .25rem 0 0; }
+.ship-grid { list-style: none; margin: 1.1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem,1fr)); gap: 1.1rem; }
+.ship-card { background: var(--panel); border: 1px solid var(--rule); border-bottom: 3px solid var(--gold); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
+.ship-card > a { text-decoration: none; color: var(--ink); display: block; }
+.ship-card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.ship-card .sc-line { display: block; margin: .7rem 1rem 0; font-size: var(--t-fine); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.ship-card .sc-name { display: block; margin: .1rem 1rem .35rem; font-size: 1.25rem; color: var(--sea); }
+.ship-card > a:hover .sc-name, .ship-card > a:focus-visible .sc-name { text-decoration: underline; text-underline-offset: 3px; }
+.ship-card .sc-credit { margin: auto 1rem .75rem; font-size: .72rem; color: var(--muted); line-height: 1.45; }
+.ship-card .sc-credit a { color: var(--muted); }
+
 /* Accessibility + deep-page navigation (board: skip link, breadcrumbs) */
 .skip-link { position: absolute; left: -9999px; top: 0; background: var(--sea); color: #fff; padding: .6rem 1rem; z-index: 10; border-radius: 0 0 4px 0; }
 .skip-link:focus { left: 0; }
@@ -144,4 +157,6 @@ footer .counts b { color: var(--ink); font-family: Georgia,serif; }
   .hero .moment { animation: resolve 1.4s ease both; }
   /* Movement on every content page: the banner breathes too, slower and quieter than the homepage moment. */
   .content-hero img { animation: breathe 40s ease-in-out infinite alternate; }
+  .ship-card img { transition: transform .6s ease; }
+  .ship-card > a:hover img, .ship-card > a:focus-visible img { transform: scale(1.04); }
 }
