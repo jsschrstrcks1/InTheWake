@@ -93,6 +93,19 @@ img { max-width: 100%; height: auto; }
 footer { border-top: 1px solid var(--rule); padding: 1.6rem clamp(1.25rem,4vw,2.5rem); font-size: var(--t-fine); color: var(--muted); }
 footer .counts b { color: var(--ink); font-family: Georgia,serif; }
 
+/* Accessibility + deep-page navigation (board: skip link, breadcrumbs) */
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--sea); color: #fff; padding: .6rem 1rem; z-index: 10; border-radius: 0 0 4px 0; }
+.skip-link:focus { left: 0; }
+.crumbs { max-width: 72rem; margin: 0 auto; padding: .8rem clamp(1.25rem,4vw,2.5rem) 0; font-size: var(--t-fine); color: var(--muted); }
+.crumbs a { color: var(--accent); text-decoration: none; }
+.crumbs a:hover, .crumbs a:focus-visible { text-decoration: underline; }
+.crumbs [aria-current] { color: var(--muted); }
+/* Author portrait as a floated figure inside prose */
+.author-portrait { float: right; width: 9.5rem; margin: 0 0 1rem 1.25rem; }
+.author-portrait img { border-radius: 6px; }
+.author-portrait figcaption { text-align: center; }
+@media (max-width: 520px) { .author-portrait { float: none; width: 7.5rem; margin: 0 0 1rem; } }
+
 @media (max-width: 760px) { .content-grid { grid-template-columns: 1fr; } }
 
 @media (prefers-reduced-motion: no-preference) {
