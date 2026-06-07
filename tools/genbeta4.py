@@ -59,7 +59,7 @@ HOME_BODY = '''<main id="main">
     <li><div><h2 class="serif">Money, logistics &amp; fine print</h2><nav><a href="{base}/drink-calculator.html">Drink calculator</a><a href="{base}/planning.html">Planning &amp; tools</a></nav></div></li>
   </ol>
   <figure class="logbook">
-    <blockquote class="serif">The best seat on the ship isn&rsquo;t the one chasing the horizon&mdash;it&rsquo;s the one at the stern, where the wake tells the truth about where you&rsquo;ve been.</blockquote>
+    <blockquote class="serif">The finest view at sea isn&rsquo;t what&rsquo;s coming&mdash;it&rsquo;s what you&rsquo;ve left behind, carved in white across the water.</blockquote>
     <figcaption class="byline">150 nights in that seat. I keep the logbook so your way forward is clearer. — <a href="{base}/authors/ken-baker.html">Ken Baker &rarr;</a></figcaption>
   </figure>
 </main>
