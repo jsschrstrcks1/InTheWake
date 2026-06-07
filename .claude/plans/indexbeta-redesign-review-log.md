@@ -105,3 +105,20 @@ Five jurors, blind to standings, comparative vote over all three betas on the fi
 - **Recommended splice:** Quiet Harbor's calm foundation + Aft Deck's single engineered wake+motto moment — fixes Q's only weakness (remarkability) with A's only strength.
 
 **Operator divergence (surfaced, not resolved):** the operator's gut favored Aft Deck (wonder / the horizon); the blind jury favored Quiet Harbor (calm / restraint for the vulnerable). This is the original Comeau-vs-Rams tension resolving on the page. The jury informs; the operator decides.
+
+
+## G. Full board vote (16 members, blind, 2026-06-07)
+
+Tally: **Quiet Harbor 10 · Charthouse 4 · Aft Deck 2.**
+- **Q (10):** every calm / clarity / restraint / performance / typography / maintainability lens (the 5 jury + Minimalist, Typographic UI, Native-CSS, Systems Maintainer, Performance Coach).
+- **C (4):** the task-clarity / efficiency lenses — Moments Designer, Canvas Interactionist, Engineer-Founder, Offline-Caching Architect (they reward the integrated above-the-fold action; most of them also DQ A for motion).
+- **A (2):** only the two most expressive lenses — CSS Artist, Immersive-Experience Artist (they prize A's emotional craft).
+
+**Three wounds (the consensus critiques):**
+- **A** — dark theme + motion = cognitive load for the vulnerable; *most-disqualified* candidate (Restraint, Canvas, Engineer-Founder, Offline-Caching, Minimalist, Moments).
+- **C** — the in-hero search is a *second competing primary action*; rail counts induce comparison anxiety = "travel-agent, not guide" (Simplicity-Max, CSS Artist, Immersive, Systems Maintainer, Performance Coach, Positioning Sage).
+- **Q** — remarkability / weak path-finder affordance (underlined type). Even Q's champions name this.
+
+**Board's emergent recommendation (beyond the vote):** ship **Q**; give the path-finder real button affordance (Restraint, Systems Maintainer) + bump the type scale a step (Typographic); and **splice ONE subtle, fast (<1s), reduced-motion-safe wake+motto reveal from A** (Performance Coach, Native-CSS) to cure Q's only weakness with A's only strength. The audience commitment ("everyone is the anti-position") remains upstream and unresolved (Positioning Sage).
+
+**Operator note:** Aft Deck — the operator's gut pick — drew only 2 votes and the most disqualifiers, but those 2 are precisely the *craft-of-feeling* lenses that value what the operator values. The instinct has real backing; it is simply outweighted, for *this* audience, by the calm/clarity majority.
