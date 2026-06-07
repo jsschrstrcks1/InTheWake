@@ -1,0 +1,159 @@
+/* stylesbeta1.css — "Quiet Harbor" (Rams/Ive: ruthless reduction)
+   Lifeline (Restraint Designer): the typographic scale carries the page;
+   the wordmark graphic is cut — the name is plain type.
+   No cards. No shadows. No icons. One typeface. Generous whitespace. */
+
+:root {
+  --paper: #f7fdff;   /* sky */
+  --ink: #083041;     /* brand ink */
+  --muted: #2a4a5a;   /* brand text-muted */
+  --rule: #cde8f0;    /* foam-blue rule */
+  --link: #0e6e8e;    /* brand accent teal */
+  --gold: #d9b382;    /* rope/gold warmth */
+
+  /* One modular type scale (ratio ~1.5). Hierarchy = these relationships. */
+  --t-fine: 0.78rem;
+  --t-body: 1.0625rem;
+  --t-lead: 1.4rem;
+  --t-step: 2.0rem;
+  --t-hero: 2.9rem;
+
+  --measure: 64ch;   /* reading cap in ch (Typographic-UI lens) */
+  --space: clamp(1.25rem, 4vw, 3.25rem);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  font-size: var(--t-body);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+/* Felt nav — exists to be felt, not to link. Low contrast, plain type. */
+.felt-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.1rem var(--space);
+  font-size: var(--t-fine);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--rule);
+}
+.felt-nav .name { color: var(--ink); letter-spacing: 0.14em; }
+.felt-nav .felt { display: flex; gap: 1.4rem; }
+.felt-nav .felt span { white-space: nowrap; }
+
+/* Hero photograph — the LCP element. Text sits below for legibility (no overlay). */
+.hero-figure { margin: 0; }
+.hero-figure img {
+  display: block;
+  width: 100%;
+  height: clamp(240px, 46vh, 520px);
+  object-fit: cover;
+}
+.hero-figure figcaption {
+  padding: 0.5rem var(--space);
+  font-size: var(--t-fine);
+  color: var(--muted);
+}
+
+/* The one idea + the one action. Whitespace is the design. */
+.lede {
+  max-width: var(--measure);
+  margin: clamp(2rem, 7vw, 4.5rem) auto;
+  padding: 0 var(--space);
+}
+.lede .name-line {
+  font-size: var(--t-fine);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1.25rem;
+}
+.lede h1 {
+  font-size: var(--t-hero);
+  line-height: 1.12;
+  font-weight: 400;
+  margin: 0 0 1.75rem;
+  letter-spacing: -0.01em;
+}
+.lede .sub { font-size: var(--t-lead); color: var(--muted); margin: 0 0 2.5rem; }
+
+/* Path-finder — two doors, plain type, a rule between. No buttons, no cards. */
+.pathfinder { border-top: 1px solid var(--rule); }
+.pathfinder a {
+  display: block;
+  padding: 1.4rem 0 1.4rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  border-left: 3px solid var(--gold);
+  font-size: var(--t-step);
+  color: var(--link);
+  text-decoration: none;
+  transition: padding-left 160ms ease;
+}
+.pathfinder a .hint {
+  display: block;
+  font-size: var(--t-fine);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+.pathfinder a:hover, .pathfinder a:focus-visible { padding-left: 1.5rem; outline: none; }
+.pathfinder a:focus-visible { text-decoration: underline; }
+
+/* Below the fold: a spare plain-text directory. No grid of cards — a sentence of links. */
+.directory {
+  max-width: var(--measure);
+  margin: 0 auto clamp(2rem, 6vw, 4rem);
+  padding: 2.5rem var(--space) 0;
+  border-top: 1px solid var(--rule);
+}
+.directory h2 {
+  font-size: var(--t-fine);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+  margin: 0 0 0.9rem;
+}
+.directory nav a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-right: 1.4rem;
+  line-height: 2.2;
+}
+
+/* One quiet line from the logbook. Italic, muted, alone. */
+.logbook {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--space) clamp(3rem, 8vw, 5rem);
+  font-style: italic;
+  color: var(--muted);
+}
+.logbook cite { display: block; font-style: normal; font-size: var(--t-fine); margin-top: 0.6rem; }
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 1.6rem var(--space);
+  font-size: var(--t-fine);
+  color: var(--muted);
+}
+
+a { color: var(--link); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
