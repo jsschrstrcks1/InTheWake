@@ -155,7 +155,14 @@ Every beta is built under the household disciplines, using **InTheWake's cruise-
 
 Each designer may convene **one** persona from the `ken` boardroom (`ken/.claude/skills/boardroom`) **exactly once** during its build — the designer's choice, fit to its philosophy. **One persona, one consult, per beta** — three consults total across the bake-off. The consult runs the skill's normal Round 1 + cross-vendor Round 2 discipline. Record in the beta's notes and a `cruising` memory: which persona, the single question asked, and the verdict.
 
-**Available personas (boardroom re-fetched 2026-06-06):** **7 of 14 are now built and runnable** — Positioning Sage, Engineer-Founder, Performance Coach, Frontend Performance Engineer, Systems Maintainer, and (newly added) **the Restraint Designer** (Design panel — editorial restraint, typographic-grid discipline, design-as-quality-not-style) and **the Offline-Caching Architect** (PWA panel — service-worker lifecycle, precache vs runtime, PWA update discipline). The Restraint Designer is the design-critique lens the board was missing; it is now the natural lifeline for a homepage. (Grok's seat is down; Round 2 falls to Gemini/GPT.) Likely fits — the choice is the designer's:
-- **Quiet Harbor →** the Restraint Designer (design-as-quality, restraint) or the Engineer-Founder ("what else can be cut?").
-- **Aft Deck →** the Restraint Designer (does the feeling hold without sliding into style?) or the Positioning Sage (is the tribe landing?).
-- **Charthouse →** the Frontend Performance Engineer / Systems Maintainer (does the structure hold + perform?) or the Offline-Caching Architect (PWA/caching).
+**Available personas (boardroom re-fetched 2026-06-06, post-merge):** **all 14 are now built.** The merge added a full **Design panel (8 lenses)** plus the PWA lens, so the bench now maps directly onto the three theses' philosophies. Built roster:
+- *Technical / web / PWA:* Engineer-Founder, Systems Maintainer, Frontend Performance Engineer, Offline-Caching Architect.
+- *Business:* Positioning Sage, Performance Coach.
+- *Design (8):* Restraint Designer, Minimalist, Simplicity Maximalist, Moments Designer, Interaction-Polish Engineer, Canvas Interactionist, CSS Artist, Immersive-Experience Artist.
+
+(Grok's seat is down; Round 2 falls to Gemini/GPT.) Natural fits — the choice is the designer's:
+- **Quiet Harbor (Rams/Ive)** → the **Restraint Designer** or the **Minimalist** (design-as-quality, material honesty) — or the Engineer-Founder ("what else can be cut?").
+- **Aft Deck (Freiberg/Comeau)** → the **Moments Designer** (moments-create-memory, designed reveals) or the **Interaction-Polish Engineer** (soul-as-asset, motion-with-easing); the **Canvas Interactionist** if the duck/delight becomes load-bearing.
+- **Charthouse (synthesis)** → the **Simplicity Maximalist** (order brought to complexity) or the **Frontend Performance Engineer / Systems Maintainer** (structure + perf); the **Offline-Caching Architect** for PWA/caching.
+
+The Immersive-Experience Artist (and the more niche design lenses) carry their own honest narrow-band test and will likely **refuse** a calm planning homepage — that refusal is itself signal.
