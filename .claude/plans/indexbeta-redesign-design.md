@@ -88,6 +88,8 @@ Because the three diverge by design, they are judged on **outcomes, not template
 4. **Would they tell a friend** — the Positioning Sage's remarkability test.
 5. **Accessibility + performance** — reduced-motion + screen-reader reach the primary action; no LCP regression.
 
+**The design jury (judge phase).** Once all three betas exist, convene a *small curated* jury across them — a few design lenses + the Frontend Performance Engineer (perf budget) + the Positioning Sage (audience), with a design-head / Chair synthesis (boardroom `department` / `csuite` modes). The board's own rule applies: a curated panel concentrates signal; running the whole roster dilutes it. The jury feeds the five criteria above — it informs, it does not override the operator. **New personas auto-join this jury pool** — the judge phase is the one place the growing roster is consumed (read it live, §13).
+
 Then: pick a winner or splice the best moments. Promotion to `index.html` is a separate, explicit user decision — out of scope here.
 
 ---
@@ -111,6 +113,7 @@ Editing `index.html` or any live file · promotion/cutover of any beta · fixing
 | D7 | **Per-designer authority over everything** — cuts, primary action, positioning/audience. Maximum freedom. | resolves the Positioning Sage "everyone is anti-position" challenge by making it a per-beta experiment; converts the "five deletions" question into each designer's call |
 | D8 | Bind every beta to **our voice** (`like-a-human` + `voice-audit`), **`careful-not-clever`**, and **`cognitive-memory`**; each beta also ships a **template generator + validator** (§11–§12). | resolves the Content-Quality persona (voice gate); folds the Frontend Performance Engineer's perf budget into a per-beta validator; serves Future-Self (memory) |
 | D9 | Each beta gets a **boardroom lifeline**: one persona consult, once, of the designer's choosing (§13). | adds an expert pressure-test per thesis without diluting per-designer authority |
+| D10 | **De-enumerate the roster** (read it live) + **two-phase model**: sovereign build with one matched design lifeline (§13); curated **design jury** at judging (§7); new personas auto-join the jury. | absorbs the fast-growing boardroom without spec churn; gives "judging" a real design jury, not author taste |
 
 **Board findings still in force (apply within each beta):** Engineer-Founder "delete first" (each thesis must genuinely reduce) and Frontend Performance Engineer "perf budget" (folded into the §3 floor). Systems Maintainer resolved by D6. Performance Coach's scope warning acknowledged and overridden by D4.
 
@@ -155,14 +158,13 @@ Every beta is built under the household disciplines, using **InTheWake's cruise-
 
 Each designer may convene **one** persona from the `ken` boardroom (`ken/.claude/skills/boardroom`) **exactly once** during its build — the designer's choice, fit to its philosophy. **One persona, one consult, per beta** — three consults total across the bake-off. The consult runs the skill's normal Round 1 + cross-vendor Round 2 discipline. Record in the beta's notes and a `cruising` memory: which persona, the single question asked, and the verdict.
 
-**Available personas (boardroom re-fetched 2026-06-06, post-merge):** **all 14 are now built.** The merge added a full **Design panel (8 lenses)** plus the PWA lens, so the bench now maps directly onto the three theses' philosophies. Built roster:
-- *Technical / web / PWA:* Engineer-Founder, Systems Maintainer, Frontend Performance Engineer, Offline-Caching Architect.
-- *Business:* Positioning Sage, Performance Coach.
-- *Design (8):* Restraint Designer, Minimalist, Simplicity Maximalist, Moments Designer, Interaction-Polish Engineer, Canvas Interactionist, CSS Artist, Immersive-Experience Artist.
+**The roster is a moving target — it is deliberately not enumerated here.** Read it live at build time:
 
-(Grok's seat is down; Round 2 falls to Gemini/GPT.) Natural fits — the choice is the designer's:
-- **Quiet Harbor (Rams/Ive)** → the **Restraint Designer** or the **Minimalist** (design-as-quality, material honesty) — or the Engineer-Founder ("what else can be cut?").
-- **Aft Deck (Freiberg/Comeau)** → the **Moments Designer** (moments-create-memory, designed reveals) or the **Interaction-Polish Engineer** (soul-as-asset, motion-with-easing); the **Canvas Interactionist** if the duck/delight becomes load-bearing.
-- **Charthouse (synthesis)** → the **Simplicity Maximalist** (order brought to complexity) or the **Frontend Performance Engineer / Systems Maintainer** (structure + perf); the **Offline-Caching Architect** for PWA/caching.
+```bash
+git -C /home/user/ken show origin/main:.claude/skills/boardroom/ROSTER.md          # panels + built status
+git -C /home/user/ken ls-tree -r --name-only origin/main -- .claude/skills/boardroom/personas
+```
 
-The Immersive-Experience Artist (and the more niche design lenses) carry their own honest narrow-band test and will likely **refuse** a calm planning homepage — that refusal is itself signal.
+The Design panel is deep enough that each thesis has a philosophy-matched lens; the designer picks the one whose lens sharpens *this* thesis — broadly, Rams/Ive theses lean on the restraint / minimalist / typographic / native-CSS lenses; Freiberg/Comeau theses on the moments / interaction-polish / canvas lenses; the synthesis on the simplicity-maximalist lens plus a technical lens. The niche design personas (e.g. the Immersive-Experience Artist) carry their own narrow-band test and may **refuse** a calm planning homepage — the refusal is itself signal. (Grok's seat is down; Round 2 falls to Gemini/GPT.)
+
+**Growth rule.** As personas keep landing, the build-phase lifeline stays **one per thesis** (sovereignty + bounded cost); any new persona simply joins the **judge-phase jury pool (§7)**. The plan absorbs roster growth without edits here.
