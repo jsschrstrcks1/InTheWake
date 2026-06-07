@@ -4,13 +4,14 @@
    guided 1->2->3 flow rather than three flat boxes. Structured, calm, light. */
 
 :root {
-  --paper: #f7f6f2;
+  --paper: #eef6f9;      /* foam-blue */
   --panel: #ffffff;
-  --ink: #19222b;
-  --muted: #5d6770;
-  --rule: #e2ded4;
-  --link: #0e5566;
-  --accent: #c8862f;     /* one warm accent, from the sunrise */
+  --ink: #083041;        /* brand ink */
+  --muted: #2a4a5a;      /* brand text-muted */
+  --rule: #cde8f0;       /* foam-blue rule */
+  --link: #0e6e8e;       /* brand teal */
+  --accent: #e0a32e;     /* vibrant gold */
+  --sea: #0a3d62;        /* deep sea for headings/numbers */
 }
 * { box-sizing: border-box; }
 body {
@@ -33,7 +34,7 @@ a { color: var(--link); }
 
 /* Integrated hero: photo + idea + primary action + search = one inevitable unit. */
 .hero { display: grid; grid-template-columns: 1.1fr 1fr; min-height: clamp(26rem, 70vh, 40rem); }
-.hero-photo { position: relative; }
+.hero-photo { position: relative; min-height: 18rem; }  /* reserve space = no CLS, keep preload-discoverable <img> (declined FPE's background-image swap — that was the prod LCP bug) */
 .hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .hero-photo figcaption {
   position: absolute; bottom: .5rem; left: .75rem; margin: 0;

@@ -4,11 +4,12 @@
    no duck motion. All motion gated behind prefers-reduced-motion + @supports. */
 
 :root {
-  --paper: #0d1418;          /* deep water — Aft Deck runs dark */
-  --ink: #eef2f3;
-  --muted: #aab6bd;
-  --sunrise: #e8b87a;        /* the single-event color, drawn from the hero sunrise */
-  --scrim: linear-gradient(to bottom, rgba(8,14,18,0) 38%, rgba(8,14,18,.72) 100%);
+  --paper: #07263a;          /* deep sea blue — vibrant, not grey-black */
+  --ink: #eef6f9;
+  --muted: #bcd0d8;
+  --sunrise: #ffc24d;        /* vibrant sunrise gold — the single-event color */
+  --cyan: #5fc5d8;           /* bright nautical cyan */
+  --scrim: linear-gradient(to bottom, rgba(7,38,58,0) 52%, rgba(7,38,58,.58) 100%);  /* lighter, bottom-confined — photo stays vibrant; only the text band darkens */
 }
 
 * { box-sizing: border-box; }
@@ -49,7 +50,7 @@ body {
   max-width: 22ch; margin: 0; color: #fbf6ee;
   text-shadow: 0 1px 24px rgba(0,0,0,.45);
 }
-.stage .purpose { margin: 1.25rem 0 0; color: var(--muted); font-size: 1.15rem; max-width: 46ch; }
+.stage .purpose { margin: 1.25rem 0 0; color: #e3eaee; font-size: 1.2rem; max-width: 46ch; }  /* legible first-paint context (IPE concern) */
 .scroll-cue { margin-top: 1.75rem; font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sunrise); }
 
 /* Sections arrive as moments. */
@@ -61,18 +62,18 @@ body {
 .pathfinder a {
   display: flex; flex-direction: column; gap: 0.25rem;
   padding: 1.4rem 1.6rem; text-decoration: none;
-  border: 1px solid rgba(232,184,122,.4); border-radius: 2px;
-  color: var(--ink); background: rgba(232,184,122,.06);
+  border: 1px solid rgba(255,194,77,.4); border-radius: 2px;
+  color: var(--ink); background: rgba(255,194,77,.06);
   transition: border-color 200ms ease, background 200ms ease;
 }
 .pathfinder a .door { font-size: 1.5rem; color: var(--sunrise); }
 .pathfinder a .hint { font-size: 0.85rem; color: var(--muted); }
-.pathfinder a:hover, .pathfinder a:focus-visible { border-color: var(--sunrise); background: rgba(232,184,122,.12); outline: none; }
+.pathfinder a:hover, .pathfinder a:focus-visible { border-color: var(--sunrise); background: rgba(255,194,77,.12); outline: none; }
 
 .logbook { font-style: italic; color: var(--muted); font-size: 1.25rem; max-width: 40ch; }
 .logbook cite { display: block; font-style: normal; font-size: 0.8rem; margin-top: 0.7rem; color: #7e8a90; }
 
-.directory a { color: var(--sunrise); text-decoration: none; border-bottom: 1px solid rgba(232,184,122,.35); margin-right: 1.4rem; line-height: 2.4; }
+.directory a { color: var(--sunrise); text-decoration: none; border-bottom: 1px solid rgba(255,194,77,.35); margin-right: 1.4rem; line-height: 2.4; }
 .directory a:hover { border-bottom-color: var(--sunrise); }
 
 /* Duck — static, small, discoverable. No motion (Moments Designer's cut). */

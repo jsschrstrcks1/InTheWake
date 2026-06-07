@@ -4,11 +4,12 @@
    No cards. No shadows. No icons. One typeface. Generous whitespace. */
 
 :root {
-  --paper: #fbfaf7;
-  --ink: #1a2026;
-  --muted: #5b6670;
-  --rule: #d9d4ca;
-  --link: #0e3a4a;
+  --paper: #f7fdff;   /* sky */
+  --ink: #083041;     /* brand ink */
+  --muted: #2a4a5a;   /* brand text-muted */
+  --rule: #cde8f0;    /* foam-blue rule */
+  --link: #0e6e8e;    /* brand accent teal */
+  --gold: #d9b382;    /* rope/gold warmth */
 
   /* One modular type scale (ratio ~1.5). Hierarchy = these relationships. */
   --t-fine: 0.78rem;
@@ -17,7 +18,7 @@
   --t-step: 2.0rem;
   --t-hero: 2.9rem;
 
-  --measure: 36rem;
+  --measure: 64ch;   /* reading cap in ch (Typographic-UI lens) */
   --space: clamp(1.25rem, 4vw, 3.25rem);
 }
 
@@ -92,8 +93,9 @@ body {
 .pathfinder { border-top: 1px solid var(--rule); }
 .pathfinder a {
   display: block;
-  padding: 1.4rem 0;
+  padding: 1.4rem 0 1.4rem 1rem;
   border-bottom: 1px solid var(--rule);
+  border-left: 3px solid var(--gold);
   font-size: var(--t-step);
   color: var(--link);
   text-decoration: none;
@@ -107,7 +109,7 @@ body {
   color: var(--muted);
   margin-top: 0.3rem;
 }
-.pathfinder a:hover, .pathfinder a:focus-visible { padding-left: 0.6rem; outline: none; }
+.pathfinder a:hover, .pathfinder a:focus-visible { padding-left: 1.5rem; outline: none; }
 .pathfinder a:focus-visible { text-decoration: underline; }
 
 /* Below the fold: a spare plain-text directory. No grid of cards — a sentence of links. */

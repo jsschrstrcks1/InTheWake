@@ -89,3 +89,36 @@ Superseded design spec: `indexbeta-redesign-design.md` **v2**.
 **Roster update (2026-06-06):** boardroom re-fetched — now **7 built personas**. Two added since the review above: **the Restraint Designer** (Design panel — the design-critique lens the board lacked when this review ran) and **the Offline-Caching Architect** (PWA panel). Both are now available as per-beta lifelines (spec §13).
 
 **Roster update 2 (2026-06-06, post-merge):** all **14 personas now built** — the merge landed a full **Design panel (8 lenses):** Restraint Designer, Minimalist, Simplicity Maximalist, Moments Designer, Interaction-Polish Engineer, Canvas Interactionist, CSS Artist, Immersive-Experience Artist. The design bench now maps onto the three theses (spec §13). The earlier boardroom review (section E) predates the Design panel; if re-run, the design lenses would add the critique that section E's technical/business panel could not.
+
+---
+
+## F. Design jury — judge phase (2026-06-07)
+
+Five jurors, blind to standings, comparative vote over all three betas on the five behavioral criteria: Restraint Designer, Interaction-Polish Engineer, Simplicity Maximalist, Frontend Performance Engineer, Positioning Sage. (Cost ≈ $0.02.)
+
+**Result: Quiet Harbor (beta1) ranked #1 — unanimous, 5/5.** Second place split: Aft Deck 2nd by Simplicity-Max + Positioning Sage; Charthouse 2nd by Restraint Designer.
+
+- **Deciding factor (consensus):** calm + low cognitive load + first-paint clarity for the vulnerable-among-everyone audience. Quiet Harbor gets out of the way.
+- **Disqualifiers raised:** Aft Deck — dark theme + scrim + engineered reveal + motion = cognitive load / "oppressive" for vulnerable readers (Restraint Designer). Charthouse — the in-hero search box is a *second competing primary action*, and the rail counts induce comparison/choice anxiety = "travel-agent, not guide" (Simplicity Maximalist **and** Positioning Sage, two DQs).
+- **Quiet Harbor's one weakness (consensus):** remarkability / "would they tell a friend" — several jurors warned it risks reading "too plain." Convergent fixes: give the path-finder a touch more visual affordance (understated buttons), and commit to an audience.
+- **Audience carryover confirmed:** Positioning Sage — *all three* fail to commit ("everyone is the anti-position"); Quiet Harbor is the best *foundation* because it has the least noise to strip when the audience is finally named.
+- **Recommended splice:** Quiet Harbor's calm foundation + Aft Deck's single engineered wake+motto moment — fixes Q's only weakness (remarkability) with A's only strength.
+
+**Operator divergence (surfaced, not resolved):** the operator's gut favored Aft Deck (wonder / the horizon); the blind jury favored Quiet Harbor (calm / restraint for the vulnerable). This is the original Comeau-vs-Rams tension resolving on the page. The jury informs; the operator decides.
+
+
+## G. Full board vote (16 members, blind, 2026-06-07)
+
+Tally: **Quiet Harbor 10 · Charthouse 4 · Aft Deck 2.**
+- **Q (10):** every calm / clarity / restraint / performance / typography / maintainability lens (the 5 jury + Minimalist, Typographic UI, Native-CSS, Systems Maintainer, Performance Coach).
+- **C (4):** the task-clarity / efficiency lenses — Moments Designer, Canvas Interactionist, Engineer-Founder, Offline-Caching Architect (they reward the integrated above-the-fold action; most of them also DQ A for motion).
+- **A (2):** only the two most expressive lenses — CSS Artist, Immersive-Experience Artist (they prize A's emotional craft).
+
+**Three wounds (the consensus critiques):**
+- **A** — dark theme + motion = cognitive load for the vulnerable; *most-disqualified* candidate (Restraint, Canvas, Engineer-Founder, Offline-Caching, Minimalist, Moments).
+- **C** — the in-hero search is a *second competing primary action*; rail counts induce comparison anxiety = "travel-agent, not guide" (Simplicity-Max, CSS Artist, Immersive, Systems Maintainer, Performance Coach, Positioning Sage).
+- **Q** — remarkability / weak path-finder affordance (underlined type). Even Q's champions name this.
+
+**Board's emergent recommendation (beyond the vote):** ship **Q**; give the path-finder real button affordance (Restraint, Systems Maintainer) + bump the type scale a step (Typographic); and **splice ONE subtle, fast (<1s), reduced-motion-safe wake+motto reveal from A** (Performance Coach, Native-CSS) to cure Q's only weakness with A's only strength. The audience commitment ("everyone is the anti-position") remains upstream and unresolved (Positioning Sage).
+
+**Operator note:** Aft Deck — the operator's gut pick — drew only 2 votes and the most disqualifiers, but those 2 are precisely the *craft-of-feeling* lenses that value what the operator values. The instinct has real backing; it is simply outweighted, for *this* audience, by the calm/clarity majority.
