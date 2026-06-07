@@ -122,3 +122,19 @@ Tally: **Quiet Harbor 10 · Charthouse 4 · Aft Deck 2.**
 **Board's emergent recommendation (beyond the vote):** ship **Q**; give the path-finder real button affordance (Restraint, Systems Maintainer) + bump the type scale a step (Typographic); and **splice ONE subtle, fast (<1s), reduced-motion-safe wake+motto reveal from A** (Performance Coach, Native-CSS) to cure Q's only weakness with A's only strength. The audience commitment ("everyone is the anti-position") remains upstream and unresolved (Positioning Sage).
 
 **Operator note:** Aft Deck — the operator's gut pick — drew only 2 votes and the most disqualifiers, but those 2 are precisely the *craft-of-feeling* lenses that value what the operator values. The instinct has real backing; it is simply outweighted, for *this* audience, by the calm/clarity majority.
+
+## H. beta4 synthesis — board design (2026-06-07)
+
+Six-persona panel (Simplicity Maximalist, Moments Designer, Restraint Designer, Interaction-Polish Engineer, Positioning Sage, Frontend Performance Engineer) asked: best feature to KEEP from each beta, what to CHANGE, how to COMBINE into a beta4.
+
+**KEEP (consensus):**
+- **From Q:** ruthless reduction + one serif + large type on a 64ch measure — the calm, legible foundation. (6/6)
+- **From A:** the motto-as-large-H1 hero *moment* + ONE subtle CSS-only "breathe," gated behind prefers-reduced-motion. (5/6; **Restraint Designer dissents** — drop all motion even gated, "static calm is paramount.")
+- **From C:** the directory ordered into three numbered task zones (Plan / Compare / Money-logistics). (6/6)
+
+**CHANGE / DROP (consensus):** drop the duck; drop the in-hero search (4/6 — **Positioning Sage dissents**, keep a *quiet* search as a secondary affordance, not in the hero); move the rail counts off the homepage to the footer/about; replace Q's gold-rope path-finder border with a plain, clear **button** affordance (keep the affordance, drop the decoration).
+
+**Two live splits:** (1) **motion** — one subtle gated breathe vs none at all (Restraint); (2) **vibrancy** — the board leans "rein in the accents," but the **operator's explicit directive is vibrant** → operator wins; beta4 keeps the vibrant hero + one decisive accent, used with discipline.
+
+**beta4 concept:** Quiet Harbor's reduction and 64ch typographic calm as the floor; a near-full-bleed *vibrant* wake hero carrying the motto as the one engineered moment (light legibility scrim, one subtle gated breathe, no scroll-reveals); the two-door path-finder as clear restrained buttons; below, the three numbered task zones and a single logbook line; search and counts demoted. Audience ("everyone" vs the vulnerable-but-everyone tribe) remains the operator's open call.
+
