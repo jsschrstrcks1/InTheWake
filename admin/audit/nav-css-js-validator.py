@@ -287,7 +287,8 @@ def audit_page(path: Path, root: Path) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description='InTheWake Nav/JS/CSS Validator')
-    parser.add_argument('--root', default='/Volumes/1TB External/Projects/InTheWake', help='Site root')
+    parser.add_argument('--root', default=str(Path(__file__).resolve().parents[2]),
+                        help='Site root (default: repo root, derived from this script location)')
     parser.add_argument('--out', default='/tmp/itw-nav-audit.json', help='JSON output path')
     parser.add_argument('--summary', action='store_true', help='Print summary only')
     args = parser.parse_args()
@@ -295,6 +296,13 @@ def main():
     root = Path(args.root)
     html_files = sorted(root.rglob('*.html'))
     public_files = [f for f in html_files if is_public_page(f, root)]
+
+    # Fail loud rather than silently reporting "all clean" when the root is wrong
+    # (e.g. a stale path): 0 files found is an error, not a passing scan.
+    if not public_files:
+        print(f'ERROR: no public HTML files under root {root!s}. '
+              f'Pass --root <site root> (no .html found).', file=sys.stderr)
+        sys.exit(2)
 
     print(f'Scanning {len(public_files)} public HTML files...', flush=True)
 

@@ -129,6 +129,28 @@ Also watch for: "Perhaps the most striking thing is..." "It is a reminder that..
 
 "From X to Y" requires X and Y to be endpoints of a real scale. "From the pool deck to the engine room" works. "From relaxing to adventurous" does not — those are not on a meaningful scale. AI uses this construction to gesture at breadth without being specific. Name the actual items instead.
 
+### Therapeutic and Cognitive Verbs
+
+Self-help and consultant vocabulary creeps into travel writing through specific verbs: *optimize (your itinerary), unpack (your options), process (the experience), calibrate (expectations), reframe, leverage, curate.* These are brochure-and-TED-talk words, not the words of someone telling you what a week at sea was actually like.
+
+Replace with plain verbs the reporter would use: "optimize your sea days" → "plan your sea days," "unpack the dining options" → "walk through the dining options," "curate your excursions" → "pick your excursions." **Carve-out:** literal uses are fine ("the app optimizes the route"). The tell is the abstract self-help use where a plain verb works.
+
+### Stock Demographic Listicles
+
+When a page gestures at "who this cruise is for," AI reaches for a four-part traveler stack: "Some guests want to relax by the pool. Some want adventure ashore. Some are traveling with kids. Some are celebrating an anniversary." The four-part shape is the tell — exhaustive market-segment coverage, not observation. (Distinct from a real grouping under Rule of Three: there the count follows the fact; here four parallel "some guests…" clauses are a template.)
+
+Fix: name the specific reader this page actually serves, or collapse to one or two concrete clauses. "the first-time cruiser who's nervous about getting seasick" beats four parallel "some guests want…" clauses.
+
+### Composite First-Person Attestation
+
+"Having sailed this route myself…" "I've done this excursion." "Trust me, I've been there." When a first-person claim is followed by generic description with no specifics — no date, no weather, no tender time, no dish you actually ate — the claim is unsubstantiated and the reader feels it. (Pairs with Low-Probability Details: specificity is the proof of having been there.)
+
+Two honest fixes: drop the claim and report it as research ("the route runs…"), or earn it with one concrete detail only a passenger would know ("the 7:15 tender from Cabo was already full by 7:00"). The half-measure — claim plus vague gesture — is worst: it asks for testimony credit the prose can't back. This site's whole credibility rests on sounding like someone who actually sailed it; an empty "I've been there" spends that credibility for nothing.
+
+### Reader-Address Cue Filler
+
+"Picture this." "Let me tell you." "Here's the thing about Cozumel." Sparingly, at a real gear-shift, fine. Used to manufacture intimacy before an ordinary sentence, cut. Diagnostic: does the sentence after the cue need it, or land harder alone?
+
 ### Announcement-Before-Move Tells
 
 A sentence that narrates what the next sentence is about to do, instead of just doing it. Always a throat-clear. Almost always deletable.

@@ -180,6 +180,10 @@ The scans above were calibrated on Claude/GPT-drafted pages. Local models (Qwen,
 - [ ] Hedged claims where the reporter would speak declaratively ("may offer," "can be considered," "is regarded as")
 - [ ] Antithetical-parallelism stacking beyond one instance per page
 - [ ] Cruise-marketing vocabulary (zero tolerance — see hard-banned list in `like-a-human`)
+- [ ] Therapeutic/cognitive verbs used abstractly. Grep: `\b(optimize|unpack|process|calibrate|reframe|leverage|curate)\b`. Carve-out: literal use is fine ("the app optimizes the route"); flag the self-help use ("optimize your sea days" → "plan your sea days," "curate your excursions" → "pick your excursions").
+- [ ] Stock demographic listicle — four-part "Some guests want… / Some are…" traveler stack. Name the specific reader the page serves, or collapse to one or two concrete clauses.
+- [ ] Composite first-person attestation — "having sailed this myself" / "I've done this excursion" / "trust me, I've been there" with no date, weather, tender time, or dish to back it. Drop the claim or earn it with one passenger-only detail; the half-measure spends the site's whole "actually sailed it" credibility for nothing. (See Voice Continuity: first-person attestation must carry a date.)
+- [ ] Reader-address cue filler — "Picture this," "Let me tell you," "Here's the thing about X" before an ordinary sentence. Keep at a real gear-shift; cut when the next sentence lands harder alone.
 
 **Drift indicator (strengthened in v2.2.0):** if **3 or more must-be-present markers are missing**, OR **2 or more must-be-absent items appear**, the page has drifted at minimum to Medium risk regardless of machine-tell count. Both signals are weighted equally; the absence list is *not* a soft warning.
 

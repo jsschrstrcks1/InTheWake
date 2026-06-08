@@ -1,0 +1,31 @@
+# AI-Bot Policy Monitor
+#
+# Verifies that the live, Cloudflare-managed AI training-bot block is still
+# active at the edge. That block is configured in the Cloudflare dashboard
+# (Security -> Bots -> AI Audit), NOT in this repository — so no commit or PR
+# can confirm it is still in place. A scheduled live check is the only thing
+# that catches it being disabled or changed.
+#
+# Fails (red) if any documented training crawler's "Disallow: /" has vanished
+# from the live robots.txt. See scripts/check-ai-bot-policy.sh and the
+# "AI-bot policy" header in robots.txt.
+name: AI-Bot Policy Monitor
+
+on:
+  schedule:
+    - cron: '17 7 * * 1'   # weekly, Mondays 07:17 UTC
+  workflow_dispatch:        # allow on-demand runs from the Actions tab
+
+permissions:
+  contents: read
+
+jobs:
+  verify-ai-bot-block:
+    name: Verify live AI training-bot block
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - name: Verify Cloudflare AI-Bot Block is live
+        run: bash scripts/check-ai-bot-policy.sh
