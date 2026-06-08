@@ -487,31 +487,8 @@ All work on this project is offered as a gift to God.
       if(fallback) fallback.style.display = 'block';
     }
   })();
-
-  /* ===== Mobile Nav Toggle ===== */
-  (function mobileNav(){
-    const btn = document.querySelector('.nav-toggle');
-    const nav = document.getElementById('site-nav');
-    if(!btn || !nav) return;
-    btn.addEventListener('click', function(){
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!open));
-      nav.classList.toggle('open', !open);
-    });
-  })();
-
-  /* ===== Dropdown Menus ===== */
-  document.querySelectorAll('.nav-dropdown > button').forEach(function(btn){
-    btn.addEventListener('click', function(e){
-      e.stopPropagation();
-      const dd = btn.parentElement;
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      document.querySelectorAll('.nav-dropdown').forEach(function(d){ d.classList.remove('open'); d.querySelector('button').setAttribute('aria-expanded','false'); });
-      if(!open){ dd.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
-    });
-  });
-  document.addEventListener('click', function(){ document.querySelectorAll('.nav-dropdown').forEach(function(d){ d.classList.remove('open'); d.querySelector('button').setAttribute('aria-expanded','false'); }); });
 })();
 </script>
+<script src="/assets/js/dropdown.js"></script>
 </body>
 </html>
