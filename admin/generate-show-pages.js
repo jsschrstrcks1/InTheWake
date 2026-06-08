@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
- * generate-show-pages.js
+ * generate-show-pages.js  (v2 — audit-proof)
+ *
  * Generates HTML pages for all Royal Caribbean shows/productions
  * using data from assets/data/shows.json and assets/data/venues-v2.json.
+ * Emits to restaurants/ and auto-runs validate-venue-page-v2.js on creation.
  *
  * Usage: node admin/generate-show-pages.js [--dry-run] [--slug=<slug>]
  */
@@ -10,6 +12,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -184,7 +187,7 @@ All work on this project is offered as a gift to God.
   <meta name="referrer" content="no-referrer">
   <meta name="ai-summary" content="${escAttr(`${show.name} is a ${typeLabel.toLowerCase()} on Royal Caribbean. ${show.description.split('.')[0]}. Performs in the ${show.venue}. ${show.cost}.`)}">
   <meta name="last-reviewed" content="${dateStr}">
-  <meta name="content-protocol" content="ICP-Lite v1.4">
+  <meta name="content-protocol" content="ICP-2">
   <script>
   if('serviceWorker' in navigator){
     window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
@@ -251,7 +254,7 @@ All work on this project is offered as a gift to God.
 </script>
 
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.300" fetchpriority="high"/>
+  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
 </head>
 
 <body class="venue-page">
@@ -272,7 +275,7 @@ All work on this project is offered as a gift to God.
       <div class="nav-dropdown" id="nav-planning">
         <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
         <div class="dropdown-menu" role="menu">
-          <a href="/planning.html">Planning (overview)</a><a href="/ships.html">Ships</a><a href="/restaurants.html">Restaurants &amp; Menus</a><a href="/ports.html">Ports</a><a href="/drink-packages.html">Drink Packages</a><a href="/drink-calculator.html">Drink Calculator</a><a href="/stateroom-check.html">Stateroom Check</a><a href="/cruise-lines.html">Cruise Lines</a><a href="/packing-lists.html">Packing Lists</a><a href="/accessibility.html">Accessibility</a>
+          <a href="/planning.html">Planning (overview)</a><a href="/ships/">Ships</a><a href="/restaurants.html">Restaurants &amp; Menus</a><a href="/ports.html">Ports</a><a href="/drink-packages.html">Drink Packages</a><a href="/drink-calculator.html">Drink Calculator</a><a href="/stateroom-check.html">Stateroom Check</a><a href="/cruise-lines.html">Cruise Lines</a><a href="/packing-lists.html">Packing Lists</a><a href="/accessibility.html">Accessibility</a>
         </div>
       </div>
       <div class="nav-dropdown" id="nav-travel">
@@ -284,7 +287,7 @@ All work on this project is offered as a gift to God.
   </div>
   <div class="hero" role="img" aria-label="Ship wake at sunrise">
     <div class="latlon-grid" aria-hidden="true"></div>
-    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
     <div class="hero-title"><img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/></div>
     <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
     <div class="hero-credit"><a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Photo &copy; Flickers of Majesty</a></div>
@@ -509,7 +512,17 @@ for (const show of shows) {
   try {
     const html = generatePage(show);
     if (!dryRun) {
-      fs.writeFileSync(filePath, html, 'utf8');
+      // Atomic write: write to temporary file then rename. Prevents half-written files if the process is killed.
+      const tmpPath = filePath + '.tmp';
+      fs.writeFileSync(tmpPath, html, 'utf8');
+      fs.renameSync(tmpPath, filePath);
+      // Auto-run validator on creation (matches port + venue generators in this branch).
+      // Enforces ICP-2 / venue standards at write time; addresses bypass gap.
+      try {
+        execSync(`node admin/validate-venue-page-v2.js ${filePath}`, { stdio: 'inherit' });
+      } catch (e) {
+        console.error(`[Generator] Validator issues for ${show.slug} (see above).`);
+      }
     }
     console.log(`  ✓  ${show.slug}.html — ${dryRun ? 'would create' : 'created'} (${show.type})`);
     created++;

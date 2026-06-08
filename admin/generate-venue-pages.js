@@ -3,7 +3,7 @@
  * generate-venue-pages.js  (v2 — audit-proof)
  *
  * Generates HTML venue pages from venues-v2.json that pass the
- * validate-venue-page-v2.js audit on first creation.
+ * validate-venue-page-v2.js audit on first creation. Uses atomic writes + post-validate exec.
  *
  * Fixes every root cause that caused T01–T10, S01–S05, W01–W04
  * failures in the original generate_restaurant_pages.py:
@@ -31,6 +31,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -414,7 +415,7 @@ All work on this project is offered as a gift to God.
   <meta name="referrer" content="no-referrer">
   <meta name="ai-summary" content="${name} — ${desc}">
   <meta name="last-reviewed" content="${today}">
-  <meta name="content-protocol" content="ICP-Lite-v1.0">
+  <meta name="content-protocol" content="ICP-2">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="article">
@@ -498,7 +499,7 @@ ${faqJsonLd}
         </button>
         <div class="dropdown-menu" role="menu">
           <a href="/first-cruise.html">Your First Cruise</a>
-          <a href="/ships.html">Ships</a>
+          <a href="/ships/">Ships</a>
           <a href="/cruise-lines.html">Cruise Lines</a>
           <a href="/ports.html">Ports</a>
           <a href="/packing-lists.html">Packing Lists</a>
@@ -552,7 +553,7 @@ ${faqJsonLd}
 
   <div class="hero" role="img" aria-label="Ship wake at sunrise">
     <div class="latlon-grid" aria-hidden="true"></div>
-    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.300" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
+    <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" width="180" height="180" alt="" aria-hidden="true" decoding="async"/>
     <div class="hero-title">
       <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake" decoding="async" fetchpriority="high" width="560" height="567"/>
     </div>
@@ -684,7 +685,7 @@ ${faqHtml}
       <h3 id="author-heading">About the Author</h3>
       <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
         <picture>
-          <source srcset="/authors/img/ken1.webp?v=3.010.300" type="image/webp"/>
+          <source srcset="/authors/img/ken1.webp?v=3.010.400" type="image/webp"/>
           <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Author photo" style="border-radius: 12px;" decoding="async" loading="lazy"/>
         </picture>
       </a>
@@ -828,7 +829,17 @@ for (const venue of venues) {
   const filepath = path.join(outDir, `${slug}.html`);
 
   if (!dryRun) {
-    fs.writeFileSync(filepath, html, 'utf8');
+    // Atomic write: write to temporary file then rename. Prevents half-written files if the process is killed.
+    const tmpPath = filepath + '.tmp';
+    fs.writeFileSync(tmpPath, html, 'utf8');
+    fs.renameSync(tmpPath, filepath);
+    // Auto-run validator on creation (like the port generator fix in this branch).
+    // Addresses the "documents audit but does not call" gap found in crawl.
+    try {
+      execSync(`node admin/validate-venue-page-v2.js ${filepath}`, { stdio: 'inherit' });
+    } catch (e) {
+      console.error(`Validator issues for ${slug} (see above).`);
+    }
   }
   console.log(`  ${dryRun ? '[DRY]' : '  ✓ '} ${slug}.html`);
   created++;

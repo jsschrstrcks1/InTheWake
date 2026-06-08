@@ -138,7 +138,7 @@ with open(sidecar_path) as f:
     data = json.load(f)
 
 # R4: required top-level categories
-required = ['pack_filename', 'last_factcheck_date', 'ship_specs', 'christening', 'policies', 'superlatives']
+required = ['pack_filename', 'last_factcheck_date', 'ship_specs', 'christening', 'policies', 'superlatives', 'voice_audit']
 for key in required:
     if key not in data:
         errors.append(f"missing required top-level key: '{key}'")
@@ -163,6 +163,29 @@ if 'policies' in data:
         v = data['policies'].get(k)
         if not isinstance(v, dict) or not v.get('source'):
             errors.append(f"policies.{k} missing or has no 'source' URL")
+
+# R7b: voice_audit block (enforces voice-audit v2.2.0 attestation)
+# Required by voice-audit doctrine at .claude/skills/voice-audit/SKILL.md.
+# Added 2026-06-04 after the Anthem reader-feedback failure.
+if 'voice_audit' in data:
+    va = data['voice_audit']
+    required_va_keys = ['audited_against', 'audit_date', 'audit_scope', 'risk_rating', 'cluster_detection']
+    for k in required_va_keys:
+        if k not in va:
+            errors.append(f"voice_audit.{k} missing — required by voice-audit v2.2.0 sidecar schema")
+    if isinstance(va.get('cluster_detection'), dict):
+        verdict = va['cluster_detection'].get('verdict', '').lower()
+        if verdict not in ('likely_human', 'unclear', 'likely_ai'):
+            errors.append(f"voice_audit.cluster_detection.verdict must be one of: likely_human / unclear / likely_ai (got: '{verdict}')")
+        if verdict == 'likely_ai':
+            errors.append(f"voice_audit.cluster_detection.verdict is 'likely_ai' — pack must be restored before shipping (independent escalation trigger per voice-audit v2.2.0)")
+    if isinstance(va.get('risk_rating'), str):
+        if va['risk_rating'].lower() == 'high':
+            errors.append(f"voice_audit.risk_rating is 'High' — pack must be revised before shipping per voice-audit v2.2.0")
+    if isinstance(va.get('audit_scope'), str):
+        scope_lower = va['audit_scope'].lower()
+        if 'description' in scope_lower or 'summary' in scope_lower or 'cover' in scope_lower:
+            errors.append(f"voice_audit.audit_scope appears to cover only a summary/description ('{va['audit_scope']}'); the audit must cover the FULL pack body per the Anthem June 2026 lesson")
 
 # R8: scan all sources for forbidden patterns
 def walk(node, path=''):

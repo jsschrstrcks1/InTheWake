@@ -1,0 +1,255 @@
+/* stylesbeta4.css — "The Wake" (beta4 = board consensus)
+   Q's reduction + 64ch calm · A's motto hero-moment (one gated breathe) ·
+   C's ordered numbered task zones. Vibrant brand palette (operator directive).
+   ALSO a reusable .prose/content layout so article/ship/port pages scale. */
+
+:root {
+  --paper: #f4fbfe;     /* sky-foam */
+  --panel: #ffffff;
+  --ink: #083041;       /* brand ink */
+  --muted: #2a4a5a;     /* brand text-muted */
+  --rule: #cde8f0;      /* foam-blue rule */
+  --sea: #0a3d62;       /* deep sea (headings) */
+  --accent: #0e6e8e;    /* brand teal (links/actions) */
+  --accent-dark: #005a9c;
+  --gold: #d9b382;      /* rope/gold warmth (one decisive accent) */
+  --measure: 64ch;      /* reading measure */
+  --t-fine: .8rem; --t-body: 1.0625rem; --t-lead: 1.3rem; --t-h2: 1.7rem; --t-hero: clamp(2.1rem, 5vw, 3.6rem);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink);
+  font-family: -apple-system,"Segoe UI",Roboto,system-ui,sans-serif; font-size: var(--t-body); line-height: 1.65; }
+.serif { font-family: Georgia,"Iowan Old Style","Times New Roman",serif; }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; }
+
+/* Real, restrained nav — content pages need true navigation (not felt). */
+.nav { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem 1.6rem;
+  padding: .9rem clamp(1.25rem,4vw,2.5rem); border-bottom: 1px solid var(--rule); background: var(--panel); }
+.nav .name { font-weight: 700; letter-spacing: .04em; color: var(--sea); margin-right: auto; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover, .nav a:focus-visible { color: var(--accent); }
+
+/* HERO — A's moment: vibrant wake photo + motto H1, light bottom scrim, gated breathe. */
+.hero { position: relative; min-height: clamp(24rem, 84svh, 46rem); overflow: hidden; }
+.hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 58%; }
+.hero .scrim { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(8,48,65,0) 50%, rgba(8,48,65,.6) 100%); }
+.hero .moment { position: absolute; left: 0; right: 0; bottom: clamp(2.5rem,9vh,6rem); padding: 0 clamp(1.25rem,6vw,4rem); z-index: 1; }
+.hero h1 { font-size: var(--t-hero); line-height: 1.1; font-weight: 400; margin: 0; max-width: 20ch; color: #fff; text-shadow: 0 1px 22px rgba(0,0,0,.5); }
+.hero .purpose { margin: 1rem 0 1.6rem; color: #eaf6fb; font-size: var(--t-lead); max-width: 46ch; text-shadow: 0 1px 14px rgba(0,0,0,.5); }
+/* Hub gateway moment — one level down from the homepage, still immersive. Kicker rides the scrim. */
+.hero--hub { min-height: clamp(22rem, 66svh, 40rem); }
+/* Ship page moment — the vessel is the decisive event, name overlaid on its own photo. */
+.hero--ship { min-height: clamp(22rem, 70svh, 42rem); }
+.hero .kicker { font-size: var(--t-fine); letter-spacing: .14em; text-transform: uppercase; color: #bfe7f6; margin: 0 0 .5rem; text-shadow: 0 1px 14px rgba(0,0,0,.5); }
+.hero .credit { position: absolute; top: .6rem; right: .6rem; z-index: 1; margin: 0; padding: .12rem .55rem; font-size: .68rem; line-height: 1.5; color: #eef7fb; background: rgba(8,48,65,.55); border-radius: 3px; }
+.hero .credit a { color: #eef7fb; }
+
+/* Path-finder — clear button affordance (gold-accented, not gold-roped). */
+.pathfinder { display: flex; flex-wrap: wrap; gap: .8rem; }
+.pathfinder a { display: inline-flex; flex-direction: column; gap: .15rem; padding: .85rem 1.3rem;
+  background: var(--panel); color: var(--ink); text-decoration: none; border-radius: 4px;
+  border: 1px solid var(--panel); border-bottom: 3px solid var(--gold); }
+.pathfinder a .door { font-size: 1.15rem; color: var(--accent); font-weight: 600; }
+.pathfinder a .hint { font-size: .82rem; color: var(--muted); }
+.pathfinder a:hover, .pathfinder a:focus-visible { border-bottom-color: var(--accent); outline: none; }
+
+/* C's ordered task zones. */
+.zones { max-width: var(--measure); margin: clamp(2.5rem,7vw,4.5rem) auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); list-style: none; counter-reset: z; }
+.zones > li { display: grid; grid-template-columns: 2.6rem 1fr; gap: 1.1rem; padding: 1.6rem 0; border-top: 1px solid var(--rule); }
+.zones > li::before { counter-increment: z; content: counter(z); font-family: Georgia,serif; font-size: 1.7rem; color: var(--gold); line-height: 1; }
+.zones h2 { font-size: 1.25rem; font-weight: 400; margin: 0 0 .4rem; color: var(--sea); }
+.zones nav a { margin-right: 1.2rem; line-height: 2.1; text-underline-offset: 3px; }
+
+/* Logbook + Ken byline (plays off the quote, shows the miles, links the author). */
+.logbook { max-width: var(--measure); margin: clamp(2rem,6vw,3.5rem) auto; padding: 1.75rem clamp(1.25rem,4vw,2.5rem); border-left: 3px solid var(--gold); background: var(--panel); }
+.logbook blockquote { margin: 0; font-style: italic; font-size: 1.25rem; color: var(--ink); }
+.logbook .byline { margin: .9rem 0 0; font-size: .95rem; color: var(--muted); }
+.logbook .byline a { font-weight: 600; white-space: nowrap; }
+
+/* ---- Reusable CONTENT layout: articles / ship / port pages (text + multimedia) ---- */
+.content-hero { position: relative; overflow: hidden; }
+.content-hero .ch-media { position: relative; overflow: hidden; }
+.content-hero img { width: 100%; height: clamp(12rem, 34vh, 22rem); object-fit: cover; display: block; transform-origin: 50% 58%; }
+.content-hero .ch-credit { position: absolute; right: .55rem; bottom: .55rem; margin: 0; padding: .12rem .55rem; font-size: .68rem; line-height: 1.5; color: #eef7fb; background: rgba(8,48,65,.62); border-radius: 3px; }
+.content-hero .ch-credit a { color: #eef7fb; text-underline-offset: 2px; }
+.content-hero .ch-title { max-width: 72rem; margin: 0 auto; padding: 1.25rem clamp(1.25rem,4vw,2.5rem) 0; }
+.content-hero h1 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 400; color: var(--sea); margin: 0; line-height: 1.12; }
+.content-hero .kicker { font-size: var(--t-fine); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 .4rem; }
+
+.content-grid { max-width: 72rem; margin: 0 auto; padding: 1.5rem clamp(1.25rem,4vw,2.5rem) 3rem; display: grid; grid-template-columns: minmax(0,1fr) 18rem; gap: clamp(1.5rem,4vw,3rem); }
+.prose { max-width: var(--measure); }
+.prose > * { margin: 0 0 1.1rem; }
+.prose h2 { font-size: var(--t-h2); font-weight: 400; color: var(--sea); margin-top: 2rem; line-height: 1.2; }
+.prose h3 { font-size: 1.25rem; font-weight: 600; color: var(--ink); margin-top: 1.5rem; }
+.prose a { text-underline-offset: 2px; }
+.prose figure { margin: 1.5rem 0; }
+.prose figure img { border-radius: 4px; }
+.prose figcaption { font-size: var(--t-fine); color: var(--muted); margin-top: .4rem; }
+.prose blockquote { border-left: 3px solid var(--gold); margin: 1.5rem 0; padding: .25rem 0 .25rem 1.1rem; font-style: italic; color: var(--muted); }
+.prose ul, .prose ol { padding-left: 1.3rem; }
+.prose li { margin: .35rem 0; }
+.prose details { border-top: 1px solid var(--rule); padding: .85rem 0; margin: 0; }
+.prose details summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.prose details[open] summary { color: var(--sea); }
+.prose details > p { margin: .6rem 0 0; color: var(--muted); }
+/* venue columns: dining / onboard lists sit two-up on wide screens, one-up on narrow */
+.cols { columns: 2; column-gap: 2rem; }
+.cols ul { margin: 0; }
+.cols li { break-inside: avoid; }
+@media (max-width: 540px) { .cols { columns: 1; } }
+.prose table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.prose th, .prose td { text-align: left; padding: .55rem .6rem; border-bottom: 1px solid var(--rule); }
+.prose th { color: var(--sea); }
+/* multimedia row (e.g. ship "first look" gallery) — fluid, no breakpoint ladder */
+.media-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem,1fr)); gap: .9rem; margin: 1.5rem 0; }
+.media-row figure { margin: 0; }
+.media-row img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; display: block; }
+.media-row figcaption { margin-top: .4rem; }
+.rail { font-size: .95rem; }
+.rail .card { background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 1rem 1.1rem; margin-bottom: 1rem; }
+.rail h2 { font-size: 1rem; color: var(--sea); margin: 0 0 .5rem; font-weight: 600; }
+.tiny { font-size: var(--t-fine); color: var(--muted); }
+
+footer { border-top: 1px solid var(--rule); padding: 1.6rem clamp(1.25rem,4vw,2.5rem); font-size: var(--t-fine); color: var(--muted); }
+footer .counts b { color: var(--ink); font-family: Georgia,serif; }
+
+/* Hub layout (ships / cruise-lines landing) — fluid card grid, calm, no clutter */
+.hub-intro { max-width: 72rem; margin: 1.5rem auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.hub-intro h2 { font-size: var(--t-h2); font-weight: 400; color: var(--sea); margin: 0 0 .5rem; }
+.hub-grid { max-width: 72rem; margin: 1.5rem auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem) 2.5rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem,1fr)); gap: 1rem; list-style: none; }
+.hub-card a { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding: 1rem 1.2rem; background: var(--panel); border: 1px solid var(--rule);
+  border-left: 3px solid var(--gold); border-radius: 4px; text-decoration: none; color: var(--ink); }
+.hub-card a:hover, .hub-card a:focus-visible { border-left-color: var(--accent); outline: none; }
+.hub-card .line { font-size: 1.1rem; color: var(--accent); font-weight: 600; }
+.hub-card .count { font-size: var(--t-fine); color: var(--muted); white-space: nowrap; }
+.hub-intro .who { color: var(--muted); margin-top: .75rem; }
+.hub-keyfacts { display: flex; gap: 2.5rem; flex-wrap: wrap; max-width: 72rem; margin: 1.5rem auto 0; padding: 1.25rem clamp(1.25rem,4vw,2.5rem); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.hub-keyfacts b { display: block; font-family: Georgia, serif; font-size: 1.9rem; color: var(--sea); line-height: 1; }
+.hub-keyfacts span { color: var(--muted); font-size: .9rem; }
+.hub-note { max-width: 72rem; margin: .8rem auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); color: var(--muted); font-size: .9rem; }
+.hub-h { max-width: 72rem; margin: 2.25rem auto .25rem; padding: 0 clamp(1.25rem,4vw,2.5rem); font-size: var(--t-h2); font-weight: 400; color: var(--sea); }
+.hub-section { max-width: 72rem; margin: 2.25rem auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.hub-section h2 { font-size: var(--t-h2); font-weight: 400; color: var(--sea); margin: 0 0 .6rem; }
+.hub-section details { border-top: 1px solid var(--rule); padding: .8rem 0; }
+.hub-section details summary { cursor: pointer; color: var(--ink); font-weight: 600; }
+.hub-section details p { margin: .5rem 0 0; color: var(--muted); }
+.hub-cta { display: inline-block; padding: .7rem 1.2rem; border: 1px solid var(--accent); border-bottom: 3px solid var(--gold); border-radius: 4px; text-decoration: none; color: var(--accent); font-weight: 600; }
+.hub-cta:hover, .hub-cta:focus-visible { background: var(--paper); border-bottom-color: var(--accent); outline: none; }
+.hub-links a { margin-right: 1.4rem; line-height: 2.3; text-underline-offset: 3px; }
+
+/* Featured ships — real, identity-verified Wikimedia exteriors. One image per ship, never reused. */
+.ship-feature { max-width: 72rem; margin: 1.75rem auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.ship-feature .lead { color: var(--muted); margin: .25rem 0 0; }
+.ship-grid { list-style: none; margin: 1.1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem,1fr)); gap: 1.1rem; }
+.ship-card { background: var(--panel); border: 1px solid var(--rule); border-bottom: 3px solid var(--gold); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
+.ship-card > a { text-decoration: none; color: var(--ink); display: block; }
+.ship-card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.ship-card .sc-line { display: block; margin: .7rem 1rem 0; font-size: var(--t-fine); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.ship-card .sc-name { display: block; margin: .1rem 1rem .35rem; font-size: 1.25rem; color: var(--sea); }
+.ship-card > a:hover .sc-name, .ship-card > a:focus-visible .sc-name { text-decoration: underline; text-underline-offset: 3px; }
+.ship-card .sc-credit { margin: auto 1rem .75rem; font-size: .72rem; color: var(--muted); line-height: 1.45; }
+.ship-card .sc-credit a { color: var(--muted); }
+
+/* Accessibility + deep-page navigation (board: skip link, breadcrumbs) */
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--sea); color: #fff; padding: .6rem 1rem; z-index: 10; border-radius: 0 0 4px 0; }
+.skip-link:focus { left: 0; }
+.crumbs { max-width: 72rem; margin: 0 auto; padding: .8rem clamp(1.25rem,4vw,2.5rem) 0; font-size: var(--t-fine); color: var(--muted); }
+.crumbs a { color: var(--accent); text-decoration: none; }
+.crumbs a:hover, .crumbs a:focus-visible { text-decoration: underline; }
+.crumbs [aria-current] { color: var(--muted); }
+/* Author portrait as a floated figure inside prose */
+.author-portrait { float: right; width: 9.5rem; margin: 0 0 1rem 1.25rem; }
+.author-portrait img { border-radius: 6px; }
+.author-portrait figcaption { text-align: center; }
+@media (max-width: 520px) { .author-portrait { float: none; width: 7.5rem; margin: 0 0 1rem; } }
+
+@media (max-width: 760px) { .content-grid { grid-template-columns: 1fr; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes breathe { from { transform: scale(1); } to { transform: scale(1.05); } }
+  @keyframes resolve { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .hero img { animation: breathe 34s ease-in-out infinite alternate; }
+  .hero .moment { animation: resolve 1.4s ease both; }
+  /* Movement on every content page: the banner breathes too, slower and quieter than the homepage moment. */
+  .content-hero img { animation: breathe 40s ease-in-out infinite alternate; }
+  .ship-card img { transition: transform .6s ease; }
+  .ship-card > a:hover img, .ship-card > a:focus-visible img { transform: scale(1.04); }
+}
+
+/* ============================================================
+   Ship editorial page (shipbeta4) — composed rhythm, not enumeration.
+   Alternates monumental / text / image-vista / designed-cards / quote.
+   ============================================================ */
+.ship-wrap { max-width: 62rem; margin: 0 auto; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.ship-wrap > h2 { font-size: clamp(1.5rem,3vw,2.1rem); font-weight: 400; color: var(--sea); margin: clamp(2rem,5vw,3rem) 0 .6rem; line-height: 1.15; }
+.ship-wrap > p { margin: 0 0 1.1rem; }
+.ship-wrap .lede { font-size: var(--t-lead); line-height: 1.5; color: var(--ink); margin: clamp(1.5rem,4vw,2.25rem) 0 0; }
+
+/* numeric band — a designed full-width beat right after the hero */
+.statband { background: linear-gradient(180deg,#eaf6fb,var(--paper)); border-bottom: 1px solid var(--rule); }
+.statband .inner { max-width: 72rem; margin: 0 auto; padding: clamp(1.3rem,3.2vw,2.1rem) clamp(1.25rem,4vw,2.5rem);
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(8rem,1fr)); gap: 1.25rem 1.5rem; }
+.statband b { display: block; font-family: Georgia,serif; font-size: clamp(1.9rem,3.6vw,2.8rem); color: var(--sea); line-height: 1; }
+.statband span { color: var(--muted); font-size: .88rem; }
+
+/* who-she's-for as a decision fork, not two bold paragraphs */
+.fork { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin: 1.25rem 0; }
+.fork div { padding: 1.1rem 1.3rem; border-radius: 6px; background: var(--panel); border: 1px solid var(--rule); }
+.fork .yes { border-top: 3px solid var(--accent); }
+.fork .no { border-top: 3px solid var(--gold); }
+.fork h3 { margin: 0 0 .5rem; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; color: var(--sea); }
+.fork p { margin: 0; color: var(--ink); }
+@media (max-width:560px){ .fork { grid-template-columns: 1fr; } }
+
+/* the memorable handful — given weight, not buried in a 9-item list */
+.signature { display: grid; grid-template-columns: repeat(auto-fit,minmax(12rem,1fr)); gap: 1rem; margin: 1.25rem 0; }
+.sig { background: var(--panel); border: 1px solid var(--rule); border-left: 3px solid var(--gold); border-radius: 6px; padding: 1.1rem 1.2rem; }
+.sig h3 { margin: 0 0 .3rem; font-size: 1.2rem; font-weight: 400; color: var(--sea); }
+.sig p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.5; }
+
+/* full-bleed image vista — the horizon / rhythm break */
+.vista { position: relative; margin: clamp(2.5rem,7vw,4.5rem) 0; overflow: hidden; }
+.vista img { width: 100%; height: clamp(15rem,52vh,30rem); object-fit: cover; display: block; }
+.vista figcaption { position: absolute; right: .6rem; bottom: .6rem; margin: 0; padding: .15rem .55rem;
+  font-size: .7rem; color: #eef7fb; background: rgba(8,48,65,.55); border-radius: 3px; }
+.vista figcaption a { color: #eef7fb; }
+
+/* monumental pull-quote — the one beat of silence + scale */
+.pullquote { max-width: 52rem; margin: clamp(2.5rem,7vw,4.5rem) auto; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.pullquote blockquote { margin: 0; font-family: Georgia,serif; font-style: italic; font-size: clamp(1.5rem,3.2vw,2.4rem); line-height: 1.25; color: var(--sea); }
+.pullquote .by { margin: 1rem 0 0; color: var(--muted); font-size: .95rem; }
+
+/* dining as a typographic set, not bullet dumps */
+.venues { columns: 3; column-gap: 2rem; margin: 1rem 0; }
+.venues section { break-inside: avoid; margin: 0 0 1rem; }
+.venues h3 { margin: 0 0 .35rem; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.venues ul { list-style: none; margin: 0; padding: 0; }
+.venues li { padding: .12rem 0; color: var(--ink); font-size: .98rem; }
+@media (max-width:680px){ .venues { columns: 2; } }
+@media (max-width:440px){ .venues { columns: 1; } }
+
+/* plan band — two decisive outbound actions */
+.planband { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.25rem 0; }
+.planband a { display: block; padding: 1.1rem 1.25rem; border: 1px solid var(--rule); border-bottom: 3px solid var(--gold);
+  border-radius: 6px; text-decoration: none; background: var(--panel); }
+.planband a:hover, .planband a:focus-visible { border-bottom-color: var(--accent); }
+.planband b { display: block; color: var(--sea); font-size: 1.05rem; }
+.planband span { color: var(--muted); font-size: .9rem; }
+@media (max-width:560px){ .planband { grid-template-columns: 1fr; } }
+
+/* at-a-glance facts table */
+.facts { display: grid; grid-template-columns: repeat(auto-fit,minmax(15rem,1fr)); gap: 0 2.5rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+.facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-bottom: 1px solid var(--rule); }
+.facts .k { color: var(--muted); }
+.facts .v { color: var(--ink); font-weight: 600; text-align: right; }
+
+/* faq outside .prose */
+.faq details { border-top: 1px solid var(--rule); padding: .85rem 0; }
+.faq details summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.faq details[open] summary { color: var(--sea); }
+.faq details p { margin: .6rem 0 0; color: var(--muted); }
+.shipfoot { max-width: 62rem; margin: clamp(2rem,5vw,3rem) auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); }
+.shipfoot a { margin-right: 1.3rem; line-height: 2.2; }

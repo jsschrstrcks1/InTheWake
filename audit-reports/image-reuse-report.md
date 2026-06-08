@@ -1,15 +1,15 @@
 # Site-wide image-reuse audit
 
-**Generated:** 2026-05-18T22:24:43.050Z
-**Images scanned:** 1472
-**Unique image bytes:** 1416
-**Storage waste:** 56 duplicate file(s) on disk
+**Generated:** 2026-06-04T02:52:10.971Z
+**Images scanned:** 1790
+**Unique image bytes:** 1730
+**Storage waste:** 60 duplicate file(s) on disk
 
 **⛔ SYMLINKS (always blocking):** 0
 **🔴 CRITICAL findings:** 1
 **🟠 ERROR findings:** 1
-**🟡 WARN (filename does not match a slug):** 7
-**ℹ️  INFO (intra-entity duplicates):** 11
+**🟡 WARN (filename does not match a slug):** 12
+**ℹ️  INFO (intra-entity duplicates):** 16
 
 Allowlisted sections (brand / icons / social) are not flagged for reuse.
 
@@ -52,7 +52,7 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
   - `authors/img/author-avatar.jpg`  *(section: authors, line: _generic)*
   - `assets/brand/placeholder-port.webp`  *(section: brand, line: _allow)*
 
-## 🟡 WARN — Filename does not match a known slug (7)
+## 🟡 WARN — Filename does not match a known slug (12)
 
 - **md5 `ecd45cee15b17385a954768aaa3211d2`** — filename does not contain a known ships-slug
   - `assets/ships/costa/costa-fortuna/Costa_Fortuna.webp`  *(section: ships, line: costa)*
@@ -75,7 +75,22 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
 - **md5 `24421a65269d4408024530c882e51278`** — filename does not contain a known ships-slug
   - `assets/ships/costa/costa-fortuna/TorrettaLeonPancaldoSAVONAFeb2006.webp`  *(section: ships, line: costa)*
 
-## ℹ️ INFO — Storage-only duplicates within one entity (11)
+- **md5 `ad2ec3f43eca7d4cc064db7b8eb2134f`** — filename does not contain a known ships-slug
+  - `assets/ships/disney-cruise-line/disney-wish/Disney_Wish_broadside_Nassau_2026-05-19.webp`  *(section: ships, line: disney-cruise-line)*
+
+- **md5 `c1209c9e6ef853d83b491801fdea02d0`** — filename does not contain a known ships-slug
+  - `assets/ships/oceania/vista/Cabin_on_Oceania_Vista.webp`  *(section: ships, line: oceania)*
+
+- **md5 `e821264b85664f336905021d41934530`** — filename does not contain a known ships-slug
+  - `assets/ships/oceania/vista/Casino_on_Oceania_Vista.webp`  *(section: ships, line: oceania)*
+
+- **md5 `b1d7742dcc936850432d6b95cba56659`** — filename does not contain a known ships-slug
+  - `assets/ships/oceania/vista/Central_staircase_on_Oceania_Vista.webp`  *(section: ships, line: oceania)*
+
+- **md5 `30097a327847bb076c541da17bc5be62`** — filename does not contain a known ships-slug
+  - `assets/ships/oceania/vista/Grand_Lounge_on_Oceania_Vista.webp`  *(section: ships, line: oceania)*
+
+## ℹ️ INFO — Storage-only duplicates within one entity (16)
 
 - **md5 `14fdd48416a3394a80058c0c5b970b59`** — same bytes for ship slug "quantum-of-the-seas" across _root/line buckets — pick one and delete duplicates (same-entity)
   - `assets/ships/0016_Quantum_of_the_Seas.webp`  *(section: ships, line: _root, slug: quantum-of-the-seas)*
@@ -104,6 +119,26 @@ Allowlisted sections (brand / icons / social) are not flagged for reuse.
 - **md5 `b8341f60867a73a82cbe9ae0ad630b42`** — same bytes for ship slug "emerald-princess" across _root/line buckets — pick one and delete duplicates (same-entity)
   - `assets/ships/emerald-princess2_flickr.jpg`  *(section: ships, line: _root, slug: emerald-princess)*
   - `assets/ships/emerald-princess_flickr_new.jpg`  *(section: ships, line: _root, slug: emerald-princess)*
+
+- **md5 `8f60c4dfdb78b1a65f634b5894bafc3a`** — same bytes under multiple filenames for slug "ocean-cay" — pick one and delete duplicates
+  - `images/ports/ocean-cay/clear-water-from-the-swim.jpg`  *(section: ports, line: ocean-cay, slug: ocean-cay)*
+  - `images/ports/ocean-cay/originals/clear-water-from-the-swim.jpg`  *(section: ports, line: ocean-cay, slug: ocean-cay)*
+
+- **md5 `4a9927cfb29bedbff781c9334930fe23`** — same bytes under multiple filenames for slug "ocean-cay" — pick one and delete duplicates
+  - `images/ports/ocean-cay/ocean-cay-buffet-lunch-plate.jpg`  *(section: ports, line: ocean-cay, slug: ocean-cay)*
+  - `images/ports/ocean-cay/originals/ocean-cay-buffet-lunch-plate.jpg`  *(section: ports, line: ocean-cay, slug: ocean-cay)*
+
+- **md5 `616a016a0d662db22613b19ee5fc8f99`** — same bytes under multiple filenames for slug "ocean-cay" — pick one and delete duplicates
+  - `images/ports/ocean-cay/ocean-cay-map-board-context.jpg`  *(section: ports, line: ocean-cay, slug: ocean-cay)*
+  - `images/ports/ocean-cay/originals/ocean-cay-map-board-context.jpg`  *(section: ports, line: ocean-cay, slug: ocean-cay)*
+
+- **md5 `0451d517dce8a13640229a650f35daa1`** — same bytes under multiple filenames for slug "ocean-cay" — pick one and delete duplicates
+  - `images/ports/ocean-cay/originals/we-love-ocean-cay-boat-and-lighthouse.jpg`  *(section: ports, line: ocean-cay, slug: ocean-cay)*
+  - `images/ports/ocean-cay/we-love-ocean-cay-boat-and-lighthouse.jpg`  *(section: ports, line: ocean-cay, slug: ocean-cay)*
+
+- **md5 `030570d20344d5ea8f3c4b6e1e3edb85`** — same bytes under multiple filenames for slug "ocean-cay" — pick one and delete duplicates
+  - `images/ports/ocean-cay/originals/welcome-to-ocean-cay-sign.jpg`  *(section: ports, line: ocean-cay, slug: ocean-cay)*
+  - `images/ports/ocean-cay/welcome-to-ocean-cay-sign.jpg`  *(section: ports, line: ocean-cay, slug: ocean-cay)*
 
 - **md5 `263499439f2ac50abc28157308a5807d`** — same bytes across authors↔articles for shared filename root — documented same-entity pattern
   - `assets/articles/ken1.jpg`  *(section: articles, line: _generic)*

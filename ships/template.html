@@ -196,11 +196,11 @@ All work on this project is offered as a gift to God.
             Planning <span class="caret">&#9662;</span>
           </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/planning.html">Planning</a>
+            <a href="/planning/">Planning</a>
             <a href="/first-cruise.html">Your First Cruise</a>
-            <a href="/ships.html">Ships</a>
-            <a href="/cruise-lines.html">Cruise Lines</a>
-            <a href="/ports.html">Ports</a>
+            <a href="/ships/">Ships</a>
+            <a href="/cruise-lines/">Cruise Lines</a>
+            <a href="/ports/">Ports</a>
             <a href="/packing-lists.html">Packing Lists</a>
             <a href="/accessibility.html">Accessibility</a>
           </div>
@@ -231,7 +231,7 @@ All work on this project is offered as a gift to God.
             Onboard <span class="caret">&#9662;</span>
           </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/restaurants.html">Restaurants &amp; Menus</a>
+            <a href="/restaurants/">Restaurants &amp; Menus</a>
             <a href="/drink-packages.html">Drink Packages</a>
             <a href="/internet-at-sea.html">Internet at Sea</a>
             <a href="/articles.html">Articles</a>
@@ -428,7 +428,7 @@ All work on this project is offered as a gift to God.
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
       </div>
-      <p><a href="https://cruisinginthewake.com/ships.html" class="btn">See All Ships</a></p>
+      <p><a href="/ships/" class="btn">See All Ships</a></p>
     </div>
 
     <!-- ===== NEW: Explore by Class (canon) ===== -->
@@ -460,7 +460,7 @@ All work on this project is offered as a gift to God.
           <p class="tiny">Sample Route: {{SAMPLE_ITINERARY}}</p>
         </div>
 
-        <p class="tiny" style="margin-top:.35rem;">Tip: Keep this page open while you check the tracker; it opens in a new tab. Explore ports: <a href="https://cruisinginthewake.com/ports.html">ports guide</a>.</p>
+        <p class="tiny" style="margin-top:.35rem;">Tip: Keep this page open while you check the tracker; it opens in a new tab. Explore ports: <a href="/ports/">ports guide</a>.</p>
         <div class="map-actions">
           <a class="btn" href="{{LIVETRACK_URL}}" target="_blank" rel="noopener">Open CruiseMapper Live Tracker</a>
         </div>
@@ -678,7 +678,7 @@ All work on this project is offered as a gift to God.
         classes.forEach(cn=>{
           const slide = document.createElement('div'); slide.className='swiper-slide';
           const clsSlug = cn.toLowerCase().replace(/[^a-z0-9]+/g,'-');
-          slide.innerHTML = `<a href="/ships.html#rcl-${clsSlug}">${cn || 'Other Class'}</a>`;
+          slide.innerHTML = `<a href="/ships/#rcl-${clsSlug}">${cn || 'Other Class'}</a>`;
           classWrap.appendChild(slide);
         });
         new Swiper('.related-classes .swiper-container', {

@@ -31,7 +31,7 @@
  * - Unverified ratingValue detection (must be real editorial assessment)
  *
  * v2.2 Enhancements:
- * - Discoverability validation: search.html, ships.html, ship atlas
+ * - Discoverability validation: search.html, ships/, ship atlas (updated for corrected hub; see generator fixes)
  * - 90% threshold rule: ships must score 90%+ before atlas inclusion
  * - Search index presence check (active ships = blocking, TBN/historic = warning)
  *
@@ -124,7 +124,7 @@ const REQUIRED_PERSONAS = [
 
 // Gold standard navigation items (from index.html)
 const GOLD_NAV_ITEMS = [
-  '/planning.html', '/ships.html', '/restaurants.html', '/ports.html',
+  '/planning.html', '/ships/', '/restaurants.html', '/ports.html',
   '/drink-packages.html', '/drink-calculator.html', '/stateroom-check.html',
   '/cruise-lines.html', '/packing-lists.html', '/accessibility.html',
   '/travel.html', '/solo.html', '/tools/port-tracker.html',
@@ -295,7 +295,7 @@ const TEMPLATE_REMNANT_PATTERNS = [
 
 // Navigation items that MUST be present (per index.html gold standard)
 const REQUIRED_NAV_ITEMS = [
-  '/planning.html', '/ships.html', '/ships/quiz.html', '/restaurants.html',
+  '/planning.html', '/ships/', '/ships/quiz.html', '/restaurants.html',
   '/ports.html', '/internet-at-sea.html', '/drink-packages.html',
   '/drink-calculator.html', '/stateroom-check.html', '/cruise-lines.html',
   '/packing-lists.html', '/accessibility.html', '/travel.html', '/solo.html',
@@ -2360,7 +2360,7 @@ async function validateArticles() {
 
 // =============================================================================
 // DISCOVERABILITY VALIDATION (v2.2)
-// Ships must be findable via search.html, ships.html, and ship atlas (at 90%+)
+// Ships must be findable via search.html, ships/, and ship atlas (at 90%+; note hub path update consistent with generator/NAV fixes)
 // =============================================================================
 
 // Cache for index data (loaded once per batch validation)
