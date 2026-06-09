@@ -24,7 +24,7 @@ a { color: var(--accent); }
 img { max-width: 100%; height: auto; }
 
 /* Real, restrained nav — content pages need true navigation (not felt). */
-.nav { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem 1.6rem;
+.nav { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.6rem;
   padding: .9rem clamp(1.25rem,4vw,2.5rem); border-bottom: 1px solid var(--rule); background: var(--panel); }
 .nav .name { font-weight: 700; letter-spacing: .04em; color: var(--sea); margin-right: auto; }
 .nav .brand { margin-right: auto; display: inline-flex; align-items: center; gap: .55rem; line-height: 0; text-decoration: none; }
@@ -32,6 +32,29 @@ img { max-width: 100%; height: auto; }
 .nav .brand-name { line-height: 1; font-weight: 700; letter-spacing: .02em; color: var(--sea); font-size: 1.2rem; }
 .nav a { text-decoration: none; color: var(--muted); }
 .nav a:hover, .nav a:focus-visible { color: var(--accent); }
+/* Disclosure nav (#5): inline links on desktop, real hamburger menu on mobile — no JS. */
+.navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; }
+.navmenu > summary { display: none; }
+@media (min-width: 721px) {
+  .navmenu, .navmenu::details-content { display: contents !important; }
+  .navlinks { display: flex !important; }
+}
+@media (max-width: 720px) {
+  .navmenu { margin-left: auto; position: relative; }
+  .navmenu > summary { display: inline-flex; align-items: center; gap: .5rem; cursor: pointer;
+    list-style: none; padding: .5rem .85rem; border: 1px solid var(--rule); border-radius: 6px;
+    color: var(--sea); font-weight: 600; font-size: .95rem; }
+  .navmenu > summary::-webkit-details-marker { display: none; }
+  .navmenu > summary::before { content: ""; width: 1.05rem; height: 2px; background: currentColor;
+    box-shadow: 0 -5px 0 currentColor, 0 5px 0 currentColor; }
+  .navlinks { display: none; position: absolute; right: 0; top: calc(100% + .55rem); z-index: 30;
+    flex-direction: column; flex-wrap: nowrap; gap: 0; min-width: 13rem; padding: .4rem;
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 8px;
+    box-shadow: 0 10px 28px rgba(8,48,65,.16); }
+  .navmenu[open] > .navlinks { display: flex; }
+  .navlinks a { padding: .6rem .7rem; border-radius: 5px; width: 100%; }
+  .navlinks a:hover, .navlinks a:focus-visible { background: var(--paper); }
+}
 
 /* HERO — A's moment: vibrant wake photo + motto H1, light bottom scrim, gated breathe. */
 .hero { position: relative; min-height: clamp(24rem, 84svh, 46rem); overflow: hidden; }
@@ -300,3 +323,27 @@ footer .counts b { color: var(--ink); font-family: Georgia,serif; }
 .hub-credits ul { margin: .6rem 0 0; padding-left: 1.1rem; }
 .hub-credits li { font-size: .72rem; color: var(--muted); line-height: 1.65; }
 .hub-credits a { color: var(--muted); }
+
+/* ============================================================
+   Boardroom #3 — interactive affordance (Minimalist: material honesty)
+   Cards/CTAs sit on a flat field; give them resting elevation so they
+   read as raised + clickable, and a clear lift on hover/focus.
+   ============================================================ */
+.pathfinder a, .hub-card a, .hub-cta, .planband a {
+  box-shadow: 0 1px 2px rgba(8,48,65,.05), 0 2px 8px rgba(8,48,65,.06);
+}
+.pathfinder a:hover, .pathfinder a:focus-visible,
+.hub-card a:hover, .hub-card a:focus-visible,
+.hub-cta:hover, .hub-cta:focus-visible,
+.planband a:hover, .planband a:focus-visible {
+  box-shadow: 0 6px 18px rgba(8,48,65,.15);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pathfinder a, .hub-card a, .hub-cta, .planband a {
+    transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+  }
+  .pathfinder a:hover, .pathfinder a:focus-visible,
+  .hub-card a:hover, .hub-card a:focus-visible,
+  .hub-cta:hover, .hub-cta:focus-visible,
+  .planband a:hover, .planband a:focus-visible { transform: translateY(-2px); }
+}
