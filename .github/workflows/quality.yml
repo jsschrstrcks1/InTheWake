@@ -153,6 +153,30 @@ jobs:
             echo "✓ HTML structure checks passed"
           fi
 
+  # Dead meta keywords guard (ICP-2 anti-pattern #4) — blocks regressions like #1851
+  meta-keywords-guard:
+    name: Meta Keywords Guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - name: Fail on dead meta keywords tags
+        run: |
+          echo "🔍 Checking for dead <meta name=\"keywords\"> tags (ICP-2 anti-pattern #4)..."
+          # Matches both quote styles: name="keywords" and name='keywords'.
+          # Does NOT match name="news_keywords" or data-keywords (different boundary).
+          HITS=$(grep -rIl --include="*.html" -E 'name=["'\'']keywords["'\'']' . 2>/dev/null || true)
+          if [ -n "$HITS" ]; then
+            echo "❌ Found dead meta keywords tags — remove them (ICP-2 anti-pattern #4):"
+            echo "$HITS"
+            echo ""
+            echo "Background: removed sitewide; reintroduced once via merge-stale branch (#1851)."
+            echo "This guard exists to catch that regression class at PR time."
+            exit 1
+          fi
+          echo "✓ No dead meta keywords tags found"
+
   # Validator spec lint (anti-zombie check)
   validator-spec-lint:
     name: Validator Spec Lint
@@ -176,7 +200,7 @@ jobs:
   summary:
     name: Quality Summary
     runs-on: ubuntu-latest
-    needs: [link-check, placeholder-check, validate-html, validator-spec-lint]
+    needs: [link-check, placeholder-check, validate-html, meta-keywords-guard, validator-spec-lint]
     if: always()
     steps:
       - name: Summary
@@ -188,6 +212,7 @@ jobs:
           echo "| Link Check | ${{ needs.link-check.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Placeholder Check | ${{ needs.placeholder-check.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| HTML Validation | ${{ needs.validate-html.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Meta Keywords Guard | ${{ needs.meta-keywords-guard.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Validator Spec Lint | ${{ needs.validator-spec-lint.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "See individual job logs for details." >> $GITHUB_STEP_SUMMARY
