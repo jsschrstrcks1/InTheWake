@@ -14,7 +14,7 @@
   --accent-dark: #005a9c;
   --gold: #d9b382;      /* rope/gold warmth (one decisive accent) */
   --measure: 64ch;      /* reading measure */
-  --t-fine: .8rem; --t-body: 1.0625rem; --t-lead: 1.3rem; --t-h2: 1.7rem; --t-hero: clamp(2.1rem, 5vw, 3.6rem);
+  --t-fine: .8rem; --t-body: 1.0625rem; --t-lead: 1.35rem; --t-h3: 1.4rem; --t-h2: 1.95rem; --t-hero: clamp(2.4rem, 5.5vw, 4rem);
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--paper); color: var(--ink);
@@ -24,7 +24,7 @@ a { color: var(--accent); }
 img { max-width: 100%; height: auto; }
 
 /* Real, restrained nav — content pages need true navigation (not felt). */
-.nav { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem 1.6rem;
+.nav { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.6rem;
   padding: .9rem clamp(1.25rem,4vw,2.5rem); border-bottom: 1px solid var(--rule); background: var(--panel); }
 .nav .name { font-weight: 700; letter-spacing: .04em; color: var(--sea); margin-right: auto; }
 .nav .brand { margin-right: auto; display: inline-flex; align-items: center; gap: .55rem; line-height: 0; text-decoration: none; }
@@ -32,6 +32,29 @@ img { max-width: 100%; height: auto; }
 .nav .brand-name { line-height: 1; font-weight: 700; letter-spacing: .02em; color: var(--sea); font-size: 1.2rem; }
 .nav a { text-decoration: none; color: var(--muted); }
 .nav a:hover, .nav a:focus-visible { color: var(--accent); }
+/* Disclosure nav (#5): inline links on desktop, real hamburger menu on mobile — no JS. */
+.navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; }
+.navmenu > summary { display: none; }
+@media (min-width: 721px) {
+  .navmenu, .navmenu::details-content { display: contents !important; }
+  .navlinks { display: flex !important; }
+}
+@media (max-width: 720px) {
+  .navmenu { margin-left: auto; position: relative; }
+  .navmenu > summary { display: inline-flex; align-items: center; gap: .5rem; cursor: pointer;
+    list-style: none; padding: .5rem .85rem; border: 1px solid var(--rule); border-radius: 6px;
+    color: var(--sea); font-weight: 600; font-size: .95rem; }
+  .navmenu > summary::-webkit-details-marker { display: none; }
+  .navmenu > summary::before { content: ""; width: 1.05rem; height: 2px; background: currentColor;
+    box-shadow: 0 -5px 0 currentColor, 0 5px 0 currentColor; }
+  .navlinks { display: none; position: absolute; right: 0; top: calc(100% + .55rem); z-index: 30;
+    flex-direction: column; flex-wrap: nowrap; gap: 0; min-width: 13rem; padding: .4rem;
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 8px;
+    box-shadow: 0 10px 28px rgba(8,48,65,.16); }
+  .navmenu[open] > .navlinks { display: flex; }
+  .navlinks a { padding: .6rem .7rem; border-radius: 5px; width: 100%; }
+  .navlinks a:hover, .navlinks a:focus-visible { background: var(--paper); }
+}
 
 /* HERO — A's moment: vibrant wake photo + motto H1, light bottom scrim, gated breathe. */
 .hero { position: relative; min-height: clamp(24rem, 84svh, 46rem); overflow: hidden; }
@@ -40,6 +63,8 @@ img { max-width: 100%; height: auto; }
 .hero .moment { position: absolute; left: 0; right: 0; bottom: clamp(2.5rem,9vh,6rem); padding: 0 clamp(1.25rem,6vw,4rem); z-index: 1; }
 .hero h1 { font-size: var(--t-hero); line-height: 1.1; font-weight: 400; margin: 0; max-width: 20ch; color: #fff; text-shadow: 0 1px 22px rgba(0,0,0,.5); }
 .hero .purpose { margin: 1rem 0 1.6rem; color: #eaf6fb; font-size: var(--t-lead); max-width: 46ch; text-shadow: 0 1px 14px rgba(0,0,0,.5); }
+.hero .hero-facts { margin: 1.3rem 0 0; font-size: .98rem; letter-spacing: .01em; color: #eaf6fb; text-shadow: 0 1px 14px rgba(0,0,0,.55); }
+.hero .hero-facts b { color: #fff; font-family: Georgia, serif; font-weight: 400; font-size: 1.12rem; }
 /* Hub gateway moment — one level down from the homepage, still immersive. Kicker rides the scrim. */
 .hero--hub { min-height: clamp(22rem, 66svh, 40rem); }
 /* Ship page moment — the vessel is the decisive event, name overlaid on its own photo. */
@@ -61,7 +86,7 @@ img { max-width: 100%; height: auto; }
 .zones { max-width: var(--measure); margin: clamp(2.5rem,7vw,4.5rem) auto 0; padding: 0 clamp(1.25rem,4vw,2.5rem); list-style: none; counter-reset: z; }
 .zones > li { display: grid; grid-template-columns: 2.6rem 1fr; gap: 1.1rem; padding: 1.6rem 0; border-top: 1px solid var(--rule); }
 .zones > li::before { counter-increment: z; content: counter(z); font-family: Georgia,serif; font-size: 1.7rem; color: var(--gold); line-height: 1; }
-.zones h2 { font-size: 1.25rem; font-weight: 400; margin: 0 0 .4rem; color: var(--sea); }
+.zones h2 { font-size: 1.5rem; font-weight: 400; margin: 0 0 .4rem; color: var(--sea); }
 .zones nav a { margin-right: 1.2rem; line-height: 2.1; text-underline-offset: 3px; }
 
 /* Logbook + Ken byline (plays off the quote, shows the miles, links the author). */
@@ -77,14 +102,14 @@ img { max-width: 100%; height: auto; }
 .content-hero .ch-credit { position: absolute; right: .55rem; bottom: .55rem; margin: 0; padding: .12rem .55rem; font-size: .68rem; line-height: 1.5; color: #eef7fb; background: rgba(8,48,65,.62); border-radius: 3px; }
 .content-hero .ch-credit a { color: #eef7fb; text-underline-offset: 2px; }
 .content-hero .ch-title { max-width: 72rem; margin: 0 auto; padding: 1.25rem clamp(1.25rem,4vw,2.5rem) 0; }
-.content-hero h1 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 400; color: var(--sea); margin: 0; line-height: 1.12; }
+.content-hero h1 { font-size: clamp(2rem,4.5vw,3.2rem); font-weight: 400; color: var(--sea); margin: 0; line-height: 1.12; }
 .content-hero .kicker { font-size: var(--t-fine); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 .4rem; }
 
 .content-grid { max-width: 72rem; margin: 0 auto; padding: 1.5rem clamp(1.25rem,4vw,2.5rem) 3rem; display: grid; grid-template-columns: minmax(0,1fr) 18rem; gap: clamp(1.5rem,4vw,3rem); }
 .prose { max-width: var(--measure); }
 .prose > * { margin: 0 0 1.1rem; }
 .prose h2 { font-size: var(--t-h2); font-weight: 400; color: var(--sea); margin-top: 2rem; line-height: 1.2; }
-.prose h3 { font-size: 1.25rem; font-weight: 600; color: var(--ink); margin-top: 1.5rem; }
+.prose h3 { font-size: var(--t-h3); font-weight: 600; color: var(--ink); margin-top: 1.5rem; line-height: 1.25; }
 .prose a { text-underline-offset: 2px; }
 .prose figure { margin: 1.5rem 0; }
 .prose figure img { border-radius: 4px; }
@@ -298,3 +323,40 @@ footer .counts b { color: var(--ink); font-family: Georgia,serif; }
 .hub-credits ul { margin: .6rem 0 0; padding-left: 1.1rem; }
 .hub-credits li { font-size: .72rem; color: var(--muted); line-height: 1.65; }
 .hub-credits a { color: var(--muted); }
+
+/* ============================================================
+   Boardroom #3 — interactive affordance (Minimalist: material honesty)
+   Cards/CTAs sit on a flat field; give them resting elevation so they
+   read as raised + clickable, and a clear lift on hover/focus.
+   ============================================================ */
+.pathfinder a, .hub-card a, .hub-cta, .planband a {
+  box-shadow: 0 1px 2px rgba(8,48,65,.05), 0 2px 8px rgba(8,48,65,.06);
+}
+.pathfinder a:hover, .pathfinder a:focus-visible,
+.hub-card a:hover, .hub-card a:focus-visible,
+.hub-cta:hover, .hub-cta:focus-visible,
+.planband a:hover, .planband a:focus-visible {
+  box-shadow: 0 6px 18px rgba(8,48,65,.15);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pathfinder a, .hub-card a, .hub-cta, .planband a {
+    transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+  }
+  .pathfinder a:hover, .pathfinder a:focus-visible,
+  .hub-card a:hover, .hub-card a:focus-visible,
+  .hub-cta:hover, .hub-cta:focus-visible,
+  .planband a:hover, .planband a:focus-visible { transform: translateY(-2px); }
+}
+
+/* ============================================================
+   Boardroom #5b — container queries: hub line-cards adapt to their OWN
+   width, not just the viewport (Native-CSS-Engineer). When a card is wide
+   (e.g. a single-column narrow viewport), it becomes a compact image-left
+   row instead of a tall stacked photo.
+   ============================================================ */
+.hub-card { container-type: inline-size; }
+@container (min-width: 23rem) {
+  .hub-card a { flex-direction: row; align-items: stretch; }
+  .hub-card img { width: 40%; height: auto; aspect-ratio: auto; object-fit: cover; }
+  .hub-card .hc-body { flex: 1; flex-direction: column; justify-content: center; align-items: flex-start; gap: .2rem; }
+}
