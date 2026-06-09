@@ -51,7 +51,7 @@ line. The voice is honest, calm, and concrete: facts over superlatives.
 | Page template | v3.010.305 (some at v3.010.300 / v3.010.400) |
 | CSS query | `?v=3.010.400` on new pages |
 
-> Numbers are ground-truth as of the last `claude.md` audit. They drift —
+> Numbers are ground-truth as of the last `CLAUDE.md` audit. They drift —
 > the canonical source is whatever the validator reports today.
 
 ---
@@ -115,7 +115,7 @@ conflict, defer in this order:
 
 1. `.claude/skills/careful-not-clever/CAREFUL.md` — integrity and
    carefulness override efficiency.
-2. `claude.md` (architecture, never-dos, priorities).
+2. `CLAUDE.md` (architecture, never-dos, priorities).
 3. `admin/claude/TECHNICAL_STANDARDS.md` — implementation patterns.
 4. `new-standards/` — page-type specifics.
 5. `admin/UNFINISHED_TASKS.md` — current work queue.
@@ -245,7 +245,7 @@ git config core.hooksPath .githooks
 - ❌ Never commit invalid JSON.
 - ❌ Never push to `main` / `master` directly.
 
-The full rule set lives in `claude.md` and is enforced by the validator +
+The full rule set lives in `CLAUDE.md` and is enforced by the validator +
 hooks above.
 
 ---
@@ -307,7 +307,7 @@ right-side rail, accessibility, canonical URLs.
 | `admin/claude/IMAGE_WORKFLOW.md` | Sourcing, conversion, attribution |
 | `admin/claude/WORKFLOW.md` | Dev workflow, git commit format, verification |
 | `admin/claude/CODEBASE_GUIDE.md` | Repository structure & patterns |
-| `claude.md` | Top-level Claude AI guide for this site |
+| `CLAUDE.md` | Top-level Claude AI guide for this site |
 
 ### Standards
 
@@ -333,7 +333,7 @@ This is a personal project, but family and close collaborators are
 welcome. The workflow:
 
 1. Branch from `main` as `claude/<topic>-<id>`.
-2. Read `claude.md` first.
+2. Read `CLAUDE.md` first.
 3. Run `git config core.hooksPath .githooks` once.
 4. Write code that passes `admin/validate-ship-page.sh` for any ship-page
    change, and the page-type dispatcher for everything else.

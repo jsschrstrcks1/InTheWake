@@ -27,7 +27,7 @@ const EXEMPT_PATH_PATTERNS = [
   /\.claude\/hooks\/no-getbets-/,
   /\.claude\/standards\/no-getbets/,
   /\.githooks\/pre-commit$/,
-  /(^|\/)claude\.md$/i,
+  /(^|\/)CLAUDE\.md$/i,
   /(^|\/)SKILLS\.md$/,
   /(^|\/)AGENT\.md$/,
   /\/audit-reports\//,
