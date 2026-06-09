@@ -177,6 +177,32 @@ jobs:
           fi
           echo "✓ No dead meta keywords tags found"
 
+  # V1.Beta badge guard — blocks the recurring article leak (#1612, #1828, #1869)
+  v1beta-guard:
+    name: V1.Beta Guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - name: Fail on V1.Beta in HTML
+        run: |
+          echo "🔍 Checking for V1.Beta in HTML (version badge / title / meta)..."
+          # Site-wide *.html V1.Beta was driven to 0; any reappearance is a regression.
+          # --include=*.html excludes the admin tools that legitimately contain the
+          # string (validate-ship-page.js checks for it; fix-v1beta.cjs removes it).
+          HITS=$(grep -rIl --include="*.html" 'V1\.Beta' . 2>/dev/null || true)
+          if [ -n "$HITS" ]; then
+            echo "❌ Found V1.Beta in HTML — remove it (stale pre-release badge):"
+            echo "$HITS"
+            echo ""
+            echo "Background: removed sitewide, but new hand-authored articles keep"
+            echo "reintroducing the version-badge span (#1612, #1828, #1869) because the"
+            echo "fix-v1beta.cjs cleanup only scans ships/. This guard catches it at PR time."
+            exit 1
+          fi
+          echo "✓ No V1.Beta found in HTML"
+
   # Validator spec lint (anti-zombie check)
   validator-spec-lint:
     name: Validator Spec Lint
@@ -200,7 +226,7 @@ jobs:
   summary:
     name: Quality Summary
     runs-on: ubuntu-latest
-    needs: [link-check, placeholder-check, validate-html, meta-keywords-guard, validator-spec-lint]
+    needs: [link-check, placeholder-check, validate-html, meta-keywords-guard, v1beta-guard, validator-spec-lint]
     if: always()
     steps:
       - name: Summary
@@ -213,6 +239,7 @@ jobs:
           echo "| Placeholder Check | ${{ needs.placeholder-check.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| HTML Validation | ${{ needs.validate-html.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Meta Keywords Guard | ${{ needs.meta-keywords-guard.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| V1.Beta Guard | ${{ needs.v1beta-guard.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Validator Spec Lint | ${{ needs.validator-spec-lint.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "See individual job logs for details." >> $GITHUB_STEP_SUMMARY
