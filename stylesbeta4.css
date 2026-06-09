@@ -347,3 +347,16 @@ footer .counts b { color: var(--ink); font-family: Georgia,serif; }
   .hub-cta:hover, .hub-cta:focus-visible,
   .planband a:hover, .planband a:focus-visible { transform: translateY(-2px); }
 }
+
+/* ============================================================
+   Boardroom #5b — container queries: hub line-cards adapt to their OWN
+   width, not just the viewport (Native-CSS-Engineer). When a card is wide
+   (e.g. a single-column narrow viewport), it becomes a compact image-left
+   row instead of a tall stacked photo.
+   ============================================================ */
+.hub-card { container-type: inline-size; }
+@container (min-width: 23rem) {
+  .hub-card a { flex-direction: row; align-items: stretch; }
+  .hub-card img { width: 40%; height: auto; aspect-ratio: auto; object-fit: cover; }
+  .hub-card .hc-body { flex: 1; flex-direction: column; justify-content: center; align-items: flex-start; gap: .2rem; }
+}
