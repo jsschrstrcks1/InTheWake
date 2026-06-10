@@ -10,8 +10,6 @@
 #   admin/scripts/voyage-pack-pdf-build.sh ncl-aqua         # build only NCL Aqua (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh sisters-sea      # build only Sisters at Sea (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh anthem-alaska    # build only Anthem of the Seas Alaska 7N (long-form)
-#   admin/scripts/voyage-pack-pdf-build.sh seaside-bahamas  # build only MSC Seaside Bahamas 4N (long-form)
-#   admin/scripts/voyage-pack-pdf-build.sh luna-solo        # build only NCL Luna Tina solo group May 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh bliss-solo       # build only NCL Bliss Kristie Alaska Jul 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh world-america    # build only MSC World America Denise Apr 2027 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh prima            # build only NCL Prima Tina Solo Group Sep 2026 (long-form)
@@ -70,8 +68,6 @@ LONG_FORM_PACKS=(
   "v0.1.2-ncl-aqua-veterans-solo-group-dec-2027|"
   "v0.1.3-virgin-sisters-sea-feb-2027|"
   "v0.1.4-rcl-anthem-alaska-7n|"
-  "v0.1.5-msc-seaside-bahamas-4n|ships/msc/v0.1.5-msc-seaside-bahamas-4n.pdf"
-  "v0.1.6-ncl-luna-solo-group-may-2026|ships/norwegian/v0.1.6-ncl-luna-solo-group-may-2026.pdf"
   "v0.1.7-ncl-bliss-alaska-solo-group-jul-2026|ships/norwegian/v0.1.7-ncl-bliss-alaska-solo-group-jul-2026.pdf"
   "v0.1.8-msc-world-america-solo-group-apr-2027|ships/msc/v0.1.8-msc-world-america-solo-group-apr-2027.pdf"
   "v0.1.9-ncl-prima-solo-group-sep-2026|ships/norwegian/v0.1.9-ncl-prima-solo-group-sep-2026.pdf"
@@ -86,8 +82,6 @@ CONDENSED_PACKS=(
   "v0.1.2-ncl-aqua-veterans-solo-group-condensed"
   "v0.1.3-virgin-sisters-sea-condensed"
   "v0.1.4-rcl-anthem-alaska-condensed"
-  "v0.1.5-msc-seaside-bahamas-condensed"
-  "v0.1.6-ncl-luna-solo-group-condensed"
   "v0.1.7-ncl-bliss-alaska-condensed"
   "v0.1.8-msc-world-america-condensed"
   "v0.1.9-ncl-prima-solo-group-condensed"
@@ -350,7 +344,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|seaside-bahamas|seaside|msc|luna-solo|luna|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|all)
+    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|all)
       target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
@@ -407,8 +401,6 @@ case "$target" in
   ncl-aqua|aqua|ncl) build_one_long "ncl-aqua" "$ENGINE" || failures=$((failures + $?)) ;;
   sisters-sea|sisters|virgin) build_one_long "sisters-sea" "$ENGINE" || failures=$((failures + $?)) ;;
   anthem-alaska|anthem|alaska) build_one_long "anthem-alaska" "$ENGINE" || failures=$((failures + $?)) ;;
-  seaside-bahamas|seaside|msc) build_one_long "seaside" "$ENGINE" || failures=$((failures + $?)) ;;
-  luna-solo|luna) build_one_long "luna" "$ENGINE" || failures=$((failures + $?)) ;;
   bliss-solo|bliss) build_one_long "bliss" "$ENGINE" || failures=$((failures + $?)) ;;
   world-america|wa) build_one_long "world-america" "$ENGINE" || failures=$((failures + $?)) ;;
   prima|prima-solo) build_one_long "prima" "$ENGINE" || failures=$((failures + $?)) ;;
