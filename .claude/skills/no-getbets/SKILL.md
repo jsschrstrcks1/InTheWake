@@ -32,7 +32,7 @@ Documentation about the ban itself, and the private admin tooling that defends a
 - `.claude/hooks/no-getbets-*` (the enforcement hook)
 - `.claude/standards/no-getbets*` (any future standard entry)
 - `.githooks/pre-commit` (the git enforcement)
-- `claude.md`, `SKILLS.md`, `AGENT.md` (rule discoverability)
+- `CLAUDE.md`, `SKILLS.md`, `AGENT.md` (rule discoverability)
 - `audit-reports/**` (investigation artifacts)
 - `admin/check-no-getbets*` (any admin tooling for the check)
 - `admin/seo/**` (Search Console disavow files and related defensive SEO artifacts — never served)
@@ -47,7 +47,7 @@ The exempt list is duplicated in `.claude/hooks/no-getbets-guard.js` (`EXEMPT_PA
 | Git pre-commit hook | `.githooks/pre-commit` | Every `git commit` | Blocks the commit with the list of offending files |
 | This skill | `.claude/skills/no-getbets/SKILL.md` | Discovered at session start | Documents the rule and rationale for human + agent readers |
 | Cognitive memory | `inthewake` scope, protected | Semantic recall in any session | Returns the rule when sessions search for related terms |
-| Top-level policy | `claude.md` "Hard bans" section | Every session reads at start | Declarative rule before any work begins |
+| Top-level policy | `CLAUDE.md` "Hard bans" section | Every session reads at start | Declarative rule before any work begins |
 
 ## Operating instructions
 
@@ -68,7 +68,7 @@ grep -rli 'getbets' \
   --exclude-dir=.claude/skills/no-getbets \
   --exclude=.claude/hooks/no-getbets-guard.js \
   --exclude=.githooks/pre-commit \
-  --exclude=claude.md \
+  --exclude=CLAUDE.md \
   --exclude=SKILLS.md \
   .
 ```
@@ -79,7 +79,7 @@ A clean run produces no output. Any hit is either a violation or a legitimate do
 
 - `.claude/hooks/no-getbets-guard.js` — Claude Code PreToolUse enforcement
 - `.githooks/pre-commit` — git commit enforcement (check #5)
-- `claude.md` — top-level policy declaration
+- `CLAUDE.md` — top-level policy declaration
 - `SKILLS.md` — skill index registration
 - Cognitive memory `inthewake` scope — protected entry
 

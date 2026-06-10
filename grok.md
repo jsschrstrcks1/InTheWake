@@ -107,7 +107,7 @@ The following are the single source of truth regardless of which model is drivin
 - `admin/UNFINISHED_TASKS.md`, `IN_PROGRESS_TASKS.md`, `COMPLETED_TASKS.md`
 - The validator chain in `admin/`
 - The voice standards in the `like-a-human` / `voice-audit` family
-- The "NEVER DO" lists in `claude.md` and `README.md`
+- The "NEVER DO" lists in `CLAUDE.md` and `README.md`
 
 Grok sessions are expected to treat the Claude artifacts as peer documents, not inferior ones.
 

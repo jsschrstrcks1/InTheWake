@@ -130,7 +130,7 @@ fi
 #    .claude/skills/no-getbets/SKILL.md
 #    Exempt paths (documentation about the ban): .claude/skills/no-getbets/,
 #    .claude/hooks/no-getbets-*, .claude/standards/no-getbets*,
-#    .githooks/pre-commit (this file), claude.md, SKILLS.md, AGENT.md,
+#    .githooks/pre-commit (this file), CLAUDE.md, SKILLS.md, AGENT.md,
 #    audit-reports/, admin/check-no-getbets*. Exemptions MUST mirror those
 #    in .claude/hooks/no-getbets-guard.js EXEMPT_PATH_PATTERNS.
 mapfile -t PRODUCTION_FILES < <(
@@ -140,7 +140,7 @@ mapfile -t PRODUCTION_FILES < <(
         | grep -Ev '^(audit-reports|node_modules|\.git)/' \
         | grep -Ev '^admin/check-no-getbets' \
         | grep -Ev '^admin/seo/' \
-        | grep -Ev '^(claude|SKILLS|AGENT)\.md$' \
+        | grep -Ev '^(CLAUDE|SKILLS|AGENT)\.md$' \
         || true
 )
 if [ "${#PRODUCTION_FILES[@]}" -gt 0 ]; then

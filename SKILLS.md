@@ -2,7 +2,7 @@
 
 > The largest content engine. 45 skills configured — cruise content authoring, ITW-Lite Protocol enforcement, validator chain, accessibility, SEO, voice, image-reuse guardrails, deployment validation, webapp testing.
 
-This document is the human-facing index of all Claude Code skills configured in this repository. The agent-facing pointer lives in [`claude.md`](claude.md). Skills follow the agent-skills-spec format and live under `.claude/skills/`.
+This document is the human-facing index of all Claude Code skills configured in this repository. The agent-facing pointer lives in [`CLAUDE.md`](CLAUDE.md). Skills follow the agent-skills-spec format and live under `.claude/skills/`.
 
 **Total skills configured: 46.** This is the largest skill surface in the household. The repo serves 1,241 pages with a triple validator chain, so the skill stack covers content authoring, voice, accessibility, SEO, deployment, the ITW-Lite Protocol, and hard-ban guardrails.
 
@@ -289,7 +289,7 @@ git commit
 - ❌ Never commit invalid JSON
 - ❌ Never push to `main` / `master` directly
 
-Full rule set in `claude.md` and the validator + hooks.
+Full rule set in `CLAUDE.md` and the validator + hooks.
 
 ---
 
@@ -297,7 +297,7 @@ Full rule set in `claude.md` and the validator + hooks.
 
 - [`admin/claude/CLAUDE.md`](admin/claude/CLAUDE.md) — admin-context Claude guide
 - [`README.md`](README.md) — public-facing overview
-- [`claude.md`](claude.md) — top-level Claude AI guide
+- [`CLAUDE.md`](CLAUDE.md) — top-level Claude AI guide
 - [`new-standards/`](new-standards/) — layered standards system (foundation + v3.010)
 - [`admin/claude/SKILLS_REFERENCE.md`](admin/claude/SKILLS_REFERENCE.md) — historical skill reference
 - [`admin/UNFINISHED_TASKS.md`](admin/UNFINISHED_TASKS.md) — master task list

@@ -15,7 +15,7 @@ These strings must never appear in any production-facing file on cruisinginthewa
 |---|---|---|
 | `getbets` (case-insensitive) | [`no-getbets`](./.claude/skills/no-getbets/SKILL.md) | External scam-flagged casino site. AI grounding probes have been pairing the domain with our cruise-casino content; any reference would strengthen the adversarial SEO co-mention they are trying to create. Defense is structural absence. |
 
-Exempt paths (the documentation files allowed to name the banned string): `.claude/skills/no-getbets/`, `.claude/hooks/no-getbets-*`, `.claude/standards/no-getbets*`, `.githooks/pre-commit`, `claude.md`, `SKILLS.md`, `AGENT.md`, `audit-reports/`, `admin/check-no-getbets*`.
+Exempt paths (the documentation files allowed to name the banned string): `.claude/skills/no-getbets/`, `.claude/hooks/no-getbets-*`, `.claude/standards/no-getbets*`, `.githooks/pre-commit`, `CLAUDE.md`, `SKILLS.md`, `AGENT.md`, `audit-reports/`, `admin/check-no-getbets*`.
 
 ---
 
@@ -255,7 +255,7 @@ This is silent when already installed. If `/consult` or `/orchestrate` fails wit
 
 ## Version History
 
-- v1.5.0 (2026-05-10) — Added [`SKILLS.md`](SKILLS.md) skill index. claude.md references it. Documented 45 skills (cruise-content authoring + quality gates + voice + operations + multi-LLM orchestrator + standard kit).
+- v1.5.0 (2026-05-10) — Added [`SKILLS.md`](SKILLS.md) skill index. CLAUDE.md references it. Documented 45 skills (cruise-content authoring + quality gates + voice + operations + multi-LLM orchestrator + standard kit).
 - v1.4.1 (2026-03-02) — Fixed standards references: new-standards/ (15 files, foundation + v3.010) was completely absent from CLAUDE.md. Replaced broken `standards/*.md` glob with accurate per-file references. Updated Site Architecture tree and Need Help? section.
 - v1.4.0 (2026-03-02) — Restructured as lean navigation hub (~250 lines, down from 919). Extracted 5 subfiles: PASTORAL_GUARDRAILS.md, SKILLS_REFERENCE.md, TECHNICAL_STANDARDS.md, IMAGE_WORKFLOW.md, WORKFLOW.md. Added task tracking files to Essential Reading. Emphasized integrity and SDG throughout. Fixed session-start-guardrail.sh skill count 9→10.
 - v1.3.0 (2026-03-02) — Ground-truth metrics audit: pages 1,238→1,241, ship images 669→682, WebP 3,131→4,475, ports 380→387, JSON 2,455→1,310, inline styles ~16,022→~19,513, ICP-Lite 100%. Added Like-a-human v2.0.0 and voice-audit.
