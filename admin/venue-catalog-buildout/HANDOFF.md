@@ -54,10 +54,18 @@ virgin-voyages        0 / 0 / 0 /  4 =  4
 4. `python3 -c "import json;json.load(open('assets/data/venues-v2.json'))"` — NEVER commit invalid JSON.
 5. Commit per line on branch `claude/in-the-wake-review-bzr6zq`; push; update manifest.json statuses + this file.
 
-## State
-- **Done so far:** Ground truth established; manifest.json generated; this handoff written. No ship edits yet.
-- **In flight:** (update as agents return)
-- **Next:** Seabourn fleet (7 ships) research batch → write → commit → Silversea.
+## State (updated 2026-06-14)
+- **DONE & pushed:**
+  - Seabourn (7 ships) — expanded to full rosters; Odyssey/Sojourn flagged departed-fleet (Mitsui). commit 6efd5703
+  - Silversea (12 ships) — full rosters from official silversea.com; Indochine removed from Silver Muse. commit ee72a61e
+- **In flight:** Oceania (agent ac0c6f252c2af6a3f), Regent (launching)
+- **Next after Oceania/Regent:** Carnival/Costa/NCL THIN+PARTIAL completeness, then verify OK-verify, then
+  MISSING current ships (celebrity-xpedition/xploration), then historic (HAL 30, RCL retired, Celebrity older), then future-TBN.
+- **Lesson learned (apply to ALL agent prompts):** say "you HAVE web access, USE WebFetch/WebSearch on
+  official sites; 'research only' = don't edit files, NOT 'don't browse'." The word "read-only" alone made
+  one agent refuse the web and return stale local JSON — rejected that output.
+- **Schema note:** venues-v2 ship `venues` is a FLAT slug array (no per-venue verify field). Inclusion bar is
+  strict: only venues confirmed present. Uncertain ships get a `historical_note`/omission, not a guess.
 
 ## Integrity notes
 - 4 orphan venue refs already in data (referenced, not in registry): `connoisseur-cigar-club`,
