@@ -55,12 +55,25 @@ virgin-voyages        0 / 0 / 0 /  4 =  4
 5. Commit per line on branch `claude/in-the-wake-review-bzr6zq`; push; update manifest.json statuses + this file.
 
 ## State (updated 2026-06-14)
-- **DONE & pushed:**
-  - Seabourn (7 ships) — expanded to full rosters; Odyssey/Sojourn flagged departed-fleet (Mitsui). commit 6efd5703
-  - Silversea (12 ships) — full rosters from official silversea.com; Indochine removed from Silver Muse. commit ee72a61e
-- **In flight:** Oceania (agent ac0c6f252c2af6a3f), Regent (launching)
-- **Next after Oceania/Regent:** Carnival/Costa/NCL THIN+PARTIAL completeness, then verify OK-verify, then
-  MISSING current ships (celebrity-xpedition/xploration), then historic (HAL 30, RCL retired, Celebrity older), then future-TBN.
+- **DONE & pushed (34 ships, dining-only → full multi-category rosters):**
+  - Seabourn (7) commit 6efd5703 — Odyssey/Sojourn flagged departed-fleet (Mitsui)
+  - Silversea (12) commit ee72a61e — Indochine removed from Silver Muse (replaced by S.A.L.T. Kitchen)
+  - Oceania (8) commit d0d65cd5 — Sirena corrected (Tuscan Steak+Red Ginger+Jacques); Marina future-refurb excluded
+  - Regent (7) commit ce3ac997 — Prestige pre-debut config flagged; Voyager future Epicurean Studio excluded
+- **In flight:** Costa (agent a31ce939e11cdcf4a)
+
+## REFINED SCOPE (manifest.json now tracks non-dining coverage, not raw count)
+Raw venue count was misleading — many 10–14-venue ships are 100% dining. True signal = # non-dining venues.
+- **MULTI-CAT (91, verify-only):** msc 24, rcl 29(present), virgin 4 [pre-built] + done luxury 34.
+- **DINING-ONLY (141, NEED non-dining expansion):** carnival 48, celebrity 21, costa 9, cunard 4,
+  explora 6, holland-america 16, norwegian 20, princess 17.
+- **MISSING (58):** celebrity 8, holland-america 30, rcl 20 (mostly historic/retired + RCL future-TBN).
+- **Remaining build ≈ 141 expand + 58 missing = ~199 ships; + 91 to spot-verify. Multi-session.**
+
+## Next order (current-fleet, good official sites, dining-only → expand)
+princess (17) → norwegian (20) → cunard (4) → explora (6) → celebrity current (21) → carnival (48, biggest)
+→ holland-america current (16) → then MISSING current (celebrity-xpedition/xploration) → historic (HAL/RCL/Celebrity)
+→ verify MULTI-CAT (msc/rcl/virgin spot-check) → future-TBN last (do NOT invent).
 - **Lesson learned (apply to ALL agent prompts):** say "you HAVE web access, USE WebFetch/WebSearch on
   official sites; 'research only' = don't edit files, NOT 'don't browse'." The word "read-only" alone made
   one agent refuse the web and return stale local JSON — rejected that output.
