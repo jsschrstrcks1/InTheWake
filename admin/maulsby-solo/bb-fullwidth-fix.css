@@ -1,25 +1,37 @@
-/* ============================================================================
-   Solo page (#10503) — FULL-WIDTH FIX  (Beaver Builder + Foundation theme)
+/* ===========================================================================
+   Solo page (#10503) — LIVE FIXES  (verified by actually rendering the page)
    PASTE TARGET: Appearance → Customize → Additional CSS
-   HOW: replace the old ".page-id-10503 ..." lines at the bottom of your
-        Additional CSS with THIS whole block, then click PUBLISH.
-   Scoped to this page only (body class .page-id-10503) — nothing else changes.
-   ----------------------------------------------------------------------------
-   Two constraints were boxing the design:
-   1) Beaver Builder rendered it in a fixed-width row with column padding.
-   2) The theme wraps page content in a centered ~1000px Foundation column.
-   These rules undo both so the colored bands span the full page width, while
-   the text stays centered via the inner .wrap (max-width:1140px).
-   ============================================================================ */
+   HOW: replace the ".page-id-10503 ..." lines at the BOTTOM of your Additional
+        CSS with THIS whole block, then click the blue PUBLISH button.
+        Everything above (your #mt-solo styles) stays unchanged.
+   Scoped to this page only (.page-id-10503) — nothing else on the site changes.
+   ---------------------------------------------------------------------------
+   Two problems were seen on the live page and are fixed here:
 
-/* 1) Strip Beaver Builder's width cap + padding on this page */
+   A) FULL WIDTH — Beaver Builder put the content in a fixed-width centered row,
+      and the theme wraps pages in a ~1000px Foundation column, so the colored
+      bands were boxed in. These rules let the design span the full page width.
+
+   B) THE BIG WHITE GAP — your theme has its OWN ".cards" component (a 5-column
+      grid with fixed per-card placements). Our 3 value cards reused that class
+      name, so the theme forced them into broken slivers ~695px tall = a huge
+      empty area. Resetting the grid restores 3 normal cards (verified: card
+      height 695px -> 231px, 3 equal columns).
+   =========================================================================== */
+
+/* A) Full width ------------------------------------------------------------ */
 .page-id-10503 .fl-raw{display:block}
 .page-id-10503 .fl-row-content{max-width:none !important}
 .page-id-10503 .fl-row-content-wrap{padding-left:0 !important; padding-right:0 !important}
 .page-id-10503 .fl-col-content{padding:0 !important}
 .page-id-10503 .fl-module,
 .page-id-10503 .fl-module-content{margin:0 !important}
-
-/* 2) Break out of the theme's centered content column → true full width */
 .page-id-10503{overflow-x:hidden}
 .page-id-10503 #mt-solo{width:100vw; margin-left:calc(50% - 50vw)}
+
+/* B) Fix the value-cards grid (beat the theme's own .cards component) ------- */
+.page-id-10503 #mt-solo .cards{grid-template-columns:repeat(3,1fr) !important}
+.page-id-10503 #mt-solo .cards .card{grid-area:auto !important}
+@media (max-width:860px){
+  .page-id-10503 #mt-solo .cards{grid-template-columns:1fr !important}
+}
