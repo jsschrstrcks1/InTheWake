@@ -47,6 +47,41 @@ All factual claims trace to Tina's blog post *"How Solo Cruising Became 'My Thin
 
 ---
 
+## SEO / AEO (ICP-2 v2.1 — verified against June 2026 best practices)
+
+The preview is built answer-engine-ready: it's the most-cited structure for AI search
+(FAQPage schema is the single highest-leverage element per current research).
+
+**Built into the page:**
+- `<title>`, meta `description`, `ai-summary`, `last-reviewed`, canonical
+- Open Graph + Twitter card tags
+- JSON-LD `@graph`: TravelAgency + Person (Tina, with real `sameAs` socials) + Service +
+  WebPage + BreadcrumbList + **FAQPage** (6 genuine Q&As)
+- Answer-first copy, semantic `<main>`/`<section>`/`<article>` structure, flat HTML (no
+  JS-hidden content), 7 internal links, "as of June 2026" date on the ranking claims
+
+**IMPORTANT — the `<head>` does NOT transfer when you paste the body into WordPress.**
+WordPress + your SEO plugin control the head. So when you publish, set these in the page's
+SEO plugin (Yoast or RankMath) and/or a schema block:
+
+| Field | Value to use |
+|---|---|
+| Slug | `solo-cruising` (or your choice — then fix the canonical/OG URLs to match) |
+| SEO title | Solo Cruising with Tina \| Travel Solo, Never Alone — Maulsby Travel Co. |
+| Meta description | the `description` value from the file |
+| Canonical | the page's real URL once published |
+| OG image | upload a real photo; set its URL (placeholder is in the file) |
+| Schema | paste the JSON-LD `<script>` block into a **Custom HTML block**, OR recreate FAQ + Service via the plugin's schema feature |
+
+**Site-level (one-time, not this page) for AI citation eligibility:**
+- `robots.txt` should allow GPTBot, ClaudeBot, PerplexityBot, Google-Extended
+- Real image `alt` text on the photos you add (describe what's in them factually)
+- Link to this page from Home/About/Blog so it ranks organically (AI Overviews pull ~76%
+  from page-one organic results)
+- `llms.txt` is optional/low-value in 2026 — skip unless you want a low-cost experiment
+
+---
+
 ## How to publish in WordPress
 
 The page is self-styled for preview. In WordPress you have two clean options:
