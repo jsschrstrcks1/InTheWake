@@ -15,17 +15,20 @@
   <meta name="description" content="Travel Solo, Never Alone. Tina Maulsby is a Solo Cruise Specialist who founded one of the largest solo cruiser communities. Book your solo cruise or a hosted group sailing with Maulsby Travel Co.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Acme&family=Lato:wght@400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
   <style>
+    /* Design tokens matched to maulsbytravel.com (OA-Agent-Theme):
+       headings Acme, body Lato/Open Sans, steel-blue #315b7c, teal accent #00a99d */
     :root{
-      --coral:#e0512f;        /* brand accent (from maulsbytravel.com) */
-      --coral-dark:#bf3f1f;
-      --ink:#1f2a37;
-      --muted:#5a6573;
-      --sand:#faf6f1;
-      --sand-2:#f1e9df;
-      --line:#e7ddd1;
-      --navy:#16324f;
+      --coral:#315b7c;        /* primary steel-blue (matches live site) */
+      --coral-dark:#26486a;
+      --accent:#00a99d;       /* teal accent (from live site) */
+      --ink:#2d2d2d;
+      --muted:#5b6470;
+      --sand:#f5f8fa;
+      --sand-2:#e7eef3;
+      --line:#d8e2e9;
+      --navy:#22323f;
       --white:#ffffff;
       --radius:14px;
       --shadow:0 10px 30px rgba(31,42,55,.10);
@@ -35,13 +38,13 @@
     html{scroll-behavior:smooth}
     body{
       margin:0;color:var(--ink);background:var(--white);
-      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-family:'Lato','Open Sans',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;
     }
-    h1,h2,h3{font-family:'Playfair Display',Georgia,'Times New Roman',serif;line-height:1.12;color:var(--ink);margin:0 0 .4em}
-    h1{font-size:clamp(2.1rem,5vw,3.6rem);font-weight:800}
-    h2{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:700}
-    h3{font-size:1.25rem;font-weight:700}
+    h1,h2,h3{font-family:'Acme','Montserrat',system-ui,sans-serif;line-height:1.16;color:var(--ink);margin:0 0 .4em;font-weight:400;letter-spacing:.005em}
+    h1{font-size:clamp(2.1rem,5vw,3.5rem)}
+    h2{font-size:clamp(1.6rem,3.5vw,2.4rem)}
+    h3{font-size:1.28rem}
     p{margin:0 0 1rem}
     a{color:var(--coral-dark)}
     .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
@@ -49,7 +52,7 @@
     .btn{
       display:inline-block;background:var(--coral);color:#fff;text-decoration:none;
       font-weight:700;padding:15px 30px;border-radius:999px;font-size:1.02rem;
-      box-shadow:0 8px 20px rgba(224,81,47,.28);transition:transform .15s ease,background .15s ease;
+      box-shadow:0 8px 20px rgba(49,91,124,.28);transition:transform .15s ease,background .15s ease;
     }
     .btn:hover{background:var(--coral-dark);transform:translateY(-2px)}
     .btn.ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7);box-shadow:none}
@@ -66,7 +69,7 @@
       position:relative;color:#fff;
       background:
         linear-gradient(180deg,rgba(15,32,52,.62),rgba(15,32,52,.72)),
-        linear-gradient(120deg,#16324f 0%,#2a587f 55%,#e0512f 140%);
+        linear-gradient(120deg,#1c3a52 0%,#315b7c 55%,#00a99d 150%);
       padding:96px 0 90px;overflow:hidden;
     }
     .hero .img-note{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -75,13 +78,13 @@
     .hero h1{color:#fff}
     .hero p{font-size:1.22rem;color:rgba(255,255,255,.92);max-width:620px}
     .hero-cta{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap}
-    .tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;color:#ffd9cb;margin-top:30px}
+    .tagline{font-family:'Acme','Montserrat',sans-serif;font-style:italic;font-size:1.05rem;color:#cfe4ec;margin-top:30px}
 
     /* MYTH STRIP */
     .myth{background:var(--navy);color:#fff;padding:30px 0}
     .myth .wrap{display:flex;gap:26px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center}
-    .myth strong{color:#ffd9cb}
-    .myth .big{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;white-space:nowrap}
+    .myth strong{color:#cfe4ec}
+    .myth .big{font-family:'Acme','Montserrat',sans-serif;font-size:1.5rem;font-weight:700;white-space:nowrap}
 
     /* STORY */
     .story{background:var(--sand)}
@@ -96,7 +99,7 @@
     /* STATS */
     .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
     .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 20px;text-align:center;box-shadow:var(--shadow)}
-    .stat .num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:800;color:var(--coral);line-height:1}
+    .stat .num{font-family:'Acme','Montserrat',sans-serif;font-size:2.2rem;font-weight:800;color:var(--coral);line-height:1}
     .stat .lbl{font-size:.95rem;color:var(--muted);margin-top:8px}
 
     /* CARDS */
@@ -121,8 +124,8 @@
     .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px 26px 26px;box-shadow:var(--shadow)}
     .step::before{counter-increment:step;content:counter(step);
       position:absolute;top:-22px;left:26px;width:46px;height:46px;border-radius:50%;
-      background:var(--coral);color:#fff;font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;
-      display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(224,81,47,.3)}
+      background:var(--coral);color:#fff;font-family:'Acme','Montserrat',sans-serif;font-weight:800;font-size:1.3rem;
+      display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(49,91,124,.3)}
 
     /* COMMUNITY */
     .community{background:var(--navy);color:#fff}
@@ -139,7 +142,7 @@
     details p{color:var(--muted);padding-bottom:16px;margin:0}
 
     /* FINAL CTA */
-    .final{background:linear-gradient(120deg,#e0512f,#bf3f1f);color:#fff;text-align:center}
+    .final{background:linear-gradient(120deg,#315b7c,#26486a);color:#fff;text-align:center}
     .final h2{color:#fff}
     .final p{color:rgba(255,255,255,.95);font-size:1.15rem;max-width:620px;margin:0 auto 26px}
     .final .contacts{margin-top:26px;display:flex;gap:30px;flex-wrap:wrap;justify-content:center;font-weight:600}
@@ -272,7 +275,7 @@
   <!-- ===================== COMMUNITY ===================== -->
   <section class="community" id="community">
     <div class="wrap center">
-      <span class="eyebrow" style="color:#ffd9cb">Travel solo, never alone</span>
+      <span class="eyebrow" style="color:#cfe4ec">Travel solo, never alone</span>
       <h2>Join the community first</h2>
       <p class="lead">Not ready to book? Start by meeting your people. Our Solo Cruisers group is one of the largest solo cruising communities anywhere — tens of thousands of members swapping tips, stories, and sailing plans every day.</p>
       <div class="panel">

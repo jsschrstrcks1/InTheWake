@@ -68,6 +68,19 @@ the Maulsby theme fonts/colors. The HTML is the content spec; copy the words sec
 
 ---
 
+## Styling
+
+Preview design tokens are matched to the **live maulsbytravel.com theme (OA-Agent-Theme)**,
+pulled from the site's actual CSS/font links — not guessed:
+- Headings: **Acme** (the theme's display font), fallback Montserrat
+- Body: **Lato / Open Sans**
+- Primary: steel-blue **#315b7c**; teal accent **#00a99d**; body grey **#2d2d2d**
+
+So the preview already reads in Tina's brand language. On WordPress publish (Option B), you can
+still drop my `<style>` block and inherit the theme directly — the result will be near-identical.
+
+---
+
 ## Status
 - [x] Page built and previewable
 - [ ] Tina reviews + supplies photos / confirms numbers
