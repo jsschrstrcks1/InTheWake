@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<!--
+  PREVIEW DRAFT — Solo Travel page for Maulsby Travel Co. (maulsbytravel.com)
+  Hosted in InTheWake/admin/maulsby-solo/ for review before WordPress publish.
+  This is a standalone, self-styled preview so it can be shown to Tina first.
+  See HANDOFF.md in this folder for what is real vs. [TINA: ...] placeholder
+  and for how to copy the body into the WordPress page editor.
+  All factual claims come from Tina's own words (blog post + author page).
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solo Cruising with Tina | Travel Solo, Never Alone — Maulsby Travel Co.</title>
+  <meta name="description" content="Travel Solo, Never Alone. Tina Maulsby is a Solo Cruise Specialist who founded one of the largest solo cruiser communities. Book your solo cruise or a hosted group sailing with Maulsby Travel Co.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --coral:#e0512f;        /* brand accent (from maulsbytravel.com) */
+      --coral-dark:#bf3f1f;
+      --ink:#1f2a37;
+      --muted:#5a6573;
+      --sand:#faf6f1;
+      --sand-2:#f1e9df;
+      --line:#e7ddd1;
+      --navy:#16324f;
+      --white:#ffffff;
+      --radius:14px;
+      --shadow:0 10px 30px rgba(31,42,55,.10);
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;color:var(--ink);background:var(--white);
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;
+    }
+    h1,h2,h3{font-family:'Playfair Display',Georgia,'Times New Roman',serif;line-height:1.12;color:var(--ink);margin:0 0 .4em}
+    h1{font-size:clamp(2.1rem,5vw,3.6rem);font-weight:800}
+    h2{font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:700}
+    h3{font-size:1.25rem;font-weight:700}
+    p{margin:0 0 1rem}
+    a{color:var(--coral-dark)}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+    .eyebrow{display:inline-block;text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;font-weight:700;color:var(--coral);margin-bottom:14px}
+    .btn{
+      display:inline-block;background:var(--coral);color:#fff;text-decoration:none;
+      font-weight:700;padding:15px 30px;border-radius:999px;font-size:1.02rem;
+      box-shadow:0 8px 20px rgba(224,81,47,.28);transition:transform .15s ease,background .15s ease;
+    }
+    .btn:hover{background:var(--coral-dark);transform:translateY(-2px)}
+    .btn.ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7);box-shadow:none}
+    .btn.ghost:hover{background:rgba(255,255,255,.12)}
+    .btn.dark{background:var(--navy);box-shadow:0 8px 20px rgba(22,50,79,.25)}
+    .btn.dark:hover{background:#0f2438}
+    a:focus-visible,.btn:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+    section{padding:74px 0}
+    .center{text-align:center}
+    .lead{font-size:1.15rem;color:var(--muted)}
+
+    /* HERO */
+    .hero{
+      position:relative;color:#fff;
+      background:
+        linear-gradient(180deg,rgba(15,32,52,.62),rgba(15,32,52,.72)),
+        linear-gradient(120deg,#16324f 0%,#2a587f 55%,#e0512f 140%);
+      padding:96px 0 90px;overflow:hidden;
+    }
+    .hero .img-note{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      color:rgba(255,255,255,.32);font-size:.85rem;letter-spacing:.05em;pointer-events:none}
+    .hero-inner{position:relative;max-width:760px}
+    .hero h1{color:#fff}
+    .hero p{font-size:1.22rem;color:rgba(255,255,255,.92);max-width:620px}
+    .hero-cta{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap}
+    .tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;color:#ffd9cb;margin-top:30px}
+
+    /* MYTH STRIP */
+    .myth{background:var(--navy);color:#fff;padding:30px 0}
+    .myth .wrap{display:flex;gap:26px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center}
+    .myth strong{color:#ffd9cb}
+    .myth .big{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;white-space:nowrap}
+
+    /* STORY */
+    .story{background:var(--sand)}
+    .story-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:48px;align-items:center}
+    .photo-slot{
+      background:var(--sand-2);border:2px dashed var(--line);border-radius:var(--radius);
+      min-height:380px;display:flex;align-items:center;justify-content:center;text-align:center;
+      color:var(--muted);font-size:.9rem;padding:24px;
+    }
+    blockquote{margin:0 0 1rem;padding-left:18px;border-left:4px solid var(--coral);font-style:italic;color:var(--ink)}
+
+    /* STATS */
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 20px;text-align:center;box-shadow:var(--shadow)}
+    .stat .num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:800;color:var(--coral);line-height:1}
+    .stat .lbl{font-size:.95rem;color:var(--muted);margin-top:8px}
+
+    /* CARDS */
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;box-shadow:var(--shadow)}
+    .card .ico{font-size:1.7rem;margin-bottom:10px}
+    .card h3{margin-bottom:8px}
+    .card p{color:var(--muted);font-size:1rem;margin:0}
+
+    /* TWO WAYS */
+    .ways{background:var(--sand)}
+    .way-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px}
+    .way{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .way .tag{display:inline-block;background:var(--sand-2);color:var(--navy);font-weight:700;font-size:.8rem;
+      text-transform:uppercase;letter-spacing:.08em;padding:6px 12px;border-radius:999px;margin-bottom:14px;align-self:flex-start}
+    .way ul{margin:0 0 22px;padding-left:20px;color:var(--muted)}
+    .way ul li{margin-bottom:8px}
+    .way .btn{margin-top:auto;align-self:flex-start}
+
+    /* STEPS */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:42px;counter-reset:step}
+    .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px 26px 26px;box-shadow:var(--shadow)}
+    .step::before{counter-increment:step;content:counter(step);
+      position:absolute;top:-22px;left:26px;width:46px;height:46px;border-radius:50%;
+      background:var(--coral);color:#fff;font-family:'Playfair Display',serif;font-weight:800;font-size:1.3rem;
+      display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(224,81,47,.3)}
+
+    /* COMMUNITY */
+    .community{background:var(--navy);color:#fff}
+    .community h2{color:#fff}
+    .community .lead{color:rgba(255,255,255,.85)}
+    .community .panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:var(--radius);padding:36px;text-align:center;margin-top:30px}
+
+    /* FAQ */
+    details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px 22px;margin-bottom:14px;box-shadow:0 4px 14px rgba(31,42,55,.05)}
+    details summary{cursor:pointer;font-weight:700;font-size:1.08rem;padding:16px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    details summary::-webkit-details-marker{display:none}
+    details summary::after{content:"+";color:var(--coral);font-size:1.5rem;font-weight:700;transition:transform .2s}
+    details[open] summary::after{transform:rotate(45deg)}
+    details p{color:var(--muted);padding-bottom:16px;margin:0}
+
+    /* FINAL CTA */
+    .final{background:linear-gradient(120deg,#e0512f,#bf3f1f);color:#fff;text-align:center}
+    .final h2{color:#fff}
+    .final p{color:rgba(255,255,255,.95);font-size:1.15rem;max-width:620px;margin:0 auto 26px}
+    .final .contacts{margin-top:26px;display:flex;gap:30px;flex-wrap:wrap;justify-content:center;font-weight:600}
+    .final .contacts a{color:#fff}
+
+    /* SOCIAL + FOOTER */
+    .social{padding:50px 0;text-align:center;background:var(--sand)}
+    .social a{display:inline-block;margin:6px 10px;color:var(--navy);font-weight:600;text-decoration:none;border:1px solid var(--line);background:#fff;padding:10px 20px;border-radius:999px}
+    .social a:hover{border-color:var(--coral);color:var(--coral-dark)}
+    footer{background:#11202e;color:#9fb0c0;font-size:.85rem;padding:34px 0;text-align:center;line-height:1.7}
+    footer a{color:#cfe0ef}
+
+    @media (max-width:860px){
+      section{padding:54px 0}
+      .story-grid,.way-grid{grid-template-columns:1fr}
+      .stats,.cards,.steps{grid-template-columns:1fr}
+      .myth .wrap{flex-direction:column;gap:10px}
+      .myth .big{white-space:normal}
+      .photo-slot{min-height:240px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <span class="img-note" aria-hidden="true">[TINA: background photo — you on a cruise deck / at sea]</span>
+    <div class="wrap hero-inner">
+      <span class="eyebrow">Solo Cruise Specialist · Maulsby Travel Co.</span>
+      <h1>Travel Solo. Never Alone.</h1>
+      <p>You don't have to wait for someone to say yes. Whether it's your first time sailing on your own or your fifteenth, I'll plan a solo cruise that fits you — and connect you to a community of thousands who travel the same way.</p>
+      <div class="hero-cta">
+        <a class="btn" href="https://maulsbytravel.com/contact/">Book a Free Consult</a>
+        <a class="btn ghost" href="#two-ways">See How It Works</a>
+      </div>
+      <p class="tagline">"Travel Solo, Never Alone."</p>
+    </div>
+  </header>
+
+  <!-- ===================== MYTH STRIP ===================== -->
+  <aside class="myth">
+    <div class="wrap">
+      <span class="big">Solo <strong>≠</strong> Single.</span>
+      <span>Traveling solo doesn't mean you're single — many of our solo cruisers are married. This is a <strong>solo community, not a singles scene.</strong> No dating, no pressure. Just your trip, your way.</span>
+    </div>
+  </aside>
+
+  <!-- ===================== STORY ===================== -->
+  <section class="story" id="story">
+    <div class="wrap story-grid">
+      <div class="photo-slot" role="img" aria-label="Photo of Tina Maulsby">
+        [TINA: your headshot or a favorite cruise photo goes here]
+      </div>
+      <div>
+        <span class="eyebrow">How this became my thing</span>
+        <h2>I stopped waiting — and never looked back</h2>
+        <p>For years I waited for someone to say <em>yes</em> to traveling with me. When Covid hit, it made one thing painfully clear: life is short, and waiting wasn't going to be my thing anymore.</p>
+        <p>So I stopped waiting and did something about it. I started a Solo Cruisers community to connect people who felt exactly the same — and it grew into one of the largest solo cruising groups out there, tens of thousands of members strong.</p>
+        <blockquote>"I'm proud to say I was a huge part of creating this new and growing trend of solo travel."</blockquote>
+        <p>Today I'm a Solo Cruise Specialist with Maulsby Travel Co. We're a full-service agency and we book trips for everyone — but solo cruising is my heart and my specialty.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY MAULSBY / STATS ===================== -->
+  <section id="why">
+    <div class="wrap center">
+      <span class="eyebrow">Why book solo with me</span>
+      <h2>A specialist who actually does this</h2>
+      <p class="lead" style="max-width:680px;margin:0 auto">I don't just sell solo cruises — I sail them, and I lead a community of people who do too. That means real answers about cabins, single supplements, dining, and what it's actually like onboard alone.</p>
+
+      <div class="stats">
+        <div class="stat"><div class="num">Top 2%</div><div class="lbl">Among travel agencies</div></div>
+        <div class="stat"><div class="num">Top 25</div><div class="lbl">With Norwegian Cruise Line, out of 11,000+ agencies</div></div>
+        <div class="stat"><div class="num">55K+</div><div class="lbl">Members in the Solo Cruisers community I founded</div></div>
+      </div>
+
+      <div class="cards">
+        <div class="card"><div class="ico" aria-hidden="true">🧭</div><h3>Single-supplement savvy</h3><p>I know which lines and sailings treat solo travelers fairly — and how to find solo cabins and reduced supplements when they exist.</p></div>
+        <div class="card"><div class="ico" aria-hidden="true">🤝</div><h3>Built-in community</h3><p>Sail on your own and still have a crew. Our hosted sailings mean familiar faces at dinner whenever you want them.</p></div>
+        <div class="card"><div class="ico" aria-hidden="true">💬</div><h3>A real person to call</h3><p>No call-center roulette. You get me — before, during, and after your cruise — at no extra cost over booking direct.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TWO WAYS ===================== -->
+  <section class="ways" id="two-ways">
+    <div class="wrap center">
+      <span class="eyebrow">Two ways to sail solo</span>
+      <h2>However you want to do it</h2>
+      <div class="way-grid" style="text-align:left">
+        <div class="way">
+          <span class="tag">Your own solo cruise</span>
+          <h3>A trip planned around you</h3>
+          <ul>
+            <li>Pick your line, ship, and itinerary — I'll match it to how you like to travel</li>
+            <li>Cabin and single-supplement guidance so you're not overpaying to sail alone</li>
+            <li>Total flexibility — your schedule, your pace, your choices</li>
+          </ul>
+          <a class="btn" href="https://maulsbytravel.com/contact/">Plan My Solo Cruise</a>
+        </div>
+        <div class="way">
+          <span class="tag">Hosted group sailings</span>
+          <h3>Solo, together</h3>
+          <ul>
+            <li>Sailings hosted exclusively for our solo community</li>
+            <li>Your own cabin and independence — plus people to share the trip with</li>
+            <li>Group dinners, meetups, and shore plans you can join or skip, no pressure</li>
+          </ul>
+          <a class="btn dark" href="https://maulsbytravel.com/contact/">Ask About Hosted Sailings</a>
+          <!-- [TINA: if you have specific upcoming hosted sailings, list dates/ships here] -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STEPS ===================== -->
+  <section id="how">
+    <div class="wrap center">
+      <span class="eyebrow">Easy from here</span>
+      <h2>How it works</h2>
+      <div class="steps" style="text-align:left">
+        <div class="step"><h3>Reach out</h3><p>Tell me what you're dreaming about — a destination, a date, or just "I want to try this." No commitment.</p></div>
+        <div class="step"><h3>I plan it</h3><p>I match you to the right ship and sailing, handle the cabin and supplement details, and lay out your options.</p></div>
+        <div class="step"><h3>You sail</h3><p>You go — solo, never alone — with me a message away the whole time and a community waiting onboard.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== COMMUNITY ===================== -->
+  <section class="community" id="community">
+    <div class="wrap center">
+      <span class="eyebrow" style="color:#ffd9cb">Travel solo, never alone</span>
+      <h2>Join the community first</h2>
+      <p class="lead">Not ready to book? Start by meeting your people. Our Solo Cruisers group is one of the largest solo cruising communities anywhere — tens of thousands of members swapping tips, stories, and sailing plans every day.</p>
+      <div class="panel">
+        <p style="font-size:1.15rem;margin-bottom:20px">Come for the cruise advice. Stay for the friends you'll sail with.</p>
+        <a class="btn" href="https://www.facebook.com/groups/1739046412949279" target="_blank" rel="noopener">Join the Solo Cruisers Group</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="center"><span class="eyebrow">Good questions</span><h2>Solo cruising, answered</h2></div>
+      <div style="max-width:780px;margin:36px auto 0">
+        <details><summary>Will I actually be alone on the ship?</summary><p>Only as alone as you want to be. You get your own cabin and the freedom to do your own thing — but with our hosted sailings and community, there are friendly faces for dinner, shore days, or a drink whenever you'd like company.</p></details>
+        <details><summary>Do I have to be single to travel solo?</summary><p>Not at all. Solo isn't single. Plenty of our solo cruisers are married — they just love traveling on their own terms. This is a solo community, not a dating or singles group.</p></details>
+        <details><summary>What about the single supplement — won't sailing alone cost double?</summary><p>Sometimes solo travel carries a supplement, but it varies a lot by cruise line and sailing. Part of my job is finding the lines, ships, and dates that treat solo travelers fairly — including dedicated solo cabins where they exist.</p></details>
+        <details><summary>Is solo cruising safe?</summary><p>Cruising is one of the most comfortable ways to travel on your own — a secure ship, staff who know you, and a built-in community if you want it. I'll walk you through what to expect so you board with confidence.</p></details>
+        <details><summary>Does booking with you cost more than booking direct?</summary><p>No. You get a specialist and a real person to call, at no extra cost over booking the cruise yourself.</p></details>
+        <details><summary>What if it's my very first solo trip?</summary><p>That's my favorite kind of client. I'll help you pick a first sailing that's easy to love, and you'll have both me and the community in your corner the whole way.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="final">
+    <div class="wrap">
+      <h2>Ready to stop waiting?</h2>
+      <p>Your next adventure doesn't need anyone's permission. Let's plan it together.</p>
+      <a class="btn dark" href="https://maulsbytravel.com/contact/">Book a Free Consult</a>
+      <div class="contacts">
+        <a href="tel:+19105285077">📞 910-528-5077</a>
+        <a href="mailto:tina@maulsbytravel.com">✉️ tina@maulsbytravel.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SOCIAL ===================== -->
+  <div class="social">
+    <div class="wrap">
+      <h3 style="margin-bottom:14px">Follow along & travel solo, never alone</h3>
+      <a href="https://www.facebook.com/groups/1739046412949279" target="_blank" rel="noopener">Solo Cruisers Group</a>
+      <a href="https://www.facebook.com/profile.php?id=61582622205785" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/maulsbytravel" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@beyondboundarieswithtina" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://maulsbytravel.com" target="_blank" rel="noopener">maulsbytravel.com</a>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER (compliance) ===================== -->
+  <footer>
+    <div class="wrap">
+      Maulsby Travel Co. — An Independent Affiliate of A.S.A.P. Cruises Inc.<br>
+      Florida Seller of Travel No. FST ST15578 · California Seller of Travel No. 2090937-50 · Washington UBID No. 603189022
+    </div>
+  </footer>
+
+</body>
+</html>
