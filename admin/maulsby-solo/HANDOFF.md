@@ -86,15 +86,16 @@ Also saved as its own file in this folder: **`solo-cruising-schema.html`** (easi
 
 **Steps:**
 1. Publish the Solo Cruising page first so you know its final URL/slug.
-2. In the page editor, add a **Custom HTML** block at the very bottom of the page content.
-3. Paste the entire block below into it. (A `<script>` in a Custom HTML block is fine; it
-   renders nothing visible — it's metadata for Google/AI.)
-4. **If your slug is not `/solo-cruising/`**, find-and-replace every
+2. **This is a Multisite, so a `<script>` pasted into a Custom HTML block gets stripped on
+   save** (unless you're a Super Admin). Use your **SEO plugin** instead: in RankMath/Yoast,
+   open the page's schema settings and either build the **FAQ** + **Service** schema with the
+   generator, or paste the JSON-LD below into the plugin's "custom schema / code" field
+   (plugin fields bypass the content filter). A Super Admin, or a head-snippet plugin, can
+   add the raw block instead.
+3. **If your slug is not `/solo-cruising/`**, find-and-replace every
    `https://maulsbytravel.com/solo-cruising/` in the block with your real page URL before saving.
-5. Save, then validate at **search.google.com/test/rich-results** (paste the live URL). You
-   should see *FAQ*, *Service*, *Person*, and *Breadcrumb* detected.
-6. Alternative: if you use RankMath/Yoast, you can instead build the FAQ + Service schema
-   with the plugin's schema generator and skip the Custom HTML block.
+4. Validate at **search.google.com/test/rich-results** (paste the live URL). You should see
+   *FAQ*, *Service*, *Person*, and *Breadcrumb* detected.
 
 ```html
 <script type="application/ld+json">
@@ -173,24 +174,43 @@ Also saved as its own file in this folder: **`solo-cruising-schema.html`** (easi
 
 ---
 
-## How to publish in WordPress
+## How to publish in WordPress (verified for this Multisite)
 
-The page is self-styled for preview. In WordPress you have two clean options:
+**Important:** maulsbytravel.com is a WordPress **Multisite**. On Multisite, site
+administrators do **not** have the `unfiltered_html` capability — only Super Admins do.
+That means WordPress **strips `<style>` and `<script>` tags out of page content** when a
+normal admin saves. So you cannot just paste one big HTML file into the page. Instead the
+page is split into three paste-safe deliverables, each going to the right place:
 
-**Option A — Page Builder / blocks (recommended for theme consistency)**
-Rebuild the sections using the body copy (headings, paragraphs, CTAs) so it inherits
-the Maulsby theme fonts/colors. The HTML is the content spec; copy the words section by section.
+| Deliverable | Where it goes in WordPress | Notes |
+|---|---|---|
+| **`solo-cruising-body.html`** | The page itself — Classic editor **Text** tab, or a **Custom HTML** block | Uses only tags/attributes WordPress keeps (verified against WP 6.8 core). Keep the `<div id="mt-solo">` wrapper — it's what the CSS targets. |
+| **`solo-cruising.css`** | **Appearance → Customize → Additional CSS** | A theme setting, so it is NOT stripped. Every rule is scoped to `#mt-solo`, so it only affects this page — it will not touch the rest of the site. |
+| **`solo-cruising.js`** | Nothing to do | The page uses **no JavaScript** (FAQ is native `<details>`). |
 
-**Option B — Paste HTML directly (fastest)**
-1. In the WP page editor, click the **Code** tab (next to Visual — see the editor screenshot).
-2. Copy everything **inside `<body>`...`</body>`** from `solo-travel.html` (skip `<head>` and the
-   `<!DOCTYPE>`).
-3. The `<style>` block lives in `<head>` — if you want the exact preview look, move that
-   `<style>...</style>` into the page too (paste it at the very top of the Code content). If you'd
-   rather inherit the theme, leave the styles out and the structure still works.
-4. Set the page title to something like **"Solo Cruising"** and publish.
+**Steps:**
+1. **Add the CSS first:** Appearance → Customize → Additional CSS → paste all of
+   `solo-cruising.css` → Publish.
+2. **Create the page:** Pages → Add New. Title it **Solo Cruising** (slug `solo-cruising`).
+3. **Add the content:** switch the editor to the **Text** tab (or add a **Custom HTML**
+   block) and paste all of `solo-cruising-body.html` (including the `<div id="mt-solo">`
+   wrapper). Publish.
+4. **Check it:** the page should now look like the preview. If it looks unstyled, the CSS
+   step (1) didn't save or the wrapper div was removed.
 
-> Note: the leading HTML comment in the file is repo/preview metadata — don't paste it into WP.
+**Schema (JSON-LD):** because `<script>` is also stripped from content on Multisite, do
+**not** rely on pasting `solo-cruising-schema.html` into a Custom HTML block — a normal admin
+save will strip it. Use one of these instead:
+- **RankMath/Yoast** (whichever is installed): build the **FAQ** and **Service** schema with
+  the plugin's schema generator, or paste the JSON-LD into the plugin's "custom schema" field
+  (plugin fields bypass the content filter), **or**
+- Ask a **Super Admin** to add the `solo-cruising-schema.html` block, **or**
+- Use a code-snippets plugin that injects into `<head>`.
+
+> Beaver Builder note: if you build the page in the Page Builder instead, use an **HTML
+> module** for the body and the **Customizer → Code** area (or Additional CSS) for the styles.
+> The same Multisite stripping applies to the HTML module for non-Super-Admins, so the
+> CSS-in-Additional-CSS split above is still the reliable path.
 
 ---
 
@@ -205,12 +225,13 @@ actual theme stylesheet (`assets/css/theme.css`) — not the admin UI, not guess
   "MORE CRUISES" buttons
 - Footer is a light grey band, matching the live homepage footer
 
-On WordPress publish (Option B) you can still drop my `<style>` block and inherit the theme
-directly — the result will be near-identical since these are the theme's own tokens.
+All CSS is **scoped to `#mt-solo`** so it is safe to drop into site-wide Additional CSS
+without affecting other pages.
 
 ---
 
 ## Status
 - [x] Page built and previewable
+- [x] Split into paste-safe deliverables (body / CSS / JS) for this Multisite
 - [ ] Tina reviews + supplies photos / confirms numbers
-- [ ] Choose Option A or B and publish in WordPress
+- [ ] Publish: Additional CSS + page content + schema via SEO plugin

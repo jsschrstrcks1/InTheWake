@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<!--
-  PREVIEW DRAFT — Solo Travel page for Maulsby Travel Co. (maulsbytravel.com)
-  Hosted in InTheWake/admin/maulsby-solo/ for review before WordPress publish.
-  Standalone, self-styled preview so it can be shown to Tina first.
-  STYLING matched to the LIVE rendered site (OA-Agent-Theme): light & airy,
-  navy #145072 + sky-blue #5aa1e3 buttons + orange #f06023 accent (the logo
-  colors), Raleway headings / Open Sans body, flat cards, 4px-radius buttons.
-  See HANDOFF.md for what is real vs. [TINA: ...] placeholder + WordPress paste steps.
-  All factual claims come from Tina's own words (blog post + author page).
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -108,165 +98,159 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
-  <style>
-    /* Tokens pulled from the LIVE maulsbytravel.com theme (OA-Agent-Theme):
-       navy #145072, sky-blue #5aa1e3, orange #f06023, body Open Sans, headings Raleway.
-       Aesthetic: light, airy, flat — minimal shadow, thin grey borders, rectangular buttons. */
-    :root{
-      --navy:#145072;
-      --blue:#5aa1e3;
-      --blue-dark:#3f86c9;
-      --orange:#f06023;
-      --orange-dark:#d44e16;
-      --ink:#333333;
-      --muted:#707070;
-      --bg:#ffffff;
-      --bg-alt:#fafafa;
-      --line:#e0dcdc;
-      --footer:#ededed;
-      --radius:4px;
-      --max:1140px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;color:var(--ink);background:var(--bg);
-      font-family:'Open Sans','Segoe UI',Helvetica,Arial,sans-serif;
-      font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;
-    }
-    h1,h2,h3{font-family:'Raleway','Open Sans',sans-serif;color:var(--navy);line-height:1.2;margin:0 0 .45em;font-weight:800}
-    h1{font-size:clamp(2rem,4.6vw,3.2rem)}
-    h2{font-size:clamp(1.5rem,3.2vw,2.2rem)}
-    h3{font-size:1.2rem;font-weight:700}
-    p{margin:0 0 1rem}
-    a{color:var(--blue-dark)}
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
-    .eyebrow{display:inline-block;text-transform:uppercase;letter-spacing:.14em;font-size:.74rem;font-weight:700;color:var(--orange);margin-bottom:12px}
-    .lead{font-size:1.1rem;color:var(--muted)}
-    section{padding:64px 0}
-    .center{text-align:center}
+    <style>
+  html,body{margin:0}
+#mt-solo{
+  --navy:#145072; --blue:#5aa1e3; --blue-dark:#3f86c9; --orange:#f06023; --orange-dark:#d44e16;
+  --ink:#333333; --muted:#707070; --bg:#ffffff; --bg-alt:#fafafa; --line:#e0dcdc; --footer:#ededed;
+  --radius:4px; --max:1140px;
+  color:var(--ink); background:var(--bg);
+  font-family:'Open Sans','Segoe UI',Helvetica,Arial,sans-serif; font-size:17px; line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+#mt-solo *{box-sizing:border-box}
+#mt-solo h1,#mt-solo h2,#mt-solo h3{font-family:'Raleway','Open Sans',sans-serif;color:var(--navy);line-height:1.2;margin:0 0 .45em;font-weight:800}
+#mt-solo h1{font-size:clamp(2rem,4.6vw,3.2rem)}
+#mt-solo h2{font-size:clamp(1.5rem,3.2vw,2.2rem)}
+#mt-solo h3{font-size:1.2rem;font-weight:700}
+#mt-solo p{margin:0 0 1rem}
+#mt-solo a{color:var(--blue-dark)}
+#mt-solo .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+#mt-solo .eyebrow{display:inline-block;text-transform:uppercase;letter-spacing:.14em;font-size:.74rem;font-weight:700;color:var(--orange);margin-bottom:12px}
+#mt-solo .eyebrow-light{color:#ffd9a8}
+#mt-solo .lead{font-size:1.1rem;color:var(--muted)}
+#mt-solo .lead-center{max-width:700px;margin-left:auto;margin-right:auto}
+#mt-solo .lead-links{margin-top:24px;font-size:1rem}
+#mt-solo .note{font-size:.82rem;color:var(--muted);margin-top:14px}
+#mt-solo .tleft{text-align:left}
+#mt-solo section{padding:64px 0}
+#mt-solo .center{text-align:center}
 
-    /* Buttons — rectangular (4px), flat, like the live site */
-    .btn{
-      display:inline-block;background:var(--blue);color:#fff!important;text-decoration:none;
-      font-family:'Raleway',sans-serif;font-weight:700;letter-spacing:.02em;
-      padding:14px 30px;border-radius:var(--radius);font-size:.98rem;border:1px solid var(--blue);
-      transition:background .15s ease,border-color .15s ease;
-    }
-    .btn:hover{background:var(--blue-dark);border-color:var(--blue-dark)}
-    .btn.orange{background:var(--orange);border-color:var(--orange)}
-    .btn.orange:hover{background:var(--orange-dark);border-color:var(--orange-dark)}
-    .btn.ghost{background:transparent;color:#fff!important;border:1px solid rgba(255,255,255,.85)}
-    .btn.ghost:hover{background:rgba(255,255,255,.14)}
-    .btn.ghost-navy{background:transparent;color:var(--navy)!important;border:1px solid var(--navy)}
-    .btn.ghost-navy:hover{background:var(--navy);color:#fff!important}
-    a:focus-visible,.btn:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+/* Buttons — rectangular (4px), flat, like the live site */
+#mt-solo .btn{
+  display:inline-block;background:var(--blue);color:#fff!important;text-decoration:none;
+  font-family:'Raleway',sans-serif;font-weight:700;letter-spacing:.02em;
+  padding:14px 30px;border-radius:var(--radius);font-size:.98rem;border:1px solid var(--blue);
+  transition:background .15s ease,border-color .15s ease;
+}
+#mt-solo .btn:hover{background:var(--blue-dark);border-color:var(--blue-dark)}
+#mt-solo .btn.orange{background:var(--orange);border-color:var(--orange)}
+#mt-solo .btn.orange:hover{background:var(--orange-dark);border-color:var(--orange-dark)}
+#mt-solo .btn.ghost{background:transparent;color:#fff!important;border:1px solid rgba(255,255,255,.85)}
+#mt-solo .btn.ghost:hover{background:rgba(255,255,255,.14)}
+#mt-solo .btn.ghost-navy{background:transparent;color:var(--navy)!important;border:1px solid var(--navy)}
+#mt-solo .btn.ghost-navy:hover{background:var(--navy);color:#fff!important}
+#mt-solo a:focus-visible,#mt-solo .btn:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
 
-    /* HERO — full-width photo with light navy scrim + white text (matches the homepage slider) */
-    .hero{
-      position:relative;color:#fff;padding:104px 0 96px;overflow:hidden;
-      background:linear-gradient(180deg,rgba(20,80,114,.55),rgba(20,80,114,.62)),
-                 linear-gradient(120deg,#1d6f9b,#145072);
-    }
-    .hero .img-note{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-      color:rgba(255,255,255,.28);font-size:.8rem;letter-spacing:.04em;pointer-events:none}
-    .hero-inner{position:relative;max-width:720px}
-    .hero h1{color:#fff}
-    .hero p{font-size:1.18rem;color:rgba(255,255,255,.94);max-width:600px}
-    .hero-cta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
-    .tagline{font-family:'Raleway',sans-serif;font-weight:700;font-style:italic;font-size:1.05rem;color:#ffd9a8;margin-top:26px}
+/* HERO — full-width photo with light navy scrim + white text */
+#mt-solo .hero{
+  position:relative;color:#fff;padding:104px 0 96px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(20,80,114,.55),rgba(20,80,114,.62)),
+             linear-gradient(120deg,#1d6f9b,#145072);
+}
+#mt-solo .hero .img-note{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.28);font-size:.8rem;letter-spacing:.04em;pointer-events:none}
+#mt-solo .hero-inner{position:relative;max-width:720px}
+#mt-solo .hero h1{color:#fff}
+#mt-solo .hero p{font-size:1.18rem;color:rgba(255,255,255,.94);max-width:600px}
+#mt-solo .hero-cta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+#mt-solo .tagline{font-family:'Raleway',sans-serif;font-weight:700;font-style:italic;font-size:1.05rem;color:#ffd9a8;margin-top:26px}
 
-    /* MYTH STRIP — slim light band, navy text, orange highlight */
-    .myth{background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0}
-    .myth .wrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center;color:var(--ink)}
-    .myth .big{font-family:'Raleway',sans-serif;font-weight:800;font-size:1.4rem;color:var(--navy);white-space:nowrap}
-    .myth .big b{color:var(--orange)}
-    .myth strong{color:var(--navy)}
+/* MYTH STRIP — slim light band, navy text, orange highlight */
+#mt-solo .myth{background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0}
+#mt-solo .myth .wrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center;color:var(--ink)}
+#mt-solo .myth .big{font-family:'Raleway',sans-serif;font-weight:800;font-size:1.4rem;color:var(--navy);white-space:nowrap}
+#mt-solo .myth .big b{color:var(--orange)}
+#mt-solo .myth strong{color:var(--navy)}
 
-    /* STORY */
-    .story{background:var(--bg)}
-    .story-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:46px;align-items:center}
-    .photo-slot{
-      background:var(--bg-alt);border:1px dashed #cdd5da;border-radius:var(--radius);
-      min-height:360px;display:flex;align-items:center;justify-content:center;text-align:center;
-      color:var(--muted);font-size:.88rem;padding:24px;
-    }
-    blockquote{margin:0 0 1rem;padding:4px 0 4px 18px;border-left:3px solid var(--orange);font-style:italic;color:var(--navy)}
+/* STORY */
+#mt-solo .story{background:var(--bg)}
+#mt-solo .story-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:46px;align-items:center}
+#mt-solo .photo-slot{
+  background:var(--bg-alt);border:1px dashed #cdd5da;border-radius:var(--radius);
+  min-height:360px;display:flex;align-items:center;justify-content:center;text-align:center;
+  color:var(--muted);font-size:.88rem;padding:24px;
+}
+#mt-solo blockquote{margin:0 0 1rem;padding:4px 0 4px 18px;border-left:3px solid var(--orange);font-style:italic;color:var(--navy)}
 
-    /* STATS — flat */
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:34px}
-    .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 18px;text-align:center}
-    .stat .num{font-family:'Raleway',sans-serif;font-size:2.1rem;font-weight:800;color:var(--blue);line-height:1}
-    .stat .lbl{font-size:.92rem;color:var(--muted);margin-top:8px}
+/* STATS — flat */
+#mt-solo .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:34px}
+#mt-solo .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 18px;text-align:center}
+#mt-solo .stat .num{font-family:'Raleway',sans-serif;font-size:2.1rem;font-weight:800;color:var(--blue);line-height:1}
+#mt-solo .stat .lbl{font-size:.92rem;color:var(--muted);margin-top:8px}
 
-    /* CARDS — flat */
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:38px}
-    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px}
-    .card .ico{font-size:1.6rem;margin-bottom:10px}
-    .card h3{margin-bottom:8px}
-    .card p{color:var(--muted);font-size:.98rem;margin:0}
+/* CARDS — flat */
+#mt-solo .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:38px}
+#mt-solo .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px}
+#mt-solo .card .ico{font-size:1.6rem;margin-bottom:10px}
+#mt-solo .card h3{margin-bottom:8px}
+#mt-solo .card p{color:var(--muted);font-size:.98rem;margin:0}
 
-    /* TWO WAYS */
-    .ways{background:var(--bg-alt)}
-    .way-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:38px}
-    .way{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px;display:flex;flex-direction:column}
-    .way .tag{display:inline-block;background:var(--navy);color:#fff;font-family:'Raleway',sans-serif;font-weight:700;font-size:.74rem;
-      text-transform:uppercase;letter-spacing:.07em;padding:6px 12px;border-radius:var(--radius);margin-bottom:14px;align-self:flex-start}
-    .way ul{margin:0 0 22px;padding-left:20px;color:var(--muted)}
-    .way ul li{margin-bottom:8px}
-    .way .btn{margin-top:auto;align-self:flex-start}
+/* TWO WAYS */
+#mt-solo .ways{background:var(--bg-alt)}
+#mt-solo .way-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:38px}
+#mt-solo .way{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px;display:flex;flex-direction:column}
+#mt-solo .way .tag{display:inline-block;background:var(--navy);color:#fff;font-family:'Raleway',sans-serif;font-weight:700;font-size:.74rem;
+  text-transform:uppercase;letter-spacing:.07em;padding:6px 12px;border-radius:var(--radius);margin-bottom:14px;align-self:flex-start}
+#mt-solo .way ul{margin:0 0 22px;padding-left:20px;color:var(--muted)}
+#mt-solo .way ul li{margin-bottom:8px}
+#mt-solo .way .btn{margin-top:auto;align-self:flex-start}
 
-    /* STEPS */
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px;counter-reset:step}
-    .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px 24px 24px}
-    .step::before{counter-increment:step;content:counter(step);
-      position:absolute;top:-20px;left:24px;width:42px;height:42px;border-radius:var(--radius);
-      background:var(--orange);color:#fff;font-family:'Raleway',sans-serif;font-weight:800;font-size:1.2rem;
-      display:flex;align-items:center;justify-content:center}
+/* STEPS */
+#mt-solo .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px;counter-reset:step}
+#mt-solo .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px 24px 24px}
+#mt-solo .step::before{counter-increment:step;content:counter(step);
+  position:absolute;top:-20px;left:24px;width:42px;height:42px;border-radius:var(--radius);
+  background:var(--orange);color:#fff;font-family:'Raleway',sans-serif;font-weight:800;font-size:1.2rem;
+  display:flex;align-items:center;justify-content:center}
 
-    /* COMMUNITY — light */
-    .community{background:var(--bg)}
-    .community .panel{background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--radius);padding:38px;text-align:center;margin-top:28px}
+/* COMMUNITY — light */
+#mt-solo .community{background:var(--bg)}
+#mt-solo .community .panel{background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--radius);padding:38px;text-align:center;margin-top:28px}
+#mt-solo .panel-lead{font-size:1.12rem;margin-bottom:20px;color:var(--ink)}
 
-    /* FAQ */
-    details{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:4px 22px;margin-bottom:12px}
-    details summary{cursor:pointer;font-family:'Raleway',sans-serif;font-weight:700;color:var(--navy);font-size:1.05rem;padding:16px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
-    details summary::-webkit-details-marker{display:none}
-    details summary::after{content:"+";color:var(--orange);font-size:1.45rem;font-weight:700;transition:transform .2s}
-    details[open] summary::after{transform:rotate(45deg)}
-    details p{color:var(--muted);padding-bottom:16px;margin:0}
+/* FAQ */
+#mt-solo section.alt{background:var(--bg-alt)}
+#mt-solo .faq-list{max-width:780px;margin:34px auto 0}
+#mt-solo details{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:4px 22px;margin-bottom:12px}
+#mt-solo details summary{cursor:pointer;font-family:'Raleway',sans-serif;font-weight:700;color:var(--navy);font-size:1.05rem;padding:16px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+#mt-solo details summary::-webkit-details-marker{display:none}
+#mt-solo details summary::after{content:"+";color:var(--orange);font-size:1.45rem;font-weight:700;transition:transform .2s}
+#mt-solo details[open] summary::after{transform:rotate(45deg)}
+#mt-solo details p{color:var(--muted);padding-bottom:16px;margin:0}
 
-    /* FINAL CTA — one navy brand band */
-    .final{background:var(--navy);color:#fff;text-align:center}
-    .final h2{color:#fff}
-    .final p{color:rgba(255,255,255,.92);font-size:1.1rem;max-width:600px;margin:0 auto 24px}
-    .final .contacts{margin-top:24px;display:flex;gap:28px;flex-wrap:wrap;justify-content:center;font-weight:600}
-    .final .contacts a{color:#fff}
+/* FINAL CTA — one navy brand band */
+#mt-solo .final{background:var(--navy);color:#fff;text-align:center}
+#mt-solo .final h2{color:#fff}
+#mt-solo .final p{color:rgba(255,255,255,.92);font-size:1.1rem;max-width:600px;margin:0 auto 24px}
+#mt-solo .final .contacts{margin-top:24px;display:flex;gap:28px;flex-wrap:wrap;justify-content:center;font-weight:600}
+#mt-solo .final .contacts a{color:#fff}
 
-    /* SOCIAL + FOOTER */
-    .social{padding:46px 0;text-align:center;background:var(--bg-alt);border-top:1px solid var(--line)}
-    .social a{display:inline-block;margin:6px 8px;color:var(--navy);font-weight:600;text-decoration:none;border:1px solid var(--line);background:#fff;padding:9px 18px;border-radius:var(--radius)}
-    .social a:hover{border-color:var(--blue);color:var(--blue-dark)}
-    footer{background:var(--footer);color:#666;font-size:.84rem;padding:30px 0;text-align:center;line-height:1.7}
-    footer a{color:var(--navy)}
+/* SOCIAL + FOOTER */
+#mt-solo .social{padding:46px 0;text-align:center;background:var(--bg-alt);border-top:1px solid var(--line)}
+#mt-solo .social h3{margin-bottom:14px}
+#mt-solo .social a{display:inline-block;margin:6px 8px;color:var(--navy);font-weight:600;text-decoration:none;border:1px solid var(--line);background:#fff;padding:9px 18px;border-radius:var(--radius)}
+#mt-solo .social a:hover{border-color:var(--blue);color:var(--blue-dark)}
+#mt-solo .site-footer{background:var(--footer);color:#666;font-size:.84rem;padding:30px 0;text-align:center;line-height:1.7}
+#mt-solo .site-footer a{color:var(--navy)}
 
-    @media (max-width:860px){
-      section{padding:48px 0}
-      .story-grid,.way-grid{grid-template-columns:1fr}
-      .stats,.cards,.steps{grid-template-columns:1fr}
-      .myth .wrap{flex-direction:column;gap:8px}
-      .myth .big{white-space:normal}
-      .photo-slot{min-height:230px}
-    }
+@media (max-width:860px){
+  #mt-solo section{padding:48px 0}
+  #mt-solo .story-grid,#mt-solo .way-grid{grid-template-columns:1fr}
+  #mt-solo .stats,#mt-solo .cards,#mt-solo .steps{grid-template-columns:1fr}
+  #mt-solo .myth .wrap{flex-direction:column;gap:8px}
+  #mt-solo .myth .big{white-space:normal}
+  #mt-solo .photo-slot{min-height:230px}
+}
   </style>
 </head>
 <body>
-
+<div id="mt-solo">
   <!-- ===================== HERO ===================== -->
   <header class="hero">
     <span class="img-note" aria-hidden="true">[TINA: background photo — you on a cruise deck / at sea]</span>
     <div class="wrap hero-inner">
-      <span class="eyebrow" style="color:#ffd9a8">Solo Cruise Specialist · Maulsby Travel Co.</span>
+      <span class="eyebrow eyebrow-light">Solo Cruise Specialist · Maulsby Travel Co.</span>
       <h1>Travel Solo. Never Alone.</h1>
       <p>You don't have to wait for someone to say yes. Whether it's your first time sailing on your own or your fifteenth, I'll plan a solo cruise that fits you — and connect you to a community of thousands who travel the same way.</p>
       <div class="hero-cta">
@@ -309,14 +293,14 @@
     <div class="wrap center">
       <span class="eyebrow">Why book solo with me</span>
       <h2>A specialist who actually does this</h2>
-      <p class="lead" style="max-width:680px;margin:0 auto">I don't just sell solo cruises — I sail them, and I lead a community of people who do too. That means real answers about cabins, single supplements, dining, and what it's actually like onboard alone.</p>
+      <p class="lead lead-center">I don't just sell solo cruises — I sail them, and I lead a community of people who do too. That means real answers about cabins, single supplements, dining, and what it's actually like onboard alone.</p>
 
       <div class="stats">
         <div class="stat"><div class="num">Top 2%</div><div class="lbl">Among travel agencies</div></div>
         <div class="stat"><div class="num">Top 25</div><div class="lbl">With Norwegian Cruise Line, out of 11,000+ agencies</div></div>
         <div class="stat"><div class="num">55K+</div><div class="lbl">Members in the Solo Cruisers community I founded</div></div>
       </div>
-      <p style="font-size:.82rem;color:var(--muted);margin-top:14px">Agency rankings and community size as of June 2026.</p>
+      <p class="note">Agency rankings and community size as of June 2026.</p>
 
       <div class="cards">
         <div class="card"><div class="ico" aria-hidden="true">🧭</div><h3>Single-supplement savvy</h3><p>I know which lines and sailings treat solo travelers fairly — and how to find solo cabins and reduced supplements when they exist.</p></div>
@@ -331,7 +315,7 @@
     <div class="wrap center">
       <span class="eyebrow">Two ways to sail solo</span>
       <h2>However you want to do it</h2>
-      <div class="way-grid" style="text-align:left">
+      <div class="way-grid tleft">
         <div class="way">
           <span class="tag">Your own solo cruise</span>
           <h3>A trip planned around you</h3>
@@ -362,7 +346,7 @@
     <div class="wrap center">
       <span class="eyebrow">Easy from here</span>
       <h2>How it works</h2>
-      <div class="steps" style="text-align:left">
+      <div class="steps tleft">
         <div class="step"><h3>Reach out</h3><p>Tell me what you're dreaming about — a destination, a date, or just "I want to try this." No commitment.</p></div>
         <div class="step"><h3>I plan it</h3><p>I match you to the right ship and sailing, handle the cabin and supplement details, and lay out your options.</p></div>
         <div class="step"><h3>You sail</h3><p>You go — solo, never alone — with me a message away the whole time and a community waiting onboard.</p></div>
@@ -375,20 +359,20 @@
     <div class="wrap center">
       <span class="eyebrow">Travel solo, never alone</span>
       <h2>Join the community first</h2>
-      <p class="lead" style="max-width:700px;margin:0 auto">Not ready to book? Start by meeting your people. Our Solo Cruisers group is one of the largest solo cruising communities anywhere — tens of thousands of members swapping tips, stories, and sailing plans every day.</p>
+      <p class="lead lead-center">Not ready to book? Start by meeting your people. Our Solo Cruisers group is one of the largest solo cruising communities anywhere — tens of thousands of members swapping tips, stories, and sailing plans every day.</p>
       <div class="panel">
-        <p style="font-size:1.12rem;margin-bottom:20px;color:var(--ink)">Come for the cruise advice. Stay for the friends you'll sail with.</p>
+        <p class="panel-lead">Come for the cruise advice. Stay for the friends you'll sail with.</p>
         <a class="btn" href="https://www.facebook.com/groups/1739046412949279" target="_blank" rel="noopener">Join the Solo Cruisers Group</a>
       </div>
-      <p class="lead" style="margin-top:24px;font-size:1rem">You can also browse current <a href="https://maulsbytravel.com/interest/cruises">cruise deals</a> and explore <a href="https://maulsbytravel.com/destinations">destinations</a>.</p>
+      <p class="lead lead-links">You can also browse current <a href="https://maulsbytravel.com/interest/cruises">cruise deals</a> and explore <a href="https://maulsbytravel.com/destinations">destinations</a>.</p>
     </div>
   </section>
 
   <!-- ===================== FAQ ===================== -->
-  <section id="faq" style="background:var(--bg-alt)">
+  <section id="faq" class="alt">
     <div class="wrap">
       <div class="center"><span class="eyebrow">Good questions</span><h2>Solo cruising, answered</h2></div>
-      <div style="max-width:780px;margin:34px auto 0">
+      <div class="faq-list">
         <details><summary>Will I actually be alone on the ship?</summary><p>Only as alone as you want to be. You get your own cabin and the freedom to do your own thing — but with our hosted sailings and community, there are friendly faces for dinner, shore days, or a drink whenever you'd like company.</p></details>
         <details><summary>Do I have to be single to travel solo?</summary><p>Not at all. Solo isn't single. Plenty of our solo cruisers are married — they just love traveling on their own terms. This is a solo community, not a dating or singles group.</p></details>
         <details><summary>What about the single supplement — won't sailing alone cost double?</summary><p>Sometimes solo travel carries a supplement, but it varies a lot by cruise line and sailing. Part of my job is finding the lines, ships, and dates that treat solo travelers fairly — including dedicated solo cabins where they exist.</p></details>
@@ -417,7 +401,7 @@
   <!-- ===================== SOCIAL ===================== -->
   <div class="social">
     <div class="wrap">
-      <h3 style="margin-bottom:14px">Follow along & travel solo, never alone</h3>
+      <h3>Follow along & travel solo, never alone</h3>
       <a href="https://www.facebook.com/groups/1739046412949279" target="_blank" rel="noopener">Solo Cruisers Group</a>
       <a href="https://www.facebook.com/profile.php?id=61582622205785" target="_blank" rel="noopener">Facebook</a>
       <a href="https://www.instagram.com/maulsbytravel" target="_blank" rel="noopener">Instagram</a>
@@ -427,12 +411,12 @@
   </div>
 
   <!-- ===================== FOOTER (compliance) ===================== -->
-  <footer>
+  <footer class="site-footer">
     <div class="wrap">
       Maulsby Travel Co. — An Independent Affiliate of A.S.A.P. Cruises Inc.<br>
       Florida Seller of Travel No. FST ST15578 · California Seller of Travel No. 2090937-50 · Washington UBID No. 603189022
     </div>
   </footer>
-
+</div>
 </body>
 </html>
