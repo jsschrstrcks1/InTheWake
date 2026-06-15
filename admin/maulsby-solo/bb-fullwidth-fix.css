@@ -1,0 +1,18 @@
+/* ============================================================================
+   Solo page fix — Beaver Builder full-width override
+   PASTE TARGET: Appearance → Customize → Additional CSS
+                 (ADD this to the bottom of what you already pasted — don't replace it)
+   ----------------------------------------------------------------------------
+   WHY: Beaver Builder rendered the page content inside a FIXED-WIDTH, centered
+   row, so the full-width colored bands (hero, navy CTA, footer) were squeezed
+   into the middle with white gutters, and BB added column padding. These rules
+   are scoped to this page only (body class .page-id-10503), so nothing else on
+   the site changes. They strip BB's width cap + padding so the design fills the
+   content area edge to edge.
+   ============================================================================ */
+.page-id-10503 .fl-raw{display:block}
+.page-id-10503 .fl-row-content{max-width:none !important}
+.page-id-10503 .fl-row-content-wrap{padding-left:0 !important; padding-right:0 !important}
+.page-id-10503 .fl-col-content{padding:0 !important}
+.page-id-10503 .fl-module{margin:0 !important}
+.page-id-10503 .fl-module-content{margin:0 !important}
