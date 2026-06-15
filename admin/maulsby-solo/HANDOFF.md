@@ -70,14 +70,17 @@ the Maulsby theme fonts/colors. The HTML is the content spec; copy the words sec
 
 ## Styling
 
-Preview design tokens are matched to the **live maulsbytravel.com theme (OA-Agent-Theme)**,
-pulled from the site's actual CSS/font links — not guessed:
-- Headings: **Acme** (the theme's display font), fallback Montserrat
-- Body: **Lato / Open Sans**
-- Primary: steel-blue **#315b7c**; teal accent **#00a99d**; body grey **#2d2d2d**
+Matched to the **live rendered maulsbytravel.com** (theme: OA-Agent-Theme), pulled from the
+actual theme stylesheet (`assets/css/theme.css`) — not the admin UI, not guessed:
+- **Aesthetic:** light, airy, flat — white / #fafafa sections, thin grey borders, minimal shadow
+- **Headings:** Raleway · **Body:** Open Sans
+- **Brand colors (the logo's):** navy **#145072** + orange **#f06023**, with sky-blue
+  **#5aa1e3** rectangular (4px) buttons — same shape/color as the live "Book Travel Now" /
+  "MORE CRUISES" buttons
+- Footer is a light grey band, matching the live homepage footer
 
-So the preview already reads in Tina's brand language. On WordPress publish (Option B), you can
-still drop my `<style>` block and inherit the theme directly — the result will be near-identical.
+On WordPress publish (Option B) you can still drop my `<style>` block and inherit the theme
+directly — the result will be near-identical since these are the theme's own tokens.
 
 ---
 

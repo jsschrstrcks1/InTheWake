@@ -2,9 +2,11 @@
 <!--
   PREVIEW DRAFT — Solo Travel page for Maulsby Travel Co. (maulsbytravel.com)
   Hosted in InTheWake/admin/maulsby-solo/ for review before WordPress publish.
-  This is a standalone, self-styled preview so it can be shown to Tina first.
-  See HANDOFF.md in this folder for what is real vs. [TINA: ...] placeholder
-  and for how to copy the body into the WordPress page editor.
+  Standalone, self-styled preview so it can be shown to Tina first.
+  STYLING matched to the LIVE rendered site (OA-Agent-Theme): light & airy,
+  navy #145072 + sky-blue #5aa1e3 buttons + orange #f06023 accent (the logo
+  colors), Raleway headings / Open Sans body, flat cards, 4px-radius buttons.
+  See HANDOFF.md for what is real vs. [TINA: ...] placeholder + WordPress paste steps.
   All factual claims come from Tina's own words (blog post + author page).
 -->
 <html lang="en">
@@ -15,153 +17,156 @@
   <meta name="description" content="Travel Solo, Never Alone. Tina Maulsby is a Solo Cruise Specialist who founded one of the largest solo cruiser communities. Book your solo cruise or a hosted group sailing with Maulsby Travel Co.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Acme&family=Lato:wght@400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* Design tokens matched to maulsbytravel.com (OA-Agent-Theme):
-       headings Acme, body Lato/Open Sans, steel-blue #315b7c, teal accent #00a99d */
+    /* Tokens pulled from the LIVE maulsbytravel.com theme (OA-Agent-Theme):
+       navy #145072, sky-blue #5aa1e3, orange #f06023, body Open Sans, headings Raleway.
+       Aesthetic: light, airy, flat — minimal shadow, thin grey borders, rectangular buttons. */
     :root{
-      --coral:#315b7c;        /* primary steel-blue (matches live site) */
-      --coral-dark:#26486a;
-      --accent:#00a99d;       /* teal accent (from live site) */
-      --ink:#2d2d2d;
-      --muted:#5b6470;
-      --sand:#f5f8fa;
-      --sand-2:#e7eef3;
-      --line:#d8e2e9;
-      --navy:#22323f;
-      --white:#ffffff;
-      --radius:14px;
-      --shadow:0 10px 30px rgba(31,42,55,.10);
-      --max:1120px;
+      --navy:#145072;
+      --blue:#5aa1e3;
+      --blue-dark:#3f86c9;
+      --orange:#f06023;
+      --orange-dark:#d44e16;
+      --ink:#333333;
+      --muted:#707070;
+      --bg:#ffffff;
+      --bg-alt:#fafafa;
+      --line:#e0dcdc;
+      --footer:#ededed;
+      --radius:4px;
+      --max:1140px;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      margin:0;color:var(--ink);background:var(--white);
-      font-family:'Lato','Open Sans',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;
+      margin:0;color:var(--ink);background:var(--bg);
+      font-family:'Open Sans','Segoe UI',Helvetica,Arial,sans-serif;
+      font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;
     }
-    h1,h2,h3{font-family:'Acme','Montserrat',system-ui,sans-serif;line-height:1.16;color:var(--ink);margin:0 0 .4em;font-weight:400;letter-spacing:.005em}
-    h1{font-size:clamp(2.1rem,5vw,3.5rem)}
-    h2{font-size:clamp(1.6rem,3.5vw,2.4rem)}
-    h3{font-size:1.28rem}
+    h1,h2,h3{font-family:'Raleway','Open Sans',sans-serif;color:var(--navy);line-height:1.2;margin:0 0 .45em;font-weight:800}
+    h1{font-size:clamp(2rem,4.6vw,3.2rem)}
+    h2{font-size:clamp(1.5rem,3.2vw,2.2rem)}
+    h3{font-size:1.2rem;font-weight:700}
     p{margin:0 0 1rem}
-    a{color:var(--coral-dark)}
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
-    .eyebrow{display:inline-block;text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;font-weight:700;color:var(--coral);margin-bottom:14px}
-    .btn{
-      display:inline-block;background:var(--coral);color:#fff;text-decoration:none;
-      font-weight:700;padding:15px 30px;border-radius:999px;font-size:1.02rem;
-      box-shadow:0 8px 20px rgba(49,91,124,.28);transition:transform .15s ease,background .15s ease;
-    }
-    .btn:hover{background:var(--coral-dark);transform:translateY(-2px)}
-    .btn.ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7);box-shadow:none}
-    .btn.ghost:hover{background:rgba(255,255,255,.12)}
-    .btn.dark{background:var(--navy);box-shadow:0 8px 20px rgba(22,50,79,.25)}
-    .btn.dark:hover{background:#0f2438}
-    a:focus-visible,.btn:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
-    section{padding:74px 0}
+    a{color:var(--blue-dark)}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+    .eyebrow{display:inline-block;text-transform:uppercase;letter-spacing:.14em;font-size:.74rem;font-weight:700;color:var(--orange);margin-bottom:12px}
+    .lead{font-size:1.1rem;color:var(--muted)}
+    section{padding:64px 0}
     .center{text-align:center}
-    .lead{font-size:1.15rem;color:var(--muted)}
 
-    /* HERO */
+    /* Buttons — rectangular (4px), flat, like the live site */
+    .btn{
+      display:inline-block;background:var(--blue);color:#fff!important;text-decoration:none;
+      font-family:'Raleway',sans-serif;font-weight:700;letter-spacing:.02em;
+      padding:14px 30px;border-radius:var(--radius);font-size:.98rem;border:1px solid var(--blue);
+      transition:background .15s ease,border-color .15s ease;
+    }
+    .btn:hover{background:var(--blue-dark);border-color:var(--blue-dark)}
+    .btn.orange{background:var(--orange);border-color:var(--orange)}
+    .btn.orange:hover{background:var(--orange-dark);border-color:var(--orange-dark)}
+    .btn.ghost{background:transparent;color:#fff!important;border:1px solid rgba(255,255,255,.85)}
+    .btn.ghost:hover{background:rgba(255,255,255,.14)}
+    .btn.ghost-navy{background:transparent;color:var(--navy)!important;border:1px solid var(--navy)}
+    .btn.ghost-navy:hover{background:var(--navy);color:#fff!important}
+    a:focus-visible,.btn:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+
+    /* HERO — full-width photo with light navy scrim + white text (matches the homepage slider) */
     .hero{
-      position:relative;color:#fff;
-      background:
-        linear-gradient(180deg,rgba(15,32,52,.62),rgba(15,32,52,.72)),
-        linear-gradient(120deg,#1c3a52 0%,#315b7c 55%,#00a99d 150%);
-      padding:96px 0 90px;overflow:hidden;
+      position:relative;color:#fff;padding:104px 0 96px;overflow:hidden;
+      background:linear-gradient(180deg,rgba(20,80,114,.55),rgba(20,80,114,.62)),
+                 linear-gradient(120deg,#1d6f9b,#145072);
     }
     .hero .img-note{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-      color:rgba(255,255,255,.32);font-size:.85rem;letter-spacing:.05em;pointer-events:none}
-    .hero-inner{position:relative;max-width:760px}
+      color:rgba(255,255,255,.28);font-size:.8rem;letter-spacing:.04em;pointer-events:none}
+    .hero-inner{position:relative;max-width:720px}
     .hero h1{color:#fff}
-    .hero p{font-size:1.22rem;color:rgba(255,255,255,.92);max-width:620px}
-    .hero-cta{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap}
-    .tagline{font-family:'Acme','Montserrat',sans-serif;font-style:italic;font-size:1.05rem;color:#cfe4ec;margin-top:30px}
+    .hero p{font-size:1.18rem;color:rgba(255,255,255,.94);max-width:600px}
+    .hero-cta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+    .tagline{font-family:'Raleway',sans-serif;font-weight:700;font-style:italic;font-size:1.05rem;color:#ffd9a8;margin-top:26px}
 
-    /* MYTH STRIP */
-    .myth{background:var(--navy);color:#fff;padding:30px 0}
-    .myth .wrap{display:flex;gap:26px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center}
-    .myth strong{color:#cfe4ec}
-    .myth .big{font-family:'Acme','Montserrat',sans-serif;font-size:1.5rem;font-weight:700;white-space:nowrap}
+    /* MYTH STRIP — slim light band, navy text, orange highlight */
+    .myth{background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0}
+    .myth .wrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center;color:var(--ink)}
+    .myth .big{font-family:'Raleway',sans-serif;font-weight:800;font-size:1.4rem;color:var(--navy);white-space:nowrap}
+    .myth .big b{color:var(--orange)}
+    .myth strong{color:var(--navy)}
 
     /* STORY */
-    .story{background:var(--sand)}
-    .story-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:48px;align-items:center}
+    .story{background:var(--bg)}
+    .story-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:46px;align-items:center}
     .photo-slot{
-      background:var(--sand-2);border:2px dashed var(--line);border-radius:var(--radius);
-      min-height:380px;display:flex;align-items:center;justify-content:center;text-align:center;
-      color:var(--muted);font-size:.9rem;padding:24px;
+      background:var(--bg-alt);border:1px dashed #cdd5da;border-radius:var(--radius);
+      min-height:360px;display:flex;align-items:center;justify-content:center;text-align:center;
+      color:var(--muted);font-size:.88rem;padding:24px;
     }
-    blockquote{margin:0 0 1rem;padding-left:18px;border-left:4px solid var(--coral);font-style:italic;color:var(--ink)}
+    blockquote{margin:0 0 1rem;padding:4px 0 4px 18px;border-left:3px solid var(--orange);font-style:italic;color:var(--navy)}
 
-    /* STATS */
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
-    .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 20px;text-align:center;box-shadow:var(--shadow)}
-    .stat .num{font-family:'Acme','Montserrat',sans-serif;font-size:2.2rem;font-weight:800;color:var(--coral);line-height:1}
-    .stat .lbl{font-size:.95rem;color:var(--muted);margin-top:8px}
+    /* STATS — flat */
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:34px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 18px;text-align:center}
+    .stat .num{font-family:'Raleway',sans-serif;font-size:2.1rem;font-weight:800;color:var(--blue);line-height:1}
+    .stat .lbl{font-size:.92rem;color:var(--muted);margin-top:8px}
 
-    /* CARDS */
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
-    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;box-shadow:var(--shadow)}
-    .card .ico{font-size:1.7rem;margin-bottom:10px}
+    /* CARDS — flat */
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:38px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px}
+    .card .ico{font-size:1.6rem;margin-bottom:10px}
     .card h3{margin-bottom:8px}
-    .card p{color:var(--muted);font-size:1rem;margin:0}
+    .card p{color:var(--muted);font-size:.98rem;margin:0}
 
     /* TWO WAYS */
-    .ways{background:var(--sand)}
-    .way-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px}
-    .way{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow);display:flex;flex-direction:column}
-    .way .tag{display:inline-block;background:var(--sand-2);color:var(--navy);font-weight:700;font-size:.8rem;
-      text-transform:uppercase;letter-spacing:.08em;padding:6px 12px;border-radius:999px;margin-bottom:14px;align-self:flex-start}
+    .ways{background:var(--bg-alt)}
+    .way-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:38px}
+    .way{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px;display:flex;flex-direction:column}
+    .way .tag{display:inline-block;background:var(--navy);color:#fff;font-family:'Raleway',sans-serif;font-weight:700;font-size:.74rem;
+      text-transform:uppercase;letter-spacing:.07em;padding:6px 12px;border-radius:var(--radius);margin-bottom:14px;align-self:flex-start}
     .way ul{margin:0 0 22px;padding-left:20px;color:var(--muted)}
     .way ul li{margin-bottom:8px}
     .way .btn{margin-top:auto;align-self:flex-start}
 
     /* STEPS */
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:42px;counter-reset:step}
-    .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px 26px 26px;box-shadow:var(--shadow)}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px;counter-reset:step}
+    .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px 24px 24px}
     .step::before{counter-increment:step;content:counter(step);
-      position:absolute;top:-22px;left:26px;width:46px;height:46px;border-radius:50%;
-      background:var(--coral);color:#fff;font-family:'Acme','Montserrat',sans-serif;font-weight:800;font-size:1.3rem;
-      display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(49,91,124,.3)}
+      position:absolute;top:-20px;left:24px;width:42px;height:42px;border-radius:var(--radius);
+      background:var(--orange);color:#fff;font-family:'Raleway',sans-serif;font-weight:800;font-size:1.2rem;
+      display:flex;align-items:center;justify-content:center}
 
-    /* COMMUNITY */
-    .community{background:var(--navy);color:#fff}
-    .community h2{color:#fff}
-    .community .lead{color:rgba(255,255,255,.85)}
-    .community .panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:var(--radius);padding:36px;text-align:center;margin-top:30px}
+    /* COMMUNITY — light */
+    .community{background:var(--bg)}
+    .community .panel{background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--radius);padding:38px;text-align:center;margin-top:28px}
 
     /* FAQ */
-    details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px 22px;margin-bottom:14px;box-shadow:0 4px 14px rgba(31,42,55,.05)}
-    details summary{cursor:pointer;font-weight:700;font-size:1.08rem;padding:16px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+    details{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:4px 22px;margin-bottom:12px}
+    details summary{cursor:pointer;font-family:'Raleway',sans-serif;font-weight:700;color:var(--navy);font-size:1.05rem;padding:16px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
     details summary::-webkit-details-marker{display:none}
-    details summary::after{content:"+";color:var(--coral);font-size:1.5rem;font-weight:700;transition:transform .2s}
+    details summary::after{content:"+";color:var(--orange);font-size:1.45rem;font-weight:700;transition:transform .2s}
     details[open] summary::after{transform:rotate(45deg)}
     details p{color:var(--muted);padding-bottom:16px;margin:0}
 
-    /* FINAL CTA */
-    .final{background:linear-gradient(120deg,#315b7c,#26486a);color:#fff;text-align:center}
+    /* FINAL CTA — one navy brand band */
+    .final{background:var(--navy);color:#fff;text-align:center}
     .final h2{color:#fff}
-    .final p{color:rgba(255,255,255,.95);font-size:1.15rem;max-width:620px;margin:0 auto 26px}
-    .final .contacts{margin-top:26px;display:flex;gap:30px;flex-wrap:wrap;justify-content:center;font-weight:600}
+    .final p{color:rgba(255,255,255,.92);font-size:1.1rem;max-width:600px;margin:0 auto 24px}
+    .final .contacts{margin-top:24px;display:flex;gap:28px;flex-wrap:wrap;justify-content:center;font-weight:600}
     .final .contacts a{color:#fff}
 
     /* SOCIAL + FOOTER */
-    .social{padding:50px 0;text-align:center;background:var(--sand)}
-    .social a{display:inline-block;margin:6px 10px;color:var(--navy);font-weight:600;text-decoration:none;border:1px solid var(--line);background:#fff;padding:10px 20px;border-radius:999px}
-    .social a:hover{border-color:var(--coral);color:var(--coral-dark)}
-    footer{background:#11202e;color:#9fb0c0;font-size:.85rem;padding:34px 0;text-align:center;line-height:1.7}
-    footer a{color:#cfe0ef}
+    .social{padding:46px 0;text-align:center;background:var(--bg-alt);border-top:1px solid var(--line)}
+    .social a{display:inline-block;margin:6px 8px;color:var(--navy);font-weight:600;text-decoration:none;border:1px solid var(--line);background:#fff;padding:9px 18px;border-radius:var(--radius)}
+    .social a:hover{border-color:var(--blue);color:var(--blue-dark)}
+    footer{background:var(--footer);color:#666;font-size:.84rem;padding:30px 0;text-align:center;line-height:1.7}
+    footer a{color:var(--navy)}
 
     @media (max-width:860px){
-      section{padding:54px 0}
+      section{padding:48px 0}
       .story-grid,.way-grid{grid-template-columns:1fr}
       .stats,.cards,.steps{grid-template-columns:1fr}
-      .myth .wrap{flex-direction:column;gap:10px}
+      .myth .wrap{flex-direction:column;gap:8px}
       .myth .big{white-space:normal}
-      .photo-slot{min-height:240px}
+      .photo-slot{min-height:230px}
     }
   </style>
 </head>
@@ -171,11 +176,11 @@
   <header class="hero">
     <span class="img-note" aria-hidden="true">[TINA: background photo — you on a cruise deck / at sea]</span>
     <div class="wrap hero-inner">
-      <span class="eyebrow">Solo Cruise Specialist · Maulsby Travel Co.</span>
+      <span class="eyebrow" style="color:#ffd9a8">Solo Cruise Specialist · Maulsby Travel Co.</span>
       <h1>Travel Solo. Never Alone.</h1>
       <p>You don't have to wait for someone to say yes. Whether it's your first time sailing on your own or your fifteenth, I'll plan a solo cruise that fits you — and connect you to a community of thousands who travel the same way.</p>
       <div class="hero-cta">
-        <a class="btn" href="https://maulsbytravel.com/contact/">Book a Free Consult</a>
+        <a class="btn orange" href="https://maulsbytravel.com/contact/">Book a Free Consult</a>
         <a class="btn ghost" href="#two-ways">See How It Works</a>
       </div>
       <p class="tagline">"Travel Solo, Never Alone."</p>
@@ -185,7 +190,7 @@
   <!-- ===================== MYTH STRIP ===================== -->
   <aside class="myth">
     <div class="wrap">
-      <span class="big">Solo <strong>≠</strong> Single.</span>
+      <span class="big">Solo <b>≠</b> Single.</span>
       <span>Traveling solo doesn't mean you're single — many of our solo cruisers are married. This is a <strong>solo community, not a singles scene.</strong> No dating, no pressure. Just your trip, your way.</span>
     </div>
   </aside>
@@ -252,7 +257,7 @@
             <li>Your own cabin and independence — plus people to share the trip with</li>
             <li>Group dinners, meetups, and shore plans you can join or skip, no pressure</li>
           </ul>
-          <a class="btn dark" href="https://maulsbytravel.com/contact/">Ask About Hosted Sailings</a>
+          <a class="btn ghost-navy" href="https://maulsbytravel.com/contact/">Ask About Hosted Sailings</a>
           <!-- [TINA: if you have specific upcoming hosted sailings, list dates/ships here] -->
         </div>
       </div>
@@ -275,21 +280,21 @@
   <!-- ===================== COMMUNITY ===================== -->
   <section class="community" id="community">
     <div class="wrap center">
-      <span class="eyebrow" style="color:#cfe4ec">Travel solo, never alone</span>
+      <span class="eyebrow">Travel solo, never alone</span>
       <h2>Join the community first</h2>
-      <p class="lead">Not ready to book? Start by meeting your people. Our Solo Cruisers group is one of the largest solo cruising communities anywhere — tens of thousands of members swapping tips, stories, and sailing plans every day.</p>
+      <p class="lead" style="max-width:700px;margin:0 auto">Not ready to book? Start by meeting your people. Our Solo Cruisers group is one of the largest solo cruising communities anywhere — tens of thousands of members swapping tips, stories, and sailing plans every day.</p>
       <div class="panel">
-        <p style="font-size:1.15rem;margin-bottom:20px">Come for the cruise advice. Stay for the friends you'll sail with.</p>
+        <p style="font-size:1.12rem;margin-bottom:20px;color:var(--ink)">Come for the cruise advice. Stay for the friends you'll sail with.</p>
         <a class="btn" href="https://www.facebook.com/groups/1739046412949279" target="_blank" rel="noopener">Join the Solo Cruisers Group</a>
       </div>
     </div>
   </section>
 
   <!-- ===================== FAQ ===================== -->
-  <section id="faq">
+  <section id="faq" style="background:var(--bg-alt)">
     <div class="wrap">
       <div class="center"><span class="eyebrow">Good questions</span><h2>Solo cruising, answered</h2></div>
-      <div style="max-width:780px;margin:36px auto 0">
+      <div style="max-width:780px;margin:34px auto 0">
         <details><summary>Will I actually be alone on the ship?</summary><p>Only as alone as you want to be. You get your own cabin and the freedom to do your own thing — but with our hosted sailings and community, there are friendly faces for dinner, shore days, or a drink whenever you'd like company.</p></details>
         <details><summary>Do I have to be single to travel solo?</summary><p>Not at all. Solo isn't single. Plenty of our solo cruisers are married — they just love traveling on their own terms. This is a solo community, not a dating or singles group.</p></details>
         <details><summary>What about the single supplement — won't sailing alone cost double?</summary><p>Sometimes solo travel carries a supplement, but it varies a lot by cruise line and sailing. Part of my job is finding the lines, ships, and dates that treat solo travelers fairly — including dedicated solo cabins where they exist.</p></details>
@@ -305,7 +310,7 @@
     <div class="wrap">
       <h2>Ready to stop waiting?</h2>
       <p>Your next adventure doesn't need anyone's permission. Let's plan it together.</p>
-      <a class="btn dark" href="https://maulsbytravel.com/contact/">Book a Free Consult</a>
+      <a class="btn orange" href="https://maulsbytravel.com/contact/">Book a Free Consult</a>
       <div class="contacts">
         <a href="tel:+19105285077">📞 910-528-5077</a>
         <a href="mailto:tina@maulsbytravel.com">✉️ tina@maulsbytravel.com</a>
