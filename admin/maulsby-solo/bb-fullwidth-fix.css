@@ -6,17 +6,15 @@
         Everything above (your #mt-solo styles) stays unchanged.
    Scoped to this page only (.page-id-10503) — nothing else on the site changes.
    ---------------------------------------------------------------------------
-   Two problems were seen on the live page and are fixed here:
-
-   A) FULL WIDTH — Beaver Builder put the content in a fixed-width centered row,
-      and the theme wraps pages in a ~1000px Foundation column, so the colored
-      bands were boxed in. These rules let the design span the full page width.
-
-   B) THE BIG WHITE GAP — your theme has its OWN ".cards" component (a 5-column
-      grid with fixed per-card placements). Our 3 value cards reused that class
-      name, so the theme forced them into broken slivers ~695px tall = a huge
-      empty area. Resetting the grid restores 3 normal cards (verified: card
-      height 695px -> 231px, 3 equal columns).
+   Fixes three things seen on the live page:
+   A) FULL WIDTH — Beaver Builder's fixed-width row + the theme's centered
+      Foundation column were boxing the colored bands. These let it span full.
+   B) BROKEN CARDS — the theme has its OWN ".cards" grid component (5 columns,
+      per-card grid-area placements). Our 3 cards reused that class, so they got
+      forced into slivers. Reset columns + each card's grid-area.
+   C) WHITE GAP BELOW CARDS — the theme also sets .cards grid-template-rows to
+      repeat(3,1fr), so our 1 row of cards reserved 2 empty rows beneath
+      (container was 784px; now 247px). grid-template-rows:auto removes it.
    =========================================================================== */
 
 /* A) Full width ------------------------------------------------------------ */
@@ -29,8 +27,11 @@
 .page-id-10503{overflow-x:hidden}
 .page-id-10503 #mt-solo{width:100vw; margin-left:calc(50% - 50vw)}
 
-/* B) Fix the value-cards grid (beat the theme's own .cards component) ------- */
-.page-id-10503 #mt-solo .cards{grid-template-columns:repeat(3,1fr) !important}
+/* B + C) Fix the value-cards grid (beat the theme's .cards component) ------- */
+.page-id-10503 #mt-solo .cards{
+  grid-template-columns:repeat(3,1fr) !important;
+  grid-template-rows:auto !important;
+}
 .page-id-10503 #mt-solo .cards .card{grid-area:auto !important}
 @media (max-width:860px){
   .page-id-10503 #mt-solo .cards{grid-template-columns:1fr !important}
