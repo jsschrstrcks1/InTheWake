@@ -52,7 +52,8 @@
   },
   "deck_layout": {
     "_source_primary": "https://www.cruisemapper.com/deckplans/Anthem-of-the-Seas-801 (deck names + venue decks) cross-checked against https://www.cruisedeckplans.com/ships/deckbydeck.php?ship=Anthem-of-the-Seas&deck=N per-deck pages",
-    "_official_reference": "https://www.royalcaribbean.com/cruise-ships/anthem-of-the-seas/deck-plans (JS-rendered; linked for readers as canonical, not used as a data source)",
+    "_official_reference": "https://www.royalcaribbean.com/cruise-ships/anthem-of-the-seas/deck-plans (JS-rendered template — WebFetch returns only {{ deck.name }} placeholders, confirmed 2026-06-17 — so not machine-readable; linked for readers as canonical)",
+    "_primary_source_verification_2026_06_17": "Operator supplied two screenshots of the RENDERED royalcaribbean.com deck-plan interface (IMG_2408, IMG_2409). These confirm, from Royal Caribbean's own page: (1) the deck selector runs Deck Three through Deck Sixteen (14 decks), matching the 14-passenger-accessible figure; (2) Deck Three carries a 'Spacious Ocean View - Accessible' stateroom category — extra square footage, in-stateroom window, up to 4 guests, one Royal King bed convertible to two twins. This upgrades the Deck 3 stateroom claim and the accessible-ocean-view detail from secondary-provider corroboration to primary-source (RC) confirmation.",
     "verified": "2026-06-17",
     "cabin_decks": {
       "value": "Staterooms are on Decks 3, 6, 7, 8, 9, 10, 11, 12, 13 (nine decks)",
@@ -79,6 +80,12 @@
         "source": "https://www.cruisedeckplans.com/ships/deckbydeck.php?ship=Anthem-of-the-Seas&deck=7 (lead re-fetch 2026-06-17, verbatim: 'Aft inside cabins are above Two70 lounge and may hear noise from that area during show times.')",
         "verified": "2026-06-17",
         "disposition": "stated as fact"
+      },
+      "deck_3_accessible_ocean_view": {
+        "claim": "Deck 3 has a Spacious Ocean View (Accessible) stateroom category with extra square footage, an in-stateroom window, capacity up to 4, one Royal King bed convertible to two twins",
+        "source": "royalcaribbean.com Anthem deck-plan interface, Deck Three view (operator screenshots IMG_2408/IMG_2409, 2026-06-17) — primary source",
+        "verified": "2026-06-17",
+        "disposition": "stated as fact (primary source)"
       }
     },
     "opinion_grade": {
@@ -106,6 +113,12 @@
         "source": "cruisemummy (opinion) + Adventure Ocean deck location confirmed authoritative on CruiseMapper Decks 11-12",
         "verified": "2026-06-17",
         "disposition": "location authoritative; noise inference framed as opinion"
+      },
+      "deck_3_entertainment_noise": {
+        "claim": "Deck 3 cabins share the deck with the Royal Theatre, Music Hall and Casino Royale; light sleepers should look twice at Decks 3, 6 and 13",
+        "source": "Venue locations authoritative (CruiseMapper Deck 3). 'Cabins to avoid... decks 3, 6 and 13' is opinion/UGC guidance corroborated via WebSearch 2026-06-17 (cruiseline.com / cruisemapper cabin guidance).",
+        "verified": "2026-06-17",
+        "disposition": "venue locations authoritative; light-sleeper grouping framed as guidance"
       }
     },
     "discarded_claims": [
