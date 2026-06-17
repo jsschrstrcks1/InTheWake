@@ -49,6 +49,10 @@ the affirmation/weather logic stays inside the encrypted payload. Editing inner
 content is a decrypt → edit → re-encrypt round-trip (SALT/IV/CT re-embedded;
 PBKDF2-SHA256 + AES-GCM, passphrase `I am chosen`).
 
+> **Related:** the same Worker + KV + VAPID also back the two-way "write back"
+> thread — see [`jerusha-write-back.md`](jerusha-write-back.md). Stand the Worker
+> up once; both features ride it.
+
 ## Phase 2 — push affirmations
 
 - Generate a VAPID keypair. Public key ships in the page; **private key is a
