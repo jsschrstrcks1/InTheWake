@@ -2,6 +2,13 @@ name = "jerusha-notes"
 main = "worker.js"
 compatibility_date = "2026-06-01"
 
+# IMPORTANT: NOTES holds the keepsake thread. The `id` MUST be your real, STABLE
+# namespace id and must NEVER change between deploys — if it changes, the worker
+# binds an EMPTY namespace and the thread "disappears" (it's still in the old
+# namespace, just not bound). This is the most likely cause of a vanished note.
+#   List/confirm the id:  wrangler kv namespace list
+#   Create once (first):  wrangler kv namespace create NOTES
+#   Inspect what's there: wrangler kv key list --binding NOTES
 kv_namespaces = [
   { binding = "NOTES", id = "PASTE_KV_NAMESPACE_ID_HERE" }
 ]

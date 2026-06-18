@@ -7,7 +7,7 @@
       assets so the page opens and decrypts without a connection.
    Single-user personal page, so skipWaiting/clients.claim are intentional. */
 
-const CACHE = "jerusha-v1";
+const CACHE = "jerusha-v3";
 const PRECACHE = [
   "/admin/weather-jerusha.html",
   "/admin/jerusha-icons/icon-192.png",
@@ -35,7 +35,27 @@ self.addEventListener("fetch", (e) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (NO_CACHE.some((h) => url.hostname.endsWith(h))) return; // network passthrough
-  // cache-first for the shell + static assets (same-origin + cdnjs libs)
+
+  // The HTML shell is NETWORK-FIRST: always try the live page so content updates
+  // (gallery fixes, new tabs, the encrypted payload) actually reach an installed
+  // device. A cache-first shell with a frozen cache name pins the user to a stale
+  // page forever — that was the bug. Fall back to cache only when offline.
+  const isShell = req.mode === "navigate" ||
+    (url.origin === self.location.origin && url.pathname === "/admin/weather-jerusha.html");
+  if (isShell) {
+    e.respondWith(
+      fetch(req).then((res) => {
+        if (res && res.status === 200) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put("/admin/weather-jerusha.html", copy));
+        }
+        return res;
+      }).catch(() => caches.match("/admin/weather-jerusha.html"))
+    );
+    return;
+  }
+
+  // Static assets (icons, cdnjs libs) stay CACHE-FIRST — they're versioned/stable.
   e.respondWith(
     caches.match(req).then((hit) =>
       hit ||
