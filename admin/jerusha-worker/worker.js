@@ -37,7 +37,17 @@ const AFFIRM = [
 /* ---------- helpers ---------- */
 function cors(x = {}) { return { "Access-Control-Allow-Origin": ALLOW_ORIGIN, "Access-Control-Allow-Methods": "GET,POST,OPTIONS", "Access-Control-Allow-Headers": "Authorization,Content-Type", "Vary": "Origin", ...x }; }
 function json(o, s = 200) { return new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json", ...cors() } }); }
-function authed(req, env) { const h = req.headers.get("Authorization") || "", t = h.startsWith("Bearer ") ? h.slice(7) : ""; return !!env.NOTES_TOKEN && t.length === env.NOTES_TOKEN.length && t === env.NOTES_TOKEN; }
+// Auth = the shared bot-filter token. Accept it three ways so different clients
+// can all reach the worker: Bearer header (the page), HTTP Basic password
+// (OwnTracks on iOS, which can't set a Bearer header), or a ?k= query param.
+function authed(req, env) {
+  const T = env.NOTES_TOKEN; if (!T) return false;
+  const eq = (t) => typeof t === "string" && t.length === T.length && t === T;
+  const h = req.headers.get("Authorization") || "";
+  if (h.startsWith("Bearer ")) return eq(h.slice(7));
+  if (h.startsWith("Basic ")) { try { const d = atob(h.slice(6)); return eq(d.slice(d.indexOf(":") + 1)); } catch (_) { return false; } }
+  return eq(new URL(req.url).searchParams.get("k"));
+}
 function b64uTo(b) { b = b.replace(/-/g, "+").replace(/_/g, "/"); while (b.length % 4) b += "="; const s = atob(b), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u; }
 function toB64u(buf) { const u = new Uint8Array(buf); let s = ""; for (let i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
 function cat() { let n = 0; for (const a of arguments) n += a.length; const o = new Uint8Array(n); let p = 0; for (const a of arguments) { o.set(a, p); p += a.length; } return o; }
@@ -125,7 +135,8 @@ export default {
         const ts = new Date().toISOString();
         const rec = { v: 1, lat: Math.round(lat * 1000) / 1000, lon: Math.round(lon * 1000) / 1000, ts };
         await env.NOTES.put("loc:" + ts, JSON.stringify(rec), { expirationTtl: 864000 }); // 10 days
-        return json({ ok: true }, 201);
+        return json([]); // OwnTracks expects a JSON array (friend cards); empty is fine
+
       }
       if (req.method === "GET") {
         const since = url.searchParams.get("since") || "";
