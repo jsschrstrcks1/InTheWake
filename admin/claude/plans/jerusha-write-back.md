@@ -42,8 +42,9 @@ Your page ◀──decrypt──────  GET /notes?since= ◀──       
 
 **Default: symmetric E2EE, reusing the page's existing crypto.** The page already
 derives an AES-GCM key via PBKDF2-SHA256 (150k iters) from the passphrase. Each
-note is encrypted client-side with AES-GCM under a **notes key** (derived the same
-way, from the page passphrase or a separate notes passphrase — decide at build) and a
+note is encrypted client-side with AES-GCM under a **notes key** derived the same
+way from **the page passphrase** (DECIDED 2026-06-18: same passphrase as the page,
+not a separate one) and a
 **fresh random 12-byte IV per note**. Only `{iv, ciphertext, sender, ts}` is
 POSTed. Your "Us" tab pulls the list and decrypts with the same key.
 
@@ -138,8 +139,10 @@ two-person volume.
 
 ## Open questions to confirm before Phase 1
 
-1. Same page passphrase for the notes key, or a **separate** notes
-   passphrase? (Separate = compromising one doesn't expose the other.)
+1. ~~Same page passphrase for the notes key, or a separate one?~~ **DECIDED: same
+   as the page passphrase.** (Tradeoff accepted: compromising the page passphrase
+   would also expose the notes — fine for two people; the public-key Phase 4
+   upgrade remains available later.)
 2. Worker host: a `*.workers.dev` subdomain, or a route on `cruisinginthewake.com`
    (cleaner, needs the domain on Cloudflare — see the PWA plan's open question).
 3. Retention: keep everything (recommended, it's a keepsake) vs. cap.
