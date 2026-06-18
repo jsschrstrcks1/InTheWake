@@ -1,7 +1,6 @@
 # Jerusha — day-to-day itinerary (source for push + daily prompts)
 
-**Status:** Captured, **partial** (Day 7 incomplete, Day 8 to come — "will send
-the rest later"). This is the human source of truth that the push schedule
+**Status:** Captured, **complete** (Days 1–9, incl. the flight home). This is the human source of truth that the push schedule
 ([`jerusha-pwa-push.md`](jerusha-pwa-push.md)) and the write-back daily prompts
 ([`jerusha-write-back.md`](jerusha-write-back.md)) will read.
 **Last updated:** 2026-06-17
@@ -70,12 +69,19 @@ So her clock runs **+12 h ahead of PDT** and **+13 h ahead of AKDT**. Example: a
 - noon — lunch
 - afternoon — pool
 
-### Day 7 — Sun Jul 5 · Victoria, BC (PDT)
-- 7:00 am — breakfast
-- *(rest to come)*
+### Day 7 — Sun Jul 5 · Victoria, BC (PDT) — evening call
+- 7:00 am — breakfast (at sea, approaching Victoria)
+- ~7:00 pm — ashore in Victoria; find dinner
+- 9:30 pm — all aboard
 
 ### Day 8 — Mon Jul 6 · Seattle, disembark
-- *(to come)*
+- ~9:00 am — disembark
+- overnight in Seattle (likely staying at Mandy's)
+
+### Day 9 — Tue Jul 7 · fly home (post-cruise)
+- 9:58 am — flight out of Seattle (SeaTac / SEA)
+- 6:35 pm — land at Tampa (TPA)
+- dinner on the way home — BBQ at Hungry Harry's
 
 ---
 
@@ -91,7 +97,8 @@ time), referencing what's happening aboard. These are drafts for you to edit:
 - **Day 5:** "Up at 5 for Dawes Glacier, then whales this afternoon. Two of my favorite things; you're the third I'm missing."
 - **Day 6:** "Last sea day. Slow morning, pool later. Counting down to seeing you."
 - **Day 7:** "Victoria — almost home. Harbor lights and gardens. Saving it all to tell you."
-- **Day 8:** *(pending Day 8 details)*
+- **Day 8:** "Off the ship in Seattle this morning — staying at Mandy's. The trip's behind me; you're still ahead of me."
+- **Day 9:** "Flying home today, Seattle to Tampa. Wheels down at 6:35, BBQ on the way. Wish the next flight was toward you."
 
 And matching **write-back prompts** (seed her side of the thread), e.g. Day 3:
 "What would you want to see first in Sitka?" · Day 4: "Train window seat or
@@ -101,7 +108,7 @@ caboose?" · Day 5: "Whales or the glacier?"
 
 ## To finish
 
-1. Day 7 remainder + Day 8 (you'll send).
+1. ~~Day 7 remainder + Day 8~~ — **complete (Days 1–9 captured).**
 2. Confirm ship-time policy → lock the PKT conversions for push timing.
 3. On build: derive a machine-readable version (date-keyed JSON) the Worker reads
    for both the push schedule and the daily prompts.
