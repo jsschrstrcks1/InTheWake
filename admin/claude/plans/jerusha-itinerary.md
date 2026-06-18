@@ -3,7 +3,7 @@
 **Status:** Captured, **complete** (Days 1–9, incl. the flight home). This is the human source of truth that the push schedule
 ([`jerusha-pwa-push.md`](jerusha-pwa-push.md)) and the write-back daily prompts
 ([`jerusha-write-back.md`](jerusha-write-back.md)) will read.
-**Last updated:** 2026-06-17
+**Last updated:** 2026-06-18 (added Day 0 outbound AS 640 + Day 9 AS 262 flight numbers)
 
 ## Timezones (confirm before wiring push times)
 
@@ -24,6 +24,10 @@ So her clock runs **+12 h ahead of PDT** and **+13 h ahead of AKDT**. Example: a
 ---
 
 ## Itinerary (as provided)
+
+### Day 0 — Sat Jun 28 · fly Tampa → Seattle (pre-cruise)
+- Alaska Airlines **AS 640**, Tampa (TPA) → Seattle (SEA) — ~6 h flight (route verified). ⚠️ exact dep/arr times **unconfirmed** — flight-trackers only show today's AS640, so confirm on your Alaska reservation.
+- overnight in Seattle before embarkation
 
 ### Day 1 — Mon Jun 29 · Seattle, embark (PDT)
 - 11:00 am — get in line to board
@@ -79,8 +83,7 @@ So her clock runs **+12 h ahead of PDT** and **+13 h ahead of AKDT**. Example: a
 - overnight in Seattle (likely staying at Mandy's)
 
 ### Day 9 — Tue Jul 7 · fly home (post-cruise)
-- 9:58 am — flight out of Seattle (SeaTac / SEA)
-- 6:35 pm — land at Tampa (TPA)
+- Alaska Airlines **AS 262**, Seattle (SeaTac/SEA) → Tampa (TPA) — dep **9:58 am**, arr **6:35 pm** (per your booking)
 - dinner on the way home — BBQ at Hungry Harry's
 
 ---
