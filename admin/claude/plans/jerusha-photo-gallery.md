@@ -1,7 +1,7 @@
 # Jerusha page — photo gallery plan
 
 **Status:** Planned. Not built yet.
-**Target:** `admin/weather-jerusha.html` (static, client-side AES-GCM page; passphrase `I am chosen`).
+**Target:** `admin/weather-jerusha.html` (static, client-side AES-GCM page; passphrase set out-of-band).
 **Decision (locked):** photos live in a **repo folder I wire in** — they ship with the page, show on all her devices, survive reinstall. Scope of content expansion: all stops, researched + cited (separate task).
 **Last updated:** 2026-06-17
 
