@@ -1,7 +1,7 @@
 # Jerusha page — PWA install + push affirmations
 
 **Status:** Planned. Nothing built yet. The page ships as-is: in-page affirmation
-rotation on every load and every 5 minutes, passphrase `I am chosen`.
+rotation on every load and every 5 minutes, passphrase set out-of-band.
 **Target page:** `admin/weather-jerusha.html` (client-side AES-GCM shell; the
 weather/radar/affirmation code lives inside the encrypted payload).
 **Last updated:** 2026-06-16
@@ -25,7 +25,7 @@ weather/radar/affirmation code lives inside the encrypted payload).
 2. Her device is on **iOS 16.4+**? Web Push on iOS exists only from 16.4, and only
    for an installed (Add-to-Home-Screen) PWA.
 3. Installed-app convenience: remember the passphrase on her device, or re-enter
-   `I am chosen` each launch? (Trade-off: convenience vs. the gate's whole point.)
+   the page passphrase each launch? (Trade-off: convenience vs. the gate's whole point.)
 
 ---
 
@@ -47,7 +47,7 @@ Goal: she can Add to Home Screen, and the page opens and decrypts offline.
 **Note:** the SW registration and manifest link sit in the *plaintext* shell, but
 the affirmation/weather logic stays inside the encrypted payload. Editing inner
 content is a decrypt → edit → re-encrypt round-trip (SALT/IV/CT re-embedded;
-PBKDF2-SHA256 + AES-GCM, passphrase `I am chosen`).
+PBKDF2-SHA256 + AES-GCM, passphrase set out-of-band).
 
 > **Related:** the same Worker + KV + VAPID also back the two-way "write back"
 > thread — see [`jerusha-write-back.md`](jerusha-write-back.md). Stand the Worker

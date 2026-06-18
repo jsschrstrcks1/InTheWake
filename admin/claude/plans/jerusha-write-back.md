@@ -2,7 +2,7 @@
 
 **Status:** Planned. Not built. Depends on the Cloudflare Worker from
 [`jerusha-pwa-push.md`](jerusha-pwa-push.md) (shares its Worker + KV + VAPID).
-**Target:** `admin/weather-jerusha.html` (static, client-side AES-GCM page; passphrase `I am chosen`).
+**Target:** `admin/weather-jerusha.html` (static, client-side AES-GCM page; passphrase set out-of-band).
 **Goal:** a private, two-way thread so Jerusha can write back and it actually
 reaches you — and you can reply — across the distance (she's in Lahore, PKT).
 **Last updated:** 2026-06-17
@@ -43,7 +43,7 @@ Your page ◀──decrypt──────  GET /notes?since= ◀──       
 **Default: symmetric E2EE, reusing the page's existing crypto.** The page already
 derives an AES-GCM key via PBKDF2-SHA256 (150k iters) from the passphrase. Each
 note is encrypted client-side with AES-GCM under a **notes key** (derived the same
-way, from `I am chosen` or a separate notes passphrase — decide at build) and a
+way, from the page passphrase or a separate notes passphrase — decide at build) and a
 **fresh random 12-byte IV per note**. Only `{iv, ciphertext, sender, ts}` is
 POSTed. Your "Us" tab pulls the list and decrypts with the same key.
 
@@ -61,7 +61,7 @@ More moving parts (key storage, a crypto lib) — note as Phase 4, not Phase 1.
 
 - Key `notes:thread` → JSON array, appended. Each entry:
   ```json
-  {"id":"<uuid>","sender":"jerusha|jol","ts":1718600000,"iv":"<b64>","ct":"<b64>"}
+  {"id":"<uuid>","sender":"jerusha|me","ts":1718600000,"iv":"<b64>","ct":"<b64>"}
   ```
 - Append = read-modify-write (low volume, two people → safe). Cap at last ~1000;
   it's a keepsake, so prefer keeping all and archiving rather than dropping.
@@ -138,7 +138,7 @@ two-person volume.
 
 ## Open questions to confirm before Phase 1
 
-1. Same passphrase (`I am chosen`) for the notes key, or a **separate** notes
+1. Same page passphrase for the notes key, or a **separate** notes
    passphrase? (Separate = compromising one doesn't expose the other.)
 2. Worker host: a `*.workers.dev` subdomain, or a route on `cruisinginthewake.com`
    (cleaner, needs the domain on Cloudflare — see the PWA plan's open question).

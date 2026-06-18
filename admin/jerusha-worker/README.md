@@ -90,7 +90,7 @@ Then, on the page side (Slice 1b, a decrypt→edit→re-encrypt cycle):
 
 ## Decisions needed before deploy
 
-1. Notes key from `I am chosen` or a **separate** notes passphrase? (Separate =
+1. Notes key from the page passphrase or a **separate** notes passphrase? (Separate =
    compromising one doesn't expose the other.)
 2. Worker host: `*.workers.dev` subdomain, or a `cruisinginthewake.com` route
    (needs the domain on Cloudflare).
