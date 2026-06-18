@@ -93,11 +93,12 @@ Then, on the page side (Slice 1b, a decrypt→edit→re-encrypt cycle):
      Android the OS install offer appears in Chrome's ⋮ menu once the page is live
      on `cruisinginthewake.com` over HTTPS — the custom button is polish.
 3. **Slice 3:** itinerary-keyed daily prompts + a decrypt-to-file keepsake export.
-4. **Slice 4:** live location share — `POST /loc` + `GET /loc?since=` (10-day KV TTL,
-   coarsened coords), source = OwnTracks on your phone (background), rendered as a
-   warm-gold breadcrumb on the radar map. Independent of Slice 3; **time-boxed to the
-   trip — worth doing before departure.** Full plan:
-   `../claude/plans/jerusha-location-share.md`.
+4. **Slice 4 (DONE, needs reporter app):** live location share — `POST /loc` +
+   `GET /loc?since=` (10-day KV TTL, coords coarsened to ~110 m), rendered as a
+   warm-gold breadcrumb + "here now" marker on the radar map (polls every 2 min
+   while the radar tab is open). **Source not yet wired:** install OwnTracks on
+   your phone (HTTP mode → `POST https://<worker>/loc`, `Authorization: Bearer
+   <NOTES_TOKEN>`). Full plan: `../claude/plans/jerusha-location-share.md`.
 5. **Slice 5:** notes persistence & durability — verify `note:` keys carry no TTL,
    full-history re-sync to a wiped device, in-page export/import keepsake, and an
    off-Cloudflare ciphertext backup so the thread survives even account loss. Full

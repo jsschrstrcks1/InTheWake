@@ -112,6 +112,33 @@ export default {
       return json({ ok: true }, 201);
     }
 
+    // Live location breadcrumb (Slice 4). Source: a background reporter on Ken's
+    // phone (e.g. OwnTracks, HTTP mode + bearer). Coords are COARSENED (~110 m) and
+    // every fix carries a 10-day TTL, so the trail self-prunes to the trip window.
+    if (url.pathname === "/loc") {
+      if (req.method === "POST") {
+        const body = await req.text();
+        if (body.length > MAX_BYTES) return json({ error: "too large" }, 413);
+        let d; try { d = JSON.parse(body); } catch { return json({ error: "bad json" }, 400); }
+        const lat = Number(d.lat), lon = Number(d.lon); // OwnTracks sends {_type:"location",lat,lon,tst}
+        if (!isFinite(lat) || !isFinite(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180) return json({ error: "bad coords" }, 400);
+        const ts = new Date().toISOString();
+        const rec = { v: 1, lat: Math.round(lat * 1000) / 1000, lon: Math.round(lon * 1000) / 1000, ts };
+        await env.NOTES.put("loc:" + ts, JSON.stringify(rec), { expirationTtl: 864000 }); // 10 days
+        return json({ ok: true }, 201);
+      }
+      if (req.method === "GET") {
+        const since = url.searchParams.get("since") || "";
+        const listed = await env.NOTES.list({ prefix: "loc:", limit: 1000 });
+        const names = listed.keys.map((k) => k.name).filter((n) => n.slice(4) > since).slice(-MAX_RETURN);
+        const points = [];
+        for (const name of names) { const v = await env.NOTES.get(name); if (v) points.push(JSON.parse(v)); }
+        points.sort((a, b) => (a.ts < b.ts ? -1 : 1));
+        return json({ points });
+      }
+      return json({ error: "method not allowed" }, 405);
+    }
+
     if (url.pathname !== "/notes") return json({ error: "not found" }, 404);
 
     if (req.method === "GET") {
