@@ -69,12 +69,32 @@ wrangler deploy
 R2 free tier (10 GB storage, 1M Class-A ops/mo) covers a personal trip gallery at
 no cost.
 
+## Photos on the map, by day (requested 2026-06-18)
+
+Goal: on the **radar/map** tab, tapping a day marker shows the photos/videos
+**taken there or near there**. To make that possible, every upload is **geotagged**:
+
+- **Metadata carries `lat`, `lon`, `day`.** Captured at upload, best-effort, in this
+  order: (1) the photo's own EXIF GPS if readable; (2) else the device's current
+  `navigator.geolocation` fix; (3) else none. `day` = the matching itinerary day
+  (from the photo's date, else the current voyage day). The worker `/media` already
+  stores these fields.
+- **Map interaction:** each itinerary day marker becomes tappable; tapping it filters
+  the media to that day (and/or within ~25 km of that day's port via `lat/lon`) and
+  opens a small viewer — a popup strip or the gallery's media swiper scoped to that day.
+- **Fallback:** media with no geo still appear in the gallery's "Our trip" section;
+  they just don't pin to a day on the map.
+- This rides the same encrypted `/media` store — the map only reads metadata to decide
+  which items to show, then decrypts them the same lazy way the gallery does.
+
 ## Build order
 
 1. R2 bucket + binding + CSP `blob:` (gate+payload).
-2. Worker `/media` POST/GET/GET-id/DELETE against R2.
-3. Page: add control, chunked encrypt + upload, lazy decrypt + render, delete.
-4. Photos first (simpler, smaller), then videos (chunking + size cap + `<video>`).
+2. Worker `/media` POST/GET/GET-id/DELETE against R2 (with lat/lon/day metadata). ✓
+3. Page: add control, encrypt + upload (capture geo: EXIF → geolocation → day),
+   lazy decrypt + render, delete.
+4. Photos first (simpler, smaller), then videos (size cap + `<video>`).
+5. **Map-by-day:** make day markers tappable → show that day's geotagged media.
 
 ## Honest caveats
 

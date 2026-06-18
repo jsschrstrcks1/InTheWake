@@ -21,3 +21,9 @@ crons = ["0 3 * * *", "0 16 * * *"]
 # SECRETS (never in this file):
 #   wrangler secret put NOTES_TOKEN     # bearer (already set)
 #   wrangler secret put VAPID_PRIVATE   # Web Push signing key (Slice 2)
+
+# Encrypted photo/video gallery blobs (Slice: media). Create once:
+#   wrangler r2 bucket create jerusha-media
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "jerusha-media"
