@@ -150,6 +150,27 @@ export default {
       return json({ error: "method not allowed" }, 405);
     }
 
+    // Restore from a backup file (Slice 5b). Body {notes:[{id,sender,ts,iv,ct},...]}.
+    // Re-seeds KV using each record's OWN id+ts, so re-importing is idempotent (same
+    // key overwrites identical data — no duplicates). Bigger size cap than /notes.
+    if (url.pathname === "/import" && req.method === "POST") {
+      const body = await req.text();
+      if (body.length > 1048576) return json({ error: "too large" }, 413); // 1 MB
+      let d; try { d = JSON.parse(body); } catch { return json({ error: "bad json" }, 400); }
+      const arr = (d && Array.isArray(d.notes)) ? d.notes : (Array.isArray(d) ? d : null);
+      if (!arr) return json({ error: "bad shape" }, 400);
+      if (arr.length > 2000) return json({ error: "too many" }, 413);
+      let n = 0;
+      for (const r of arr) {
+        if (!r || typeof r.iv !== "string" || typeof r.ct !== "string" || (r.sender !== "jerusha" && r.sender !== "me")) continue;
+        const id = (typeof r.id === "string" && r.id) ? r.id : crypto.randomUUID();
+        const ts = (typeof r.ts === "string" && r.ts) ? r.ts : new Date().toISOString();
+        await env.NOTES.put("note:" + ts + "-" + id, JSON.stringify({ v: 1, id, sender: r.sender, ts, iv: r.iv, ct: r.ct }));
+        n++;
+      }
+      return json({ ok: true, imported: n }, 201);
+    }
+
     if (url.pathname !== "/notes") return json({ error: "not found" }, 404);
 
     if (req.method === "GET") {
