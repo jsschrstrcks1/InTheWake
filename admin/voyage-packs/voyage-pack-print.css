@@ -84,8 +84,18 @@ h2 {
   padding-bottom: 0.2em;
   break-before: auto;
   break-after: avoid;
+  page-break-after: avoid;
 }
 h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+/* Anti-orphan: an H2's first paragraph, list, table, or quote can't break to a new page
+ * without dragging the H2 with it. Cross-lens consensus from Typography + IA + Restraint
+ * Designer 2026-06-11 — see .private/boardroom/voyage-pack-design-verdict-2026-06-11.md
+ * Documented v0.1 lesson (15 pages of trailing blank from forced h2 page breaks) preserved
+ * — this is the safe consensus, not the forced-break fix. */
+h2 + p, h2 + ul, h2 + ol, h2 + table, h2 + blockquote {
+  break-before: avoid;
+  page-break-before: avoid;
+}
 
 /* Cover page — first .vp-cover element gets full-page treatment.
  * Big title, hero image, by-line, and a forced break to the next
@@ -183,7 +193,12 @@ ul, ol {
 li { margin: 0.25em 0; }
 li > ul, li > ol { margin-top: 0.2em; margin-bottom: 0.2em; }
 
-/* Tables */
+/* Tables — lightened 2026-06-11 per Restraint Designer + IA lens consensus.
+ * Was: full 1px solid #888 grid + teal-tinted header row. The 16-row spec table at
+ * page 2 read as a "jail cell" grid (Restraint) and was visually overwhelming (IA).
+ * Now: rope-tan hairline row separators + a single teal underline under the header.
+ * The accent palette already in use does the work the borders were doing.
+ * See .private/boardroom/voyage-pack-design-verdict-2026-06-11.md */
 table {
   border-collapse: collapse;
   width: 100%;
@@ -192,13 +207,15 @@ table {
 }
 th, td {
   page-break-inside: avoid;
-  border: 1px solid #888;
+  border: none;
+  border-bottom: 0.5pt solid #d9b382;
   padding: 0.4em 0.6em;
   text-align: left;
   vertical-align: top;
 }
 th {
-  background: #e6f4f8;
+  background: transparent;
+  border-bottom: 1.5pt solid #0e6e8e;
   color: #083041;
   font-weight: 600;
 }
@@ -236,11 +253,14 @@ pre {
 }
 pre code { background: transparent; padding: 0; }
 
-/* Links */
+/* Links — 2026-06-11 per Typography + IA lens consensus. The dotted underline
+ * was cosmetic in a print-only context (nothing to click). Weight + ink-blue now
+ * carry the distinction without the visual noise. */
 a {
   color: #0a3d62;
   text-decoration: none;
-  border-bottom: 1px dotted #0a3d62;
+  border-bottom: none;
+  font-weight: 600;
 }
 
 /* Horizontal rules — section dividers in the markdown */
