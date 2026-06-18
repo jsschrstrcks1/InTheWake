@@ -37,7 +37,17 @@ const AFFIRM = [
 /* ---------- helpers ---------- */
 function cors(x = {}) { return { "Access-Control-Allow-Origin": ALLOW_ORIGIN, "Access-Control-Allow-Methods": "GET,POST,OPTIONS", "Access-Control-Allow-Headers": "Authorization,Content-Type", "Vary": "Origin", ...x }; }
 function json(o, s = 200) { return new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json", ...cors() } }); }
-function authed(req, env) { const h = req.headers.get("Authorization") || "", t = h.startsWith("Bearer ") ? h.slice(7) : ""; return !!env.NOTES_TOKEN && t.length === env.NOTES_TOKEN.length && t === env.NOTES_TOKEN; }
+// Auth = the shared bot-filter token. Accept it three ways so different clients
+// can all reach the worker: Bearer header (the page), HTTP Basic password
+// (OwnTracks on iOS, which can't set a Bearer header), or a ?k= query param.
+function authed(req, env) {
+  const T = env.NOTES_TOKEN; if (!T) return false;
+  const eq = (t) => typeof t === "string" && t.length === T.length && t === T;
+  const h = req.headers.get("Authorization") || "";
+  if (h.startsWith("Bearer ")) return eq(h.slice(7));
+  if (h.startsWith("Basic ")) { try { const d = atob(h.slice(6)); return eq(d.slice(d.indexOf(":") + 1)); } catch (_) { return false; } }
+  return eq(new URL(req.url).searchParams.get("k"));
+}
 function b64uTo(b) { b = b.replace(/-/g, "+").replace(/_/g, "/"); while (b.length % 4) b += "="; const s = atob(b), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u; }
 function toB64u(buf) { const u = new Uint8Array(buf); let s = ""; for (let i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
 function cat() { let n = 0; for (const a of arguments) n += a.length; const o = new Uint8Array(n); let p = 0; for (const a of arguments) { o.set(a, p); p += a.length; } return o; }
@@ -112,6 +122,34 @@ export default {
       return json({ ok: true }, 201);
     }
 
+    // Live location breadcrumb (Slice 4). Source: a background reporter on Ken's
+    // phone (e.g. OwnTracks, HTTP mode + bearer). Coords are COARSENED (~110 m) and
+    // every fix carries a 10-day TTL, so the trail self-prunes to the trip window.
+    if (url.pathname === "/loc") {
+      if (req.method === "POST") {
+        const body = await req.text();
+        if (body.length > MAX_BYTES) return json({ error: "too large" }, 413);
+        let d; try { d = JSON.parse(body); } catch { return json({ error: "bad json" }, 400); }
+        const lat = Number(d.lat), lon = Number(d.lon); // OwnTracks sends {_type:"location",lat,lon,tst}
+        if (!isFinite(lat) || !isFinite(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180) return json({ error: "bad coords" }, 400);
+        const ts = new Date().toISOString();
+        const rec = { v: 1, lat: Math.round(lat * 1000) / 1000, lon: Math.round(lon * 1000) / 1000, ts };
+        await env.NOTES.put("loc:" + ts, JSON.stringify(rec), { expirationTtl: 864000 }); // 10 days
+        return json([]); // OwnTracks expects a JSON array (friend cards); empty is fine
+
+      }
+      if (req.method === "GET") {
+        const since = url.searchParams.get("since") || "";
+        const listed = await env.NOTES.list({ prefix: "loc:", limit: 1000 });
+        const names = listed.keys.map((k) => k.name).filter((n) => n.slice(4) > since).slice(-MAX_RETURN);
+        const points = [];
+        for (const name of names) { const v = await env.NOTES.get(name); if (v) points.push(JSON.parse(v)); }
+        points.sort((a, b) => (a.ts < b.ts ? -1 : 1));
+        return json({ points });
+      }
+      return json({ error: "method not allowed" }, 405);
+    }
+
     if (url.pathname !== "/notes") return json({ error: "not found" }, 404);
 
     if (req.method === "GET") {
@@ -121,7 +159,9 @@ export default {
       const out = [];
       for (const name of names) { const v = await env.NOTES.get(name); if (v) out.push(JSON.parse(v)); }
       out.sort((a, b) => (a.ts < b.ts ? -1 : 1));
-      return json({ notes: out });
+      // tombstones: ids the clients should drop from their local caches (delete propagation)
+      const del = await env.NOTES.list({ prefix: "del:", limit: 1000 });
+      return json({ notes: out, deletions: del.keys.map((k) => k.name.slice(4)) });
     }
     if (req.method === "POST") {
       const body = await req.text();
@@ -134,6 +174,18 @@ export default {
       const other = n.sender === "jerusha" ? "me" : "jerusha";
       await pushRole(env, other, null);
       return json({ ok: true, id, ts }, 201);
+    }
+    if (req.method === "DELETE") {
+      const id = url.searchParams.get("id") || "";
+      if (!id) return json({ error: "no id" }, 400);
+      // find the one note key that ends with -<id> and remove it
+      const listed = await env.NOTES.list({ prefix: "note:", limit: 1000 });
+      const k = listed.keys.find((x) => x.name.endsWith("-" + id));
+      if (k) await env.NOTES.delete(k.name);
+      // leave a tombstone so the OTHER device drops it from its cache on next sync.
+      // 90-day TTL: by then the note is long gone from every client anyway.
+      await env.NOTES.put("del:" + id, "1", { expirationTtl: 7776000 });
+      return json({ ok: true, deleted: k ? 1 : 0 });
     }
     return json({ error: "method not allowed" }, 405);
   },
