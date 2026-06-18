@@ -82,11 +82,26 @@ Then, on the page side (Slice 1b, a decrypt→edit→re-encrypt cycle):
 
 ## Build order (board-approved)
 
-1. **Slice 1 (this):** notes relay + "Us" tab thread + E2EE + offline outbox. Works
+1. **Slice 1 (DONE):** notes relay + "Us" tab thread + E2EE + offline outbox. Works
    as a refresh-on-open thread the moment the Worker is deployed. **No push needed.**
-2. **Slice 2:** Web Push — VAPID, subscribe-on-unlock, contentless push on new note,
-   Cron pushes in her Lahore-morning windows.
+2. **Slice 2 (DONE):** Web Push — VAPID, subscribe-on-unlock, contentless push on new
+   note, Cron pushes in her Lahore-morning windows.
+   - **Slice 2c (planned):** in-page "Install 💛" button — capture
+     `beforeinstallprompt` *inside the payload* (the gate's `document.write` resets
+     the document) + iOS Add-to-Home-Screen meta/hint. See
+     `../claude/plans/jerusha-location-share.md` (install-button section). Note: on
+     Android the OS install offer appears in Chrome's ⋮ menu once the page is live
+     on `cruisinginthewake.com` over HTTPS — the custom button is polish.
 3. **Slice 3:** itinerary-keyed daily prompts + a decrypt-to-file keepsake export.
+4. **Slice 4:** live location share — `POST /loc` + `GET /loc?since=` (10-day KV TTL,
+   coarsened coords), source = OwnTracks on your phone (background), rendered as a
+   warm-gold breadcrumb on the radar map. Independent of Slice 3; **time-boxed to the
+   trip — worth doing before departure.** Full plan:
+   `../claude/plans/jerusha-location-share.md`.
+5. **Slice 5:** notes persistence & durability — verify `note:` keys carry no TTL,
+   full-history re-sync to a wiped device, in-page export/import keepsake, and an
+   off-Cloudflare ciphertext backup so the thread survives even account loss. Full
+   plan: `../claude/plans/jerusha-notes-persistence.md`.
 
 ## Decisions needed before deploy
 
