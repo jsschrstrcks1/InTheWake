@@ -121,7 +121,9 @@ export default {
       const out = [];
       for (const name of names) { const v = await env.NOTES.get(name); if (v) out.push(JSON.parse(v)); }
       out.sort((a, b) => (a.ts < b.ts ? -1 : 1));
-      return json({ notes: out });
+      // tombstones: ids the clients should drop from their local caches (delete propagation)
+      const del = await env.NOTES.list({ prefix: "del:", limit: 1000 });
+      return json({ notes: out, deletions: del.keys.map((k) => k.name.slice(4)) });
     }
     if (req.method === "POST") {
       const body = await req.text();
@@ -134,6 +136,18 @@ export default {
       const other = n.sender === "jerusha" ? "me" : "jerusha";
       await pushRole(env, other, null);
       return json({ ok: true, id, ts }, 201);
+    }
+    if (req.method === "DELETE") {
+      const id = url.searchParams.get("id") || "";
+      if (!id) return json({ error: "no id" }, 400);
+      // find the one note key that ends with -<id> and remove it
+      const listed = await env.NOTES.list({ prefix: "note:", limit: 1000 });
+      const k = listed.keys.find((x) => x.name.endsWith("-" + id));
+      if (k) await env.NOTES.delete(k.name);
+      // leave a tombstone so the OTHER device drops it from its cache on next sync.
+      // 90-day TTL: by then the note is long gone from every client anyway.
+      await env.NOTES.put("del:" + id, "1", { expirationTtl: 7776000 });
+      return json({ ok: true, deleted: k ? 1 : 0 });
     }
     return json({ error: "method not allowed" }, 405);
   },
