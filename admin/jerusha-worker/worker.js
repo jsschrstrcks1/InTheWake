@@ -35,7 +35,7 @@ const AFFIRM = [
 ];
 
 /* ---------- helpers ---------- */
-function cors(x = {}) { return { "Access-Control-Allow-Origin": ALLOW_ORIGIN, "Access-Control-Allow-Methods": "GET,POST,OPTIONS", "Access-Control-Allow-Headers": "Authorization,Content-Type", "Vary": "Origin", ...x }; }
+function cors(x = {}) { return { "Access-Control-Allow-Origin": ALLOW_ORIGIN, "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS", "Access-Control-Allow-Headers": "Authorization,Content-Type", "Vary": "Origin", ...x }; }
 function json(o, s = 200) { return new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json", ...cors() } }); }
 // Auth = the shared bot-filter token. Accept it three ways so different clients
 // can all reach the worker: Bearer header (the page), HTTP Basic password
