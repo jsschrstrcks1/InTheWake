@@ -2,18 +2,15 @@ name = "jerusha-notes"
 main = "worker.js"
 compatibility_date = "2026-06-01"
 
-# KV namespace for the thread. Create it, then paste the id here:
-#   wrangler kv namespace create NOTES
 kv_namespaces = [
   { binding = "NOTES", id = "PASTE_KV_NAMESPACE_ID_HERE" }
 ]
 
-# SECRETS — do NOT put these in this file or in git. Set them with:
-#   wrangler secret put NOTES_TOKEN     # bearer token (also lives in the encrypted page)
-# Slice 2 will add:
-#   wrangler secret put VAPID_PRIVATE_KEY
-#   (VAPID public key + subject ship in the page; private key is a Worker secret)
+# Daily push windows (UTC). Lahore is UTC+5:
+#   03:00 UTC = 8:00 AM Lahore (morning) · 16:00 UTC = 9:00 PM Lahore (evening)
+[triggers]
+crons = ["0 3 * * *", "0 16 * * *"]
 
-# Cron (Slice 2, push schedule in Lahore-time windows) — left commented until push lands:
-# [triggers]
-# crons = ["0 1,7,14 * * *"]   # placeholder; real windows derive from the itinerary
+# SECRETS (never in this file):
+#   wrangler secret put NOTES_TOKEN     # bearer (already set)
+#   wrangler secret put VAPID_PRIVATE   # Web Push signing key (Slice 2)
