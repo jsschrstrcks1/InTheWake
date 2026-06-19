@@ -193,48 +193,6 @@ export default {
       return json({ error: "method not allowed" }, 405);
     }
 
-    // Encrypted media gallery (photos + videos). Ciphertext blobs in R2 (binding
-    // MEDIA), small metadata in KV. R2 object = [12-byte IV][AES-GCM ct]; zero-knowledge.
-    // Metadata carries optional lat/lon/day so photos can surface on the map by day.
-    if (url.pathname === "/media" || url.pathname.startsWith("/media/")) {
-      if (!env.MEDIA) return json({ error: "media bucket missing" }, 500);
-      const pid = url.pathname.startsWith("/media/") ? decodeURIComponent(url.pathname.slice(7)) : (url.searchParams.get("id") || "");
-      if (req.method === "POST") {
-        const id = pid || crypto.randomUUID();
-        const q = url.searchParams;
-        const kind = q.get("kind") === "video" ? "video" : "photo";
-        const mime = (q.get("mime") || "").slice(0, 80);
-        const lat = q.get("lat") != null && isFinite(Number(q.get("lat"))) ? Number(q.get("lat")) : null;
-        const lon = q.get("lon") != null && isFinite(Number(q.get("lon"))) ? Number(q.get("lon")) : null;
-        const day = (q.get("day") || "").slice(0, 12) || null;
-        const len = Number(req.headers.get("content-length") || 0);
-        if (len > 62914560) return json({ error: "too large" }, 413); // 60 MB ciphertext
-        await env.MEDIA.put("media/" + id, req.body);
-        const ts = new Date().toISOString();
-        await env.NOTES.put("media:" + ts + "-" + id, JSON.stringify({ v: 1, id, kind, mime, lat, lon, day, ts }));
-        return json({ ok: true, id, ts }, 201);
-      }
-      if (req.method === "GET" && !pid) {
-        const listed = await env.NOTES.list({ prefix: "media:", limit: 1000 });
-        const out = [];
-        for (const k of listed.keys) { const v = await env.NOTES.get(k.name); if (v) out.push(JSON.parse(v)); }
-        out.sort((a, b) => (a.ts < b.ts ? -1 : 1));
-        return json({ media: out });
-      }
-      if (req.method === "GET" && pid) {
-        const obj = await env.MEDIA.get("media/" + pid);
-        if (!obj) return json({ error: "not found" }, 404);
-        return new Response(obj.body, { headers: { "Content-Type": "application/octet-stream", ...cors() } });
-      }
-      if (req.method === "DELETE" && pid) {
-        await env.MEDIA.delete("media/" + pid);
-        const listed = await env.NOTES.list({ prefix: "media:", limit: 1000 });
-        const k = listed.keys.find((x) => x.name.endsWith("-" + pid));
-        if (k) await env.NOTES.delete(k.name);
-        return json({ ok: true });
-      }
-      return json({ error: "method not allowed" }, 405);
-    }
 
     // Restore from a backup file (Slice 5b). Body {notes:[{id,sender,ts,iv,ct},...]}.
     // Re-seeds KV using each record's OWN id+ts, so re-importing is idempotent (same
