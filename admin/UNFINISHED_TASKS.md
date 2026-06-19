@@ -26,6 +26,19 @@
 
 ---
 
+## P2 — Data-integrity: Anthem of the Seas deck count (2026-06-17)
+
+**Severity:** Non-blocking, factual. **File:** `assets/data/ships/rcl/anthem-of-the-seas.page.json`
+**Found by:** Original research during the deck-plans article build (`articles/anthem-of-the-seas-deck-plans.html`).
+
+`page.json` records `decks_total: 18` and `decks_guest: 16`. Independent sources contradict this:
+- Wikipedia (infobox): "16 (14 passenger-accessible)" — https://en.wikipedia.org/wiki/Anthem_of_the_Seas
+- CruiseMapper: "16 decks (15 accessible to passengers, 9 with cabins)" — https://www.cruisemapper.com/deckplans/Anthem-of-the-Seas-801
+
+All external sources agree on **16 total decks**; the repo's "18" appears wrong. The article uses the verified 16/14/9 figures and does NOT propagate the repo number. Decision needed: correct `page.json` (and verify whether the ship-page body repeats the 18 figure) against a primary source before editing. Not touched in the article-build session per scope agreement.
+
+---
+
 ## P0 — Flickr "public feed" Attribution Audit (2026-04-12)
 
 **Severity:** BLOCKING for affected ports — legal/attribution liability

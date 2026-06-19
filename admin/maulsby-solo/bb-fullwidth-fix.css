@@ -1,0 +1,38 @@
+/* ===========================================================================
+   Solo page (#10503) — LIVE FIXES  (verified by actually rendering the page)
+   PASTE TARGET: Appearance → Customize → Additional CSS
+   HOW: replace the ".page-id-10503 ..." lines at the BOTTOM of your Additional
+        CSS with THIS whole block, then click the blue PUBLISH button.
+        Everything above (your #mt-solo styles) stays unchanged.
+   Scoped to this page only (.page-id-10503) — nothing else on the site changes.
+   ---------------------------------------------------------------------------
+   Fixes three things seen on the live page:
+   A) FULL WIDTH — Beaver Builder's fixed-width row + the theme's centered
+      Foundation column were boxing the colored bands. These let it span full.
+   B) BROKEN CARDS — the theme has its OWN ".cards" grid component (5 columns,
+      per-card grid-area placements). Our 3 cards reused that class, so they got
+      forced into slivers. Reset columns + each card's grid-area.
+   C) WHITE GAP BELOW CARDS — the theme also sets .cards grid-template-rows to
+      repeat(3,1fr), so our 1 row of cards reserved 2 empty rows beneath
+      (container was 784px; now 247px). grid-template-rows:auto removes it.
+   =========================================================================== */
+
+/* A) Full width ------------------------------------------------------------ */
+.page-id-10503 .fl-raw{display:block}
+.page-id-10503 .fl-row-content{max-width:none !important}
+.page-id-10503 .fl-row-content-wrap{padding-left:0 !important; padding-right:0 !important}
+.page-id-10503 .fl-col-content{padding:0 !important}
+.page-id-10503 .fl-module,
+.page-id-10503 .fl-module-content{margin:0 !important}
+.page-id-10503{overflow-x:hidden}
+.page-id-10503 #mt-solo{width:100vw; margin-left:calc(50% - 50vw)}
+
+/* B + C) Fix the value-cards grid (beat the theme's .cards component) ------- */
+.page-id-10503 #mt-solo .cards{
+  grid-template-columns:repeat(3,1fr) !important;
+  grid-template-rows:auto !important;
+}
+.page-id-10503 #mt-solo .cards .card{grid-area:auto !important}
+@media (max-width:860px){
+  .page-id-10503 #mt-solo .cards{grid-template-columns:1fr !important}
+}

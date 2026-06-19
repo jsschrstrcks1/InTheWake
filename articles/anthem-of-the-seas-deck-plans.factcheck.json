@@ -1,0 +1,166 @@
+{
+  "_doctrine": ".claude/skills/original-research/SKILL.md",
+  "_note": "Sidecar for the Anthem of the Seas deck-plans article. Every claim verified in-session via WebFetch on 2026-06-17 by the lead (re-fetched independently of the research subagents). Royal Caribbean's own deck-plan page is JavaScript-rendered and yielded no machine-readable deck data, so deck-level detail rests on CruiseMapper + cruisedeckplans (cross-checked) and top-line specs on Wikipedia. The article does NOT claim Royal Caribbean as the source for deck-level detail and links readers to RC's official interactive plans as the canonical check. No claim is taken from training data or from another file in this repo.",
+  "article_filename": "anthem-of-the-seas-deck-plans.html",
+  "last_factcheck_date": "2026-06-17",
+  "verified_by": "Claude (operator-supervised); two research subagents gathered, lead re-verified every authoritative claim against the source URL",
+  "verification_session": "Deck-plans article build 2026-06-17. Pre-trip research framing: author sails Anthem within ~2 weeks; no first-hand Anthem experience claimed.",
+  "ship_specs": {
+    "class": {
+      "value": "Quantum-class (the second of five Quantum-class ships)",
+      "source": "https://en.wikipedia.org/wiki/Anthem_of_the_Seas",
+      "verified": "2026-06-17"
+    },
+    "builder": {
+      "value": "Meyer Werft, Papenburg, Germany",
+      "source": "https://en.wikipedia.org/wiki/Anthem_of_the_Seas",
+      "verified": "2026-06-17"
+    },
+    "entered_service": {
+      "value": "2015 (maiden voyage 22 April 2015)",
+      "source": "https://en.wikipedia.org/wiki/Anthem_of_the_Seas",
+      "verified": "2026-06-17"
+    },
+    "gross_tonnage": {
+      "value": "168,666 GT",
+      "source": "https://en.wikipedia.org/wiki/Anthem_of_the_Seas",
+      "verified": "2026-06-17",
+      "notes": "ship-technology.com reports 167,800t (likely displacement, different basis); 168,666 GT used as the registered figure."
+    },
+    "length_beam": {
+      "value": "347.06 m / 1,138 ft 8 in long; 49.4 m / 162 ft 1 in beam (max)",
+      "source": "https://en.wikipedia.org/wiki/Anthem_of_the_Seas",
+      "verified": "2026-06-17"
+    },
+    "decks": {
+      "value": "16 decks total; 14 passenger-accessible; 9 with staterooms",
+      "source": "https://en.wikipedia.org/wiki/Anthem_of_the_Seas (16 total / 14 passenger-accessible) + https://www.cruisemapper.com/deckplans/Anthem-of-the-Seas-801 (16 decks, 15 accessible, 9 with cabins)",
+      "verified": "2026-06-17",
+      "notes": "Wikipedia and CruiseMapper agree on 16 total decks and 9 cabin decks; they differ on accessible-deck count (14 vs 15). Article uses 16 total / 9 cabin decks (both sources agree) and Wikipedia's 14 accessible. The repo file assets/data/ships/rcl/anthem-of-the-seas.page.json records decks_total:18 / decks_guest:16, which contradicts every external source and is logged for separate correction in admin/UNFINISHED_TASKS.md (P2, 2026-06-17). The repo figure is NOT propagated into the article."
+    },
+    "capacity": {
+      "value": "~4,180 guests double occupancy / 4,905 maximum",
+      "source": "https://en.wikipedia.org/wiki/Anthem_of_the_Seas",
+      "verified": "2026-06-17",
+      "notes": "CruiseMapper reports 4,168 / 4,825 (outlier). 4,180 matches both Wikipedia and the existing repo ship page text."
+    },
+    "staterooms": {
+      "value": "2,090 passenger cabins",
+      "source": "https://en.wikipedia.org/wiki/Anthem_of_the_Seas",
+      "verified": "2026-06-17"
+    }
+  },
+  "deck_layout": {
+    "_source_primary": "https://www.cruisemapper.com/deckplans/Anthem-of-the-Seas-801 (deck names + venue decks) cross-checked against https://www.cruisedeckplans.com/ships/deckbydeck.php?ship=Anthem-of-the-Seas&deck=N per-deck pages",
+    "_official_reference": "https://www.royalcaribbean.com/cruise-ships/anthem-of-the-seas/deck-plans (JS-rendered template — WebFetch returns only {{ deck.name }} placeholders, confirmed 2026-06-17 — so not machine-readable; linked for readers as canonical)",
+    "_primary_source_verification_2026_06_17": "Operator supplied two screenshots of the RENDERED royalcaribbean.com deck-plan interface (IMG_2408, IMG_2409). These confirm, from Royal Caribbean's own page: (1) the deck selector runs Deck Three through Deck Sixteen (14 decks), matching the 14-passenger-accessible figure; (2) Deck Three carries a 'Spacious Ocean View - Accessible' stateroom category — extra square footage, in-stateroom window, up to 4 guests, one Royal King bed convertible to two twins. This upgrades the Deck 3 stateroom claim and the accessible-ocean-view detail from secondary-provider corroboration to primary-source (RC) confirmation.",
+    "verified": "2026-06-17",
+    "cabin_decks": {
+      "value": "Staterooms are on Decks 3, 6, 7, 8, 9, 10, 11, 12, 13 (nine decks)",
+      "source": "CruiseMapper + cruisedeckplans (both providers agree); matches CruiseMapper 'nine decks with cabins'",
+      "verified": "2026-06-17"
+    },
+    "marquee_venue_decks": {
+      "value": "North Star: deck 15 (access) / deck 16 (top); RipCord by iFly: deck 16; FlowRider: deck 16; SeaPlex: decks 15-16; Two70: decks 5-7; pools, Windjammer Marketplace, Coastal Kitchen, H2O Zone, Solarium (upper): deck 14; Solarium (lower): deck 13; main dining (The Grande, Chic), Royal Theatre, Music Hall, Casino Royale: deck 3; Royal Esplanade, shops, Sorrento's, Cafe Promenade: deck 4; specialty dining (Jamie's, Wonderland, Chops, Izumi), Bionic Bar, Schooner Bar: deck 5; Adventure Ocean (kids): decks 11-12; Bridge + Concierge Club: deck 12; Library + The Workshop: deck 6; Spa + teen disco + sports court: deck 15",
+      "source": "https://www.cruisemapper.com/deckplans/Anthem-of-the-Seas-801 (lead re-fetch 2026-06-17 confirmed North Star 15, RipCord 16, FlowRider 16, SeaPlex 15-16, Two70 5-7, pools 14) + per-deck cruisedeckplans pages (Deck 14 venue list incl. Windjammer Marketplace; Deck 3 main dining)",
+      "verified": "2026-06-17"
+    }
+  },
+  "cabin_strategy": {
+    "authoritative": {
+      "obstructed_balconies_deck_6": {
+        "claim": "On Deck 6, balcony categories 1E, 2E and 2F have views obstructed by the top of a lifeboat; staterooms 6254, 6258, 6654 and 6658 are specifically noted as obstructed. Deck 6 staterooms run even-numbered 6118-6310 (port) and 6518-6710 (starboard); the forward end is Grand Suites with larger unobstructed balconies.",
+        "source": "Obstruction designation + named cabins: https://www.cruisedeckplans.com/ships/deckbydeck.php?ship=Anthem-of-the-Seas&deck=6 (lead re-fetch 2026-06-17, verbatim: 'Category 1E and 2E (was DO) and 2F (was SB) is obstructed by view of top of lifeboat.' and 'Staterooms 6254 6258 6654 and 6658 have obstructed views.'). Range + forward-veranda note: https://www.cruisemapper.com/deckplans/Anthem-of-the-Seas-801/deck06-1367 (verbatim 'Cruise cabins from 6118 to 6710' and 'most-forward located balcony cabins ... are with larger verandas and unobstructed sea views').",
+        "verified": "2026-06-17",
+        "disposition": "stated as fact (RC primary-source confirmed)",
+        "notes": "Categories 1E/2E also appear on Decks 7 and 13. FULL DECK-6 PRIMARY-SOURCE WALK: operator supplied a fore-to-aft series of royalcaribbean.com Deck 6 screenshots (IMG_2410-2419, 2026-06-17). Verified from RC's own plan: even numbering throughout; aft-most cabins 6310 (port) / 6710 (starboard) with Library + The Workshop aft; forward-most cabins 6118 (port) / 6518 (starboard), confirmed via the bow screenshot IMG_2420 (the forward block is Grand Suites, GB category — 'Grand Suite with Large Balcony - 1 Bedroom', 351 sq ft room / 259 sq ft balcony per RC's panel). CruiseMapper's '6118' low end is thus confirmed by RC primary. Full Deck 6 range RC-verified end to end: 6118-6310 (port), 6518-6710 (starboard). The plan skips 6256 and 6656 at the obstructed-cabin cluster. IMG_2411 captured RC's LEGEND: a porthole icon = 'These staterooms have obstructed views' and a wheelchair icon = accessible staterooms. This UPGRADES the obstruction designation from CruiseDeckPlans-secondary to RC-primary: RC's own plan marks obstructed cabins with an icon; CruiseDeckPlans supplied the specific named cabins (6254/6258/6654/6658), consistent with RC's mid-deck markings. Earlier '6042 forward' note retracted — that was a misread of 6242."
+      },
+      "deck_7_aft_inside_two70_noise": {
+        "claim": "Aft inside cabins on Deck 7 sit above the Two70 lounge and may hear noise during show times",
+        "source": "https://www.cruisedeckplans.com/ships/deckbydeck.php?ship=Anthem-of-the-Seas&deck=7 (lead re-fetch 2026-06-17, verbatim: 'Aft inside cabins are above Two70 lounge and may hear noise from that area during show times.')",
+        "verified": "2026-06-17",
+        "disposition": "stated as fact"
+      },
+      "deck_3_accessible_ocean_view": {
+        "claim": "Deck 3 has a Spacious Ocean View (Accessible) stateroom category with extra square footage, an in-stateroom window, capacity up to 4, one Royal King bed convertible to two twins",
+        "source": "royalcaribbean.com Anthem deck-plan interface, Deck Three view (operator screenshots IMG_2408/IMG_2409, 2026-06-17) — primary source",
+        "verified": "2026-06-17",
+        "disposition": "stated as fact (primary source)"
+      }
+    },
+    "opinion_grade": {
+      "_handling": "Framed in the article as common-cruiser guidance / what the layout suggests, explicitly to be confirmed from aboard. NOT stated as verified fact. Sources are advice blogs, not deck-plan providers.",
+      "quietest_midship_8_10": {
+        "claim": "Midship cabins on Decks 8-10 are generally the quietest and steadiest",
+        "source": "https://cruisesnooze.com/anthem-of-the-seas-cabins-to-avoid/ + https://www.cruisemummy.co.uk/anthem-of-the-seas-cabins-to-avoid/ (opinion/UGC; consistent across sources)",
+        "verified": "2026-06-17",
+        "disposition": "opinion, framed as such"
+      },
+      "motion_forward_high": {
+        "claim": "Motion is felt most in forward and high cabins; least midship and low",
+        "source": "cruisemummy + cruisesnooze (opinion; general naval-architecture principle)",
+        "verified": "2026-06-17",
+        "disposition": "opinion / general principle, framed as such"
+      },
+      "below_pool_deck_13": {
+        "claim": "Deck 13 cabins sit below the Deck 14 pool/Windjammer area and may hear early-morning deck-chair and prep noise",
+        "source": "https://cruisesnooze.com/anthem-of-the-seas-cabins-to-avoid/ (opinion)",
+        "verified": "2026-06-17",
+        "disposition": "opinion, framed as such"
+      },
+      "near_kids_clubs_11_12": {
+        "claim": "Forward Decks 11-12 are near Adventure Ocean kids' areas",
+        "source": "cruisemummy (opinion) + Adventure Ocean deck location confirmed authoritative on CruiseMapper Decks 11-12",
+        "verified": "2026-06-17",
+        "disposition": "location authoritative; noise inference framed as opinion"
+      },
+      "deck_3_entertainment_noise": {
+        "claim": "Deck 3 cabins share the deck with the Royal Theatre, Music Hall and Casino Royale; light sleepers should look twice at Decks 3, 6 and 13",
+        "source": "Venue locations authoritative (CruiseMapper Deck 3). 'Cabins to avoid... decks 3, 6 and 13' is opinion/UGC guidance corroborated via WebSearch 2026-06-17 (cruiseline.com / cruisemapper cabin guidance).",
+        "verified": "2026-06-17",
+        "disposition": "venue locations authoritative; light-sleeper grouping framed as guidance"
+      }
+    },
+    "discarded_claims": [
+      {
+        "claim": "Cabins near the Windjammer on Deck 8 / cabins 14600-14680 to avoid",
+        "disposition": "discarded",
+        "reason": "Windjammer is on Deck 14 (verified) and Deck 14 has no staterooms (verified, lead re-fetch of cruisedeckplans Deck 14, 2026-06-17). The 'Deck 8 near Windjammer' framing and the '14xxx' cabin numbers from cruisesnooze are wrong; not used."
+      }
+    ]
+  },
+  "images": {
+    "establishing_photo": {
+      "file": "/assets/ships/rcl/anthem-of-the-seas/Anthem_of_the_Seas_at_Liverpool_side.webp",
+      "dimensions": "1920x1167",
+      "license": "CC BY-SA 4.0",
+      "artist": "Rodhullandemu (Phil Nash)",
+      "source": "Wikimedia Commons — https://commons.wikimedia.org/wiki/File:Anthem_of_the_Seas_(ship,_2015)_at_Liverpool_2021-6.jpg",
+      "attr_sidecar": "assets/ships/rcl/anthem-of-the-seas/Anthem_of_the_Seas_at_Liverpool_side.webp.attr.json",
+      "notes": "Reused existing verified asset (no new image created). Full broadside with North Star pod visible. Attribution rendered on-page."
+    }
+  },
+  "voice_audit": {
+    "_doctrine": ".claude/skills/voice-audit/SKILL.md (v2.3.0)",
+    "audited_against": "voice-audit v2.3.0",
+    "audit_date": "2026-06-17",
+    "audited_by": "Claude (operator-supervised)",
+    "audit_scope": "full article body",
+    "authorship_mode": "Research synthesis with pre-trip framing. Author has NOT yet sailed Anthem; the article discloses this in-body (boards in ~2 weeks; will update from aboard). No first-hand Anthem lived-experience claimed. A v2 lived-experience revision is planned post-sailing.",
+    "machine_tells": {
+      "banned_cruise_vocab_count": 0,
+      "generic_ai_tells_count": 0,
+      "promotional_verbs_count": 0,
+      "stat_grid_opening": false,
+      "notes": "To be finalized against the shipped draft."
+    },
+    "must_be_present": {
+      "honest_limitation_acknowledged": "Yes — the central 'I have not sailed her yet; this is my own pre-cruise homework' framing, plus the authoritative-vs-suggested split on cabin noise.",
+      "real_numbers": "Strong — deck counts, GT, capacity, specific cabin numbers, venue decks.",
+      "from_the_pier_specificity": "Deck-level: named venues per deck, named obstructed cabins."
+    },
+    "risk_rating": "Low",
+    "risk_rating_justification": "No lived-experience overclaim (the chief risk for a pre-trip article is fabricated firsthand detail; avoided by explicit disclosure). Facts are cited; opinion is labeled. To be re-confirmed against the shipped draft before commit.",
+    "outstanding_drift_notes": "Re-run voice-audit against the final HTML body before commit; update counts here if any tell surfaces."
+  }
+}
