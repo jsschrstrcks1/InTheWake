@@ -16,13 +16,13 @@ const VAPID_SUBJECT = "mailto:jcr.chilis@gmail.com";
 
 // Daily push lines (editable). Cruise dates keyed; otherwise a gentle rotation.
 const DAILY = {
-  "2026-06-28": "Flying to Seattle today — the trip toward you (eventually) begins. 💛",
+  "2026-06-28": "Flying to Seattle today. Not toward you, I know — but I carry you every mile of it. 💛",
   "2026-06-29": "Boarding the ship in Seattle. Wish you were walking up the gangway with me.",
   "2026-06-30": "A whole day at sea. I'll be in the hot tub by 9 thinking of you.",
   "2026-07-01": "Sitka this morning, then the bears this afternoon. Picking you up a little something.",
   "2026-07-02": "Skagway — riding the White Pass railway up into the mountains. The views will be unreal.",
   "2026-07-03": "Up early for Dawes Glacier, then whales. Two of my favorite things; you're the third I'm missing.",
-  "2026-07-04": "Last sea day. Slow morning, pool later. Counting down to seeing you.",
+  "2026-07-04": "Last sea day. Slow morning, pool later — counting the days till the one I finally make it to you.",
   "2026-07-05": "Victoria tonight — harbor lights and gardens. Saving it all to tell you.",
   "2026-07-06": "Off the ship in Seattle. The trip's behind me; you're still ahead of me.",
   "2026-07-07": "Flying home today. Wish the next flight was toward you.",
