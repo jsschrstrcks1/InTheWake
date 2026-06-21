@@ -11,10 +11,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src https://api.open-meteo.com https://api.rainviewer.com https://api.weather.gov; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src https://api.open-meteo.com https://api.rainviewer.com https://api.weather.gov; worker-src 'self'; manifest-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#03060c">
+<link rel="manifest" href="/admin/family.webmanifest">
+<link rel="apple-touch-icon" href="/admin/family-icons/apple-touch-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Family">
 <meta name="robots" content="noindex,nofollow">
 <title>In the Wake — Family Weather</title>
 <meta name="description" content="Live conditions, 10-day forecast, radar and alerts for our family's places and the Alaska cruise.">
@@ -245,4 +251,5 @@ buildSel();loadNow();loadAlerts();setInterval(function(){if(tab==="now")loadNow(
 
 })();
 </script>
+<script>if("serviceWorker"in navigator){navigator.serviceWorker.register("/admin/sw-family.js",{scope:"/admin/"}).catch(function(){});}window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__bip=e;});window.addEventListener("appinstalled",function(){window.__bip=null;});</script>
 </body></html>
