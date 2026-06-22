@@ -1,7 +1,7 @@
 # Affiliate Link Deployment Plan
 
 **Created:** 2026-01-18
-**Status:** Draft
+**Status:** Draft — PARTIALLY SUPERSEDED (2026-06-18). The binding affiliate policy is [`admin/W4-FTC-AFFILIATE-POSTURE.md`](../admin/W4-FTC-AFFILIATE-POSTURE.md) (v2.5, 2026-05-06). Where this draft disagrees with the posture doc, the posture doc wins. In particular, health/medication affiliate links are forbidden — see the struck "Motion Sickness Relief" section in Section 4.
 **Purpose:** Strategic deployment of Amazon affiliate links across In the Wake
 
 ---
@@ -155,15 +155,19 @@ Most cruise cabins only have 2 outlets. Power strips are banned on some lines en
 
 **IMPORTANT:** Royal Caribbean/Celebrity now ban ALL AC-outlet devices. Many other lines have changing policies. Always verify with your specific cruise line before packing.
 
-#### Motion Sickness Relief
-| Product | Link | Notes |
-|---------|------|-------|
-| Dramamine | https://amzn.to/4qCaZ2L | Traditional medication |
-| Bonine | https://amzn.to/45N4G3W | Less drowsy formula |
-| Motion sickness patches | https://amzn.to/49Zdd6q | Behind-the-ear patches |
-| Sea-Band (acupressure wristbands) | https://amzn.to/4sQHlsc | Drug-free, clinically tested |
-| SafeHarbor Wristbands (4-pair) | https://amzn.to/3NqBwl6 | Great for families |
-| Reliefband (electronic) | https://amzn.to/4jJm7s9 | Reusable, more expensive |
+#### Motion Sickness Relief — ❌ REMOVED, DO NOT USE
+
+**Struck 2026-06-18.** These were health/medication affiliate links (Dramamine,
+Bonine, motion-sickness patches, Sea-Band and other anti-nausea wristbands,
+Reliefband). They are a **permanent affiliate bright line** per
+[`admin/W4-FTC-AFFILIATE-POSTURE.md`](../admin/W4-FTC-AFFILIATE-POSTURE.md)
+Section 2.1 and the Section 4 decision tree ("if health/medical-adjacent: stop").
+The Sea-Band link was already removed once under the v2.5 plan's Phase A; this
+draft table was a stale survivor and the actual links have now been deleted so
+they cannot be copy-pasted into a page. No motion-sickness, anti-nausea,
+sleep-aid, melatonin, or other health-product affiliate links go anywhere on the
+site. Seasickness content stays monetization-free — see
+`/articles/cruise-seasickness-what-works.html`.
 
 #### Organization & Packing
 | Product | Link | Notes |
