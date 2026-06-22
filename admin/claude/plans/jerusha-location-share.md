@@ -27,8 +27,12 @@ POSTs coordinates to the Worker. That is a separate app, not web code.
 
 ### Recommended source: OwnTracks (free, open-source, iOS + Android)
 
-- Configure OwnTracks in **HTTP mode** to POST to `https://<worker>/loc` with an
-  `Authorization: Bearer <token>` header (custom header support is built in).
+- Configure OwnTracks in **HTTP mode** to POST to the Worker `/loc` endpoint. **Auth — use the
+  query-param form, it is bulletproof across app versions/platforms:** set the URL to
+  `https://<worker>/loc?k=<NOTES_TOKEN>` (URL-encode the token). *(The worker also accepts HTTP
+  Basic — username anything, password = the token — and a `Bearer` header. But OwnTracks on iOS
+  generally **cannot set a custom `Bearer` header**, so do NOT rely on Bearer; the earlier note here
+  was wrong and is the likely cause of a silent 401. Use `?k=` or Basic.)*
 - **Move/cadence:** "significant change" or a fixed interval (e.g. every 15–30
   min) is plenty and battery-friendly. No need for high-frequency tracking.
 - It runs in the background using the OS location-permission model (the same one

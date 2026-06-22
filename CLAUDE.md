@@ -7,6 +7,23 @@
 
 ---
 
+## ⚠️ Multi-Claude Coordination Protocol (MANDATORY — read first, every session)
+
+Three Claude instances — **claude1, claude2, claude3** — work these repos (`ken`, `InTheWake`,
+`open-claw-stuff`) in parallel on branch `claude/admiring-einstein-j9yqu2`. Your operator tells
+you which number you are. To stop us building duplicate/colliding work (the `floods.mjs` vs
+`flood.mjs` duplication is the exact mistake this prevents):
+
+1. **At session start, READ the other two handoff files before touching code.** All three live
+   at the **`open-claw-stuff` repo root** (co-located on disk; they persist in git):
+   `claude1-handoff.md`, `claude2-handoff.md`, `claude3-handoff.md`. claude2 reads 1+3; etc.
+2. **Continuously document YOUR process in your own `claudeN-handoff.md`** there — files/routes
+   you own, what's done, what's next — so the others don't redo or collide.
+3. **Never create a second implementation** of what another instance's handoff says they're
+   building. Extend it, or coordinate, instead. Permanent contract, not a one-off.
+
+---
+
 ## Hard bans
 
 These strings must never appear in any production-facing file on cruisinginthewake.com. Enforced by Claude Code PreToolUse hooks AND `.githooks/pre-commit` — both layers block on violation, no `--no-verify` bypass for production paths.

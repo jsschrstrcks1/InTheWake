@@ -1,0 +1,255 @@
+<!doctype html>
+<!--
+  Soli Deo Gloria. — Job 29:15 "I was eyes to the blind, and feet was I to the lame."
+  Colossians 3:23 "And whatsoever ye do, do it heartily, as to the Lord."
+  In the Wake — Weather. A planning aid offered as worship: accessible to every
+  person regardless of ability (WCAG 2.1 AA in view), honest about its limits,
+  no tracking, no ads, not a financial product. Read-only.
+  Forecasts: Open-Meteo. Radar: RainViewer. US alerts: NOAA/NWS.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src https://api.open-meteo.com https://api.rainviewer.com https://api.weather.gov; worker-src 'self'; manifest-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#03060c">
+<link rel="manifest" href="/admin/family/family.webmanifest">
+<link rel="apple-touch-icon" href="/admin/family/icons/apple-touch-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Family Vacation 2026">
+<meta name="robots" content="noindex,nofollow">
+<title>In the Wake — Family Weather</title>
+<meta name="description" content="Live conditions, 10-day forecast, radar and alerts for our family's places and the Alaska cruise.">
+<link rel="canonical" href="https://cruisinginthewake.com/admin/family/weather-family.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="In the Wake — Family Weather">
+<meta property="og:description" content="Live conditions, 10-day forecast, radar and alerts for our family's places and the Alaska cruise.">
+<meta property="og:url" content="https://cruisinginthewake.com/admin/family/weather-family.html">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{--c:#2ee6ff}
+*{box-sizing:border-box}
+body{margin:0;background:#03060c;color:#cfe9f2;font:14px ui-monospace,Menlo,Consolas,monospace;-webkit-text-size-adjust:100%}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:absolute;left:-999px;top:0;background:#2ee6ff;color:#03060c;padding:8px 14px;z-index:1000}
+.skip-link:focus{left:8px;top:8px}
+a:focus,button:focus,select:focus,[tabindex]:focus{outline:2px solid #2ee6ff;outline-offset:2px}
+.muted{color:#5f8493}
+.wxv{max-width:1100px;margin:0 auto;padding:14px}
+.wbar{display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(46,230,255,.25);padding-bottom:10px;margin-bottom:14px;flex-wrap:wrap}
+.wbar .brand{font-size:18px;letter-spacing:.16em;color:#2ee6ff;text-shadow:0 0 12px rgba(46,230,255,.5)}
+.wbar .brand-sub{font-size:11px;letter-spacing:.2em;color:#4a7e8e}
+.wbar select{background:#0a1622;color:#2ee6ff;border:1px solid rgba(46,230,255,.3);font:inherit;font-size:12px;padding:3px 7px;margin-left:auto}
+.wbar .unitbtn{background:#0a1622;color:#2ee6ff;border:1px solid rgba(46,230,255,.4);font:inherit;font-size:12px;letter-spacing:.08em;padding:3px 11px;cursor:pointer}
+.wbar .unitbtn:hover{background:rgba(46,230,255,.14)}
+.wtabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.wtab{background:transparent;color:#74acbe;border:1px solid rgba(46,230,255,.2);padding:6px 15px;font:inherit;font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.wtab.on{color:#03060c;background:#2ee6ff;border-color:#2ee6ff;font-weight:700}
+.wpane{display:none}.wpane.on{display:block}
+.wx-now{display:flex;align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap}
+.wx-temp{font-size:54px;color:#eafcff;line-height:1}
+.wx-cond{font-size:17px;color:#bfe6f2}
+.wx-meta{font-size:11px;color:#74acbe;margin-top:4px;letter-spacing:.04em}
+.wx-days{display:flex;gap:16px;flex-wrap:wrap}
+.wx-day{text-align:center;font-size:10.5px;color:#9fcfe0;letter-spacing:.04em}
+.wx-day b{display:block;color:#5fd2e6;font-size:10px;letter-spacing:.1em;margin-bottom:3px}
+.wx-day .hl{color:#cfeeff}.wx-day .lo{color:#74acbe}.wx-day .pp{display:block;color:#5aa8ff;font-size:10px}
+.d10-row{border:1px solid rgba(46,230,255,.14);padding:9px 13px;margin:0 0 12px;background:rgba(8,22,32,.4)}
+.d10-loc{font-size:12px;letter-spacing:.1em;color:#eafcff;text-transform:uppercase;margin-bottom:7px}
+.d10-days{display:flex;gap:14px;overflow-x:auto;padding-bottom:6px}
+.d10-days .wx-day{flex:0 0 auto;min-width:50px}
+.d10-c{display:block;font-size:9px;color:#74acbe;margin:2px 0;line-height:1.15;min-height:22px}
+#map{height:520px;width:100%;border:1px solid rgba(46,230,255,.25);background:#03060c}
+.leaflet-container{background:#03060c}
+.leaflet-tooltip.wx-tip{background:#0a1622;color:#2ee6ff;border:1px solid rgba(46,230,255,.45);box-shadow:0 0 10px rgba(46,230,255,.2);font:11px ui-monospace,Menlo,monospace;letter-spacing:.05em;padding:2px 7px}
+.leaflet-tooltip.wx-tip:before{border-top-color:rgba(46,230,255,.45)}
+.leaflet-tooltip.wx-tip .tw{display:block;margin-top:1px;color:#7fd4e6;font-size:10px;opacity:.9}
+.maprow{display:flex;align-items:center;gap:14px;margin-top:10px;flex-wrap:wrap}
+.mapbtn{background:transparent;color:#2ee6ff;border:1px solid rgba(46,230,255,.3);padding:5px 13px;font:inherit;font-size:11px;cursor:pointer}.mapbtn:hover{background:rgba(46,230,255,.12)}
+.frame-t{color:#9fcfe0;font-size:12px;letter-spacing:.06em}
+.rv-layer{transition:opacity .35s ease}
+.wx-dnum{font:700 10px/16px -apple-system,system-ui,sans-serif;color:#0a0a0a;text-align:center;width:16px;height:16px;text-shadow:0 0 2px rgba(255,255,255,.55)}
+.fc-head{color:#bfe9f5;font-size:13px;margin:2px 0 12px;letter-spacing:.02em}
+.fc-strip{display:flex;align-items:flex-end;gap:3px;min-height:72px;overflow-x:auto;padding:0 2px 2px}
+.fc-bar{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:19px}
+.fc-fill{width:10px;min-height:4px;background:#27424b;border-radius:3px 3px 0 0}
+.fc-fill.wet{background:#2ee6ff;box-shadow:0 0 6px rgba(46,230,255,.55)}
+.fc-h{font-size:9px;color:#7fa6b2;margin-top:4px;height:11px;white-space:nowrap}
+.fc-note{color:#6f95a1;font-size:11px;margin-top:12px;line-height:1.45}
+.alertc{border:1px solid rgba(46,230,255,.2);border-left:3px solid var(--ac,#5aa8ff);padding:11px 15px;margin:0 0 11px;background:rgba(8,22,32,.5)}
+.alertc .ev{font-size:14px;color:#eafcff}.alertc .meta{font-size:11px;color:#74acbe;margin-top:3px}.alertc .desc{font-size:12px;color:#bcdfe9;margin-top:8px;max-height:150px;overflow:auto;white-space:pre-wrap}
+.sev-Extreme,.sev-Severe{--ac:#ff4d6a}.sev-Moderate{--ac:#ffb13e}.sev-Minor,.sev-Unknown{--ac:#5aa8ff}
+.dgr{display:none;background:rgba(255,77,106,.14);border:1px solid #ff4d6a;color:#ffd6dd;padding:11px 16px;margin-bottom:14px;font-size:13px}
+body.danger .dgr{display:block}body.danger{background:#0c0306}
+body.danger .wbar .brand{color:#ff4d6a;text-shadow:0 0 14px rgba(255,77,106,.6)}
+body.danger #map{border-color:#ff4d6a}
+.wfoot{margin-top:22px;border-top:1px solid rgba(46,230,255,.16);padding-top:12px}
+.wfoot .disc{font-size:10.5px;color:#5f8493;letter-spacing:.03em;line-height:1.55}
+.sdg{text-align:center;letter-spacing:.4em;text-transform:uppercase;color:#2ee6ff;font-size:12px;padding:18px 0 10px;text-shadow:0 0 12px rgba(46,230,255,.45);opacity:.92}
+body.danger .sdg{color:#ff4d6a}
+.voyhdr{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.voyhdr .vt{font-size:12px;letter-spacing:.05em;color:#9fcfe0}
+.voy-track{margin-left:auto;background:#0a1622;color:#2ee6ff;border:1px solid rgba(46,230,255,.4);font:inherit;font-size:11px;letter-spacing:.06em;padding:5px 12px;text-decoration:none}
+.voy-track:hover{background:rgba(46,230,255,.14)}
+.voy-cta-wrap{text-align:center;margin:0 0 14px}
+.voy-cta{display:block;text-align:center;background:#2ee6ff;color:#03060c;font:inherit;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;text-decoration:none;margin:0 0 8px;border:1px solid #2ee6ff}
+.voy-cta:hover{background:#5fd2e6;border-color:#5fd2e6}
+.voy-cta-sec{display:inline-block;color:#2ee6ff;font-size:11.5px;letter-spacing:.05em;text-decoration:underline}
+.voy-cta-sec:hover{color:#5fd2e6}
+.voy-row{border:1px solid rgba(46,230,255,.14);margin:0 0 10px;background:rgba(8,22,32,.4)}
+.voy-row[open]{border-color:rgba(46,230,255,.3)}
+.voy-row.voy-today{border-color:#2ee6ff;box-shadow:0 0 12px rgba(46,230,255,.18)}
+.voy-sum{list-style:none;cursor:pointer;padding:11px 14px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.voy-sum::-webkit-details-marker{display:none}
+.voy-sum .dnum{font-size:11px;letter-spacing:.1em;color:#5fd2e6;min-width:118px}
+.voy-sum .dloc{font-size:13px;letter-spacing:.05em;color:#eafcff;text-transform:uppercase}
+.voy-sum .dbadge{font-size:9px;letter-spacing:.14em;padding:2px 7px;border:1px solid rgba(46,230,255,.4);color:#74acbe;text-transform:uppercase}
+.voy-sum .dbadge.b-port{color:#2ee6ff;border-color:#2ee6ff}
+.voy-sum .dbadge.b-scenic{color:#7fd4e6}
+.voy-sum .dnow{font-size:9px;letter-spacing:.14em;color:#03060c;background:#2ee6ff;padding:2px 7px;font-weight:700;text-transform:uppercase}
+.voy-body{padding:0 14px 13px}
+.voy-pos{font-size:11px;color:#74acbe;letter-spacing:.03em;margin:0 0 9px;line-height:1.4}
+.voy-dock{font-size:12px;color:#9fcfe0;letter-spacing:.02em;margin:0 0 10px;line-height:1.4}
+.voy-wx{font-size:12px;color:#bfe6f2;margin:0 0 11px;line-height:1.5}
+.voy-wx .fc{color:#5fd2e6}
+.voy-booked{border-left:3px solid #2ee6ff;background:rgba(46,230,255,.07);padding:8px 12px;margin:0 0 12px}
+.voy-booked b{display:block;font-size:10px;letter-spacing:.14em;color:#2ee6ff;text-transform:uppercase;margin-bottom:4px}
+.voy-booked ul{margin:0;padding-left:16px}
+.voy-booked li{font-size:12.5px;line-height:1.5;color:#eafcff;margin-bottom:2px}
+.voy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.voy-sec b{display:block;font-size:10px;letter-spacing:.14em;color:#5fd2e6;text-transform:uppercase;margin-bottom:5px}
+.voy-sec p{margin:0;font-size:12px;line-height:1.55;color:#cfe9f2}
+.voy-sec ul{margin:0;padding-left:16px}
+.voy-sec li{font-size:12px;line-height:1.5;color:#cfe9f2;margin-bottom:3px}
+.voy-note{font-size:10.5px;color:#5f8493;letter-spacing:.02em;line-height:1.5;margin:6px 0 0}
+@media (prefers-contrast:more){.voy-row{border-color:#2ee6ff}}
+@media (max-width:560px){.voy-track{margin-left:0;padding:9px 14px;font-size:12px}.voyhdr .vt{font-size:12px}.voy-sum{padding:13px 12px;gap:6px}.voy-sum .dnum{min-width:0;flex-basis:100%;font-size:12px}.voy-sum .dloc{font-size:14px}.voy-pos{font-size:12px}.voy-dock{font-size:13px}.voy-wx{font-size:13px}.voy-sec b{font-size:11px}.voy-sec p,.voy-sec li{font-size:13px}.voy-booked li{font-size:13px}.voy-note{font-size:11px}}
+@media (max-width:480px){#map{height:58vh;min-height:280px}.wxv{padding:10px 8px}.wbar{gap:8px}.wbar .brand{font-size:15px}.wbar select{padding:6px 8px;font-size:13px;max-width:54vw}.wbar .unitbtn{padding:8px 14px;font-size:13px}.wtab{padding:10px 13px;font-size:12px}.mapbtn{padding:9px 14px;font-size:12px}.wx-temp{font-size:46px}.wx-day{font-size:11px}.d10-c{font-size:10px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+@media (prefers-contrast:more){.wtab,.alertc,.d10-row{border-color:#2ee6ff}.muted{color:#9fc}}
+</style>
+</head>
+<body>
+<a href="#content" class="skip-link">Skip to main content</a>
+<div class="wxv">
+  <header class="wbar" role="banner">
+    <span class="brand">◢ IN THE WAKE</span><span class="brand-sub">// FAMILY</span>
+    <select id="wloc" aria-label="Choose a tracked location"></select>
+    <button id="wx-unit" class="unitbtn" type="button" aria-label="Toggle temperature units between Fahrenheit and Celsius">°F</button>
+  </header>
+  <div class="dgr" id="dgr" role="alert" aria-live="assertive" aria-atomic="true"></div>
+  <nav class="wtabs" role="tablist" aria-label="Weather views">
+    <button class="wtab" data-t="now" role="tab" aria-selected="false" type="button">Now</button>
+    <button class="wtab on" data-t="voyage" role="tab" aria-selected="true" type="button">Voyage</button>
+    <button class="wtab" data-t="ten" role="tab" aria-selected="false" type="button">10-Day</button>
+    <button class="wtab" data-t="radar" role="tab" aria-selected="false" type="button">Radar</button>
+    <button class="wtab" data-t="future" role="tab" aria-selected="false" type="button">Futurecast</button>
+    <button class="wtab" data-t="alerts" role="tab" aria-selected="false" type="button">Alerts</button>
+  </nav>
+  <main id="content">
+    <div class="wpane" id="pane-now"><span class="muted">loading…</span></div>
+    <div class="wpane on" id="pane-voyage">
+      <div class="voy-cta-wrap">
+        <a class="voy-cta" href="https://cruisinginthewake.com/admin/voyage-packs/v0.1.4-rcl-anthem-alaska-7n.pdf" target="_blank" rel="noopener noreferrer">📖 Open the full Anthem Alaska Voyage Pack (PDF) →</a>
+        <a class="voy-cta-sec" href="https://cruisinginthewake.com/admin/voyage-packs/v0.1.4-rcl-anthem-alaska-condensed.pdf" target="_blank" rel="noopener noreferrer">or the condensed quick-reference version (PDF) →</a>
+      </div>
+      <div class="voyhdr">
+        <span class="vt" id="voy-status">Anthem of the Seas · Jun 29 – Jul 6, 2026</span>
+        <a class="voy-track" href="https://www.marinetraffic.com/en/ais/details/ships/imo:9656101" target="_blank" rel="noopener noreferrer">◢ Track Anthem live ↗</a>
+      </div>
+      <div id="voy-list"><span class="muted">loading voyage…</span></div>
+      <p class="voy-note">◆ Booked = reserved excursions; other plan lines are suggestions for free time. Positions follow the planned itinerary — sea-day spots are estimated midpoints, not a live GPS fix; tap “Track Anthem live” for the real position. Weather shows typical early-July normals; an actual forecast appears automatically once a date falls within about 16 days.</p>
+    </div>
+    <div class="wpane" id="pane-10day"><span class="muted">loading 10-day forecast…</span></div>
+    <div class="wpane" id="pane-map"><div id="map" role="img" aria-label="Precipitation radar map of the tracked locations"></div><div class="maprow"><button class="mapbtn" id="mr-play" type="button">⏸ PAUSE</button><button class="mapbtn" id="mr-fit" type="button">⊡ FIT ALL</button><span class="frame-t" id="mr-time"></span><span class="frame-t" id="mr-mode"></span></div></div>
+    <div class="wpane" id="pane-future"><span class="muted">loading precipitation outlook…</span></div>
+    <div class="wpane" id="pane-alerts"><span class="muted">loading alerts…</span></div>
+  </main>
+  <div id="a11y-status" role="status" aria-live="polite" class="sr-only"></div>
+  <footer class="wfoot" role="contentinfo">
+    <div class="disc">Planning aid only — forecasts (Open-Meteo) and radar (RainViewer) can and do change; always confirm conditions locally before you rely on them. U.S. alerts via NOAA/NWS; international stops rely on the Now &amp; 10-Day views. No tracking, no ads, not a financial product.</div>
+  </footer>
+  <div class="sdg">Soli Deo Gloria</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+<script>
+window.__LOCS=[{"label":"Hudson, FL","lat":28.36445,"lon":-82.69343},{"label":"Louisville, KY","lat":38.25424,"lon":-85.75941},{"label":"Salt Lake City, UT","lat":40.76078,"lon":-111.89105},{"label":"Seattle, WA","lat":47.60621,"lon":-122.33207},{"label":"Sitka, AK","lat":57.05315,"lon":-135.33089},{"label":"Skagway, AK","lat":59.45833,"lon":-135.31389},{"label":"Juneau, AK","lat":58.30194,"lon":-134.41972},{"label":"Endicott Arm, AK","lat":57.6277773,"lon":-133.2608333},{"label":"Victoria, BC","lat":48.4359,"lon":-123.35155}];
+(function(){
+
+var LOCS=window.__LOCS,wxCur={},map=null,layers=[],markers=[],frames=[],fi=0,anim=null,mode="past",rv=null,tab="voyage",rvLoaded=0,lastShown=-1;
+var WMO={0:"Clear",1:"Mostly clear",2:"Partly cloudy",3:"Overcast",45:"Fog",48:"Rime fog",51:"Light drizzle",53:"Drizzle",55:"Heavy drizzle",56:"Freezing drizzle",57:"Freezing drizzle",61:"Light rain",63:"Rain",65:"Heavy rain",66:"Freezing rain",67:"Freezing rain",71:"Light snow",73:"Snow",75:"Heavy snow",77:"Snow grains",80:"Rain showers",81:"Rain showers",82:"Violent showers",85:"Snow showers",86:"Snow showers",95:"Thunderstorm",96:"Thunderstorm",99:"Thunderstorm"};
+var ITIN=[
+{d:1,date:"2026-06-29",loc:"Seattle, WA",type:"port",lat:47.60621,lon:-122.33207,pos:"Seattle, WA · 47.6°N, 122.3°W — embarkation at Pier 91; Anthem sails late afternoon.",dock:"Smith Cove Cruise Terminal (Pier 91) · 2001 W Garfield St, Seattle, WA 98119",wx:{hi:77,lo:57,txt:"Seattle's driest, sunniest month — mostly clear."},booked:["Check-in 11:30 AM — Pier 91, Seattle"],plan:["Board, drop bags, find your stateroom","Sailaway on deck — Puget Sound, the Olympics and the Cascades","First dinner aboard; wander Two70 and the SeaPlex"],hist:"The Great Seattle Fire of June 6, 1889 leveled about 100 acres of downtown; the rebuild raised the streets, leaving old storefronts buried as today's Seattle Underground. In 1897 the steamer Portland docked with 'a ton of gold,' and the city cast itself as the gateway to the Klondike — the same northbound run you're beginning.",poi:["Pike Place Market (founded 1907)","Seattle Underground tour, Pioneer Square","Klondike Gold Rush NHP — free NPS museum","Pioneer Square historic district","Space Needle & Seattle Center"]},
+{d:2,date:"2026-06-30",loc:"At Sea",type:"sea",lat:50.80,lon:-129.20,pos:"At sea · ~50.8°N, 129.2°W — out in the open Pacific west of Vancouver Island, running up the outside toward Southeast Alaska.",wx:{hi:62,lo:52,txt:"Open Pacific swell — cool, breezy, changing skies."},plan:["North Star observation capsule (book a slot early)","RipCord by iFLY skydiving or the FlowRider","Two70 show in the evening; spa or Solarium by day"],hist:"This run shadows the Inside Passage approaches — the sheltered marine highway that carried gold-rush steamers north and still routes most Alaska cruise traffic today.",poi:["North Star — 200 ft above the sea","SeaPlex — bumper cars and a sports court","Two70 with the RoboScreen show","Solarium adults' retreat","Sea-day trivia and deck time"]},
+{d:3,date:"2026-07-01",loc:"Sitka, AK",type:"port",lat:57.05315,lon:-135.33089,pos:"Sitka, AK · 57.1°N, 135.3°W — Baranof Island, facing the open Pacific; docks at the Sitka Sound Cruise Terminal, ~5 mi north of downtown.",dock:"Sitka Sound Cruise Terminal · 4513 Halibut Point Rd, Sitka, AK 99835 (~5 mi N of downtown)",wx:{hi:60,lo:52,txt:"Cool and damp, often overcast; rain likely."},booked:["2:30 PM — Discover Fortress of the Bear · 1h 40m (Kenneth)"],plan:["Morning free ashore before the tour","Totem Trail at Sitka National Historical Park","St. Michael's Cathedral and Castle Hill"],hist:"At the 1804 Battle of Sitka the Kiks.adi Tlingit held a timber fort against Russian guns before withdrawing on the 'Survival March.' Russia formally handed Alaska to the United States here on Castle Hill, October 18, 1867. St. Michael's was the first Orthodox cathedral in the Americas (1848), rebuilt after a 1966 fire with its icons saved.",poi:["Sitka National Historical Park — totem trail, oldest federal park in Alaska","St. Michael's Orthodox Cathedral","Castle Hill (Baranof Castle State Historic Site)","Alaska Raptor Center","Fortress of the Bear"]},
+{d:4,date:"2026-07-02",loc:"Skagway, AK",type:"port",lat:59.45833,lon:-135.31389,pos:"Skagway, AK · 59.5°N, 135.3°W — head of the Lynn Canal fjord, your northernmost stop.",dock:"Cruise docks at the foot of Broadway, Skagway, AK 99840 (Railroad/Broadway/Ore Dock; shuttle pickup at Congress Way)",wx:{hi:65,lo:52,txt:"Drier and a touch warmer than most of coastal SE Alaska."},booked:["8:15 AM — White Pass Railroad & Klondike Highway Combination · 3h 45m (Kenneth)"],plan:["Afternoon free in town after the railway","Walk Broadway's gold-rush historic district","Red Onion Saloon and the Arctic Brotherhood Hall"],hist:"The White Pass & Yukon narrow-gauge railway was driven over the summit in just 26 months, its golden spike set July 29, 1900. Skagway was the Klondike's rough port town — con man 'Soapy' Smith died in the shootout on Juneau Wharf, July 8, 1898.",poi:["White Pass & Yukon Route Railroad","Klondike Gold Rush NHP Visitor Center","Broadway historic district","Arctic Brotherhood Hall — driftwood-stick facade","Red Onion Saloon (1897)"]},
+{d:5,date:"2026-07-03",loc:"Juneau + Endicott Arm",type:"port",lat:58.30194,lon:-134.41972,pos:"Endicott Arm & Dawes Glacier · ~57.6°N, 133.3°W in the morning, then Juneau · 58.3°N, 134.4°W.",dock:"Downtown Cruise Ship Terminal · 470 S Franklin St, Juneau, AK 99801",wx:{hi:64,lo:51,txt:"Cool maritime air, often overcast; cooler near the ice, fog possible."},booked:["2:00 PM — Whale Quest & Alaskan Island Dining · 5h 30m (Kenneth & Wyley)"],plan:["Morning scenic cruising at Dawes Glacier — watch for calving"],hist:"Juneau began with an 1880 gold strike at Gold Creek, found with the help of Tlingit chief Kowee; it became Alaska's capital in 1906 and is still the only U.S. state capital with no road in or out — reachable only by air or sea. Across the channel, Douglas Island's Treadwell mine was once among the largest gold mines in the world until a 1917 cave-in flooded it.",poi:["Endicott Arm & Dawes Glacier (Tracy Arm–Fords Terror Wilderness)","Mendenhall Glacier & Visitor Center — the Forest Service's first","Nugget Falls trail","Mount Roberts Tramway","Last Chance Mining Museum"]},
+{d:6,date:"2026-07-04",loc:"At Sea",type:"sea",lat:53.50,lon:-133.50,pos:"At sea · ~53.5°N, 133.5°W — open Pacific off Haida Gwaii, tracking south toward Victoria.",wx:{hi:62,lo:52,txt:"Open Pacific swell; variable cloud and sun."},plan:["Independence Day at sea — deck time and live music","SeaPlex, FlowRider, North Star","Catch a Two70 or Music Hall show"],hist:"A full day at sea trades the glaciers for the gardens, as the ship covers the long stretch back down the British Columbia coast.",poi:["North Star observation capsule","Two70 evening show","FlowRider surf simulator","Music Hall","Solarium and pools"]},
+{d:7,date:"2026-07-05",loc:"Victoria, BC",type:"port",lat:48.4359,lon:-123.35155,pos:"Victoria, BC · 48.4°N, 123.4°W — docks at Ogden Point (~25–30 min walk to the Inner Harbour). Usually an evening call.",dock:"Ogden Point Cruise Terminal · 185 Dallas Rd, Victoria, BC V8V 1A1",wx:{hi:75,lo:54,txt:"Warm-summer Mediterranean — Victoria's summers are notably dry."},plan:["No excursion booked — evening on your own ashore","Butchart Gardens summer illumination (evening excursions from Ogden Point)","Or stroll the Inner Harbour past the floodlit Parliament Buildings"],hist:"Victoria began in 1843 as a Hudson's Bay Company fort, renamed for Queen Victoria. The 1858 Fraser Canyon gold rush turned it into a boomtown almost overnight. Its Chinatown is the oldest in Canada, and Fan Tan Alley off it is the narrowest commercial street in North America — under three feet at its tightest.",poi:["Butchart Gardens (summer evening lights)","Inner Harbour & Parliament Buildings","Fairmont Empress","Fan Tan Alley / Chinatown","Fisherman's Wharf"]},
+{d:8,date:"2026-07-06",loc:"Seattle, WA",type:"port",lat:47.60621,lon:-122.33207,pos:"Seattle, WA · 47.6°N, 122.3°W — back at Pier 91, morning arrival and disembark.",dock:"Smith Cove Cruise Terminal (Pier 91) · 2001 W Garfield St, Seattle, WA 98119",wx:{hi:77,lo:57,txt:"Dry and mild — a classic Seattle July morning."},plan:["Early breakfast, then disembark with your assigned group","Collect luggage at the terminal","Head home — Soli Deo Gloria"],hist:"Back where the loop began: the same waterfront that outfitted gold-seekers for the north now sees you home from it.",poi:["Last views of Elliott Bay from deck","Pike Place Market, if you have the day","The Seattle waterfront"]}
+];
+function vT(f){return uTemp()==="celsius"?Math.round((f-32)*5/9):Math.round(f);}
+function todayISO(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);}
+function voyDate(iso){var dt=new Date(iso+"T12:00"),mo=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"][dt.getMonth()],wd=["SUN","MON","TUE","WED","THU","FRI","SAT"][dt.getDay()];return wd+" "+mo+" "+dt.getDate();}
+function voyStatus(){var t=todayISO(),first=ITIN[0].date,last=ITIN[ITIN.length-1].date,i;if(t<first){var days=Math.round((new Date(first+"T12:00")-new Date(t+"T12:00"))/86400000);return "Anthem of the Seas · departs Seattle in "+days+" day"+(days===1?"":"s")+" (Jun 29).";}if(t>last)return "Anthem of the Seas · voyage complete. Soli Deo Gloria.";for(i=0;i<ITIN.length;i++){if(ITIN[i].date===t)return "Anthem of the Seas · Day "+ITIN[i].d+" — "+ITIN[i].loc+" (today).";}return "Anthem of the Seas · Jun 29 – Jul 6, 2026.";}
+function fetchVoyWx(s){var u="https://api.open-meteo.com/v1/forecast?latitude="+s.lat+"&longitude="+s.lon+"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit="+uTemp()+"&timezone=auto&start_date="+s.date+"&end_date="+s.date;retryJSON(u,1).then(function(j){if(!j||!j.daily||!j.daily.time||!j.daily.time.length)return;var d=j.daily,hi=d.temperature_2m_max[0],lo=d.temperature_2m_min[0];if(hi==null||lo==null)return;var el=document.getElementById("voy-wx-"+s.d);if(!el)return;var code=(d.weather_code&&d.weather_code[0]!=null)?(WMO[d.weather_code[0]]||""):"";var pp=(d.precipitation_probability_max&&d.precipitation_probability_max[0]!=null)?d.precipitation_probability_max[0]+"% rain":"";el.innerHTML="Typical early July: "+vT(s.wx.hi)+"° / "+vT(s.wx.lo)+"° · "+esc(s.wx.txt)+'<br><span class="fc">Forecast '+voyDate(s.date)+": "+Math.round(hi)+"° / "+Math.round(lo)+"°"+(code?" · "+esc(code):"")+(pp?" · "+pp:"")+"</span>";});}
+function renderVoyage(){var el=document.getElementById("voy-list");if(!el)return;var st=document.getElementById("voy-status");if(st)st.textContent=voyStatus();var t=todayISO(),html="";ITIN.forEach(function(s){var today=(s.date===t),badge=s.type==="port"?'<span class="dbadge b-port">Port</span>':(s.type==="scenic"?'<span class="dbadge b-scenic">Scenic</span>':'<span class="dbadge">Sea</span>');html+='<details class="voy-row'+(today?" voy-today":"")+'" id="voy-'+s.d+'"'+(today?" open":"")+'><summary class="voy-sum"><span class="dnum">DAY '+s.d+" · "+voyDate(s.date)+'</span><span class="dloc">'+esc(s.loc)+"</span>"+badge+(today?'<span class="dnow">Today</span>':"")+'</summary><div class="voy-body"><p class="voy-pos">◢ '+esc(s.pos)+'</p>'+(s.dock?'<p class="voy-dock">⚓ '+esc(s.dock)+'</p>':"")+'<p class="voy-wx" id="voy-wx-'+s.d+'">Typical early July: '+vT(s.wx.hi)+"° / "+vT(s.wx.lo)+"° · "+esc(s.wx.txt)+'</p>'+(s.booked&&s.booked.length?'<div class="voy-booked"><b>◆ Booked</b><ul>'+s.booked.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>":"")+'<div class="voy-grid">';if(s.plan&&s.plan.length)html+='<div class="voy-sec"><b>Plan</b><ul>'+s.plan.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>";if(s.hist)html+='<div class="voy-sec"><b>History</b><p>'+esc(s.hist)+"</p></div>";if(s.poi&&s.poi.length)html+='<div class="voy-sec"><b>Points of Interest</b><ul>'+s.poi.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>";html+="</div></div></details>";});el.innerHTML=html;ITIN.forEach(function(s){fetchVoyWx(s);});}
+function lsG(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsS(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function esc(s){return String(s==null?"":s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+function dn(iso){return ["SUN","MON","TUE","WED","THU","FRI","SAT"][new Date(iso+"T00:00").getDay()];}
+function uTemp(){return lsG("itw:unit")||"fahrenheit";}
+function uWind(){return uTemp()==="celsius"?"kmh":"mph";}
+function uWindLab(){return uTemp()==="celsius"?"KM/H":"MPH";}
+function retryJSON(u,n){return fetch(u).then(function(r){if((r.status===429||r.status>=500)&&n>0)return new Promise(function(s){setTimeout(s,500+Math.random()*500);}).then(function(){return retryJSON(u,n-1);});return r.ok?r.json():null;}).catch(function(){if(n>0)return new Promise(function(s){setTimeout(s,500+Math.random()*500);}).then(function(){return retryJSON(u,n-1);});return null;});}
+function selIdx(){var s=lsG("itw:sel");for(var i=0;i<LOCS.length;i++){if(LOCS[i].label===s)return i;}return 0;}
+function selLoc(){return LOCS[selIdx()];}
+function buildSel(){var s=document.getElementById("wloc");if(!s)return;var ci=selIdx(),h="";LOCS.forEach(function(p,i){h+='<option value="'+i+'"'+(i===ci?" selected":"")+'>'+esc(p.label)+'</option>';});s.innerHTML=h;s.onchange=function(){lsS("itw:sel",LOCS[s.value|0].label);refresh();};}
+function setUnit(u){lsS("itw:unit",u);wxCur={};var b=document.getElementById("wx-unit");if(b)b.textContent=(u==="celsius"?"°C":"°F");refresh();}
+function toggleUnit(){setUnit(uTemp()==="celsius"?"fahrenheit":"celsius");}
+function loadNow(){var p=selLoc();var u="https://api.open-meteo.com/v1/forecast?latitude="+p.lat+"&longitude="+p.lon+"&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit="+uTemp()+"&wind_speed_unit="+uWind()+"&timezone=auto&forecast_days=7";retryJSON(u,2).then(function(j){var el=document.getElementById("pane-now");if(!j||!j.current){el.innerHTML='<span class="muted">forecast unavailable — try again shortly</span>';return;}var c=j.current,d=j.daily,days="",n=(d&&d.time)?Math.min(7,d.time.length):0;for(var i=0;i<n;i++){days+='<div class="wx-day"><b>'+(i===0?"TODAY":dn(d.time[i]))+'</b><span class="hl">'+Math.round(d.temperature_2m_max[i])+'°</span> / <span class="lo">'+Math.round(d.temperature_2m_min[i])+'°</span><span class="pp">'+(d.precipitation_probability_max?d.precipitation_probability_max[i]+'%':'')+'</span></div>';}el.innerHTML='<div class="wx-now"><span class="wx-temp">'+Math.round(c.temperature_2m)+'°</span><span><div class="wx-cond">'+(WMO[c.weather_code]||"—")+'</div><div class="wx-meta">'+esc(p.label)+' · FEELS '+Math.round(c.apparent_temperature)+'° · '+c.relative_humidity_2m+'% RH · '+Math.round(c.wind_speed_10m)+' '+uWindLab()+'</div></span></div><div class="wx-days">'+days+'</div>';});}
+var ROUTE=[[47.606,-122.332],[47.6004,-122.3518],[47.6198,-122.3712],[47.6198,-122.41],[47.678,-122.4682],[47.8138,-122.4682],[47.8526,-122.507],[47.8914,-122.507],[48.0466,-122.6622],[48.066,-122.6622],[48.0768,-122.673],[48.0848,-122.673],[48.1048,-122.701],[48.1048,-122.7204],[48.1436,-122.7592],[48.1436,-123.1278],[48.163,-123.1472],[48.163,-123.283],[48.18,-123.3],[48.32,-124.2],[48.45,-124.95],[48.7,-125.7],[49.8,-127.6],[50.8,-129.2],[52.3,-132.5],[53.8,-133.4],[55.3,-134.7],[56.4,-135.55],[56.9,-135.7],[57,-135.5],[56.997,-135.476],[57.021,-135.452],[57.021,-135.396],[57.029,-135.388],[57.029,-135.38],[57.037,-135.372],[57.037,-135.364],[57.045,-135.356],[57.045,-135.34],[57.053,-135.331],[57.045,-135.3436],[57.045,-135.4066],[57.0345,-135.4171],[57.0345,-135.4906],[57.024,-135.5011],[57.024,-135.6165],[57.003,-135.6375],[57.003,-135.7635],[56.9925,-135.774],[56.9925,-135.816],[56.982,-135.8265],[56.9925,-135.837],[56.9925,-135.8475],[57.003,-135.858],[57.024,-135.858],[57.0345,-135.8475],[57.087,-135.8475],[57.0975,-135.837],[57.0975,-135.8265],[57.108,-135.816],[57.108,-135.8055],[57.1185,-135.795],[57.115,-135.76],[57.3,-136],[57.7,-136.3],[57.812,-136.4085],[57.82,-136.4085],[57.836,-136.4245],[57.852,-136.4245],[57.86,-136.4325],[57.8456,-136.4445],[57.8384,-136.4505],[57.8348,-136.4535],[57.8452,-136.4565],[57.8492,-136.4685],[57.8572,-136.4685],[57.8612,-136.4565],[57.8618,-136.4685],[57.8621,-136.4746],[57.8925,-136.4806],[57.8937,-136.4897],[57.895,-136.5204],[57.903,-136.5284],[57.919,-136.5364],[57.9154,-136.5431],[57.9156,-136.5471],[57.9182,-136.5481],[57.9188,-136.5483],[57.9071,-136.5565],[57.9071,-136.5645],[57.9231,-136.5805],[57.9391,-136.5645],[57.9391,-136.5485],[57.9395,-136.5486],[57.9407,-136.5491],[57.9408,-136.5511],[57.9535,-136.555],[57.9412,-136.559],[57.9541,-136.5545],[57.9419,-136.5499],[57.9567,-136.5634],[57.9647,-136.5634],[57.9875,-136.5469],[58.0086,-136.5645],[58.0399,-136.5645],[58.0503,-136.5541],[58.0711,-136.5541],[58.0815,-136.5437],[58.0919,-136.5437],[58.1023,-136.5332],[58.1023,-136.502],[58.1127,-136.4916],[58.1127,-136.4812],[58.1855,-136.4084],[58.1855,-136.398],[58.2272,-136.3564],[58.2272,-136.1066],[58.22,-136.1],[58.25,-135.9],[58.28,-135.83],[58.288,-135.822],[58.288,-135.782],[58.28,-135.774],[58.28,-135.766],[58.272,-135.758],[58.272,-135.75],[58.264,-135.742],[58.264,-135.734],[58.256,-135.726],[58.256,-135.71],[58.25,-135.7],[58.24,-135.315],[58.24,-135.307],[58.232,-135.299],[58.232,-135.259],[58.224,-135.251],[58.224,-135.203],[58.216,-135.195],[58.216,-135.187],[58.208,-135.179],[58.208,-135.155],[58.2035,-135.143],[58.2232,-135.1291],[58.2105,-135.1146],[58.2279,-135.1002],[58.2302,-135.1008],[58.2314,-135.101],[58.2391,-135.0824],[58.2469,-135.0887],[58.2625,-135.1013],[58.268,-135.0933],[58.268,-135.0853],[58.292,-135.0613],[58.292,-135.0533],[58.3,-135.0453],[58.692,-135.0453],[58.7,-135.05],[58.81,-135.115],[58.814,-135.124],[58.838,-135.148],[58.846,-135.148],[58.854,-135.156],[58.902,-135.156],[58.91,-135.164],[58.918,-135.164],[58.934,-135.18],[58.95,-135.18],[59.2,-135.3],[59.2225,-135.335],[59.2338,-135.3525],[59.243,-135.354],[59.267,-135.378],[59.275,-135.37],[59.35,-135.38],[59.362,-135.372],[59.37,-135.372],[59.394,-135.348],[59.41,-135.348],[59.418,-135.34],[59.434,-135.34],[59.458,-135.314],[59.45,-135.319],[59.45,-135.327],[59.442,-135.335],[59.434,-135.335],[59.426,-135.343],[59.418,-135.343],[59.41,-135.351],[59.402,-135.351],[59.394,-135.359],[59.386,-135.359],[59.378,-135.367],[59.362,-135.367],[59.35,-135.375],[59.2975,-135.3787],[59.2895,-135.3787],[59.2815,-135.3707],[59.2655,-135.3707],[59.2562,-135.3656],[59.245,-135.3525],[59.205,-135.3125],[59.205,-135.3045],[59.2,-135.3],[58.95,-135.175],[58.926,-135.175],[58.91,-135.159],[58.854,-135.159],[58.846,-135.151],[58.838,-135.151],[58.822,-135.135],[58.822,-135.127],[58.814,-135.119],[58.81,-135.1125],[58.7,-135.02],[58.5,-134.95],[58.41,-134.875],[58.365,-134.8375],[58.35,-134.8],[58.22,-134.62],[58.22,-134.572],[58.204,-134.556],[58.204,-134.5],[58.196,-134.492],[58.196,-134.452],[58.188,-134.444],[58.188,-134.436],[58.18,-134.428],[58.18,-134.42],[58.172,-134.412],[58.172,-134.396],[58.16,-134.39],[58.165,-134.32],[58.178,-134.28],[58.19,-134.26],[58.203,-134.24],[58.215,-134.26],[58.227,-134.294],[58.24,-134.318],[58.253,-134.342],[58.266,-134.366],[58.279,-134.39],[58.292,-134.414],[58.302,-134.42],[58.292,-134.414],[58.279,-134.39],[58.266,-134.366],[58.253,-134.342],[58.24,-134.318],[58.227,-134.294],[58.215,-134.26],[58.203,-134.24],[58.19,-134.26],[58.178,-134.28],[58.17,-134.272],[58.17,-134.208],[58.162,-134.2],[58.162,-134.184],[58.166,-134.18],[58.13,-134.152],[58.098,-134.152],[58.058,-134.112],[58.058,-134.104],[58.05,-134.1],[57.92,-133.9],[57.8,-133.72],[57.72,-133.58],[57.728,-133.572],[57.728,-133.524],[57.72,-133.516],[57.72,-133.46],[57.712,-133.452],[57.712,-133.428],[57.704,-133.42],[57.704,-133.412],[57.696,-133.404],[57.696,-133.396],[57.688,-133.388],[57.688,-133.38],[57.68,-133.372],[57.68,-133.364],[57.672,-133.356],[57.672,-133.348],[57.664,-133.34],[57.664,-133.332],[57.656,-133.324],[57.656,-133.308],[57.648,-133.3],[57.648,-133.292],[57.64,-133.284],[57.64,-133.268],[57.628,-133.261],[57.63,-133.3039],[57.6453,-133.3192],[57.6453,-133.3499],[57.6607,-133.3652],[57.6607,-133.3959],[57.676,-133.4112],[57.676,-133.4879],[57.6913,-133.5033],[57.6913,-133.5186],[57.7067,-133.5339],[57.7067,-133.5493],[57.722,-133.5646],[57.722,-133.6413],[57.7067,-133.6566],[57.676,-133.6566],[57.5073,-133.8253],[57.492,-133.8253],[57.4766,-133.8406],[57.446,-133.8406],[57.4306,-133.856],[57.3846,-133.856],[57.3693,-133.8713],[57.3539,-133.8713],[57.3386,-133.8866],[57.345,-133.9],[57.2,-134.05],[56.915,-134.3],[56.9168,-134.3324],[56.8581,-134.3911],[56.8581,-134.4106],[56.8385,-134.4302],[56.6038,-134.4302],[56.5843,-134.4497],[56.5647,-134.4497],[56.5452,-134.4693],[56.3887,-134.4693],[56.2518,-134.6062],[56.2127,-134.6062],[56.1931,-134.6258],[56.1736,-134.6258],[56.154,-134.6453],[56.1345,-134.6453],[56.1149,-134.6649],[56.0954,-134.6649],[56.0758,-134.6844],[56.0562,-134.6844],[56.0367,-134.704],[55.9976,-134.704],[55.978,-134.7235],[55.9584,-134.7235],[55.9389,-134.7431],[55.9193,-134.7431],[55.8998,-134.7627],[55.8802,-134.7627],[55.8607,-134.7822],[55.8215,-134.7822],[55.8,-134.8],[55.2,-134.9],[54.4,-134.4],[53.5,-133.5],[51.5,-130.4],[50,-128.5],[48.8,-125.9],[48.45,-124.9],[48.3,-124],[48.28,-123.55],[48.412,-123.422],[48.412,-123.414],[48.42,-123.406],[48.416,-123.402],[48.42,-123.398],[48.428,-123.39],[48.424,-123.386],[48.436,-123.352],[48.424,-123.372],[48.408,-123.372],[48.36,-123.324],[48.36,-123.316],[48.352,-123.308],[48.352,-123.292],[48.34,-123.288],[48.34,-123.28],[48.332,-123.272],[48.332,-123.264],[48.324,-123.256],[48.324,-123.248],[48.316,-123.24],[48.316,-123.232],[48.308,-123.224],[48.308,-123.208],[48.3,-123.2],[48.15,-123],[48.1501,-122.7691],[48.1323,-122.7513],[48.1323,-122.7336],[48.1056,-122.7069],[48.1056,-122.698],[48.0168,-122.6092],[48.0079,-122.6092],[48,-122.6],[47.9,-122.5],[47.75,-122.45],[47.742,-122.442],[47.734,-122.442],[47.726,-122.434],[47.662,-122.434],[47.646,-122.418],[47.638,-122.418],[47.63,-122.41],[47.63,-122.378],[47.622,-122.37],[47.6195,-122.3615],[47.5978,-122.3468],[47.606,-122.332]];
+function drawRoute(){try{
+L.polyline(ROUTE,{color:"#2ee6ff",weight:5,opacity:0.10,lineJoin:"round"}).addTo(map);
+L.polyline(ROUTE,{color:"#2ee6ff",weight:1.6,opacity:0.6,dashArray:"6 7",lineJoin:"round"}).addTo(map);
+var t=todayISO();ITIN.forEach(function(s){var c=(s.d===5)?[57.628,-133.261]:[s.lat,s.lon],today=(s.date===t);if(today)L.circleMarker(c,{radius:11,color:"#eafcff",weight:2,fillColor:"#2ee6ff",fillOpacity:0.30}).addTo(map);L.circleMarker(c,{radius:today?7:5.5,color:"#0a0a0a",weight:1.4,fillColor:today?"#2ee6ff":"#f0c87a",fillOpacity:0.95}).addTo(map).bindTooltip("Day "+s.d+" \u00b7 "+voyDate(s.date)+" \u2014 "+esc(s.loc)+(today?" (today)":""),{direction:"top",className:"wx-tip",offset:[0,-4]});L.marker(c,{icon:L.divIcon({className:"wx-dnum",html:String(s.d),iconSize:[16,16],iconAnchor:[8,8]}),interactive:false,keyboard:false}).addTo(map);});
+}catch(e){}}
+function ensureMap(){if(map)return;map=L.map("map",{zoomControl:true,attributionControl:false}).setView([45,-110],3);L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",{subdomains:"abcd",maxZoom:12}).addTo(map);drawRoute();}
+function curWx(p){var key=p.lat.toFixed(3)+","+p.lon.toFixed(3),c=wxCur[key];if(c&&(Date.now()-c.ts)<600000)return Promise.resolve(c);return retryJSON("https://api.open-meteo.com/v1/forecast?latitude="+p.lat+"&longitude="+p.lon+"&current=temperature_2m,weather_code,wind_speed_10m&daily=precipitation_probability_max&forecast_days=1&temperature_unit="+uTemp()+"&wind_speed_unit="+uWind()+"&timezone=auto",2).then(function(j){if(!j||!j.current)return null;var pp=(j.daily&&j.daily.precipitation_probability_max&&j.daily.precipitation_probability_max.length)?j.daily.precipitation_probability_max[0]:null;var o={t:j.current.temperature_2m,code:j.current.weather_code,wind:j.current.wind_speed_10m,pop:pp,ts:Date.now()};wxCur[key]=o;return o;});}
+function tipHtml(p,c){var h='<b>'+esc(p.label)+'</b>';if(c)h+='<br><span class="tw">'+Math.round(c.t)+'° '+esc(WMO[c.code]||"")+(c.wind!=null?' · '+Math.round(c.wind)+' '+uWindLab():'')+(c.pop!=null?' · '+c.pop+'% rain':'')+'</span>';else h+='<br><span class="tw">loading…</span>';return h;}
+function buildMarkers(){if(!map)return;markers.forEach(function(m){map.removeLayer(m);});markers=[];var ci=selIdx();LOCS.forEach(function(p,i){var on=(i===ci);var m=L.circleMarker([p.lat,p.lon],{radius:on?8:6,color:on?"#ffffff":"#021018",weight:2,fillColor:"#2ee6ff",fillOpacity:0.95}).addTo(map);m.bindTooltip(tipHtml(p,wxCur[p.lat.toFixed(3)+","+p.lon.toFixed(3)]),{direction:"top",className:"wx-tip",offset:[0,-5]});m.on("click",function(){lsS("itw:sel",p.label);refresh();});markers.push(m);curWx(p).then(function(c){if(c)m.setTooltipContent(tipHtml(p,c));});});}
+function fitAll(){if(!map||!markers.length)return;try{map.fitBounds(L.featureGroup(markers).getBounds().pad(0.15),{maxZoom:9});}catch(e){}}
+function showMap(){if(typeof L==="undefined")return setTimeout(showMap,200);ensureMap();var p=selLoc();map.setView([p.lat,p.lon],map.getZoom()||6);setTimeout(function(){map.invalidateSize();},60);buildMarkers();if(rv)buildFrames();else retryJSON("https://api.rainviewer.com/public/weather-maps.json",2).then(function(j){rv=j;buildFrames();});document.getElementById("mr-mode").textContent=(mode==="nowcast")?"FUTURECAST (predicted)":"RADAR (past 2h)";}
+function clearLayers(){layers.forEach(function(l){if(l)map.removeLayer(l);});layers=[];}
+function frameLayer(i){if(!layers[i]&&frames[i]){var l=L.tileLayer(rv.host+frames[i].path+"/256/{z}/{x}/{y}/4/1_1.png",{opacity:0,maxZoom:12,updateWhenIdle:true,keepBuffer:8,className:"rv-layer"});l._ready=false;l.on("load",function(){if(!l._ready){l._ready=true;rvLoaded++;}if(lastShown<0)showFrame(fi);});layers[i]=l.addTo(map);}return layers[i];}
+function buildFrames(){if(!map)return;clearLayers();stop();if(!rv||!rv.radar)return;var set=(mode==="nowcast")?(rv.radar.nowcast||[]):(rv.radar.past||[]);frames=set;if(!frames.length)return;layers=new Array(frames.length);rvLoaded=0;lastShown=-1;fi=0;var t=document.getElementById("mr-time");if(t)t.textContent="loading radar…";for(var k=0;k<frames.length;k++){frameLayer(k);}play();}
+function showFrame(i){var cur=layers[i];if(!cur||!cur._ready)return;for(var k=0;k<layers.length;k++){if(layers[k]&&k!==i)layers[k].setOpacity(0);}cur.setOpacity(0.72);lastShown=i;var f=frames[i],t=document.getElementById("mr-time");if(t&&f)t.textContent=(mode==="nowcast"?"+ ":"")+new Date(f.time*1000).toLocaleTimeString();}
+function play(){stop();if(!frames.length)return;showFrame(fi);anim=setInterval(function(){fi=(fi+1)%frames.length;showFrame(fi);},700);var b=document.getElementById("mr-play");if(b)b.textContent="⏸ PAUSE";}
+function stop(){if(anim){clearInterval(anim);anim=null;}}
+function togglePlay(){if(anim){stop();var b=document.getElementById("mr-play");if(b)b.textContent="▶ PLAY";}else play();}
+function sevRank(s){return {Extreme:4,Severe:3,Moderate:2,Minor:1}[s]||0;}
+function loadAlerts(){var p=selLoc();retryJSON("https://api.weather.gov/alerts/active?point="+p.lat+","+p.lon,2).then(function(j){renderAlerts((j&&j.features)?j.features:[],p);}).catch(function(){renderAlerts(null,p);});}
+function renderAlerts(fs,p){var el=document.getElementById("pane-alerts"),worst=0,top="";if(fs&&fs.length){var h="";fs.sort(function(a,b){return sevRank(b.properties.severity)-sevRank(a.properties.severity);});fs.forEach(function(f){var pr=f.properties,sv=pr.severity||"Unknown";if(sevRank(sv)>worst){worst=sevRank(sv);top=pr.event;}h+='<div class="alertc sev-'+sv+'"><div class="ev">'+esc(pr.event||"Alert")+'</div><div class="meta">'+esc(sv)+(pr.expires?" · until "+new Date(pr.expires).toLocaleString():"")+(pr.areaDesc?" · "+esc(pr.areaDesc):"")+'</div><div class="desc">'+esc(pr.headline||pr.description||"")+'</div></div>';});el.innerHTML=h;}else{el.innerHTML='<div class="alertc"><div class="ev">No active NWS alerts for '+esc(p.label)+'</div><div class="meta">NWS covers the US &amp; its coastal waters. International stops: rely on the Now &amp; 10-Day views.</div></div>';}setDanger(worst>=3,top);}
+function setDanger(on,ev){document.body.classList.toggle("danger",!!on);var d=document.getElementById("dgr");if(d)d.textContent=on?("⚠ ACTIVE WARNING — "+(ev||"severe weather")+" for this location. See Alerts."):"";}
+function fetch10(p){return retryJSON("https://api.open-meteo.com/v1/forecast?latitude="+p.lat+"&longitude="+p.lon+"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit="+uTemp()+"&timezone=auto&forecast_days=10",2);}
+function setRow10(idx,d){var row=document.getElementById("d10-"+idx);if(!row)return;var days=row.querySelector(".d10-days");if(!days)return;if(!d||!d.daily){days.innerHTML='<span class="muted">forecast unavailable</span>';return;}var dd=d.daily,h="",n=Math.min(10,dd.time.length);for(var k=0;k<n;k++){h+='<div class="wx-day"><b>'+(k===0?"TODAY":dn(dd.time[k]))+'</b><span class="d10-c">'+esc(WMO[dd.weather_code[k]]||"—")+'</span><span class="hl">'+Math.round(dd.temperature_2m_max[k])+'°</span> / <span class="lo">'+Math.round(dd.temperature_2m_min[k])+'°</span><span class="pp">'+(dd.precipitation_probability_max&&dd.precipitation_probability_max[k]!=null?dd.precipitation_probability_max[k]+'%':'')+'</span></div>';}days.innerHTML=h;}
+function load10day(){var el=document.getElementById("pane-10day");if(!el)return;var html="";LOCS.forEach(function(p,idx){html+='<div class="d10-row" id="d10-'+idx+'"><div class="d10-loc">'+esc(p.label)+'</div><div class="d10-days"><span class="muted">…</span></div></div>';});el.innerHTML=html;var i=0,active=0;function pump(){while(active<4&&i<LOCS.length){(function(idx,p){active++;fetch10(p).then(function(d){setRow10(idx,d);active--;pump();}).catch(function(){setRow10(idx,null);active--;pump();});})(i,LOCS[i]);i++;}}pump();}
+function fcHour(iso){var h=parseInt(iso.slice(11,13),10);var ap=h<12?"AM":"PM";var hh=h%12;if(hh===0)hh=12;return hh+" "+ap;}
+function loadFuture(){var p=selLoc(),el=document.getElementById("pane-future");if(!el)return;el.innerHTML='<span class="muted">loading precipitation outlook…</span>';var pu=(uTemp()==="celsius")?"mm":"inch";var u="https://api.open-meteo.com/v1/forecast?latitude="+p.lat+"&longitude="+p.lon+"&current=temperature_2m&hourly=precipitation,precipitation_probability&precipitation_unit="+pu+"&timezone=auto&forecast_days=2";retryJSON(u,2).then(function(j){if(!j||!j.hourly||!j.hourly.time){el.innerHTML='<span class="muted">forecast unavailable — try again shortly</span>';return;}var H=j.hourly,times=H.time,prob=H.precipitation_probability||[],amt=H.precipitation||[];var nowISO=(j.current&&j.current.time)||times[0];var start=0;for(var i=0;i<times.length;i++){if(times[i]>=nowISO){start=i;break;}}var N=Math.min(24,times.length-start);if(N<=0){el.innerHTML='<span class="muted">no forecast hours available</span>';return;}var bars="",total=0,peak=0,peakT="";for(var k=0;k<N;k++){var idx=start+k,pr=prob[idx]||0,am=amt[idx]||0;total+=am;if(pr>peak){peak=pr;peakT=fcHour(times[idx]);}var hh=4+Math.round(pr*0.46),wet=am>0.005;bars+='<div class="fc-bar" title="'+fcHour(times[idx])+' · '+pr+'% · '+am+(pu==="inch"?"in":"mm")+'"><span class="fc-fill'+(wet?" wet":"")+'" style="height:'+hh+'px"></span><span class="fc-h">'+((k%3===0)?fcHour(times[idx]):"")+'</span></div>';}var unit=(pu==="inch"?" in":" mm");var head="Next "+N+" h at "+esc(p.label)+": "+(Math.round(total*100)/100)+unit+" total"+(peak>0?" · peak "+peak+"% near "+peakT:" · little or no rain expected");el.innerHTML='<div class="fc-head">'+head+'</div><div class="fc-strip">'+bars+'</div><div class="fc-note">Hourly precipitation forecast (Open-Meteo) for '+esc(p.label)+'. Bars show chance of precipitation; glowing bars mark measurable amounts. Planning aid only — confirm conditions locally.</div>';}).catch(function(){el.innerHTML='<span class="muted">forecast unavailable — try again shortly</span>';});}
+function setTab(t){tab=t;["now","voyage","ten","radar","future","alerts"].forEach(function(x){var b=document.querySelector('.wtab[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");var _pf=document.getElementById("pane-future");if(_pf)_pf.classList.toggle("on",t==="future");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");if(t==="now")loadNow();else if(t==="voyage")renderVoyage();else if(t==="ten")load10day();else if(t==="alerts")loadAlerts();else if(t==="radar"){mode="past";showMap();}else if(t==="future")loadFuture();}
+function refresh(){buildSel();if(tab==="now")loadNow();else if(tab==="voyage")renderVoyage();else if(tab==="ten")load10day();else if(tab==="alerts")loadAlerts();else if(tab==="radar")showMap();else if(tab==="future")loadFuture();loadAlerts();}
+document.querySelectorAll(".wtab").forEach(function(b){b.onclick=function(){setTab(b.getAttribute("data-t"));};});
+var pb=document.getElementById("mr-play");if(pb)pb.onclick=togglePlay;
+var fb=document.getElementById("mr-fit");if(fb)fb.onclick=fitAll;
+var ub=document.getElementById("wx-unit");if(ub){ub.textContent=(uTemp()==="celsius"?"°C":"°F");ub.onclick=toggleUnit;}
+buildSel();renderVoyage();loadAlerts();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
+
+})();
+</script>
+<script>if("serviceWorker"in navigator){navigator.serviceWorker.register("/admin/family/sw-family.js",{scope:"/admin/family/"}).catch(function(){});}window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__bip=e;});window.addEventListener("appinstalled",function(){window.__bip=null;});</script>
+</body></html>
