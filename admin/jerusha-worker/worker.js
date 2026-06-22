@@ -165,7 +165,7 @@ export default {
         const lon = q.get("lon") != null && isFinite(Number(q.get("lon"))) ? Number(q.get("lon")) : null;
         const day = (q.get("day") || "").slice(0, 12) || null;
         const len = Number(req.headers.get("content-length") || 0);
-        if (len > 62914560) return json({ error: "too large" }, 413); // 60 MB ciphertext
+        if (len > 230686720) return json({ error: "too large" }, 413); // 220 MB ciphertext (chunked video)
         await env.MEDIA.put("media/" + id, req.body);
         const ts = new Date().toISOString();
         await env.NOTES.put("media:" + ts + "-" + id, JSON.stringify({ v: 1, id, kind, mime, lat, lon, day, ts }));
