@@ -11,18 +11,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src https://api.open-meteo.com https://api.rainviewer.com https://api.weather.gov; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src https://api.open-meteo.com https://api.rainviewer.com https://api.weather.gov; worker-src 'self'; manifest-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#03060c">
+<link rel="manifest" href="/admin/family/family.webmanifest">
+<link rel="apple-touch-icon" href="/admin/family/icons/apple-touch-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Family Vacation 2026">
 <meta name="robots" content="noindex,nofollow">
 <title>In the Wake — Family Weather</title>
 <meta name="description" content="Live conditions, 10-day forecast, radar and alerts for our family's places and the Alaska cruise.">
-<link rel="canonical" href="https://cruisinginthewake.com/admin/weather-family.html">
+<link rel="canonical" href="https://cruisinginthewake.com/admin/family/weather-family.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="In the Wake — Family Weather">
 <meta property="og:description" content="Live conditions, 10-day forecast, radar and alerts for our family's places and the Alaska cruise.">
-<meta property="og:url" content="https://cruisinginthewake.com/admin/weather-family.html">
+<meta property="og:url" content="https://cruisinginthewake.com/admin/family/weather-family.html">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
@@ -245,4 +251,5 @@ buildSel();loadNow();loadAlerts();setInterval(function(){if(tab==="now")loadNow(
 
 })();
 </script>
+<script>if("serviceWorker"in navigator){navigator.serviceWorker.register("/admin/family/sw-family.js",{scope:"/admin/family/"}).catch(function(){});}window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__bip=e;});window.addEventListener("appinstalled",function(){window.__bip=null;});</script>
 </body></html>

@@ -7,7 +7,7 @@
       assets so the page opens and decrypts without a connection.
    Single-user personal page, so skipWaiting/clients.claim are intentional. */
 
-const CACHE = "jerusha-v3";
+const CACHE = "jerusha-v4";   // bumped: activate now scoped to jerusha-* only (never touches sibling caches)
 const PRECACHE = [
   "/admin/weather-jerusha.html",
   "/admin/jerusha-icons/icon-192.png",
@@ -25,7 +25,9 @@ self.addEventListener("install", (e) => {
 self.addEventListener("activate", (e) => {
   e.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      // ONLY clean up our own old jerusha-* caches; never delete a sibling page's cache.
+      .then((keys) => Promise.all(
+        keys.filter((k) => k.startsWith("jerusha-") && k !== CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -45,7 +47,9 @@ self.addEventListener("fetch", (e) => {
   if (isShell) {
     e.respondWith(
       fetch(req).then((res) => {
-        if (res && res.status === 200) {
+        // Only ever store OUR shell path — never an arbitrary navigation (e.g. a sibling page
+        // under /admin/family/), so another page's content can never land in this cache.
+        if (res && res.status === 200 && url.pathname === "/admin/weather-jerusha.html") {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put("/admin/weather-jerusha.html", copy));
         }
@@ -60,7 +64,8 @@ self.addEventListener("fetch", (e) => {
     caches.match(req).then((hit) =>
       hit ||
       fetch(req).then((res) => {
-        if (res && res.status === 200 && (url.origin === self.location.origin || url.hostname.endsWith("cdnjs.cloudflare.com"))) {
+        const ownOrigin = url.origin === self.location.origin && !url.pathname.startsWith("/admin/family/");
+        if (res && res.status === 200 && (ownOrigin || url.hostname.endsWith("cdnjs.cloudflare.com"))) {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put(req, copy));
         }
