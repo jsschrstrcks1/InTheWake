@@ -26,16 +26,18 @@
 
 ---
 
-## P2 — Data-integrity: Anthem of the Seas deck count (2026-06-17)
+## P2 — Data-integrity: Anthem of the Seas deck count — ✅ RESOLVED 2026-06-18
 
-**Severity:** Non-blocking, factual. **File:** `assets/data/ships/rcl/anthem-of-the-seas.page.json`
+**Severity:** Non-blocking, factual. **File:** `assets/data/ships/rcl/anthem-of-the-seas.page.json` + `ships/rcl/anthem-of-the-seas.html`
 **Found by:** Original research during the deck-plans article build (`articles/anthem-of-the-seas-deck-plans.html`).
 
-`page.json` records `decks_total: 18` and `decks_guest: 16`. Independent sources contradict this:
-- Wikipedia (infobox): "16 (14 passenger-accessible)" — https://en.wikipedia.org/wiki/Anthem_of_the_Seas
-- CruiseMapper: "16 decks (15 accessible to passengers, 9 with cabins)" — https://www.cruisemapper.com/deckplans/Anthem-of-the-Seas-801
+`page.json` recorded `decks_total: 18` / `decks_guest: 16`, and the ship page body repeated "18 total (16 guest-accessible)" in three places (visible stat line, `stats_fallback` JSON, and the page.json fallback). Every source — Wikipedia ("16 / 14 passenger-accessible"), CruiseMapper ("16 decks / 9 with cabins"), and Royal Caribbean's own deck selector (Decks 3–16 = 14 accessible, confirmed via operator screenshots 2026-06-17) — agrees on **16 total**.
 
-All external sources agree on **16 total decks**; the repo's "18" appears wrong. The article uses the verified 16/14/9 figures and does NOT propagate the repo number. Decision needed: correct `page.json` (and verify whether the ship-page body repeats the 18 figure) against a primary source before editing. Not touched in the article-build session per scope agreement.
+**Fix (2026-06-18):** Corrected to `decks_total: 16`, `decks_guest: 14`, and "16 total (14 guest-accessible)" in all three spots. Review dates bumped (last-reviewed + dateModified → 2026-06-18). Ship validator: no new errors introduced (2 pre-existing errors remain — see below — both unrelated missing-thumbnail images).
+
+**Still open (separate, pre-existing, NOT this task):**
+- `ships/rcl/anthem-of-the-seas.html` line ~674 lists `"crew": "1,500"`; the Anthem voyage-pack factcheck settled on **~1,300** (two sources agree). Worth correcting in a follow-up.
+- Ship validator reports 2 errors: missing article thumbnails `/assets/articles/freedom-of-your-own-wake.jpg` and `/assets/articles/why-i-started-solo-cruising.jpg` (pre-existing; needs the images sourced).
 
 ---
 
