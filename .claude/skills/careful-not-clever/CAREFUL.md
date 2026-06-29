@@ -1,6 +1,6 @@
 # Careful, Not Clever
 
-**Version:** 1.8.3-alpha
+**Version:** 1.8.4-alpha
 **Created:** 2026-01-31
 **Revised:** 2026-05-14 (1.8.3: todo-state-as-claim + smoke-test-naming + anomaly-disposition-is-mandatory-not-optional, after operator-named "flagrant violation" in ship-validation session two days after v1.8.2 shipped)
 **Promoted to canonical:** 2026-05-09 (replaces v1.0)
@@ -8,6 +8,7 @@
 **Priority:** CRITICAL — overrides speed bias, optimization impulse, aesthetic drift, and ego-driven expansion.
 
 ## Revision history
+- **v1.8.4-alpha (2026-06-29)** — Added **Layer 0 — Economy** (pre-code gate) before Layer 1: a minimization ladder (need it? → reuse an existing component/standard → platform/CSS feature → reuse an existing asset → one line → minimum) fenced by the site's inviolables (immutable SDG comment, WCAG 2.1 AA, canonical HTTPS URLs, verified-data-only) plus a `simplify:` deliberate-shortcut marker harvestable with `rg`. Aimed squarely at the over-build debt under active CSS consolidation (~19,513 inline `style=` attributes, 25 `<style>` blocks). Concept-only lift (MIT) from the public `ponytail` skill — idea only, no code/branding/benchmarks. Provenance recorded in the household's private provenance records.
 - **v1.8.3-alpha (2026-05-14)** — Three additional patterns added after operator-named "flagrant violation" two days after v1.8.2 shipped. The trigger was a session (branch `claude/ship-validation-plan-IFmjP`, commits b85973a0 + 39d4e0c9) where the two commits themselves were defensible — regex anchored to `"mainEntity"\s*:\s*\{`, JSON-LD re-parsed before write, adversarial fixture covering both polarities — but six process-layer Mode A/B failures slipped through the discipline anyway: (a) a verification phase marked "completed — deferred" after an 8-minute aggregator hang was killed without root-cause; (b) fresh per-line baseline runs that completed but were never read before being overwritten; (c) a pre-commit hook "smoke test" with zero staged files claimed as evidence the hook works; (d) "+10 each on 23 ships" measured for 5 canaries, transitively asserted for 18; (e) "no regression across non-affected ships" backed by 10/290 sample; (f) a confident post-phase pass-rate projection ("~150–180/278, 54–65%") hand-waved from averages. The two-day gap between v1.8.2's "this won't happen again" claim and v1.8.3's "yes it did" admission is the salient signal: v1.8.2 added five rules and STILL didn't prevent the next session's slip. v1.8.3 adds three rules that target the process-layer specifically: (a) **todo-state-as-claim** — marking a verification task "completed" in any tracking surface (TodoWrite, plan doc, status update) is itself a claim that needs evidence; "completed — deferred" is the narrow-claim trap in todo-list form; (b) **smoke-test-naming** — when a verification covers a sample, the chat/commit language must say "smoke-tested on N" or "spot-checked on N," never wording that resembles a fleet-wide claim; (c) **anomaly-disposition is mandatory, not optional** — every killed-without-root-cause process, every test rerun that "worked the second time," every output that didn't get read before being overwritten produces a one-line disposition entry. Killing a hung process and routing around it is fine; never naming it is not. Cognitive memory `73cbae02` (cruising domain, protected) records the specific six failures and exists so future sessions recall the pattern without re-reading 400 lines.
 - **v1.8.2-alpha (2026-05-13)** — Five tightening items added after a second adversarial review (grok + gpt, run via the new `/adversarial-review` skill). The trigger was Mode B recurrence: v1.8.1's commit shipped a "stays under 500 lines" table row that was itself a narrow claim — and v1.8.0's commit shipped one too. The rule was being violated by the commits that *introduced* it. Recurrence means the rule isn't self-enforcing through normal compliance; the process needs additional teeth. v1.8.2 adds: (a) **back-map validation** — when extending the rule, walk the existing failure log and confirm every recent failure maps to at least one sub-pattern; (b) **historical-fixture requirement** — adversarial-fixture tests must include at least one fixture derived from a real past bug or near-miss, not just synthetic cases; (c) **state-over-timeout pattern** — prefer waiting on observable state (SW lifecycle, cache population, DOM mutation) over fixed timeouts with empirical justification; (d) **table-as-whole coverage** — individual table rows may be narrow if they are specific, but the table *collectively* must cover the actual scope of the change; (e) **forward-reference allowance** — evidence may cite a prior commit + artifact when the verifying check ran there, instead of re-running.
 - **v1.8.1-alpha (2026-05-13)** — Added "Misuse mode B — Narrow claim" to the "Limit of this rule" subsection. Surfaced by Grok's adversarial review (Finding 5, MEDIUM): the v1.8-alpha self-administered red-team identified the vague-evidence failure vector but missed the distinct case where authors shrink the claim to something trivially true rather than risk a broader unsupported claim. v1.8-alpha is the worked example: claim "no `/[object Object]` requests" was narrower than the actual change "SW warmPrecache populates the precache correctly," and the symptom-only test green-lit the gap. v1.8.1 names this mode, gives the mitigation question, and re-scopes the external audit's job to widen claims first, then verify evidence.
@@ -51,8 +52,44 @@ Careful, Not Clever governs:
 - Structural safety
 - Assumption discipline
 - Adversarial resilience
+- Code economy
 
 It does not govern brand tone or stylistic voice. Voice alignment is handled separately in `like-a-human.md`. Separation of concerns is intentional.
+
+---
+
+## Layer 0 — Economy (Pre-Code Gate)
+
+Layer 0 runs **before** Layer 1, and only when you are about to **write or add code** (HTML/CSS/JS/JSON/tooling — not logbook prose or pastoral content, which `like-a-human` governs). Layer 1 governs *how carefully* you write; Layer 0 governs *whether the code should be written at all, and how little*.
+
+This site already carries the cost of past over-building — roughly 19,513 inline `style=` attributes and 25 `<style>` blocks under active CSS consolidation. Economy is how that debt stops growing.
+
+### The Economy Ladder
+
+Understand the page and the real flow first, then climb and **stop at the first rung that holds**:
+
+1. **Does it need to exist?** Prefer not building it. Deletion beats addition. (YAGNI)
+2. **Does the codebase already do it?** Reuse an existing component, CSS class, partial, or `new-standards/` pattern before writing new markup — do not add a 26th `<style>` block or another inline `style=`.
+3. **Does a platform/CSS feature do it?** Prefer semantic HTML + existing `styles.css` utilities over bespoke CSS.
+4. **Does an existing asset cover it?** Reuse a WebP already in `assets/` (see `image-reuse-guardrail`) before sourcing a new image.
+5. **Can it be one clear line / one existing class?** Make it that.
+6. **Only then:** write the minimum that works.
+
+Shortest correct diff wins — *after* full comprehension, never instead of it. No unrequested abstractions, no new dependencies, and no new JSON fields a validator does not read (that is validator-gaming — already a BLOCKING failure in CLAUDE.md).
+
+### The Economy Fence — never economize on
+
+- The immutable SDG invocation comment (before line 20 of every HTML file).
+- WCAG 2.1 AA accessibility (alt text, contrast, heading order, ARIA, keyboard).
+- Absolute HTTPS URLs, canonical paths, and Wiki Commons attribution.
+- Verified data only (never training data; flag unknowns).
+- Anything the operator explicitly asked for.
+
+If "the minimum that works" drops a fenced item, it does not work. **Under-building is cleverness wearing a different hat** — the same drift Layer 1 guards against, from the other side.
+
+### Deliberate-simplification marker
+
+When you knowingly take a shortcut, mark it inline (`<!-- simplify: ceiling; upgrade path -->` or `/* simplify: ... */`) so it is visible debt, not a silent ceiling. Harvest later with `rg "simplify:"`.
 
 ---
 
