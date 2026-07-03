@@ -10,9 +10,11 @@
 // Usage:
 //   node import-gpx.mjs <track.gpx> <https://worker-url/loc> <NOTES_TOKEN> [--dry-run]
 //
-// Idempotent: the worker keys each fix loc:<isots>, so re-running overwrites
-// the same keys — no duplicates. The GPX file itself is personal location data:
-// it stays on your machine, never in git.
+// Duplicate-safe twice over: before posting, it fetches the tracker's existing
+// points (GET /loc) and SKIPS any fix whose timestamp is already there; and the
+// worker keys each fix loc:<isots> anyway, so even a re-post just overwrites the
+// same key. Overlapping exports are fine. The GPX file itself is personal
+// location data: it stays on your machine, never in git.
 
 import { readFileSync } from "node:fs";
 
@@ -36,8 +38,26 @@ if (dryRun) process.exit(0);
 
 const sep = locUrl.includes("?") ? "&" : "?";
 const url = `${locUrl}${sep}k=${encodeURIComponent(token)}`;
+
+// Skip points already on the tracker (compare at second precision — GPX times
+// and tst-honored records are both whole seconds).
+const existing = new Set();
+const r0 = await fetch(url).catch(() => null);
+if (r0 && r0.ok) {
+  const d0 = await r0.json().catch(() => null);
+  for (const p of (d0 && d0.points) || []) {
+    const t = Date.parse(p.ts);
+    if (isFinite(t)) existing.add(Math.floor(t / 1000));
+  }
+} else {
+  console.error(`warning: could not read existing points (${r0 ? r0.status : "network"}) — posting all (worker dedupes by key anyway)`);
+}
+const fresh = points.filter((p) => !existing.has(p.tst));
+const skipped = points.length - fresh.length;
+if (skipped) console.log(`${skipped} already on the tracker — skipping`);
+
 let ok = 0, failed = 0;
-for (const p of points) {
+for (const p of fresh) {
   const r = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -46,5 +66,5 @@ for (const p of points) {
   if (r && r.ok) ok++;
   else { failed++; console.error(`  FAIL ${r ? r.status : "network"} @ ${new Date(p.tst * 1000).toISOString()}`); }
 }
-console.log(`done: ${ok} stored, ${failed} failed`);
+console.log(`done: ${ok} stored, ${skipped} skipped (already on tracker), ${failed} failed`);
 process.exit(failed ? 1 : 0);
