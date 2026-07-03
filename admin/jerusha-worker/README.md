@@ -97,8 +97,14 @@ Then, on the page side (Slice 1b, a decrypt→edit→re-encrypt cycle):
    `GET /loc?since=` (10-day KV TTL, coords coarsened to ~110 m), rendered as a
    warm-gold breadcrumb + "here now" marker on the radar map (polls every 2 min
    while the radar tab is open). **Source not yet wired:** install OwnTracks on
-   your phone (HTTP mode → `POST https://<worker>/loc`, `Authorization: Bearer
-   <NOTES_TOKEN>`). Full plan: `../claude/plans/jerusha-location-share.md`.
+   your phone (HTTP mode → URL `https://<worker>/loc?k=<NOTES_TOKEN>` — the
+   `?k=` form; iOS OwnTracks can't set a Bearer header). Full plan:
+   `../claude/plans/jerusha-location-share.md`.
+   - `/loc` honors the OwnTracks fix time (`tst`, bounded ≤90 d past / ≤10 min
+     future) so queued fixes flushed in a burst keep their real times.
+   - **Backfill:** `node import-gpx.mjs <track.gpx> <https://worker/loc> <token>`
+     replays an OwnTracks GPX export (recorded-but-never-published days) into
+     the feed with original timestamps. Idempotent. GPX never enters git.
 5. **Slice 5:** notes persistence & durability — verify `note:` keys carry no TTL,
    full-history re-sync to a wiped device, in-page export/import keepsake, and an
    off-Cloudflare ciphertext backup so the thread survives even account loss. Full
