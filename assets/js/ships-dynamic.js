@@ -632,10 +632,8 @@
       if (response.ok) {
         const data = await response.json();
         validatedShips = data.passing || {};
-        console.log(`Loaded validation data: ${Object.keys(validatedShips).length} cruise lines`);
       }
     } catch (e) {
-      console.log('Validated ships data not available, showing all ships');
       validatedShips = {};
     }
   }

@@ -11,7 +11,6 @@
   const VERSION = '14.3.0';
 
   if (!('serviceWorker' in navigator)) {
-    console.log('[SW-Bridge] Service Workers not supported');
     return;
   }
 
@@ -20,7 +19,6 @@
   navigator.serviceWorker.register('/sw.js', {
     updateViaCache: 'none'
   }).then(registration => {
-    console.log('[SW-Bridge] v' + VERSION + ' registered:', registration.scope);
 
     // If there's a waiting SW, activate it
     if (registration.waiting) {
@@ -36,7 +34,6 @@
         if (installingWorker.state === 'installed') {
           if (navigator.serviceWorker.controller) {
             // New SW installed while old one still controlling
-            console.log('[SW-Bridge] New version available');
 
             // Notify the page of available update
             window.dispatchEvent(new CustomEvent('sw-update-available', {
@@ -47,7 +44,6 @@
             installingWorker.postMessage({ type: 'SKIP_WAITING' });
           } else {
             // First install
-            console.log('[SW-Bridge] Service Worker installed');
           }
         }
       });
@@ -59,7 +55,6 @@
     }, 60 * 60 * 1000);
 
   }).catch(error => {
-    console.error('[SW-Bridge] Registration failed:', error);
   });
 
   /* ---------- Controller Change ---------- */
@@ -69,7 +64,6 @@
     if (refreshing) return;
     refreshing = true;
 
-    console.log('[SW-Bridge] Controller changed, reloading for fresh content');
     window.location.reload();
   });
 
@@ -84,7 +78,6 @@
         window.dispatchEvent(new CustomEvent('sw-data-refreshed', {
           detail: data
         }));
-        console.log('[SW-Bridge] Data refreshed:', data?.resource);
         break;
 
       case 'CACHE_STATS':
@@ -99,8 +92,6 @@
         window.dispatchEvent(new CustomEvent('sw-tiles-cached', {
           detail: event.data
         }));
-        console.log('[SW-Bridge] Map tiles cached for ' + (event.data.portId || 'unknown') +
-                    ' (' + event.data.fetched + ' new, ' + event.data.total + ' total)');
         break;
 
       default:
@@ -255,8 +246,6 @@
     }
 
     if (pageUrls.length + imageUrls.length > 0) {
-      console.log('[SW-Bridge] Seeding ' + pageUrls.length + ' pages, ' +
-                  imageUrls.length + ' images for offline');
     }
   }
 
@@ -369,15 +358,12 @@
 
         // Safety cap — skip if bbox is too large (some scenic areas)
         if (allTiles.length > 150) {
-          console.log('[SW-Bridge] Skipping tile prefetch for ' + portId +
-                      ' — bbox too large (' + allTiles.length + ' tiles)');
           return;
         }
 
         var tileUrls = tilesToUrls(allTiles);
         if (tileUrls.length > 0) {
           sw.postMessage({ type: 'SEED_TILES', tiles: tileUrls, portId: portId });
-          console.log('[SW-Bridge] Queued ' + tileUrls.length + ' tiles for offline map (' + portId + ')');
         }
       })
       .catch(function () { /* Port has no map manifest — silent skip */ });
@@ -441,7 +427,6 @@
         var tileUrls = tilesToUrls(allTiles);
         if (tileUrls.length > 0) {
           sw.postMessage({ type: 'SEED_TILES', tiles: tileUrls, portId: portId + '-nearby' });
-          console.log('[SW-Bridge] Queued ' + tileUrls.length + ' nearby-port tiles');
         }
       })
       .catch(function () { /* Silent fail */ });
@@ -483,5 +468,4 @@
     navigator.connection.addEventListener('change', sendNetworkInfo);
   }
 
-  console.log('[SW-Bridge] v' + VERSION + ' loaded');
 })();

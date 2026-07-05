@@ -399,7 +399,6 @@ function determineWinners(costs, minors, lineConfig) {
   // v2 FIX (EC-23): Read policy from config instead of hardcoding (Carnival = false)
   const forceMinorsRefresh = lineConfig?.rules?.minorsForceRefreshment !== false; // default true for backward compat
   if (adultWinner.key === 'deluxe' && forceMinorsRefresh) {
-    console.log('[Math Engine] POLICY ENFORCED: Minors forced to Refreshment (adults buying Deluxe)');
     return {
       adultWinner: 'deluxe',
       minorWinner: 'refresh',
@@ -517,7 +516,6 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     totalVouchersPerDay = (adultVouchers * adults) + (minorVouchers * minors);
 
     if (adultVouchers === 6 || minorVouchers === 6) {
-      console.log('[Math Engine] Pinnacle vouchers detected (6/day)');
     }
   }
 
@@ -557,7 +555,6 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
 
       vouchersRemaining -= vouchersUsed;
 
-      console.log(`[Vouchers] ${drink.id} ($${drink.price}): ${vouchersUsed} vouchers applied, ${qtyAfterVouchers} drinks remain`);
 
       return { id: drink.id, qty: qtyAfterVouchers, price: drink.price };
     });
@@ -568,7 +565,6 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     // Convert back to [id, qty] format
     adjustedWeighted = allDrinks.map(d => [d.id, d.qty]);
 
-    console.log(`[Vouchers] Total savings: $${actualVoucherSavings.toFixed(2)} (${totalVouchersPerDay - vouchersRemaining} vouchers used)`);
   }
 
   // v2.1 FIX (Bug 2): Include gratuity in drink costs so à la carte total matches
@@ -738,14 +734,8 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   const deluxeUncoveredCost = rawTotal - deluxeTotal;
   const deluxeTotalCost = deluxePkgWithMinors + deluxeUncoveredCost + drinkOvercapTotal + dailyLimitExcessCost;
 
-  console.log('[Math Engine] Package comparison (including uncovered drinks + minors):');
-  console.log(`  À la carte: $${totalAlc.toFixed(2)} (raw: $${rawTotal.toFixed(2)}, coffee discount: $${coffeeDiscount.toFixed(2)}, coffee cards: $${coffeeCardCost.toFixed(2)})`);
   if (hasCoffeeCards) {
-    console.log(`  Coffee Card option: $${coffeeCardTotal.toFixed(2)} (can compete as winner)`);
   }
-  console.log(`  Soda: $${sodaPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - sodaTotal).toFixed(2)} (uncovered) = $${sodaTotalCost.toFixed(2)}`);
-  console.log(`  Refresh: $${refreshPkgWithMinors.toFixed(2)} (pkg for ${adults + minors} people) + $${(rawTotal - refreshTotal).toFixed(2)} (uncovered) = $${refreshTotalCost.toFixed(2)}`);
-  console.log(`  Deluxe: $${deluxePkgWithMinors.toFixed(2)} (pkg: adults=${adults} deluxe, minors=${minors} refresh) + $${drinkOvercapTotal.toFixed(2)} (over-cap) = $${deluxeTotalCost.toFixed(2)}`);
 
   // NEW v1.008.000: Package cost breakdown for transparent display
   // Shows: Fixed Package Cost + Uncovered Drinks = Total
@@ -793,7 +783,6 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
   let winners;
 
   if (forcedPackage && ['soda', 'refresh', 'deluxe', 'coffee'].includes(forcedPackage)) {
-    console.log(`[Math Engine] 🎯 FORCED PACKAGE: ${forcedPackage} (user clicked package card)`);
 
     // Force this package as the adult winner
     winners = {
@@ -811,7 +800,6 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
         winners.showTwoWinners = true;
         winners.minorForced = true;
         winners.minorForcedReason = 'Required when adults purchase ' + (lineConfig?.packages?.deluxe?.shortName || 'Deluxe');
-        console.log('[Math Engine] POLICY ENFORCED: Minors forced to Refreshment (adults forced Deluxe)');
       } else if (forcedPackage === 'coffee') {
         // Coffee cards: minors choose cheapest between Soda and Refreshment
         const minorBestCost = Math.min(sodaTotalCost, refreshTotalCost);
@@ -827,7 +815,6 @@ function compute(inputs, economics, dataset, vouchers = null, forcedPackage = nu
     }
   } else {
     // Normal mode: determine cheapest package (using TRUE total costs)
-    console.log('[Math Engine] Auto-recommendation mode (no forced package)');
     const costs = {
       alc: totalAlc,
       soda: sodaTotalCost,
