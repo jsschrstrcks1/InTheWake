@@ -7,7 +7,7 @@
 (function(){
 var V = window.__VOYAGE || {};
 var LOCS = V.locs || [], ITIN = V.itin || [], ROUTE = V.route || [];
-var wxCur={},map=null,layers=[],markers=[],frames=[],fi=0,anim=null,mode="past",rv=null,tab="voyage",rvLoaded=0,lastShown=-1;
+var wxCur={},map=null,layers=[],markers=[],frames=[],fi=0,anim=null,mode="past",rv=null,tab="overview",rvLoaded=0,lastShown=-1;
 var WMO={0:"Clear",1:"Mostly clear",2:"Partly cloudy",3:"Overcast",45:"Fog",48:"Rime fog",51:"Light drizzle",53:"Drizzle",55:"Heavy drizzle",56:"Freezing drizzle",57:"Freezing drizzle",61:"Light rain",63:"Rain",65:"Heavy rain",66:"Freezing rain",67:"Freezing rain",71:"Light snow",73:"Snow",75:"Heavy snow",77:"Snow grains",80:"Rain showers",81:"Rain showers",82:"Violent showers",85:"Snow showers",86:"Snow showers",95:"Thunderstorm",96:"Thunderstorm",99:"Thunderstorm"};
 
 function esc(s){return String(s==null?"":s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
@@ -25,20 +25,18 @@ function buildShell(){
    +'</header>'
    +'<div class="dgr" id="dgr" role="alert" aria-live="assertive" aria-atomic="true"></div>'
    +'<nav class="wtabs" role="tablist" aria-label="Voyage views">'
+   +'<button class="wtab on" data-t="overview" role="tab" aria-selected="true" type="button">Overview</button>'
+   +'<button class="wtab" data-t="voyage" role="tab" aria-selected="false" type="button">Voyage</button>'
+   +'<button class="wtab" data-t="averages" role="tab" aria-selected="false" type="button">Averages</button>'
    +'<button class="wtab" data-t="now" role="tab" aria-selected="false" type="button">Now</button>'
-   +'<button class="wtab on" data-t="voyage" role="tab" aria-selected="true" type="button">Voyage</button>'
    +'<button class="wtab" data-t="ten" role="tab" aria-selected="false" type="button">10-Day</button>'
    +'<button class="wtab" data-t="radar" role="tab" aria-selected="false" type="button">Radar</button>'
    +'<button class="wtab" data-t="future" role="tab" aria-selected="false" type="button">Futurecast</button>'
    +'<button class="wtab" data-t="alerts" role="tab" aria-selected="false" type="button">Alerts</button>'
    +'</nav>'
    +'<main id="content">'
-   +'<div class="wpane" id="pane-now"><span class="muted">loading…</span></div>'
-   +'<div class="wpane on" id="pane-voyage">'
-     +'<div class="voy-cta-wrap">'
-       +'<a class="voy-cta" href="'+attr(V.pdfFull)+'" target="_blank" rel="noopener noreferrer">📖 '+esc(V.pdfFullLabel||"Open the full Voyage Pack (PDF)")+' →</a>'
-       +(V.pdfCondensed?'<a class="voy-cta-sec" href="'+attr(V.pdfCondensed)+'" target="_blank" rel="noopener noreferrer">or the condensed quick-reference version (PDF) →</a>':'')
-     +'</div>'
+   +'<div class="wpane on" id="pane-overview"><span class="muted">loading…</span></div>'
+   +'<div class="wpane" id="pane-voyage">'
      +'<div class="voyhdr">'
        +'<span class="vt" id="voy-status">'+esc(V.statusInit||(V.ship||"")+" · "+(V.dateRange||""))+'</span>'
        +(V.trackUrl?'<a class="voy-track" href="'+attr(V.trackUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(V.trackLabel||"◢ Track live ↗")+'</a>':'')
@@ -46,6 +44,8 @@ function buildShell(){
      +'<div id="voy-list"><span class="muted">loading voyage…</span></div>'
      +'<p class="voy-note">'+esc(V.note||"")+'</p>'
    +'</div>'
+   +'<div class="wpane" id="pane-averages"><span class="muted">loading averages…</span></div>'
+   +'<div class="wpane" id="pane-now"><span class="muted">loading…</span></div>'
    +'<div class="wpane" id="pane-10day"><span class="muted">loading 10-day forecast…</span></div>'
    +'<div class="wpane" id="pane-map"><div id="map" role="img" aria-label="Precipitation radar map of the tracked locations"></div><div class="maprow"><button class="mapbtn" id="mr-play" type="button">⏸ PAUSE</button><button class="mapbtn" id="mr-fit" type="button">⊡ FIT ALL</button><span class="frame-t" id="mr-time"></span><span class="frame-t" id="mr-mode"></span></div></div>'
    +'<div class="wpane" id="pane-future"><span class="muted">loading precipitation outlook…</span></div>'
@@ -62,6 +62,27 @@ function voyDate(iso){var dt=new Date(iso+"T12:00"),mo=["JAN","FEB","MAR","APR",
 function voyStatus(){var t=todayISO(),first=ITIN[0].date,last=ITIN[ITIN.length-1].date,i,ship=V.ship||"This voyage";if(t<first){var days=Math.round((new Date(first+"T12:00")-new Date(t+"T12:00"))/86400000);return ship+" · departs "+(V.embarkPort||"port")+" in "+days+" day"+(days===1?"":"s")+(V.firstDateParen?" ("+V.firstDateParen+")":"")+".";}if(t>last)return ship+" · voyage complete. Soli Deo Gloria.";for(i=0;i<ITIN.length;i++){if(ITIN[i].date===t)return ship+" · Day "+ITIN[i].d+" — "+ITIN[i].loc+" (today).";}return ship+" · "+(V.dateRange||"")+".";}
 function seasonLabel(){return V.seasonLabel||"Typical";}
 function fetchVoyWx(s){var u="https://api.open-meteo.com/v1/forecast?latitude="+s.lat+"&longitude="+s.lon+"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit="+uTemp()+"&timezone=auto&start_date="+s.date+"&end_date="+s.date;retryJSON(u,1).then(function(j){if(!j||!j.daily||!j.daily.time||!j.daily.time.length)return;var d=j.daily,hi=d.temperature_2m_max[0],lo=d.temperature_2m_min[0];if(hi==null||lo==null)return;var el=document.getElementById("voy-wx-"+s.d);if(!el)return;var code=(d.weather_code&&d.weather_code[0]!=null)?(WMO[d.weather_code[0]]||""):"";var pp=(d.precipitation_probability_max&&d.precipitation_probability_max[0]!=null)?d.precipitation_probability_max[0]+"% rain":"";el.innerHTML=seasonLabel()+": "+vT(s.wx.hi)+"° / "+vT(s.wx.lo)+"° · "+esc(s.wx.txt)+'<br><span class="fc">Forecast '+voyDate(s.date)+": "+Math.round(hi)+"° / "+Math.round(lo)+"°"+(code?" · "+esc(code):"")+(pp?" · "+pp:"")+"</span>";});}
+function renderOverview(){var el=document.getElementById("pane-overview");if(!el)return;var h='';
+  h+='<div class="voy-cta-wrap">';
+  if(V.pdfFull)h+='<a class="voy-cta" href="'+attr(V.pdfFull)+'" target="_blank" rel="noopener noreferrer">📖 '+esc(V.pdfFullLabel||"Open the full Voyage Pack (PDF)")+' →</a>';
+  if(V.pdfCondensed)h+='<a class="voy-cta-sec" href="'+attr(V.pdfCondensed)+'" target="_blank" rel="noopener noreferrer">or the condensed quick-reference version (PDF) →</a>';
+  h+='</div>';
+  h+='<div class="ov-card"><b>'+esc((V.ship||"Your voyage")+" · "+(V.dateRange||""))+'</b>';
+  if(V.overview)h+='<p>'+esc(V.overview)+'</p>';
+  if(V.host)h+='<p class="ov-host">Hosted by '+esc(V.host)+'</p>';
+  h+='<p>This is your offline travel companion for the sailing — the day-by-day itinerary, destination weather averages, and live forecasts as you get close, all in one place. Save it to your phone and it keeps working at sea and in port, with no signal.</p></div>';
+  h+='<div class="ov-card"><b>📲 Save this app to your phone</b>'
+    +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow at the bottom), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
+    +'<p class="ov-step"><strong>Android (Chrome):</strong> tap the <strong>⋮</strong> menu (top-right), then <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</p>'
+    +'<p class="ov-step">It opens full-screen like a real app and works offline once loaded — handy where the ship or port has no signal.</p></div>';
+  h+='<div class="ov-card"><b>🌊 Sailing solo?</b>'
+    +'<p>These are hosted group cruises built for solo travelers — come solo, leave with friends.</p>'
+    +'<a class="ov-link" href="https://maulsbytravel.com/hosted-group-cruises-for-solos/" target="_blank" rel="noopener noreferrer">See all hosted group cruises for solo travelers →</a></div>';
+  el.innerHTML=h;}
+function renderAverages(){var el=document.getElementById("pane-averages");if(!el)return;var h='<div class="fc-head">Destination weather averages · '+esc(V.seasonLabel||"typical")+'</div>';
+  ITIN.forEach(function(s){h+='<div class="avg-row"><span class="avg-date">'+voyDate(s.date)+'</span><span class="avg-loc">'+esc(s.loc)+'</span><span class="avg-temp">'+vT(s.wx.hi)+'° / <span class="lo">'+vT(s.wx.lo)+'°</span></span><span class="avg-txt">'+esc(s.wx.txt)+'</span></div>';});
+  h+='<p class="voy-note">Typical seasonal averages for your dates — not a forecast. A real forecast appears on the Now and 10-Day tabs once a date falls within about 16 days. Tap °F / °C (top right) to switch units.</p>';
+  el.innerHTML=h;}
 function renderVoyage(){var el=document.getElementById("voy-list");if(!el)return;var st=document.getElementById("voy-status");if(st)st.textContent=voyStatus();var t=todayISO(),html="";ITIN.forEach(function(s){var today=(s.date===t),badge=s.type==="port"?'<span class="dbadge b-port">Port</span>':(s.type==="scenic"?'<span class="dbadge b-scenic">Scenic</span>':'<span class="dbadge">Sea</span>');html+='<details class="voy-row'+(today?" voy-today":"")+'" id="voy-'+s.d+'"'+(today?" open":"")+'><summary class="voy-sum"><span class="dnum">DAY '+s.d+" · "+voyDate(s.date)+'</span><span class="dloc">'+esc(s.loc)+"</span>"+badge+(today?'<span class="dnow">Today</span>':"")+'</summary><div class="voy-body"><p class="voy-pos">◢ '+esc(s.pos)+'</p>'+(s.dock?'<p class="voy-dock">⚓ '+esc(s.dock)+'</p>':"")+'<p class="voy-wx" id="voy-wx-'+s.d+'">'+seasonLabel()+": "+vT(s.wx.hi)+"° / "+vT(s.wx.lo)+"° · "+esc(s.wx.txt)+'</p>'+(s.booked&&s.booked.length?'<div class="voy-booked"><b>◆ Booked</b><ul>'+s.booked.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>":"")+'<div class="voy-grid">';if(s.plan&&s.plan.length)html+='<div class="voy-sec"><b>Plan</b><ul>'+s.plan.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>";if(s.hist)html+='<div class="voy-sec"><b>History</b><p>'+esc(s.hist)+"</p></div>";if(s.poi&&s.poi.length)html+='<div class="voy-sec"><b>Points of Interest</b><ul>'+s.poi.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>";html+="</div></div></details>";});el.innerHTML=html;ITIN.forEach(function(s){fetchVoyWx(s);});}
 function lsG(k){try{return localStorage.getItem(k);}catch(e){return null;}}
 function lsS(k,v){try{localStorage.setItem(k,v);}catch(e){}}
@@ -102,8 +123,8 @@ function setRow10(idx,d){var row=document.getElementById("d10-"+idx);if(!row)ret
 function load10day(){var el=document.getElementById("pane-10day");if(!el)return;var html="";LOCS.forEach(function(p,idx){html+='<div class="d10-row" id="d10-'+idx+'"><div class="d10-loc">'+esc(p.label)+'</div><div class="d10-days"><span class="muted">…</span></div></div>';});el.innerHTML=html;var i=0,active=0;function pump(){while(active<4&&i<LOCS.length){(function(idx,p){active++;fetch10(p).then(function(d){setRow10(idx,d);active--;pump();}).catch(function(){setRow10(idx,null);active--;pump();});})(i,LOCS[i]);i++;}}pump();}
 function fcHour(iso){var h=parseInt(iso.slice(11,13),10);var ap=h<12?"AM":"PM";var hh=h%12;if(hh===0)hh=12;return hh+" "+ap;}
 function loadFuture(){var p=selLoc(),el=document.getElementById("pane-future");if(!el||!p)return;el.innerHTML='<span class="muted">loading precipitation outlook…</span>';var pu=(uTemp()==="celsius")?"mm":"inch";var u="https://api.open-meteo.com/v1/forecast?latitude="+p.lat+"&longitude="+p.lon+"&current=temperature_2m&hourly=precipitation,precipitation_probability&precipitation_unit="+pu+"&timezone=auto&forecast_days=2";retryJSON(u,2).then(function(j){if(!j||!j.hourly||!j.hourly.time){el.innerHTML='<span class="muted">forecast unavailable — try again shortly</span>';return;}var H=j.hourly,times=H.time,prob=H.precipitation_probability||[],amt=H.precipitation||[];var nowISO=(j.current&&j.current.time)||times[0];var start=0;for(var i=0;i<times.length;i++){if(times[i]>=nowISO){start=i;break;}}var N=Math.min(24,times.length-start);if(N<=0){el.innerHTML='<span class="muted">no forecast hours available</span>';return;}var bars="",total=0,peak=0,peakT="";for(var k=0;k<N;k++){var idx=start+k,pr=prob[idx]||0,am=amt[idx]||0;total+=am;if(pr>peak){peak=pr;peakT=fcHour(times[idx]);}var hh=4+Math.round(pr*0.46),wet=am>0.005;bars+='<div class="fc-bar" title="'+fcHour(times[idx])+' · '+pr+'% · '+am+(pu==="inch"?"in":"mm")+'"><span class="fc-fill'+(wet?" wet":"")+'" style="height:'+hh+'px"></span><span class="fc-h">'+((k%3===0)?fcHour(times[idx]):"")+'</span></div>';}var unit=(pu==="inch"?" in":" mm");var head="Next "+N+" h at "+esc(p.label)+": "+(Math.round(total*100)/100)+unit+" total"+(peak>0?" · peak "+peak+"% near "+peakT:" · little or no rain expected");el.innerHTML='<div class="fc-head">'+head+'</div><div class="fc-strip">'+bars+'</div><div class="fc-note">Hourly precipitation forecast (Open-Meteo) for '+esc(p.label)+'. Bars show chance of precipitation; glowing bars mark measurable amounts. Planning aid only — confirm conditions locally.</div>';}).catch(function(){el.innerHTML='<span class="muted">forecast unavailable — try again shortly</span>';});}
-function setTab(t){tab=t;["now","voyage","ten","radar","future","alerts"].forEach(function(x){var b=document.querySelector('.wtab[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");var _pf=document.getElementById("pane-future");if(_pf)_pf.classList.toggle("on",t==="future");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");if(t==="now")loadNow();else if(t==="voyage")renderVoyage();else if(t==="ten")load10day();else if(t==="alerts")loadAlerts();else if(t==="radar"){mode="past";showMap();}else if(t==="future")loadFuture();}
-function refresh(){buildSel();if(tab==="now")loadNow();else if(tab==="voyage")renderVoyage();else if(tab==="ten")load10day();else if(tab==="alerts")loadAlerts();else if(tab==="radar")showMap();else if(tab==="future")loadFuture();loadAlerts();}
+function setTab(t){tab=t;["overview","voyage","averages","now","ten","radar","future","alerts"].forEach(function(x){var b=document.querySelector('.wtab[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});document.getElementById("pane-overview").classList.toggle("on",t==="overview");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-averages").classList.toggle("on",t==="averages");document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");var _pf=document.getElementById("pane-future");if(_pf)_pf.classList.toggle("on",t==="future");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");if(t==="overview")renderOverview();else if(t==="voyage")renderVoyage();else if(t==="averages")renderAverages();else if(t==="now")loadNow();else if(t==="ten")load10day();else if(t==="alerts")loadAlerts();else if(t==="radar"){mode="past";showMap();}else if(t==="future")loadFuture();}
+function refresh(){buildSel();if(tab==="overview")renderOverview();else if(tab==="voyage")renderVoyage();else if(tab==="averages")renderAverages();else if(tab==="now")loadNow();else if(tab==="ten")load10day();else if(tab==="alerts")loadAlerts();else if(tab==="radar")showMap();else if(tab==="future")loadFuture();loadAlerts();}
 
 // ---- Boot ---------------------------------------------------------------------
 buildShell();
@@ -111,6 +132,6 @@ document.querySelectorAll(".wtab").forEach(function(b){b.onclick=function(){setT
 var pb=document.getElementById("mr-play");if(pb)pb.onclick=togglePlay;
 var fb=document.getElementById("mr-fit");if(fb)fb.onclick=fitAll;
 var ub=document.getElementById("wx-unit");if(ub){ub.textContent=(uTemp()==="celsius"?"°C":"°F");ub.onclick=toggleUnit;}
-buildSel();renderVoyage();loadAlerts();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
+buildSel();renderOverview();loadAlerts();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
 
 })();

@@ -12,7 +12,7 @@
    entry (anthem-alaska.html, prima-caribbean.html, …) shares this one worker + shell
    cache; each installs as its own home-screen app via its own manifest. */
 
-const CACHE = "voyage-v1";
+const CACHE = "voyage-v2";
 const OWN_SCOPE = "/admin/voyage-pwa/";   // the only same-origin prefix this worker will cache
 const PRECACHE = [
   "/admin/voyage-pwa/companion.css",
