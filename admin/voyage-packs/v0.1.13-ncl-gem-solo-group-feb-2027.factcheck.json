@@ -2,12 +2,10 @@
   "_doctrine": ".claude/skills/original-research/ORIGINAL-RESEARCH.md",
   "_template": "admin/voyage-packs/FACTCHECK_TEMPLATE.json",
   "_note": "First .factcheck.json for v0.1.13 Norwegian Gem New Orleans + Cozumel Solo Group pack (Tampa, Feb 5-12 2027; hosted by Tina Maulsby / Maulsby Travel Co.). Built fresh 2026-07-06 during a careful-not-clever per-cruise pass. Ship specs verified live this session against Wikipedia + the ship's own In the Wake profile (an allowed in-repo source); NCL service charge against NCL's own FAQ; Mardi Gras 2027 dates against the New Orleans tourism calendar. The most consequential finding: Fat Tuesday 2027 = Feb 9 (a sea day), so the ship reaches New Orleans on ASH WEDNESDAY Feb 10 — the day AFTER Mardi Gras, parades over. The PWA shell's 'run-up to Mardi Gras' wx text was factually wrong and is corrected in the same commit as this pack.",
-
   "pack_filename": "v0.1.13-ncl-gem-solo-group-feb-2027.md",
   "last_factcheck_date": "2026-07-06",
   "verified_by": "Operator-supervised careful-not-clever pass",
   "verification_session": "Sailing is Feb 5-12, 2027 (~214 days out). New long-form pack built from verified research; source flyer (Maulsby Travel hosted-group-cruises page) already downloaded + attributed as /admin/voyage-pwa/flyers/new-orleans.webp. All ITW link targets verified present on disk before linking: ship page ships/norwegian/norwegian-gem.html EXISTS (linked); ports tampa/cozumel/new-orleans all exist; NCL venue pages grand-pacific, garden-cafe, osheehans, cagneys-steakhouse, le-bistro, la-cucina, teppanyaki, moderno-churrascaria all exist (Magenta + Orchid Garden named plain text, no page). Gem venue list confirmed against the ship page HTML.",
-
   "ship_specs": {
     "gross_tonnage": {
       "value": "93,530 GT",
@@ -59,7 +57,6 @@
       "verified": "2026-07-06"
     }
   },
-
   "christening": {
     "godparent": {
       "value": "Cindy Cardella — a mother from New Jersey chosen through NCL's public 'search for a godmother' promotion, not a celebrity.",
@@ -73,7 +70,6 @@
       "verified": "2026-07-06"
     }
   },
-
   "policies": {
     "auto_gratuity_rate": {
       "value": "For bookings made on or after January 1, 2023: The Haven and Suites $25.00/person/day; Club Balcony Suite and below (which covers Inside, Ocean View, and Balcony on this sailing) $20.00/person/day. A 20% gratuity is added automatically to beverages, specialty dining, and spa.",
@@ -94,7 +90,6 @@
       "notes": "NCL Freestyle no-formal-night policy is long-standing and fleet-wide; carried forward consistent with the verified Prima/Encore/Escape packs in this series."
     }
   },
-
   "onboard_venues": {
     "confirmed_from_ship_page": {
       "value": "Complimentary: Grand Pacific (main dining room), Magenta (2nd MDR), Garden Cafe buffet, O'Sheehan's pub. Specialty: Cagney's Steakhouse, Le Bistro (French), La Cucina (Italian), Teppanyaki (Japanese), Moderno Churrascaria (Brazilian), Orchid Garden (Asian). Lounges: Spinnaker Lounge, Bliss Ultra Lounge.",
@@ -103,7 +98,6 @@
       "notes": "Venue list read directly from the In the Wake Gem ship page (grep of ships/norwegian/norwegian-gem.html). Only venues with existing ITW restaurant pages are linked in the pack; Magenta and Orchid Garden are named in plain text (no page). This is the in-repo authoritative source permitted by the integrity rule ('data already present on the page')."
     }
   },
-
   "itinerary_facts": {
     "mardi_gras_2027_date": {
       "claim": "Mardi Gras / Fat Tuesday 2027 = February 9, 2027 (a SEA DAY on this cruise). Ash Wednesday = February 10, 2027. The Gem reaches New Orleans on the morning of Feb 10 — the day AFTER Mardi Gras — and stays overnight to Feb 11. The Carnival parades are over; Lent has begun.",
@@ -124,7 +118,6 @@
       "disposition": "Standard WHTI closed-loop rule; stated accurately with the passport-preferred caveat rather than encouraging travel without one."
     }
   },
-
   "port_facts": {
     "cozumel_reef_park": {
       "claim": "Cozumel reef protected within Cozumel Reefs National Park since 1996; visibility among the best in the Caribbean; February dry season gives the clearest water of the year.",
@@ -137,9 +130,14 @@
       "source": "https://www.neworleans.com/plan/transportation/cruise-port/",
       "verified": "2026-07-06",
       "notes": "Matches the PWA shell's dock text. Café du Monde, Jackson Square, St. Louis Cathedral, St. Charles streetcar, Garden District, and the National WWII Museum are stable, verifiable NOLA landmarks; the pack describes them experientially and routes detail-seekers to the ITW New Orleans port page rather than asserting specific prices/hours."
+    },
+    "mexico_consulate_2026": {
+      "value": "US Consulate General Merida moved to a new building (opened to the public May 6, 2025); current US Citizen Services for the Yucatan/Quintana Roo (incl. Cozumel): +1-844-528-6611 (from US) / 999-689-0660 or 999-316-7168 (local).",
+      "source": "https://mx.usembassy.gov/visas/u-s-embassy-mexico-city/u-s-consulate-general-merida/",
+      "verified": "2026-07-06",
+      "disposition": "CORRECTION 2026-07-06: the handoff card listed the STALE Merida number 999-942-5700 (old building) and the superseded Cancun Agency direct line 998-883-0272. Both replaced with the current ACS routing (844-528-6611 / 999-689-0660). The consulate relocated in 2025, which is why the old numbers went dead. mx.usembassy.gov itself was returning a technical-difficulties error this session, so the current numbers were confirmed via the search index of that official page + corroborating directories. Same stale numbers appear in the Prima/Margaritaville/Aqua-Thanksgiving/World America cards — swept in follow-up commits."
     }
   },
-
   "pricing": {
     "group_solo_rates": {
       "value": "Solo pricing per the group flyer: Inside $2,008 / Ocean View $2,539 / Balcony $4,249.",
@@ -148,7 +146,6 @@
       "notes": "From the operator flyer already downloaded + attributed as /admin/voyage-pwa/flyers/new-orleans.webp (visual_verification: confirmed). Pack flags the unusually large Ocean-View-to-Balcony jump (~$1,700) honestly and directs readers to confirm inclusions with Tina."
     }
   },
-
   "superlatives": {
     "godmother_new_jersey_mom": {
       "claim": "The Gem's godmother, Cindy Cardella, was a New Jersey mother chosen through a public NCL godmother search rather than a celebrity.",
@@ -157,54 +154,89 @@
       "disposition": "sourced and accurate — used as a distinctive human detail, not an unverified 'first/only' superlative"
     }
   },
-
   "voice_audit": {
     "_doctrine": ".claude/skills/voice-audit/SKILL.md (v2.3.0)",
     "audited_against": "voice-audit v2.3.0",
     "audit_date": "2026-07-06",
     "audit_scope": "Full pack body end to end — every one of the 11 sections plus the Welcome, At-a-Glance, day-by-day, and closing Sources row were read and audited line by line.",
-
     "machine_tells": {
       "templated_section_headers": {
         "count": 0,
         "notes": "Adapted from the Prima/Margaritaville structure but re-written per-port and per-season. The New Orleans day sections are itinerary-specific, not templated."
       },
-      "honest_crutch_frequency": {"count": 2, "notes": "'honest picture' / 'honestly' appear twice, both in genuine limitation framing (the Ash-Wednesday reality and the balcony-price-gap), not as filler."},
-      "genuinely_truly_crutch_frequency": {"count": 1, "notes": "'genuinely cool' / 'genuinely pleasant' — within v2.3.0 doctrine."},
-      "iconic_prose_frequency": {"count": 1, "notes": "'the iconic Cozumel trip' — standard port shorthand."},
+      "honest_crutch_frequency": {
+        "count": 2,
+        "notes": "'honest picture' / 'honestly' appear twice, both in genuine limitation framing (the Ash-Wednesday reality and the balcony-price-gap), not as filler."
+      },
+      "genuinely_truly_crutch_frequency": {
+        "count": 1,
+        "notes": "'genuinely cool' / 'genuinely pleasant' — within v2.3.0 doctrine."
+      },
+      "iconic_prose_frequency": {
+        "count": 1,
+        "notes": "'the iconic Cozumel trip' — standard port shorthand."
+      },
       "banned_cruise_vocab_count": 0,
       "ai_mentions": 0,
       "ai_implication_check": "PASS — no wording implies AI authorship or assistance anywhere; per the standing operator constraint the pack must read as substantively the operator's."
     },
-
     "must_be_present": {
       "first_person_attestation_with_date": {
         "count": 0,
         "verdict": "MISSING in the editor's voice by design — the Welcome's 'what's first-hand vs researched' note names the boundary explicitly, and Tina's lived authority is quoted as hers."
       },
-      "honest_limitation_acknowledged": {"count": 8, "verdict": "present and strong — the entire Ash-Wednesday lead (you arrive AFTER Mardi Gras, parades over), the ~$1,700 OV-to-Balcony gap flagged, the GT rounding note, the closed-loop passport-preferred caveat, the early Cozumel all-aboard warning, the reduced-post-Carnival-hours honesty, the swamp-tour-vs-departure-time warning, the search-snippet-vs-NCL-FAQ gratuity check"},
-      "from_the_pier_specificity": {"count": 10, "verdict": "strong — Julia/Erato terminals walk to the Quarter, St. Charles streetcar to Garden District, Café du Monde cash-first, Frenchmen vs Bourbon for real jazz, Palancar indep $40-60 vs ship $80-110, Cozumel 5 PM early all-aboard, US-cell-no-roaming at NOLA/Tampa, Mississippi river-approach is calm, WWII Museum as the cool-gray-day choice"},
-      "real_numbers": {"count": "70+", "verdict": "strong"}
+      "honest_limitation_acknowledged": {
+        "count": 8,
+        "verdict": "present and strong — the entire Ash-Wednesday lead (you arrive AFTER Mardi Gras, parades over), the ~$1,700 OV-to-Balcony gap flagged, the GT rounding note, the closed-loop passport-preferred caveat, the early Cozumel all-aboard warning, the reduced-post-Carnival-hours honesty, the swamp-tour-vs-departure-time warning, the search-snippet-vs-NCL-FAQ gratuity check"
+      },
+      "from_the_pier_specificity": {
+        "count": 10,
+        "verdict": "strong — Julia/Erato terminals walk to the Quarter, St. Charles streetcar to Garden District, Café du Monde cash-first, Frenchmen vs Bourbon for real jazz, Palancar indep $40-60 vs ship $80-110, Cozumel 5 PM early all-aboard, US-cell-no-roaming at NOLA/Tampa, Mississippi river-approach is calm, WWII Museum as the cool-gray-day choice"
+      },
+      "real_numbers": {
+        "count": "70+",
+        "verdict": "strong"
+      }
     },
-
     "cluster_detection": {
-      "layer_1_strong_signals": {"count": 0},
-      "layer_2_supporting_signals": {"count": 1, "signals": ["countdown timeframe headings — corpus-native across the pack series"]},
-      "layer_3_counter_signals": {"count": 11, "signals": ["the Mardi-Gras/Ash-Wednesday correction is the strongest human-checker signal in the whole series — a template-filler would have carried the shell's wrong 'run-up to Mardi Gras' framing straight through", "gratuity verified against NCL's own FAQ after a search snippet gave a conflicting number", "godmother-is-a-New-Jersey-mom detail (verified, unusual, human)", "the ~$1,700 balcony gap flagged as unusually steep rather than glossed", "closed-loop birth-certificate rule stated with the passport-preferred honesty", "two-climate packing warning specific to THIS Cozumel+NOLA pairing", "Teppanyaki named as the smart solo-dining room for a real structural reason (communal seating)", "the Mississippi river approach called out as calm/no-motion", "reduced-post-Carnival-club-hours acknowledged", "Ash Wednesday tied thoughtfully to the grief/transition section without being saccharine", "US-cell-no-roaming framed as a concrete convenience of this specific itinerary"]},
+      "layer_1_strong_signals": {
+        "count": 0
+      },
+      "layer_2_supporting_signals": {
+        "count": 1,
+        "signals": [
+          "countdown timeframe headings — corpus-native across the pack series"
+        ]
+      },
+      "layer_3_counter_signals": {
+        "count": 11,
+        "signals": [
+          "the Mardi-Gras/Ash-Wednesday correction is the strongest human-checker signal in the whole series — a template-filler would have carried the shell's wrong 'run-up to Mardi Gras' framing straight through",
+          "gratuity verified against NCL's own FAQ after a search snippet gave a conflicting number",
+          "godmother-is-a-New-Jersey-mom detail (verified, unusual, human)",
+          "the ~$1,700 balcony gap flagged as unusually steep rather than glossed",
+          "closed-loop birth-certificate rule stated with the passport-preferred honesty",
+          "two-climate packing warning specific to THIS Cozumel+NOLA pairing",
+          "Teppanyaki named as the smart solo-dining room for a real structural reason (communal seating)",
+          "the Mississippi river approach called out as calm/no-motion",
+          "reduced-post-Carnival-club-hours acknowledged",
+          "Ash Wednesday tied thoughtfully to the grief/transition section without being saccharine",
+          "US-cell-no-roaming framed as a concrete convenience of this specific itinerary"
+        ]
+      },
       "verdict": "likely_human",
       "verdict_justification": "Zero Layer 1 signals; a single Layer 2 within v2.3.0 allowances; eleven Layer 3 counter-signals. The Ash-Wednesday discovery-and-correction is exactly the kind of verification a real fact-checker produces and an AI template-filler does not — it required noticing that Fat Tuesday 2027 lands on a sea day, then rewriting the pack's entire New Orleans framing (and the PWA shell) around the truth."
     },
-
     "promotional_drift_check": "pass — no CTAs, no urgency framings, no upsell language. The Mardi Gras correction is expectation-honest, the opposite of promotional inflation.",
     "cadence_check": "pass",
     "risk_rating": "Low",
     "risk_rating_justification": "All voice-tell counts at or below series thresholds; every gate-checked fact (crew, GT, decks, christening, gratuity, laundry) verified live against primary/authoritative sources; the one high-stakes reader-expectation fact (Mardi Gras timing) was caught, corrected in the pack, and corrected in the shell.",
-
     "recommended_followup_edits": [
       "PWA shell (admin/voyage-pwa/gem-new-orleans.html) day-6 wx/hist text corrected in this same commit to remove the wrong 'run-up to Mardi Gras' framing; confirm the corrected copy reads well on device.",
       "Confirm exact NCL app times (Cozumel arrival/all-aboard; New Orleans arrival + overnight all-aboard; Tampa arrival) once the sailing is inside the app window, and tighten Section 2 if they differ.",
       "If Tina organizes a specific New Orleans group dinner ashore, name the venue/time in Section 9.",
       "Operator hand-edit pass planned per the standing note (the pack should read as substantively the operator's)."
     ]
-  }
+  },
+  "_note_2026_07_06_adversarial_fix": "Adversarial audit (2026-07-06): 3 MAJOR + 1 MINOR, all fixed. (1) At-a-Glance 'Jewel Class (2006-2010 quartet)' is wrong on both ends -> 2005-2007 (Jewel'05, Jade'06, Pearl'06, Gem'07); now matches the sidecar + Section 1. (2) Cancun/Merida consulate numbers stale (see port_facts.mexico_consulate_2026). (3->MINOR) 'nearly $1,700' OV->Balcony gap is actually $1,710 (just OVER $1,700) -> corrected to '$1,710 (just over $1,700)'. The Mardi-Gras/Ash-Wednesday architecture, all ship specs, dates, and the $20/$25 gratuity remain verified correct."
 }
