@@ -124,3 +124,37 @@ Per the standing "one at a time, careful-not-clever" rule, these should be worke
 Each pack was audited by an independent `general-purpose` subagent with web tools, instructed to be a hostile fact-checker "trying to take the prior fact-checker's job," to verify every claim against a primary source, and to mark anything it could not confirm **UNVERIFIABLE** rather than guess. One checker (Encore) misfired on its first run (zero tool uses) and was re-spawned. Cross-agent conflicts were re-verified by the lead; two (the Mérida/Cancún consular numbers) remain open pending State Dept site availability. Findings the checkers rated OK on the high-risk spine were spot-checked against the sidecars for internal consistency.
 
 **Soli Deo Gloria.** This audit exists because the packs serve real people making real decisions; the errors above are exactly the kind that a genuine adversarial pass surfaces and a single author's self-review does not.
+
+---
+
+## RESOLUTION — all fixes applied (2026-07-06)
+
+Every item in the fix queue above was corrected, verified against a primary source, and committed
+(one pack per commit, per the careful-not-clever rule; PDFs + condensed + handoff derivatives
+rebuilt; both gates re-run green each time):
+
+1. **Virgin Sisters (v0.1.3)** — entire date layer corrected Sat→Sun; Freeport re-sequenced to Day 2; Progreso hours 9–6; handoff card + condensed fixed.
+2. **World America (v0.1.8)** — emergency # → State Dept OCS 24/7 + MSC 877-665-4655; gratuity → $17/$23; terminal → Apr 2025; Roatán → Coxen Hole; Ocean Cay → south of Bimini; condensed + handoff swept.
+3. **Aqua Veterans (v0.1.2)** — stray Friday/Saturday embark text; gratuity-adjustment policy; "Spice H2O" → Vibe Beach Club; wine policy; godfather (Eric Stonestreet) added.
+4. **Margaritaville (v0.1.12)** — cruise-line phone → 1-800-814-7100.
+5. **Escape (v0.1.11)** — "Nov 19 = day before Thanksgiving/busiest day" rationale corrected; PTO miscount; **plus** a residual condensed-only error (a nonexistent go-kart track) caught in a follow-up sweep.
+6. **Symphony (v0.1)** — Roatán → Coxen Hole; "third-largest"; CocoCay free-vs-paid pools; Deck-5 track; length; Daredevil's Peak.
+7. **Encore (v0.1.10)** — two-level track; dropped "southernmost Canada"; dropped "Hudson's"; museum open-daily; fares; condensed fixed.
+8. **Anthem (v0.1.4)** — tramway $65 + Mendenhall $79 unified; "first" cathedral; Empress tea; condensed fixed.
+9. **Gem (v0.1.13)** — Jewel-class years 2005–2007; "just over $1,700"; stale Mexico consulate #.
+10. **Aqua Thanksgiving (v0.1.16)** — godfather (Stonestreet); staterooms ~1,760; Mexico #.
+11. **Bliss (v0.1.7)** — "first" cathedral; godmother (Elvis Duran); Link fare $3.00; Hoonah pop.
+12. **Prima (v0.1.9)** — stale Mexico consulate #; maiden-voyage "8 nights" → "~10 nights".
+
+**Cross-cutting resolution — the Mérida/Cancún consulate-number conflict is settled.** The U.S.
+Consulate General Mérida relocated to a new building in 2025, which killed the old Mérida
+999-942-5700 and Cancún-Agency 998-883-0272 direct lines. All affected cards (Gem, Prima,
+Margaritaville, Aqua-Thanksgiving, World America, and the sailing-agnostic card) were swept to
+the current US Citizen Services routing (+1-844-528-6611 from US / 999-689-0660 local).
+
+**Final state:** `factcheck-gate.sh --all` → PASS (14/14); `voyage-pack-pdf-build.sh --check` →
+PASS. A residual-error grep for every flagged string across all pack bodies returns clean.
+
+**Standing follow-ups** (verify-before-sailing, not errors): the Goldbelt/Mount-Roberts-Tram
+operating status (Bliss) and NCL's 2027 fall Canada/NE port lineup (Fall Foliage) — both already
+hedged in-pack.
