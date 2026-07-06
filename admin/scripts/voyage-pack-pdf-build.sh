@@ -77,6 +77,7 @@ LONG_FORM_PACKS=(
   "v0.1.13-ncl-gem-solo-group-feb-2027|ships/norwegian/v0.1.13-ncl-gem-solo-group-feb-2027.pdf"
   "v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027|ships/norwegian/v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027.pdf"
   "v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027|ships/norwegian/v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027.pdf"
+  "v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027|ships/norwegian/v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027.pdf"
 )
 
 # Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.
@@ -348,7 +349,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|all)
+    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|all)
       target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
@@ -414,6 +415,7 @@ case "$target" in
   gem|ncl-gem) build_one_long "gem" "$ENGINE" || failures=$((failures + $?)) ;;
   breakaway-bermuda|bermuda) build_one_long "bermuda" "$ENGINE" || failures=$((failures + $?)) ;;
   fall-foliage|foliage) build_one_long "fall-foliage" "$ENGINE" || failures=$((failures + $?)) ;;
+  aqua-thanksgiving) build_one_long "aqua-thanksgiving" "$ENGINE" || failures=$((failures + $?)) ;;
   all|"")
     echo "── Long-form packs ──"
     build_all_long_form "$ENGINE" || failures=$((failures + $?))
