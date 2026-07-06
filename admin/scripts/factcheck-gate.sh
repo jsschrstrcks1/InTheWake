@@ -69,6 +69,33 @@ done
 
 cd "$REPO_ROOT"
 
+# ----- staleness helper (clone-stable) ----------------------------------------
+# R2 asks: was the sidecar written at least as recently as the pack's last content
+# change? Filesystem mtimes are NOT reliable for this after a git clone/checkout —
+# git does not preserve mtimes, so a fresh checkout can write the .md a few ms after
+# its sidecar and make an unchanged pack look "stale" (this actually happened to the
+# Anthem pack). So:
+#   - If EITHER file has uncommitted changes vs HEAD, the author is actively editing,
+#     so filesystem mtime IS meaningful — use it (matches the pre-commit-hook case,
+#     where a just-edited .md should force a sidecar update).
+#   - If BOTH files are clean vs HEAD, compare git commit times (clone-stable):
+#     stale only if the .md's last commit is strictly newer than the sidecar's.
+#   - If either file isn't tracked yet (no commit), fall back to mtime.
+git_dirty() { ! git diff --quiet HEAD -- "$1" 2>/dev/null; }
+is_stale() {
+  local md="$1" sc="$2"
+  if git_dirty "$md" || git_dirty "$sc"; then
+    [ "$md" -nt "$sc" ]; return
+  fi
+  local md_ct sc_ct
+  md_ct=$(git log -1 --format=%ct -- "$md" 2>/dev/null)
+  sc_ct=$(git log -1 --format=%ct -- "$sc" 2>/dev/null)
+  if [ -z "$md_ct" ] || [ -z "$sc_ct" ]; then
+    [ "$md" -nt "$sc" ]; return
+  fi
+  [ "$md_ct" -gt "$sc_ct" ]
+}
+
 # ----- collect files to check -------------------------------------------------
 case "$MODE" in
   staged)
@@ -113,8 +140,8 @@ for md_path in "${FILES_TO_CHECK[@]}"; do
     continue
   fi
 
-  # R2: sidecar mtime >= .md mtime
-  if [ "$md_path" -nt "$sidecar" ]; then
+  # R2: sidecar at least as recent as the pack's last content change (clone-stable — see is_stale)
+  if is_stale "$md_path" "$sidecar"; then
     echo -e "  ${RED}✗${RST} $pack_name: SIDECAR STALE (.md newer than .factcheck.json)"
     echo "     → Re-verify the claims that changed and update $sidecar's last_factcheck_date."
     FAILURES=$((FAILURES + 1))

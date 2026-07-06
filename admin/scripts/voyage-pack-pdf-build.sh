@@ -148,14 +148,32 @@ simple_pdf() {
   echo "$PACKS_DIR/$1.pdf"
 }
 
-# ----- staleness check --------------------------------------------------------
-# Returns 0 (stale) if PDF is missing OR if .md source is newer than .pdf
+# ----- staleness check (clone-stable) -----------------------------------------
+# Returns 0 (stale) if the PDF is missing, or if the .md source is newer than the .pdf.
+# git checkout does NOT preserve mtimes, so on a fresh clone an unchanged .md can look
+# newer than its committed .pdf and trip a false "stale" (this bit the commit gate). So:
+#   - PDF missing                         -> stale.
+#   - Either file changed vs HEAD         -> author is actively editing; use filesystem
+#                                            mtime (a just-edited .md must force a rebuild).
+#   - Both clean vs HEAD                  -> compare git commit times (preserved across
+#                                            clones); stale only if the .md was committed
+#                                            strictly later than the .pdf.
+#   - Untracked (no commit time)          -> fall back to mtime.
+_git_dirty() { ! git diff --quiet HEAD -- "$1" 2>/dev/null; }
 pdf_is_stale() {
   local md="$1"
   local pdf="$2"
   if [ ! -f "$pdf" ]; then return 0; fi
-  if [ "$md" -nt "$pdf" ]; then return 0; fi
-  return 1
+  if _git_dirty "$md" || _git_dirty "$pdf"; then
+    if [ "$md" -nt "$pdf" ]; then return 0; else return 1; fi
+  fi
+  local md_ct pdf_ct
+  md_ct=$(git log -1 --format=%ct -- "$md" 2>/dev/null)
+  pdf_ct=$(git log -1 --format=%ct -- "$pdf" 2>/dev/null)
+  if [ -z "$md_ct" ] || [ -z "$pdf_ct" ]; then
+    if [ "$md" -nt "$pdf" ]; then return 0; else return 1; fi
+  fi
+  if [ "$md_ct" -gt "$pdf_ct" ]; then return 0; else return 1; fi
 }
 
 # ----- per-pack build ---------------------------------------------------------
