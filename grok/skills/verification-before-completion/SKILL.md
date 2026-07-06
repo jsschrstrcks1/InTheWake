@@ -1,105 +1,177 @@
 ---
 name: verification-before-completion
-description: Iron law enforcement. No claim of completion, fix, pass, or success is permitted without fresh, specific, citable verification evidence produced in the current session. Grok-native adaptation with emphasis on tool transparency, subagent verification, and todo discipline.
-priority: CRITICAL
-activation: before any completion claim, satisfaction language, commit, or task closure
+description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
+version: 2.0.0
+license: LicenseRef-Proprietary
+category: integrity
+keywords:
+  - verification
+  - completion
+  - testing
+  - evidence-before-assertion
+  - test-pass-claim
+  - regression
+allowed-tools:
+  - Bash(*:*)
+  - Read
+compatibility:
+  claude-code: ">=2.1"
 ---
 
-# Verification Before Completion (Grok Native)
+# Verification Before Completion
 
-**Core principle:** Evidence before assertions, always.
+## Overview
 
-Claiming work is complete, fixed, verified, or "good" without fresh verification is not efficiency — it is a form of dishonesty that this project explicitly rejects.
+Claiming work is complete without verification is dishonesty, not efficiency.
 
-This is the tactical companion to `careful-not-clever`. Where careful-not-clever governs the overall posture, this skill governs the exact moment before any success language is uttered.
+**Core principle:** Evidence before claims, always.
+
+**Violating the letter of this rule is violating the spirit of this rule.**
 
 ## The Iron Law
 
 ```
-NO COMPLETION CLAIMS, SATISFACTION LANGUAGE, OR "DONE" STATEMENTS
-WITHOUT FRESH, SPECIFIC, CITABLE VERIFICATION EVIDENCE
-PRODUCED IN THIS SESSION AND READ BY YOU
+NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
 ```
 
-If you have not run (or retrieved and read the full output of) the verification command **in the current thinking trace**, you cannot make the claim.
+If you haven't run the verification command in this message, you cannot claim it passes.
 
-## The Gate Function (Mandatory Sequence)
+## The Gate Function
 
-Before any of the following phrases or their semantic equivalents:
+```
+BEFORE claiming any status or expressing satisfaction:
 
-- "done", "fixed", "passes", "verified", "no regression", "should be good", "looks correct", "complete"
-- Any positive assessment of the work state
-- Moving to the next task or closing a todo item
+1. IDENTIFY: What command proves this claim?
+2. RUN: Execute the FULL command (fresh, complete)
+3. READ: Full output, check exit code, count failures
+4. VERIFY: Does output confirm the claim?
+   - If NO: State actual status with evidence
+   - If YES: State claim WITH evidence
+5. ONLY THEN: Make the claim
 
-Execute this sequence:
+Skip any step = lying, not verifying
+```
 
-1. **IDENTIFY** — What exact command, test, subagent run, or inspection would constitute proof of this claim?
-2. **RUN / RETRIEVE** — Execute it fresh (or fetch the complete raw output if backgrounded). Do not rely on previous session memory.
-3. **READ** — Consume the full output. Check exit codes, counts, error messages, and edge cases.
-4. **VERIFY** — Does the actual output confirm the precise claim being made?
-   - If no: State the actual observed status with the evidence.
-   - If yes: State the claim **together with** the specific evidence citation.
-5. **ONLY THEN** make the claim or close the todo.
+## Common Failures
 
-Skipping any step is a violation.
+| Claim | Requires | Not Sufficient |
+|-------|----------|----------------|
+| Tests pass | Test command output: 0 failures | Previous run, "should pass" |
+| Linter clean | Linter output: 0 errors | Partial check, extrapolation |
+| Build succeeds | Build command: exit 0 | Linter passing, logs look good |
+| Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
+| Regression test works | Red-green cycle verified | Test passes once |
+| Agent completed | VCS diff shows changes | Agent reports "success" |
+| Requirements met | Line-by-line checklist | Tests passing |
 
-## Grok-Specific Patterns
+## Red Flags - STOP
 
-### Tool Transparency
-Grok's tool calls return explicit output. This is an advantage. Treat every `run_terminal_command`, `read_file`, `get_command_or_subagent_output`, and subagent transcript as potential verification evidence — but only after you have actually read the content.
-
-### Subagent Verification
-When delegating verification to a subagent:
-- Spawn the subagent with a narrow, verifiable charter.
-- After it completes, use `get_command_or_subagent_output` (or equivalent) and read the raw transcript.
-- Do not accept "the subagent says it passes" as evidence. The transcript is the evidence.
-
-### Todo State as Claim
-Marking a todo item "completed" is a completion claim. The same gate applies. Before flipping the status, produce and cite the verification that justifies it.
-
-### Background and Long-Running Commands
-If a verification command was run with `background: true`, you must later call `get_command_or_subagent_output` with `block` or sufficient polling and read the complete final output before using it as evidence. "It was still running when I claimed success" is not acceptable.
-
-## Common Failure Modes (Grok Context)
-
-| Claim | Required Evidence | Insufficient |
-|-------|-------------------|--------------|
-| "All tests pass" | Full test command output showing 0 failures + exit 0 | Previous run, "the relevant ones passed", subagent summary without raw log |
-| "Linter clean" | Linter command output with 0 errors on the changed files | Partial path, "no new errors", visual inspection |
-| "Build succeeds" | Build command exit 0 + relevant artifact presence | "It compiled locally last time" |
-| "No regression on ships" | Explicit command that checked the surface + sample or full output | "I spot-checked 3 and they looked fine" |
-| "Subagent verified" | Raw subagent transcript + your review of it | "The subagent reported success" |
-| "Todo complete" | The verification artifact cited in the todo notes | The work "feels done" |
-
-## Red Flags — Stop Immediately
-
-- Use of "should", "probably", "seems", "looks like", "I think it's fine"
-- Expressions of satisfaction ("Great!", "Perfect!", "That worked!") before verification output is read
-- Desire to move on because the user is waiting or the session is long
-- Trusting any agent's (including your own subagent's) success report without inspecting the artifact
-- "This one is small / docs only / not customer-facing"
-- Any internal narrative that the rule is being applied "in spirit"
+- Using "should", "probably", "seems to"
+- Expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
+- About to commit/push/PR without verification
+- Trusting agent success reports
+- Relying on partial verification
+- Thinking "just this once"
+- Tired and wanting work over
+- **ANY wording implying success without having run verification**
 
 ## Rationalization Prevention
 
-| Excuse | Required Response |
-|--------|-------------------|
-| "The command takes too long" | Run it anyway or narrow the claim to what you can actually verify |
-| "I already know it works" | Run it anyway. Knowledge ≠ evidence |
-| "The user just wants it done" | The user also wants the site to be trustworthy |
-| "It's only a one-line change" | One-line changes have historically caused some of the worst regressions here |
-| "Grok is good at this" | Tool transparency is an advantage, not an exemption |
+| Excuse | Reality |
+|--------|---------|
+| "Should work now" | RUN the verification |
+| "I'm confident" | Confidence ≠ evidence |
+| "Just this once" | No exceptions |
+| "Linter passed" | Linter ≠ compiler |
+| "Agent said success" | Verify independently |
+| "I'm tired" | Exhaustion ≠ excuse |
+| "Partial check is enough" | Partial proves nothing |
+| "The change is logically equivalent" | Prediction, not verification |
+| "I've reviewed the code and it looks correct" | Review ≠ execution |
+| "Different words so rule doesn't apply" | Spirit over letter |
 
-## When This Skill Is Non-Negotiable
+## Key Patterns
 
-- Before any git commit or PR creation
-- Before marking any todo item complete
-- Before telling the user "this is ready" or "that issue is addressed"
-- Before delegating further work on the assumption that the current piece is solid
-- After any use of background tools, subagents, or long-running processes
+**Tests:**
+```
+✅ [Run test command] [See: 34/34 pass] "All tests pass"
+❌ "Should pass now" / "Looks correct"
+```
 
----
+**Regression tests (TDD Red-Green):**
+```
+✅ Write → Run (pass) → Revert fix → Run (MUST FAIL) → Restore → Run (pass)
+❌ "I've written a regression test" (without red-green verification)
+```
 
-**Soli Deo Gloria.**
+**Build:**
+```
+✅ [Run build] [See: exit 0] "Build passes"
+❌ "Linter passed" (linter doesn't check compilation)
+```
 
-This skill exists because the project has repeatedly paid the price for agents (and humans) who were sure they were right. Evidence is the only antidote.
+**Requirements:**
+```
+✅ Re-read plan → Create checklist → Verify each → Report gaps or completion
+❌ "Tests pass, phase complete"
+```
+
+**Agent delegation:**
+```
+✅ Agent reports success → Check VCS diff → Verify changes → Report actual state
+❌ Trust agent report
+```
+
+## When verification cannot be run
+
+If verification is not possible in the current environment (no test runner, no browser, no DB, no network), say so explicitly:
+
+> *I cannot verify this claim in the current environment. Required: `<command>`. Expected output: `<description>`. Please run before merging.*
+
+Honest gaps beat invented confirmations. "I made the change but couldn't run the tests" is professionally acceptable. "Tests pass" without running them is not.
+
+## Why This Matters
+
+From 24 failure memories:
+- your human partner said "I don't believe you" - trust broken
+- Undefined functions shipped - would crash
+- Missing requirements shipped - incomplete features
+- Time wasted on false completion → redirect → rework
+- Violates: "Honesty is a core value. If you lie, you'll be replaced."
+
+## When To Apply
+
+**ALWAYS before:**
+- ANY variation of success/completion claims
+- ANY expression of satisfaction
+- ANY positive statement about work state
+- Committing, PR creation, task completion
+- Moving to next task
+- Delegating to agents
+
+**Rule applies to:**
+- Exact phrases
+- Paraphrases and synonyms
+- Implications of success
+- ANY communication suggesting completion/correctness
+
+## Troubleshooting
+
+| Failure mode | Corrective step |
+|---|---|
+| You wrote "tests pass" without running them | Stop. Run the tests. Update the claim with the real result. |
+| The command failed; you described it as "a minor warning" | Quote the actual error. Decide whether to fix or report. |
+| You ran a partial command (e.g., one test file) and claimed full coverage | Re-run the full suite. Adjust the claim. |
+| The environment lacks the verifier | Say so. Don't claim verification anyway. |
+
+## The Bottom Line
+
+**No shortcuts for verification.**
+
+Run the command. Read the output. THEN claim the result.
+
+This is non-negotiable.
+
+## Inspiration
+
+Two lineages merged 2026-07-05 (ecosystem-audit reconciliation). The Iron Law / Gate Function / rationalization-table core is the household-consensus variant deployed at six locations (ken, manateecreeksheep, Romans, InTheWake, Family-History), itself derived from the superpowers pattern. The honest-gap template ("When verification cannot be run") and the troubleshooting table are this repo's original v1.0.0 contributions, preserved as the superset. The pattern shows up across the household: recipe transcription marks `[UNCLEAR]` rather than guessing, sermon evaluation runs the rubric rather than assuming the score, flock validation runs `validate_flock.py` rather than declaring the database consistent.
