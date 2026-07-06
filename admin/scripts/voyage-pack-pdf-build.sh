@@ -73,6 +73,7 @@ LONG_FORM_PACKS=(
   "v0.1.9-ncl-prima-solo-group-sep-2026|ships/norwegian/v0.1.9-ncl-prima-solo-group-sep-2026.pdf"
   "v0.1.10-ncl-encore-solo-group-oct-2026|ships/norwegian/v0.1.10-ncl-encore-solo-group-oct-2026.pdf"
   "v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026|ships/norwegian/v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026.pdf"
+  "v0.1.12-mas-islander-solo-group-jan-2027|"
 )
 
 # Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.
@@ -344,7 +345,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|all)
+    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|all)
       target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
@@ -406,6 +407,7 @@ case "$target" in
   prima|prima-solo) build_one_long "prima" "$ENGINE" || failures=$((failures + $?)) ;;
   encore|encore-solo) build_one_long "encore" "$ENGINE" || failures=$((failures + $?)) ;;
   escape|escape-solo|thanksgiving) build_one_long "escape" "$ENGINE" || failures=$((failures + $?)) ;;
+  margaritaville|mas|islander) build_one_long "islander" "$ENGINE" || failures=$((failures + $?)) ;;
   all|"")
     echo "── Long-form packs ──"
     build_all_long_form "$ENGINE" || failures=$((failures + $?))
