@@ -74,15 +74,17 @@ case "$MODE" in
   staged)
     # Long-form packs only. Condensed (-condensed.md) and handoff (-handoff-card.md)
     # are derivatives of the long-form — they inherit verification through their
-    # sister long-form sidecar. Facts shared across the trio should be consistent
-    # (a separate cross-doc consistency check belongs in the build pipeline).
+    # sister long-form sidecar. FACT-CHECK log docs (-FACT-CHECK.md) are documentation
+    # ABOUT packs, not sellable packs, so they carry no sidecar either. Facts shared
+    # across the trio should be consistent (a separate cross-doc consistency check
+    # belongs in the build pipeline).
     mapfile -t FILES_TO_CHECK < <(git diff --cached --name-only --diff-filter=ACMR 2>/dev/null \
       | grep -E "^${PACKS_DIR}/v[0-9].*\.md$" \
-      | grep -v -E "(-condensed|-handoff-card)\.md$" || true)
+      | grep -v -E "(-condensed|-handoff-card|-FACT-CHECK)\.md$" || true)
     ;;
   all)
     mapfile -t FILES_TO_CHECK < <(find "$PACKS_DIR" -maxdepth 1 -name "v[0-9]*.md" -type f \
-      ! -name "*-condensed.md" ! -name "*-handoff-card.md" | sort)
+      ! -name "*-condensed.md" ! -name "*-handoff-card.md" ! -name "*-FACT-CHECK.md" | sort)
     ;;
   explicit)
     FILES_TO_CHECK=("${EXPLICIT_FILES[@]}")
