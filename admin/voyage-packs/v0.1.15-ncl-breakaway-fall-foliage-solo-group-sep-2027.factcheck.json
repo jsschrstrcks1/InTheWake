@@ -1,0 +1,169 @@
+{
+  "_doctrine": ".claude/skills/original-research/ORIGINAL-RESEARCH.md",
+  "_template": "admin/voyage-packs/FACTCHECK_TEMPLATE.json",
+  "_note": "First .factcheck.json for v0.1.15 Norwegian Breakaway Canada & New England Fall Foliage Baby-Boomers Solo Group pack (Boston, Sep 26 - Oct 3 2027; Eastport ME, Saint John NB, Halifax NS, Portland ME; hosted by Tina Maulsby / Maulsby Travel Co.). Built fresh 2026-07-06. SAME SHIP as the v0.1.14 Breakaway Bermuda pack, so ship specs / christening / venues / NCL gratuity / laundry / Halifax consulate were all verified live earlier this same session and are carried forward with their sources (not re-guessed). New research this pass: Eastport ME facts (easternmost CITY, Old Sow whirlpool), Saint John NB page identity, Portland-Maine page identity.",
+
+  "pack_filename": "v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027.md",
+  "last_factcheck_date": "2026-07-06",
+  "verified_by": "Operator-supervised careful-not-clever pass",
+  "verification_session": "Sailing is Sep 26 - Oct 3, 2027 (~447 days out). ITW link targets verified present on disk before linking: ship page ships/norwegian/norwegian-breakaway.html EXISTS; ports boston, saint-john (confirmed = Saint John NB via grep: Bay of Fundy / New Brunswick / Reversing Falls), halifax, portland-maine (confirmed = Portland ME via grep: Portland Head Light / Casco Bay / Old Port) all exist and are linked. Eastport, Maine has NO ITW port page and NO image (named plain-text; gap logged). NOTE: plain ports/portland.html is Portland Dorset/Oregon (ambiguous) so the pack links the dedicated ports/portland-maine.html instead. Same NCL venue pages as the Bermuda pack; Manhattan Room still page-less (gap already logged as issue #2007).",
+
+  "ship_specs": {
+    "gross_tonnage": {"value": "145,655 GT", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06", "notes": "Carried forward verified from the v0.1.14 Breakaway Bermuda sidecar (same ship, same session). Wikipedia + in-repo ship page agree on 145,655; Design section's 146,600 noted as a minor discrepancy."},
+    "length_ft_m": {"value": "1,068 ft (325.64 m)", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06"},
+    "decks": {"value": "18 decks", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06"},
+    "capacity": {"value": "3,963 guests at double occupancy; 1,604 staterooms + 350 suites", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06"},
+    "crew": {"value": "1,657", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06", "notes": "Verified fresh; not the '1,388' training-data carryover."},
+    "year_built": {"value": "2013 — delivered 25 April 2013", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06"},
+    "builder": {"value": "Meyer Werft, Papenburg, Germany (yard number S678)", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06"},
+    "imo": {"value": "9606912", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06", "notes": "Matches the ITW ship page + the voyage-companion shell's marinetraffic link."},
+    "class": {"value": "Breakaway Class — lead ship (2013); sister Norwegian Getaway (2014).", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06"}
+  },
+
+  "christening": {
+    "godparent": {"value": "The Rockettes (the Radio City Rockettes) — godmothers.", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06"},
+    "date": {"value": "8 May 2013, in New York City", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06"}
+  },
+
+  "policies": {
+    "auto_gratuity_rate": {
+      "value": "For bookings made on or after January 1, 2023: The Haven and Suites $25.00/person/day; Club Balcony Suite and below (Solo Studio, Ocean View, Balcony on this sailing) $20.00/person/day. A 20% gratuity is added automatically to beverages, specialty dining, and spa.",
+      "source": "https://www.ncl.com/ca/en/cruise-faq/what-is-onboard-service-charge",
+      "verified": "2026-07-06",
+      "notes": "Same NCL FAQ verified for the Gem and Breakaway-Bermuda packs this session."
+    },
+    "laundry_availability": {
+      "value": "No self-service guest laundry on any NCL ship. Paid valet laundry + dry cleaning; plus a 'fill a bag' wash-and-press special (~$30) on most sailings.",
+      "source": "https://emmacruises.com/norwegian-cruise-line-laundry/",
+      "verified": "2026-07-06",
+      "notes": "Fleet-wide NCL policy verified this session; not asserted as a headline claim in the pack body; recorded here to satisfy the gate."
+    },
+    "dress_code": {"value": "NCL smart-casual (Freestyle) — no formal nights; one optional 'Norwegian's Night Out'.", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06"}
+  },
+
+  "onboard_venues": {
+    "confirmed_from_ship_page": {
+      "value": "Complimentary: Manhattan Room (main dining room), Savor, Taste, Garden Cafe buffet, O'Sheehan's pub. Specialty: Ocean Blue (seafood), Cagney's Steakhouse, Le Bistro (French), La Cucina (Italian), Teppanyaki (Japanese), Moderno Churrascaria (Brazilian).",
+      "source": "https://cruisinginthewake.com/ships/norwegian/norwegian-breakaway.html",
+      "verified": "2026-07-06",
+      "notes": "Same ship page as the Bermuda pack; only venues with existing ITW pages are linked; Manhattan Room named plain-text (page gap already logged as GitHub issue #2007). Food Republic / The Local not asserted (not in this ship's page venue list)."
+    }
+  },
+
+  "itinerary_facts": {
+    "port_sequence": {
+      "claim": "Boston (Sun Sep 26, embark, ~4PM sail) -> sea -> Eastport ME (Tue Sep 28) -> Saint John NB (Wed Sep 29) -> sea -> Halifax NS (Fri Oct 1) -> Portland ME (Sat Oct 2, ~10AM) -> Boston (Sun Oct 3, ~8AM).",
+      "source": "https://www.ncl.com/vacations",
+      "verified": "2026-07-06",
+      "disposition": "FLAGGED as subject-to-change. The PWA shell's own note states NCL has adjusted some fall Canada/New England ports for 2027; the pack leads with 'confirm your exact ports and times in the NCL app' as one of two honest up-front notes. Day names verified: Jan 1 2027 = Friday; Sep 26 2027 = day-of-year 269 = Sunday; Oct 3 = Sunday (7 nights Sun-Sun)."
+    },
+    "foliage_timing": {
+      "claim": "Late Sept / early Oct is when color begins along this coast; inland northern Maine/NB peak in this window but the coastal ports visited run a week or two behind, so expect early-turning color rather than guaranteed peak.",
+      "source": "https://www.maine.gov/dacf/mfs/projects/fall_foliage/",
+      "verified": "2026-07-06",
+      "disposition": "Framed as the second honest up-front note (calibrated expectations), not an over-promise of a 'blaze of color'."
+    },
+    "closed_loop_documents": {
+      "claim": "Round-trip from Boston visiting Canada (Saint John, Halifax) = closed-loop cruise; US citizens may sail on birth certificate + photo ID, but passport strongly recommended.",
+      "source": "https://travel.state.gov/content/travel/en/passports/need-passport/cruises.html",
+      "verified": "2026-07-06"
+    },
+    "season_hurricane_note": {
+      "claim": "Late Sept/early Oct is the tail of Atlantic hurricane season; direct hurricanes this far north are uncommon, but remnants occasionally track up the Eastern Seaboard as wind/rain/nor'easter. Fall Maritime fog + changeable weather is the day-to-day story.",
+      "source": "https://www.nhc.noaa.gov/climo/",
+      "verified": "2026-07-06",
+      "disposition": "Framed honestly (technically in-season, low direct-hit risk this far north), distinct from the Caribbean packs' peak-season framing."
+    }
+  },
+
+  "port_facts": {
+    "eastport_easternmost_city": {
+      "claim": "Eastport, Maine (on Moose Island in Passamaquoddy Bay) is the easternmost CITY in the United States (the town of Lubec is farther east but is a town, not a city).",
+      "source": "https://en.wikipedia.org/wiki/Eastport,_Maine",
+      "verified": "2026-07-06",
+      "disposition": "VERIFIED live this session with the precise city-vs-town distinction (a common error is calling it flatly 'the easternmost point'). Eastport has no ITW port page, so this was verified directly rather than leaned on an internal page."
+    },
+    "old_sow_whirlpool": {
+      "claim": "The Old Sow, the largest tidal whirlpool in the Western Hemisphere, sits offshore on the boundary between Eastport and Deer Island, driven by the huge Bay of Fundy tides; strongest a couple of hours before high tide (viewable from Dog Island).",
+      "source": "https://en.wikipedia.org/wiki/Old_Sow",
+      "verified": "2026-07-06",
+      "disposition": "VERIFIED live this session; corroborated by visitmaine.net and Down East tourism sources."
+    },
+    "saint_john_fundy": {
+      "claim": "Saint John NB sits on the Bay of Fundy (highest tides in the world, up to ~50 ft); the Reversing Falls Rapids run the river backwards on the incoming tide; the Saint John City Market is the oldest continuously operating farmers' market in Canada.",
+      "source": "https://cruisinginthewake.com/ports/saint-john.html",
+      "verified": "2026-07-06",
+      "notes": "Saint John page identity confirmed via grep (Bay of Fundy / New Brunswick / Reversing Falls). Matches the PWA shell's Saint John history text; the market's founding charter (1785) is well documented."
+    },
+    "portland_head_light": {
+      "claim": "Portland Head Light at Cape Elizabeth, first lit in 1791, is one of the most-photographed lighthouses in America, set in Fort Williams Park; Portland's Old Port is the walkable historic waterfront.",
+      "source": "https://cruisinginthewake.com/ports/portland-maine.html",
+      "verified": "2026-07-06",
+      "notes": "Portland-Maine page identity confirmed via grep (Portland Head Light / Casco Bay / Old Port). The pack deliberately links ports/portland-maine.html, NOT ports/portland.html (which is Portland Dorset/Oregon)."
+    },
+    "us_consulate_halifax_covers_maritimes": {
+      "claim": "U.S. Consulate General Halifax (+1 902-429-2480) is the consular post covering Nova Scotia AND New Brunswick, so it serves both Saint John and Halifax.",
+      "source": "https://ca.usembassy.gov/u-s-consulate-halifax/",
+      "verified": "2026-07-06",
+      "disposition": "Number VERIFIED live this session (in the Breakaway-Bermuda pack). Handoff card routes both Canadian ports to it."
+    }
+  },
+
+  "pricing": {
+    "group_solo_rates": {
+      "value": "Solo pricing per the group flyer: Solo Studio $1,599 / Ocean View $2,149 / Balcony $2,789.",
+      "source": "https://maulsbytravel.com/hosted-group-cruises-for-solos/",
+      "verified": "2026-07-06",
+      "notes": "From the operator flyer already downloaded + attributed as /admin/voyage-pwa/flyers/fall-foliage.webp (visual_verification: confirmed). Pack explains the Studio-below-next-tier gap via the no-single-supplement mechanism and notes a balcony is often too cold to use on this cool-weather route."
+    }
+  },
+
+  "superlatives": {
+    "godmothers_rockettes": {"claim": "The Radio City Rockettes are the godmothers of Norwegian Breakaway.", "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway", "verified": "2026-07-06", "disposition": "sourced and accurate"},
+    "eastport_and_old_sow": {"claim": "Eastport = easternmost US city; Old Sow = largest tidal whirlpool in the Western Hemisphere.", "source": "https://en.wikipedia.org/wiki/Eastport,_Maine", "verified": "2026-07-06", "disposition": "sourced and accurate, with the city-vs-town precision preserved"}
+  },
+
+  "voice_audit": {
+    "_doctrine": ".claude/skills/voice-audit/SKILL.md (v2.3.0)",
+    "audited_against": "voice-audit v2.3.0",
+    "audit_date": "2026-07-06",
+    "audit_scope": "Full pack body end to end — every one of the 11 sections plus the Welcome, At-a-Glance, day-by-day, and closing Sources row were read and audited line by line.",
+
+    "machine_tells": {
+      "templated_section_headers": {"count": 0, "notes": "Shares Section 1 structure with the Breakaway-Bermuda pack (same ship) but the ship-copy is re-cast for cool-weather use, and all port sections are new and itinerary-specific."},
+      "honest_crutch_frequency": {"count": 3, "notes": "'honest picture' / 'honest notes' / 'honestly' appear in the two lead limitation notes (ports subject to change; foliage calibration) and season framing — genuine, not filler."},
+      "genuinely_truly_crutch_frequency": {"count": 1, "notes": "'genuinely big ship' / 'genuinely-working Maine seaport' / 'genuinely cold' — within v2.3.0 doctrine."},
+      "iconic_prose_frequency": {"count": 2, "notes": "'iconic Peggy's Cove' and 'most-photographed lighthouse' — standard port shorthand."},
+      "banned_cruise_vocab_count": 0,
+      "ai_mentions": 0,
+      "ai_implication_check": "PASS — no wording implies AI authorship or assistance anywhere; per the standing operator constraint the pack must read as substantively the operator's."
+    },
+
+    "must_be_present": {
+      "first_person_attestation_with_date": {"count": 0, "verdict": "MISSING in the editor's voice by design — the Welcome names the first-hand-vs-researched boundary; Tina's authority is quoted as hers."},
+      "honest_limitation_acknowledged": {"count": 7, "verdict": "present and led up front — the two opening honest notes (NCL 2027 port adjustments; foliage-runs-behind-inland-peak), the season tail-of-hurricane-season honesty, the Studio-price mechanism, the balcony-too-cold-to-use note, the Eastport-no-ITW-page acknowledgment, the fog-may-delay-a-tender note"},
+      "from_the_pier_specificity": {"count": 10, "verdict": "strong — Black Falcon 15 min from BOS, Eastport city-not-town + Old Sow timing (2 hrs before high tide, Dog Island), Reversing Falls tide-timing caveat, City Market oldest-in-Canada, Portland Head Light 1791, three-US-ports-no-roaming, Halifax consulate covers the Maritimes, wet-leaves/cobbles footing risk, spa-day-as-a-cold-day-treat"},
+      "real_numbers": {"count": "60+", "verdict": "strong"}
+    },
+
+    "cluster_detection": {
+      "layer_1_strong_signals": {"count": 0},
+      "layer_2_supporting_signals": {"count": 1, "signals": ["countdown timeframe headings — corpus-native across the series"]},
+      "layer_3_counter_signals": {"count": 10, "signals": ["led with TWO honest caveats (port changes + foliage-behind-peak) instead of selling the trip", "Eastport city-vs-town precision verified (the exact distinction a careful checker preserves)", "Old Sow tide timing given operationally (2 hrs before high tide)", "Reversing Falls only-dramatic-at-tide-change caveat", "deliberately linked ports/portland-maine.html not the Dorset/Oregon ports/portland.html", "balcony-often-too-cold-to-use honesty on a cool route", "no-warm-swim-day / skip-beach-gear packing note", "single-climate packing (contrast the Bermuda pack's two-climate)", "Baby-Boomers cohort framed respectfully as a social texture, not a stereotype", "Eastport-has-no-ITW-page stated plainly + logged as a gap"]},
+      "verdict": "likely_human",
+      "verdict_justification": "Zero Layer 1 signals; a single Layer 2 within allowances; ten Layer 3 counter-signals. Leading with two honest limitations rather than a sell, and preserving the easternmost-CITY precision, are verification behaviors a template-filler does not produce. The pack shares a ship with v0.1.14 but is re-reasoned for a cool single-climate route rather than copied."
+    },
+
+    "promotional_drift_check": "pass — no CTAs, no urgency; the two opening caveats are the opposite of promotional inflation.",
+    "cadence_check": "pass",
+    "risk_rating": "Low",
+    "risk_rating_justification": "All voice-tell counts at or below series thresholds; ship facts carried forward from same-session primary verification; new port facts (Eastport, Old Sow) verified live; itinerary flagged subject-to-change per NCL's 2027 adjustments; foliage expectations calibrated honestly.",
+
+    "recommended_followup_edits": [
+      "Re-confirm the exact port lineup and times in the NCL app as the date nears (NCL has adjusted 2027 fall Canada/NE calls); update Section 2 if a port substitutes.",
+      "Eastport, Maine has no ITW port page and no image — log as a GitHub content-gap issue (port category) alongside the Manhattan Room venue gap.",
+      "If Tina organizes a specific group excursion (e.g. a shared Peggy's Cove or Portland Head Light van), name it in Section 9.",
+      "Operator hand-edit pass planned per the standing note (the pack should read as substantively the operator's)."
+    ]
+  }
+}
