@@ -41,6 +41,44 @@
 
 ---
 
+## P1 — Two event-gated articles: write after 2026-07-11 (queued 2026-07-06)
+
+Both were operator-approved picks from the July 7–13 planning pass; both are
+**event-gated** — the facts they report did not exist on July 6. Any session on
+or after **Saturday, July 12** should pick these up. Full discipline chain each:
+research (retrieval only, zero training-data facts) → like-a-human during
+writing → voice-audit greps → ICP-2 gates (ai-summary ≤250, dateModified ==
+last-reviewed, 4 JSON-LD blocks) → BOTH Sophos gates (public:
+`admin/social-publish/lib/gate.js`; private: `node
+/home/user/open-claw-stuff/tools/sophos-article-gate.mjs <file>`) → card (JPG via
+`admin/social-card-generator/generate.js --out`, convert to WebP at
+`assets/articles/article-cards/<slug>.webp`) → commit with `Soli Deo Gloria.`
+
+### 1. Mariner of the Seas oversold outcome
+- Sailing embarks **July 11** (Galveston, 5-night Western Caribbean, Costa
+  Maya/Cozumel). RCL offered fare refund + $200 OBC for balcony/oceanview →
+  interior downgrades; volunteers notified within 8 days of embarkation.
+- Write the outcome: did volunteers clear the oversell, any involuntary moves,
+  what accepted guests report. Research anchors: Cruise Hive story 212433,
+  cruise.blog coverage.
+- Links back to `articles/oversold-cruise-volunteer-offers-2026.html` (the
+  framework piece that promised this follow-up).
+
+### 2. Legend of the Seas — what the first passengers found
+- Ship returns to Civitavecchia **July 11** from the July 4 maiden voyage
+  (La Spezia / Palma / Marseille / Barcelona per latest reports).
+- The follow-up promised in the limits section of
+  `articles/legend-of-the-seas-maiden-voyage-2026.html`: what opened on time,
+  what didn't, crew week-one reports, from passenger accounts and live blogs
+  (royalcaribbeanblog.com had pre-delivery access; check their onboard coverage).
+- ⚠️ Tonnage now has THREE conflicting published figures: 248,663 GT
+  (Cruise Critic/Travelers Today), ~250,000 GT (our ship page), 250,800 GT
+  (earlier trade reports). Handle as a sources-conflict, as the maiden article
+  did — do not resolve by fiat; if a definitive figure emerges (Royal's own
+  spec sheet), cite it and update both articles.
+
+---
+
 ## P0 — Flickr "public feed" Attribution Audit (2026-04-12)
 
 **Severity:** BLOCKING for affected ports — legal/attribution liability
