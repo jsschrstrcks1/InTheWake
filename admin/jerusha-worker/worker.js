@@ -132,7 +132,16 @@ export default {
         let d; try { d = JSON.parse(body); } catch { return json({ error: "bad json" }, 400); }
         const lat = Number(d.lat), lon = Number(d.lon); // OwnTracks sends {_type:"location",lat,lon,tst}
         if (!isFinite(lat) || !isFinite(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180) return json({ error: "bad coords" }, 400);
-        const ts = new Date().toISOString();
+        // Honor the FIX time (OwnTracks tst, epoch seconds) when sane. Queued fixes flush in
+        // bursts on ship/hotel WiFi, and import-gpx.mjs replays past points — server-stamping
+        // either collapses a whole day onto the flush moment. Bounds: ≤90 d past, ≤10 min future.
+        let ts = null;
+        const tst = Number(d.tst);
+        if (isFinite(tst) && tst > 0) {
+          const ms = tst * 1000, now = Date.now();
+          if (ms >= now - 7776000000 && ms <= now + 600000) ts = new Date(ms).toISOString();
+        }
+        if (!ts) ts = new Date().toISOString();
         const rec = { v: 1, lat: Math.round(lat * 1000) / 1000, lon: Math.round(lon * 1000) / 1000, ts };
         await env.NOTES.put("loc:" + ts, JSON.stringify(rec), { expirationTtl: 864000 }); // 10 days
         return json([]); // OwnTracks expects a JSON array (friend cards); empty is fine
