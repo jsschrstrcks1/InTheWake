@@ -31,7 +31,12 @@
   function saveVisited(visited) {
     var arr = [];
     visited.forEach(function (id) { arr.push(id); });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   function render(portId) {
@@ -49,18 +54,18 @@
 
     btn.addEventListener('click', function () {
       var current = getVisited();
-      if (current.has(portId)) {
-        current.delete(portId);
-        btn.className = 'logbook-btn';
-        btn.setAttribute('aria-pressed', 'false');
-        btn.textContent = '+ Add to My Logbook';
-      } else {
-        current.add(portId);
+      var adding = !current.has(portId);
+      if (adding) { current.add(portId); } else { current.delete(portId); }
+      if (!saveVisited(current)) return; // storage unavailable \u2014 leave UI in sync with reality
+      if (adding) {
         btn.className = 'logbook-btn logbook-btn--added';
         btn.setAttribute('aria-pressed', 'true');
         btn.textContent = '\u2713 In My Logbook';
+      } else {
+        btn.className = 'logbook-btn';
+        btn.setAttribute('aria-pressed', 'false');
+        btn.textContent = '+ Add to My Logbook';
       }
-      saveVisited(current);
     });
 
     container.textContent = '';

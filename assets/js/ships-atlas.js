@@ -713,7 +713,7 @@
    * Format number with commas
    */
   function formatNumber(num) {
-    if (num === null || num === undefined) return null;
+    if (num === null || num === undefined || Number.isNaN(num)) return '—';
     return num.toLocaleString();
   }
 
