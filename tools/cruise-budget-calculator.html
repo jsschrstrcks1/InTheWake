@@ -445,8 +445,8 @@ All work on this project is offered as a gift to God.
         <div class="calc-section">
           <h3>Shore Excursions</h3>
           <div class="cost-row">
-            <div class="cost-label"><strong>Excursion budget (total, all guests)</strong><span class="hint">$50-200/person/port is typical. Beach days can be $0-30.</span></div>
-            <input type="number" class="cost-input" id="c-excursions" min="0" step="1" value="400" data-cat="excursions"/>
+            <div class="cost-label"><strong>Excursion budget (per port day, all guests)</strong><span class="hint">$50-200/person/port is typical. Beach days can be $0-30. Multiplied by your number of port days above.</span></div>
+            <input type="number" class="cost-input" id="c-excursions" min="0" step="1" value="100" data-cat="excursions"/>
           </div>
         </div>
 
@@ -612,6 +612,7 @@ All work on this project is offered as a gift to God.
     function calculate() {
       var guests = Math.max(1, getVal('guests'));
       var nights = Math.max(1, getVal('nights'));
+      var portDays = Math.max(0, getVal('port-days'));
 
       // Sum by category
       var totals = {};
@@ -622,6 +623,9 @@ All work on this project is offered as a gift to God.
         var cat = inputs[i].getAttribute('data-cat');
         var val = parseFloat(inputs[i].value);
         if (!isNaN(val) && cat && totals.hasOwnProperty(cat)) {
+          // Excursion budget is entered per port day (all guests); scale by the
+          // number of port days so that input is load-bearing (#1887).
+          if (cat === 'excursions') val = val * portDays;
           totals[cat] += val;
         }
       }
@@ -701,7 +705,7 @@ All work on this project is offered as a gift to God.
       document.getElementById('c-cabin').value = '2000';
       document.getElementById('c-taxes').value = '300';
       document.getElementById('c-dining').value = '100';
-      document.getElementById('c-excursions').value = '400';
+      document.getElementById('c-excursions').value = '100';
       calculate();
     });
 
