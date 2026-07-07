@@ -23,7 +23,7 @@
   const DISPLAY_N = DISPLAY.toLowerCase();
 
   // Normalizers
-  const norm   = s => String(s || '').toLowerCase().replace(/'/g, "'").trim();
+  const norm   = s => String(s || '').toLowerCase().replace(/[\u2019\u2018]/g, "'").trim();
   const normShip = s => norm(s).replace(/\s+of the seas$/, ''); // RC tolerance
   const slugify = s => String(s || '').toLowerCase().replace(/&/g, 'and')
     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -135,7 +135,10 @@
       if (score > bestScore) { best = { key, ship }; bestScore = score; }
       if (bestScore === 2) break;
     }
-    return best;
+    // No real match (all ships scored 0): return null so the caller renders
+    // "No dining record found" instead of silently showing the FIRST ship's
+    // dining on the wrong page (#1890).
+    return bestScore > 0 ? best : null;
   }
 
   function buildListsFromVenuesV1(root, shipObj) {
