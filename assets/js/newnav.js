@@ -69,7 +69,9 @@
       group.dataset.open = 'false';
 
 
-      on(btn, 'click', (e)=>{ e.preventDefault(); e.stopPropagation(); toggleGroup(group); });
+      on(btn, 'click', (e)=>{ e.preventDefault(); e.stopPropagation();
+        groups.forEach(g=>{ if(g !== group) closeGroup(g); });
+        toggleGroup(group); });
 
 
       on(btn, 'keydown', (e)=>{
