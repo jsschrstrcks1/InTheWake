@@ -1107,7 +1107,6 @@ function setupInlinePriceEditing() {
     wrapper.appendChild(plusBtn);
   });
 
-  console.log('[UI] ✓ Inline price editing with mobile steppers enabled');
 }
 
 /* ==================== QUIZ MODAL ==================== */
@@ -1759,7 +1758,6 @@ function announce(message, priority = 'polite') {
 
 function renderAll() {
 
-  console.log('[UI Render] renderAll() called');
 
   if (!window.ITW || !window.ITW.store) {
 
@@ -1817,7 +1815,6 @@ function setupNonAlcoholicToggle() {
   const affirmation = document.getElementById('recovery-affirmation');
 
   if (!toggle) {
-    console.log('[UI] Non-alcohol toggle not found (optional feature)');
     return;
   }
 
@@ -1905,7 +1902,6 @@ function setupPricingToggle() {
   const pricingSelect = document.getElementById('pricing-type');
 
   if (!pricingSelect) {
-    console.log('[UI] Pricing toggle not found (optional feature)');
     return;
   }
 
@@ -1931,7 +1927,6 @@ function setupPricingToggle() {
 /* ==================== INITIALIZATION ==================== */
 
 function initializeUI() {
-  console.log('[UI] Initializing v1.003.000 (Accessibility Promise Kept)');
 
   // ✅ CRITICAL: Wait for core to be ready
   if (!window.ITW_BOOTED || !window.ITW || !window.ITW.store) {
@@ -1966,9 +1961,7 @@ function initializeUI() {
       clearTimeout(window._renderTimeout);
     }
 
-    console.log('[UI] Scheduling renderAll() in 50ms...');
     window._renderTimeout = setTimeout(() => {
-      console.log('[UI] Executing scheduled renderAll()');
       renderAll();
     }, 50);
   });

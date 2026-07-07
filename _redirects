@@ -1,0 +1,114 @@
+# Netlify redirects — In the Wake
+# Soli Deo Gloria
+#
+# Ported from .htaccess (issue #1912). Production runs on Netlify, so the
+# Apache .htaccess is INERT — its SEO 301s were silently not firing. This
+# file restores them. Rules are ordered to match .htaccess (first match wins),
+# so runtime behavior matches what Apache would have done.
+#
+# Every source below was verified PHANTOM (no real file) and every target was
+# verified to EXIST on 2026-07-06, so no `!` force flag is needed and no real
+# page is shadowed.
+#
+# DEFERRED (needs operator decision — intentionally NOT ported here):
+#   * Security file blocks (.py/.sh/.md/.csv/hidden/backup FilesMatch) and the
+#     /scripts/ block: Netlify has no FilesMatch; a clean block needs a 404
+#     target page (none exists yet). Better handled by not deploying those
+#     files or via a future 404.html + status rule.
+#   * /admin/ block: NOT ported. Production pages legitimately link into
+#     /admin/ (e.g. the safety article's voyage-pack emergency PDF, family
+#     PWAs, trip pages). A blanket block would break live user downloads.
+#     Needs an explicit allow-list before any block.
+#   * 410-Gone JSON blocks (ships/rcl/assets, videos, travel/articles *.json):
+#     skipped — live pages fetch JSON from those paths; blocking risks breakage.
+#   * drinks.html, packing.html, ships/carnival/mardi-gras.html: their .htaccess
+#     301s were dropped because those are REAL existing files (redirecting them
+#     would hide live pages). Left as-is.
+#   * ships/carnival/celebration.html: two conflicting .htaccess rules
+#     (add "carnival-" prefix vs add "-1987" year). Apache first-match resolves
+#     to carnival-celebration.html; that behavior is preserved below, but the
+#     ambiguity is flagged for editorial review.
+#   * Template-junk patterns (showmenu:, ${slug}, $1, ${url}) and em-dash regex
+#     restaurant rules: rely on regex/special chars Netlify _redirects can't
+#     express; low value, skipped.
+
+# --- Canonical host: www -> apex (Netlify forces HTTPS automatically) ---
+https://www.cruisinginthewake.com/*  https://cruisinginthewake.com/:splat  301!
+
+# --- Ship line-family path fixes (real pages live under the right-hand dir) ---
+/ships/carnival-cruise-line/*  /ships/carnival/:splat            301
+/ships/royal-caribbean/*       /ships/rcl/:splat                 301
+/ships/celebrity/*             /ships/celebrity-cruises/:splat   301
+/ships/holland-america/*       /ships/holland-america-line/:splat 301
+/ships/ncl/*                   /ships/norwegian/:splat           301
+
+# --- Carnival double-prefix cleanup ---
+/ships/carnival/carnival-carnival-*  /ships/carnival/carnival-:splat  301
+
+# --- Carnival ship naming: root-level -> carnival/ subdirectory ---
+/ships/carnival-mardi-gras.html   /ships/carnival/carnival-mardi-gras.html   301
+/ships/carnival-celebration.html  /ships/carnival/carnival-celebration.html  301
+/ships/carnival-jubilee.html      /ships/carnival/carnival-jubilee.html      301
+
+# --- Carnival ship naming: missing "carnival-" prefix (subdirectory) ---
+# (mardi-gras.html omitted — it is a real existing file)
+/ships/carnival/celebration.html  /ships/carnival/carnival-celebration.html  301
+/ships/carnival/jubilee.html      /ships/carnival/carnival-jubilee.html      301
+
+# --- Carnival historic ships (no year suffix -> dated versions) ---
+/ships/carnival/festivale.html  /ships/carnival/festivale-1961.html  301
+/ships/carnival/holiday.html    /ships/carnival/holiday-1985.html    301
+/ships/carnival/tropicale.html  /ships/carnival/tropicale-1981.html  301
+/ships/carnival/carnivale.html  /ships/carnival/carnivale-1956.html  301
+
+# --- Ship at root level -> correct cruise-line dir ---
+/ships/enchantment-of-the-seas.html  /ships/rcl/enchantment-of-the-seas.html  301
+
+# --- Renamed content files ---
+/disability.html                    /disability-at-sea.html                                  301
+/cruise-lines/rcl.html              /cruise-lines/royal-caribbean.html                       301
+/solo/visitingtheunitedstates.html  /solo/visiting-the-united-states-before-your-cruise.html 301
+/contact.html                       /about-us.html                                           301
+/about.html                         /about-us.html                                           301
+/authors/tina.html                  /authors/tina-maulsby.html                               301
+/about/ken-baker.html               /authors/ken-baker.html                                  301
+/restaurants_index_stub.html        /restaurants.html                                        301
+
+# --- Phantom chops-grille ship-specific pages -> chops.html ---
+/restaurants/chops-grille.html            /restaurants/chops.html  301
+/restaurants/chops-grille-adventure.html    /restaurants/chops.html  301
+/restaurants/chops-grille-enchantment.html  /restaurants/chops.html  301
+/restaurants/chops-grille-grandeur.html     /restaurants/chops.html  301
+/restaurants/chops-grille-radiance.html     /restaurants/chops.html  301
+/restaurants/chops-grille-rhapsody.html     /restaurants/chops.html  301
+/restaurants/chops-grille-vision.html       /restaurants/chops.html  301
+/restaurants/chops-grille-brilliance.html   /restaurants/chops.html  301
+/restaurants/chops-grille-serenade.html     /restaurants/chops.html  301
+/restaurants/chops-grille-jewel.html        /restaurants/chops.html  301
+/restaurants/chops-grille-mariner.html      /restaurants/chops.html  301
+/restaurants/chops-grille-navigator.html    /restaurants/chops.html  301
+/restaurants/chops-grille-voyager.html      /restaurants/chops.html  301
+/restaurants/chops-grille-explorer.html     /restaurants/chops.html  301
+/restaurants/chops-grille-freedom.html      /restaurants/chops.html  301
+/restaurants/chops-grille-liberty.html      /restaurants/chops.html  301
+/restaurants/chops-grille-independence.html /restaurants/chops.html  301
+/restaurants/chops-grille-anthem.html       /restaurants/chops.html  301
+/restaurants/chops-grille-quantum.html      /restaurants/chops.html  301
+/restaurants/chops-grille-ovation.html      /restaurants/chops.html  301
+/restaurants/chops-grille-spectrum.html     /restaurants/chops.html  301
+/restaurants/chops-grille-odyssey.html      /restaurants/chops.html  301
+/restaurants/chops-grille-wonder.html       /restaurants/chops.html  301
+/restaurants/chops-grille-icon.html         /restaurants/chops.html  301
+/restaurants/chops-grille-star.html         /restaurants/chops.html  301
+/restaurants/chops-grille-utopia.html       /restaurants/chops.html  301
+
+# --- Phantom directories -> hub pages ---
+/contact      /about-us.html      301
+/contact/     /about-us.html      301
+/stories      /articles.html      301
+/stories/*    /articles.html      301
+/news         /index.html         301
+/newsletter   /index.html         301
+/videos       /ships.html         301
+/videos/      /ships.html         301
+/ships/ships.html  /ships.html    301

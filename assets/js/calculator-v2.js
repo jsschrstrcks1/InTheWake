@@ -104,7 +104,6 @@
     return;
   }
 
-  console.log(`[Core] v${VERSION} Initializing (Phase 1 Complete)...`); // ✅ FIXED: Backtick syntax
 
   /* ==================== CONFIGURATION ==================== */
 
@@ -449,7 +448,6 @@
 
         // Reject timestamps older than max age
         if (now - item.timestamp > maxAge) {
-          console.warn('[Storage] Rejecting stale data (>90 days)');
           this.remove(key);
           return null;
         }
@@ -499,7 +497,6 @@
           }
         }
 
-        if (cleared > 0) console.log(`[Storage] Cleared ${cleared} expired items`); // ✅ FIXED: Backtick syntax
         return cleared;
       } catch { return 0; }
     },
@@ -659,7 +656,6 @@
       Object.keys(updates).forEach(key => {
         if (key === 'results') {
           keysToNotify.add(key);
-          console.log('[Store] 🔥 FORCING results notification (bypass change detection)');
         }
       });
 
@@ -675,7 +671,6 @@
 
       finalKeysToNotify.forEach(key => {
         const callbacks = subscribers.get(key);
-        console.log(`[Store] Notifying ${callbacks?.size || 0} subscriber(s) for key: ${key}`);
         if (callbacks) callbacks.forEach(cb => {
           try {
             cb(state[key], state);
@@ -687,7 +682,6 @@
 
       const globalCallbacks = subscribers.get('*');
       if (globalCallbacks) {
-        console.log(`[Store] Notifying ${globalCallbacks.size} global subscriber(s)`);
         globalCallbacks.forEach(cb => {
           try {
             cb(state, state);
@@ -701,7 +695,6 @@
     function patch(path, value) {
       if (!path) return;
 
-      console.log(`[Store] patch("${path}") called`);
 
       const keys = path.split('.');
       if (keys.length === 1) {
@@ -732,7 +725,6 @@
         subscribers.get(key).add(callback);
       });
 
-      console.log(`[Store] Total subscribers for '${list[0]}':`, subscribers.get(list[0])?.size || 0);
 
       return () => {
         list.forEach(key => subscribers.get(key)?.delete(callback));
@@ -818,7 +810,6 @@
       // Prevents ghost calculations from incompatible versions
       const storedVersion = saved.version || '0.0.0';
       if (storedVersion !== VERSION) {
-        console.log(`[Core] Version mismatch (${storedVersion} → ${VERSION}), clearing state`);
         SafeStorage.remove(CONFIG.STORAGE_KEYS.state);
         announce('Calculator updated, settings reset');
         return;
@@ -837,7 +828,6 @@
         store.patch('economics', hydratedEcon);
       }
 
-      console.log('[Core] State loaded from storage (protected by allowlist)');
     } catch (e) {
 
     }
@@ -935,7 +925,6 @@
   function setCurrency(code) {
     const upper = code.toUpperCase();
     if (!CONFIG.CURRENCIES.includes(upper)) {
-      console.warn(`[Core] Unsupported currency: ${code}`); // ✅ FIXED: Backtick syntax
       return false;
     }
     currentCurrency = upper;
@@ -970,7 +959,6 @@
 
       if (brand) {
         store.patch('brand', brand);
-        console.log(`[Core] Loaded brand: ${brand.label}`); // ✅ FIXED: Backtick syntax
         return brand;
       }
     } catch (error) {
@@ -999,7 +987,6 @@
       const lineConfig = config.lines?.[activeLineId];
 
       if (!lineConfig) {
-        console.warn(`[Core v2] Line "${activeLineId}" not found in config, using first available`);
         const firstKey = Object.keys(config.lines)[0];
         window.ITW_CALC_CONFIG = config;
         window.ITW_LINE_CONFIG = config.lines[firstKey] || null;
@@ -1009,9 +996,7 @@
       window.ITW_CALC_CONFIG = config;
       window.ITW_LINE_CONFIG = lineConfig;
 
-      console.log(`[Core v2] Line config loaded: ${lineConfig.name} (${activeLineId})`);
     } catch (error) {
-      console.warn('[Core v2] Failed to load calculator-config.json, using hardcoded fallbacks', error);
       window.ITW_LINE_CONFIG = null;
       window.ITW_CALC_CONFIG = null;
     }
@@ -1150,7 +1135,6 @@
     if (switchStatus) { switchStatus.textContent = ''; switchStatus.style.color = ''; }
 
     announce(`Switched to ${lc.name}`);
-    console.log(`[Core v2] Switched to ${lc.name}`);
   }
 
   // Expose switchCruiseLine globally for the line selector
@@ -1289,7 +1273,6 @@
 
         // RT-9 FIX: Handle worker error messages so calculationInProgress doesn't freeze
         if (type === 'error') {
-          console.warn('[Worker] Calculation error:', payload?.error || 'unknown');
           calculationInProgress = false;
           if (calculationPending) { calculationPending = false; scheduleCalculation(); }
         }
@@ -1319,7 +1302,6 @@
  */
   function scheduleCalculation() {
 
-    console.log('[Calc] scheduleCalculation() called');
 
     if (calculationInProgress) {
       calculationPending = true; // Bug 3 FIX: queue for retry
@@ -1332,7 +1314,6 @@
     const { inputs, economics, dataset, ui } = state;
 
 
-    console.log('[Calc] Forced package:', ui?.forcedPackage || 'none (auto-recommend)');
 
     const hasVouchers = (inputs.voucherAdult > 0) || (inputs.voucherMinor > 0);
 
@@ -1367,7 +1348,6 @@
     }
 
     try {
-      console.log('[Calc] Calling ITW_MATH.compute()...');
 
       // ✅ PHASE 1 ITEM #3: Unified API - single compute() function
       // v2: Pass line config as 6th argument for config-driven calculations
@@ -1557,7 +1537,6 @@
         if (CONFIG.DRINK_KEYS.includes(normalizedKey)) {
           store.patch(`inputs.drinks.${normalizedKey}`, Math.max(0, value));
         } else {
-          console.warn(`[Core] Unknown input key: ${key}`); // ✅ FIXED: Backtick syntax
         }
         break;
     }
@@ -1713,7 +1692,6 @@
   function updatePackagePrice(packageKey, newPrice) {
     const validated = Validation.packagePrice(newPrice);
     if (!validated.valid) {
-      console.warn(`[Core] Invalid package price: ${newPrice}`); // ✅ FIXED: Backtick syntax
       return false;
     }
 
@@ -1753,7 +1731,6 @@
   /* ==================== INITIALIZATION ==================== */
 
   async function initialize() {
-    console.log(`[Core] Initializing v${VERSION} (Phase 1 Complete)`); // ✅ FIXED: Backtick syntax
 
     loadFromStorage();
 
@@ -1800,7 +1777,6 @@
     window.addEventListener('beforeunload', saveToStorage);
 
     window.ITW_BOOTED = true;
-    console.log(`[Core] ✓ Initialized v${VERSION} - Phase 1 Complete`); // ✅ FIXED: Backtick syntax
     announce('Calculator ready');
 
     // ✅ Show calculator, hide loading

@@ -108,7 +108,6 @@
               perDay: results.perDay,
               trip: results.trip
             };
-            console.log('[Package Selection] Cached recommended:', this.recommendedResults.winnerKey);
           }
         }
       });
@@ -494,7 +493,6 @@
       // Clear forced package from state using nested path notation
       window.ITW.store.patch('ui.forcedPackage', null);
 
-      console.log('[Package Selection] State cleared (auto-recommend)');
 
       // Trigger calculation
       if (window.ITW.scheduleCalc) {

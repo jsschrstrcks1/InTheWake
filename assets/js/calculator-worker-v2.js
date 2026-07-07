@@ -36,7 +36,6 @@ self.addEventListener('message', (e) => {
 
       const { inputs, economics, dataset, vouchers, forcedPackage, lineConfig } = payload;
 
-      console.log('[Worker v2] Computing with forcedPackage:', forcedPackage || 'null (auto-recommend)');
 
       // v2: Pass lineConfig as 6th argument for config-driven calculations
       const results = ITW_MATH.compute(inputs, economics, dataset, vouchers, forcedPackage, lineConfig || null);
@@ -140,7 +139,6 @@ function calculateForcedPackageCost(pkg, inputs, economics, vouchers) {
       minorPackage = 'refresh';
       minorCost = economics.pkg.refresh * minors * days;
       minorForced = true;
-      console.log('[Worker] POLICY ENFORCED: Minors forced to Refreshment (', minors, 'minors × $', economics.pkg.refresh, '× ', days, 'days = $', minorCost, ')');
     }
 
   } else if (pkg === 'refresh') {
@@ -290,5 +288,4 @@ function validatePayload(payload) {
 // Post ready message
 self.postMessage({ type: 'ready' });
 
-console.log('[Worker] Package recommendations: FIXED (accounts for uncovered drinks)');
 
