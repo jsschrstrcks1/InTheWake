@@ -20,6 +20,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { extractArticleMeta } from './lib/extract.js';
 import { newArticlesFromDiff, articleOptOut } from './lib/detect.js';
+import { gatePublishDecision } from './lib/gate.js';
 import { loadManifest, saveManifest, alreadyPosted, recordPost } from './lib/manifest.js';
 import { composeFacebookPost } from './templates/facebook.js';
 import { postToPage, scrapeBust } from './lib/facebook.js';
@@ -70,6 +71,15 @@ async function publishOne({ articlePath, manifest, dryRun, env }) {
   if (alreadyPosted(manifest, articlePath, 'facebook')) {
     console.log(`  ${articlePath}: already posted to facebook (${manifest[articlePath].platforms.facebook.post_id})`);
     return { articlePath, status: 'already-posted' };
+  }
+
+  // Governance gate (Sophos concept-lift): pastoral content never auto-posts;
+  // no publish without sources; no publish without authorship disclosure.
+  const gate = gatePublishDecision(html, articlePath);
+  if (!gate.publish) {
+    console.error(`  ${articlePath}: GATE BLOCKED (${gate.blockedBy})`);
+    for (const f of gate.findings) console.error(`    [${f.severity}] ${f.policy}: ${f.detail}`);
+    return { articlePath, status: 'gate-blocked', blockedBy: gate.blockedBy };
   }
 
   const meta = extractArticleMeta(html);
