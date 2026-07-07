@@ -71,11 +71,15 @@ last-reviewed, 4 JSON-LD blocks) → BOTH Sophos gates (public:
   `articles/legend-of-the-seas-maiden-voyage-2026.html`: what opened on time,
   what didn't, crew week-one reports, from passenger accounts and live blogs
   (royalcaribbeanblog.com had pre-delivery access; check their onboard coverage).
-- ⚠️ Tonnage now has THREE conflicting published figures: 248,663 GT
-  (Cruise Critic/Travelers Today), ~250,000 GT (our ship page), 250,800 GT
-  (earlier trade reports). Handle as a sources-conflict, as the maiden article
-  did — do not resolve by fiat; if a definitive figure emerges (Royal's own
-  spec sheet), cite it and update both articles.
+- ✅ Tonnage conflict RESOLVED 2026-07-06: 248,663 GT is the registered figure
+  shared by ALL THREE Icon-class ships (Icon, Star, Legend — same number);
+  250,800 is a class-level design figure quoted for all three. The "Legend
+  edges past her sisters" trade claim was measurement-margin noise (one report:
+  4.5 mm longer). The maiden article was corrected same day with a visible
+  correction note in its limits section. The follow-up article should use
+  248,663 GT registered / shared-title framing. Our ship page
+  (ships/rcl/legend-of-the-seas-icon-class-entering-service-in-2026.html,
+  "250,000 GT") still needs a spec refresh — separate small task.
 
 ---
 
