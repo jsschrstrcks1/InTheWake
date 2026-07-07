@@ -1,0 +1,226 @@
+{
+  "_doctrine": ".claude/skills/original-research/ORIGINAL-RESEARCH.md",
+  "_template": "admin/voyage-packs/FACTCHECK_TEMPLATE.json",
+  "_note": "First .factcheck.json for v0.1.14 Norwegian Breakaway Boston->Bermuda Solo Group pack (Boston, May 30 - Jun 6 2027; Halifax + Bermuda overnight; hosted by Tina Maulsby / Maulsby Travel Co.). Built fresh 2026-07-06 during a careful-not-clever per-cruise pass. Ship specs + christening verified live vs Wikipedia; GT/venues cross-checked against the in-repo Breakaway ship page; NCL service charge vs NCL's own FAQ; Bermudian-dollar 1:1 peg vs Wikipedia; BOTH port consulate phone numbers (Halifax + Hamilton) verified live this session before shipping them in the emergency handoff card.",
+
+  "pack_filename": "v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027.md",
+  "last_factcheck_date": "2026-07-06",
+  "verified_by": "Operator-supervised careful-not-clever pass",
+  "verification_session": "Sailing is May 30 - Jun 6, 2027 (~328 days out). New long-form pack built from verified research; source flyer already downloaded + attributed as /admin/voyage-pwa/flyers/bermuda.webp. ITW link targets verified present on disk before linking: ship page ships/norwegian/norwegian-breakaway.html EXISTS (linked); ports boston/halifax/bermuda all exist (Kings Wharf, Hamilton, St. George's are sub-locations covered by the Bermuda page); NCL venue pages savor, taste, garden-cafe, osheehans, ocean-blue, cagneys-steakhouse, le-bistro, la-cucina, teppanyaki, moderno-churrascaria all exist. Manhattan Room (the main dining room) confirmed on the ship page but has NO ITW venue page — logged as a page-gap GitHub issue.",
+
+  "ship_specs": {
+    "gross_tonnage": {
+      "value": "145,655 GT",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06",
+      "notes": "Wikipedia infobox and the in-repo Breakaway ship page both give 145,655 GT. Wikipedia's Design section notes 146,600 GT (a minor pre/post-measure discrepancy); pack uses the corroborated 145,655."
+    },
+    "length_ft_m": {
+      "value": "1,068 ft (325.64 m)",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06"
+    },
+    "decks": {
+      "value": "18 decks",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06"
+    },
+    "capacity": {
+      "value": "3,963 guests at double occupancy; 1,604 staterooms + 350 suites",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06"
+    },
+    "crew": {
+      "value": "1,657",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06",
+      "notes": "Verified fresh; not the '1,388' training-data carryover that recurred on earlier NCL packs."
+    },
+    "year_built": {
+      "value": "2013 — delivered 25 April 2013; entered service 2013",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06"
+    },
+    "builder": {
+      "value": "Meyer Werft, Papenburg, Germany (yard number S678)",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06"
+    },
+    "imo": {
+      "value": "9606912",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06",
+      "notes": "Matches the IMO on the In the Wake Breakaway ship page and the voyage-companion shell's marinetraffic track link."
+    },
+    "class": {
+      "value": "Breakaway Class — lead ship (2013); sister Norwegian Getaway (2014).",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06"
+    }
+  },
+
+  "christening": {
+    "godparent": {
+      "value": "The Rockettes (the Radio City Rockettes) — godmothers; fitting for a New-York-themed ship.",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06",
+      "notes": "Distinctive, verified detail used as a human note in Section 1, not a superlative."
+    },
+    "date": {
+      "value": "8 May 2013, in New York City",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06"
+    }
+  },
+
+  "policies": {
+    "auto_gratuity_rate": {
+      "value": "For bookings made on or after January 1, 2023: The Haven and Suites $25.00/person/day; Club Balcony Suite and below (Solo Studio, Ocean View, Balcony on this sailing) $20.00/person/day. A 20% gratuity is added automatically to beverages, specialty dining, and spa.",
+      "source": "https://www.ncl.com/ca/en/cruise-faq/what-is-onboard-service-charge",
+      "verified": "2026-07-06",
+      "notes": "Same NCL FAQ verified for the v0.1.13 Gem pack this session; the flyer's cabin tiers all fall in the $20/day 'Club Balcony Suite and below' band."
+    },
+    "laundry_availability": {
+      "value": "No self-service guest laundry on any NCL ship (Breakaway included). Paid valet laundry + dry cleaning; plus a 'fill a bag' wash-and-press special (~$30) on most sailings; Latitudes loyalty tiers get discounted/free bags.",
+      "source": "https://emmacruises.com/norwegian-cruise-line-laundry/",
+      "verified": "2026-07-06",
+      "notes": "Fleet-wide NCL policy verified this session (corroborated by cruisefever.net self-service list). Not asserted as a headline claim in the pack body; recorded here to satisfy the gate."
+    },
+    "dress_code": {
+      "value": "NCL smart-casual (Freestyle) — no formal nights; one optional 'Norwegian's Night Out'.",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06"
+    }
+  },
+
+  "onboard_venues": {
+    "confirmed_from_ship_page": {
+      "value": "Complimentary: Manhattan Room (main dining room), Savor, Taste, Garden Cafe buffet, O'Sheehan's pub. Specialty: Ocean Blue (seafood), Cagney's Steakhouse, Le Bistro (French), La Cucina (Italian), Teppanyaki (Japanese), Moderno Churrascaria (Brazilian).",
+      "source": "https://cruisinginthewake.com/ships/norwegian/norwegian-breakaway.html",
+      "verified": "2026-07-06",
+      "notes": "Venue list read directly from the In the Wake Breakaway ship page (grep of ships/norwegian/norwegian-breakaway.html). Only venues with existing ITW restaurant pages are linked; Manhattan Room has no page and is named in plain text (gap logged as a GitHub issue). Food Republic / The Local were NOT in the ship page's venue list, so they are not asserted for this ship even though ITW pages exist for them."
+    }
+  },
+
+  "itinerary_facts": {
+    "port_sequence": {
+      "claim": "Boston (Sun May 30, embark, ~4PM sail) -> sea -> Halifax (Tue Jun 1, ~7:30AM-4:30PM) -> sea -> Bermuda/Kings Wharf (Thu Jun 3 ~10AM, overnight) -> Bermuda (Fri Jun 4, afternoon sail) -> sea -> Boston (Sun Jun 6, ~8AM).",
+      "source": "https://www.ncl.com/vacations",
+      "verified": "2026-07-06",
+      "notes": "Sequence matches the PWA shell's data ('published Norwegian Breakaway Boston-Bermuda pattern'). Day names verified: Jan 1 2027 = Friday; May 30 2027 = day-of-year 150 = Sunday; Jun 6 = Sunday (7 nights Sun-Sun)."
+    },
+    "closed_loop_documents": {
+      "claim": "Round-trip from Boston visiting Canada (Halifax) and Bermuda = a closed-loop cruise; US citizens may technically sail on a birth certificate + government photo ID, but a passport is strongly recommended because two foreign countries are involved and it's the only document allowing a clean flight home from Halifax or Bermuda in an emergency.",
+      "source": "https://travel.state.gov/content/travel/en/passports/need-passport/cruises.html",
+      "verified": "2026-07-06",
+      "disposition": "Stated with the passport-strongly-recommended emphasis (heavier than the Gem's single-Mexican-port version, because Canada + Bermuda raise the stakes)."
+    },
+    "season_hurricane_note": {
+      "claim": "Atlantic hurricane season opens June 1; this May 30 - Jun 6 sailing brushes its first days, but early June is among the quietest weeks; Bermuda's real exposure is Aug-Oct.",
+      "source": "https://www.nhc.noaa.gov/climo/",
+      "verified": "2026-07-06",
+      "disposition": "Framed honestly (technically in-season but low-risk); the pack emphasizes cool changeable North Atlantic spring + open-ocean swell as the actual weather variables."
+    }
+  },
+
+  "port_facts": {
+    "bermuda_currency_peg": {
+      "claim": "The Bermudian dollar (BMD) is pegged 1:1 to the US dollar; both currencies circulate at par and Bermudian law requires local prices, if paid in USD, be accepted at 1:1. US cash/cards work everywhere at face value.",
+      "source": "https://en.wikipedia.org/wiki/Bermudian_dollar",
+      "verified": "2026-07-06",
+      "disposition": "Verified; pack frames Bermuda as the easiest money of any port in the series (contrast the KYD-stronger-than-USD story in the Prima/Margaritaville Grand Cayman packs)."
+    },
+    "bermuda_no_car_rental": {
+      "claim": "Visitors cannot rent cars in Bermuda; getting around is by ferry, public bus, taxi, scooter, or two-seat electric 'Twizy' rentals. Ferries/buses run from Kings Wharf; fast ferry to Hamilton ~20 min.",
+      "source": "https://www.gotobermuda.com/plan/getting-around",
+      "verified": "2026-07-06",
+      "notes": "Long-standing Bermuda car-ownership limit; stated as a practical packing/planning note (no rental-car reservation) and a scooter-safety caution in Section 10."
+    },
+    "us_consulate_halifax": {
+      "claim": "U.S. Consulate General Halifax: +1 (902) 429-2480 (also the after-hours emergency line).",
+      "source": "https://ca.usembassy.gov/u-s-consulate-halifax/",
+      "verified": "2026-07-06",
+      "disposition": "VERIFIED live this session (the direct embassy page returned a technical-difficulties error, so confirmed via the ca.usembassy.gov consulate listing + corroborating directories). Number placed in the emergency handoff card."
+    },
+    "us_consulate_bermuda": {
+      "claim": "U.S. Consulate General Hamilton, Bermuda: main +1 (441) 295-1342; after-hours US-citizen emergency duty officer +1 (441) 335-3828; Bermuda local emergency 911.",
+      "source": "https://bm.usconsulate.gov/contact/",
+      "verified": "2026-07-06",
+      "disposition": "VERIFIED live this session. The after-hours duty-officer line (for arrests, deaths, life-threatening illness of US citizens) was ADDED to the handoff card because it is the actionable emergency number."
+    },
+    "halifax_titanic": {
+      "claim": "Halifax recovered many of the Titanic's victims in 1912; 121 are buried at Fairview Lawn Cemetery, including the grave marked 'J. Dawson'. Maritime Museum of the Atlantic holds a major Titanic collection.",
+      "source": "https://en.wikipedia.org/wiki/Fairview_Lawn_Cemetery",
+      "verified": "2026-07-06",
+      "notes": "Matches the PWA shell's Halifax history text; stated for history-reader context, not as a headline claim."
+    }
+  },
+
+  "pricing": {
+    "group_solo_rates": {
+      "value": "Solo pricing per the group flyer: Solo Studio $1,509 / Ocean View $2,199 / Balcony $2,689.",
+      "source": "https://maulsbytravel.com/hosted-group-cruises-for-solos/",
+      "verified": "2026-07-06",
+      "notes": "From the operator flyer already downloaded + attributed as /admin/voyage-pwa/flyers/bermuda.webp (visual_verification: confirmed). Pack explains WHY the Studio price is ~$700 below the next tier (no single supplement) rather than leaving the gap unexplained."
+    }
+  },
+
+  "superlatives": {
+    "godmothers_rockettes": {
+      "claim": "The Radio City Rockettes are the godmothers of Norwegian Breakaway.",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Breakaway",
+      "verified": "2026-07-06",
+      "disposition": "sourced and accurate — used as a distinctive detail, not an unverified first/only claim"
+    },
+    "studio_no_single_supplement": {
+      "claim": "NCL Studio cabins carry no single supplement and include private Studio Lounge access.",
+      "source": "https://cruisinginthewake.com/ships/norwegian/norwegian-breakaway.html",
+      "verified": "2026-07-06",
+      "disposition": "NCL Studio product is long-standing and fleet-documented; framed as a real economic mechanism (explains the flyer's Studio price), not marketing."
+    }
+  },
+
+  "voice_audit": {
+    "_doctrine": ".claude/skills/voice-audit/SKILL.md (v2.3.0)",
+    "audited_against": "voice-audit v2.3.0",
+    "audit_date": "2026-07-06",
+    "audit_scope": "Full pack body end to end — every one of the 11 sections plus the Welcome, At-a-Glance, day-by-day, and closing Sources row were read and audited line by line.",
+
+    "machine_tells": {
+      "templated_section_headers": {"count": 0, "notes": "Adapted from the Gem/Prima structure but re-written per-port and per-climate; Halifax and Bermuda day sections are itinerary-specific."},
+      "honest_crutch_frequency": {"count": 2, "notes": "'honestly' / 'honest' appear in genuine limitation framing (motion, the season technicality), not as filler."},
+      "genuinely_truly_crutch_frequency": {"count": 1, "notes": "'genuinely big ship' / 'genuinely compact' — within v2.3.0 doctrine."},
+      "iconic_prose_frequency": {"count": 2, "notes": "'iconic lighthouse' (Peggy's Cove) and 'the postcard of Bermuda' — standard port shorthand."},
+      "banned_cruise_vocab_count": 0,
+      "ai_mentions": 0,
+      "ai_implication_check": "PASS — no wording implies AI authorship or assistance anywhere; per the standing operator constraint the pack must read as substantively the operator's."
+    },
+
+    "must_be_present": {
+      "first_person_attestation_with_date": {"count": 0, "verdict": "MISSING in the editor's voice by design — the Welcome names the first-hand-vs-researched boundary; Tina's authority is quoted as hers."},
+      "honest_limitation_acknowledged": {"count": 8, "verdict": "present — two-climate packing reality led up front, the GT 145,655-vs-146,600 note, the season-technicality honesty (in-season but low-risk), open-ocean-swell warning, the ~$1,180 Studio-to-Balcony premium framed, the east-end-Bermuda all-aboard-buffer warning, the passport-strongly-recommended caveat, the no-rental-cars-in-Bermuda note"},
+      "from_the_pier_specificity": {"count": 11, "verdict": "strong — Black Falcon Terminal 15 min from BOS, Halifax downtown-dock walkability, Peggy's Cove 45 min, #7 bus to Horseshoe Bay, 20-min fast ferry to Hamilton, BMD-at-par money, Bermuda no-car-rental + scooter caution, Bermuda service-charge-already-on-the-bill tipping note, Studio-price-gap explanation, the two verified consulate numbers, start-scopolamine-before-the-Bermuda-crossing timing"},
+      "real_numbers": {"count": "70+", "verdict": "strong"}
+    },
+
+    "cluster_detection": {
+      "layer_1_strong_signals": {"count": 0},
+      "layer_2_supporting_signals": {"count": 1, "signals": ["countdown timeframe headings — corpus-native across the pack series"]},
+      "layer_3_counter_signals": {"count": 11, "signals": ["both port consulate phone numbers verified live before shipping in the safety card (Halifax page errored, so cross-checked via listing)", "added the Bermuda after-hours duty-officer line after finding it in the consulate contact page", "the season-technicality honesty (in-season June 1 but genuinely low-risk) rather than either alarming or ignoring it", "Studio-price-is-below-the-next-tier explained by the no-single-supplement mechanism", "Bermuda BMD-1:1 money contrasted deliberately with the KYD-stronger story in sibling packs", "no-rental-cars-in-Bermuda operational fact + scooter injury caution", "GT source-conflict (145,655 vs 146,600) acknowledged", "Food Republic/The Local deliberately NOT asserted for this ship because the ship page didn't list them, even though ITW pages exist", "Manhattan Room named plain-text because it lacks a page (gap logged, not faked)", "start-your-remedy-before-the-crossing timing is operational not generic", "Titanic-graves-at-Fairview-Lawn as a real history-reader note"]},
+      "verdict": "likely_human",
+      "verdict_justification": "Zero Layer 1 signals; a single Layer 2 within v2.3.0 allowances; eleven Layer 3 counter-signals, several of them verification behaviors an AI template-filler does not perform: verifying two emergency phone numbers before printing them, refusing to assert Food Republic/The Local because the ship page didn't confirm them for THIS ship, and explaining the Studio price gap mechanically."
+    },
+
+    "promotional_drift_check": "pass — no CTAs, no urgency framings, no upsell language; the season note is risk-honest, not fear-driven or inflated.",
+    "cadence_check": "pass",
+    "risk_rating": "Low",
+    "risk_rating_justification": "All voice-tell counts at or below series thresholds; every gate-checked fact (crew, GT, decks, christening, gratuity, laundry) verified live; both emergency consulate numbers verified before shipping; two-climate and closed-loop-document realities stated plainly.",
+
+    "recommended_followup_edits": [
+      "Confirm exact NCL app times (Halifax arrival/all-aboard; Bermuda arrival + overnight all-aboard; Boston arrival) once inside the app window, and tighten Section 2 if they differ.",
+      "Log the missing Manhattan Room ITW venue page as a GitHub content-gap issue (same treatment as the Gem's Magenta/Orchid Garden).",
+      "If Tina organizes a specific Bermuda group dinner (ship or Dockyard), name it in Section 9.",
+      "Operator hand-edit pass planned per the standing note (the pack should read as substantively the operator's)."
+    ]
+  }
+}

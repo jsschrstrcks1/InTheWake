@@ -76,7 +76,7 @@ MOST RECENT KNOWN POSITION:
 | Caribbean (general) | US Consulate Bridgetown (Barbados) +1 (246) 227-4000 |
 | Dominican Republic | US Embassy Santo Domingo +1 (809) 567-7775 |
 | Honduras (Roatán) | US Consulate Tegucigalpa +504 2236-9320 |
-| Mexico (Yucatán, Cozumel, Costa Maya) | US Consulate Mérida +52 (999) 942-5700 |
+| Mexico (Yucatán, Cozumel, Costa Maya) | US Consulate Mérida +1 (844) 528-6611 (US) / 999 689-0660 |
 | Mexico (Pacific, Cabo, Puerto Vallarta) | US Consulate Guadalajara +52 (33) 3268-2100 |
 | Jamaica | US Embassy Kingston +1 (876) 702-6000 |
 | Cayman Islands | US Embassy Kingston (Jamaica) +1 (876) 702-6000 |

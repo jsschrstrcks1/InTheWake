@@ -2,12 +2,10 @@
   "_doctrine": ".claude/skills/original-research/ORIGINAL-RESEARCH.md",
   "_template": "admin/voyage-packs/FACTCHECK_TEMPLATE.json",
   "_note": "First .factcheck.json for v0.1.9 NCL Prima Western Caribbean Solo Group pack. Built fresh 2026-06-11 during a careful-not-clever pass + content boardroom. Primary-source verification: Wikipedia (Norwegian Prima), NCL press releases (Great Stirrup Cay pier + Great Tides Waterpark Sept 4 2026 opening), CNN + Attractions Magazine + The Points Guy for Prima's 'world's first' claims, Cruise Industry News + multiple sources for the Reykjavik christening claim, Cayman Islands Wikipedia + remitly.com for the KYD peg correction, jm.usembassy.gov for US Consular Agency George Town.",
-
   "pack_filename": "v0.1.9-ncl-prima-solo-group-sep-2026.md",
   "last_factcheck_date": "2026-06-11",
   "verified_by": "Operator-supervised careful-not-clever pass",
   "verification_session": "Sailing is Sept 27 - Oct 4, 2026 (108 days out). Full read of all 817 pre-fix lines, primary-source verification of every suspect claim, factual corrections, voice pass, content boardroom (triad x 2 vendors blind), adopted-content execution.",
-
   "ship_specs": {
     "gross_tonnage": {
       "value": "143,535 GT",
@@ -59,7 +57,6 @@
       "verified": "2026-06-11"
     }
   },
-
   "christening": {
     "godparent": {
       "value": "Katy Perry (pop singer; performed at the Reykjavik christening)",
@@ -72,7 +69,6 @@
       "verified": "2026-06-11"
     }
   },
-
   "policies": {
     "auto_gratuity_rate": {
       "value": "$20/person/day standard cabins; $25/person/day Suites and Haven (2026 rates).",
@@ -84,9 +80,14 @@
       "source": "https://www.ncl.com/faq/how-do-you-contact-someone-cruise-ship + travel.state.gov",
       "verified": "2026-06-11",
       "notes": "CORRECTION: pack previously carried '+1 (305) 436-4000 / +1 (866) 234-0292' as 'NCL Care Team' — same unverified pair that was on Bliss/Luna pre-fix. Handoff card + 'what an at-home contact does' both updated."
+    },
+    "laundry_availability": {
+      "value": "No self-service guest laundry on any NCL ship. Paid valet laundry + dry cleaning; a 'fill a bag' wash-and-press special (~$30) on most sailings; Latitudes loyalty tiers get discounted/free bags.",
+      "source": "https://emmacruises.com/norwegian-cruise-line-laundry/",
+      "verified": "2026-07-06",
+      "notes": "Added 2026-07-06 to meet the current factcheck-gate schema (R7 policies.laundry_availability, which post-dates this sidecar's original 2026-06-11 pass). Fleet-wide NCL policy verified live this session; corroborated by cruisefever.net's self-service-laundry list (NCL absent). Not a headline claim in the pack body."
     }
   },
-
   "port_facts": {
     "great_stirrup_cay_pier_status": {
       "claim": "Prima docks at the new multi-ship pier completed late 2025 — no tendering. The pier was closed April through summer 2026 for further construction (tenders ran in that window); by the Sept 29 sailing it has reopened, currently accommodating one large ship alongside.",
@@ -141,9 +142,14 @@
       "source": "https://jm.usembassy.gov/us-consular-agency/",
       "verified": "2026-06-11",
       "disposition": "CORRECTION — handoff card previously routed Grand Cayman emergencies to US Embassy Kingston without naming the actual Cayman consular agency. Now lists both with after-hours routing."
+    },
+    "mexico_consulate_2026": {
+      "value": "US Consulate General Merida relocated (new building opened May 6, 2025); current US Citizen Services for the Yucatan/Quintana Roo (incl. Cozumel): +1-844-528-6611 (from US) / 999-689-0660 (local).",
+      "source": "https://mx.usembassy.gov/visas/u-s-embassy-mexico-city/u-s-consulate-general-merida/",
+      "verified": "2026-07-06",
+      "disposition": "CORRECTION 2026-07-06: handoff card's Merida 999-942-5700 (old building) + Cancun Agency 998-883-0272 were stale (consulate relocated 2025) -> current ACS routing. Same fix applied fleet-wide."
     }
   },
-
   "superlatives": {
     "first_major_cruise_ship_christened_reykjavik": {
       "claim": "First major cruise ship christened in Reykjavík, Iceland",
@@ -158,53 +164,93 @@
       "disposition": "sourced and accurate"
     }
   },
-
   "voice_audit": {
     "_doctrine": ".claude/skills/voice-audit/SKILL.md (v2.3.0)",
     "audited_against": "voice-audit v2.3.0",
     "audit_date": "2026-06-11",
-
     "machine_tells": {
       "templated_section_headers": {
         "count_before_fix": 5,
         "count_after_fix": 0,
         "notes": "'Honest read on [port]' templated headers on Sitka equivalent / Falmouth / Grand Cayman / Cozumel / Great Stirrup Cay + 'The honest read on hurricane risk' all varied to port-specific or topic-specific framings. Same fix pattern as the six prior batch packs (Symphony / Virgin / Aqua / Seaside / Luna / Bliss + Anthem retrofit)."
       },
-      "honest_crutch_frequency": {"count_before_fix": 8, "count_after_fix": 0},
-      "genuinely_truly_crutch_frequency": {"count_before_fix": 5, "count_after_fix": 0},
-      "iconic_prose_frequency": {"count_before_fix": 4, "count_after_fix": 2, "notes": "Reduced via L351 'iconic experience' -> 'trip-defining experience'; remaining two ('iconic Cozumel experience' L376 and 'iconic stretch of west-coast white sand' in the original Grand Cayman para were combined into the corrected Cayman paragraph and the Cozumel inline). Within v2.3.0 doctrine."},
+      "honest_crutch_frequency": {
+        "count_before_fix": 8,
+        "count_after_fix": 0
+      },
+      "genuinely_truly_crutch_frequency": {
+        "count_before_fix": 5,
+        "count_after_fix": 0
+      },
+      "iconic_prose_frequency": {
+        "count_before_fix": 4,
+        "count_after_fix": 2,
+        "notes": "Reduced via L351 'iconic experience' -> 'trip-defining experience'; remaining two ('iconic Cozumel experience' L376 and 'iconic stretch of west-coast white sand' in the original Grand Cayman para were combined into the corrected Cayman paragraph and the Cozumel inline). Within v2.3.0 doctrine."
+      },
       "banned_cruise_vocab_count": 0,
       "ai_mentions": 0
     },
-
     "must_be_present": {
       "first_person_attestation_with_date": {
         "count": 0,
         "verdict": "MISSING in the editor's voice — but Tina's lived authority is quoted as hers (her host's standard rhythm, her sailaway gathering pattern, her standing 5:30 Hudson's). The Welcome's new attestation note names the boundary explicitly."
       },
-      "honest_limitation_acknowledged": {"count": 8, "verdict": "present — hurricane-season insurance framing, Great Stirrup pier contingency, source-conflict on Prima length, NCL refunds vs trip-insurance lines, 'if Tina's communication goes quiet' guidance, both Welcome attestation paragraphs"},
-      "from_the_pier_specificity": {"count": 10, "verdict": "strong — Port Canaveral garage $17-22 vs PortMiami $35, the multi-ship pier status timeline, the practical KYD/USD change-back math, Stingray City independent $60 vs ship $80-130, Palancar independent $40-60 vs ship $80-110, Cozumel pier specifics (Punta Langosta / International / Puerta Maya)"},
-      "real_numbers": {"count": "80+", "verdict": "strong"}
+      "honest_limitation_acknowledged": {
+        "count": 8,
+        "verdict": "present — hurricane-season insurance framing, Great Stirrup pier contingency, source-conflict on Prima length, NCL refunds vs trip-insurance lines, 'if Tina's communication goes quiet' guidance, both Welcome attestation paragraphs"
+      },
+      "from_the_pier_specificity": {
+        "count": 10,
+        "verdict": "strong — Port Canaveral garage $17-22 vs PortMiami $35, the multi-ship pier status timeline, the practical KYD/USD change-back math, Stingray City independent $60 vs ship $80-130, Palancar independent $40-60 vs ship $80-110, Cozumel pier specifics (Punta Langosta / International / Puerta Maya)"
+      },
+      "real_numbers": {
+        "count": "80+",
+        "verdict": "strong"
+      }
     },
-
     "cluster_detection": {
-      "layer_1_strong_signals": {"count": 0},
-      "layer_2_supporting_signals": {"count": 2, "signals": ["brand triplet ('no urgency, no upsell, no countdown timer'), single instance", "countdown timeframe headings — corpus-native"]},
-      "layer_3_counter_signals": {"count": 12, "signals": ["Tina's host attribution preserved separately from research voice", "specific Sept 4 2026 Great Tides opening verified post-cutoff", "Cayman peg correction (the kind of error that proves a human checker actually checked)", "hurricane-window playbook section content is recognizably operational not aspirational", "ship-source-conflict acknowledged on length", "Welcome attestation note explicitly names what's first-hand vs researched", "Studio cabin 'no single supplement' framed as a real economic mechanism not a marketing line", "the 1 KYD = 1.20 USD practical change-back math is operational specificity", "US Consular Agency George Town hours block", "boardroom-adopted unwritten-group-norms content reads operational", "NCL refunds vs travel insurance line distinction is specific not generic", "the 'if Tina's communication goes quiet' fallback to bridge channel is real procedural detail"]},
+      "layer_1_strong_signals": {
+        "count": 0
+      },
+      "layer_2_supporting_signals": {
+        "count": 2,
+        "signals": [
+          "brand triplet ('no urgency, no upsell, no countdown timer'), single instance",
+          "countdown timeframe headings — corpus-native"
+        ]
+      },
+      "layer_3_counter_signals": {
+        "count": 12,
+        "signals": [
+          "Tina's host attribution preserved separately from research voice",
+          "specific Sept 4 2026 Great Tides opening verified post-cutoff",
+          "Cayman peg correction (the kind of error that proves a human checker actually checked)",
+          "hurricane-window playbook section content is recognizably operational not aspirational",
+          "ship-source-conflict acknowledged on length",
+          "Welcome attestation note explicitly names what's first-hand vs researched",
+          "Studio cabin 'no single supplement' framed as a real economic mechanism not a marketing line",
+          "the 1 KYD = 1.20 USD practical change-back math is operational specificity",
+          "US Consular Agency George Town hours block",
+          "boardroom-adopted unwritten-group-norms content reads operational",
+          "NCL refunds vs travel insurance line distinction is specific not generic",
+          "the 'if Tina's communication goes quiet' fallback to bridge channel is real procedural detail"
+        ]
+      },
       "verdict": "likely_human",
       "verdict_justification": "Zero Layer 1 signals; Layer 2 within v2.3.0 allowances; 12 Layer 3 counter-signals. The pack carries the strongest hurricane-window operational specificity of any pack in the catalog because the sailing is in peak hurricane window; that operational depth IS the trust signal."
     },
-
     "promotional_drift_check": "pass — no CTAs, no urgency framings, no upsell language. Sec 7 hurricane content is risk-honest, not fear-driven.",
     "cadence_check": "pass",
     "risk_rating": "Low",
     "risk_rating_justification": "All voice-tell counts at or below batch thresholds; major factual landmines (KYD peg backwards, NCL Care Team unverified numbers, tender-vs-pier status, Great Tides opening date, crew count carryover) all corrected against primary sources; boardroom-adopted hurricane-playbook and group-dynamics content is operational and corpus-native.",
-
     "recommended_followup_edits": [
       "If Tina publishes a specific hurricane-contingency plan for this group before sailing, replace the generic playbook in Sec 7 with her version.",
       "1,646 staterooms claim not in Wikipedia — verify against NCL deck plan PDF.",
       "Length discrepancy: NCL press release 965 ft vs Wikipedia 299 m (981 ft) — investigate which convention NCL's own deck plan uses.",
       "Operator hand-edit pass planned per operator's standing note (the pack should read as substantively the operator's)."
-    ]
-  }
+    ],
+    "audit_scope": "Full pack body end to end — all sections were read and audited during the original 2026-06-11 careful-not-clever pass. The audit_scope field itself was added 2026-07-06 to satisfy the current voice-audit sidecar schema; it records (does not re-do) that full-body audit."
+  },
+  "_note_2026_07_06_schema": "Brought to the current factcheck-gate schema 2026-07-06: added policies.laundry_availability and voice_audit.audit_scope. No prior factual claim was changed; original 2026-06-11 verification stands.",
+  "_note_2026_07_06_adversarial_fix": "Adversarial audit (2026-07-06): 1 MAJOR + minors, fixed. MAJOR: Cancun/Merida consulate numbers stale (consulate relocated 2025) -> current ACS routing (see port_facts.mexico_consulate_2026). MINOR: maiden-voyage '8 nights' contradicted the body's 'ten days earlier' -> '~10 nights' (christened Reykjavik Aug 27, ten days after the Aug 17 Amsterdam departure). Softer minors (hurricane 'highest-risk week'; GSC 270 vs 268 acres; Grand Cayman ~74,000 pop) left/documented. crew 1,506, KYD peg direction, gratuity, George Town number+hours all verified correct."
 }

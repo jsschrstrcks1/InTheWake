@@ -2,12 +2,10 @@
   "_doctrine": ".claude/skills/original-research/ORIGINAL-RESEARCH.md",
   "_template": "admin/voyage-packs/FACTCHECK_TEMPLATE.json",
   "_note": "First .factcheck.json for v0.1.7 NCL Bliss Alaska Solo Group pack. Built fresh 2026-06-11 during the careful-not-clever pass + content boardroom (triad, 2-vendor). Primary-source verification: Wikipedia (Norwegian Bliss), sitkadock.com (terminal's own site), mmtoursofjuneau.com (operator's own price page), NCL hull-art blog + NCLH press history, Icy Strait Point port guides + ziprider.com, Goldbelt Tram retail listings, ca.usembassy.gov. No claim cites another voyage pack (Copy-Propagation rule) — where batch packs shared facts (NCL gratuity tiers, ship-phone relay), the underlying primary sources are cited, not the sibling packs.",
-
   "pack_filename": "v0.1.7-ncl-bliss-alaska-solo-group-jul-2026.md",
   "last_factcheck_date": "2026-06-11",
   "verified_by": "Operator-supervised careful-not-clever pass",
   "verification_session": "Full read of all 998 pre-fix lines, then primary-source verification of every suspect claim, then factual corrections, then voice pass, then content boardroom (Positioning Sage + Direct-Response Veteran + Offer Architect, each on two vendors blind), then adopted-content execution. Sailing is 30 days out (Jul 11 2026) — the highest-urgency pack in the catalog.",
-
   "ship_specs": {
     "gross_tonnage": {
       "value": "168,028 GT",
@@ -60,13 +58,12 @@
       "notes": "MAJOR CORRECTION: pack previously claimed 'Bliss was the first NCL ship with full hull artwork' — false. Also removed the unverified '270-foot' whale dimension. Both At-a-Glance and Section 1 corrected to the attributed history."
     }
   },
-
   "christening": {
     "godparent": {
-      "value": "Not verified to a primary source in this pass. The pack body does not name a godparent and no claim is asserted.",
-      "source": "Wikipedia article fetched this session does not name the christening godmother; honest verification limit recorded rather than a confabulated name.",
-      "verified": "2026-06-11",
-      "notes": "Flag for follow-up if christening detail is ever wanted in the pack body."
+      "value": "Elvis Duran (radio host) — christened Norwegian Bliss in Seattle, May 30, 2018.",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Bliss",
+      "verified": "2026-07-06",
+      "notes": "CORRECTION 2026-07-06: the original sidecar claimed 'Wikipedia does not name the christening godmother' — false. Wikipedia names Elvis Duran (May 30, 2018, Seattle). The pack body asserts no godparent (no shipped error), but the sidecar's stated verification limit was wrong; corrected."
     },
     "date": {
       "value": "Delivered April 21, 2018; christening ceremony details not verified this pass and not asserted in pack body.",
@@ -74,7 +71,6 @@
       "verified": "2026-06-11"
     }
   },
-
   "policies": {
     "auto_gratuity_rate": {
       "value": "$20/person/day standard cabins; $25/person/day Suites & Haven. 7-night totals $140 / $175. Not adjustable onboard; written post-cruise refund requests only. 20% auto-gratuity on beverages, spa, specialty dining.",
@@ -100,7 +96,6 @@
       "verified": "2026-06-11"
     }
   },
-
   "port_facts": {
     "sitka_docking": {
       "claim": "Bliss docks at the Sitka Sound Cruise Terminal (Halibut Point), ~5 miles north of downtown. FREE continuous shuttle to downtown (330 Harbor Drive), 10-15 min ride, reservation-managed on busy days (reservation.sitkadock.com), ADA-accessible vehicles, last shuttle leaves downtown 30 minutes before all-aboard.",
@@ -174,7 +169,6 @@
       "disposition": "CORRECTED — the family handoff card listed 'Juneau → Icy Strait Point → Sitka', contradicting the itinerary table. A wrong port order in the family's emergency reference card was the single most consequential internal inconsistency in the pack."
     }
   },
-
   "superlatives": {
     "worlds_largest_ziprider": {
       "claim": "'World's Largest ZipRider' — operator's own marketing name; pack attributes it and notes the 'Largest' framing explicitly.",
@@ -201,14 +195,12 @@
       "disposition": "retained, attributed to the destination's own claim"
     }
   },
-
   "voice_audit": {
     "_doctrine": ".claude/skills/voice-audit/SKILL.md (v2.3.0)",
     "audited_against": "voice-audit v2.3.0",
     "audit_date": "2026-06-11",
     "audited_by": "Operator-supervised single-pack session",
     "audit_scope": "full pack body (~1,050 lines post-additions)",
-
     "machine_tells": {
       "banned_cruise_vocab_count": 0,
       "antithetical_stacking_count": 1,
@@ -218,38 +210,97 @@
         "count_after_fix": 0,
         "notes": "'Honest read on [port]' x5 (Sitka, Juneau, ISP, Ketchikan, Victoria) varied to port-specific framings, same fix pattern as the six prior batch packs. The seasickness 'The honest read:' was absorbed into the route-honesty rewrite."
       },
-      "honest_crutch_frequency": {"count_before_fix": 6, "count_after_fix": 0},
-      "genuinely_truly_crutch_frequency": {"count_before_fix": 4, "count_after_fix": 0},
-      "single_most_best_superlative_frequency": {"count_before_fix": 1, "count_after_fix": 0, "notes": "Port Valet 'single most useful piece' varied to the luggage-friction framing, matching the Anthem fix."},
-      "once_in_a_lifetime_frequency": {"count_before_fix": 2, "count_after_fix": 1, "notes": "ZipRider instance retained (single use); the 'For first-timers' duplicate trimmed."},
-      "delightful_charming_count": {"count_before_fix": 1, "count_after_fix": 0}
+      "honest_crutch_frequency": {
+        "count_before_fix": 6,
+        "count_after_fix": 0
+      },
+      "genuinely_truly_crutch_frequency": {
+        "count_before_fix": 4,
+        "count_after_fix": 0
+      },
+      "single_most_best_superlative_frequency": {
+        "count_before_fix": 1,
+        "count_after_fix": 0,
+        "notes": "Port Valet 'single most useful piece' varied to the luggage-friction framing, matching the Anthem fix."
+      },
+      "once_in_a_lifetime_frequency": {
+        "count_before_fix": 2,
+        "count_after_fix": 1,
+        "notes": "ZipRider instance retained (single use); the 'For first-timers' duplicate trimmed."
+      },
+      "delightful_charming_count": {
+        "count_before_fix": 1,
+        "count_after_fix": 0
+      }
     },
-
     "must_be_present": {
       "first_person_attestation_with_date": {
         "count": 0,
         "verdict": "MISSING in the editor's voice — but the pack carries Kristie's attributed lived experience (3x Alaska, quoted from her own host card), which is the strongest attributed-lived anchor in the batch. The new Welcome attestation note names the boundary explicitly: Kristie's experience is hers and quoted as hers; everything else is primary-source research."
       },
-      "honest_limitation_acknowledged": {"count": 6, "verdict": "present", "examples": ["Welcome attestation note (what's first-hand vs researched)", "Cagney's-vs-glacier collision tradeoff spelled out with no pretended verdict", "'Questions worth asking Kristie' defers to the person who has stood on these decks", "Juneau both-excursions-don't-fit warning", "Gray Line evening schedule 'being finalized — verify'", "Sitka shuttle reservation system + last-shuttle warning"]},
-      "from_the_pier_specificity": {"count": 12, "verdict": "strong — SSCT free-shuttle system with reservation URL and last-shuttle rule, Ward Cove shuttle reality, Wilderness Landing + Transporter Gondola, Glacier Express door-to-door timing, the 1:30 PM Juneau all-aboard against tour durations, Pier 66 vs Pier 91 distinction, Link light rail routing"},
-      "real_numbers": {"count": "90+", "verdict": "strong"},
-      "named_real_specifics": {"count": 30, "verdict": "present — operators (M&M, Harv & Marv's, TEMSCO, True Alaskan, Island Wings, Carlin Air, Misty Fjords Air), venues, the named host with her attributed card details, Currant Bistro/Sound Hotel, Biscuit Bitch Belltown with the closed-sister-location note"},
+      "honest_limitation_acknowledged": {
+        "count": 6,
+        "verdict": "present",
+        "examples": [
+          "Welcome attestation note (what's first-hand vs researched)",
+          "Cagney's-vs-glacier collision tradeoff spelled out with no pretended verdict",
+          "'Questions worth asking Kristie' defers to the person who has stood on these decks",
+          "Juneau both-excursions-don't-fit warning",
+          "Gray Line evening schedule 'being finalized — verify'",
+          "Sitka shuttle reservation system + last-shuttle warning"
+        ]
+      },
+      "from_the_pier_specificity": {
+        "count": 12,
+        "verdict": "strong — SSCT free-shuttle system with reservation URL and last-shuttle rule, Ward Cove shuttle reality, Wilderness Landing + Transporter Gondola, Glacier Express door-to-door timing, the 1:30 PM Juneau all-aboard against tour durations, Pier 66 vs Pier 91 distinction, Link light rail routing"
+      },
+      "real_numbers": {
+        "count": "90+",
+        "verdict": "strong"
+      },
+      "named_real_specifics": {
+        "count": 30,
+        "verdict": "present — operators (M&M, Harv & Marv's, TEMSCO, True Alaskan, Island Wings, Carlin Air, Misty Fjords Air), venues, the named host with her attributed card details, Currant Bistro/Sound Hotel, Biscuit Bitch Belltown with the closed-sister-location note"
+      },
       "plain_copulas_dominant": true
     },
-
     "cluster_detection": {
-      "layer_1_strong_signals": {"count": 0},
-      "layer_2_supporting_signals": {"count": 2, "signals": ["brand triplet (single instance)", "countdown-section timeframe headings (corpus-native)"]},
-      "layer_3_counter_signals": {"count": 14, "signals": ["Kristie's attributed lived detail (Diet Dr Pepper, smiley faces, 3x Alaska) — the batch's strongest attributed-personal anchor", "the Cagney's/glacier collision called out as a real unresolved tradeoff", "primary-source docking corrections visible in the prose (free shuttle + reservation system + last-shuttle rule)", "route honesty against the 'Inside Passage' brand", "PVSA mechanism disclosure", "infeasible-combo warning (glacier + whales don't fit 6.5 hours)", "operator-price specificity with direct-vs-ship-sold deltas", "the group's real composition (~8 members, US + Australia, widowed/solo by life-stage)", "named closed-location note (Biscuit Bitch downtown sister)", "host-vs-agent role split", "shared planning sheet as living document", "specific reservation URLs", "Port Valet mechanics", "Link light rail station-level routing"]},
+      "layer_1_strong_signals": {
+        "count": 0
+      },
+      "layer_2_supporting_signals": {
+        "count": 2,
+        "signals": [
+          "brand triplet (single instance)",
+          "countdown-section timeframe headings (corpus-native)"
+        ]
+      },
+      "layer_3_counter_signals": {
+        "count": 14,
+        "signals": [
+          "Kristie's attributed lived detail (Diet Dr Pepper, smiley faces, 3x Alaska) — the batch's strongest attributed-personal anchor",
+          "the Cagney's/glacier collision called out as a real unresolved tradeoff",
+          "primary-source docking corrections visible in the prose (free shuttle + reservation system + last-shuttle rule)",
+          "route honesty against the 'Inside Passage' brand",
+          "PVSA mechanism disclosure",
+          "infeasible-combo warning (glacier + whales don't fit 6.5 hours)",
+          "operator-price specificity with direct-vs-ship-sold deltas",
+          "the group's real composition (~8 members, US + Australia, widowed/solo by life-stage)",
+          "named closed-location note (Biscuit Bitch downtown sister)",
+          "host-vs-agent role split",
+          "shared planning sheet as living document",
+          "specific reservation URLs",
+          "Port Valet mechanics",
+          "Link light rail station-level routing"
+        ]
+      },
       "verdict": "likely_human",
       "verdict_justification": "Zero Layer 1 signals post-fix; Layer 2 within allowances; 14 Layer 3 counter-signals including the batch's best attributed-lived material (the host's own card). The pack's authority shape is curator + quoted-veteran-host + primary-source operator data."
     },
-
     "promotional_drift_check": "pass — no CTAs, no urgency. Group-schedule framing is informational.",
     "cadence_check": "pass",
     "risk_rating": "Low",
     "risk_rating_justification": "All crutch counts at or below batch thresholds; the five templated port headers varied; major factual landmines (two false tender claims, false hull-art first, wrong strait, wrong handoff-card port order, four budget-table contradictions) corrected against primary sources; boardroom-adopted social-layer content is corpus-native and contains no fabricated experience.",
-
     "recommended_followup_edits": [
       "ANTHEM CROSS-FIX REQUIRED: the v0.1.4 Anthem pack still claims the Sitka terminal shuttle is '$9-12 round-trip' (invalidated by sitkadock.com — the shuttle is free, reservation-managed) and 'Mount Roberts Tramway $45 r/t' (now $65 all-day). Two-line fix + sidecar note in the Anthem pack.",
       "Upgrade the 'Questions worth asking Kristie' block with her actual answers if she provides them before sale — the DR-Veteran boardroom lens rated host-specific insight the single highest-value addition, and her real answers would convert it from prompt to content.",
@@ -258,5 +309,6 @@
       "Optional: a short laundry subsection (no self-service on Breakaway Plus; the bag-special) for parity with sibling packs.",
       "Operator hand-edit pass planned (the pack should read as substantively the operator's)."
     ]
-  }
+  },
+  "_note_2026_07_06_adversarial_fix": "Adversarial audit (2026-07-06): 1 MAJOR + minors, fixed. (1) Sitka 'the ONLY Russian Orthodox cathedral in North America' is false (it is the FIRST/oldest; many exist) -> 'first'. Same error family as the Anthem pack. (2) Sidecar wrongly said Wikipedia doesn't name the Bliss godmother -> it names Elvis Duran (christened Seattle May 30 2018); corrected. MINOR real-money: Seattle Link light rail $3.50 -> $3.00 flat (fare change Aug 2024). MINOR Hoonah/Icy Strait Point population ~750 -> ~930 (2020 census). All ship specs, dates, phones, gratuity remain verified correct; the DUBIOUS Goldbelt/Mount-Roberts-Tram operating-status flag is a pre-sailing verify item."
 }
