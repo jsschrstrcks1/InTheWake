@@ -59,11 +59,24 @@
 
   /* ---------- Controller Change ---------- */
 
+  // Track whether the visitor has unsaved input on the page. The Drink/Tipping
+  // calculators and Stateroom Check hold real-decision data only in their form
+  // fields, so a forced reload mid-entry would silently wipe it (#1881).
+  let pageIsDirty = false;
+  document.addEventListener('input', () => { pageIsDirty = true; }, { capture: true, passive: true });
+  document.addEventListener('change', () => { pageIsDirty = true; }, { capture: true, passive: true });
+  // An explicit submit or reset means the input is no longer "unsaved".
+  document.addEventListener('submit', () => { pageIsDirty = false; }, { capture: true, passive: true });
+  document.addEventListener('reset', () => { pageIsDirty = false; }, { capture: true, passive: true });
+
   let refreshing = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (refreshing) return;
+    // Don't yank the page out from under a visitor who is mid-entry. The new SW
+    // has already claimed control, so their next navigation uses it — we just
+    // skip the disruptive auto-reload rather than discarding their input (#1881).
+    if (pageIsDirty) return;
     refreshing = true;
-
     window.location.reload();
   });
 
