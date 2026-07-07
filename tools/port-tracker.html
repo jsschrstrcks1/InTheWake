@@ -236,6 +236,8 @@ Soli Deo Gloria
         <button class="filter-button" data-region="Asia">🌏 Asia</button>
         <button class="filter-button" data-region="Australia & Pacific">🦘 Australia/Pacific</button>
         <button class="filter-button" data-region="Africa & Morocco">🌍 Africa</button>
+        <button class="filter-button" data-region="The Americas">🌎 The Americas</button>
+        <button class="filter-button" data-region="Middle East">🕌 Middle East</button>
         <button class="filter-button" data-region="Homeports">🚢 Homeports</button>
       </aside>
       
@@ -1886,8 +1888,22 @@ Soli Deo Gloria
 
     portList.innerHTML = '';
 
+    // Filter buttons map to FAMILIES of DB regions (the DB has ~36 distinct
+    // region names; exact-match left most unreachable — #1879).
+    const REGION_GROUPS = {
+      'Caribbean': ['Caribbean', 'Eastern Caribbean', 'Southern Caribbean'],
+      'Atlantic Islands': ['Atlantic Islands', 'Canary Islands', 'Atlantic', 'South Atlantic'],
+      'Northern Europe': ['Northern Europe', 'Norwegian Fjords', 'British Isles', 'Atlantic Europe'],
+      'Asia': ['Asia', 'Southeast Asia', 'East Asia', 'Japan'],
+      'Australia & Pacific': ['Australia & Pacific', 'Australia', 'Pacific', 'South Pacific', 'New Zealand'],
+      'Africa & Morocco': ['Africa & Morocco', 'Africa', 'Indian Ocean'],
+      'The Americas': ['South America', 'Central America', 'Mexican Riviera', 'Gulf of Mexico', 'East Coast USA', 'West Coast USA', 'West Coast Canada']
+    };
     Object.keys(regions).sort().forEach(region => {
-      if (currentFilter !== 'all' && currentFilter !== region) return;
+      if (currentFilter !== 'all') {
+        const group = REGION_GROUPS[currentFilter] || [currentFilter];
+        if (!group.includes(region)) return;
+      }
 
       const ports = regions[region].filter(p =>
         p.name.toLowerCase().includes(searchTerm) ||
