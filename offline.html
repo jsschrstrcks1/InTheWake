@@ -703,24 +703,42 @@ STANDARDS: Every Page v3.010.300 · Offline Fallback · A11y/WCAG 2.1 AA Complia
       return 1;
     }
 
-    function performSearch(query) {
+    // Is this URL actually in Cache Storage? A genuinely-offline visitor can only
+    // reach pages the service worker already cached; presenting an uncached page
+    // as a clickable result just dead-ends them back here (#1889). If the Cache
+    // Storage API is unavailable (old browser / insecure context) we cannot
+    // verify, so we don't hide the entry.
+    async function isCached(url) {
+      if (!('caches' in window)) return true;
+      try {
+        const hit = await caches.match(url, { ignoreSearch: true });
+        return !!hit;
+      } catch (e) {
+        return true;
+      }
+    }
+
+    async function performSearch(query) {
       if (!query || query.length < 2) {
         if (resultsContainer) resultsContainer.innerHTML = "";
         if (searchStatus) searchStatus.textContent = query ? "Type at least 2 characters" : "";
         return;
       }
 
-      const scored = OFFLINE_INDEX
+      const matched = OFFLINE_INDEX
         .map(item => ({ item, score: simpleMatch(query, item) }))
         .filter(r => r.score > 0)
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 15);
+        .sort((a, b) => b.score - a.score);
+
+      // Keep only entries that are truly cached and reachable offline.
+      const cachedFlags = await Promise.all(matched.map(r => isCached(r.item.url)));
+      const scored = matched.filter((_, i) => cachedFlags[i]).slice(0, 15);
 
       if (scored.length === 0) {
         if (resultsContainer) {
-          resultsContainer.innerHTML = '<div class="result-item"><span class="result-info"><p class="result-title">No cached pages match your search</p></span></div>';
+          resultsContainer.innerHTML = '<div class="result-item"><span class="result-info"><p class="result-title">No cached pages match your search yet</p><p class="result-category">Pages you have already visited become available here when you are offline.</p></span></div>';
         }
-        if (searchStatus) searchStatus.textContent = 'No results for "' + escapeHtml(query) + '"';
+        if (searchStatus) searchStatus.textContent = 'No cached results for "' + escapeHtml(query) + '"';
         return;
       }
 
@@ -736,7 +754,7 @@ STANDARDS: Every Page v3.010.300 · Offline Fallback · A11y/WCAG 2.1 AA Complia
       }).join("");
 
       if (resultsContainer) resultsContainer.innerHTML = html;
-      if (searchStatus) searchStatus.textContent = scored.length + ' result' + (scored.length !== 1 ? 's' : '') + ' for "' + escapeHtml(query) + '"';
+      if (searchStatus) searchStatus.textContent = scored.length + ' cached result' + (scored.length !== 1 ? 's' : '') + ' for "' + escapeHtml(query) + '"';
     }
 
     // Debounce

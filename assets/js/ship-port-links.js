@@ -196,7 +196,6 @@
       'puerto-plata': 'Puerto Plata',
       'civitavecchia': 'Civitavecchia (Rome)',
       'punta-del-este': 'Punta del Este',
-      'la-spezia': 'La Spezia',
       'quebec-city': 'Quebec City',
       'cape-town': 'Cape Town',
       'sydney-australia': 'Sydney, Australia',
@@ -212,7 +211,7 @@
   }
 
   // Render "Ships That Visit Here" for port pages
-  function renderShipsForPort(portSlug, deployments, shipsData) {
+  function renderShipsForPort(portSlug, deployments) {
     const portToShips = deployments.port_to_ships || {};
     const ships = deployments.ships || {};
     const shipSlugs = portToShips[portSlug] || [];
@@ -356,6 +355,12 @@
       nearbyPorts.parentNode.insertBefore(section, nearbyPorts.nextSibling);
     } else if (recentRail) {
       recentRail.parentNode.insertBefore(section, recentRail);
+    } else {
+      // nearby-ports is the last child of its container and there is no
+      // recent-rail: append so the built section still lands in the DOM instead
+      // of being silently discarded (#1891). insertPoint is guaranteed truthy
+      // (we returned above otherwise) and equals nearbyPorts here.
+      insertPoint.parentNode.appendChild(section);
     }
   }
 
