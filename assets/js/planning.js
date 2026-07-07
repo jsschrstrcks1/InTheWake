@@ -10,11 +10,38 @@
   const dataEl = document.getElementById('planning-dataset');
   if (!dataEl) return;
 
-  // JSONC parser - handles comments in JSON
+  // JSONC parser - strips // line and /* */ block comments, but is string-aware
+  // so a "//" or "/*" inside a quoted value is preserved. The previous regex
+  // stripper deleted from any unguarded "//" to end-of-line, so a single stray
+  // "//" in a port blurb corrupted the JSON and blanked the whole page (#1909).
   function parseJSONC(txt) {
-    const noBlock = txt.replace(/\/\*[\s\S]*?\*\//g, '');
-    const noLine = noBlock.replace(/(^|[^:\\])\/\/.*$/gm, '$1');
-    return JSON.parse(noLine);
+    let out = '';
+    let inString = false;
+    for (let i = 0; i < txt.length; i++) {
+      const ch = txt[i];
+      const next = txt[i + 1];
+      if (inString) {
+        out += ch;
+        if (ch === '\\') { out += (next || ''); i++; }       // copy escaped char verbatim
+        else if (ch === '"') { inString = false; }
+        continue;
+      }
+      if (ch === '"') { inString = true; out += ch; continue; } // JSON uses double quotes only
+      if (ch === '/' && next === '/') {                        // line comment
+        i += 2;
+        while (i < txt.length && txt[i] !== '\n') i++;
+        i--;                                                    // let the outer loop copy the newline
+        continue;
+      }
+      if (ch === '/' && next === '*') {                         // block comment
+        i += 2;
+        while (i < txt.length && !(txt[i] === '*' && txt[i + 1] === '/')) i++;
+        i++;                                                    // skip '*'; outer loop skips '/'
+        continue;
+      }
+      out += ch;
+    }
+    return JSON.parse(out);
   }
 
   let data = {};

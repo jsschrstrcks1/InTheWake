@@ -347,6 +347,10 @@
    * Get encouraging closing text based on traveler type
    */
   function getEncouragementText(travelerType, severity) {
+    // Motion notes and connecting doors map to severity 'info', which has no
+    // dedicated copy — treat it (and any unknown/missing severity) as the
+    // 'minor' tier so the pastoral encouragement never renders empty (#1878).
+    if (severity !== 'great' && severity !== 'major') severity = 'minor';
     const encouragements = {
       'solo': {
         'great': 'Enjoy your peaceful time at sea. You\'ve chosen a cabin that should serve you well.',
@@ -375,7 +379,7 @@
       }
     };
 
-    return encouragements[travelerType]?.[severity] || encouragements['couple'][severity];
+    return encouragements[travelerType]?.[severity] || encouragements['couple'][severity] || encouragements['couple']['minor'];
   }
 
   // ============================================================

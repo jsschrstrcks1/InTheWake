@@ -254,11 +254,13 @@ export class Weather {
     const hourly = data.hourly;
     if (!hourly || !hourly.time) return [];
 
-    const now = new Date();
-    const buckets = [];
-
-    // Get timezone from response
+    // Open-Meteo is requested with timezone:'auto', so hourly.time strings are
+    // the PORT's wall clock with no offset. Anchor "now" to the same port wall
+    // clock (not the browser's) so the buckets line up for a traveler viewing
+    // from another timezone (#1886).
     const tz = data.timezone || 'UTC';
+    const now = this.getPortNow(tz);
+    const buckets = [];
 
     // Create time buckets: Today PM, Tonight, Tomorrow AM, Tomorrow PM, Next Day AM
     const bucketDefs = this.getBucketDefinitions(now, tz);
@@ -289,6 +291,29 @@ export class Weather {
     }
 
     return buckets.slice(0, 5); // Max 5 buckets
+  }
+
+  /**
+   * Current time in the port's timezone, returned as a Date whose *local* wall
+   * clock fields equal the port's wall clock. This lets us compare against the
+   * offset-less API timestamps (which new Date() also parses as local wall
+   * clock), keeping both sides in the same frame (#1886).
+   * @param {string} tz - IANA timezone (e.g. "Europe/Rome")
+   * @returns {Date}
+   */
+  getPortNow(tz) {
+    try {
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, year: 'numeric', month: 'numeric', day: 'numeric',
+        hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false
+      }).formatToParts(new Date());
+      const get = (t) => parseInt(parts.find((p) => p.type === t)?.value, 10);
+      let hour = get('hour');
+      if (hour === 24) hour = 0; // some engines emit 24 for midnight
+      return new Date(get('year'), get('month') - 1, get('day'), hour, get('minute'), get('second'), 0);
+    } catch (e) {
+      return new Date(); // unknown tz — fall back to browser-local
+    }
   }
 
   /**
@@ -391,7 +416,9 @@ export class Weather {
     const hourly = data.hourly;
     if (!hourly || !hourly.time) return null;
 
-    const now = new Date();
+    // Anchor to the port's wall clock so the 12-hour window matches the
+    // offset-less API timestamps rather than the viewer's timezone (#1886).
+    const now = this.getPortNow(data.timezone || 'UTC');
     const next12h = new Date(now.getTime() + 12 * 60 * 60 * 1000);
 
     let bestScore = Infinity;
