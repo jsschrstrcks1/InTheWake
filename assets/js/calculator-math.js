@@ -265,7 +265,9 @@ function calculateHealthNote(inputs, results) {
 
   if (totalAlcoholPerDay === 0) return null;
 
-  const perPerson = totalAlcoholPerDay / adults;
+  // Drink inputs are already per-adult per-day (see drink-calculator.html);
+  // dividing by adults again under-fired the advisory (#1876).
+  const perPerson = totalAlcoholPerDay;
 
   const moderateLimit = 2;
   const highLimit = 4;

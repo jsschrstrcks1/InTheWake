@@ -785,7 +785,7 @@ Soli Deo Gloria
 
       html += `
         <div class="class-section collapsed">
-          <div class="class-title" role="button" tabindex="0" aria-expanded="false" onclick="toggleSection(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection(this)}"
+          <div class="class-title" role="button" tabindex="0" aria-expanded="false" onclick="toggleSection(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection(this)}">
             <div class="class-title-text">
               ${className} Class
               <span class="class-progress">${sailed}/${total}</span>
@@ -866,7 +866,7 @@ Soli Deo Gloria
 
       html += `
         <div class="class-section collapsed">
-          <div class="class-title" role="button" tabindex="0" aria-expanded="false" onclick="toggleSection(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection(this)}"
+          <div class="class-title" role="button" tabindex="0" aria-expanded="false" onclick="toggleSection(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection(this)}">
             <div class="class-title-text">
               ⏳ ${className} Class
               <span class="class-progress">${sailed}/${total}</span>
@@ -1366,6 +1366,11 @@ Soli Deo Gloria
   };
 
   // URL State Sharing
+  // A shared ?ships= link loads as a TRANSIENT preview overlay only. It must not
+  // call saveData(): persisting here would clobber the visitor's own saved fleet
+  // with no merge and no warning (#1885). The visitor's localStorage is written
+  // only on an explicit action (checking/unchecking a ship). Runs after init(),
+  // so it re-renders on top of the already-loaded local fleet.
   function loadStateFromURL() {
     const params = new URLSearchParams(window.location.search);
     const shipsParam = params.get('ships');
@@ -1375,7 +1380,9 @@ Soli Deo Gloria
         const decoded = atob(shipsParam);
         const shipIds = decoded.split(',');
         sailedShips = new Set(shipIds.filter(id => SHIPS_DB.some(s => s.id === id)));
-        saveData();
+        renderShips();
+        renderBadges();
+        updateStats();
       } catch (e) {
         console.error('Error loading state from URL:', e);
       }
@@ -1405,11 +1412,11 @@ Soli Deo Gloria
     });
   }
 
-  // Load state from URL on init
-  loadStateFromURL();
-
-  // Start app
+  // Start app — loads the visitor's own saved fleet first
   init();
+
+  // Overlay any shared ?ships= fleet as a transient preview (does not persist)
+  loadStateFromURL();
 })();
   </script>
 

@@ -324,7 +324,13 @@
       const u = new URL(a.href, location.href);
       if (u.origin !== location.origin) {
         a.setAttribute('target', '_blank');
-        a.setAttribute('rel', 'noopener noreferrer');
+        // Merge safety tokens instead of overwriting — existing rel values
+        // like "sponsored"/"nofollow" (affiliate compliance) must survive.
+        const rel = (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
+        ['noopener', 'noreferrer'].forEach(function (t) {
+          if (rel.indexOf(t) === -1) rel.push(t);
+        });
+        a.setAttribute('rel', rel.join(' '));
       }
     } catch (_) {}
   }, { capture: true });

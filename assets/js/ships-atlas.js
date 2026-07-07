@@ -319,6 +319,14 @@
           aVal = a.length_m || 0;
           bVal = b.length_m || 0;
           break;
+        case 'beam':
+          aVal = a.beam_m || 0;
+          bVal = b.beam_m || 0;
+          break;
+        case 'crew':
+          aVal = a.crew || 0;
+          bVal = b.crew || 0;
+          break;
         case 'year':
           aVal = a.year_built || 0;
           bVal = b.year_built || 0;
@@ -594,10 +602,10 @@
       brand: 'name', // Sort by name for brand (brand filter handles brand grouping)
       gt: 'gt',
       length: 'length',
-      beam: 'gt', // No beam sort, default to GT
+      beam: 'beam',
       pax_double: 'pax',
       pax_max: 'pax',
-      crew: 'gt', // No crew sort, default to GT
+      crew: 'crew',
       year_built: 'year'
     };
 
@@ -713,7 +721,7 @@
    * Format number with commas
    */
   function formatNumber(num) {
-    if (num === null || num === undefined) return null;
+    if (num === null || num === undefined || Number.isNaN(num)) return '—';
     return num.toLocaleString();
   }
 

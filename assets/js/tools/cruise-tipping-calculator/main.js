@@ -81,7 +81,8 @@ async function init() {
       state.update({ children: n, childAges: ages });
       return;
     }
-    const v = t.type === "checkbox" ? t.checked : (t.type === "number" ? Number(t.value) : t.value);
+    let v = t.type === "checkbox" ? t.checked : (t.type === "number" ? Number(t.value) : t.value);
+    if (t.name === "nights" && (!Number.isFinite(v) || v < 1)) v = 1;
     state.update({ [t.name]: v });
   });
 

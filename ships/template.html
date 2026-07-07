@@ -21,6 +21,10 @@ All work on this project is offered as a gift to God.
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
   <!-- ===== SEO Meta Polish (canon) ===== -->
+  <!-- Dev-only template: keep it out of the index. The {{SHIP_SLUG}} placeholders
+       below are unfilled here (they resolve only in generated ship pages), so the
+       raw template must not be crawled or indexed (#1663). -->
+  <meta name="robots" content="noindex, nofollow"/>
   <title>{{SHIP_NAME}} — Royal Caribbean Review & Guide (v2.245)</title>
   <link rel="canonical" href="https://cruisinginthewake.com/ships/rcl/{{SHIP_SLUG}}.html"/>
   <meta name="description" content="Discover {{SHIP_NAME}}: {{CLASS_BLURB}} — dining highlights, crew warmth, live tracking, and planning tips inside."/>

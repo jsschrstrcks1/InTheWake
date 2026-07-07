@@ -33,6 +33,7 @@ const CONFIG = {
   maxFonts: 30,
   maxTiles: 3000,            // OSM map tiles for offline port maps (~3k tiles covers visited ports at z10-16)
   staleMaxAge: 60 * 60 * 1000, // 1 hour
+  staticDataMaxAge: 30 * 24 * 60 * 60 * 1000, // 30 days — port/ship/stateroom JSON changes rarely; keep it usable offline for a whole voyage (#1884)
   fxApiMaxAge: 12 * 60 * 60 * 1000, // 12 hours — exchange rates don't change often
   calcDataMaxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   shipImagesMaxAge: 30 * 24 * 60 * 60 * 1000, // 30 days (ship images rarely change)
@@ -167,7 +168,9 @@ self.addEventListener('fetch', (event) => {
     if (isStaticWeatherData(url)) {
       event.respondWith(staleWhileRevalidate(request, CACHES.DATA, CONFIG.maxData));
     } else {
-      event.respondWith(staleIfError(request, CACHES.DATA, CONFIG.maxData));
+      // These data files change rarely; keep serving them offline well past the
+      // 1-hour default so a cruiser at sea doesn't lose them (#1884).
+      event.respondWith(staleIfError(request, CACHES.DATA, CONFIG.maxData, CONFIG.staticDataMaxAge));
     }
     return;
   }
@@ -562,9 +565,9 @@ let calcShellWarmed = false;
 
 async function warmCalculatorShell() {
   if (calcShellWarmed) return;
-  calcShellWarmed = true;
 
-  // Skip on slow or metered connections
+  // Skip on slow or metered connections — but do NOT mark as warmed, so a later
+  // call on a fast connection can still warm the shell (#1884).
   if (networkInfo.saveData || networkInfo.effectiveType === '2g') return;
 
   for (const url of CALC_SHELL_URLS) {
@@ -591,6 +594,8 @@ async function warmCalculatorShell() {
       // Skip failed prefetches — non-critical
     }
   }
+  // Mark warmed only after a real warm pass on a good connection (#1884).
+  calcShellWarmed = true;
 }
 
 async function refreshCalculatorData() {

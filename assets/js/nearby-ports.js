@@ -71,27 +71,20 @@
     var ridiculous = pickRandom(byCategory.tiny);
 
     var results = [];
-    if (reasonable) {
-      var count = inches / reasonable.approx_length_in_inches;
+    // Counts are floats, so pick singular/plural from the ROUNDED value the
+    // reader will actually see, and skip units whose count would round to 0.
+    function pushUnit(unit) {
+      if (!unit) return;
+      var count = inches / unit.approx_length_in_inches;
+      if (count < 0.5) return; // "0 cats" is nonsense — skip this unit
       results.push({
         count: count,
-        label: count === 1 ? reasonable.label_singular : reasonable.label_plural
+        label: Math.round(count) === 1 ? unit.label_singular : unit.label_plural
       });
     }
-    if (medium) {
-      var count2 = inches / medium.approx_length_in_inches;
-      results.push({
-        count: count2,
-        label: count2 === 1 ? medium.label_singular : medium.label_plural
-      });
-    }
-    if (ridiculous) {
-      var count3 = inches / ridiculous.approx_length_in_inches;
-      results.push({
-        count: count3,
-        label: count3 === 1 ? ridiculous.label_singular : ridiculous.label_plural
-      });
-    }
+    pushUnit(reasonable);
+    pushUnit(medium);
+    pushUnit(ridiculous);
     return results;
   }
 

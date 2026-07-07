@@ -76,7 +76,7 @@ const PRESETS = {
     emoji: '🍃',
     description: 'Casual sipping with variety',
     drinks: {
-      soda: 2, coffee: 1, teaprem: 0, freshjuice: 0,
+      soda: 2, coffeeSmall: 1, coffeeLarge: 0, teaprem: 0, freshjuice: 0,
       mocktail: 0, energy: 0, milkshake: 0, bottledwater: 1,
       beer: 1, wine: 1, cocktail: 0.5, spirits: 0
     }
@@ -86,7 +86,7 @@ const PRESETS = {
     emoji: '⚖️',
     description: 'Balanced drinks throughout the day',
     drinks: {
-      soda: 2, coffee: 2, teaprem: 0, freshjuice: 1,
+      soda: 2, coffeeSmall: 2, coffeeLarge: 0, teaprem: 0, freshjuice: 1,
       mocktail: 1, energy: 0, milkshake: 0.5, bottledwater: 2,
       beer: 2, wine: 2, cocktail: 2, spirits: 0.5
     }
@@ -96,7 +96,7 @@ const PRESETS = {
     emoji: '🎉',
     description: 'Maximize your cruise experience',
     drinks: {
-      soda: 2, coffee: 2, teaprem: 0, freshjuice: 1,
+      soda: 2, coffeeSmall: 2, coffeeLarge: 0, teaprem: 0, freshjuice: 1,
       mocktail: 1, energy: 1, milkshake: 0, bottledwater: 2,
       beer: 4, wine: 2, cocktail: 4, spirits: 2
     }
@@ -106,7 +106,7 @@ const PRESETS = {
     emoji: '☕',
     description: 'Perfect for specialty coffee enthusiasts',
     drinks: {
-      soda: 1, coffee: 4, teaprem: 1, freshjuice: 1,
+      soda: 1, coffeeSmall: 4, coffeeLarge: 0, teaprem: 1, freshjuice: 1,
       mocktail: 1, energy: 0, milkshake: 0.5, bottledwater: 2,
       beer: 0, wine: 0, cocktail: 0, spirits: 0
     }
@@ -116,7 +116,7 @@ const PRESETS = {
     emoji: '🚫🍺',
     description: 'Focus on sodas, juices, and specialty drinks',
     drinks: {
-      soda: 3, coffee: 2, teaprem: 1, freshjuice: 2,
+      soda: 3, coffeeSmall: 2, coffeeLarge: 0, teaprem: 1, freshjuice: 2,
       mocktail: 2, energy: 0.5, milkshake: 1, bottledwater: 2,
       beer: 0, wine: 0, cocktail: 0, spirits: 0
     }
@@ -126,7 +126,7 @@ const PRESETS = {
     emoji: '🧳',
     description: 'Balanced drinks for one',
     drinks: {
-      soda: 2, coffee: 2, teaprem: 0, freshjuice: 0.5,
+      soda: 2, coffeeSmall: 2, coffeeLarge: 0, teaprem: 0, freshjuice: 0.5,
       mocktail: 0.5, energy: 0, milkshake: 0, bottledwater: 1,
       beer: 2, wine: 1, cocktail: 1, spirits: 0
     }
@@ -136,7 +136,7 @@ const PRESETS = {
     emoji: '🥤',
     description: 'Soda-focused with some variety',
     drinks: {
-      soda: 6, coffee: 1, teaprem: 0, freshjuice: 0,
+      soda: 6, coffeeSmall: 1, coffeeLarge: 0, teaprem: 0, freshjuice: 0,
       mocktail: 1, energy: 1, milkshake: 0.5, bottledwater: 2,
       beer: 0, wine: 0, cocktail: 0, spirits: 0
     }

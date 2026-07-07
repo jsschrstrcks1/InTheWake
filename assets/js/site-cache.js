@@ -1,4 +1,4 @@
-/* site-cache.js v12.0.0 — SW helpers + intelligent prefetch
+/* site-cache.js — SW helpers + intelligent prefetch
  * Handles prefetching, seeding, and adaptive caching strategies
  * Soli Deo Gloria ✝️
  */
@@ -6,7 +6,11 @@
 (function () {
   'use strict';
 
-  const VERSION = '12.0.0';
+  // Asset cache-buster used when seeding versioned URLs. This MUST track the
+  // site asset version (the ?v= pages actually request, e.g. styles.css?v=…),
+  // or the seeds hit cache keys no navigation ever requests (#1884). Keep in
+  // sync with the site asset version on every version bump.
+  const VERSION = '3.010.400';
 
   /* ------------ SW Messaging (robust) ------------ */
 

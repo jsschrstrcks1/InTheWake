@@ -98,7 +98,11 @@
     },
 
     shipBeam: function(feet) {
-      const practical = convertFeet(feet, 'bowling_alley', 'width');
+      // A cruise beam (~120-250 ft) is narrower than one bowling-alley building
+      // (200 ft), so that unit always rounded to a count < 3 and convertFeet
+      // dropped the practical line entirely (#1888). Use the minivan (~16.7 ft),
+      // which yields counts of roughly 7-15 across a real beam.
+      const practical = convertFeet(feet, 'minivan', 'width');
       const absurd = convertFeet(feet, 'giraffe', 'absurd');
       return { practical, absurd };
     },
