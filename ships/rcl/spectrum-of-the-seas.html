@@ -23,7 +23,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta charset="utf-8"/>
   <script>document.documentElement.classList.remove('no-js');</script>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="referrer" content="no-referrer-when-downgrade"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
   <meta name="ai-summary" content="Spectrum of the Seas: first Quantum Ultra Class ship (2019, 169,379 GT, 4,246 guests). Purpose-built for the China/Asia market with Sichuan Red dining and Mahjong rooms. Sails from Shanghai. North Star, SeaPlex, and Two70 retained.">
   <meta name="last-reviewed" content="2026-02-14">
   <meta name="content-protocol" content="ICP-2">
@@ -46,7 +46,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="description" content="Spectrum of the Seas: first Quantum Ultra Class ship (2019, 169,379 GT, 4,246 guests). Purpose-built for the China/Asia market with Sichuan Red dining and Mahjong rooms. Sails from Shanghai. North Star, SeaPlex, and Two70 retained."/>
 
   <!-- OpenGraph -->
-  <meta property="og:type" content="website"/>
+  <meta property="og:type" content="article"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:title" content="Spectrum of the Seas — Deck Plans, Live Tracker, Dining & Videos"/>
   <meta property="og:description" content="All the essentials for Spectrum of the Seas: live map, dining, stats, and videos."/>
@@ -92,8 +92,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "url": "https://cruisinginthewake.com/",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://cruisinginthewake.com/search.html?q={query}",
-      "query-input": "required name=query"
+      "target": "https://cruisinginthewake.com/search.html?q={search_term_string}",
+      "query-input": "required name=search_term_string"
     }
   }
   </script>
@@ -124,7 +124,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     },
     "reviewBody": "Spectrum of the Seas (2019) is the first Quantum Ultra Class ship, purpose-built for the Asia-Pacific market. At 169,379 GT with 4,246 guests, she features North Star, SeaPlex, RipCord by iFLY, Two70, and unique China-market venues including Sichuan Red.","reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},
     "itemReviewed": {
-      "@type": "CruiseShip",
+      "@type": "Boat",
       "name": "Spectrum of the Seas",
       "provider": {
         "@type": "Organization",
@@ -1186,7 +1186,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       container.innerHTML = pageArticles.map(a => {
         const thumb = a.thumbnail || '/assets/img/default-thumb.jpg';
         const authorName = a.author?.name || 'Unknown';
-        const href = '/solo/' + a.slug + '.html';
+        const href = a.url || ('/articles/' + a.slug + '.html');
         return '<a href="' + href + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
           '<img src="' + thumb + '" alt="" aria-hidden="true" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
           '<span style="display:flex;flex-direction:column;gap:0.15rem;min-width:0;">' +

@@ -10,6 +10,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
 -->
 <html lang="en" class="no-js">
 <head>
+  <meta charset="utf-8"/>
   <!-- ======================================================
        In the Wake — Travel Tips Page
        Version: 3.010.300  |  Soli Deo Gloria ✝️
@@ -29,13 +30,12 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     data-cmp-codesrc="16"></script>
 
   <!-- Core Meta -->
-  <meta charset="utf-8"/>
   <script>
     document.documentElement.classList.remove('no-js');
   </script>
 
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="referrer" content="no-referrer-when-downgrade"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
   <meta name="ai-summary" content="Story-forward help for first voyages: passports, packing, ship time, seasickness, safety, and the 20 questions beginners ask most.">
   <meta name="last-reviewed" content="2026-05-05">
   <meta name="content-protocol" content="ICP-Lite v1.4">
@@ -75,7 +75,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
   <meta property="og:url" content="https://cruisinginthewake.com/travel.html"/>
   <meta property="og:title" content="Travel Tips — In the Wake"/>
   <meta property="og:description" content="A first sailing, twenty steady answers, and a course you can trust."/>
-  <meta property="og:image" content="https://cruisinginthewake.com/assets/articles/thumbs/top-20-questions/cover.webp?v=3.010.300"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/articles/thumbs/top-20-questions/cover.webp"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
   <meta property="og:image:alt" content="Top 20 Questions About Cruising for the First Time"/>
@@ -178,7 +178,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
     },
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://cruisinginthewake.com/search?q={search_term_string}",
+      "target": "https://cruisinginthewake.com/search.html?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }
@@ -1245,7 +1245,7 @@ GUARD RAIL: DO NOT REMOVE OR CHANGE VERBIAGE THAT HAS BEEN AGREED TO BY THE USER
       container.innerHTML = pageArticles.map(a => {
         const thumb = a.thumbnail || '/assets/img/default-thumb.jpg';
         const authorName = a.author?.name || 'Unknown';
-        const href = '/solo/' + a.slug + '.html';
+        const href = a.url || ('/articles/' + a.slug + '.html');
         return '<a href="' + href + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
           '<img src="' + thumb + '" alt="" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
           '<span style="display:flex;flex-direction:column;gap:0.15rem;min-width:0;">' +

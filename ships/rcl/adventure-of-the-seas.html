@@ -23,7 +23,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 
   <!-- Core -->
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="referrer" content="no-referrer-when-downgrade"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
 
   <!-- SEO: Robots & Crawling -->
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
@@ -48,7 +48,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <meta name="description" content="Adventure of the Seas is a Voyager Class ship (137,276 GT, 3,114 guests, launched 2001) featuring the notable Royal Promenade, ice skating rink, rock climbing wall, and worldwide itineraries."/>
 
   <!-- OpenGraph -->
-  <meta property="og:type" content="website"/>
+  <meta property="og:type" content="article"/>
   <meta property="og:site_name" content="In the Wake"/>
   <meta property="og:title" content="Adventure of the Seas — Deck Plans, Live Tracker, Dining & Videos"/>
   <meta property="og:description" content="All the essentials for Adventure of the Seas: live map, dining, stats, and videos."/>
@@ -94,8 +94,8 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     "url": "https://cruisinginthewake.com/",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://cruisinginthewake.com/search.html?q={query}",
-      "query-input": "required name=query"
+      "target": "https://cruisinginthewake.com/search.html?q={search_term_string}",
+      "query-input": "required name=search_term_string"
     }
   }
   </script>
@@ -126,7 +126,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     },
     "reviewBody": "Adventure of the Seas is a Voyager Class ship (137,276 GT, 3,114 guests, 2001) featuring the Royal Promenade indoor boulevard, ice skating rink, FlowRider surf simulator, and Perfect Storm waterslides. Sails worldwide itineraries including Caribbean and seasonal deployments.","reviewRating":{"@type":"Rating","ratingValue":4,"bestRating":5},
     "itemReviewed": {
-      "@type": "CruiseShip",
+      "@type": "Boat",
       "name": "Adventure of the Seas",
       "provider": {
         "@type": "Organization",
@@ -1370,7 +1370,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       container.innerHTML = pageArticles.map(a => {
         const thumb = a.thumbnail || '/assets/img/default-thumb.jpg';
         const authorName = a.author?.name || 'Unknown';
-        const href = '/solo/' + a.slug + '.html';
+        const href = a.url || ('/articles/' + a.slug + '.html');
         return '<a href="' + href + '" class="rail-item" style="display:flex;gap:0.75rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid #e0e8f0;text-decoration:none;color:inherit;">' +
           '<img src="' + thumb + '" alt="" aria-hidden="true" width="56" height="56" style="border-radius:8px;object-fit:cover;flex-shrink:0;" loading="lazy"/>' +
           '<span style="display:flex;flex-direction:column;gap:0.15rem;min-width:0;">' +
