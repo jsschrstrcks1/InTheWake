@@ -2218,8 +2218,7 @@ function validateFromThePier($) {
  * Identified in full 388-port corpus audit (3 total).
  */
 function isRedirectStub(html, filepath) {
-  const path = require('path');
-  const slug = path.basename(filepath, '.html');
+  const slug = basename(filepath, '.html');
   const redirectStubs = new Set(['beijing', 'kyoto', 'falmouth-jamaica']);
   if (redirectStubs.has(slug)) return true;
   // Heuristic: very small file + has redirect indicators to another /ports/ page

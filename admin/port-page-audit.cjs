@@ -197,7 +197,7 @@ function detectGenericWeather(html, file) {
       'nassau', 'cozumel', 'st-thomas', 'barbados', 'jamaica', 'aruba', 'curacao',
       'antigua', 'st-lucia', 'st-maarten', 'bermuda', 'grand-cayman', 'grand-turk',
       'dominica', 'grenada', 'guadeloupe', 'martinique', 'roatan', 'belize',
-      'costa-maya', 'harvest-caye', 'labadee', 'cococay', 'amber-cove', 'samana',
+      'costa-maya', 'harvest-caye', 'labadee', 'cococay', 'great-stirrup-cay', 'amber-cove', 'samana',
       'san-juan', 'st-kitts', 'st-barts', 'bonaire', 'tortola', 'virgin-gorda',
       'freeport', 'key-west', 'tampa', 'miami', 'galveston', 'mobile', 'jacksonville',
       'port-canaveral', 'ft-lauderdale', 'new-orleans', 'baltimore', 'norfolk',
