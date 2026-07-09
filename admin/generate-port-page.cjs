@@ -57,15 +57,35 @@ function generatePage(config) {
     <meta property="og:title" content="${title}">
     <meta property="og:description" content="${description.substring(0, 160)}">
     <meta property="og:url" content="https://cruisinginthewake.com/ports/${slug}.html">
-    <meta property="og:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg">
+    <meta property="og:image" content="https://cruisinginthewake.com/ports/img/${slug}/${slug}-hero.webp">
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${title}">
     <meta name="twitter:description" content="${description.substring(0, 160)}">
-    <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/port-hero.jpg">
+    <meta name="twitter:image" content="https://cruisinginthewake.com/ports/img/${slug}/${slug}-hero.webp">
     <title>${title}</title>
     <link rel="canonical" href="https://cruisinginthewake.com/ports/${slug}.html">
-    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
+
+    <!-- Google Analytics (REQUIRED — CLAUDE.md) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+    <script>
+      window.dataLayer=window.dataLayer||[];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js',new Date());
+      gtag('config','G-WZP891PZXJ',{anonymize_ip:true});
+    </script>
+
+    <!-- Umami (secondary analytics, REQUIRED — CLAUDE.md) -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+    if('serviceWorker' in navigator){
+      window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+    }
+    </script>
+
     <!-- JSON-LD: BreadcrumbList -->
     <script type="application/ld+json">
     {
@@ -301,7 +321,7 @@ function generatePage(config) {
       <!-- IMAGE CREDITS -->
       <!-- ═══════════════════════════════════════════════════════════════ -->
       <details class="port-section" id="credits" open="">
-        <summary><h2>Image Credits</h2></summary>
+        <summary><h2>Credits</h2></summary>
         <ul>
           <li><strong>${slug}-hero.webp</strong>: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC BY-SA)</li>
           <!-- FILL: Credit every image used on this page -->
