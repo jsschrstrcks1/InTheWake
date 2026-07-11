@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T22:27:54.842Z
+**Generated:** 2026-07-11T22:41:13.718Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -50,6 +50,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 2 | registered | — | itw-fom-storage-structure | FOM storage decisions documented (operator approved 2026-07-11): /assets/fom/{ships,ports,misc}/, © Flickers of Majesty license, any first-party operator image, non-owned refs excluded. Spec: admin/FOM-STORAGE-SPEC.md · memory 69ca600d. Execution tracked separately: itw-fom-migrate-legacy-files, itw-fom-normalize-filenames, itw-fom-backfill-sidecars, itw-fom-update-html-srcs |
 | 2 | registered | — | itw-margaritaville-line-buildout | Margaritaville at Sea line buildout: ship page Islander (#2004) + venue pages (#2005) — next content gap after generator audit session |
 | 2 | registered | — | itw-seo-budget-calc-eat | SEO: drink/budget calculator E-A-T and meta differentiation pass |
+| 2 | registered | — | itw-seo-three-cluster-verifications | SEO verifications: RBC dynamic pricing, Costa Maya dive operator rates, Cozumel RBC opening date, Lelepa year |
 | 2 | registered | — | itw-voyage-packs-paywall-platform | Voyage-pack paywall — pick platform (Gumroad vs LemonSqueezy vs Stripe+CFWorker+R2) and wire live checkout |
 | 2 | registered | — | itw-voyage-pwa-integration | Voyage PWA integration — write spec from approved design (amendments settled); 3-phase rollout Bliss time-critical; next: spec → operator review → writing-plans |
 | 3 | registered | — | anthem-of-the-seas-deck-plan-layout-seo-article | Anthem of the Seas deck plan layout SEO article — where-is-everything guide (North Star 15–16, SeaPlex 15–16, Two70 5–6, Windjammer/Coastal Kitchen 14, three MDRs; ~2,400/mo keyword cluster) |
@@ -60,13 +61,21 @@ node admin/library.mjs mirrors --repo InTheWake
 | 3 | registered | — | itw-fom-normalize-filenames | FOM normalize filenames: eliminate -FOM- - N spaced pattern and jpeg dupes; canonical <entity-slug>-FOM-NN.webp webp-only |
 | 3 | registered | — | itw-fom-update-html-srcs | FOM update HTML src paths: after migration, update ship/port page img src and gallery refs to /assets/fom/ paths; verify credits section still correct |
 | 3 | registered | — | itw-grand-pacific-logbook-fix | Fix grand-pacific.html logbook inconsistency: overview says complimentary MDR but logbook describes $29-39 Pan-Asian specialty (mis-pasted template) |
+| 3 | registered | — | itw-gsc-great-tides-waterpark-voyage-pack-audit | NCL GSC / Great Tides Waterpark voyage-pack audit — grep packs for stale GSC/CocoCay/Norwegian Aqua content; apply Sept 2026 hedges |
 | 3 | available | — | itw-legend-maiden-followup | Legend maiden voyage follow-up article |
 | 3 | available | — | itw-legend-tonnage-spec | Legend ship page tonnage spec refresh |
 | 3 | available | — | itw-mariner-oversold | Outcome article — Mariner oversold sailing |
 | 3 | registered | — | itw-phase-6-source-limited-ships-followup | Re-check Commons for 13 source-limited ships (Carnival Firenze 5/8, Star Princess 5/8, Explora II 6/8, Silver Origin 7/8, Seven Seas Grandeur 7/8, Brilliant Lady 7/8, Celebrity Xcel/Xperience/Compass/Seeker, Carnival Encounter) — currently Commons has 0-2 photos for each, retry when uploads expand |
+| 3 | registered | — | itw-seo-chinchorro-contrarian | SEO: Banco Chinchorro contrarian piece — almost never worth booking on a cruise day |
+| 3 | registered | — | itw-seo-costa-maya-dive-operators | SEO: Costa Maya dive operator comparison — Doctor Dive, Alux, Pepe Dive, Mar Adentro; pier proximity; family-integration angle |
 | 3 | registered | — | itw-seo-ctr-30day-2026-06 | SEO: 30-day CTR monitoring pass — June 2026 title/meta winners |
 | 3 | registered | — | itw-seo-features-by-ship | SEO: features-by-ship content differentiation (avoid template CTR collapse) |
+| 3 | registered | — | itw-seo-mystery-island-cheatsheet | SEO: Mystery Island cheat-sheet companion to /ports/mystery-island.html (pairs with itw-seo-mystery-island-pattern) |
 | 3 | registered | — | itw-seo-mystery-island-pattern | SEO: Mystery Island port page pattern — apply Sovereign-style SERP differentiation |
+| 3 | registered | — | itw-seo-rbc-day-pass-worth-it | SEO: Is the Royal Beach Club day pass worth it? — stewardship-math piece (Drink Calculator voice) |
+| 3 | registered | — | itw-seo-rbc-lelepa-living-doc | SEO: Royal Beach Club Lelepa — What We Know (living document; 2027 vs 2028 opening conflict) |
+| 3 | registered | — | itw-seo-rbc-vs-cococay | SEO: Royal Beach Club vs CocoCay explainer — RBC paid excursion, CocoCay included |
+| 3 | registered | — | itw-seo-south-pacific-primer | SEO: South Pacific cruise primer for first-timers — itinerary lengths, departure ports, seasons |
 | 3 | registered | — | itw-ship-page-error-sweep | Ship page per-page error sweep: after systemic articles/index.json thumbnail fix, audit remaining ship-specific validate-ship-page.sh failures |
 | 3 | registered | — | itw-voyage-packs-refund-window | Voyage-pack refund window mismatch: landing/PDF-README say 14d, W12 playbook line 81 says 30d — reconcile |
 | 3 | available | — | port-page-normalization-phase-1-complete-phases-2-5-pending | Port Page Normalization — Phase 1 COMPLETE, Phases 2-5 PENDING |
@@ -132,8 +141,10 @@ node admin/library.mjs mirrors --repo InTheWake
 | 4 | available | — | itw-gh-1800 | [Ship Pages] Validator reports 'Deck Plans section MISSING' on carnival-horizon.html (not seen on previous ships) |
 | 4 | available | — | itw-gh-1829 | [Technical] Cloudflare R2 Migration: HTML content still referencing local assets |
 | 4 | registered | — | itw-phase-6-tbn-ships-validator-exemption | Skip few_images validator for ~45 TBN/unbuilt/future ships until they enter service — RCL Icon-class TBN 2027/2028, Oasis TBN 2028, Quantum Ultra TBN 2028/2029, Star-class TBN 2028, Celebrity Edge-unnamed/Nirvana/River-class, Carnival Project Ace 1/2/3, Carnival Tropicale 2028, MSC World Asia (Nov 2026 debut), Explora III-VI (2026-2028), Legend of the Seas 2026 Icon-class. Consider validator rule tweak: exempt ships with entered_service > current-date from few_images. |
+| 4 | registered | — | itw-seo-drink-calc-rbc-model | Enhancement: Drink Calculator — optional RBC day-pass as partial drink-day substitute |
 | 4 | registered | — | itw-seo-getbets-monitor | SEO: ongoing getbets-string monitor across production files |
 | 4 | registered | — | itw-seo-prestige-title-sync | SEO: Prestige ship page title/meta sync with differentiation playbook |
+| 4 | registered | — | itw-seo-rbc-paradise-island-review | SEO: Royal Beach Club Paradise Island honest review |
 | 4 | registered | — | itw-seo-sovereign-hybrid | SEO: Sovereign hybrid title pattern — scale 5.11× SERP-context approach fleet-wide |
 | 4 | available | — | itw-source-real-photography | Source-real-photography backlog — 39 ship pages |
 | 4 | registered | — | itw-venue-logbook-quality | Venue logbook quality pass: venue-specific JSON-LD review names (not Guest Experience Summary), Pro Tips, warm-honest voice per 77e4d283 standard |
@@ -556,6 +567,3 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | wrong-section-order-23-ships-matches-the-2026-03-25-port-page-no | wrong_section_order: 23 ships — (matches the 2026-03-25 port-page-normalization pattern but on ships) |
 | 5 | available | — | yellow-lane-ai-proposes-human-approves | YELLOW LANE — AI Proposes, Human Approves |
 | 10 | available | — | itw-port-faq-cleanup | Port FAQ template cleanup |
-
-<!-- library register 2026-07-11T22:38:26.043Z -->
-| itw-gsc-great-tides-waterpark-voyage-pack-audit | 3 | NCL GSC / Great Tides Waterpark voyage-pack audit — grep packs for stale GSC/CocoCay/Norwegian Aqua content; apply Sept 2026 hedges |
