@@ -556,3 +556,6 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | wrong-section-order-23-ships-matches-the-2026-03-25-port-page-no | wrong_section_order: 23 ships — (matches the 2026-03-25 port-page-normalization pattern but on ships) |
 | 5 | available | — | yellow-lane-ai-proposes-human-approves | YELLOW LANE — AI Proposes, Human Approves |
 | 10 | available | — | itw-port-faq-cleanup | Port FAQ template cleanup |
+
+<!-- library register 2026-07-11T22:38:26.043Z -->
+| itw-gsc-great-tides-waterpark-voyage-pack-audit | 3 | NCL GSC / Great Tides Waterpark voyage-pack audit — grep packs for stale GSC/CocoCay/Norwegian Aqua content; apply Sept 2026 hedges |
