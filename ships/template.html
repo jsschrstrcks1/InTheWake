@@ -4,45 +4,79 @@ Soli Deo Gloria
 All work on this project is offered as a gift to God.
 "Trust in the LORD with all your heart..." — Proverbs 3:5
 "Whatever you do, work heartily..." — Colossians 3:23
+
+STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.400 · A11y/WCAG 2.1 AA Compliant
+-->
+<!--
+  ┌───────────────────────────────────────────────────────────────────────┐
+  │ SHIP PAGE TEMPLATE  —  built from a validator-passing page (0 errors).  │
+  │ This is a COPY-AND-FILL scaffold. To create a new ship page:            │
+  │   1. Copy this file to ships/<line-slug>/<ship-slug>.html               │
+  │   2. Replace EVERY token listed here:                                            │
+  │      SHIP_NAME SHIP_SLUG SHIP_CLASS SHIP_IMO                            │
+  │      LINE_NAME LINE_LEGAL_NAME LINE_SLUG                                 │
+  │      HERO_IMAGE_FILENAME FIRSTLOOK_IMAGE_1/2 SIGNATURE_ATTRACTION        │
+  │   3. INTEGRITY (CLAUDE.md): the exemplar prose, stats, venues, sample   │
+  │      itinerary and logbook below are from the source ship. You MUST     │
+  │      replace ALL of them with the new ship's OWN verified data from     │
+  │      original research — NEVER ship another vessel's numbers, and       │
+  │      NEVER fill stats from training data.                               │
+  │   4. Source real WebP imagery to /assets/ships/<line>/<slug>/ (min 6).  │
+  │   5. Validate: bash admin/validate-ship-page.sh <file>  (target 0)      │
+  └───────────────────────────────────────────────────────────────────────┘
 -->
 
-<html lang="en">
+
+<html lang="en" class="no-js">
 <head>
+  <!-- ======================================================
+       In the Wake — {{SHIP_NAME}} • {{LINE_NAME}}
+       Version: 3.010.400  |  Soli Deo Gloria ✝️
+
+       ✅ WCAG 2.1 Level AA Compliant
+       ✅ SEO Optimized (JSON-LD, OpenGraph, Twitter Cards)
+       ✅ Dropdown Menus with Hover Delay (300ms)
+       ✅ AI-First SEO with E-E-A-T Person Schema
+       ====================================================== -->
+
+  <!-- Core -->
   <meta charset="utf-8"/>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script>document.documentElement.classList.remove('no-js');</script>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="referrer" content="strict-origin-when-cross-origin"/>
 
-  gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
-</script>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- SEO: Robots & Crawling -->
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"/>
+  <meta name="googlebot" content="index,follow"/>
+  <meta name="bingbot" content="index,follow"/>
 
-  <!-- ===== SEO Meta Polish (canon) ===== -->
-  <!-- Dev-only template: keep it out of the index. The {{SHIP_SLUG}} placeholders
-       below are unfilled here (they resolve only in generated ship pages), so the
-       raw template must not be crawled or indexed (#1663). -->
-  <meta name="robots" content="noindex, nofollow"/>
-  <title>{{SHIP_NAME}} — Royal Caribbean Review & Guide (v2.245)</title>
-  <link rel="canonical" href="https://cruisinginthewake.com/ships/rcl/{{SHIP_SLUG}}.html"/>
-  <meta name="description" content="Discover {{SHIP_NAME}}: {{CLASS_BLURB}} — dining highlights, crew warmth, live tracking, and planning tips inside."/>
-  <meta name="ai-summary" content="Discover {{SHIP_NAME}}: {{CLASS_BLURB}} — dining highlights, crew warmth, live tracking, and planning tips inside.">
-  <meta name="last-reviewed" content="2025-11-19">
-  <meta name="content-protocol" content="ICP-Lite v1.4">
+  <!-- SEO: Theme & Appearance -->
+  <meta name="color-scheme" content="light"/>
+  <meta name="theme-color" content="#0e6e8e"/>
+  <meta name="version" content="3.010.400"/>
+  <meta name="author" content="In the Wake"/>
+  <meta name="publisher" content="In the Wake"/>
+
+  <!-- ===== SEO Meta ===== -->
+  <title>{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining & Videos | In the Wake</title>
+  <link rel="canonical" href="https://cruisinginthewake.com/ships/{{LINE_SLUG}}/{{SHIP_SLUG}}.html"/>
+  <meta name="description" content="Discover {{SHIP_NAME}}: A {{SHIP_CLASS}} ship from {{LINE_NAME}}. 143,535 GT, 3,195 guests, built 2022. Dining, entertainment, deck plans, and planning tips."/>
+  <meta name="ai-summary" content="Discover {{SHIP_NAME}}: A {{SHIP_CLASS}} ship from {{LINE_NAME}}. 143,535 GT, 3,195 guests, built 2022. Dining, entertainment, deck plans, and planning tips.">
+  <meta name="last-reviewed" content="2026-04-13"/>
+  <meta name="content-protocol" content="ICP-2">
 
   <!-- OpenGraph / Twitter -->
-  <meta property="og:type" content="website"/>
+  <meta property="og:type" content="article"/>
   <meta property="og:site_name" content="In the Wake"/>
-  <meta property="og:url" content="https://cruisinginthewake.com/ships/rcl/{{SHIP_SLUG}}.html"/>
-  <meta property="og:title" content="{{SHIP_NAME}} — Royal Caribbean Review & Guide"/>
-  <meta property="og:description" content="Explore {{SHIP_NAME}} with expert insights, dining highlights, accessibility notes, and live tracking."/>
-  <meta property="og:image" content="{{HERO_IMAGE_URL}}?v=2.245"/>
+  <meta property="og:url" content="https://cruisinginthewake.com/ships/{{LINE_SLUG}}/{{SHIP_SLUG}}.html"/>
+  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:title" content="{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining & Videos"/>
+  <meta property="og:description" content="Explore {{SHIP_NAME}}: {{SHIP_CLASS}} ship with 3,195 guests. Dining, entertainment, and planning resources."/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="{{SHIP_NAME}} — Royal Caribbean Review & Guide"/>
-  <meta name="twitter:description" content="Sail into {{SHIP_SHORT}}’s appeal — venues, staterooms, crew stories, and more."/>
-  <meta name="twitter:image" content="{{HERO_IMAGE_URL}}?v=2.245"/>
+  <meta name="twitter:description" content="Discover {{SHIP_NAME}}: A {{SHIP_CLASS}} ship from {{LINE_NAME}}. 143,535 GT, 3,195 guests, built 2022. Dining, entertainment, deck plans, and planning tips."/>
+  <meta name="twitter:title" content="{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining & Videos"/>
+  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/ships-hero.jpg"/>
 
   <!-- JSON-LD (CruiseShip schema) -->
   <script type="application/ld+json">
@@ -50,17 +84,57 @@ All work on this project is offered as a gift to God.
     "@context": "https://schema.org",
     "@type": "Boat",
     "name": "{{SHIP_NAME}}",
-    "url": "https://cruisinginthewake.com/ships/rcl/{{SHIP_SLUG}}.html",
-    "image": "{{HERO_IMAGE_URL}}?v=2.245",
+    "url": "https://cruisinginthewake.com/ships/{{LINE_SLUG}}/{{SHIP_SLUG}}.html",
     "brand": {
       "@type": "Organization",
-      "name": "Royal Caribbean International",
-      "url": "https://www.royalcaribbean.com/"
+      "name": "{{LINE_NAME}}",
+      "url": "https://www.ncl.com/"
+    },
+    "description": "{{SHIP_NAME}} is a {{SHIP_CLASS}} cruise ship from {{LINE_NAME}}, accommodating 3,195 guests."
+  }
+  </script>
+
+  <!-- JSON-LD: WebPage (ICP-2) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "{{SHIP_NAME}}",
+    "url": "https://cruisinginthewake.com/ships/{{LINE_SLUG}}/{{SHIP_SLUG}}.html",
+    "description": "Discover {{SHIP_NAME}}: A {{SHIP_CLASS}} ship from {{LINE_NAME}}. 143,535 GT, 3,195 guests, built 2022. Dining, entertainment, deck plans, and planning tips.",
+    "dateModified": "2026-04-13",
+    "mainEntity": {
+      "@type": "Vehicle",
+      "name": "{{SHIP_NAME}}",
+      "category": "Cruise Ship",
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "{{LINE_NAME}}"
+      }
     }
   }
   </script>
 
-  <!-- Global CSS -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WZP891PZXJ', {anonymize_ip:true});
+  </script>
+
+  <!-- Umami (secondary analytics) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
+
+  <!-- Favicon / PWA -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/manifest.webmanifest"/>
+
+  <!-- LCP Optimization: Preload critical hero images -->
+  <link rel="preload" as="image" href="/assets/social/ships-hero.jpg" fetchpriority="high"/>
+
   <!-- Service Worker Registration -->
   <script>
   if('serviceWorker' in navigator){
@@ -68,127 +142,163 @@ All work on this project is offered as a gift to God.
   }
   </script>
 
-  <link rel="stylesheet" href="https://cruisinginthewake.com/assets/styles.css?v=3.010.400"/>
+  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <link rel="stylesheet" href="/assets/css/ship-page.css?v=3.010.400"/>
+<!-- JSON-LD: WebSite -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"In the Wake","url":"https://cruisinginthewake.com","potentialAction":{"@type":"SearchAction","target":"https://cruisinginthewake.com/search.html?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper@10/swiper-bundle.min.css"/>
+<!-- JSON-LD: BreadcrumbList -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Ken Baker",
-  "url": "https://cruisinginthewake.com/about/ken-baker.html",
-  "jobTitle": "Cruise Research Analyst & Data Specialist",
-  "description": "Cruise industry analyst specializing in ship comparisons, deck plan analysis, and dining venue research.",
-  "knowsAbout": [
-    "Cruise Ship Analysis",
-    "Deck Plans",
-    "Cruise Industry",
-    "Cruise Dining",
-    "Ship Comparisons",
-    "Ship Reviews",
-    "Deck Plan Analysis"
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+    {"@type": "ListItem", "position": 3, "name": "{{LINE_NAME}}", "item": "https://cruisinginthewake.com/cruise-lines/{{LINE_SLUG}}.html"},
+    {"@type": "ListItem", "position": 4, "name": "{{SHIP_NAME}}", "item": "https://cruisinginthewake.com/ships/{{LINE_SLUG}}/{{SHIP_SLUG}}.html"}
   ]
 }
 </script>
 
-  <!-- JSON-LD: WebPage (ICP-Lite) -->
+  <!-- JSON-LD: Review -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","itemReviewed":{"@type":"Cruise","description":"A {{SHIP_CLASS}} ship operated by {{LINE_NAME}}.","name":"{{SHIP_NAME}}","brand":{"@type":"Organization","name":"{{LINE_NAME}}"}},"author":{"@type":"Person","name":"Ken Baker"},"reviewBody":"{{SHIP_NAME}} ({{SHIP_CLASS}}, 143,535 GT, 3,195 guests, 2022) features The Rush waterslide complex, Indulge Food Hall with 11 concepts, Penrose Atrium, Vibe Beach Club, The Haven upscale enclave, and elevated finishes throughout.","reviewRating":{"@type":"Rating","ratingValue":4.0,"bestRating":5,"worstRating":1}}</script>
+  <!-- JSON-LD: FAQPage (ICP-2) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "{{SHIP_NAME}}",
-    "url": "https://cruisinginthewake.com/ships/template.html",
-    "description": "Discover {{SHIP_NAME}}: {{CLASS_BLURB}} — dining highlights, crew warmth, live tracking, and planning tips inside.",
-    "dateModified": "2025-11-19",
-    "mainEntity": {
-      "@type": "Thing",
-      "name": "{{SHIP_NAME}}",
-      "category": "Cruise Ship",
-      "manufacturer": {
-        "@type": "Organization",
-        "name": "Cruise Line"
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What dining options are available on {{SHIP_NAME}}?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{SHIP_NAME}} features complimentary dining rooms plus buffet. Specialty restaurants carry an additional per-person charge — browse the dining section for current venues."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I find the deck plans for {{SHIP_NAME}}?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Deck plans are available through the links on this page. You can also find official deck plans on the {{LINE_NAME}} website or in the cruise planner app."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does {{SHIP_NAME}} sail?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{SHIP_NAME}} itineraries vary seasonally. Visit ncl.com for current schedules and departure ports."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I track {{SHIP_NAME}}'s current location?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the live ship tracker on this page to see {{SHIP_NAME}}'s current position via VesselFinder (IMO {{SHIP_IMO}})."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this information official?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This page compiles independent planning resources. Always confirm details with {{LINE_NAME}} or your travel advisor before booking."
+        }
       }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "In the Wake",
+    "url": "https://cruisinginthewake.com",
+    "logo": "https://cruisinginthewake.com/assets/logo_wake.png"
+  }
+  </script>
+
+  <!-- JSON-LD: Article (editorial content signal) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{SHIP_NAME}} — {{LINE_NAME}} Ship Guide",
+    "description": "Discover {{SHIP_NAME}}: A {{SHIP_CLASS}} ship from {{LINE_NAME}}. 143,535 GT, 3,195 guests, built 2022. Dining, entertainment, deck plans, and planning tips.",
+    "dateModified": "2026-04-13",
+    "author": {
+        "@type": "Person",
+        "name": "Ken Baker",
+        "url": "https://cruisinginthewake.com/authors/ken-baker.html",
+        "jobTitle": "Founder and Editor"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "In the Wake",
+        "url": "https://cruisinginthewake.com",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://cruisinginthewake.com/assets/logo_wake.png"
+        }
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://cruisinginthewake.com/ships/{{LINE_SLUG}}/{{SHIP_SLUG}}.html"
     }
+}
+  </script>
+<!-- ===== Standards helpers (absolute URL + origin normalizer) ===== -->
+<script>
+(function(){
+  const ORIGIN=(location.origin||(location.protocol+'//'+location.host)).replace(/\/$/,'');
+  window._abs=function(path){ path=String(path||''); if(!path.startsWith('/')) path='/'+path; return ORIGIN+path; };
+  document.addEventListener('DOMContentLoaded', function(){
+    const sel=['a[href^="https://cruisinginthewake.com/"]','img[src^="https://cruisinginthewake.com/"]','link[href^="https://cruisinginthewake.com/"]','script[src^="https://cruisinginthewake.com/"]'].join(',');
+    document.querySelectorAll(sel).forEach(el=>{
+      const attr=el.hasAttribute('href')?'href':'src';
+      try{ const u=new URL(el.getAttribute(attr)); el.setAttribute(attr, ORIGIN+u.pathname+u.search+u.hash); }catch(_){}
+    });
+  },{once:true});
+})();
+</script>
+
+<!-- Swiper loader -->
+<script>
+(function ensureSwiper(){
+  function addCSS(h){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=h; document.head.appendChild(l); }
+  function addJS(src, ok, fail){
+    const s=document.createElement('script'); s.src=src; s.async=true; s.onload=ok; s.onerror=fail||function(){}; document.head.appendChild(s);
   }
-  </script><style>
-    /* Navigation */
-    .nav {
-      flex: 1 1 auto;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      white-space: nowrap;
-      flex-wrap: nowrap;
-      overflow: visible;
-      padding-inline: .75rem;
-    }
-
-  /* Header / Hero */
-  .hero-header {
-    position: relative;
-    border-bottom: 6px double var(--rope);
-    background: #eaf6f6;
-    z-index: 9000;
-  }
-
-  .navbar {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-    padding: .5rem .9rem .35rem;
-    position: relative;
-    z-index: 2000;
-    overflow: visible;
-  }
-
-  .brand {
-    display: flex;
-    align-items: flex-end;
-    gap: .6rem;
-  }
-
-  .brand img {
-    height: 28px;
-    width: auto;
-  }
-
-    @media (max-width: 768px) {
-
-    }
-  </style>
-
-  <!-- LCP Optimization: Preload critical hero images -->
-  <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
-  <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
-  <!-- Umami (secondary analytics) -->
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="9661a449-3ba9-49ea-88e8-4493363578d2"></script>
-
+  const cdnCSS="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css";
+  const cdnJS ="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js";
+  addCSS(cdnCSS);
+  addJS(cdnJS, function(){ window.__swiperReady=true; });
+})();
+</script>
 </head>
-<body class="page no-hero-filter">
-  <header class="hero-header">
-    <div class="navbar">
-      <!-- Navigation with Dropdown Menus -->
+<body class="page">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div id="a11y-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+<div id="a11y-alerts" class="sr-only" role="alert" aria-live="assertive" aria-atomic="true"></div>
 
+  <header class="hero-header" role="banner">
+    <div class="navbar">
       <div class="brand">
-        <img src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake wordmark" decoding="async"/>
-</div>
-      <!-- Mobile hamburger button -->
+        <img loading="eager" src="/assets/logo_wake_256.png" srcset="/assets/logo_wake_256.png 1x, /assets/logo_wake_512.png 2x" width="256" height="259" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async"/>
+      </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav">
-        <span class="nav-toggle-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
+        <span class="nav-toggle-icon"><span></span><span></span><span></span></span>
       </button>
             <nav class="site-nav" id="site-nav" aria-label="Main site navigation">
         <a class="nav-pill" href="/">Home</a>
 
-                <!-- Planning Dropdown -->
+        <!-- Planning Dropdown -->
         <div class="nav-dropdown" id="nav-planning">
           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">
             Planning <span class="caret">&#9662;</span>
@@ -249,230 +359,342 @@ All work on this project is offered as a gift to God.
 
         <a class="nav-pill" href="/search.html">Search</a>
         <a class="nav-pill" href="/about-us.html">About</a>
-      </nav></div>
+      </nav>
+    </div>
 
     <div class="hero" role="img" aria-label="{{SHIP_NAME}} hero image">
-      <div class="latlon-grid" >
+      <div class="latlon-grid" aria-hidden="true">
         <svg viewBox="0 0 100 60" preserveAspectRatio="none">
           <g class="grid-lines" stroke-width="0.35">
-            <line x1="10" y1="0" x2="10" y2="60"/>
-            <line x1="20" y1="0" x2="20" y2="60"/>
-            <line x1="30" y1="0" x2="30" y2="60"/>
-            <line x1="40" y1="0" x2="40" y2="60"/>
-            <line x1="50" y1="0" x2="50" y2="60"/>
-            <line x1="60" y1="0" x2="60" y2="60"/>
-            <line x1="70" y1="0" x2="70" y2="60"/>
-            <line x1="80" y1="0" x2="80" y2="60"/>
-            <line x1="90" y1="0" x2="90" y2="60"/>
-            <line x1="0" y1="10" x2="100" y2="10"/>
-            <line x1="0" y1="20" x2="100" y2="20"/>
-            <line x1="0" y1="30" x2="100" y2="30"/>
-            <line x1="0" y1="40" x2="100" y2="40"/>
+            <line x1="10" y1="0" x2="10" y2="60"/><line x1="30" y1="0" x2="30" y2="60"/>
+            <line x1="50" y1="0" x2="50" y2="60"/><line x1="70" y1="0" x2="70" y2="60"/>
+            <line x1="90" y1="0" x2="90" y2="60"/><line x1="0" y1="15" x2="100" y2="15"/>
+            <line x1="0" y1="30" x2="100" y2="30"/><line x1="0" y1="45" x2="100" y2="45"/>
           </g>
         </svg>
       </div>
-      <img class="hero-compass" src="/assets/compass_rose.svg?v=3.010.400" alt="" aria-hidden="true" decoding="async"/>
+      <img loading="eager" class="hero-compass" src="/assets/compass_rose.svg" alt="" aria-hidden="true" decoding="async"/>
       <div class="hero-title">
-        <img class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
+        <img loading="eager" class="logo" src="/assets/logo_wake_560.png" srcset="/assets/logo_wake_560.png 1x, /assets/logo_wake_1120.png 2x" alt="In the Wake cruise travel guide and ship reviews logo" decoding="async" fetchpriority="high" width="560" height="567"/>
       </div>
-      <div class="tagline" >A Cruise Traveler's Logbook</div>
-
-      <!-- One long attribution pill -->
+      <div class="tagline" aria-hidden="true">A Cruise Traveler's Logbook</div>
       <div class="hero-credit">
-        <a class="pill long" href="{{HERO_CREDIT_URL}}" target="_blank" rel="noopener">
-          Photo © {{HERO_CREDIT_LABEL}}
-        </a>
+        <a class="pill" href="https://www.flickersofmajesty.com" target="_blank" rel="noopener">Flickers of Majesty</a>
+        <a class="pill" href="https://www.instagram.com/flickersofmajesty" target="_blank" rel="noopener">@flickersofmajesty</a>
       </div>
     </div>
   </header>
 
-  <main class="wrap" id="content">
-    <!-- Row 1: First Look (left) + Dining card (right) -->
-    <section class="grid-2">
-      <!-- A First Look + Ship stats -->
-      <section class="card" aria-labelledby="photosHeading">
-        <h2 id="photosHeading">A First Look</h2>
+  <main class="wrap page-grid" id="main-content" role="main" tabindex="-1">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> &rsaquo;
+      <a href="/ships/">Ships</a> &rsaquo;
+      <a href="/cruise-lines/{{LINE_SLUG}}.html">{{LINE_NAME}}</a> &rsaquo;
+      <span aria-current="page">{{SHIP_NAME}}</span>
+    </nav>
 
-        <div class="swiper firstlook" aria-label="{{SHIP_NAME}} photo carousel">
-          <div class="swiper-wrapper" id="firstlookSlides">
-            <!-- Supply up to three figures via JS or static HTML -->
-          </div>
-          <div class="swiper-pagination" ></div>
-          <div class="swiper-button-prev" aria-label="Previous image"></div>
-          <div class="swiper-button-next" aria-label="Next image"></div>
-        </div>
+    <!-- Main Content Column -->
+    <section class="col-1" aria-label="Ship details">
 
-        <!-- Ship stats (auto) -->
-        <section class="ship-stats card mini" aria-labelledby="statsHeading">
-          <h3 id="statsHeading">{{SHIP_SHORT}} at a Glance</h3>
-          <div id="ship-stats" class="stats-grid" data-slug="{{SHIP_SLUG}}"></div>
-        </section>
-      </section>
+    <h1>{{SHIP_NAME}} — Deck Plans, Live Tracker, Dining &amp; Videos</h1>
 
-      <!-- Dining venues (JSON-driven) -->
-      <section id="dining-card" class="card" data-ship="{{SHIP_NAME}}" aria-labelledby="diningHeading">
-        <h2 id="diningHeading">Dining Venues on {{SHIP_NAME}}</h2>
-
-        <img class="card-hero"
-             src="/assets/ships/template_01.webp" onerror="this.onerror=null;this.src='/assets/ships/template_01.jpg'"
-             alt="Food court seating with ocean view" loading="lazy"/>
-
-        <div class="dining-content" id="dining-content" aria-live="polite"></div>
-
-        <script type="application/json" id="dining-data-source">
-          {
-            "provider": "rcl",
-            "json": "https://cruisinginthewake.com/assets/data/rc-restaurants.json",
-            "ship_slug": "{{SHIP_SLUG}}",
-            "aliases": ["{{SHIP_NAME}}", "{{SHIP_SHORT}}"]
-          }
-        </script>
-      </section>
-    </section>
-
-    <!-- Ken’s Logbook -->
-    <section class="card note-kens-logbook" aria-labelledby="logbookHeading">
-      <h2 id="logbookHeading">A Note from Ken’s Logbook — A Personal Review</h2>
-      <p class="pill">{{DISCLOSURE_PILL}}</p>
-
-      <div class="prose">
-        <!-- Your narrative sections here -->
-        <h3>Shows and Entertainment</h3>
-        <p>{{LOGBOOK_SHOWS}}</p>
-
-        <h3>Dining</h3>
-        <p>{{LOGBOOK_DINING}}</p>
-
-        <h3>Embarkation &amp; Disembarkation</h3>
-        <p>{{LOGBOOK_EMBARK}}</p>
-
-        <h3>The Real Talk</h3>
-        <p>{{LOGBOOK_REAL_TALK}}</p>
-
-        <!-- ===== NEW: Accessibility subsection (canon) ===== -->
-        <h3>Accessible Seas on {{SHIP_SHORT}}</h3>
-        <div class="card accessibility" role="region" aria-label="Accessibility features on {{SHIP_SHORT}}">
-          <ul>
-            <li>Elevator access to all public decks</li>
-            <li>Pool lifts for mobility assistance</li>
-            <li>Accessible staterooms with roll-in showers</li>
-            <li>Priority tendering for shore excursions</li>
-          </ul>
-          <p><a href="https://cruisinginthewake.com/disability-at-sea.html" class="btn">Learn More Accessibility Tips</a></p>
-        </div>
-
-        <!-- Canon label -->
-        <h3>A Female Crewmate’s Perspective</h3>
-        <p>{{FEMALE_CREWMATE_P}}</p>
-
-        <h3>Closing Thoughts</h3>
-        <p>{{LOGBOOK_CLOSING}}</p>
+    <!-- ICP-2: Page Intro -->
+    <section class="page-intro" aria-label="{{SHIP_NAME}} overview">
+      
+      <p class="fact-block" style="font-size: 0.95rem; color: #345; line-height: 1.6; margin: 0.5rem 0;">{{SHIP_NAME}} is a {{SHIP_CLASS}} cruise ship operated by {{LINE_NAME}}. She entered service in 2022, measures 143,535 gross tons, and carries approximately 3,195 guests at double occupancy with a crew of 1,388.</p>
+      <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
+        <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> {{SHIP_CLASS}}</li>
+          <li><strong>Year:</strong> 2022</li>
+          <li><strong>Tonnage:</strong> 143,535 GT</li>
+          <li><strong>Guests:</strong> 3,195</li>
+          <li><strong>IMO:</strong> {{SHIP_IMO}}</li>
+        </ul>
       </div>
 
-      <p class="sail-deals">
-        <a class="btn ghost" href="https://www.vacationstogo.com/ticker.cfm?incCT=y&s=86&sort=pdm" target="_blank" rel="noopener">
-          Plot your next sailing → (Vacations To Go)
-        </a>
+      <p class="answer-line" style="margin: 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--rope, #d9b382); background: #f7fdff; border-radius: 8px;">
+        <strong>Quick Answer:</strong> {{SHIP_NAME}} (143,535 GT, 3,195 guests, 2022) is the first {{SHIP_CLASS}} ship (debuted 2022) — NCL's new generation with Ocean Boulevard wraparound promenade, the {{SIGNATURE_ATTRACTION}}, and the highest guest-space ratio in the NCL fleet. This page covers deck plans, live tracking, dining venues, and videos.
+      </p>
+
+      <p id="who-shes-for" class="fit-guidance" style="margin: 0.75rem 0; font-size: 0.95rem; color: #134; line-height: 1.6;">
+        <strong>Best For:</strong> Cruisers who want NCL's most spacious and upscale ship — more space per guest than any previous NCL vessel, with a premium feel while keeping Freestyle flexibility.
+      </p>
+
+      <p class="content-text">
+        {{SHIP_NAME}} launched a new era for NCL — the {{SHIP_CLASS}} offers significantly more space per guest than the Breakaway Plus ships despite carrying fewer passengers. Ocean Boulevard is a wrap-around outdoor promenade with dining and bars, and The Drop is the fastest freefall dry slide at sea. If you want the same design with a different name, Norwegian Viva is her identical sister; Norwegian Aqua is the largest (as of 2026) {{SHIP_CLASS}}.
       </p>
     </section>
 
-    <!-- ===== NEW: Fuel Your Voyage (canon) ===== -->
-    <div class="card voyage-tips" aria-label="Voyage planning tips">
-      <h2 class="card-title">Fuel Your Voyage</h2>
-      <div class="card-content">
-        <h3>Drink Packages</h3>
-        <ul>
-          <li>Deluxe <a href="/drink-calculator.html">Beverage Package</a>: ~${{DRINK_DELUXE_PRICE}}/day for premium drinks</li>
-          <li>Refreshment Package: Non-alcoholic options</li>
-        </ul>
-        <h3>Pack Like a Pro</h3>
-        <ul>
-          <li>Shawl for chilly theater nights</li>
-          <li>Swimwear for pool deck</li>
-          <li>Comfortable shoes for shore tours</li>
-        </ul>
-        <p>
-          <a href="https://cruisinginthewake.com/drink-packages.html" class="btn">View Drink Options</a>
-          |
-          <a href="https://cruisinginthewake.com/packing-lists.html" class="btn">Packing Guide</a>
-        </p>
-      </div>
-    </div>
+    <!-- First Look Section -->
+    <section class="card" aria-labelledby="first-look">
+      <h2 id="first-look">A First Look at {{SHIP_NAME}}</h2>
 
-    <!-- Videos -->
-    <section class="card" aria-labelledby="videosHeading">
-      <h2 id="videosHeading">Watch: {{SHIP_SHORT}} Highlights</h2>
-      <p class="small">Walkthrough, top things to do, then stateroom tours by type; plus any green-list videos from our source of truth.</p>
+      <div class="swiper firstlook" aria-label="{{SHIP_NAME}} photo carousel">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/{{LINE_SLUG}}/{{SHIP_SLUG}}/{{HERO_IMAGE_FILENAME}}" alt="{{SHIP_NAME}} full broadside profile passing through Amsterdam's IJ canal, showing the signature swirling hull livery and 'NORWEGIAN PRIMA' name. Photo by Chrissy85 (CC BY-SA 4.0) via Wikimedia Commons." loading="lazy" decoding="async" width="1920" height="1080">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/{{LINE_SLUG}}/{{SHIP_SLUG}}/{{FIRSTLOOK_IMAGE_1}}" alt="{{SHIP_NAME}} entering Kiel for the first time, September 2022 — close-up bow showing the spiral water slide on the side, the NCL letters on the funnel, and the swirling hull livery. Photo by HenSti (CC BY-SA 4.0) via Wikimedia Commons." loading="lazy" decoding="async" width="1920" height="1440">
+            </picture>
+          </div>
+          <div class="swiper-slide">
+            <picture>
+              <img src="/assets/ships/{{LINE_SLUG}}/{{SHIP_SLUG}}/{{FIRSTLOOK_IMAGE_2}}" alt="{{SHIP_NAME}} entering Kiel for the first time, September 2022 — wide context shot showing the ship's bow alongside the historic German Naval Yards crane. Photo by HenSti (CC BY-SA 4.0) via Wikimedia Commons." loading="lazy" decoding="async" width="1920" height="1440">
+            </picture>
+          </div>
+        </div>
+        <div class="swiper-pagination" ></div>
+        <div class="swiper-button-prev" aria-label="Previous image"></div>
+        <div class="swiper-button-next" aria-label="Next image"></div>
+      </div>
+
+      <p>{{SHIP_NAME}} offers a memorable cruise experience with {{LINE_NAME}}. This ship features modern amenities, diverse dining options, and entertainment for all ages.</p>
+      <p>Explore the deck plans below to familiarize yourself with the ship's layout, or check out the dining section to see available restaurants and venues.</p>
+    </section>
+    <p class="subtitle">{{LINE_NAME}} &bull; {{SHIP_CLASS}}</p>
+
+    <!-- Dining Section -->
+    <section class="card" aria-labelledby="diningHeading">
+      <h2 id="diningHeading">Dining on {{SHIP_NAME}} <a href="/restaurants/" class="browse-all">→ Browse All</a></h2>
+      <p>{{SHIP_NAME}} features Freestyle Dining with complimentary and specialty restaurants.</p>
+      <div class="dining-content" id="dining-content" aria-live="polite">
+          <noscript>
+            <h3>Complimentary Dining</h3>
+            <ul>
+              <li><strong>Hudson's</strong> — Main dining room</li>
+              <li><strong>Commodore Room</strong> — Main dining room</li>
+              <li><strong>Surfside Cafe &amp; Grill</strong> — Buffet</li>
+              <li><strong>The Local</strong> — 24-hour pub fare</li>
+              <li><strong>Indulge Food Hall</strong> — 11 cuisine stations</li>
+            </ul>
+            <h3>Specialty Dining</h3>
+            <ul>
+              <li><strong>Cagney's Steakhouse</strong> — Premium steaks</li>
+              <li><strong>Palomar</strong> — Mediterranean seafood</li>
+              <li><strong>Food Republic</strong> — Global fusion</li>
+              <li><strong>Onda by Scarpetta</strong> — Modern Italian</li>
+              <li><strong>Los Lobos</strong> — Mexican</li>
+              <li><strong>Le Bistro</strong> — French</li>
+              <li><strong>Hasuki</strong> — Japanese teppanyaki</li>
+              <li><strong>Nama Sushi</strong> — Sushi</li>
+            </ul>
+          </noscript>
+      </div>
+    </section>
+    <script type="application/json" id="dining-data-source">{"provider":"norwegian","json":"/assets/data/venues-v2.json","ship_slug":"{{SHIP_SLUG}}","aliases":["{{SHIP_NAME}}"]}</script>
+    <script type="application/json" id="ship-stats-fallback">{"slug":"{{SHIP_SLUG}}","name":"{{SHIP_NAME}}","cruise_line":"{{LINE_NAME}}","class":"{{SHIP_CLASS}}","entered_service":2022,"gt":"143,535 GT","guests":"3,195","crew":"1,388"}</script>
+
+    <!-- Ken's Logbook Section -->
+    <section class="card note-kens-logbook" aria-labelledby="logbook">
+      <h2 id="logbook">The Logbook: {{SHIP_NAME}}</h2>
+      <div id="logbook-container" data-ship="{{SHIP_SLUG}}" data-line="norwegian">
+        <noscript><p>Logbook entries load dynamically. <a href="/articles.html">Browse all articles</a>.</p></noscript>
+      </div>
+    </section>
+
+    <p class="mt-1">
+      <a href="https://www.ncl.com/cruise-ships/prima" class="btn-deck-plans" target="_blank" rel="nofollow noopener">
+        View Official Deck Plans →
+      </a>
+    </p>
+
+
+
+    <!-- Videos Section -->
+    <section class="card" aria-labelledby="video-highlights">
+      <h2 id="video-highlights">Watch: {{SHIP_NAME}} Highlights</h2>
+      <p class="small">Swipe through ship walkthroughs, top-10s, and stateroom tours.</p>
       <div class="swiper videos" aria-label="Featured video carousel">
-        <div class="swiper-wrapper" id="featuredVideos"></div>
+        <div class="swiper-wrapper" id="featuredVideos"><noscript><p>Video content requires JavaScript. Search YouTube for "{{SHIP_NAME}} ship tour".</p></noscript></div>
         <div class="swiper-pagination" ></div>
         <div class="swiper-button-prev" aria-label="Previous slide"></div>
         <div class="swiper-button-next" aria-label="Next slide"></div>
       </div>
-      <!-- Optional inline config for videos -->
-      <script type="application/json" id="video-data-source">
-        {
-          "order": ["walkthrough","top-things","stateroom-interior","stateroom-oceanview","stateroom-balcony","stateroom-suite","accessibility","extras"],
-          "fallback": []
+      <div id="videoFallback" class="tiny hidden">Videos will appear once our sources sync for this ship.</div>
+    </section>
+
+    <script>
+    (function(){
+      const mount=document.getElementById('featuredVideos');
+      const fallback=document.getElementById('videoFallback');
+      if(!mount) return;
+      function abs(p){try{return new URL(p,location.href).href}catch(_){return p}}
+      function getVideoURL(id,provider){
+        if(provider==='youtube'||!provider) return 'https://www.youtube-nocookie.com/embed/'+id+'?rel=0';
+        return null;
+      }
+      function renderVideos(arr){
+        if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
+        mount.innerHTML=arr.slice(0,12).map(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
+          const title=String(v.title||'{{SHIP_NAME}}').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
+        }).join('');
+        if(mount.children.length&&window.Swiper){
+          setTimeout(()=>{
+            try{
+              new Swiper('.swiper.videos',{
+                loop:false,rewind:false,lazy:true,watchOverflow:true,
+                pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},
+                navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'},
+                a11y:{enabled:true}
+              });
+            }catch(_){}
+          },150);
         }
-      </script>
+      }
+      function fetchVideoData(){
+        const SOURCES=[abs('/assets/data/videos/norwegian/{{SHIP_SLUG}}.json')];
+        function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
+          return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
+        return tryFetch();
+      }
+      function flattenVideos(data){
+        if(!data||!data.videos) return [];
+        if(Array.isArray(data.videos)) return data.videos;
+        let vids=[];
+        for(const cat of Object.values(data.videos)){
+          if(Array.isArray(cat)) vids=vids.concat(cat);
+        }
+        return vids;
+      }
+      fetchVideoData().then(data=>{ if(data) renderVideos(flattenVideos(data)); });
+    })();
+    </script>
+
+    <!-- Ship Statistics -->
+    <section class="card" aria-labelledby="statsHeading">
+      <h3 id="statsHeading">Key Facts About {{SHIP_NAME}}</h3>
+      <div id="ship-stats" class="stats-grid" data-slug="{{SHIP_SLUG}}">
+        <noscript><p>{{SHIP_NAME}}: 143,535 GT, 3,195 guests, crew 1,388, {{SHIP_CLASS}}, entered service 2022. IMO {{SHIP_IMO}}.</p></noscript>
+        <div class="stat-item"><div class="label">Gross Tonnage</div><div class="value">143,535 GT</div></div>
+        <div class="stat-item"><div class="label">Guests</div><div class="value">3,195</div></div>
+        <div class="stat-item"><div class="label">Crew</div><div class="value">1,388</div></div>
+        <div class="stat-item"><div class="label">Entered Service</div><div class="value">2022</div></div>
+        <div class="stat-item"><div class="label">Class</div><div class="value">{{SHIP_CLASS}}</div></div>
+      </div>
     </section>
 
-    <!-- ===== NEW: Related Ships (canon) ===== -->
-    <div class="card carousel related-ships">
-      <h2 class="card-title">Related Ships</h2>
-      <div class="swiper-container" aria-label="Related Royal Caribbean ships">
-        <div class="swiper-wrapper" id="relatedShips"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-      </div>
-      <p><a href="/ships/" class="btn">See All Ships</a></p>
-    </div>
-
-    <!-- ===== NEW: Explore by Class (canon) ===== -->
-    <div class="card carousel related-classes">
-      <h2 class="card-title">Explore by Class</h2>
-      <div class="swiper-container" aria-label="Royal Caribbean ship classes">
-        <div class="swiper-wrapper" id="relatedClasses"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-      </div>
-      <p><a href="https://cruisinginthewake.com/cruise-lines/royal-caribbean.html" class="btn">Royal Caribbean Overview</a></p>
-    </div>
-
-    <!-- Row 2: Deck plans + Live tracker -->
     <section class="grid-2">
-      <section class="card" aria-labelledby="deckPlansHeading">
-        <h2 id="deckPlansHeading">Ship Map (Deck Plans)</h2>
-        <p>Study the layout—pin your stateroom, elevators, dining, and venues before you sail.</p>
-        <p><a class="btn" href="{{DECK_PLANS_URL}}" target="_blank" rel="noopener">Open Official Deck Plans →</a></p>
+      <section class="card" aria-labelledby="deck-plans">
+        <h2 id="deck-plans">{{SHIP_NAME}} Deck Plans</h2>
+        <p>View the official deck plans to explore {{SHIP_NAME}}'s layout.</p>
+        <figure>
+          <img src="/assets/ship-map.png" alt="Simplified cruise ship deck layout overview" loading="lazy"/>
+          <figcaption class="tiny">Simplified deck layout overview</figcaption>
+        </figure>
+        <p><a class="btn" href="https://www.ncl.com/" target="_blank" rel="noopener">Visit Norwegian Official Site</a></p>
       </section>
-      <section class="card" aria-labelledby="liveTrackHeading">
-        <h2 id="liveTrackHeading">Where Is {{SHIP_SHORT}} Right Now?</h2>
-        <p>See the ship’s current position, speed, and next port on a live tracker.</p>
-
-        <!-- ===== NEW: Live Itinerary widget (canon) ===== -->
-        <div class="card itinerary">
-          <h3>Live Itinerary</h3>
-          <iframe src="https://www.vesselfinder.com/vessels/{{VF_NAME_OR_IMO}}" width="100%" height="300" frameborder="0" allowfullscreen loading="lazy" aria-label="Live ship tracker for {{SHIP_SHORT}}"></iframe>
-          <p class="tiny">Sample Route: {{SAMPLE_ITINERARY}}</p>
-        </div>
-
-        <p class="tiny" style="margin-top:.35rem;">Tip: Keep this page open while you check the tracker; it opens in a new tab. Explore ports: <a href="/ports/">ports guide</a>.</p>
-        <div class="map-actions">
-          <a class="btn" href="{{LIVETRACK_URL}}" target="_blank" rel="noopener">Open CruiseMapper Live Tracker</a>
+      <section class="card itinerary" aria-labelledby="liveTrackHeading" data-imo="{{SHIP_IMO}}" data-name="NORWEGIAN-PRIMA">
+        <h2 id="liveTrackHeading">Where Is {{SHIP_NAME}}?</h2>
+        <div id="vf-tracker-container" style="width:100%;height:400px;position:relative;background:#f0f4f8;border-radius:8px;overflow:hidden;">
+          <noscript><p>Live tracking requires JavaScript. Visit <a href="https://www.vesselfinder.com/?imo={{SHIP_IMO}}" target="_blank" rel="noopener">VesselFinder</a> to track {{SHIP_NAME}}.</p></noscript>
+          <iframe style="width:100%;height:100%;border:0;" title="Live ship tracker for {{SHIP_NAME}}" loading="lazy" src="https://www.vesselfinder.com/aismap?imo={{SHIP_IMO}}&amp;zoom=5&amp;track=true&amp;names=true"></iframe>
         </div>
       </section>
     </section>
 
-    <section class="card" aria-labelledby="attribution">
-      <h2 id="attribution">Attribution & Credits</h2>
-      <ul>
-        <li>Hero/Photos: © <a href="{{HERO_CREDIT_URL}}" target="_blank" rel="noopener">{{HERO_CREDIT_LABEL}}</a> — used with attribution</li>
-        <li>Videos: curated from public sources (YouTube); titles inside embeds</li>
-      </ul>
-      <p class="tiny">All rights reserved.</p>
+    <!-- Itinerary Section -->
+    <section class="card" aria-labelledby="itineraryHeading">
+      <h2 id="itineraryHeading">Where Does {{SHIP_NAME}} Sail?</h2>
+      <p>{{SHIP_NAME}} typically sails Caribbean from Galveston and seasonal European voyages. Visit <a href="https://www.ncl.com" target="_blank" rel="noopener">ncl.com</a> for current schedules and ports of call.</p>
     </section>
+    <!-- FAQ Section -->
+    <section class="card faq" id="faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions About {{SHIP_NAME}}</h2>
+
+      <details  class="section-divider">
+        <summary>What dining options are available on {{SHIP_NAME}}?</summary>
+        <p  class="list-indent">{{SHIP_NAME}} offers complimentary dining including the main dining room and buffet. Specialty restaurants vary by ship and may require reservations or carry an additional charge. Check the dining section above for specific venues available on this ship.</p>
+      </details>
+
+      <details  class="section-divider">
+        <summary>How do I find the deck plans for {{SHIP_NAME}}?</summary>
+        <p  class="list-indent">Deck plans are available through the links on this page. You can also find official deck plans on the <a href="https://www.ncl.com" target="_blank" rel="noopener">{{LINE_NAME}}</a> website or in the cruise planner app.</p>
+      </details>
+
+      <details  class="section-divider">
+        <summary>Where does {{SHIP_NAME}} sail?</summary>
+        <p  class="list-indent">{{SHIP_NAME}} offers Caribbean cruises from Galveston and seasonal European voyages. As NCL's first {{SHIP_CLASS}} ship (debuted 2022), she introduced groundbreaking design elements. Check the <a href="https://www.ncl.com" target="_blank" rel="noopener">{{LINE_NAME}}</a> website for current itineraries and departure ports.</p>
+      </details>
+
+      <details  class="section-divider">
+        <summary>What makes {{SHIP_NAME}} unique?</summary>
+        <p  class="list-indent">{{SHIP_NAME}} features the {{SIGNATURE_ATTRACTION}}, The Drop free-fall dry slide, and Vibe Beach Club adults-only area. The ship introduced Ocean Boulevard wraparound promenade, Indulge Food Hall, and innovative Infinity Beach design with glass railings.</p>
+      </details>
+
+      <details  class="section-divider">
+        <summary>How can I track {{SHIP_NAME}}'s current location?</summary>
+        <p  class="list-indent">Use the live ship tracker section on this page to see {{SHIP_NAME}}'s current position, speed, heading, and next port in real-time via MarineTraffic AIS integration. The tracker updates automatically as the ship moves.</p>
+      </details>
+
+      <details style="margin: 0.5rem 0; padding: 0.5rem 0;">
+        <summary>Is this information official?</summary>
+        <p  class="list-indent">This page provides planning resources and community insights. Always confirm details with <a href="https://www.ncl.com" target="_blank" rel="noopener">{{LINE_NAME}}</a> or your travel advisor before booking.</p>
+      </details>
+    </section>
+
+    <section class="card attributions">
+      <h3>Sources & Attribution</h3>
+      <p class="small">Ship specifications from official cruise line materials. Photos credited where shown. Data verified against industry sources.</p>
+    </section>
+
+    </section><!-- End col-1 -->
+
+    <aside class="rail col-2" role="complementary" aria-label="Quick navigation and author info">
+      <section class="card" id="recent-rail-nav-top" aria-labelledby="nav-top-title">
+        <h3 id="nav-top-title">Quick Navigation</h3>
+        <nav aria-label="Page sections">
+          <ul class="rail-links">
+            <li><a href="#first-look">First Look</a></li>
+            <li><a href="#logbook">Logbook</a></li>
+            <li><a href="#video-highlights">Videos</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+      </section>
+
+            <!-- Ship Quiz CTA -->
+      <section class="card quiz-cta" style="background: linear-gradient(135deg, #e0f4f8, #fff); border-left: 4px solid #0e6e8e; padding: 1rem;">
+        <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #083041;">Exploring Options?</h3>
+        <p class="tiny" style="margin-bottom: 0.75rem; color: #5a7a8a;">Take our quick quiz to find ships that match your travel style.</p>
+        <a href="/ships/quiz.html" class="pill text-sm" >Ship Quiz →</a>
+      </section>
+      <!-- Quick Tools -->
+      <section class="card quick-tools" style="padding: 1rem;">
+        <h3 style="margin: 0 0 0.75rem; font-size: 1rem; color: #083041;">Planning Tools</h3>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+          <li><a href="/tools/ship-size-atlas.html" style="color: #0e6e8e; text-decoration: none;">Ship Size Atlas</a></li>
+          <li><a href="/tools/cruise-budget-calculator.html" style="color: #0e6e8e; text-decoration: none;">Budget Calculator</a></li>
+          <li><a href="/drink-calculator.html" style="color: #0e6e8e; text-decoration: none;">Drink Package Calculator</a></li>
+          <li><a href="/tools/port-day-planner.html" style="color: #0e6e8e; text-decoration: none;">Port Day Planner</a></li>
+        </ul>
+      </section>
+
+
+<section class="card author-card-vertical" aria-labelledby="author-heading">
+        <h3 id="author-heading">About the Author</h3>
+        <a href="/authors/ken-baker.html" aria-label="View Ken Baker's profile">
+          <img class="author-avatar" src="/authors/img/ken1_96.webp" srcset="/authors/img/ken1_96.webp 1x, /authors/img/ken1_192.webp 2x" width="96" height="96" alt="Ken Baker cruise research analyst and author of In The Wake ship reviews" decoding="async" loading="lazy"/>
+        </a>
+        <h4><a href="/authors/ken-baker.html">Ken Baker</a></h4>
+        <p class="tiny">Founder of In the Wake; writer and editor of the logbook.</p>
+      </section>
+
+      <section class="card" id="recent-rail-nav-bottom" aria-labelledby="recent-rail-title">
+        <h3 id="recent-rail-title">Recent Stories</h3>
+        <div id="recent-rail" class="rail-list" aria-live="polite"><noscript><p><a href="/articles.html">Browse recent cruise articles</a></p></noscript></div>
+      </section>
+    
+      <section class="card whimsical-units-container" id="whimsical-units-container">
+        <noscript><p>Fun size comparisons require JavaScript.</p></noscript>
+      </section>
+    </aside>
   
     <!-- Planning Resources -->
     <section class="card" aria-labelledby="planning-resources">
@@ -487,14 +709,14 @@ All work on this project is offered as a gift to God.
     </section>
   <!-- Print Guide Button -->
   <button type="button" class="print-guide-btn" onclick="window.print()" aria-label="Print this guide">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     <span>Print Guide</span>
   </button>
 </main>
 
-    <footer class="wrap" role="contentinfo">
+  <footer class="wrap" role="contentinfo">
     <p>© <script>document.write(new Date().getFullYear())</script> In the Wake · A Cruise Traveler's Logbook · All rights reserved.</p>
-    <p class="tiny mt-05">
+    <p class="tiny">
       <a href="/privacy.html">Privacy</a> ·
       <a href="/terms.html">Terms</a> ·
       <a href="/about-us.html">About</a> ·
@@ -502,204 +724,28 @@ All work on this project is offered as a gift to God.
       <a href="/reaching-someone-at-sea.html">Reach Family at Sea</a> ·
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
-    <p class="tiny center dedication-hidden" >Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
+    <p class="tiny center dedication-hidden" >Soli Deo Gloria</p>
     <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
   </footer>
 
-  <!-- JS -->
-  <script src="https://unpkg.com/swiper@10/swiper-bundle.min.js"></script>
-  <script src="/assets/js/dining-card.js?v=2.244" defer></script>
+  <!-- initFirstLook — Swiper for .firstlook carousel -->
+  <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
+  <!-- initVideos — fetch video JSON, render thumbnails -->
+  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/norwegian/{{SHIP_SLUG}}.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
+  <!-- initStats — parse ship-stats-fallback JSON -->
+  <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
+  <!-- initDining — fetch dining JSON -->
+  <script>function initDining(){const src=document.getElementById('dining-data-source');if(!src)return;try{const cfg=JSON.parse(src.textContent);fetch(cfg.json).then(r=>r.json()).then(d=>{const venues=(d.venues||d||[]).filter(v=>v.ship_slug===cfg.ship_slug||((cfg.aliases||[]).includes(v.ship)));const ct=document.getElementById('dining-content');if(ct&&venues.length)ct.innerHTML=venues.map(v=>'<div class="venue-card"><h3>'+v.name+'</h3><p>'+v.description+'</p></div>').join('');}).catch(()=>{});}catch(_){}}</script>
+  <!-- initLiveTracker — render tracking link -->
+  <script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;}</script>
+  <!-- initShipLogbook — logbook loader -->
+  <script>function initShipLogbook(){const c=document.getElementById('logbook-container');if(!c)return;const ship=c.getAttribute('data-ship');const line=c.getAttribute('data-line');if(!ship)return;fetch('/assets/data/logbook/'+line+'/'+ship+'.json').then(r=>{if(!r.ok)throw 0;return r.json();}).then(entries=>{if(!entries.length)return;c.innerHTML=entries.map(e=>'<article class="logbook-entry"><h3>'+e.title+'</h3><p>'+e.body+'</p><p class="tiny">'+e.date+'</p></article>').join('');}).catch(()=>{});}</script>
+  <!-- Whimsical Distance Units Script -->
+  <script src="/assets/js/whimsical-ship-units.js"></script>
 
-  <script>
-    /* ---------- Helpers ---------- */
-    const SHIP_NAME = "{{SHIP_NAME}}";
-    const SHIP_SLUG = "{{SHIP_SLUG}}";
-    const SHIP_CLASS = "{{SHIP_CLASS}}"; // e.g., Vision, Voyager, Oasis, etc.
-    const LINE_KEY = "rcl"; // Royal Caribbean
-
-    /* First Look (supply figures here if not inlined) */
-    (function initFirstLook(){
-      const wrap = document.getElementById('firstlookSlides');
-      if (!wrap) return;
-      const imgs = (window.FIRSTLOOK_IMAGES || [
-        {src:"{{HERO_IMAGE_URL}}?v=2.245", alt: `${SHIP_NAME} — exterior view`, credit:"Wikimedia Commons", href:"{{HERO_CREDIT_URL}}"}
-      ]).slice(0,3);
-      imgs.forEach(i => {
-        const slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        slide.innerHTML = `
-          <figure>
-            <img src="${i.src}" alt="${i.alt}" loading="lazy"/>
-            <figcaption class="tiny">Photo © <a href="${i.href||'#'}" target="_blank" rel="noopener">${i.credit||''}</a></figcaption>
-          </figure>`;
-        wrap.appendChild(slide);
-      });
-      new Swiper('.swiper.firstlook', {
-        loop:false, lazy:true,
-        pagination:{ el:'.swiper.firstlook .swiper-pagination', clickable:true },
-        navigation:{ nextEl:'.swiper.firstlook .swiper-button-next', prevEl:'.swiper.firstlook .swiper-button-prev' },
-        a11y:{ enabled:true }
-      });
-    })();
-
-    /* Videos — preferred: provide structured JSON in #video-data-source */
-    (function initVideos(){
-      const cfgHook = document.getElementById('video-data-source');
-      let CFG = {};
-      try { CFG = JSON.parse(cfgHook?.textContent||'{}'); } catch {}
-      const ORDER = CFG.order || ["walkthrough","top-things","stateroom-interior","stateroom-oceanview","stateroom-balcony","stateroom-suite","accessibility","extras"];
-      // TODO: Pull from /assets/data/trusted_channels.json when present; for now use fallback
-      const LIST = CFG.fallback || [];
-      const wrap = document.getElementById('featuredVideos');
-      LIST.forEach(v => {
-        const slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        slide.innerHTML = `<iframe title="${v.title}"
-                               src="https://www.youtube.com/embed/${v.id}"
-                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                               allowfullscreen loading="lazy"></iframe>`;
-        wrap.appendChild(slide);
-      });
-      new Swiper('.swiper.videos', {
-        loop:false, lazy:true,
-        pagination:{ el:'.swiper.videos .swiper-pagination', clickable:true },
-        navigation:{ nextEl:'.swiper.videos .swiper-button-next', prevEl:'.swiper.videos .swiper-button-prev' },
-        a11y:{ enabled:true }
-      });
-    })();
-
-    /* Ship stats loader (fleet_index.json tolerant) */
-    (async function loadShipStats(){
-      const el = document.getElementById('ship-stats');
-      if (!el) return;
-      const targetSlug = (el.getAttribute('data-slug') || '').trim().toLowerCase();
-      const SOURCES = [
-        'https://cruisinginthewake.com/assets/data/fleet_index.json',
-        '/assets/data/fleet_index.json'
-      ];
-      async function tryFetch(u){
-        const url = u + (u.includes('?') ? '&' : '?') + 'v=' + Date.now();
-        const res = await fetch(url, { cache:'no-store' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      }
-      let data = null;
-      for (const u of SOURCES){ try { data = await tryFetch(u); break; } catch(e){} }
-      if (!data){ el.innerHTML = '<p class="tiny">Stats coming soon.</p>'; return; }
-
-      const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
-      function* walk(n){ if(!n) return; if(Array.isArray(n)){for(const it of n) yield* walk(it); return;}
-        if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
-
-      let ship = null;
-      for (const obj of walk(data)){
-        if (!obj || typeof obj!=='object') continue;
-        const rawSlug = obj.slug || obj.id || obj.attributes?.slug;
-        const nslug = norm(rawSlug);
-        const nname = norm(obj.name || obj.title || obj.ship || obj.attributes?.name);
-        if ((targetSlug && nslug === targetSlug) || nname === norm(SHIP_NAME)){ ship = obj; break; }
-      }
-      if (!ship){ el.innerHTML = '<p class="tiny">Stats coming soon.</p>'; return; }
-
-      const a = ship.attributes || ship;
-      const rows = [
-        ['Class', a.class || a.ship_class || ''],
-        ['Entered Service', a.year_built_or_entered || a.entered_service || a.inaugural || a.launched],
-        ['Gross Tonnage', a.gt || a.gross_tonnage || a.tonnage],
-        ['Guests', a.capacity || a.passengers || a.guests],
-        ['Crew', a.crew],
-        ['Length', a.length || a.length_overall],
-        ['Beam', a.beam || a.width],
-        ['Registry', a.flag || a.registry]
-      ].filter(([,v]) => v != null && String(v).trim() !== '')
-       .map(([k,v]) => `<div class="stat-line"><span class="stat-key">${k}:</span><span class="stat-val">${v}</span></div>`)
-       .join('');
-      el.innerHTML = rows || '<p class="tiny">Stats coming soon.</p>';
-
-      // seed globals for related sections
-      window.__SHIP_CLASS = a.class || a.ship_class || SHIP_CLASS || '';
-      window.__LINE = (a.line || a.brand || 'Royal Caribbean');
-    })();
-
-    /* Related Ships (same line + class) & Explore by Class (other classes in same line) */
-    (async function relatedCarousels(){
-      const shipWrap = document.getElementById('relatedShips');
-      const classWrap = document.getElementById('relatedClasses');
-      if (!shipWrap && !classWrap) return;
-
-      const urlList = [
-        'https://cruisinginthewake.com/assets/data/fleet_index.json',
-        '/assets/data/fleet_index.json'
-      ];
-      async function fetchFirst(list){ for (const u of list){ try{ const r=await fetch(u); if(r.ok) return r.json(); }catch{} } return null; }
-      const data = await fetchFirst(urlList);
-      if (!data) return;
-
-      const norm = s => String(s||'').toLowerCase().replace(/’/g,"'").trim();
-      function* walk(n){ if(!n) return; if(Array.isArray(n)){for(const it of n) yield* walk(it); return;}
-        if(typeof n==='object'){ yield n; for(const v of Object.values(n)) yield* walk(v); } }
-
-      const items = [];
-      for (const o of walk(data)){
-        if (o && (o.name||o.title) && (o.slug||o.id) && (o.brand||o.line||o.operator||o.class||o.ship_class)){
-          items.push({
-            name:o.name||o.title, slug:o.slug||o.id, line:o.brand||o.line||o.operator||'',
-            cls:o.class||o.ship_class||'', href:`/ships/rcl/${(o.slug||'').toLowerCase()}.html`
-          });
-        }
-      }
-
-      const myClass = (window.__SHIP_CLASS||'').toString();
-      const myLine = 'Royal Caribbean';
-      const related = items.filter(i => norm(i.line).includes('royal') && norm(i.cls)===norm(myClass) && norm(i.name)!==norm(SHIP_NAME));
-      const classes = Array.from(new Map(
-        items.filter(i => norm(i.line).includes('royal'))
-             .map(i => [norm(i.cls||'other'), i.cls||'Other'])
-      ).values());
-
-      if (shipWrap){
-        (related.length?related.slice(0,12):[]).forEach(i=>{
-          const slide = document.createElement('div');
-          slide.className='swiper-slide';
-          slide.innerHTML = `<a href="${i.href}">${i.name}</a>`;
-          shipWrap.appendChild(slide);
-        });
-        new Swiper('.related-ships .swiper-container', {
-          slidesPerView: 1.2, spaceBetween: 10,
-          breakpoints:{ 680:{slidesPerView:2.2}, 980:{slidesPerView:3.2}},
-          navigation:{ nextEl:'.related-ships .swiper-button-next', prevEl:'.related-ships .swiper-button-prev' },
-          a11y:{ enabled:true }
-        });
-      }
-
-      if (classWrap){
-        classes.forEach(cn=>{
-          const slide = document.createElement('div'); slide.className='swiper-slide';
-          const clsSlug = cn.toLowerCase().replace(/[^a-z0-9]+/g,'-');
-          slide.innerHTML = `<a href="/ships/#rcl-${clsSlug}">${cn || 'Other Class'}</a>`;
-          classWrap.appendChild(slide);
-        });
-        new Swiper('.related-classes .swiper-container', {
-          slidesPerView: 2.2, spaceBetween: 10,
-          breakpoints:{ 680:{slidesPerView:3.2}, 980:{slidesPerView:4.2}},
-          navigation:{ nextEl:'.related-classes .swiper-button-next', prevEl:'.related-classes .swiper-button-prev' },
-          a11y:{ enabled:true }
-        });
-      }
-    })();
-
-    /* Live tracker link (CruiseMapper search fallback) */
-    (function liveLinks(){
-      const href = `https://www.cruisemapper.com/?search=${encodeURIComponent(SHIP_NAME)}`;
-      const btn = document.querySelector('.map-actions a.btn');
-      if (btn && !btn.getAttribute('href')) btn.setAttribute('href', href);
-    })();
-  </script>
-<!-- Navigation dropdown functionality -->
-    <!-- Navigation Dropdown Script -->
-  <script src="/assets/js/dropdown.js"></script>
-
-  <!-- In-App Browser Detection & Escape Banner -->
+<script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>
+  <script src="/assets/js/ship-port-links.js" defer></script>
+  <script src="/assets/js/sw-bridge.js" defer></script>
 </body>
 </html>
