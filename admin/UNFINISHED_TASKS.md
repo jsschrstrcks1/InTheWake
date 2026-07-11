@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T22:41:13.718Z
+**Generated:** 2026-07-11T22:44:03.576Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -46,6 +46,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | two-event-gated-articles-write-after-2026-07-11 | Two event-gated articles: write after 2026-07-11 |
 | 1 | available | — | two-paths | Two paths |
 | 1 | available | — | what-s-actually-inconsistent | What's actually inconsistent |
+| 2 | registered | — | itw-cruise-tipping-reverify-60d | Cruise tipping: 60-day rate re-verify cadence for all 15 lines |
 | 2 | registered | — | itw-fom-migrate-legacy-files | FOM migrate legacy files: move ~235 scattered FOM images from assets/ships/ and ports/img/* into /assets/fom/{ships,ports,misc}/ per approved spec (memory 69ca600d) |
 | 2 | registered | — | itw-fom-storage-structure | FOM storage decisions documented (operator approved 2026-07-11): /assets/fom/{ships,ports,misc}/, © Flickers of Majesty license, any first-party operator image, non-owned refs excluded. Spec: admin/FOM-STORAGE-SPEC.md · memory 69ca600d. Execution tracked separately: itw-fom-migrate-legacy-files, itw-fom-normalize-filenames, itw-fom-backfill-sidecars, itw-fom-update-html-srcs |
 | 2 | registered | — | itw-margaritaville-line-buildout | Margaritaville at Sea line buildout: ship page Islander (#2004) + venue pages (#2005) — next content gap after generator audit session |
@@ -77,9 +78,11 @@ node admin/library.mjs mirrors --repo InTheWake
 | 3 | registered | — | itw-seo-rbc-vs-cococay | SEO: Royal Beach Club vs CocoCay explainer — RBC paid excursion, CocoCay included |
 | 3 | registered | — | itw-seo-south-pacific-primer | SEO: South Pacific cruise primer for first-timers — itinerary lengths, departure ports, seasons |
 | 3 | registered | — | itw-ship-page-error-sweep | Ship page per-page error sweep: after systemic articles/index.json thumbnail fix, audit remaining ship-specific validate-ship-page.sh failures |
+| 3 | registered | — | itw-tools-zero-pageerrors-gate | Tools: enforce zero JS pageerrors on every tool page (regression gate) |
 | 3 | registered | — | itw-voyage-packs-refund-window | Voyage-pack refund window mismatch: landing/PDF-README say 14d, W12 playbook line 81 says 30d — reconcile |
 | 3 | available | — | port-page-normalization-phase-1-complete-phases-2-5-pending | Port Page Normalization — Phase 1 COMPLETE, Phases 2-5 PENDING |
 | 3 | registered | — | utopia-of-the-seas-gt-cascade | Utopia of the Seas GT cascade — propagate Icon-class 248,663 IMO canon (not 250,800 marketing) |
+| 4 | registered | — | itw-cruise-tipping-costa-half-rate-article | Cruise tipping: article prose parity check for Costa half-rate child policy |
 | 4 | available | — | itw-gh-1615 | [site-wide] 37 pages have truncated footers — missing About/Support/Accessibility/Reach Family links vs standard footer |
 | 4 | available | — | itw-gh-1619 | [site-wide] 11 pages have missing OG images (social preview 404s) — including 6 cruise line pages and 2 article pages |
 | 4 | available | — | itw-gh-1624 | [Port Pages] 47 pages have duplicate HTML IDs — accessibility skip-link broken, WCAG 2.1 AA violation |
@@ -301,6 +304,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | issue-https-github-com-jsschrstrcks1-inthewake-issues-1465 | Issue: — https://github.com/jsschrstrcks1/InTheWake/issues/1465 |
 | 5 | available | — | issues-found-actions-taken | Issues Found & Actions Taken |
 | 5 | available | — | items-surfaced-in-session-claude-fix-carnival-validator-kredd | Items surfaced in session `claude/fix-carnival-validator-krEdD` |
+| 5 | registered | — | itw-cruise-tipping-region-selector-defaults | Cruise tipping: locale-aware region defaults for Costa/MSC region selectors |
 | 5 | available | — | itw-css-inline | ~19k inline styles consolidation |
 | 5 | returned | — | itw-drink-calc-copy | Drink calculator copy contradicts chart |
 | 5 | available | — | itw-gh-1206 | 50+ still present on some pages. |
@@ -444,6 +448,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | itw-gh-2004 | [Content] Missing ship page: Margaritaville at Sea Islander (needed by voyage pack v0.1.12) |
 | 5 | available | — | itw-gh-2005 | [Content] Missing venue pages: Margaritaville at Sea line (needed by voyage pack v0.1.12) |
 | 5 | registered | — | itw-phase-6-session-2026-05-21-outcome | Phase 6 image sourcing session outcome — 37 ships PASS, ~13 partial (Commons source-limited), 45 remain (unbuilt/TBN) |
+| 5 | registered | — | itw-tools-object-object-404 | Tools: investigate diagnostic [object Object] 404 noise |
 | 5 | available | — | kake-html-tiny-tlingit-village-on-kupreanof-island | `kake.html` — Tiny Tlingit village on Kupreanof Island |
 | 5 | available | — | kristiansand-norway | kristiansand (Norway) |
 | 5 | available | — | la-digue-seychelles | la-digue (Seychelles) |
