@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T23:11:38.193Z
+**Generated:** 2026-07-11T23:14:30.103Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -54,6 +54,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 2 | registered | — | itw-placeholder-ship-photography | Placeholder ship photography — 26 ships (Carnival 2, Celebrity 5, HAL 19); Mac-side Wikimedia; reconcile with itw-phase-6-source-limited-ships-followup |
 | 2 | registered | — | itw-seo-budget-calc-eat | SEO: drink/budget calculator E-A-T and meta differentiation pass |
 | 2 | registered | — | itw-seo-three-cluster-verifications | SEO verifications: RBC dynamic pricing, Costa Maya dive operator rates, Cozumel RBC opening date, Lelepa year |
+| 2 | registered | — | itw-siteaudit-93-remediation | Site-audit 93/100 remediation (external SEO scan 2026-05-07/08): remaining findings — alt text, render-blocking, dup meta, short titles, low-content pages, misspelling pass |
 | 2 | registered | — | itw-voyage-packs-paywall-platform | Voyage-pack paywall — pick platform (Gumroad vs LemonSqueezy vs Stripe+CFWorker+R2) and wire live checkout |
 | 2 | registered | — | itw-voyage-pwa-integration | Voyage PWA integration — write spec from approved design (amendments settled); 3-phase rollout Bliss time-critical; next: spec → operator review → writing-plans |
 | 3 | registered | — | anthem-of-the-seas-deck-plan-layout-seo-article | Anthem of the Seas deck plan layout SEO article — where-is-everything guide (North Star 15–16, SeaPlex 15–16, Two70 5–6, Windjammer/Coastal Kitchen 14, three MDRs; ~2,400/mo keyword cluster) |
