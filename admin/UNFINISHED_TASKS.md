@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T23:07:33.111Z
+**Generated:** 2026-07-11T23:11:38.193Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -58,6 +58,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 2 | registered | — | itw-voyage-pwa-integration | Voyage PWA integration — write spec from approved design (amendments settled); 3-phase rollout Bliss time-critical; next: spec → operator review → writing-plans |
 | 3 | registered | — | anthem-of-the-seas-deck-plan-layout-seo-article | Anthem of the Seas deck plan layout SEO article — where-is-everything guide (North Star 15–16, SeaPlex 15–16, Two70 5–6, Windjammer/Coastal Kitchen 14, three MDRs; ~2,400/mo keyword cluster) |
 | 3 | registered | — | freedom-class-gt-corpus-propagation | Freedom-class GT corpus propagation — Liberty 155,889 GT not flat 156,271 atlas default |
+| 3 | registered | — | itw-aggregator-hang-fix | Fix aggregate-ship-validation.js hang risk — full-fleet spawnSync runs both validators per page (~290 ships) |
 | 3 | registered | — | itw-fom-backfill-sidecars | FOM backfill sidecars: write mandatory .webp.attr.json for ~153 images missing sidecars; license © Flickers of Majesty — all rights reserved; append rows to attributions/fom.csv |
 | 3 | registered | — | itw-fom-chat-image-intake | FOM chat-image intake workflow: when operator supplies an image via chat, save as <slug>-FOM-NN.webp with 'Photo ©' FOM attribution + sidecar + /attributions/fom.csv row; confirm entity/subject, never reuse NN, never store under generic/CC name (operator directive 2026-07-11). |
 | 3 | registered | — | itw-fom-ip-protection | FOM IP protection: (1) US Copyright Office group registration of FOM catalog (GRPPH/GRUPH, highest-ROI legal lever) [confirm w/ counsel]; (2) /licensing/ page + '© Flickers of Majesty' near each image; (3) cap web display ~1600px, masters offline; (4) visible watermark + preserve EXIF/IPTC; (5) Pixsy/ImageRights monitoring + DMCA. Skip right-click-disable theater. |
@@ -86,6 +87,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 3 | available | — | port-page-normalization-phase-1-complete-phases-2-5-pending | Port Page Normalization — Phase 1 COMPLETE, Phases 2-5 PENDING |
 | 3 | registered | — | utopia-of-the-seas-gt-cascade | Utopia of the Seas GT cascade — propagate Icon-class 248,663 IMO canon (not 250,800 marketing) |
 | 4 | registered | — | itw-cruise-tipping-costa-half-rate-article | Cruise tipping: article prose parity check for Costa half-rate child policy |
+| 4 | registered | — | itw-dashboard-regen-post-3-2c | Regenerate ship-validation-dashboard.json post Phase 3.2c — baseline dated 2026-05-12; blocked on aggregator fix |
 | 4 | available | — | itw-gh-1615 | [site-wide] 37 pages have truncated footers — missing About/Support/Accessibility/Reach Family links vs standard footer |
 | 4 | available | — | itw-gh-1619 | [site-wide] 11 pages have missing OG images (social preview 404s) — including 6 cruise line pages and 2 article pages |
 | 4 | available | — | itw-gh-1624 | [Port Pages] 47 pages have duplicate HTML IDs — accessibility skip-link broken, WCAG 2.1 AA violation |
@@ -451,6 +453,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | itw-gh-2004 | [Content] Missing ship page: Margaritaville at Sea Islander (needed by voyage pack v0.1.12) |
 | 5 | available | — | itw-gh-2005 | [Content] Missing venue pages: Margaritaville at Sea line (needed by voyage pack v0.1.12) |
 | 5 | registered | — | itw-phase-6-session-2026-05-21-outcome | Phase 6 image sourcing session outcome — 37 ships PASS, ~13 partial (Commons source-limited), 45 remain (unbuilt/TBN) |
+| 5 | registered | — | itw-stacked-pr-ci-signal | CI gap: Validate HTML checks ai-summary presence but not fleet-wide ai_summary_boilerplate rule — document stacked-PR pattern |
 | 5 | registered | — | itw-tools-object-object-404 | Tools: investigate diagnostic [object Object] 404 noise |
 | 5 | available | — | kake-html-tiny-tlingit-village-on-kupreanof-island | `kake.html` — Tiny Tlingit village on Kupreanof Island |
 | 5 | available | — | kristiansand-norway | kristiansand (Norway) |
@@ -483,7 +486,6 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | nuuk-greenland | nuuk (Greenland) |
 | 5 | available | — | odyssey-of-the-seas | Odyssey of the Seas |
 | 5 | available | — | options | Options: |
-| 5 | available | — | phase-3-ai-summary-follow-ups-surfaced-2026-05-09 | Phase 3 ai-summary follow-ups — surfaced 2026-05-09 |
 | 5 | available | — | phase-b-phase-c-scope-clarification-needed | Phase B / Phase C — scope clarification needed |
 | 5 | available | — | poi-manifest-work-already-in-queue-288-ports-below-the-10-poi-mi | POI manifest work (already in queue): 288 ports below the 10-POI minimum (was claimed as 365 in 2026-03-02; actual scope |
 | 5 | available | — | port-authority-data-some-ports-publish-annual-ship-call-statisti | Port authority data — — Some ports publish annual ship call statistics (actual vs scheduled). Caribbean ports especially |

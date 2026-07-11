@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T23:07:33.111Z
+**Generated:** 2026-07-11T23:11:38.193Z
 **Authoritative completions:** `admin/VERIFIED_COMPLETED.md` (two-patron quorum) + catalog `state: complete`.
 **Do not append ad hoc** — use `library verify` / `library complete`.
 
@@ -12,6 +12,7 @@
 |---------|-------|----------|
 | itw-guardrail-no-getbets-2026-05-28 | no-getbets hard-ban guardrail — PreToolUse hook + pre-commit (shipped 2026-05-28) | https://github.com/jsschrstrcks1/InTheWake/issues/2381 |
 | itw-seo-title-rewrites-2026-05-28 | SEO title rewrites batch — shipped 2026-05-28 (Sovereign 5.11× lesson) | https://github.com/jsschrstrcks1/InTheWake/issues/2387 |
+| phase-3-ai-summary-follow-ups-surfaced-2026-05-09 | Phase 3 ai-summary follow-ups — surfaced 2026-05-09 | https://github.com/jsschrstrcks1/InTheWake/issues/2039 |
 
 *Legacy completions in handoffs and dated roadmaps are historical — migrate via catalog register if still open.*
 
