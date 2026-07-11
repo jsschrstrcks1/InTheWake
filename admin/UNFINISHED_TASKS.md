@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T18:08:11.374Z
+**Generated:** 2026-07-11T19:21:51.766Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -46,11 +46,14 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | what-s-actually-inconsistent | What's actually inconsistent |
 | 2 | registered | — | itw-voyage-packs-paywall-platform | Voyage-pack paywall — pick platform (Gumroad vs LemonSqueezy vs Stripe+CFWorker+R2) and wire live checkout |
 | 2 | registered | — | itw-voyage-pwa-integration | Voyage PWA integration — write spec from approved design (amendments settled); 3-phase rollout Bliss time-critical; next: spec → operator review → writing-plans |
+| 3 | registered | — | anthem-of-the-seas-deck-plan-layout-seo-article | Anthem of the Seas deck plan layout SEO article — where-is-everything guide (North Star 15–16, SeaPlex 15–16, Two70 5–6, Windjammer/Coastal Kitchen 14, three MDRs; ~2,400/mo keyword cluster) |
+| 3 | registered | — | freedom-class-gt-corpus-propagation | Freedom-class GT corpus propagation — Liberty 155,889 GT not flat 156,271 atlas default |
 | 3 | available | — | itw-legend-maiden-followup | Legend maiden voyage follow-up article |
 | 3 | available | — | itw-legend-tonnage-spec | Legend ship page tonnage spec refresh |
 | 3 | available | — | itw-mariner-oversold | Outcome article — Mariner oversold sailing |
 | 3 | registered | — | itw-voyage-packs-refund-window | Voyage-pack refund window mismatch: landing/PDF-README say 14d, W12 playbook line 81 says 30d — reconcile |
 | 3 | available | — | port-page-normalization-phase-1-complete-phases-2-5-pending | Port Page Normalization — Phase 1 COMPLETE, Phases 2-5 PENDING |
+| 3 | registered | — | utopia-of-the-seas-gt-cascade | Utopia of the Seas GT cascade — propagate Icon-class 248,663 IMO canon (not 250,800 marketing) |
 | 4 | available | — | itw-gh-1615 | [site-wide] 37 pages have truncated footers — missing About/Support/Accessibility/Reach Family links vs standard footer |
 | 4 | available | — | itw-gh-1619 | [site-wide] 11 pages have missing OG images (social preview 404s) — including 6 cruise line pages and 2 article pages |
 | 4 | available | — | itw-gh-1624 | [Port Pages] 47 pages have duplicate HTML IDs — accessibility skip-link broken, WCAG 2.1 AA violation |
@@ -115,6 +118,9 @@ node admin/library.mjs mirrors --repo InTheWake
 | 4 | registered | — | itw-voyage-packs-dedupe-sisters-card | voyage-packs.html: duplicate Sisters at Sea card (lines 313-328 and 330-345 are the same product) |
 | 4 | registered | — | itw-voyage-packs-missing-pdfs | Voyage packs v0.1.5 MSC Seaside + v0.1.6 NCL Luna: markdown-only, missing PDFs — build script needs updating (see README §L) |
 | 4 | registered | — | itw-voyage-pwa-icons | Voyage PWA — 14 identical icons follow-up |
+| 4 | registered | — | regenerate-ship-size-chart-images | Regenerate ship size chart images after GT/stateroom canon corrections |
+| 4 | registered | — | royal-caribbean-vs-msc-html-samba-grill-fix | royal-caribbean-vs-msc.html Samba Grill fix |
+| 4 | registered | — | uniform-if-you-re-booked-decision-card | Uniform if-you're-re-booked decision card across disruption articles |
 | 5 | available | — | 1-unfinished-carnival-cruise-line-expansion-150-200-new-ports | 1: ❌ UNFINISHED - Carnival Cruise Line expansion (150-200 new ports) |
 | 5 | available | — | 10-unfinished-add-video-data-for-ships-without-videos | 10: ❌ UNFINISHED - Add video data for ships without videos |
 | 5 | available | — | 11-unfinished-cross-linking-improvements | 11: ❌ UNFINISHED - Cross-linking improvements |
