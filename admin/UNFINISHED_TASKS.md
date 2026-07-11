@@ -810,3 +810,12 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | yellow-lane-ai-proposes-human-approves | YELLOW LANE — AI Proposes, Human Approves |
 | 10 | available | — | itw-port-faq-cleanup | Port FAQ template cleanup |
 | 10 | available | — | itw-port-faq-cleanup | Port FAQ template cleanup |
+
+<!-- library register 2026-07-11T19:54:39.538Z -->
+| itw-phase-6-session-2026-05-21-outcome | 5 | Phase 6 image sourcing session outcome — 37 ships PASS, ~13 partial (Commons source-limited), 45 remain (unbuilt/TBN) |
+
+<!-- library register 2026-07-11T19:54:41.079Z -->
+| itw-phase-6-source-limited-ships-followup | 3 | Re-check Commons for 13 source-limited ships (Carnival Firenze 5/8, Star Princess 5/8, Explora II 6/8, Silver Origin 7/8, Seven Seas Grandeur 7/8, Brilliant Lady 7/8, Celebrity Xcel/Xperience/Compass/Seeker, Carnival Encounter) — currently Commons has 0-2 photos for each, retry when uploads expand |
+
+<!-- library register 2026-07-11T19:54:42.391Z -->
+| itw-phase-6-tbn-ships-validator-exemption | 4 | Skip few_images validator for ~45 TBN/unbuilt/future ships until they enter service — RCL Icon-class TBN 2027/2028, Oasis TBN 2028, Quantum Ultra TBN 2028/2029, Star-class TBN 2028, Celebrity Edge-unnamed/Nirvana/River-class, Carnival Project Ace 1/2/3, Carnival Tropicale 2028, MSC World Asia (Nov 2026 debut), Explora III-VI (2026-2028), Legend of the Seas 2026 Icon-class. Consider validator rule tweak: exempt ships with entered_service > current-date from few_images. |
