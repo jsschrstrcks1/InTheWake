@@ -1,3 +1,7 @@
+# Repo Agent Appendix — In the Wake (Layer 2)
+
+**Archived from CLAUDE.md 2026-07-11.** Layer 0–1 are household pointers.
+
 # CLAUDE.md — Agent pointer (In the Wake)
 
 **Soli Deo Gloria.** Pointer only — household law is not duplicated here.
@@ -29,7 +33,6 @@ node /Users/kenbaker/ocs-work/admin/library.mjs preflight --query "<task>" --pat
 
 | Resource | Path |
 |----------|------|
-| **HLS complete documentation** | `{HOUSEHOLD}/docs/HOUSEHOLD-LIBRARY.md` |
 | **Pastoral guardrails (override everything)** | [`admin/claude/PASTORAL_GUARDRAILS.md`](admin/claude/PASTORAL_GUARDRAILS.md) |
 | Full site guide (archived) | [`admin/REPO-AGENT-APPENDIX.md`](admin/REPO-AGENT-APPENDIX.md) |
 | Skills index | [`SKILLS.md`](SKILLS.md) |

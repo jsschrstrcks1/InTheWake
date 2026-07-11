@@ -1,5 +1,7 @@
 # Unfinished Tasks
 
+**Household catalog:** Authoritative custody is `library_task_id` in `/Users/kenbaker/ocs-work/.household-library/catalog.jsonl`. See [`admin/LIBRARY.md`](LIBRARY.md). Before work: `node /Users/kenbaker/ocs-work/admin/library.mjs preflight --query "<task>" --patron <you> --merge --repo InTheWake`.
+
 **Purpose:** Active task queue. Only genuinely pending work lives here.
 **Last Consolidated:** 2026-03-02 (full audit + merge of all task files)
 **Last Verified:** 2026-04-12 (Flickr attribution audit added)

@@ -1,8 +1,15 @@
-# AGENT.md — Cross-Tool Agent Context Pointer
+# AGENT.md — Cross-tool agent pointer
 
-This repository's agent context is canonical in [`CLAUDE.md`](./CLAUDE.md). Tools that auto-discover `AGENT.md` (Cursor, Windsurf, GitHub Copilot, and others adopting the convention) should load that file.
+## Read order (mandatory)
 
-Skills index: [`SKILLS.md`](./SKILLS.md).
-Session handoff: [`HANDOFF.md`](./HANDOFF.md).
+1. `/Users/kenbaker/ocs-work/skills/soli-deo-gloria/SKILL.md`
+2. `/Users/kenbaker/ocs-work/skills/careful-not-clever/SKILL.md`
+3. `/Users/kenbaker/ocs-work/docs/SOPHOS-OPERATING-SYSTEM.md`
+4. `/Users/kenbaker/ocs-work/admin/recall-memory.mjs` (memory recall)
+5. `/Users/kenbaker/ocs-work/docs/HOUSEHOLD-AGENT-RULEBOOK.md`
+6. `/Users/kenbaker/ocs-work/skills/household-library/SKILL.md`
 
-This file is a pointer, not a duplicate. Updates to InTheWake's agent context happen in `CLAUDE.md`.
+**Runtime:** [`CLAUDE.md`](CLAUDE.md) · [`grok.md`](grok.md)  
+**Skills:** [`SKILLS.md`](SKILLS.md) · **Handoff:** [`HANDOFF.md`](HANDOFF.md)
+
+Pointer only. Household law lives in Layer 0 + rulebook at `open-claw-stuff` (`/Users/kenbaker/ocs-work`).
