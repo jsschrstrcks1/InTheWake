@@ -28,6 +28,74 @@
 
 ---
 
+## P2 — Voyage packs → PWA deep integration (`itw-voyage-pwa-integration`, queued 2026-07-07)
+
+**Goal:** soft-deprecate the voyage-pack PDFs. Each voyage's PWA companion
+(`admin/voyage-pwa/`) becomes the primary, content-complete document; PDFs keep building
+as the secondary printable artifact. Operator-approved design, adversarially reviewed via
+the orchestra (cruising mode, run state `ken/orchestrator/state/orchestra.json`,
+2026-07-07; decisions encoded to cognitive memory `cruising/fb740ed4`, session record
+`cruising/57e8e526`).
+
+**Design (approved, with orchestra amendments folded in):**
+- New `pwa` target in `admin/scripts/voyage-pack-pdf-build.sh` (extend, don't fork):
+  pandoc converts each gate-checked pack `.md` → three HTML fragments per voyage under
+  `admin/voyage-pwa/packs/` — `<slug>.guide.html`, `<slug>.condensed.html`,
+  `<slug>.card.html`. SDG comment line 1; root-relative hrefs → absolute
+  `https://cruisinginthewake.com/...`; image srcs stay root-relative; links get
+  `target="_blank" rel="noopener"`; "generated — do not hand-edit" header. Mapping table
+  (pwa slug ↔ three md stems) lives in the build script. Clone-stable staleness check
+  extends to fragments (same pre-commit gate as PDFs).
+- **Build-time fragment validator (blocking):** no `<script>`/`on*`/`javascript:`, no
+  relative hrefs left, sane headings, TOC anchors resolve, SDG present. This is the XSS
+  gate — no runtime sanitizer library.
+- `companion.js`: three new tabs Guide / Quick Ref / Card; prefetch all three fragments
+  on idle after boot; **collapsible TOC generated from fragment headings** (not a flat
+  select) + back-to-top; fragment fetches wrapped in a ~4s abort timeout (ship-Wi-Fi
+  captive portals hang, not fail); fragment footer shows pack version + build date +
+  "offline copy" badge when served from cache; Overview gets a one-tap **Emergency card**
+  link and the primary CTA flips to the in-app Guide (PDFs demote to "Prefer a PDF?").
+  Card renders verbatim (fill-in by hand after printing; editable persisted fields
+  deferred). Wide pack tables get overflow-x wrappers. `@media print` prints only the
+  open pane.
+- `sw.js`: bump `voyage-v3` → `voyage-v4`. `/admin/voyage-pwa/packs/` = network-first
+  with cache fallback. Same-origin images cached by **path-prefix allowlist**
+  (`destination === "image"` + prefixes like `/ports/img/`, `/assets/`) — NOT a referrer
+  check (shells send `no-referrer`; a referrer rule would never match — orchestra review
+  caught this). No SW precache of fragments (would bloat every installer's cache with 13
+  other voyages).
+- Five shells whose `pdfFull` points at the Maulsby page get corrected to real PDF URLs.
+
+**Missing artifacts to author (no-new-facts rule — every claim must already exist in
+that voyage's gate-checked full pack; diff-review against parent before commit):**
+- 5 condensed packs: Margaritaville, Gem, Breakaway Bermuda, Fall Foliage, Aqua Thanksgiving.
+- 9 handoff cards: Symphony, Aqua Veterans, Sisters at Sea, Anthem, Margaritaville, Gem,
+  Breakaway Bermuda, Fall Foliage, Aqua Thanksgiving.
+- Register all in `CONDENSED_PACKS` / `HANDOFF_CARDS`; build + commit the missing main
+  PDFs (Gem, Breakaway Bermuda, Fall Foliage, Aqua Thanksgiving).
+
+**Rollout:** (1) pipeline + engine + **Escape pilot** end-to-end (verify tabs, offline
+reload, phone-viewport print via the preinstalled Chromium/Playwright); (2) author
+missing artifacts; (3) all 14 voyages, including **two new shells: Symphony and Bliss —
+Bliss first, it sails July 2026 (time-critical)**.
+
+**Next step for any resuming session:** write the spec to
+`docs/superpowers/specs/2026-07-07-voyage-pack-pwa-integration-design.md` (design above
+is the content; operator already approved the design + orchestra amendments in-session),
+get operator review, then `writing-plans` → implement. Do NOT re-litigate the settled
+decisions (soft deprecation; all 14; all three artifacts; Approach A build-generated
+fragments; rejections recorded in memory `fb740ed4`).
+
+**Related follow-up (`itw-voyage-pwa-icons`, P4):** all 14 PWAs share identical
+home-screen icons — a traveler with several voyages installed can't tell them apart.
+Per-voyage icon variants; pre-existing condition, not part of the integration work.
+
+**Cross-repo note (`ken-xai-key`):** the seeded `XAI_API_KEY` is invalid (xAI 400
+"Incorrect API key") — Grok challenge/blind-spot roles fail; Perplexity substituted per
+R7 precedent. Needs a fresh key from console.x.ai + seed re-encode on the operator box.
+
+---
+
 ## P2 — Data-integrity: Anthem of the Seas deck count — ✅ RESOLVED 2026-06-18
 
 **Severity:** Non-blocking, factual. **File:** `assets/data/ships/rcl/anthem-of-the-seas.page.json` + `ships/rcl/anthem-of-the-seas.html`
