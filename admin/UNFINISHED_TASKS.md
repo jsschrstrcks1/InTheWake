@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T19:48:11.968Z
+**Generated:** 2026-07-11T19:49:55.028Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -64,7 +64,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | two-event-gated-articles-write-after-2026-07-11 | Two event-gated articles: write after 2026-07-11 |
 | 1 | available | — | two-paths | Two paths |
 | 1 | available | — | what-s-actually-inconsistent | What's actually inconsistent |
-| 2 | registered | — | itw-fom-storage-structure | FOM image storage structure: decide root (/assets/fom/{ships,ports,misc}?), filename convention (<slug>-FOM-NN.webp), mandatory sidecars, separate /attributions/fom.csv; migrate ~235 scattered FOM files (webp-only, kill jpeg dupes + '- - ' pattern); backfill sidecars (only 42/~195 have them). OPEN operator decisions in memory. |
+| 2 | registered | — | itw-fom-storage-structure | FOM storage migration: move ~235 legacy FOM files into /assets/fom/{ships,ports,misc}/ per approved spec (admin/FOM-STORAGE-SPEC.md); webp-only, kill jpeg dupes, normalize -FOM-NN names, backfill sidecars + fom.csv rows; update HTML refs |
 | 2 | registered | — | itw-seo-budget-calc-eat | SEO: drink/budget calculator E-A-T and meta differentiation pass |
 | 2 | registered | — | itw-voyage-packs-paywall-platform | Voyage-pack paywall — pick platform (Gumroad vs LemonSqueezy vs Stripe+CFWorker+R2) and wire live checkout |
 | 2 | registered | — | itw-voyage-pwa-integration | Voyage PWA integration — write spec from approved design (amendments settled); 3-phase rollout Bliss time-critical; next: spec → operator review → writing-plans |
