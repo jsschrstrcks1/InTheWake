@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T22:44:03.576Z
+**Generated:** 2026-07-11T23:06:41.401Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -67,6 +67,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 3 | available | — | itw-legend-tonnage-spec | Legend ship page tonnage spec refresh |
 | 3 | available | — | itw-mariner-oversold | Outcome article — Mariner oversold sailing |
 | 3 | registered | — | itw-phase-6-source-limited-ships-followup | Re-check Commons for 13 source-limited ships (Carnival Firenze 5/8, Star Princess 5/8, Explora II 6/8, Silver Origin 7/8, Seven Seas Grandeur 7/8, Brilliant Lady 7/8, Celebrity Xcel/Xperience/Compass/Seeker, Carnival Encounter) — currently Commons has 0-2 photos for each, retry when uploads expand |
+| 3 | registered | — | itw-reapply-2d36ffe8-image-honesty-orphan-sweep | Re-apply orphaned commit 2d36ffe8 image-honesty fixes + attributions.csv orphan sweep |
 | 3 | registered | — | itw-seo-chinchorro-contrarian | SEO: Banco Chinchorro contrarian piece — almost never worth booking on a cruise day |
 | 3 | registered | — | itw-seo-costa-maya-dive-operators | SEO: Costa Maya dive operator comparison — Doctor Dive, Alux, Pepe Dive, Mar Adentro; pier proximity; family-integration angle |
 | 3 | registered | — | itw-seo-ctr-30day-2026-06 | SEO: 30-day CTR monitoring pass — June 2026 title/meta winners |
