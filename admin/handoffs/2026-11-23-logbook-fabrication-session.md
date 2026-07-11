@@ -1,8 +1,10 @@
 # Handoff — Logbook fabrication session (2026-11-23)
 
 **Author:** Claude Code (remote container session, 2026-11-23)  
-**Mac recovery stub:** grok1 (2026-07-11) — pushed via `git push` after container failed to reach GitHub  
-**Status:** ⚠️ **INCOMPLETE** — session metadata preserved; **Part A (memory encode commands) and Part B (HLS register commands) were NOT recoverable** from container commits `10123dd3` / `62b8f18` (never pushed). Do not replay from this stub alone.
+**Mac recovery stub:** grok1 — on GitHub `main` at `5fa28cd9` (2026-07-11)  
+**Container full handoff:** commit `10123dd3` (InTheWake), SSH-signed — **still not on GitHub** (no push credentials in sandbox)  
+**Container SSOT commit:** `4a3dbed` (open-claw-stuff, amended from `62b8f18`), tag `session-2026-11-23-inthewake-logbook-fabrication` — **still not on GitHub**  
+**Status:** ⚠️ **INCOMPLETE on GitHub** — this file is a Mac placeholder. **Part A + Part B live only in container commit `10123dd3`.** Do not replay from this stub alone.
 
 **Soli Deo Gloria.**
 
@@ -34,7 +36,7 @@ Earlier ephemeral-session commits (deprecated-validator rename, `CLAUDE.md` v1.6
 
 - This file (full version with Part A/B) — **content lost**
 
-### open-claw-stuff commit `62b8f18`, tag `session-2026-11-23-inthewake-logbook-fabrication` (not on GitHub)
+### open-claw-stuff commit `4a3dbed` (was `62b8f18` pre-amend), tag `session-2026-11-23-inthewake-logbook-fabrication` (not on GitHub)
 
 **7 memory files** (container-local IDs — not authoritative after replay):
 
@@ -58,7 +60,7 @@ Also updated related-edges on memories `23866c13`, `77e4d283`, `7d51d7eb`.
 
 One of:
 
-1. **Container still alive:** MCP `push_files` the complete `admin/handoffs/2026-11-23-logbook-fabrication-session.md` + `admin/memory-exports/2026-11-23-logbook-fabrication-session/*.json` to InTheWake branch `claude/festive-wright-QeFQ5` (pattern: Phase 6 handoff `6acb7a2a`).
+1. **Container still alive:** MCP `push_files` the complete handoff from container commit `10123dd3` — overwrites this Mac stub on branch `claude/festive-wright-QeFQ5` or `main` (pattern: Phase 6 `6acb7a2a`). Optionally also push memory-export JSONs. Container reports SSH signatures present (`B` locally; verifies on GitHub after push).
 2. **Operator paste:** Full Part A + Part B command blocks into a Mac-side agent session.
 3. **Re-derive:** From analytical docs if recovered from sandbox — **not** from agent invention.
 
