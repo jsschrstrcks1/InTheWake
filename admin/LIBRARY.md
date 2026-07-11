@@ -1,5 +1,6 @@
 # Library — In the Wake shelf
 
+**Complete documentation:** `/Users/kenbaker/ocs-work/docs/HOUSEHOLD-LIBRARY.md`  
 **Household SSOT:** `/Users/kenbaker/ocs-work/.household-library/`  
 **CLI:** `node /Users/kenbaker/ocs-work/admin/library.mjs`  
 **Index:** `/Users/kenbaker/ocs-work/docs/HOUSEHOLD-TASK-INDEX.md`

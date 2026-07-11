@@ -29,6 +29,7 @@ node /Users/kenbaker/ocs-work/admin/library.mjs preflight --query "<task>" --pat
 
 | Resource | Path |
 |----------|------|
+| **HLS complete documentation** | `{HOUSEHOLD}/docs/HOUSEHOLD-LIBRARY.md` |
 | **Pastoral guardrails (override everything)** | [`admin/claude/PASTORAL_GUARDRAILS.md`](admin/claude/PASTORAL_GUARDRAILS.md) |
 | Full site guide (archived) | [`admin/REPO-AGENT-APPENDIX.md`](admin/REPO-AGENT-APPENDIX.md) |
 | Skills index | [`SKILLS.md`](SKILLS.md) |
