@@ -1,3 +1,7 @@
+# Repo Agent Appendix — In the Wake (Layer 2)
+
+**Archived from CLAUDE.md 2026-07-11.** Layer 0–1 are household pointers.
+
 # CLAUDE.md — Agent pointer (In the Wake)
 
 **Soli Deo Gloria.** Pointer only — household law is not duplicated here.
