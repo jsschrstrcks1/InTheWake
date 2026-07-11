@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T19:49:55.028Z
+**Generated:** 2026-07-11T19:52:36.105Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -64,14 +64,18 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | two-event-gated-articles-write-after-2026-07-11 | Two event-gated articles: write after 2026-07-11 |
 | 1 | available | — | two-paths | Two paths |
 | 1 | available | — | what-s-actually-inconsistent | What's actually inconsistent |
-| 2 | registered | — | itw-fom-storage-structure | FOM storage migration: move ~235 legacy FOM files into /assets/fom/{ships,ports,misc}/ per approved spec (admin/FOM-STORAGE-SPEC.md); webp-only, kill jpeg dupes, normalize -FOM-NN names, backfill sidecars + fom.csv rows; update HTML refs |
+| 2 | registered | — | itw-fom-migrate-legacy-files | FOM migrate legacy files: move ~235 scattered FOM images from assets/ships/ and ports/img/* into /assets/fom/{ships,ports,misc}/ per approved spec (memory 69ca600d) |
+| 2 | registered | — | itw-fom-storage-structure | FOM storage decisions documented (operator approved 2026-07-11): /assets/fom/{ships,ports,misc}/, © Flickers of Majesty license, any first-party operator image, non-owned refs excluded. Spec: admin/FOM-STORAGE-SPEC.md · memory 69ca600d. Execution tracked separately: itw-fom-migrate-legacy-files, itw-fom-normalize-filenames, itw-fom-backfill-sidecars, itw-fom-update-html-srcs |
 | 2 | registered | — | itw-seo-budget-calc-eat | SEO: drink/budget calculator E-A-T and meta differentiation pass |
 | 2 | registered | — | itw-voyage-packs-paywall-platform | Voyage-pack paywall — pick platform (Gumroad vs LemonSqueezy vs Stripe+CFWorker+R2) and wire live checkout |
 | 2 | registered | — | itw-voyage-pwa-integration | Voyage PWA integration — write spec from approved design (amendments settled); 3-phase rollout Bliss time-critical; next: spec → operator review → writing-plans |
 | 3 | registered | — | anthem-of-the-seas-deck-plan-layout-seo-article | Anthem of the Seas deck plan layout SEO article — where-is-everything guide (North Star 15–16, SeaPlex 15–16, Two70 5–6, Windjammer/Coastal Kitchen 14, three MDRs; ~2,400/mo keyword cluster) |
 | 3 | registered | — | freedom-class-gt-corpus-propagation | Freedom-class GT corpus propagation — Liberty 155,889 GT not flat 156,271 atlas default |
+| 3 | registered | — | itw-fom-backfill-sidecars | FOM backfill sidecars: write mandatory .webp.attr.json for ~153 images missing sidecars; license © Flickers of Majesty — all rights reserved; append rows to attributions/fom.csv |
 | 3 | registered | — | itw-fom-chat-image-intake | FOM chat-image intake workflow: when operator supplies an image via chat, save as <slug>-FOM-NN.webp with 'Photo ©' FOM attribution + sidecar + /attributions/fom.csv row; confirm entity/subject, never reuse NN, never store under generic/CC name (operator directive 2026-07-11). |
 | 3 | registered | — | itw-fom-ip-protection | FOM IP protection: (1) US Copyright Office group registration of FOM catalog (GRPPH/GRUPH, highest-ROI legal lever) [confirm w/ counsel]; (2) /licensing/ page + '© Flickers of Majesty' near each image; (3) cap web display ~1600px, masters offline; (4) visible watermark + preserve EXIF/IPTC; (5) Pixsy/ImageRights monitoring + DMCA. Skip right-click-disable theater. |
+| 3 | registered | — | itw-fom-normalize-filenames | FOM normalize filenames: eliminate -FOM- - N spaced pattern and jpeg dupes; canonical <entity-slug>-FOM-NN.webp webp-only |
+| 3 | registered | — | itw-fom-update-html-srcs | FOM update HTML src paths: after migration, update ship/port page img src and gallery refs to /assets/fom/ paths; verify credits section still correct |
 | 3 | available | — | itw-legend-maiden-followup | Legend maiden voyage follow-up article |
 | 3 | available | — | itw-legend-maiden-followup | Legend maiden voyage follow-up article |
 | 3 | available | — | itw-legend-tonnage-spec | Legend ship page tonnage spec refresh |
