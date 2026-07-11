@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T19:21:51.766Z
+**Generated:** 2026-07-11T19:36:06.880Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -38,12 +38,14 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | itw-hal-carousels | Deferred blocking HAL carousel errors |
 | 1 | available | — | itw-port-everglades-resource | Port Everglades — 6 open image slots re-source |
 | 1 | available | — | itw-port-miami-resource | Port Miami — 8 open image slots re-source |
+| 1 | registered | — | itw-seo-disavow-upload | Upload admin/seo/disavow.txt to GSC disavow-links (getbets toxic backlink defense) |
 | 1 | available | — | legend-of-the-seas-what-the-first-passengers-found | Legend of the Seas — what the first passengers found |
 | 1 | available | — | pattern-c-cruise-shore-excursion-suffix-template-bug | Pattern C — "Cruise"/"Shore Excursion" suffix template bug |
 | 1 | available | — | pattern-d-half-filled-currency-is-used-in-answer | Pattern D — Half-filled "currency is used in" answer |
 | 1 | available | — | two-event-gated-articles-write-after-2026-07-11 | Two event-gated articles: write after 2026-07-11 |
 | 1 | available | — | two-paths | Two paths |
 | 1 | available | — | what-s-actually-inconsistent | What's actually inconsistent |
+| 2 | registered | — | itw-seo-budget-calc-eat | SEO: drink/budget calculator E-A-T and meta differentiation pass |
 | 2 | registered | — | itw-voyage-packs-paywall-platform | Voyage-pack paywall — pick platform (Gumroad vs LemonSqueezy vs Stripe+CFWorker+R2) and wire live checkout |
 | 2 | registered | — | itw-voyage-pwa-integration | Voyage PWA integration — write spec from approved design (amendments settled); 3-phase rollout Bliss time-critical; next: spec → operator review → writing-plans |
 | 3 | registered | — | anthem-of-the-seas-deck-plan-layout-seo-article | Anthem of the Seas deck plan layout SEO article — where-is-everything guide (North Star 15–16, SeaPlex 15–16, Two70 5–6, Windjammer/Coastal Kitchen 14, three MDRs; ~2,400/mo keyword cluster) |
@@ -51,6 +53,9 @@ node admin/library.mjs mirrors --repo InTheWake
 | 3 | available | — | itw-legend-maiden-followup | Legend maiden voyage follow-up article |
 | 3 | available | — | itw-legend-tonnage-spec | Legend ship page tonnage spec refresh |
 | 3 | available | — | itw-mariner-oversold | Outcome article — Mariner oversold sailing |
+| 3 | registered | — | itw-seo-ctr-30day-2026-06 | SEO: 30-day CTR monitoring pass — June 2026 title/meta winners |
+| 3 | registered | — | itw-seo-features-by-ship | SEO: features-by-ship content differentiation (avoid template CTR collapse) |
+| 3 | registered | — | itw-seo-mystery-island-pattern | SEO: Mystery Island port page pattern — apply Sovereign-style SERP differentiation |
 | 3 | registered | — | itw-voyage-packs-refund-window | Voyage-pack refund window mismatch: landing/PDF-README say 14d, W12 playbook line 81 says 30d — reconcile |
 | 3 | available | — | port-page-normalization-phase-1-complete-phases-2-5-pending | Port Page Normalization — Phase 1 COMPLETE, Phases 2-5 PENDING |
 | 3 | registered | — | utopia-of-the-seas-gt-cascade | Utopia of the Seas GT cascade — propagate Icon-class 248,663 IMO canon (not 250,800 marketing) |
@@ -114,6 +119,9 @@ node admin/library.mjs mirrors --repo InTheWake
 | 4 | available | — | itw-gh-1799 | [Ship Pages] 85% of ship pages (247/290) appear to be missing the 'Who this ship is for' / audience targeting section |
 | 4 | available | — | itw-gh-1800 | [Ship Pages] Validator reports 'Deck Plans section MISSING' on carnival-horizon.html (not seen on previous ships) |
 | 4 | available | — | itw-gh-1829 | [Technical] Cloudflare R2 Migration: HTML content still referencing local assets |
+| 4 | registered | — | itw-seo-getbets-monitor | SEO: ongoing getbets-string monitor across production files |
+| 4 | registered | — | itw-seo-prestige-title-sync | SEO: Prestige ship page title/meta sync with differentiation playbook |
+| 4 | registered | — | itw-seo-sovereign-hybrid | SEO: Sovereign hybrid title pattern — scale 5.11× SERP-context approach fleet-wide |
 | 4 | available | — | itw-source-real-photography | Source-real-photography backlog — 39 ship pages |
 | 4 | registered | — | itw-voyage-packs-dedupe-sisters-card | voyage-packs.html: duplicate Sisters at Sea card (lines 313-328 and 330-345 are the same product) |
 | 4 | registered | — | itw-voyage-packs-missing-pdfs | Voyage packs v0.1.5 MSC Seaside + v0.1.6 NCL Luna: markdown-only, missing PDFs — build script needs updating (see README §L) |
