@@ -1,1536 +1,525 @@
-# Unfinished Tasks
+# Unfinished Tasks — InTheWake
 
-**Household catalog:** Authoritative custody is `library_task_id` in `/Users/kenbaker/ocs-work/.household-library/catalog.jsonl`. See [`admin/LIBRARY.md`](LIBRARY.md). Before work: `node /Users/kenbaker/ocs-work/admin/library.mjs preflight --query "<task>" --patron <you> --merge --repo InTheWake`.
+> **Task custody (HLS):** Work queues live in `.household-library/catalog.jsonl` — not in this file.
+> Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
+> **This document** is context/spec only unless stated otherwise.
 
-**Purpose:** Active task queue. Only genuinely pending work lives here.
-**Last Consolidated:** 2026-03-02 (full audit + merge of all task files)
-**Last Verified:** 2026-04-12 (Flickr attribution audit added)
-**Maintained by:** Claude AI
+**Generated:** 2026-07-11T17:37:06.324Z
+**SSOT:** `.household-library/catalog.jsonl`
 
-> **Migration Note (2026-03-02):**
-> This file was rebuilt by consolidating and deduplicating:
-> - `UNFINISHED_TASKS.md` (root, 630 lines, dated 2026-02-22)
-> - `admin/UNFINISHED-TASKS.md` (779 lines, dated 2026-01-24)
-> - `UNFINISHED_TASKS_AUDIT_2025_11_24.md` (289 lines, dated 2025-11-24)
->
-> **Where did things go?**
-> - Completed items → `admin/COMPLETED_TASKS.md` (appended under "March 2026 Migration")
-> - In-progress items → `admin/IN_PROGRESS_TASKS.md` (unchanged, already tracked there)
-> - Stale files archived → `.claude/archive/`
-> - Duplicates across competitor analysis sections → deduplicated here
->
-> **Archives:**
-> - `.claude/archive/UNFINISHED_TASKS_2026-02-08_pre-cleanup.md`
-> - `.claude/archive/admin-UNFINISHED-TASKS_2026-01-24.md` (moved 2026-03-02)
-> - `.claude/archive/UNFINISHED_TASKS_AUDIT_2025_11_24.md` (moved 2026-03-02)
-> - Historical audits in `.claude/archive/`
-> - Competitor analyses in `.claude/audits/`
-
----
-
-## P2 — Data-integrity: Anthem of the Seas deck count — ✅ RESOLVED 2026-06-18
-
-**Severity:** Non-blocking, factual. **File:** `assets/data/ships/rcl/anthem-of-the-seas.page.json` + `ships/rcl/anthem-of-the-seas.html`
-**Found by:** Original research during the deck-plans article build (`articles/anthem-of-the-seas-deck-plans.html`).
-
-`page.json` recorded `decks_total: 18` / `decks_guest: 16`, and the ship page body repeated "18 total (16 guest-accessible)" in three places (visible stat line, `stats_fallback` JSON, and the page.json fallback). Every source — Wikipedia ("16 / 14 passenger-accessible"), CruiseMapper ("16 decks / 9 with cabins"), and Royal Caribbean's own deck selector (Decks 3–16 = 14 accessible, confirmed via operator screenshots 2026-06-17) — agrees on **16 total**.
-
-**Fix (2026-06-18):** Corrected to `decks_total: 16`, `decks_guest: 14`, and "16 total (14 guest-accessible)" in all three spots. Review dates bumped (last-reviewed + dateModified → 2026-06-18). Ship validator: no new errors introduced (2 pre-existing errors remain — see below — both unrelated missing-thumbnail images).
-
-**Still open (separate, pre-existing, NOT this task):**
-- `ships/rcl/anthem-of-the-seas.html` line ~674 lists `"crew": "1,500"`; the Anthem voyage-pack factcheck settled on **~1,300** (two sources agree). Worth correcting in a follow-up.
-- Ship validator reports 2 errors: missing article thumbnails `/assets/articles/freedom-of-your-own-wake.jpg` and `/assets/articles/why-i-started-solo-cruising.jpg` (pre-existing; needs the images sourced).
-
----
-
-## P1 — Two event-gated articles: write after 2026-07-11 (queued 2026-07-06)
-
-Both were operator-approved picks from the July 7–13 planning pass; both are
-**event-gated** — the facts they report did not exist on July 6. Any session on
-or after **Saturday, July 12** should pick these up. Full discipline chain each:
-research (retrieval only, zero training-data facts) → like-a-human during
-writing → voice-audit greps → ICP-2 gates (ai-summary ≤250, dateModified ==
-last-reviewed, 4 JSON-LD blocks) → BOTH Sophos gates (public:
-`admin/social-publish/lib/gate.js`; private: `node
-/home/user/open-claw-stuff/tools/sophos-article-gate.mjs <file>`) → card (JPG via
-`admin/social-card-generator/generate.js --out`, convert to WebP at
-`assets/articles/article-cards/<slug>.webp`) → commit with `Soli Deo Gloria.`
-
-### 1. Mariner of the Seas oversold outcome
-- Sailing embarks **July 11** (Galveston, 5-night Western Caribbean, Costa
-  Maya/Cozumel). RCL offered fare refund + $200 OBC for balcony/oceanview →
-  interior downgrades; volunteers notified within 8 days of embarkation.
-- Write the outcome: did volunteers clear the oversell, any involuntary moves,
-  what accepted guests report. Research anchors: Cruise Hive story 212433,
-  cruise.blog coverage.
-- Links back to `articles/oversold-cruise-volunteer-offers-2026.html` (the
-  framework piece that promised this follow-up).
-
-### 2. Legend of the Seas — what the first passengers found
-- Ship returns to Civitavecchia **July 11** from the July 4 maiden voyage
-  (La Spezia / Palma / Marseille / Barcelona per latest reports).
-- The follow-up promised in the limits section of
-  `articles/legend-of-the-seas-maiden-voyage-2026.html`: what opened on time,
-  what didn't, crew week-one reports, from passenger accounts and live blogs
-  (royalcaribbeanblog.com had pre-delivery access; check their onboard coverage).
-- ✅ Tonnage conflict RESOLVED 2026-07-06: 248,663 GT is the registered figure
-  shared by ALL THREE Icon-class ships (Icon, Star, Legend — same number);
-  250,800 is a class-level design figure quoted for all three. The "Legend
-  edges past her sisters" trade claim was measurement-margin noise (one report:
-  4.5 mm longer). The maiden article was corrected same day with a visible
-  correction note in its limits section. The follow-up article should use
-  248,663 GT registered / shared-title framing. Our ship page
-  (ships/rcl/legend-of-the-seas-icon-class-entering-service-in-2026.html,
-  "250,000 GT") still needs a spec refresh — separate small task.
-
----
-
-## P0 — Flickr "public feed" Attribution Audit (2026-04-12)
-
-**Severity:** BLOCKING for affected ports — legal/attribution liability
-**Scope:** 889 attribution JSON files across 124 ports (~31% of the port fleet)
-**Triggered by:** Self-audit during glacier-bay and haines repair on 2026-04-11/12
-
-### What the problem is
-
-An earlier batch-sourcing session (around 2026-02-23) downloaded images via what it called the "Flickr public feed" and wrote attribution JSON files like:
-
-```json
-{
-  "source": "https://www.flickr.com/photos/USER_ID/PHOTO_ID/",
-  "license": "Flickr (verify license)",
-  "author": "USERNAME",
-  "source_type": "Flickr public feed",
-  "downloaded": "2026-02-23"
-}
-```
-
-The problem: **that "verify license" placeholder was never verified.** During the 2026-04-11/12 audit of glacier-bay and haines, WebFetch verification of three such files (two by `mrBunin`, one by `brucecarlson66`) showed the photos' schema.org `license` field pointing at Flickr's `flickrhelp.com "Using Flickr images shared by other members"` help page. **That URL is Flickr's All Rights Reserved fallback** — CC-licensed Flickr photos point at `creativecommons.org`. All three were All Rights Reserved, not Creative Commons.
-
-It is very likely (but not certain) that many or most of the remaining 886 "Flickr public feed" files are also ARR. The earlier session may have assumed Flickr's public feed implied CC licensing, which is not the case — the default Flickr license is "All Rights Reserved."
-
-### Scope numbers (verified 2026-04-12 via filesystem grep)
-
-| Metric | Count |
-|---|---:|
-| attr.json files with `"Flickr public feed"` source type | **889** |
-| attr.json files with `"Flickr (verify license)"` placeholder | **891** |
-| Distinct ports affected | **124** of 397 |
-| Distinct Flickr usernames observed (sample) | Dozens — photographer695, Laurence's Pictures, brewbooks, Alaskan Dude, A Guy Named Nyal, zug55, xiquinhosilva, tjguy98, paulocsfilho129, iorus and bela, gg2cool, fmzs2008, and many others |
-| attr.json files with generic `"Wikimedia Commons"` boilerplate (different but related issue) | ~150+ |
-
-The 124 affected ports span all regions: Alaska, Caribbean, Mediterranean, Baltic, Asia-Pacific, South America, Africa, Oceania. The full list is preserved at `/tmp/affected-ports.txt` (regenerate with the grep below if needed).
-
-**Regenerate the list of affected ports:**
-```bash
-find ports/img -name "*attr.json" -exec grep -l "Flickr public feed" {} \; \
-  | awk -F/ '{print $3}' | sort -u
-```
-
-### What is NOT a problem
-
-1,201 `attr.json` files have `"author": "See page attribution section"` with Wikimedia Commons sourceUrl — those are Wikimedia files with proper on-page attribution, and their Flickr references (if any) are just the original photographer's Flickr profile linked from the Wikimedia attribution block. Those are fine.
-
-Files that cite `commons.wikimedia.org/wiki/File:SPECIFIC_FILE.jpg` with real `CC BY`, `CC BY-SA`, `CC0`, or `Public domain` licenses are fine.
-
-Files that cite `www.nps.gov/...`, `www.loc.gov/...`, `science.nasa.gov/...`, `earthobservatory.nasa.gov/...`, or other US federal agency URLs are fine (public domain).
-
-### Ports already cleaned (2026-04-11/12)
-
-| Port | Status | Cleanup commit |
-|------|--------|----------------|
-| glacier-bay | All 9 ARR/unverified files deleted; 7 verified NPS public-domain images sourced | `a1f0f2a2` |
-| haines | 5 unverified files deleted + 1 UW Libraries–restricted; 6 verified NPS + LoC public-domain images sourced | `a1f0f2a2` |
-
-### Ports cleaned (2026-05-13)
-
-| Port | Status | Cleanup commit |
-|------|--------|----------------|
-| port-everglades | 6 ARR files deleted; replacements deferred (HTML refs intentionally left broken so the validator tracks the gap until re-sourced — see *port-everglades open slots* below). 2 CC BY 2.0 files (harbor, landmark, both from `prayitnophotography`) kept after Read-verification + verify-flickr confirmation. | (pending) |
-
-#### port-everglades — 6 open slots requiring re-sourcing
-
-Deleted as All Rights Reserved per the 2026-05-13 audit (`admin/audit-reports/port-image-audits/port-everglades-2026-05-13.md`). The HTML in `ports/port-everglades.html` retains the broken `<img src>` references so the validator's `missing_image_file` blocker count surfaces them until a future session re-sources. Two slots are also slot-vs-subject mismatches (`food`, `street`) and should be renamed when re-sourced.
-
-| Slot | Previous (deleted) subject | Notes for re-sourcing |
-|---|---|---|
-| `port-everglades-hero.webp` | HAL Nieuw Statendam at tropical-port sunset | Subject was UNCLEAR; needs a Port Everglades-positive identifier (terminal architecture, FLL approach plane, etc.). HTML path was also typo'd at `/ports/img/port-everglades-hero.webp` (missing subdir) — fix path when re-sourcing. |
-| `port-everglades-attraction-1.webp` | Cruise ship + Southwest plane on FLL approach (subject POSITIVE) | Subject was correct (FLL approach over PE is diagnostic); only license blocked use. Look for CC-licensed FLL-approach-over-port shots. |
-| `port-everglades-attraction-2.webp` | 3 cruise ships at sea (Celebrity + Princess) | Subject UNCLEAR; replace with positively-identified PE scene. |
-| `port-everglades-food.webp` | Fort Lauderdale Hilton marina yacht harbor | **Slot mismatch** — file showed yachts, not food. Rename slot on re-source. Real food/cuisine slot if used should show actual food/dining; otherwise drop the slot. |
-| `port-everglades-panorama.webp` | RCL Oasis-class silhouetted at golden hour | Subject UNCLEAR; replace with a positively-identified PE panorama. |
-| `port-everglades-street.webp` | RCL Freedom of the Seas at night | **Slot mismatch** — file showed ship, not street. Rename slot on re-source or drop. |
-
-**Estimated effort to re-source:** ~2-3 careful hours. **Validator impact:** `missing_image_file` blocker count for port-everglades is now 7 (path typo + 6 deleted refs).
-
-#### port-miami — 8 open slots (all deleted; whole directory empty)
-
-The 2026-05-13 license sweep on port-miami found 8 of 8 cited Flickr sources unacceptable for this site: 5 were CC BY-NC-ND 2.0 (Non-Commercial + No-Derivatives — both flags this site rejects per `admin/IMAGE_SOURCING_WORKFLOW.md`), and 3 were All Rights Reserved.
-
-All 8 files + their attr.json siblings deleted; HTML refs in `ports/port-miami.html` left intentionally broken so the validator surfaces the gap. CSV rows removed from `attributions/attributions.csv`.
-
-| Slot | Previous (deleted) | Cited Flickr |
-|---|---|---|
-| `port-miami-hero.webp` | (subject not Read-verified before deletion) | ARR |
-| `port-miami-attraction-1.webp` | (subject not Read-verified) | CC BY-NC-ND 2.0 |
-| `port-miami-attraction-2.webp` | (subject not Read-verified) | CC BY-NC-ND 2.0 |
-| `port-miami-food.webp` | (subject not Read-verified) | CC BY-NC-ND 2.0 |
-| `port-miami-harbor.webp` | (subject not Read-verified) | CC BY-NC-ND 2.0 |
-| `port-miami-landmark.webp` | (subject not Read-verified) | CC BY-NC-ND 2.0 |
-| `port-miami-panorama.webp` | (subject not Read-verified) | ARR |
-| `port-miami-street.webp` | (subject not Read-verified) | ARR |
-
-**Estimated effort:** ~3-4 careful hours (8 slots from scratch).
-
-#### royal-beach-club-antigua — 8 open slots (all deleted; whole directory now empty except `IMAGE-MANIFEST.md`)
-
-The 2026-05-13 license sweep on royal-beach-club-antigua found 8 of 8 cited Flickr sources are All Rights Reserved. (This port also previously referenced a cross-port image from `/ports/img/antigua/` — a separate cross-port-reuse issue that the deletion does not affect.)
-
-All 8 files + their attr.json siblings deleted; HTML refs in `ports/royal-beach-club-antigua.html` left intentionally broken. CSV rows removed.
-
-| Slot | Cited Flickr |
-|---|---|
-| `royal-beach-club-antigua-hero.webp` | ARR |
-| `royal-beach-club-antigua-attraction-1.webp` | ARR |
-| `royal-beach-club-antigua-attraction-2.webp` | ARR |
-| `royal-beach-club-antigua-food.webp` | ARR |
-| `royal-beach-club-antigua-harbor.webp` | ARR |
-| `royal-beach-club-antigua-landmark.webp` | ARR |
-| `royal-beach-club-antigua-panorama.webp` | ARR |
-| `royal-beach-club-antigua-street.webp` | ARR |
-
-**Estimated effort:** ~3-4 careful hours, but this port is a Royal Caribbean private destination (newly opened on Antigua) with limited Creative Commons photographic coverage — may need to start with the cruise line's own press imagery if any is published under a permissive license, or accept that the page ships with fewer images than the validator's 11-floor.
-
-#### sydney-ns + santa-marta — flagged for separate decision
-
-Two ports surfaced in the same broken-ref sweep but were *not* deleted:
-
-- **`santa-marta`** — 12 images, all attributed to **Wikimedia Commons** with what appear to be real CC BY 2.0 / CC BY-SA 3.0 / CC BY-SA 4.0 URLs. The sandbox blocks Commons egress so the licenses cannot be programmatically re-verified, but the URL shape and CC license labels are consistent with proper Commons attribution. Recommend keeping pending production-environment re-verification. The original broken-ref was `/images/author-thumb.jpg` (chrome image, not a port image).
-
-- **`sydney-ns`** — 8 images, all with the college-fjord-class stub attribution shape (`"source": "Sourced under free license"`, empty `source_url`, `"license": "CC BY-SA 4.0 or equivalent"`). **Provably unverifiable** — no source URL means there's no way to confirm the license claim. Per project rules, these are placeholder shape and should be deleted, but I have NOT done so without explicit user direction since:
-  - The bytes could be real photos with real CC licenses whose attribution metadata was simply lost during sourcing
-  - Bulk-deleting 8 files leaves the page with 1 broken ref (the originally-flagged `sydney-ns-9.webp`) plus 8 more = 9 total
-  - This is more aggressive than the ARR-deletion principle, since "unverifiable" is not the same as "verified-bad"
-
-**Open question for the user:** does the "get the ARR photos off the site" principle extend to the sydney-ns unverifiable-attribution class (stub `"CC BY-SA 4.0 or equivalent"` with empty source URL)?
-
-The 2 cleaned ports suggest a reasonable per-port cleanup cost of:
-- ~20–30 minutes of You.com research + WebSearch to find real federal-agency or verified-CC sources
-- ~10–15 curl downloads and visual Read() verifications per port
-- ~10 new attr.json files written with full provenance metadata
-- Gallery HTML rebuild + validator iteration
-
-### Recommended cleanup approach
-
-**Option A — One port at a time (slow, thorough):**
-Treat every port repair from now on as a combined content + attribution audit. Adds significant time per port but keeps the fleet honest as it's touched.
-
-**Option B — Bulk delete + flag (fast, honest):**
-Write a script that:
-1. Identifies all files matching the "Flickr public feed" + "Flickr (verify license)" pattern
-2. Deletes the `.webp` file and its `.attr.json`
-3. Flags each affected port in its `#notices` section with "images pending re-sourcing"
-4. Accepts temporary validator failures on the minimum-image-count check
-
-This fixes the legal/attribution problem immediately while preserving content in git history, and creates a known backlog for systematic re-sourcing.
-
-**Option C — WebFetch license verification first (medium):**
-Write a script that WebFetches each unique Flickr photo URL, parses the schema.org license field, and classifies each photo as CC-licensed (keep) or ARR (delete). This preserves legitimately-CC-licensed files. Cost: ~889 WebFetches, likely 4–6 hours of runtime if parallelized carefully. Risk: Flickr may rate-limit or block automated fetches.
-
-**Recommendation:** Option B is the safest pragmatic choice. A legal liability that can be removed in one commit is worth more than the content loss, and the git history preserves everything for later re-sourcing.
-
-### Related issues surfaced during the 2026-04-11 audit
-
-1. **University of Washington Libraries Special Collections** — the Eric A. Hegg photograph collection has curatorial restrictions even though individual photographs may be pre-1928 public domain. One file (`haines-1.webp`) had a visible "Property of University of Washington Libraries" watermark. Deleted on 2026-04-11.
-
-2. **Alaska DNR / Alaska State Parks images** — their copyright policy explicitly states "No logo, graphic, sound, or image from DNR's web site may be copied, republished/reposted, or retransmitted unless expressly permitted by DNR." Verified 2026-04-11 via their `shared/notices/copyright.htm` page. State-agency images are **not** fair game for reuse without permission.
-
-3. **NASA Earth Observatory URLs** — the glacier-bay repair initially cited `earthobservatory.nasa.gov/images/event/146024/alaskas-glacier-bay` as a source. WebFetch showed that URL redirects to the Earth Observatory homepage; no such event page exists. That specific URL was fabricated (by me, before self-audit). All NASA URLs must be WebFetch-verified before citation, even within allowed domains.
-
-4. **Gallery credit diversity warning gaming** — the v2 validator has a `gallery_credit_low_diversity` warning that fires when 4+ gallery images cite ≤2 unique source URLs. This check was designed to catch exactly the kind of placeholder attribution the Flickr public-feed batch produced. Earlier repairs (including the 2026-04-11 versions of glacier-bay and haines) satisfied this check by citing different *category* URLs rather than specific *file* URLs — a letter-not-spirit fix. Cleaned versions (2026-04-12) use specific item/file URLs only.
-
-### Trusted sources proven to work (use these first)
-
-These sources are reliable for US/Alaska/federal content, downloadable within current sandbox networking, and explicitly public domain or CC-licensed:
-
-| Source | License | Working URL pattern |
-|---|---|---|
-| NPS.gov place pages | Public domain (US federal work) | `www.nps.gov/places/*.htm` — find hero image via `/common/uploads/cropped_image/primary/*.jpg` |
-| NPS.gov learn/nature pages | Public domain | `www.nps.gov/{park}/learn/nature/*.htm` — look for `/common/uploads/grid_builder/` or page-specific images |
-| Library of Congress Prints & Photographs | No known restrictions (pre-1928) | `www.loc.gov/item/ID/?fo=json` for metadata + authoritative `tile.loc.gov/storage-services/service/pnp/` image URLs |
-| Library of Congress Sanborn Maps | Explicitly public domain | `www.loc.gov/item/sanborn*/?fo=json` + IIIF image service |
-| NASA Earth Observatory / science.nasa.gov | Public domain (US federal work) | Must WebFetch specific page first to confirm it exists |
-| Wikimedia Commons (Diego Delso DD series) | CC BY-SA 4.0 (confirmed via Creator:Diego_Delso creator page) | File pages with `DD_NN.jpg` naming pattern |
-
-**Wikimedia Commons file pages (`commons.wikimedia.org/wiki/File:...`)** — can be cited but not downloaded directly because `upload.wikimedia.org` is sandbox-blocked per `admin/IMAGE_SOURCING_WORKFLOW.md`. Files already present in the repo with verified CC Wikimedia Commons File: URLs can stay; new files cannot be downloaded from Wikimedia in-session.
-
-### Gotchas to avoid next time
-
-1. **Never trust a "Flickr public feed" source with a placeholder license** — the default Flickr license is All Rights Reserved, not CC. Every Flickr URL must have its CC status verified via WebFetch of the schema.org license field.
-2. **Never use a category URL as a file citation** — the `gallery_credit_low_diversity` warning exists to catch this. A category URL doesn't prove any specific file came from that category.
-3. **Never fabricate a source URL because the image looks like it might match** — every URL must be WebFetch-verified before it lands in either HTML or attr.json.
-4. **Never treat UW Libraries or state-agency images as automatically free** — check the specific rights statement on the collection finding aid, not your assumption about copyright age.
-5. **Every port repair must run the Image Verification Protocol from `admin/CAREFUL.md`** — Read() every `.webp` used on the page, compare against its attr.json and HTML caption, and delete anything that doesn't match.
-
----
-
-## P0 — HAL First Look carousels: deferred blocking errors (2026-05-10)
-
-**Source:** Session `claude/fix-carnival-validator-krEdD` 2026-05-10. Flickr-photographer-named contamination on HAL pages: 3 files were not Holland America ships at all (Volvo trucks misnamed BonsaiTruck, Taiwanese event group misnamed Westerdam, Lucas Ensing photo of unrelated subject misnamed Nieuw Amsterdam). Files git-rm'd; references dropped from pages.
-
-**Cleanup completed:**
-- `assets/ships/Veendam_flickr_BonsaiTruck.webp` — DELETED (Volvo trucks)
-- `assets/ships/Westerdam_flickr_.webp` — DELETED (Taiwanese event group)
-- `assets/ships/Nieuw_Amsterdam_flickr_LucasEnsing.webp` — DELETED (subject not Nieuw Amsterdam)
-- `Noordam_flickr_TrekkinD47.webp` → `Noordam_IV_flickr_TrekkinD47.webp` (rename only — image is correct, validator's filename-must-include-roman check needed `IV` token); `noordam-iv.html` updated
-- `westerdam.html` — wrong-image slide dropped, existing TIER 2 placeholder slide retained → page now passes
-- `noordam-iv.html` — passes
-
-**Deferred blocking errors (8 pages, 1 critical error each):**
-- HAL: `nieuw-amsterdam-v.html`, `prinsendam-ii.html`, `veendam.html`, `veendam-iv.html`, `volendam-iii.html`, `westerdam-ii.html` — wrong-image slide dropped, leaving carousel empty per direction. Validator's `admin/validate-ship-page.sh` line 636 hard-fails empty First Look carousels (`First Look carousel has NO images — carousel will render empty`). Removing the entire `<section>` trips the section-required check on line 563 (none of these pages declare the alternative `id="overview-title"`).
-- HAL: `nieuw-amsterdam.html` — wrong-image slide dropped, but the page has pre-existing malformed swiper-wrapper nesting (truck slide opened without `</div>`, all subsequent slides nested inside it). Removing the truck rebalanced the parser depth and exposed an orphan `<div class="swiper-slide">` at line 490 outside the wrapper. Validator now reports `Carousel has 1 swiper-slide(s) OUTSIDE swiper-wrapper`.
-- Princess: `sapphire-princess.html` — all 8 First Look slides referenced files that were never uploaded (`Sapphire_Princess_<exterior|bow|stern|pool|atrium|dining|stateroom|theater>.jpg`). All slides dropped. Same empty-carousel block as the HAL pages. Resolution: source 1+ authentic Sapphire Princess photo, or apply TIER 2 placeholder.
-- Celebrity (TBN/unnamed pages): `unnamed-edge-class.html`, `unnamed-project-nirvana.html`, `unnamed-river-class-x6.html` — each carousel consists ENTIRELY of class-mate exterior references (Edge / Apex / Beyond / Ascent shown as design-similar references for the unnamed future ship). Captions are honest ("Edge-class flagship exterior", "Edge-class sister ship", etc.) and files exist. Validator's filename ship-mismatch check (`admin/validate-ship-page.sh`) rejects on slug-token mismatch — `celebrity-edge-exterior.jpg` doesn't include `unnamed-edge-class` slug tokens. Dropping the references would empty the carousel. Resolution paths: (a) loosen the validator's filename check to accept slides whose caption explicitly frames them as class-mate/sister references, (b) rename the image files to include both ship-name and class-name tokens, or (c) replace with TIER 2 ship-map.png placeholder + caption.
-- RCL TBN class-mate pages (7 pages, 13 errors): `discovery-class-ship-tbn.html`, `icon-class-ship-tbn-2027.html`, `icon-class-ship-tbn-2028.html`, `legend-of-the-seas-icon-class-entering-service-in-2026.html`, `oasis-class-ship-tbn-2028.html`, `quantum-ultra-class-ship-tbn-2028.html`, `quantum-ultra-class-ship-tbn-2029.html`, `star-class-ship-tbn-2028.html`. Each shows class-mate exteriors (Wonder / Icon / Odyssey / Quantum / Oasis / Star, etc.) on TBN class pages. Same validator filename mismatch issue as the celebrity unnamed-* pages.
-- RCL real-ship slug-with-suffix mismatches (2 pages, 6 errors): `enchantment-of-the-seas.html` (3 errors — `enchantment-halifax-2011.webp`, `enchantment-labadee-2013.webp`, `enchantment-tampa-2025.webp` — filenames have `enchantment-` but not full `enchantment-of-the-seas-` slug); `legend-of-the-seas-1995-built.html` (3 errors — `Legend_of_the_Seas_(1).jpg` etc. don't contain the year-build slug suffix; validator's slug-base rule only strips trailing 4-digit years, not `-1995-built`). Resolution: (a) rename files to include the full page slug, (b) extend validator's slug-base regex to strip `-NNNN-built` suffix.
-
-**Site-wide flickr audit findings (2026-05-10):** 5 parallel subagents reviewed all 177 `*flickr*` ship images. **53 confirmed NOT_A_SHIP + 2 WRONG_SHIP files (~31%)** were git-rm'd (Volvo trucks, Dutch town squares, Rolls-Royce cars named "Silver Cloud/Shadow", museum sculptures, fish-market scenes, Renaissance portraits, ice hockey games, etc.). Of the 52 referencing pages, 21 retained at least one valid slide and now pass; **31 pages now have empty First Look carousels** and are added to the deferred-blocker queue below. Pattern: legacy `Capital_Case_flickr_<Photographer>.webp` files have ~36% wrong + ~24% unclear; the curated `lowercase-with-dashes_flickr_new.jpg` set is ~85% correct (only 1 wrong: `resilient-lady_flickr_new.jpg` was a Victorian house). Full audit results saved to `/tmp/flickr_audit_results.md`.
-
-**Empty First Look carousels from the 2026-05-10 audit cleanup (31 pages — same validator hard-rule as above):**
-- carnival/carnival-fantasy.html
-- celebrity-cruises/celebrity-century.html, celebrity-xperience.html, celebrity-xploration.html, horizon.html, zenith.html  *(celebrity-xpedition.html rescued 2026-05-11 via assets/ships/celebrity/celebrity-xpedition-exterior.jpg; celebrity-xploration.html added 2026-05-11 from UNCLEAR re-verification cleanup)*
-- costa/costa-venezia.html
-- holland-america-line/amsterdam.html, edam.html, leerdam.html, maartensdijk.html, nieuw-amsterdam-iii.html, noordam-ii.html, noordam-iii.html, p-caland.html, potsdam.html, prinsendam-i.html, ryndam.html, statendam-ii.html, statendam.html, veendam-ii.html, volendam-ii.html, w-a-scholten.html, westerdam-i.html  *(volendam.html rescued 2026-05-11 via assets/ships/other/volendam-exterior.jpg)*
-- msc/msc-world-asia.html
-- oceania/marina.html, sirena.html, vista.html
-- rcl/nordic-prince.html  *(added 2026-05-11 from UNCLEAR re-verification cleanup)*
-- silversea/silver-nova.html
-- virgin-voyages/resilient-lady.html
-
-Resolution: same as the original 8 deferred-blocker pages (TIER 2 placeholder, source authentic photography, or loosen validator's empty-carousel rule).
-
-**UNCLEAR audit verdicts (39 files):** require deeper investigation — angle, distance, or quality prevented confident identification. Listed in `/tmp/flickr_audit_results.md`. Common pattern: vintage HAL postcards (`Statendam_Iii`, `Rotterdam_Iv`, `Nieuw_Amsterdam_II`) need historical-photo verification, not visual ship-name matching; small luxury fleets (Silver / Seabourn / Regent) look very similar.
-
-**Resolution paths (defer to a follow-up session):**
-1. Apply TIER 2 placeholder pattern (single ship-map.png slide + "authentic photography pending sourcing" caption) on the 6 empty-carousel pages.
-2. Fix nieuw-amsterdam.html structure: drop the orphan duplicate Vancouver slide (lines 490–495 reference `Nieuw_Amsterdam_at_Vancouver.jpg`, already in slide 416–425 of the same carousel).
-3. Or source new authentic Holland America photography for these 6 ships and add proper slides.
-
----
-
-## P1 — Port FAQ "Cruise Port Guide" template-bug cleanup (2026-05-13) — **COMPLETE**
-
-**Status:** Resolved in session `claude/continue-port-faq-4pvWk` (2026-05-13). All 25 affected ports rewritten with JSON-traced FAQ content. Verification: `grep -lE 'Port Guide.{0,3}(have|'"'"'s)|Port Guide\?' ports/*.html | wc -l` returns 0.
-
-**Source:** Session `claude/continue-port-faq-4pvWk` 2026-05-13. While shipping weather-FAQ fixes one port at a time, encountered a recurring template substitution bug on the page's last 3–5 FAQ entries.
-
-### The bug
-
-A boilerplate FAQ template was applied to many ports during an earlier backfill but the `{{port_name}}` substitution failed — the literal token "Cruise Port Guide" (or "Port Guide") is embedded directly in the visible question text. Three observed signatures:
-
-```
-Q: What's the best time of year to visit Fort Lauderdale Cruise Port Guide?
-Q: Does Grand Cayman Port Guide have extreme weather to worry about?
-Q: What should I pack for Galveston Cruise Port Guide's weather?
-```
-
-The answers attached to these questions are also generic boilerplate ("Peak cruise season offers the most reliable weather..." / "Like most destinations, weather conditions vary by season...") AND contain forbidden phrases caught by the weather sub-validator's DEDUP layer:
-
-- `weather guide` → forbidden, must be replaced with `seasonal guide`
-- `best months to visit` → forbidden, must be replaced (the validator regex is `/Best Months? (for|to)/i`)
-
-### Scope
-
-**25 ports affected** (verified 2026-05-13 via `grep -lE 'Port Guide.{0,3}(have|'"'"'s)|Port Guide\?' ports/*.html`):
-
-```
-amber-cove, antigua, aqaba, barcelona, bermuda, costa-maya, ensenada,
-honolulu, lanzarote, los-angeles, malaga, manzanillo, mazatlan, miami,
-mykonos, naples, new-orleans, port-canaveral, progreso, puerto-vallarta,
-seattle, tampa, valencia, venice, zihuatanejo
-```
-
-**Regenerate the list:**
-```bash
-grep -lE 'Port Guide.{0,3}(have|'"'"'s)|Port Guide\?' ports/*.html | sort -u
-```
-
-### All 25 ports cleaned in 2026-05-13 session
-
-All commits on branch `claude/continue-port-faq-4pvWk` (single-file
-per port, per-clause source maps in commit messages):
-
-- `grand-cayman` (`b73370c8`), `ft-lauderdale` (`3b0cdad4`),
-  `galveston` (`68875533`), `amber-cove` (`f397fcf1`),
-  `bermuda` (`95a11e67`), `honolulu` (`23b0e577`), `miami` (`6f67d16f`),
-  `seattle` (`bbb9b057`), `tampa` (`e133acf5`),
-  `port-canaveral` (`4efc2d8c`), `new-orleans` (`a6d0d3dc`),
-  `los-angeles` (`0b3de342`), `puerto-vallarta` (`037e153f`),
-  `mazatlan` (`b7cd4f41`), `zihuatanejo` (`c6aa9bf7`),
-  `manzanillo` (`ca80ef5b`), `progreso` (`937aa24f`),
-  `ensenada` (`2fe4dda7`), `aqaba` (`d7c45d4e`),
-  `barcelona` (`1d079e0c`), `naples` (`adf3358a`),
-  `venice` (`be0a5da5`), `malaga` (`5e55a0dd`),
-  `valencia` (`3d2b7776`), `lanzarote` (`e325f8ed`),
-  `mykonos` (`4217cac8`), `antigua` (`0630fef8`).
-
-Edge cases encountered:
-- Some ports had the Pattern-B content in NON-`faq-item` `<details>`
-  blocks the validator ignored as visible (malaga, valencia, aqaba) —
-  converted those blocks to inline `<p><strong>Q:...` format.
-- Mediterranean climate ports (barcelona, naples, venice, malaga,
-  valencia, mykonos) trigger `SPEC_CLIMATE_BAD` on the word
-  "hurricane" — renamed those Qs to "storm season" while still
-  matching the FAQ regex.
-- antigua additionally needed structural season-label renames
-  (`Shoulder Season → Transitional Season`,
-  `Hurricane Season → Low Season`) to pass
-  `B_CRUISE-SEASON-TRANSITIONAL` and `B_CRUISE-SEASON-LOW`.
-- ensenada had Pattern-A duplicates of new Pattern-B rewrites
-  (FAQ_DUP) — Pattern-A generic best-time and bring questions
-  removed; Hussong's margarita visible mirror added to restore
-  count parity.
-
-### Rewrite recipe (per port)
-
-The doctrine requires every clause to trace to `assets/data/ports/seasonal-guides.json` for that port, or to verbatim text already on the page. Three established Q&A templates work across all ports:
-
-**Best Time** — `cruise_seasons.high` + `avoid_months` + `at_a_glance.temp_range`
-**Hurricane / Storm Season** — `hazards.hurricane_zone` (+ `hurricane_season`, `peak_risk_months`, `note` when hurricane_zone is true)
-**Rain** — `at_a_glance.rain` + `cruise_seasons.high` (drier window framing)
-**Packing** — `packing_nudges` array (verbatim items)
-**Extreme Weather (when present)** — `hazards.note` + `catches_off_guard` (verbatim)
-
-### Validator expectations after fix
-
-Each cleaned port should report:
-- `node scripts/validate-port-weather.js ports/<slug>.html` → 0 errors
-- `node admin/validate-port-page-v2.js ports/<slug>.html` → typically PASS (unless an unrelated content_purity / noscript / gallery-credit-diversity issue is independently blocking; flag those separately)
-
-### Companion pattern (Pattern A — best-time generic boilerplate) — IN PROGRESS
-
-A different boilerplate template appeared on **53 ports** initially (verified 2026-05-13 via `grep -lE 'Spring and early autumn tend to offer' ports/*.html | wc -l`). The questions themselves are clean (no "Port Guide" template-bug token), but the answer reads:
-
-> "Spring and early autumn tend to offer the most comfortable conditions for sightseeing — mild temperatures, manageable crowds, and pleasant light for photography. Summer brings the warmest weather but also peak cruise traffic and higher prices. Winter visits can be rewarding for those who prefer quiet streets and authentic atmosphere…"
-
-This is factually wrong for tropical, equatorial, and sub-Antarctic ports (no meaningful spring/autumn/winter).
-
-**Status as of 2026-05-13 (end of session `claude/continue-port-faq-4pvWk`):** 42 ports rewritten with JSON-traced content; 11 ports remain. All 11 remaining ports are blocked on structural issues from this task's perspective — see "Why these 11 ports aren't fixable as FAQ-only edits" below.
-
-**Remaining 11 ports + their structural block:**
-
-| Port | Block | Cross-ref |
-|---|---|---|
-| `panama-canal` | Repeated FAQ blocks (4×); 32 visible Q&As; needs editorial consolidation | Issue H |
-| `penang` | 14 errors, B_ACT_*, CATCH, H001, H002 — weather section partially absent | Issue E |
-| `port-elizabeth` | B_ACT_SNORKELING/HIKING/CITY_WALKING missing; D_MONTH parse error | Issue E |
-| `punta-arenas` | B_ACT_BEACH/SNORKELING missing (validator requires these for all ports; sub-Antarctic port can't legitimately have them) | Issue E + validator over-strict |
-| `royal-beach-club-antigua` | 5 B_ACT_* missing; private-island stub page | Issue E |
-| `royal-beach-club-nassau` | B_ACT_CITY_WALKING/HIKING missing; private-island stub | Issue E |
-| `santa-marta` | 38 errors; entire weather section absent | Issue E |
-| `stavanger` | 36 errors; entire weather section absent | Issue E |
-| `strait-of-magellan` | 31 errors; entire weather section absent | Issue E |
-| `tobago` | S001 only; missing `<section id="weather-guide">` | Issue E |
-| `ushuaia` | 12 errors including B_ACT_*, CATCH, B_AVOID | Issue E |
-
-Two paths to unblock:
-
-1. **Re-run the seasonal-guide backfill** on these 11 ports with the corrections from `b0c082b6` (no fabrication). This is the simplest path — most of the missing structural elements have data in `seasonal-guides.json` already.
-2. **Loosen `REQUIRED.activities`** in `scripts/port-weather-validator-core.js` (line 121) for ports whose region doesn't support certain activities. Sub-Antarctic ports legitimately have no beach/snorkeling; the validator currently forces all 5 activity rows on every page.
-
-**Regenerate the remaining list:**
-```bash
-grep -lE 'Spring and early autumn tend to offer' ports/*.html | sort -u
-```
-
----
-
-## P1 — Additional template-bug + data-integrity surfaces (2026-05-13, in-flight)
-
-While shipping the Pattern A best-time rewrites (the companion task in the section above), encountered five distinct shoulder issues that the existing P1 entries don't already cover. Documenting separately so a future audit can address them in isolation if the in-flight session doesn't.
-
-### Pattern C — "Cruise"/"Shore Excursion" suffix template bug
-
-A third template-substitution failure where the literal token "Cruise" or "Shore Excursion" is appended to the port name in question text. Distinct from Pattern B ("Port Guide" suffix) — same shape, different filler. Examples encountered (rewritten in-flight):
-
-```
-Q: What is the best time to visit Manila Cruise?
-Q: What is the best time to visit Trinidad Cruise?
-Q: What is the best time to visit Port Arthur Cruise?
-Q: What is the best time to visit Port Said Cruise?
-Q: What is the best time to visit San Diego Cruise?
-Q: What is the best time to visit Tórshavn Cruise?
-Q: What is the best time to visit Rotorua Shore Excursion?
-```
-
-**Find remaining instances:**
-```bash
-grep -lE 'Q:[^<]*(Cruise|Shore Excursion)\?' ports/*.html
-```
-
-7 ports already fixed in the 2026-05-13 session: manila, trinidad, port-arthur, port-said, san-diego, torshavn, rotorua. Run the grep above to check whether others remain.
-
-### Pattern D — Half-filled "currency is used in" answer
-
-A different template failure where the currency-name slot was never substituted, leaving the literal "The local currency is used in." as the answer. Distinct from Pattern A/B/C — it's not a question-text issue; the answer text itself is incomplete.
-
-```
-A: The local currency is used in. Most tourist-facing businesses accept major credit cards…
-```
-
-**Ports affected (verified 2026-05-13):**
-```bash
-grep -l 'The local currency is used in' ports/*.html
-```
-Returns: porto, rhodes, riga, stavanger, tallinn, trieste, st-petersburg — 7 ports. Fixed in-flight on porto, rhodes, riga, tallinn (rewrote or removed the broken sentence). Remaining: stavanger (full structural rebuild needed; see below), trieste (verify), st-petersburg.
-
-The fix per port is normally one of:
-- Remove the broken Q entirely if the page already has a working currency Q elsewhere.
-- Rewrite the answer using the actual local currency name (which IS in the page metadata or can be sourced from the country — verify against existing on-page meta or admin/PORT_CURRENCIES if exists; do NOT invent from training).
-
-### Issue E — Ports with the entire weather/seasonal section missing
-
-Some ports never received the seasonal-guide backfill — they're missing the `<section id="weather-guide">`, all glance labels, the cruise-seasons-grid, packing-list, hazards section, etc. Weather validator reports 30+ errors per port, all structural. FAQ-only work on these ports is wasted (the validator stays FAIL on the structural absence regardless of FAQ correctness).
-
-**Ports affected (verified by running the validator on a fresh checkout):**
-- `stavanger` — 36 errors (entire weather section absent)
-- `santa-marta` — 38 errors (entire weather section absent)
-- `strait-of-magellan` — 31 errors
-- `ushuaia` — 12 errors (many structural)
-- `penang` — 14 errors (B_ACT_*, CATCH, H001, H002 — most structural)
-- `tobago` — only S001 (missing weather-guide section id) but otherwise scored well
-
-These need a content/template pass that wires the seasonal-guide section in, not a FAQ-topic pass. Probable cause: the 2026-02 backfill (`a69f1471`) skipped these ports. A re-run of the backfill (with fabrication branches removed per the `b0c082b6` revert) should restore the section for ports where seasonal-guides.json has data.
-
-### Issue F — Forbidden phrases inside `seasonal-guides.json`
-
-The DEDUP layer of `scripts/validate-port-weather.js` forbids `Shoulder Season` (FORBIDDEN_PATTERNS line 102), but the JSON registry itself contains the phrase in `packing_nudges`:
-
-```
-seattle.packing_nudges:    [..., "Small umbrella or rain jacket for shoulder seasons", ...]
-victoria-bc.packing_nudges: [..., "Light rain jacket for shoulder season", ...]
-```
-
-When a page's packing answer mirrors `packing_nudges` verbatim (the doctrine's "quote rich phrasing verbatim" rule), it inherits the forbidden phrase and trips TERM_001/DEDUP. Fixed in-flight by replacing the forbidden phrase with specific months from `cruise_seasons.transitional` (e.g., "shoulder season" → "April and October" for victoria-bc). The doctrine-clean fix would be a one-shot scan of the JSON registry for forbidden phrases:
+Open tasks for this repo (`state` ≠ `complete`). Regenerate:
 
 ```bash
-grep -E '"shoulder season|Best Months? (for|to)|Weather Guide|Climate Overview|When to (Go|Visit)|Typical Weather"' assets/data/ports/seasonal-guides.json
+node admin/library.mjs mirrors --repo InTheWake
 ```
 
-…and update the registry entries to use replacement phrasing the validator accepts. Then any port that mirrors `packing_nudges` verbatim won't inherit forbidden phrases.
-
-### Issue H — Repeated FAQ blocks (panama-canal observed)
-
-`ports/panama-canal.html` has the same 4-question FAQ block inserted
-verbatim 4 times across the page (lines ~487-489, ~567-572, ~620,
-~675), each followed by the same Pattern-A best-time Q. The page
-appears structured for multiple ports along the canal transit but the
-FAQ backfill duplicated rather than customizing per section. Total
-visible: 32 Q&As; FAQ_DUP fires 4× on the best-time match.
-
-Fix is beyond per-port FAQ work — needs editorial decision on whether
-to keep 4 sections (each with distinct Q&As) or consolidate to one.
-
-Search:
-```bash
-for p in ports/*.html; do
-  c=$(grep -c '<strong>Q:' "$p" 2>/dev/null)
-  [ "$c" -gt 15 ] && echo "$p: $c visible Q&As"
-done
-```
-
-### Issue G — Generic currency-schema entries (deferrable)
-
-Many ports have schema `FAQPage` currency entries that read:
-
-> "Check local currency requirements before your visit. Major credit cards are typically accepted at tourist areas, but having some local currency is useful for smaller vendors and markets."
-
-This is generic boilerplate with no port-specific info. The visible currency answer on most ports IS port-specific (correct currency code, ATM tips, sometimes export rules). Mirroring the visible to schema would replace the generic schema with the port-specific text. Encountered on most Pattern A ports in the 2026-05-13 session — fixed where the port was edited for other reasons; not a separate dedicated pass.
-
----
-
-## P1 — Drink Calculator copy contradicts its own chart re: "6-7 drinks break-even" (2026-05-17)
-
-**Severity:** Affects published content — both `/drink-calculator.html` and `/drink-calculatorv2.html` carry copy/schema that the chart on the same page contradicts. The new article `articles/is-drink-package-worth-it.html` documents the chart-side result and explicitly calls the 5-to-7 rule wrong.
-
-**Triggered by:** Writing the May 17 tool-demo article. Captured live chart output at three honest consumption levels and found à la carte beats Deluxe by $1,000+ in every typical scenario — chart break-even sits around 11+ cocktail-equivalents per couple per day, not 5-7. Then noticed the same tool's own FAQ schema and rate-table copy still say "6-7 drinks per day breaks even."
-
-### What's actually inconsistent
-
-The tool says two different things on the same page:
-
-| Source | Number quoted |
-|---|---|
-| `drink-calculatorv2.html:129` (FAQ schema answer) | "break even at 6-7 drinks per day" |
-| `drink-calculatorv2.html:318` (answer-first comment) | "Most cruisers break even at 6-7 drinks/day on Deluxe package" |
-| `drink-calculatorv2.html:1709` (comparison table cell) | "5-6 drinks" |
-| `drink-calculatorv2.html:1739` (rate-table prose) | "break even at 6-7 drinks per day" |
-| Same page's chart output, run honestly | À la carte still winning at 10+ drinks/day; break-even ~11 cocktail-equivalents/couple/day |
-| `drink-calculator.html:127, 309, 1110, 1140` | Same "6-7" / "5-6" copy as v2 |
-
-Both `/drink-calculator.html` (v1) and `/drink-calculatorv2.html` (v2) carry the same wrong copy.
-
-### Why this is happening
-
-There is an existing internal investigation in `.claude/plans/math-issues-investigation.md` that catalogues 12+ math bugs in the engine. The single most relevant one for this entry:
-
-> **Bug 2: Gratuity on Packages but Not on À La Carte.** Package costs include gratuity; individual drink costs do not. In reality, bars charge the same percentage on every drink. À la carte is understated by 18-20%. Carnival proof: break-even should be 5.4 cocktails/day at $15.60 each with grat. Engine shows break-even at 7 using $13 without grat.
-
-So there are two compounding things going on:
-1. **The "6-7 drinks" copy is using pre-gratuity arithmetic** to derive its break-even (same math that produced Bug 2). It's a stale rule-of-thumb that ignores both the gratuity and the realistic drink mix.
-2. **The chart, despite Bug 2 making à la carte look cheaper than reality, still shows packages losing badly** because the per-person Deluxe price is ~$83/day post-gratuity and most cruisers don't actually drink $83 worth.
-
-Fixing Bug 2 would push à la carte UP by ~18% across all scenarios, which would lower the chart's break-even somewhat — but probably to around 8 cocktail-equivalents/couple/day, still nowhere near the "6-7 per person" the copy quotes.
-
-### Two paths
-
-**Path A — Copy fix only (fast).** Update the four locations in each calculator (FAQ schema, answer-first comment, table cell, prose) to match the chart's actual output. Reword the FAQ answers along the lines of: "The widely repeated 5-to-7 drinks per day rule is based on pre-gratuity arithmetic and assumes only $14 cocktails. At realistic consumption mixes with the 18% gratuity included, most cruisers break even closer to 11 cocktail-equivalents per couple per day. Use the calculator above with your real drinks." This brings the tool internally consistent immediately. ~30 min of work.
-
-**Path B — Fix the engine first, then copy (correct).** Work through the bug list in `.claude/plans/math-issues-investigation.md` (gratuity on à la carte, sea-day weighting, 15-drink limit, break-even drink price mismatches, etc.). After fixes, re-derive the break-even number from the corrected engine and update copy to match. Then recapture the article's screenshots, since they'd be stale.
-
-Path A unblocks honesty fast. Path B is the proper fix. Recommended: do A now, schedule B against the broader calculator-v2 work already in P2.
-
-### Article dependencies
-
-`articles/is-drink-package-worth-it.html` and its four screenshots in `assets/articles/drink-calculator-worth-it/` reflect the **current** chart output. If Path B happens and the chart shifts:
-
-- Headline finding ("5-to-7 rule is wrong") survives — bug fixes shift the break-even down but probably still above 5-7 for typical consumption mixes.
-- Specific dollar numbers in the body and screenshots become stale.
-- Recapture is mechanical: server, headless Playwright, the script lived at `_capture-calc-screenshots.mjs` in commit `73ac9905` history (deleted in same commit).
-
-### Find the affected copy
-
-```bash
-grep -nE "(5|6).?(to|-|—).?(6|7) drinks|break even at [567]" \
-  drink-calculator.html drink-calculatorv2.html
-```
-
-### What is NOT a problem
-
-The chart-side math, even with the bugs in `math-issues-investigation.md`, is *more accurate than the 5-7 copy*. The bugs make à la carte look cheaper than reality, but the chart still beats the 5-7 narrative because the package is genuinely overpriced for most cruisers. Removing the 5-7 copy is correct in both the pre-fix and post-fix worlds.
-
----
-
-## Items surfaced in session `claude/fix-carnival-validator-krEdD` (2026-05-11)
-
-Surfaced during the multi-turn image-honesty audit + cleanup; not duplicates
-of the P0 HAL section above. Most are downstream consequences of the audit.
-
-### Source-real-photography backlog (39 pages, ordered by priority)
-
-These pages have a TIER 2 ship-map.png placeholder applied — they validate
-clean but the placeholder is a stand-in until real ship-specific photography
-is sourced. Caption wording was tuned per-page:
-
-**Pre-delivery — sourceable on delivery (1)**
-- `ships/msc/msc-world-asia.html` — enters service November 2026; caption
-  reads "Pre-delivery placeholder — MSC World Asia enters service
-  November 2026."
-
-**Current-fleet (10) — caption "verified [Ship] photography pending publication"**
-HAL Active: `nieuw-amsterdam-v.html`, `volendam-iii.html`, `westerdam-ii.html`
-Others: `ships/costa/costa-venezia.html`, `ships/oceania/marina.html`,
-`ships/oceania/sirena.html`, `ships/oceania/vista.html`,
-`ships/princess/sapphire-princess.html`, `ships/silversea/silver-nova.html`,
-`ships/virgin-voyages/resilient-lady.html`
-
-For these, photos exist in the world; what's pending is *our* curation +
-publication after the 2026-05 image-honesty audit removed misattributed
-photos. Best sourced from official press kits, Wikimedia Commons, or
-verified Flickr photographers (NOT the public-feed pattern that caused
-the original contamination).
-
-**Historical (23) — caption "authentic [Ship] photography pending sourcing"**
-Retired or scrapped ships where the original problem (finding photos at
-all) is real. Should be sourced from period archives:
-- HAL historical: 17 pages (`ships/holland-america-line/amsterdam.html`,
-  `edam.html`, `leerdam.html`, `maartensdijk.html`, `nieuw-amsterdam-iii.html`,
-  `noordam-ii.html`, `noordam-iii.html`, `p-caland.html`, `potsdam.html`,
-  `prinsendam-i.html`, `ryndam.html`, `statendam-ii.html`, `statendam.html`,
-  `veendam-ii.html`, `veendam-iv.html` (Historical badge), `veendam.html`,
-  `volendam-ii.html`, `w-a-scholten.html`, `westerdam-i.html`,
-  `prinsendam-ii.html`)
-- Celebrity historical: 3 (`celebrity-century.html`, `horizon.html`, `zenith.html`)
-- Carnival historical: `carnival-fantasy.html`
-- RCL historical: `nordic-prince.html`
-
-**Celebrity Galápagos status mismatch (2)** — these have Historical badges
-on their pages but the ships are still actively operating Galapagos
-itineraries. Worth re-reviewing whether the Historical badge is correct:
-- `ships/celebrity-cruises/celebrity-xperience.html`
-- `ships/celebrity-cruises/celebrity-xploration.html`
-
-### Image audit needed on other directories
-
-The 2026-05-10 audit only covered `assets/ships/*flickr*`. The same
-Flickr-public-feed contamination pattern could exist in:
-- `assets/ports/img/...` — partially cleaned in 2026-04-11/12 per the P0
-  section above, but only specific ports were verified. Site-wide port
-  image audit not yet done.
-- `assets/authors/` — author headshots/photos may include marginal sourcing.
-- Any "venue" or "restaurant" image directories under `assets/`.
-
-Recommended approach: same parallel-subagent visual sweep used for ships
-(see `audit-reports/flickr_audit_2026-05-10.md` for the method), but with
-the lessons in `admin/CAREFUL.md` applied from the start (10% spot-check
-+ dry-run + whole-repo orphan search before any bulk deletion).
-
-### Phase B / Phase C — scope clarification needed
-
-**Phase B (image-honesty cleanup on 0E pages):** Earlier todo described a
-~128-page placeholder pass. After the 2026-05-10 audit consumed most of
-the obvious contamination, Phase B's residual scope is unclear. Probably
-overlaps with the source-real-photography backlog above. Needs fresh
-definition or can be marked subsumed.
-
-**Phase C (template version unification across 290 ship pages):** Surveyed
-2026-05-11. The 290 ship pages split:
-- 144 at `v3.010.400`
-- 55 at `v3.010.300` (all in carnival + rcl directories)
-- 91 with no `meta version` tag at all
-
-Diff between a .300 and a .400 page is NOT just a version-string bump —
-involves substantial template differences (different scripture quotes,
-header comment block, meta tag ordering, OG/Twitter handling, service
-worker vs Google Analytics, smart-quote inconsistencies in inline JS).
-Calling this "mechanical, low-priority" in the prior todo was wrong.
-True scope: a per-fleet template-regeneration project, ~50 RCL + 5
-Carnival pages need full rewrites to match the .400 standard. Defer
-until the .400 template itself is verified stable (some .400 pages have
-smart-quote `‘no-js’` in inline JS which would error if executed — see
-below).
-
-### Smart-quotes JS bug on `.400` Celebrity ship pages — **RESOLVED 2026-05-12**
-
-26 pages in `ships/celebrity-cruises/` had `<script>document.documentElement
-.classList.remove(‘no-js’);</script>` with U+2018/U+2019 smart quotes
-instead of straight quotes — confirmed as a JS `SyntaxError` ("Invalid
-or unexpected token") via Node.js parser. The script tag failed to
-execute, meaning the `no-js` class was never removed from `<html>` on
-those pages, breaking progressive enhancement.
-
-Fixed 2026-05-12: global replace `‘no-js’` → `'no-js'` across all 26
-files. Verified residual count = 0; JS is now valid. Per-page sample
-showed the line at line 20 of each file:
-  `<script>document.documentElement.classList.remove('no-js');</script>`
-
-The fix applied to the entire celebrity-cruises directory only — no
-other fleet was affected. (Likely an upstream auto-formatter or
-copy-paste from a smart-quote-converting editor introduced the bug
-during a template regeneration.)
-
-### Resilient_Lady cocktail image — alternative use case
-
-The 2026-05-10 audit deleted `Resilient_Lady_flickr_lorablong.webp`
-(cocktails on a Virgin Voyages bar table). In the 2026-05-11 merge with
-main, the upstream branch had explicitly used this image with alt text
-"Cocktails onboard Resilient Lady" — framing it as legitimate venue
-content rather than a First Look ship-exterior shot. If the cocktails
-ARE on Resilient Lady (the bar interior matches Virgin's red/blue
-palette), this image could be restored under a "Venues" or "Bars &
-Lounges" gallery section, NOT in First Look. Same logic potentially
-applies to other deleted "cabin interior" / "onboard amenity" files:
-- `Msc_Euribia_flickr_DennisSHurd.webp` (cabin chocolates + champagne)
-- `Msc_Seashore_flickr_Traveloscopy.webp` (empty theater)
-- `Msc_Virtuosa_flickr_janetg48.webp` (atrium glass view)
-- `Celebrity_Galaxy_flickr_CaptainMartini.webp` (twin-bed cabin) — was UNCLEAR (kept)
-- `Volendam_flickr_borichar.webp` (cabin interior) — was UNCLEAR (kept)
-
-Recoverable via `git show 105dd168^:assets/ships/<file>` if a future
-session wants to restore them for a different gallery.
-
-### `seven-seas-mariner.html` retains an editorially marginal slide
-
-After the 2026-05-11 cleanup of `seven-seas-mariner_flickr_new.jpg` (which
-actually showed Seven Seas Navigator, not Mariner), the page retained a
-single slide referencing `Seven_Seas_Mariner_flickr_NicholasCoates.webp`.
-That image was classified UNCLEAR in the audit re-verification — a very
-distant cruise ship across Liverpool's Mersey with a rusty stair railing
-in the foreground, name not legible. Page validates clean but the single
-remaining slide is borderline.
-
-### `enchantment-of-the-seas` + `legend-of-the-seas-1995-built` — slug-suffix rename plan
-
-When the slug-strictness work moves forward, these two pages can be
-fixed via file rename (not the same as the TBN class-mate pages which
-need a validator change). Filenames need to include the full page slug:
-- `enchantment-halifax-2011.webp` → `enchantment-of-the-seas-halifax-2011.webp`
-- `enchantment-labadee-2013.webp` → `enchantment-of-the-seas-labadee-2013.webp`
-- `enchantment-tampa-2025.webp` → `enchantment-of-the-seas-tampa-2025.webp`
-- `Legend_of_the_Seas_(1).jpg` → `Legend_of_the_Seas_1995_built_(1).jpg`
-- `Legend_Of_The_Seas_tied_up_at_Danang,_Vietnam_port.jpg` → `Legend_of_the_Seas_1995_built_at_Danang.jpg`
-- `Rhapsody_of_the_Seas_(3725748454).jpg` → sister-ship reference; class-mate
-  case, not slug-suffix. Either drop the slide or handle as TBN class-mate.
-
-Rename includes: update HTML refs, update `attributions/attributions.csv`,
-git mv the files. Each file is referenced by exactly one page (verified
-2026-05-11) so no cross-page reuse implications.
-
----
-
-## Google Search Console Audit (2026-03-27)
-
-**Source:** GSC data pulled 2026-03-23
-**Session:** claude/explore-repos-docs-YYFnR
-
-### Issues Found & Actions Taken
-
-| GSC Issue | Count | Root Cause | Action | Status |
-|-----------|-------|------------|--------|--------|
-| Crawled, not indexed | 369 | Thin content (Gen1 restaurant stubs, incomplete port pages) | See content quality plan below | Documented |
-| Page with redirect | 365 | 42 .htaccess rules catching old URLs (Carnival paths, renames, phantoms) | Audited — no chains, working as designed | DONE |
-| Not found (404) | 193 | 77 pages missing from sitemap; phantom URLs from URL restructuring | Added 77 entries to sitemap.xml (1,150 → 1,227) | DONE |
-| Blocked by robots.txt | 111 | Intentional: /assets/, /images/, /js/, /css/, /data/, *.json | Correct — no action needed | DONE |
-| Alternate canonical | 25 | Normal duplicate handling | No action needed | DONE |
-| Noindex tag | 2 | Redirect stubs (drinks.html, packing.html) | Working as designed | DONE |
-| Redirect error | 1 | Unknown specific URL — no chains found in .htaccess audit | Monitor | DONE |
-| Duplicate without canonical | 1 | Unknown specific URL | Needs GSC URL inspection | Pending |
-
-### Sitemap Update (DONE — 2026-03-27)
-
-Added 77 missing URLs to sitemap.xml:
-- **7 Alaska port pages:** college-fjord, homer, kodiak, misty-fjords, petersburg, valdez, wrangell
-- **23 Carnival restaurant pages:** alchemy-bar through the-deli
-- **45 MSC restaurant pages:** atelier-bistrot through zanzibar-buffet
-- **2 tool pages:** cruise-budget-calculator, port-day-planner
-
-Updated robots.txt comments with accurate counts (387 ports, 295 ships, 472 restaurants, 1,227 sitemap URLs).
-
-### Crawled-Not-Indexed: Content Quality Plan
-
-The 369 "crawled, not indexed" pages are primarily thin content that Google deprioritizes:
-
-| Category | Est. Count | Problem | Lane |
-|----------|-----------|---------|------|
-| Gen1 restaurant stubs | ~200+ | "Varies by venue" pricing (187), "coming soon" (18), generic reviews | Yellow |
-| Incomplete port pages | ~45 Tier 3 | Template filler removed but real content not yet written | Green/Yellow |
-| Redirect stubs | 5 | drinks.html, packing.html, falmouth-jamaica, beijing, kyoto | Done (noindex) |
-| Misc thin pages | ~10-20 | Various | TBD |
-
-**Priority actions for crawled-not-indexed:**
-1. [ ] Continue Tier 3 port content repair (45 ports in queue below)
-2. [ ] Upgrade Gen1 restaurant pages — replace "Varies by venue" with real pricing (187 pages)
-3. [ ] Remove "coming soon" placeholder text from 18 restaurant pages
-4. [ ] Replace generic "Guest Experience Summary" with authentic reviews on Gen1 pages
-
-**Solo articles — potential indexing opportunity (flagged for review):**
-7 articles in `/solo/articles/` are blocked by robots.txt as "fragments" but 3 are full-length pages:
-- `accessible-cruising.html` (44 KB)
-- `in-the-wake-of-grief.html` (33 KB)
-- `visiting-the-united-states-before-your-cruise.html` (32 KB)
-
-**Decision needed:** Are these fragments loaded into solo.html, or standalone pages that should be indexed? If standalone, they should be unblocked in robots.txt and added to sitemap.
-
----
-
-## Codebase Status (refreshed 2026-05-12)
-
-| Asset | 2026-03-02 | 2026-05-12 | Delta |
-|-------|-----------:|-----------:|------:|
-| Port pages | 387 | 387 | — |
-| Ship pages | 295 | 294 | −1 (1 retired or renamed) |
-| Restaurant pages | 472 | 472 | — |
-| Total HTML pages | 1,241 | 1,249 | +8 |
-| WebP images | 4,486 | 4,180 | −306 (Flickr ARR + audit deletions) |
-| Logbook JSON files | 285 | not re-counted | — |
-| Stateroom exception files | 270 | not re-counted | — |
-| Cruise line directories | 16 | not re-counted | — |
-| Inline `style=` attributes | ~15,626 | **22,181** | **+6,555 — CSS consolidation is moving backwards** |
-| Files with `<style>` blocks | 9 | **32** | **+23 — more inline style blocks added since 2026-03-02** |
-
-The inline-style and `<style>`-block counts are now WORSE than at the last consolidation date. The 2026-03-02 baseline reflected mid-consolidation progress; new ship/port work has been adding more inline styling than the consolidation has been removing. Flag for the CSS Consolidation entry in GREEN LANE.
-
----
-
-## Port Content Repair Queue (Session 12 — 2026-03-02)
-
-**Context:** Session 12 identified 88 ports that contained identical template filler inserted by batch scripts. Template filler was removed and the validator was updated with a `template_filler_detected` BLOCKING check. These 77 ports now need real, port-specific content written.
-
-**Current validation:** 242/387 PASS (62.5%). Of the 145 failing ports:
-- ~22 ports at score 0 (template filler / missing multiple sections)
-- ~50 ports at score 2-68 (content gaps + structural issues)
-- ~73 ports at score 70-86 (often just 1 blocking error: `section_order/out_of_order` for map or featured_images)
-
-**Session 13 progress (2026-03-03):** Copenhagen PASS (88), Split improved (42), Rhodes PASS (84)
-**Session 14 progress (2026-03-03):** Riga (82 PASS), Tallinn (76 PASS), Phuket (56), San Diego (76), Valencia (32), Stavanger (76), Malaga (52), Victoria BC (72), St. Petersburg (72), Portland (72), Port Everglades (60), Port Miami (58)
-
-**What each port typically needs:**
-- **Cruise Port section** (100+ words): Where ships dock, terminal facilities, distance to town, specific cruise lines that call here
-- **Getting Around section** (200+ words): Walking distances, specific taxi fares, bus routes, shuttle info for THIS port
-- **Excursions section** (400+ words): Specific tours, activities, booking advice, prices — all port-specific
-
-**Priority tiers:**
-
-### Tier 1: High-traffic ports (fix first — readers will notice)
-Ports that likely get significant traffic and need quality content:
-
-| Port | Missing sections | Notes |
-|------|-----------------|-------|
-| ~~copenhagen.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 13, score 88~~ |
-| ~~riga.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 82 PASS~~ |
-| ~~tallinn.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 76 PASS~~ |
-| ~~split.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 13, score 42 (logbook issues pre-existing)~~ |
-| ~~rhodes.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 13, score 84 PASS~~ |
-| ~~phuket.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 56 (logbook issues pre-existing)~~ |
-| ~~san-diego.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 76 (logbook issues pre-existing)~~ |
-| ~~valencia.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 32 (5 logbook errors pre-existing)~~ |
-| ~~stavanger.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 76 (logbook 696/800 pre-existing)~~ |
-| ~~malaga.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 52 (3 logbook errors pre-existing)~~ |
-| ~~victoria-bc.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 72 (emotional pivot pre-existing)~~ |
-| ~~st-petersburg.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 72 (emotional pivot pre-existing)~~ |
-| ~~port-everglades.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 60 (logbook issues pre-existing)~~ |
-| ~~port-miami.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 58 (logbook issues pre-existing)~~ |
-| ~~portland.html~~ | ~~cruise-port, getting-around, excursions~~ | ~~DONE — Session 14, score 72 (logbook 723/800 pre-existing)~~ |
-
-### Tier 2: Medium-traffic ports — 16/19 COMPLETE (Session 15)
-
-| Port | Status | Score |
-|------|--------|-------|
-| ~~cairns.html~~ | DONE — template filler fix only | 82 |
-| ~~cannes.html~~ | DONE — template filler fix only | 86 |
-| ~~cartagena.html~~ | DONE — template filler fix only | 88 |
-| ~~casablanca.html~~ | DONE — template filler fix only | 82 |
-| ~~charleston.html~~ | DONE — template filler fix only | 80 |
-| ~~corfu.html~~ | DONE — template filler fix only | 84 |
-| goa.html | SKIPPED — needs logbook structural work | — |
-| halifax.html | SKIPPED — no logbook present | — |
-| ~~manila.html~~ | DONE — template filler fix only | 78 |
-| ~~osaka.html~~ | DONE — 3-section + template filler | 86 |
-| panama-canal.html | SKIPPED — logbook 331/800 words | — |
-| ~~penang.html~~ | DONE — 3-section + reorder + template filler | 88 |
-| ~~porto.html~~ | DONE — 3-section + forbidden_drinking fix | 82 |
-| ~~recife.html~~ | DONE — 3-section + logbook + template filler | 84 |
-| ~~taormina.html~~ | DONE — 3-section + logbook expansion | 76 |
-| ~~trieste.html~~ | DONE — 3-section + reorder + template filler | 92 |
-| ~~villefranche.html~~ | DONE — 3-section + template filler + logbook | 76 |
-| ~~warnemunde.html~~ | DONE — 3-section + logbook reflection | 76 |
-| ~~zeebrugge.html~~ | DONE — 3-section + logbook +248 words | 82 |
-
-### Tier 3: Lower-traffic / specialized ports
-
-| Port | Missing sections |
-|------|-----------------|
-| callao.html | cruise-port, excursions |
-| catania.html | cruise-port, getting-around, excursions |
-| cephalonia.html | cruise-port, getting-around, excursions |
-| charlottetown.html | cruise-port, getting-around, excursions |
-| cherbourg.html | cruise-port, getting-around, excursions |
-| chilean-fjords.html | cruise-port, getting-around, excursions |
-| colon.html | cruise-port, getting-around, excursions |
-| durban.html | cruise-port, excursions |
-| falmouth.html | logbook filler removed |
-| kusadasi.html | logbook filler removed |
-| la-spezia.html | cruise-port, getting-around |
-| papeete.html | cruise-port, getting-around, excursions |
-| ponta-delgada.html | getting-around, excursions |
-| port-arthur.html | getting-around, excursions |
-| port-elizabeth.html | cruise-port, getting-around, excursions |
-| port-said.html | getting-around, excursions |
-| puerto-montt.html | getting-around |
-| punta-arenas.html | cruise-port, getting-around, excursions |
-| punta-del-este.html | getting-around, excursions |
-| ravenna.html | cruise-port, getting-around, excursions |
-| roatan.html | cruise-port only |
-| rotorua.html | cruise-port, logbook needs ~20 more words |
-| royal-beach-club-antigua.html | cruise-port, getting-around, excursions |
-| saguenay.html | cruise-port, getting-around, excursions |
-| saint-john.html | cruise-port, getting-around, excursions |
-| santa-marta.html | getting-around, excursions |
-| scotland.html | cruise-port, getting-around, excursions |
-| sihanoukville.html | logbook filler removed |
-| south-pacific.html | cruise-port, getting-around, excursions |
-| south-shetland-islands.html | cruise-port, getting-around, excursions |
-| st-croix.html | getting-around, excursions |
-| st-john-usvi.html | cruise-port, getting-around, excursions |
-| strait-of-magellan.html | cruise-port, getting-around, excursions |
-| sydney-ns.html | cruise-port, getting-around, excursions |
-| tangier.html | cruise-port, getting-around, excursions |
-| tauranga.html | getting-around |
-| tender-ports.html | excursions (needs tender-specific content) |
-| tobago.html | getting-around, excursions |
-| torshavn.html | getting-around, excursions |
-| trinidad.html | getting-around, excursions |
-| tunis.html | cruise-port, getting-around, excursions |
-| ushuaia.html | cruise-port, getting-around, excursions |
-| vigo.html | cruise-port, getting-around, excursions |
-| waterford.html | cruise-port, getting-around, excursions |
-| zadar.html | cruise-port, getting-around, excursions |
-
-### Approach for repairs
-
-Each port's content must be **port-specific** — no generic templates. Research-backed content with:
-- Real terminal names and facilities
-- Real distances, taxi fares, bus routes
-- Real excursion names, operators, approximate prices
-- Real local tips that could only apply to THIS port
-
-**Estimated effort:** ~5-10 ports per session if hand-written with web research. At that pace, completing all 77 ports would take 8-15 sessions.
-
-**Alternative:** Prioritize Tier 1 (15 ports) and mark Tier 3 as "content stub" pages that are honest about being incomplete rather than pretending to have content they don't have.
-
----
-
-## Cruise Line Parity Gaps
-
-| Cruise Line | Ships | Restaurants | Gap |
-|-------------|-------|-------------|-----|
-| RCL | 50 | 280 | Baseline |
-| NCL | 20 | 78 | Partial |
-| Virgin | 4 | 46 | Good ratio |
-| MSC | 24 | 45 | Partial |
-| Carnival | 48 | 23 | Needs ~200+ |
-| Celebrity | 29 | 0 | Missing |
-| Holland America | 46 | 0 | Missing |
-| Princess | 17 | 0 | Missing |
-| + 7 more lines | 54 | 0 | Missing |
-
-**Missing cruise lines entirely:** Viking Ocean (11 ships)
-**Intentionally excluded:** Disney Cruise Line (owner decision — theological disagreement with Disney's "follow your heart" philosophy; Jeremiah 17:9)
-
----
-
-## Task Lanes
-
-| Lane | Meaning | Examples |
-|------|---------|----------|
-| Green | AI executes | CSS cleanup, schema fixes, pattern standardization |
-| Yellow | AI proposes | Content changes, new pages, image updates |
-| Red | Human writes | Pastoral articles, theological content |
-
----
-
-## GREEN LANE — AI Executes Autonomously
-
-### [G] Phase 3 ai-summary follow-ups — surfaced 2026-05-09
-
-**Source:** Continuation of PR #1466 (Phase 3.2a). Phase 3.2b (PR #1497) and Phase 3.2c (PR #1480) shipped 2026-05-09 and were moved to `admin/COMPLETED_TASKS.md` on 2026-05-12 (audit branch `claude/audit-unfinished-tasks-5evPi`). Two follow-ups remain.
-
-#### Phase 3.5 — image-reuse-guardrail allowlist (issue #1465)
-
-- [ ] **Issue:** https://github.com/jsschrstrcks1/InTheWake/issues/1465
-- [ ] Two complementary fixes inside `.claude/skills/image-reuse-guardrail/` and possibly `admin/scan-image-reuse.cjs`:
-  1. **Same-entity normalizer.** Treat `assets/ships/Carnival_Conquest_3.jpg` and `assets/ships/carnival/carnival-conquest-exterior.jpg` as same-entity (both normalize to `carnival/carnival-conquest`). Applies to authors, ports, articles too.
-  2. **FOM filename allowlist.** Files matching `*-FOM- - *.webp` are intentionally one-image-per-named-ship by convention. Allow-list the pattern (Option A in #1465) unless the FOM convention itself is up for revisit.
-- [ ] **Test cases that must still fail** (Cordelia pattern):
-  - `assets/ships/cordelia/cordelia-1.jpg` ↔ `assets/ships/carnival/carnival-fascination-1.jpg` (different lines, no shared slug)
-  - `assets/ports/dubai/hero.jpg` ↔ `assets/ports/cozumel/hero.jpg` (different ports)
-- [ ] **Test cases that must now pass:** the 4 documented in #1465.
-- [ ] **Effort:** 1–2 hours. Removes the recurring `--no-verify` papercut that blocked PR #1466 commits.
-
-#### Phase 3.6 — `cascade_fully_failed` triage
-
-- [ ] **50 ships** flagged by `js:runtime_data/cascade_fully_failed` per the same dashboard. Top single failure category by count (147 `js:images/few_images` is higher but is mostly warn-tier; cascade is a real user-visible bug — specs / data sections fail to render).
-- [ ] **Investigation first:** root cause unknown. Likely candidates: missing `data-*` attributes the cascade script reads, broken JSON in `assets/data/ships/`, or a script load order issue introduced by an upstream merge.
-- [ ] Use `systematic-debugging` skill before proposing fixes. Pick 1–2 affected ships, reproduce in a browser, instrument the cascade loader, identify the failure mode, then plan the fix scope.
-- [ ] Identify the 50 ships:
-  ```bash
-  jq -r '.per_page[] | select(.js_errors[]?.rule == "runtime_data/cascade_fully_failed") | .file' \
-    audit-reports/ship-validation-dashboard.json
-  ```
-- [ ] **Effort:** unknown until root-caused. Could be a one-line fix affecting all 50, or 50 individual data-shape repairs.
-- [ ] **Why it's higher value than 3.2b for end users:** boilerplate ai-summary is invisible to readers; a fully-failed data cascade means the ship page renders without specs / amenities / itinerary data. Real bug, real impact.
-
----
-
-### [G] Noscript Remediation — Port Pages (NEW — 2026-04-09)
-**Status:** Not started — plan ready, scripts needed
-**Priority:** P1 — accessibility and pastoral mandate (exhausted caregivers on hospital WiFi, privacy-conscious travelers using NoScript, disabled users on stripped-down browsers)
-**Source:** Audit found 4 features completely invisible without JavaScript on port pages
-
-**Current state:**
-- Port logbook narratives: ✅ Static HTML (works without JS)
-- Port content sections: ✅ Static HTML (works without JS)
-- FAQs: ✅ Static HTML (works without JS)
-- Weather guide: ⚠️ 273/387 have static fallback, 100 have "Enable JavaScript" placeholder, 14 have nothing
-- Maps: ⚠️ 330/337 have text placeholder, 0 have static map image or location list
-- Ships visiting: ❌ 370 ports, 0 noscript fallbacks (empty div)
-- Recent stories: ❌ 377 ports, 0 noscript fallbacks (empty div)
-- Photo gallery: ❌ 143 ports with swiper, 0 noscript image fallbacks
-
-**Phase 1 — Green Lane (fully scriptable, no content decisions needed):**
-
-**1a. Ships Visiting noscript fallback**
-- [ ] Write `scripts/inject-ships-visiting-noscript.js`
-- [ ] Read port-registry.json + ship schedule data to get ships per port
-- [ ] Inject `<noscript>` block inside ships-visiting container with static list: ship name + cruise line + link to ship page
-- [ ] Target: all 370 ports with ships-visiting section
-- [ ] Template: `<noscript><ul class="ships-list-static">` with `<li><a href="/ships/...">Ship Name</a> (Line)</li>`
-- [ ] Run once, verify 3 ports, commit
-
-**1b. Recent Stories noscript fallback**
-- [ ] Write `scripts/inject-recent-stories-noscript.js`
-- [ ] Read articles/index.json to get 5 most recent articles
-- [ ] Inject `<noscript>` block inside recent-rail container with static links
-- [ ] These are site-wide (not port-specific), so same 5 articles on all ports
-- [ ] Template: `<noscript><ul class="stories-static">` with `<li><a href="/solo/articles/...">Title</a></li>`
-- [ ] Run once, verify, commit
-
-**1c. Photo Gallery noscript fallback**
-- [ ] Write `scripts/inject-gallery-noscript.js`
-- [ ] Read ports/img/{slug}/ directory to get first 4-6 images
-- [ ] Inject `<noscript>` block inside swiper container with static `<figure>` + `<img>` + `<figcaption>`
-- [ ] Include alt text from existing image alt attributes
-- [ ] Target: all 143 ports with swiper galleries
-- [ ] Template: `<noscript><div class="gallery-static">` with `<figure><img src="..." alt="..." loading="lazy"></figure>`
-- [ ] Run once, verify, commit
-
-**Phase 2 — Yellow Lane (needs content/design decisions):**
-
-**2a. Weather noscript (100 placeholder-only ports)**
-- [ ] These 100 ports have weather widgets but only "Enable JavaScript" in noscript
-- [ ] Need to build full static seasonal guide HTML (At a Glance, Best Time, Catches, Packing, Hazards)
-- [ ] Data source: the weather widget JSON data files or research per port
-- [ ] Can template from the 273 ports that already have full noscript
-- [ ] Decision needed: generate from data programmatically or hand-write?
-
-**2b. Weather noscript (14 ports with NO noscript at all)**
-- [ ] These 14 ports have weather widgets with zero noscript content
-- [ ] Same fix as 2a but includes adding the `<noscript>` tags themselves
-
-**2c. Map noscript improvement**
-- [ ] Current: 330 ports have "Enable JavaScript to view map" placeholder
-- [ ] Options:
-  - Option A: Generate static map images via Mapbox/OSM Static API (best UX, costs money/API calls)
-  - Option B: Inject text-based location list from POI manifest data (free, useful, not visual)
-  - Option C: Both — static image with text list below
-- [ ] Decision needed: which option?
-
-**Estimated effort:**
-- Phase 1: ~2 hours (3 scripts, batch inject, verify)
-- Phase 2a: ~4-8 hours (100 ports × weather research or data generation)
-- Phase 2b: ~1 hour (14 ports, same approach as 2a)
-- Phase 2c: Depends on design decision
-
-**The ICP-2 v2.1 connection:** Section E requires "Key content must be in static HTML, not behind JavaScript rendering." Ships visiting, recent stories, and gallery images are content — they should be in the static HTML with JS enhancing (not replacing) the experience.
-
-### [G] CSS Consolidation — Inline Style Reduction
-- [ ] Decide canonical `.page-grid` definition (styles.css vs inline)
-- [ ] Remove redundant `.page-grid` from remaining `<style>` blocks
-- [ ] Run replace to swap inline styles for class names
-- [ ] Target: Reduce ~15,626 inline styles to <1,000
-
-### [G] Ship Page Standardization (295 pages)
-- [ ] Standardize carousel markup to `<figure>` pattern across all lines
-- [ ] Align section order: First Look → Dining → Videos → Deck Plans/Tracker → FAQ
-- [ ] Fix author avatar to circle (remove inline border-radius overrides)
-- [ ] Uniform version badge
-- [ ] Normalize hero sizing/positioning
-- [ ] Add missing whimsical units containers (~181 ships)
-- [ ] Add missing grid-2 layout (~30 ships, mostly Carnival)
-
-### [G] Ship Validation — Content Quality Enhancement
-**Status (refreshed 2026-05-13 from a live `node admin/validate.js --all-ships` run):**
-- 312 files validated (297 ship pages + 15 hub/index pages)
-- **96 passing / 216 failing** — 27% ship pass rate
-- Note vs the 2026-05-11 dashboard: that snapshot had `sh_pass`: 2 + `sh_warn_only`: 275 + `sh_fail`: 13 + `js_fail`: 210. The current run aggregates sh+js into one pass/fail criterion — definition is stricter, not a fleet regression.
-
-**Top error rules (top 8 by count, 2026-05-13 live run):**
-- `template_remnants`: **301** (was not in top 6 of 2026-05-11 dashboard — likely a rule-definition tightening, not 301 new regressions; verify rule before remediation)
-- `few_images`: **230** (was 158 on 2026-05-11; +72 — primary contributor is Flickr ARR / unclear-photo cleanup pushing ships below the minimum)
-- `cascade_fully_failed`: **51** (matches Phase 3.6 entry)
-- `main_entity_blacklisted`: **26** (was 23)
-- `wrong_section_order`: **23** (was 22)
-- `missing_required`: **11** (was 8)
-- `few_videos`: **11**
-- `placeholder_content`: **7**
-
-**Remaining quality improvements:**
-- [ ] **template_remnants: 301 ships** — verify rule definition first; the jump from ~0 to 301 between 2026-05-11 and 2026-05-13 is too large to be organic, almost certainly a validator rule expansion that surfaced latent template-placeholder strings
-- [ ] **few_images: 230 ships** (refreshed 2026-05-13; up from 158; right fix is sourcing replacement images, not relaxing the threshold)
-- [ ] **cascade_fully_failed: 51 ships** (Phase 3.6 — investigation-first)
-- [ ] **main_entity_blacklisted: 26 ships** (JSON-LD `mainEntity` references blocked schema.org types; investigate)
-- [ ] **wrong_section_order: 23 ships** (matches the 2026-03-25 port-page-normalization pattern but on ships)
-- [ ] **missing_required + placeholder_content + few_videos: 29 ships combined** (smaller categories)
-- [ ] Generic review text (208 ships per 2026-03-02; validator no longer surfaces a rule by that name — needs human content-review pass, not validator)
-- [ ] FAQ too short (186 ships per 2026-03-02; validator no longer surfaces by name)
-- [ ] Missing whimsical units (~181 ships per 2026-03-02; *count needs refresh*)
-- [ ] Missing grid-2 layout (~30 ships per 2026-03-02; *count needs refresh*)
-
-### [G] Port Validation — Remaining Work
-**Status (refreshed 2026-05-13 from a live per-port `node admin/validate-port-page-v2.js --json-output` sweep — 385 of 387 ports completed; 2 missed due to runtime hiccups):**
-
-- **47 passing / 338 failing (12% pass rate)** — sharp drop from the 2026-03-02 figure of 242/387 (62.5%). **Root cause identified 2026-05-13:** the weather sub-validator was MERGED into `admin/validate-port-page-v2.js` on 2026-04-13 (commit `2058711f` / PR #1411) — AFTER the 2026-03-02 baseline. Before that commit, weather wasn't checked at all. The pass-rate drop is the rule that wasn't there before now blocking ports that were never built to satisfy it.
-- **The per-port weather errors ARE real content gaps**, not a misfiring rule. 30-port sample's dominant patterns: missing FAQ "Hurricane/storm season" (77%), missing FAQ "Rain concerns" (73%), missing FAQ "Packing for weather" (67%), missing FAQ "Best time to visit" (50%), FAQ_COUNT mismatch (87%). The recent merged commits (st-kitts/grenada/dominica/bonaire/split/kotor/marseille/bora-bora) ARE this work — each fixes one port (~30 min hand-edit).
-- **Empirical opportunity for batch automation:** `assets/data/ports/seasonal-guides.json` contains structured data for **335 of the 338 failing ports** (only `petersburg`, `valdez`, `wrangell` lack entries). The 4 weather FAQs in successful fix commits are templated verbatim from JSON fields (`hazards.hurricane_season`, `monthly_averages.rain_days`, `packing_nudges`, `cruise_seasons.high`, etc.). A script that reads `seasonal-guides.json` and generates the 4 FAQs (visible HTML + JSON-LD schema) per port would unblock 335 ports in one batch. Estimated: ~0.5 day to write + a sample-review pass.
-- Score distribution among the 385: 0 ports at score 0 (none completely broken); 310 in the 1-68 range; 50 at 70-85; 25 at 86+. Mean score 62.
-
-**Top blocking-error rules (2026-05-13 live, 385 ports):**
-- `weather_validation_failed`: **338** (one shared cause, see above)
-- `missing_image_file`: 53 (broken image refs — real per-port work)
-- `missing_stylesheet`: 37
-- `collapsible_required`: 36
-- `missing_main_content`: 13
-- `missing_tender_indicator`: 4
-- `forbidden_hype` / `out_of_order`: 3 each
-- `forbidden_drinking` / `forbidden_nightlife` / `recent_articles_validation_failed`: 2 each
-
-**Top warning rules (2026-05-13 live, 385 ports):**
-- `image_reuse_alt_drift`: **738** (alt-text drift on shared images — touches every port using hero or author photos)
-- `missing_canonical_nav_items`: 368 (nav missing canonical /planning.html link site-wide)
-- `missing_stories_noscript`: 346 *(quantifies the Noscript Phase 1 — Recent Stories item: every port needs the fallback)*
-- `missing_ships_noscript`: 342 *(quantifies the Noscript Phase 1 — Ships Visiting item)*
-- `missing_css_version`: 328 (cache-bust version query missing on stylesheet link)
-- `insufficient_pois`: **288** *(confirms — and lowers — the "365 ports <10 POIs" 2026-03-02 claim; real number is 288 of 385)*
-- `poi_ids_without_pois`: 259 (POI IDs referenced but POIs not resolved — related to insufficient_pois)
-- `placeholder_map_noscript`: 249 *(quantifies the Noscript Phase 2 — Map placeholder item)*
-- `gallery_credit_low_diversity`: 181 (4+ gallery images cite ≤2 unique source URLs)
-- `first_person_maximum`: 178 (voice — first-person occurrence above the like-a-human ceiling)
-
-**Remaining quality improvements:**
-- [ ] **Investigate `weather_validation_failed` root cause** (BEFORE any port-by-port remediation) — the 338-count is too clean to be 338 individual problems. Compare current `scripts/validate-port-weather.js` against its state when 242 ports were passing (2026-03-02). Either restore the prior bar or document the change and start a fleet backfill plan.
-- [ ] `missing_image_file`: 53 ports (real per-port broken-image work)
-- [ ] `missing_stylesheet` + `collapsible_required` + `missing_main_content`: 86 ports combined (smaller categories; likely fixable in batches by file pattern)
-- [ ] Noscript Phase 1 (already in queue under [G] Noscript Remediation): now empirically scoped — 346 stories + 342 ships + 249 map = 280-350 ports per fallback type
-- [ ] POI manifest work (already in queue): 288 ports below the 10-POI minimum (was claimed as 365 in 2026-03-02; actual scope is smaller and more bounded)
-- [ ] `image_reuse_alt_drift` site-wide: 738 warnings — likely concentrated on a few shared images (author portraits, hero variants); fix the source images' canonical alt text and the warning drops across all referencing pages
-- [ ] FAQ trim, promotional drift cleanup, first_person_maximum: voice-touch passes (use `voice-audit` skill); 178+ ports affected by first-person alone
-- [ ] 2 ports missed by the validator sweep (runtime hiccups) — re-run on those after the weather rule is sorted
-
-### [G] Port Weather — Remaining Coverage
-**Refreshed 2026-05-12:** 365/387 ports now have weather widgets (was 351; gap dropped from 36 to 22).
-- [ ] Add weather section to remaining 22 ports
-
-### [G] Technical Tasks
-- [ ] Verify WCAG 2.1 AA compliance across new pages
-- [ ] Test keyboard navigation on dropdown menus
-- [ ] Test screen reader compatibility
-- [ ] Verify all images have proper alt text
-- [ ] Run Google PageSpeed Insights on key pages
-- [ ] Mobile browser testing at 360px, 375px, 390px, 412px, 768px (requires manual browser)
-
-### [G] Ship Size Atlas — Remaining Items
-- [ ] Add "Size Map" scatter chart view (GT vs Passengers)
-- [ ] Add "Top 30 Largest Ships" spotlight module
-- [ ] Add ship detail drawer/modal
-- [ ] Create automated coverage report
-- [ ] Add "last verified" date display per ship
-
-### [G] Competitor Analysis Recommendations — Deduplicated
-**Source:** Comprehensive audit (120+ competitors, 15 categories) — `.claude/audits/`
-
-These items appeared across 7+ individual competitor analysis sections. Deduplicated here:
-
-**Port page improvements:**
-- [ ] Ensure dock locations clearly marked on all port maps
-- [ ] Add dock location summary to port page intro
-- [ ] Expand DIY vs. excursion comparisons from 38 to top 50 ports
-- [ ] Expand "Real Talk" honest assessments to 75+ ports (50 ports as of 2026-05-12 spot-check; was 46 at 2026-03-02; gap to target: 25 more)
-
-**Ship page improvements:**
-- [ ] Add cabin size/amenity quick facts where missing
-- [ ] Ensure refurbishment dates are current
-- [ ] Add crew count and total deck count if missing
-- [ ] Promote Stateroom Checker more prominently on ship pages
-
-**Site-wide:**
-*All three site-wide bullets retired 2026-05-12 (audit). See `admin/AUDIT_TRIAGE_2026-05-12.md`.*
-
-### [G] Affiliate Link Infrastructure
-**Phase 1 (Infrastructure) DONE. Phase 2 (Articles) DONE. Phase 3 (Site-wide) ~99% DONE.**
-- [ ] Update about-us.html "Our Promise" section to acknowledge Amazon Associates participation
-- [x] Add affiliate article links to 4 remaining ship pages (carnival-adventure, carnivale-1956, jubilee-1986, mardi-gras-1972) — completed 2026-05-13 (B2.4)
-- [ ] Add affiliate article links to 3 remaining port pages (beijing, falmouth-jamaica, kyoto)
-
-### [G] Quiz Remaining Fixes
-*All 3 prior fixes verified shipped and moved to `admin/COMPLETED_TASKS.md` on 2026-05-12. The "Run edge case test personas" bullet retired 2026-05-12 (audit) as undefined scope. Section retained as a marker for future quiz work.*
-
-### [G] Data Quality
-*Both "Verify quality of auto-generated …" bullets retired 2026-05-12 (audit) as lacking acceptance criteria. See `admin/AUDIT_TRIAGE_2026-05-12.md`.*
-
----
-
-## YELLOW LANE — AI Proposes, Human Approves
-
-### [Y] Port Call Reliability Tracker (NEW — 2026-04-09)
-**Status:** Not started — research + design needed
-**Priority:** P2 — high user value, no API available
-**Source:** User experience — "Costa Maybe" (Costa Maya), Bay of Islands NZ, and other ports that get cancelled frequently due to weather, tender conditions, or operational issues
-
-**Problem:** Passengers book excursions and plan days around ports that may get cancelled. No cruise line publishes cancellation rates. Ports like Costa Maya, Bar Harbor (fog), Bermuda (wind), Bay of Islands (swell), and many tender ports have significantly higher skip rates than docked ports, but this information lives only in cruise forum folklore.
-
-**Why it matters:** A disabled traveler who books a wheelchair-accessible excursion at a tender port that gets cancelled 30% of the time deserves to know that before booking. A grieving widow planning a meaningful shore visit doesn't need the added disappointment of discovering at 6am that the port was skipped.
-
-**Data sources (no line API needed):**
-- [ ] **Cruise forum scraping** — CruiseCritic, Reddit r/cruise, Facebook cruise groups have years of "our port was cancelled" posts. A structured scrape + NLP could extract port name + date + reason + ship name
-- [ ] **Ship tracking history** — MarineTraffic, VesselFinder, and CruiseMapper show historical ship positions. Compare scheduled itinerary vs actual track to detect skipped ports (ship that was supposed to stop at Costa Maya but went straight to Cozumel)
-- [ ] **Weather correlation** — Cross-reference NOAA/weather data with known cancellation patterns. If wind > 25kt at a tender port, it's probably cancelled. Build a model per port
-- [ ] **Port authority data** — Some ports publish annual ship call statistics (actual vs scheduled). Caribbean ports especially may have tourism board data
-- [ ] **Cruise line schedule changes** — Monitor cruise line websites for itinerary changes. When "Costa Maya" disappears from a sailing and gets replaced with "Cozumel" or "sea day," that's a data point
-- [ ] **Community-sourced** — Add a simple "Did your ship actually stop here?" yes/no on each port page. Aggregate over time
-
-**Implementation ideas:**
-- [ ] Design a "Port Reliability" indicator for each port page (e.g., "Reliability: High / Moderate / Weather-Dependent")
-- [ ] Add "This port is tender-only — cancellations are more common in rough weather" notice to all tender ports
-- [ ] Create a seasonal reliability calendar per port (e.g., "Bay of Islands: Jan-Mar reliable, Apr-May weather-dependent, Jun-Aug often cancelled")
-- [ ] Consider a `/tools/port-reliability.html` dashboard showing all ports ranked by estimated reliability
-- [ ] Track tender vs dock — tender ports inherently less reliable
-
-**Known unreliable ports (from user experience + cruise forums):**
-- Costa Maya, Mexico ("Costa Maybe") — weather cancellations, especially fall
-- Bay of Islands, New Zealand — swell-dependent tender, frequently cancelled
-- Bar Harbor, Maine — fog cancellations, tender port
-- Bermuda (some berths) — wind-dependent
-- Many Greek island tender ports (Santorini, Mykonos) — meltemi wind season
-- Glacier Bay, Alaska — weather/visibility
-- Antarctica expedition ports — weather-dependent by nature
-
-### [Y] Port Day Disruption Factors (NEW — 2026-04-09)
-**Status:** Research in progress (2026-04-09 session)
-**Priority:** P1 — directly affects port page notices sections
-
-Comprehensive factors that can disrupt a passenger's port day, to be integrated into each port's notices section:
-
-- [ ] **Religious dress codes** — mosque, temple, church requirements by port (specific rules, not vague "dress modestly")
-- [ ] **Religious holidays** — Ramadan restaurant closures, Shabbat in Israel, Friday mosque closures, Hindu festivals
-- [ ] **National holidays** — Revolution Day (Mexico), Carnival (Caribbean/Brazil), bank holidays closing attractions
-- [ ] **Street closures** — parades, festivals, protests that block transit routes (user encountered this in a Mexican port)
-- [ ] **Weather extremes** — not just cancellations but dangerous heat (Middle East summer), monsoon downpours, etc.
-- [ ] **Accessibility barriers** — cobblestones, steep hills, tender-only limitations, heat + mobility dangers
-- [ ] **Port-to-town distance** — docks far from attractions, misleading "walking distance" claims
-- [ ] **Taxi/transport issues** — known scam ports, metered vs negotiated, surge pricing during events
-- [ ] **Time zone changes** — ship time vs local time confusion
-- [ ] **Multiple dock locations** — which berth will your ship use? (affects planning)
-
-### [Y] "What Can I Eat?" Dining Search Tool (NEW — 2026-02-22)
-**Status:** Not started — design needed
-**Priority:** P1 — new tool, high user value
-
-- [ ] Audit `venues.json` for dish-level data availability
-- [ ] Create `/assets/data/menu-search-index.json` (inverted index)
-- [ ] Create `/assets/js/dining-search.js`
-- [ ] Create `/tools/dining-search.html` (standalone page)
-- [ ] Design ship page widget (compact embedded version)
-- [ ] Implement autocomplete/suggestions for dish search
-- [ ] Add to site navigation (Tools dropdown)
-- [ ] Service worker caching for offline use
-
-### [Y] Stateroom Checker — Embed on Ship Pages (NEW — 2026-02-22)
-**Status:** Not started — design needed
-**Priority:** P1 — leverages existing 270 exception files
-
-- [ ] Extract core checker logic into reusable `/assets/js/stateroom-widget.js`
-- [ ] Create ship page widget HTML template
-- [ ] Lazy-load exception JSON only when widget activated
-- [ ] Add widget section to ship page template
-- [ ] Roll out to all 295 ship pages
-- [ ] Audit which 25 ships lack exception files, create stubs
-- [ ] Ensure offline/PWA support
-
-### [Y] Alaska Cruise Port Gaps
-**Status:** 7 of 12 "missing" ports now exist (built since audit)
-
-**Still missing (5):**
-- [ ] `dutch-harbor.html` — Aleutian Islands; Deadliest Catch fame
-- [ ] `nome.html` — Bering Sea; Iditarod finish line
-- [ ] `kake.html` — Tiny Tlingit village on Kupreanof Island
-- [ ] `victoria.html` — Common PVSA stop on Seattle round-trips
-- [ ] `prince-rupert.html` — Inside Passage to open gulf
-
-### [Y] Image Tasks — Ships Needing FOM Photos
-- [ ] Allure of the Seas
-- [ ] Anthem of the Seas
-- [ ] Icon of the Seas
-- [ ] Independence of the Seas
-- [ ] Navigator of the Seas
-- [ ] Odyssey of the Seas
-- [ ] Quantum of the Seas (has 7 FOM already, may need more)
-- [ ] Spectrum of the Seas
-- [ ] + additional ships across non-RCL lines
-
-### [Y] DIY vs. Excursion Comparison Expansion
-**Current:** 38 ports have comparisons
-- [ ] Expand to top 50 ports
-- [ ] Format: "Ship excursion: $X | DIY: $Y | You save: $Z"
-- [ ] Add timing/transport/admission context
-
-### [Y] Affiliate Content — Phase 3 (Enhance Existing)
-- [ ] Add affiliate links to `/packing-lists.html`
-- [ ] Add tech recommendations to `/internet-at-sea.html`
-
-### [Y] Carnival Fleet Index Enhancement
-- [ ] (Future) CTA for booking
-
-### [Y] ships.html Display Issues
-- [ ] Class cards need images
-- [ ] Cruise lines need images
-- [ ] Individual ship images rendering issues
-
-### [Y] SEO External Tools Setup
-- [ ] Set up Bing Webmaster Tools
-- [ ] Set up Google Analytics dashboard
-
-(GSC setup verified active and moved to `admin/COMPLETED_TASKS.md` on 2026-05-12; see the "Google Search Console Audit (2026-03-27)" section at the top of this file for the operational data.)
-
-### [Y] Dining Hero Images
-- [ ] 49 RCL ship dining hero images needed (all currently use generic Cordelia placeholder)
-
-### [Y] "Coming Soon" Pages
-- [ ] ~172 pages still have placeholder "coming soon" text (142 ships, 18 restaurants, 7 cruise-lines, 5 other)
-
----
-
-## RED LANE — Human Decides
-
-### [R] Articles to Write — Pastoral Content
-- [ ] Healing Relationships at Sea (~3,000 words) — not created
-- [ ] Rest for Wounded Healers (~2,500 words) — not created
-- [ ] Expand or create comprehensive-solo-cruising.html
-
-### [R] Additional Themed Articles
-- [ ] Medical recovery articles (post-cancer, post-stroke, chronic illness)
-- [ ] Mental health articles (anxiety, PTSD/veteran, bipolar/depression)
-- [ ] Family situation articles (infertility grief, adoption, homeschool)
-- [ ] Demographic articles (senior travel, neurodiversity, burn survivors)
-- [ ] Life transition articles (retirement, second marriage, work-life balance)
-
----
-
-## Uncategorized Pending Items
-
-- [ ] `staleIfErrorTimestamped` strategy for FX API caching
-- [ ] `warmCalculatorShell` predictive prefetch
-- [ ] `FORCE_DATA_REFRESH` and `GET_CACHE_STATS` message handlers
-- [ ] UI integration: "Refresh Rates" button, cache age display, toast notifications
-- [ ] solo.html article loading (28 article references, uses fetch for fragments)
-- [ ] index.html FAQ positioning
-
-### Missing Port Pages (rare/exotic — low priority)
-- [ ] astoria (Oregon)
-- [ ] catalina-island (California) — verify if covered by los-angeles.html
-- [ ] eden (Australia)
-- [ ] port-vila (Vanuatu) — verify if covered by vanuatu.html
-- [ ] rarotonga (Cook Islands)
-- [ ] arica (Chile)
-- [ ] coquimbo (Chile)
-- [ ] abidjan (Ivory Coast)
-- [ ] antsiranana (Madagascar)
-- [ ] la-digue (Seychelles)
-- [ ] luderitz (Namibia)
-- [ ] mossel-bay (South Africa)
-- [ ] aarhus (Denmark)
-- [ ] haugesund (Norway)
-- [ ] kristiansand (Norway)
-- [ ] nuuk (Greenland)
-- [ ] qaqortoq (Greenland)
-
-### Missing Homeport Pages
-- [ ] hp-norfolk
-- [ ] hp-philadelphia
-- [ ] hp-west-palm-beach
-- [ ] hp-san-juan (have HTML, need tracker entry)
-- [ ] hp-honolulu (have HTML, need tracker entry)
-- [ ] hp-dover (London gateway)
-- [ ] hp-hamburg
-- [ ] hp-istanbul
-- [ ] hp-le-havre (Paris gateway)
-- [ ] hp-lisbon
-- [ ] hp-livorno (Florence/Pisa gateway)
-- [ ] hp-athens (Piraeus)
-- [ ] hp-ravenna
-- [ ] hp-trieste
-- [ ] hp-dubai
-- [ ] hp-mumbai
-
----
-
-## Missing Port and Ship Pages (Discovered 2026-05-08)
-
-**Source:** Link verification during drafting of `articles/caribbean-cruise-trends-2026.html`. Each item below is referenced by name in published or upcoming content but has no dedicated page yet.
-
-### Missing port pages
-
-- [ ] **Half Moon Cay** — Holland America / Carnival private destination in the Bahamas. Mentioned in the 2026 Caribbean trends article and across multiple cruise-line itineraries. Needs a port page in `/ports/half-moon-cay.html` per the standard port template.
-- [ ] **Celebration Key** — Carnival's new private destination in Grand Bahama, opening 2025–2026. Mentioned in the 2026 Caribbean trends article. Needs a port page in `/ports/celebration-key.html`. Add as it opens; verify pier, capacity, and on-island amenities from primary Carnival sources before publishing.
-
-### Missing ship pages
-
-- [ ] **Norwegian Luna** — New NCL ship referenced in 2026 capacity discussions. Needs a ship page in `/ships/norwegian/norwegian-luna.html` once specs, deck plans, and naming-rights data are available.
-
-### Missing article thumbnails / hero images
-
-The article rail (`/assets/data/articles/index.json`) lists `thumbnail` and `image` paths for each article. Four articles currently fall back to `/assets/social/articles-hero.jpg` because their dedicated hero images don't exist on disk yet:
-
-- [ ] **`/articles/caribbean-cruise-trends-2026.html`** — needs a hero/thumbnail (suggest: `/assets/articles/caribbean-cruise-trends-2026-hero.webp`). The page's `og:image` currently also points at the generic articles-hero.jpg fallback.
-- [ ] **`/articles/cruise-cabin-organization.html`** — `og:image` references `/assets/articles/cabin-organization-hero.jpg?v=3.010.400` but the file does not exist on disk. Either generate the image or update the og:image to a real path.
-- [ ] **`/articles/cruise-tech-photography-guide.html`** — `og:image` references `/assets/articles/cruise-tech-hero.jpg?v=3.010.401`; not on disk. Same fix needed.
-- [ ] **`/articles/cruise-duck-tradition.html`** — `og:image` references `/assets/social/cruise-ducks-hero.jpg`; not on disk.
-
-While the rail and article-hub-grid renderers fall back gracefully to `/assets/social/articles-hero.jpg`, the social meta tags still serve broken URLs to Facebook/Twitter/LinkedIn previews. Generate proper hero images per `admin/claude/IMAGE_WORKFLOW.md`, then update both the og:image meta tags and the `thumbnail`/`image` paths in `/assets/data/articles/index.json`.
-
-### Why these are tracked here
-
-`careful-not-clever` requires that gaps surfaced during one task get documented for the next task rather than silently skipped. These pages and images were excluded as link/image targets in the Caribbean trends article (deliberate skips) and need their own scoped work. Move each to `admin/COMPLETED_TASKS.md` when published — do not delete from this list silently.
-
-### Broken article reference: `/solo/articles/alaska-cruise-first-timer.html` (Discovered 2026-05-08)
-
-- [ ] **`alaska-cruise-first-timer.html` does not exist** but is hardcoded into the `<noscript>` rail fallback on 14 port pages (anchorage, ajaccio, akureyri, alesund, etc.). The file was never written — only the link was. For users without JS, those 14 pages serve a 404 link. Two acceptable fixes:
-  1. Write the article (`/articles/alaska-cruise-first-timer.html` or `/solo/alaska-cruise-first-timer.html`) and add it to `assets/data/articles/index.json`. The link target then resolves.
-  2. Remove the alaska `<li>` from each port-page noscript fallback. Cleaner if no plan to write the article.
-- See remaining hits: `grep -rln "/solo/articles/alaska-cruise-first-timer" --include="*.html" .`
-
----
-
-## Cruise Tipping Calculator — Known Defects (Discovered 2026-05-09 careful-not-clever audit)
-
-**Source:** Post-merge careful-not-clever audit against the v1.7-alpha skill (canonical 2026-05-09). All eight items from the original audit are now shipped and moved to `admin/COMPLETED_TASKS.md`:
-
-- Six dollar-correctness defects (P1 children handling, P1 region pricing for Costa/MSC, Costa half-rate, P2 Virgin Voyages prepaid vs onboard, P3 five legacy Carnival ship pages, P3 Playwright regression baseline) — shipped 2026-05-09 to 2026-05-10, moved 2026-05-12.
-- One P2 (pre-existing JS errors on four tools) — shipped 2026-05-09, moved 2026-05-12.
-- P3 `[object Object]` 404s — root-caused, fixed, and regression-tested 2026-05-13 (B1.2 of the audit batch plan). The smell was `sw.js:warmPrecache()` treating manifest `{url, priority}` entries as bare URL strings, producing 64 `/[object Object]` 404s per page load. Fix extracts `.url` explicitly + hardens `isSameOrigin`. See `admin/COMPLETED_TASKS.md`.
-
-The section is retained as historical context for the v1.7-alpha careful-not-clever audit pattern; nothing remains open here.
-
----
-
-## Retired during 2026-05-12 audit
-
-Per the careful-not-clever rule ("do not delete silently"), these 13 items were removed from the active queue with explicit rationale during the 2026-05-12 audit pass. Full triage report: `admin/AUDIT_TRIAGE_2026-05-12.md`. User approved retirement.
-
-| # | Item | Original section | Rationale |
-|---|---|---|---|
-| D1 | Evaluate PDF generation for top 20 ports | Competitor Analysis → Port page improvements | "Evaluate" not commit; overlap with Strategic Don't Chase ("Native mobile app — PWA sufficient") |
-| D2 | Add "Best for / Not ideal for" profile guidance per port | Competitor Analysis → Port page improvements | Strategic Don't Chase explicitly rejects "Profile-based voyage paths — Impossible at scale" |
-| D3 | Add author expertise callouts ("Ken has visited this port X times") | Competitor Analysis → Site-wide | Vague; no concrete spec |
-| D4 | Run edge case test personas (Quiz) | Quiz Remaining Fixes | Personas were never written down. Unscoped |
-| D5 | Header hero size inconsistent across hub pages | Uncategorized | One-liner with no detail; covered by CLAUDE.md's active "Site-wide hero/logo standardization" |
-| D6 | Logo size standardization | Uncategorized | Duplicate of CLAUDE.md's active "Site-wide hero/logo standardization" |
-| D7 | Verify quality of auto-generated seasonal data vs hand-curated | Data Quality | No acceptance criteria |
-| D8 | Verify quality of auto-generated stateroom exception files | Data Quality | No acceptance criteria |
-| D9 | `/travel.html` is also "Top 20 First-Cruise Questions" architectural quirk | Missing pages | Entry itself said "Don't act unless we're doing a broader articles-hub refactor"; future-cleanup note, not a task |
-| D10 | Test service worker caching for complete offline access | Competitor Analysis → Site-wide | Vague continuous test; if real, scope as one Playwright spec |
-| D11 | Market PWA install as "your offline cruise companion" | Competitor Analysis → Site-wide | Marketing copy = R-lane, not G-lane |
-| D12 | Include "Skip this port if..." honest guidance where appropriate | Competitor Analysis → Port page improvements | Subjective; duplicates "Real Talk" expansion |
-| D14 | Add "cabin location tips" section to ship pages | Competitor Analysis → Ship page improvements | Vague + fleet-wide (295 ships) = unscoped giant; if revived, needs design spec |
-
-Item D13 ("Expand Real Talk honest assessments to 75+ ports") was NOT retired — it stays as a count-verify item in the Port page improvements section.
-
----
-
-## Strategic "Don't Chase" List (Explicit Decisions)
-
-| Feature | Why Not | Competitor Reference |
-|---------|---------|---------------------|
-| Port count arms race (1,200+) | Depth > breadth | WhatsInPort |
-| Ship count arms race (976+) | Quality > quantity | CruiseMapper |
-| Forums/user reviews | Dilutes trusted voice | Cruise Critic |
-| Real-time ship tracking | Different product | CruiseMapper, VesselFinder |
-| Native mobile app | PWA sufficient | ShipMate |
-| Cruise booking/deals | Conflicts with ad-free | CruisePlum, CruiseWatch |
-| News/trend coverage | Conflicts with calm authority | Cruise Hive, Cruise Radio |
-| YouTube/TikTok | Personality medium | Emma Cruises |
-| Profile-based voyage paths | Impossible at scale | AI chorus suggestion |
-
----
-
-## Reference Documents
-
-- `.claude/audits/competitor-*.md` — Competitor analyses
-- `.claude/archive/` — Historical audit summaries
-- `admin/COMPLETED_TASKS.md` — Finished work archive
-- `admin/IN_PROGRESS_TASKS.md` — Currently active threads
-- `admin/CAREFUL.md` — Integrity guardrail
-- `admin/claude/CLAUDE.md` — Complete project guide
-
----
-
-*Soli Deo Gloria*
+| priority | state | holder | task_id | title |
+|----------|-------|--------|---------|-------|
+| 0 | available | — | flickr-public-feed-attribution-audit-2026-04-12 | Flickr "public feed" Attribution Audit (2026-04-12) |
+| 0 | available | — | gotchas-to-avoid-next-time | Gotchas to avoid next time |
+| 0 | available | — | itw-flickr-arr-audit | Flickr ARR license audit — 889 attr / 124 ports |
+| 0 | available | — | itw-gh-1707 | [Generator] Port Page Generator emits forbidden /ships.html links and ships incomplete <!-- FILL --> templates |
+| 0 | available | — | itw-gh-1708 | [Generator / Standards Violation] Multiple generators continue to emit the forbidden /ships.html link |
+| 0 | available | — | itw-gh-1709 | [Architecture/Technical Debt] Proliferation of 50+ one-off batch-fix-* and fix-* scripts indicates missing generator and pipeline coverage |
+| 0 | available | — | itw-gh-1711 | [Architecture / Generator Gap] 61+ post-hoc batch-fix and fix scripts reveal systemic failures in generators, validators, and standards enforcement |
+| 0 | available | — | itw-gh-1712 | [Generator] Gold-standard port page generator hardcodes forbidden navigation and lacks write-time validation enforcement |
+| 0 | available | — | itw-gh-1755 | drink-calculator.html: CSP blocks GA4 and Umami analytics — both silently fail on this page |
+| 0 | available | — | itw-gh-1758 | "Email My Results" button shows alert: "not configured in this demo" — placeholder live in production |
+| 0 | available | — | ports-already-cleaned-2026-04-11-12 | Ports already cleaned (2026-04-11/12) |
+| 0 | available | — | ports-cleaned-2026-05-13 | Ports cleaned (2026-05-13) |
+| 0 | available | — | trusted-sources-proven-to-work-use-these-first | Trusted sources proven to work (use these first) |
+| 1 | available | — | additional-template-bug-data-integrity-surfaces-2026-05-13-in-fl | Additional template-bug + data-integrity surfaces (2026-05-13, in-flight) |
+| 1 | available | — | article-dependencies | Article dependencies |
+| 1 | available | — | find-the-affected-copy | Find the affected copy |
+| 1 | available | — | issue-e-ports-with-the-entire-weather-seasonal-section-missing | Issue E — Ports with the entire weather/seasonal section missing |
+| 1 | available | — | issue-f-forbidden-phrases-inside-seasonal-guides-json | Issue F — Forbidden phrases inside `seasonal-guides.json` |
+| 1 | available | — | issue-g-generic-currency-schema-entries-deferrable | Issue G — Generic currency-schema entries (deferrable) |
+| 1 | available | — | issue-h-repeated-faq-blocks-panama-canal-observed | Issue H — Repeated FAQ blocks (panama-canal observed) |
+| 1 | available | — | itw-hal-carousels | Deferred blocking HAL carousel errors |
+| 1 | available | — | itw-port-everglades-resource | Port Everglades — 6 open image slots re-source |
+| 1 | available | — | itw-port-miami-resource | Port Miami — 8 open image slots re-source |
+| 1 | available | — | legend-of-the-seas-what-the-first-passengers-found | Legend of the Seas — what the first passengers found |
+| 1 | available | — | pattern-c-cruise-shore-excursion-suffix-template-bug | Pattern C — "Cruise"/"Shore Excursion" suffix template bug |
+| 1 | available | — | pattern-d-half-filled-currency-is-used-in-answer | Pattern D — Half-filled "currency is used in" answer |
+| 1 | available | — | two-event-gated-articles-write-after-2026-07-11 | Two event-gated articles: write after 2026-07-11 |
+| 1 | available | — | two-paths | Two paths |
+| 1 | available | — | what-s-actually-inconsistent | What's actually inconsistent |
+| 2 | registered | — | itw-voyage-pwa-integration | Voyage PWA integration — write spec from approved design (amendments settled); 3-phase rollout Bliss time-critical; next: spec → operator review → writing-plans |
+| 3 | available | — | itw-legend-maiden-followup | Legend maiden voyage follow-up article |
+| 3 | available | — | itw-legend-tonnage-spec | Legend ship page tonnage spec refresh |
+| 3 | available | — | itw-mariner-oversold | Outcome article — Mariner oversold sailing |
+| 3 | available | — | port-page-normalization-phase-1-complete-phases-2-5-pending | Port Page Normalization — Phase 1 COMPLETE, Phases 2-5 PENDING |
+| 4 | available | — | itw-gh-1615 | [site-wide] 37 pages have truncated footers — missing About/Support/Accessibility/Reach Family links vs standard footer |
+| 4 | available | — | itw-gh-1619 | [site-wide] 11 pages have missing OG images (social preview 404s) — including 6 cruise line pages and 2 article pages |
+| 4 | available | — | itw-gh-1624 | [Port Pages] 47 pages have duplicate HTML IDs — accessibility skip-link broken, WCAG 2.1 AA violation |
+| 4 | available | — | itw-gh-1627 | [terms.html][privacy.html] terms.html has duplicate stylesheet (one a 404 relative path); privacy.html has V1.Beta badge in footer copyright line; both pages 6+ months stale |
+| 4 | available | — | itw-gh-1630 | 23 article pages missing dropdown.js — hamburger nav non-functional |
+| 4 | available | — | itw-gh-1632 | 342 pages load unversioned styles.css — cache busting broken, stale CSS served to repeat visitors |
+| 4 | available | — | itw-gh-1633 | Nav inconsistency: /planning.html in Planning dropdown on ship pages only — missing from all other page types |
+| 4 | available | — | itw-gh-1634 | in-app-browser-escape.js missing from 455 pages — Facebook/Instagram in-app browser escape not shown |
+| 4 | available | — | itw-gh-1651 | color-scheme inconsistency: article pages declare 'light dark', most others say 'light' or nothing |
+| 4 | available | — | itw-gh-1658 | planning.html: embedded port dataset last_updated is 2025-10-20 — 7 months stale |
+| 4 | available | — | itw-gh-1661 | [Structured Data] 152 ship pages have Review schema with no ratingValue — incomplete JSON-LD |
+| 4 | available | — | itw-gh-1669 | [Articles] 17 of 24 articles use generic og:image — social share cards all look identical |
+| 4 | available | — | itw-gh-1671 | ships.html: 4 cruise lines (Celebrity, HAL, Princess, Silversea) not linked — 113 ship pages undiscoverable |
+| 4 | available | — | itw-gh-1673 | tools/ship-size-atlas.html: missing dropdown.js — nav dropdowns broken |
+| 4 | available | — | itw-gh-1675 | 50 ship pages (Celebrity + HAL fleets): meta description = page title — zero SEO value |
+| 4 | available | — | itw-gh-1677 | travel.html: og:title "Travel Tips" does not match actual title "Top 20 Cruise Questions Answered" |
+| 4 | available | — | itw-gh-1678 | packing.html: noindex redirect listed in sitemap.xml — contradictory signals |
+| 4 | available | — | itw-gh-1679 | 6 pages: og:image references files that do not exist — broken social share thumbnails |
+| 4 | available | — | itw-gh-1682 | precache-manifest.json: 4 months stale, only 20/1282 pages, version mismatch, missing drink-calculatorv2.html |
+| 4 | available | — | itw-gh-1684 | GDPR: ConsentManager present on 10/1239 pages — GA4 fires without consent on 1,229 pages |
+| 4 | available | — | itw-gh-1687 | affiliate-disclosure.html: missing dropdown.js — mobile nav non-functional on trust page |
+| 4 | available | — | itw-gh-1688 | 3 important pages missing from sitemap.xml: reaching-someone-at-sea, voyage-packs, data |
+| 4 | available | — | itw-gh-1689 | ships/rooms.html: version (v2.201) in <title> tag — shows in Google SERPs and social shares |
+| 4 | available | — | itw-gh-1690 | 6 Princess ship pages: broken img src /assets/ships/placeholder-ship.svg — file missing |
+| 4 | available | — | itw-gh-1706 | [Architecture/Generator] Severe duplication across venue/page generators enables ongoing standards violations |
+| 4 | available | — | itw-gh-1718 | search.html: hardcoded counts stale — claims '738 pages / 171 ships / 333 ports' but index has 920 entries / 298 ships / 388 ports; fleet restaurant subdirs (198 pages) not indexed at all |
+| 4 | available | — | itw-gh-1720 | No custom 404.html — broken internal links deliver raw Netlify 404 with no site navigation |
+| 4 | available | — | itw-gh-1721 | _headers: cache rules for /assets/*.css and /assets/*.js don't cover subdirectory assets (assets/css/, assets/js/) |
+| 4 | available | — | itw-gh-1722 | _headers: missing Content-Security-Policy and HSTS; X-XSS-Protection is deprecated |
+| 4 | available | — | itw-gh-1723 | og:locale inconsistent — ships have it (293/312), ports/restaurants/cruise-lines have none (0/894 pages) |
+| 4 | available | — | itw-gh-1724 | 145 port pages: Swiper gallery JS missing — photo galleries broken |
+| 4 | available | — | itw-gh-1754 | 4 restaurant pages: duplicate H1 — one hidden via display:none (gray-hat SEO risk) |
+| 4 | available | — | itw-gh-1756 | 6 indexed pages missing GA4 analytics — traffic invisible in dashboard |
+| 4 | available | — | itw-gh-1757 | 21 ship pages: broken internal anchor links (#video-highlights, #dining-card, #content) |
+| 4 | available | — | itw-gh-1759 | ships-dynamic.js references /assets/ship-placeholder.jpg — file missing, broken image fallback |
+| 4 | available | — | itw-gh-1760 | security.js: SecureStorage uses plain localStorage with no encryption — misleading name and false security |
+| 4 | available | — | itw-gh-1767 | 21 port pages + offline.html: og:url is empty string — Open Graph broken |
+| 4 | available | — | itw-gh-1768 | offline.html: JSON-LD url contains local filesystem path leaked into production |
+| 4 | available | — | itw-gh-1769 | cruise-lines/virgin.html: SW registered with absolute URL + stale version v3.006 (current: v14.3.0) |
+| 4 | available | — | itw-gh-1770 | disability-at-sea.html: zero service worker registration — page not cached offline |
+| 4 | available | — | itw-gh-1779 | fix-port-remaining.cjs — older "remaining 1-error" port bulk repair (pre-DOM regex surgery + hardcoded deadPages list + heavy inline hero/credit injection + direct writes, no standards) |
+| 4 | available | — | itw-gh-1780 | batch-fix-port-structure.cjs — major structural batch repair (170+ hardcoded ports DB + multiple sidebar template injections + validator-calling mode + attr.json creation + direct writes) |
+| 4 | available | — | itw-gh-1781 | normalize-port-pages-v2.cjs — explicit validator-mirroring section reordering tool (EXPECTED_MAIN_ORDER + SECTION_PATTERNS duplication + complex DOM walking + direct writes) |
+| 4 | available | — | itw-gh-1782 | [Ship Pages] Every ship page (290/290) links to forbidden /ships.html (1,029 occurrences) |
+| 4 | available | — | itw-gh-1783 | [Ship Pages] 58% of ship pages (169/290) contain hotlinked external images (178 total) |
+| 4 | available | — | itw-gh-1785 | [Ship Pages] First Look carousel fails to render (empty) on nearly all ship pages despite HTML structure + JS init present |
+| 4 | available | — | itw-gh-1786 | [Ship Pages] Canonical validator produces systematic false positives (og:url / description reported missing when present in 100% of sources) |
+| 4 | available | — | itw-gh-1787 | [Standards] SHIP_PAGE_CHECKLIST_v3.010.md itself hard-codes the forbidden /ships.html pattern (root cause of universal violation) |
+| 4 | available | — | itw-gh-1788 | [Ship Pages] 64% of ship pages (185/290) contain placeholder/TBD/TODO/lorem language |
+| 4 | available | — | itw-gh-1789 | [Ship Pages] 29% of ship pages (84/290) contain relative URLs that do not start with / or https |
+| 4 | available | — | itw-gh-1791 | [Ship Pages] 65% of ship pages (188/290) still reference ICP-Lite instead of ICP-2 |
+| 4 | available | — | itw-gh-1793 | [Ship Pages] 78% of ship pages (225/290) declare both Vehicle and legacy schema types (Cruise/Thing) in the same JSON-LD |
+| 4 | available | — | itw-gh-1794 | [Ship Pages] 95% of ship pages with dining sections (276/290) are missing their dining-hero image |
+| 4 | available | — | itw-gh-1795 | [Ship Pages] 71% of ship pages (206/290) still use generic ship-map.png placeholder for deck plans |
+| 4 | available | — | itw-gh-1796 | [Ship Pages] 12% of ship pages (35/290) have swiper carousels with HTML but no JavaScript initialization at all |
+| 4 | available | — | itw-gh-1797 | [Ship Pages] 31% of ship pages (90/290) are missing the Logbook / 'Tales From the Wake' section entirely |
+| 4 | available | — | itw-gh-1798 | [Ship Pages] 29% of ship pages (83/290) have very low total image counts (<8 <img> tags) |
+| 4 | available | — | itw-gh-1799 | [Ship Pages] 85% of ship pages (247/290) appear to be missing the 'Who this ship is for' / audience targeting section |
+| 4 | available | — | itw-gh-1800 | [Ship Pages] Validator reports 'Deck Plans section MISSING' on carnival-horizon.html (not seen on previous ships) |
+| 4 | available | — | itw-gh-1829 | [Technical] Cloudflare R2 Migration: HTML content still referencing local assets |
+| 4 | available | — | itw-source-real-photography | Source-real-photography backlog — 39 ship pages |
+| 4 | registered | — | itw-voyage-pwa-icons | Voyage PWA — 14 identical icons follow-up |
+| 5 | available | — | 1-unfinished-carnival-cruise-line-expansion-150-200-new-ports | 1: ❌ UNFINISHED - Carnival Cruise Line expansion (150-200 new ports) |
+| 5 | available | — | 10-unfinished-add-video-data-for-ships-without-videos | 10: ❌ UNFINISHED - Add video data for ships without videos |
+| 5 | available | — | 11-unfinished-cross-linking-improvements | 11: ❌ UNFINISHED - Cross-linking improvements |
+| 5 | available | — | 2-ports-missed-by-the-validator-sweep-runtime-hiccups-re-run-on- | 2 ports missed by the validator sweep (runtime hiccups) — re-run on those after the weather rule is sorted |
+| 5 | available | — | 2-unfinished-virgin-voyages-expansion-15-20-unique-ports | 2: ❌ UNFINISHED - Virgin Voyages expansion (15-20 unique ports) |
+| 5 | available | — | 3-unfinished-multi-cruise-line-tracker-enhancement | 3: ❌ UNFINISHED - Multi-cruise-line tracker enhancement |
+| 5 | available | — | 3-unfinished-princess-cruises-expansion | 3: ❌ UNFINISHED - Princess Cruises expansion |
+| 5 | available | — | 4-unfinished-asia-expansion-batch-10-15-ports | 4: ❌ UNFINISHED - Asia expansion batch (10-15 ports) |
+| 5 | available | — | 4-unfinished-norwegian-cruise-line-expansion | 4: ❌ UNFINISHED - Norwegian Cruise Line expansion |
+| 5 | available | — | 5-unfinished-australia-south-pacific-batch-15-20-ports | 5: ❌ UNFINISHED - Australia & South Pacific batch (15-20 ports) |
+| 5 | available | — | 5-unfinished-celebrity-cruises-expansion | 5: ❌ UNFINISHED - Celebrity Cruises expansion |
+| 5 | available | — | 50-ships-flagged-by-js-runtime-data-cascade-fully-failed-per-the | 50 ships — flagged by `js:runtime_data/cascade_fully_failed` per the same dashboard. Top single failure category by coun |
+| 5 | available | — | 7-unfinished-middle-east-port-batch-4-ports | 7: ❌ UNFINISHED - Middle East port batch (4 ports) |
+| 5 | available | — | 8-unfinished-caribbean-completion-batch-8-10-ports | 8: ❌ UNFINISHED - Caribbean completion batch (8-10 ports) |
+| 5 | available | — | 9-unfinished-icp-lite-itw-lite-content-rollout | 9: ❌ UNFINISHED - ICP-Lite & ITW-Lite content rollout |
+| 5 | available | — | aarhus-denmark | aarhus (Denmark) |
+| 5 | available | — | abidjan-ivory-coast | abidjan (Ivory Coast) |
+| 5 | available | — | accessibility-barriers-cobblestones-steep-hills-tender-only-limi | Accessibility barriers — — cobblestones, steep hills, tender-only limitations, heat + mobility dangers |
+| 5 | available | — | add-affiliate-article-links-to-3-remaining-port-pages-beijing-fa | Add affiliate article links to 3 remaining port pages (beijing, falmouth-jamaica, kyoto) |
+| 5 | available | — | add-affiliate-links-to-packing-lists-html | Add affiliate links to `/packing-lists.html` |
+| 5 | available | — | add-cabin-size-amenity-quick-facts-where-missing | Add cabin size/amenity quick facts where missing |
+| 5 | available | — | add-crew-count-and-total-deck-count-if-missing | Add crew count and total deck count if missing |
+| 5 | available | — | add-dock-location-summary-to-port-page-intro | Add dock location summary to port page intro |
+| 5 | available | — | add-last-verified-date-display-per-ship | Add "last verified" date display per ship |
+| 5 | available | — | add-missing-grid-2-layout-30-ships-mostly-carnival | Add missing grid-2 layout (~30 ships, mostly Carnival) |
+| 5 | available | — | add-missing-whimsical-units-containers-181-ships | Add missing whimsical units containers (~181 ships) |
+| 5 | available | — | add-ship-detail-drawer-modal | Add ship detail drawer/modal |
+| 5 | available | — | add-size-map-scatter-chart-view-gt-vs-passengers | Add "Size Map" scatter chart view (GT vs Passengers) |
+| 5 | available | — | add-tech-recommendations-to-internet-at-sea-html | Add tech recommendations to `/internet-at-sea.html` |
+| 5 | available | — | add-this-port-is-tender-only-cancellations-are-more-common-in-ro | Add "This port is tender-only — cancellations are more common in rough weather" notice to all tender ports |
+| 5 | available | — | add-timing-transport-admission-context | Add timing/transport/admission context |
+| 5 | available | — | add-to-site-navigation-tools-dropdown | Add to site navigation (Tools dropdown) |
+| 5 | available | — | add-top-30-largest-ships-spotlight-module | Add "Top 30 Largest Ships" spotlight module |
+| 5 | available | — | add-weather-section-to-remaining-22-ports | Add weather section to remaining 22 ports |
+| 5 | available | — | add-widget-section-to-ship-page-template | Add widget section to ship page template |
+| 5 | available | — | additional-ships-across-non-rcl-lines | + additional ships across non-RCL lines |
+| 5 | available | — | additional-themed-articles | Additional Themed Articles |
+| 5 | available | — | affiliate-content-phase-3-enhance-existing | Affiliate Content — Phase 3 (Enhance Existing) |
+| 5 | available | — | affiliate-link-infrastructure | Affiliate Link Infrastructure |
+| 5 | available | — | alaska-cruise-port-gaps | Alaska Cruise Port Gaps |
+| 5 | available | — | align-section-order-first-look-dining-videos-deck-plans-tracker- | Align section order: First Look → Dining → Videos → Deck Plans/Tracker → FAQ |
+| 5 | available | — | allure-of-the-seas | Allure of the Seas |
+| 5 | available | — | anthem-of-the-seas | Anthem of the Seas |
+| 5 | available | — | antsiranana-madagascar | antsiranana (Madagascar) |
+| 5 | available | — | approach-for-repairs | Approach for repairs |
+| 5 | available | — | arica-chile | arica (Chile) |
+| 5 | available | — | articles-caribbean-cruise-trends-2026-html-needs-a-hero-thumbnai | `/articles/caribbean-cruise-trends-2026.html` — — needs a hero/thumbnail (suggest: `/assets/articles/caribbean-cruise-tr |
+| 5 | available | — | articles-cruise-cabin-organization-html-og-image-references-asse | `/articles/cruise-cabin-organization.html` — — `og:image` references `/assets/articles/cabin-organization-hero.jpg?v=3.0 |
+| 5 | available | — | articles-cruise-duck-tradition-html-og-image-references-assets-s | `/articles/cruise-duck-tradition.html` — — `og:image` references `/assets/social/cruise-ducks-hero.jpg`; not on disk. |
+| 5 | available | — | articles-cruise-tech-photography-guide-html-og-image-references- | `/articles/cruise-tech-photography-guide.html` — — `og:image` references `/assets/articles/cruise-tech-hero.jpg?v=3.010. |
+| 5 | available | — | articles-to-write-pastoral-content | Articles to Write — Pastoral Content |
+| 5 | available | — | astoria-oregon | astoria (Oregon) |
+| 5 | available | — | audit-venues-json-for-dish-level-data-availability | Audit `venues.json` for dish-level data availability |
+| 5 | available | — | audit-which-25-ships-lack-exception-files-create-stubs | Audit which 25 ships lack exception files, create stubs |
+| 5 | available | — | broken-article-reference-solo-articles-alaska-cruise-first-timer | Broken article reference: `/solo/articles/alaska-cruise-first-timer.html` (Discovered 2026-05-08) |
+| 5 | available | — | can-template-from-the-273-ports-that-already-have-full-noscript | Can template from the 273 ports that already have full noscript |
+| 5 | available | — | carnival-fleet-index-enhancement | Carnival Fleet Index Enhancement |
+| 5 | available | — | cascade-fully-failed-51-ships-phase-3-6-investigation-first | cascade_fully_failed: 51 ships — (Phase 3.6 — investigation-first) |
+| 5 | available | — | catalina-island-california-verify-if-covered-by-los-angeles-html | catalina-island (California) — verify if covered by los-angeles.html |
+| 5 | available | — | celebration-key-carnival-s-new-private-destination-in-grand-baha | Celebration Key — — Carnival's new private destination in Grand Bahama, opening 2025–2026. Mentioned in the 2026 Caribbe |
+| 5 | available | — | class-cards-need-images | Class cards need images |
+| 5 | available | — | coming-soon-pages | "Coming Soon" Pages |
+| 5 | available | — | community-sourced-add-a-simple-did-your-ship-actually-stop-here- | Community-sourced — — Add a simple "Did your ship actually stop here?" yes/no on each port page. Aggregate over time |
+| 5 | available | — | competitor-analysis-recommendations-deduplicated | Competitor Analysis Recommendations — Deduplicated |
+| 5 | available | — | consider-a-tools-port-reliability-html-dashboard-showing-all-por | Consider a `/tools/port-reliability.html` dashboard showing all ports ranked by estimated reliability |
+| 5 | available | — | coquimbo-chile | coquimbo (Chile) |
+| 5 | available | — | crawled-not-indexed-content-quality-plan | Crawled-Not-Indexed: Content Quality Plan |
+| 5 | available | — | create-a-seasonal-reliability-calendar-per-port-e-g-bay-of-islan | Create a seasonal reliability calendar per port (e.g., "Bay of Islands: Jan-Mar reliable, Apr-May weather-dependent, Jun |
+| 5 | available | — | create-assets-data-menu-search-index-json-inverted-index | Create `/assets/data/menu-search-index.json` (inverted index) |
+| 5 | available | — | create-assets-js-dining-search-js | Create `/assets/js/dining-search.js` |
+| 5 | available | — | create-automated-coverage-report | Create automated coverage report |
+| 5 | available | — | create-ship-page-widget-html-template | Create ship page widget HTML template |
+| 5 | available | — | create-tools-dining-search-html-standalone-page | Create `/tools/dining-search.html` (standalone page) |
+| 5 | available | — | cruise-forum-scraping-cruisecritic-reddit-r-cruise-facebook-crui | Cruise forum scraping — — CruiseCritic, Reddit r/cruise, Facebook cruise groups have years of "our port was cancelled" p |
+| 5 | available | — | cruise-line-parity-gaps | Cruise Line Parity Gaps |
+| 5 | available | — | cruise-line-schedule-changes-monitor-cruise-line-websites-for-it | Cruise line schedule changes — — Monitor cruise line websites for itinerary changes. When "Costa Maya" disappears from a |
+| 5 | available | — | cruise-lines-need-images | Cruise lines need images |
+| 5 | available | — | cruise-tipping-calculator-known-defects | Cruise Tipping Calculator — Known Defects |
+| 5 | available | — | css-consolidation-inline-style-reduction | CSS Consolidation — Inline Style Reduction |
+| 5 | available | — | current-330-ports-have-enable-javascript-to-view-map-placeholder | Current: 330 ports have "Enable JavaScript to view map" placeholder |
+| 5 | available | — | data-quality | Data Quality |
+| 5 | available | — | data-source-the-weather-widget-json-data-files-or-research-per-p | Data source: the weather widget JSON data files or research per port |
+| 5 | available | — | decide-canonical-page-grid-definition-styles-css-vs-inline | Decide canonical `.page-grid` definition (styles.css vs inline) |
+| 5 | available | — | decision-needed-generate-from-data-programmatically-or-hand-writ | Decision needed: generate from data programmatically or hand-write? |
+| 5 | available | — | decision-needed-which-option | Decision needed: which option? |
+| 5 | available | — | demographic-articles-senior-travel-neurodiversity-burn-survivors | Demographic articles (senior travel, neurodiversity, burn survivors) |
+| 5 | available | — | design-a-port-reliability-indicator-for-each-port-page-e-g-relia | Design a "Port Reliability" indicator for each port page (e.g., "Reliability: High / Moderate / Weather-Dependent") |
+| 5 | available | — | design-ship-page-widget-compact-embedded-version | Design ship page widget (compact embedded version) |
+| 5 | available | — | dining-hero-images | Dining Hero Images |
+| 5 | available | — | diy-vs-excursion-comparison-expansion | DIY vs. Excursion Comparison Expansion |
+| 5 | available | — | dutch-harbor-html-aleutian-islands-deadliest-catch-fame | `dutch-harbor.html` — Aleutian Islands; Deadliest Catch fame |
+| 5 | available | — | eden-australia | eden (Australia) |
+| 5 | available | — | effort-1-2-hours-removes-the-recurring-no-verify-papercut-that-b | Effort: — 1–2 hours. Removes the recurring `--no-verify` papercut that blocked PR #1466 commits. |
+| 5 | available | — | effort-unknown-until-root-caused-could-be-a-one-line-fix-affecti | Effort: — unknown until root-caused. Could be a one-line fix affecting all 50, or 50 individual data-shape repairs. |
+| 5 | available | — | enchantment-of-the-seas-legend-of-the-seas-1995-built-slug-suffi | `enchantment-of-the-seas` + `legend-of-the-seas-1995-built` — slug-suffix rename plan |
+| 5 | available | — | ensure-dock-locations-clearly-marked-on-all-port-maps | Ensure dock locations clearly marked on all port maps |
+| 5 | available | — | ensure-offline-pwa-support | Ensure offline/PWA support |
+| 5 | available | — | ensure-refurbishment-dates-are-current | Ensure refurbishment dates are current |
+| 5 | available | — | expand-diy-vs-excursion-comparisons-from-38-to-top-50-ports | Expand DIY vs. excursion comparisons from 38 to top 50 ports |
+| 5 | available | — | expand-or-create-comprehensive-solo-cruising-html | Expand or create comprehensive-solo-cruising.html |
+| 5 | available | — | expand-real-talk-honest-assessments-to-75-ports-50-ports-as-of-2 | Expand "Real Talk" honest assessments to 75+ ports (50 ports as of 2026-05-12 spot-check; was 46 at 2026-03-02; gap to t |
+| 5 | available | — | extract-core-checker-logic-into-reusable-assets-js-stateroom-wid | Extract core checker logic into reusable `/assets/js/stateroom-widget.js` |
+| 5 | available | — | family-situation-articles-infertility-grief-adoption-homeschool | Family situation articles (infertility grief, adoption, homeschool) |
+| 5 | available | — | faq-too-short-186-ships-per-2026-03-02-validator-no-longer-surfa | FAQ too short (186 ships per 2026-03-02; validator no longer surfaces by name) |
+| 5 | available | — | faq-trim-promotional-drift-cleanup-first-person-maximum-voice-to | FAQ trim, promotional drift cleanup, first_person_maximum: voice-touch passes (use `voice-audit` skill); 178+ ports affe |
+| 5 | available | — | few-images-230-ships-refreshed-2026-05-13-up-from-158-right-fix- | few_images: 230 ships — (refreshed 2026-05-13; up from 158; right fix is sourcing replacement images, not relaxing the t |
+| 5 | available | — | fix-author-avatar-to-circle-remove-inline-border-radius-override | Fix author avatar to circle (remove inline border-radius overrides) |
+| 5 | available | — | force-data-refresh-and-get-cache-stats-message-handlers | `FORCE_DATA_REFRESH` and `GET_CACHE_STATS` message handlers |
+| 5 | available | — | format-ship-excursion-x-diy-y-you-save-z | Format: "Ship excursion: $X | DIY: $Y | You save: $Z" |
+| 5 | available | — | future-cta-for-booking | (Future) CTA for booking |
+| 5 | available | — | generic-review-text-208-ships-per-2026-03-02-validator-no-longer | Generic review text (208 ships per 2026-03-02; validator no longer surfaces a rule by that name — needs human content-re |
+| 5 | available | — | google-search-console-audit-2026-03-27 | Google Search Console Audit (2026-03-27) |
+| 5 | available | — | green-lane-ai-executes-autonomously | GREEN LANE — AI Executes Autonomously |
+| 5 | available | — | half-moon-cay-holland-america-carnival-private-destination-in-th | Half Moon Cay — — Holland America / Carnival private destination in the Bahamas. Mentioned in the 2026 Caribbean trends  |
+| 5 | available | — | haugesund-norway | haugesund (Norway) |
+| 5 | available | — | healing-relationships-at-sea-3-000-words-not-created | Healing Relationships at Sea (~3,000 words) — not created |
+| 5 | available | — | hp-athens-piraeus | hp-athens (Piraeus) |
+| 5 | available | — | hp-dover-london-gateway | hp-dover (London gateway) |
+| 5 | available | — | hp-dubai | hp-dubai |
+| 5 | available | — | hp-hamburg | hp-hamburg |
+| 5 | available | — | hp-honolulu-have-html-need-tracker-entry | hp-honolulu (have HTML, need tracker entry) |
+| 5 | available | — | hp-istanbul | hp-istanbul |
+| 5 | available | — | hp-le-havre-paris-gateway | hp-le-havre (Paris gateway) |
+| 5 | available | — | hp-lisbon | hp-lisbon |
+| 5 | available | — | hp-livorno-florence-pisa-gateway | hp-livorno (Florence/Pisa gateway) |
+| 5 | available | — | hp-mumbai | hp-mumbai |
+| 5 | available | — | hp-norfolk | hp-norfolk |
+| 5 | available | — | hp-philadelphia | hp-philadelphia |
+| 5 | available | — | hp-ravenna | hp-ravenna |
+| 5 | available | — | hp-san-juan-have-html-need-tracker-entry | hp-san-juan (have HTML, need tracker entry) |
+| 5 | available | — | hp-trieste | hp-trieste |
+| 5 | available | — | hp-west-palm-beach | hp-west-palm-beach |
+| 5 | available | — | icon-of-the-seas | Icon of the Seas |
+| 5 | available | — | identify-the-50-ships | Identify the 50 ships: |
+| 5 | available | — | image-audit-needed-on-other-directories | Image audit needed on other directories |
+| 5 | available | — | image-reuse-alt-drift-site-wide-738-warnings-likely-concentrated | `image_reuse_alt_drift` site-wide: 738 warnings — likely concentrated on a few shared images (author portraits, hero var |
+| 5 | available | — | image-tasks-ships-needing-fom-photos | Image Tasks — Ships Needing FOM Photos |
+| 5 | available | — | include-alt-text-from-existing-image-alt-attributes | Include alt text from existing image alt attributes |
+| 5 | available | — | independence-of-the-seas | Independence of the Seas |
+| 5 | available | — | index-html-faq-positioning | index.html FAQ positioning |
+| 5 | available | — | individual-ship-images-rendering-issues | Individual ship images rendering issues |
+| 5 | available | — | inject-noscript-block-inside-ships-visiting-container-with-stati | Inject `<noscript>` block inside ships-visiting container with static list: ship name + cruise line + link to ship page |
+| 5 | available | — | investigate-weather-validation-failed-root-cause-before-any-port | Investigate `weather_validation_failed` root cause — (BEFORE any port-by-port remediation) — the 338-count is too clean  |
+| 5 | available | — | investigation-first-root-cause-unknown-likely-candidates-missing | Investigation first: — root cause unknown. Likely candidates: missing `data-*` attributes the cascade script reads, brok |
+| 5 | available | — | issue-https-github-com-jsschrstrcks1-inthewake-issues-1465 | Issue: — https://github.com/jsschrstrcks1/InTheWake/issues/1465 |
+| 5 | available | — | issues-found-actions-taken | Issues Found & Actions Taken |
+| 5 | available | — | items-surfaced-in-session-claude-fix-carnival-validator-kredd | Items surfaced in session `claude/fix-carnival-validator-krEdD` |
+| 5 | available | — | itw-css-inline | ~19k inline styles consolidation |
+| 5 | returned | — | itw-drink-calc-copy | Drink calculator copy contradicts chart |
+| 5 | available | — | itw-gh-1206 | 50+ still present on some pages. |
+| 5 | available | — | itw-gh-1308 | Icon of the Seas: Dining venue names missing — section headings render as "undefined" |
+| 5 | available | — | itw-gh-1309 | Multiple ship pages: Passenger count inconsistency between fleet listing and detail pages |
+| 5 | available | — | itw-gh-1311 | All RCL ship video sections: "Videos will appear once our sources sync" message shown despite video list being loaded |
+| 5 | available | — | itw-gh-1312 | Multiple RCL ship pages: Dining venues section is completely empty |
+| 5 | available | — | itw-gh-1314 | Splendour of the Seas: Ship's current name is missing in "Where Is This Ship Now?" section |
+| 5 | available | — | itw-gh-1315 | Grandeur of the Seas: FAQ answer missing ship class name — renders as "Grandeur is a ship" |
+| 5 | available | — | itw-gh-1317 | Image attribution credits missing photographer names on multiple ship pages |
+| 5 | available | — | itw-gh-1318 | Liberty of the Seas: Logbook story titled "The Bipolar Traveler's Stable Week" — insensitive mental health framing may alienate users |
+| 5 | available | — | itw-gh-1322 | Multiple ship pages: "→ Browse All" text leaking into dining section heading |
+| 5 | available | — | itw-gh-1323 | FAQ template rendering bug: "is a [blank] ship" — missing class name in answers on multiple ship pages |
+| 5 | available | — | itw-gh-1325 | Voyager/Radiance/Vision Class ships: Dining sections still empty + Spectrum dining empty after cache flush |
+| 5 | available | — | itw-gh-1326 | Voyager of the Seas: Page layout broken — Ports and FAQ sections render outside main content region |
+| 5 | available | — | itw-gh-1327 | Tonnage discrepancies between fleet listing and individual ship detail pages (post-fix audit) |
+| 5 | available | — | itw-gh-1328 | Dining venue names missing from ship pages — items render as "— description" with no restaurant name |
+| 5 | available | — | itw-gh-1329 | Tonnage discrepancies on individual ship pages vs fleet listing — Odyssey, Liberty, Independence, Vision, Rhapsody, Grandeur |
+| 5 | available | — | itw-gh-1330 | Dining venue names missing from ship pages — items render as "— description" with no restaurant name linked |
+| 5 | available | — | itw-gh-1331 | Song of Norway and Splendour of the Seas: Key Facts panel shows all "TBD" — no ship data rendered |
+| 5 | available | — | itw-gh-1332 | Retired ship pages (Monarch, Majesty): Dining section shows "Dining data is loading..." indefinitely instead of a no-data state |
+| 5 | available | — | itw-gh-1333 | Broken sister-ship and class links: Sovereign of the Seas, Song of America, Legend of the Seas pages don't exist |
+| 5 | available | — | itw-gh-1335 | Fleet listing page sidebar shows incorrect ship counts: "28 ships across 7 ship classes" but 29+ ships and 9 classes are displayed |
+| 5 | available | — | itw-gh-1336 | Image attribution rendering bug: photographer name hidden inside parentheses — renders as "()" with no visible text |
+| 5 | available | — | itw-gh-1337 | Inconsistent Key Facts sidebar structure across ship page templates — different fields, different field counts |
+| 5 | available | — | itw-gh-1338 | Oasis/Star class ships: Generic template dining data doesn't match actual ship dining — wrong or missing venues |
+| 5 | available | — | itw-gh-1341 | NCL ship pages: intra-page data conflicts — guest count and class name inconsistencies |
+| 5 | available | — | itw-gh-1342 | [NCL] Intra-page data conflicts: guest count, tonnage, and class name mismatches within same ship page |
+| 5 | available | — | itw-gh-1343 | [NCL] Copyright year shows 2025 on all Norwegian ship pages — fix from #1316 not applied to NCL |
+| 5 | available | — | itw-gh-1345 | [NCL] Grammar error: "a Epic Class" should be "an Epic Class" on Norwegian Epic page |
+| 5 | available | — | itw-gh-1346 | [NCL] Inconsistent photo gallery implementation — some ships have real captioned photos, others have generic placeholders |
+| 5 | available | — | itw-gh-1347 | [NCL] IMO number listed as "TBD" for operational ships (Norwegian Sky, Norwegian Aqua) |
+| 5 | available | — | itw-gh-1348 | [NCL] Factual error: Norwegian Aqua FAQ claims it is "NCL's largest ship" — it is not |
+| 5 | available | — | itw-gh-1349 | [NCL] Norwegian Spirit shows conflicting guest counts: Key Facts says 1,966 but intro text says 2,018 |
+| 5 | available | — | itw-gh-1350 | [NCL] Empty Logbook and Entertainment sections across all Norwegian ship pages |
+| 5 | available | — | itw-gh-1351 | [Carnival] Multiple incompatible page templates across Carnival fleet — 4 structural variants |
+| 5 | available | — | itw-gh-1352 | [Carnival] Template variables not resolved on older ship pages — ship name, homeport, dining rooms blank |
+| 5 | available | — | itw-gh-1353 | [Carnival] Ports section homeport rendering bug — "typically sails from [blank] on [regions]" across all Carnival pages |
+| 5 | available | — | itw-gh-1355 | [Carnival] Copyright year 2025 and inconsistent footer formats across all Carnival page templates |
+| 5 | available | — | itw-gh-1356 | [Carnival] Footer missing Privacy Terms About links on older template pages |
+| 5 | available | — | itw-gh-1357 | [Carnival] Footer missing Privacy Terms About links on older template pages |
+| 5 | available | — | itw-gh-1360 | [Carnival] FAQ template variables not resolved on Mardi Gras page |
+| 5 | available | — | itw-gh-1363 | [Carnival] Image attributions in wrong section on Template B and D pages |
+| 5 | available | — | itw-gh-1365 | Full Crawl Audit: Carnival Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1366 | Full Crawl Audit: Norwegian (NCL) Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1367 | Full Crawl Audit: Virgin Voyages Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1368 | Full Crawl Audit: Cunard Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1369 | Full Crawl Audit: Explora Journeys Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1370 | Full Crawl Audit: Regent Seven Seas Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1371 | Full Crawl Audit: Seabourn Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1372 | Full Crawl Audit: Oceania Cruises Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1373 | Full Crawl Audit: Costa Cruises Ship Pages |
+| 5 | available | — | itw-gh-1374 | Full Crawl Audit: Silversea Cruises Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1375 | Full Crawl Audit: MSC Cruises Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1376 | Full Crawl Audit: Celebrity Cruises Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1377 | Full Crawl Audit: Princess Cruises Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1378 | Full Crawl Audit: Holland America Line Ship Pages vs. RCL — All Differences Lowering User Trust |
+| 5 | available | — | itw-gh-1383 | Trust Signal Normalization: Inconsistent credibility elements across port pages |
+| 5 | available | — | itw-gh-1465 | image-reuse-guardrail: false positives on FOM-named cross-ship photos and same-entity-two-paths |
+| 5 | available | — | itw-gh-1600 | [index.html] 132 inline style attributes — unmaintainable, blocks CSP, prevents theming |
+| 5 | available | — | itw-gh-1622 | [ports] 339 of 388 port pages share an identical generic OG image — every port preview card looks the same on social media |
+| 5 | available | — | itw-gh-1672 | 474 of 478 restaurant pages share identical og:image (dining-hero.jpg) — all social shares look the same |
+| 5 | available | — | itw-gh-1685 | 731 pages: meta description outside optimal length (626 too long > 165 chars, 105 too short < 80 chars) |
+| 5 | available | — | itw-gh-1694 | 139 ship pages use generic ships-hero.jpg as og:image — every ship looks identical when shared |
+| 5 | available | — | itw-gh-1695 | 36 port pages missing <h1> element — older template uses <div class="hero-title"> instead |
+| 5 | available | — | itw-gh-1696 | 4 restaurant pages have duplicate <h1> elements — one hidden (display:none), one visible |
+| 5 | available | — | itw-gh-1697 | ports/yangon.html: breadcrumb schema uses wrong domain (inthewake.blog instead of cruisinginthewake.com) |
+| 5 | available | — | itw-gh-1698 | 24 port pages: canonical URL missing .html extension — will resolve to 404 without MultiViews |
+| 5 | available | — | itw-gh-1699 | 23 port pages missing twitter:card meta tag — Twitter/X share previews degraded |
+| 5 | available | — | itw-gh-1704 | [Tooling] ESLint not declared in project dependencies; no npm lint script (linting non-reproducible) |
+| 5 | available | — | itw-gh-1705 | [Documentation Debt] Git hooks documentation is stale vs. actual implementation |
+| 5 | available | — | itw-gh-1714 | possibility of data corruption, or corrupt issues from grok. |
+| 5 | available | — | itw-gh-1725 | ken-baker.html: meta description contains 'many+' — looks like unfilled placeholder |
+| 5 | available | — | itw-gh-1726 | 3 port pages have unclosed <div> tags — invalid HTML |
+| 5 | available | — | itw-gh-1727 | [Navigation] Widespread use of forbidden /ships.html links across 700+ pages contradicts explicit CLAUDE.md policy |
+| 5 | available | — | itw-gh-1728 | [PWA] sw.js precache system is stale and not kept in sync with live site |
+| 5 | available | — | itw-gh-1729 | [Testing] Playwright coverage for interactive tools is minimal compared to webapp-testing skill spec |
+| 5 | available | — | itw-gh-1730 | [Hooks/CI] core.hooksPath .githooks is not enforced in repo config or bootstrap scripts |
+| 5 | available | — | itw-gh-1731 | [Deployment] Orphaned files and images reports exist but are not integrated into deployment-validator |
+| 5 | available | — | itw-gh-1732 | [Security] No secret scanning or security-scan skill enforcement in pre-commit, bootstrap, or visible CI |
+| 5 | available | — | itw-gh-1733 | [Audit Tools] Hardcoded paths (e.g. BASE_DIR = Path("/home/user/InTheWake")) in internal audit scripts like comprehensive_site_audit.py |
+| 5 | available | — | itw-gh-1734 | [Skills/Process] link-integrity skill is documented as automatic on edits but is not wired into pre-commit or any automation for index.html / ships/index.html |
+| 5 | available | — | itw-gh-1735 | [CI/CD] .github/workflows/ surface has inconsistent action pinning, high-blast-radius steps, and unhardened patterns |
+| 5 | available | — | itw-gh-1736 | [Admin Tooling] 'add-*' scripts use brittle string manipulation and re-introduce known anti-patterns |
+| 5 | available | — | itw-gh-1737 | /data/ directory exposes internal documents publicly (docx, pdf, rtf not blocked) |
+| 5 | available | — | itw-gh-1738 | 56 unfilled TBD entries in attributions.csv — copyright compliance gap |
+| 5 | available | — | itw-gh-1739 | 6 orphaned JS modules in assets/js/modules/ — dead code never loaded by any HTML page |
+| 5 | available | — | itw-gh-1740 | authors.json: Tina Maulsby image is broken (.jpg missing, .png exists), plus sections case mismatch |
+| 5 | available | — | itw-gh-1741 | solo/in-the-wake-of-grief-meta.html: thin duplicate page, no nav JS, in sitemap, no robots meta |
+| 5 | available | — | itw-gh-1743 | Heading hierarchy: H1→H3 skip on 632 ship pages, H2→H4 skip on 303 pages — WCAG 1.3.1 |
+| 5 | available | — | itw-gh-1744 | Skip-to-main link broken on 203 pages — href='#main-content' but element uses id='content' |
+| 5 | available | — | itw-gh-1745 | 29 port pages: photo credit 'attribution' anchor links to #attribution but no such ID exists |
+| 5 | available | — | itw-gh-1746 | 3 port pages use meta-refresh redirect instead of 301, remain in sitemap — SEO/UX issue |
+| 5 | available | — | itw-gh-1747 | Modernize document.write copyright year to textContent across site |
+| 5 | available | — | itw-gh-1748 | 6 port pages: Place schema missing GeoCoordinates — map-rich results broken |
+| 5 | available | — | itw-gh-1749 | 200 restaurant pages: Restaurant schema missing priceRange — structured data incomplete |
+| 5 | available | — | itw-gh-1750 | 14 port pages: gallery images use generic 'portname — view N' alt text — WCAG 1.1.1 failure |
+| 5 | available | — | itw-gh-1751 | 43 pages missing privacy link in footer — legal/trust gap |
+| 5 | available | — | itw-gh-1752 | 641 pages missing favicon link — browser tabs show blank icon |
+| 5 | available | — | itw-gh-1753 | 3 articles missing article:published_time, article:author, and datePublished — Google can't confirm authorship or date |
+| 5 | available | — | itw-gh-1761 | Family of orphaned batch-fix mutation scripts in admin/ (strong evidence of generator/validator gap) |
+| 5 | available | — | itw-gh-1762 | fix-section-order.mjs: explicit post-hoc mirroring of validate-port-page-v2.js SECTION_PATTERNS / EXPECTED_MAIN_ORDER (generator/validator decoupling, distinct variant) |
+| 5 | available | — | itw-gh-1763 | batch-fix-section-order.js: fleet-wide ship page section reordering (ITW-SHIP-002) with heavy validator pattern mirroring + direct writes (distinct batch variant) |
+| 5 | available | — | itw-gh-1764 | repair-skip-link-target.js: accessibility-blocker skip-link href mismatch bulk rewrite (Phase 2.7, distinct accessibility variant) |
+| 5 | available | — | itw-gh-1765 | repair-v2.cjs: comprehensive 3-phase port page repair (orchestra consensus, registry-driven, direct bulk writes) — distinct major variant |
+| 5 | available | — | itw-gh-1766 | repair-duplicate-recent-rail-id.js: Phase 2.3 duplicate recent-rail-title ID + aria-labelledby bulk repair on ships (distinct variant) |
+| 5 | available | — | itw-gh-1771 | repair-datemodified-parity.js: ICP-2 / JSON-LD dateModified parity bulk repair (Phase 2.5, forces match to last-reviewed) — distinct schema variant |
+| 5 | available | — | itw-gh-1772 | repair-cordelia-bulk.js: Phase 2.1 Cordelia Empress / wrong-ship dining hero bulk image-reuse removal (distinct image-reuse variant) |
+| 5 | available | — | itw-gh-1777 | repair-v2.cjs: comprehensive 3-phase 'orchestra consensus' port page repair (direct bulk writes, no validator integration) — distinct major variant |
+| 5 | available | — | itw-gh-1813 | [restaurants] 471 restaurant pages still reference ICP-Lite v1.x instead of ICP-2 |
+| 5 | available | — | itw-gh-1814 | [restaurants] All 478 restaurant pages reference stale asset version ?v=3.010.300 (site is 3.010.400) |
+| 5 | available | — | itw-gh-1815 | [restaurants] Cross-pollinated venue-tags: pages naming the wrong cruise line (template reuse) |
+| 5 | available | — | itw-gh-1817 | [Feature] Ship Sizemap Scatter Chart |
+| 5 | available | — | itw-gh-1818 | [Technical] Site-Wide Accessibility & Performance Audit |
+| 5 | available | — | itw-gh-1820 | [Content] Missing Homeport Pages |
+| 5 | available | — | itw-gh-1822 | [Content] Hero Image Generation for RCL Ships |
+| 5 | available | — | itw-gh-1823 | [Content] 'Coming Soon' Text Cleanup |
+| 5 | available | — | itw-gh-1824 | [Content] Affiliate Link and About Us Updates |
+| 5 | available | — | itw-gh-1904 | [cruise-lines] Hub pages list only a fraction of each fleet — Princess links 0/18 ships, Carnival 3/30+, Celebrity 4/24+, MSC 4/24 (+relative-URL 404), HAL/Norwegian/Regent incomplete |
+| 5 | available | — | itw-gh-1915 | [Ships] 9 pages show wrong ship class in the Key Facts block (leaked template defaults) contradicting their own meta/schema — incl. "Unknown Class" (ss-meridian) and Silver Endeavour tonnage 23,500 vs |
+| 5 | available | — | itw-gh-1917 | [Restaurants] eataly.html claims exclusivity to two ships (World America vs World Europa); giovannis.html has no H1 (title="Overview"); q-texas-smokehouse contradicts "walk-up Quick Service" vs "$40 c |
+| 5 | available | — | itw-gh-1919 | [Ships/HAL] Systemic data corruption across 47 pages: literal "Historic"/"Unknown" tokens as class/year/GT/guests (35-40 pages), wrong-ship torpedo/scrap dates, active ships marked "Historical", ooste |
+| 5 | available | — | itw-gh-1922 | [Ships] celebrity-millennium malformed carousel + duplicated slides/attributions; celebrity-xperience shows Flora's 5,739 GT (wrong ship); costa/index.html mis-classes Diadema as Concordia Class |
+| 5 | available | — | itw-gh-1923 | [ships/rooms.html] Loads core CSS, Swiper library, and compass from a personal github.io host (jsschrstrcks1.github.io); Swiper vendor bundle is missing from the repo so the carousel breaks |
+| 5 | available | — | itw-gh-1926 | [Restaurants/Carnival] Missing current venues vs official Carnival docs: Fun Italian Style (Tomodoro, La Strada Grill, Piazza Panini, Il Mercato), Street Eats, Swirls, Captain's Pasta Bar, Lucky Bowl, |
+| 5 | available | — | itw-gh-1927 | [Restaurants/Carnival] Entire non-dining venue catalog is missing vs official Carnival docs — ~30 bars/lounges, entertainment venues, Playlist/game shows, activities (BOLT/WaterWorks/SportSquare), Clo |
+| 5 | available | — | itw-gh-1928 | [Restaurants/NCL] Non-dining venue gap vs official NCL docs: theaters + production shows (Red White & British, Revolution, Rocket Man), activities (Galaxy Pavilion, Speedway track, Aqua Park slides, T |
+| 5 | available | — | itw-gh-1929 | [Restaurants/Princess] No Princess venue pages exist at all — full current official catalog to build (dining, bars, theaters/Arena/Dome, production shows, SeaWalk/pools, Lotus Spa/Sanctuary, Camp Disc |
+| 5 | available | — | itw-gh-1930 | [Restaurants/Holland America] No HAL venue pages exist — full current official catalog to build (Pinnacle Grill/Canaletto/Tamarind/Sel de Mer/Morimoto, Music Walk: BB King's/Billboard/Rolling Stone, W |
+| 5 | available | — | itw-gh-1931 | [Restaurants/Celebrity] No Celebrity venue pages exist — full current official catalog to build (Edge/Solstice/Millennium): MDRs, Le Voyage/Fine Cut/Murano/Eden, Magic Carpet/Eden/The Club, Canyon Ran |
+| 5 | available | — | itw-gh-1932 | [Restaurants/Costa] No Costa venue pages exist — fleet-wide brand catalog to build (Archipelago, Pizzeria Pummid'Oro, Teppanyaki/Sushino, Samsara, Heineken Star Club, Colosseo/Teatro, Squok Club) — LO |
+| 5 | available | — | itw-gh-1933 | [Restaurants/Silversea] No Silversea venue pages exist — full current official catalog to build (The Restaurant/Atlantide/La Terrazza/La Dame/Kaiseki/Silver Note/S.A.L.T., Dolce Vita/Dusk Bar/Connoiss |
+| 5 | available | — | itw-gh-1934 | [Restaurants/Oceania] No Oceania venue pages exist — full current official catalog to build (Grand Dining Room/Polo Grill/Toscana/Red Ginger/Jacques [complimentary], Culinary Center/Artist Loft/LYNC,  |
+| 5 | available | — | itw-gh-1935 | [Restaurants/Regent] No Regent venue pages exist — full current official catalog to build (Compass Rose/Prime 7/Chartreuse/Pacific Rim/Sette Mari [all-inclusive], Constellation Theater, Serene Spa, Cu |
+| 5 | available | — | itw-gh-1936 | [Restaurants/Seabourn] No Seabourn venue pages exist — full current official catalog to build (The Restaurant/Colonnade/Grill by Thomas Keller/Solís/Sushi [all-inclusive], The Club/Seabourn Square, Gr |
+| 5 | available | — | itw-gh-1937 | [Restaurants/Cunard] No Cunard venue pages exist — full current official catalog to build (grade dining: Britannia/Princess Grill/Queens Grill; The Verandah/Sir Samuel's/Aji Wa/Aranya/Tramonto; Queens |
+| 5 | available | — | itw-gh-1938 | [Restaurants/Explora Journeys] No Explora venue pages exist — full current official catalog to build (Fil Rouge/Sakura/Marble & Co./Med Yacht Club/Anthology, Journeys & Astern Lounges, Ocean Wellness  |
+| 5 | available | — | itw-gh-1939 | [Restaurants/MSC] Dining is complete (51 pages) but the entire non-dining catalog is missing — Carousel Lounge/Cirque du Soleil, the Theatre, MSC Starship Club (robot bar), Masters of the Sea, Aqua Pa |
+| 5 | available | — | itw-gh-1940 | [Restaurants/Virgin] Dining/bars/shows covered (46 pages) but the entire wellness/fitness/beauty complex is missing — Redemption Spa, B-Complex, Squid Ink (tattoo), Dry Dock, Stubble & Groom, The Runw |
+| 5 | available | — | itw-gh-1941 | [Restaurants/Royal Caribbean] Venue catalog ~complete (~300 pages); only gaps are newest-hull venues — Legend of the Seas (2026): Captain Jack's Bar, Crème de la Crème, Sugar Fix + Prohibition Break ( |
+| 5 | available | — | itw-gh-2004 | [Content] Missing ship page: Margaritaville at Sea Islander (needed by voyage pack v0.1.12) |
+| 5 | available | — | itw-gh-2005 | [Content] Missing venue pages: Margaritaville at Sea line (needed by voyage pack v0.1.12) |
+| 5 | available | — | kake-html-tiny-tlingit-village-on-kupreanof-island | `kake.html` — Tiny Tlingit village on Kupreanof Island |
+| 5 | available | — | kristiansand-norway | kristiansand (Norway) |
+| 5 | available | — | la-digue-seychelles | la-digue (Seychelles) |
+| 5 | available | — | lazy-load-exception-json-only-when-widget-activated | Lazy-load exception JSON only when widget activated |
+| 5 | available | — | life-transition-articles-retirement-second-marriage-work-life-ba | Life transition articles (retirement, second marriage, work-life balance) |
+| 5 | available | — | luderitz-namibia | luderitz (Namibia) |
+| 5 | available | — | main-entity-blacklisted-26-ships-json-ld-mainentity-references-b | main_entity_blacklisted: 26 ships — (JSON-LD `mainEntity` references blocked schema.org types; investigate) |
+| 5 | available | — | medical-recovery-articles-post-cancer-post-stroke-chronic-illnes | Medical recovery articles (post-cancer, post-stroke, chronic illness) |
+| 5 | available | — | mental-health-articles-anxiety-ptsd-veteran-bipolar-depression | Mental health articles (anxiety, PTSD/veteran, bipolar/depression) |
+| 5 | available | — | methodology | Methodology |
+| 5 | available | — | missing-article-thumbnails-hero-images | Missing article thumbnails / hero images |
+| 5 | available | — | missing-grid-2-layout-30-ships-per-2026-03-02-count-needs-refres | Missing grid-2 layout (~30 ships per 2026-03-02; *count needs refresh*) |
+| 5 | available | — | missing-image-file-53-ports-real-per-port-broken-image-work | `missing_image_file`: 53 ports (real per-port broken-image work) |
+| 5 | available | — | missing-port-and-ship-pages | Missing Port and Ship Pages |
+| 5 | available | — | missing-required-placeholder-content-few-videos-29-ships-combine | missing_required + placeholder_content + few_videos: 29 ships combined — (smaller categories) |
+| 5 | available | — | missing-stylesheet-collapsible-required-missing-main-content-86- | `missing_stylesheet` + `collapsible_required` + `missing_main_content`: 86 ports combined (smaller categories; likely fi |
+| 5 | available | — | missing-whimsical-units-181-ships-per-2026-03-02-count-needs-ref | Missing whimsical units (~181 ships per 2026-03-02; *count needs refresh*) |
+| 5 | available | — | mobile-browser-testing-at-360px-375px-390px-412px-768px-requires | Mobile browser testing at 360px, 375px, 390px, 412px, 768px (requires manual browser) |
+| 5 | available | — | mossel-bay-south-africa | mossel-bay (South Africa) |
+| 5 | available | — | multiple-dock-locations-which-berth-will-your-ship-use-affects-p | Multiple dock locations — — which berth will your ship use? (affects planning) |
+| 5 | available | — | national-holidays-revolution-day-mexico-carnival-caribbean-brazi | National holidays — — Revolution Day (Mexico), Carnival (Caribbean/Brazil), bank holidays closing attractions |
+| 5 | available | — | navigator-of-the-seas | Navigator of the Seas |
+| 5 | available | — | need-to-build-full-static-seasonal-guide-html-at-a-glance-best-t | Need to build full static seasonal guide HTML (At a Glance, Best Time, Catches, Packing, Hazards) |
+| 5 | available | — | nome-html-bering-sea-iditarod-finish-line | `nome.html` — Bering Sea; Iditarod finish line |
+| 5 | available | — | normalize-hero-sizing-positioning | Normalize hero sizing/positioning |
+| 5 | available | — | norwegian-luna-new-ncl-ship-referenced-in-2026-capacity-discussi | Norwegian Luna — — New NCL ship referenced in 2026 capacity discussions. Needs a ship page in `/ships/norwegian/norwegia |
+| 5 | available | — | noscript-phase-1-already-in-queue-under-g-noscript-remediation-n | Noscript Phase 1 (already in queue under [G] Noscript Remediation): now empirically scoped — 346 stories + 342 ships + 2 |
+| 5 | available | — | noscript-remediation-port-pages | Noscript Remediation — Port Pages |
+| 5 | available | — | nuuk-greenland | nuuk (Greenland) |
+| 5 | available | — | odyssey-of-the-seas | Odyssey of the Seas |
+| 5 | available | — | options | Options: |
+| 5 | available | — | phase-3-ai-summary-follow-ups-surfaced-2026-05-09 | Phase 3 ai-summary follow-ups — surfaced 2026-05-09 |
+| 5 | available | — | phase-b-phase-c-scope-clarification-needed | Phase B / Phase C — scope clarification needed |
+| 5 | available | — | poi-manifest-work-already-in-queue-288-ports-below-the-10-poi-mi | POI manifest work (already in queue): 288 ports below the 10-POI minimum (was claimed as 365 in 2026-03-02; actual scope |
+| 5 | available | — | port-authority-data-some-ports-publish-annual-ship-call-statisti | Port authority data — — Some ports publish annual ship call statistics (actual vs scheduled). Caribbean ports especially |
+| 5 | available | — | port-call-reliability-tracker | Port Call Reliability Tracker |
+| 5 | available | — | port-content-repair-queue | Port Content Repair Queue |
+| 5 | available | — | port-day-disruption-factors | Port Day Disruption Factors |
+| 5 | available | — | port-to-town-distance-docks-far-from-attractions-misleading-walk | Port-to-town distance — — docks far from attractions, misleading "walking distance" claims |
+| 5 | available | — | port-validation-remaining-work | Port Validation — Remaining Work |
+| 5 | available | — | port-vila-vanuatu-verify-if-covered-by-vanuatu-html | port-vila (Vanuatu) — verify if covered by vanuatu.html |
+| 5 | available | — | port-weather-remaining-coverage | Port Weather — Remaining Coverage |
+| 5 | available | — | prince-rupert-html-inside-passage-to-open-gulf | `prince-rupert.html` — Inside Passage to open gulf |
+| 5 | available | — | priority-0-critical-0-unfinished | Priority 0 - Critical - 0 UNFINISHED |
+| 5 | available | — | priority-3-low-nice-to-have-3-unfinished | Priority 3 - Low (Nice to have) - 3 UNFINISHED |
+| 5 | available | — | priority-4-future-expansion-post-royal-caribbean-completion-5-un | Priority 4 - Future Expansion (Post Royal Caribbean completion) - 5 UNFINISHED |
+| 5 | available | — | priority-definitions | Priority Definitions |
+| 5 | available | — | qaqortoq-greenland | qaqortoq (Greenland) |
+| 5 | available | — | quantum-of-the-seas-has-7-fom-already-may-need-more | Quantum of the Seas (has 7 FOM already, may need more) |
+| 5 | available | — | quiz-remaining-fixes | Quiz Remaining Fixes |
+| 5 | available | — | rarotonga-cook-islands | rarotonga (Cook Islands) |
+| 5 | available | — | read-articles-index-json-to-get-5-most-recent-articles | Read articles/index.json to get 5 most recent articles |
+| 5 | available | — | read-port-registry-json-ship-schedule-data-to-get-ships-per-port | Read port-registry.json + ship schedule data to get ships per port |
+| 5 | available | — | read-ports-img-slug-directory-to-get-first-4-6-images | Read ports/img/{slug}/ directory to get first 4-6 images |
+| 5 | available | — | red-lane-human-decides | RED LANE — Human Decides |
+| 5 | available | — | religious-dress-codes-mosque-temple-church-requirements-by-port- | Religious dress codes — — mosque, temple, church requirements by port (specific rules, not vague "dress modestly") |
+| 5 | available | — | religious-holidays-ramadan-restaurant-closures-shabbat-in-israel | Religious holidays — — Ramadan restaurant closures, Shabbat in Israel, Friday mosque closures, Hindu festivals |
+| 5 | available | — | remove-redundant-page-grid-from-remaining-style-blocks | Remove redundant `.page-grid` from remaining `<style>` blocks |
+| 5 | available | — | resilient-lady-cocktail-image-alternative-use-case | Resilient_Lady cocktail image — alternative use case |
+| 5 | available | — | rest-for-wounded-healers-2-500-words-not-created | Rest for Wounded Healers (~2,500 words) — not created |
+| 5 | available | — | roll-out-to-all-295-ship-pages | Roll out to all 295 ship pages |
+| 5 | available | — | run-google-pagespeed-insights-on-key-pages | Run Google PageSpeed Insights on key pages |
+| 5 | available | — | run-once-verify-3-ports-commit | Run once, verify 3 ports, commit |
+| 5 | available | — | run-replace-to-swap-inline-styles-for-class-names | Run replace to swap inline styles for class names |
+| 5 | available | — | same-fix-as-2a-but-includes-adding-the-noscript-tags-themselves | Same fix as 2a but includes adding the `<noscript>` tags themselves |
+| 5 | available | — | seo-external-tools-setup | SEO External Tools Setup |
+| 5 | available | — | service-worker-caching-for-offline-use | Service worker caching for offline use |
+| 5 | available | — | set-up-bing-webmaster-tools | Set up Bing Webmaster Tools |
+| 5 | available | — | set-up-google-analytics-dashboard | Set up Google Analytics dashboard |
+| 5 | available | — | seven-seas-mariner-html-retains-an-editorially-marginal-slide | `seven-seas-mariner.html` retains an editorially marginal slide |
+| 5 | available | — | ship-page-standardization-295-pages | Ship Page Standardization (295 pages) |
+| 5 | available | — | ship-size-atlas-remaining-items | Ship Size Atlas — Remaining Items |
+| 5 | available | — | ship-tracking-history-marinetraffic-vesselfinder-and-cruisemappe | Ship tracking history — — MarineTraffic, VesselFinder, and CruiseMapper show historical ship positions. Compare schedule |
+| 5 | available | — | ship-validation-content-quality-enhancement | Ship Validation — Content Quality Enhancement |
+| 5 | available | — | ships-html-display-issues | ships.html Display Issues |
+| 5 | available | — | solo-html-article-loading-28-article-references-uses-fetch-for-f | solo.html article loading (28 article references, uses fetch for fragments) |
+| 5 | available | — | spectrum-of-the-seas | Spectrum of the Seas |
+| 5 | available | — | staleiferrortimestamped-strategy-for-fx-api-caching | `staleIfErrorTimestamped` strategy for FX API caching |
+| 5 | available | — | standardize-carousel-markup-to-figure-pattern-across-all-lines | Standardize carousel markup to `<figure>` pattern across all lines |
+| 5 | available | — | stateroom-checker-embed-on-ship-pages | Stateroom Checker — Embed on Ship Pages |
+| 5 | available | — | street-closures-parades-festivals-protests-that-block-transit-ro | Street closures — — parades, festivals, protests that block transit routes (user encountered this in a Mexican port) |
+| 5 | available | — | target-all-143-ports-with-swiper-galleries | Target: all 143 ports with swiper galleries |
+| 5 | available | — | target-all-370-ports-with-ships-visiting-section | Target: all 370 ports with ships-visiting section |
+| 5 | available | — | target-reduce-15-626-inline-styles-to-1-000 | Target: Reduce ~15,626 inline styles to <1,000 |
+| 5 | available | — | task-lanes | Task Lanes |
+| 5 | available | — | taxi-transport-issues-known-scam-ports-metered-vs-negotiated-sur | Taxi/transport issues — — known scam ports, metered vs negotiated, surge pricing during events |
+| 5 | available | — | technical-tasks | Technical Tasks |
+| 5 | available | — | template-noscript-div-class-gallery-static-with-figure-img-src-a | Template: `<noscript><div class="gallery-static">` with `<figure><img src="..." alt="..." loading="lazy"></figure>` |
+| 5 | available | — | template-noscript-ul-class-ships-list-static-with-li-a-href-ship | Template: `<noscript><ul class="ships-list-static">` with `<li><a href="/ships/...">Ship Name</a> (Line)</li>` |
+| 5 | available | — | template-noscript-ul-class-stories-static-with-li-a-href-solo-ar | Template: `<noscript><ul class="stories-static">` with `<li><a href="/solo/articles/...">Title</a></li>` |
+| 5 | available | — | template-remnants-301-ships-verify-rule-definition-first-the-jum | template_remnants: 301 ships — — verify rule definition first; the jump from ~0 to 301 between 2026-05-11 and 2026-05-13 |
+| 5 | available | — | test-cases-that-must-now-pass-the-4-documented-in-1465 | Test cases that must now pass: — the 4 documented in #1465. |
+| 5 | available | — | test-cases-that-must-still-fail-cordelia-pattern | Test cases that must still fail — (Cordelia pattern): |
+| 5 | available | — | test-keyboard-navigation-on-dropdown-menus | Test keyboard navigation on dropdown menus |
+| 5 | available | — | test-screen-reader-compatibility | Test screen reader compatibility |
+| 5 | available | — | these-100-ports-have-weather-widgets-but-only-enable-javascript- | These 100 ports have weather widgets but only "Enable JavaScript" in noscript |
+| 5 | available | — | these-14-ports-have-weather-widgets-with-zero-noscript-content | These 14 ports have weather widgets with zero noscript content |
+| 5 | available | — | these-are-site-wide-not-port-specific-so-same-5-articles-on-all- | These are site-wide (not port-specific), so same 5 articles on all ports |
+| 5 | available | — | tier-1-high-traffic-ports-fix-first-readers-will-notice | Tier 1: High-traffic ports (fix first — readers will notice) |
+| 5 | available | — | tier-3-lower-traffic-specialized-ports | Tier 3: Lower-traffic / specialized ports |
+| 5 | available | — | time-zone-changes-ship-time-vs-local-time-confusion | Time zone changes — — ship time vs local time confusion |
+| 5 | available | — | track-tender-vs-dock-tender-ports-inherently-less-reliable | Track tender vs dock — tender ports inherently less reliable |
+| 5 | available | — | two-complementary-fixes-inside-claude-skills-image-reuse-guardra | Two complementary fixes inside `.claude/skills/image-reuse-guardrail/` and possibly `admin/scan-image-reuse.cjs`: |
+| 5 | available | — | ui-integration-refresh-rates-button-cache-age-display-toast-noti | UI integration: "Refresh Rates" button, cache age display, toast notifications |
+| 5 | available | — | uncategorized-pending-items | Uncategorized Pending Items |
+| 5 | available | — | uniform-version-badge | Uniform version badge |
+| 5 | available | — | update-about-us-html-our-promise-section-to-acknowledge-amazon-a | Update about-us.html "Our Promise" section to acknowledge Amazon Associates participation |
+| 5 | available | — | use-systematic-debugging-skill-before-proposing-fixes-pick-1-2-a | Use `systematic-debugging` skill before proposing fixes. Pick 1–2 affected ships, reproduce in a browser, instrument the |
+| 5 | available | — | verification-sources | Verification Sources |
+| 5 | available | — | verify-all-images-have-proper-alt-text | Verify all images have proper alt text |
+| 5 | available | — | verify-wcag-2-1-aa-compliance-across-new-pages | Verify WCAG 2.1 AA compliance across new pages |
+| 5 | available | — | victoria-html-common-pvsa-stop-on-seattle-round-trips | `victoria.html` — Common PVSA stop on Seattle round-trips |
+| 5 | available | — | warmcalculatorshell-predictive-prefetch | `warmCalculatorShell` predictive prefetch |
+| 5 | available | — | weather-correlation-cross-reference-noaa-weather-data-with-known | Weather correlation — — Cross-reference NOAA/weather data with known cancellation patterns. If wind > 25kt at a tender p |
+| 5 | available | — | weather-extremes-not-just-cancellations-but-dangerous-heat-middl | Weather extremes — — not just cancellations but dangerous heat (Middle East summer), monsoon downpours, etc. |
+| 5 | available | — | what-can-i-eat-dining-search-tool | "What Can I Eat?" Dining Search Tool |
+| 5 | available | — | why-it-s-higher-value-than-3-2b-for-end-users-boilerplate-ai-sum | Why it's higher value than 3.2b for end users: — boilerplate ai-summary is invisible to readers; a fully-failed data cas |
+| 5 | available | — | write-scripts-inject-gallery-noscript-js | Write `scripts/inject-gallery-noscript.js` |
+| 5 | available | — | write-scripts-inject-recent-stories-noscript-js | Write `scripts/inject-recent-stories-noscript.js` |
+| 5 | available | — | write-scripts-inject-ships-visiting-noscript-js | Write `scripts/inject-ships-visiting-noscript.js` |
+| 5 | available | — | wrong-section-order-23-ships-matches-the-2026-03-25-port-page-no | wrong_section_order: 23 ships — (matches the 2026-03-25 port-page-normalization pattern but on ships) |
+| 5 | available | — | yellow-lane-ai-proposes-human-approves | YELLOW LANE — AI Proposes, Human Approves |
+| 10 | available | — | itw-port-faq-cleanup | Port FAQ template cleanup |
