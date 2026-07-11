@@ -1,0 +1,25 @@
+{
+  "id": "9aae3373",
+  "created": "2026-05-13T17:27:40Z",
+  "updated": null,
+  "version": 1,
+  "domain": "cruising",
+  "type": "decision",
+  "content": "Image-reuse detection in cruisinginthewake requires BOTH MD5 (exact bytes) and a perceptual hash (dHash on 9x8 grayscale via sharp, Hamming threshold 8) to catch recompresses / crops / mirrors. MD5 alone is insufficient — first dHash run caught Costa Deliziosa being passed off as Celebrity Millennium (md5 b771780a vs 8f86067b, dHash distance < 8) and Costa Firenze as Celebrity Infinity. Operator's directive: 'It should hash every image, and check it, and it should visually examine every image looking for one to be a simple recrop of another.' Scanners: admin/scan-image-reuse.cjs (md5, fast, pre-commit-suitable) + admin/scan-image-recrops.cjs (dHash, ~44s on full corpus, periodic audit).",
+  "source": "mined-from-transcripts:2026-05-13",
+  "confidence": 0.9,
+  "tags": [
+    "operator-directive",
+    "image-reuse",
+    "perceptual-hash",
+    "md5",
+    "dhash"
+  ],
+  "related_to": [],
+  "supersedes": null,
+  "protected": false,
+  "archived": false,
+  "summarizes": [],
+  "last_recalled": null,
+  "recall_count": 0
+}

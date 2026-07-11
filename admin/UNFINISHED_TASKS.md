@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T23:14:30.103Z
+**Generated:** 2026-07-11T23:52:20.427Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -40,6 +40,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | itw-port-everglades-resource | Port Everglades — 6 open image slots re-source |
 | 1 | available | — | itw-port-miami-resource | Port Miami — 8 open image slots re-source |
 | 1 | registered | — | itw-seo-disavow-upload | Upload admin/seo/disavow.txt to GSC disavow-links (getbets toxic backlink defense) |
+| 1 | registered | — | itw-sydney-ns-unverifiable-license-images | Sydney NS — resolve 8 unverifiable-license port images (verify or delete per memory e8b73d89; stubs say 'CC BY-SA 4.0 or equivalent' with no source_url; ask operator before deleting; leave honest-broken refs if deleted) |
 | 1 | available | — | legend-of-the-seas-what-the-first-passengers-found | Legend of the Seas — what the first passengers found |
 | 1 | available | — | pattern-c-cruise-shore-excursion-suffix-template-bug | Pattern C — "Cruise"/"Shore Excursion" suffix template bug |
 | 1 | available | — | pattern-d-half-filled-currency-is-used-in-answer | Pattern D — Half-filled "currency is used in" answer |
@@ -50,6 +51,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 2 | registered | — | itw-fleet-normalization-15-lines | Fleet normalization — 15 cruise lines; confirm operator sense of normalize; regenerate dashboard first |
 | 2 | registered | — | itw-fom-migrate-legacy-files | FOM migrate legacy files: move ~235 scattered FOM images from assets/ships/ and ports/img/* into /assets/fom/{ships,ports,misc}/ per approved spec (memory 69ca600d) |
 | 2 | registered | — | itw-fom-storage-structure | FOM storage decisions documented (operator approved 2026-07-11): /assets/fom/{ships,ports,misc}/, © Flickers of Majesty license, any first-party operator image, non-owned refs excluded. Spec: admin/FOM-STORAGE-SPEC.md · memory 69ca600d. Execution tracked separately: itw-fom-migrate-legacy-files, itw-fom-normalize-filenames, itw-fom-backfill-sidecars, itw-fom-update-html-srcs |
+| 2 | registered | — | itw-image-reuse-cleanup | Image-reuse cleanup from scan-image-reuse + scan-image-recrops findings: 6 CRITICAL + 20 ERROR md5-identical reuses and 3 CRITICAL + 12 ERROR visual recrops — sourced unique replacements per SHIP_STANDARDIZATION_PLAN_V3 §7.6 or empty slot + coverage-gap |
 | 2 | registered | — | itw-margaritaville-line-buildout | Margaritaville at Sea line buildout: ship page Islander (#2004) + venue pages (#2005) — next content gap after generator audit session |
 | 2 | registered | — | itw-placeholder-ship-photography | Placeholder ship photography — 26 ships (Carnival 2, Celebrity 5, HAL 19); Mac-side Wikimedia; reconcile with itw-phase-6-source-limited-ships-followup |
 | 2 | registered | — | itw-seo-budget-calc-eat | SEO: drink/budget calculator E-A-T and meta differentiation pass |
@@ -60,6 +62,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 3 | registered | — | anthem-of-the-seas-deck-plan-layout-seo-article | Anthem of the Seas deck plan layout SEO article — where-is-everything guide (North Star 15–16, SeaPlex 15–16, Two70 5–6, Windjammer/Coastal Kitchen 14, three MDRs; ~2,400/mo keyword cluster) |
 | 3 | registered | — | freedom-class-gt-corpus-propagation | Freedom-class GT corpus propagation — Liberty 155,889 GT not flat 156,271 atlas default |
 | 3 | registered | — | itw-aggregator-hang-fix | Fix aggregate-ship-validation.js hang risk — full-fleet spawnSync runs both validators per page (~290 ships) |
+| 3 | registered | — | itw-firenze-venezia-wrong-hull-data | carnival-firenze (and likely carnival-venezia): fact-block carries Spirit-class data that does not match actual hull (former Costa Firenze) — needs tier-1 Equasis IMO 9787475 sourcing + fact-block regeneration |
 | 3 | registered | — | itw-fom-backfill-sidecars | FOM backfill sidecars: write mandatory .webp.attr.json for ~153 images missing sidecars; license © Flickers of Majesty — all rights reserved; append rows to attributions/fom.csv |
 | 3 | registered | — | itw-fom-chat-image-intake | FOM chat-image intake workflow: when operator supplies an image via chat, save as <slug>-FOM-NN.webp with 'Photo ©' FOM attribution + sidecar + /attributions/fom.csv row; confirm entity/subject, never reuse NN, never store under generic/CC name (operator directive 2026-07-11). |
 | 3 | registered | — | itw-fom-ip-protection | FOM IP protection: (1) US Copyright Office group registration of FOM catalog (GRPPH/GRUPH, highest-ROI legal lever) [confirm w/ counsel]; (2) /licensing/ page + '© Flickers of Majesty' near each image; (3) cap web display ~1600px, masters offline; (4) visible watermark + preserve EXIF/IPTC; (5) Pixsy/ImageRights monitoring + DMCA. Skip right-click-disable theater. |
@@ -87,6 +90,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 3 | registered | — | itw-voyage-packs-refund-window | Voyage-pack refund window mismatch: landing/PDF-README say 14d, W12 playbook line 81 says 30d — reconcile |
 | 3 | available | — | port-page-normalization-phase-1-complete-phases-2-5-pending | Port Page Normalization — Phase 1 COMPLETE, Phases 2-5 PENDING |
 | 3 | registered | — | utopia-of-the-seas-gt-cascade | Utopia of the Seas GT cascade — propagate Icon-class 248,663 IMO canon (not 250,800 marketing) |
+| 4 | registered | — | itw-comparison-swaps-review | Review 22 Phase-3.1 numeric swaps flagged by audit-internal-consistency-comparisons.cjs but NOT reverted (4 unambiguous cases reverted 2026-07-11) |
 | 4 | registered | — | itw-cruise-tipping-costa-half-rate-article | Cruise tipping: article prose parity check for Costa half-rate child policy |
 | 4 | registered | — | itw-dashboard-regen-post-3-2c | Regenerate ship-validation-dashboard.json post Phase 3.2c — baseline dated 2026-05-12; blocked on aggregator fix |
 | 4 | available | — | itw-gh-1615 | [site-wide] 37 pages have truncated footers — missing About/Support/Accessibility/Reach Family links vs standard footer |
@@ -577,4 +581,5 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | write-scripts-inject-ships-visiting-noscript-js | Write `scripts/inject-ships-visiting-noscript.js` |
 | 5 | available | — | wrong-section-order-23-ships-matches-the-2026-03-25-port-page-no | wrong_section_order: 23 ships — (matches the 2026-03-25 port-page-normalization pattern but on ships) |
 | 5 | available | — | yellow-lane-ai-proposes-human-approves | YELLOW LANE — AI Proposes, Human Approves |
+| 8 | registered | — | itw-royal-beach-club-antigua-dedicated-images | Royal Beach Club Antigua — dedicated port images deferred until resort opens; currently inherits /ports/img/antigua/ per ports/img/royal-beach-club-antigua/IMAGE-MANIFEST.md; re-source 8 slots when trigger fires |
 | 10 | available | — | itw-port-faq-cleanup | Port FAQ template cleanup |
