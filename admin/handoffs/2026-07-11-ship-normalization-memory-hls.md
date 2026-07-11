@@ -2,7 +2,7 @@
 
 **Author:** Claude Code (remote container, branch `claude/review-client-proposal-vILOr`, 2026-07-11)
 **For:** Mac SSOT agent at `/Users/kenbaker/ocs-work`
-**Mac replay:** ⏳ NOT YET EXECUTED
+**Mac replay:** ✅ EXECUTED (SSOT 12/12; HLS #2432–#2434; bus verify handoff-replay-ship-normalization-arc). README REPLAYED. Confirmed skynet2 2026-07-12.
 
 ## Why this handoff exists (container reality)
 
