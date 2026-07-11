@@ -5,6 +5,15 @@
     "MEMORY_OBSERVATIONS_ENABLED": "true",
     "MEMORY_AUTO_OBSERVE_ENABLED": "true"
   },
+  "permissions": {
+    "allow": [
+      "Edit:*",
+      "Write:*",
+      "Read:*",
+      "Bash:*"
+    ],
+    "defaultMode": "acceptEdits"
+  },
   "hooks": {
     "SessionStart": [
       {
@@ -12,6 +21,10 @@
           {
             "type": "command",
             "command": "bash /Users/kenbaker/ocs-work/.claude/hooks/library-preflight-inject.sh"
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-pulse-scan.sh"
           }
         ]
       }
@@ -22,6 +35,10 @@
           {
             "type": "command",
             "command": "bash /Users/kenbaker/ocs-work/.claude/hooks/library-preflight-inject.sh"
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start-guardrail.sh"
           }
         ]
       }
@@ -33,11 +50,49 @@
           {
             "type": "command",
             "command": "node /Users/kenbaker/ocs-work/.claude/hooks/library-preflight-guard.js"
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/voice-audit-hook.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/prompt-injection-guard.js"
+          },
+          {
+            "type": "command",
+            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/no-getbets-guard.js"
           }
         ]
       }
     ],
     "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/post-tool-use-tracker.sh"
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/ship-page-validator.sh"
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/port-content-voice-hook.sh"
+          },
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/indexnow-submit.sh"
+          }
+        ]
+      },
       {
         "matcher": "*",
         "hooks": [
