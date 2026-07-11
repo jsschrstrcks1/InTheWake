@@ -4,7 +4,7 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T23:06:41.401Z
+**Generated:** 2026-07-11T23:07:33.111Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
@@ -47,9 +47,11 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | two-paths | Two paths |
 | 1 | available | — | what-s-actually-inconsistent | What's actually inconsistent |
 | 2 | registered | — | itw-cruise-tipping-reverify-60d | Cruise tipping: 60-day rate re-verify cadence for all 15 lines |
+| 2 | registered | — | itw-fleet-normalization-15-lines | Fleet normalization — 15 cruise lines; confirm operator sense of normalize; regenerate dashboard first |
 | 2 | registered | — | itw-fom-migrate-legacy-files | FOM migrate legacy files: move ~235 scattered FOM images from assets/ships/ and ports/img/* into /assets/fom/{ships,ports,misc}/ per approved spec (memory 69ca600d) |
 | 2 | registered | — | itw-fom-storage-structure | FOM storage decisions documented (operator approved 2026-07-11): /assets/fom/{ships,ports,misc}/, © Flickers of Majesty license, any first-party operator image, non-owned refs excluded. Spec: admin/FOM-STORAGE-SPEC.md · memory 69ca600d. Execution tracked separately: itw-fom-migrate-legacy-files, itw-fom-normalize-filenames, itw-fom-backfill-sidecars, itw-fom-update-html-srcs |
 | 2 | registered | — | itw-margaritaville-line-buildout | Margaritaville at Sea line buildout: ship page Islander (#2004) + venue pages (#2005) — next content gap after generator audit session |
+| 2 | registered | — | itw-placeholder-ship-photography | Placeholder ship photography — 26 ships (Carnival 2, Celebrity 5, HAL 19); Mac-side Wikimedia; reconcile with itw-phase-6-source-limited-ships-followup |
 | 2 | registered | — | itw-seo-budget-calc-eat | SEO: drink/budget calculator E-A-T and meta differentiation pass |
 | 2 | registered | — | itw-seo-three-cluster-verifications | SEO verifications: RBC dynamic pricing, Costa Maya dive operator rates, Cozumel RBC opening date, Lelepa year |
 | 2 | registered | — | itw-voyage-packs-paywall-platform | Voyage-pack paywall — pick platform (Gumroad vs LemonSqueezy vs Stripe+CFWorker+R2) and wire live checkout |
