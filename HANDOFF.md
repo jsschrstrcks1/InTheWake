@@ -1,3 +1,5 @@
+> **Mac SSOT REPLAYED (skynet2):** memories + HLS tasks ingested; product work remains open as #2443–#2446 family.
+
 # HANDOFF — Audit + P0/P1 fixes (cloud session 2026-07-12)
 
 **Session:** 2026-07-12 (Cloud CCR)
