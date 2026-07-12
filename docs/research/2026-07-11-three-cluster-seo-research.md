@@ -127,15 +127,18 @@ RC Group public target: **two land destinations → eight by 2028** (CocoCay + L
 
 ---
 
-## Memories encoded (date-sensitive, not protected)
+## Memories on Mac SSOT (`ocs-work/.memory/`)
 
-| ID | Type | Summary |
-|----|------|---------|
-| `e8d9a589` | fact | Three-cluster pipeline state |
-| `10462ad5` | insight | Perfect Day Mexico / Costa Maya shelf-life |
-| `98e5b23c` | fact | RBC Collection pipeline + conflicts |
+| ID | State | Summary |
+|----|-------|---------|
+| `e8d9a589` | pointer | Three-cluster research artifact pointer |
+| `10462ad5` | **verified/protected** | Perfect Day Mexico / Costa Maya shelf-life (+ SEMARNAT caveat) |
+| `98e5b23c` | **verified/protected** | RBC pipeline + date conflicts + dynamic pricing |
+| `c9480f69` | **verified/protected** | Durable: RBC paid day-pass vs CocoCay included |
 
-Tagged: `inthewake,seo,research,date-sensitive`. Linked in triangle.
+Tagged: `inthewake,seo,research,date-sensitive`. Triangle + paid-invariant linked.
+
+**Skipped (session noise):** "research completed 2026-07-11" meta-fact — artifact path is enough.
 
 ---
 
