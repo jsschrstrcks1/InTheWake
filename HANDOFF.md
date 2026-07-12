@@ -1,137 +1,95 @@
-# HANDOFF.md — InTheWake Audit State
-**Last updated:** 2026-05-29 (Session 3+ ongoing)
+# HANDOFF — Audit + P0/P1 fixes (cloud session 2026-07-12)
+
+**Session:** 2026-07-12 (Cloud CCR)
+**Branch:** `claude/audit-repo-tasks-FelBt` (recreated from main after merge)
+**Prior branch was merged** — work below is continuation on fresh branch.
 
 ---
 
-## Issue #1364 — Carnival Horizon Duplicate Sections
-**Status:** COMPLETE — Ready for merge to main
-**Branch:** `fix/1364-carnival-horizon`
+## What Was Done This Session
 
-See `ISSUE_1364_ANALYSIS.md`, `ISSUE_1364_SUMMARY.md`, `ISSUE_1364_VERIFICATION.md` for full details.
+### 1. Full UNFINISHED_TASKS.md audit (11 fixes committed)
+- Struck 42/45 stale Tier 3 port entries (sections already present; only chilean-fjords, papeete, strait-of-magellan genuinely missing)
+- Deprecated stale "242/387 PASS" port validation number (actual 2026-05-13: 47/385)
+- Removed 3 done SW items (warmCalculatorShell, staleIfErrorTimestamped, GET_CACHE_STATS)
+- Removed affiliate task for 3 redirect stubs (beijing, falmouth-jamaica, kyoto)
+- Updated CSS baseline from ~15,626 to 22,181
+- Added lane assignments to Missing Port/Homeport/Ship sections (Yellow)
+- Moved Solo Articles decision to Red Lane
+- Cleaned stale IN_PROGRESS entry
+- Updated header date
+
+### 2. P0 Flickr ARR bulk delete (866 images + 866 attr.json + 865 CSV rows)
+- Deleted all "Flickr public feed" sourced files across 121 ports
+- Excluded 2 verified CC BY 2.0 keepers in port-everglades
+- HTML refs intentionally left broken for validator tracking
+- Legal liability removed
+
+### 3. P1 Weather FAQ backfill (248 ports)
+- Wrote `admin/backfill-weather-faqs.cjs` (idempotent, uses validator's own Q: extraction logic)
+- Injected 1-4 weather FAQs per port from seasonal-guides.json
+- Both visible HTML + JSON-LD schema updated
+- Spot-verified: weather FAQ errors resolve to 0 on all tested ports
 
 ---
 
-## Systematic Audit — Session 2 (2026-05-26 Evening)
+## What Still Needs Doing
 
-### What Was Done
+### P1 (immediate)
+1. **13 ports lack FAQ `<details>` section** — cannot receive weather FAQs. Need template structural fix.
+2. **FAQ_COUNT mismatch** — many ports have original FAQs without `Q:` prefix. Validator counts `<strong>Q:` only. Separate pass: add prefix to existing FAQs or adjust validator.
+3. **7 Alaska ports lack seasonal-guides.json data** (college-fjord, homer, kodiak, misty-fjords, petersburg, valdez, wrangell). Need entries added to JSON.
 
-Complete JS/CSS/HTML nav audit across all 1,282 pages. Built Python validators. Found and documented 10 new issues filed to GitHub.
+### P2 (follow-up)
+4. **42 Tier 3 ports — content quality review**. Headings exist but content may be thin stubs.
+5. **Inline styles at 22,181** (growing). CSS consolidation moving backwards.
+6. **FORCE_DATA_REFRESH** SW message handler still pending (only uncategorized SW item left).
 
-### Issues Filed This Session
+---
 
-| # | Title | Severity | Scope |
-|---|-------|----------|-------|
-| [#1628](https://github.com/jsschrstrcks1/InTheWake/issues/1628) | `/assets/nav.js` missing (404) | **CRITICAL** | 97 restaurant pages |
-| [#1629](https://github.com/jsschrstrcks1/InTheWake/issues/1629) | Fleet restaurant subdirs missing dropdown.js | **CRITICAL** | 198 pages (NCL/MSC/Carnival/Virgin) |
-| [#1630](https://github.com/jsschrstrcks1/InTheWake/issues/1630) | Article pages missing dropdown.js | HIGH | 23 pages |
-| [#1631](https://github.com/jsschrstrcks1/InTheWake/issues/1631) | Port pages missing dropdown.js | HIGH | 42 ports |
-| [#1632](https://github.com/jsschrstrcks1/InTheWake/issues/1632) | CSS unversioned/stale cache-busting | MEDIUM | 342 pages (+ 259 ships w/ stale ship-page.css) |
-| [#1633](https://github.com/jsschrstrcks1/InTheWake/issues/1633) | Nav inconsistency: /planning.html ships-only | MEDIUM | 312 ships + others |
-| [#1634](https://github.com/jsschrstrcks1/InTheWake/issues/1634) | `in-app-browser-escape.js` missing | MEDIUM | 455 pages |
-| [#1635](https://github.com/jsschrstrcks1/InTheWake/issues/1635) | Broken JS references (common.js, recent-rail.js, etc.) | MEDIUM | 10 port pages |
-| [#1636](https://github.com/jsschrstrcks1/InTheWake/issues/1636) | Port pages missing og:url / canonical mismatch | MEDIUM | 16 ports |
-| [#1637](https://github.com/jsschrstrcks1/InTheWake/issues/1637) | Duplicate `<script>` tags on 17 pages | LOW | 17 pages |
+## Memories to Store (for handoff agent)
 
-### Key Findings Summary
+These should be `encode()`d into cognitive memory:
 
-**JavaScript (most impactful):**
-- `/assets/nav.js` — file deleted but 97 pages still reference it (404)
-- 198 fleet restaurant pages (NCL/MSC/Carnival/Virgin) — no nav JS at all
-- 23 article pages — no nav JS at all
-- 42 port pages — no nav JS at all
-- Total broken mobile nav: **~360 pages**
-- `/assets/js/newnav.js` exists but 0 pages reference it (orphaned)
+| Content | Domain | Type | Source |
+|---------|--------|------|--------|
+| InTheWake Tier 3 port audit: 42/45 have cruise-port/getting-around/excursions headings. Only chilean-fjords, papeete, strait-of-magellan genuinely missing. Content depth unverified. | InTheWake | insight | session-2026-07-12-audit |
+| Port weather validator merged into port-page validator (PR #1411, 2026-04-13). Before this, weather wasn't checked. 242 PASS → 47 PASS is rule addition, not regression. | InTheWake | insight | session-2026-07-12-audit |
+| backfill-weather-faqs.cjs: idempotent batch script. Uses validator's extractVisibleFAQQuestions logic (Q: prefix + faq-item details). Applied to 248 ports. Re-runnable. | InTheWake | procedure | session-2026-07-12-audit |
+| Flickr ARR audit: 866 images deleted across 121 ports. 2 PE keepers (CC BY 2.0 from prayitnophotography). All recoverable from git history. | InTheWake | fact | session-2026-07-12-audit |
+| CLAUDE.md now pointer-only. Household SSOT at /Users/kenbaker/ocs-work. HLS catalog at .household-library/catalog.jsonl. Memory at open-claw-stuff/.memory/. | household | insight | session-2026-07-12-audit |
 
-**CSS:**
-- 329 port pages + 10 ship index pages: unversioned `styles.css` (no cache-busting)
-- 259 ship pages: `ship-page.css?v=3.010.300` stale (current is v=3.010.400)
-- Norwegian fleet + Virgin + Cunard are current; most others are stale
+---
 
-**Nav HTML:**
-- Ship pages have `/planning.html` in Planning dropdown; all other page types don't
-- Nav HTML structure is otherwise consistent (same classes, same link set)
-
-**Other:**
-- 455 pages missing `in-app-browser-escape.js` (Facebook/Instagram escape banner)
-- 12 ports reference `common.js` (deleted), 12 reference `recent-rail.js` (deleted)
-- 16 ports: og:url missing or has canonical mismatch
-- 17 pages: duplicate `<script>` tags
-
-### Validator Script Location
-
-No standalone validator saved. All analysis was done via inline Python during the session. Key commands:
+## Tasks to Add to HLS
 
 ```bash
-# Pages missing dropdown.js by section
-find . -name "*.html" | grep -v ".claude" | xargs grep -L "dropdown.js" 2>/dev/null \
-  | awk -F'/' '{print $2}' | sort | uniq -c | sort -rn
+# Run these on the Mac where library.mjs is available:
+node /Users/kenbaker/ocs-work/admin/library.mjs add \
+  --id "itw-faq-structural-13" \
+  --title "13 ports lack FAQ <details> section — cannot receive weather FAQs" \
+  --priority 1 --repo InTheWake
 
-# Pages referencing missing JS files
-python3 -c "
-import os, re, glob
-all_refs = set()
-for path in glob.glob('./**/*.html', recursive=True):
-    if '.claude' in path: continue
-    content = open(path).read()
-    refs = re.findall(r'src=\"(/assets/[^\"?]*\.js)', content)
-    all_refs.update(refs)
-for ref in sorted(all_refs):
-    if not os.path.exists(ref.lstrip('/')): print('MISSING:', ref)
-"
+node /Users/kenbaker/ocs-work/admin/library.mjs add \
+  --id "itw-faq-count-prefix" \
+  --title "FAQ_COUNT mismatch: add Q: prefix to original non-prefixed FAQs" \
+  --priority 2 --repo InTheWake
+
+node /Users/kenbaker/ocs-work/admin/library.mjs add \
+  --id "itw-tier3-content-quality" \
+  --title "42 Tier 3 ports: content depth review (headings present, quality unverified)" \
+  --priority 2 --repo InTheWake
+
+node /Users/kenbaker/ocs-work/admin/library.mjs add \
+  --id "itw-alaska-seasonal-json" \
+  --title "7 Alaska ports missing from seasonal-guides.json (college-fjord homer kodiak misty-fjords petersburg valdez wrangell)" \
+  --priority 2 --repo InTheWake
 ```
-
-### Previously Filed (Session 1, same day)
-
-Issues #1596, #1598, #1599, #1601, #1602, #1604, #1606, #1608, #1609, #1611, #1616, #1618, #1620, #1624 — homepage, about, robots.txt, sitemap, accessible-cruising audit.
 
 ---
 
-## Systematic Audit — Session 3 (2026-05-29 Ongoing)
-
-### What's Been Done This Session
-
-**Issues filed: 244+ total in tracker** (up from 187 at start of session)
-
-**Ship-page comprehensive audit launched** — per user directive "1 ship by ship, line of code by line of code, page by page until all ships are checked."
-
-**Fleet-wide findings (all 290 ship pages):**
-- 100% contain `/ships.html` forbidden pattern (1,029 occurrences)
-- 68% contain "undefined" (dynamic render bug symptom)
-- 287/290 have First Look carousel structure
-- 275/290 have dining sections
-
-**Content gap issues filed (#1788–#1799):**
-- #1794: 95% missing dining-hero images
-- #1795: 71% use generic ship-map.png placeholder
-- #1796: 12% have swiper carousels with no JS
-- #1797: 31% missing "Tales From the Wake" section
-- #1799: **85% missing "Who this ship is for" section**
-
-**Non-ship pages also affected:**
-- "undefined" in 373 ports/restaurants/cruise-lines
-- `/ships.html` pattern spans multiple page types
-
-### How to Resume Next Session
-
-1. Read this file
-2. Check issues: `https://github.com/jsschrstrcks1/InTheWake/issues` (244 open)
-3. Continue systematic crawl:
-   - Ship-by-ship deep audit (content gaps #1788–#1799)
-   - Port pages exhaustive review
-   - Restaurant completeness check
-   - Tools accessibility audit
-4. **Critical infrastructure fixes pending**:
-   - #1628–#1631, #1634: Missing JS on ~360 pages
-   - #1691: 280+ broken port images
-   - #1680: .htaccess 301→404 chain
-   - #1720: Custom 404.html
-   - #1684: GDPR/GA4 consent on 1,229 pages
-   - #1632: CSS version sweep (unversioned/stale CSS params)
-   - #1633: Nav consistency — decide on /planning.html globally
-5. Specific pages still to deep-audit individually (carried over from the 2026-05-26 session, not yet done):
-   - `ships.html` hub page
-   - `cruise-lines.html` hub
-   - First Carnival ship page (full deep dive)
-   - A restaurant page in each fleet subdir
-   - `search.html`
-   - `tools/*.html` pages
+## How to Resume
+1. Push this branch to InTheWake if network allows
+2. On Mac: run the `library.mjs add` commands above
+3. On Mac: run `python3 ken/orchestrator/memory_ops.py` (or invoke encode() per the table above)
+4. The weather FAQ backfill script is ready to re-run if more ports are added to seasonal-guides.json
