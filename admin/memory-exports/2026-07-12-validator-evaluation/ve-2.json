@@ -1,0 +1,28 @@
+{
+  "id": "ve-2-container-draft",
+  "created": "2026-07-12T00:00:00Z",
+  "updated": null,
+  "version": 1,
+  "domain": "cruising",
+  "type": "pattern",
+  "content": "Where to log validator regex bugs — decision matrix. (a) When a validator regex misfires on a page during author-work: add an entry to admin/VALIDATOR_REGEX_ISSUES.md with validator location, observed false positive, suggested fix, and the page(s) that exposed it. NEVER silently reword the page to dodge the regex — that's the 'regex collision dodging' anti-pattern documented in admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md. The reword may still ship (page has to go out) but the log entry is the price of admission. (b) When a code-review / evaluation pass discovers regex bugs without a specific page trigger: still log to VALIDATOR_REGEX_ISSUES.md — the doc is the canonical catalog, not per-page-discovery-only. (c) Cognitive memory captures the META (a batch of quirks was catalogued in a session, with a summary + reference to the doc) but the CATALOG belongs in the repo as VALIDATOR_REGEX_ISSUES.md so future authors can search-in-place. This split keeps memory small and the repo canonical.",
+  "source": "session:2026-07-12-validator-evaluation",
+  "confidence": 0.95,
+  "tags": [
+    "inthewake",
+    "validator",
+    "meta-workflow",
+    "regex-collision-dodging",
+    "careful-not-clever",
+    "operator-directive"
+  ],
+  "related_to": [
+    "2d8a6f10"
+  ],
+  "supersedes": null,
+  "protected": true,
+  "archived": false,
+  "summarizes": [],
+  "last_recalled": null,
+  "recall_count": 0
+}
