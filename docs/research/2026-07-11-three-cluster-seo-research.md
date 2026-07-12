@@ -151,3 +151,49 @@ Tagged: `inthewake,seo,research,date-sensitive`. Linked in triangle.
 ---
 
 *Soli Deo Gloria.*
+
+---
+
+## Appendix A — Web-sandbox 2026-07-11 dense notes (skynet2 second-pass)
+
+**Source:** Claude.ai web sandbox handoff (not container git). Appended 2026-07-12 after re-read of full handoff paste. Prefer production verification before publishing draft math.
+
+### Cluster 1 denser operational details
+
+- Cruise pier ≈ **5 min taxi** ($2–$4/person) to Mahahual Malecón dive shops
+- Local reef freestyle: ~**60 ft** first tank / ~**45 ft** second typical; ~**78°F** water; **80–100 ft** visibility framing from sandbox Session
+- **Chinchorro distances disagreement across sources (28–40 km)**; boat **1.5–2.5+ hr** one way; ~**9 hr** on-scarce day often quoted; **6-diver minimum**; Advanced OW + **30 logged dives** often required; weather-scrubbed frequently → **almost never a cruise-day ticket**
+- Operator shortlist for comparison drafts: Doctor Dive, Alux Divers, Pepe Dive Mahahual, Mar Adentro; **YaYa Beach Club** for mixed-interest families
+- Time-sensitive content idea: *"What Happens to Costa Maya diving when Perfect Day Mexico opens?"* (late-2027 trigger if port replacement holds)
+
+### Cluster 2 denser notes
+
+- Mystery Island true name **Inyeug**; branding origin stories differ (1975 QE2 visit vs 1980s marketing) — prefer better-documented 1980s tourism marketing narrative cautiously
+- **Zero permanent population**; vendors from **Aneityum** on ship days; local custom + no freshwater
+- ~**1 km × 200 m**; **tender** to Anelcauhat Harbour; Carnival land tours only from ~2015
+- Fatal snorkel incident **Sept 2023** — pastoral, not sensational
+- Itinerary shapes: 7-night Noumea+Lifou+Mystery; 8–9 Anthem Sydney→Noumea→Port Vila→Mystery→Sydney; 10–14 adds Fiji/Isle of Pines
+- RCI Australia 2026: **Anthem year-round**; **Quantum returns Brisbane Oct 2026**
+- Season: **May–Oct dry/cool** (~25°C); summer wetter/cyclone-adjacent
+
+### Cluster 3 denser notes / pricing band conflict
+
+- Paradise Island open **Dec 23 2025** (17 acres; Family/Chill/Party zones; Floating Flamingo bar claim; exclusive RC+Celebrity + residents; Bahamians equity to 49%)
+- Sandbox observed All-Inclusive day pass starting **~$169.99** → sale **~$139.99**; non-alcohol **~$129.99** (13+) / **~$109.99** kids — **CONFLICT** vs prior Mac artifact band **$99–129**. Treat all as **dynamic Cruise Planner**; verify before stewardship math.
+- **Structural invariant:** RBC day-passes = **paid**, CocoCay (and Perfect Day model) = **included in fare** when open free private island
+- Santorini sold as part of **Ultimate Santorini Day** package (Oia/Fira + beach club); Vlychada black sand
+- Cozumel public beach access (Zona Hotelera Sur) for Mexican beach-law compliance
+- Cozumel / Lelepa **opening conflicts already tracked above**
+
+### Skip memory metadata
+
+- Session-only "research completed 2026-07-11" fact: **SKIP** (artifact path is SSOT pointer)
+- Do **not** invent 2027 ports replacement certainty beyond RC material + SEMARNAT history already noted
+
+### Related skynet2 absorb things (2026-07-12)
+
+- Missing Algorithm tasks registered as GAP set if not already present
+- Memories: promote durable facts; add RBC-paid vs CocoCay-free if absent
+
+*Second-pass careful absorb. Soli Deo Gloria.*
+
