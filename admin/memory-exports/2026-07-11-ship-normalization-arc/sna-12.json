@@ -1,0 +1,24 @@
+{
+  "id": "a91d3c47",
+  "created": "2026-07-11T00:00:00Z",
+  "updated": null,
+  "version": 1,
+  "domain": "cruising",
+  "type": "pattern",
+  "content": "Per-file pre-commit checks (regression diff, image-reuse block) must SKIP during merge/rebase/cherry-pick — detected via .git/MERGE_HEAD, .git/rebase-merge, .git/rebase-apply, .git/CHERRY_PICK_HEAD. During a merge the staged set contains everything upstream already shipped, and per-file checks re-flag pre-existing failures as if the merge introduced them (observed: image-reuse hook blocked a clean main merge because main already contained known Liberty/Radiance FOM duplicates). CI is the right place to verify cross-branch state; the hook stays active for normal commits. Implementation: InTheWake .githooks/pre-commit top guard.",
+  "source": "container:cruising:claude/review-client-proposal-vILOr:2026-07-11",
+  "confidence": 0.85,
+  "tags": [
+    "git",
+    "pre-commit",
+    "merge",
+    "hooks"
+  ],
+  "related_to": [],
+  "supersedes": null,
+  "protected": false,
+  "archived": false,
+  "summarizes": [],
+  "last_recalled": null,
+  "recall_count": 0
+}
