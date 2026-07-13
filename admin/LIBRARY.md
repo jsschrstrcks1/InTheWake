@@ -13,9 +13,16 @@ Tasks with `repo: InTheWake` in household catalog. Examples:
 |-----------------|----------|-------|
 | itw-flickr-arr-audit | 0 | Flickr ARR license audit |
 | itw-hal-carousels | 1 | HAL carousel blocking errors |
+| itw-voyage-pwa-integration | 2 | Voyage packs → PWA deep integration (soft-deprecate PDFs; Bliss shell time-critical, sails Jul 2026) |
 | itw-mariner-oversold | 3 | Mariner oversold outcome article |
+| itw-voyage-pwa-icons | 4 | Per-voyage PWA icon variants (14 installs share one icon) |
 | itw-css-inline | 5 | Inline styles consolidation |
 | itw-drink-calc-copy | 5 | Drink calculator copy vs chart |
+
+> `itw-voyage-pwa-integration` and `itw-voyage-pwa-icons` added from the repo side
+> 2026-07-07 (remote session; container has no catalog access) — needs `library.mjs add`
+> on the household box to take catalog custody. Full state: `admin/UNFINISHED_TASKS.md`
+> §"P2 — Voyage packs → PWA deep integration".
 
 ```bash
 node /Users/kenbaker/ocs-work/admin/library.mjs find "itw"
