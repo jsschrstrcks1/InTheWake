@@ -1,6 +1,8 @@
 # Handoff — Site-scan remediation + mining-workflow memories
 
 **Author:** Claude Code (remote container, branch `claude/fix-site-scan-errors-g9kBe`, 2026-07-11)
+**For:** an agent on the Mac (`/Users/kenbaker/ocs-work`) that can see `open-claw-stuff` and the household SSOT
+**Status:** Site-scan fixes were committed to InTheWake (see PART D). Memories + HLS tasks below could **not** be written to the true SSOT from this container — no `/home/user/open-claw-stuff/` mount, no push credentials to `jsschrstrcks1/ken`, only InTheWake is reachable. Soli Deo Gloria.
 **For:** Mac SSOT agent at `/Users/kenbaker/ocs-work`
 **Mac replay (grok1):** **EXECUTED** 2026-07-11 — see replay notes below.
 
