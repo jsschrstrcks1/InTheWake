@@ -1,36 +1,49 @@
 # Memory export — ship-normalization arc (2026-07-11)
 
-**Status:** ⏳ **PENDING Mac replay** — not yet on SSOT.
+**Status:** ✅ **REPLAYED on Mac SSOT** (`/Users/kenbaker/ocs-work/.memory`)  
+**Replayed at:** 2026-07-11 ~23:51–23:52Z (first land, patron grok1) · confirmed skynet2 2026-07-12  
+**Bus event:** `.household-library/events.jsonl` verify/task `handoff-replay-ship-normalization-arc`  
+**Handoff:** `admin/handoffs/2026-07-11-ship-normalization-memory-hls.md`
 
-Container source: thread `claude/review-client-proposal-vILOr` (the ship-page
-standardization v3 / image-reuse-guardrail / careful-not-clever arc,
-2026-05-04 → 2026-07-11).
+Container source: thread `claude/review-client-proposal-vILOr` (ship-page standardization v3 / image-reuse-guardrail / careful-not-clever arc, 2026-05-04 → 2026-07-11).
 
-## Contents
+## Contents → SSOT ids (content-deduped, not source-tag-deduped)
 
-| file | id | domain | type | protected | subject |
-|------|----|--------|------|-----------|---------|
-| sna-1.json | `3503f82e` | ken | preference | ✓ | careful-not-clever, tied to rollback `a5d50054` |
-| sna-2.json | `7dc358c6` | ken | preference | | "like I'm 5" plain-language idiom |
-| sna-3.json | `69fc7166` | ken | pattern | | adversarial audit: "were you careful or clever?" |
-| sna-4.json | `15eeb512` | ken | pattern | | check existing infra before claiming missing |
-| sna-5.json | `6c510d90` | cruising | decision | | guardrail-skill standard (block + identify + tone) |
-| sna-6.json | `61f04b07` | ken | preference | | borderline-rude guardrail output authorized |
-| sna-7.json | `67ddb9a0` | cruising | decision | | symlinks in image trees always blocking |
-| sna-8.json | `9aae3373` | cruising | decision | | image dedup = MD5 + dHash, both required |
-| sna-9.json | `0ce4b2c2` | ken | pattern | ✓ | AI-integrity failure-mode catalog (A–T) |
-| sna-10.json | `2887e0f0` | cruising | pattern | | site-wide scope for detectors |
-| sna-11.json | `b4c81f2e` | cruising | pattern | ✓ | cross-ship comparison rewrite anti-pattern + fix |
-| sna-12.json | `a91d3c47` | cruising | pattern | | pre-commit hooks skip merge/rebase state |
+Container export ids (e.g. `3503f82e`) are **export-local**. After `memory_ops.encode` the durable SSOT ids are:
 
-sna-1 … sna-10: `source=mined-from-transcripts:2026-05-13` (this thread's
-mining run — **distinct from** the 9-entry set with the same source tag
-already replayed via `2026-07-11-cruise-tipping-audit/`; those cover
-tipping/article content, these cover integrity/image-reuse. Dedup by
-content, not by source tag).
+| file | SSOT id | domain | type | protected | subject |
+|------|---------|--------|------|-----------|---------|
+| sna-1.json | `854ee7cc` | ken | preference | ✓ | careful-not-clever, tied to rollback `a5d50054` |
+| sna-2.json | `d63ea609` | ken | preference | | "like I'm 5" plain-language idiom |
+| sna-3.json | `33919478` | ken | pattern | | adversarial audit: "were you careful or clever?" |
+| sna-4.json | `44d95be8` | ken | pattern | | check existing infra before claiming missing |
+| sna-5.json | `c38caf0d` | cruising | decision | | guardrail-skill standard (block + identify + tone) |
+| sna-6.json | `d2daeeee` | ken | preference | | borderline-rude guardrail output authorized |
+| sna-7.json | `eb571b52` | cruising | decision | | symlinks in image trees always blocking |
+| sna-8.json | `89f048b3` | cruising | decision | | image dedup = MD5 + dHash, both required |
+| sna-9.json | `929dd43a` | ken | pattern | ✓ | AI-integrity failure-mode catalog |
+| sna-10.json | `0415994e` | cruising | pattern | | site-wide scope for detectors |
+| sna-11.json | `d81cb7c6` | cruising | pattern | ✓ | cross-ship comparison rewrite anti-pattern + fix |
+| sna-12.json | `0747b21c` | cruising | pattern | | pre-commit hooks skip merge/rebase state |
 
-sna-11 … sna-12: `source=container:cruising:claude/review-client-proposal-vILOr:2026-07-11`
-(session encodes from the post-mining work).
+sna-1 related_to household careful pattern `2f17c5eb` (link, not supersede).
+
+**Dedup note:** sna-1…10 use `source=mined-from-transcripts:2026-05-13` but are **content-distinct** from the cruise-tipping 9-pack (`bc6ef93a…8f642f51`). Dedup by content only.
+
+## HLS tasks (PART B — registered)
+
+| task_id | P | GitHub |
+|---------|---|--------|
+| `itw-image-reuse-cleanup` | 2 | https://github.com/jsschrstrcks1/InTheWake/issues/2432 |
+| `itw-firenze-venezia-wrong-hull-data` | 3 | https://github.com/jsschrstrcks1/InTheWake/issues/2433 |
+| `itw-comparison-swaps-review` | 4 | https://github.com/jsschrstrcks1/InTheWake/issues/2434 |
+
+Mirrors refreshed via `node admin/library.mjs mirrors --repo InTheWake`.
+
+## MEMORY_SESSION_IDs (container)
+
+- sna-1…10: `mining-transcripts-119bf64e-c186-4170-855d-4f450e9d29cf`
+- sna-11…12: `session-2026-07-11-ship-normalization`
 
 Replay instructions: `admin/handoffs/2026-07-11-ship-normalization-memory-hls.md`.
 
