@@ -3,6 +3,7 @@
 **Author:** Claude Code (remote container, branch `claude/review-client-proposal-vILOr`, 2026-07-11)
 **For:** Mac SSOT agent at `/Users/kenbaker/ocs-work`
 **Mac replay:** ⏳ NOT YET EXECUTED
+**Mac replay (grok1):** ✅ **EXECUTED** 2026-07-11 — 12 memories encoded; HLS #2432–#2434 registered
 
 ## Why this handoff exists (container reality)
 

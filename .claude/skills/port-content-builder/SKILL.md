@@ -77,7 +77,7 @@ Every port page follows this structure:
 
 ## Voice Standards
 
-- Write from real cruising experience (50+ voyages perspective)
+- Write from real cruising experience (150+ days at sea perspective)
 - Faith-integrated but not preachy — "Soli Deo Gloria" in spirit, not in every paragraph
 - Practical first: "The tender dock is a 5-minute walk from the main shopping area"
 - Honest about limitations: "We haven't visited this port ourselves — this is researched content"

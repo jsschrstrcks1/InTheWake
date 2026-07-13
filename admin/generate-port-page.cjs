@@ -36,9 +36,34 @@ function generatePage(config) {
   } = config;
 
   const slug = customSlug || slugify(port);
-  const title = `${port} Cruise Port Guide — In the Wake`;
+
+  // Pattern C: if port name already ends with Cruise / Shore Excursion, do not re-append those phrases.
+  function withCruisePortLabel(name) {
+    const n = String(name || '').trim();
+    if (/\bcruise\s*port\b$/i.test(n)) return n;
+    if (/\bcruise\b$/i.test(n)) return `${n} port`;
+    if (/\bshore\s+excursions?$/i.test(n)) return n;
+    return `${n} cruise port`;
+  }
+  function withCruisePortGuideTitle(name) {
+    const n = String(name || '').trim();
+    if (/\bcruise\s*port\s*guide\b/i.test(n)) return `${n} — In the Wake`;
+    if (/\bcruise\s*port\b$/i.test(n)) return `${n} Guide — In the Wake`;
+    if (/\bcruise\b$/i.test(n)) return `${n} Port Guide — In the Wake`;
+    return `${n} Cruise Port Guide — In the Wake`;
+  }
+  function withCruisePierLabel(name) {
+    const n = String(name || '').trim();
+    if (/\b(cruise\s*)?pier\b$/i.test(n)) return n;
+    if (/\bcruise\b$/i.test(n)) return `${n} pier`;
+    return `${n} cruise pier`;
+  }
+
+  const title = withCruisePortGuideTitle(port);
   const description = `First-person logbook guide to ${port}, ${country} — cruise terminal, getting around, shore excursions, local food, and practical tips for cruise travelers.`;
-  const aiSummary = `${port} cruise port in ${country}. ${dockType === 'tender' ? 'Tender port' : 'Ships dock directly'}. ${region} itineraries. Local currency: ${currencyCode || currency}.`;
+  const portCruiseLabel = withCruisePortLabel(port);
+  const portPierLabel = withCruisePierLabel(port);
+  const aiSummary = `${portCruiseLabel} in ${country}. ${dockType === 'tender' ? 'Tender port' : 'Ships dock directly'}. ${region} itineraries. Local currency: ${currencyCode || currency}.`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -162,7 +187,7 @@ function generatePage(config) {
       <!-- ═══════════════════════════════════════════════════════════════ -->
       <!-- HERO SECTION -->
       <!-- ═══════════════════════════════════════════════════════════════ -->
-      <section class="port-hero" id="hero" aria-label="${port} cruise port hero image">
+      <section class="port-hero" id="hero" aria-label="${portCruiseLabel} hero image">
         <div class="port-hero-image">
           <img src="/ports/img/${slug}/${slug}-hero.webp"
                alt="<!-- FILL: Descriptive alt text for ${port} hero image -->"
@@ -177,7 +202,7 @@ function generatePage(config) {
       <!-- ═══════════════════════════════════════════════════════════════ -->
       <!-- FROM THE PIER (early orientation — spirit priority per composite) -->
       <!-- ═══════════════════════════════════════════════════════════════ -->
-      <nav class="from-the-pier" id="from-the-pier" data-pier-type="${dockType || 'dock'}" aria-label="Walking distances from ${port} cruise pier">
+      <nav class="from-the-pier" id="from-the-pier" data-pier-type="${dockType || 'dock'}" aria-label="Walking distances from ${portPierLabel}">
         <h3>From the Pier</h3>
         <ul class="pier-distances">
           <li class="pier-distance-item">
