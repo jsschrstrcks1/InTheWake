@@ -127,6 +127,12 @@ git -C /Users/kenbaker/ocs-work commit -m "memory+HLS: persist 2026-07-11 Flickr
 
 ---
 
+## PART C — Operator decisions needed (block itw-fom-storage-structure)
+
+1. **Root path:** `/assets/fom/{ships,ports,misc}/` (recommended, matches existing `/assets/ships/`) or repo-root `/fom/`?
+2. **Exact FOM license label string** for sidecars/CSV (e.g. `© Flickers of Majesty — all rights reserved`, or a CC BY variant with attribution to Flickers of Majesty)?
+3. **Scope of "FOM":** ship + port photography only, or ANY first-party operator image?
+4. **Reference images:** when the operator pastes an image that is NOT their own (e.g. a Wikimedia ref), should it still be FOM-named? (Proposed: no — FOM = operator's own work only.)
 ## PART C — Operator decisions (RESOLVED 2026-07-11 — all recommendations accepted)
 
 1. **Root path:** `/assets/fom/{ships,ports,misc}/` ✓
