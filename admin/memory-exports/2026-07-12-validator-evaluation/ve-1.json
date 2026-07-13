@@ -1,0 +1,29 @@
+{
+  "id": "ve-1-container-draft",
+  "created": "2026-07-12T00:00:00Z",
+  "updated": null,
+  "version": 1,
+  "domain": "cruising",
+  "type": "fact",
+  "content": "Validator quirks catalog (admin/validate-ship-page.sh) discovered during 2026-07-12 evaluation pass, logged in admin/VALIDATOR_REGEX_ISSUES.md as REGEX-04..REGEX-09 + UX-01..UX-02. Concrete bugs: (a) #1320 TBD-field check uses sed -n '/\"entered_service\"/,/\"registry\"/p' — slice bleeds past JSON block to EOF when 'registry' field is missing, catching unrelated data-imo attributes; (b) #1819 grammar check regex \\b[Aa] [AEIOU][a-z] misfires on yu-sound vowels (a unique, a European, a one-time, a used); (c) superlative check ~line 1303 requires 20[0-9]{2} or 'as of' AFTER the superlative within 80 chars — 19XX ships fail; (d) gross-tonnage check ~line 1092 uses grep -qi 'gross tons\\|GT' — 'gross tonnage' alone fails; (e) carousel-slide check ~line 567 uses grep -c '</div>' which counts LINES not occurrences — collapsed </div></div> undercounted; (f) retired-ship detection depends on magic prose phrases (~lines 762–775, 1322–1338) AND conflicts with the site-name leak check that flags 'In the Wake' anywhere. UX gaps: no --json output mode, no --only <id> filter — bulk-fix orchestrators re-parse human stdout. Fix should be rule-level (rule #1500-style pattern from cvs-7 memory 2d8a6f10), not per-page rewords (regex collision dodging anti-pattern from CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md). Related HLS task: itw-validator-quirk-refactor.",
+  "source": "session:2026-07-12-validator-evaluation",
+  "confidence": 0.9,
+  "tags": [
+    "inthewake",
+    "validator",
+    "quirks",
+    "regex-bugs",
+    "validate-ship-page-sh",
+    "rule-level-fix"
+  ],
+  "related_to": [
+    "2d8a6f10",
+    "76e2c4b9"
+  ],
+  "supersedes": null,
+  "protected": false,
+  "archived": false,
+  "summarizes": [],
+  "last_recalled": null,
+  "recall_count": 0
+}
