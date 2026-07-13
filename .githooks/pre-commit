@@ -24,6 +24,16 @@ set -u
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 
+# Required-hooks guard — runs on EVERY commit, INCLUDING merges. A merge is
+# exactly how .claude/settings.json hooks got silently dropped once, and the
+# per-file checks below skip merges, so this must run before that skip block.
+if [ -x "$REPO_ROOT/admin/check-required-hooks.sh" ]; then
+    "$REPO_ROOT/admin/check-required-hooks.sh" || {
+        echo "pre-commit: blocked — protected Claude Code hooks missing from .claude/settings.json." >&2
+        exit 1
+    }
+fi
+
 # Skip during merge / rebase / cherry-pick — the staged set then contains
 # everything the upstream author already shipped, and the per-file checks
 # below would re-flag pre-existing failures as if this commit introduced

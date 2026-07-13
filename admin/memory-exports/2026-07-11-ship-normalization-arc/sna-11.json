@@ -1,0 +1,25 @@
+{
+  "id": "b4c81f2e",
+  "created": "2026-07-11T00:00:00Z",
+  "updated": null,
+  "version": 1,
+  "domain": "cruising",
+  "type": "pattern",
+  "content": "Anti-pattern (occurred TWICE, two independent agents): bulk guest-count rewrites that replace every flagged integer with the page's canonical also rewrite integers inside cross-ship COMPARISON sentences, producing factually false pages. Example: queen-anne.html 'Queen Elizabeth or Queen Victoria may be a better fit at roughly 90,000 GT and 2,081 guests' was rewritten to 2,996 (Queen Anne's own count) — the page then claimed Elizabeth carries Anne's capacity. Fix shipped 2026-07-11: COMPARISON_CONTEXT_TRIGGERS (if-you-want/prefer idioms, 'may be a better fit', '<Class> class carries/has', 'intimate ocean ships at under', by-contrast/unlike) in BOTH admin/repair-internal-consistency.js and validate-ship-page.js validateInternalNumericConsistency, with 200-char lookback + 100-char lookahead. Validator and repair script must share the same trigger list or they fight each other. Rule doc: .claude/skills/internal-consistency-repair/SKILL.md § 3a. Revert audit: audit-reports/internal-consistency/_revert-2026-05-07.md.",
+  "source": "container:cruising:claude/review-client-proposal-vILOr:2026-07-11",
+  "confidence": 0.95,
+  "tags": [
+    "operator-directive",
+    "data-consistency",
+    "cross-ship-comparison",
+    "bulk-rewrite",
+    "anti-pattern"
+  ],
+  "related_to": [],
+  "supersedes": null,
+  "protected": true,
+  "archived": false,
+  "summarizes": [],
+  "last_recalled": null,
+  "recall_count": 0
+}
