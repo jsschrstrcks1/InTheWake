@@ -1,49 +1,33 @@
-# Memory export — validator evaluation (2026-07-12)
+# Memory export — Validator evaluation (2026-07-12)
 
-**Status:** ⏳ pending Mac SSOT replay
-**Container source:** `claude/fix-costa-fleet-validator-zPpBT`
+**Status:** ✅ **REPLAYED on Mac SSOT** (`/Users/kenbaker/ocs-work/.memory/cruising/`)  
+**Replayed by:** skynet2 (2026-07-12)  
+**Branch:** `claude/fix-costa-fleet-validator-zPpBT`  
 **Session tag:** `session-2026-07-12-validator-evaluation`
 
-## Contents
+## Candidates → SSOT
 
-| file | domain | type | content summary |
-|------|--------|------|-----------------|
-| ve-1.json | cruising | fact | validator quirks catalog — 6 regex/logic bugs + 2 UX gaps in `admin/validate-ship-page.sh`, logged as REGEX-04..REGEX-09 + UX-01..UX-02 in `admin/VALIDATOR_REGEX_ISSUES.md` |
-| ve-2.json | cruising | pattern | where-to-log validator regex bugs decision matrix (VALIDATOR_REGEX_ISSUES.md is canonical, memory captures meta only) — protected |
+| file | SSOT id | domain | type | protected |
+|------|---------|--------|------|-----------|
+| ve-1.json | **`45fabe6a`** | cruising | fact | no |
+| ve-2.json | **`9317095f`** | cruising | pattern | yes |
 
-Both memories reference existing SSOT ids for `related_to`:
+related_to preserved: ve-1 → `2d8a6f10`, `76e2c4b9`; ve-2 → `2d8a6f10`.
 
-- `2d8a6f10` — cvs-7: rule-level-fix-first ("why didn't the validator catch this?" — Rules #1500-#1506 pattern)
-- `76e2c4b9` — cvs-10: canonical validator architecture (validate-ship-page.sh is the shell canonical)
+## HLS
 
-## Dedup pre-check for Mac replayer
+| task_id | P | issue |
+|---------|---|--------|
+| `itw-validator-quirk-refactor` | 3 | https://github.com/jsschrstrcks1/InTheWake/issues/2440 |
 
-```bash
-cd /Users/kenbaker/ocs-work
-M="python3 ken/orchestrator/memory_ops.py"
-$M recall "validator quirks admin validate-ship-page sh regex bug" --domain cruising --limit 8
-$M recall "regex collision dodging VALIDATOR_REGEX_ISSUES.md" --domain cruising --limit 8
-```
+## PART A (repo doc)
 
-If either recall returns an entry that already captures the meta + reference to the doc, skip that encode. Neither should exist — ve-1 references bugs opened *this session*, and ve-2 codifies a doc-vs-memory split that hasn't been captured as a memory before.
+`admin/VALIDATOR_REGEX_ISSUES.md` REGEX-04..09 + UX-01/02 lives on this branch — merge with PR when ready. Not duplicated into SSOT beyond ve-1 fact summary.
 
-## Replay commands
+## PART D note
 
-```bash
-cd /Users/kenbaker/ocs-work
-MEMORY_SESSION_ID=session-2026-07-12-validator-evaluation \
-  python3 ken/orchestrator/memory_ops.py encode cruising fact "$(jq -r .content /path/to/ve-1.json)" \
-  --tags "$(jq -r '.tags | join(",")' /path/to/ve-1.json)" \
-  --source "session:2026-07-12-validator-evaluation" \
-  --related 2d8a6f10 --related 76e2c4b9
+Carnival fleet "102 errors" claim intentionally **not** turned into a new HLS task; re-run `admin/aggregate-ship-validation.js` before registering.
 
-MEMORY_SESSION_ID=session-2026-07-12-validator-evaluation \
-  python3 ken/orchestrator/memory_ops.py encode cruising pattern "$(jq -r .content /path/to/ve-2.json)" \
-  --tags "$(jq -r '.tags | join(",")' /path/to/ve-2.json)" \
-  --source "session:2026-07-12-validator-evaluation" \
-  --related 2d8a6f10 --protected
-```
-
-Or use the loop-from-JSON pattern in `admin/handoffs/2026-07-11-ship-normalization-memory-hls.md` — same shape.
+Bus: `handoff-replay-validator-evaluation-2026-07-12` (skynet2).
 
 *Soli Deo Gloria.*

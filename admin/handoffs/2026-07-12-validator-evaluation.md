@@ -2,7 +2,7 @@
 
 **Author:** Claude Code (remote container, branch `claude/fix-costa-fleet-validator-zPpBT`, 2026-07-12)
 **For:** Mac SSOT agent at `/Users/kenbaker/ocs-work`
-**Status:** ⏳ pending Mac replay
+**Status:** ✅ **REPLAYED** by skynet2 (2026-07-12). SSOT: ve-1→`45fabe6a`, ve-2→`9317095f`. HLS `itw-validator-quirk-refactor` #2440.
 
 ---
 
