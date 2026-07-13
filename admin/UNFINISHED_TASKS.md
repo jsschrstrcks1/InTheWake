@@ -4,11 +4,175 @@
 > Find/checkout: `node admin/library.mjs preflight --query "<task>" --patron <id> --merge`
 > **This document** is context/spec only unless stated otherwise.
 
-**Generated:** 2026-07-11T22:44:03.576Z
+**Generated:** 2026-07-11T23:52:20.427Z
 **SSOT:** `.household-library/catalog.jsonl`
 
 Open tasks for this repo (`state` ≠ `complete`). Regenerate:
 
+---
+
+## P2 — Voyage packs → PWA deep integration (`itw-voyage-pwa-integration`, queued 2026-07-07)
+
+**Goal:** soft-deprecate the voyage-pack PDFs. Each voyage's PWA companion
+(`admin/voyage-pwa/`) becomes the primary, content-complete document; PDFs keep building
+as the secondary printable artifact. Operator-approved design, adversarially reviewed via
+the orchestra (cruising mode, run state `ken/orchestrator/state/orchestra.json`,
+2026-07-07; decisions encoded to cognitive memory `cruising/fb740ed4`, session record
+`cruising/57e8e526`).
+
+**Design (approved, with orchestra amendments folded in):**
+- New `pwa` target in `admin/scripts/voyage-pack-pdf-build.sh` (extend, don't fork):
+  pandoc converts each gate-checked pack `.md` → three HTML fragments per voyage under
+  `admin/voyage-pwa/packs/` — `<slug>.guide.html`, `<slug>.condensed.html`,
+  `<slug>.card.html`. SDG comment line 1; root-relative hrefs → absolute
+  `https://cruisinginthewake.com/...`; image srcs stay root-relative; links get
+  `target="_blank" rel="noopener"`; "generated — do not hand-edit" header. Mapping table
+  (pwa slug ↔ three md stems) lives in the build script. Clone-stable staleness check
+  extends to fragments (same pre-commit gate as PDFs).
+- **Build-time fragment validator (blocking):** no `<script>`/`on*`/`javascript:`, no
+  relative hrefs left, sane headings, TOC anchors resolve, SDG present. This is the XSS
+  gate — no runtime sanitizer library.
+- `companion.js`: three new tabs Guide / Quick Ref / Card; prefetch all three fragments
+  on idle after boot; **collapsible TOC generated from fragment headings** (not a flat
+  select) + back-to-top; fragment fetches wrapped in a ~4s abort timeout (ship-Wi-Fi
+  captive portals hang, not fail); fragment footer shows pack version + build date +
+  "offline copy" badge when served from cache; Overview gets a one-tap **Emergency card**
+  link and the primary CTA flips to the in-app Guide (PDFs demote to "Prefer a PDF?").
+  Card renders verbatim (fill-in by hand after printing; editable persisted fields
+  deferred). Wide pack tables get overflow-x wrappers. `@media print` prints only the
+  open pane.
+- `sw.js`: bump `voyage-v3` → `voyage-v4`. `/admin/voyage-pwa/packs/` = network-first
+  with cache fallback. Same-origin images cached by **path-prefix allowlist**
+  (`destination === "image"` + prefixes like `/ports/img/`, `/assets/`) — NOT a referrer
+  check (shells send `no-referrer`; a referrer rule would never match — orchestra review
+  caught this). No SW precache of fragments (would bloat every installer's cache with 13
+  other voyages).
+- Five shells whose `pdfFull` points at the Maulsby page get corrected to real PDF URLs.
+
+**Missing artifacts to author (no-new-facts rule — every claim must already exist in
+that voyage's gate-checked full pack; diff-review against parent before commit):**
+- 5 condensed packs: Margaritaville, Gem, Breakaway Bermuda, Fall Foliage, Aqua Thanksgiving.
+- 9 handoff cards: Symphony, Aqua Veterans, Sisters at Sea, Anthem, Margaritaville, Gem,
+  Breakaway Bermuda, Fall Foliage, Aqua Thanksgiving.
+- Register all in `CONDENSED_PACKS` / `HANDOFF_CARDS`; build + commit the missing main
+  PDFs (Gem, Breakaway Bermuda, Fall Foliage, Aqua Thanksgiving).
+
+**Rollout:** (1) pipeline + engine + **Escape pilot** end-to-end (verify tabs, offline
+reload, phone-viewport print via the preinstalled Chromium/Playwright); (2) author
+missing artifacts; (3) all 14 voyages, including **two new shells: Symphony and Bliss —
+Bliss first, it sails July 2026 (time-critical)**.
+
+**Next step for any resuming session:** write the spec to
+`docs/superpowers/specs/2026-07-07-voyage-pack-pwa-integration-design.md` (design above
+is the content; operator already approved the design + orchestra amendments in-session),
+get operator review, then `writing-plans` → implement. Do NOT re-litigate the settled
+decisions (soft deprecation; all 14; all three artifacts; Approach A build-generated
+fragments; rejections recorded in memory `fb740ed4`).
+
+**Related follow-up (`itw-voyage-pwa-icons`, P4):** all 14 PWAs share identical
+home-screen icons — a traveler with several voyages installed can't tell them apart.
+Per-voyage icon variants; pre-existing condition, not part of the integration work.
+
+**Cross-repo note (`ken-xai-key`):** the seeded `XAI_API_KEY` is invalid (xAI 400
+"Incorrect API key") — Grok challenge/blind-spot roles fail; Perplexity substituted per
+R7 precedent. Needs a fresh key from console.x.ai + seed re-encode on the operator box.
+
+---
+
+## P2 — Data-integrity: Anthem of the Seas deck count — ✅ RESOLVED 2026-06-18
+
+**Severity:** Non-blocking, factual. **File:** `assets/data/ships/rcl/anthem-of-the-seas.page.json` + `ships/rcl/anthem-of-the-seas.html`
+**Found by:** Original research during the deck-plans article build (`articles/anthem-of-the-seas-deck-plans.html`).
+
+`page.json` recorded `decks_total: 18` / `decks_guest: 16`, and the ship page body repeated "18 total (16 guest-accessible)" in three places (visible stat line, `stats_fallback` JSON, and the page.json fallback). Every source — Wikipedia ("16 / 14 passenger-accessible"), CruiseMapper ("16 decks / 9 with cabins"), and Royal Caribbean's own deck selector (Decks 3–16 = 14 accessible, confirmed via operator screenshots 2026-06-17) — agrees on **16 total**.
+
+**Fix (2026-06-18):** Corrected to `decks_total: 16`, `decks_guest: 14`, and "16 total (14 guest-accessible)" in all three spots. Review dates bumped (last-reviewed + dateModified → 2026-06-18). Ship validator: no new errors introduced (2 pre-existing errors remain — see below — both unrelated missing-thumbnail images).
+
+**Still open (separate, pre-existing, NOT this task):**
+- `ships/rcl/anthem-of-the-seas.html` line ~674 lists `"crew": "1,500"`; the Anthem voyage-pack factcheck settled on **~1,300** (two sources agree). Worth correcting in a follow-up.
+- Ship validator reports 2 errors: missing article thumbnails `/assets/articles/freedom-of-your-own-wake.jpg` and `/assets/articles/why-i-started-solo-cruising.jpg` (pre-existing; needs the images sourced).
+
+---
+
+## P1 — Two event-gated articles: write after 2026-07-11 (queued 2026-07-06)
+
+Both were operator-approved picks from the July 7–13 planning pass; both are
+**event-gated** — the facts they report did not exist on July 6. Any session on
+or after **Saturday, July 12** should pick these up. Full discipline chain each:
+research (retrieval only, zero training-data facts) → like-a-human during
+writing → voice-audit greps → ICP-2 gates (ai-summary ≤250, dateModified ==
+last-reviewed, 4 JSON-LD blocks) → BOTH Sophos gates (public:
+`admin/social-publish/lib/gate.js`; private: `node
+/home/user/open-claw-stuff/tools/sophos-article-gate.mjs <file>`) → card (JPG via
+`admin/social-card-generator/generate.js --out`, convert to WebP at
+`assets/articles/article-cards/<slug>.webp`) → commit with `Soli Deo Gloria.`
+
+### 1. Mariner of the Seas oversold outcome
+- Sailing embarks **July 11** (Galveston, 5-night Western Caribbean, Costa
+  Maya/Cozumel). RCL offered fare refund + $200 OBC for balcony/oceanview →
+  interior downgrades; volunteers notified within 8 days of embarkation.
+- Write the outcome: did volunteers clear the oversell, any involuntary moves,
+  what accepted guests report. Research anchors: Cruise Hive story 212433,
+  cruise.blog coverage.
+- Links back to `articles/oversold-cruise-volunteer-offers-2026.html` (the
+  framework piece that promised this follow-up).
+
+### 2. Legend of the Seas — what the first passengers found
+- Ship returns to Civitavecchia **July 11** from the July 4 maiden voyage
+  (La Spezia / Palma / Marseille / Barcelona per latest reports).
+- The follow-up promised in the limits section of
+  `articles/legend-of-the-seas-maiden-voyage-2026.html`: what opened on time,
+  what didn't, crew week-one reports, from passenger accounts and live blogs
+  (royalcaribbeanblog.com had pre-delivery access; check their onboard coverage).
+- ✅ Tonnage conflict RESOLVED 2026-07-06: 248,663 GT is the registered figure
+  shared by ALL THREE Icon-class ships (Icon, Star, Legend — same number);
+  250,800 is a class-level design figure quoted for all three. The "Legend
+  edges past her sisters" trade claim was measurement-margin noise (one report:
+  4.5 mm longer). The maiden article was corrected same day with a visible
+  correction note in its limits section. The follow-up article should use
+  248,663 GT registered / shared-title framing. Our ship page
+  (ships/rcl/legend-of-the-seas-icon-class-entering-service-in-2026.html,
+  "250,000 GT") still needs a spec refresh — separate small task.
+
+---
+
+## P0 — Flickr "public feed" Attribution Audit (2026-04-12)
+
+**Severity:** BLOCKING for affected ports — legal/attribution liability
+**Scope:** 889 attribution JSON files across 124 ports (~31% of the port fleet)
+**Triggered by:** Self-audit during glacier-bay and haines repair on 2026-04-11/12
+
+### What the problem is
+
+An earlier batch-sourcing session (around 2026-02-23) downloaded images via what it called the "Flickr public feed" and wrote attribution JSON files like:
+
+```json
+{
+  "source": "https://www.flickr.com/photos/USER_ID/PHOTO_ID/",
+  "license": "Flickr (verify license)",
+  "author": "USERNAME",
+  "source_type": "Flickr public feed",
+  "downloaded": "2026-02-23"
+}
+```
+
+The problem: **that "verify license" placeholder was never verified.** During the 2026-04-11/12 audit of glacier-bay and haines, WebFetch verification of three such files (two by `mrBunin`, one by `brucecarlson66`) showed the photos' schema.org `license` field pointing at Flickr's `flickrhelp.com "Using Flickr images shared by other members"` help page. **That URL is Flickr's All Rights Reserved fallback** — CC-licensed Flickr photos point at `creativecommons.org`. All three were All Rights Reserved, not Creative Commons.
+
+It is very likely (but not certain) that many or most of the remaining 886 "Flickr public feed" files are also ARR. The earlier session may have assumed Flickr's public feed implied CC licensing, which is not the case — the default Flickr license is "All Rights Reserved."
+
+### Scope numbers (verified 2026-04-12 via filesystem grep)
+
+| Metric | Count |
+|---|---:|
+| attr.json files with `"Flickr public feed"` source type | **889** |
+| attr.json files with `"Flickr (verify license)"` placeholder | **891** |
+| Distinct ports affected | **124** of 397 |
+| Distinct Flickr usernames observed (sample) | Dozens — photographer695, Laurence's Pictures, brewbooks, Alaskan Dude, A Guy Named Nyal, zug55, xiquinhosilva, tjguy98, paulocsfilho129, iorus and bela, gg2cool, fmzs2008, and many others |
+| attr.json files with generic `"Wikimedia Commons"` boilerplate (different but related issue) | ~150+ |
+
+The 124 affected ports span all regions: Alaska, Caribbean, Mediterranean, Baltic, Asia-Pacific, South America, Africa, Oceania. The full list is preserved at `/tmp/affected-ports.txt` (regenerate with the grep below if needed).
+
+**Regenerate the list of affected ports:**
 ```bash
 node admin/library.mjs mirrors --repo InTheWake
 ```
@@ -40,6 +204,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | itw-port-everglades-resource | Port Everglades — 6 open image slots re-source |
 | 1 | available | — | itw-port-miami-resource | Port Miami — 8 open image slots re-source |
 | 1 | registered | — | itw-seo-disavow-upload | Upload admin/seo/disavow.txt to GSC disavow-links (getbets toxic backlink defense) |
+| 1 | registered | — | itw-sydney-ns-unverifiable-license-images | Sydney NS — resolve 8 unverifiable-license port images (verify or delete per memory e8b73d89; stubs say 'CC BY-SA 4.0 or equivalent' with no source_url; ask operator before deleting; leave honest-broken refs if deleted) |
 | 1 | available | — | legend-of-the-seas-what-the-first-passengers-found | Legend of the Seas — what the first passengers found |
 | 1 | available | — | pattern-c-cruise-shore-excursion-suffix-template-bug | Pattern C — "Cruise"/"Shore Excursion" suffix template bug |
 | 1 | available | — | pattern-d-half-filled-currency-is-used-in-answer | Pattern D — Half-filled "currency is used in" answer |
@@ -47,15 +212,21 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | two-paths | Two paths |
 | 1 | available | — | what-s-actually-inconsistent | What's actually inconsistent |
 | 2 | registered | — | itw-cruise-tipping-reverify-60d | Cruise tipping: 60-day rate re-verify cadence for all 15 lines |
+| 2 | registered | — | itw-fleet-normalization-15-lines | Fleet normalization — 15 cruise lines; confirm operator sense of normalize; regenerate dashboard first |
 | 2 | registered | — | itw-fom-migrate-legacy-files | FOM migrate legacy files: move ~235 scattered FOM images from assets/ships/ and ports/img/* into /assets/fom/{ships,ports,misc}/ per approved spec (memory 69ca600d) |
 | 2 | registered | — | itw-fom-storage-structure | FOM storage decisions documented (operator approved 2026-07-11): /assets/fom/{ships,ports,misc}/, © Flickers of Majesty license, any first-party operator image, non-owned refs excluded. Spec: admin/FOM-STORAGE-SPEC.md · memory 69ca600d. Execution tracked separately: itw-fom-migrate-legacy-files, itw-fom-normalize-filenames, itw-fom-backfill-sidecars, itw-fom-update-html-srcs |
+| 2 | registered | — | itw-image-reuse-cleanup | Image-reuse cleanup from scan-image-reuse + scan-image-recrops findings: 6 CRITICAL + 20 ERROR md5-identical reuses and 3 CRITICAL + 12 ERROR visual recrops — sourced unique replacements per SHIP_STANDARDIZATION_PLAN_V3 §7.6 or empty slot + coverage-gap |
 | 2 | registered | — | itw-margaritaville-line-buildout | Margaritaville at Sea line buildout: ship page Islander (#2004) + venue pages (#2005) — next content gap after generator audit session |
+| 2 | registered | — | itw-placeholder-ship-photography | Placeholder ship photography — 26 ships (Carnival 2, Celebrity 5, HAL 19); Mac-side Wikimedia; reconcile with itw-phase-6-source-limited-ships-followup |
 | 2 | registered | — | itw-seo-budget-calc-eat | SEO: drink/budget calculator E-A-T and meta differentiation pass |
 | 2 | registered | — | itw-seo-three-cluster-verifications | SEO verifications: RBC dynamic pricing, Costa Maya dive operator rates, Cozumel RBC opening date, Lelepa year |
+| 2 | registered | — | itw-siteaudit-93-remediation | Site-audit 93/100 remediation (external SEO scan 2026-05-07/08): remaining findings — alt text, render-blocking, dup meta, short titles, low-content pages, misspelling pass |
 | 2 | registered | — | itw-voyage-packs-paywall-platform | Voyage-pack paywall — pick platform (Gumroad vs LemonSqueezy vs Stripe+CFWorker+R2) and wire live checkout |
 | 2 | registered | — | itw-voyage-pwa-integration | Voyage PWA integration — write spec from approved design (amendments settled); 3-phase rollout Bliss time-critical; next: spec → operator review → writing-plans |
 | 3 | registered | — | anthem-of-the-seas-deck-plan-layout-seo-article | Anthem of the Seas deck plan layout SEO article — where-is-everything guide (North Star 15–16, SeaPlex 15–16, Two70 5–6, Windjammer/Coastal Kitchen 14, three MDRs; ~2,400/mo keyword cluster) |
 | 3 | registered | — | freedom-class-gt-corpus-propagation | Freedom-class GT corpus propagation — Liberty 155,889 GT not flat 156,271 atlas default |
+| 3 | registered | — | itw-aggregator-hang-fix | Fix aggregate-ship-validation.js hang risk — full-fleet spawnSync runs both validators per page (~290 ships) |
+| 3 | registered | — | itw-firenze-venezia-wrong-hull-data | carnival-firenze (and likely carnival-venezia): fact-block carries Spirit-class data that does not match actual hull (former Costa Firenze) — needs tier-1 Equasis IMO 9787475 sourcing + fact-block regeneration |
 | 3 | registered | — | itw-fom-backfill-sidecars | FOM backfill sidecars: write mandatory .webp.attr.json for ~153 images missing sidecars; license © Flickers of Majesty — all rights reserved; append rows to attributions/fom.csv |
 | 3 | registered | — | itw-fom-chat-image-intake | FOM chat-image intake workflow: when operator supplies an image via chat, save as <slug>-FOM-NN.webp with 'Photo ©' FOM attribution + sidecar + /attributions/fom.csv row; confirm entity/subject, never reuse NN, never store under generic/CC name (operator directive 2026-07-11). |
 | 3 | registered | — | itw-fom-ip-protection | FOM IP protection: (1) US Copyright Office group registration of FOM catalog (GRPPH/GRUPH, highest-ROI legal lever) [confirm w/ counsel]; (2) /licensing/ page + '© Flickers of Majesty' near each image; (3) cap web display ~1600px, masters offline; (4) visible watermark + preserve EXIF/IPTC; (5) Pixsy/ImageRights monitoring + DMCA. Skip right-click-disable theater. |
@@ -67,6 +238,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 3 | available | — | itw-legend-tonnage-spec | Legend ship page tonnage spec refresh |
 | 3 | available | — | itw-mariner-oversold | Outcome article — Mariner oversold sailing |
 | 3 | registered | — | itw-phase-6-source-limited-ships-followup | Re-check Commons for 13 source-limited ships (Carnival Firenze 5/8, Star Princess 5/8, Explora II 6/8, Silver Origin 7/8, Seven Seas Grandeur 7/8, Brilliant Lady 7/8, Celebrity Xcel/Xperience/Compass/Seeker, Carnival Encounter) — currently Commons has 0-2 photos for each, retry when uploads expand |
+| 3 | registered | — | itw-reapply-2d36ffe8-image-honesty-orphan-sweep | Re-apply orphaned commit 2d36ffe8 image-honesty fixes + attributions.csv orphan sweep |
 | 3 | registered | — | itw-seo-chinchorro-contrarian | SEO: Banco Chinchorro contrarian piece — almost never worth booking on a cruise day |
 | 3 | registered | — | itw-seo-costa-maya-dive-operators | SEO: Costa Maya dive operator comparison — Doctor Dive, Alux, Pepe Dive, Mar Adentro; pier proximity; family-integration angle |
 | 3 | registered | — | itw-seo-ctr-30day-2026-06 | SEO: 30-day CTR monitoring pass — June 2026 title/meta winners |
@@ -82,7 +254,9 @@ node admin/library.mjs mirrors --repo InTheWake
 | 3 | registered | — | itw-voyage-packs-refund-window | Voyage-pack refund window mismatch: landing/PDF-README say 14d, W12 playbook line 81 says 30d — reconcile |
 | 3 | available | — | port-page-normalization-phase-1-complete-phases-2-5-pending | Port Page Normalization — Phase 1 COMPLETE, Phases 2-5 PENDING |
 | 3 | registered | — | utopia-of-the-seas-gt-cascade | Utopia of the Seas GT cascade — propagate Icon-class 248,663 IMO canon (not 250,800 marketing) |
+| 4 | registered | — | itw-comparison-swaps-review | Review 22 Phase-3.1 numeric swaps flagged by audit-internal-consistency-comparisons.cjs but NOT reverted (4 unambiguous cases reverted 2026-07-11) |
 | 4 | registered | — | itw-cruise-tipping-costa-half-rate-article | Cruise tipping: article prose parity check for Costa half-rate child policy |
+| 4 | registered | — | itw-dashboard-regen-post-3-2c | Regenerate ship-validation-dashboard.json post Phase 3.2c — baseline dated 2026-05-12; blocked on aggregator fix |
 | 4 | available | — | itw-gh-1615 | [site-wide] 37 pages have truncated footers — missing About/Support/Accessibility/Reach Family links vs standard footer |
 | 4 | available | — | itw-gh-1619 | [site-wide] 11 pages have missing OG images (social preview 404s) — including 6 cruise line pages and 2 article pages |
 | 4 | available | — | itw-gh-1624 | [Port Pages] 47 pages have duplicate HTML IDs — accessibility skip-link broken, WCAG 2.1 AA violation |
@@ -448,6 +622,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | itw-gh-2004 | [Content] Missing ship page: Margaritaville at Sea Islander (needed by voyage pack v0.1.12) |
 | 5 | available | — | itw-gh-2005 | [Content] Missing venue pages: Margaritaville at Sea line (needed by voyage pack v0.1.12) |
 | 5 | registered | — | itw-phase-6-session-2026-05-21-outcome | Phase 6 image sourcing session outcome — 37 ships PASS, ~13 partial (Commons source-limited), 45 remain (unbuilt/TBN) |
+| 5 | registered | — | itw-stacked-pr-ci-signal | CI gap: Validate HTML checks ai-summary presence but not fleet-wide ai_summary_boilerplate rule — document stacked-PR pattern |
 | 5 | registered | — | itw-tools-object-object-404 | Tools: investigate diagnostic [object Object] 404 noise |
 | 5 | available | — | kake-html-tiny-tlingit-village-on-kupreanof-island | `kake.html` — Tiny Tlingit village on Kupreanof Island |
 | 5 | available | — | kristiansand-norway | kristiansand (Norway) |
@@ -480,7 +655,6 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | nuuk-greenland | nuuk (Greenland) |
 | 5 | available | — | odyssey-of-the-seas | Odyssey of the Seas |
 | 5 | available | — | options | Options: |
-| 5 | available | — | phase-3-ai-summary-follow-ups-surfaced-2026-05-09 | Phase 3 ai-summary follow-ups — surfaced 2026-05-09 |
 | 5 | available | — | phase-b-phase-c-scope-clarification-needed | Phase B / Phase C — scope clarification needed |
 | 5 | available | — | poi-manifest-work-already-in-queue-288-ports-below-the-10-poi-mi | POI manifest work (already in queue): 288 ports below the 10-POI minimum (was claimed as 365 in 2026-03-02; actual scope |
 | 5 | available | — | port-authority-data-some-ports-publish-annual-ship-call-statisti | Port authority data — — Some ports publish annual ship call statistics (actual vs scheduled). Caribbean ports especially |
@@ -571,4 +745,5 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | write-scripts-inject-ships-visiting-noscript-js | Write `scripts/inject-ships-visiting-noscript.js` |
 | 5 | available | — | wrong-section-order-23-ships-matches-the-2026-03-25-port-page-no | wrong_section_order: 23 ships — (matches the 2026-03-25 port-page-normalization pattern but on ships) |
 | 5 | available | — | yellow-lane-ai-proposes-human-approves | YELLOW LANE — AI Proposes, Human Approves |
+| 8 | registered | — | itw-royal-beach-club-antigua-dedicated-images | Royal Beach Club Antigua — dedicated port images deferred until resort opens; currently inherits /ports/img/antigua/ per ports/img/royal-beach-club-antigua/IMAGE-MANIFEST.md; re-source 8 slots when trigger fires |
 | 10 | available | — | itw-port-faq-cleanup | Port FAQ template cleanup |

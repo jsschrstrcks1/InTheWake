@@ -1,0 +1,24 @@
+{
+  "id": "67ddb9a0",
+  "created": "2026-05-13T17:27:40Z",
+  "updated": null,
+  "version": 1,
+  "domain": "cruising",
+  "type": "decision",
+  "content": "Symlinks in cruisinginthewake image trees (assets/ships/, images/ports/, assets/venues/, assets/articles/, authors/) are ALWAYS blocking, no exceptions. Operator's words: 'does it check for symlinks too? those are blocking.' A symlink pointing at another image is reuse with extra deniability; main's PR #1500/#1501 cleaned up 328 such symlinks (e.g., Adventure_of_the_Seas_02/03/04.webp all pointing at one Grand-Cayman shot; Caribbean_Princess_aerial.jpg pointing at the Belfast pier shot). Pre-commit hook uses lstatSync (not stat) and rejects on detection.",
+  "source": "mined-from-transcripts:2026-05-13",
+  "confidence": 0.95,
+  "tags": [
+    "operator-directive",
+    "image-reuse",
+    "symlinks",
+    "blocking"
+  ],
+  "related_to": [],
+  "supersedes": null,
+  "protected": false,
+  "archived": false,
+  "summarizes": [],
+  "last_recalled": null,
+  "recall_count": 0
+}

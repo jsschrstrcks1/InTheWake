@@ -1,0 +1,40 @@
+{
+  "id": "cc3c0b1c",
+  "created": "2026-07-11T23:11:19Z",
+  "updated": null,
+  "version": 1,
+  "domain": "cruising",
+  "type": "fact",
+  "content": "admin/aggregate-ship-validation.js runs admin/validate-ship-page.sh AND admin/validate-ship-page.js per ship via spawnSync \u2014 ~290 pages sequential. Full-fleet runs can hang or exceed practical timeouts in containers; use --line=<slug> for spot checks or fix the aggregator before batch dashboard regen. Baseline JSON at audit-reports/ship-validation-dashboard.json.",
+  "source": "container:cruising:claude/review-ship-validation-zR3qd:2026-07-11",
+  "confidence": 0.95,
+  "tags": [
+    "validator",
+    "aggregator",
+    "dashboard",
+    "hang-risk"
+  ],
+  "related_to": [],
+  "supersedes": null,
+  "protected": true,
+  "archived": false,
+  "summarizes": [],
+  "last_recalled": null,
+  "recall_count": 0,
+  "verification_state": "verified",
+  "verification_meta": {
+    "rationale": "Protected operator anchor \u2014 household weight signal.",
+    "classified_at": "2026-07-11T23:11:19Z",
+    "classifier": "memory-verification-v2",
+    "signals": {
+      "confidence": 0.95,
+      "recall_count": 0,
+      "protected": true,
+      "type": "fact",
+      "source": "container:cruising:claude/review-ship-validation-zR3qd:2026-07-11",
+      "admission_state": null,
+      "quarantined": false
+    }
+  },
+  "export_label": "ai-summary-2"
+}
