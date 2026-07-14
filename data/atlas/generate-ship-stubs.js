@@ -138,7 +138,7 @@ All work on this project is offered as a gift to God.
 <!-- ai-breadcrumbs
      entity: ${shipName}
      type: Ship Information Page
-     parent: /ships.html
+     parent: /ships/
      category: ${brand.displayName} Fleet
      cruise-line: ${brand.displayName}
      updated: 2026-01-02
@@ -246,7 +246,7 @@ All work on this project is offered as a gift to God.
           </button>
           <div class="dropdown-menu" role="menu">
             <a href="/planning.html">Planning (overview)</a>
-            <a href="/ships.html">Ships</a>
+            <a href="/ships/">Ships</a>
             <a href="/tools/ship-size-atlas.html">Ship Size Atlas</a>
             <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/ports.html">Ports</a>
@@ -296,7 +296,7 @@ All work on this project is offered as a gift to God.
   <main class="wrap" id="content">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a> &rsaquo;
-      <a href="/ships.html">Ships</a> &rsaquo;
+      <a href="/ships/">Ships</a> &rsaquo;
       <a href="/cruise-lines/${brand.lineKey}.html">${brand.displayName}</a> &rsaquo;
       <span aria-current="page">${shipName}</span>
     </nav>
@@ -378,7 +378,7 @@ All work on this project is offered as a gift to God.
     <section class="card">
       <h2>Explore More</h2>
       <ul>
-        <li><a href="/ships.html">All Ships</a></li>
+        <li><a href="/ships/">All Ships</a></li>
         <li><a href="/tools/ship-size-atlas.html">Ship Size Atlas</a> — Compare ${shipName} with other ships</li>
         <li><a href="/cruise-lines.html">All Cruise Lines</a></li>
       </ul>
@@ -440,7 +440,7 @@ Soli Deo Gloria
       </div>
       <nav class="site-nav" id="site-nav">
         <a class="nav-pill" href="/">Home</a>
-        <a class="nav-pill" href="/ships.html">Ships</a>
+        <a class="nav-pill" href="/ships/">Ships</a>
         <a class="nav-pill" href="/ports.html">Ports</a>
         <a class="nav-pill" href="/search.html">Search</a>
       </nav>
@@ -450,7 +450,7 @@ Soli Deo Gloria
   <main class="wrap" id="content">
     <nav class="breadcrumb">
       <a href="/">Home</a> &rsaquo;
-      <a href="/ships.html">Ships</a> &rsaquo;
+      <a href="/ships/">Ships</a> &rsaquo;
       <span>${brandInfo.displayName}</span>
     </nav>
 
@@ -464,7 +464,7 @@ Soli Deo Gloria
       </ul>
     </section>
 
-    <p><a href="/ships.html" class="btn">View All Ships</a> | <a href="/tools/ship-size-atlas.html" class="btn">Ship Size Atlas</a></p>
+    <p><a href="/ships/" class="btn">View All Ships</a> | <a href="/tools/ship-size-atlas.html" class="btn">Ship Size Atlas</a></p>
   </main>
 
   <footer class="wrap">

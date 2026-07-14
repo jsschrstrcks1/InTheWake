@@ -108,7 +108,7 @@ async function processFile(filepath, cruiseLine) {
     if (headEnd > -1) {
       const breadcrumbSchema = `
 <!-- JSON-LD: BreadcrumbList -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships.html"},{"@type":"ListItem","position":3,"name":"${lineConfig.name}","item":"https://cruisinginthewake.com/cruise-lines/${cruiseLine}.html"},{"@type":"ListItem","position":4,"name":"${shipName}","item":"https://cruisinginthewake.com/ships/${cruiseLine}/${shipSlug}.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cruisinginthewake.com/"},{"@type":"ListItem","position":2,"name":"Ships","item":"https://cruisinginthewake.com/ships/"},{"@type":"ListItem","position":3,"name":"${lineConfig.name}","item":"https://cruisinginthewake.com/cruise-lines/${cruiseLine}.html"},{"@type":"ListItem","position":4,"name":"${shipName}","item":"https://cruisinginthewake.com/ships/${cruiseLine}/${shipSlug}.html"}]}</script>
 `;
       html = html.slice(0, headEnd) + breadcrumbSchema + html.slice(headEnd);
       changes.push('Added BreadcrumbList JSON-LD');
