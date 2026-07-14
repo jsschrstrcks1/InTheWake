@@ -747,3 +747,6 @@ node admin/library.mjs mirrors --repo InTheWake
 | 5 | available | — | yellow-lane-ai-proposes-human-approves | YELLOW LANE — AI Proposes, Human Approves |
 | 8 | registered | — | itw-royal-beach-club-antigua-dedicated-images | Royal Beach Club Antigua — dedicated port images deferred until resort opens; currently inherits /ports/img/antigua/ per ports/img/royal-beach-club-antigua/IMAGE-MANIFEST.md; re-source 8 slots when trigger fires |
 | 10 | available | — | itw-port-faq-cleanup | Port FAQ template cleanup |
+
+<!-- library register 2026-07-14T05:22:23.596Z -->
+| itw-ships-html-fragment-links | 2 | InTheWake: 221 href='/ships.html#<class>' deep links deferred from #1708 sweep — anchors resolve only on legacy ships.html (6 fragments) or nowhere (#carnival, #excel-class); migrate anchors to /ships/index.html or add redirect+anchor map, then extend the CI Forbidden Ships Link Guard to fragment forms |
