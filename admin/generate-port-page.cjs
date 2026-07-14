@@ -435,9 +435,16 @@ function generatePage(config) {
 </html>`;
 }
 
+// Count unfilled scaffold markers. Case-insensitive and space-tolerant so a
+// hand-edited `<!--fill` variant can't slip past the write gate (#1707).
+function countFillMarkers(html) {
+  return (html.match(/<!--\s*FILL/gi) || []).length;
+}
+
 function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
+  const allowIncomplete = args.includes('--allow-incomplete');
 
   // Parse arguments
   const getArg = (name) => {
@@ -472,6 +479,7 @@ function main() {
     console.error('  --lat 0.0  --lon 0.0  --currency "EUR" --currency-code "EUR"');
     console.error('  --language "Greek"     --timezone "EET"  --dock-type dock|tender');
     console.error('  --config path.json    --dry-run         --slug custom-slug');
+    console.error('  --allow-incomplete    (write scaffold with unfilled <!-- FILL --> markers; refused by default)');
     process.exit(1);
   }
 
@@ -485,7 +493,8 @@ function main() {
     console.log(`Sections: hero, logbook, cruise-port, getting-around, map, excursions, food, notices, depth-soundings, practical, gallery, credits, faq, weather-guide`);
     console.log(`Meta: ai-summary, description, OG, Twitter Cards, canonical`);
     console.log(`JSON-LD: BreadcrumbList, WebPage+Place, FAQPage`);
-    console.log(`\nTemplate has <!-- FILL --> markers for content that needs human/AI writing.`);
+    console.log(`\nTemplate has ${countFillMarkers(html)} <!-- FILL --> markers for content that needs human/AI writing.`);
+    console.log(`A real run REFUSES to write while markers remain — pass --allow-incomplete for early scaffolding (#1707).`);
     console.log(`\n[DRY RUN] On real run the generator will *automatically* invoke:`);
     console.log(`  node admin/validate-port-page-v2.js ${outPath}`);
     console.log(`  node admin/port-page-audit.cjs ${outPath}`);
@@ -499,13 +508,26 @@ function main() {
     process.exit(1);
   }
 
+  // Write gate (#1707): a page with unfilled markers is structurally incomplete and
+  // must not ship silently. Refuse by default; scaffolding requires the explicit flag.
+  const fills = countFillMarkers(html);
+  if (fills > 0 && !allowIncomplete) {
+    console.error(`BLOCKED: template still contains ${fills} unfilled <!-- FILL --> markers — refusing to write.`);
+    console.error(`  Fill the content (via --config or by editing this script's inputs), or pass`);
+    console.error(`  --allow-incomplete to write an explicit scaffold you commit to completing.`);
+    console.error(`  (#1707: incomplete pages ship only by explicit choice, never by default.)`);
+    process.exit(1);
+  }
+
   // Atomic write: write to temporary file then rename. Prevents half-written files if the process is killed.
   const tmpPath = outPath + '.tmp';
   fs.writeFileSync(tmpPath, html, 'utf8');
   fs.renameSync(tmpPath, outPath);
   console.log(`✓ Created: ${outPath}`);
   console.log(`  Port: ${config.port} (${slug})`);
-  console.log(`  Template has <!-- FILL --> markers for content.`);
+  if (fills > 0) {
+    console.log(`  ⚠ WROTE INCOMPLETE SCAFFOLD (--allow-incomplete): ${fills} <!-- FILL --> markers remain — this page must not go live as-is.`);
+  }
 
   // Root cause fix (generator bypass documented in #1707/#1712 + 388-page audit):
   // The generator now *executes* the validator and audit right after writing, instead of only printing "run these later" instructions.
