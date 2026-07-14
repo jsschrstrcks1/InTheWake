@@ -1,11 +1,17 @@
 #!/usr/bin/env node
 /**
- * generate-port-page.cjs — Gold Standard Port Page Generator
+ * generate-port-page.cjs — Port Page Scaffold Generator
  * Soli Deo Gloria
  *
- * Generates a new port page from a tightly controlled template matching
- * the gold standard (dubai.html). Enforces ICP-2 v2.1, LOGBOOK_ENTRY_STANDARDS
- * v2.300, and all 21 audit detections.
+ * Generates a new port page SCAFFOLD whose structure follows the gold standard
+ * (dubai.html): section order, nav, JSON-LD, meta. What it actually enforces
+ * (#1712 — this header previously overclaimed):
+ *   - Refuses to write while <!-- FILL --> markers remain, unless
+ *     --allow-incomplete is passed (write gate, #1707).
+ *   - Runs validate-port-page-v2.js + port-page-audit.cjs automatically after
+ *     writing; findings print loudly but are ADVISORY — the file stays on disk
+ *     for fixing. Content-level conformance to ICP-2 / LOGBOOK_ENTRY_STANDARDS
+ *     is the validator's job and is NOT guaranteed by generation alone.
  *
  * Usage:
  *   node admin/generate-port-page.cjs --port "Mykonos" --country "Greece" --region "Mediterranean" \
@@ -535,10 +541,19 @@ function main() {
   console.log(`\n[Generator] Running validator immediately...`);
   const { execSync } = require('child_process');
   try {
-    execSync(`node admin/validate-port-page-v2.js ${outPath}`, { stdio: 'inherit' });
+    const out = execSync(`node admin/validate-port-page-v2.js ${outPath}`, { stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8' });
+    process.stdout.write(out);
     console.log('[Generator] validate-port-page-v2.js completed — review any BLOCKING/WARNING output above.');
   } catch (e) {
-    console.error('[Generator] Validator found problems (see above). File written, but fix before using.');
+    const output = `${e.stdout || ''}${e.stderr || ''}`;
+    process.stdout.write(output);
+    // "Couldn't check" is not "checked and found problems" — never conflate (#1712).
+    if (/ERR_MODULE_NOT_FOUND|Cannot find (package|module)/.test(output)) {
+      console.error('[Generator] ⚠ VALIDATOR COULD NOT RUN (missing dependencies — try `npm install`).');
+      console.error('[Generator] ⚠ This page is UNVALIDATED, not validated-with-findings. Validate before using.');
+    } else {
+      console.error('[Generator] Validator reported findings (see above). File written, but fix before using.');
+    }
   }
 
   try {
