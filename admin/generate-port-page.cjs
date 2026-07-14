@@ -7,7 +7,12 @@
  * (dubai.html): section order, nav, JSON-LD, meta. What it actually enforces
  * (#1712 — this header previously overclaimed):
  *   - Refuses to write while <!-- FILL --> markers remain, unless
- *     --allow-incomplete is passed (write gate, #1707).
+ *     --allow-incomplete is passed (write gate, #1707). HONEST LIMIT: the stock
+ *     template always embeds body FILLs no CLI/config input can satisfy, so a
+ *     default run currently ALWAYS refuses — the gate's value today is the
+ *     forced acknowledgment + marker count, not selective prevention. It becomes
+ *     discriminating when config-driven content fill lands (HLS
+ *     itw-generator-config-fill).
  *   - Runs validate-port-page-v2.js + port-page-audit.cjs automatically after
  *     writing; findings print loudly but are ADVISORY — the file stays on disk
  *     for fixing. Content-level conformance to ICP-2 / LOGBOOK_ENTRY_STANDARDS
@@ -548,8 +553,11 @@ function main() {
     const output = `${e.stdout || ''}${e.stderr || ''}`;
     process.stdout.write(output);
     // "Couldn't check" is not "checked and found problems" — never conflate (#1712).
-    if (/ERR_MODULE_NOT_FOUND|Cannot find (package|module)/.test(output)) {
-      console.error('[Generator] ⚠ VALIDATOR COULD NOT RUN (missing dependencies — try `npm install`).');
+    // Crash signatures beyond missing modules (hostile-R2): validator syntax/
+    // reference errors and node-internal traces are also non-runs, not findings.
+    const crashed = /ERR_MODULE_NOT_FOUND|Cannot find (package|module)|SyntaxError|ReferenceError|TypeError|node:internal|ENOBUFS|EACCES/.test(output);
+    if (crashed) {
+      console.error('[Generator] ⚠ VALIDATOR COULD NOT RUN (crash or missing dependencies — try `npm install`).');
       console.error('[Generator] ⚠ This page is UNVALIDATED, not validated-with-findings. Validate before using.');
     } else {
       console.error('[Generator] Validator reported findings (see above). File written, but fix before using.');
