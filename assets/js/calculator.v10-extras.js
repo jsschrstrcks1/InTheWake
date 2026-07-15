@@ -98,7 +98,7 @@
   host.appendChild(cardModes());
   host.appendChild(cardExplain());
   host.appendChild(cardPackages());
-  host.appendChild(cardEmail());
+  { const emailCard = cardEmail(); if (emailCard) host.appendChild(emailCard); }
 
   // Quick Start Card
   function cardQuickStart(){
@@ -313,10 +313,16 @@
   }
 
   // ---- Email capture ----
+  // Feature-gated (issue #1758): with no endpoint configured the card is not
+  // rendered at all — no placeholder UI, no demo alert(). Set EMAIL_ENDPOINT to
+  // a Brevo/Formspree URL to enable the form; submissions then POST there and
+  // report success/failure inline (never via alert()).
+  const EMAIL_ENDPOINT = '';
   function cardEmail(){
+    if (!EMAIL_ENDPOINT) return null;
     const card = el('div',{class:'itw-card', id:'itw-email', style:'display:none;'});
     card.appendChild(el('h2',{},'📧 Save This Analysis'));
-    const form = el('form',{id:'itw-email-form', method:'POST', action:''});
+    const form = el('form',{id:'itw-email-form', method:'POST', action:EMAIL_ENDPOINT});
     const row = el('div',{class:'itw-row', style:'grid-template-columns:2fr 1fr;gap:.5rem;'});
     const email = el('input',{type:'email', name:'EMAIL', required:'', placeholder:'you@example.com', style:'min-height:44px;border:1px solid #cbd5e1;border-radius:6px;padding:.75rem;'});
     const btn = el('button',{type:'submit', class:'itw-btn'},'Email My Results');
@@ -326,13 +332,16 @@
     form.appendChild(el('input',{type:'hidden', name:'RECOMMENDATION', id:'itw-email-rec'}));
     form.appendChild(el('input',{type:'hidden', name:'CRUISE_DAYS', id:'itw-email-days'}));
     form.appendChild(el('input',{type:'hidden', name:'CALC_URL', id:'itw-email-url'}));
+    const note = el('div',{id:'itw-email-note', role:'status', style:'margin-top:.5rem;font-size:.9rem;'});
     form.addEventListener('submit',(e)=>{
       e.preventDefault();
-      // You can wire your Brevo/Formspree endpoint here:
-
-      alert('Email capture is not configured in this demo.');
+      note.textContent = 'Sending…';
+      fetch(EMAIL_ENDPOINT, { method:'POST', body:new FormData(form) })
+        .then((res)=>{ note.textContent = res.ok ? '✅ Sent — check your inbox.' : '⚠️ Could not send right now — please try again later.'; })
+        .catch(()=>{ note.textContent = '⚠️ Could not send right now — please try again later.'; });
     });
     card.appendChild(form);
+    card.appendChild(note);
     return card;
   }
 
@@ -460,6 +469,7 @@
   // ---- Email capture visibility heuristic ----
   function maybeShowEmail(results){
     const card = byId('itw-email');
+    if (!card) return; // email capture feature-gated off (issue #1758)
     if (!results || !results.bars) { card.style.display='none'; return; }
     const days = store.get('inputs')?.days ?? 7;
     const alc = (results.bars.alc?.mean ?? 0) * days;
