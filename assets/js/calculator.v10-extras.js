@@ -328,9 +328,10 @@
     form.appendChild(el('input',{type:'hidden', name:'CALC_URL', id:'itw-email-url'}));
     form.addEventListener('submit',(e)=>{
       e.preventDefault();
-      // You can wire your Brevo/Formspree endpoint here:
-
-      alert('Email capture is not configured in this demo.');
+      // #1758: no email endpoint is wired yet, and the feature is gated OFF in maybeShowEmail
+      // (EMAIL_CAPTURE_ENABLED=false) so this card never shows in production. If it is ever
+      // reached, fail silently — NEVER surface "demo"/placeholder text to a real user. To ship
+      // the feature: wire a Brevo/Formspree POST here and flip EMAIL_CAPTURE_ENABLED to true.
     });
     card.appendChild(form);
     return card;
@@ -469,7 +470,12 @@
     const savings = Math.max(0, (alc - best));
     const totalDrinksPerDay = Object.values(store.get('inputs')?.drinks||{}).reduce((a,b)=>a+(Number(b)||0),0);
 
-    const shouldShow = (savings > 30) || (totalDrinksPerDay > 4);
+    // #1758: email capture has no endpoint wired. Keep the whole feature hidden in production
+    // rather than showing a form whose submit told users "not configured in this demo" — a
+    // trust-killing placeholder on the site's highest-traffic tool. Flip this to true only once
+    // a real Brevo/Formspree endpoint is wired in the form submit handler above (issue #1758 B).
+    const EMAIL_CAPTURE_ENABLED = false;
+    const shouldShow = EMAIL_CAPTURE_ENABLED && ((savings > 30) || (totalDrinksPerDay > 4));
     card.style.display = shouldShow ? 'block' : 'none';
 
     if (shouldShow){
