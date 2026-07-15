@@ -42,6 +42,44 @@ jobs:
           path: ./lychee-report.md
           retention-days: 30
 
+  # Forbidden /ships.html links (issue #1708). The ships hub is /ships/ — never
+  # /ships.html. This guard fails on NEW emissions of the forms fixed in the
+  # 2026-07-14 sweep (879 replacements across ~850 files). KNOWN EXCLUSION,
+  # stated loudly rather than silently: href="/ships.html#<class-anchor>" deep
+  # links are NOT yet guarded — those anchors only resolve on the legacy page
+  # today (see HLS task itw-ships-html-fragment-links for the migration).
+  forbidden-ships-link:
+    name: Forbidden Ships Link Guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - name: Fail on forbidden /ships.html link forms
+        run: |
+          echo "🔍 Guarding against forbidden /ships.html link forms (issue #1708)..."
+          FOUND=0
+          # Bare internal href (fragment forms excluded — see workflow comment)
+          if grep -rn --include="*.html" --include="*.js" --include="*.cjs" --include="*.mjs" \
+               --exclude-dir=node_modules 'href="/ships\.html"' . 2>/dev/null; then
+            echo "✗ Found forbidden bare href=\"/ships.html\" (use /ships/)"; FOUND=1
+          fi
+          # Absolute canonical-domain form (breadcrumbs, JSON-LD, og:url)
+          if grep -rn --include="*.html" --include="*.js" --include="*.cjs" --include="*.mjs" \
+               --exclude-dir=node_modules '"https://cruisinginthewake\.com/ships\.html[#"]' . 2>/dev/null; then
+            echo "✗ Found forbidden absolute cruisinginthewake.com/ships.html (use /ships/)"; FOUND=1
+          fi
+          # Emitted ai-breadcrumbs metadata
+          if grep -rn --include="*.html" --include="*.js" \
+               --exclude-dir=node_modules 'parent: /ships\.html' . 2>/dev/null; then
+            echo "✗ Found forbidden 'parent: /ships.html' metadata (use /ships/)"; FOUND=1
+          fi
+          if [ $FOUND -eq 1 ]; then
+            echo "✗ Forbidden /ships.html link forms found — the hub is /ships/ (never /ships.html)."
+            exit 1
+          fi
+          echo "✓ No forbidden /ships.html link forms found"
+
   # Check for Unknown placeholders
   placeholder-check:
     name: Check Placeholders

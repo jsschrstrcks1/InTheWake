@@ -1,11 +1,22 @@
 #!/usr/bin/env node
 /**
- * generate-port-page.cjs — Gold Standard Port Page Generator
+ * generate-port-page.cjs — Port Page Scaffold Generator
  * Soli Deo Gloria
  *
- * Generates a new port page from a tightly controlled template matching
- * the gold standard (dubai.html). Enforces ICP-2 v2.1, LOGBOOK_ENTRY_STANDARDS
- * v2.300, and all 21 audit detections.
+ * Generates a new port page SCAFFOLD whose structure follows the gold standard
+ * (dubai.html): section order, nav, JSON-LD, meta. What it actually enforces
+ * (#1712 — this header previously overclaimed):
+ *   - Refuses to write while <!-- FILL --> markers remain, unless
+ *     --allow-incomplete is passed (write gate, #1707). HONEST LIMIT: the stock
+ *     template always embeds body FILLs no CLI/config input can satisfy, so a
+ *     default run currently ALWAYS refuses — the gate's value today is the
+ *     forced acknowledgment + marker count, not selective prevention. It becomes
+ *     discriminating when config-driven content fill lands (HLS
+ *     itw-generator-config-fill).
+ *   - Runs validate-port-page-v2.js + port-page-audit.cjs automatically after
+ *     writing; findings print loudly but are ADVISORY — the file stays on disk
+ *     for fixing. Content-level conformance to ICP-2 / LOGBOOK_ENTRY_STANDARDS
+ *     is the validator's job and is NOT guaranteed by generation alone.
  *
  * Usage:
  *   node admin/generate-port-page.cjs --port "Mykonos" --country "Greece" --region "Mediterranean" \
@@ -435,9 +446,16 @@ function generatePage(config) {
 </html>`;
 }
 
+// Count unfilled scaffold markers. Case-insensitive and space-tolerant so a
+// hand-edited `<!--fill` variant can't slip past the write gate (#1707).
+function countFillMarkers(html) {
+  return (html.match(/<!--\s*FILL/gi) || []).length;
+}
+
 function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
+  const allowIncomplete = args.includes('--allow-incomplete');
 
   // Parse arguments
   const getArg = (name) => {
@@ -472,6 +490,7 @@ function main() {
     console.error('  --lat 0.0  --lon 0.0  --currency "EUR" --currency-code "EUR"');
     console.error('  --language "Greek"     --timezone "EET"  --dock-type dock|tender');
     console.error('  --config path.json    --dry-run         --slug custom-slug');
+    console.error('  --allow-incomplete    (write scaffold with unfilled <!-- FILL --> markers; refused by default)');
     process.exit(1);
   }
 
@@ -485,7 +504,8 @@ function main() {
     console.log(`Sections: hero, logbook, cruise-port, getting-around, map, excursions, food, notices, depth-soundings, practical, gallery, credits, faq, weather-guide`);
     console.log(`Meta: ai-summary, description, OG, Twitter Cards, canonical`);
     console.log(`JSON-LD: BreadcrumbList, WebPage+Place, FAQPage`);
-    console.log(`\nTemplate has <!-- FILL --> markers for content that needs human/AI writing.`);
+    console.log(`\nTemplate has ${countFillMarkers(html)} <!-- FILL --> markers for content that needs human/AI writing.`);
+    console.log(`A real run REFUSES to write while markers remain — pass --allow-incomplete for early scaffolding (#1707).`);
     console.log(`\n[DRY RUN] On real run the generator will *automatically* invoke:`);
     console.log(`  node admin/validate-port-page-v2.js ${outPath}`);
     console.log(`  node admin/port-page-audit.cjs ${outPath}`);
@@ -499,13 +519,26 @@ function main() {
     process.exit(1);
   }
 
+  // Write gate (#1707): a page with unfilled markers is structurally incomplete and
+  // must not ship silently. Refuse by default; scaffolding requires the explicit flag.
+  const fills = countFillMarkers(html);
+  if (fills > 0 && !allowIncomplete) {
+    console.error(`BLOCKED: template still contains ${fills} unfilled <!-- FILL --> markers — refusing to write.`);
+    console.error(`  Fill the content (via --config or by editing this script's inputs), or pass`);
+    console.error(`  --allow-incomplete to write an explicit scaffold you commit to completing.`);
+    console.error(`  (#1707: incomplete pages ship only by explicit choice, never by default.)`);
+    process.exit(1);
+  }
+
   // Atomic write: write to temporary file then rename. Prevents half-written files if the process is killed.
   const tmpPath = outPath + '.tmp';
   fs.writeFileSync(tmpPath, html, 'utf8');
   fs.renameSync(tmpPath, outPath);
   console.log(`✓ Created: ${outPath}`);
   console.log(`  Port: ${config.port} (${slug})`);
-  console.log(`  Template has <!-- FILL --> markers for content.`);
+  if (fills > 0) {
+    console.log(`  ⚠ WROTE INCOMPLETE SCAFFOLD (--allow-incomplete): ${fills} <!-- FILL --> markers remain — this page must not go live as-is.`);
+  }
 
   // Root cause fix (generator bypass documented in #1707/#1712 + 388-page audit):
   // The generator now *executes* the validator and audit right after writing, instead of only printing "run these later" instructions.
@@ -513,10 +546,22 @@ function main() {
   console.log(`\n[Generator] Running validator immediately...`);
   const { execSync } = require('child_process');
   try {
-    execSync(`node admin/validate-port-page-v2.js ${outPath}`, { stdio: 'inherit' });
+    const out = execSync(`node admin/validate-port-page-v2.js ${outPath}`, { stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8' });
+    process.stdout.write(out);
     console.log('[Generator] validate-port-page-v2.js completed — review any BLOCKING/WARNING output above.');
   } catch (e) {
-    console.error('[Generator] Validator found problems (see above). File written, but fix before using.');
+    const output = `${e.stdout || ''}${e.stderr || ''}`;
+    process.stdout.write(output);
+    // "Couldn't check" is not "checked and found problems" — never conflate (#1712).
+    // Crash signatures beyond missing modules (hostile-R2): validator syntax/
+    // reference errors and node-internal traces are also non-runs, not findings.
+    const crashed = /ERR_MODULE_NOT_FOUND|Cannot find (package|module)|SyntaxError|ReferenceError|TypeError|node:internal|ENOBUFS|EACCES/.test(output);
+    if (crashed) {
+      console.error('[Generator] ⚠ VALIDATOR COULD NOT RUN (crash or missing dependencies — try `npm install`).');
+      console.error('[Generator] ⚠ This page is UNVALIDATED, not validated-with-findings. Validate before using.');
+    } else {
+      console.error('[Generator] Validator reported findings (see above). File written, but fix before using.');
+    }
   }
 
   try {

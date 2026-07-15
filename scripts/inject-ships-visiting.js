@@ -155,7 +155,7 @@ function generateShipsSection(portSlug, portToShips, ships) {
     html += `        </div>\n`;
   });
 
-  html += `        <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships.html">Browse all cruise ships &rarr;</a></p>\n`;
+  html += `        <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships/">Browse all cruise ships &rarr;</a></p>\n`;
   html += `      </section>`;
 
   return html;

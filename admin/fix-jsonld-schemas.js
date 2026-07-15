@@ -215,7 +215,7 @@ function generateBreadcrumbList(shipName, cruiseLine, slug) {
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://cruisinginthewake.com/"},
-      {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships.html"},
+      {"@type": "ListItem", "position": 2, "name": "Ships", "item": "https://cruisinginthewake.com/ships/"},
       {"@type": "ListItem", "position": 3, "name": cruiseLineName, "item": `https://cruisinginthewake.com/cruise-lines/${cruiseLine}.html`},
       {"@type": "ListItem", "position": 4, "name": shipName, "item": `https://cruisinginthewake.com/ships/${cruiseLine}/${slug}.html`}
     ]

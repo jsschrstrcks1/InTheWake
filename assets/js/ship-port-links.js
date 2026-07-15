@@ -22,91 +22,91 @@
       name: 'Royal Caribbean',
       path: '/ships/rcl/',
       bookingUrl: 'https://www.royalcaribbean.com/cruise-ships/',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'carnival': {
       name: 'Carnival Cruise Line',
       path: '/ships/carnival/',
       bookingUrl: 'https://www.carnival.com/cruise-ships/',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'celebrity': {
       name: 'Celebrity Cruises',
       path: '/ships/celebrity-cruises/',
       bookingUrl: 'https://www.celebritycruises.com/cruise-ships/',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'ncl': {
       name: 'Norwegian Cruise Line',
       path: '/ships/norwegian/',
       bookingUrl: 'https://www.ncl.com/cruise-ships/',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'princess': {
       name: 'Princess Cruises',
       path: '/ships/princess/',
       bookingUrl: 'https://www.princess.com/ships-and-experience/ships/',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'hal': {
       name: 'Holland America Line',
       path: '/ships/holland-america-line/',
       bookingUrl: 'https://www.hollandamerica.com/en_US/cruise-ships.html',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'msc': {
       name: 'MSC Cruises',
       path: '/ships/msc/',
       bookingUrl: 'https://www.msccruises.com/cruise-ships',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'virgin': {
       name: 'Virgin Voyages',
       path: '/ships/virgin-voyages/',
       bookingUrl: 'https://www.virginvoyages.com/ships',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'costa': {
       name: 'Costa Cruises',
       path: '/ships/costa/',
       bookingUrl: 'https://www.costacruises.com/ships.html',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'cunard': {
       name: 'Cunard',
       path: '/ships/cunard/',
       bookingUrl: 'https://www.cunard.com/en-gb/cruise-ships',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'oceania': {
       name: 'Oceania Cruises',
       path: '/ships/oceania/',
       bookingUrl: 'https://www.oceaniacruises.com/ships/',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'regent': {
       name: 'Regent Seven Seas',
       path: '/ships/regent/',
       bookingUrl: 'https://www.rssc.com/ships',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'seabourn': {
       name: 'Seabourn',
       path: '/ships/seabourn/',
       bookingUrl: 'https://www.seabourn.com/en_US/cruise-ships.html',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'silversea': {
       name: 'Silversea Cruises',
       path: '/ships/silversea/',
       bookingUrl: 'https://www.silversea.com/ships.html',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     },
     'explora': {
       name: 'Explora Journeys',
       path: '/ships/explora-journeys/',
       bookingUrl: 'https://explorajourneys.com/ships/',
-      allShipsUrl: '/ships.html'
+      allShipsUrl: '/ships/'
     }
   };
 
@@ -344,7 +344,7 @@
 
     html += `
       <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);">
-        <a href="/ships.html">Browse all cruise ships →</a>
+        <a href="/ships/">Browse all cruise ships →</a>
       </p>
     `;
 
