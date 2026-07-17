@@ -12,7 +12,83 @@ This document is named in `admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md` as th
 
 ## Open issues
 
-*(All issues from the 2026-05 batch are now closed — see the Closed issues section.)*
+### REGEX-04 — `admin/validate-ship-page.sh` #1320 TBD-field sed slice bleeds past JSON boundary *(opened 2026-07-12)*
+
+**Validator location:** `admin/validate-ship-page.sh` ~line 565 — the check that fails a page for `"TBD"` values in the fact-block JSON.
+
+**Observed false positive:** the check uses `sed -n '/"entered_service"/,/"registry"/p'` to slice the JSON metadata block, then greps for `"TBD"` in the slice. When a ship's page.json omits the `"registry"` field entirely (some retired pages do), the closing anchor never matches and the slice extends to end-of-file. The slice then catches unrelated HTML further down the page — e.g. `data-imo="TBD"` on the tracker element, which is a separate HTML attribute nowhere near the metadata block.
+
+**Effect:** a page can trip #1320 with a valid `"entered_service"` and `"registry"` both filled if the tracker element still has `data-imo="TBD"`, because the sed slice is picking up the wrong region.
+
+**Suggested fix:** switch the closing anchor to a guaranteed-terminal token inside the JSON block (e.g. the `</script>` tag or a trailing curly-brace pattern that must appear in every fact-block), or extract the JSON with `jq` instead of a line-range sed. Either eliminates the boundary leak.
+
+**Pages that exposed the leak this session:** retired-ship pages built from the Costa Diadema template that omit the `"registry"` field for pre-IMO ships.
+
+---
+
+### REGEX-05 — `admin/validate-ship-page.sh` #1819 grammar check false-positives on yu-sound vowels *(opened 2026-07-12)*
+
+**Validator location:** `admin/validate-ship-page.sh` ~line 1819 — the "a/an before vowel" grammar check.
+
+**Observed false positive:** the regex `\b[Aa] [AEIOU][a-z]` flags every case of `a <vowel>`, but English "yu-sound" vowels take `a` not `an`. False positives observed this session: `a unique`, `a European`, `a one-time`, `a university`, `a used`. All are grammatically correct and were being rewritten to `an unique` etc. to satisfy the check, which is wrong.
+
+**Suggested fix:** add a yu-sound exception alternation before the flag: skip when the following word starts with `uni-`, `eu-`, `once`, `one-`, `used-`, `useful`, `user`, `usual`, `European`. Alternatively, invert the check to trust `a`/`an` as authored and only flag when the current spelling doesn't match a known-good rule.
+
+**Pages where the natural phrasing was preserved via replace_all:** Costa fleet — every `a Excellence Class` → `an Excellence Class` case was flipped by hand because those *were* real errors, but each fix had to individually verify the y-sound distinction to avoid over-correcting.
+
+---
+
+### REGEX-06 — `admin/validate-ship-page.sh` superlative check is 21st-century-biased *(opened 2026-07-12)*
+
+**Validator location:** `admin/validate-ship-page.sh` ~line 1303–1316 — the check that requires a date qualifier near a superlative.
+
+**Observed false positive:** the regex `(newest|largest|first|...).{0,80}(20[0-9]{2}|as of)` requires the qualifier to (a) come AFTER the superlative within 80 chars and (b) contain a 21st-century year OR the literal token "as of". A 20th-century ship like Sovereign of the Seas cannot say `at her 1988 debut, she was the world's largest` because 1988 doesn't match `20[0-9]{2}`; the qualifier order also has to be flipped to `As of her January 1988 launch, Sovereign was the world's largest` to satisfy the position rule.
+
+**Suggested fix:** (a) accept `19[0-9]{2}` in the year alternation; (b) allow the qualifier to precede the superlative within a symmetric window; (c) surface a clearer error message ("superlative found but qualifier is on the wrong side") so authors don't guess. Also acceptable: emit a warning instead of a fail when the year is 19XX, since these are usually retired ships whose superlatives are historical facts.
+
+**Pages that surfaced the issue:** Sovereign-of-the-Seas retired-ship rebuild, Silversea-fleet 1980s-launched ships.
+
+---
+
+### REGEX-07 — `admin/validate-ship-page.sh` gross-tonnage check requires exact tokens *(opened 2026-07-12)*
+
+**Validator location:** `admin/validate-ship-page.sh` ~line 1092 — the check that a page contains a gross-tonnage mention.
+
+**Observed false positive:** the check uses `grep -qi 'gross tons\|GT'` and fails a page whose only tonnage phrasing is "gross tonnage" (no trailing `s`, no `GT`). "Gross tonnage" is the industry-standard term, so failing it forces awkward rewrites.
+
+**Suggested fix:** widen the alternation to `gross tons\|gross tonnage\|GT\b`. The `\b` on `GT` also prevents matching inside unrelated tokens.
+
+---
+
+### REGEX-08 — `admin/validate-ship-page.sh` carousel-slide check uses line-count where occurrence-count is needed *(opened 2026-07-12)*
+
+**Validator location:** `admin/validate-ship-page.sh` ~line 567–586 — the check that counts carousel slide divs.
+
+**Observed false positive:** the check uses `grep -c '</div>'` which counts LINES containing `</div>`, not occurrences. When two closing divs collapse onto one line as `</div></div>` (common after HTML minifiers or hand-formatting), the second one is not counted. Real slide counts read lower than actual, and pages with the correct number of slides can trip an "insufficient slides" fail.
+
+**Suggested fix:** replace `grep -c` with `grep -o '</div>' | wc -l` for any check that counts DOM elements rather than lines. Several other counters in the validator share this shape and should be audited together.
+
+---
+
+### REGEX-09 — `admin/validate-ship-page.sh` retired-ship detection is prose-pattern-based and conflicts with the site-name leak check *(opened 2026-07-12)*
+
+**Validator location:** `admin/validate-ship-page.sh` ~lines 762–775, 1322–1338 — TBN/retired detection; and the site-name leak check (searches for "In the Wake" anywhere in the page).
+
+**Observed false positive:** retired-ship downgrades are triggered only when the page contains one of a fixed set of magic phrases (`preserves the ship's history`, `entered service in 19XX`, `to be named`, `TBN`, `under construction`, `not yet delivered`, or a `(YYYY)` in the title). Miss the phrase, retired-ship fails as active-ship. Meanwhile the retired-ship eulogy check (#1306) REQUIRES `class="byline">— In the Wake editorial</span>` in the page — but the site-name leak check then flags "In the Wake" as leaked. Two checks fight each other.
+
+**Suggested fix:** move retired/TBN status out of prose into explicit page.json metadata (`"status": "active"|"retired"|"tbn"|"under-construction"`) and key all downgrades on that field. The site-name leak check should whitelist the retired-ship byline pattern specifically.
+
+---
+
+## Sibling issues (validator UX gaps, not regex bugs — filed for tracking)
+
+### UX-01 — no `--json` output mode on `admin/validate-ship-page.sh`
+
+Bulk-fix work has to parse human-formatted stdout. A `--json` mode emitting `{file, checks: [{id, severity, line?, message}]}` would let orchestrators aggregate cleanly. Currently the aggregator `admin/aggregate-ship-validation.js` re-parses the human output.
+
+### UX-02 — no `--only <id>` filter on `admin/validate-ship-page.sh`
+
+When fixing one specific error across a fleet, the validator still runs all 238+ checks per file. `--only #1381,#1374` would let batch work focus. Combined with `--json`, would meaningfully speed multi-fleet passes.
 
 ---
 
