@@ -39,6 +39,16 @@
 /assets/articles/thumbs/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Subdirectory images (assets/ships/* incl ships/rcl,/princess,…; assets/beta/*) — itw-subdir-image-cache-gap,
+# the image half of the itw-gh-1721 Netlify mid-`*` subdir gap (33 refs, all unversioned). Unlike subdir
+# CSS/JS (which change every deploy → revalidating), these are STATIC content, so `immutable` matches the
+# site's existing image rules above. ASSUMPTION: an image is replaced by CHANGING ITS FILENAME (standard for
+# static assets); to overwrite an image in place, add a ?v=/hash cache-buster or it will serve stale.
+/assets/ships/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/beta/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Data files (JSON with versioning via content updates)
 /assets/data/*.json
   Cache-Control: public, max-age=86400, must-revalidate
