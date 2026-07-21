@@ -47,9 +47,26 @@
 /manifest.webmanifest
   Cache-Control: public, max-age=2592000
 
-# Security headers
+# Security headers — itw-gh-1722 (vivenna 2026-07-20). Removed the deprecated X-XSS-Protection (browsers
+# ignore it and its "filter" has caused XSS side-channel bugs). Added HSTS, a modern Referrer-Policy,
+# Permissions-Policy (deny unused powerful features), and a Content-Security-Policy in REPORT-ONLY mode.
+#
+# WHY REPORT-ONLY FIRST (careful, not clever): this is a live public site and the resource inventory was
+# SAMPLED (index + support + a port page). Report-Only enforces NOTHING — it cannot break the site — but
+# reports violations (browser console) so any missed origin (an OSM/YouTube embed, a CDN script on a page
+# not sampled) surfaces safely. After a validation window on a preview/production deploy with zero real
+# violations, FLIP to enforcing: rename `Content-Security-Policy-Report-Only` -> `Content-Security-Policy`.
+# KNOWN LIMITATION: the site has inline <script> (5) + inline style= (132), so script-src/style-src need
+# 'unsafe-inline' — the CSP hardens framing / mixed-content / external-origin / object / base, NOT
+# inline-XSS (that needs de-inlining the scripts via nonces/hashes — a separate follow-up).
+# HSTS ROLLOUT (staged, so a first deploy stays reversible): apex-only for now — `includeSubDomains` and
+# `preload` are OMITTED because both are hard to reverse (browser-cached for max-age; preload needs the list).
+# The apex is HTTPS-only on Netlify, so a 1-year max-age here is safe. RAMP after a subdomain audit confirms
+# every subdomain is HTTPS-only: add `; includeSubDomains`, then (deliberately) `; preload`.
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
-  X-XSS-Protection: 1; mode=block
-  Referrer-Policy: no-referrer-when-downgrade
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=()
+  Content-Security-Policy-Report-Only: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cloud.umami.is https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.frankfurter.app https://api.exchangerate.host https://cloud.umami.is https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; frame-src 'self'; upgrade-insecure-requests
