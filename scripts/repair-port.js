@@ -11,7 +11,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const PLACEHOLDER_IMG = '/home/user/InTheWake/assets/ships/placeholder-ship.webp';
+// Repo-relative (scripts/ -> repo root) so the placeholder-copy works on ANY machine. The old absolute
+// '/home/user/InTheWake/...' only existed on one host, so existsSync() was false everywhere else and the
+// placeholder copy silently no-op'd (itw-repair-port-hardcoded-path).
+const PLACEHOLDER_IMG = path.join(__dirname, '..', 'assets', 'ships', 'placeholder-ship.webp');
 
 class PortRepairer {
   constructor(filePath) {
