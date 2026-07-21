@@ -19,6 +19,18 @@
 /assets/*.svg
   Cache-Control: public, max-age=31536000, immutable
 
+# Subdirectory CSS/JS (assets/css/, assets/js/, assets/js/modules/, …) — itw-gh-1721.
+# The /assets/*.css | /assets/*.js rules above do NOT reliably cover subdirectory files (Netlify's
+# mid-path `*` does not cross `/`), so those assets fell through to the default cache. IMPORTANT: these
+# are mostly UNVERSIONED (61 of 81 subdir refs carry no ?v= cache-buster), so they get a REVALIDATING
+# cache, NOT `immutable` — immutable would serve a stale file forever after the next deploy since the URL
+# never changes. (Placed AFTER the *.css/*.js rules so it wins even if Netlify does match subdirs there.)
+# To make a subdir asset `immutable` long-cache, add a ?v=/content-hash cache-buster to its URL.
+/assets/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+/assets/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
 # Author images (optimized, rarely change)
 /authors/img/*
   Cache-Control: public, max-age=31536000, immutable
