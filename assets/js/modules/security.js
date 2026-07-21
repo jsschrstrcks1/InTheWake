@@ -125,9 +125,16 @@ export class Security {
   }
 
   /**
-   * Secure localStorage wrapper with encryption placeholder
+   * LocalStore — a namespaced localStorage wrapper with key-sanitization + TTL expiry.
+   *
+   * SECURITY (itw-gh-1760): this is NOT encrypted and NOT "secure" storage. localStorage is readable by
+   * ANY same-origin script (so it is exposed to XSS) and is never sent to a server. Client-side encryption
+   * would be OBFUSCATION, not confidentiality — the decryption key would have to live in this same JS that
+   * an attacker's injected script can read. Therefore: DO NOT store secrets, credentials, or anything whose
+   * exposure matters here. This wrapper provides key-namespacing + expiry only. (Renamed from the misleading
+   * "SecureStorage"; a deprecated alias is kept below for any dynamic caller.)
    */
-  static SecureStorage = {
+  static LocalStore = {
     set(key, value, ttl = null) {
       try {
         const item = {
@@ -187,6 +194,9 @@ export class Security {
     }
   };
 
+  /** @deprecated Misnamed — localStorage is not "secure" (see LocalStore). Kept as an alias for any dynamic caller. */
+  static SecureStorage = Security.LocalStore;
+
   /**
    * Input event sanitizer
    */
@@ -213,7 +223,10 @@ export class Security {
   }
 
   /**
-   * CSRF token management
+   * CSRF token management.
+   * NOTE (itw-gh-1760): this is a STATIC site with no server session, so a token generated, stored, AND
+   * validated entirely in the client provides no real CSRF defense (CSRF is a server-side concern). Kept
+   * for a potential future server-backed flow; do not rely on it as protection today.
    */
   static CSRFToken = {
     generate() {
@@ -223,11 +236,11 @@ export class Security {
     },
     
     set(token) {
-      Security.SecureStorage.set('csrf_token', token, 24 * 60 * 60 * 1000); // 24h
+      Security.LocalStore.set('csrf_token', token, 24 * 60 * 60 * 1000); // 24h
     },
     
     get() {
-      return Security.SecureStorage.get('csrf_token');
+      return Security.LocalStore.get('csrf_token');
     },
     
     validate(token) {
