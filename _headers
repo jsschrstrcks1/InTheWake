@@ -59,12 +59,14 @@
 # KNOWN LIMITATION: the site has inline <script> (5) + inline style= (132), so script-src/style-src need
 # 'unsafe-inline' — the CSP hardens framing / mixed-content / external-origin / object / base, NOT
 # inline-XSS (that needs de-inlining the scripts via nonces/hashes — a separate follow-up).
-# HSTS NOTE: includeSubDomains assumes every subdomain is HTTPS-only (true for this Netlify site); `preload`
-# is intentionally OMITTED (very hard to reverse — submit to the preload list as a deliberate later step).
+# HSTS ROLLOUT (staged, so a first deploy stays reversible): apex-only for now — `includeSubDomains` and
+# `preload` are OMITTED because both are hard to reverse (browser-cached for max-age; preload needs the list).
+# The apex is HTTPS-only on Netlify, so a 1-year max-age here is safe. RAMP after a subdomain audit confirms
+# every subdomain is HTTPS-only: add `; includeSubDomains`, then (deliberately) `; preload`.
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Strict-Transport-Security: max-age=31536000
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=()
   Content-Security-Policy-Report-Only: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cloud.umami.is https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.frankfurter.app https://api.exchangerate.host https://cloud.umami.is https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; frame-src 'self'; upgrade-insecure-requests
