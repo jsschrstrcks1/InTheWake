@@ -57,8 +57,31 @@ async function findShipPages(filter = null) {
   return out;
 }
 
+// itw-aggregator-hang-fix: a single validator that wedges (a runaway regex, a stuck child) would otherwise
+// hang the ENTIRE full-fleet run (~290 ships × 2 validators) forever — spawnSync with no timeout blocks
+// indefinitely. Bound each invocation; a page that exceeds it is reported as a validation FAILURE, never a
+// silent stall. Env-overridable for a slow host / a deliberately deep run.
+const VALIDATOR_TIMEOUT_MS = Number(process.env.ITW_VALIDATOR_TIMEOUT_MS) || 60_000;
+
 function runValidator(cmd, args, file) {
-  const proc = spawnSync(cmd, [...args, file], { encoding: 'utf-8', maxBuffer: 50 * 1024 * 1024 });
+  const proc = spawnSync(cmd, [...args, file], {
+    encoding: 'utf-8',
+    maxBuffer: 50 * 1024 * 1024,
+    timeout: VALIDATOR_TIMEOUT_MS,
+    killSignal: 'SIGTERM',
+  });
+  // A timeout (or a spawn failure) sets proc.error and leaves stdout null/partial. Surface it as a FAILURE —
+  // never fall through to JSON.parse(null) === null, which returned { ok: true } and read a wedged page as a
+  // clean pass (a false all-clear in the dashboard). Check proc.error BEFORE parsing.
+  if (proc.error) {
+    const why = proc.error.code === 'ETIMEDOUT'
+      ? `validator timeout after ${VALIDATOR_TIMEOUT_MS}ms`
+      : String(proc.error.message || proc.error);
+    // procFailed: the validator was KILLED / could not run (timeout, spawn error) — distinct from a JSON
+    // parse failure (validator ran but its stdout wasn't JSON). Only a proc-level failure gets surfaced as a
+    // NEW fail_code below; parse failures keep their pre-existing behavior so this fix stays scoped to the hang.
+    return { ok: false, procFailed: true, exit: proc.status, error: why, stderr: (proc.stderr || '').slice(0, 200) };
+  }
   let parsed = null;
   try {
     parsed = JSON.parse(proc.stdout);
@@ -111,6 +134,14 @@ async function main() {
     for (const e of (js.blocking_errors || [])) {
       fail_codes.push(`js:${e.section}/${e.rule}`);
     }
+    // itw-aggregator-hang-fix: a validator that was KILLED (timeout) or could not spawn has no checks or
+    // blocking_errors, so it contributed ZERO error rows above and would read as a CLEAN PASS in the
+    // dashboard's errors_by_rule + the pre-commit regression gate — a wedged validator hiding as a green page.
+    // Surface a proc-level failure as an explicit fail_code so a killed/timed-out validator is always visible.
+    // Scoped to procFailed only (NOT a JSON-parse failure, which is a pre-existing, separate condition) so this
+    // hang fix does not retroactively flood the dashboard with new codes for already-non-JSON validator output.
+    if (sh.procFailed) fail_codes.push(`sh:VALIDATOR_FAILED:${String(sh.error || 'unknown').slice(0, 60)}`);
+    if (js.procFailed) fail_codes.push(`js:VALIDATOR_FAILED:${String(js.error || 'unknown').slice(0, 60)}`);
 
     const entry = {
       path: ship.relpath,
