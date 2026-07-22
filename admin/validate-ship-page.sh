@@ -2000,9 +2000,15 @@ fi
 section_header "Section 9ar: Article Grammar"
 
 GRAMMAR_ERRORS=$(echo "$CONTENT" | grep -ciP '\b[Aa] [AEIOU][a-z]' || true)
-# Subtract false positives: "a URL", "a UK", normal prose
-FALSE_POS=$(echo "$CONTENT" | grep -ciP '\ba (URL|UK|US|EU)\b' || true)
+# REGEX-05 (itw-validator-quirk-refactor): the raw check flags "a [vowel LETTER]", but a vowel LETTER is not a
+# vowel SOUND — "a unique / UNESCO / one / useful / European / university / euro / once / uniformed" are all
+# CORRECT ("a" before a yu-/w- consonant sound). The old exclusion only covered URL/UK/US/EU, so the check
+# cried wolf on ~300+ legitimate occurrences across the corpus. Exclude the yu-/w-sound words. Verified against
+# the live corpus that these are dropped while GENUINE errors stay flagged: unknown / unable / unusual /
+# uninformed are uh-SOUND (real "an" errors), and expedition / edge / origin / endeavour / excel likewise.
+FALSE_POS=$(echo "$CONTENT" | grep -ciP '\ba (URL|UK|US|EU|UN|UV|UTV|USB|UNESCO|USFWS|uniqu\w*|uniform\w*|universi\w*|univers\w*|union\w*|unicorn\w*|unit\w*|use\w*|usab\w*|usag\w*|usual\w*|utili\w*|utensil\w*|ukulele\w*|ubiquit\w*|euro\w*|europ\w*|eulog\w*|euphe\w*|one\b|one-\w+|once\b)\b' || true)
 GRAMMAR_ERRORS=$((GRAMMAR_ERRORS - FALSE_POS))
+[ "$GRAMMAR_ERRORS" -lt 0 ] && GRAMMAR_ERRORS=0   # clamp: never let FALSE_POS over-subtract into a negative
 if [ "$GRAMMAR_ERRORS" -gt 0 ]; then
     check_warn "Found $GRAMMAR_ERRORS 'a [vowel-sound]' grammar error(s) — should be 'an' (#1334)"
 else
