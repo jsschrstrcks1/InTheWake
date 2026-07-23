@@ -37,16 +37,34 @@ def extract_ship_info(content, filepath):
     else:
         info['name'] = filepath.stem.replace('-', ' ').title()
 
-    # Cruise line from path
-    if '/rcl/' in str(filepath):
-        info['cruise_line'] = 'Royal Caribbean'
-        info['cruise_line_short'] = 'Royal Caribbean'
-    elif '/carnival/' in str(filepath):
-        info['cruise_line'] = 'Carnival Cruise Line'
-        info['cruise_line_short'] = 'Carnival'
-    else:
-        info['cruise_line'] = 'Unknown'
-        info['cruise_line_short'] = 'Unknown'
+    # Cruise line — SSOT-FIRST. Read the authoritative value from the page's own ship-stats-fallback JSON
+    # (which carries the correct cruise_line for every ship). The old code guessed ONLY from the path
+    # (/rcl/, /carnival/) and fabricated 'Unknown' for every other line — so Celebrity (/celebrity-cruises/)
+    # and all others rendered "is a Unknown ship" / "Cruise Line: Unknown" even though the real data was
+    # sitting in the same page. That is clever-not-careful: two sources of truth that drift. Never fabricate
+    # 'Unknown' when the SSOT has the answer.
+    info['cruise_line'] = None
+    info['cruise_line_short'] = None
+    stats_match = re.search(r'id=["\']ship-stats-fallback["\'][^>]*>\s*(\{.*?\})\s*</script>', content, re.DOTALL)
+    if stats_match:
+        try:
+            stats = json.loads(stats_match.group(1))
+            if stats.get('cruise_line'):
+                info['cruise_line'] = stats['cruise_line']
+                info['cruise_line_short'] = stats.get('cruise_line_short') or \
+                    re.sub(r'\s+(Cruises|Cruise Line)$', '', stats['cruise_line'], flags=re.IGNORECASE).strip() or stats['cruise_line']
+        except (ValueError, TypeError):
+            pass
+    if not info['cruise_line']:
+        # No on-page SSOT — fall back to the path map only for the two known dirs; otherwise FAIL LOUD
+        # (skip / raise) rather than silently fabricate a cruise line into the Quick Answer + Key Facts.
+        if '/rcl/' in str(filepath):
+            info['cruise_line'] = info['cruise_line_short'] = 'Royal Caribbean'
+        elif '/carnival/' in str(filepath):
+            info['cruise_line'], info['cruise_line_short'] = 'Carnival Cruise Line', 'Carnival'
+        else:
+            raise ValueError(f"{filepath}: no ship-stats-fallback SSOT and unknown path — refusing to "
+                             f"fabricate a cruise line. Add the ship-stats-fallback JSON or extend the path map.")
 
     # Description
     desc_match = re.search(r'<meta\s+(?:name=["\']description["\']\s+)?content=["\']([^"\']+)["\'](?:\s+name=["\']description["\'])?', content, re.IGNORECASE)
