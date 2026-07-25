@@ -892,6 +892,43 @@ function validateShipStatsJSON($) {
 }
 
 /**
+ * Never fabricate "Unknown" for a field that IS populated in the page's own SSOT (#2500/#2502).
+ * The #ship-stats-fallback JSON is the single source of truth for ship facts. When its cruise_line
+ * is a real value, no rendered cruise-line spot may say "Unknown" — that is the clever-not-careful
+ * bug that showed "Unknown" cruise lines while the SSOT/JSON-LD/header held the real name.
+ * NOTE: legitimate image-credit unknowns ("Unknown - FOM collection", "| Unknown | Wikimedia" =
+ * unknown photographer) are a DIFFERENT surface and are intentionally NOT matched here.
+ */
+function validateNoFabricatedUnknown($, html) {
+  const errors = [];
+  const warnings = [];
+  const statsEl = $('#ship-stats-fallback');
+  let data = {};
+  try { data = JSON.parse(statsEl.html() || '{}'); } catch { return { valid: true, errors, warnings, data: {} }; }
+  const line = String(data.cruise_line || '').trim();
+  const populated = line && !/^(unknown|tbd|tbn|n\/a)$/i.test(line);
+  if (!populated) return { valid: true, errors, warnings, data: {} };
+  const fabrications = [
+    { re: /is a Unknown ship/g, label: 'Quick Answer "is a Unknown ship"' },
+    { re: /Cruise Line:<\/strong>\s*Unknown/g, label: 'Key Facts "Cruise Line: Unknown"' },
+    { re: /comparing Unknown ships/g, label: '"comparing Unknown ships"' },
+    { re: /Check the Unknown website/g, label: '"Check the Unknown website"' },
+  ];
+  for (const { re, label } of fabrications) {
+    const n = (html.match(re) || []).length;
+    if (n > 0) {
+      errors.push({
+        section: 'ship_facts_ssot',
+        rule: 'fabricated_unknown_cruise_line',
+        message: `${label} rendered ${n}x while SSOT cruise_line is "${line}" — never fabricate Unknown for a populated field (#2500/#2502)`,
+        severity: 'BLOCKING',
+      });
+    }
+  }
+  return { valid: errors.length === 0, errors, warnings, data: {} };
+}
+
+/**
  * Validate dining data source JSON
  */
 function validateDiningJSON($) {
@@ -2959,6 +2996,7 @@ async function validateShipPage(filepath) {
     const analyticsResult = validateAnalytics($, html);
     const contentPurityResult = validateContentPurity($, html);
     const shipStatsResult = validateShipStatsJSON($);
+    const noFabUnknownResult = validateNoFabricatedUnknown($, html);
     const diningResult = validateDiningJSON($);
     const wordCountResult = validateWordCounts($, isHistoric);
     const printButtonResult = validatePrintButton($, html);
@@ -3028,7 +3066,8 @@ async function validateShipPage(filepath) {
       ...accessibilityKeywordResult.errors,
       ...runtimeDataResult.errors, ...renderingResult.errors,
       ...mainEntityResult.errors, ...aiSummaryBoilerplateResult.errors,
-      ...internalNumericResult.errors, ...proseTicsResult.errors
+      ...internalNumericResult.errors, ...proseTicsResult.errors,
+      ...noFabUnknownResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,
@@ -3080,7 +3119,8 @@ async function validateShipPage(filepath) {
       ...accessibilityKeywordResult.errors,
       ...runtimeDataResult.errors, ...renderingResult.errors,
       ...mainEntityResult.errors, ...aiSummaryBoilerplateResult.errors,
-      ...internalNumericResult.errors, ...proseTicsResult.errors
+      ...internalNumericResult.errors, ...proseTicsResult.errors,
+      ...noFabUnknownResult.errors
     );
 
     // Collect warnings
