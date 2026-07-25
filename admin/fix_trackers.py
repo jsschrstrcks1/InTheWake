@@ -8,7 +8,7 @@ import os
 import re
 from pathlib import Path
 
-SHIPS_DIR = Path('/home/user/InTheWake/ships/rcl')
+SHIPS_DIR = (Path(__file__).resolve().parents[1] / 'ships/rcl')
 
 # New JavaScript to replace old initLiveTracker
 NEW_TRACKER_JS = """  <!-- ===== Live tracker (VesselFinder iframe: auto-centers on ship by IMO) ===== -->

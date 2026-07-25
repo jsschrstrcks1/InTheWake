@@ -38,7 +38,7 @@ def fix_duplicate_heroes(filepath):
 
 def main():
     """Fix all ship pages with duplicate heroes."""
-    base_dir = Path('/home/user/InTheWake')
+    base_dir = (Path(__file__).resolve().parents[1])
 
     # List of files to fix
     ship_dirs = [

@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-SHIPS_DIR = Path('/home/user/InTheWake/ships/rcl')
+SHIPS_DIR = (Path(__file__).resolve().parents[1] / 'ships/rcl')
 
 # Replacements for inline styles
 REPLACEMENTS = [

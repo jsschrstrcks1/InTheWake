@@ -17,8 +17,8 @@ import os
 import sys
 from pathlib import Path
 
-STATEROOMS_DIR = Path("/home/user/InTheWake/assets/data/staterooms")
-CLASSIFICATIONS_DIR = Path("/home/user/InTheWake/admin/cabin-classifications")
+STATEROOMS_DIR = (Path(__file__).resolve().parents[1] / 'assets/data/staterooms')
+CLASSIFICATIONS_DIR = (Path(__file__).resolve().parents[1] / 'admin/cabin-classifications')
 
 # Codes that are Virtual Balcony (per project definition)
 VIRTUAL_BALCONY_CODES = {"1U", "2U", "3U", "4U", "5U"}

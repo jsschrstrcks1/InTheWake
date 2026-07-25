@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Consolidate ship-specific main dining rooms into one MDR entry"""
+from pathlib import Path
 
 import json
 
 # Read the venues data
-with open('/home/user/InTheWake/assets/data/venues-v2.json', 'r', encoding='utf-8') as f:
+with open(str(Path(__file__).resolve().parents[1] / 'assets/data/venues-v2.json'), 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 # Ship-specific dining rooms to consolidate into MDR
@@ -41,7 +42,7 @@ data['meta']['updated'] = '2025-11-21'
 data['meta']['note'] = data['meta']['note'] + ' | Consolidated MDR variations'
 
 # Write back
-with open('/home/user/InTheWake/assets/data/venues-v2.json', 'w', encoding='utf-8') as f:
+with open(str(Path(__file__).resolve().parents[1] / 'assets/data/venues-v2.json'), 'w', encoding='utf-8') as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
 print(f"\nUpdated venues-v2.json")

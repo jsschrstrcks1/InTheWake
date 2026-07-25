@@ -67,7 +67,7 @@ def check_page(filepath: Path) -> Dict:
 
 def main():
     """Spot check 20% of files from diverse categories"""
-    base = Path('/home/user/InTheWake')
+    base = (Path(__file__).resolve().parents[1])
     
     # Sample files from different categories
     categories = {

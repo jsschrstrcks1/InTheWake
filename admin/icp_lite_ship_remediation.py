@@ -23,7 +23,7 @@ import argparse
 from pathlib import Path
 from datetime import date
 
-ROOT = Path('/home/user/InTheWake')
+ROOT = (Path(__file__).resolve().parents[1])
 TODAY = date.today().isoformat()
 
 def extract_ship_info(content, filepath):

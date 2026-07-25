@@ -92,7 +92,7 @@ def process_file(filepath):
 
 def main():
     """Main function"""
-    root = Path('/home/user/InTheWake')
+    root = (Path(__file__).resolve().parents[1])
     html_files = list(root.rglob('*.html'))
 
     # Filter files

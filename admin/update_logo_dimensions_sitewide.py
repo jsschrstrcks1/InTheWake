@@ -124,6 +124,6 @@ def update_all_html_files():
     return updated
 
 if __name__ == '__main__':
-    os.chdir('/home/user/InTheWake')
+    os.chdir(str(Path(__file__).resolve().parents[1]))
     count = update_all_html_files()
     exit(0 if count >= 0 else 1)

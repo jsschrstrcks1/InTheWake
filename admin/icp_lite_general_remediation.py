@@ -20,7 +20,7 @@ import argparse
 from pathlib import Path
 from datetime import date
 
-ROOT = Path('/home/user/InTheWake')
+ROOT = (Path(__file__).resolve().parents[1])
 TODAY = date.today().isoformat()
 
 # Directories to skip (already handled or excluded)

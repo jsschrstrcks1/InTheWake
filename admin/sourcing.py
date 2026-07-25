@@ -46,7 +46,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-ROOT = Path("/home/user/InTheWake")
+ROOT = (Path(__file__).resolve().parents[1])
 PORTS_HTML = ROOT / "ports"
 PORTS_IMG = ROOT / "ports" / "img"
 ATTR_CSV = ROOT / "attributions" / "attributions.csv"

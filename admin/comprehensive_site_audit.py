@@ -16,7 +16,7 @@ from urllib.parse import urlparse, unquote
 import urllib.request
 import urllib.error
 
-BASE_DIR = Path("/home/user/InTheWake")
+BASE_DIR = (Path(__file__).resolve().parents[1])
 EXCLUDE_DIRS = {"vendors", "node_modules"}
 EXCLUDE_PATHS = {"/solo/articles/"}
 

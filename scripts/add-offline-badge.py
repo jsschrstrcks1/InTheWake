@@ -8,7 +8,7 @@ import os
 import re
 from pathlib import Path
 
-PORTS_DIR = Path("/home/user/InTheWake/ports")
+PORTS_DIR = (Path(__file__).resolve().parents[1] / 'ports')
 
 # Pattern to match trust badge without offline messaging
 OLD_BADGE_PATTERNS = [

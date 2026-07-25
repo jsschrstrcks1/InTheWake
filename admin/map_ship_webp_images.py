@@ -12,7 +12,7 @@ from pathlib import Path
 
 def get_webp_files():
     """Get all WebP files in assets/ships"""
-    ships_dir = Path('/home/user/InTheWake/assets/ships')
+    ships_dir = (Path(__file__).resolve().parents[1] / 'assets/ships')
     webp_files = list(ships_dir.glob('*.webp'))
     return [f.name for f in webp_files]
 
@@ -162,7 +162,7 @@ def main():
             print(f"  {ship}: {len(images)} images")
 
     # Write to file
-    output_path = '/home/user/InTheWake/admin/ship_images_js.txt'
+    output_path = str(Path(__file__).resolve().parents[1] / 'admin/ship_images_js.txt')
     with open(output_path, 'w') as f:
         f.write(js_content)
 

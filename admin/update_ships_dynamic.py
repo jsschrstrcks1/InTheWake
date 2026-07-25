@@ -3,15 +3,16 @@
 Update ships-dynamic.js SHIP_IMAGES to use WebP
 Soli Deo Gloria
 """
+from pathlib import Path
 
 import re
 
 # Read original file
-with open('/home/user/InTheWake/assets/js/ships-dynamic.js', 'r') as f:
+with open(str(Path(__file__).resolve().parents[1] / 'assets/js/ships-dynamic.js'), 'r') as f:
     content = f.read()
 
 # Read new SHIP_IMAGES
-with open('/home/user/InTheWake/admin/ship_images_js.txt', 'r') as f:
+with open(str(Path(__file__).resolve().parents[1] / 'admin/ship_images_js.txt'), 'r') as f:
     new_ship_images = f.read()
 
 # Pattern to match entire SHIP_IMAGES object
@@ -21,7 +22,7 @@ pattern = r'const SHIP_IMAGES = \{.*?\n  \};'
 new_content = re.sub(pattern, new_ship_images.strip(), content, flags=re.DOTALL)
 
 # Write back
-with open('/home/user/InTheWake/assets/js/ships-dynamic.js', 'w') as f:
+with open(str(Path(__file__).resolve().parents[1] / 'assets/js/ships-dynamic.js'), 'w') as f:
     f.write(new_content)
 
 print("✅ Updated ships-dynamic.js with WebP image paths")
