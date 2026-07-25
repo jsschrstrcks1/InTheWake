@@ -5,7 +5,7 @@ Verify all dropdown duplicates are fixed by counting actual dropdown initializat
 
 from pathlib import Path
 
-root = Path('/home/user/InTheWake')
+root = (Path(__file__).resolve().parents[1])
 duplicates = []
 
 for filepath in root.rglob('*.html'):

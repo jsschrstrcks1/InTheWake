@@ -56,7 +56,7 @@ def add_sw_registration(content):
     return None  # Couldn't find insertion point
 
 def main():
-    root = Path('/home/user/InTheWake')
+    root = (Path(__file__).resolve().parents[1])
 
     fixed_files = []
     skipped_files = []

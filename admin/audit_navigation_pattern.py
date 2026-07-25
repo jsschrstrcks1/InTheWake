@@ -281,7 +281,7 @@ class NavigationAuditor:
             print(f"{len(issues_list):2d} issues: {filepath}")
 
 def main():
-    auditor = NavigationAuditor('/home/user/InTheWake')
+    auditor = NavigationAuditor(str(Path(__file__).resolve().parents[1]))
     auditor.run_audit()
 
 if __name__ == '__main__':

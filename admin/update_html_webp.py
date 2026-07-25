@@ -35,7 +35,7 @@ def check_webp_exists(html_file_path, image_path):
     # Handle absolute paths from root
     if clean_path.startswith('/'):
         clean_path = clean_path[1:]  # Remove leading slash
-        webp_file = Path('/home/user/InTheWake') / clean_path.replace('.jpg', '.webp').replace('.jpeg', '.webp').replace('.png', '.webp').replace('.JPG', '.webp').replace('.JPEG', '.webp').replace('.PNG', '.webp')
+        webp_file = (Path(__file__).resolve().parents[1]) / clean_path.replace('.jpg', '.webp').replace('.jpeg', '.webp').replace('.png', '.webp').replace('.JPG', '.webp').replace('.JPEG', '.webp').replace('.PNG', '.webp')
     else:
         # Relative path
         html_dir = Path(html_file_path).parent

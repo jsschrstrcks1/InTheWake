@@ -11,14 +11,14 @@ from pathlib import Path
 from datetime import date
 
 FILES_TO_FIX = [
-    '/home/user/InTheWake/ships/rcl/quantum-of-the-seas.html',
-    '/home/user/InTheWake/ships/rcl/sovereign-of-the-seas.html',
-    '/home/user/InTheWake/ships/rcl/spectrum-of-the-seas.html',
-    '/home/user/InTheWake/ships/rcl/symphony-of-the-seas.html',
-    '/home/user/InTheWake/ships/rcl/utopia-of-the-seas.html',
-    '/home/user/InTheWake/ships/rcl/voyager-of-the-seas.html',
-    '/home/user/InTheWake/ships/rcl/wonder-of-the-seas.html',
-    '/home/user/InTheWake/solo/in-the-wake-of-grief.html',
+    str(Path(__file__).resolve().parents[1] / 'ships/rcl/quantum-of-the-seas.html'),
+    str(Path(__file__).resolve().parents[1] / 'ships/rcl/sovereign-of-the-seas.html'),
+    str(Path(__file__).resolve().parents[1] / 'ships/rcl/spectrum-of-the-seas.html'),
+    str(Path(__file__).resolve().parents[1] / 'ships/rcl/symphony-of-the-seas.html'),
+    str(Path(__file__).resolve().parents[1] / 'ships/rcl/utopia-of-the-seas.html'),
+    str(Path(__file__).resolve().parents[1] / 'ships/rcl/voyager-of-the-seas.html'),
+    str(Path(__file__).resolve().parents[1] / 'ships/rcl/wonder-of-the-seas.html'),
+    str(Path(__file__).resolve().parents[1] / 'solo/in-the-wake-of-grief.html'),
 ]
 
 def extract_summary(content):

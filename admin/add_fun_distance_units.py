@@ -138,6 +138,6 @@ class FunDistanceDeployer:
         print("="*60)
 
 if __name__ == '__main__':
-    root = Path('/home/user/InTheWake')
+    root = (Path(__file__).resolve().parents[1])
     deployer = FunDistanceDeployer(root)
     deployer.deploy()

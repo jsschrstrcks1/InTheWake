@@ -13,7 +13,7 @@ For both groups:
 import re
 from pathlib import Path
 
-BASE = Path('/home/user/InTheWake')
+BASE = (Path(__file__).resolve().parents[1])
 
 # Group A: broken (data||[]).filter pattern
 GROUP_A = [

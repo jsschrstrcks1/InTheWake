@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 from collections import defaultdict
 
-BASE = Path("/home/user/InTheWake")
+BASE = (Path(__file__).resolve().parents[1])
 
 class StateVerifier:
     def __init__(self):

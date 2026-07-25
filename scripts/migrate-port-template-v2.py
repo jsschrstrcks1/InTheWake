@@ -123,7 +123,7 @@ def update_file(filepath):
         return f"ERROR writing: {e}"
 
 def main():
-    ports_dir = Path('/home/user/InTheWake/ports')
+    ports_dir = (Path(__file__).resolve().parents[1] / 'ports')
 
     results = {'UPDATED': 0, 'SKIP': 0, 'ERROR': 0}
 

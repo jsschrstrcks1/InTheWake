@@ -12,7 +12,7 @@ from pathlib import Path
 
 def get_restaurants():
     """Get all restaurants from venues-v2.json"""
-    venues_path = Path('/home/user/InTheWake/assets/data/venues-v2.json')
+    venues_path = (Path(__file__).resolve().parents[1] / 'assets/data/venues-v2.json')
     with open(venues_path) as f:
         data = json.load(f)
 
@@ -55,7 +55,7 @@ def get_restaurants():
 
 def get_ships():
     """Get all ships from all cruise lines"""
-    ships_base = Path('/home/user/InTheWake/ships')
+    ships_base = (Path(__file__).resolve().parents[1] / 'ships')
     ships = []
 
     # Cruise line directories and their display names
@@ -167,7 +167,7 @@ def get_ships():
 
 def get_ports():
     """Get all port pages"""
-    ports_dir = Path('/home/user/InTheWake/ports')
+    ports_dir = (Path(__file__).resolve().parents[1] / 'ports')
     ports = []
 
     # Region keywords for common port locations
@@ -461,7 +461,7 @@ def main():
     index.extend(get_hub_pages())
 
     # Write index
-    output_path = Path('/home/user/InTheWake/assets/data/search-index.json')
+    output_path = (Path(__file__).resolve().parents[1] / 'assets/data/search-index.json')
     with open(output_path, 'w') as f:
         json.dump(index, f, indent=2)
 

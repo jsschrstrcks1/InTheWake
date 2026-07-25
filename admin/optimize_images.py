@@ -261,7 +261,7 @@ def main():
     print("IMAGE OPTIMIZATION FOR PERFORMANCE")
     print("="*60)
 
-    os.chdir('/home/user/InTheWake')
+    os.chdir(str(Path(__file__).resolve().parents[1]))
 
     results = {
         'logo': optimize_logo(),

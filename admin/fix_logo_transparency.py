@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Create properly-sized PNG logos with transparency intact"""
+from pathlib import Path
 
 from PIL import Image
 import os
@@ -45,5 +46,5 @@ def create_sized_logos():
     return True
 
 if __name__ == '__main__':
-    os.chdir('/home/user/InTheWake')
+    os.chdir(str(Path(__file__).resolve().parents[1]))
     create_sized_logos()

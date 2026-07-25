@@ -411,7 +411,7 @@ class ArticleRailDeployer:
 def main():
     import sys
     dry_run = '--dry-run' in sys.argv
-    deployer = ArticleRailDeployer('/home/user/InTheWake', dry_run=dry_run)
+    deployer = ArticleRailDeployer(str(Path(__file__).resolve().parents[1]), dry_run=dry_run)
     deployer.run()
 
 if __name__ == '__main__':

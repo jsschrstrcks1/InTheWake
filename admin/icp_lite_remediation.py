@@ -25,7 +25,7 @@ from datetime import date
 from collections import defaultdict
 
 # Configuration
-ROOT = Path('/home/user/InTheWake')
+ROOT = (Path(__file__).resolve().parents[1])
 EXCLUDE_DIRS = {'vendors', 'vendor', 'solo/articles', 'admin', 'assets', 'audit-reports'}
 TODAY = date.today().isoformat()
 

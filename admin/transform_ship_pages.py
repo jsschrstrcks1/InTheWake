@@ -8,7 +8,7 @@ import re
 import json
 from pathlib import Path
 
-SHIPS_DIR = Path('/home/user/InTheWake/ships/rcl')
+SHIPS_DIR = (Path(__file__).resolve().parents[1] / 'ships/rcl')
 
 # Ships to transform (excluding radiance-of-the-seas.html)
 SHIPS_TO_FIX = [

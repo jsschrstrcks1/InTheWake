@@ -2,6 +2,7 @@
 """
 Fix logo aspect ratio by cropping transparent padding and creating proper resized versions
 """
+from pathlib import Path
 
 from PIL import Image
 import os
@@ -73,5 +74,5 @@ def create_proper_logos():
     return True
 
 if __name__ == '__main__':
-    os.chdir('/home/user/InTheWake')
+    os.chdir(str(Path(__file__).resolve().parents[1]))
     create_proper_logos()

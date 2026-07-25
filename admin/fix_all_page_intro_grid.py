@@ -48,7 +48,7 @@ def check_and_fix_page_intro(file_path):
     return False
 
 def main():
-    base_dir = Path('/home/user/InTheWake')
+    base_dir = (Path(__file__).resolve().parents[1])
 
     # Find all HTML files except vendors and solo/articles
     all_html_files = []

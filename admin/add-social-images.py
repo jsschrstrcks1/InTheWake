@@ -29,7 +29,7 @@ def get_image_url(filepath):
     # Check for ship-specific images
     if 'ships/' in str(filepath):
         slug = path.stem
-        social_img = f'/home/user/InTheWake/assets/social/{slug}.jpg'
+        social_img = f'{Path(__file__).resolve().parents[1]}/assets/social/{slug}.jpg'
         if os.path.exists(social_img):
             return f'https://cruisinginthewake.com/assets/social/{slug}.jpg'
 
@@ -181,7 +181,7 @@ def main():
     if dry_run:
         print("DRY RUN - No files will be modified\n")
 
-    base_dir = '/home/user/InTheWake'
+    base_dir = str(Path(__file__).resolve().parents[1])
     directories = ['ports', 'restaurants', 'ships', 'solo', 'tools', 'cruise-lines', 'authors']
 
     # Also check root-level HTML files

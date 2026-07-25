@@ -122,7 +122,7 @@ def update_file(filepath):
         return f"ERROR writing: {e}"
 
 def main():
-    base_dir = Path('/home/user/InTheWake')
+    base_dir = (Path(__file__).resolve().parents[1])
 
     # Skip these files
     skip_files = {

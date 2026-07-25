@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Update restaurant pages to use SVG category images instead of watermark.png"""
+from pathlib import Path
 
 import os
 import re
@@ -81,7 +82,7 @@ def update_restaurant_page(filepath):
     return False
 
 def main():
-    restaurants_dir = '/home/user/InTheWake/restaurants'
+    restaurants_dir = str(Path(__file__).resolve().parents[1] / 'restaurants')
     updated_count = 0
 
     for filename in os.listdir(restaurants_dir):
