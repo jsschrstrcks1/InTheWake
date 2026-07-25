@@ -124,6 +124,26 @@ jobs:
             echo "✓ No placeholder issues found"
           fi
 
+      - name: Fail on fabricated Unknown cruise-line (#2500/#2502)
+        run: |
+          echo "🔍 Guarding against fabricated 'Unknown' cruise-line render spots..."
+          # These forms are ALWAYS a fabrication: a ship page whose SSOT cruise_line is populated must
+          # never render 'Unknown' in the Quick Answer / Key Facts / comparison / website spots.
+          # Legitimate image-credit unknowns ('Unknown photographer', '| Unknown | Wikimedia',
+          # 'Unknown - FOM collection' = unknown photographer) are a DIFFERENT surface, NOT matched.
+          FOUND=0
+          for pat in 'is a Unknown ship' 'Cruise Line:</strong> Unknown' 'comparing Unknown ships' 'Check the Unknown website'; do
+            if grep -rn --include="*.html" --exclude-dir=node_modules "$pat" ships/ 2>/dev/null; then
+              echo "✗ Fabricated Unknown cruise-line render spot: \"$pat\""; FOUND=1
+            fi
+          done
+          if [ $FOUND -eq 1 ]; then
+            echo "✗ A ship page renders 'Unknown' for a cruise line that IS known in its own SSOT."
+            echo "  Resolve SSOT-first (admin/validate-ship-page.js validateNoFabricatedUnknown; #2500/#2502)."
+            exit 1
+          fi
+          echo "✓ No fabricated Unknown cruise-line render spots"
+
   # Validate changed HTML files
   validate-html:
     name: Validate HTML
