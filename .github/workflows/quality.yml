@@ -211,6 +211,15 @@ jobs:
             echo "✓ HTML structure checks passed"
           fi
 
+      # ICP-018 anti-boilerplate gate (#2428). The ai-summary PRESENCE check above
+      # does NOT catch fleet-wide boilerplate ai-summaries (generic text that could
+      # describe any ship). validate-ship-page.js enforces ICP-018 per page but never
+      # runs in CI, so a boilerplate ai-summary could regress unseen. This reuses the
+      # SSOT phrase list from admin/validator-config.json (not a copy) and fails the
+      # build if any ship page's ai-summary is boilerplate. Currently 0 violators.
+      - name: Fail on boilerplate ai-summary (ICP-018 / #2428)
+        run: node admin/check-ai-summary-boilerplate.mjs
+
   # Dead meta keywords guard (ICP-2 anti-pattern #4) — blocks regressions like #1851
   meta-keywords-guard:
     name: Meta Keywords Guard
