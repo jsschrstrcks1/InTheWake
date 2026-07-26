@@ -364,10 +364,11 @@ class PortWeatherValidator {
     if (ok) this.log('pass', 'D_MONTHS', 'All months valid');
   }
 
-  // Extract visible FAQ question text from all three formats the repo uses:
+  // Extract visible FAQ question text from all four formats the repo uses:
   //   1) <details class="faq-item"><summary>question</summary>        (acapulco style, no Q: prefix)
   //   2) <details class="faq-item"><summary>Q: question</summary>      (college-fjord style)
   //   3) <p><strong>Q: question</strong><br>A: ...</p>                 (anchorage inline style)
+  //   4) <div class="faq-item"><h3>question</h3><p>answer</p></div>    (guam/holyhead style, #2444)
   // Returns an array of question strings with leading "Q:" stripped and
   // whitespace trimmed. Used by validateFAQ so topic checks only see what a
   // visitor would actually read, not schema / narrative / notices text.
@@ -381,6 +382,14 @@ class PortWeatherValidator {
     const inlineRe = /<strong>\s*Q:\s*([\s\S]*?)\s*<\/strong>/gi;
     while ((m = inlineRe.exec(this.content)) !== null) {
       questions.push(m[1].replace(/<[^>]+>/g, '').trim());
+    }
+    // Format 4: a <div class="faq-item"> whose question is the first heading.
+    // Mutually exclusive with format 1 (<details> vs <div> tag) and format 3
+    // (heading, not <strong>Q:), so no double-count. Blind spot that produced
+    // Page:0 false FAQ_COUNT mismatches on guam/holyhead/kiel/... (#2444).
+    const divHeadingRe = /<div[^>]*class="(?:[^"]*\s)?faq-item(?:\s[^"]*)?"[^>]*>\s*<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>/gi;
+    while ((m = divHeadingRe.exec(this.content)) !== null) {
+      questions.push(m[1].replace(/<[^>]+>/g, '').replace(/^\s*Q:\s*/i, '').trim());
     }
     return questions;
   }
@@ -399,10 +408,19 @@ class PortWeatherValidator {
     else {
       this.log('pass', 'FAQ_SCHEMA', 'FAQPage schema present');
       const sq = this.count(/"@type":\s*"Question"/);
-      // Support multiple FAQ formats: Q: prefix (inline/collapsible) and <summary> (details accordion)
+      // Support all FAQ render formats: Q: prefix (inline/collapsible), <summary>
+      // (details accordion), and <div class="faq-item"><h3> (guam/holyhead style).
+      // The div format was a blind spot that produced Page:0 false FAQ_COUNT
+      // mismatches on ~19 pages whose FAQs matched their schema. (#2444)
+      // NOTE: this stays a per-format Math.max, NOT a sum: pages that render the
+      // SAME questions in two formats (or a curated schema subset of a larger
+      // visible set, e.g. barcelona: 5 accordion + 5 inline, schema 5) must not
+      // be double-counted into a false mismatch. The deeper "visible FAQ set vs
+      // FAQPage schema drift" question is tracked separately (see #2444 follow-up).
       const qPrefixed = this.count(/<p><strong>Q:|<strong>Q:|<summary[^>]*>Q:/);
       const summaryFAQs = this.count(/<details class="faq-item"><summary>/);
-      const vq = Math.max(qPrefixed, summaryFAQs);
+      const divFAQs = this.count(/<div[^>]*class="(?:[^"]*\s)?faq-item(?:\s[^"]*)?"[^>]*>\s*<h[1-6]/);
+      const vq = Math.max(qPrefixed, summaryFAQs, divFAQs);
       if (sq !== vq) this.log('error', 'FAQ_COUNT', `FAQ count mismatch`, `Schema: ${sq}, Page: ${vq}`);
       else this.log('pass', 'FAQ_COUNT', `FAQ count: ${sq}`);
     }
