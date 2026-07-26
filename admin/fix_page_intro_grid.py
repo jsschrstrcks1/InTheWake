@@ -65,7 +65,7 @@ def main():
         'solo/why-i-started-solo-cruising.html'
     ]
 
-    base_dir = Path('/home/user/InTheWake')
+    base_dir = (Path(__file__).resolve().parents[1])
     updated_files = []
 
     for file_name in files_to_check:

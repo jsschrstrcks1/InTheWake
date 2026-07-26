@@ -87,7 +87,7 @@ def process_file(filepath):
         return 'error', str(e)
 
 def main():
-    root = Path('/home/user/InTheWake')
+    root = (Path(__file__).resolve().parents[1])
 
     # Files to check
     patterns = [

@@ -158,7 +158,7 @@ def process_file(filepath):
     return False
 
 def main():
-    root = Path('/home/user/InTheWake')
+    root = (Path(__file__).resolve().parents[1])
     updated = 0
     skipped = 0
 

@@ -124,6 +124,26 @@ jobs:
             echo "✓ No placeholder issues found"
           fi
 
+      - name: Fail on fabricated Unknown cruise-line (#2500/#2502)
+        run: |
+          echo "🔍 Guarding against fabricated 'Unknown' cruise-line render spots..."
+          # These forms are ALWAYS a fabrication: a ship page whose SSOT cruise_line is populated must
+          # never render 'Unknown' in the Quick Answer / Key Facts / comparison / website spots.
+          # Legitimate image-credit unknowns ('Unknown photographer', '| Unknown | Wikimedia',
+          # 'Unknown - FOM collection' = unknown photographer) are a DIFFERENT surface, NOT matched.
+          FOUND=0
+          for pat in 'is a Unknown ship' 'Cruise Line:</strong> Unknown' 'comparing Unknown ships' 'Check the Unknown website'; do
+            if grep -rn --include="*.html" --exclude-dir=node_modules "$pat" ships/ 2>/dev/null; then
+              echo "✗ Fabricated Unknown cruise-line render spot: \"$pat\""; FOUND=1
+            fi
+          done
+          if [ $FOUND -eq 1 ]; then
+            echo "✗ A ship page renders 'Unknown' for a cruise line that IS known in its own SSOT."
+            echo "  Resolve SSOT-first (admin/validate-ship-page.js validateNoFabricatedUnknown; #2500/#2502)."
+            exit 1
+          fi
+          echo "✓ No fabricated Unknown cruise-line render spots"
+
   # Validate changed HTML files
   validate-html:
     name: Validate HTML
@@ -190,6 +210,15 @@ jobs:
           if [ $ERRORS -eq 0 ]; then
             echo "✓ HTML structure checks passed"
           fi
+
+      # ICP-018 anti-boilerplate gate (#2428). The ai-summary PRESENCE check above
+      # does NOT catch fleet-wide boilerplate ai-summaries (generic text that could
+      # describe any ship). validate-ship-page.js enforces ICP-018 per page but never
+      # runs in CI, so a boilerplate ai-summary could regress unseen. This reuses the
+      # SSOT phrase list from admin/validator-config.json (not a copy) and fails the
+      # build if any ship page's ai-summary is boilerplate. Currently 0 violators.
+      - name: Fail on boilerplate ai-summary (ICP-018 / #2428)
+        run: node admin/check-ai-summary-boilerplate.mjs
 
   # Dead meta keywords guard (ICP-2 anti-pattern #4) — blocks regressions like #1851
   meta-keywords-guard:
@@ -260,11 +289,41 @@ jobs:
       - name: Verify index is up to date
         run: node admin/validator-spec/scripts/generate-index.cjs --check
 
+  tools-smoke:
+    name: Tools Smoke (no JS errors)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      # Zero-JS-pageerror + no-[object Object] regression gate for every tool page
+      # (itw-tools-zero-pageerrors-gate #2419 / itw-tools-object-object-404 #2421).
+      # The spec already existed but was never wired to CI, so it protected nothing.
+      # --workers=1 is REQUIRED, not a perf choice: the test web server is a single-
+      # threaded `python3 -m http.server`, and each tool page registers a service
+      # worker whose warmPrecache() fires a burst of fetches. Run fully parallel (the
+      # config default), those bursts saturate the single-threaded server and the
+      # heaviest pages (drink-calculator*) lose resource races -> flaky false-red.
+      # Serial makes the gate deterministic (verified: 2x green locally).
+      - name: Run tool-page smoke gate
+        run: npx playwright test tools-smoke.spec.js --workers=1
+
   # Summary job
   summary:
     name: Quality Summary
     runs-on: ubuntu-latest
-    needs: [link-check, placeholder-check, validate-html, meta-keywords-guard, v1beta-guard, validator-spec-lint]
+    needs: [link-check, placeholder-check, validate-html, meta-keywords-guard, v1beta-guard, validator-spec-lint, tools-smoke]
     if: always()
     steps:
       - name: Summary
@@ -279,5 +338,6 @@ jobs:
           echo "| Meta Keywords Guard | ${{ needs.meta-keywords-guard.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| V1.Beta Guard | ${{ needs.v1beta-guard.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Validator Spec Lint | ${{ needs.validator-spec-lint.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Tools Smoke (no JS errors) | ${{ needs.tools-smoke.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "See individual job logs for details." >> $GITHUB_STEP_SUMMARY

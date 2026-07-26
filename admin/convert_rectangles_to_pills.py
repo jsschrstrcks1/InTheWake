@@ -63,7 +63,7 @@ def convert_nav_buttons_to_pills(file_path):
         return False
 
 def main():
-    base_dir = Path('/home/user/InTheWake')
+    base_dir = (Path(__file__).resolve().parents[1])
     updated_files = []
 
     # Find all HTML files (excluding vendors and solo/articles)

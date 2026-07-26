@@ -81,7 +81,7 @@ NEW_HEADER = '''  <a href="#main-content" class="skip-link">Skip to main content
 
 def fix_carnival_tropicale():
     """Fix carnival-tropicale.html"""
-    filepath = Path('/home/user/InTheWake/ships/carnival/carnival-tropicale.html')
+    filepath = (Path(__file__).resolve().parents[1] / 'ships/carnival/carnival-tropicale.html')
     content = filepath.read_text()
 
     # Replace old header
@@ -100,7 +100,7 @@ def fix_carnival_tropicale():
 
 def fix_affiliate_disclosure():
     """Fix affiliate-disclosure.html"""
-    filepath = Path('/home/user/InTheWake/affiliate-disclosure.html')
+    filepath = (Path(__file__).resolve().parents[1] / 'affiliate-disclosure.html')
     content = filepath.read_text()
 
     # Replace old header (including skip link)
@@ -119,7 +119,7 @@ def fix_affiliate_disclosure():
 
 def fix_cruise_duck():
     """Fix cruise-duck-tradition.html"""
-    filepath = Path('/home/user/InTheWake/articles/cruise-duck-tradition.html')
+    filepath = (Path(__file__).resolve().parents[1] / 'articles/cruise-duck-tradition.html')
     content = filepath.read_text()
 
     # Check if it has header

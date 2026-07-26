@@ -39,15 +39,33 @@
 /assets/articles/thumbs/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Subdirectory images (assets/ships/* incl ships/rcl,/princess,…; assets/beta/*) — itw-subdir-image-cache-gap,
-# the image half of the itw-gh-1721 Netlify mid-`*` subdir gap (33 refs, all unversioned). Unlike subdir
-# CSS/JS (which change every deploy → revalidating), these are STATIC content, so `immutable` matches the
-# site's existing image rules above. ASSUMPTION: an image is replaced by CHANGING ITS FILENAME (standard for
-# static assets); to overwrite an image in place, add a ?v=/hash cache-buster or it will serve stale.
+# Subdirectory images — itw-subdir-image-cache-gap (#2486), the image half of the itw-gh-1721 Netlify
+# mid-`*` subdir gap: /assets/*.webp does NOT match /assets/<dir>/x.webp, so these fell through to the
+# default short cache. Unlike subdir CSS/JS (which change every deploy → revalidating), these are STATIC
+# content, so `immutable` matches the site's image rules above. ASSUMPTION: an image is replaced by CHANGING
+# ITS FILENAME (standard for static assets); to overwrite in place, add a ?v=/hash cache-buster or it serves stale.
 /assets/ships/*
   Cache-Control: public, max-age=31536000, immutable
 /assets/beta/*
   Cache-Control: public, max-age=31536000, immutable
+/assets/images/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/img/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/articles/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/brand/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/restaurants/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/placeholders/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Social/OG images are regenerated at a STABLE URL (assets/social/<slug>.jpg via add-social-images.py),
+# so they must NOT be `immutable` (that would serve stale share cards after a rebuild). Long cache WITH
+# revalidation keeps them fast but fresh.
+/assets/social/*
+  Cache-Control: public, max-age=604800, must-revalidate
 
 # Data files (JSON with versioning via content updates)
 /assets/data/*.json

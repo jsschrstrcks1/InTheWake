@@ -22,12 +22,13 @@ Fixes applied per file:
 
 Does NOT add eulogy content — that requires per-ship research.
 """
+from pathlib import Path
 
 import os
 import re
 import sys
 
-HAL_DIR = '/home/user/InTheWake/ships/holland-america-line'
+HAL_DIR = str(Path(__file__).resolve().parents[1] / 'ships/holland-america-line')
 TODAY = '2026-02-23'
 
 # Minimal hidden video section to satisfy validator

@@ -6,6 +6,7 @@ Soli Deo Gloria
 Creates sitemap.xml with all public HTML pages.
 Uses git ls-tree to enumerate files (works with sparse checkout).
 """
+from pathlib import Path
 
 import subprocess
 from pathlib import PurePosixPath
@@ -108,7 +109,7 @@ def get_all_html_files():
     """Get all HTML files from git (works regardless of sparse checkout)"""
     result = subprocess.run(
         ['git', 'ls-tree', '-r', '--name-only', 'HEAD'],
-        capture_output=True, text=True, cwd='/home/user/InTheWake'
+        capture_output=True, text=True, cwd=str(Path(__file__).resolve().parents[1])
     )
     files = []
     for line in result.stdout.strip().split('\n'):
@@ -157,7 +158,7 @@ def main():
     """Main function"""
     xml_content, count = generate_sitemap()
 
-    output_path = '/home/user/InTheWake/sitemap.xml'
+    output_path = str(Path(__file__).resolve().parents[1] / 'sitemap.xml')
     with open(output_path, 'w') as f:
         f.write(xml_content)
 

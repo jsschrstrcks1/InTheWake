@@ -61,7 +61,7 @@ def fix_ship_page(filepath):
         return 'error', [str(e)]
 
 def main():
-    ships_dir = Path('/home/user/InTheWake/ships/rcl')
+    ships_dir = (Path(__file__).resolve().parents[1] / 'ships/rcl')
 
     print(f"\n{BOLD}{'═' * 60}{RESET}")
     print(f"{BOLD}🔧 Ship Grid Span Fixer{RESET}")

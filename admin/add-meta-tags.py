@@ -3,6 +3,7 @@
 Add missing description meta and canonical link to ship pages.
 Uses og:description or title as the source for description.
 """
+from pathlib import Path
 
 import os
 import re
@@ -31,7 +32,7 @@ def extract_canonical_url(content, filepath):
 
     # Generate from filepath
     # /home/user/InTheWake/ships/cruise-line/ship-name.html -> /ships/cruise-line/ship-name.html
-    rel_path = filepath.replace('/home/user/InTheWake', '')
+    rel_path = filepath.replace(str(Path(__file__).resolve().parents[1]), '')
     return f"https://cruisinginthewake.com{rel_path}"
 
 def has_description(content):
@@ -87,7 +88,7 @@ def add_missing_tags(filepath):
 
 def main():
     """Process all ship pages."""
-    ship_dirs = glob.glob('/home/user/InTheWake/ships/*/')
+    ship_dirs = glob.glob(str(Path(__file__).resolve().parents[1] / 'ships/*/'))
 
     total = 0
     updated = 0

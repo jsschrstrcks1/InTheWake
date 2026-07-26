@@ -8,7 +8,7 @@ import os
 import re
 from pathlib import Path
 
-ROOT_DIR = Path('/home/user/InTheWake')
+ROOT_DIR = (Path(__file__).resolve().parents[1])
 
 # Hub pages configuration with their summaries
 HUB_PAGES = {

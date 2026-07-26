@@ -3,6 +3,7 @@
 Add Ship Statistics section to pages that have ship-stats-fallback data
 but are missing the visible stats-grid display.
 """
+from pathlib import Path
 
 import os
 import re
@@ -123,7 +124,7 @@ def process_file(filepath):
 
 def main():
     """Process all ship pages."""
-    ship_dirs = glob.glob('/home/user/InTheWake/ships/*/')
+    ship_dirs = glob.glob(str(Path(__file__).resolve().parents[1] / 'ships/*/'))
 
     total = 0
     updated = 0

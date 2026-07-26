@@ -131,7 +131,7 @@ def fix_file(filepath, title, main_content):
 def main():
     # Fix disability-at-sea.html
     fix_file(
-        Path('/home/user/InTheWake/disability-at-sea.html'),
+        (Path(__file__).resolve().parents[1] / 'disability-at-sea.html'),
         'Accessibility & Inclusion',
         '''
       <p>In the Wake is committed to accessibility for all travelers — honoring every ability, ensuring every voyager can plan and dream freely.</p>
@@ -149,7 +149,7 @@ def main():
 
     # Fix ken-baker.html
     fix_file(
-        Path('/home/user/InTheWake/authors/ken-baker.html'),
+        (Path(__file__).resolve().parents[1] / 'authors/ken-baker.html'),
         'Ken Baker',
         '''
       <p class="subtitle">Founder & Editor — In the Wake</p>
@@ -170,7 +170,7 @@ def main():
 
     # Fix tina-maulsby.html
     fix_file(
-        Path('/home/user/InTheWake/authors/tina-maulsby.html'),
+        (Path(__file__).resolve().parents[1] / 'authors/tina-maulsby.html'),
         'Tina Maulsby',
         '''
       <p class="subtitle">Featured Contributor — In the Wake</p>
@@ -186,7 +186,7 @@ def main():
 
     # Fix in-the-wake-of-grief-meta.html
     fix_file(
-        Path('/home/user/InTheWake/solo/in-the-wake-of-grief-meta.html'),
+        (Path(__file__).resolve().parents[1] / 'solo/in-the-wake-of-grief-meta.html'),
         'In the Wake of Grief',
         '''
       <p>This is a companion page for the article <a href="/solo/in-the-wake-of-grief.html">In the Wake of Grief</a>.</p>
@@ -197,7 +197,7 @@ def main():
 
     # Fix carnival-adventure.html - this one is more complex
     # It has lots of head content but no body
-    filepath = Path('/home/user/InTheWake/ships/carnival/carnival-adventure.html')
+    filepath = (Path(__file__).resolve().parents[1] / 'ships/carnival/carnival-adventure.html')
     content = filepath.read_text()
 
     # Find where the head content ends

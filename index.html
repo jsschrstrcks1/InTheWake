@@ -253,6 +253,24 @@
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <!-- Recent Stories rail loading state (#2453): skeleton while JS fetches, muted
+       fallback color lifted off the inline style, and a no-JS path (see the noscript blocks). -->
+  <style>
+    .rail-fallback { color: var(--text-muted); }
+    .rail-skeleton { list-style: none; margin: 0; padding: 0; }
+    .rail-skeleton li { display: grid; grid-template-columns: 56px 1fr; gap: 0.6rem;
+      align-items: start; padding: 0.5rem 0; border-bottom: 1px solid #eef2f5; }
+    .rail-skeleton .sk-thumb { width: 56px; height: 56px; border-radius: 8px; }
+    .rail-skeleton .sk-lines { display: grid; gap: 0.4rem; align-content: start; }
+    .rail-skeleton .sk-line { height: 0.7rem; border-radius: 4px; }
+    .rail-skeleton .sk-line.short { width: 60%; }
+    .sk-shimmer { background: linear-gradient(90deg, #eef2f5 25%, #e2e8ec 37%, #eef2f5 63%);
+      background-size: 400% 100%; animation: railShimmer 1.4s ease infinite; }
+    @keyframes railShimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+    @media (prefers-reduced-motion: reduce) { .sk-shimmer { animation: none; } }
+  </style>
+  <!-- No-JS: hide the JS-only loading skeleton so it never shimmers forever. -->
+  <noscript><style>#recent-rail-fallback { display: none; }</style></noscript>
   <!-- LCP Optimization: Preload critical hero images -->
   <link rel="preload" as="image" href="/assets/logo_wake_560.png" fetchpriority="high"/>
   <link rel="preload" as="image" href="/assets/compass_rose.svg?v=3.010.400" fetchpriority="high"/>
@@ -718,7 +736,17 @@
         <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
         <div id="recent-rail" class="rail-list" aria-live="polite"></div>
         <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
-        <p id="recent-rail-fallback" class="tiny" style="color: #666;">Loading articles…</p>
+        <div id="recent-rail-fallback" class="tiny rail-fallback" role="status" aria-label="Loading articles">
+          <ul class="rail-skeleton" aria-hidden="true">
+            <li><span class="sk-thumb sk-shimmer"></span><span class="sk-lines"><span class="sk-line sk-shimmer"></span><span class="sk-line short sk-shimmer"></span></span></li>
+            <li><span class="sk-thumb sk-shimmer"></span><span class="sk-lines"><span class="sk-line sk-shimmer"></span><span class="sk-line short sk-shimmer"></span></span></li>
+            <li><span class="sk-thumb sk-shimmer"></span><span class="sk-lines"><span class="sk-line sk-shimmer"></span><span class="sk-line short sk-shimmer"></span></span></li>
+          </ul>
+          <span>Loading articles…</span>
+        </div>
+        <noscript>
+          <p class="tiny rail-fallback"><a href="/articles.html">Browse all articles →</a></p>
+        </noscript>
       </section>
 
       <!-- Authors rail -->

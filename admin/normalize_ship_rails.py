@@ -267,7 +267,7 @@ def main():
 
     print_banner()
 
-    ships_dir = Path('/home/user/InTheWake/ships/rcl')
+    ships_dir = (Path(__file__).resolve().parents[1] / 'ships/rcl')
 
     if not ships_dir.exists():
         print(f"{Colors.RED}ERROR: Directory not found: {ships_dir}{Colors.END}")

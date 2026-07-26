@@ -228,7 +228,7 @@ def add_navigation_header(filepath):
 
 def main():
     """Fix all port pages missing navigation."""
-    base_dir = Path('/home/user/InTheWake')
+    base_dir = (Path(__file__).resolve().parents[1])
     port_dir = base_dir / 'ports'
 
     # Track statistics

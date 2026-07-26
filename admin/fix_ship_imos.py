@@ -100,7 +100,7 @@ def fix_imo_in_file(filepath: Path) -> tuple[bool, str, str]:
     return True, current_imo, correct_imo
 
 def main():
-    ships_dir = Path('/home/user/InTheWake/ships/rcl')
+    ships_dir = (Path(__file__).resolve().parents[1] / 'ships/rcl')
 
     fixed = []
     correct = []

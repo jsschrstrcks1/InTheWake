@@ -236,7 +236,7 @@ def main():
     import sys
 
     dry_run = '--dry-run' in sys.argv
-    fixer = NavigationFixer('/home/user/InTheWake', dry_run=dry_run)
+    fixer = NavigationFixer(str(Path(__file__).resolve().parents[1]), dry_run=dry_run)
     fixer.run()
 
 if __name__ == '__main__':

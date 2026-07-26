@@ -46,5 +46,5 @@ def check_duplicates(root_dir):
     return duplicates
 
 if __name__ == '__main__':
-    root = Path('/home/user/InTheWake')
+    root = (Path(__file__).resolve().parents[1])
     check_duplicates(root)

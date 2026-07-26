@@ -264,8 +264,8 @@ def create_baseline_exception(slug, data_dir):
 
 def main():
     # Directories
-    data_dir = "/home/user/InTheWake/assets/data/staterooms"
-    ships_dir = "/home/user/InTheWake/ships"
+    data_dir = str(Path(__file__).resolve().parents[1] / 'assets/data/staterooms')
+    ships_dir = str(Path(__file__).resolve().parents[1] / 'ships')
 
     # Get existing exception files
     existing = set()

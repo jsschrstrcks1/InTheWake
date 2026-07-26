@@ -154,7 +154,7 @@ def add_dropdown_js(filepath):
 
 def main():
     """Fix all restaurant and port detail pages."""
-    base_dir = Path('/home/user/InTheWake')
+    base_dir = (Path(__file__).resolve().parents[1])
 
     # Track statistics
     stats = {
