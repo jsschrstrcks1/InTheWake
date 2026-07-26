@@ -298,3 +298,24 @@ To enable always-on cognitive memory observation capture in this repo, register 
 Hook is **fail-closed**: any error → exit 0, never blocks the tool call. Args SHA256-hashed via `_compute_args_hash` before disk; raw values never persisted. Errors → `/tmp/observe-hook.err`. Surface candidates: call `memory_ops.extract_candidates_from_observations(session_id)` after a session.
 
 Setup memory: id `5a9c8ae1` (recall via `python3 /home/user/ken/orchestrator/memory_ops.py recall "Slice 6 always-on cognitive memory observation capture"`). Currently active in `ken/.claude/settings.json` (commit `ca78cad`); per-repo activation is opt-in via the absolute-path reference above.
+
+
+## ⚡ Sophos required — enforced, belt and suspenders (operator directive 2026-07-24)
+
+**Anyone — human, Claude, Grok, Skynet, any future runtime — working in ANY household
+repo operates under Sophos, the full posture loaded from the single word.**
+Front door: `open-claw-stuff/skills/sophos/SKILL.md` (synced copy:
+`Project-Sophos/.claude/skills/sophos/`). One invocation loads Soli Deo Gloria,
+careful-not-clever, the Sophos OS hierarchy + publish gate, and cognitive-memory
+recall through the evidence envelope (directives honored, evidence weighed).
+
+Enforcement:
+- **Belt:** in `open-claw-stuff` the bootstrap guard DENIES repo mutations until
+  `skills/sophos/SKILL.md` and the other Layer 0/1 files are read this session.
+- **Suspenders:** this section, plus REQUIRED session hooks in the repo root
+  `.claude/`: `memory-directives-inject.sh` (SessionStart — operator law
+  auto-loads, read-only) and `memory-autopersist.sh` (Stop — encoded memories
+  are committed+pushed; nothing dies with an ephemeral container). Do not
+  remove or bypass; kill-switches are for operator debugging only.
+
+**Soli Deo Gloria.**
