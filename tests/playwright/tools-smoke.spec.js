@@ -39,8 +39,8 @@ const TOOLS = [
   { url: "/tools/port-tracker.html",              h1: /Port Logbook/ },
   { url: "/tools/ship-tracker.html",              h1: /Ship Logbook/ },
   { url: "/tools/ship-size-atlas.html",           h1: /Ship Size Atlas/ },
-  { url: "/drink-calculator.html",                h1: /Drink Package Calculator/ },
-  { url: "/drink-calculatorv2.html",              h1: /Drink Package Calculator/ },
+  { url: "/drink-calculator.html",                h1: /Drink Package Calculator/ }, // v2 was promoted here (9a3932f42)
+  { url: "/drink-calculator-v1.html",             h1: /Drink Package Calculator/ }, // archived v1, still served
   { url: "/stateroom-check.html",                 h1: /Stateroom Sanity Check/ }
 ];
 
