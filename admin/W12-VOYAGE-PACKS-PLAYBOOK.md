@@ -78,7 +78,7 @@ This is the realistic path for a single-author + LLM operation.
 | **Customization tier?** | Open | NO for v0.2; stick to itinerary-level granularity |
 | **Should the pack include affiliate links?** | Open | Default NO (consistent with brand); Amazon links only if bought through `/articles/` first |
 | **Should buyers be added to a mailing list?** | Open | NO without explicit opt-in; respect the calm-voice discipline |
-| **Should we offer refunds?** | Open | YES, 30-day no-questions refund — consistent with the trust posture |
+| **Should we offer refunds?** | Decided (2026-07-30) | YES — **14-day no-questions refund**, matching the live promise on `/voyage-packs.html` and every product card. (The original 30-day draft was never published anywhere customer-facing; reconciled to the shipped promise. Widening back to 30 days is an operator call — if taken, update the landing page + FAQ + pack colophons together.) |
 | **Should we offer a "couple's pack" at slightly higher price?** | Open | NO for v0.2; one purchase per cruise |
 
 ## Pricing math
@@ -106,7 +106,7 @@ These are non-negotiable per the v2.5 plan:
 1. **No paywalls on existing content.** Voyage Packs are NEW work; nothing previously published gets gated.
 2. **No urgency-language CTAs.** No "limited time," no "act now," no manufactured scarcity.
 3. **No grief-surface promotion.** Don't link to Voyage Packs from `/solo/` or grief content.
-4. **Refunds honored.** No-questions 30-day refund window.
+4. **Refunds honored.** No-questions 14-day refund window (see the refunds row above — reconciled 2026-07-30 to the published promise).
 5. **No cruise-line affiliations within packs.** The same posture as the rest of the site.
 6. **Each pack is itinerary-specific, not a generic guide rebranded.** A Voyage Pack that's mostly the same as a free article is fraud. The pack must contain integration work that doesn't exist anywhere else on the site.
 7. **No medication-product affiliate links** anywhere in a Voyage Pack. The FTC vulnerable-consumer guidance applies. Educational coverage of medication options (drug names as text, mechanism of action, when to talk to a pharmacist) is fine and required; affiliate purchase links are not.

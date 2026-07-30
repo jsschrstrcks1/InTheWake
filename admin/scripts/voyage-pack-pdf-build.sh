@@ -94,6 +94,7 @@ CONDENSED_PACKS=(
   "v0.1.9-ncl-prima-solo-group-condensed"
   "v0.1.10-ncl-encore-solo-group-condensed"
   "v0.1.11-ncl-escape-thanksgiving-solo-group-condensed"
+  "v0.1.17-hal-volendam-world-condensed"
 )
 
 # Handoff cards: 1-2 page emergency contact docs. Use voyage-pack-condensed-print.css.
@@ -104,6 +105,7 @@ HANDOFF_CARDS=(
   "v0.1.9-ncl-prima-handoff-card"
   "v0.1.10-ncl-encore-handoff-card"
   "v0.1.11-ncl-escape-thanksgiving-handoff-card"
+  "v0.1.17-hal-volendam-world-handoff-card"
   "emergency-handoff-card-agnostic"
 )
 
