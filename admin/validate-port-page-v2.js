@@ -408,6 +408,9 @@ const CONTENT_PURITY_ALLOWLIST = {
   ],
   'grand-cayman':     [{ match: /\bhell\b/i, category: 'profanity' }],
   'nosy-be':          [{ match: /hell-ville/i, category: 'profanity' }],
+  // Hell-Bourg, Cirque de Salazie — named for Admiral de Hell, a 19th-century
+  // governor of the island, and listed among les plus beaux villages de France.
+  'reunion':          [{ match: /hell-bourg/i, category: 'profanity' }],
   // Place names containing "Casino"
   'monte-carlo':      [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
   'monaco':           [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
