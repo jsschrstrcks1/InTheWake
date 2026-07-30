@@ -765,3 +765,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-07-30T18:35:26.371Z -->
 | itw-voyage-pack-v0117-condensed-handoff | 2 | Voyage Pack v0.1.17 condensed + emergency handoff card variants (world cruise) |
+
+<!-- library register 2026-07-30T18:54:13.473Z -->
+| itw-v0117-footgun-fixes | 2 | v0.1.17 foot-gun audit fixes: PWA emergency tab (false offline-card claim), world-copy route markers, estimate-flagged dates, condensed page-count |
