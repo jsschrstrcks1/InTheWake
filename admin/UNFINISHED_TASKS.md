@@ -762,3 +762,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-07-30T18:07:14.163Z -->
 | voyage-pack-v0-1-17-hal-volendam-world-cruise-2028 | 2 | Voyage Pack v0.1.17 — HAL Volendam 2028 Grand World Voyage (129 days, Jan 4 2028) + PWA companion |
+
+<!-- library register 2026-07-30T18:35:26.371Z -->
+| itw-voyage-pack-v0117-condensed-handoff | 2 | Voyage Pack v0.1.17 condensed + emergency handoff card variants (world cruise) |
