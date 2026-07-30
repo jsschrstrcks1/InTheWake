@@ -33,9 +33,14 @@ mkdirSync(outDir, { recursive: true });
 
 const py = `
 import sys, os
-from PIL import Image
+from PIL import Image, ImageOps
 src, dst, maxw = sys.argv[1], sys.argv[2], int(sys.argv[3])
 im = Image.open(src)
+# Honour the EXIF orientation tag before anything else. Phone and DSLR files
+# routinely store a landscape buffer plus "rotate 90"; PIL ignores that on its
+# own, which silently ships sideways photos (caught on the New Plymouth
+# Coastal Walkway image, 2026-07-30).
+im = ImageOps.exif_transpose(im)
 if im.mode in ('P','RGBA','LA'):
     im = im.convert('RGBA') if 'A' in im.mode else im.convert('RGB')
 if im.mode not in ('RGB','RGBA'):

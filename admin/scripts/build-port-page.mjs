@@ -14,6 +14,18 @@
  * authors and sources. If a spec is thin, the page is thin — the generator
  * has no opinions and invents nothing.
  *
+ * TWO DELIBERATE DIVERGENCES from the frozen eastport chrome (2026-07-30):
+ *   1. Nav and breadcrumb link /ports.html, /cruise-lines.html and
+ *      /restaurants.html, not the trailing-slash directory forms. Those
+ *      directories have no index.html, and the live site returns 404 for
+ *      /ports/, /cruise-lines/ and /restaurants/ while the .html targets
+ *      return 200 — so the inherited chrome ships three dead nav links on
+ *      every page carrying it. The corpus-wide repair is a separate task
+ *      (744 files); new pages are simply not built broken.
+ *   2. The Recent Stories noscript fallback sits INSIDE #recent-rail rather
+ *      than beside it, which is where the noscript validator looks and where
+ *      the rail's own innerHTML replacement will correctly discard it.
+ *
  * Usage:  node admin/scripts/build-port-page.mjs admin/port-specs/<slug>.json
  *         node admin/scripts/build-port-page.mjs --all
  */
@@ -50,6 +62,38 @@ function creditLi(c) {
 
 const P = (paras) => paras.map((t) => `        <p>${t}</p>`).join('\n');
 const LI = (items) => items.map((t) => `          <li>${t}</li>`).join('\n');
+
+/** Normalise the spec's one-or-many image field to an array. */
+const figList = (images) => (images == null ? [] : (Array.isArray(images) ? images : [images]));
+
+/** One-or-many lead figures, for sections whose body is not a flat paragraph list. */
+function figs(images) {
+  return figList(images).map((f) => figure(f)).join('\n');
+}
+
+/**
+ * Render prose with figures interleaved between paragraphs.
+ *
+ * `images` is one figure object (placed above the prose, the old behaviour) or
+ * an array of them. In array form each figure may carry `after`, the 0-based
+ * index of the paragraph it follows; a figure without `after` goes on top.
+ * The standard asks for roughly one photo per 250-500 words, which a single
+ * lead image cannot satisfy in an 1100-word logbook.
+ */
+function prose(paras, images) {
+  const list = figList(images);
+  const out = list.filter((f) => !Number.isInteger(f.after)).map((f) => figure(f));
+  paras.forEach((t, i) => {
+    out.push(`        <p>${t}</p>`);
+    list.filter((f) => f.after === i).forEach((f) => out.push(figure(f)));
+  });
+  const dangling = list.filter((f) => Number.isInteger(f.after) && f.after >= paras.length);
+  if (dangling.length) {
+    throw new Error(`figure "after" index past end of prose (${paras.length} paragraphs): ` +
+      dangling.map((f) => `${f.src}@${f.after}`).join(', '));
+  }
+  return out.join('\n');
+}
 
 function build(spec) {
   const s = spec;
@@ -244,10 +288,11 @@ ${faqJson}
             Planning <span class="caret">▾</span>
           </button>
           <div class="dropdown-menu" role="menu">
+            <a href="/planning.html">Planning (overview)</a>
             <a href="/first-cruise.html">Your First Cruise</a>
             <a href="/ships/">Ships</a>
-            <a href="/cruise-lines/">Cruise Lines</a>
-            <a href="/ports/">Ports</a>
+            <a href="/cruise-lines.html">Cruise Lines</a>
+            <a href="/ports.html">Ports</a>
             <a href="/packing-lists.html">Packing Lists</a>
             <a href="/accessibility.html">Accessibility</a>
           </div>
@@ -278,7 +323,7 @@ ${faqJson}
             Onboard <span class="caret">▾</span>
           </button>
           <div class="dropdown-menu" role="menu">
-            <a href="/restaurants/">Restaurants &amp; Menus</a>
+            <a href="/restaurants.html">Restaurants &amp; Menus</a>
             <a href="/drink-packages.html">Drink Packages</a>
             <a href="/internet-at-sea.html">Internet at Sea</a>
             <a href="/articles.html">Articles</a>
@@ -315,7 +360,7 @@ ${faqJson}
 
   <!-- MAIN CONTENT -->
   <main class="wrap page-grid" id="main-content" role="main">
-    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 1rem; color: #666;"><li class="inline"><a href="/">Home</a> › </li><li class="inline"><a href="/ports/">Ports</a> › </li><li aria-current="page" class="inline">${esc(s.name)}</li></ol></nav>
+    <nav aria-label="Breadcrumb" style="grid-column: 1 / -1; margin-bottom: 1rem;"><ol style="list-style: none; padding: 0; margin: 0; font-size: 1rem; color: #666;"><li class="inline"><a href="/">Home</a> › </li><li class="inline"><a href="/ports.html">Ports</a> › </li><li aria-current="page" class="inline">${esc(s.name)}</li></ol></nav>
 
     <div class="col-1">
 
@@ -431,22 +476,20 @@ ${packing}
       <details class="port-section" id="logbook" open="">
         <summary><h2>Captain's Logbook</h2></summary>
         <article class="card logbook-entry">
-${figure(s.images.logbook)}
-${P(s.logbook)}
+${prose(s.logbook, s.images.logbook)}
         </article>
       </details>
 
       <!-- CRUISE PORT GUIDE -->
       <details class="port-section" id="cruise-port" open="">
         <summary><h2>Cruise Port Guide</h2></summary>
-${P(s.cruise_port)}
+${prose(s.cruise_port, s.images.cruise_port)}
       </details>
 
       <!-- GETTING AROUND -->
       <details class="port-section" id="getting-around" open="">
         <summary><h2>Getting Around ${esc(s.short_name)}</h2></summary>
-${figure(s.images.getting_around)}
-${P(s.getting_around)}
+${prose(s.getting_around, s.images.getting_around)}
       </details>
 
       <!-- MAP -->
@@ -466,7 +509,7 @@ ${LI(s.map_points)}
       <!-- EXCURSIONS -->
       <details class="port-section" id="excursions" open="">
         <summary><h2>Excursions &amp; Experiences</h2></summary>
-${figure(s.images.excursions)}
+${figs(s.images.excursions)}
 ${P(s.excursions.intro)}
 ${s.excursions.groups.map((g) => `        <h4>${esc(g.heading)}</h4>
         <ul>
@@ -478,13 +521,13 @@ ${P(s.excursions.outro)}
       <!-- HISTORY -->
       <details class="port-section" id="history" open="">
         <summary><h2>History &amp; Heritage</h2></summary>
-${P(s.history)}
+${prose(s.history, s.images.history)}
       </details>
 
       <!-- FOOD -->
       <details class="port-section" id="food" open="">
         <summary><h2>Food &amp; Drink Ashore</h2></summary>
-${P(s.food)}
+${prose(s.food, s.images.food)}
       </details>
 
       <!-- NOTICES -->
@@ -498,7 +541,7 @@ ${LI(s.notices)}
       <!-- DEPTH SOUNDINGS -->
       <details class="port-section" id="depth-soundings" open="">
         <summary><h2>Depth Soundings Ashore</h2></summary>
-${figure(s.images.depth)}
+${figs(s.images.depth)}
         <p>${s.depth_intro}</p>
         <ul>
 ${LI(s.depth_items)}
@@ -539,7 +582,7 @@ ${s.credits.map(creditLi).join('\n')}
       <details class="card faq mt-2" open="">
         <summary><h2>Frequently Asked Questions</h2></summary>
 ${faqHtml}
-        <p class="mt-2"><a href="/ports/">← Back to Ports Guide</a></p>
+        <p class="mt-2"><a href="/ports.html">← Back to Ports Guide</a></p>
       </details>
 
     </div><!-- /col-1 -->
@@ -623,8 +666,7 @@ ${shipLinks}
         <h4 id="recent-rail-title">Recent Stories</h4>
         <p class="tiny content-text">Real cruising experiences, practical guides, and heartfelt reflections from our community.</p>
         <nav id="recent-rail-nav-top" class="rail-nav" aria-label="Article pagination" style="display:none; margin-bottom: 0.5rem;"></nav>
-        <div id="recent-rail" class="rail-list" aria-live="polite"></div>
-        <noscript><p class="tiny"><a href="/articles.html">Browse our cruise articles and stories →</a></p></noscript>
+        <div id="recent-rail" class="rail-list" aria-live="polite"><noscript><p class="tiny"><a href="/articles.html">Browse our cruise articles and stories →</a></p></noscript></div>
         <nav id="recent-rail-nav-bottom" class="rail-nav" aria-label="Article pagination" style="display:none; margin-top: 0.75rem;"></nav>
         <p id="recent-rail-fallback" class="tiny hidden">Loading articles…</p>
       </div>
@@ -716,7 +758,15 @@ document.addEventListener('DOMContentLoaded', function() {
 `;
 }
 
+const POI_INDEX = join(REPO, 'assets', 'data', 'maps', 'poi-index.json');
+
+/** Every marker type port-map.js knows how to render (assets/js/modules/port-map.js POI_TYPES). */
+const POI_TYPES = new Set(['port', 'beach', 'landmark', 'nature', 'district', 'shopping', 'museum',
+  'attraction', 'park', 'cultural', 'scenic', 'dining', 'neighborhood', 'historic', 'transport',
+  'market', 'marina']);
+
 function buildMap(spec) {
+  const pois = spec.map_manifest.pois || [];
   return JSON.stringify({
     _meta: {
       version: '1.0.0',
@@ -727,16 +777,53 @@ function buildMap(spec) {
     port_name: spec.name,
     port_pin: spec.map_manifest.port_pin,
     bbox_hint: spec.map_manifest.bbox_hint,
-    poi_ids: [],
-    label_overrides: {},
-    _todo: spec.map_manifest.todo,
+    poi_ids: pois.map((p) => p.id),
+    // Duplicated inline as well as pushed to poi-index.json: port-map.js falls
+    // back to this array when the global index is stale, and it keeps the
+    // manifest self-describing for anyone auditing coordinates.
+    pois,
+    label_overrides: spec.map_manifest.label_overrides || {},
+    ...(spec.map_manifest.todo ? { _todo: spec.map_manifest.todo } : {}),
   }, null, 2) + '\n';
+}
+
+/**
+ * Upsert a spec's POIs into the global index the map actually reads.
+ *
+ * poi_ids in a per-port manifest are pointers; a pointer with no entry in
+ * poi-index.json renders nothing, which is why the validator counts *resolved*
+ * ids rather than listed ones. Coordinates must come from a real gazetteer
+ * lookup recorded in map_manifest.source — never estimated off a street map.
+ */
+function syncPoiIndex(spec) {
+  const pois = spec.map_manifest.pois || [];
+  if (!pois.length) return 0;
+  const index = JSON.parse(readFileSync(POI_INDEX, 'utf-8'));
+  for (const p of pois) {
+    for (const k of ['id', 'name', 'lat', 'lon', 'type']) {
+      if (p[k] == null) throw new Error(`POI ${p.id || '(no id)'} in ${spec.slug} is missing "${k}"`);
+    }
+    if (!POI_TYPES.has(p.type)) {
+      throw new Error(`POI ${p.id} has type "${p.type}", which port-map.js cannot render. One of: ${[...POI_TYPES].join(', ')}`);
+    }
+    const owner = index[p.id]?.port;
+    if (owner && owner !== spec.slug) {
+      throw new Error(`POI id "${p.id}" is already claimed by port "${owner}"; pick a unique id`);
+    }
+    index[p.id] = { id: p.id, name: p.name, aliases: p.aliases || [], lat: p.lat, lon: p.lon,
+      type: p.type, geometry: p.geometry || 'point', notes: p.notes || '', port: spec.slug };
+  }
+  index._meta.counts[spec.slug] = pois.length;
+  index._meta.updated = spec.last_reviewed;
+  writeFileSync(POI_INDEX, JSON.stringify(index, null, 2) + '\n');
+  return pois.length;
 }
 
 const args = process.argv.slice(2);
 const specDir = join(REPO, 'admin', 'port-specs');
 const specs = args[0] === '--all'
-  ? readdirSync(specDir).filter((f) => f.endsWith('.json')).map((f) => join(specDir, f))
+  // .images.json siblings live in the same directory and are not page specs.
+  ? readdirSync(specDir).filter((f) => f.endsWith('.json') && !f.endsWith('.images.json')).map((f) => join(specDir, f))
   : args.map((a) => (a.startsWith('/') ? a : join(REPO, a)));
 
 if (!specs.length) { console.error('usage: build-port-page.mjs <spec.json> | --all'); process.exit(2); }
@@ -748,6 +835,7 @@ for (const specPath of specs) {
   writeFileSync(out, html);
   const mapOut = join(REPO, 'assets', 'data', 'maps', `${spec.slug}.map.json`);
   writeFileSync(mapOut, buildMap(spec));
+  const poiCount = syncPoiIndex(spec);
   const words = html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
-  console.log(`✓ ${spec.slug}: ports/${spec.slug}.html (~${words} words) + maps/${spec.slug}.map.json`);
+  console.log(`✓ ${spec.slug}: ports/${spec.slug}.html (~${words} words) + maps/${spec.slug}.map.json + ${poiCount} POIs`);
 }
