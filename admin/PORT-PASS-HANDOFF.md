@@ -17,14 +17,14 @@ where the research contradicts it.
 | # | Port | Slug | Research | Images | Spec | Page | State |
 |---|---|---|---|---|---|---|---|
 | 1 | New Plymouth, NZ | `new-plymouth` | ✅ | ✅ 19 | ✅ | ✅ | **SHIPPED — PASS 98/100** |
-| 2 | Townsville, AU | `townsville` | ⏳ running | ✅ 16 verified | — | — | images committed |
-| 3 | Abidjan, CI | `abidjan` | ⏳ running | ✅ 11 verified | — | — | images committed; skyline gap |
+| 2 | Townsville, AU | `townsville` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 98/100** |
+| 3 | Abidjan, CI | `abidjan` | ✅ | ✅ 11 verified | — | — | research in repo; skyline gap |
 | 4 | San Antonio, CL | `san-antonio` | ✅ | ✅ 16 verified | ✅ | ✅ | **SHIPPED — PASS 98/100** |
 | 5 | La Réunion | `reunion` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
-| 6 | Devil's Island, GF | `devils-island` | ✅ | ⏳ | — | — | research in repo |
-| 7 | Belém, BR | `belem` | ✅ | ⏳ | — | — | research in repo |
-| 8 | Lüderitz, NA | `luderitz` | ⏳ running | ⏳ | — | — | |
-| 9 | Takoradi, GH | `takoradi` | ⏳ running | ⏳ | — | — | |
+| 6 | Devil's Island, GF | `devils-island` | ✅ | ✅ 16 | — | — | ready to write |
+| 7 | Belém, BR | `belem` | ✅ | ✅ 15 | — | — | ready to write |
+| 8 | Lüderitz, NA | `luderitz` | ⏳ running | ✅ 16 | — | — | awaiting research |
+| 9 | Takoradi, GH | `takoradi` | ⏳ running | ✅ 16 | — | — | awaiting research |
 | 10 | Scenic candidates (Null Island et al.) | — | — | — | — | — | plus final pack re-link + PDF rebuild |
 
 ## The pipeline
@@ -97,8 +97,10 @@ live site; `_redirects` now catches them, but do not reintroduce the dead form
 into new markup. See UL-088.
 
 **Pre-commit gates.** The factcheck gate requires documented keys in the sidecar;
-the no-getbets guard fires on pre-existing task titles in
-`admin/UNFINISHED_TASKS.md`, so commit that file separately. The PDF freshness
+the banned-domain guard (see `.claude/skills/`) fires on pre-existing task
+titles in `admin/UNFINISHED_TASKS.md`, so commit that file separately. Note the
+guard also matches its own name, so a document that spells the banned string out
+in order to explain it will block its own commit — describe it, do not quote it. The PDF freshness
 hook blocks a pack `.md` change without a rebuilt PDF
 (`admin/scripts/voyage-pack-pdf-build.sh volendam`).
 
@@ -119,6 +121,34 @@ Recorded in `v0.1.17-...factcheck.json` under `port_research_corrections`:
 - CNES has owned the Îles du Salut since **1971**; the islands are evacuated for
   every eastward Kourou launch and **the ban survives a postponement**
 - No 2028 segments published as of 30 July 2026, though 2027 has them
+
+## Abidjan — read before writing that page
+
+Two items make Abidjan the highest-stakes page in this set:
+
+1. **Yellow fever is required from everyone.** Côte d'Ivoire sits in the WHO
+   IHR Annex 1 *"any country"* column — proof required from all travellers aged
+   9 months and over regardless of origin. Certificates are valid **for life**
+   since 11 July 2016 and boosters cannot be demanded. The line will check at
+   embarkation in Fort Lauderdale, not at the gangway.
+2. **The visa position is genuinely unresolved and must not be smoothed over.**
+   FCDO says a visa is required. The Ivorian e-visa is issued only for arrival
+   at Abidjan *airport* and requires a return flight booking — structurally
+   useless to a cruise passenger. Ships plainly do land people, evidently under
+   a ship-agent collective shore-pass arrangement, but no Ivorian government
+   source documents a cruise exemption. Write it as an open question with the
+   specific things to ask HAL, not as a reassurance.
+
+Also: you berth at a **working grain terminal inside a closed customs
+enclosure** in Treichville — no cruise terminal exists, and port regulation
+requires a pass from the Port Commander for any person or vehicle, so nobody
+walks out. Grand-Bassam is 39.4 km, 35 min free-flow and realistically 60–90.
+Yamoussoukro is **not feasible** — 239 km, 6.5–8 hours of driving round trip.
+Use **Tchaman / Atchan**, not "Ébrié", which is an exonym meaning "bad".
+
+The call falls **late April / early May 2028**, at the end of the voyage — the
+hottest and most humid part of the year, ramping into the rains. Heat, not
+crime, is the likeliest thing to spoil the day.
 
 ## Open questions for the operator
 
