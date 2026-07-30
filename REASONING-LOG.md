@@ -50,6 +50,6 @@ survives; the guard makes omission block a commit. None of them can make an agen
 *truthful* entry — read the log rather than trusting the machinery. Pipeline auto-capture
 exists only in `open-claw-stuff`, where Atlas lives; this repo has the other three layers.
 
-_Runtime: claude-opus-5 (Claude Code)_
+_Runtime: Claude Code_
 
 
