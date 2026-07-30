@@ -95,6 +95,67 @@ function prose(paras, images) {
   return out.join('\n');
 }
 
+/**
+ * Every key the template dereferences, with the shape it expects.
+ *
+ * Without this a missing key does not fail — a template literal renders it as
+ * the string "undefined" and the page ships looking plausible. The generator
+ * has no opinions about content, but it can insist the content exists.
+ * "s" = string, "n" = number, "[]" = non-empty array, "{}" = object,
+ * "[kv]" = non-empty array of {k, v}.
+ */
+const SPEC_SHAPE = {
+  slug: 's', name: 's', short_name: 's', region: 's', lat: 'n', lon: 'n',
+  last_reviewed: 's', last_reviewed_human: 's', title: 's', og_title: 's',
+  description: 's', twitter_description: 's', ai_summary: 's', quick_answer: 's',
+  hero: '{}', intro: '{}', volatile_notice: 's', pier_note: 's', map_intro: 's',
+  depth_intro: 's', nearby_note: 's', ships_label: 's', ships_noscript: 's',
+  from_the_pier: '[kv]', at_a_glance: '[kv]', key_facts: '[kv]',
+  logbook: '[]', cruise_port: '[]', getting_around: '[]', map_points: '[]',
+  history: '[]', food: '[]', notices: '[]', depth_items: '[]', practical: '[]',
+  plan_your_visit: '[]', ships: '[]', faq: '[]', credits: '[]',
+  weather: '{}', excursions: '{}', images: '{}', map_manifest: '{}',
+};
+
+const SUB_SHAPE = {
+  hero: ['src', 'alt', 'credit', 'license', 'source'],
+  intro: ['heading', 'paragraphs'],
+  excursions: ['intro', 'groups', 'outro'],
+  images: ['logbook', 'getting_around', 'excursions', 'depth', 'gallery'],
+  map_manifest: ['source', 'port_pin', 'bbox_hint'],
+  weather: ['glance', 'peak', 'transitional', 'low', 'activities', 'avoid_months',
+    'avoid_reason', 'catches', 'packing', 'hazard_title', 'hazard_main',
+    'hazard_season', 'hazard_note'],
+};
+
+function checkSpec(s, path) {
+  const bad = [];
+  for (const [key, kind] of Object.entries(SPEC_SHAPE)) {
+    const v = s[key];
+    if (v == null) { bad.push(`${key}: missing`); continue; }
+    if (kind === 's' && (typeof v !== 'string' || !v.trim())) bad.push(`${key}: expected a non-empty string`);
+    if (kind === 'n' && typeof v !== 'number') bad.push(`${key}: expected a number`);
+    if (kind === '{}' && (typeof v !== 'object' || Array.isArray(v))) bad.push(`${key}: expected an object`);
+    if (kind.startsWith('[') && (!Array.isArray(v) || !v.length)) bad.push(`${key}: expected a non-empty array`);
+    if (kind === '[kv]' && Array.isArray(v)) {
+      const n = v.findIndex((x) => !x || x.k == null || x.v == null);
+      if (n >= 0) bad.push(`${key}[${n}]: expected {k, v}`);
+    }
+  }
+  for (const [key, keys] of Object.entries(SUB_SHAPE)) {
+    if (!s[key] || typeof s[key] !== 'object') continue;
+    const missing = keys.filter((k) => s[key][k] == null);
+    if (missing.length) bad.push(`${key}: missing ${missing.join(', ')}`);
+  }
+  (s.faq || []).forEach((f, i) => { if (!f?.q || !f?.a) bad.push(`faq[${i}]: needs both q and a`); });
+  if (s.slug && path && !path.endsWith(`${s.slug}.json`)) {
+    bad.push(`slug "${s.slug}" does not match the filename — the page and the map manifest are both named from it`);
+  }
+  if (bad.length) {
+    throw new Error(`spec ${path} is not buildable:\n  - ${bad.join('\n  - ')}`);
+  }
+}
+
 function build(spec) {
   const s = spec;
   const faqJson = s.faq.map((f) => `      {"@type": "Question", "name": ${JSON.stringify(f.q)}, "acceptedAnswer": {"@type": "Answer", "text": ${JSON.stringify(f.a)}}}`).join(',\n');
@@ -830,6 +891,7 @@ if (!specs.length) { console.error('usage: build-port-page.mjs <spec.json> | --a
 
 for (const specPath of specs) {
   const spec = JSON.parse(readFileSync(specPath, 'utf-8'));
+  checkSpec(spec, specPath);
   const html = build(spec);
   const out = join(REPO, 'ports', `${spec.slug}.html`);
   writeFileSync(out, html);
