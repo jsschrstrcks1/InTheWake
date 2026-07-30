@@ -19,8 +19,8 @@ where the research contradicts it.
 | 1 | New Plymouth, NZ | `new-plymouth` | ✅ | ✅ 19 | ✅ | ✅ | **SHIPPED — PASS 98/100** |
 | 2 | Townsville, AU | `townsville` | ⏳ running | ✅ 16 verified | — | — | images committed |
 | 3 | Abidjan, CI | `abidjan` | ⏳ running | ✅ 11 verified | — | — | images committed; skyline gap |
-| 4 | San Antonio, CL | `san-antonio` | ✅ | ⏳ 18 fetched | ✅ draft | — | prose done, wire images |
-| 5 | La Réunion | `reunion` | ✅ | ⏳ | — | — | research in repo |
+| 4 | San Antonio, CL | `san-antonio` | ✅ | ✅ 16 verified | ✅ | ✅ | **SHIPPED — PASS 98/100** |
+| 5 | La Réunion | `reunion` | ✅ | ⏳ sourcing | — | — | research in repo |
 | 6 | Devil's Island, GF | `devils-island` | ✅ | ⏳ | — | — | research in repo |
 | 7 | Belém, BR | `belem` | ✅ | ⏳ | — | — | research in repo |
 | 8 | Lüderitz, NA | `luderitz` | ⏳ running | ⏳ | — | — | |
