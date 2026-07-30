@@ -25,6 +25,9 @@ The `.md` is the source of truth. If the three diverge, **the `.md` wins** and t
 | v0.1 — Symphony of the Seas Western Caribbean 7N | `v0.1-symphony-western-caribbean-7n` | md + html + pdf shipped |
 | v0.1.2 — NCL Aqua Veterans/Solo Group Dec 2027 | `v0.1.2-ncl-aqua-veterans-solo-group-dec-2027` | md + html + pdf shipped |
 | v0.1.3 — Sisters at Sea (Virgin Voyages Resilient Lady, Feb 14–21 2027) | `v0.1.3-virgin-sisters-sea-feb-2027` | md + html + pdf shipped |
+| v0.1.17 — HAL Volendam 2028 Grand World Voyage (129 days, Jan 4 2028) | `v0.1.17-hal-volendam-world-cruise-2028` | md + factcheck + PWA companion (`admin/voyage-pwa/volendam-world-2028.html`); pdf via build script |
+
+*(v0.1.4–v0.1.16 ship as md + factcheck + pdf, several with condensed/handoff variants and PWA companions — see the build-script registry below for the authoritative list.)*
 
 ### Other files in this directory
 

@@ -76,7 +76,7 @@ function renderOverview(){var el=document.getElementById("pane-overview");if(!el
     +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow at the bottom), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
     +'<p class="ov-step"><strong>Android (Chrome):</strong> tap the <strong>⋮</strong> menu (top-right), then <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</p>'
     +'<p class="ov-step">It opens full-screen like a real app and works offline once loaded — handy where the ship or port has no signal.</p></div>';
-  h+='<div class="ov-card"><b>🌊 Sailing solo?</b>'
+  if(V.host)h+='<div class="ov-card"><b>🌊 Sailing solo?</b>'
     +'<p>These are hosted group cruises built for solo travelers — come solo, leave with friends.</p>'
     +'<a class="ov-link" href="https://maulsbytravel.com/hosted-group-cruises-for-solos/" target="_blank" rel="noopener noreferrer">See all hosted group cruises for solo travelers →</a></div>';
   el.innerHTML=h;}

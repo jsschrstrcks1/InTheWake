@@ -15,6 +15,7 @@
 #   admin/scripts/voyage-pack-pdf-build.sh prima            # build only NCL Prima Tina Solo Group Sep 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh encore           # build only NCL Encore Allison Vancouver-LA Oct 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh escape           # build only NCL Escape Thanksgiving Nov 2026 (long-form)
+#   admin/scripts/voyage-pack-pdf-build.sh volendam         # build only HAL Volendam 2028 Grand World Voyage (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh --force          # rebuild even if PDF is newer
 #   admin/scripts/voyage-pack-pdf-build.sh --check          # exit 1 if any PDF is stale (no build)
 #   admin/scripts/voyage-pack-pdf-build.sh --help
@@ -78,6 +79,7 @@ LONG_FORM_PACKS=(
   "v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027|ships/norwegian/v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027.pdf"
   "v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027|ships/norwegian/v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027.pdf"
   "v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027|ships/norwegian/v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027.pdf"
+  "v0.1.17-hal-volendam-world-cruise-2028|"
 )
 
 # Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.
@@ -367,7 +369,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|all)
+    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|volendam|world-cruise|world-2028|all)
       target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
@@ -434,6 +436,7 @@ case "$target" in
   breakaway-bermuda|bermuda) build_one_long "bermuda" "$ENGINE" || failures=$((failures + $?)) ;;
   fall-foliage|foliage) build_one_long "fall-foliage" "$ENGINE" || failures=$((failures + $?)) ;;
   aqua-thanksgiving) build_one_long "aqua-thanksgiving" "$ENGINE" || failures=$((failures + $?)) ;;
+  volendam|world-cruise|world-2028) build_one_long "volendam" "$ENGINE" || failures=$((failures + $?)) ;;
   all|"")
     echo "── Long-form packs ──"
     build_all_long_form "$ENGINE" || failures=$((failures + $?))
