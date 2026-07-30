@@ -756,3 +756,18 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-07-14T06:35:14.384Z -->
 | itw-generator-config-fill | 4 | Generator config-driven content fill so a complete (marker-free) run is POSSIBLE — makes the FILL write gate discriminating instead of universal ceremony (hostile-R2 finding 3) |
+
+<!-- library register 2026-07-30T17:55:12.906Z -->
+| voyage-pack-v0-1-17-icon-of-the-seas-eastern-caribbean-7n-generi | 2 | Voyage Pack v0.1.17 — Icon of the Seas Eastern Caribbean 7N (generic) + PWA companion |
+
+<!-- library register 2026-07-30T18:07:14.163Z -->
+| voyage-pack-v0-1-17-hal-volendam-world-cruise-2028 | 2 | Voyage Pack v0.1.17 — HAL Volendam 2028 Grand World Voyage (129 days, Jan 4 2028) + PWA companion |
+
+<!-- library register 2026-07-30T18:35:26.371Z -->
+| itw-voyage-pack-v0117-condensed-handoff | 2 | Voyage Pack v0.1.17 condensed + emergency handoff card variants (world cruise) |
+
+<!-- library register 2026-07-30T18:54:13.473Z -->
+| itw-v0117-footgun-fixes | 2 | v0.1.17 foot-gun audit fixes: PWA emergency tab (false offline-card claim), world-copy route markers, estimate-flagged dates, condensed page-count |
+
+<!-- library register 2026-07-30T19:20:10.381Z -->
+| itw-v0117-accuracy-sweep | 2 | v0.1.17 accuracy sweep: equator 2→4 (geometry vs HAL wording), NZ port-list resolved vs Zaandam voyage, HAL emergency numbers relabeled, Ushuaia hedge |
