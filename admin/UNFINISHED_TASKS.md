@@ -768,3 +768,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-07-30T18:54:13.473Z -->
 | itw-v0117-footgun-fixes | 2 | v0.1.17 foot-gun audit fixes: PWA emergency tab (false offline-card claim), world-copy route markers, estimate-flagged dates, condensed page-count |
+
+<!-- library register 2026-07-30T19:20:10.381Z -->
+| itw-v0117-accuracy-sweep | 2 | v0.1.17 accuracy sweep: equator 2→4 (geometry vs HAL wording), NZ port-list resolved vs Zaandam voyage, HAL emergency numbers relabeled, Ushuaia hedge |
