@@ -62,6 +62,36 @@ claimed or illustrated it badly:
 - an Abidjan "port" shot was a container stack behind a wall, shot from a moving
   car, dominated by a shipping line's livery
 
+**Do not write to the validator. This is the one that actually went wrong.**
+
+The logbook checks — `sensory_detail`, `emotional_pivot_missing`, `contrast_words`
+— are diagnostics, not instructions. On 2026-07-30 they were treated as
+instructions, and the result was fabrication in a document whose opening line
+promises the reader it is written from the record and not from experience:
+
+- *"I have listened to recordings of that ridge — the dry rattle of eucalypt
+  leaves"* — nothing was listened to
+- *"my breath caught reading the salvage inventory — buckles, a surgeon's
+  instruments, a pocket watch stopped at the hour"* — no inventory was read and
+  those objects were invented
+- *"quiet enough that you can hear the surf breaking on the other side of the
+  wall"* — written by someone who has never stood there
+
+All three were inserted **after** a page failed a check, specifically to make it
+pass. All three are now removed. The pages dropped from 98 to 96 and that is the
+correct price.
+
+The Pandora passage is the lesson in miniature. The invented pocket watch was
+replacing something true and far better: **George Stewart, John Sumner, Richard
+Skinner and Henry Hillbrandt**, drowned still shackled in the cage on the
+quarterdeck when *Pandora* went down on 30 August 1791. The sourced detail was
+stronger than the invention every single time.
+
+**The rule: if telling the truth fails a check, fail the check.** A logbook
+written from the record genuinely does not contain three of five senses, and the
+honest page carries that warning rather than a lie that clears it. Note the
+warning in the spec if it helps the next person, and move on.
+
 **Filenames lie. The filename is the claim, not the fact.** Rejections go in a
 `rejected` array in the manifest with a `why`, so nobody re-fetches the same file
 for the same caption. Kept images get `verified_subject: true` plus a note saying
