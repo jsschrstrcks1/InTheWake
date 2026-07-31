@@ -121,16 +121,17 @@ measures how far apart they render.
 Measure it. A headless run over the shipped pages on 2026-07-31 — 678×500
 container, 36 px markers — gave these nearest-neighbour distances:
 
-| page | min NN |
-|---|---|
-| devils-island | **1 px** |
-| san-antonio | **4 px** |
-| abidjan | **6 px** |
-| new-plymouth | **8 px** |
-| townsville | 15 px |
-| reunion | 24 px |
+| page | before | after |
+|---|---|---|
+| devils-island | **1 px** | 17 px |
+| san-antonio | **4 px** | 20 px |
+| abidjan | **6 px** | 12 px |
+| new-plymouth | **8 px** | 16 px |
+| townsville | 15 px | 15 px |
+| reunion | 24 px | 24 px |
 
-Four of six are broken. Belém forced the fix rather than the workaround: the map
+Four of six were broken; all four are fixed as of 2026-07-31, and the
+measurement is how you check your own work rather than a one-off audit. Belém forced the fix rather than the workaround: the map
 manifest now takes an optional `fit` box that sets the *opening view* without
 removing a single marker, honoured by `assets/js/modules/port-map.js` ahead of
 auto-fit and passed through by the generator. Belém went from 5–11 px to
@@ -138,9 +139,22 @@ auto-fit and passed through by the generator. Belém went from 5–11 px to
 `map_intro` — Belém's tells the reader the two boat-distance points are one
 zoom-out away — and record the reasoning in `map_manifest.fit.why`.
 
-**The four bad pages above still need a `fit` chosen and verified.** Registered
-as UL-091, together with the stronger follow-on: a validator check that fails a
-page whose markers render closer together than the marker is wide.
+**Two of the four causes turned out to be data rather than view**, which is the
+part worth remembering:
+
+- `di-royale-jetty` sat on the port pin's *exact* coordinate. The renderer skips
+  a POI of `type: port`, and this one was `type: transport` — so it drew a
+  second marker underneath the first. That is the whole explanation for the 1 px
+  result, and no amount of zoom would have fixed it.
+- Three pairs were pinned at effectively the same place: Île Royale's lighthouse
+  25 m from the old hospital, New Plymouth's Wind Wand 111 m from Puke Ariki,
+  Isla Negra's village 413 m from the Neruda house. Each is now one marker with
+  the other named in its `notes`.
+
+**Still open (UL-091):** nothing measures separation, so the next page to pin the
+same thing twice will ship exactly as these did. The renderer should also skip a
+POI within ~50 m of the port pin whatever `type` it declares, rather than relying
+on the spec author to pick the right one.
 
 Two things learned applying `fit` to Lüderitz that are worth knowing before you
 reach for it:
