@@ -17,9 +17,9 @@ where the research contradicts it.
 | # | Port | Slug | Research | Images | Spec | Page | State |
 |---|---|---|---|---|---|---|---|
 | 1 | New Plymouth, NZ | `new-plymouth` | ✅ | ✅ 19 | ✅ | ✅ | **SHIPPED — PASS 98/100** |
-| 2 | Townsville, AU | `townsville` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 98/100** |
-| 3 | Abidjan, CI | `abidjan` | ✅ | ✅ 11 verified | — | — | research in repo; skyline gap |
-| 4 | San Antonio, CL | `san-antonio` | ✅ | ✅ 16 verified | ✅ | ✅ | **SHIPPED — PASS 98/100** |
+| 2 | Townsville, AU | `townsville` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
+| 3 | Abidjan, CI | `abidjan` | ✅ | ✅ 12 | ✅ | ✅ | **SHIPPED — PASS 94/100** |
+| 4 | San Antonio, CL | `san-antonio` | ✅ | ✅ 16 verified | ✅ | ✅ | **SHIPPED — PASS 96/100** |
 | 5 | La Réunion | `reunion` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
 | 6 | Devil's Island, GF | `devils-island` | ✅ | ✅ 16 | — | — | ready to write |
 | 7 | Belém, BR | `belem` | ✅ | ✅ 15 | — | — | ready to write |
@@ -98,7 +98,7 @@ for the same caption. Kept images get `verified_subject: true` plus a note sayin
 what is actually in the frame.
 
 **The word ceiling is real.** ITC v1.1 recommends 2,000–6,000 words. The corpus
-median is 3,941 and only four pages exceed 6,000 — New Plymouth is now the
+median is 3,941 and only four pages exceed 6,000 — New Plymouth is the
 longest at 7,598 and that is documented as a deliberate exception with reasoning,
 not an oversight. Budget: logbook ~950, excursions ~600, history ~380, FAQ ~660,
 and remember that figure captions plus the credits list run ~60 words per image.
