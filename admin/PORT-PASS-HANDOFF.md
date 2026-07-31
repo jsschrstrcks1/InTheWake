@@ -24,7 +24,7 @@ where the research contradicts it.
 | 6 | Devil's Island, GF | `devils-island` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
 | 7 | Belém, BR | `belem` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 94/100** |
 | 8 | Lüderitz, NA | `luderitz` | ✅ | ✅ 16 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
-| 9 | Takoradi, GH | `takoradi` | — | ✅ 16 | — | — | **next** — research not written |
+| 9 | Takoradi, GH | `takoradi` | ✅ | ✅ 16 | ✅ | ✅ | **SHIPPED — PASS 94/100** |
 | 10 | Scenic candidates (Null Island et al.) | — | — | — | — | — | plus final pack re-link + PDF rebuild |
 
 ## The pipeline
@@ -159,6 +159,21 @@ reach for it:
   Lüderitz it landed on Kolmanskop — the single most important pin on the page —
   and the fix was to nudge the box, not the data. Check the screenshot, not just
   the numbers.
+
+Takoradi added a third lesson, and it is about the data rather than the view:
+**two POIs at the same place are a defect the numbers will find for you.** The
+first build put Elmina Castle and Elmina town 380 m apart and Fort Metal Cross
+1.6 km from Busua, and the measurement came back at 2 px. Neither pair was worth
+two markers; both are now one marker with the second named in its `notes`. Run
+the measurement before deciding a map is crowded — sometimes it is not the zoom,
+it is that you pinned the same thing twice.
+
+**A POI list that will not fit is a signal to look further, not to estimate.**
+Dropping those two left Takoradi at eight, under the ten-POI minimum. The fix
+was not to re-add them or to invent a coordinate — an estimated one had already
+crept in for the Elmina wharves and had to come out — but to go back to the
+gazetteer for points that were genuinely missing: Axim and Beyin, the western
+reach of the same World Heritage chain. The map got better and so did the page.
 
 **POI coordinates must come from a gazetteer.** Nominatim search plus an Overpass
 named-feature sweep of the port area. Never estimate off a street map. The
