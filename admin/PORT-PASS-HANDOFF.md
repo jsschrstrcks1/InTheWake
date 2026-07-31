@@ -21,7 +21,7 @@ where the research contradicts it.
 | 3 | Abidjan, CI | `abidjan` | ✅ | ✅ 12 | ✅ | ✅ | **SHIPPED — PASS 94/100** |
 | 4 | San Antonio, CL | `san-antonio` | ✅ | ✅ 16 verified | ✅ | ✅ | **SHIPPED — PASS 96/100** |
 | 5 | La Réunion | `reunion` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
-| 6 | Devil's Island, GF | `devils-island` | ✅ | ✅ 16 | — | — | ready to write |
+| 6 | Devil's Island, GF | `devils-island` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
 | 7 | Belém, BR | `belem` | ✅ | ✅ 15 | — | — | ready to write |
 | 8 | Lüderitz, NA | `luderitz` | ⏳ running | ✅ 16 | — | — | awaiting research |
 | 9 | Takoradi, GH | `takoradi` | ⏳ running | ✅ 16 | — | — | awaiting research |

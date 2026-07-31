@@ -555,7 +555,7 @@ ${prose(s.getting_around, s.images.getting_around)}
 
       <!-- MAP -->
       <details class="port-section port-map-section" id="port-map-section" open="">
-        <summary><h2>${esc(s.name)} Port Map</h2></summary>
+        <summary><h2>${esc(s.short_name)} Port Map</h2></summary>
         <div id="${s.slug}-port-map" class="port-map-container" role="application" aria-label="Interactive map of ${attr(s.name)}">
           <noscript>
             <p class="tiny">${s.map_intro}</p>
@@ -619,7 +619,7 @@ ${LI(s.practical)}
 
       <!-- GALLERY -->
       <details class="port-section" id="gallery" open="">
-        <summary><h2>${esc(s.name)} Photo Gallery</h2></summary>
+        <summary><h2>${esc(s.short_name)} Photo Gallery</h2></summary>
         <div class="swiper ${s.slug}-gallery">
           <div class="swiper-wrapper">
 ${s.images.gallery.map(gallerySlide).join('\n')}
