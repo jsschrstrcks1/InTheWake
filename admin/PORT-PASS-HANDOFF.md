@@ -23,8 +23,8 @@ where the research contradicts it.
 | 5 | La Réunion | `reunion` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
 | 6 | Devil's Island, GF | `devils-island` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
 | 7 | Belém, BR | `belem` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 94/100** |
-| 8 | Lüderitz, NA | `luderitz` | ⏳ running | ✅ 16 | — | — | awaiting research |
-| 9 | Takoradi, GH | `takoradi` | ⏳ running | ✅ 16 | — | — | awaiting research |
+| 8 | Lüderitz, NA | `luderitz` | ✅ | ✅ 16 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
+| 9 | Takoradi, GH | `takoradi` | — | ✅ 16 | — | — | **next** — research not written |
 | 10 | Scenic candidates (Null Island et al.) | — | — | — | — | — | plus final pack re-link + PDF rebuild |
 
 ## The pipeline
@@ -141,6 +141,24 @@ zoom-out away — and record the reasoning in `map_manifest.fit.why`.
 **The four bad pages above still need a `fit` chosen and verified.** Registered
 as UL-091, together with the stronger follow-on: a validator check that fails a
 page whose markers render closer together than the marker is wide.
+
+Two things learned applying `fit` to Lüderitz that are worth knowing before you
+reach for it:
+
+- **A `fit` box cut to the container's aspect ratio buys a lot on its own.**
+  Auto-fit pads 30 px a side and then snaps *down* to an integer zoom, and both
+  cost scale. Lüderitz went from a measured 10 px minimum separation to 17 px
+  with no POI removed, purely by matching the box to the 678×500 frame.
+- **It cannot beat the geometry.** Lüderitz's tender jetty and its Felsenkirche
+  are 705 m apart and Kolmanskop is 10 km away; no single view shows both
+  legibly, and the town markers still overlap. Belém's spread was worse and its
+  fix was cleaner because the outlier there could sit off the opening view.
+  Where the geometry genuinely will not fit, say so in `fit.why` and in
+  `map_intro`, and stop optimising pixels.
+- **The legend is fixed bottom-right and will cover a south-easterly POI.** At
+  Lüderitz it landed on Kolmanskop — the single most important pin on the page —
+  and the fix was to nudge the box, not the data. Check the screenshot, not just
+  the numbers.
 
 **POI coordinates must come from a gazetteer.** Nominatim search plus an Overpass
 named-feature sweep of the port area. Never estimate off a street map. The
