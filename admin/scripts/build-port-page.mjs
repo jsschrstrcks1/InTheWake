@@ -838,6 +838,10 @@ function buildMap(spec) {
     port_name: spec.name,
     port_pin: spec.map_manifest.port_pin,
     bbox_hint: spec.map_manifest.bbox_hint,
+    // Optional explicit opening view. Only set it where auto-fit genuinely
+    // fails — an outlying pin that squashes the walkable day into one clump.
+    // It hides nothing; every marker is still on the map.
+    ...(spec.map_manifest.fit ? { fit: spec.map_manifest.fit } : {}),
     poi_ids: pois.map((p) => p.id),
     // Duplicated inline as well as pushed to poi-index.json: port-map.js falls
     // back to this array when the global index is stale, and it keeps the

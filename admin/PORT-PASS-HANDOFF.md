@@ -1,6 +1,6 @@
 # Port pass — handoff
 
-**Soli Deo Gloria.** Last updated 2026-07-30.
+**Soli Deo Gloria.** Last updated 2026-07-31.
 
 ## What this is
 
@@ -22,7 +22,7 @@ where the research contradicts it.
 | 4 | San Antonio, CL | `san-antonio` | ✅ | ✅ 16 verified | ✅ | ✅ | **SHIPPED — PASS 96/100** |
 | 5 | La Réunion | `reunion` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
 | 6 | Devil's Island, GF | `devils-island` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 96/100** |
-| 7 | Belém, BR | `belem` | ✅ | ✅ 15 | — | — | ready to write |
+| 7 | Belém, BR | `belem` | ✅ | ✅ 15 | ✅ | ✅ | **SHIPPED — PASS 94/100** |
 | 8 | Lüderitz, NA | `luderitz` | ⏳ running | ✅ 16 | — | — | awaiting research |
 | 9 | Takoradi, GH | `takoradi` | ⏳ running | ✅ 16 | — | — | awaiting research |
 | 10 | Scenic candidates (Null Island et al.) | — | — | — | — | — | plus final pack re-link + PDF rebuild |
@@ -97,6 +97,15 @@ warning in the spec if it helps the next person, and move on.
 for the same caption. Kept images get `verified_subject: true` plus a note saying
 what is actually in the frame.
 
+**The word ceiling cannot actually be met, and that is the standard's problem
+rather than yours.** ITC v1.1 recommends 2,000–6,000 words, but its own
+per-section guidance plus 11+ credited images sums past 6,000 before you write
+a port-specific sentence — and the sidebar renders twice, once for desktop and
+once collapsed for mobile, so the validator's `body.text()` count includes about
+250 words of the same content twice. Cut everything genuinely duplicated, then
+document the overage in `_validator_exceptions` with the comparison figures and
+stop. Registered as UL-092.
+
 **The word ceiling is real.** ITC v1.1 recommends 2,000–6,000 words. The corpus
 median is 3,941 and only four pages exceed 6,000 — New Plymouth is the
 longest at 7,598 and that is documented as a deliberate exception with reasoning,
@@ -104,10 +113,34 @@ not an oversight. Budget: logbook ~950, excursions ~600, history ~380, FAQ ~660,
 and remember that figure captions plus the credits list run ~60 words per image.
 Nineteen images cost 950 words before you write a sentence.
 
-**The map fits to POI bounds, not to `bbox_hint`.** A POI 29 km out of town
-forces a zoom at which every town marker collapses into one unreadable clump.
-Scope the map to the walkable day; put the far excursion in the prose. Verified
-in a browser, not assumed.
+**The map fits to POI bounds, not to `bbox_hint`, and the collapse is silent.**
+A POI far out of town forces a zoom at which every town marker lands on top of
+its neighbours. Nothing reports this: the validator counts POIs, it never
+measures how far apart they render.
+
+Measure it. A headless run over the shipped pages on 2026-07-31 — 678×500
+container, 36 px markers — gave these nearest-neighbour distances:
+
+| page | min NN |
+|---|---|
+| devils-island | **1 px** |
+| san-antonio | **4 px** |
+| abidjan | **6 px** |
+| new-plymouth | **8 px** |
+| townsville | 15 px |
+| reunion | 24 px |
+
+Four of six are broken. Belém forced the fix rather than the workaround: the map
+manifest now takes an optional `fit` box that sets the *opening view* without
+removing a single marker, honoured by `assets/js/modules/port-map.js` ahead of
+auto-fit and passed through by the generator. Belém went from 5–11 px to
+42–52 px with all ten POIs still on the map. Where you use it, say so in
+`map_intro` — Belém's tells the reader the two boat-distance points are one
+zoom-out away — and record the reasoning in `map_manifest.fit.why`.
+
+**The four bad pages above still need a `fit` chosen and verified.** Registered
+as UL-091, together with the stronger follow-on: a validator check that fails a
+page whose markers render closer together than the marker is wide.
 
 **POI coordinates must come from a gazetteer.** Nominatim search plus an Overpass
 named-feature sweep of the port area. Never estimate off a street map. The
