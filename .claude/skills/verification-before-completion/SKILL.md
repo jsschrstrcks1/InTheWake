@@ -1,21 +1,34 @@
 ---
 name: verification-before-completion
-description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
+description: Use when about to claim work is complete, fixed, or passing, before committing
+  or creating PRs - requires running verification commands and confirming output before
+  making any success claims; evidence before assertions always
 version: 2.0.0
 license: LicenseRef-Proprietary
 category: integrity
 keywords:
-  - verification
-  - completion
-  - testing
-  - evidence-before-assertion
-  - test-pass-claim
-  - regression
-allowed-tools:
-  - Bash(*:*)
-  - Read
+- verification
+- completion
+- testing
+- evidence-before-assertion
+- test-pass-claim
+- regression
 compatibility:
-  claude-code: ">=2.1"
+  claude-code: '>=2.1'
+kind: skill
+runtimes:
+- hermes
+- claude-code
+- grok
+- codex
+capabilities:
+- read
+- shell
+runtime_bindings:
+  claude-code:
+    allowed-tools:
+    - Bash
+    - Read
 ---
 
 # Verification Before Completion
