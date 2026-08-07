@@ -104,7 +104,7 @@ a port-specific sentence — and the sidebar renders twice, once for desktop and
 once collapsed for mobile, so the validator's `body.text()` count includes about
 250 words of the same content twice. Cut everything genuinely duplicated, then
 document the overage in `_validator_exceptions` with the comparison figures and
-stop. Registered as UL-092.
+stop. Registered as UL-174.
 
 **The word ceiling is real.** ITC v1.1 recommends 2,000–6,000 words. The corpus
 median is 3,941 and only four pages exceed 6,000 — New Plymouth is the
@@ -151,7 +151,7 @@ part worth remembering:
   Isla Negra's village 413 m from the Neruda house. Each is now one marker with
   the other named in its `notes`.
 
-**Still open (UL-091):** nothing measures separation, so the next page to pin the
+**Still open (UL-173):** nothing measures separation, so the next page to pin the
 same thing twice will ship exactly as these did. The renderer should also skip a
 POI within ~50 m of the port pin whatever `type` it declares, rather than relying
 on the spec author to pick the right one.
