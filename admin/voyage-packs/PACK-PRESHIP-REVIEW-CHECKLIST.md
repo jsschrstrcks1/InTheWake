@@ -34,6 +34,17 @@ The factual sidecar verifies ship specs, christening, policies, prices, venues. 
 - [ ] **Accessibility specifics are verified, not plausible.** "North Star fits one wheelchair per ride" — verify with the cruise line or cut to "confirm with Guest Services."
 - [ ] **Owner:** original-research skill. **New sub-rule to add:** "synthesized causal claims" join the factual-claim categories — a true datum inside a false inference is still a confabulation.
 
+## A2. Port grounding — the "does this port have a page?" pass
+
+Added 2026-07-30 after the v0.1.17 world-cruise audit. Ports **with** an InTheWake page get grounded against that page almost automatically. Ports **without** one silently fall back to model recall, and nothing in the factual sidecar catches it — there is no category for "a port we said things about but never checked."
+
+- [ ] **List every port the pack names.** Then, for each: does `ports/<slug>.html` exist? **Check slug variants before concluding no** — Port Stanley lives at `falkland-islands`, Malé at `maldives`, Port Louis at `mauritius`, Fort Lauderdale at both `ft-lauderdale` and `port-everglades`. On v0.1.17 a first pass "found" 9 missing pages that were really 19; ten existed under different names.
+- [ ] **For every port with NO page: cite a primary source for each claim, or don't make the claim.** One-line generalities are acceptable *only* if they are flagged in the sidecar as unverified. On v0.1.17 the nine unpaged ports produced five defects, including a factual error (passengers land on Île Royale, not Devil's Island) and an unsourced actionable recommendation (San Antonio named as the mid-voyage family rendezvous when the line had published no segments at all).
+- [ ] **Distance words are claims.** "Near", "just inland", "a short drive" each need a number. Cape Coast was described as "near Takoradi"; it is 81 km and ~1½ hours each way — a full-day excursion, not a hop.
+- [ ] **Tender status is an accessibility claim.** Every tender port must appear in the pack's tender list *and* its accessibility section. Lüderitz was missing from both.
+- [ ] **Name the berth when it changes the day.** A working container harbour with nothing in walking distance (Réunion's Le Port / Pointe des Galets) is planning-relevant; silence implies a walkable port.
+- [ ] **Owner:** original-research skill + this checklist. Ports without site pages should also be registered individually in the HLS as page-build candidates, not lumped into one task.
+
 ## B. Internal inconsistency — the "same-number-twice" pass
 
 - [ ] **Grep every dollar total, then reconcile.** The same headline figure ($2,400 cabin → door total) must match everywhere it appears. Anthem had $3,940 and $5,000 for the identical example.

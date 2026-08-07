@@ -756,3 +756,54 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-07-14T06:35:14.384Z -->
 | itw-generator-config-fill | 4 | Generator config-driven content fill so a complete (marker-free) run is POSSIBLE — makes the FILL write gate discriminating instead of universal ceremony (hostile-R2 finding 3) |
+
+<!-- library register 2026-07-30T17:55:12.906Z -->
+| voyage-pack-v0-1-17-icon-of-the-seas-eastern-caribbean-7n-generi | 2 | Voyage Pack v0.1.17 — Icon of the Seas Eastern Caribbean 7N (generic) + PWA companion |
+
+<!-- library register 2026-07-30T18:07:14.163Z -->
+| voyage-pack-v0-1-17-hal-volendam-world-cruise-2028 | 2 | Voyage Pack v0.1.17 — HAL Volendam 2028 Grand World Voyage (129 days, Jan 4 2028) + PWA companion |
+
+<!-- library register 2026-07-30T18:35:26.371Z -->
+| itw-voyage-pack-v0117-condensed-handoff | 2 | Voyage Pack v0.1.17 condensed + emergency handoff card variants (world cruise) |
+
+<!-- library register 2026-07-30T18:54:13.473Z -->
+| itw-v0117-footgun-fixes | 2 | v0.1.17 foot-gun audit fixes: PWA emergency tab (false offline-card claim), world-copy route markers, estimate-flagged dates, condensed page-count |
+
+<!-- library register 2026-07-30T19:20:10.381Z -->
+| itw-v0117-accuracy-sweep | 2 | v0.1.17 accuracy sweep: equator 2→4 (geometry vs HAL wording), NZ port-list resolved vs Zaandam voyage, HAL emergency numbers relabeled, Ushuaia hedge |
+
+<!-- library register 2026-07-30T19:41:38.185Z -->
+| itw-v0117-port-coverage | 2 | v0.1.17 port coverage: cross-link 10 existing pages missed by slug variance; register 9 missing world-cruise port pages |
+
+<!-- library register 2026-07-30T20:35:24.238Z -->
+| itw-v0117-unpaged-port-remediation | 1 | v0.1.17 unpaged-port research remediation: Devil's Island lands on Ile Royale (not Devil's Island), San Antonio segment claim unsourced, Takoradi-Cape Coast 81km not 'near', Belem geography, Luderitz tender status |
+
+<!-- library register 2026-07-30T20:38:04.782Z -->
+| itw-port-page-reunion | 2 | Port page: Réunion (La Possession / Le Port, Pointe des Galets) — Mariners' Collection call on the 2028 world cruise, no page exists; UNESCO cirques, industrial berth |
+
+<!-- library register 2026-07-30T20:38:04.955Z -->
+| itw-port-page-devils-island | 2 | Port page: Devil's Island / Îles du Salut, French Guiana — note landing is on Île Royale, not Devil's Island proper |
+
+<!-- library register 2026-07-30T20:38:05.107Z -->
+| itw-port-page-belem | 2 | Port page: Belém, Brazil — Pará River/Guajará Bay, Ver-o-Peso market (1688), Amazon-basin gateway |
+
+<!-- library register 2026-07-30T20:38:05.274Z -->
+| itw-port-page-luderitz | 3 | Port page: Lüderitz, Namibia — tender call (Robert Harbour), Kolmanskop ghost town 10km, German-colonial architecture |
+
+<!-- library register 2026-07-30T20:38:05.505Z -->
+| itw-port-page-takoradi | 3 | Port page: Takoradi, Ghana — Cape Coast + Elmina castles (UNESCO) 81km east, full-day excursion, slave-trade history handled with gravity |
+
+<!-- library register 2026-07-30T20:38:05.654Z -->
+| itw-port-page-san-antonio | 3 | Port page: San Antonio, Chile — Santiago/Valparaíso gateway port |
+
+<!-- library register 2026-07-30T20:38:05.791Z -->
+| itw-port-page-new-plymouth | 3 | Port page: New Plymouth (Port Taranaki), NZ — rare Taranaki-coast call; pack content still unverified one-liner |
+
+<!-- library register 2026-07-30T20:38:05.931Z -->
+| itw-port-page-townsville | 3 | Port page: Townsville, Australia — reef gateway, Magnetic Island; pack content still unverified one-liner |
+
+<!-- library register 2026-07-30T20:38:06.069Z -->
+| itw-port-page-abidjan | 3 | Port page: Abidjan, Côte d'Ivoire — lagoon metropolis; pack content still unverified one-liner |
+
+<!-- library register 2026-07-30T20:38:06.211Z -->
+| itw-port-page-null-island | 4 | Port page (scenic): Null Island 0°N 0°E — the fourth equator crossing of the 2028 world cruise; also candidates Amalia/Brujo Glacier, Sarmiento Channel, Torres Strait |
