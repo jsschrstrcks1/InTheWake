@@ -106,8 +106,16 @@ function normalize(raw) {
   // (guard-quote-split-verb / vivenna 2026-07-20). Strip only quotes *between* word chars —
   // never outer quoting of whole args (`rm -rf "/"` stays a quoted catastrophic target).
   // Loop until stable so stacked splits (`r"m""x`) collapse.
+  // The boundary classes are NON-SPACE, not word-char. Requiring [A-Za-z0-9_] on the left made the
+  // rule positional: `r"m"` joined (both sides word chars) but `-"r"f` did NOT, because `-` is not a
+  // word char — so the identical evasion one word to the right survived. The inconsistency was
+  // visible from inside the family: `rm -r"f" /` blocked while `rm -"r"f /` did not, and both remove
+  // quotes to the same catastrophic command in a real shell (found by adversarial verification of
+  // the encoding family, 2026-08-08). Excluding quotes themselves from both sides keeps OUTER
+  // quoting of a whole argument intact — `rm -rf "/"` still reads as a quoted catastrophic target,
+  // and a quote with whitespace on either side is a word boundary, never an in-word split.
   for (let i = 0; i < 8; i++) {
-    const n = s.replace(/([A-Za-z0-9_])['"]+(?=[A-Za-z0-9_])/g, "$1");
+    const n = s.replace(/([^\s'"])['"]+(?=[^\s'"])/g, "$1");
     if (n === s) break;
     s = n;
   }
@@ -322,11 +330,18 @@ function matchRm(cmd) {
   while ((m = re.exec(cmd))) {
     const tail = m[1] || "";
     if (/--no-preserve-root/.test(tail)) return { sample: ("rm" + tail).trim().slice(0, 120), detail: "--no-preserve-root only exists to wipe /" };
-    const flagText = (tail.match(/(?:^|\s)(-{1,2}[A-Za-z-]+)/g) || []).join(" ");
+    // A WHOLE flag word may be quoted — the shell removes those quotes, so `"-rf"` is `-rf`. The
+    // flag scan required a bare `-` right after whitespace and therefore saw no flag at all, making
+    // a fully-quoted flag a silent bypass (same 2026-08-08 pass as the in-word split above).
+    // Unquoting is applied to a COPY used only for flag/target classification: the original `tail`
+    // still feeds the sample and the target blocklist, so a quoted TARGET keeps its quotes.
+    const unquoteWord = (t) => t.replace(/^(['"])(.*)\1$/, "$2");
+    const flagTail = tail.replace(/(^|\s)(['"])(-{1,2}[A-Za-z-]+)\2(?=\s|$)/g, "$1$3");
+    const flagText = (flagTail.match(/(?:^|\s)(-{1,2}[A-Za-z-]+)/g) || []).join(" ");
     const recursive = /--recursive/.test(tail) || /-[A-Za-z]*[rR]/.test(flagText);
     const force = /--force/.test(tail) || /-[A-Za-z]*f/.test(flagText);
     if (!recursive) continue;   // rm without -r/-R is a single-file delete, not a mass wipe
-    const targets = tail.trim().split(/\s+/).filter((t) => t && !t.startsWith("-"))
+    const targets = tail.trim().split(/\s+/).filter((t) => t && !unquoteWord(t).startsWith("-"))
       .flatMap((t) => expandBraces(t));   // `{/,}` → `/` (+ empty) so every brace alternative is checked
     // A recursive delete of a catastrophic LITERAL target is irreversible whether or not -f is present:
     // `rm -r ~` still wipes home (`-f` only suppresses prompts/errors) — G-F2 required force and missed it.
