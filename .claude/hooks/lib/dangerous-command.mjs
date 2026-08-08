@@ -133,7 +133,18 @@ function canonicalizePath(p) {
 // Is an `rm` operand a whole-filesystem / home / cwd / system-root wipe (vs a specific safe subdir)?
 function isCatastrophicTarget(tok) {
   const t = tok.trim();
-  const rawBare = t.replace(/^['"]|['"]$/g, "");       // strip surrounding quotes
+  // Strip EVERY quote character, not just one surrounding pair. The old `^['"]|['"]$` stripped a
+  // single leading and a single trailing quote, so `"/"` collapsed to `/` and blocked — but an
+  // EMPTY quote pair adjacent to the target did not: `""/` kept a stray quote (`"/`), matched no
+  // literal, and reached rm as `/`. The shell drops `""` entirely during word expansion, so all six
+  // of `""/`  `/''`  `""$HOME`  `""~`  `''/*`  `/""` were live root/home wipes that this function
+  // declared safe. Found by the generated fault-injection battery (guard-fault-injection-discipline),
+  // not by hand — the hand-written corpus had `"/"` and stopped there.
+  //
+  // Same reasoning as isUnprovableRecursiveTarget below: a shell quote cannot make a catastrophic
+  // target safe. Over-block risk is nil — a real filename containing a quote de-quotes to a
+  // non-catastrophic name and still passes.
+  const rawBare = t.replace(/['"]/g, "");
   // Canonicalize absolute paths so every root spelling (// /. /./ /.. …) collapses to "/" before the
   // literal/system-root checks below. Non-absolute forms (~, $HOME, ., *) keep their original shape.
   const bare = rawBare.startsWith("/") ? canonicalizePath(rawBare) : rawBare;
@@ -240,7 +251,21 @@ function isUnprovableRecursiveTarget(tok) {
   const u = tok.replace(/['"]/g, "");          // a shell quote can't make an unprovable value provable
   if (/\$\(/.test(u)) return true;             // command substitution: $(…)
   if (/`/.test(u)) return true;                // backtick substitution: `…` (hostile-g-f3; was only $(…))
-  if (/\$\{?\w+\}?\/?\*/.test(u)) return true; // variable directly into a glob: $X* , $X/* , ${X}/*
+  // Variable feeding a glob. The G-F4 overblock was real — RELATIVE mid-path forms
+  // (build/$ARCH/*, dist/$VERSION/*) are legitimate CI cleanups and the old unanchored
+  // match wrongly denied them. But "anchor to token start", the fix as originally
+  // specified, is NOT sufficient: it lets `/$X/*` through, and an unset $X expands that
+  // to `//*` — a root wipe, the exact shape this function exists to stop. Probed live:
+  // the token-start-only rule ALLOWED `rm -rf /$X/*`, and both suites stayed green
+  // because no case covered it.
+  //
+  // So the axis that matters is ABSOLUTE vs RELATIVE, not leading vs mid-path:
+  //   - a leading var-glob is unprovable            ($X/*  → unset → /*)
+  //   - ANY var-glob under an absolute path is too  (/$X/* → unset → //*, /opt/$X/* → /opt//*)
+  //   - a relative mid-path var-glob is bounded by cwd and stays allowed
+  const varGlob = /\$\{?\w+\}?\/?\*/;
+  if (/^\$\{?\w+\}?\/?\*/.test(u)) return true;      // leading: $X* , $X/* , ${X}/*
+  if (u.startsWith("/") && varGlob.test(u)) return true; // absolute + var-glob, at any depth
   // xargs -I{} / -i placeholder: the real path arrives only at runtime (often from `echo /`)
   if (/^\{\d*\}$/.test(u) || u === "{}" ) return true;
   return false;
