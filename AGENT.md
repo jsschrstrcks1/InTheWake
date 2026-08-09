@@ -69,3 +69,19 @@ This applies to every runtime, not only Claude Code: a pre-commit guard
 has no entry dated today. Close your entry with `_Runtime: <name>_`.
 
 **Soli Deo Gloria.**
+
+## Sophos injected — for this runtime too
+
+This repo injects the Sophos posture mechanically: `.claude/hooks/sophos-inject.sh`
+runs at SessionStart (the five layers, the hierarchy, the publish gate, the
+recall command) and on every UserPromptSubmit (one terse line), so the posture
+cannot be lost to a forgotten invocation or a mid-session model swap.
+
+Layer 0 is resolved at run time — `$HOUSEHOLD_OCS_ROOT`, then sibling
+`../open-claw-stuff`, then fallback hints — and the hook names which candidate
+resolved. If none do, it says so: an agent that cannot reach Layer 0 is
+ungoverned and must report that rather than assume posture loaded.
+
+Kill-switch: `SOPHOS_INJECT=0` (operator debugging only).
+
+**Soli Deo Gloria.**
