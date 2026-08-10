@@ -35,10 +35,23 @@ TODAY="$(date -u +%Y-%m-%d)"
 # A merge in progress authors no new reasoning of its own.
 [ -f "$REPO_ROOT/.git/MERGE_HEAD" ] && exit 0
 
-# Explicit opt-out recorded in the commit message itself (reviewable in history).
-for mf in "$REPO_ROOT/.git/COMMIT_EDITMSG" "$REPO_ROOT/.git/MERGE_MSG"; do
-  [ -f "$mf" ] && grep -qiF '[no-reasoning]' "$mf" && exit 0
-done
+# UL-210 — the opt-out MUST come from the message git hands us, never from
+# .git/COMMIT_EDITMSG. Read as a pre-commit hook, that file is STALE: for
+# `git commit -m` git writes it only AFTER pre-commit succeeds, so it still
+# holds the PREVIOUS commit's message. Measured live 2026-08-10, both directions:
+#   · a commit carrying [no-reasoning] was BLOCKED (exit 1) — the documented
+#     escape hatch did not work at all for the commonest commit form;
+#   · and worse, once a commit whose message contained the marker had landed,
+#     the NEXT substantive commit — carrying no marker and asking for nothing —
+#     was silently ALLOWED (exit 0). A false PASS on the enforcement layer that
+#     is supposed to be the runtime-independent one.
+# So this guard now runs from `commit-msg`, the only hook git gives the real
+# message, passed as $1. Invoked without $1 the opt-out is simply unavailable
+# and the guard blocks — failing toward enforcement, never past it.
+MSG_FILE="${1:-}"
+if [ -n "$MSG_FILE" ] && [ -f "$MSG_FILE" ]; then
+  grep -qiF '[no-reasoning]' "$MSG_FILE" && exit 0
+fi
 
 STAGED="$(git diff --cached --name-only 2>/dev/null)"
 [ -z "$STAGED" ] && exit 0

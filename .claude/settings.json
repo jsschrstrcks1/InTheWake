@@ -131,6 +131,16 @@
             "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/bootstrap-guard.mjs"
           }
         ]
+      },
+      {
+        "matcher": "Bash|Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/reasoning-reveal.mjs",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PostToolUse": [

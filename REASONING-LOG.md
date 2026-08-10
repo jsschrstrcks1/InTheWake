@@ -28,6 +28,34 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-10 — The reasoning guard here was bypassable; fixed (UL-210)
+
+**Asked.** Operator: "Proceed as recommended." The named item was propagating the UL-210 fix to
+the leaves still carrying the broken reasoning-log guard. This repo is one of five that had it.
+
+**Weighed.** The guard ran from `pre-commit` and read its `[no-reasoning]` opt-out from
+`.git/COMMIT_EDITMSG`. That file is stale there: for `git commit -m`, git writes it only *after*
+pre-commit succeeds, so the guard read the PREVIOUS commit's message. Measured live in
+open-claw-stuff, both directions — a commit carrying the marker was BLOCKED, and worse, after a
+commit whose message contained the marker had landed, the NEXT substantive commit carrying no
+marker was silently ALLOWED. A false pass on the layer the doctrine calls runtime-independent.
+
+I considered re-running the behavioural probes here to confirm. I did not: proving it a second
+time needs a commit that must then be undone, and that same cleanup pattern destroyed real work
+twice earlier in the session. The copied files are byte-identical to the canonical ones already
+verified, which is the same evidence without the risk.
+
+**Decided.** The guard moved to `.githooks/commit-msg`, the only hook git hands the real message
+(as `$1`); the opt-out reads `$1` and nothing else, and without it the opt-out is simply
+unavailable so the guard blocks — failing toward enforcement. The legacy call was stripped from
+`.githooks/pre-commit`, which keeps its other checks. Installed by
+`open-claw-stuff/admin/install-reasoning-log.mjs`, which now strips that call rather than adding
+it, so re-running repairs a repo instead of double-wiring it.
+
+**Unsure.** `core.hooksPath` is armed in this clone, but that setting lives in `.git/config` and no
+clone carries it (UL-189) — so these hooks are live here and inert in a fresh checkout. The fix to
+the *files* is durable; the arming is not. Tracked as `githooks-path-not-durable`.
+
 ## 2026-08-08 — Sophos now injects itself here, every session and every prompt
 
 **Asked.** Operator directive (Ken, 2026-08-08): "Sophos should be injected in like manner in
