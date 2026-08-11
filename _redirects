@@ -35,6 +35,19 @@
 # --- Canonical host: www -> apex (Netlify forces HTTPS automatically) ---
 https://www.cruisinginthewake.com/*  https://cruisinginthewake.com/:splat  301!
 
+# --- Dead nav links: directory forms with no index (issue UL-088, 2026-07-30) ---
+# The site-wide navigation, the port-page breadcrumb and the "Back to Ports
+# Guide" footers all link the trailing-slash directory forms. Those directories
+# hold pages but no index.html, so the live site answered 404 for every one of
+# them while the .html landing pages answered 200 (verified by curl against
+# cruisinginthewake.com, 2026-07-30). 744 HTML files carry at least one of
+# these links. /ships/ is deliberately absent — ships/index.html exists and
+# that path already works.
+/ports/            /ports.html          301
+/cruise-lines/     /cruise-lines.html   301
+/restaurants/      /restaurants.html    301
+
+
 # --- Ship line-family path fixes (real pages live under the right-hand dir) ---
 /ships/carnival-cruise-line/*  /ships/carnival/:splat            301
 /ships/royal-caribbean/*       /ships/rcl/:splat                 301
