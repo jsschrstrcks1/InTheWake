@@ -74,13 +74,37 @@ function deny(msg, meta = {}) {
   process.exit(2);
 }
 
-// Load the shared detector. On import failure DO NOT fail fully open — a
-// guard-module bug must not become a universal false-pass.
+// Load the shared detector. On import failure DO NOT fail open — a guard-module
+// bug must not become a universal false-pass for live shell tool calls.
+//
+// TWO candidates, and the second is load-bearing. `admin/onboard-loud-bootstrap.mjs` installs this
+// guard into sibling repos and copies the detector alongside it as `.claude/hooks/lib/` — but those
+// repos have no `cluster/` directory, so the SSOT path cannot resolve there. Until 2026-08-07 this
+// file tried only `../../cluster/lib/`, which meant a freshly onboarded repo fell through to the
+// six INLINE patterns below. Verified by simulating an onboard into a scratch dir: the guard printed
+// "detector unavailable, allowing", exited 0, and ALLOWED wipe-class shapes while the copied detector
+// sat unread beside it.
+//
+// Residual (guard-hook-fail-open-on-error): even with the dual-path load, if BOTH candidates fail
+// the old path still allowed any command that did not match the thin INLINE list. That is still
+// fail-open for the live agent shell. Default is now DENY (exit 2) when the detector cannot load.
+// Operator escape only: DANGEROUS_COMMAND_GUARD_FAIL_OPEN=1 restores allow-if-no-inline-match
+// (with a loud stderr warning). Test harness may set DANGEROUS_COMMAND_GUARD_FORCE_DETECTOR_FAIL=1.
+const DETECTOR_CANDIDATES = [
+  "../../cluster/lib/dangerous-command.mjs",   // canonical repo: the SSOT
+  "./lib/dangerous-command.mjs",               // onboarded repo: the copy installed beside this hook
+];
 let scanCommand, explain;
 try {
-  ({ scanCommand, explain } = await import(
-    new URL("../../cluster/lib/dangerous-command.mjs", import.meta.url)
-  ));
+  if (process.env.DANGEROUS_COMMAND_GUARD_FORCE_DETECTOR_FAIL === "1") {
+    throw new Error("forced detector load failure (test)");
+  }
+  let lastErr;
+  for (const rel of DETECTOR_CANDIDATES) {
+    try { ({ scanCommand, explain } = await import(new URL(rel, import.meta.url))); break; }
+    catch (err) { lastErr = err; }
+  }
+  if (!scanCommand) throw lastErr;
 } catch (e) {
   const INLINE = [
     /\brm\s+(?:-\S+\s+)*-[A-Za-z]*[rR][A-Za-z]*\s+(?:-\S+\s+)*(?:['"]?)(?:\/|~|\$\{?HOME\}?|\*)(?:['"\s/]|$)/i,
@@ -95,13 +119,31 @@ try {
       `⛔ dangerous-command-guard: detector unavailable AND the command matches a catastrophic inline pattern — BLOCKED (fail-closed). ${e?.message || e}\n`,
     );
   }
-  process.stderr.write(
-    `⚠ dangerous-command-guard: detector unavailable, allowing (no inline catastrophic match) — ${e?.message || e}\n`,
+  // Default: fail CLOSED on live shell when the detector cannot load.
+  // Escape is operator-only (or intentional test of the old residual path).
+  if (process.env.DANGEROUS_COMMAND_GUARD_FAIL_OPEN === "1") {
+    process.stderr.write(
+      `⚠ dangerous-command-guard: detector unavailable, FAIL_OPEN=1 allowing (no inline catastrophic match) — ${e?.message || e}\n`,
+    );
+    process.exit(0);
+  }
+  deny(
+    `⛔ dangerous-command-guard: detector unavailable — BLOCKED (fail-closed). ` +
+      `Fix the detector import path, or set DANGEROUS_COMMAND_GUARD_FAIL_OPEN=1 only if you mean to allow. ` +
+      `${e?.message || e}\n`,
   );
-  process.exit(0);
 }
 
-const result = scanCommand(command);
+let result;
+try {
+  result = scanCommand(command);
+} catch (error) {
+  deny(
+    `⛔ dangerous-command-guard: detector runtime error — BLOCKED (fail-closed). ` +
+      `${error?.name || "Error"}: ${String(error?.message || error).slice(0, 200)}\n`,
+    { rule_id: "detector-runtime-error" },
+  );
+}
 if (result.blocked) {
   const body = "⛔ A.B.O.R.T. destructive-command guard\n" + explain(result) + "\n";
   deny(body, { rule_id: result.matched?.[0]?.id || null });
