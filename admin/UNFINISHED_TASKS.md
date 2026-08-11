@@ -807,3 +807,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-07-30T20:38:06.211Z -->
 | itw-port-page-null-island | 4 | Port page (scenic): Null Island 0°N 0°E — the fourth equator crossing of the 2028 world cruise; also candidates Amalia/Brujo Glacier, Sarmiento Channel, Torres Strait |
+
+<!-- library register 2026-07-30T22:00:49.622Z -->
+| inthewake-repair-3-dead-nav-links-site-wide-ports-cruise-lines-r | 1 | InTheWake: repair 3 dead nav links site-wide (/ports/, /cruise-lines/, /restaurants/ return 404 on live site; 744 files) |

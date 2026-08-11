@@ -1652,7 +1652,41 @@ function classifyRmTail(tail, samplePrefix = "rm") {
 // exactly as before. An unset `$P` would make the command fail rather than wipe — blocking it is
 // the safe direction on the operator's own machine (UL-215: my last calibration here was too
 // loose and was reversed).
-const PATH_PREFIX = "(?:(?:[.~/]|\\$\\{?[A-Za-z_][A-Za-z0-9_]*\\}?)[^\\s;&|`)]*/)?";
+//
+// ── 2026-08-10, #2747 + #2898: STOP ENUMERATING PREFIX SPELLINGS ──────────────────────────
+// The line below used to enumerate which characters could introduce a directory, and it was
+// widened SEVEN times in four days (varpath-separator 08-08, verb-path-prefix 08-09, UL-254
+// 08-10 …), each time closing exactly the one spelling that had just been demonstrated. An
+// enumeration of an open set is not a guard; it is a list of the attacks someone already
+// thought of. Measured cost of that decomposition, live on main with inert probes: ten more
+// parameter-expansion shapes still walked through (`$1/rm`, `${1}/rm`, `${!P}/rm`, `${@}/rm`,
+// `$*/rm`, `$(dirname /bin/ls)/rm`, the backtick twin …), and `$1/` is not exotic — it is the
+// ordinary way a shell script names a path passed as its first argument.
+//
+// So invert it. What makes a command `rm` is not how its DIRECTORY is spelled; it is that the
+// executed BASENAME is `rm`. Everything before the final `/` is a directory expression and we
+// do not care what it says. A directory expression is any run of shell WORD ATOMS, of which
+// there are exactly three kinds — an ordinary path character, a parameter expansion, and a
+// command substitution. That set is closed by the shell's own grammar, so a new *spelling* of
+// a parameter expansion (`${!P}`, `${1}`, `${@}`) needs no new alternative here. This is the
+// difference between a rule and a blocklist.
+//
+// So the rule is simply: OPTIONAL DIRECTORY, then the verb. Anything that is not a command
+// separator, up to the final `/`. One line, no spelling list — and nothing to widen next time
+// someone finds an expansion form we did not think of, because the form no longer matters.
+//
+// This deliberately replaces a five-alternative version (an atom set enumerating command
+// substitution / backticks / braced / short expansions) that I wrote first and then MEASURED:
+// dropping the command-substitution, backtick, and braced-expansion alternatives one at a time
+// changed *nothing* — 11/11 cases stayed blocked. Only the short-expansion alternative was
+// load-bearing, and the line below covers it. The reason is worth recording, because it is not
+// obvious: BOUNDARY already counts `)`, `}` and a backtick as command boundaries, so in
+// `$(dirname /bin/ls)/rm` and `${!P}/rm` the closing bracket IS the boundary and all that is
+// needed after it is the plain `/`. Bracketed expansions were therefore never the hard case.
+// The genuinely new coverage here is the UNBRACKETED forms, which have no closing token to act
+// as a boundary (`$1/rm`, `$9/rm`, `$P/rm`, `$*/rm`), plus literal directories on the sibling
+// verbs below. Shipping the atom set would have meant claiming a mechanism that does no work.
+const PATH_PREFIX = "(?:[^\\s;&|`)]*/)?";
 
 function matchRm(cmd) {
   const re = new RegExp(BOUNDARY + PATH_PREFIX + "rm\\b([^\\n;&|`)]*)", "gi");
@@ -1675,8 +1709,14 @@ function matchVariableCommandRm(cmd) {
   // assignment written as a PATH to the binary — X=/bin/rm, X=/usr/bin/rm, X=./rm. The bare-name
   // form was covered and the path form was not, which is the same blind spot the literal verb
   // matcher had: `rm` was recognised as a word but never as the basename of a path.
+  //
+  // #2898: the directory half of the assignment carried its OWN copy of the enumerated prefix
+  // (`[.~/]…`), so `D=/bin; X=$D/rm; $X -rf /` walked through while the literal `X=/bin/rm`
+  // twin was blocked. It now shares PATH_PREFIX — one definition of "a directory expression",
+  // used everywhere a binary is named by path, so the two can no longer drift apart.
+  // PATH_PREFIX is all non-capturing, so the \2 backreference below still means the quote.
   for (const m of String(cmd).matchAll(
-    /(?:^|[\s;|&()])([A-Za-z_][A-Za-z0-9_]*)=(?:(["'])?(?:[.~/][^\s;&|`)"']*\/)?rm\2?)\b/g,
+    new RegExp("(?:^|[\\s;|&()])([A-Za-z_][A-Za-z0-9_]*)=(?:([\"'])?" + PATH_PREFIX + "rm\\2?)\\b", "g"),
   )) {
     assigned.add(m[1]);
   }
@@ -1776,8 +1816,13 @@ function matchDownloadThenExecute(cmd) {
   return null;
 }
 
+// #2898: this matcher had NO path prefix at all, so `/bin/chmod -R 777 /` was ALLOWED while the
+// bare `chmod -R 777 /` was blocked — no variable, no expansion, no obfuscation, just the ordinary
+// habit of naming a binary by absolute path. The household spent four days hardening the `rm`
+// prefix and never swept the equally irreversible siblings. A recursive chmod/chown of a
+// filesystem root destroys the permission structure of the whole system.
 function matchChmodChownRoot(cmd) {
-  const re = new RegExp(BOUNDARY + "(chmod|chown)\\b([^\\n;&|`)]*)", "gi");
+  const re = new RegExp(BOUNDARY + PATH_PREFIX + "(chmod|chown)\\b([^\\n;&|`)]*)", "gi");
   let m;
   while ((m = re.exec(cmd))) {
     const tail = m[2] || "";
@@ -1797,8 +1842,11 @@ function matchChmodChownRoot(cmd) {
 // wipe a whole home beyond recovery, and the guard knew none of them (only shred-against-/dev was covered).
 // Block a secure-delete whose target is catastrophic (home/root/tilde-user/wildcard); a NAMED file
 // (`shred -u secret.key`, `srm -rf ./build`) is a legitimate targeted op and still passes.
+// #2898: same missing-prefix defect as chmod/chown — `/usr/bin/shred -u ~/*` and
+// `/usr/local/bin/srm -rf ~` were ALLOWED while their bare twins were blocked. Secure-delete is
+// the least recoverable verb in the file: shred overwrites the bytes on purpose.
 function matchSecureDelete(cmd) {
-  const re = new RegExp(BOUNDARY + "(shred|srm|wipe)\\b([^\\n;&|`)]*)", "gi");
+  const re = new RegExp(BOUNDARY + PATH_PREFIX + "(shred|srm|wipe)\\b([^\\n;&|`)]*)", "gi");
   let m;
   while ((m = re.exec(cmd))) {
     const verb = m[1], tail = m[2] || "";
