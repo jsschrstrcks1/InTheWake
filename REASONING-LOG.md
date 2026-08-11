@@ -28,6 +28,31 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-11 — rysn: household sync of soli-deo-gloria (a link that resolved in only one repo)
+
+**Asked.** Propagate the canonical `soli-deo-gloria` change made in the household SSOT. This repo's
+copy was one of sixteen behind it.
+
+**Weighed.** The change is one line: a sibling-relative link, `../destructive-command-safety/SKILL.md`,
+replaced with the household-qualified path `open-claw-stuff/skills/destructive-command-safety/SKILL.md`.
+That matters precisely because this skill is synced byte-identical into every repo — a relative link
+resolves in `open-claw-stuff` and is dead everywhere else, including here. So the copy that read
+correctly in one place was silently broken in fifteen others, on a P0 posture skill pointing at the
+destructive-command doctrine.
+
+I did not author this fix; a sibling did, and I verified it before propagating rather than trusting
+it: the target exists, and the failure it describes is the same one I had just committed myself in
+`careful-not-clever` (repo-relative `docs/...` paths that resolve only in the SSOT). Their reasoning
+is right and mine had been wrong in the same way.
+
+**Decided.** Sync it here, byte-identical to canonical, and commit — a sync written into a working
+tree and never committed is how the household's manifest came to assert "in sync" for four months
+about files that never existed on any main branch.
+
+**Unsure.** Nothing about this change. The uncertainty is upstream and recorded there: whether
+household-qualified paths should be the standing convention for every synced skill, or whether
+synced skills should stop citing cross-repo paths at all.
+
 ## 2026-08-10 — The reasoning guard here was bypassable; fixed (UL-210)
 
 **Asked.** Operator: "Proceed as recommended." The named item was propagating the UL-210 fix to
