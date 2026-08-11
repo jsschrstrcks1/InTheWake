@@ -1,7 +1,5 @@
 {
   "env": {
-    "HOUSEHOLD_OCS_ROOT": "/Users/kenbaker/ocs-work",
-    "INTHEWAKE_ROOT": "/Users/kenbaker/Documents/Claude/Projects/InTheWake-branch",
     "MEMORY_OBSERVATIONS_ENABLED": "true",
     "MEMORY_AUTO_OBSERVE_ENABLED": "true"
   },
@@ -20,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /Users/kenbaker/ocs-work/.claude/hooks/library-preflight-inject.sh"
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/household-hook-dispatch.sh library-preflight-inject.sh"
           },
           {
             "type": "command",
@@ -61,7 +59,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /Users/kenbaker/ocs-work/.claude/hooks/library-preflight-inject.sh"
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/household-hook-dispatch.sh library-preflight-inject.sh"
           },
           {
             "type": "command",
@@ -94,7 +92,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /Users/kenbaker/ocs-work/.claude/hooks/library-preflight-guard.js"
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/household-hook-dispatch.sh library-preflight-guard.js"
           },
           {
             "type": "command",
@@ -170,7 +168,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/home/user/ken/.claude/hooks/observe-tool-use.sh"
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/household-hook-dispatch.sh observe-tool-use-dispatch.sh"
           }
         ]
       },
