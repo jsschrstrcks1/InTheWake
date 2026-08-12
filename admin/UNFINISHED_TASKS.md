@@ -816,3 +816,9 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-08-12T12:58:41.233Z -->
 | itw-content-triage-agenda | 2 | CROSS-POLLINATION (MCS-3+11+33): derived worst-first content agenda for InTheWake — composite of staleness x seasonal proximity (Alaska/Caribbean calendars = the lambing calendar) x page traffic; extends content-freshness + seasonal-content-planner from reports into a pending->done agenda, same engine shape as the flock's |
+
+<!-- library register 2026-08-12T15:52:09.849Z -->
+| itw-atlas-rcl-link-fix | 1 | CRITICAL (source ken/unfinished_tasks.md site audit 2026-05-13): Ship Size Atlas links /ships/royal-caribbean/ but pages live at /ships/rcl/ — flagship feature broken for every visitor; 3-line .htaccess quick-win. VERIFY still broken before fixing |
+
+<!-- library register 2026-08-12T15:52:10.305Z -->
+| itw-site-audit-450-pages | 2 | Site audit (2026-05-13, re-crawl to confirm): ~450/1229 pages with issues — 278 public placeholder pages, 120 missing H1, 164 short/missing meta, Norwegian Encore 404, GT tonnage mismatches, 8 missing titles |
