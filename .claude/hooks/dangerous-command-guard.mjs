@@ -76,11 +76,30 @@ function deny(msg, meta = {}) {
 
 // Load the shared detector. On import failure DO NOT fail fully open — a
 // guard-module bug must not become a universal false-pass.
+//
+// TWO candidates, and the second is load-bearing. `admin/onboard-loud-bootstrap.mjs` installs this
+// guard into sibling repos and copies the detector alongside it as `.claude/hooks/lib/` — but those
+// repos have no `cluster/` directory, so the SSOT path cannot resolve there. Until 2026-08-07 this
+// file tried only `../../cluster/lib/`, which meant a freshly onboarded repo fell through to the
+// six INLINE patterns below. Verified by simulating an onboard into a scratch dir: the guard printed
+// "detector unavailable, allowing", exited 0, and ALLOWED `rm -rf /$X/*` — the exact root-wipe shape
+// fixed in the detector that same day — while the copied detector sat unread beside it.
+//
+// The older guard already deployed in Project-Sophos and Archive has this fallback; this repo's
+// newer guard (Grok dual-runtime, denial ledger) had lost it. Those two repos were protected by
+// running OLDER code, which is not a safety margin anyone chose.
+const DETECTOR_CANDIDATES = [
+  "../../cluster/lib/dangerous-command.mjs",   // canonical repo: the SSOT
+  "./lib/dangerous-command.mjs",               // onboarded repo: the copy installed beside this hook
+];
 let scanCommand, explain;
 try {
-  ({ scanCommand, explain } = await import(
-    new URL("../../cluster/lib/dangerous-command.mjs", import.meta.url)
-  ));
+  let lastErr;
+  for (const rel of DETECTOR_CANDIDATES) {
+    try { ({ scanCommand, explain } = await import(new URL(rel, import.meta.url))); break; }
+    catch (err) { lastErr = err; }
+  }
+  if (!scanCommand) throw lastErr;
 } catch (e) {
   const INLINE = [
     /\brm\s+(?:-\S+\s+)*-[A-Za-z]*[rR][A-Za-z]*\s+(?:-\S+\s+)*(?:['"]?)(?:\/|~|\$\{?HOME\}?|\*)(?:['"\s/]|$)/i,

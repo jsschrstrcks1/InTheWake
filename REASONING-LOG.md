@@ -28,6 +28,44 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-12 — the guard was shipping a detector it could not find (P0, measured)
+
+**Asked.** Continue the merge campaign into this repo. Two of the six branches carrying
+unapplied work both touched the same P0 surface — the dangerous-command detector and its
+guard hook — so they needed deciding together rather than one at a time.
+
+**Weighed.** The obvious reading was "two lanes fixed the same thing, pick the better one."
+Measuring first said otherwise: the detector in this repo is **byte-identical** to
+`origin/main` (2,093 lines, zero diff). Nothing to choose. The whole change is 38 lines in
+the guard *hook*, and it is about **resolution**, not detection.
+
+The hook looked for the detector at exactly one path, `../../cluster/lib/dangerous-command.mjs`.
+This repo has no `cluster/` directory — the onboarding installer copies the detector to
+`.claude/hooks/lib/` instead. So the import threw, the `catch` block engaged, and the guard
+ran on six inline regexes while the real 2,093-line detector sat unread beside it. A guard
+that fails to a weaker guard reports nothing; it just quietly gets worse.
+
+**Decided.** Took the merge, then measured what it buys instead of asserting it. Re-running
+the fix's own battery against the fix would only measure agreement, so I ran **one probe set
+against both states** — main's inline fallback and the merged detector — with every payload
+an inert string handed to a scanner, never a shell.
+
+Result: **4 of 16 catastrophic shapes are ALLOWED on main in this repo** — `rm -rf /*`, the
+var-rooted `rm -rf /$X/*`, and `rm -rf /` nested in both `$()` and backticks. All four block
+after the merge. I also checked the other direction, because over-blocking is a real failure
+and not a safe one: six ordinary commands (`rm -rf ./dist`, `rm -rf node_modules`, a grep whose
+*text* contains `rm -rf /`) stay allowed. Verified on `.blocked`, not `.dangerous` — a shape
+can be flagged dangerous and still pass.
+
+**Unsure.** This closes the gap in *this* repo only. The same shape — guard installed by the
+onboarder into a repo with no `cluster/` — is a property of the installer, so any other repo
+onboarded the same way is a candidate for the identical hole, and I have not swept for that
+here. The fallback is also still a fallback: if both candidate paths fail the guard drops to
+six patterns again rather than refusing, which is a deliberate fail-open I did not change
+mid-merge but do not think is right for a safety boundary.
+
+_Runtime: Claude Code_
+
 ## 2026-08-11 — merge every unmerged branch into main (superset where possible)
 
 **Asked.** Ken: go repo by repo, branch by branch, merge everything unmerged into main;
