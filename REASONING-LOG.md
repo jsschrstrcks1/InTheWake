@@ -28,6 +28,54 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-11 — merge every unmerged branch into main (superset where possible)
+
+**Asked.** Ken: go repo by repo, branch by branch, merge everything unmerged into main;
+prefer a superset where possible, and where not, the best-coded version. This repo was the
+third of four.
+
+**Weighed.** `git branch --no-merged` listed ~110 branches here, which would have been a
+month of merging. That count is a lie of a specific kind: a squash-merged branch is reported
+as unmerged forever, because its commits never appear upstream by SHA. Measuring
+patch-equivalence with `git cherry` instead showed only **6** branches carry any unapplied
+commit; every other branch is already absorbed. I merged the 6 and left the rest, rather
+than merging ~110 branches to reach the same tree.
+
+Local `main` also held one commit of Ken's own, unpushed for two weeks — a 365-line ship-facts
+remediation script plus 258 edited ship pages. `git cherry` confirmed it is genuinely absent
+upstream, so dropping it was not an option. But origin/main had moved 62 commits since,
+including the SSOT cruise-line fixes (#2500–#2505) that touch the very blocks this commit
+rewrites. An old commit merged onto a corrected base wins wherever the two touched different
+lines — no conflict, no marker, and the newer fix silently disappears.
+
+**Decided.** I merged it, then hunted the revert rather than trusting the clean merge. Reading
+the diff would not have worked: a unified diff renders a MOVED line as a deletion, and the raw
+count was 155 "lost" lines across 258 files. Comparing **occurrence counts** per file instead —
+position-blind, and with whitespace normalised, because the remediation script re-indents the
+key-facts block — cut that to 3, of which exactly one was content.
+
+That one was real. `ships/rcl/discovery-class-ship-tbn.html` said, on main, that gross tonnage
+and capacity "have not been published yet". The generated template overwrote it with "entered
+service in TBD, measures TBD gross tons" — asserting that a ship still on order entered service,
+and printing literal TBD into prose a reader sees. Honest uncertainty replaced by a fabricated
+placeholder. I restored main's sentence and kept the merge's added Key Facts rows: the superset
+is the newer prose *and* the new rows, not a choice between them.
+
+**Unsure.** Two `<ul>` tags still register as lost; both are markup restyled in place and I
+verified every `<li>` inside them survives, but that is an eyeball on two lines rather than a
+measurement. I did **not** touch six other ship pages that already carry TBD in the same prose
+slot on main — pre-existing, and widening a merge to fix content is how a merge stops being
+reviewable. They are worth a ledger row.
+
+Also measured and left alone: `.githooks/pre-commit` exits **0** on this machine while eleven of
+its own checks error out (`mapfile` is bash 4+; macOS ships 3.2). Every gate it advertises —
+ship-lock, regression diff, image reuse, voyage-pack PDF staleness, factcheck — is armed and
+silently skipped. Pre-existing on main and not caused by any merge here, but a guard that
+reports success while validating nothing is the false-CALM this household forbids, and it
+should not stay quiet.
+
+_Runtime: Claude Code_
+
 ## 2026-08-11 — rysn: household sync of soli-deo-gloria (a link that resolved in only one repo)
 
 **Asked.** Propagate the canonical `soli-deo-gloria` change made in the household SSOT. This repo's
