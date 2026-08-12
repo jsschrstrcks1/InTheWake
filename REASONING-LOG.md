@@ -28,6 +28,92 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-12 — the guard was shipping a detector it could not find (P0, measured)
+
+**Asked.** Continue the merge campaign into this repo. Two of the six branches carrying
+unapplied work both touched the same P0 surface — the dangerous-command detector and its
+guard hook — so they needed deciding together rather than one at a time.
+
+**Weighed.** The obvious reading was "two lanes fixed the same thing, pick the better one."
+Measuring first said otherwise: the detector in this repo is **byte-identical** to
+`origin/main` (2,093 lines, zero diff). Nothing to choose. The whole change is 38 lines in
+the guard *hook*, and it is about **resolution**, not detection.
+
+The hook looked for the detector at exactly one path, `../../cluster/lib/dangerous-command.mjs`.
+This repo has no `cluster/` directory — the onboarding installer copies the detector to
+`.claude/hooks/lib/` instead. So the import threw, the `catch` block engaged, and the guard
+ran on six inline regexes while the real 2,093-line detector sat unread beside it. A guard
+that fails to a weaker guard reports nothing; it just quietly gets worse.
+
+**Decided.** Took the merge, then measured what it buys instead of asserting it. Re-running
+the fix's own battery against the fix would only measure agreement, so I ran **one probe set
+against both states** — main's inline fallback and the merged detector — with every payload
+an inert string handed to a scanner, never a shell.
+
+Result: **4 of 16 catastrophic shapes are ALLOWED on main in this repo** — `rm -rf /*`, the
+var-rooted `rm -rf /$X/*`, and `rm -rf /` nested in both `$()` and backticks. All four block
+after the merge. I also checked the other direction, because over-blocking is a real failure
+and not a safe one: six ordinary commands (`rm -rf ./dist`, `rm -rf node_modules`, a grep whose
+*text* contains `rm -rf /`) stay allowed. Verified on `.blocked`, not `.dangerous` — a shape
+can be flagged dangerous and still pass.
+
+**Unsure.** This closes the gap in *this* repo only. The same shape — guard installed by the
+onboarder into a repo with no `cluster/` — is a property of the installer, so any other repo
+onboarded the same way is a candidate for the identical hole, and I have not swept for that
+here. The fallback is also still a fallback: if both candidate paths fail the guard drops to
+six patterns again rather than refusing, which is a deliberate fail-open I did not change
+mid-merge but do not think is right for a safety boundary.
+
+_Runtime: Claude Code_
+
+## 2026-08-11 — merge every unmerged branch into main (superset where possible)
+
+**Asked.** Ken: go repo by repo, branch by branch, merge everything unmerged into main;
+prefer a superset where possible, and where not, the best-coded version. This repo was the
+third of four.
+
+**Weighed.** `git branch --no-merged` listed ~110 branches here, which would have been a
+month of merging. That count is a lie of a specific kind: a squash-merged branch is reported
+as unmerged forever, because its commits never appear upstream by SHA. Measuring
+patch-equivalence with `git cherry` instead showed only **6** branches carry any unapplied
+commit; every other branch is already absorbed. I merged the 6 and left the rest, rather
+than merging ~110 branches to reach the same tree.
+
+Local `main` also held one commit of Ken's own, unpushed for two weeks — a 365-line ship-facts
+remediation script plus 258 edited ship pages. `git cherry` confirmed it is genuinely absent
+upstream, so dropping it was not an option. But origin/main had moved 62 commits since,
+including the SSOT cruise-line fixes (#2500–#2505) that touch the very blocks this commit
+rewrites. An old commit merged onto a corrected base wins wherever the two touched different
+lines — no conflict, no marker, and the newer fix silently disappears.
+
+**Decided.** I merged it, then hunted the revert rather than trusting the clean merge. Reading
+the diff would not have worked: a unified diff renders a MOVED line as a deletion, and the raw
+count was 155 "lost" lines across 258 files. Comparing **occurrence counts** per file instead —
+position-blind, and with whitespace normalised, because the remediation script re-indents the
+key-facts block — cut that to 3, of which exactly one was content.
+
+That one was real. `ships/rcl/discovery-class-ship-tbn.html` said, on main, that gross tonnage
+and capacity "have not been published yet". The generated template overwrote it with "entered
+service in TBD, measures TBD gross tons" — asserting that a ship still on order entered service,
+and printing literal TBD into prose a reader sees. Honest uncertainty replaced by a fabricated
+placeholder. I restored main's sentence and kept the merge's added Key Facts rows: the superset
+is the newer prose *and* the new rows, not a choice between them.
+
+**Unsure.** Two `<ul>` tags still register as lost; both are markup restyled in place and I
+verified every `<li>` inside them survives, but that is an eyeball on two lines rather than a
+measurement. I did **not** touch six other ship pages that already carry TBD in the same prose
+slot on main — pre-existing, and widening a merge to fix content is how a merge stops being
+reviewable. They are worth a ledger row.
+
+Also measured and left alone: `.githooks/pre-commit` exits **0** on this machine while eleven of
+its own checks error out (`mapfile` is bash 4+; macOS ships 3.2). Every gate it advertises —
+ship-lock, regression diff, image reuse, voyage-pack PDF staleness, factcheck — is armed and
+silently skipped. Pre-existing on main and not caused by any merge here, but a guard that
+reports success while validating nothing is the false-CALM this household forbids, and it
+should not stay quiet.
+
+_Runtime: Claude Code_
+
 ## 2026-08-11 — rysn: household sync of soli-deo-gloria (a link that resolved in only one repo)
 
 **Asked.** Propagate the canonical `soli-deo-gloria` change made in the household SSOT. This repo's

@@ -9,8 +9,9 @@ token, not a path. Resolve it in this order and use the first that exists:
 
 1. `$HOUSEHOLD_OCS_ROOT` — if set, it wins (containers and the cluster set it).
 2. A sibling of this checkout: `../open-claw-stuff`.
-3. `/workspace/open-claw-stuff` — the path recorded when this file was generated. Correct on that machine only,
-   and stale the moment it is generated somewhere else; treat it as a hint, never as the answer.
+3. `/workspace/open-claw-stuff` — a path recorded by one machine that generated this file.
+4. `/home/user/open-claw-stuff` — a path recorded by another. Each is correct on its own machine only,
+   and stale the moment it is generated somewhere else; treat them as hints, never as the answer.
 
 **If none resolve, STOP and say so.** Do not proceed on the assumption that posture loaded: an agent
 that cannot read Layer 0 is ungoverned, and reporting that honestly is the compliant outcome. Ask the

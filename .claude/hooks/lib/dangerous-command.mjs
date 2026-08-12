@@ -1688,6 +1688,42 @@ function classifyRmTail(tail, samplePrefix = "rm") {
 // verbs below. Shipping the atom set would have meant claiming a mechanism that does no work.
 const PATH_PREFIX = "(?:[^\\s;&|`)]*/)?";
 
+// A command word, however its directory is spelled: `sh`, `/bin/sh`, `$D/sh`, `/sbin/mkfs.ext4`.
+//
+// UL-447. `3baa30aa` established the principle — *what makes a command destructive is the BASENAME
+// it executes, not how its directory is spelled* — and applied it at four sites. Seven other sites
+// kept bare alternations, so `curl … | /bin/sh`, `/bin/dd if=… of=/dev/sda` and `/sbin/mkfs.ext4`
+// walked straight through while their bare twins blocked. `/sbin` is routinely off a non-root PATH,
+// so the absolute spelling is ordinary habit, not evasion.
+//
+// The lesson is not "two verbs were missed" — it is that a principle applied per-site is only as
+// strong as the site that forgot it. Write `cmdWord("sh|bash")` instead of a bare alternation, and
+// `detector-binary-path-parity.test.mjs` enumerates the whole rule table asserting bare-blocked
+// implies path-blocked, so a new rule cannot land half-covered.
+//
+// All-non-capturing on purpose: several matchers index m[1]/m[2], and a capturing group here would
+// silently renumber them.
+const cmdWord = (alternation) => PATH_PREFIX + "(?:" + alternation + ")";
+
+// Runner prefixes that can sit between a pipe and the interpreter it feeds (UL-450).
+//
+// The pipe rules hard-coded `(?:sudo\s+)?` — one runner out of the dozen the rest of this file
+// already knows about. Measured with inert strings: of 17 download-pipe spellings, 13 evaded. The
+// blocked four were the two bare forms and the two sudo forms, i.e. exactly what was enumerated.
+// `curl <url> | env sh`, `| exec sh`, `| timeout 5 sh`, `| busybox sh`, `| xargs sh -c` all passed
+// while `curl <url> | sh` blocked.
+//
+// This is the same defect UL-447 was: a principle the file applies at the COMMAND BOUNDARY (these
+// exact constants are already composed into BOUNDARY) that the pipe rules restated by hand and
+// under-enumerated. Reuse the constants rather than growing a second list — a second list is how
+// the two drift apart, and the comment above SUDO_RUNNER already records that "a prefix-runner
+// allow-set is unwinnable by enumeration."
+//
+// Trailing `*`: runners stack (`sudo env sh`, `nohup timeout 5 sh`).
+const RHS_RUNNERS =
+  "(?:" + SUDO_RUNNER + "|" + DOAS_RUNNER + "|\\benv\\s+(?:-\\S+\\s+|\\w+=\\S*\\s+)*|" +
+  PREFIX_RUNNERS + "|" + ARG_RUNNERS + "|" + BUSYBOX_RUNNER + "|\\bxargs\\s+(?:-\\S+\\s+)*)*";
+
 function matchRm(cmd) {
   const re = new RegExp(BOUNDARY + PATH_PREFIX + "rm\\b([^\\n;&|`)]*)", "gi");
   let m;
@@ -1764,7 +1800,11 @@ function matchCmdsubVerbRm(cmd) {
 // `… | xxd -r -p | bash`. Plain `echo hello | sh` stays allowed (no decoder stage).
 function matchDecoderPipeShell(cmd) {
   const m = String(cmd).match(
-    /\b(base64|xxd|uudecode|openssl)\b[^\n;]*?\|\s*(?:[^\n;|]*\|\s*)*(sudo\s+)?(sh|bash|zsh|dash|ksh|ash)\b/i,
+    new RegExp(
+      "\\b(base64|xxd|uudecode|openssl)\\b[^\\n;]*?\\|\\s*(?:[^\\n;|]*\\|\\s*)*" + RHS_RUNNERS +
+        cmdWord("sh|bash|zsh|dash|ksh|ash") + "\\b",
+      "i",
+    ),
   );
   return m ? { sample: m[0].trim().slice(0, 120) } : null;
 }
@@ -1799,8 +1839,11 @@ function matchDownloadThenExecute(cmd) {
     if (o) outPaths.add(o[1].replace(/^['"]|['"]$/g, ""));
   }
   if (outPaths.size === 0) return null;
+  // Group 1 stays the interpreter and group 2 the path token — m[2] is read below, and cmdWord is
+  // all-non-capturing so the numbering is unchanged. `source` and `.` are shell builtins with no
+  // binary to name by path, so only the interpreter alternation is path-tolerant (UL-447).
   const run = new RegExp(
-    BOUNDARY + "(?:sudo\\s+)?(sh|bash|zsh|dash|ksh|ash|source|\\.)\\s+(\\S+)",
+    BOUNDARY + "(?:sudo\\s+)?(" + cmdWord("sh|bash|zsh|dash|ksh|ash") + "|source|\\.)\\s+(\\S+)",
     "gi",
   );
   let m;
@@ -1920,9 +1963,9 @@ const RULES = [
   { id: "chmod-chown-root", reason: "recursive permission/ownership change on a filesystem root", test: matchChmodChownRoot },
   { id: "secure-delete-catastrophic", reason: "irreversible secure-delete (shred/srm/wipe) of a filesystem root / home", test: matchSecureDelete },
   { id: "no-preserve-root", reason: "--no-preserve-root (only used to erase /)", test: (c) => (/--no-preserve-root/.test(c) ? { sample: "--no-preserve-root" } : null) },
-  { id: "disk-dd", reason: "dd writing to a raw device (disk wipe)", test: (c) => { const m = c.match(new RegExp(BOUNDARY + "dd\\b[^\\n;&|]*\\bof=\\/dev\\/\\w", "i")); return m ? { sample: m[0].trim().slice(0, 120) } : null; } },
+  { id: "disk-dd", reason: "dd writing to a raw device (disk wipe)", test: (c) => { const m = c.match(new RegExp(BOUNDARY + cmdWord("dd") + "\\b[^\\n;&|]*\\bof=\\/dev\\/\\w", "i")); return m ? { sample: m[0].trim().slice(0, 120) } : null; } },
   { id: "device-redirect", reason: "redirecting output onto a raw device", test: (c) => { const m = c.match(/>\s*\/dev\/(?!null|zero|stdout|stderr|tty|random|urandom|fd\/)\w+/i); return m ? { sample: m[0].trim() } : null; } },
-  { id: "mkfs", reason: "formatting a filesystem (mkfs/newfs)", test: (c) => { const m = c.match(new RegExp(BOUNDARY + "(mkfs(\\.\\w+)?|newfs)\\b", "i")); return m ? { sample: m[0].trim() } : null; } },
+  { id: "mkfs", reason: "formatting a filesystem (mkfs/newfs)", test: (c) => { const m = c.match(new RegExp(BOUNDARY + cmdWord("mkfs(?:\\.\\w+)?|newfs") + "\\b", "i")); return m ? { sample: m[0].trim() } : null; } },
   { id: "diskutil-erase", reason: "diskutil erase/zero/reformat", test: (c) => { const m = c.match(/\bdiskutil\b[^\n;&|]*\b(eraseDisk|eraseVolume|zeroDisk|reformat|apfs\s+delete)/i); return m ? { sample: m[0].trim().slice(0, 120) } : null; } },
   { id: "shred-device", reason: "shred against a raw device", test: (c) => { const m = c.match(/\bshred\b[^\n;&|]*\/dev\/\w/i); return m ? { sample: m[0].trim().slice(0, 120) } : null; } },
   { id: "fork-bomb", reason: "fork bomb", test: (c) => { const m = c.match(/\w*\(\)\s*\{[^}]*\|[^}]*&[^}]*\}\s*;\s*\S/); return m ? { sample: m[0].trim().slice(0, 60) } : null; } },
@@ -1937,7 +1980,10 @@ const RULES = [
   // curl|sh and multi-stage curl|tee|bash / curl|…|python (hostile-g-f5): any pipe chain that
   // starts with a downloader and ends at an interpreter is RCE — not only the adjacent `| bash`.
   { id: "curl-pipe-shell", reason: "piping a network download straight into a shell/interpreter", test: (c) => {
-    const m = c.match(/\b(curl|wget|fetch)\b[^\n;]*?\|\s*(?:[^\n;|]*\|\s*)*(sudo\s+)?(sh|bash|zsh|dash|python3?|perl|ruby|node|php|lua|awk)\b/i);
+    // The FETCHER side was already path-tolerant (`\b` after a `/` matches), so `/usr/bin/curl … | sh`
+    // blocked. The INTERPRETER side was not, so `curl … | /bin/sh` passed — half-covered in the
+    // dangerous direction, on the one string the P0 hard-safety gate names verbatim (UL-447).
+    const m = c.match(new RegExp("\\b(curl|wget|fetch)\\b[^\\n;]*?\\|\\s*(?:[^\\n;|]*\\|\\s*)*" + RHS_RUNNERS + cmdWord("sh|bash|zsh|dash|python3?|perl|ruby|node|php|lua|awk") + "\\b", "i"));
     return m ? { sample: m[0].trim().slice(0, 120) } : null;
   } },
   {
@@ -1969,7 +2015,8 @@ const RULES = [
 ];
 
 function matchInterpreterEmbeddedRm(cmd) {
-  const re = new RegExp(BOUNDARY + "(?:ruby|python3?|perl|node|php|lua)\\b([^\\n;&|]*)", "gi");
+  // m[1] is the one-liner body, read below; cmdWord is all-non-capturing so it stays group 1.
+  const re = new RegExp(BOUNDARY + cmdWord("ruby|python3?|perl|node|php|lua") + "\\b([^\\n;&|]*)", "gi");
   let m;
   while ((m = re.exec(cmd))) {
     const body = m[1] || "";
