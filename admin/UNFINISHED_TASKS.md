@@ -810,3 +810,9 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-07-30T22:00:49.622Z -->
 | inthewake-repair-3-dead-nav-links-site-wide-ports-cruise-lines-r | 1 | InTheWake: repair 3 dead nav links site-wide (/ports/, /cruise-lines/, /restaurants/ return 404 on live site; 744 files) |
+
+<!-- library register 2026-08-12T12:58:40.670Z -->
+| itw-ship-identity-multikey | 2 | CROSS-POLLINATION (MCS-5 dual-identity): ships get renamed/transferred across lines — every historical name/line/hull-id a valid lookup key on ONE ship record so history never orphans (the Cordelia-class wrong-image incident is the lost-eartag failure mode); InTheWake |
+
+<!-- library register 2026-08-12T12:58:41.233Z -->
+| itw-content-triage-agenda | 2 | CROSS-POLLINATION (MCS-3+11+33): derived worst-first content agenda for InTheWake — composite of staleness x seasonal proximity (Alaska/Caribbean calendars = the lambing calendar) x page traffic; extends content-freshness + seasonal-content-planner from reports into a pending->done agenda, same engine shape as the flock's |
