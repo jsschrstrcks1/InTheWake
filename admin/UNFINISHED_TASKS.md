@@ -822,3 +822,39 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-08-12T15:52:10.305Z -->
 | itw-site-audit-450-pages | 2 | Site audit (2026-05-13, re-crawl to confirm): ~450/1229 pages with issues — 278 public placeholder pages, 120 missing H1, 164 short/missing meta, Norwegian Encore 404, GT tonnage mismatches, 8 missing titles |
+
+<!-- library register 2026-08-12T16:00:49.655Z -->
+| itw-kpi-baseline-x1 | 1 | BLOCKS the active ship master plan at its own entry point (V3 quickstart step 5): audit-reports/business-kpi-baseline.json does not exist — run X1; DoD #3/#4 depend on it (source SHIP_STANDARDIZATION_PLAN_V3, ground-truthed 2026-08-12) |
+
+<!-- library register 2026-08-12T16:00:50.320Z -->
+| itw-historic-ship-policy-decision | 1 | OPERATOR DECISION gates 62 ships: historic-ship scoring policy (videos/historic_no_videos + images/historic_few_images blocking) — three options documented in SHIP_PAGES_REPAIR_PLAN_V2 Phase B, none chosen; one conversation unblocks Phase C |
+
+<!-- library register 2026-08-12T16:00:50.810Z -->
+| itw-venue-generator-upgrade | 1 | ROOT CAUSE: admin/generate_restaurant_pages.py still emits the defects two remediation phases repaired (generic review text, dup images, missing menu-prices id, GA/OG, FAQ) — every future generated page regresses; twin of FLEET_QUALITY P2 'fix template generator' which gates issues 1341-1366 (locate generator first) |
+
+<!-- library register 2026-08-12T16:00:51.320Z -->
+| itw-port-registry-expansion | 1 | FALSE-GREEN CLASS: PORT_REGISTRY holds ~8 entries vs ~388 needed — port-specificity checks silently SKIPPED on 97 percent of pages (376/387 SPEC_REG warnings); port plan PR2+PR7 (ground-truthed: registry unchanged) |
+
+<!-- library register 2026-08-12T16:00:52.096Z -->
+| itw-careful-rewrite-bucket-a | 1 | INTEGRITY REMEDIATION (CAREFUL_REWRITE_PLAN, zero progress markers): 96 Bucket-A ports / ~360 weather FAQs grounded per-page; 32 unsourced storm-name citations live on 27 pages; binding mechanics one-port-per-turn — a standing discipline, not a batch job. (Completed structural-10/13 tasks were STRUCTURE fixes, not this content rewrite) |
+
+<!-- library register 2026-08-12T16:00:52.557Z -->
+| itw-catches-visitors-copy | 2 | Generic template copy GREW while the plan sat: 'Catches Visitors Off Guard' identical list on 379 port pages (plan scoped 162) — port plan PR12; boilerplate-to-BLOCKING validator question waits on this rewrite |
+
+<!-- library register 2026-08-12T16:00:52.952Z -->
+| itw-img-016-017-validator-rules | 2 | Prevention for the 870-file attribution backlog: IMG-016 placeholder-license detector (severity error) + IMG-017 filename-slot consistency — rules absent (spec stops at IMG-015), wire into pre-commit + post-write per PHASE_1_5_PLAN 1.5c (the 891-file sweep itself is already on the board) |
+
+<!-- library register 2026-08-12T16:00:53.359Z -->
+| itw-facts-verified-citation-block | 2 | V3 DoD #5 / phase A4 entirely unstarted: Citation Block + Facts-Verified badge on 0 of 290 ships; CITE-001/CITE-002/A11Y-040 rule files absent — 'the thing the project sells' |
+
+<!-- library register 2026-08-12T16:00:53.756Z -->
+| itw-poi-land-validation | 2 | 1,477 POIs across 168 ports have NO on-land coordinate validation (POI_LAND_VALIDATION_PLAN, likely never started: no status markers, no rule files); 4 decision points open incl. port-center extraction source |
+
+<!-- library register 2026-08-12T16:00:54.173Z -->
+| itw-plan-rebaseline-and-supersession | 1 | THE CHEAPEST HIGH-VALUE MOVE (per AUDIT_BATCH B6's own rationale): re-baseline the refuted planning docs — PORT_TRACKER_ROADMAP ~54 percent of unchecked boxes FALSE (ship tracker built, Hawaii/MidEast ports exist), MAINTENANCE_TASKS_IDENTIFIED headline metrics refuted (387 maps/396 weather), 2 IN_PROGRESS threads stale 4-5 months; write supersession banners on the 3 plan chains; rehome orphaned commitments (V1 doc checklist, v2 port plan's 6 orphaned questions). Extraction ground-truth 2026-08-12 is the input |
+
+<!-- library register 2026-08-12T16:00:54.824Z -->
+| itw-shiphub-review-actions | 3 | shiphub board review action queue: WCAG-AA contrast on teal/deep-sea/gold (5-persona consensus), build-time counts in beta4-build.py (staleness), search-by-ship affordance; beta4 promotion decision operator-gated |
+
+<!-- library register 2026-08-12T16:00:55.229Z -->
+| itw-aria-hidden-version-governance | 3 | ONE operator decision TWO plans wait on: aria-hidden posture (site-wide) + version-governance unification (PLAN_SHIP_PAGE_REVIEW P3 + NASSAU_REVIEW 2B) |
