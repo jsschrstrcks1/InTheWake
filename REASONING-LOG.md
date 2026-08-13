@@ -28,6 +28,34 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-13 — Wire arm-hooks-path.sh so the git-side guards stop being dead-in-git (Claude)
+
+**Asked** — Operator "go" on hookspath-arming parity. `git clone` never sets
+`core.hooksPath`, so this repo's `.githooks` chain was wired in the repo and DEAD in git —
+the pre-commit guards simply never ran (measured, UL-226/229).
+
+**Weighed** — `core.hooksPath` is per-checkout local config; it cannot be committed or
+pushed, so the durable fix is the SessionStart hook that arms it automatically each session.
+The hook is fail-open by design: it arms ONLY when `.githooks/pre-commit` exists AND
+hooksPath is unset, and never overrides an operator-set path. Confirmed the pre-commit chain
+it activates here is benign (local required-hooks / reasoning-log checks — no network, no
+fail-closed step), so arming cannot break commits.
+
+**Decided** — Installed `.claude/hooks/arm-hooks-path.sh` (byte-identical to SSOT) and wired
+it as the FIRST SessionStart hook. Verified the mechanism live: in a repo WITH `.githooks` it
+arms and announces; in a repo WITHOUT it stays silent and unset. Did not arm this ephemeral
+container — the committed hook is the deliverable; real future sessions arm their own checkout.
+
+**Unsure** — This makes the guards live from the next session's first commit onward, not
+retroactively. ken additionally carries a fail-closed privacy-attestation on pre-push, so
+arming it means pushes require attestation (self-heals via the documented stamp flow, but adds
+friction) — noted deliberately. Four repos still lack a `.githooks` chain to arm (From-Timothy,
+Ordinarybook, Project-Sophos, ken-recipes-site); seeding those is a separate deliberate pass,
+not a blind copy — `check-required-hooks.sh` carries a per-repo PROTECTED list.
+
+---
+
+
 ## 2026-08-11 — rysn: household sync of soli-deo-gloria (a link that resolved in only one repo)
 
 **Asked.** Propagate the canonical `soli-deo-gloria` change made in the household SSOT. This repo's

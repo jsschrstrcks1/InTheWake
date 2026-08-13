@@ -18,6 +18,15 @@
         "hooks": [
           {
             "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/arm-hooks-path.sh",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
             "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/household-hook-dispatch.sh library-preflight-inject.sh"
           },
           {
