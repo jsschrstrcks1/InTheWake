@@ -68,6 +68,15 @@
             "timeout": 15
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/hier-memory-inject.mjs prompt",
+            "timeout": 20
+          }
+        ]
       }
     ],
     "PreToolUse": [
@@ -154,9 +163,37 @@
             "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/bootstrap-stamp-hook.mjs"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/hier-memory-inject.mjs posttool",
+            "timeout": 20
+          }
+        ]
       }
     ],
     "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/stop-usage-footer-gate.mjs",
+            "timeout": 20
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/stop-governed-reply.mjs",
+            "timeout": 45
+          }
+        ]
+      },
       {
         "hooks": [
           {
