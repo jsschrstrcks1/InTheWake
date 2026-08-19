@@ -246,15 +246,120 @@ export function missingLayers(stamp) {
   return ALL_LAYERS.filter((k) => !stamp.layers_read?.[k]);
 }
 
+/** Canonicalize like admin/event-chain.mjs so sealed hashes match library.mjs. */
+function canonicalEventBody(value) {
+  if (Array.isArray(value)) return value.map(canonicalEventBody);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.keys(value)
+        .sort()
+        .map((key) => [key, canonicalEventBody(value[key])]),
+    );
+  }
+  return value;
+}
+
+/**
+ * When the household events ledger has started a hash chain, seal appends so
+ * hook denials cannot brick library.mjs with `unchained_event_after_chain`.
+ * Test ledgers (HOUSEHOLD_BOOTSTRAP_EVENTS) and pre-chain ledgers stay plain.
+ */
+function sealIfChainStarted(payload, file) {
+  if (process.env.HOUSEHOLD_BOOTSTRAP_EVENTS) return payload;
+  let prior = [];
+  try {
+    const text = fs.readFileSync(file, "utf8");
+    prior = text.trim()
+      ? text.trim().split("\n").filter(Boolean).map((l) => JSON.parse(l))
+      : [];
+  } catch {
+    return payload;
+  }
+  let parent = null;
+  for (let i = prior.length - 1; i >= 0; i--) {
+    if (typeof prior[i]?.event_hash === "string") {
+      parent = prior[i].event_hash;
+      break;
+    }
+  }
+  if (!parent) return payload; // chain not started (or empty)
+  const sealed = { ...payload, prev_hash: parent };
+  const body = { ...sealed };
+  delete body.event_hash;
+  const digest = crypto
+    .createHash("sha256")
+    .update(JSON.stringify(canonicalEventBody(body)), "utf8")
+    .digest("hex");
+  return { ...sealed, event_hash: `sha256:${digest}` };
+}
+
+function pidAlive(pid) {
+  if (!Number.isInteger(pid) || pid <= 0) return false;
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (error) {
+    return error?.code === "EPERM";
+  }
+}
+
+// Hook side-channels share the library CLI's .catalog.lock. The CLI may repair
+// events.jsonl from a full snapshot before appending; an unlocked hook append in
+// that interval would otherwise be erased by the atomic rename.
+function withLibraryLock(file, fn) {
+  const root = path.dirname(file);
+  fs.mkdirSync(root, { recursive: true });
+  const lockPath = path.join(root, ".catalog.lock");
+  const deadline = Date.now() + 5000;
+  let fd = null;
+  for (;;) {
+    try {
+      fd = fs.openSync(lockPath, "wx");
+      fs.writeSync(fd, String(process.pid));
+      break;
+    } catch (error) {
+      if (error?.code !== "EEXIST") throw error;
+      try {
+        const pid = Number.parseInt(fs.readFileSync(lockPath, "utf8").trim(), 10);
+        const ageMs = Date.now() - fs.statSync(lockPath).mtimeMs;
+        const reclaim = Number.isInteger(pid)
+          ? (!pidAlive(pid) || ageMs > 300_000)
+          : ageMs > 30_000;
+        if (reclaim) fs.unlinkSync(lockPath);
+      } catch {
+        /* raced away or already gone */
+      }
+      if (Date.now() > deadline) throw new Error("catalog locked by another live writer");
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 50);
+    }
+  }
+  try {
+    return fn();
+  } finally {
+    try { fs.closeSync(fd); } catch { /* already closed */ }
+    try {
+      if (Number.parseInt(fs.readFileSync(lockPath, "utf8").trim(), 10) === process.pid) {
+        fs.unlinkSync(lockPath);
+      }
+    } catch { /* gone */ }
+  }
+}
+
 export function appendEvent(ev, input = null) {
   try {
-    const line = JSON.stringify({
-      at: new Date().toISOString(),
-      runtime: getRuntime(),
-      repo: getRepoName(input),
-      ...ev,
+    const file = eventsPath(input);
+    withLibraryLock(file, () => {
+      const payload = sealIfChainStarted(
+        {
+          at: new Date().toISOString(),
+          runtime: getRuntime(),
+          repo: getRepoName(input),
+          ...ev,
+        },
+        file,
+      );
+      fs.appendFileSync(file, JSON.stringify(payload) + "\n");
     });
-    fs.appendFileSync(eventsPath(input), line + "\n");
   } catch {
     /* ledger append is best-effort */
   }

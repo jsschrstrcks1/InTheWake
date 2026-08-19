@@ -82,23 +82,14 @@ function deny(msg, meta = {}) {
 // repos have no `cluster/` directory, so the SSOT path cannot resolve there. Until 2026-08-07 this
 // file tried only `../../cluster/lib/`, which meant a freshly onboarded repo fell through to the
 // six INLINE patterns below. Verified by simulating an onboard into a scratch dir: the guard printed
-// "detector unavailable, allowing", exited 0, and ALLOWED `rm -rf /$X/*` — the exact root-wipe shape
-// fixed in the detector that same day — while the copied detector sat unread beside it.
-//
-// The older guard already deployed in Project-Sophos and Archive has this fallback; this repo's
-// newer guard (Grok dual-runtime, denial ledger) had lost it. Those two repos were protected by
-// running OLDER code, which is not a safety margin anyone chose.
+// "detector unavailable, allowing", exited 0, and ALLOWED wipe-class shapes while the copied detector
+// sat unread beside it.
 //
 // Residual (guard-hook-fail-open-on-error): even with the dual-path load, if BOTH candidates fail
 // the old path still allowed any command that did not match the thin INLINE list. That is still
 // fail-open for the live agent shell. Default is now DENY (exit 2) when the detector cannot load.
 // Operator escape only: DANGEROUS_COMMAND_GUARD_FAIL_OPEN=1 restores allow-if-no-inline-match
 // (with a loud stderr warning). Test harness may set DANGEROUS_COMMAND_GUARD_FORCE_DETECTOR_FAIL=1.
-//
-// MERGE 2026-08-12 — two lanes fixed this hook independently and the fixes are COMPLEMENTARY,
-// not rival: one added the second candidate path so the detector can be FOUND, the other made
-// the no-detector case DENY instead of allow. Taking either alone leaves the other hole open.
-// Kept both.
 const DETECTOR_CANDIDATES = [
   "../../cluster/lib/dangerous-command.mjs",   // canonical repo: the SSOT
   "./lib/dangerous-command.mjs",               // onboarded repo: the copy installed beside this hook

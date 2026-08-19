@@ -93,31 +93,50 @@ try {
       ? `Bash: ${String(input.tool_input?.command || "").slice(0, 120)}`
       : `${input.tool_name}: ${input.tool_input?.file_path || ""}`;
 
-  let counter = loadStamp(sessionId, input.raw || input);
-  if (!counter || typeof counter !== "object") {
-    counter = newStamp(sessionId, input.raw || input);
-  }
-  if (forged) {
-    counter = newStamp(sessionId, input.raw || input);
-    counter.forge_detected = true;
-  }
-  counter.denials = (counter.denials || 0) + 1;
-  if (counter.denials <= 3) {
-    appendEvent(
-      {
-        type: "bootstrap_guard_denial",
-        patron: counter.patron,
-        session_id: sessionId,
-        denied_tool: input.tool_name,
-        missing_layers: missing,
-        forged,
-        blocked: blocking,
-        sessionid_invalid: !idValid,
-      },
-      input.raw || input,
+  // The verdict is already settled above: this is a guarded mutation whose stamp
+  // was not affirmatively verified, so it WILL be denied. Everything from here to
+  // saveStamp is BOOKKEEPING, and bookkeeping must never be able to turn that
+  // denial into permission. Without this boundary an I/O failure here escapes to
+  // the outer catch, which exits 0 (allow) — and because stampRoot() lives outside
+  // repoRoot while isRepoMutation() only guards Write/Edit paths INSIDE repoRoot,
+  // the guard's own state is unguarded, so a single `chmod` on the stamp dir
+  // disarmed the guard for the rest of the session (measured DENIED -> ALLOWED,
+  // persisting across further Writes and a `git commit`).
+  // A failure to RECORD a denial is not consent to proceed.
+  // HLS p1-guard-found-validating-p0-read-order-enforcement… / open-claw-stuff#2727;
+  // same class as guard-hook-fail-open-on-error and hls-p0-the-c5-guard-fails-open.
+  try {
+    let counter = loadStamp(sessionId, input.raw || input);
+    if (!counter || typeof counter !== "object") {
+      counter = newStamp(sessionId, input.raw || input);
+    }
+    if (forged) {
+      counter = newStamp(sessionId, input.raw || input);
+      counter.forge_detected = true;
+    }
+    counter.denials = (counter.denials || 0) + 1;
+    if (counter.denials <= 3) {
+      appendEvent(
+        {
+          type: "bootstrap_guard_denial",
+          patron: counter.patron,
+          session_id: sessionId,
+          denied_tool: input.tool_name,
+          missing_layers: missing,
+          forged,
+          blocked: blocking,
+          sessionid_invalid: !idValid,
+        },
+        input.raw || input,
+      );
+    }
+    saveStamp(counter, input.raw || input);
+  } catch (bookkeepingError) {
+    // Loud, but never fatal to the verdict — fall through to deny().
+    console.error(
+      `bootstrap-guard: denial bookkeeping failed (${bookkeepingError?.message || bookkeepingError}) — denying anyway. A failure to record a denial must never become permission to proceed.`,
     );
   }
-  saveStamp(counter, input.raw || input);
 
   const pointer = getRuntime() === "grok" ? "GROK.md" : "CLAUDE.md";
   const msg = [
