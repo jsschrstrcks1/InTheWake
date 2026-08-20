@@ -7,6 +7,55 @@
 Every agent that works in this repo — Claude, Grok, Codex, Hermes, the Sophos/HELM
 pipeline — records the reasoning behind its calls here. Newest entries at the top.
 
+## 2026-08-20 - v0.1.18 World America family pack + PWA (Dec 5-12, 2026)
+
+**Asked.** "MSC World America Dec 5th from Miami or Everglades. We should have a
+voyage pack and pwa for it."
+
+**Weighed.** Sailing verified against two sources (icruise December-2026 page
+fetched in-session + cruisetimetables/cruisesonly search summary): Sat Dec 5
+2026, 7 nights FROM PORTMIAMI (not Everglades — both sources agree), same port
+rotation as the verified Apr 2027 sailing: Miami-Roatan-Costa Maya-Cozumel-
+Ocean Cay-Miami. Port TIMES are single-source, so every time in pack and PWA is
+phrased "published ~X, verify in the MSC for Me app". Ship/port facts inherited
+from the v0.1.8 sidecar (verified 2026-07-06) with inheritance recorded
+per-claim, not silently copied. December weather COMPUTED, not recalled:
+Open-Meteo ERA5 archive, Dec 5-12 x 2020-2024, five ports — which surfaced the
+honest finding that Roatan is in its rainy-season tail (75% wet days) and Ocean
+Cay's published 7a-6p daytime window means the lighthouse show likely does not
+run; both are stated plainly in the pack instead of smoothed over.
+
+**Decided.** Four pack files (full md, condensed, handoff card, factcheck
+sidecar with method + per-claim provenance) + PWA (world-america-family-dec-2026
+.html/.webmanifest over the shared companion shell) + family weather app now
+links the new companion with the real itinerary line; family sw cache v2->v3.
+PDFs: container lacked the toolchain, so I installed pandoc 3.1.3 +
+weasyprint 69 and BUILT all three v0.1.18 PDFs (registered in
+voyage-pack-pdf-build.sh). Armed core.hooksPath=.githooks (was unset —
+fresh-clone dead-hooks shape, UL-226); the now-live staleness gate then flagged
+three PRE-EXISTING stale NCL long-form PDFs (v0.1.13/14/15 — .md committed
+newer than .pdf on main). Rebuilt those three rather than bypassing the gate
+(--no-verify is operator-only); sizes land within ~1% of the originals, but
+Ken may want a rebuild on his own machine if print-font fidelity matters. A
+first full-build pass needlessly regenerated 23 other PDFs (fresh-clone mtime
+skew); all 23 were restored to HEAD — only packs I touched or the gate flagged
+are committed. PWA pdf link kept out until the condensed PDF path is live on
+the site.
+
+**Unsure.** Exact port times (single aggregator source; deferred to the app).
+Found while committing: admin/UNFINISHED_TASKS.md carries two PRE-EXISTING task
+rows (lines 206/322, the SEO toxic-backlink defense tasks) that name the banned
+external domain this site hard-bans, so with .githooks now armed the whole-file
+domain-ban scan blocks ANY edit to that file; the HLS mirror rows for this
+session's two tasks were dropped from the commit rather than bypassing the
+guard (catalog SSOT in open-claw-stuff still holds them). Needs an operator
+call: teach that guard introduced-lines-only, or allowlist the task mirror.
+Whether MSC extends the Ocean Cay call for the show. Child service-charge rate
+deliberately not stated (unverified; pack defers to MSC/agent). Which cabins
+the family booked — pack quotes no rates by design.
+
+_Runtime: syl (claude-code remote container)_
+
 ## 2026-08-20 - Family PWA: World America Dec 2026 + Past Trips section
 
 **Asked.** "Find the pwa/voyage pack for the world America in December and add it
