@@ -23,11 +23,11 @@
 <meta name="apple-mobile-web-app-title" content="Family Vacation 2026">
 <meta name="robots" content="noindex,nofollow">
 <title>In the Wake — Family Weather</title>
-<meta name="description" content="Live conditions, 10-day forecast, radar and alerts for our family's places and the Alaska cruise.">
+<meta name="description" content="Live conditions, 10-day forecast, radar and alerts for our family's places, the December 2026 World America cruise, and the completed Alaska cruise.">
 <link rel="canonical" href="https://cruisinginthewake.com/admin/family/weather-family.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="In the Wake — Family Weather">
-<meta property="og:description" content="Live conditions, 10-day forecast, radar and alerts for our family's places and the Alaska cruise.">
+<meta property="og:description" content="Live conditions, 10-day forecast, radar and alerts for our family's places, the December 2026 World America cruise, and the completed Alaska cruise.">
 <meta property="og:url" content="https://cruisinginthewake.com/admin/family/weather-family.html">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
@@ -150,20 +150,33 @@ body.danger .sdg{color:#ff4d6a}
     <button class="wtab" data-t="radar" role="tab" aria-selected="false" type="button">Radar</button>
     <button class="wtab" data-t="future" role="tab" aria-selected="false" type="button">Futurecast</button>
     <button class="wtab" data-t="alerts" role="tab" aria-selected="false" type="button">Alerts</button>
+    <button class="wtab" data-t="past" role="tab" aria-selected="false" type="button">Past Trips</button>
   </nav>
   <main id="content">
     <div class="wpane" id="pane-now"><span class="muted">loading…</span></div>
     <div class="wpane on" id="pane-voyage">
       <div class="voy-cta-wrap">
-        <a class="voy-cta" href="https://cruisinginthewake.com/admin/voyage-packs/v0.1.4-rcl-anthem-alaska-7n.pdf" target="_blank" rel="noopener noreferrer">📖 Open the full Anthem Alaska Voyage Pack (PDF) →</a>
-        <a class="voy-cta-sec" href="https://cruisinginthewake.com/admin/voyage-packs/v0.1.4-rcl-anthem-alaska-condensed.pdf" target="_blank" rel="noopener noreferrer">or the condensed quick-reference version (PDF) →</a>
+        <a class="voy-cta" href="https://cruisinginthewake.com/admin/voyage-pwa/world-america-caribbean.html" target="_blank" rel="noopener noreferrer">🚢 Open the World America Voyage Companion (PWA) →</a>
+        <a class="voy-cta-sec" href="https://cruisinginthewake.com/admin/voyage-packs/v0.1.8-msc-world-america-condensed.pdf" target="_blank" rel="noopener noreferrer">condensed quick-reference pack (PDF) →</a>
+        <a class="voy-cta-sec" href="https://cruisinginthewake.com/admin/voyage-packs/v0.1.8-msc-world-america-handoff-card.pdf" target="_blank" rel="noopener noreferrer">emergency contacts handoff card (PDF) →</a>
       </div>
+      <div class="voyhdr">
+        <span class="vt">MSC World America · December 2026</span>
+        <a class="voy-track" href="https://www.marinetraffic.com/en/ais/details/ships/imo:9837432" target="_blank" rel="noopener noreferrer">◢ Track World America live ↗</a>
+      </div>
+      <p class="voy-note">◆ Our December 2026 family sailing aboard MSC World America. The companion guide and pack above were written for the ship's Apr 24 – May 1, 2027 Western Caribbean sailing — everything about the ship itself (decks, venues, Ocean Cay) carries over; the dates, ports, prices and weather in them do NOT apply to our sailing. The day-by-day itinerary for our December cruise will appear here once the booking details are added. Weather tabs above still track the family's home places.</p>
+    </div>
+    <div class="wpane" id="pane-past">
       <div class="voyhdr">
         <span class="vt" id="voy-status">Anthem of the Seas · Jun 29 – Jul 6, 2026</span>
         <a class="voy-track" href="https://www.marinetraffic.com/en/ais/details/ships/imo:9656101" target="_blank" rel="noopener noreferrer">◢ Track Anthem live ↗</a>
       </div>
+      <div class="voy-cta-wrap">
+        <a class="voy-cta" href="https://cruisinginthewake.com/admin/voyage-packs/v0.1.4-rcl-anthem-alaska-7n.pdf" target="_blank" rel="noopener noreferrer">📖 Open the full Anthem Alaska Voyage Pack (PDF) →</a>
+        <a class="voy-cta-sec" href="https://cruisinginthewake.com/admin/voyage-packs/v0.1.4-rcl-anthem-alaska-condensed.pdf" target="_blank" rel="noopener noreferrer">or the condensed quick-reference version (PDF) →</a>
+      </div>
       <div id="voy-list"><span class="muted">loading voyage…</span></div>
-      <p class="voy-note">◆ Booked = reserved excursions; other plan lines are suggestions for free time. Positions follow the planned itinerary — sea-day spots are estimated midpoints, not a live GPS fix; tap “Track Anthem live” for the real position. Weather shows typical early-July normals; an actual forecast appears automatically once a date falls within about 16 days.</p>
+      <p class="voy-note">◆ Our completed Alaska cruise — Anthem of the Seas, Seattle round-trip, Jun 29 – Jul 6, 2026. Kept here as the family logbook: the itinerary, what was booked, and the history of each stop. Soli Deo Gloria.</p>
     </div>
     <div class="wpane" id="pane-10day"><span class="muted">loading 10-day forecast…</span></div>
     <div class="wpane" id="pane-map"><div id="map" role="img" aria-label="Precipitation radar map of the tracked locations"></div><div class="maprow"><button class="mapbtn" id="mr-play" type="button">⏸ PAUSE</button><button class="mapbtn" id="mr-fit" type="button">⊡ FIT ALL</button><span class="frame-t" id="mr-time"></span><span class="frame-t" id="mr-mode"></span></div></div>
@@ -241,8 +254,8 @@ function setRow10(idx,d){var row=document.getElementById("d10-"+idx);if(!row)ret
 function load10day(){var el=document.getElementById("pane-10day");if(!el)return;var html="";LOCS.forEach(function(p,idx){html+='<div class="d10-row" id="d10-'+idx+'"><div class="d10-loc">'+esc(p.label)+'</div><div class="d10-days"><span class="muted">…</span></div></div>';});el.innerHTML=html;var i=0,active=0;function pump(){while(active<4&&i<LOCS.length){(function(idx,p){active++;fetch10(p).then(function(d){setRow10(idx,d);active--;pump();}).catch(function(){setRow10(idx,null);active--;pump();});})(i,LOCS[i]);i++;}}pump();}
 function fcHour(iso){var h=parseInt(iso.slice(11,13),10);var ap=h<12?"AM":"PM";var hh=h%12;if(hh===0)hh=12;return hh+" "+ap;}
 function loadFuture(){var p=selLoc(),el=document.getElementById("pane-future");if(!el)return;el.innerHTML='<span class="muted">loading precipitation outlook…</span>';var pu=(uTemp()==="celsius")?"mm":"inch";var u="https://api.open-meteo.com/v1/forecast?latitude="+p.lat+"&longitude="+p.lon+"&current=temperature_2m&hourly=precipitation,precipitation_probability&precipitation_unit="+pu+"&timezone=auto&forecast_days=2";retryJSON(u,2).then(function(j){if(!j||!j.hourly||!j.hourly.time){el.innerHTML='<span class="muted">forecast unavailable — try again shortly</span>';return;}var H=j.hourly,times=H.time,prob=H.precipitation_probability||[],amt=H.precipitation||[];var nowISO=(j.current&&j.current.time)||times[0];var start=0;for(var i=0;i<times.length;i++){if(times[i]>=nowISO){start=i;break;}}var N=Math.min(24,times.length-start);if(N<=0){el.innerHTML='<span class="muted">no forecast hours available</span>';return;}var bars="",total=0,peak=0,peakT="";for(var k=0;k<N;k++){var idx=start+k,pr=prob[idx]||0,am=amt[idx]||0;total+=am;if(pr>peak){peak=pr;peakT=fcHour(times[idx]);}var hh=4+Math.round(pr*0.46),wet=am>0.005;bars+='<div class="fc-bar" title="'+fcHour(times[idx])+' · '+pr+'% · '+am+(pu==="inch"?"in":"mm")+'"><span class="fc-fill'+(wet?" wet":"")+'" style="height:'+hh+'px"></span><span class="fc-h">'+((k%3===0)?fcHour(times[idx]):"")+'</span></div>';}var unit=(pu==="inch"?" in":" mm");var head="Next "+N+" h at "+esc(p.label)+": "+(Math.round(total*100)/100)+unit+" total"+(peak>0?" · peak "+peak+"% near "+peakT:" · little or no rain expected");el.innerHTML='<div class="fc-head">'+head+'</div><div class="fc-strip">'+bars+'</div><div class="fc-note">Hourly precipitation forecast (Open-Meteo) for '+esc(p.label)+'. Bars show chance of precipitation; glowing bars mark measurable amounts. Planning aid only — confirm conditions locally.</div>';}).catch(function(){el.innerHTML='<span class="muted">forecast unavailable — try again shortly</span>';});}
-function setTab(t){tab=t;["now","voyage","ten","radar","future","alerts"].forEach(function(x){var b=document.querySelector('.wtab[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");var _pf=document.getElementById("pane-future");if(_pf)_pf.classList.toggle("on",t==="future");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");if(t==="now")loadNow();else if(t==="voyage")renderVoyage();else if(t==="ten")load10day();else if(t==="alerts")loadAlerts();else if(t==="radar"){mode="past";showMap();}else if(t==="future")loadFuture();}
-function refresh(){buildSel();if(tab==="now")loadNow();else if(tab==="voyage")renderVoyage();else if(tab==="ten")load10day();else if(tab==="alerts")loadAlerts();else if(tab==="radar")showMap();else if(tab==="future")loadFuture();loadAlerts();}
+function setTab(t){tab=t;["now","voyage","ten","radar","future","alerts","past"].forEach(function(x){var b=document.querySelector('.wtab[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-past").classList.toggle("on",t==="past");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");var _pf=document.getElementById("pane-future");if(_pf)_pf.classList.toggle("on",t==="future");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");if(t==="now")loadNow();else if(t==="past")renderVoyage();else if(t==="ten")load10day();else if(t==="alerts")loadAlerts();else if(t==="radar"){mode="past";showMap();}else if(t==="future")loadFuture();}
+function refresh(){buildSel();if(tab==="now")loadNow();else if(tab==="past")renderVoyage();else if(tab==="ten")load10day();else if(tab==="alerts")loadAlerts();else if(tab==="radar")showMap();else if(tab==="future")loadFuture();loadAlerts();}
 document.querySelectorAll(".wtab").forEach(function(b){b.onclick=function(){setTab(b.getAttribute("data-t"));};});
 var pb=document.getElementById("mr-play");if(pb)pb.onclick=togglePlay;
 var fb=document.getElementById("mr-fit");if(fb)fb.onclick=fitAll;

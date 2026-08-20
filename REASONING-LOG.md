@@ -7,6 +7,39 @@
 Every agent that works in this repo — Claude, Grok, Codex, Hermes, the Sophos/HELM
 pipeline — records the reasoning behind its calls here. Newest entries at the top.
 
+## 2026-08-20 - Family PWA: World America Dec 2026 + Past Trips section
+
+**Asked.** "Find the pwa/voyage pack for the world America in December and add it
+to the family trip one. Add a new section in the family trip one for past trips."
+
+**Weighed.** Searched the working tree AND every remote branch: exactly one World
+America pack exists — the Apr 24 – May 1, 2027 solo-group sailing (PWA
+admin/voyage-pwa/world-america-caribbean.html + v0.1.8 pack). No December World
+America artifact anywhere; the only December sailing in the corpus is NCL Aqua
+Veterans Dec 2027. "The family trip one" resolved to admin/family/ ("Family
+Vacation 2026"), whose Voyage tab held the Anthem Alaska cruise — completed
+Jul 6, 2026, so it is now genuinely past. Referent was ambiguous (three readings),
+so I asked instead of guessing: Ken confirmed a real Dec 2026 World America family
+booking, and Past Trips = Alaska only.
+
+**Decided.** Voyage tab now carries the Dec 2026 World America trip: links to the
+existing companion PWA + condensed pack + handoff card, live-track link (IMO
+9837432, verified against the v0.1.8 factcheck sidecar), and an explicit note that
+the linked material was written for the Apr 2027 sailing — ship facts carry over,
+dates/ports/prices/weather do not. NO December itinerary was invented: the pane
+says it will appear once booking details are added (fabricated_quantities gate —
+I do not have the booking). New Past Trips tab holds the completed Alaska voyage
+(itinerary renderer, pack links, status line) unchanged. Manifest + meta
+descriptions updated; sw cache family-v1→v2 so installed clients refresh. Both
+inline scripts pass node --check; all five linked files verified present.
+
+**Unsure.** Which exact December 2026 departure the family booked — dates, ports,
+embarkation. The pane is honest about that gap; filling it needs the booking
+details. Whether Ken wants the weather LOCS list extended with December ports —
+deferred until the itinerary is known.
+
+_Runtime: syl (claude-code remote container)_
+
 ## What this is (and an honest note on what it isn't)
 
 No agent can pipe its raw internal tokens into a file; dressing a polished summary up as

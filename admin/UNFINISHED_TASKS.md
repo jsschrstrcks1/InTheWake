@@ -810,3 +810,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-07-30T22:00:49.622Z -->
 | inthewake-repair-3-dead-nav-links-site-wide-ports-cruise-lines-r | 1 | InTheWake: repair 3 dead nav links site-wide (/ports/, /cruise-lines/, /restaurants/ return 404 on live site; 744 files) |
+
+<!-- library register 2026-08-20T00:17:32.100Z -->
+| family-pwa-past-trips-section-completed-alaska-cruise-world-amer | 5 | Family PWA: Past Trips section (completed Alaska cruise) + World America Dec 2026 upcoming-trip entry |
