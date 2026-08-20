@@ -8,10 +8,9 @@
  "verification_session": "Sailing verified 2026-08-20 via two independent aggregators: web search results for 'MSC World America December 5 2026' (cruisetimetables/cruiseweb/cruisesonly summary: Sat Dec 5 2026 depart Miami ~4:30 PM; Roatan Dec 7 9a-6p; Costa Maya Dec 8 8a-5p; Cozumel Dec 9 9a-7p; Ocean Cay Dec 11 7a-6p; return Dec 12 7a) and icruise.com December-2026 itinerary page fetched in-session (Dec 5 2026, 7-night, Miami, ports Miami-Roatan-Costa Maya-Cozumel-Ocean Cay-Miami; also lists the 14-night B2B extension). Port-call TIMES rest on the aggregator summary only (single-source) \u2014 the pack therefore phrases every time as 'published ~X, verify in the MSC for Me app'. PORT ORDER and DATE are two-source. Departure port is Miami (PortMiami MSC terminal), not Port Everglades \u2014 both sources agree.",
  "sailing": {
   "departure": {
-   "value": "Saturday, December 5, 2026, from PortMiami (MSC Miami Cruise Terminal); published departure ~4:30-5:00 PM (listings differ)",
-   "source": "icruise.com Dec-2026 page (in-session fetch 2026-08-20) + cruisetimetables/cruisesonly summary (4:30 PM) + Google knowledge summary shown by operator (5:00 PM, screenshot 2026-08-20)",
-   "verified": "2026-08-20",
-   "notes": "Date/port two-source-plus. TIME sources disagree (4:30 vs 5:00 PM) \u2014 both secondary; pack and PWA state the range and defer to the MSC for Me app."
+   "value": "Saturday, December 5, 2026, from PortMiami (MSC Miami Cruise Terminal), 5:00 PM",
+   "source": "PRIMARY: this booking's MSC for Me itinerary screens (operator screenshots, 2026-08-20). Earlier secondary listings said 4:30 PM (aggregator) and 5:00 PM (Google summary); the app resolves it.",
+   "verified": "2026-08-20"
   },
   "itinerary_order": {
    "value": "Miami - sea - Roatan - Costa Maya - Cozumel - sea - Ocean Cay - Miami (7 nights)",
@@ -19,10 +18,10 @@
    "verified": "2026-08-20"
   },
   "port_times": {
-   "value": "Roatan ~9a-6p Dec 7; Costa Maya ~8a-5p Dec 8; Cozumel ~9a-7p Dec 9; Ocean Cay ~7a-6p Dec 11; Miami arrival ~7a Dec 12",
-   "source": "Aggregator summary (cruisesonly/cruiseweb via search), SINGLE SOURCE",
+   "value": "Roatan 9:00a-6:00p Dec 7; Costa Maya 8:00a-5:00p Dec 8; Cozumel 9:00a-7:00p Dec 9; Ocean Cay 8:00a-8:00p Dec 11; Miami arrival 7:00a Dec 12",
+   "source": "PRIMARY: this booking's MSC for Me itinerary screens (operator screenshots, 2026-08-20)",
    "verified": "2026-08-20",
-   "notes": "Low-confidence times by design; every occurrence in pack and PWA is marked 'published ~, verify in the MSC for Me app'. Ocean Cay daytime window drives the honest 'lighthouse show likely does not run' framing."
+   "notes": "Supersedes the aggregator times (which had Ocean Cay 7a-6p \u2014 the app shows 8a-8p, a LATE departure). Pack/PWA reframed: lighthouse show now genuinely possible (rule: runs on overnight/late-departure calls). The ~5:30 PM December sunset figure is an approximation from latitude/season, labeled approximate in the pack, not computed."
   }
  },
  "december_weather_normals": {
@@ -89,9 +88,9 @@
    "verified": "marked in-pack as expectation; pack says 'verify the specifics in the daily program rather than promising the kids anything particular'"
   },
   "lighthouse_show": {
-   "claim": "Show runs only on overnight/late-departure calls; this sailing's published 7a-6p window means it likely does not run",
-   "source": "show-rule inherited from v0.1.8/ocean-cay page (verified 2026-07-06); window from this sailing's published times (single-source)",
-   "verified": "2026-08-20, framed as 'most likely does not run \u2014 verify in app'"
+   "claim": "Show runs only on overnight/late-departure calls (inherited rule, verified 2026-07-06); this sailing's MSC-app window 8a-8p IS a late departure, so the show is possible \u2014 pack defers to the daily program, promises nothing",
+   "source": "show-rule from v0.1.8/ocean-cay page; window from the booking's MSC for Me itinerary (primary, 2026-08-20)",
+   "verified": "2026-08-20"
   },
   "ocean_cay_anniversary": {
    "claim": "Dec 11 2026 visit lands almost exactly on the island's seventh birthday (opened December 2019)",

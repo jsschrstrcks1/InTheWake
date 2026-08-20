@@ -7,6 +7,29 @@
 Every agent that works in this repo — Claude, Grok, Codex, Hermes, the Sophos/HELM
 pipeline — records the reasoning behind its calls here. Newest entries at the top.
 
+## 2026-08-20 - v0.1.18: MSC-app itinerary screenshots upgrade times to primary source
+
+**Asked.** Operator sent the booking's own MSC for Me itinerary screens.
+
+**Weighed.** Primary source outranks every listing used so far. It resolved the
+4:30-vs-5:00 departure disagreement (5:00 PM) and CORRECTED Ocean Cay: the app
+shows 8:00 AM - 8:00 PM, four hours longer than the aggregator's 7a-6p — a
+late-departure call, which flips the lighthouse-show framing from "likely does
+not run" to genuinely possible (rule: show runs on overnight/late-departure
+calls; December darkness well before 8 PM). Framed as check-the-daily-program,
+not promised. Sunset ~5:30 PM stated as an approximation, not computed.
+
+**Decided.** Pack, condensed, and PWA now carry app-sourced times with the
+"published ~/verify" hedging removed where the app is the source (re-verify
+near sailing retained). Sidecar port_times/departure re-sourced as PRIMARY
+(operator screenshots 2026-08-20), superseding aggregator entries. Both
+affected PDFs rebuilt through the staleness gate.
+
+**Unsure.** Whether the show actually runs Dec 11 — the ship's program decides;
+the pack says so.
+
+_Runtime: syl (claude-code remote container)_
+
 ## 2026-08-20 - v0.1.18 refinement: departure-time range + Cliffhanger (operator screenshot)
 
 **Asked.** Operator confirmed the Dec 5 sailing ("It's a 7 day. These dates") with a
