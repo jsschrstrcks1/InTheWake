@@ -7,6 +7,27 @@
 Every agent that works in this repo — Claude, Grok, Codex, Hermes, the Sophos/HELM
 pipeline — records the reasoning behind its calls here. Newest entries at the top.
 
+## 2026-08-20 - v0.1.18 refinement: departure-time range + Cliffhanger (operator screenshot)
+
+**Asked.** Operator confirmed the Dec 5 sailing ("It's a 7 day. These dates") with a
+Google summary screenshot showing 5:00 PM departure and the Cliffhanger ride.
+
+**Weighed.** My aggregator source said 4:30 PM; the screenshot's summary says 5:00 —
+two secondary sources disagreeing, so the honest value is the range with the app as
+authority. Cliffhanger/The Harbour verified against MSC's own press releases (over-water
+swing, four seats, ~160 ft, Harbour = outdoor family district; Family Aventura =
+Harbour + Doremiland + Sportsplex) — the inherited v0.1.8 pack predates/omits it.
+
+**Decided.** Pack, condensed, and PWA now say "published ~4:30-5:00 PM (listings
+differ — verify in app)"; Cliffhanger added to distinctive features and family
+sections with cost/height/hours explicitly deferred to the app (unverified).
+Sidecar updated (departure two-source disagreement recorded; cliffhanger claim with
+MSC press sources). Both affected PDFs rebuilt; handoff card unchanged.
+
+**Unsure.** Actual departure time (the app will say); Cliffhanger pricing.
+
+_Runtime: syl (claude-code remote container)_
+
 ## 2026-08-20 - v0.1.18 World America family pack + PWA (Dec 5-12, 2026)
 
 **Asked.** "MSC World America Dec 5th from Miami or Everglades. We should have a
