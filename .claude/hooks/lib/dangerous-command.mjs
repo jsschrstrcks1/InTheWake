@@ -1270,10 +1270,31 @@ function normalize(raw) {
 // Collapse a path to its canonical form so the many SPELLINGS of the filesystem root all reduce to
 // "/": `//`, `/.`, `/./`, `/..`, `/../`, `/.//`. A blocklist that enumerates root literally misses
 // these (hostile pass 2026-07-15 reproduced `rm -rf //` and `rm -rf /.` as PASSes). Absolute paths
-// resolve `.`/`..` segments; a leading-slash path that empties out IS root. Non-absolute inputs are
-// returned trimmed of duplicate slashes only (cwd-relative canonicalization would over-reach).
+// resolve `.`/`..` segments; a leading-slash path that empties out IS root.
+//
+// NON-ABSOLUTE inputs get the SPELLING half of the same treatment (UL-939). They used to be handed
+// back untouched, and the tilde was the one home spelling that is neither canonicalized (not
+// absolute) nor caught incidentally by the unprovable-variable-glob rule (not a variable) — so one
+// extra separator walked every tilde-anchored home wipe straight through the P0 guard, MEASURED at
+// the PreToolUse boundary 2026-08-11: `~/.*` and `~/*` DENY while `~//.*`, `~//*`, `~/./.*`, `~/./*`
+// ALLOW, and `~/.`, `~//`, `~/./` — home itself, not even a glob — ALLOW. Doubled separators are not
+// exotic: joining a variable that ends in `/` with a `/`-prefixed suffix produces exactly this.
+//
+// `..` is deliberately PRESERVED here. Resolving it would be cwd-relative reasoning we cannot do
+// soundly, and the parent-climb rules below (`~/../..`, `$HOME/../../..`) depend on it surviving
+// verbatim. Dropping `.` and empty segments is pure spelling: `a/./b` is `a/b` under every cwd.
+// A path that is ENTIRELY dot/empty noise (`.`, `./`, `.//`, `././`) is the cwd, so it collapses
+// back to "." rather than to the empty string, keeping the cwd-wipe rule intact.
 function canonicalizePath(p) {
-  if (!p.startsWith("/")) return p.replace(/\/{2,}/g, "/");
+  if (!p.startsWith("/")) {
+    // UL-939 (superset with UL-873 family 2): collapse redundant separators AND `.` segments so a
+    // tilde's separator noise cannot smuggle a home wipe past the anchor regexes. `.`/`./`/`././`
+    // reduce to "." (cwd, kept for its own rule); `~//.*`, `~/./.*`, `~//*` reduce to their bare
+    // home form. This branch is the more aggressive of the two lineages and already blocked family
+    // 2 before navani's UL-873 landed; kept on cherry-pick because it is a strict superset here.
+    const kept = p.split("/").filter((s) => s !== "" && s !== ".");
+    return kept.length ? kept.join("/") : ".";
+  }
   const segs = [];
   for (const s of p.split("/")) {
     if (s === "" || s === ".") continue;
@@ -1281,6 +1302,64 @@ function canonicalizePath(p) {
     segs.push(s);
   }
   return "/" + segs.join("/");
+}
+
+// Does this single path SEGMENT glob match every entry of its directory — i.e. carry no literal
+// character that constrains the match? (UL-344.)
+//
+// Under ROOT any glob at all is catastrophic, because every top-level entry is a system directory,
+// and the `/[^/]*[*?\[]` rule below says exactly that. Under HOME that reasoning does NOT transfer:
+// `~/build*` deletes two project directories and is ordinary work. Mirroring the root rule onto
+// home would over-block it, and an over-blocking guard gets switched off — its own P0.
+//
+// The distinguishing property is not "contains a glob" but "is UNCONSTRAINED": remove the glob
+// metacharacters, the leading dot, and a leading negated-dot class, and ask whether any literal
+// name character survives. `.*` `.??*` `.[!.]*` `?*` `*` leave nothing, so they match the whole
+// directory (and `.*` additionally matches `..`, i.e. the PARENT). `build*` leaves "build" and
+// `.cache*` leaves "cache", so both stay allowed.
+// Any bracket EXPRESSION is stripped, not just the negated-dot class. A character class is a
+// wildcard over its members, not a literal constraint: `.[a-z]*` matches `.ssh`, `.gnupg`, `.aws`,
+// `.config` — practically the whole dotfile set — so treating `a-z` as surviving "literal name
+// characters" left it ALLOWED. Measured 2026-08-11 after landing this rule: `~/.[a-z]*`,
+// `~/.[A-Za-z]*`, `~/.[a-zA-Z0-9]*`, `/root/.[a-z]*` and `/home/<u>/.[a-z]*` all walked through,
+// while the `[!.]` and `[^.]` spellings of the same sweep were correctly refused.
+// A class alongside real literals still constrains: `.[a-z]ache` keeps "ache" and stays allowed.
+//
+// UL-873 — the bracket strip must understand a POSIX class, or it fails on the very spellings it
+// claims to cover. `/\[[^\]]*\]/` stops at the FIRST `]`, which inside `[[:alpha:]]` is the INNER
+// one, leaving a stray `]` behind. That residue counts as a surviving literal name character, so
+// the segment was classified CONSTRAINED and the whole family walked through: `~/.[[:alpha:]]*`,
+// `[[:lower:]]`, `[[:alnum:]]`, `[[:punct:]]`, and the same under `/root` and an absolute home —
+// all ALLOWED, while `~/.[a-z]*`, the identical sweep in a different spelling, was refused.
+// Measured 2026-08-11 validating UL-344; the comment above asserting "any bracket EXPRESSION is
+// stripped" was simply untrue as written.
+//
+// Stripped in TWO INDEPENDENT LINEAR PASSES, deliberately, not one clever pattern.
+//
+// The obvious single regex puts the sub-expression and the ordinary member in one alternation
+// under a star — `(?:\[[:.=][^\]]*[:.=]\]|[^\]])*` — and `[` matches BOTH branches, so a crafted
+// operand backtracks catastrophically. Measured before this note was written: input `[` + `[:a`
+// repeated grew 11 ms → 69 ms → 437 ms → 2991 ms at n = 200/400/800/1600, i.e. ~7x per doubling,
+// so ~5 KB of command line stalls the detector for seconds. This function runs on EVERY scanned
+// command in a P0 PreToolUse guard, and a guard that hangs is an outage — or worse, a timeout
+// that fails open. Cleverness in a hot safety path is not worth a second of anyone's session.
+//
+// Pass 1 removes POSIX sub-expressions (`[:alpha:]`, `[.coll.]`, `[=equiv=]`), which are the
+// spellings that defeated the old strip. Pass 2 then removes ordinary bracket expressions with a
+// pattern that has no alternation at all: an optional negator and an optional literal `]` in
+// first position (where `]` is a member, not a terminator), then members, then the terminator.
+// Neither pass contains an ambiguous quantified alternation, so both are linear.
+// Exported ONLY so the cost property above can be pinned by a test against the real function.
+// Asserting it against a copy of the pattern in the test file proved worthless: the copy stayed
+// linear while the module could be reverted to the ambiguous form untouched (mutation SURVIVED).
+const POSIX_SUBEXPR = /\[[:.=][^\]]*[:.=]\]/g;
+const BRACKET_EXPR = /\[[!^]?\]?[^\]]*\]/g;
+export function isUnconstrainedGlobSegment(seg) {
+  if (!/[*?]/.test(seg)) return false;                    // not a glob at all
+  return seg
+    .replace(POSIX_SUBEXPR, "")
+    .replace(BRACKET_EXPR, "")
+    .replace(/[.*?]/g, "") === "";
 }
 
 // Is an `rm` operand a whole-filesystem / home / cwd / system-root wipe (vs a specific safe subdir)?
@@ -1300,7 +1379,11 @@ function isCatastrophicTarget(tok) {
   const rawBare = t.replace(/['"]/g, "");
   // Canonicalize absolute paths so every root spelling (// /. /./ /.. …) collapses to "/" before the
   // literal/system-root checks below. Non-absolute forms (~, $HOME, ., *) keep their original shape.
-  const bare = rawBare.startsWith("/") ? canonicalizePath(rawBare) : rawBare;
+  // UL-939 / UL-873: canonicalize EVERY operand, not only the absolute ones. The old ternary left
+  // the non-absolute branch of canonicalizePath unreachable, which is why the tilde spellings kept
+  // their separator noise all the way into the anchor regexes below — and those regexes require
+  // exactly one separator followed by a single non-slash segment, so `~//.*` simply did not match.
+  const bare = canonicalizePath(rawBare);
   const noSlash = bare.replace(/\/+$/, "") || "/";      // drop trailing slashes; keep bare "/"
   const LITERAL = new Set(["/", "~", "$HOME", "${HOME}", ".", "..", "*"]);
   if (LITERAL.has(bare)) return true;
@@ -1313,13 +1396,39 @@ function isCatastrophicTarget(tok) {
   // `/opt/x-*`) and correctly passes — the metachar must sit in the segment DIRECTLY under root.
   if (/^\/[^/]*[*?\[]/.test(bare)) return true;         // /[a-z]*  /.*  /b*  /?*  /etc*  /*/x
   if (/^~\/?\*?$/.test(bare)) return true;              // ~  ~/  ~/*
+  // (The home first-segment DOTGLOB rule lives below, at the tilde-user block — UL-344, navani.
+  // An earlier, BROADER rule here — any glob metachar in the first segment under ~ — was removed:
+  // it over-blocked leading-literal targets like `~/build*` and `~/*.bak`, which name real work,
+  // and a P0 pre-commit guard that refuses ordinary cleanup gets disabled. The catastrophic signal
+  // is specifically the DOTGLOB, which sweeps the hidden credential dirs; see the dot-only rule below.)
   // TILDE-USER / dir-stack tilde — `~root`, `~ken` (another user's WHOLE home), `~-` (OLDPWD), `~+` (PWD,
   // = a cwd wipe like `.`), `~1` (dirstack). The `~` rule above only caught the bare/own-home tilde; a
   // username or ± after it expands to a home/dynamic directory and slips through (`rm -rf ~root` wipes
   // root's home exactly as thoroughly as `rm -rf ~`). A trailing SUBDIR (`~ken/project`) is a targeted
   // delete and still passes — the char-run must be the WHOLE operand (optionally `/` or `/*`), never `/leaf`.
   if (/^~[A-Za-z0-9_+-]+\/?\*?$/.test(bare)) return true;   // ~root ~ken ~- ~+ ~1  (+ ~user/ ~user/*)
+  // (A tilde-anchored dot-glob rule lived here from #2934 and has been REMOVED as superseded. It
+  // matched only the `~`-spelled forms, so every absolute spelling of the identical target —
+  // `/root/.*`, `/home/<u>/.*`, `/Users/<u>/.*` — walked straight through it. The
+  // unconstrained-glob-segment rule below covers every shape it covered and those as well. Two
+  // overlapping rules for one concept is how a later reader deletes the wrong one.)
   if (/^\$\{?HOME\}?\/?\*?$/.test(bare)) return true;   // $HOME  ${HOME}  $HOME/  $HOME/*
+  // HOME DOTGLOB — `~/.*` was ALLOWED while `~/*` was blocked (measured on main 2026-08-11, P0
+  // #2924, found validating #2908). The tell was a spelling split: `$HOME/.*` blocked — but only
+  // incidentally, via the unprovable-variable-glob rule below — while the tilde form of the same
+  // target walked through, because the tilde rules above only ever covered `~`, `~/` and `~/*`.
+  // The concept was already understood elsewhere; this was a missing ALIAS, not a missing idea.
+  // Severity is above "loses your dotfiles": in bash `~/.*` expands to include `~/..`, the PARENT
+  // of home, so the blast radius leaves the user entirely.
+  // Anchors are every spelling of a whole home: `~`, `~user`/`~+`/`~-`, `$HOME`/`${HOME}`, and the
+  // literal `/home/<u>` `/Users/<u>` forms the single-segment rule below already treats as homes.
+  // The operand must END here: `~/.*/cache` is a targeted delete under each dotdir, not a home wipe.
+  {
+    const m = bare.match(
+      /^(?:~[A-Za-z0-9_+-]*|\$\{?HOME\}?|\/(?:home|Users)\/[^/*?\[]+)\/([^/]+)\/?$/,
+    );
+    if (m && isUnconstrainedGlobSegment(m[1])) return true;   // ~/.*  ~/.??*  ~/.[!.]*  ~/?*  ~root/.*
+  }
   if (/^\.\/?\*?$/.test(bare)) return true;             // .  ./  ./*   (cwd wipe)
   // PARENT-CLIMB THROUGH HOME — `~/../..`, `$HOME/../../..`, `${HOME}/..` (Lift hostile pass
   // 2026-07-16, a live P0 bypass). These are NEITHER absolute (canonicalizePath never touches
@@ -1383,6 +1492,14 @@ function isCatastrophicTarget(tok) {
     "/private/var", "/private/etc", "/private/tmp"];
   if (SYS.includes(noSlash)) return true;               // exactly a system root (not a subdir under it)
   if (SYS.some((d) => bare === d + "/*")) return true;  // /usr/*  etc.
+  // The same unconstrained-glob concept under a system root: `/root/.*` was ALLOWED (P0 #2924)
+  // while `/root/*` was blocked by the line above. `/root` is a home like any other, and `/etc/.*`
+  // is the same shape. A CONSTRAINED glob (`/var/log*`, `/etc/nginx*`) is a targeted delete and
+  // still passes — only a segment with no literal character left is a whole-directory wipe.
+  {
+    const m = bare.match(/^(\/[^/]+(?:\/[^/]+)?)\/([^/]+)\/?$/);
+    if (m && SYS.includes(m[1]) && isUnconstrainedGlobSegment(m[2])) return true;
+  }
   return false;
 }
 
@@ -1609,19 +1726,42 @@ function classifyRmTail(tail, samplePrefix = "rm") {
       }
     }
   }
+  const noTarget = noOnlineTargetDeny(samplePrefix, targets, tail);
+  if (noTarget) return noTarget;
+  return null;
+}
+
+// SHARED no-on-line-target rule (p1-guard-indirection-wrappers-are-rm-only).
+//
+// A destructive verb reached with NO literal target on the line is being fed its operand from
+// stdin/xargs, where the operand is UNPROVABLE and can be `/` — `echo / | xargs chmod -R 777`,
+// `cat paths | xargs srm -rf`. rm has denied this since guard-xargs-stdin-target, but the rule
+// lived inside classifyRmTail, so chmod/chown/shred/srm inherited the wrapper BOUNDARY (they parse
+// after `xargs`/`-exec`/`eval`) yet not the no-target DENY. Measured live: the identical stdin shape
+// carrying a permission or secure-delete verb walked straight through while its rm twin was blocked.
+//
+// ONE implementation, called by every destructive matcher, so teaching the guard a new verb reaches
+// the wrapped path at the same time as the direct path. Each caller supplies its OWN danger-gate
+// before calling — rm/chmod/chown gate on `recursive`; shred/srm/wipe are destructive with no -r, so
+// they call unconditionally — which matches exactly what each verb's direct-invocation path already
+// treats as dangerous. The over-block this imposes (`find ./x | xargs rm -rf`, `… | xargs chmod -R`)
+// is the SAME tradeoff already shipped and quorum-accepted for rm: an unprovable operand to a
+// recursive/destructive verb is refused, and the fix is to name a literal path.
+function noOnlineTargetDeny(verb, targets, tail) {
+  // xargs -I{} / -i placeholder: the real operand arrives at runtime (often `echo / | xargs -I{} …`).
   for (const t of targets) {
     const u = t.replace(/['"]/g, "");
     if (/^\{\d*\}$/.test(u) || u === "{}") {
       return {
-        sample: (samplePrefix + " " + tail).trim().slice(0, 120),
-        detail: `recursive delete of xargs placeholder ${t} (stdin path unprovable)`,
+        sample: (verb + " " + tail).trim().slice(0, 120),
+        detail: `${verb} of xargs placeholder ${t} (stdin path unprovable)`,
       };
     }
   }
   if (targets.length === 0) {
     return {
-      sample: (samplePrefix + " " + tail).trim().slice(0, 120),
-      detail: "recursive delete with no on-line target (stdin/xargs — name a literal path)",
+      sample: (verb + " " + tail).trim().slice(0, 120),
+      detail: `${verb} with no on-line target (stdin/xargs — name a literal path)`,
     };
   }
   return null;
@@ -1875,6 +2015,13 @@ function matchChmodChownRoot(cmd) {
       .flatMap((t) => expandBraces(t));   // brace expansion: chmod -R 777 {/,} → /
     for (const t of targets) if (isCatastrophicTarget(t)) return { sample: (m[1] + tail).trim().slice(0, 120), detail: `recursive ${m[1]} of ${t}` };
     for (const t of targets) if (isUnprovableRecursiveTarget(t)) return { sample: (m[1] + tail).trim().slice(0, 120), detail: `recursive ${m[1]} of an unresolvable target ${t} (deny-by-default: resolve to a literal path, or guard the variable with \${var:?})` };
+    // A RECURSIVE chmod/chown fed from stdin/xargs with no on-line PATH is the same unprovable-`/`
+    // shape rm already refuses (guard-indirection-wrappers). chmod/chown take a MODE/OWNER as their
+    // first positional token (`chmod -R 777 /` → ["777","/"]), so the paths are targets.slice(1):
+    // `echo / | xargs chmod -R 777` parses to just ["777"], i.e. no path. Gated on `recursive`
+    // above, so `find . -type f | xargs chmod 644` (no -R) is untouched.
+    const noTarget = noOnlineTargetDeny(m[1], targets.slice(1), tail);
+    if (noTarget) return noTarget;
   }
   return null;
 }
@@ -1897,6 +2044,11 @@ function matchSecureDelete(cmd) {
       .flatMap((t) => expandBraces(t));   // `{~,}` etc. checked per alternative, same as rm
     for (const t of targets) if (isCatastrophicTarget(t)) return { sample: (verb + tail).trim().slice(0, 120), detail: `irreversible ${verb} of ${t}` };
     for (const t of targets) if (isUnprovableRecursiveTarget(t)) return { sample: (verb + tail).trim().slice(0, 120), detail: `irreversible ${verb} of an unresolvable target ${t} (deny-by-default)` };
+    // shred/srm/wipe are destructive with no -r needed (the direct path blocks a bare catastrophic
+    // target above), so a stdin/xargs-fed secure-delete with no on-line target is refused
+    // unconditionally — the operand is unprovable and the verb is the least recoverable in the file.
+    const noTarget = noOnlineTargetDeny(verb, targets, tail);
+    if (noTarget) return noTarget;
   }
   return null;
 }
@@ -1919,12 +2071,24 @@ function matchGitClean(cmd) {
 }
 
 function matchForcePushProtected(cmd) {
-  // Block a FORCE-push whose DESTINATION ref is protected. Force is either a global flag
-  // (--force, -f; NOT --force-with-lease, the sanctioned safe form) or a leading `+` on a refspec.
+  // Block a FORCE-push whose DESTINATION ref is protected. Force is a global flag
+  // (--force, -f, --force-with-lease) or a leading `+` on a refspec.
   // The protected check is on the DESTINATION (after `:` in `src:dst`), not the source — so
   // `+HEAD:main` and `-f origin topic:production` block, while `+main:feature` (force TO a
   // non-protected ref) and a normal non-force push to main do not. The prior version only matched
   // `+main`/`--force … main` in the same segment and missed every `+src:dst` colon refspec.
+  //
+  // UL-302 — `--force-with-lease` used to be excluded here as "the sanctioned safe form". The
+  // exclusion was documented and deliberate, and the safety argument is only half true. A lease
+  // guarantees you are not clobbering commits you have not SEEN; it does not stop you rewriting
+  // history others have already PULLED. On a protected branch those are different harms, and the
+  // second one is the harm this rule exists to prevent. Note the incentive shape: a careful agent
+  // reaches for `--force-with-lease` precisely BECAUSE it is the safe-sounding one, so the single
+  // force variant most likely to be aimed at `main` was the only unguarded one.
+  //
+  // This is a SUPERSET, not a tightening: the rule fires only when the DESTINATION is protected,
+  // so `--force-with-lease` stays completely free on every other ref — which is where the
+  // sanctioned-safe-form argument actually holds. Operator-authorised 2026-08-10.
   const PROT = /^(?:main|master|prod|production|release)$/;
   // Allow git's global options between `git` and `push` — `git -C <dir> push …`, `git -c k=v push …`
   // (spensa 2026-07-15: `git -C /repo push --force origin main` evaded the old `git\s+push` anchor).
@@ -1932,7 +2096,10 @@ function matchForcePushProtected(cmd) {
   let m;
   while ((m = re.exec(cmd))) {
     const seg = m[0], args = m[1] || "";
-    const globalForce = /(?:^|\s)(?:--force(?!-with-lease)|-f)\b/.test(seg);
+    // `--force-with-lease` may carry a value: --force-with-lease=main, --force-with-lease=main:<sha>.
+    const leaseForce = /(?:^|\s)--force-with-lease(?:=\S*)?(?=\s|$)/.test(seg);
+    const hardForce = /(?:^|\s)(?:--force(?!-with-lease)|-f)\b/.test(seg);
+    const globalForce = hardForce || leaseForce;
     const toks = args.trim().split(/\s+/).filter((t) => t && !t.startsWith("-"));  // remote + refspecs, no flags
     for (const t of toks) {
       const plus = t.startsWith("+");
@@ -1940,7 +2107,13 @@ function matchForcePushProtected(cmd) {
       const dst = (body.includes(":") ? body.split(":").pop() : body)
         .replace(/^refs\/heads\//, "").replace(/[\^~].*$/, "");   // strip refs/heads/ and ^{}/~N suffixes
       if ((plus || globalForce) && PROT.test(dst)) {
-        return { sample: seg.trim().slice(0, 120), detail: "force-push to a protected branch" };
+        // Name WHICH harm, because the two force forms fail differently and a reader who is told
+        // "force-push" while holding a lease will reasonably think the guard misfired.
+        const detail = (!plus && leaseForce && !hardForce)
+          ? "force-push (--force-with-lease) to a protected branch — a lease prevents clobbering " +
+            "commits you have not seen, but not rewriting history others have already pulled"
+          : "force-push to a protected branch";
+        return { sample: seg.trim().slice(0, 120), detail };
       }
     }
   }
@@ -1969,7 +2142,25 @@ const RULES = [
   { id: "diskutil-erase", reason: "diskutil erase/zero/reformat", test: (c) => { const m = c.match(/\bdiskutil\b[^\n;&|]*\b(eraseDisk|eraseVolume|zeroDisk|reformat|apfs\s+delete)/i); return m ? { sample: m[0].trim().slice(0, 120) } : null; } },
   { id: "shred-device", reason: "shred against a raw device", test: (c) => { const m = c.match(/\bshred\b[^\n;&|]*\/dev\/\w/i); return m ? { sample: m[0].trim().slice(0, 120) } : null; } },
   { id: "fork-bomb", reason: "fork bomb", test: (c) => { const m = c.match(/\w*\(\)\s*\{[^}]*\|[^}]*&[^}]*\}\s*;\s*\S/); return m ? { sample: m[0].trim().slice(0, 60) } : null; } },
-  { id: "find-delete-root", reason: "find on / ~ or $HOME with -delete or -exec rm", test: (c) => { const m = c.match(/\bfind\s+(?:-\S+\s+)*(\/|~\/?|\$\{?HOME\}?)\s[^\n;]*(-delete\b|-exec\s+rm\b)/i); return m ? { sample: m[0].trim().slice(0, 120) } : null; } },
+  // UL-873. The path was matched by a bespoke alternation — `/`, `~`, `~/`, `$HOME`, `${HOME}` and
+  // nothing else — so every spelling the rm rules understand was invisible here: `find ~/.* -delete`
+  // walked through while `find ~ -delete` and `find / -delete` were both refused. A second, narrower
+  // list of catastrophic targets is how an alias gets added on one side only, which is the exact
+  // failure UL-344 was opened to fix. Ask the SAME predicate the rm rules ask, so the two can never
+  // drift again. The cwd forms stay with `find-delete-cwd` below, which is filter-aware on purpose:
+  // `find . -name '*.tmp' -delete` is ordinary work and must keep passing.
+  {
+    id: "find-delete-root",
+    reason: "find on a whole home / filesystem / system root with -delete or -exec rm",
+    test: (c) => {
+      const m = c.match(/\bfind\s+((?:-\S+\s+)*)(\S+)\s[^\n;]*(-delete\b|-exec\s+rm\b)/i);
+      if (!m) return null;
+      const target = m[2];
+      if (/^\.\/?\*?$/.test(target)) return null;          // cwd → find-delete-cwd owns it
+      if (!isCatastrophicTarget(target)) return null;
+      return { sample: m[0].trim().slice(0, 120) };
+    },
+  },
   // `find . -delete` with no FILTER predicate wipes everything under cwd (same class as `rm -rf .`).
   // Only the unfiltered form blocks: after `find .` we allow a run of non-selecting flags (-maxdepth N,
   // -depth, -xdev …) before -delete/-exec rm, but a predicate (-name/-path/-type/-regex/-size/-mtime…)
