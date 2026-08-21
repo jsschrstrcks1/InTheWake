@@ -28,6 +28,77 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-21 — Getaway pack + multi-voyage family PWA (one session, three deliverables)
+
+**Asked** — Build a voyage pack for the operator's NCL Getaway booking (Aug 24–28, sails in
+three days), then carry it into the family PWA and the Jerusha PWA; then, per follow-ups:
+keep the Alaska week archived rather than replaced, and add the family's World America
+December sailing as an upcoming voyage.
+
+**Weighed** — (1) Pack facts: four parallel web-research passes vs. reusing sibling-pack
+content — chose research; copy-propagation is a named confabulation mode, and it would have
+shipped a waterpark that doesn't open until Sept 4 (eight days after the visit) and a
+"Mahogany Bay" Roatán that MSC doesn't use. The lead's own draft then got a self-audit,
+which caught six unverified claims it had introduced (staircase steps, Watling's 1789, GSC
+1986-vs-1977, christening date, deck count, laundry) — all re-verified or softened before
+the sidecar was written. (2) Family PWA shape: single-voyage swap vs. lifecycle model —
+first shipped the swap, operator corrected course (rightly), so rebuilt as a VOYAGES array
+where state derives from today's date: future → current → past, active voyage computed, the
+rest rendered as collapsed cards. Alaska restored verbatim from git history, nothing
+retyped. (3) World America Dec: operator's booking cards said Dec 5–13; schedule research
+says the sailing is Dec 5–12 (7 nights, no 8-night option that week) — trusted the two
+agreeing primary schedule sources plus the cards' own Dec 12 arrival over the remembered
+end date. (4) Jerusha: the payload is zero-knowledge encrypted; refused to guess until the
+operator supplied the passphrase in-session; decrypted, extraction only, edits deferred per
+instruction.
+
+**Decided** — v0.1.18 pack shipped (gate green, PDF built, times cross-confirmed against
+the booking screenshot); build-script staleness bug fixed (inner mtime check was overriding
+the clone-stable logic — it had skipped three genuinely stale PDFs while rebuilding four
+current ones); family PWA is now multi-voyage with Getaway active, World America Dec 5–12
+upcoming (December normals sourced, Ocean Cay labeled as Nassau-proxy), Alaska archived;
+the World America hosted-sailing shell also got the July audit's Coxen Hole / April-2025
+corrections it had missed.
+
+**Unsure** — GSC pier reopening is "two independent Aug-4 reports," not an NCL press
+release — the pack hedges with a tender fallback. Port times for the December sailing
+differ between aggregator listings; the booking's own times were used and the page says to
+confirm in the MSC app. December Roatán rainfall figures conflict wildly across weather
+sites (1 mm to 399 mm); the page states "rainy season, expect showers" and declines a
+number.
+
+## 2026-08-21 — MSC World America Dec 5, 2026 sailing: fact-verification pass (web-only, no memory)
+
+**Asked.** Verify the MSC World America sailing "Dec 5th–13, 2026" for a voyage pack: exact
+dates/nights, day-by-day itinerary with times, dock-vs-tender per port, ship quick facts,
+and December weather normals per port. Hard rule: every fact from a page fetched this
+session; nothing from training memory.
+
+**Weighed.** Aggregator schedule sites disagree on details, so each class of fact needed
+two independent fetched sources where possible. cruisetimetables.com rate-limited WebFetch
+(429) — fetched raw HTML via curl instead and parsed it directly, which yielded the full
+timetable text verbatim rather than a summarizer's paraphrase. MSC's own site is JS-heavy
+and returned no itinerary data; press releases and PortMiami's official terminal page
+filled the terminal/ship-fact gaps.
+
+**Decided.** The sailing is Dec 5–12, 2026 (7 nights), not Dec 5–13 — no 8-night departure
+exists in the Dec 4–7 window; reported that correction explicitly. Itinerary taken from
+cruisetimetables (times) cross-checked against iCruise (ports/dates). Dock-vs-tender from
+CruiseMapper port pages + cruisehive. Ship GT reported as 216,638 (Cruise Hive +
+CruiseBooking) with CruiseMapper's 215,863 flagged as a conflict (matches World Europa's
+GT — likely their error, but flagged, not silently dropped). Weather from currentresults
+(Miami, Nassau), weather2travel (Roatan), holiday-weather (Cozumel), with bad datapoints
+(holiday-weather's "1 mm December rain" for Roatan) called out rather than averaged away.
+
+**Unsure.** Port times are aggregator-listed, not MSC-confirmed; cruisetimetables itself
+shows Ocean Cay 0800–2000 on the 7-night listing but 0700–1800 on the overlapping 14-night
+listing for the same class of call. One search summary showed a 16:30 Miami departure vs
+cruisetimetables' 17:00. Ocean Cay December normals proxied from Nassau (nearest published
+climate station) — stated as a proxy. MSC's Cozumel pier varies (Punta Langosta or
+International Pier); reported as such, not pinned.
+
+---
+
 ## 2026-08-12 — the guard was shipping a detector it could not find (P0, measured)
 
 **Asked.** Continue the merge campaign into this repo. Two of the six branches carrying
