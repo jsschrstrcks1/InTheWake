@@ -10,11 +10,14 @@
    blanket "any same-origin 200"; (b) it only deletes caches named "family-*", never
    another page's cache. Nothing from a sibling page can land in this cache. */
 
-const CACHE = "family-v3";
+const CACHE = "family-v4";
 const SHELL = "/admin/family/weather-family.html";
 const OWN_SCOPE = "/admin/family/";   // the only same-origin prefix this worker will cache
 const PRECACHE = [
   SHELL,
+  "/admin/family/past-cruises.html",
+  "/admin/family/future-cruises.html",
+  "/admin/family/register-sw.js",
   "/admin/family/icons/icon-192.png",
   "/admin/family/icons/icon-512.png",
   "/admin/family/icons/icon-maskable-512.png",
