@@ -201,8 +201,12 @@ build_pack() {
 
   mkdir -p "$(dirname "$pdf")"
 
-  # Idempotency: skip if PDF is newer than .md (unless --force) and CSS too
-  if [ "$FORCE" -eq 0 ] && [ -f "$pdf" ] && [ "$pdf" -nt "$md" ] && [ "$pdf" -nt "$css" ]; then
+  # Idempotency: skip when the PDF is current (unless --force). Uses the same
+  # clone-stable pdf_is_stale as --check — raw mtime comparisons lie in a fresh
+  # clone (checkout order sets mtimes), which both skipped genuinely-stale PDFs
+  # and rebuilt current ones. CSS gets an mtime guard only while actively edited.
+  if [ "$FORCE" -eq 0 ] && [ -f "$pdf" ] && ! pdf_is_stale "$md" "$pdf" \
+     && { ! _git_dirty "$css" || ! [ "$css" -nt "$pdf" ]; }; then
     echo "  · $label: up-to-date, skipping"
     return 0
   fi
