@@ -816,3 +816,12 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-08-22T03:17:24.747Z -->
 | inthewake-ship-page-js-validator-nav-gold-standard-expects-depre | 2 | InTheWake ship-page JS validator: nav gold standard expects deprecated flat paths (/ports.html, /cruise-lines.html) — modern hub-path ship pages falsely REGRESS and the regression guard blocks all commits to them; update gold standard + refresh audit-reports/ship-validation-dashboard.json, then add the deferred Getaway article link to ships/norwegian/norwegian-getaway.html Plan Your Cruise |
+
+<!-- library register 2026-08-22T21:52:13.724Z -->
+| article-shore-power-at-portmiami-why-getaway-overnights-in-miami | 2 | Article: shore power at PortMiami — why Getaway overnights in Miami (explainer) |
+
+<!-- library register 2026-08-22T21:52:14.331Z -->
+| article-great-stirrup-cay-is-about-to-change-pier-great-tides-wa | 2 | Article: Great Stirrup Cay is about to change — pier + Great Tides waterpark (news/explainer) |
+
+<!-- library register 2026-08-22T21:52:14.700Z -->
+| article-interior-vs-balcony-vs-oceanview-cabin-decision-guide-ev | 2 | Article: interior vs balcony vs oceanview — cabin decision guide (evergreen) |
