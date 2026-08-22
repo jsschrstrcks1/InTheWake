@@ -28,6 +28,35 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-22 — Norwegian Getaway Aug 24 change letter → news article (syl)
+
+**Asked.** Ken forwarded three screenshots of NCL's guest notification for the August 24
+Getaway sailing (Nassau overnight for repairs, GSC extended to 8 p.m.) and asked for a new
+article in house voice — "an opportunity to see how NCL handles different things."
+
+**Weighed.** Whether to treat the letter alone as sufficient sourcing (no — it never names
+the failed system), whether to claim Ken is booked on the sailing (no — he didn't say so;
+the dek says the letter "landed in my inbox," which is verifiably true either way), and
+which register to use (the calm-authority news template per memory 2b89a833, mirroring
+caribbean-cruise-trends-2026). Corroborated via Cruise Hive: propulsion component, the
+July 31 precedent sailing, reduced speed, casino/retail closures alongside, and the
+separate shore-power reason for the Miami 3 a.m. departure. Household memory b4e7d905
+supplied the GSC waterpark September opening — the honest caveat on the extended island day.
+HLS preflight run as patron syl; task registered; open-PR check was UNAVAILABLE (no gh) so
+open PRs were checked by hand via GitHub MCP — none touch this surface.
+
+**Decided.** Standalone news article (norwegian-getaway-nassau-repairs-overnight-2026) with
+the original-vs-revised table, the three-weeks-of-repairs pattern, a fair scorecard on
+NCL's handling (advance notice + both ports kept, but the system unnamed and the constraint
+dressed as a gift), practical aboard notes, and no affiliate links. NCL's marketing line is
+quoted once, attributed, and analyzed — not adopted as voice.
+
+**Unsure.** Whether Ken is aboard this sailing (article deliberately doesn't claim it — one
+line to add if he confirms), and whether the repairs will finish in the Nassau window; the
+article says the schedule is "written in pencil" rather than promising.
+
+---
+
 ## 2026-08-12 — the guard was shipping a detector it could not find (P0, measured)
 
 **Asked.** Continue the merge campaign into this repo. Two of the six branches carrying
