@@ -28,6 +28,37 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-22 — Getaway article: booked-on-it confirmed + cross-link pass (syl)
+
+**Asked.** Ken confirmed he is booked on the Aug 24 Getaway sailing and "will write about
+the experience Daily," and asked to "cross link everything you can."
+
+**Weighed.** The booked claim was deliberately withheld in the first pass because he hadn't
+stated it; his confirmation makes it attested fact, so the dek and Who This Is For now say
+it plainly — while keeping all aboard-ship experience future tense, since nothing has been
+lived yet. For cross-links, every candidate surface was surveyed for a real slot rather than
+bolted on: ship page (Plan Your Cruise), Nassau + Great Stirrup Cay port pages (plan-visit
+lists), and the three sibling articles' Related-reading lists (Nassau brawls, itinerary
+changes, Caribbean Princess power loss). Ship and Nassau validators were already failing
+pre-edit (nav gold-standard drift; missing food/credits sections) — baselines captured
+first so my single-list-item edits can be proven regression-free.
+
+**Decided.** Eight surfaces updated bidirectionally; index excerpt notes the daily
+dispatches; sidecar authorship_note updated with the operator's confirmation and the full
+cross-link inventory. The ninth — the ship page's Plan Your Cruise link — was written,
+then REVERTED and deferred: the ship-page regression guard blocks any commit touching that
+file on a pre-existing js:navigation/missing_nav_items failure, and measurement showed the
+validator's "gold standard" expects the deprecated flat paths (/ports.html,
+/cruise-lines.html) that the page and every current article correctly avoid. The stale
+side is the validator, so neither the nav nor the guard was touched; the fix (update the
+gold standard + refresh audit-reports/ship-validation-dashboard.json, then add the link)
+is registered in the HLS instead of bypassed with --no-verify.
+
+**Unsure.** Where the daily dispatches will live (one logbook page vs. one article per day)
+— structure decision deferred until Ken files the first one.
+
+---
+
 ## 2026-08-22 — Norwegian Getaway Aug 24 change letter → news article (syl)
 
 **Asked.** Ken forwarded three screenshots of NCL's guest notification for the August 24
