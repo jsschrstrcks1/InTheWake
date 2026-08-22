@@ -28,6 +28,66 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-22 — Getaway article: booked-on-it confirmed + cross-link pass (syl)
+
+**Asked.** Ken confirmed he is booked on the Aug 24 Getaway sailing and "will write about
+the experience Daily," and asked to "cross link everything you can."
+
+**Weighed.** The booked claim was deliberately withheld in the first pass because he hadn't
+stated it; his confirmation makes it attested fact, so the dek and Who This Is For now say
+it plainly — while keeping all aboard-ship experience future tense, since nothing has been
+lived yet. For cross-links, every candidate surface was surveyed for a real slot rather than
+bolted on: ship page (Plan Your Cruise), Nassau + Great Stirrup Cay port pages (plan-visit
+lists), and the three sibling articles' Related-reading lists (Nassau brawls, itinerary
+changes, Caribbean Princess power loss). Ship and Nassau validators were already failing
+pre-edit (nav gold-standard drift; missing food/credits sections) — baselines captured
+first so my single-list-item edits can be proven regression-free.
+
+**Decided.** Eight surfaces updated bidirectionally; index excerpt notes the daily
+dispatches; sidecar authorship_note updated with the operator's confirmation and the full
+cross-link inventory. The ninth — the ship page's Plan Your Cruise link — was written,
+then REVERTED and deferred: the ship-page regression guard blocks any commit touching that
+file on a pre-existing js:navigation/missing_nav_items failure, and measurement showed the
+validator's "gold standard" expects the deprecated flat paths (/ports.html,
+/cruise-lines.html) that the page and every current article correctly avoid. The stale
+side is the validator, so neither the nav nor the guard was touched; the fix (update the
+gold standard + refresh audit-reports/ship-validation-dashboard.json, then add the link)
+is registered in the HLS instead of bypassed with --no-verify.
+
+**Unsure.** Where the daily dispatches will live (one logbook page vs. one article per day)
+— structure decision deferred until Ken files the first one.
+
+---
+
+## 2026-08-22 — Norwegian Getaway Aug 24 change letter → news article (syl)
+
+**Asked.** Ken forwarded three screenshots of NCL's guest notification for the August 24
+Getaway sailing (Nassau overnight for repairs, GSC extended to 8 p.m.) and asked for a new
+article in house voice — "an opportunity to see how NCL handles different things."
+
+**Weighed.** Whether to treat the letter alone as sufficient sourcing (no — it never names
+the failed system), whether to claim Ken is booked on the sailing (no — he didn't say so;
+the dek says the letter "landed in my inbox," which is verifiably true either way), and
+which register to use (the calm-authority news template per memory 2b89a833, mirroring
+caribbean-cruise-trends-2026). Corroborated via Cruise Hive: propulsion component, the
+July 31 precedent sailing, reduced speed, casino/retail closures alongside, and the
+separate shore-power reason for the Miami 3 a.m. departure. Household memory b4e7d905
+supplied the GSC waterpark September opening — the honest caveat on the extended island day.
+HLS preflight run as patron syl; task registered; open-PR check was UNAVAILABLE (no gh) so
+open PRs were checked by hand via GitHub MCP — none touch this surface.
+
+**Decided.** Standalone news article (norwegian-getaway-nassau-repairs-overnight-2026) with
+the original-vs-revised table, the three-weeks-of-repairs pattern, a fair scorecard on
+NCL's handling (advance notice + both ports kept, but the system unnamed and the constraint
+dressed as a gift), practical aboard notes, and no affiliate links. NCL's marketing line is
+quoted once, attributed, and analyzed — not adopted as voice.
+
+**Unsure.** Whether Ken is aboard this sailing (article deliberately doesn't claim it — one
+line to add if he confirms), and whether the repairs will finish in the Nassau window; the
+article says the schedule is "written in pencil" rather than promising.
+
+---
+
 ## 2026-08-21 — Getaway pack + multi-voyage family PWA (one session, three deliverables)
 
 **Asked** — Build a voyage pack for the operator's NCL Getaway booking (Aug 24–28, sails in

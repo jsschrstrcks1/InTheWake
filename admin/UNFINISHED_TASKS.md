@@ -810,3 +810,9 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-07-30T22:00:49.622Z -->
 | inthewake-repair-3-dead-nav-links-site-wide-ports-cruise-lines-r | 1 | InTheWake: repair 3 dead nav links site-wide (/ports/, /cruise-lines/, /restaurants/ return 404 on live site; 744 files) |
+
+<!-- library register 2026-08-22T02:11:59.964Z -->
+| article-norwegian-getaway-aug-24-2026-itinerary-change-nassau-ov | 2 | Article: Norwegian Getaway Aug 24 2026 itinerary change — Nassau overnight for repairs, GSC extended (news, NCL comms analysis) |
+
+<!-- library register 2026-08-22T03:17:24.747Z -->
+| inthewake-ship-page-js-validator-nav-gold-standard-expects-depre | 2 | InTheWake ship-page JS validator: nav gold standard expects deprecated flat paths (/ports.html, /cruise-lines.html) — modern hub-path ship pages falsely REGRESS and the regression guard blocks all commits to them; update gold standard + refresh audit-reports/ship-validation-dashboard.json, then add the deferred Getaway article link to ships/norwegian/norwegian-getaway.html Plan Your Cruise |

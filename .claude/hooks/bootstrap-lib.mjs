@@ -115,6 +115,18 @@ export function getRepoName(input = null) {
  */
 export function normalizeHookInput(raw) {
   if (!raw || typeof raw !== "object") return null;
+  // Session id comes from the hook PAYLOAD only — deliberately never from the
+  // environment. 2026-08-08: an agent proposed a CLAUDE_CODE_SESSION_ID fallback after
+  // seeing an id-less denial, then found it broke three sessionid-contract tests and
+  // was solving a bug that did not exist. Two reasons it must stay payload-only:
+  //   1. The premise was wrong. This runtime DOES supply session_id — the denial came
+  //      from a hand-made probe JSON that omitted it, not from a real invocation. The
+  //      real failure was that the hooks were never registered at all (multi-root/remote;
+  //      SOPHOS-OPERATING-SYSTEM §0 case 2, memory 6857086c, 2026-07-20). Fix the
+  //      registration (admin/install-bootstrap-dispatch.mjs), not the attribution.
+  //   2. Even if it were needed, env is AMBIENT, not per-invocation: an exported value
+  //      lets an id-less call inherit an identity the runtime never assigned it, which
+  //      is exactly the hole sessionIdValid() closes. The tests encode that contract.
   const session_id = raw.session_id ?? raw.sessionId ?? raw.sessionID ?? "";
   const rawTool = String(raw.tool_name ?? raw.toolName ?? "");
   const tool_name = TOOL_ALIASES[rawTool.toLowerCase()] || rawTool;
@@ -144,16 +156,29 @@ export function normalizeHookInput(raw) {
   };
 }
 
+// Stamp root is HOUSEHOLD-SHARED, not per-repo (spec §5.2 A5, operator directive
+// 2026-07-20): the six-layer read order is household-global and a session is one
+// session across every repo it touches — per-repo buckets demand the same canonical
+// reads once per repo, and a multi-repo session bootstrapped in one repo is denied
+// in the next. Measured live 2026-08-19: Project-Sophos's guard (A5-lineage hooks,
+// shared bucket) was mechanically unsatisfiable because the canonical stamp hook
+// filed reads in a per-repo bucket its checker never consulted. The A5
+// implementation (5ba8fced) never merged to main; the per-repo variant arrived in a
+// bulk hook import (66b53970) with no counter-rationale — this restores the spec'd
+// design, keeping main's dual-runtime split and the env override. `input` stays in
+// the signature for caller compatibility; the location no longer depends on it.
+// Migration cost, named: stamps in the old per-repo buckets are not read from the
+// new location, so each live session re-earns its stamp once via the read order.
+// Operator applied 2026-08-19 (HLS p1-loud-bootstrap-spec-vs-lib-stamp-root).
 export function stampRoot(input = null) {
   if (process.env.HOUSEHOLD_BOOTSTRAP_ROOT) {
     return process.env.HOUSEHOLD_BOOTSTRAP_ROOT;
   }
-  const repo = getRepoName(input);
   const runtime = getRuntime();
   if (runtime === "grok") {
-    return path.join(os.homedir(), ".grok", "household-bootstrap", repo);
+    return path.join(os.homedir(), ".grok", "household-bootstrap", "household");
   }
-  return path.join(os.homedir(), ".claude", "household-bootstrap", repo);
+  return path.join(os.homedir(), ".claude", "household-bootstrap", "household");
 }
 
 export function eventsPath(input = null) {
@@ -246,15 +271,120 @@ export function missingLayers(stamp) {
   return ALL_LAYERS.filter((k) => !stamp.layers_read?.[k]);
 }
 
+/** Canonicalize like admin/event-chain.mjs so sealed hashes match library.mjs. */
+function canonicalEventBody(value) {
+  if (Array.isArray(value)) return value.map(canonicalEventBody);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.keys(value)
+        .sort()
+        .map((key) => [key, canonicalEventBody(value[key])]),
+    );
+  }
+  return value;
+}
+
+/**
+ * When the household events ledger has started a hash chain, seal appends so
+ * hook denials cannot brick library.mjs with `unchained_event_after_chain`.
+ * Test ledgers (HOUSEHOLD_BOOTSTRAP_EVENTS) and pre-chain ledgers stay plain.
+ */
+function sealIfChainStarted(payload, file) {
+  if (process.env.HOUSEHOLD_BOOTSTRAP_EVENTS) return payload;
+  let prior = [];
+  try {
+    const text = fs.readFileSync(file, "utf8");
+    prior = text.trim()
+      ? text.trim().split("\n").filter(Boolean).map((l) => JSON.parse(l))
+      : [];
+  } catch {
+    return payload;
+  }
+  let parent = null;
+  for (let i = prior.length - 1; i >= 0; i--) {
+    if (typeof prior[i]?.event_hash === "string") {
+      parent = prior[i].event_hash;
+      break;
+    }
+  }
+  if (!parent) return payload; // chain not started (or empty)
+  const sealed = { ...payload, prev_hash: parent };
+  const body = { ...sealed };
+  delete body.event_hash;
+  const digest = crypto
+    .createHash("sha256")
+    .update(JSON.stringify(canonicalEventBody(body)), "utf8")
+    .digest("hex");
+  return { ...sealed, event_hash: `sha256:${digest}` };
+}
+
+function pidAlive(pid) {
+  if (!Number.isInteger(pid) || pid <= 0) return false;
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (error) {
+    return error?.code === "EPERM";
+  }
+}
+
+// Hook side-channels share the library CLI's .catalog.lock. The CLI may repair
+// events.jsonl from a full snapshot before appending; an unlocked hook append in
+// that interval would otherwise be erased by the atomic rename.
+function withLibraryLock(file, fn) {
+  const root = path.dirname(file);
+  fs.mkdirSync(root, { recursive: true });
+  const lockPath = path.join(root, ".catalog.lock");
+  const deadline = Date.now() + 5000;
+  let fd = null;
+  for (;;) {
+    try {
+      fd = fs.openSync(lockPath, "wx");
+      fs.writeSync(fd, String(process.pid));
+      break;
+    } catch (error) {
+      if (error?.code !== "EEXIST") throw error;
+      try {
+        const pid = Number.parseInt(fs.readFileSync(lockPath, "utf8").trim(), 10);
+        const ageMs = Date.now() - fs.statSync(lockPath).mtimeMs;
+        const reclaim = Number.isInteger(pid)
+          ? (!pidAlive(pid) || ageMs > 300_000)
+          : ageMs > 30_000;
+        if (reclaim) fs.unlinkSync(lockPath);
+      } catch {
+        /* raced away or already gone */
+      }
+      if (Date.now() > deadline) throw new Error("catalog locked by another live writer");
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 50);
+    }
+  }
+  try {
+    return fn();
+  } finally {
+    try { fs.closeSync(fd); } catch { /* already closed */ }
+    try {
+      if (Number.parseInt(fs.readFileSync(lockPath, "utf8").trim(), 10) === process.pid) {
+        fs.unlinkSync(lockPath);
+      }
+    } catch { /* gone */ }
+  }
+}
+
 export function appendEvent(ev, input = null) {
   try {
-    const line = JSON.stringify({
-      at: new Date().toISOString(),
-      runtime: getRuntime(),
-      repo: getRepoName(input),
-      ...ev,
+    const file = eventsPath(input);
+    withLibraryLock(file, () => {
+      const payload = sealIfChainStarted(
+        {
+          at: new Date().toISOString(),
+          runtime: getRuntime(),
+          repo: getRepoName(input),
+          ...ev,
+        },
+        file,
+      );
+      fs.appendFileSync(file, JSON.stringify(payload) + "\n");
     });
-    fs.appendFileSync(eventsPath(input), line + "\n");
   } catch {
     /* ledger append is best-effort */
   }
