@@ -21,11 +21,89 @@ import {
 
 // Read + parse the event FIRST, so a minimal inline check can still run even if
 // the detector import fails.
+// The stdin read is the guard's OWN trust boundary: until it finishes there is no command to
+// inspect, so an unbounded read is an unbounded window in which the guard has decided NOTHING.
+// Measured 2026-08-18 with inert `echo PROBE` payloads: stdin opened and never closed => this
+// hook never returned a verdict, and two ORPHANED copies (PPID=1) spun at ~100% CPU for 19
+// minutes. Bound it, and fail CLOSED on the bound — the same posture the detector-load path
+// below already takes, for the same stated reason: a false block is an annoyance, a false pass
+// is irreversible. The in-process bound is deliberately SHORTER than the `timeout` on this
+// hook's `.claude/settings.json` entry, so THIS code decides rather than the harness's
+// hook-timeout semantics, which are not specified to fail closed.
+//
+// `Number(x) || fallback` is deliberately NOT used: it maps a legitimate "0" to the fallback,
+// which is exactly how a tuning knob silently loses its zero (UL-895).
+function envInt(name, fallback) {
+  const raw = process.env[name];
+  if (raw === undefined || raw === "") return fallback;
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 0 ? n : fallback;
+}
+const STDIN_MS = envInt("DANGEROUS_COMMAND_GUARD_STDIN_MS", 5000);
+const STDIN_MAX_BYTES = envInt("DANGEROUS_COMMAND_GUARD_STDIN_MAX_BYTES", 1024 * 1024);
+
+function denyUninspectable(why) {
+  process.stderr.write(
+    `\u26d4 A.B.O.R.T. destructive-command guard\n` +
+      `BLOCKED (fail-closed): the guard could not read the tool call to inspect it — ${why}. ` +
+      `A command this guard has not read is a command it has not cleared.\n`,
+  );
+  try {
+    if (getRuntime() === "grok") {
+      process.stdout.write(
+        JSON.stringify({ decision: "deny", reason: `guard could not read stdin: ${why}` }) + "\n",
+      );
+    }
+  } catch {
+    /* ignore */
+  }
+  try {
+    appendEvent({
+      type: "destructive_command_denial",
+      patron: getPatron(),
+      session_id: "unknown",
+      command_hash: null,
+      rule_id: "stdin-uninspectable",
+      runtime: getRuntime(),
+    });
+  } catch {
+    /* best effort — never breaks the deny path */
+  }
+  process.exit(2);
+}
+
 let rawText = "";
 try {
-  for await (const chunk of process.stdin) rawText += chunk;
-} catch {
-  /* no stdin */
+  rawText = await new Promise((resolve, reject) => {
+    let buf = "";
+    let settled = false;
+    const done = (fn, arg) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      fn(arg);
+    };
+    const timer = setTimeout(
+      () => done(reject, new Error(`stdin did not close within ${STDIN_MS}ms`)),
+      STDIN_MS,
+    );
+    // Never hold the process open on the timer alone.
+    if (typeof timer.unref === "function") timer.unref();
+    process.stdin.setEncoding("utf8");
+    process.stdin.on("data", (chunk) => {
+      buf += chunk;
+      if (Buffer.byteLength(buf, "utf8") > STDIN_MAX_BYTES) {
+        done(reject, new Error(`stdin exceeded ${STDIN_MAX_BYTES} bytes`));
+      }
+    });
+    process.stdin.on("end", () => done(resolve, buf));
+    // An stdin ERROR keeps the pre-existing "no stdin" behaviour (empty -> exit 0 downstream):
+    // a hook invoked with no readable stdin is not gating a shell call. NAMED RESIDUAL, not
+    // silently absorbed — closing it is a separate scope decision, not this change.
+    process.stdin.on("error", () => done(resolve, ""));
+  });
+} catch (err) {
+  denyUninspectable(err?.message || String(err));
 }
 
 let command = "";
@@ -82,23 +160,14 @@ function deny(msg, meta = {}) {
 // repos have no `cluster/` directory, so the SSOT path cannot resolve there. Until 2026-08-07 this
 // file tried only `../../cluster/lib/`, which meant a freshly onboarded repo fell through to the
 // six INLINE patterns below. Verified by simulating an onboard into a scratch dir: the guard printed
-// "detector unavailable, allowing", exited 0, and ALLOWED `rm -rf /$X/*` — the exact root-wipe shape
-// fixed in the detector that same day — while the copied detector sat unread beside it.
-//
-// The older guard already deployed in Project-Sophos and Archive has this fallback; this repo's
-// newer guard (Grok dual-runtime, denial ledger) had lost it. Those two repos were protected by
-// running OLDER code, which is not a safety margin anyone chose.
+// "detector unavailable, allowing", exited 0, and ALLOWED wipe-class shapes while the copied detector
+// sat unread beside it.
 //
 // Residual (guard-hook-fail-open-on-error): even with the dual-path load, if BOTH candidates fail
 // the old path still allowed any command that did not match the thin INLINE list. That is still
 // fail-open for the live agent shell. Default is now DENY (exit 2) when the detector cannot load.
 // Operator escape only: DANGEROUS_COMMAND_GUARD_FAIL_OPEN=1 restores allow-if-no-inline-match
 // (with a loud stderr warning). Test harness may set DANGEROUS_COMMAND_GUARD_FORCE_DETECTOR_FAIL=1.
-//
-// MERGE 2026-08-12 — two lanes fixed this hook independently and the fixes are COMPLEMENTARY,
-// not rival: one added the second candidate path so the detector can be FOUND, the other made
-// the no-detector case DENY instead of allow. Taking either alone leaves the other hole open.
-// Kept both.
 const DETECTOR_CANDIDATES = [
   "../../cluster/lib/dangerous-command.mjs",   // canonical repo: the SSOT
   "./lib/dangerous-command.mjs",               // onboarded repo: the copy installed beside this hook

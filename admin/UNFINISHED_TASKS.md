@@ -810,3 +810,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-07-30T22:00:49.622Z -->
 | inthewake-repair-3-dead-nav-links-site-wide-ports-cruise-lines-r | 1 | InTheWake: repair 3 dead nav links site-wide (/ports/, /cruise-lines/, /restaurants/ return 404 on live site; 744 files) |
+
+<!-- library register 2026-08-22T02:11:59.964Z -->
+| article-norwegian-getaway-aug-24-2026-itinerary-change-nassau-ov | 2 | Article: Norwegian Getaway Aug 24 2026 itinerary change — Nassau overnight for repairs, GSC extended (news, NCL comms analysis) |
