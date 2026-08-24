@@ -28,6 +28,63 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-24 — Day 1 dispatch: logbook created, dirty-cabin report published as sent (syl)
+
+**Asked.** Ken, aboard, sent Day 1: embarkation smooth; rooms dirty and deteriorated —
+toenails on the floor, detritus from previous guests; "We're giving them an opportunity to
+fix it."
+
+**Weighed.** Structure (deferred until now): one running logbook page over per-day
+articles — one URL for the week, day anchors, matches the Quantum logbook precedent; no
+placeholder sections for future days (coming-soon content is banned). Fidelity: the entry
+carries ONLY the dispatched facts; nothing invented — no cabin numbers, times, staff
+interactions, meals, or sailaway color, and no shore-power observations since he hasn't
+sent any (the entry defers them to Day 2 explicitly rather than pretending). Tone: the
+never-chipper rule governs — the failure is stated plainly ("toenails-on-the-floor dirty"),
+and the fairness posture is his own words elevated to the entry's spine: the verdict is
+deferred to how the ship responds.
+
+**Decided.** New page norwegian-getaway-aug-2026-logbook (Trip Logbooks) with Day 1 only;
+hub updated so "the logbook is next" now links the live logbook; index entry added.
+Because the logbook links the shore-power and GSC research pieces, the whole branch goes
+to main in this pass — daily-dispatch publishing implies live publication, per the
+operator's standing "make it live on main" pattern and his "stay tuned" to readers.
+
+**Unsure.** Whether the cabin gets made right, and how fast — deliberately so; that is
+Day 2's entry, not this one's speculation.
+
+---
+
+## 2026-08-22 — Three articles in one pass: shore power, GSC changes, cabin types (syl)
+
+**Asked.** Ken approved all three proposed articles for today and asked that they be run
+"through all of our voice skills."
+
+**Weighed.** Sourcing per piece: shore power rests on Miami-Dade County's own program page
+(terminals, $125M cost, grants, 98%-while-connected, 3-ships, ~35 seaports) with the
+Getaway test-night purpose attributed to cruise media; GSC rests on NCL's own May-2026
+booklet (SSOT text held in admin/sources/) for everything waterpark, with the pier
+reopening deliberately marked UNVERIFIED because current reports conflict — stated as a
+conflict rather than picked; the cabin guide quotes no prices or square footage at all
+(they churn faster than an article should track) and anchors the balcony case in Ken's
+published Quantum logbook moments rather than invented experience. Voice pipeline applied
+per article: like-a-human during drafting, six-axis voice-audit self-scan and
+emotional-hook-test (5/5 each) attested in the sidecars. One flagged token — "unpack" in
+the shore-power piece — kept deliberately: it's the literal luggage verb, and contorting
+an honest sentence to dodge a tell-list is validator-gaming in mirror form.
+
+**Decided.** Three articles + three factcheck sidecars with voice/emotional attestations,
+three index entries, and bidirectional cross-links (Getaway hub → shore power + GSC; GSC
+port page → GSC article; seasickness + deck-plans → cabin guide). All three articles
+carry a forward commitment the sailing week can keep: Monday night verifies shore power,
+Thursday verifies the pier and lagoon pricing.
+
+**Unsure.** Whether the GSC pier has actually reopened (the article says so plainly), and
+whether the Great Life Lagoon is truly included — the booklet's silence is a signal, not
+a promise; both are on the Thursday checklist.
+
+---
+
 ## 2026-08-22 — Getaway article: booked-on-it confirmed + cross-link pass (syl)
 
 **Asked.** Ken confirmed he is booked on the Aug 24 Getaway sailing and "will write about
