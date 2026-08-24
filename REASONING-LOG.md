@@ -28,6 +28,31 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-24 — Day 1 dining + engine runs (syl)
+
+**Asked.** Fourth Day 1 dispatch: O'Sheehan's lunch (fish and chips good — crunchy
+outside, moist inside; Irish Reuben unbalanced, too much acid), dinner NY strip + two
+lobster tails with verdict promised later, and engines being started and run off and on
+all evening.
+
+**Weighed.** Venue name: dispatch says "o Sheehans (oceans)" — used O'Sheehan's (the
+operator's own name for it, and our venue page exists at restaurants/ncl/osheehans.html);
+left "(oceans)" out rather than guess what it meant. Dinner venue wasn't named, so the
+entry doesn't name one. Engines: the observation sits right next to the shore-power
+question, and the temptation is to conclude the ship isn't plugged in — resisted, because
+engine runs at a pier have innocent explanations (pre-departure checks among them) and
+the shore-power report is Ken's to make with more than a sound. Wrote it as an observed
+detail plus the open question.
+
+**Decided.** Two short h3s appended to Day 1 (dining, engines) with the venue cross-link;
+sidecar records dispatch-vs-framing including normalized typos and the not-claimed list.
+Published live per the daily pattern.
+
+**Unsure.** What "(oceans)" meant in the dispatch — flagged in the sidecar instead of
+guessed. What the engine runs actually were — deliberately left open in print.
+
+---
+
 ## 2026-08-24 — Day 1 heat note: no breeze on a stationary ship (syl)
 
 **Asked.** Third Day 1 dispatch: "No breeze on a cruise ship that's not moving. It's hot
