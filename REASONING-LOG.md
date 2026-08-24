@@ -28,6 +28,27 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-24 — Day 1 heat note: no breeze on a stationary ship (syl)
+
+**Asked.** Third Day 1 dispatch: "No breeze on a cruise ship that's not moving. It's hot
+in South Florida today."
+
+**Weighed.** Where it goes: still Monday, so it's a Day 1 append, not Day 2. What it
+means: the observation only lands with the physics behind it (deck breeze is mostly the
+ship's own motion), stated generically — no wind-speed numbers invented. The itinerary
+tie is the real editorial value: a repair week built around staying in port trades away
+underway evenings, and this is what that trade feels like. "Small hours" leans on the
+already-published, letter-sourced ~3 a.m. departure rather than restating a time.
+
+**Decided.** One short h3 + paragraph appended to Day 1; sidecar records dispatched facts
+vs framing and the not-claimed list (no deck temps, no AC claims, no claim shore power is
+connected tonight — that report is still owed). Published live per the daily pattern.
+
+**Unsure.** Nothing material; the entry claims only what was dispatched plus generic
+physics.
+
+---
+
 ## 2026-08-24 — Day 1 evening addendum: photo evidence + the hot-tub enforcement pattern (syl)
 
 **Asked.** Ken sent five photos from the cabins ("Some of the issues") plus a new
