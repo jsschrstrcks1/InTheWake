@@ -28,6 +28,38 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-24 — Day 1 evening addendum: photo evidence + the hot-tub enforcement pattern (syl)
+
+**Asked.** Ken sent five photos from the cabins ("Some of the issues") plus a new
+observation: the no-drinks-in-the-hot-tub rule enforced unevenly — alcohol fine, soda
+flagged, unsweet tea flagged.
+
+**Weighed.** Whether to publish the photos: the morning entry made a hard claim
+("dirty and deteriorated") on the operator's word alone; the photos are primary evidence
+taken by the author in his own cabins, which is exactly the lived-grade material this site
+exists for. Published all five as WebP (site rule) under the Quantum-precedent path
+`/assets/articles/<trip>/day1-*.webp`, captions describing only what each frame shows.
+Framing: separated *deteriorated* (gouged laminate — deferred maintenance, not
+steward-fixable same-day) from *dirty* (previous guest's garment bag, wristband, tag
+scrap, carpet debris — same-day fixable), because the two have different owners and the
+opportunity-to-fix standard only fairly applies to the second. Hot tub: wrote ONLY the
+observed pattern in Ken's terms and disclaimed knowledge of the policy logic; the
+"drinks nobody profits from" line is flagged in-text as a reading the rest of the week
+should test, not a fact.
+
+**Decided.** Appended an evening-addendum h3 + a second h3 for the hot-tub observation
+inside Day 1 (a logbook appends; it doesn't rewrite the morning), updated the factcheck
+sidecar with photo provenance and the not-claimed list (no claim yet on whether cabins
+were fixed — that stays Day 2's entry), validated, published live to main per the
+standing daily-publish pattern.
+
+**Unsure.** Whether the hot-tub pattern is policy or one crew member's afternoon — the
+entry says exactly that and defers. Photo 4 includes a corner of a family member's bare
+foot; judged acceptable for an unpolished logbook rather than cropping (nothing
+identifying), but easy to re-crop if Ken prefers.
+
+---
+
 ## 2026-08-24 — Day 1 dispatch: logbook created, dirty-cabin report published as sent (syl)
 
 **Asked.** Ken, aboard, sent Day 1: embarkation smooth; rooms dirty and deteriorated —
