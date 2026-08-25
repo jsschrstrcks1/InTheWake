@@ -10,7 +10,7 @@
    blanket "any same-origin 200"; (b) it only deletes caches named "family-*", never
    another page's cache. Nothing from a sibling page can land in this cache. */
 
-const CACHE = "family-v4";
+const CACHE = "family-v5";
 const SHELL = "/admin/family/weather-family.html";
 const OWN_SCOPE = "/admin/family/";   // the only same-origin prefix this worker will cache
 const PRECACHE = [
@@ -28,6 +28,7 @@ const NO_CACHE = ["api.open-meteo.com", "api.rainviewer.com", "api.weather.gov"]
 
 // May this request be stored in OUR cache? Only our own scope, or the Leaflet CDN. Nothing else.
 function cacheable(url) {
+  if (url.pathname.endsWith("/itinerary-overrides.json")) return false; // always live
   if (url.hostname.endsWith("cdnjs.cloudflare.com")) return true;
   return url.origin === self.location.origin && url.pathname.startsWith(OWN_SCOPE);
 }
