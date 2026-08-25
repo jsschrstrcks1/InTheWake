@@ -28,6 +28,31 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-25 — Day 2 lunch: room service scored, and the kitchen pattern named (syl)
+
+**Asked.** Third Day 2 dispatch: room-service lunch verdicts (BLT excellent but small;
+Cobb 6/10 with dry chicken, missing requested vinaigrette, fantastic blue cheese; flank
+steak 8/10 overcooked but tender, fantastic chimichurri) and an afternoon at Spice H2O
+(tubs and pool full, shady table found).
+
+**Weighed.** The new editorial move is the kitchen-pattern paragraph: two days of scores
+now support a synthesis — flavors consistently land while misses cluster in exactly two
+columns, doneness (two overcooked steaks in two days) and order accuracy (vinaigrette
+after the bruschetta). Every input to that synthesis is already on the page, so it's
+arithmetic on the operator's own scores, not a new claim; 'good kitchen, loose
+execution' is the reading and is presented as such. 'Ship underway' in the Spice H2O
+line is grounded in the published itinerary (Nassau arrival is Tuesday evening).
+Spice H2O cross-linked to its existing venue page.
+
+**Decided.** One h3, three paragraphs (scores, pattern, Spice H2O), sidecar with typo
+normalizations recorded, published live.
+
+**Unsure.** Whether the pattern paragraph lands as fair synthesis or premature — two
+days is a small sample, which is why it's phrased as 'holding steady' rather than
+settled.
+
+---
+
 ## 2026-08-25 — Day 2: the staff meeting, Timothy, and the toenails that outlasted the vacuum (syl)
 
 **Asked.** Second Day 2 dispatch: a staff meeting about the room held in the room
