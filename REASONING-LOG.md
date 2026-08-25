@@ -28,6 +28,30 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-25 — Day 2 dinner: the chowder and the minutemen (syl)
+
+**Asked.** Fourth Day 2 dispatch: bruschetta reordered on purpose (fantastic again),
+spinach artichoke underseasoned, pork chop oversalted and hurt by canned tomatoes,
+bluefish 10/10, and the New England clam chowder as the standout — carrying Ken's family
+history (grandfather's New England line back to the minutemen; his Floridian grandmother
+learned their chowder) and the Alaska-benchmark comparison. Dessert to follow.
+
+**Weighed.** The chowder paragraph is the heart: family history printed close to
+verbatim with nothing genealogical invented, because that lineage is exactly the
+lived-grade anchor no model could fake and it's what makes 'one of the best in decades'
+mean something. The salt inconsistency (under in one dish, over in the next, same
+course) extends the already-published loose-execution pattern by arithmetic, not new
+claim. Bruschetta 'on purpose this time' pays off yesterday's accident. Venue still
+unnamed because still undispatched.
+
+**Decided.** One h3, four paragraphs, dessert promised as dispatched; sidecar with typo
+normalizations; published live.
+
+**Unsure.** Nothing material; the one gloss ('made it her own') is recorded in the
+sidecar.
+
+---
+
 ## 2026-08-25 — Day 2 lunch: room service scored, and the kitchen pattern named (syl)
 
 **Asked.** Third Day 2 dispatch: room-service lunch verdicts (BLT excellent but small;
