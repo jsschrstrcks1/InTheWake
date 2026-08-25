@@ -28,6 +28,28 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-24 — The anonymity rule goes in print (syl)
+
+**Asked.** Ninth dispatch, a methodological one: Ken did not and will not tell the ship
+he's a travel writer — "Keeps integrity high. If they won't do it for an average person.
+They won't do it for me either that way."
+
+**Weighed.** Where it lives: it governs the whole week, so the standing intro gets the
+rule; but the acute misreading risk sits in the Day 1 prediction paragraph, where "I'd
+write about it" could be read as something said to the crew — so a terms-of-the-test
+paragraph lands there too. This also resolves the previous entry's flagged worry about
+that line: the anonymity statement makes it unambiguous that nothing was said aboard.
+The rule materially raises what the logbook is worth to readers — every response
+recorded this week is NCL's average-guest response — and that's stated as the point
+rather than left implicit.
+
+**Decided.** One sentence added to the standing intro; one paragraph added after the
+sushi prediction; sidecar records the verbatim basis; published live.
+
+**Unsure.** Nothing material.
+
+---
+
 ## 2026-08-24 — Day 1 closes: the ship answered, and a prediction goes on the record (syl)
 
 **Asked.** Eighth and final Day 1 dispatch: vacuum sent, door handle repaired, TV fixed —
