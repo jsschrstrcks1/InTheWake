@@ -28,6 +28,28 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-24 — Day 1 dinner verdict (syl)
+
+**Asked.** Fifth Day 1 dispatch: lobster 10/10 buttery perfection; strip 8/10, docked for
+overcooking; cheese ravioli in lobster sauce good but the lobster note muted; ordered a
+Greek salad, received bruschetta — which scored 9/10.
+
+**Weighed.** The "verdict to come" sentence in the published entry: replaced it with the
+verdict rather than appending a second dinner paragraph, since both landed the same day
+and a reader shouldn't wade through a fulfilled promise to reach its fulfillment. Scores
+kept exactly as dispatched; "wasn't singing as loudly as the other notes" kept nearly
+verbatim because it's Ken's phrase and better than anything I'd substitute. The
+wrong-dish story written as the small comedy it is — no complaint amplification, the
+bruschetta outscored the salad that never came. Dinner venue still unnamed in print
+because it still hasn't been dispatched.
+
+**Decided.** Verdict folded into the existing Day 1 dining section, sidecar updated with
+the dispatch-vs-framing split, published live per the daily pattern.
+
+**Unsure.** Nothing material.
+
+---
+
 ## 2026-08-24 — Day 1 dining + engine runs (syl)
 
 **Asked.** Fourth Day 1 dispatch: O'Sheehan's lunch (fish and chips good — crunchy
