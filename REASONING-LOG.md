@@ -28,6 +28,30 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-21 — NCL revised the Getaway sailing; propagate + make changes self-serviceable
+
+**Asked** — Operator forwarded NCL's guest notice (repairs in Nassau: Miami overnight/3 AM Tue
+departure, Nassau Tue 7:30 PM through Wed 11:59 PM overnight, cay extended to 8 PM) — update the
+pack, and "consider a plan for people to make changes themselves."
+
+**Weighed** — The notice's Revised column is authoritative over both the original booking
+screenshot and yesterday's schedule sources; the pack keeps "the app is authoritative" hedges
+since a once-revised sailing can revise again. Nassau-after-dark guidance had to be written
+against the Level 2 advisory honestly (short, lit, peopled; ship as nightcap) rather than either
+cheerleading the overnight or scaring people off it. For self-service: an in-page editor
+(per-device only), a GitHub-edited overlay JSON, or a Worker-backed API. Chose the overlay JSON
+as v1 — the deploy pipeline already exists, GitHub mobile is a realistic editor, offline
+semantics stay honest — and registered the Worker-backed editor as the designed v2 on the HLS.
+
+**Decided** — Pack fully revised (all five days, At-a-Glance, handoff card, rhythm section) with
+the NCL notice cited in the sidecar; same revision applied to the family page and the Jerusha
+payload (re-encrypted, round-trip verified); overlay mechanism live in both pages; family CSP
+gained connect-src 'self'; sw bumped to family-v5 with the overlay excluded from caching.
+
+**Unsure** — Evening/bar service hours on the cay during the extended call (pack says the daily
+program will publish them); whether NCL's "Original" column's 3 AM pattern was itself an earlier
+revision (irrelevant to guests now, noted in sidecar).
+
 ## 2026-08-21 — Getaway pack + multi-voyage family PWA (one session, three deliverables)
 
 **Asked** — Build a voyage pack for the operator's NCL Getaway booking (Aug 24–28, sails in
