@@ -28,6 +28,30 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-24 — Day 1 closes: the ship answered, and a prediction goes on the record (syl)
+
+**Asked.** Eighth and final Day 1 dispatch: vacuum sent, door handle repaired, TV fixed —
+same night; the sushi-dinner-for-mom request "noted in the report"; Ken's read that
+comping it is cheap goodwill that sells a second meal, that it would be appreciated, and
+that he doubts it happens.
+
+**Weighed.** The page had just printed skepticism ("'apparently,' which is the word you
+reach for…"), so honesty required walking that back explicitly when the ship delivered
+same-night — "'apparently' turned out to be unfair" — rather than quietly absorbing the
+good news. Scope discipline: only a vacuum was dispatched, so the entry does not claim
+the toenails-and-detritus cleaning is resolved; that stays a morning question. The
+sushi-dinner doubt is framed as an explicit, scoreable prediction — the logbook's own
+device: it committed to judging the ship by its response, so it should also commit its
+author's predictions to the record where they can be wrong in public.
+
+**Decided.** Two paragraphs closing the cabin thread (the answer + the open thread with
+prediction), sidecar updated, published live.
+
+**Unsure.** Whether "I'd write about it" reads as soliciting a comp — judged no, since
+the whole page already declares everything gets written about, good and bad alike.
+
+---
+
 ## 2026-08-24 — Day 1: early departure, scuttlebutt handled as scuttlebutt, cabin list grows (syl)
 
 **Asked.** Seventh Day 1 dispatch: Facebook-group screenshot showing the ship left port
