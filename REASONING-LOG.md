@@ -28,6 +28,28 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-24 — Day 1 dessert + the food-game thesis (syl)
+
+**Asked.** Sixth Day 1 dispatch: dessert (warm chocolate lava cake, cookies-and-cream
+gelato, raspberry coulis, mint leaf) and the day's dining thesis — "Even with the foibles
+its clear NCL had stepped up their food game."
+
+**Weighed.** The thesis is the first overall evaluative claim about NCL on this sailing,
+so it matters that it stays in Ken's shape: foibles conceded first, then the judgment.
+The foibles list in the printed sentence recaps only misses already published on the page
+(Reuben, strip, salad-as-bruschetta) — no new claims smuggled in. No dessert score was
+dispatched, so none was printed. "Stepped up" relative to which earlier sailing was not
+dispatched, so the comparison stays unanchored in print rather than invented.
+
+**Decided.** Dessert appended to the dinner paragraph; thesis as its own short closing
+paragraph. Sidecar updated; published live per the daily pattern.
+
+**Unsure.** Whether "the hits were the kind you don't get by accident" over-reads the
+thesis — it's my gloss on 10/10 lobster + 9/10 bruschetta standing next to the slips;
+flagged here so it's reviewable.
+
+---
+
 ## 2026-08-24 — Day 1 dinner verdict (syl)
 
 **Asked.** Fifth Day 1 dispatch: lobster 10/10 buttery perfection; strip 8/10, docked for
