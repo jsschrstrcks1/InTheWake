@@ -28,6 +28,35 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-24 — Day 1: early departure, scuttlebutt handled as scuttlebutt, cabin list grows (syl)
+
+**Asked.** Seventh Day 1 dispatch: Facebook-group screenshot showing the ship left port
+before 9 p.m. (hours ahead of the ~3 a.m. plan) with passenger explanations — shore-tie
+test successful, propulsion below full force / ~7 knots slower, waiter's vague engine
+remark; photos of the Bremerhaven plaque and the Getaway model; TV and door lock broken,
+maintenance "apparently" coming.
+
+**Weighed.** The sourcing question is the whole entry. The departure is fact — Ken is
+aboard and replying inside the thread's premise. Every explanation is hearsay, so all of
+it is printed under an explicit label ("passenger scuttlebutt, some of it secondhand from
+crew, none of it official"), fellow passengers are not named, and the screenshot is used
+as a source but never published (other people's names and faces). The tempting move —
+declaring the evening's engine runs were the shore-tie test — is printed only as "a guess
+stacked on a rumor," and the shore-power verdict the page owes is explicitly held open
+for better sourcing than a Facebook thread. The earlier "3 a.m." heat note was not
+rewritten: a logbook corrects forward, so the new section opens with the correction.
+Plaque caption: describes what is legible (Seestadt Bremerhaven) and ties only to the
+already-published Meyer Werft build fact (verified present on our ship page before
+citing); no claim about what the plaque commemorates, which we don't know.
+
+**Decided.** One new underway section (departure + labeled scuttlebutt + two photos) and
+a short cabin-list section (TV, door lock, Ken's "apparently" kept). Published live.
+
+**Unsure.** Why the ship actually left early — deliberately unresolved in print. Whether
+the plaque is maiden-call exchange hardware — plausible, unverified, therefore unwritten.
+
+---
+
 ## 2026-08-24 — Day 1 dessert + the food-game thesis (syl)
 
 **Asked.** Sixth Day 1 dispatch: dessert (warm chocolate lava cake, cookies-and-cream
