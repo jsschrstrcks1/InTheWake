@@ -28,6 +28,34 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-25 — Day 2 opens: breakfast, the Wasabi BOGO, and the wheels question (syl)
+
+**Asked.** First Day 2 dispatch (voice-dictated): breakfast done right including the
+hot-milk poached-eggs family tradition; salmon toast; a BOGO specialty-dining sale and a
+Wasabi booking for tomorrow; and two accessibility observations — a power chair allowed
+hallway storage for a man who couldn't get an accessible cabin, and the pool/hot-tub
+lift regime (24-hour notice, exact minutes, lift not left deployed; none seen out here,
+told they exist).
+
+**Weighed.** The accessibility material is the sensitive part. The hallway-chair story
+is this sailing's own observation and printed as such. The lift policy is Ken's
+experience of "some Norwegian ships" plus "appears to be the same way here" — every hedge
+kept, no fleet-policy claim made, because the difference between "the lift exists" and
+"the lift is usable the day you want to swim" is exactly the gap our accessibility page
+and the Jewel lawsuit article already cover; both are cross-linked so the logbook
+observation lands inside existing site context. The Wasabi booking intersects the open
+comp prediction, so one bracketed sentence notes the family now pays either way — which
+keeps the prediction scoreable rather than muddied. Dictation artifact 'walked to the
+ship' normalized to 'walked the ship'; sidecar records it.
+
+**Decided.** Day 2 h2 opened with breakfast + BOGO paragraphs and a 'How this ship
+treats wheels' h3; published live per the daily pattern.
+
+**Unsure.** Whether the pool-lift regime here truly mirrors the other ships — the entry
+commits to watching the pool deck all week rather than concluding.
+
+---
+
 ## 2026-08-24 — The anonymity rule goes in print (syl)
 
 **Asked.** Ninth dispatch, a methodological one: Ken did not and will not tell the ship
