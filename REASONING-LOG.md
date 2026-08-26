@@ -28,6 +28,28 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-26 — Day 3: Nassau on foot, and Wasabi's clean sweep (syl)
+
+**Asked.** Second Day 3 dispatch: Nassau wander (Queen's Staircase walked from the top,
+shopping, conch fritters), a nap, and Wasabi — everything a 10 start to finish, including
+Jewel the waitress.
+
+**Weighed.** Two discipline points. (1) The Queen's Staircase gets no imported history —
+the Nassau port page is the guide; the logbook records only what Ken did there. (2) The
+prediction: tonight's dinner was the self-booked BOGO, and the lazy read would score the
+prediction as beaten because mom's meal was effectively free. The entry explicitly
+refuses that — the wager was about the ship's own promised gesture, so it stays open and
+unscored, stated in text. Jewel named in praise per the crew pattern; 'no asterisks
+tonight' earns its plainness against the page's own eights-with-an-asterisk record.
+
+**Decided.** Two h3s (Nassau, Wasabi) with port and venue cross-links; sidecar updated;
+published live.
+
+**Unsure.** What was ordered at Wasabi — not dispatched; the all-10s verdict stands
+without dish detail unless Ken sends it.
+
+---
+
 ## 2026-08-26 — Day 3 opens: breakfast splits the difference (syl)
 
 **Asked.** First Day 3 dispatch: breakfast verdicts — waffles very good but cold,
