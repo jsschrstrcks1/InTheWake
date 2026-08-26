@@ -28,6 +28,27 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-25 — Day 2 evening: dessert roulette and the '90s shows (syl)
+
+**Asked.** Fifth Day 2 dispatch: dessert ordered as a chocolate thing with one scoop
+arrived as two scoops of ice cream ('Haha. More of the same'); a good, deliberately
+campy '90s pop-culture show (Friends, Blockbuster, Bop It, boy bands); a mediocre
+comedy show redeemed by not telling the standard six cruise-ship jokes.
+
+**Weighed.** The dessert miss is the third order-accuracy event on the page, and Ken's
+own tone has shifted from grievance to amusement — so the entry follows him there
+(scratch-off framing: 'the bruschetta proved you can win these; two scoops is a push')
+rather than re-litigating the pattern sternly. Kept his vagueness about the dessert's
+name instead of guessing a menu item. The six-jokes line kept near-verbatim — it's a
+better sentence than any substitute.
+
+**Decided.** Dessert folded into the dining thread; one evening h3 for both shows;
+sidecar updated; published live.
+
+**Unsure.** Which venues hosted the shows — not dispatched, not named.
+
+---
+
 ## 2026-08-25 — Day 2 dinner: the chowder and the minutemen (syl)
 
 **Asked.** Fourth Day 2 dispatch: bruschetta reordered on purpose (fantastic again),
