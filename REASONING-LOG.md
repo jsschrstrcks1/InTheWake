@@ -28,6 +28,30 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-25 — Day 2 late: the toenail thread resolves, acceptably (syl)
+
+**Asked.** Sixth Day 2 dispatch: steward returned with a much better vacuum job, no
+toenails visible — "Is it perfect? No. But it is acceptable now." — plus his rhetorical
+"What is the acceptable number of toenails? On a luxury cruise?" and a free load of
+laundry offered.
+
+**Weighed.** The close needed Ken's exact balance: resolution without absolution. The
+rhetorical question is left standing as asked, with one deliberate word change flagged
+in the sidecar — "luxury" dropped ("On a cruise?") because NCL is not a luxury line and
+the site's precision standard reads that as a classification even inside rhetoric; if
+Ken wants his sting back, it's one word. The laundry comp is printed at his lukewarm
+register and explicitly firewalled from the sushi prediction so tomorrow's scoring stays
+clean. "Fixed slowly, fixed eventually, acknowledged modestly" is the editorial ledger
+line on facts already published.
+
+**Decided.** One h3, three short paragraphs, published live; sidecar records the
+luxury-word departure for operator review.
+
+**Unsure.** Whether dropping "luxury" was the right call — fidelity vs precision cut
+against each other; chose precision and flagged it rather than choosing silently.
+
+---
+
 ## 2026-08-25 — Day 2 evening: dessert roulette and the '90s shows (syl)
 
 **Asked.** Fifth Day 2 dispatch: dessert ordered as a chocolate thing with one scoop
