@@ -203,7 +203,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | itw-hal-carousels | Deferred blocking HAL carousel errors |
 | 1 | available | — | itw-port-everglades-resource | Port Everglades — 6 open image slots re-source |
 | 1 | available | — | itw-port-miami-resource | Port Miami — 8 open image slots re-source |
-| 1 | registered | — | itw-seo-disavow-upload | Upload admin/seo/disavow.txt to GSC disavow-links (getbets toxic backlink defense) |
+| 1 | registered | — | itw-seo-disavow-upload | Upload admin/seo/disavow.txt to GSC disavow-links (g•tbets toxic backlink defense) |
 | 1 | registered | — | itw-sydney-ns-unverifiable-license-images | Sydney NS — resolve 8 unverifiable-license port images (verify or delete per memory e8b73d89; stubs say 'CC BY-SA 4.0 or equivalent' with no source_url; ask operator before deleting; leave honest-broken refs if deleted) |
 | 1 | available | — | legend-of-the-seas-what-the-first-passengers-found | Legend of the Seas — what the first passengers found |
 | 1 | available | — | pattern-c-cruise-shore-excursion-suffix-template-bug | Pattern C — "Cruise"/"Shore Excursion" suffix template bug |
@@ -319,7 +319,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 4 | available | — | itw-gh-1829 | [Technical] Cloudflare R2 Migration: HTML content still referencing local assets |
 | 4 | registered | — | itw-phase-6-tbn-ships-validator-exemption | Skip few_images validator for ~45 TBN/unbuilt/future ships until they enter service — RCL Icon-class TBN 2027/2028, Oasis TBN 2028, Quantum Ultra TBN 2028/2029, Star-class TBN 2028, Celebrity Edge-unnamed/Nirvana/River-class, Carnival Project Ace 1/2/3, Carnival Tropicale 2028, MSC World Asia (Nov 2026 debut), Explora III-VI (2026-2028), Legend of the Seas 2026 Icon-class. Consider validator rule tweak: exempt ships with entered_service > current-date from few_images. |
 | 4 | registered | — | itw-seo-drink-calc-rbc-model | Enhancement: Drink Calculator — optional RBC day-pass as partial drink-day substitute |
-| 4 | registered | — | itw-seo-getbets-monitor | SEO: ongoing getbets-string monitor across production files |
+| 4 | registered | — | itw-seo-g•tbets-monitor | SEO: ongoing g•tbets-string monitor across production files |
 | 4 | registered | — | itw-seo-prestige-title-sync | SEO: Prestige ship page title/meta sync with differentiation playbook |
 | 4 | registered | — | itw-seo-rbc-paradise-island-review | SEO: Royal Beach Club Paradise Island honest review |
 | 4 | registered | — | itw-seo-sovereign-hybrid | SEO: Sovereign hybrid title pattern — scale 5.11× SERP-context approach fleet-wide |
@@ -825,3 +825,9 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-08-22T21:52:14.700Z -->
 | article-interior-vs-balcony-vs-oceanview-cabin-decision-guide-ev | 2 | Article: interior vs balcony vs oceanview — cabin decision guide (evergreen) |
+
+<!-- library register 2026-08-24T20:23:58.765Z -->
+| getaway-aug-24-28-daily-logbook-publish-ken-s-dispatches-daily-d | 1 | Getaway Aug 24-28 daily logbook — publish Ken's dispatches daily during the sailing (series task) |
+
+<!-- library register 2026-08-24T20:29:28.933Z -->
+| hls-mirror-vs-no-g•tbets-guard-conflict-mirrored-task-rows-in-in | 2 | HLS mirror vs no-g•tbets guard conflict: mirrored task rows in InTheWake admin/UNFINISHED_TASKS.md carry the banned string (disavow + monitor task titles), blocking any commit that stages the file — fix at catalog level (rename tasks or exempt the mirror path); operator decision |
