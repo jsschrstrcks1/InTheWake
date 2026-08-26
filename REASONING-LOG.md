@@ -28,6 +28,28 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-26 — Day 3 photos: the plaque becomes the source (syl)
+
+**Asked.** Third Day 3 dispatch: five Nassau photos — staircase gorge, steps with
+waterfall, the interpretive plaque, a surrey at Shirley Street, the Nassau Public
+Library sign.
+
+**Weighed.** The earlier entry deliberately carried no staircase history because the
+only available source was training data. The plaque photo changes that: it is a legible
+primary source photographed by the operator, so the entry now carries the history — but
+ONLY the plaque's telling, attributed in text as the plaque's, with the plaque photo
+published beneath as the receipt. No adjudication of the plaque against other accounts
+(that would reintroduce training-data sourcing). Two photos required orientation fixes,
+verified visually before publish. Crowd shots follow the Quantum embarkation-line
+precedent for public-place photography; captions identify no one.
+
+**Decided.** History paragraph + five figures added to the Nassau section; sidecar
+records the plaque as primary source with the printed-facts list; published live.
+
+**Unsure.** Nothing material — every printed fact is on the photographed plaque.
+
+---
+
 ## 2026-08-26 — Day 3: Nassau on foot, and Wasabi's clean sweep (syl)
 
 **Asked.** Second Day 3 dispatch: Nassau wander (Queen's Staircase walked from the top,
