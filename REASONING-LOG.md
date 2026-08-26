@@ -28,6 +28,27 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-26 — Day 3 opens: breakfast splits the difference (syl)
+
+**Asked.** First Day 3 dispatch: breakfast verdicts — waffles very good but cold,
+blueberry syrup good, runny yolks, fresh fruit, steak finally cooked appropriately,
+bacon never came.
+
+**Weighed.** The dispatch's own contradiction (waffles very good AND cold) is the most
+human thing in it — both kept. The steak is the doneness column's first win after two
+overcooked days, and the missing bacon is order-accuracy event four; both counts are
+arithmetic on published events. 'The last thirty feet between the pan and the plate' is
+the three-day synthesis — cooking quality consistent, delivery execution the weak leg.
+Deliberately NOT placed in Nassau: arrival hasn't been dispatched, so the entry doesn't
+locate the ship. Standing freshness obligation executed: all three stamps to 08-26,
+ai-summary refreshed to carry Day 2's close and Day 3's opening.
+
+**Decided.** Day 3 h2 opened with two paragraphs; sidecar updated; published live.
+
+**Unsure.** Which venue served breakfast — not dispatched, not named.
+
+---
+
 ## 2026-08-25 — Fix: the uncommittable task mirror (banned-string redaction) (syl)
 
 **Asked.** Ken: "Fix it" — the standing condition where admin/UNFINISHED_TASKS.md sat
