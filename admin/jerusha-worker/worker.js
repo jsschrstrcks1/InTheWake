@@ -94,11 +94,24 @@ async function sendPush(sub, text, env) {
   return fetch(sub.endpoint, { method: "POST", headers, body });
 }
 async function pushRole(env, role, text) {
+  const results = [];
   const raw = await env.NOTES.get("sub:" + role);
-  if (!raw) return;
+  if (!raw || !JSON.parse(raw).length) {
+    await env.NOTES.put("pushlog:" + role, JSON.stringify({ ts: new Date().toISOString(), results: ["no-subscriptions"] }), { expirationTtl: 604800 });
+    return results;
+  }
   let subs = JSON.parse(raw), changed = false;
-  await Promise.all(subs.map(async (s) => { try { const r = await sendPush(s, text, env); if (r.status === 404 || r.status === 410) { s._dead = 1; changed = true; } } catch (_) {} }));
+  await Promise.all(subs.map(async (s) => {
+    const host = (() => { try { return new URL(s.endpoint).host; } catch { return "?"; } })();
+    try {
+      const r = await sendPush(s, text, env);
+      results.push(host + " -> " + r.status);
+      if (r.status === 404 || r.status === 410) { s._dead = 1; changed = true; }
+    } catch (e) { results.push(host + " -> ERROR: " + (e && e.message ? e.message : String(e))); }
+  }));
   if (changed) await env.NOTES.put("sub:" + role, JSON.stringify(subs.filter((s) => !s._dead)));
+  await env.NOTES.put("pushlog:" + role, JSON.stringify({ ts: new Date().toISOString(), results }), { expirationTtl: 604800 });
+  return results;
 }
 
 /* ---------- HTTP ---------- */
@@ -120,6 +133,32 @@ export default {
       if (!subs.some((s) => s.endpoint === d.subscription.endpoint)) subs.push(d.subscription);
       await env.NOTES.put(keyName, JSON.stringify(subs.slice(-10)));
       return json({ ok: true }, 201);
+    }
+
+    // Push diagnostics. GET /push-status: subscription counts + endpoint hosts per
+    // role, whether VAPID_PRIVATE is set, and the last push attempt's outcomes
+    // (pushlog). POST /push-test {role}: fires a real test notification at that
+    // role and returns the per-subscription results — turns silent failure into
+    // a status code you can read.
+    if (url.pathname === "/push-status" && req.method === "GET") {
+      const out = { vapidPrivateSet: !!env.VAPID_PRIVATE, roles: {} };
+      for (const role of ["jerusha", "me"]) {
+        const raw = await env.NOTES.get("sub:" + role);
+        const subs = raw ? JSON.parse(raw) : [];
+        const log = await env.NOTES.get("pushlog:" + role);
+        out.roles[role] = {
+          subscriptions: subs.length,
+          endpoints: subs.map((x) => { try { return new URL(x.endpoint).host; } catch { return "?"; } }),
+          lastPush: log ? JSON.parse(log) : null,
+        };
+      }
+      return json(out, 200);
+    }
+    if (url.pathname === "/push-test" && req.method === "POST") {
+      let d; try { d = JSON.parse(await req.text()); } catch { return json({ error: "bad json" }, 400); }
+      if (d.role !== "jerusha" && d.role !== "me") return json({ error: "bad role" }, 400);
+      const results = await pushRole(env, d.role, JSON.stringify({ title: "\ud83d\udc9b In the Wake", body: "Test nudge \u2014 alerts are working." }));
+      return json({ role: d.role, results }, 200);
     }
 
     // Live location breadcrumb (Slice 4). Source: a background reporter on Ken's

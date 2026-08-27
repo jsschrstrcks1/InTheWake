@@ -80,7 +80,8 @@ LONG_FORM_PACKS=(
   "v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027|ships/norwegian/v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027.pdf"
   "v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027|ships/norwegian/v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027.pdf"
   "v0.1.17-hal-volendam-world-cruise-2028|"
-  "v0.1.18-msc-world-america-family-dec-2026|"
+  "v0.1.18-ncl-getaway-bahamas-aug-2026|ships/norwegian/v0.1.18-ncl-getaway-bahamas-aug-2026.pdf"
+  "v0.1.19-msc-world-america-family-dec-2026|"
 )
 
 # Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.
@@ -96,7 +97,7 @@ CONDENSED_PACKS=(
   "v0.1.10-ncl-encore-solo-group-condensed"
   "v0.1.11-ncl-escape-thanksgiving-solo-group-condensed"
   "v0.1.17-hal-volendam-world-condensed"
-  "v0.1.18-msc-world-america-family-condensed"
+  "v0.1.19-msc-world-america-family-condensed"
 )
 
 # Handoff cards: 1-2 page emergency contact docs. Use voyage-pack-condensed-print.css.
@@ -108,8 +109,8 @@ HANDOFF_CARDS=(
   "v0.1.10-ncl-encore-handoff-card"
   "v0.1.11-ncl-escape-thanksgiving-handoff-card"
   "v0.1.17-hal-volendam-world-handoff-card"
-  "v0.1.18-msc-world-america-family-handoff-card"
   "emergency-handoff-card-agnostic"
+  "v0.1.19-msc-world-america-family-handoff-card"
 )
 
 # Mode flags
@@ -203,8 +204,12 @@ build_pack() {
 
   mkdir -p "$(dirname "$pdf")"
 
-  # Idempotency: skip if PDF is newer than .md (unless --force) and CSS too
-  if [ "$FORCE" -eq 0 ] && [ -f "$pdf" ] && [ "$pdf" -nt "$md" ] && [ "$pdf" -nt "$css" ]; then
+  # Idempotency: skip when the PDF is current (unless --force). Uses the same
+  # clone-stable pdf_is_stale as --check — raw mtime comparisons lie in a fresh
+  # clone (checkout order sets mtimes), which both skipped genuinely-stale PDFs
+  # and rebuilt current ones. CSS gets an mtime guard only while actively edited.
+  if [ "$FORCE" -eq 0 ] && [ -f "$pdf" ] && ! pdf_is_stale "$md" "$pdf" \
+     && { ! _git_dirty "$css" || ! [ "$css" -nt "$pdf" ]; }; then
     echo "  · $label: up-to-date, skipping"
     return 0
   fi
@@ -374,7 +379,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|volendam|world-cruise|world-2028|all)
+    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|volendam|world-cruise|world-2028|getaway|ncl-getaway|bahamas-2026|all)
       target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
@@ -442,6 +447,7 @@ case "$target" in
   fall-foliage|foliage) build_one_long "fall-foliage" "$ENGINE" || failures=$((failures + $?)) ;;
   aqua-thanksgiving) build_one_long "aqua-thanksgiving" "$ENGINE" || failures=$((failures + $?)) ;;
   volendam|world-cruise|world-2028) build_one_long "volendam" "$ENGINE" || failures=$((failures + $?)) ;;
+  getaway|ncl-getaway|bahamas-2026) build_one_long "getaway" "$ENGINE" || failures=$((failures + $?)) ;;
   all|"")
     echo "── Long-form packs ──"
     build_all_long_form "$ENGINE" || failures=$((failures + $?))

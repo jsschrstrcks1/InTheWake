@@ -11,6 +11,29 @@ Open tasks for this repo (`state` ≠ `complete`). Regenerate:
 
 ---
 
+## P3 — Self-service itinerary changes for voyage companions (`itw-voyage-self-service`, queued 2026-08-21)
+
+**Context:** NCL revised the Aug 24 Getaway sailing three days out (repairs in Nassau — overnight
+port stay added, cay day extended). The operator asked for a way for people to apply such changes
+themselves when a ship's plans change mid-trip.
+
+**v1 — SHIPPED 2026-08-21:** `admin/family/itinerary-overrides.json` — an overlay file both the
+family page and Jerusha's page fetch fresh (cache-busted, never SW-cached) on every online load
+and merge over their built-in VOYAGES data (note/title/dates/any per-day field, keyed by voyage id
+and day number). Editing the file on GitHub mobile + committing to main is the whole workflow —
+the existing Pages deploy publishes it. Limits (documented in the file): map routes/pins don't
+move; offline devices show the built-in schedule until back online.
+
+**v2 — designed, not built:** a Worker-backed editor so changes work from ship Wi-Fi without
+GitHub: reuse the jerusha-notes Worker pattern (KV `override:<voyageId>`, bearer-auth'd
+`GET/PUT /overrides`), pages fetch Worker first and fall back to the JSON file; a small auth'd
+edit form (per-day fields, preview, audit log of who changed what when). Open questions for the
+operator: who holds edit tokens (family-wide vs per-person), and whether voyage-pwa companion
+shells (hosted-group sailings) should join the same mechanism — Pam-hosted groups would benefit
+most on port-change days.
+
+---
+
 ## P2 — Voyage packs → PWA deep integration (`itw-voyage-pwa-integration`, queued 2026-07-07)
 
 **Goal:** soft-deprecate the voyage-pack PDFs. Each voyage's PWA companion
@@ -203,7 +226,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | itw-hal-carousels | Deferred blocking HAL carousel errors |
 | 1 | available | — | itw-port-everglades-resource | Port Everglades — 6 open image slots re-source |
 | 1 | available | — | itw-port-miami-resource | Port Miami — 8 open image slots re-source |
-| 1 | registered | — | itw-seo-disavow-upload | Upload admin/seo/disavow.txt to GSC disavow-links (getbets toxic backlink defense) |
+| 1 | registered | — | itw-seo-disavow-upload | Upload admin/seo/disavow.txt to GSC disavow-links (g•tbets toxic backlink defense) |
 | 1 | registered | — | itw-sydney-ns-unverifiable-license-images | Sydney NS — resolve 8 unverifiable-license port images (verify or delete per memory e8b73d89; stubs say 'CC BY-SA 4.0 or equivalent' with no source_url; ask operator before deleting; leave honest-broken refs if deleted) |
 | 1 | available | — | legend-of-the-seas-what-the-first-passengers-found | Legend of the Seas — what the first passengers found |
 | 1 | available | — | pattern-c-cruise-shore-excursion-suffix-template-bug | Pattern C — "Cruise"/"Shore Excursion" suffix template bug |
@@ -319,7 +342,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 4 | available | — | itw-gh-1829 | [Technical] Cloudflare R2 Migration: HTML content still referencing local assets |
 | 4 | registered | — | itw-phase-6-tbn-ships-validator-exemption | Skip few_images validator for ~45 TBN/unbuilt/future ships until they enter service — RCL Icon-class TBN 2027/2028, Oasis TBN 2028, Quantum Ultra TBN 2028/2029, Star-class TBN 2028, Celebrity Edge-unnamed/Nirvana/River-class, Carnival Project Ace 1/2/3, Carnival Tropicale 2028, MSC World Asia (Nov 2026 debut), Explora III-VI (2026-2028), Legend of the Seas 2026 Icon-class. Consider validator rule tweak: exempt ships with entered_service > current-date from few_images. |
 | 4 | registered | — | itw-seo-drink-calc-rbc-model | Enhancement: Drink Calculator — optional RBC day-pass as partial drink-day substitute |
-| 4 | registered | — | itw-seo-getbets-monitor | SEO: ongoing getbets-string monitor across production files |
+| 4 | registered | — | itw-seo-g•tbets-monitor | SEO: ongoing g•tbets-string monitor across production files |
 | 4 | registered | — | itw-seo-prestige-title-sync | SEO: Prestige ship page title/meta sync with differentiation playbook |
 | 4 | registered | — | itw-seo-rbc-paradise-island-review | SEO: Royal Beach Club Paradise Island honest review |
 | 4 | registered | — | itw-seo-sovereign-hybrid | SEO: Sovereign hybrid title pattern — scale 5.11× SERP-context approach fleet-wide |
@@ -811,5 +834,27 @@ node admin/library.mjs mirrors --repo InTheWake
 <!-- library register 2026-07-30T22:00:49.622Z -->
 | inthewake-repair-3-dead-nav-links-site-wide-ports-cruise-lines-r | 1 | InTheWake: repair 3 dead nav links site-wide (/ports/, /cruise-lines/, /restaurants/ return 404 on live site; 744 files) |
 
-<!-- library register 2026-08-20T00:17:32.100Z -->
+<!-- library register 2026-08-22T02:11:59.964Z -->
+| article-norwegian-getaway-aug-24-2026-itinerary-change-nassau-ov | 2 | Article: Norwegian Getaway Aug 24 2026 itinerary change — Nassau overnight for repairs, GSC extended (news, NCL comms analysis) |
+
+<!-- library register 2026-08-22T03:17:24.747Z -->
+| inthewake-ship-page-js-validator-nav-gold-standard-expects-depre | 2 | InTheWake ship-page JS validator: nav gold standard expects deprecated flat paths (/ports.html, /cruise-lines.html) — modern hub-path ship pages falsely REGRESS and the regression guard blocks all commits to them; update gold standard + refresh audit-reports/ship-validation-dashboard.json, then add the deferred Getaway article link to ships/norwegian/norwegian-getaway.html Plan Your Cruise |
+
+<!-- library register 2026-08-22T21:52:13.724Z -->
+| article-shore-power-at-portmiami-why-getaway-overnights-in-miami | 2 | Article: shore power at PortMiami — why Getaway overnights in Miami (explainer) |
+
+<!-- library register 2026-08-22T21:52:14.331Z -->
+| article-great-stirrup-cay-is-about-to-change-pier-great-tides-wa | 2 | Article: Great Stirrup Cay is about to change — pier + Great Tides waterpark (news/explainer) |
+
+<!-- library register 2026-08-22T21:52:14.700Z -->
+| article-interior-vs-balcony-vs-oceanview-cabin-decision-guide-ev | 2 | Article: interior vs balcony vs oceanview — cabin decision guide (evergreen) |
+
+<!-- library register 2026-08-24T20:23:58.765Z -->
+| getaway-aug-24-28-daily-logbook-publish-ken-s-dispatches-daily-d | 1 | Getaway Aug 24-28 daily logbook — publish Ken's dispatches daily during the sailing (series task) |
+
+<!-- library register 2026-08-24T20:29:28.933Z -->
+| hls-mirror-vs-no-g•tbets-guard-conflict-mirrored-task-rows-in-in | 2 | HLS mirror vs no-g•tbets guard conflict: mirrored task rows in InTheWake admin/UNFINISHED_TASKS.md carry the banned string (disavow + monitor task titles), blocking any commit that stages the file — fix at catalog level (rename tasks or exempt the mirror path); operator decision |
+
+<!-- library register 2026-08-20 (re-appended in merge; catalog is SSOT) -->
 | family-pwa-past-trips-section-completed-alaska-cruise-world-amer | 5 | Family PWA: Past Trips section (completed Alaska cruise) + World America Dec 2026 upcoming-trip entry |
+| build-msc-world-america-dec-5-2026-family-voyage-pack-pwa-inthew | 5 | Build MSC World America Dec 5 2026 family voyage pack + PWA (InTheWake) and wire into family app |
