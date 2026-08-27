@@ -4,6 +4,36 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-08-27 - Merge main: another lane superseded the family-app tab design; pack renumbered v0.1.19
+
+**Asked.** "proceed as recomended" — loop step 1, fetch/resolve/merge.
+
+**Weighed.** Main gained parallel work from another lane: the family is ON the
+NCL Getaway (Aug 24-28) and that lane live-logs it; weather-family.html became
+a multi-voyage app (VOYAGES registry) with past-cruises.html /
+future-cruises.html pages; it already carries the 2026-12-05 World America
+data and the Anthem Alaska past entry — a strict superset of my tab-based
+design, verified by grep (2026-12-05 present twice) not assumed. They also
+claimed v0.1.18 for the Getaway pack (my MSC pack collided on the number, not
+on filenames), rebuilt the same 3 stale NCL PDFs with a clone-stable fix, and
+shipped a redaction fix for the banned-string task mirror I had flagged.
+
+**Decided.** Superset resolution, per-file and measured: main's versions win
+weather-family/sw-family (their architecture contains my content), the 3 NCL
+PDFs (their clone-stable build), the task mirror (their redaction; my two rows
+re-appended), the build script (their base + my three registrations). My pack
+renumbered v0.1.18→v0.1.19 everywhere (filenames, sidecar, build-script
+arrays) since main's v0.1.18 landed first. My standalone PWA kept and linked
+from future-cruises.html so it does not orphan. Not --ours/--theirs laziness:
+each file choice verified against content before taking it.
+
+**Unsure.** Whether the other lane wants my standalone PWA long-term now that
+the ?voyage= view exists — both are live and linked; the operator or that lane
+can retire one later. My v0.1.19 PDFs were built in-container (weasyprint 69);
+rebuild on a font-canonical machine if fidelity matters.
+
+_Runtime: syl (claude-code remote container)_
+
 Every agent that works in this repo — Claude, Grok, Codex, Hermes, the Sophos/HELM
 pipeline — records the reasoning behind its calls here. Newest entries at the top.
 
