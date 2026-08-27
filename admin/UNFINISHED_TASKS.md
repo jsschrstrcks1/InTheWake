@@ -854,3 +854,45 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-08-24T20:29:28.933Z -->
 | hls-mirror-vs-no-g•tbets-guard-conflict-mirrored-task-rows-in-in | 2 | HLS mirror vs no-g•tbets guard conflict: mirrored task rows in InTheWake admin/UNFINISHED_TASKS.md carry the banned string (disavow + monitor task titles), blocking any commit that stages the file — fix at catalog level (rename tasks or exempt the mirror path); operator decision |
+
+<!-- library register 2026-08-27T05:05:20.588Z -->
+| audit0827-itw-planning-nav-404 | 1 | P1 AUDIT-0827: the site-nav Planning dropdown on 255 pages links /planning/ (e.g. ships/carnival/carnival-breeze.html:215) — no planning/ directory or index exists and _redirects has no rule (.htaccess is inert on Netlify per _redirects:4-6); the real page is planning.html, linked correctly by 112 other pages. Add a _redirects rule or fix the nav template + regenerate. Same class, 1 page: /solo/ from solo/in-the-wake-of-grief.html. |
+
+<!-- library register 2026-08-27T05:05:21.010Z -->
+| audit0827-itw-sitemap-stale-no-generator | 1 | P1 AUDIT-0827: sitemap.xml (1,268 locs) has newest lastmod 2026-06-18 while HEAD is August; 47 live pages are absent incl. 17 recent articles, 11 ports, 2 NCL restaurants — and no sitemap generator script exists anywhere in the repo (hand-maintained, so it drifts). Write a generator + wire it into the rebuild workflow. |
+
+<!-- library register 2026-08-27T05:05:21.419Z -->
+| audit0827-itw-ship-classes-rcl-only | 1 | P1 AUDIT-0827: admin/validate-ship-page.js:83-91 SHIP_CLASSES contains only Royal Caribbean (7 classes); extractCruiseLine (:327) silently defaults to rcl and validateVideos (:2121) looks in rcl/ for every line — class-aware checks are inert for 241 of 291 ship pages (83%). Documented open in admin/validator-spec/STRATEGIC_GAPS.md:9-30. Populate the other 14 lines' class data. |
+
+<!-- library register 2026-08-27T05:05:21.852Z -->
+| audit0827-itw-404-page-missing | 1 | P1 AUDIT-0827: no 404.html exists in the repo; _redirects:14-19 records that the /data/ internal-document block (itw-gh-1737: docx/pdf/rtf publicly served) cannot be ported to Netlify because a clean block needs a 404 target page. One missing file blocks the tracked security fix — create 404.html and add the block rules. |
+
+<!-- library register 2026-08-27T05:05:22.275Z -->
+| audit0827-itw-coming-soon-32-ships | 2 | P2 AUDIT-0827: 32 published, indexed ship pages carry literal 'Dining venue information coming soon.' / 'Entertainment details coming soon.' body copy — 17 Princess, 12 Silversea, 2 Holland America, 1 Carnival (e.g. ships/silversea/silver-muse.html:453,538; ships/princess/enchanted-princess.html:454). Fill the sections or remove the stub blocks. |
+
+<!-- library register 2026-08-27T05:05:22.690Z -->
+| audit0827-itw-venue-boot-dead-path | 2 | P2 AUDIT-0827: assets/js/venue-boot.js:14 names /assets/data/fleets_index.json which does not exist (real: assets/data/fleet_index.json and data/fleets_index.json), the key is never read (dead config), and ships/index.html:227 prints the wrong path to readers as documentation. Worse: venue-boot fetches 777 KB of venues-v2.json on 46 pages and writes into [data-venue-pricing]/[data-venue-ships] — attributes present in zero HTML files, failure silenced by an empty catch. Fix the path, add the render targets or remove the pipeline. |
+
+<!-- library register 2026-08-27T05:05:23.123Z -->
+| audit0827-itw-beta4-and-test-pages-in-prod | 2 | P2 AUDIT-0827: six beta4 scratch outputs (indexbeta4/articlebeta4/authorbeta4/contentbeta4/shipbeta4/shiphubbeta4.html — tools/genbeta4.py:8 says they belong in tools/_genbeta4-out scratch) plus ships/rcl/test/allure-of-the-seas.html (60 KB, zero noindex, unresolved JS artifact) are live and crawlable at the prod root with zero inbound links. Remove or noindex them. |
+
+<!-- library register 2026-08-27T05:05:23.521Z -->
+| audit0827-itw-orphan-data-files | 2 | P2 AUDIT-0827: 11 data files have zero consumers repo-wide — rcl-ship-room-flags.json (181 KB) + ncl-ship-room-flags.json (51 KB), ships/video_sources.json (27 KB, PRECACHED by cache-manifest), rc-menus.json, ship-quiz-data.json (superseded), ncl_ships_meta.json, raadiance-faq.json (typo filename), rc_bars_core.json (PRECACHED), seo_overrides.json, social_buttons.json ('COMING_SOON'), vf_overrides.json ('TODO_IMO') — the two precached ones spend every visitor's bandwidth on unread files. Also data/atlas/missing-ship-pages.json lists 116 'missing' ships that all exist now. Wire, regenerate, or delete. |
+
+<!-- library register 2026-08-27T05:05:23.940Z -->
+| audit0827-itw-calculator-config-stale | 2 | P2 AUDIT-0827: assets/data/calculator-config.json drives a live money recommendation (beverage-package prices, break-even, gratuity, loyalty) and is edit-and-redeploy only, with lastUpdated 2026-04-14 — four months behind HEAD — while the data itself says 'Fleet pricing is dynamic.' Establish an update cadence + staleness banner, or a maintainable config surface. |
+
+<!-- library register 2026-08-27T05:05:24.344Z -->
+| audit0827-itw-validator-rules-unimplemented | 3 | P3 AUDIT-0827: 3 of 139 validator-spec rules carry implementation: none (DATA-003 ship-spec cross-consistency, LINK-001 ship->venue link resolution, PWA-001 SW cache-version bump) — and PWA-001 is exactly the class that already went wrong (voyage-PWA cache bumped for content never built). STRATEGIC_GAPS.md also records the LINK-001 cross-reference script was never written and webapp-testing was never wired to real runs. Implement the three rules. |
+
+<!-- library register 2026-08-27T05:05:24.765Z -->
+| audit0827-itw-orphan-ports | 3 | P3 AUDIT-0827: ports/kyoto.html and ports/falmouth-jamaica.html have zero inbound links and are absent from ports.html (396 of 399 linked); ports/beijing.html has one inbound link and is missing from the index. Add them to ports.html. |
+
+<!-- library register 2026-08-27T05:05:25.208Z -->
+| audit0827-itw-broken-asset-refs | 3 | P3 AUDIT-0827: truncated image paths ending mid-token ('/assets/ships/Oasis-of-the-seas-FOM-') on 7 rcl ship pages + ports/curacao.html; dead stylesheets on ports/port-moresby.html (/css/ports.css), ports/durban.html (/styles/port-page.css), cruise-lines/royal-caribbean.html (/assets/item-cards.css); dead heroes on solo/accessible-cruising.html and ships/msc/msc-world-europa.html. Fix the references. |
+
+<!-- library register 2026-08-27T05:05:25.635Z -->
+| audit0827-itw-ga4-id-embedded-per-page | 3 | P3 AUDIT-0827: G-WZP891PZXJ appears ~2x per page across ~1,350 pages; changing the GA4 property is a site-wide rewrite (why scripts/fix-analytics-ip.js exists — the systemic pattern itw-gh-1711 names). Related open bug: CSP blocks GA4+Umami on drink-calculator.html (admin/UNFINISHED_TASKS.md:238). Centralize the snippet (shared include or generator-injected). |
+
+<!-- library register 2026-08-27T05:05:26.053Z -->
+| audit0827-itw-superseded-root-pages | 3 | P3 AUDIT-0827: zero-inbound-link superseded pages live at the prod root: drink-calculator-v1.html (88 KB), ships-hub.html (duplicate of ships.html), data.html, audit-log.html, drinks.html (meta-refresh shim whose 301 was deliberately dropped). Delete or redirect. |
