@@ -28,6 +28,18 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-30 — Fetch/merge household infra into the three core repos, then audit survival
+
+**Asked.** "fetch, resolve, and merge, then analyse the incoming changes and proceed as recommended, and include your memories of my previous choices on the ledger." Read as: bring my branch current with main across InTheWake/ken/open-claw-stuff, resolve to the superset, then check what landed and whether my prior work survived — guided by recalled operator choices.
+
+**Weighed.** Recalled the ledger first (per the request): the standard "fetch main, merge, resolve conflicts" = superset workflow (mem e0e4a7fe); the known gotcha that the household-library settings.json rewrite drops the memory + guardrail hooks on merge, so re-verify them (mem 2e63ad88); the expectation of an honest self-audit after batch operations (mem faeee6e2); and grep-zero ≠ absence (mem 3e307dd6). Incoming was large: open-claw-stuff +1292 (HLS library system, reasoning-log, doctrine/concept-ledger/service-registry guards, Sophos injection, memory), ken +51, InTheWake +407. ken and InTheWake were 0-ahead of main → clean fast-forwards. open-claw-stuff was 2-ahead → real merge with conflicts in .githooks/check-required-hooks.sh, .githooks/pre-commit, and 6 .memory/shared/*.json.
+
+**Decided.** Took main's side for every open-claw-stuff conflict, because inspection showed main is a strict superset: the household had taken my required-hooks guard and expanded it (now also protects sophos-inject, dangerous-command-guard, memory-directives-inject/autopersist, reasoning-log-*, stop-gates, and — UL-337 — the renamed `observe-tool-use-dispatch.sh`, which resolves the /home/user-vs-/Users path split-brain I had flagged). The memory records main held already contained my two session encodes (add/add), so nothing was lost. Then self-audited InTheWake: settings.json is valid with the memory hook + all guardrail hooks intact, and a sample of my closed-issue fixes (#1660 8-classes, #1905 684 guests, #1646 dedup, #1636 og:url, #1620 sitemap, #1610 footer) all survived. All three repos pushed clean.
+
+**Unsure.** InTheWake's required-hooks guard is still my simpler version at `admin/check-required-hooks.sh`; open-claw-stuff now has the household's evolved one under `.githooks/`. Both work, but the two are not the same file — worth converging InTheWake onto the household guard later. `core.hooksPath` is unset in these ephemeral checkouts, so none of the new guards (reasoning-log, doctrine-integrity, …) actually fire here; they enforce on the operator's machine.
+
+---
+
 ## 2026-08-26 — Day 3 photos: the plaque becomes the source (syl)
 
 **Asked.** Third Day 3 dispatch: five Nassau photos — staircase gorge, steps with
