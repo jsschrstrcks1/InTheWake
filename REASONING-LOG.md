@@ -28,6 +28,45 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-30 — Issue burn-down continued: flag two decision-required, verify #2500 cluster (already fixed by a sibling)
+
+**Asked.** Standing mandate: keep burning down the open issue backlog — fix what's fixable,
+close verified-fixed, flag only what genuinely needs the owner.
+
+**Weighed.** Two remaining classic issues (#1661 Review-schema-no-ratingValue on 153 ship
+pages; #1633 /planning.html nav inconsistency) are both explicitly "Decision Required."
+#1661 has no honest auto-fix — filling 153 missing ratingValues means inventing editorial
+scores (the never-fabricate line) and 95 pages already share an identical ratingValue=4
+(Google manipulation risk). #1633 is a UX A/B (add /planning.html universally vs remove from
+ships). Both hinge on owner intent, so I flagged with a firm recommendation rather than pick
+silently: #1661 → Option A, drop Review schema from informational ship pages (clears all 153
++ retires the uniform-rating risk, zero fabrication); #1633 → Option A, add /planning.html
+universally. Then pulled the next fixable item. The board is now ~643 open, overwhelmingly
+HLS-managed tasks that close via two-sibling verification, not by me. Picked the highest-value
+fixable-now one architecturally: #2500 (P2 correctness/trust — 8 pages rendering "is a Unknown
+ship" / "Cruise Line: Unknown" while the same page's JSON-LD/header carry the real data — a
+live violation of the site's own never-fabricate posture).
+
+**Decided.** On investigation, #2500 was ALREADY fixed: commit `b9f250b6` via merged PR #2507
+(sibling "vivenna") resolved the whole cluster (#2500/#2502/#2503/#2504 + #2505 Celebrity)
+SSOT-first. The issue stays open only because HLS closes it on two-sibling verification, not on
+merge — a textbook "catalog is not the whole board." So I switched from coder to VERIFIER (the
+"proceed" loop step 2–3, validating work I did not build). Confirmed: no "is a Unknown ship" /
+"Cruise Line: Unknown" fabrication remains in rendered content; koningsdam now reads "Cruise
+Line: Holland America Line" + "is a Pinnacle Class cruise ship", celebrity-apex reads "Cruise
+Line: Celebrity Cruises" + "is an Edge Class cruise ship" (a/an correct too); the 53 residual
+"Unknown" tokens are all a benign `a.author?.name || 'Unknown'` JS review-author fallback, not
+the bug. Fix verified correct.
+
+**Unsure.** The remaining board wants the household-library coordination workflow (preflight →
+checkout → verify) to avoid the exact duplicate-work collision #2500/#2507 illustrates; whether
+to keep grinding HLS tasks unilaterally vs. drive them through the library CLI is an owner call
+I'm surfacing rather than assuming. gh/network is flaky (fetch timed out), so a formal
+`library verify` stamp wasn't attempted this turn — the verification above is honest evidence,
+not a minted HLS endorsement.
+
+---
+
 ## 2026-08-30 — Fetch/merge household infra into the three core repos, then audit survival
 
 **Asked.** "fetch, resolve, and merge, then analyse the incoming changes and proceed as recommended, and include your memories of my previous choices on the ledger." Read as: bring my branch current with main across InTheWake/ken/open-claw-stuff, resolve to the superset, then check what landed and whether my prior work survived — guided by recalled operator choices.
