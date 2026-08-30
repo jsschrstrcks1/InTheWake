@@ -2,6 +2,39 @@
 
 # Reasoning Log
 
+## 2026-08-27 — 404.html created; /planning/ nav 404 and the ten exposed internal documents closed by redirect rules (patron syl, HLS audit0827-itw-planning-nav-404 + audit0827-itw-404-page-missing + itw-gh-1737)
+
+**Asked.** Ken: "go" — next audit P1 pair: the Planning dropdown on 255 pages links
+/planning/ (no directory, no index, no redirect rule), and the tracked /data/ internal-
+document exposure (itw-gh-1737) was blocked on the absence of a 404 target page.
+
+**Weighed.** For the nav 404: one _redirects rule fixes all 255 pages at once versus
+editing 255 files — and this file already carries the identical UL-088 fix for /ports/,
+/cruise-lines/ and /restaurants/, so the rule follows the established pattern
+(/solo/ -> solo.html rides along; solo.html verified to exist, 32 KB). For the exposure:
+Netlify cannot match by extension, so the choice was exact-path rules for the ten known
+files versus a /data/* blanket — the blanket would break live pages (stateroom-check
+fetches /data/authors.json), so exact paths it is, with the honest limit stated in the
+file itself: new internal files dropped into data/ are NOT auto-covered. Verified by
+repo-wide grep that no live page or script links any of the ten before blocking. The
+filenames carry multiple consecutive spaces, so the encoded rules were generated
+mechanically from the directory listing, not typed.
+
+**Decided.** New self-contained 404.html (inline styles on purpose — the error page must
+render when an asset path is exactly what broke; noindex; links to the five hubs).
+_redirects: /planning/ and /solo/ 301s in the UL-088 section; ten exact-path 404! rules;
+the stale DEFERRED note ("no 404 target page exists yet") corrected. The header's
+"no ! force flag is needed" claim stays true for the old rules and the new section
+documents why its rules force.
+
+**Unsure.** Netlify behavior is proven only on deploy — the rules follow the same syntax
+as the live UL-088 rules, but I could not curl the production site from this container.
+Whether /planning/ would have been rescued by Netlify pretty-URL handling without the
+rule was never established; the rule makes it true by construction either way. The
+extension-wide block the original .htaccess wanted remains impossible in _redirects and
+stays honestly deferred.
+
+
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
 Every agent that works in this repo — Claude, Grok, Codex, Hermes, the Sophos/HELM
