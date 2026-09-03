@@ -28,6 +28,32 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-09-03 — Reader-support CTA is now a publishing requirement, enforced (syl)
+
+**Asked.** Ken: "make sure the buymeacoffee link is required for an article to be
+published."
+
+**Weighed.** A rule that lives only in a doc gets missed — the whole point of the
+directive is that no future article ships without the ask, including ones written by a
+sibling or by Ken in a hurry. So this belongs in the validator, which already gates
+publication and already treats missing analytics as a hard error; the support CTA is the
+same class of defect (the site's funding model is reader support, so shipping without
+the ask is a defect, not a style choice). Scoped to pageType === 'article' so hub, tool,
+index and port pages are exempt by design, and skipped for redirect/truncated pages that
+bypass structural checks anyway. Implemented by threading the already-computed
+detection.type into runBasicValidation rather than re-detecting.
+
+**Decided.** New hard error `basic/support_cta` in admin/validate.js. Verified with a
+negative fixture, not just a positive one: a copy of a real article with the CTA block
+stripped FAILS on exactly that rule, and the unmodified article passes — proving the
+rule bites rather than merely existing. Full corpus re-run: 52/52 PASS.
+
+**Unsure.** Voyage packs are not covered — they are not validated by this script and
+their CTA rollout is still blocked on the factcheck-gate decision. If Ken wants packs
+mechanically gated too, that is a separate check in the pack tooling.
+
+---
+
 ## 2026-08-28 — Reader-support CTA on every article and voyage pack (syl)
 
 **Asked.** Ken: put https://buymeacoffee.com/inthewake with a CTA in every article and
