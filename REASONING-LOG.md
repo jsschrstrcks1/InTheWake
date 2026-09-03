@@ -254,6 +254,39 @@ earlier"), since no printed time was captured.
 
 ---
 
+## 2026-09-03 — The week verdict (syl)
+
+**Asked.** Ken's verdict dispatch: great strides versus pre-Covid in shows and food;
+lack of attention to detail and "Norwegian first customer service policies" weigh them
+down; he is undecided about returning and his mother certainly is not.
+
+**Weighed.** Kept his structure, because the order IS the argument: credit first, then
+the two weights, then the split decision. His coinage "Norwegian first customer service
+policies" rendered as "customer-service policies that put Norwegian first" — same idea,
+unambiguous to a reader who hasn't met the phrase. Every supporting fact is a recap of
+something already on the page (four order errors, the cabin arc, three billing errors,
+the $2.75 lock, the prepay/beverage-package mechanic, the unkept report promise), so the
+verdict argues from its own evidence rather than importing new claims. No invented detail
+about what NCL was like pre-Covid — that comparison is Ken's, from sailings this page
+does not document. Two lines are mine and flagged as editorial in the sidecar: the
+crew-versus-policy distinction, and the closing "the kitchen isn't what they need to
+fix." I judged the crew paragraph necessary rather than decorative: without it the piece
+reads as an attack on the people who were, by Ken's own scoring, the best part of the
+week — Timothy, Jewel and Hristina are all named in praise elsewhere on the page, and the
+verdict would be unfair to them if it let "Norwegian" mean "the crew."
+
+**Decided.** Verdict section published after Day 5; ai-summary refreshed to carry it;
+sidecar records the dispatch verbatim, the editorial additions, and the not-claimed list
+(no loyalty status for his mother, no claim she has quit cruising generally — the
+dispatch said "be back", so the page limits it to Norwegian; no claim Ken has ruled them
+out).
+
+**Unsure.** Whether Ken wants the mother's decision stated that plainly. He gave it to me
+in exactly those terms and it is the strongest sentence in the piece, so it stands — but
+it is about a family member, and one word from him softens or cuts it.
+
+---
+
 ## 2026-09-03 — Day 5: the logbook comes ashore (syl)
 
 **Asked.** Ken's final dispatch: disembarkation quick, easy, orderly; they dragged their
