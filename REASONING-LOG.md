@@ -28,6 +28,48 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-08-28 — Reader-support CTA on every article and voyage pack (syl)
+
+**Asked.** Ken: put https://buymeacoffee.com/inthewake with a CTA in every article and
+voyage pack — "Was this helpful? Buymeacoffee. However you think is best. Unobtrusive,
+but visible."
+
+**Weighed.** Checked for prior art before inventing: support.html and voyage-packs.html
+already use BMC with a house pattern (brand #0e6e8e, rel="noopener", pill/inline links),
+so the block matches that rather than introducing a new style. Placement: a bordered
+aside immediately before </article> — outside itemprop="articleBody", so a donation ask
+is not folded into Article schema content. Anchor verified unique in all 52 article
+files before any bulk edit. Link hygiene: articles use the site-relative /support.html;
+packs use ABSOLUTE cruisinginthewake.com URLs because packs ship as PDF and offline HTML
+where relative links break. Wording keeps the site's actual differentiator ("takes no
+money from cruise lines or travel agents") so the ask reinforces the independence claim
+instead of undercutting it — this is reader funding, not industry funding, and it is not
+an affiliate link (so no rel="sponsored", which is reserved for the gear links).
+
+**Decided.** SHIPPED: 52 articles. DEFERRED to an operator decision: all voyage packs.
+The pack edits were written, their 25 PDFs regenerated (pandoc + weasyprint installed to
+do it properly rather than ship sources newer than deliverables), and then BACKED OUT —
+because the original-research factcheck gate blocks any pack .md commit whose
+.factcheck.json is older than the source. That gate is mtime-based, and a boilerplate
+support footer carries no factual claim, so its prescribed remedy ("re-verify the claims
+that changed") has nothing to verify. The two ways past it are both operator calls, not
+mine: bump last_factcheck_date (which would assert a verification that did not happen —
+an unearned stamp, refused) or --no-verify (an operator switch). Deliberately EXCLUDED
+from the pack set regardless, when it does ship: the six *handoff-card* packs
+(wallet/emergency contact cards — a tip jar on an emergency card is the wrong instrument
+in the wrong moment) and v0.1-v0.1.2-FACT-CHECK.md (internal QA doc).
+
+**Unsure.** Whether the handoff-card exclusion matches Ken's intent — he said "every
+voyage pack" and I read emergency cards as out of that spirit; one word from him
+reverses it. Open question for Ken: the cleanest long-term fix is teaching the factcheck
+gate to compare claim-bearing content rather than mtime, so boilerplate never trips it —
+but that is a harness change and needs its own review, not a same-breath edit. Also surfaced and fixed a PRE-EXISTING defect while sweeping:
+articles/cruise-tech-photography-guide.html was missing both analytics blocks (absent in
+the committed version too, verified via git show) and was the only article failing the
+validator; it now carries the same block as its 51 siblings and passes.
+
+---
+
 ## 2026-08-26 — Day 3 photos: the plaque becomes the source (syl)
 
 **Asked.** Third Day 3 dispatch: five Nassau photos — staircase gorge, steps with
