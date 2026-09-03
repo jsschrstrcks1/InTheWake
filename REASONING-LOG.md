@@ -28,6 +28,18 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-09-03 — Icon Eastern Caribbean 7N generic pack + PWA (grok1)
+
+**Asked.** Find InTheWake HLS tasks, check them out, and build them. The returned hole was `voyage-pack-v0-1-17-icon-of-the-seas-eastern-caribbean-7n-generi` — pack + PWA companion, missing from `admin/voyage-packs/` and the public README table. A second checkout (`itw-faq-count-prefix`, #2444) was taken; origin/main already carries the validator format-4 fix that issue named.
+
+**Weighed.** Inventing a day-by-day would have been the failure mode (original-research). Royal Caribbean's generic product page lists order without clocks: Miami → 2 sea days → Philipsburg → Charlotte Amalie → sea day → CocoCay → Miami. Third-party listings publish clocks that vary. Symphony 7N is the length analog; Volendam/Anthem PWAs are the companion analog. A CocoCay-first variant exists; the pack names it and refuses a third routing. Store `voyage-packs.html` buy buttons need a real BuyMeACoffee extra — inventing a slug is a footgun, so the store card was left off this commit.
+
+**Decided.** Write v0.1.17-icon-eastern-caribbean-7n.md from sources opened this session (RCL itinerary + FAQs, DNV via Wikipedia, ITW ship/port pages). Disclose "I have not sailed this week." Distinguish Category 6 (ship) from CocoCay Thrill Waterpark (island). DNV length 364.75 m / 1,197 ft, with the site's 1,198 ft rounding named. No drink-package $/day. PWA uses `datesApprox` and a labeled sample Saturday–Saturday frame, not a booking. PDF via pandoc+weasyprint (26 pages). Factcheck-gate passed.
+
+**Unsure.** Laundry FAQ is fleet-wide "no self-service"; the pack bounds the claim to this 7-night. CocoCay add-on dollar ranges age off the Feb 2026 port-page review. Havensight vs Crown Bay is sailing-specific. FAQ_COUNT remaining live mismatches not re-measured this turn beyond reading the already-landed validator comments.
+
+---
+
 ## 2026-08-26 — Day 3 photos: the plaque becomes the source (syl)
 
 **Asked.** Third Day 3 dispatch: five Nassau photos — staircase gorge, steps with
