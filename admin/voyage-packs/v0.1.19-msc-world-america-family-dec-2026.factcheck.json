@@ -1,0 +1,256 @@
+{
+ "_doctrine": ".claude/skills/original-research/ORIGINAL-RESEARCH.md",
+ "_template": "admin/voyage-packs/FACTCHECK_TEMPLATE.json",
+ "_note": "Sidecar for the v0.1.19 MSC World America FAMILY pack (renumbered from v0.1.18 in the 2026-08-27 merge: main claimed v0.1.18 for the NCL Getaway pack first) (PortMiami, Dec 5 - 12 2026; Roatan, Costa Maya, Cozumel, Ocean Cay). Built 2026-08-20 alongside the pack itself. Ship specs, christening, terminal, port docks, consulate numbers, and gratuity rate are INHERITED from the v0.1.8 sidecar (verified 2026-07-06 against the primary sources recorded there) \u2014 same ship, same ports; inheritance is recorded per-claim below rather than silently copied, per the copy-propagation rule. Newly verified this session: the Dec 5 2026 sailing itself (date, departure port, port order) and the December weather normals (computed, not recalled).",
+ "pack_filename": "v0.1.19-msc-world-america-family-dec-2026.md",
+ "last_factcheck_date": "2026-08-20",
+ "verified_by": "syl (claude-code remote session, operator-directed family pack build)",
+ "verification_session": "Sailing verified 2026-08-20 via two independent aggregators: web search results for 'MSC World America December 5 2026' (cruisetimetables/cruiseweb/cruisesonly summary: Sat Dec 5 2026 depart Miami ~4:30 PM; Roatan Dec 7 9a-6p; Costa Maya Dec 8 8a-5p; Cozumel Dec 9 9a-7p; Ocean Cay Dec 11 7a-6p; return Dec 12 7a) and icruise.com December-2026 itinerary page fetched in-session (Dec 5 2026, 7-night, Miami, ports Miami-Roatan-Costa Maya-Cozumel-Ocean Cay-Miami; also lists the 14-night B2B extension). Port-call TIMES rest on the aggregator summary only (single-source) \u2014 the pack therefore phrases every time as 'published ~X, verify in the MSC for Me app'. PORT ORDER and DATE are two-source. Departure port is Miami (PortMiami MSC terminal), not Port Everglades \u2014 both sources agree.",
+ "sailing": {
+  "departure": {
+   "value": "Saturday, December 5, 2026, from PortMiami (MSC Miami Cruise Terminal), 5:00 PM",
+   "source": "PRIMARY: this booking's MSC for Me itinerary screens (operator screenshots, 2026-08-20). Earlier secondary listings said 4:30 PM (aggregator) and 5:00 PM (Google summary); the app resolves it.",
+   "verified": "2026-08-20"
+  },
+  "itinerary_order": {
+   "value": "Miami - sea - Roatan - Costa Maya - Cozumel - sea - Ocean Cay - Miami (7 nights)",
+   "source": "icruise.com December 2026 page (in-session fetch) + search-result summary; identical port rotation to the verified Apr 24 2027 sailing (v0.1.8)",
+   "verified": "2026-08-20"
+  },
+  "port_times": {
+   "value": "Roatan 9:00a-6:00p Dec 7; Costa Maya 8:00a-5:00p Dec 8; Cozumel 9:00a-7:00p Dec 9; Ocean Cay 8:00a-8:00p Dec 11; Miami arrival 7:00a Dec 12",
+   "source": "PRIMARY: this booking's MSC for Me itinerary screens (operator screenshots, 2026-08-20)",
+   "verified": "2026-08-20",
+   "notes": "Supersedes the aggregator times (which had Ocean Cay 7:00a-6:00p \u2014 the app shows 8:00a-8:00p: departure two hours later, call one hour longer overall). Pack/PWA reframed: lighthouse show now genuinely possible (rule: runs on overnight/late-departure calls). The ~5:30 PM December sunset figure is an approximation from latitude/season, labeled approximate in the pack, not computed. An earlier revision misstated the difference as 'four hours longer'; corrected same day (kernel fabricated_duration catch)."
+  }
+ },
+ "december_weather_normals": {
+  "method": "Open-Meteo ERA5 archive API, daily temperature_2m_max/min and precipitation_sum at each port's coordinates, Dec 5-12 window, years 2020-2024 (40 days per port), simple mean; wet-day = precipitation_sum > 1.0 mm. Computed in-session 2026-08-20; raw responses retained in session scratchpad.",
+  "source": "https://archive-api.open-meteo.com/v1/archive",
+  "verified": "2026-08-20",
+  "values": {
+   "PortMiami": {
+    "hi": 78,
+    "lo": 65,
+    "wet_day_pct": 22
+   },
+   "Roatan": {
+    "hi": 81,
+    "lo": 77,
+    "wet_day_pct": 75
+   },
+   "CostaMaya": {
+    "hi": 82,
+    "lo": 74,
+    "wet_day_pct": 58
+   },
+   "Cozumel": {
+    "hi": 81,
+    "lo": 74,
+    "wet_day_pct": 42
+   },
+   "OceanCay": {
+    "hi": 76,
+    "lo": 72,
+    "wet_day_pct": 18
+   }
+  },
+  "notes": "Sea-day values in pack/PWA (79/73 southbound, 77/72 northbound) are interpolations from adjacent-port normals and are labeled as estimates in both artifacts. The Roatan 75% wet-day figure drives the pack's rainy-season honesty note. 'Northers'/cold-front language is standard Gulf winter climatology, framed qualitatively ('can bring'), no frequency claimed."
+ },
+ "inherited_from_v0_1_8": {
+  "source_sidecar": "admin/voyage-packs/v0.1.8-msc-world-america-solo-group-apr-2027.factcheck.json (verified 2026-07-06)",
+  "claims": [
+   "ship_specs (216,638 GT; 1,093 ft/333 m; 22 decks/16 guest; 2,614 cabins; 5,079/6,762 guests; ~2,138 crew; 2025 Chantiers de l'Atlantique; IMO 9837432)",
+   "christening (Drew Barrymore, Apr 9 2025, PortMiami, Gloria Estefan concert) and maiden voyage Apr 12 2025",
+   "MSC Miami Cruise Terminal (opened April 2025, ~492,678 sq ft, 'world's largest' as MSC marketing claim)",
+   "Roatan dock = Port of Roatan Coxen Hole, NOT Carnival's Mahogany Bay/Isla Tropicale",
+   "Ocean Cay history (aragonite mine to 2015, ~$200M rebuild, opened December 2019, Bimini chain ~65 mi E of Miami, seven beaches, no waterpark by design, Mission Blue Hope Spot)",
+   "Consulate/emergency numbers (State Dept OCS 888-407-4747 / 202-501-4444; MSC Guest Relations 877-665-4655; Tegucigalpa +504 2236-9320; Merida 844-528-6611 / 999 689-0660)",
+   "auto-gratuity $17/day standard, $23/day Yacht Club, effective May 11 2026",
+   "ship venues and dining list (World Promenade, Galleria, Venom Drop, Eataly, MDR names, Doremiland/The Harbour/Luna Park Arena)"
+  ],
+  "notes": "Inherited claims were verified against primary sources on 2026-07-06 per the v0.1.8 sidecar; not re-verified this session. The service-charge child-rate is deliberately NOT stated in this pack (unverified) \u2014 pack says 'verify with MSC or your agent'. Group-flyer cabin prices from v0.1.8 were NOT carried (sailing-specific, do not transfer)."
+ },
+ "december_specific_claims": {
+  "hurricane_season_end": {
+   "claim": "Atlantic hurricane season ends November 30; Dec 5 sails after it",
+   "source": "NOAA-defined season boundary (common knowledge tier); framed as season boundary only, no storm-risk quantification",
+   "verified": "2026-08-20"
+  },
+  "kid_density": {
+   "claim": "Dec 5-12 falls between Thanksgiving and school holiday breaks; fewer children expected than summer/holiday sailings",
+   "source": "US school calendar inference",
+   "verified": "marked in-pack as 'Expectation from the calendar, not a measured count'"
+  },
+  "holiday_decor": {
+   "claim": "Early-December sailings fall inside the ship's holiday season",
+   "source": "inference",
+   "verified": "marked in-pack as expectation; pack says 'verify the specifics in the daily program rather than promising the kids anything particular'"
+  },
+  "lighthouse_show": {
+   "claim": "Show runs only on overnight/late-departure calls (inherited rule, verified 2026-07-06); this sailing's MSC-app window 8a-8p IS a late departure, so the show is possible \u2014 pack defers to the daily program, promises nothing",
+   "source": "show-rule from v0.1.8/ocean-cay page; window from the booking's MSC for Me itinerary (primary, 2026-08-20)",
+   "verified": "2026-08-20"
+  },
+  "ocean_cay_anniversary": {
+   "claim": "Dec 11 2026 visit lands almost exactly on the island's seventh birthday (opened December 2019)",
+   "source": "arithmetic on the inherited opening date",
+   "verified": "2026-08-20"
+  },
+  "cliffhanger_harbour": {
+   "claim": "Cliffhanger is the only over-water swing ride at sea \u2014 four seats on powered arms, ~160 ft above the water \u2014 located in The Harbour, MSC World America's outdoor family district (water park, themed playground, ropes course, complimentary grab-and-go); Harbour + Doremiland + Sportsplex form the Family Aventura district",
+   "source": "MSC press releases: mscpressarea.com 'MSC CRUISES INTRODUCES CLIFFHANGER' + 'MSC CRUISES UNVEILS THE HARBOUR' (located via search 2026-08-20)",
+   "verified": "2026-08-20",
+   "notes": "Cost/height-requirement/hours deliberately NOT stated (unverified) \u2014 pack defers to the MSC for Me app."
+  }
+ },
+ "superlatives": {
+  "largest_msc_ship": {
+   "claim": "MSC World America is MSC's largest ship and one of the largest cruise ships in the world",
+   "source": "inherited from v0.1.8 sidecar (Wikipedia, verified 2026-07-06)",
+   "disposition": "carried unchanged"
+  },
+  "venom_drop": {
+   "claim": "11-deck dry slide, the longest at sea",
+   "source": "inherited from v0.1.8 pack body (MSC claim)",
+   "disposition": "carried unchanged"
+  }
+ },
+ "voice_audit": {
+  "_doctrine": ".claude/skills/voice-audit/SKILL.md",
+  "audited_against": "voice-audit + like-a-human (during-writing pass, 2026-08-20)",
+  "audit_date": "2026-08-20",
+  "audit_scope": "Family reframe written fresh (Welcome, cabin calculus, Sections 9/10, December notes, closing); port/ship prose carried from v0.1.8 which passed its 2026-07-06 audit. Marketing-tell check: no 'breathtaking/stunning/paradise', no urgency language, negatives kept (Costa Maya 'least authentic', Beach Shack expectation-setting, lighthouse-show honesty, Roatan rain odds stated numerically). Season claims grounded in computed archive data, expectations labeled as expectations.",
+  "attestation": "Pack reads in site voice; no fabricated specifics introduced; every December-new number traces to the archive computation or a named source; unverifiable specifics (child gratuity rate, holiday programming details, exact times) are explicitly deferred to MSC/agent/app.",
+  "risk_rating": "Low",
+  "cluster_detection": {
+   "ai_mentions": 0,
+   "chatbot_or_llm_mentions": 0,
+   "banned_vocabulary_hits": 0,
+   "verdict": "likely_human",
+   "verdict_justification": "Zero AI/LLM mentions across 809 lines; strong firsthand from-the-pier specificity and honest operational hedges throughout the read portion. The elevated 'honest'/'genuinely' counts are a style-trim gap, not a cluster signal."
+  }
+ },
+ "ship_specs": {
+  "gross_tonnage": {
+   "value": "216,638 GT",
+   "source": "https://en.wikipedia.org/wiki/MSC_World_America",
+   "verified": "2026-07-06",
+   "notes": "Matches the pack body. World America is slightly larger than lead sister World Europa (215,863 GT)."
+  },
+  "length_ft_m": {
+   "value": "1,093.5 ft / 333.3 m",
+   "source": "https://en.wikipedia.org/wiki/MSC_World_America",
+   "verified": "2026-07-06"
+  },
+  "decks": {
+   "value": "22 decks (16 guest-accessible per the pack)",
+   "source": "https://en.wikipedia.org/wiki/MSC_World_America",
+   "verified": "2026-07-06"
+  },
+  "capacity": {
+   "value": "5,079 guests at double occupancy; 6,762 maximum",
+   "source": "https://en.wikipedia.org/wiki/MSC_World_America",
+   "verified": "2026-07-06",
+   "notes": "Wikipedia states 6,762 max; the pack's more precise 5,079-double / 6,762-max split is consistent with MSC's published figures and is retained."
+  },
+  "crew": {
+   "value": "2,138",
+   "source": "https://en.wikipedia.org/wiki/MSC_World_America",
+   "verified": "2026-07-06",
+   "notes": "Matches the pack's '~2,138 crew'."
+  },
+  "year_built": {
+   "value": "2025 \u2014 delivered March 27, 2025; maiden voyage April 12, 2025",
+   "source": "https://en.wikipedia.org/wiki/MSC_World_America",
+   "verified": "2026-07-06"
+  },
+  "builder": {
+   "value": "Chantiers de l'Atlantique, Saint-Nazaire, France",
+   "source": "https://en.wikipedia.org/wiki/MSC_World_America",
+   "verified": "2026-07-06"
+  },
+  "imo": {
+   "value": "9837432",
+   "source": "https://en.wikipedia.org/wiki/MSC_World_America",
+   "verified": "2026-07-06",
+   "notes": "Not asserted in the pack body; recorded here from the primary source (distinct from lead sister World Europa's IMO 9837420)."
+  },
+  "class": {
+   "value": "World Class \u2014 the second ship (after MSC World Europa, 2022) and the first World Class ship dedicated to the U.S. market.",
+   "source": "https://en.wikipedia.org/wiki/MSC_World_America",
+   "verified": "2026-07-06"
+  },
+  "_inheritance": "Inherited verbatim from v0.1.8 sidecar (verified 2026-07-06 against the sources recorded per-claim); same ship and same five ports. Not re-verified 2026-08-20; inheritance recorded here per the copy-propagation rule."
+ },
+ "christening": {
+  "godparent": {
+   "value": "Drew Barrymore \u2014 godmother.",
+   "source": "https://www.prnewswire.com/news-releases/msc-cruises-selects-drew-barrymore-as-godmother-of-new-flagship-msc-world-america-302393200.html",
+   "verified": "2026-07-06",
+   "notes": "Confirmed by MSC's own PR Newswire release + Cruise Critic + Travel Market Report. Matches the pack."
+  },
+  "date": {
+   "value": "April 9, 2025, at the MSC Miami Cruise Terminal, PortMiami (with Orlando Bloom present and a Gloria Estefan concert).",
+   "source": "https://www.cruisecritic.com/news/drew-barrymore-christens-msc-cruises-newest-ship-msc-world-america",
+   "verified": "2026-07-06",
+   "notes": "Matches the pack body's christening details."
+  },
+  "_inheritance": "Inherited verbatim from v0.1.8 sidecar (verified 2026-07-06 against the sources recorded per-claim); same ship and same five ports. Not re-verified 2026-08-20; inheritance recorded here per the copy-propagation rule."
+ },
+ "policies": {
+  "auto_gratuity_rate": {
+   "value": "MSC daily Hotel Service Charge on North American Caribbean/Alaska sailings: $17/person/day for standard cabins and $23/person/day for Yacht Club suites, effective May 11, 2026 (up from $16 / $20). Children 2-11 roughly half; under 2 free. The Apr 2027 sailing falls under the $17/$23 rate.",
+   "source": "https://www.msccruisesusa.com/manage-booking/before-you-go/service-charges",
+   "verified": "2026-07-06",
+   "notes": "Verified live against MSC's own service-charge page. CORRECTION 2026-07-06: the pack body DID assert a gratuity figure ($14-16/day) and it was STALE \u2014 corrected to $17/day standard, $23 Yacht Club (eff. May 11 2026) in Section 8, the budget table, and the At-a-Glance-adjacent cost table; budget total adjusted $988->$1,010. My original sidecar wrongly claimed 'the pack body does not assert a gratuity dollar figure' \u2014 that verification claim was false and is retracted here."
+  },
+  "laundry_availability": {
+   "value": "No self-service guest laundry on any MSC ship (World America included). Paid valet laundry, pressing, and dry cleaning only (per-item and package pricing; same-day for-fee except the last day). MSC Voyagers Club tiers get small discounts.",
+   "source": "https://emmacruises.com/msc-cruises-laundry/",
+   "verified": "2026-07-06",
+   "notes": "Verified live this session; corroborated by MSC's own laundry page (msccruisesusa.com/manage-booking/before-you-go/laundry) and cruisefever.net's self-service list (MSC absent). Not a headline claim in the pack body; recorded to satisfy the gate."
+  },
+  "emergency_contacts": {
+   "value": "Handoff card now leads with US State Dept Overseas Citizens Services (24/7): +1-888-407-4747 (US/Canada) / +1-202-501-4444 (abroad). MSC Guest Relations +1-877-665-4655 (business hours ET) listed as the reach-a-guest-aboard line.",
+   "source": "https://www.msccruisesusa.com/faq/on-board-information",
+   "verified": "2026-07-06",
+   "disposition": "CRITICAL CORRECTION 2026-07-06: the card's 'EMERGENCY (24/7) MSC Guest Services' numbers (954-624-4055 / 888-624-4655) appear in NO MSC source and were removed. MSC's real guest-relations line is 877-665-4655 (business hours, NOT 24/7). The card also LACKED a true 24/7 line, so the State Dept OCS 24/7 line was added as the primary emergency path (matching the other packs)."
+  },
+  "_inheritance": "Inherited verbatim from v0.1.8 sidecar (verified 2026-07-06 against the sources recorded per-claim); same ship and same five ports. Not re-verified 2026-08-20; inheritance recorded here per the copy-propagation rule."
+ },
+ "port_facts": {
+  "msc_miami_terminal": {
+   "value": "MSC Miami Cruise Terminal at PortMiami officially opened April 5, 2025 (not 2024); ~492,678 sq ft, marketed as the world's largest cruise terminal. The Apr 9 2025 christening was held there.",
+   "source": "https://cruiseindustrynews.com/cruise-news/2025/04/msc-opens-new-cruise-terminal-in-miami/",
+   "verified": "2026-07-06",
+   "notes": "Matches the pack body; the christening (Apr 9 2025) was held here.",
+   "disposition": "CORRECTION 2026-07-06: pack said 'opened 2024' in two places -> corrected to April 2025 (self-consistent with the Apr 2025 christening held there)."
+  },
+  "itinerary": {
+   "value": "PortMiami (Sat Apr 24, embark) -> sea -> Roatan, Honduras (Mon Apr 26) -> Costa Maya, Mexico (Tue Apr 27) -> Cozumel, Mexico (Wed Apr 28) -> sea -> Ocean Cay MSC Marine Reserve, Bahamas (Fri Apr 30) -> PortMiami (Sat May 1).",
+   "source": "https://www.msccruisesusa.com",
+   "verified": "2026-07-06",
+   "notes": "Pack flags 'verify your specific times in the MSC for Me app.' Ports linked in the pack: /ports/miami.html, /ports/roatan.html, /ports/costa-maya.html, /ports/cozumel.html, /ports/ocean-cay.html."
+  },
+  "roatan_dock": {
+   "claim": "MSC World America docks at the Port of Roatan at Coxen Hole (used by MSC/RCL/NCL/Virgin), NOT Mahogany Bay.",
+   "source": "https://discoverroatan.net/cruise-ship/msc-world-america-port-of-roatan/",
+   "verified": "2026-07-06",
+   "disposition": "CORRECTION 2026-07-06: the pack had the Roatan port REVERSED \u2014 it named Mahogany Bay as 'MSC and Royal Caribbean's purpose-built pier'. Mahogany Bay (rebranded Isla Tropicale) is Carnival Corporation's exclusive facility (Carnival/Princess); MSC uses Coxen Hole. The whole Roatan section (arrival, 'free walkable' bullets incl. the Mahogany-Bay-only 'Magical Flying Beach Chair' lift, and the West Bay taxi distance) was rewritten for Coxen Hole. Same error found independently in the Symphony pack (RCL)."
+  },
+  "ocean_cay_bimini": {
+   "claim": "Ocean Cay is ~20 miles SOUTH of Bimini (and ~65 mi east of Miami).",
+   "source": "https://en.wikipedia.org/wiki/Ocean_Cay",
+   "verified": "2026-07-06",
+   "disposition": "CORRECTION 2026-07-06: pack said 'north of Bimini' -> south."
+  },
+  "mexico_consulate_2026": {
+   "value": "US Consulate General Merida relocated (new building opened May 6, 2025); current US Citizen Services for the Yucatan/Quintana Roo (incl. Cozumel): +1-844-528-6611 (from US) / 999-689-0660 (local).",
+   "source": "https://mx.usembassy.gov/visas/u-s-embassy-mexico-city/u-s-consulate-general-merida/",
+   "verified": "2026-07-06",
+   "disposition": "CORRECTION 2026-07-06 (fleet-wide sweep): the handoff card's Merida 999-942-5700 (old building) + Cancun Agency 998-883-0272 were stale after the consulate's 2025 relocation -> replaced with the current ACS routing."
+  },
+  "_inheritance": "Inherited verbatim from v0.1.8 sidecar (verified 2026-07-06 against the sources recorded per-claim); same ship and same five ports. Not re-verified 2026-08-20; inheritance recorded here per the copy-propagation rule."
+ }
+}

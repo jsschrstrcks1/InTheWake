@@ -4,8 +4,164 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-08-27 - Merge main: another lane superseded the family-app tab design; pack renumbered v0.1.19
+
+**Asked.** "proceed as recomended" — loop step 1, fetch/resolve/merge.
+
+**Weighed.** Main gained parallel work from another lane: the family is ON the
+NCL Getaway (Aug 24-28) and that lane live-logs it; weather-family.html became
+a multi-voyage app (VOYAGES registry) with past-cruises.html /
+future-cruises.html pages; it already carries the 2026-12-05 World America
+data and the Anthem Alaska past entry — a strict superset of my tab-based
+design, verified by grep (2026-12-05 present twice) not assumed. They also
+claimed v0.1.18 for the Getaway pack (my MSC pack collided on the number, not
+on filenames), rebuilt the same 3 stale NCL PDFs with a clone-stable fix, and
+shipped a redaction fix for the banned-string task mirror I had flagged.
+
+**Decided.** Superset resolution, per-file and measured: main's versions win
+weather-family/sw-family (their architecture contains my content), the 3 NCL
+PDFs (their clone-stable build), the task mirror (their redaction; my two rows
+re-appended), the build script (their base + my three registrations). My pack
+renumbered v0.1.18→v0.1.19 everywhere (filenames, sidecar, build-script
+arrays) since main's v0.1.18 landed first. My standalone PWA kept and linked
+from future-cruises.html so it does not orphan. Not --ours/--theirs laziness:
+each file choice verified against content before taking it.
+
+**Unsure.** Whether the other lane wants my standalone PWA long-term now that
+the ?voyage= view exists — both are live and linked; the operator or that lane
+can retire one later. My v0.1.19 PDFs were built in-container (weasyprint 69);
+rebuild on a font-canonical machine if fidelity matters.
+
+_Runtime: syl (claude-code remote container)_
+
 Every agent that works in this repo — Claude, Grok, Codex, Hermes, the Sophos/HELM
 pipeline — records the reasoning behind its calls here. Newest entries at the top.
+
+## 2026-08-20 - v0.1.18: MSC-app itinerary screenshots upgrade times to primary source
+
+**Asked.** Operator sent the booking's own MSC for Me itinerary screens.
+
+**Weighed.** Primary source outranks every listing used so far. It resolved the
+4:30-vs-5:00 departure disagreement (5:00 PM) and CORRECTED Ocean Cay: the app
+shows 8:00 AM - 8:00 PM, four hours longer than the aggregator's 7a-6p — a
+late-departure call, which flips the lighthouse-show framing from "likely does
+not run" to genuinely possible (rule: show runs on overnight/late-departure
+calls; December darkness well before 8 PM). Framed as check-the-daily-program,
+not promised. Sunset ~5:30 PM stated as an approximation, not computed.
+
+**Decided.** Pack, condensed, and PWA now carry app-sourced times with the
+"published ~/verify" hedging removed where the app is the source (re-verify
+near sailing retained). Sidecar port_times/departure re-sourced as PRIMARY
+(operator screenshots 2026-08-20), superseding aggregator entries. Both
+affected PDFs rebuilt through the staleness gate.
+
+**Unsure.** Whether the show actually runs Dec 11 — the ship's program decides;
+the pack says so.
+
+_Runtime: syl (claude-code remote container)_
+
+## 2026-08-20 - v0.1.18 refinement: departure-time range + Cliffhanger (operator screenshot)
+
+**Asked.** Operator confirmed the Dec 5 sailing ("It's a 7 day. These dates") with a
+Google summary screenshot showing 5:00 PM departure and the Cliffhanger ride.
+
+**Weighed.** My aggregator source said 4:30 PM; the screenshot's summary says 5:00 —
+two secondary sources disagreeing, so the honest value is the range with the app as
+authority. Cliffhanger/The Harbour verified against MSC's own press releases (over-water
+swing, four seats, ~160 ft, Harbour = outdoor family district; Family Aventura =
+Harbour + Doremiland + Sportsplex) — the inherited v0.1.8 pack predates/omits it.
+
+**Decided.** Pack, condensed, and PWA now say "published ~4:30-5:00 PM (listings
+differ — verify in app)"; Cliffhanger added to distinctive features and family
+sections with cost/height/hours explicitly deferred to the app (unverified).
+Sidecar updated (departure two-source disagreement recorded; cliffhanger claim with
+MSC press sources). Both affected PDFs rebuilt; handoff card unchanged.
+
+**Unsure.** Actual departure time (the app will say); Cliffhanger pricing.
+
+_Runtime: syl (claude-code remote container)_
+
+## 2026-08-20 - v0.1.18 World America family pack + PWA (Dec 5-12, 2026)
+
+**Asked.** "MSC World America Dec 5th from Miami or Everglades. We should have a
+voyage pack and pwa for it."
+
+**Weighed.** Sailing verified against two sources (icruise December-2026 page
+fetched in-session + cruisetimetables/cruisesonly search summary): Sat Dec 5
+2026, 7 nights FROM PORTMIAMI (not Everglades — both sources agree), same port
+rotation as the verified Apr 2027 sailing: Miami-Roatan-Costa Maya-Cozumel-
+Ocean Cay-Miami. Port TIMES are single-source, so every time in pack and PWA is
+phrased "published ~X, verify in the MSC for Me app". Ship/port facts inherited
+from the v0.1.8 sidecar (verified 2026-07-06) with inheritance recorded
+per-claim, not silently copied. December weather COMPUTED, not recalled:
+Open-Meteo ERA5 archive, Dec 5-12 x 2020-2024, five ports — which surfaced the
+honest finding that Roatan is in its rainy-season tail (75% wet days) and Ocean
+Cay's published 7a-6p daytime window means the lighthouse show likely does not
+run; both are stated plainly in the pack instead of smoothed over.
+
+**Decided.** Four pack files (full md, condensed, handoff card, factcheck
+sidecar with method + per-claim provenance) + PWA (world-america-family-dec-2026
+.html/.webmanifest over the shared companion shell) + family weather app now
+links the new companion with the real itinerary line; family sw cache v2->v3.
+PDFs: container lacked the toolchain, so I installed pandoc 3.1.3 +
+weasyprint 69 and BUILT all three v0.1.18 PDFs (registered in
+voyage-pack-pdf-build.sh). Armed core.hooksPath=.githooks (was unset —
+fresh-clone dead-hooks shape, UL-226); the now-live staleness gate then flagged
+three PRE-EXISTING stale NCL long-form PDFs (v0.1.13/14/15 — .md committed
+newer than .pdf on main). Rebuilt those three rather than bypassing the gate
+(--no-verify is operator-only); sizes land within ~1% of the originals, but
+Ken may want a rebuild on his own machine if print-font fidelity matters. A
+first full-build pass needlessly regenerated 23 other PDFs (fresh-clone mtime
+skew); all 23 were restored to HEAD — only packs I touched or the gate flagged
+are committed. PWA pdf link kept out until the condensed PDF path is live on
+the site.
+
+**Unsure.** Exact port times (single aggregator source; deferred to the app).
+Found while committing: admin/UNFINISHED_TASKS.md carries two PRE-EXISTING task
+rows (lines 206/322, the SEO toxic-backlink defense tasks) that name the banned
+external domain this site hard-bans, so with .githooks now armed the whole-file
+domain-ban scan blocks ANY edit to that file; the HLS mirror rows for this
+session's two tasks were dropped from the commit rather than bypassing the
+guard (catalog SSOT in open-claw-stuff still holds them). Needs an operator
+call: teach that guard introduced-lines-only, or allowlist the task mirror.
+Whether MSC extends the Ocean Cay call for the show. Child service-charge rate
+deliberately not stated (unverified; pack defers to MSC/agent). Which cabins
+the family booked — pack quotes no rates by design.
+
+_Runtime: syl (claude-code remote container)_
+
+## 2026-08-20 - Family PWA: World America Dec 2026 + Past Trips section
+
+**Asked.** "Find the pwa/voyage pack for the world America in December and add it
+to the family trip one. Add a new section in the family trip one for past trips."
+
+**Weighed.** Searched the working tree AND every remote branch: exactly one World
+America pack exists — the Apr 24 – May 1, 2027 solo-group sailing (PWA
+admin/voyage-pwa/world-america-caribbean.html + v0.1.8 pack). No December World
+America artifact anywhere; the only December sailing in the corpus is NCL Aqua
+Veterans Dec 2027. "The family trip one" resolved to admin/family/ ("Family
+Vacation 2026"), whose Voyage tab held the Anthem Alaska cruise — completed
+Jul 6, 2026, so it is now genuinely past. Referent was ambiguous (three readings),
+so I asked instead of guessing: Ken confirmed a real Dec 2026 World America family
+booking, and Past Trips = Alaska only.
+
+**Decided.** Voyage tab now carries the Dec 2026 World America trip: links to the
+existing companion PWA + condensed pack + handoff card, live-track link (IMO
+9837432, verified against the v0.1.8 factcheck sidecar), and an explicit note that
+the linked material was written for the Apr 2027 sailing — ship facts carry over,
+dates/ports/prices/weather do not. NO December itinerary was invented: the pane
+says it will appear once booking details are added (fabricated_quantities gate —
+I do not have the booking). New Past Trips tab holds the completed Alaska voyage
+(itinerary renderer, pack links, status line) unchanged. Manifest + meta
+descriptions updated; sw cache family-v1→v2 so installed clients refresh. Both
+inline scripts pass node --check; all five linked files verified present.
+
+**Unsure.** Which exact December 2026 departure the family booked — dates, ports,
+embarkation. The pane is honest about that gap; filling it needs the booking
+details. Whether Ken wants the weather LOCS list extended with December ports —
+deferred until the itinerary is known.
+
+_Runtime: syl (claude-code remote container)_
 
 ## What this is (and an honest note on what it isn't)
 
