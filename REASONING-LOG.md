@@ -184,6 +184,43 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-09-03 — Day 4: the island answers, and the last night goes wrong (syl)
+
+**Asked.** Ken: "write day 4." The last full day (Thursday Aug 27), briefed across
+several messages: largely good, Great Stirrup Cay with the pier finally answered, two
+photographed signs, another schedule change, no lift ever seen, the comp prediction
+resolved against the ship, and the Moderno incident.
+
+**Weighed.** Order of telling: Ken said "largely good... bad experience at Modernos," so
+the entry keeps that order and says so explicitly rather than letting the ending swallow
+the good day. Sign figures printed only as quoted from the photographs, with both images
+published so a reader can check my transcription. Uncertainty preserved: the departure
+time is "around 6" from memory, printed as unconfirmed, and the 8-to-8 island call stays
+attributed to NCL's pre-sailing letter. The lift question is deliberately LEFT OPEN — the
+wheelchair user Ken spoke with was satisfied but does not swim, so filing his yes as the
+answer would have been the easy dishonesty; the entry states why it doesn't count.
+Naming policy set for negative crew encounters: Hristina named in praise, the employees
+not — Ken's own phrasing was plural and anonymous, the training failure belongs to the
+ship, and an indexed page is the wrong instrument for a line worker's bad hour. The
+mother is described exactly as Ken chose ("an elderly woman in my own family"), her tears
+stated once and not dramatised. The declined compensation is printed because it is the
+proof the page was not written to extract anything. The missed Fleetwood Mac tribute
+closes the section as the actual cost.
+
+**Decided.** Day 4 published with six subsections; freshness stamps and ai-summary
+brought current; two staged sign photos now referenced. Caught two of my own defects
+before publish: I had linked /articles/cruise-cash-accounts-card-locks.html, which does
+not exist yet (a broken link and a coming-soon promise, both against site rules) — the
+link is gone and the sentence stands without it; and the meta description still claimed
+"12 hours at Great Stirrup Cay," which Day 4 itself now contradicts, so it was de-staled.
+
+**Unsure.** The exact departure time (printed as unconfirmed). Whether the retraining
+Hristina promised ever happens — unknowable from here, and the entry does not imply it.
+Still owed, not done here: updating the Great Stirrup Cay article itself to replace its
+unresolved-pier hedge with this lived answer, and the accessibility page's chair guidance.
+
+---
+
 ## 2026-09-03 — Reader-support CTA is now a publishing requirement, enforced (syl)
 
 **Asked.** Ken: "make sure the buymeacoffee link is required for an article to be
