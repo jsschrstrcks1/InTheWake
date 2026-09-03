@@ -254,6 +254,38 @@ earlier"), since no printed time was captured.
 
 ---
 
+## 2026-09-03 — Day 5: the logbook comes ashore (syl)
+
+**Asked.** Ken's final dispatch: disembarkation quick, easy, orderly; they dragged their
+feet and were among the last off; breakfast a little chaotic but no worse than the last
+morning in the MDR warrants; then hot pressed Cubans and a picnic in the Everglades at a
+pavilion over the water with rocking chairs and usually a good breeze.
+
+**Weighed.** Two structural calls. (1) The bookend: boarding was smooth Monday and
+disembarkation smooth Friday, and every real failure this week happened in a cabin, at a
+table, or on a folio — that is arithmetic over the published entries, and it is the
+fairest summary sentence the page can carry without pre-empting a verdict. (2) The
+verdict itself: Ken never answered whether the week gets a closing score on this page, so
+the entry does NOT invent one. It states plainly that the verdict will be written with
+distance rather than in the parking lot, which is both true and a commitment the page can
+be held to. Breakfast chaos is explicitly not counted against the ship, matching Ken's
+own framing. The Everglades location and pavilion are left unnamed because the dispatch
+left them unnamed. The no-breeze callback links to Day 1 rather than restating it.
+
+**Decided.** Day 5 section written and published; sidecar records the deferred verdict as
+a stated commitment rather than an omission.
+
+**Unsure.** Whether Ken wants the week verdict on this page or as its own piece — the
+text is written so either works.
+
+**Honest limit.** Found and repaired a real defect while editing: the ai-summary meta tag
+carried a stray `>` (`"/>>`) from an earlier edit in this series, producing malformed
+markup that the validator did not catch. Repaired and the summary refreshed through Day
+5. Worth noting the validator has no well-formedness check on meta tags — that gap let a
+broken tag ship.
+
+---
+
 ## 2026-09-03 — Reader-support CTA is now a publishing requirement, enforced (syl)
 
 **Asked.** Ken: "make sure the buymeacoffee link is required for an article to be
