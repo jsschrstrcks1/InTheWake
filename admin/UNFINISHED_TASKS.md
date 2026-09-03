@@ -855,6 +855,8 @@ node admin/library.mjs mirrors --repo InTheWake
 <!-- library register 2026-08-24T20:29:28.933Z -->
 | hls-mirror-vs-no-g•tbets-guard-conflict-mirrored-task-rows-in-in | 2 | HLS mirror vs no-g•tbets guard conflict: mirrored task rows in InTheWake admin/UNFINISHED_TASKS.md carry the banned string (disavow + monitor task titles), blocking any commit that stages the file — fix at catalog level (rename tasks or exempt the mirror path); operator decision |
 
+<!-- library register 2026-08-28T04:34:32.710Z -->
+| article-cruise-cash-accounts-card-locks-how-a-small-pending-char | 1 | Article: cruise cash accounts + card locks — how a small pending charge closes your ship card (NCL prepay pressure; beverage package is first privilege stripped; lived Getaway Aug-2026 Moderno incident as anchor) |
 <!-- library register 2026-08-20 (re-appended in merge; catalog is SSOT) -->
 | family-pwa-past-trips-section-completed-alaska-cruise-world-amer | 5 | Family PWA: Past Trips section (completed Alaska cruise) + World America Dec 2026 upcoming-trip entry |
 | build-msc-world-america-dec-5-2026-family-voyage-pack-pwa-inthew | 5 | Build MSC World America Dec 5 2026 family voyage pack + PWA (InTheWake) and wire into family app |
