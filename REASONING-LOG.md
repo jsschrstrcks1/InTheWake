@@ -184,6 +184,18 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-09-03 — Seven Alaska ports into seasonal-guides.json (grok1)
+
+**Asked.** Keep looping. HLS `itw-alaska-seasonal-json` (#2446): college-fjord, homer, kodiak, misty-fjords, petersburg, valdez, wrangell missing from seasonal-guides.json.
+
+**Weighed.** Inventing humidity/rain_days would fail original-research. NOAA 1991-2020 highs/lows (and rain_days where the Wikipedia climate table had them) were used. Humidity and some rain_days borrowed from nearest existing registry stations (Seward, Sitka, Whittier, Ketchikan) and named in `_source`. Misty Fjords and College Fjord have no town stations.
+
+**Decided.** Seven tier-1 entries. `_meta.lastUpdated` 2026-09-03. 381→387 port keys.
+
+**Unsure.** Wrangell monthly precip-days were not in the Wikipedia table; Ketchikan rain_days used and disclosed.
+
+---
+
 ## 2026-08-28 — Reader-support CTA on every article and voyage pack (syl)
 
 **Asked.** Ken: put https://buymeacoffee.com/inthewake with a CTA in every article and
@@ -223,6 +235,18 @@ but that is a harness change and needs its own review, not a same-breath edit. A
 articles/cruise-tech-photography-guide.html was missing both analytics blocks (absent in
 the committed version too, verified via git show) and was the only article failing the
 validator; it now carries the same block as its 51 siblings and passes.
+
+---
+
+## 2026-09-03 — Seven Alaska ports into seasonal-guides.json (grok1)
+
+**Asked.** Keep looping. After FAQ_COUNT, HLS checkout `itw-alaska-seasonal-json` (#2446): college-fjord, homer, kodiak, misty-fjords, petersburg, valdez, wrangell missing.
+
+**Weighed.** Inventing humidity/rain_days would fail original-research. NOAA 1991-2020 highs/lows (and rain_days where the Wikipedia climate table had them) were used. Humidity and some rain_days borrowed from nearest existing registry stations (Seward, Sitka, Whittier, Ketchikan) and named in `_source`. Misty Fjords and College Fjord have no town stations.
+
+**Decided.** Seven tier-1 entries, `_meta.lastUpdated` 2026-09-03. 381→387 port keys.
+
+**Unsure.** Wrangell monthly precip-days were not in the Wikipedia table; Ketchikan rain_days used and disclosed.
 
 ---
 
