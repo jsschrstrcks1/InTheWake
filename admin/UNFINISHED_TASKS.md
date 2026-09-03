@@ -831,3 +831,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-08-24T20:29:28.933Z -->
 | hls-mirror-vs-no-g•tbets-guard-conflict-mirrored-task-rows-in-in | 2 | HLS mirror vs no-g•tbets guard conflict: mirrored task rows in InTheWake admin/UNFINISHED_TASKS.md carry the banned string (disavow + monitor task titles), blocking any commit that stages the file — fix at catalog level (rename tasks or exempt the mirror path); operator decision |
+
+<!-- library register 2026-08-28T04:34:32.710Z -->
+| article-cruise-cash-accounts-card-locks-how-a-small-pending-char | 1 | Article: cruise cash accounts + card locks — how a small pending charge closes your ship card (NCL prepay pressure; beverage package is first privilege stripped; lived Getaway Aug-2026 Moderno incident as anchor) |
