@@ -11,6 +11,29 @@ Open tasks for this repo (`state` ≠ `complete`). Regenerate:
 
 ---
 
+## P3 — Self-service itinerary changes for voyage companions (`itw-voyage-self-service`, queued 2026-08-21)
+
+**Context:** NCL revised the Aug 24 Getaway sailing three days out (repairs in Nassau — overnight
+port stay added, cay day extended). The operator asked for a way for people to apply such changes
+themselves when a ship's plans change mid-trip.
+
+**v1 — SHIPPED 2026-08-21:** `admin/family/itinerary-overrides.json` — an overlay file both the
+family page and Jerusha's page fetch fresh (cache-busted, never SW-cached) on every online load
+and merge over their built-in VOYAGES data (note/title/dates/any per-day field, keyed by voyage id
+and day number). Editing the file on GitHub mobile + committing to main is the whole workflow —
+the existing Pages deploy publishes it. Limits (documented in the file): map routes/pins don't
+move; offline devices show the built-in schedule until back online.
+
+**v2 — designed, not built:** a Worker-backed editor so changes work from ship Wi-Fi without
+GitHub: reuse the jerusha-notes Worker pattern (KV `override:<voyageId>`, bearer-auth'd
+`GET/PUT /overrides`), pages fetch Worker first and fall back to the JSON file; a small auth'd
+edit form (per-day fields, preview, audit log of who changed what when). Open questions for the
+operator: who holds edit tokens (family-wide vs per-person), and whether voyage-pwa companion
+shells (hosted-group sailings) should join the same mechanism — Pam-hosted groups would benefit
+most on port-change days.
+
+---
+
 ## P2 — Voyage packs → PWA deep integration (`itw-voyage-pwa-integration`, queued 2026-07-07)
 
 **Goal:** soft-deprecate the voyage-pack PDFs. Each voyage's PWA companion
@@ -834,3 +857,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-08-28T04:34:32.710Z -->
 | article-cruise-cash-accounts-card-locks-how-a-small-pending-char | 1 | Article: cruise cash accounts + card locks — how a small pending charge closes your ship card (NCL prepay pressure; beverage package is first privilege stripped; lived Getaway Aug-2026 Moderno incident as anchor) |
+<!-- library register 2026-08-20 (re-appended in merge; catalog is SSOT) -->
+| family-pwa-past-trips-section-completed-alaska-cruise-world-amer | 5 | Family PWA: Past Trips section (completed Alaska cruise) + World America Dec 2026 upcoming-trip entry |
+| build-msc-world-america-dec-5-2026-family-voyage-pack-pwa-inthew | 5 | Build MSC World America Dec 5 2026 family voyage pack + PWA (InTheWake) and wire into family app |
