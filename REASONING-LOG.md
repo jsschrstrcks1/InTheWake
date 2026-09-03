@@ -28,6 +28,18 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-09-03 — Icon pack store listing via buymeacoffee.com/inthewake (grok1)
+
+**Asked.** Operator sent https://buymeacoffee.com/inthewake and said proceed — the omitted store buy button.
+
+**Weighed.** Existing extras URLs (`/extras/voyage-pack-…`) return HTTP 404. The shop root returns 200. Inventing a new extras slug would ship a dead Buy button, which is the footgun the last commit avoided.
+
+**Decided.** Added the Icon Eastern Caribbean $19 card on `voyage-packs.html` with the buy link to the live shop root. Did not retarget the other packs' 404 extras URLs (out of scope). FAQ_COUNT still checked out: extract tests 7/7; Page:0 false-positive class is 1/399; 64 ports still have schema-vs-visible drift (the #2444 follow-up), not rebuilt this commit.
+
+**Unsure.** Whether BMC extras will be recreated under the old slugs; the Icon button should move to an extras URL once that extra exists and 200s.
+
+---
+
 ## 2026-09-03 — Icon Eastern Caribbean 7N generic pack + PWA (grok1)
 
 **Asked.** Find InTheWake HLS tasks, check them out, and build them. The returned hole was `voyage-pack-v0-1-17-icon-of-the-seas-eastern-caribbean-7n-generi` — pack + PWA companion, missing from `admin/voyage-packs/` and the public README table. A second checkout (`itw-faq-count-prefix`, #2444) was taken; origin/main already carries the validator format-4 fix that issue named.
