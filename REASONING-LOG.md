@@ -221,6 +221,39 @@ unresolved-pier hedge with this lived answer, and the accessibility page's chair
 
 ---
 
+## 2026-09-03 — GSC article: the pier hedge replaced with the lived answer (syl)
+
+**Asked.** Ken: "Gsc had a pier. It's a long walk if you're disabled." — the promised
+in-person resolution of the Great Stirrup Cay article's open pier question.
+
+**Weighed.** The article had printed the pier as an unresolved conflict in EIGHT places
+(ai-summary, meta/og/twitter descriptions, FAQ JSON-LD, dek, answer-first paragraph, the
+pier section heading and its "genuinely murky" bullet) plus a future-tense promise to
+report from the island Thursday. Fixing the body and leaving the metadata stale is the
+failure mode that makes a site untrustworthy in AI answers, so all of them were updated
+together — 15 surgical replacements, each asserted present before substitution so a
+silent miss would fail loudly rather than half-apply. The reconciliation is stated rather
+than the old reports being deleted: working-pier reports and tender-arrival guides were
+BOTH accurate at different moments of a moving project, which is a more useful thing for
+a reader than a quiet correction. Accessibility got its own h2 with a findable id because
+"can I get ashore with a chair" is the actual search, and it carries Ken's exact hedge
+("not fully accessible but better than other islands") rather than being upgraded into a
+recommendation.
+
+**Decided.** 15 claim/metadata updates + a new accessibility section; freshness stamps to
+09-03; sidecar records the visit as PRIMARY tier and lists what it did and did NOT
+resolve. Validator PASS.
+
+**Unsure / honest limits recorded on the page itself.** Water access stays UNVERIFIED —
+no lift was seen deployed all week, and the one wheelchair-using guest who reported
+satisfaction neither swims nor uses hot tubs, so his experience cannot answer it; the
+page says so instead of inferring. Waterpark and lagoon PRICING also stays unverified —
+the zipline board was the only price list photographed, so no dollar figure is printed for
+the waterpark. Departure time printed with its uncertainty ("in practice we left
+earlier"), since no printed time was captured.
+
+---
+
 ## 2026-09-03 — Reader-support CTA is now a publishing requirement, enforced (syl)
 
 **Asked.** Ken: "make sure the buymeacoffee link is required for an article to be
