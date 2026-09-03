@@ -28,6 +28,18 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-09-03 — FAQ_COUNT: validator whitespace + schema sync (grok1)
+
+**Asked.** Keep looping until tasks are complete. I had stopped after the Icon store listing; FAQ_COUNT (`itw-faq-count-prefix`, #2444) was still checked out.
+
+**Weighed.** Format-4 extract was already landed. Live FAQ_COUNT still failed 40/399 ports: 39 schema-short of visible questions, 1 Petersburg Page:0 (`<details style>` without `faq-item`, so the old single-line regex saw nothing). Expanding extract to every `#faq` `<details>` would have created 120 false mismatches (weather/packing details). Dual-format pages (Barcelona 5+5) must keep Math.max, not a sum.
+
+**Decided.** Loosen FAQ_COUNT to `<details class="faq-item"[^>]*>\s*<summary`. Tag Petersburg FAQ details with `faq-item`. Sync FAQPage `mainEntity` from visible Q&A (copied from the page, not invented) on the other 39. Fleet FAQ_COUNT mismatches: 40 → 0. Mutation: drop one Holyhead schema Question → FAQ_COUNT errors; restored.
+
+**Unsure.** beijing/falmouth/kyoto have schema 0 and no FAQ_COUNT page items — they never failed this check. Schema-vs-visible *unique extract* drift on dual-format pages remains a follow-up, not this task's FAQ_COUNT regex.
+
+---
+
 ## 2026-08-26 — Day 3 photos: the plaque becomes the source (syl)
 
 **Asked.** Third Day 3 dispatch: five Nassau photos — staircase gorge, steps with
