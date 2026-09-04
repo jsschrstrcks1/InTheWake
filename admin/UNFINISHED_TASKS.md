@@ -860,3 +860,6 @@ node admin/library.mjs mirrors --repo InTheWake
 <!-- library register 2026-08-20 (re-appended in merge; catalog is SSOT) -->
 | family-pwa-past-trips-section-completed-alaska-cruise-world-amer | 5 | Family PWA: Past Trips section (completed Alaska cruise) + World America Dec 2026 upcoming-trip entry |
 | build-msc-world-america-dec-5-2026-family-voyage-pack-pwa-inthew | 5 | Build MSC World America Dec 5 2026 family voyage pack + PWA (InTheWake) and wire into family app |
+
+<!-- library register 2026-09-04T15:09:51.428Z -->
+| indexnow-coverage-gap-posttooluse-hook-only-matches-edit-write-s | 2 | IndexNow coverage gap: PostToolUse hook only matches Edit|Write, so pages changed via Bash/sed/python (or by any other runtime) are never submitted — durable fix is a git post-commit/pre-push submitter driven by the diff, since git sees every edit path regardless of tool |
