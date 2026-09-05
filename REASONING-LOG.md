@@ -4,8 +4,230 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-05 - Full voice-skill pass on the seven new articles; it caught a sourcing violation the first audit missed
+
+**Asked.** "Run all of our voice skills against these new articles."
+
+**Weighed.**
+
+*My first pass was not the skill.* Before publishing I ran what I described as a voice audit and wrote an attestation into all seven sidecars. Reading `voice-audit` v2.3.0 properly this time, that pass covered maybe a third of Axis 1 and some cadence measurement. It never ran the announcement-before-move scan, the assumed-familiarity scan, the both-sides reflex, the lack-of-conviction greps, the outline-conclusion check, image density, or the AI-Authorship Cluster Detection framework at all — and the attestation I wrote was not schema-conformant, because it carried no `must_be_present`, no `cluster_detection` and no `risk_rating`. Those three fields are the ones the Anthem June 2026 failure exists to force. I marked the old block `supersedes` rather than silently overwriting it.
+
+*The finding that justifies the whole exercise.* Cluster detection Layer 1 looks for broad authority claims with no specifics. The single-supplement article closed with: *"Purpose-built solo cabins barely existed fifteen years ago and now run to the high hundreds across one line's fleet alone."* I never fetched a solo-cabin count or any history of the category. Worse, that sentence directly contradicts the article's own factcheck sidecar, which I had written hours earlier and which says in plain words: *"NO claim about the number of solo cabins on any ship or in any fleet."* The article and its own evidence record disagreed, and nothing caught it — not the validator, not my first audit, not the commit hooks, not the merge. A structural framework I had not run is what caught it. The closing now keeps only what NCL's page supports and says the count is not knowable from here.
+
+*A second, milder version of the same fault.* The muster article asserted international maritime regulation as flat fact while its sidecar recorded that no regulatory text was ever fetched. Same shape: body more confident than evidence. The body now states that limit where the reader can see it and warns against quoting a citation from the page.
+
+*The absence that the presence scan cannot see.* Three articles — CDC scores, missed ship, muster — had **zero** first-person presence of any kind. Not weak attestation; none. That is precisely the Anthem pattern: fact-correct, marketing-free, machine-tell-free, and read as AI by a reader within hours because the human signals never clustered. The skill offers a colophon-disclosure escape and these pages qualify for it, but the better fix was available and true: each had a real research event worth reporting. So the CDC page now says I went to CDC's own pages rather than take the failing threshold from a summary; the missed-ship page warns that searching this question returns a Royal Caribbean page about *cancellations* and that I nearly quoted it; the muster page states what it could not verify. **I did not manufacture lived experience.** Every added sentence reports something that actually happened, and six of these seven pages remain sourced research rather than reporting from aboard — the sidecars now say so per page instead of leaving it to be inferred.
+
+*Where I flagged my own instruments rather than the articles.* Two proofreader hits were my error. The double-space-after-period flags were an artifact of my replacing HTML tags with spaces before scanning; the raw markup has zero. And the short-sentence counter under-counts, because it splits on `[.!?]` plus whitespace and so merges any short sentence following a closing quote — which is why it reported the single-supplement article as cadence-thin when "Two hundred percent." is sitting right there. Both limits are recorded in the sidecars rather than left to mislead the next reader.
+
+*A skill that disagrees with the corpus.* `publication-proofreader` v1.0.0 requires curly quotes and curly apostrophes. The site has never used them: four published articles carry zero curly quotes between them and two to thirty-eight straight apostrophes each. I matched the corpus and did not churn seven pages into a convention the other sixty-five do not follow. That contradiction is yours to settle, not mine to resolve by fiat in either direction.
+
+**Decided.** Eleven corrections across five articles: one sourcing violation removed, one unverified claim softened, three authorial paragraphs added where there was a true thing to report, six word-level fixes (copulative avoidance, promotional verbs, intensifier padding, one unsourced generalisation about readers), and `target="_blank"` added to five external source links to match corpus convention. Sidecars rewritten to the skill's actual schema, with per-article cluster verdicts, risk ratings, the corrections, the false positives, and my instruments' own limits. All seven: **0 Layer 1 signals, verdict likely_human, risk Low.** Validator 7/7 PASS.
+
+**Unsure.** Whether adding a research-process paragraph to three articles is the right instrument or a tic. It is honest and it is the site's established voice, but if every article explains how it was researched, the explaining becomes the house style rather than the reporting. Three out of seven feels near the ceiling. If you read them and it grates, say so and I will pull them back to the colophon escape, which the skill explicitly permits.
+
+Also unsure how much of the batch's cross-page sameness matters. Two pages carry a "The short version" header and two carry a near-identical "One thing worth being clear about" / "One thing worth saying plainly". Per page that is fine; published the same afternoon it is visible. I did not rewrite them, because varying a header to defeat a pattern is a cosmetic answer to a real question about whether seven pieces should ship together at all.
+
+**Honest limit.** The scan measures tells, variance and clustering. It cannot tell you whether the prose reads as a person to a person. On six of these seven pages it does not even claim to — they are sourced research and now say so on their own faces.
+
+
+## 2026-09-05 - "Write them all": seven new articles, one wrong premise corrected
+
+**Asked.** "Propose a new batch of articles" then "Write them all" — seven pieces (A-G) proposed and approved in one breath.
+
+**Weighed.**
+
+*The premise I got wrong, and am not quietly fixing.* I proposed article G (Great Stirrup Cay costs) on the argument that "we already own the primary source and haven't used it — the zipline pricing board and safety rules are sitting in the repo, published nowhere except a passing mention." That was false. Both photographs are fully published in the Day 4 logbook entry, with the prices transcribed, the tax line quoted, and the ladder requirement called out. I had a stale note and did not check the file before pitching the piece. The article is still worth having — a costs reference page a planner can find by searching is a different artifact from a paragraph inside one week's diary, and the diary will never rank for "what does Great Stirrup Cay cost" — but the *reason I gave you* for writing it was wrong, and the honest correction is cheaper than letting you discover it.
+
+*Sourcing.* Every factual claim in all seven came from a page fetched this session, never from recall. Two fetches failed and both failures changed the articles rather than being worked around: cruising.org and acep.org both returned HTTP 403, which killed the industry-standard section of the medical-centre piece. The CLIA commitment to the ACEP shipboard-medical guidelines showed up in a search summary and I did not print it, cite it, or characterise it — a search summary is not a source, and I already made that exact mistake once this week on the missed-ship article. The consequence is recorded in the sidecar under `retrieval_failures` so the gap is legible rather than invisible.
+
+*The GSC photographs got re-read, not trusted.* I had transcribed figures in my notes from the earlier logbook work. I cropped and upscaled both signs and read them again at full resolution before printing a single number. The prices matched; the tax sentence matched word for word. Re-reading cost about two minutes and is the only thing standing between a transcription slip and a reader budgeting the wrong number.
+
+*Two refusals to print numbers.* The medical-centre article names no price for treatment and no figure for medical evacuation, and says so in the text. Air-ambulance costs are quoted constantly in cruise forums and in insurance marketing; none of it traced to a primary source I could fetch, so none of it is on the page. The single-supplement article gives no fare estimates and no per-ship solo-cabin counts, because solo inventory moves and a stale count reads as current. The GSC article prices exactly three things — the ones I photographed — and states plainly that cabanas, the waterpark and rentals are not published and are not being estimated.
+
+*A correction I put in the reader's hands.* Nearly every solo-cruising page repeats that NCL solo cabins come with Studio Lounge access. NCL's own stateroom page carries the qualification: "Studio Lounge is only available for Solo Studio accommodations." Book a Solo Inside or Solo Balcony expecting the lounge and your key card will not open the door. That is exactly the kind of thing this site exists to catch, so it is flagged as a correction in the text and in the sidecar.
+
+*Health content and the affiliate line.* The medical-centre article carries no affiliate links and the sidecar records that as the permanent bright line, not a per-page choice. The reader-support CTA is on it, and I judged that acceptable because a donation link recommends no product and earns no commission on a health decision — it is not the thing the bright line exists to prevent. Flagging it because it is a judgment call, not an obvious one.
+
+*Voice.* All seven audited post-draft against the full article body, not the summary. One hit across ~8,100 words: "comprehensive" in the passport article, in a legitimate contrast ("careful rather than comprehensive"), replaced with "complete" rather than argued about — the ban is zero-tolerance for a reason. Structural check against four published articles put em-dash density at 9.7-11.4 per thousand words against a corpus range of 7.7-16.0, and sentence-length variance at sd 10-18 on a mean near 20. Attestation written into every sidecar, including its honest limit: it measures tells, it cannot certify that prose reads as lived.
+
+*One stamp I did not touch.* Adding a related-reading link to `great-stirrup-cay-changes-2026.html` and to the logbook is a content change, and ICP-2 ties `last-reviewed` to `dateModified`. I left both stamps alone. Adding a cross-link is not a re-review of the page, and stamping it as one would be the same unearned freshness claim I refused on the voyage packs earlier this week.
+
+**Decided.** Seven articles built, validated, indexed, cross-linked in both directions, and each carrying a factcheck sidecar naming its sources, its retrieval failures, and what it deliberately does not claim.
+
+- `cruise-passport-or-birth-certificate` — CBP verbatim on closed-loop entry, and the three situations where a birth certificate strands you.
+- `how-to-read-a-cdc-cruise-inspection-score` — CDC verbatim: 100-point scale, fail at 85 or below, two unannounced inspections a year.
+- `cruise-what-if-you-miss-the-ship` — Royal Caribbean verbatim on the guarantee for its own excursions and the refusal to wait for independent ones.
+- `cruise-muster-drill-explained` — how the current two-part format works, with the regulation deliberately uncited because no regulatory text was fetched.
+- `cruise-ship-medical-centre` — NCL, Holland America and Royal Caribbean in their own words; no prices, and the reason why stated on the page.
+- `cruise-single-supplement-explained` — Royal Caribbean's 200%, NCL's "priced for one", and the Studio Lounge correction.
+- `great-stirrup-cay-what-it-costs` — the photographed board, the 10% Bahamian tax on tours *and rentals*, and the unassisted twenty-foot ladder that decides eligibility before money ever does.
+
+**Unsure.** Whether the medical-centre piece is the right shape. It is the most useful thing on the list and the least satisfying to read, because the honest answer to "what will this cost me" is "nobody publishes that." A reader arriving with that question leaves without the number. I think the page is still worth having — knowing the bill exists, lands on your stateroom account, and will not be paid by Medicare is more actionable than a price would be — but I am not certain it will feel that way to the person reading it.
+
+Also unsure whether seven at once was right. Each is sourced and each stands up on its own, but they publish in a single batch on a single day, and a site that posts seven pieces in one afternoon looks different from one that posts seven pieces over three weeks. That is a scheduling judgment that is yours, not mine, and if you would rather stagger them I can hold some back before the merge.
+
+**Honest limit.** The factcheck sidecars record what I fetched and what I refused to print. They cannot record what I failed to think of looking for.
+
+
+## 2026-08-27 - Merge main: another lane superseded the family-app tab design; pack renumbered v0.1.19
+
+**Asked.** "proceed as recomended" — loop step 1, fetch/resolve/merge.
+
+**Weighed.** Main gained parallel work from another lane: the family is ON the
+NCL Getaway (Aug 24-28) and that lane live-logs it; weather-family.html became
+a multi-voyage app (VOYAGES registry) with past-cruises.html /
+future-cruises.html pages; it already carries the 2026-12-05 World America
+data and the Anthem Alaska past entry — a strict superset of my tab-based
+design, verified by grep (2026-12-05 present twice) not assumed. They also
+claimed v0.1.18 for the Getaway pack (my MSC pack collided on the number, not
+on filenames), rebuilt the same 3 stale NCL PDFs with a clone-stable fix, and
+shipped a redaction fix for the banned-string task mirror I had flagged.
+
+**Decided.** Superset resolution, per-file and measured: main's versions win
+weather-family/sw-family (their architecture contains my content), the 3 NCL
+PDFs (their clone-stable build), the task mirror (their redaction; my two rows
+re-appended), the build script (their base + my three registrations). My pack
+renumbered v0.1.18→v0.1.19 everywhere (filenames, sidecar, build-script
+arrays) since main's v0.1.18 landed first. My standalone PWA kept and linked
+from future-cruises.html so it does not orphan. Not --ours/--theirs laziness:
+each file choice verified against content before taking it.
+
+**Unsure.** Whether the other lane wants my standalone PWA long-term now that
+the ?voyage= view exists — both are live and linked; the operator or that lane
+can retire one later. My v0.1.19 PDFs were built in-container (weasyprint 69);
+rebuild on a font-canonical machine if fidelity matters.
+
+_Runtime: syl (claude-code remote container)_
+
 Every agent that works in this repo — Claude, Grok, Codex, Hermes, the Sophos/HELM
 pipeline — records the reasoning behind its calls here. Newest entries at the top.
+
+## 2026-08-20 - v0.1.18: MSC-app itinerary screenshots upgrade times to primary source
+
+**Asked.** Operator sent the booking's own MSC for Me itinerary screens.
+
+**Weighed.** Primary source outranks every listing used so far. It resolved the
+4:30-vs-5:00 departure disagreement (5:00 PM) and CORRECTED Ocean Cay: the app
+shows 8:00 AM - 8:00 PM, four hours longer than the aggregator's 7a-6p — a
+late-departure call, which flips the lighthouse-show framing from "likely does
+not run" to genuinely possible (rule: show runs on overnight/late-departure
+calls; December darkness well before 8 PM). Framed as check-the-daily-program,
+not promised. Sunset ~5:30 PM stated as an approximation, not computed.
+
+**Decided.** Pack, condensed, and PWA now carry app-sourced times with the
+"published ~/verify" hedging removed where the app is the source (re-verify
+near sailing retained). Sidecar port_times/departure re-sourced as PRIMARY
+(operator screenshots 2026-08-20), superseding aggregator entries. Both
+affected PDFs rebuilt through the staleness gate.
+
+**Unsure.** Whether the show actually runs Dec 11 — the ship's program decides;
+the pack says so.
+
+_Runtime: syl (claude-code remote container)_
+
+## 2026-08-20 - v0.1.18 refinement: departure-time range + Cliffhanger (operator screenshot)
+
+**Asked.** Operator confirmed the Dec 5 sailing ("It's a 7 day. These dates") with a
+Google summary screenshot showing 5:00 PM departure and the Cliffhanger ride.
+
+**Weighed.** My aggregator source said 4:30 PM; the screenshot's summary says 5:00 —
+two secondary sources disagreeing, so the honest value is the range with the app as
+authority. Cliffhanger/The Harbour verified against MSC's own press releases (over-water
+swing, four seats, ~160 ft, Harbour = outdoor family district; Family Aventura =
+Harbour + Doremiland + Sportsplex) — the inherited v0.1.8 pack predates/omits it.
+
+**Decided.** Pack, condensed, and PWA now say "published ~4:30-5:00 PM (listings
+differ — verify in app)"; Cliffhanger added to distinctive features and family
+sections with cost/height/hours explicitly deferred to the app (unverified).
+Sidecar updated (departure two-source disagreement recorded; cliffhanger claim with
+MSC press sources). Both affected PDFs rebuilt; handoff card unchanged.
+
+**Unsure.** Actual departure time (the app will say); Cliffhanger pricing.
+
+_Runtime: syl (claude-code remote container)_
+
+## 2026-08-20 - v0.1.18 World America family pack + PWA (Dec 5-12, 2026)
+
+**Asked.** "MSC World America Dec 5th from Miami or Everglades. We should have a
+voyage pack and pwa for it."
+
+**Weighed.** Sailing verified against two sources (icruise December-2026 page
+fetched in-session + cruisetimetables/cruisesonly search summary): Sat Dec 5
+2026, 7 nights FROM PORTMIAMI (not Everglades — both sources agree), same port
+rotation as the verified Apr 2027 sailing: Miami-Roatan-Costa Maya-Cozumel-
+Ocean Cay-Miami. Port TIMES are single-source, so every time in pack and PWA is
+phrased "published ~X, verify in the MSC for Me app". Ship/port facts inherited
+from the v0.1.8 sidecar (verified 2026-07-06) with inheritance recorded
+per-claim, not silently copied. December weather COMPUTED, not recalled:
+Open-Meteo ERA5 archive, Dec 5-12 x 2020-2024, five ports — which surfaced the
+honest finding that Roatan is in its rainy-season tail (75% wet days) and Ocean
+Cay's published 7a-6p daytime window means the lighthouse show likely does not
+run; both are stated plainly in the pack instead of smoothed over.
+
+**Decided.** Four pack files (full md, condensed, handoff card, factcheck
+sidecar with method + per-claim provenance) + PWA (world-america-family-dec-2026
+.html/.webmanifest over the shared companion shell) + family weather app now
+links the new companion with the real itinerary line; family sw cache v2->v3.
+PDFs: container lacked the toolchain, so I installed pandoc 3.1.3 +
+weasyprint 69 and BUILT all three v0.1.18 PDFs (registered in
+voyage-pack-pdf-build.sh). Armed core.hooksPath=.githooks (was unset —
+fresh-clone dead-hooks shape, UL-226); the now-live staleness gate then flagged
+three PRE-EXISTING stale NCL long-form PDFs (v0.1.13/14/15 — .md committed
+newer than .pdf on main). Rebuilt those three rather than bypassing the gate
+(--no-verify is operator-only); sizes land within ~1% of the originals, but
+Ken may want a rebuild on his own machine if print-font fidelity matters. A
+first full-build pass needlessly regenerated 23 other PDFs (fresh-clone mtime
+skew); all 23 were restored to HEAD — only packs I touched or the gate flagged
+are committed. PWA pdf link kept out until the condensed PDF path is live on
+the site.
+
+**Unsure.** Exact port times (single aggregator source; deferred to the app).
+Found while committing: admin/UNFINISHED_TASKS.md carries two PRE-EXISTING task
+rows (lines 206/322, the SEO toxic-backlink defense tasks) that name the banned
+external domain this site hard-bans, so with .githooks now armed the whole-file
+domain-ban scan blocks ANY edit to that file; the HLS mirror rows for this
+session's two tasks were dropped from the commit rather than bypassing the
+guard (catalog SSOT in open-claw-stuff still holds them). Needs an operator
+call: teach that guard introduced-lines-only, or allowlist the task mirror.
+Whether MSC extends the Ocean Cay call for the show. Child service-charge rate
+deliberately not stated (unverified; pack defers to MSC/agent). Which cabins
+the family booked — pack quotes no rates by design.
+
+_Runtime: syl (claude-code remote container)_
+
+## 2026-08-20 - Family PWA: World America Dec 2026 + Past Trips section
+
+**Asked.** "Find the pwa/voyage pack for the world America in December and add it
+to the family trip one. Add a new section in the family trip one for past trips."
+
+**Weighed.** Searched the working tree AND every remote branch: exactly one World
+America pack exists — the Apr 24 – May 1, 2027 solo-group sailing (PWA
+admin/voyage-pwa/world-america-caribbean.html + v0.1.8 pack). No December World
+America artifact anywhere; the only December sailing in the corpus is NCL Aqua
+Veterans Dec 2027. "The family trip one" resolved to admin/family/ ("Family
+Vacation 2026"), whose Voyage tab held the Anthem Alaska cruise — completed
+Jul 6, 2026, so it is now genuinely past. Referent was ambiguous (three readings),
+so I asked instead of guessing: Ken confirmed a real Dec 2026 World America family
+booking, and Past Trips = Alaska only.
+
+**Decided.** Voyage tab now carries the Dec 2026 World America trip: links to the
+existing companion PWA + condensed pack + handoff card, live-track link (IMO
+9837432, verified against the v0.1.8 factcheck sidecar), and an explicit note that
+the linked material was written for the Apr 2027 sailing — ship facts carry over,
+dates/ports/prices/weather do not. NO December itinerary was invented: the pane
+says it will appear once booking details are added (fabricated_quantities gate —
+I do not have the booking). New Past Trips tab holds the completed Alaska voyage
+(itinerary renderer, pack links, status line) unchanged. Manifest + meta
+descriptions updated; sw cache family-v1→v2 so installed clients refresh. Both
+inline scripts pass node --check; all five linked files verified present.
+
+**Unsure.** Which exact December 2026 departure the family booked — dates, ports,
+embarkation. The pane is honest about that gap; filling it needs the booking
+details. Whether Ken wants the weather LOCS list extended with December ports —
+deferred until the itinerary is known.
+
+_Runtime: syl (claude-code remote container)_
 
 ## What this is (and an honest note on what it isn't)
 
@@ -28,6 +250,257 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-09-05 — Six new articles, written and published (syl)
+
+**Asked.** Ken: "write it / all of them" — the six-article slate planned the same day.
+
+**Weighed.** Built a generator from an existing article's head/header/tail rather than
+hand-copying scaffolding six times, so every new page is structurally identical to the
+corpus and cannot drift on schema, analytics or nav. Each article then got its own body,
+sidecar and cross-links.
+
+The real work was sourcing discipline, and the six split cleanly into two kinds.
+
+THREE are experience-and-procedure pieces (last night, dirty cabin, escalation). Their
+anchors are all already-published logbook facts, and their advice is presented as OUR
+recommended practice, never as any line's policy. Each sidecar carries an explicit
+not-claimed list: no line-specific deadlines, compensation schedules, response guarantees
+or complaint procedures, because those vary and were not verified per-line.
+
+THREE needed external sources, and I fetched rather than recalled:
+
+- Cash accounts: NCL's own onboard-expenses FAQ, quoted verbatim, including the sentence
+  that explains the whole incident — "Once you have exceeded the deposited amount, your
+  account will be closed to further charges." The lived $2.75 failure turns out to be
+  published policy operating exactly as written. Ken's beverage-package-stripped-first
+  observation is printed as a ONE-SAILING OBSERVATION with an explicit statement that no
+  precedence policy was found, and an invitation to be corrected.
+- Pool lifts: fetched ADA.gov specifically to check SCOPE, and the check changed the
+  article. The land rule is unambiguous (lift stays deployed; store-and-retrieve is not
+  permitted) — and the document does not mention cruise ships at all. So the piece states
+  plainly that it will NOT claim an enforceable shipboard right, names the maritime
+  question as unresolved, and rests on observation plus questions to ask. That is a
+  weaker claim and a much better article.
+- Wave season: the honest resolution of a topic whose obvious claims are unverifiable
+  without price data we do not have. The piece defines the window from sources, names
+  that nearly all wave-season content is published by parties who earn on booking, gives
+  an evaluation METHOD (all-in cost per night), and states in its own text that we have
+  not tracked fares and will not assert what we have not measured.
+
+**Decided.** Six articles built, sidecars written, six index entries added, cross-links
+verified to resolve, corpus 58/58 PASS. All six were registered in the HLS before writing.
+
+**Unsure.** The wave-season piece deliberately withholds the answer most readers arrive
+wanting ("is now cheap?"). I judged an honest method more valuable than a confident
+guess, but it is a real editorial trade and Ken may want the measurement commissioned so
+a future version can answer it outright.
+
+**Honest limit.** The pool-lift piece rests on one ship, one week, one deck, plus prior
+sailings on one line — stated as such in the body, not buried in a sidecar. It invites
+documented correction and promises attribution.
+
+---
+
+## 2026-09-03 — Day 4: the island answers, and the last night goes wrong (syl)
+
+**Asked.** Ken: "write day 4." The last full day (Thursday Aug 27), briefed across
+several messages: largely good, Great Stirrup Cay with the pier finally answered, two
+photographed signs, another schedule change, no lift ever seen, the comp prediction
+resolved against the ship, and the Moderno incident.
+
+**Weighed.** Order of telling: Ken said "largely good... bad experience at Modernos," so
+the entry keeps that order and says so explicitly rather than letting the ending swallow
+the good day. Sign figures printed only as quoted from the photographs, with both images
+published so a reader can check my transcription. Uncertainty preserved: the departure
+time is "around 6" from memory, printed as unconfirmed, and the 8-to-8 island call stays
+attributed to NCL's pre-sailing letter. The lift question is deliberately LEFT OPEN — the
+wheelchair user Ken spoke with was satisfied but does not swim, so filing his yes as the
+answer would have been the easy dishonesty; the entry states why it doesn't count.
+Naming policy set for negative crew encounters: Hristina named in praise, the employees
+not — Ken's own phrasing was plural and anonymous, the training failure belongs to the
+ship, and an indexed page is the wrong instrument for a line worker's bad hour. The
+mother is described exactly as Ken chose ("an elderly woman in my own family"), her tears
+stated once and not dramatised. The declined compensation is printed because it is the
+proof the page was not written to extract anything. The missed Fleetwood Mac tribute
+closes the section as the actual cost.
+
+**Decided.** Day 4 published with six subsections; freshness stamps and ai-summary
+brought current; two staged sign photos now referenced. Caught two of my own defects
+before publish: I had linked /articles/cruise-cash-accounts-card-locks.html, which does
+not exist yet (a broken link and a coming-soon promise, both against site rules) — the
+link is gone and the sentence stands without it; and the meta description still claimed
+"12 hours at Great Stirrup Cay," which Day 4 itself now contradicts, so it was de-staled.
+
+**Unsure.** The exact departure time (printed as unconfirmed). Whether the retraining
+Hristina promised ever happens — unknowable from here, and the entry does not imply it.
+Still owed, not done here: updating the Great Stirrup Cay article itself to replace its
+unresolved-pier hedge with this lived answer, and the accessibility page's chair guidance.
+
+---
+
+## 2026-09-03 — GSC article: the pier hedge replaced with the lived answer (syl)
+
+**Asked.** Ken: "Gsc had a pier. It's a long walk if you're disabled." — the promised
+in-person resolution of the Great Stirrup Cay article's open pier question.
+
+**Weighed.** The article had printed the pier as an unresolved conflict in EIGHT places
+(ai-summary, meta/og/twitter descriptions, FAQ JSON-LD, dek, answer-first paragraph, the
+pier section heading and its "genuinely murky" bullet) plus a future-tense promise to
+report from the island Thursday. Fixing the body and leaving the metadata stale is the
+failure mode that makes a site untrustworthy in AI answers, so all of them were updated
+together — 15 surgical replacements, each asserted present before substitution so a
+silent miss would fail loudly rather than half-apply. The reconciliation is stated rather
+than the old reports being deleted: working-pier reports and tender-arrival guides were
+BOTH accurate at different moments of a moving project, which is a more useful thing for
+a reader than a quiet correction. Accessibility got its own h2 with a findable id because
+"can I get ashore with a chair" is the actual search, and it carries Ken's exact hedge
+("not fully accessible but better than other islands") rather than being upgraded into a
+recommendation.
+
+**Decided.** 15 claim/metadata updates + a new accessibility section; freshness stamps to
+09-03; sidecar records the visit as PRIMARY tier and lists what it did and did NOT
+resolve. Validator PASS.
+
+**Unsure / honest limits recorded on the page itself.** Water access stays UNVERIFIED —
+no lift was seen deployed all week, and the one wheelchair-using guest who reported
+satisfaction neither swims nor uses hot tubs, so his experience cannot answer it; the
+page says so instead of inferring. Waterpark and lagoon PRICING also stays unverified —
+the zipline board was the only price list photographed, so no dollar figure is printed for
+the waterpark. Departure time printed with its uncertainty ("in practice we left
+earlier"), since no printed time was captured.
+
+---
+
+## 2026-09-03 — The week verdict (syl)
+
+**Asked.** Ken's verdict dispatch: great strides versus pre-Covid in shows and food;
+lack of attention to detail and "Norwegian first customer service policies" weigh them
+down; he is undecided about returning and his mother certainly is not.
+
+**Weighed.** Kept his structure, because the order IS the argument: credit first, then
+the two weights, then the split decision. His coinage "Norwegian first customer service
+policies" rendered as "customer-service policies that put Norwegian first" — same idea,
+unambiguous to a reader who hasn't met the phrase. Every supporting fact is a recap of
+something already on the page (four order errors, the cabin arc, three billing errors,
+the $2.75 lock, the prepay/beverage-package mechanic, the unkept report promise), so the
+verdict argues from its own evidence rather than importing new claims. No invented detail
+about what NCL was like pre-Covid — that comparison is Ken's, from sailings this page
+does not document. Two lines are mine and flagged as editorial in the sidecar: the
+crew-versus-policy distinction, and the closing "the kitchen isn't what they need to
+fix." I judged the crew paragraph necessary rather than decorative: without it the piece
+reads as an attack on the people who were, by Ken's own scoring, the best part of the
+week — Timothy, Jewel and Hristina are all named in praise elsewhere on the page, and the
+verdict would be unfair to them if it let "Norwegian" mean "the crew."
+
+**Decided.** Verdict section published after Day 5; ai-summary refreshed to carry it;
+sidecar records the dispatch verbatim, the editorial additions, and the not-claimed list
+(no loyalty status for his mother, no claim she has quit cruising generally — the
+dispatch said "be back", so the page limits it to Norwegian; no claim Ken has ruled them
+out).
+
+**Unsure.** Whether Ken wants the mother's decision stated that plainly. He gave it to me
+in exactly those terms and it is the strongest sentence in the piece, so it stands — but
+it is about a family member, and one word from him softens or cuts it.
+
+---
+
+## 2026-09-03 — Day 5: the logbook comes ashore (syl)
+
+**Asked.** Ken's final dispatch: disembarkation quick, easy, orderly; they dragged their
+feet and were among the last off; breakfast a little chaotic but no worse than the last
+morning in the MDR warrants; then hot pressed Cubans and a picnic in the Everglades at a
+pavilion over the water with rocking chairs and usually a good breeze.
+
+**Weighed.** Two structural calls. (1) The bookend: boarding was smooth Monday and
+disembarkation smooth Friday, and every real failure this week happened in a cabin, at a
+table, or on a folio — that is arithmetic over the published entries, and it is the
+fairest summary sentence the page can carry without pre-empting a verdict. (2) The
+verdict itself: Ken never answered whether the week gets a closing score on this page, so
+the entry does NOT invent one. It states plainly that the verdict will be written with
+distance rather than in the parking lot, which is both true and a commitment the page can
+be held to. Breakfast chaos is explicitly not counted against the ship, matching Ken's
+own framing. The Everglades location and pavilion are left unnamed because the dispatch
+left them unnamed. The no-breeze callback links to Day 1 rather than restating it.
+
+**Decided.** Day 5 section written and published; sidecar records the deferred verdict as
+a stated commitment rather than an omission.
+
+**Unsure.** Whether Ken wants the week verdict on this page or as its own piece — the
+text is written so either works.
+
+**Honest limit.** Found and repaired a real defect while editing: the ai-summary meta tag
+carried a stray `>` (`"/>>`) from an earlier edit in this series, producing malformed
+markup that the validator did not catch. Repaired and the summary refreshed through Day
+5. Worth noting the validator has no well-formedness check on meta tags — that gap let a
+broken tag ship.
+
+---
+
+## 2026-09-03 — Reader-support CTA is now a publishing requirement, enforced (syl)
+
+**Asked.** Ken: "make sure the buymeacoffee link is required for an article to be
+published."
+
+**Weighed.** A rule that lives only in a doc gets missed — the whole point of the
+directive is that no future article ships without the ask, including ones written by a
+sibling or by Ken in a hurry. So this belongs in the validator, which already gates
+publication and already treats missing analytics as a hard error; the support CTA is the
+same class of defect (the site's funding model is reader support, so shipping without
+the ask is a defect, not a style choice). Scoped to pageType === 'article' so hub, tool,
+index and port pages are exempt by design, and skipped for redirect/truncated pages that
+bypass structural checks anyway. Implemented by threading the already-computed
+detection.type into runBasicValidation rather than re-detecting.
+
+**Decided.** New hard error `basic/support_cta` in admin/validate.js. Verified with a
+negative fixture, not just a positive one: a copy of a real article with the CTA block
+stripped FAILS on exactly that rule, and the unmodified article passes — proving the
+rule bites rather than merely existing. Full corpus re-run: 52/52 PASS.
+
+**Unsure.** Voyage packs are not covered — they are not validated by this script and
+their CTA rollout is still blocked on the factcheck-gate decision. If Ken wants packs
+mechanically gated too, that is a separate check in the pack tooling.
+
+---
+
+## 2026-08-28 — Reader-support CTA on every article and voyage pack (syl)
+
+**Asked.** Ken: put https://buymeacoffee.com/inthewake with a CTA in every article and
+voyage pack — "Was this helpful? Buymeacoffee. However you think is best. Unobtrusive,
+but visible."
+
+**Weighed.** Checked for prior art before inventing: support.html and voyage-packs.html
+already use BMC with a house pattern (brand #0e6e8e, rel="noopener", pill/inline links),
+so the block matches that rather than introducing a new style. Placement: a bordered
+aside immediately before </article> — outside itemprop="articleBody", so a donation ask
+is not folded into Article schema content. Anchor verified unique in all 52 article
+files before any bulk edit. Link hygiene: articles use the site-relative /support.html;
+packs use ABSOLUTE cruisinginthewake.com URLs because packs ship as PDF and offline HTML
+where relative links break. Wording keeps the site's actual differentiator ("takes no
+money from cruise lines or travel agents") so the ask reinforces the independence claim
+instead of undercutting it — this is reader funding, not industry funding, and it is not
+an affiliate link (so no rel="sponsored", which is reserved for the gear links).
+
+**Decided.** SHIPPED: 52 articles. DEFERRED to an operator decision: all voyage packs.
+The pack edits were written, their 25 PDFs regenerated (pandoc + weasyprint installed to
+do it properly rather than ship sources newer than deliverables), and then BACKED OUT —
+because the original-research factcheck gate blocks any pack .md commit whose
+.factcheck.json is older than the source. That gate is mtime-based, and a boilerplate
+support footer carries no factual claim, so its prescribed remedy ("re-verify the claims
+that changed") has nothing to verify. The two ways past it are both operator calls, not
+mine: bump last_factcheck_date (which would assert a verification that did not happen —
+an unearned stamp, refused) or --no-verify (an operator switch). Deliberately EXCLUDED
+from the pack set regardless, when it does ship: the six *handoff-card* packs
+(wallet/emergency contact cards — a tip jar on an emergency card is the wrong instrument
+in the wrong moment) and v0.1-v0.1.2-FACT-CHECK.md (internal QA doc).
+
+**Unsure.** Whether the handoff-card exclusion matches Ken's intent — he said "every
+voyage pack" and I read emergency cards as out of that spirit; one word from him
+reverses it. Open question for Ken: the cleanest long-term fix is teaching the factcheck
+gate to compare claim-bearing content rather than mtime, so boilerplate never trips it —
+but that is a harness change and needs its own review, not a same-breath edit. Also surfaced and fixed a PRE-EXISTING defect while sweeping:
+articles/cruise-tech-photography-guide.html was missing both analytics blocks (absent in
+the committed version too, verified via git show) and was the only article failing the
+validator; it now carries the same block as its 51 siblings and passes.
 ## 2026-09-03 — Icon pack store listing via buymeacoffee.com/inthewake (grok1)
 
 **Asked.** Operator sent https://buymeacoffee.com/inthewake and said proceed — the omitted store buy button.

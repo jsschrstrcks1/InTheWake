@@ -83,6 +83,7 @@ LONG_FORM_PACKS=(
   "v0.1.17-hal-volendam-world-cruise-2028|"
   "v0.1.17-icon-eastern-caribbean-7n|"
   "v0.1.18-ncl-getaway-bahamas-aug-2026|ships/norwegian/v0.1.18-ncl-getaway-bahamas-aug-2026.pdf"
+  "v0.1.19-msc-world-america-family-dec-2026|"
 )
 
 # Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.
@@ -98,6 +99,7 @@ CONDENSED_PACKS=(
   "v0.1.10-ncl-encore-solo-group-condensed"
   "v0.1.11-ncl-escape-thanksgiving-solo-group-condensed"
   "v0.1.17-hal-volendam-world-condensed"
+  "v0.1.19-msc-world-america-family-condensed"
 )
 
 # Handoff cards: 1-2 page emergency contact docs. Use voyage-pack-condensed-print.css.
@@ -110,6 +112,7 @@ HANDOFF_CARDS=(
   "v0.1.11-ncl-escape-thanksgiving-handoff-card"
   "v0.1.17-hal-volendam-world-handoff-card"
   "emergency-handoff-card-agnostic"
+  "v0.1.19-msc-world-america-family-handoff-card"
 )
 
 # Mode flags

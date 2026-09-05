@@ -854,3 +854,48 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-08-24T20:29:28.933Z -->
 | hls-mirror-vs-no-g•tbets-guard-conflict-mirrored-task-rows-in-in | 2 | HLS mirror vs no-g•tbets guard conflict: mirrored task rows in InTheWake admin/UNFINISHED_TASKS.md carry the banned string (disavow + monitor task titles), blocking any commit that stages the file — fix at catalog level (rename tasks or exempt the mirror path); operator decision |
+
+<!-- library register 2026-08-28T04:34:32.710Z -->
+| article-cruise-cash-accounts-card-locks-how-a-small-pending-char | 1 | Article: cruise cash accounts + card locks — how a small pending charge closes your ship card (NCL prepay pressure; beverage package is first privilege stripped; lived Getaway Aug-2026 Moderno incident as anchor) |
+<!-- library register 2026-08-20 (re-appended in merge; catalog is SSOT) -->
+| family-pwa-past-trips-section-completed-alaska-cruise-world-amer | 5 | Family PWA: Past Trips section (completed Alaska cruise) + World America Dec 2026 upcoming-trip entry |
+| build-msc-world-america-dec-5-2026-family-voyage-pack-pwa-inthew | 5 | Build MSC World America Dec 5 2026 family voyage pack + PWA (InTheWake) and wire into family app |
+
+<!-- library register 2026-09-04T15:09:51.428Z -->
+| indexnow-coverage-gap-posttooluse-hook-only-matches-edit-write-s | 2 | IndexNow coverage gap: PostToolUse hook only matches Edit|Write, so pages changed via Bash/sed/python (or by any other runtime) are never submitted — durable fix is a git post-commit/pre-push submitter driven by the diff, since git sees every edit path regardless of tool |
+
+<!-- library register 2026-09-05T04:11:34.443Z -->
+| article-the-last-night-on-a-cruise-folio-close-luggage-tags-dise | 1 | Article: the last night on a cruise — folio close, luggage tags, disembarkation timeline (companion to the embarkation-day guide) |
+
+<!-- library register 2026-09-05T04:11:34.897Z -->
+| article-when-your-cabin-isn-t-clean-document-report-escalate-and | 1 | Article: when your cabin isn't clean — document, report, escalate, and what a reasonable fix looks like |
+
+<!-- library register 2026-09-05T04:11:35.342Z -->
+| article-pool-and-hot-tub-lifts-the-accessibility-accommodation-t | 1 | Article: pool and hot tub lifts — the accessibility accommodation that exists but is rarely deployed (needs line policy + ADA sourcing) |
+
+<!-- library register 2026-09-05T04:11:36.041Z -->
+| article-wave-season-honestly-which-cruise-discounts-are-real-wav | 1 | Article: wave season honestly — which cruise discounts are real (WAVE-TIMED: publish before January) |
+
+<!-- library register 2026-09-05T04:11:36.475Z -->
+| article-how-to-escalate-a-complaint-on-a-cruise-ship-the-chain-o | 1 | Article: how to escalate a complaint on a cruise ship — the chain of command and what 'noted in the report' means |
+
+<!-- library register 2026-09-05T13:30:34.500Z -->
+| article-passport-or-birth-certificate-for-a-cruise-closed-loop-d | 1 | Article: passport or birth certificate for a cruise — closed-loop document rules and where the birth-certificate route breaks (needs CBP + State Dept sourcing) |
+
+<!-- library register 2026-09-05T13:30:34.968Z -->
+| article-what-happens-if-you-miss-the-ship-ship-sponsored-vs-inde | 1 | Article: what happens if you miss the ship — ship-sponsored vs independent excursions, the port agent, and who pays |
+
+<!-- library register 2026-09-05T13:30:35.337Z -->
+| article-how-to-read-a-cdc-vessel-sanitation-inspection-score-eve | 1 | Article: how to read a CDC vessel sanitation inspection score (evergreen anchor for the Ruby Princess and Norwegian Dawn news pieces) |
+
+<!-- library register 2026-09-05T13:30:35.765Z -->
+| article-the-cruise-ship-medical-centre-what-it-handles-that-you- | 1 | Article: the cruise ship medical centre — what it handles, that you pay up front, and how insurance and evacuation actually work |
+
+<!-- library register 2026-09-05T13:30:36.141Z -->
+| article-the-single-supplement-why-solo-cruisers-pay-near-double- | 1 | Article: the single supplement — why solo cruisers pay near-double, studio cabins, and how to judge a waiver |
+
+<!-- library register 2026-09-05T13:30:36.565Z -->
+| article-the-muster-drill-how-the-current-version-works-and-what- | 1 | Article: the muster drill — how the current version works and what you must actually do |
+
+<!-- library register 2026-09-05T13:30:36.984Z -->
+| article-great-stirrup-cay-costs-publish-the-photographed-zipline | 1 | Article: Great Stirrup Cay costs — publish the photographed zipline pricing board, the 10 percent Bahamian sales tax line, and the attraction physical requirements |
