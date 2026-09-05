@@ -905,3 +905,69 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-09-05T22:07:48.260Z -->
 | itw-voyage-packs-landing-feature-cards | 2 | voyage-packs.html: feature cards with explanation + calm CTA per pack feature, and accessible install-guide popups (iOS/Android add-to-home-screen) for the Voyage companion |
+
+<!-- library register 2026-09-05T22:27:09.202Z -->
+| itw-vu-01-registry | 1 | VU-01 Pack registry packs.json + schema + 3-state disk cross-check in quality.yml (plan Task 1) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:09.785Z -->
+| itw-vu-02-tracker | 1 | VU-02 Shared anonymous event module assets/js/voyage-usage.js: property whitelist, DNT/GPC guard, offline queue, Layer-3 self-attack tests (plan Task 2) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:10.358Z -->
+| itw-vu-05b-relay | 1 | VU-05b Geo-blind Cloudflare Worker relay admin/voyage-usage-relay: drops IP+UA, server-side whitelist, forwards to Umami /api/send; Setting 1.5 adds Cloudflare country/region only (plan Task 5b; ships BEFORE any companion is instrumented; needs D1 setting) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:13.220Z -->
+| itw-vu-03-landing-buy-click | 2 | VU-03 voyage-packs.html: data-umami-event vp_buy_click on Buy buttons; union-merge with PR #2565 (plan Task 3) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:13.768Z -->
+| itw-vu-10-docs | 3 | VU-10 Docs: voyage-packs README 'register and instrument' step, privacy.html Umami sentence + DNT/GPC, analytics-tracking skill vocabulary, W12 checklist pointers (plan Task 10) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:14.850Z -->
+| itw-vu-04-html-sisters | 3 | VU-04 Instrument HTML render v0.1.3 Sisters at Sea (sails 2027-02-14): print/PDF/handoff-filled events + data-pack (plan Task 4) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:15.394Z -->
+| itw-vu-04-html-symphony | 3 | VU-04 Instrument HTML render v0.1 Symphony Western Caribbean (generic, no fixed date): print/PDF/handoff-filled events + data-pack (plan Task 4) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:15.973Z -->
+| itw-vu-04-html-aqua-veterans | 4 | VU-04 Instrument HTML render v0.1.2 NCL Aqua Veterans (sails 2027-12-12): print/PDF/handoff-filled events + data-pack (plan Task 4) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:16.545Z -->
+| itw-vu-05-pwa-prima-caribbean | 1 | VU-05 [GATED D1] Instrument companion prima-caribbean (Norwegian Prima, sails 2026-09-27): CSP relay origin, vp_pwa_open/session/install, sw precache, footer wording UNCHANGED (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:17.339Z -->
+| itw-vu-05-pwa-encore-pacific | 1 | VU-05 [GATED D1] Instrument companion encore-pacific (Norwegian Encore, sails 2026-10-12) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:17.892Z -->
+| itw-vu-05-pwa-escape-thanksgiving | 2 | VU-05 [GATED D1] Instrument companion escape-thanksgiving (Norwegian Escape, sails 2026-11-20) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:18.439Z -->
+| itw-vu-05-pwa-world-america-family | 2 | VU-05 [GATED D1] Instrument companion world-america-family-dec-2026 (MSC World America, sails 2026-12-05) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:19.018Z -->
+| itw-vu-05-pwa-margaritaville | 3 | VU-05 [GATED D1] Instrument companion margaritaville-caribbean (MAS Islander, sails 2027-01-09) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:19.576Z -->
+| itw-vu-05-pwa-gem-new-orleans | 3 | VU-05 [GATED D1] Instrument companion gem-new-orleans (Norwegian Gem, sails 2027-02-05) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:20.104Z -->
+| itw-vu-05-pwa-sisters-at-sea | 3 | VU-05 [GATED D1] Instrument companion sisters-at-sea (Resilient Lady, sails 2027-02-14) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:20.665Z -->
+| itw-vu-05-pwa-world-america-caribbean | 3 | VU-05 [GATED D1] Instrument companion world-america-caribbean (MSC World America, sails 2027-04-24) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:21.206Z -->
+| itw-vu-05-pwa-breakaway-bermuda | 4 | VU-05 [GATED D1] Instrument companion breakaway-bermuda (Norwegian Breakaway, sails 2027-05-30) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:21.771Z -->
+| itw-vu-05-pwa-breakaway-fall-foliage | 4 | VU-05 [GATED D1] Instrument companion breakaway-fall-foliage (Norwegian Breakaway, sails 2027-09-26) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:22.337Z -->
+| itw-vu-05-pwa-aqua-thanksgiving | 4 | VU-05 [GATED D1] Instrument companion aqua-thanksgiving (Norwegian Aqua, sails 2027-11-21) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:22.898Z -->
+| itw-vu-05-pwa-aqua-veterans | 4 | VU-05 [GATED D1] Instrument companion aqua-veterans-caribbean (Norwegian Aqua, sails 2027-12-12) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:23.459Z -->
+| itw-vu-05-pwa-volendam-world-2028 | 4 | VU-05 [GATED D1] Instrument companion volendam-world-2028 (ms Volendam, sails 2028-01-04, 129 days; has emergency tab) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:24.086Z -->
+| itw-vu-05-pwa-anthem-alaska | 6 | VU-05 [GATED D1] Instrument companion anthem-alaska (Anthem of the Seas, sailed 2026-06-29, already complete; retro/maintenance only) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |

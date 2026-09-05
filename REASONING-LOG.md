@@ -4,6 +4,26 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-05 - The usage-tracking plan goes on the board as 26 slices, soonest sailing first
+
+**Asked.** "Add all the new tasks to HLS slice by slice, priority given to closer sailings."
+
+**Weighed.**
+
+*Slicing.* The plan's eleven tasks are not equal in shape. Foundation work (registry, tracker module, relay, snapshot job, plist, dashboard, landing buy-click, docs, sales seam) is one slice each. The per-surface work is where "slice by slice" earns its keep: one slice per HTML render (three) and one per PWA companion (fourteen), so a sibling can pick up exactly one sailing's instrumentation and return it.
+
+*Priority by sailing date, read off the companions themselves.* I pulled the first itinerary date out of every companion's `window.__VOYAGE` rather than from memory. Prima sails 2026-09-27, twenty-two days out, and Encore on 2026-10-12: those two are P1. Escape (Nov 20) and the MSC family sailing (Dec 5) are P2. The early-2027 group (Margaritaville, Gem, Sisters, MSC World America April) is P3. Everything from mid-2027 on, including the 2028 world cruise, is P4. Anthem Alaska already sailed in June, so its slice is P6, maintenance only. The three HTML renders follow the same dates (Sisters P3, Symphony P3 as a generic pack with no date, Aqua Veterans P4).
+
+*Why the foundation is P1 even though it is not a sailing.* Prima cannot be instrumented in twenty-two days unless the registry, the tracker, the relay and the snapshot job exist first. Priority means "what must be true soonest," and the soonest sailing depends on all four.
+
+*The gate is in the title, not in a side note.* Every companion slice carries "[GATED D1]" in its title because none of them may be built until Ken picks a setting, and a board that shows fourteen P1-to-P4 tasks with no gate would invite exactly the wrong session to start one. The relay slice says it ships before any companion is touched.
+
+**Decided.** Twenty-six tasks registered: nine foundation and cross-cutting slices, three HTML-render slices, fourteen companion slices. Ids `itw-vu-01` through `itw-vu-11`, with `-04-html-<pack>` and `-05-pwa-<slug>` suffixes on the per-surface ones. Three slices belong to open-claw-stuff (snapshot job, plist, dashboard) and are registered against that repo.
+
+**Unsure.** Whether Ken would rather the P1 companion slices sit at P0 given twenty-two days. I left P0 unused because the household reserves it for urgent breakage and nothing here is broken; the ordering among the slices is what he asked for, and it is preserved.
+
+**Honest limit.** The catalog and event log live in open-claw-stuff, whose push is still refused by the pre-existing skill-sync drift. Until that is cleared, these twenty-six rows exist in this container's local commits and in the InTheWake mirror of `admin/UNFINISHED_TASKS.md`, which does push. A sibling reading the board from `main` will not see them yet.
+
 ## 2026-09-05 - D2 decided: the usage dashboard lives on Atlas, tailnet-only, behind the owner token
 
 **Asked.** "The dashboard should be only served by atlas/crane/helm. Only to those on the tailnet, and to those who have the token."
