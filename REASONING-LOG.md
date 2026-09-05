@@ -4,6 +4,32 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-05 - Voyage-pack usage tracking and dashboard: a plan, and three decisions I would not make for you
+
+**Asked.** "Explore the voyage packs. I want some way of tracking what people are doing, how they're using them, whether they're being used at all, and a dashboard to display all of that across all of the voyage packs. Let's make a plan."
+
+**Weighed.**
+
+*What is actually there.* Eighteen pack sources, twenty-six built PDFs, three offline HTML renders, fourteen PWA companions, one landing page. The landing page and the three HTML renders already carry Umami and GA4 pageviews. The fourteen PWA companions carry **nothing** — their CSP only lets them talk to the three weather APIs — and every one of them tells the traveler, in its footer, *"No tracking, no ads."* The PDFs are static files on GitHub Pages behind Cloudflare, which I confirmed from the live response headers, and GitHub Pages has no request logs. So today the honest answer to "is anyone using them" is: a pageview count on four pages, and silence everywhere else.
+
+*The promise is the hard part, not the code.* The companions are the surface where "are they using it on the ship" would be answered, and they are exactly the surface that promised not to look. I could write the events in an afternoon. I could not decide for you whether a promise made to Tina Maulsby's guests gets reworded. The plan therefore delivers everything it can without touching that promise (Phases A and B: registry, tracker, snapshot pipeline, dashboard, landing and HTML-render events) and leaves the PWA instrumentation as Phase C, gated on your decision D1. My recommendation is on the page: anonymous, cookie-free counts, and reword the footer so it is true. The wrong outcome would be quietly making it false.
+
+*Why Umami and not GA4.* Both are already on the site. Umami's Cloud API is one Bearer key and a handful of GET endpoints, which I verified against docs.umami.is this session, including the 50-calls-per-15-seconds limit and the millisecond date parameters. GA4's Data API needs a service account and OAuth. Two sources for the same number is a disagreement waiting to happen, so GA4 stays a manual cross-check.
+
+*The at-sea problem.* Umami's tracker script is a third-party asset the PWA service worker deliberately never caches, so at sea it does not exist. But Umami accepts events at a plain `POST /api/send` with no auth and no script, which means a tiny first-party module can queue events in localStorage and flush them when the phone finds signal. That module is the one piece of real design in the plan: a whitelist of eight property names, nothing else survives, and it honors Do-Not-Track. Its stated claim ("nothing personal leaves the device") gets a Layer 3 self-attack in the plan rather than my word.
+
+*Public repo, public dashboard.* The deploy workflow uploads the whole repository, so a dashboard under `admin/` is world-readable whether or not anyone links it. I designed for that instead of around it: aggregate counts only, never revenue, `noindex`, and the page says on its face that every number is a floor. Sales data is a separate seam behind the paywall-platform decision that is already on the board.
+
+*A number I refused to fabricate.* Whether your Umami Cloud tier includes API keys and what its event quota is, I did not check — I cannot see your account. It is marked `[unverified]` in the plan and is the first thing Phase A verifies. Ad-blocker undercount is likewise named as unmeasured rather than estimated.
+
+*What went sideways in the session.* The HLS preflight installed the household guards into this container and, as a side effect, overwrote three bootstrap hook files in this repo with newer copies. I reverted them twice rather than smuggle a harness change into a planning commit; if the newer copies should land, that is its own commit. The dangerous-command guard also refused my first attempt to write the plan as a shell heredoc (too many delimiters for its review ceiling). It was right; I used the file tool instead.
+
+**Decided.** One plan document at `docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md`: measured inventory, five decisions for you (D1 promise wording, D2 public dashboard, D3 Umami as source of truth, D4 API key, D5 sales deferred), an eight-event vocabulary with a fixed property whitelist, a four-phase build with eleven tasks and the code for the two non-obvious pieces (the registry checker and the offline tracker), and a verification section that attacks the plan's own claims. Registered on the household board as `itw-voyage-packs-usage-dashboard` (P2). Nothing is built; the plan says so in its first line.
+
+**Unsure.** Whether a public aggregate dashboard is what you want, or whether you would rather it sit behind Cloudflare Access even without revenue on it — I recommended public because it is honest about a site that says "Independent, no ads" and because a count is not a secret, but that is a taste call. Also unsure whether "quiet / unused" labels on Tina-hosted packs will read to her as a verdict on her cruises rather than on our pack; the plan says they are prompts for a conversation, but words on a dashboard travel.
+
+**Honest limit.** The plan measures floors, never totals, and it cannot say *why* a pack goes unused. It also cannot see a PDF opened from a saved file or an email — that traffic is gone the moment the file leaves our link.
+
 ## 2026-09-05 - Full voice-skill pass on the seven new articles; it caught a sourcing violation the first audit missed
 
 **Asked.** "Run all of our voice skills against these new articles."

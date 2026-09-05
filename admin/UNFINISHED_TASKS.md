@@ -899,3 +899,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-09-05T13:30:36.984Z -->
 | article-great-stirrup-cay-costs-publish-the-photographed-zipline | 1 | Article: Great Stirrup Cay costs — publish the photographed zipline pricing board, the 10 percent Bahamian sales tax line, and the attraction physical requirements |
+
+<!-- library register 2026-09-05T21:27:14.497Z -->
+| itw-voyage-packs-usage-dashboard | 2 | Voyage packs — usage tracking (Umami events on landing/pack HTML/PWA companions) + cross-pack usage dashboard; plan first |
