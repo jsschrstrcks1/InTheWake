@@ -2,6 +2,40 @@
 
 # Reasoning Log
 
+## 2026-09-05 - Published two of three unlisted packs, and stopped on the third (yumi)
+
+**Asked.** Ken: "also do the three unlisted packs." Three finished packs existed in `admin/` that
+were neither sold nor listed: RCL Anthem Alaska, MAS Islander, MSC World America Family.
+
+**Weighed.** Checked each before publishing rather than treating "three" as a batch.
+
+- **Anthem Alaska (v0.1.4)** - generic itinerary pack, no fixed date, 7.7M PDF. Publishable.
+- **MAS Islander (v0.1.12)** - hosted solo group, January 2027, so a future sailing, 11M PDF.
+  Same shape as the Sisters at Sea pack already listed. Publishable.
+- **MSC World America (v0.1.19)** - **stopped here.** Its own byline reads *"Built for our own
+  family's December cruise"* and the body says *"It's a family sailing"*, naming the exact ship
+  and dates, December 5 to 12, 2026. Listing it publicly would put Ken's family's specific sailing
+  on a product page. That is a privacy call the operator owns, not a publishing chore.
+
+Checked the known dependency before shipping MAS: issues #2004 and #2005 say the Margaritaville at
+Sea ship and venue pages do not exist, and I confirmed they do not. But the pack does not link to
+them, and every internal link in both packs resolves on disk, so publishing creates no broken link.
+I also did not invent a ship-page link in the new card, which is how that gap would have bitten.
+
+Margaritaville at Sea had no `ships/<line>/` directory. Confirmed nothing enumerates `ships/`
+subdirectories except an image-reuse checker before creating one.
+
+**Decided.** Published both PDFs to the served convention, wrote two cards whose bullets are drawn
+from the packs' own text rather than plausible-sounding filler, and updated the `ai-summary` that
+feeds AI answer engines so it enumerates seven packs rather than five. Verified 7 cards, 7 download
+buttons, and all seven hrefs resolving on disk.
+
+**Unsure.** Whether the MSC family pack should be published at all, published with the personal
+framing genericized, or left private. I have not touched it. Also: `PACK-PRESHIP-REVIEW-CHECKLIST.md`
+exists and I did not run it against these two; I verified links, dates and provenance, which is not
+the same as the household's own preship review.
+
+
 ## 2026-09-05 - GSC Great Tides audit: the corpus was already current, and the one real defect was an inference from an absence (yumi)
 
 **Asked.** Work the registered P3 `itw-gsc-great-tides-waterpark-voyage-pack-audit`: grep packs for
