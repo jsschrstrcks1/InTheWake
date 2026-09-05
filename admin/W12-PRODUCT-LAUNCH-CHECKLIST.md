@@ -152,9 +152,10 @@ After live test passes:
 
 ## 11. Tax / accounting baseline
 
-- [ ] Track gross revenue per pack per month
-- [ ] Track refunds + fees per pack per month
-- [ ] Track net revenue per pack per month
+- [ ] Track gross revenue per pack per month (source: the payment processor, once chosen; the Atlas snapshot job accepts purchase *counts* through `SALES_SOURCE_URL`, never dollars — see the usage plan Task 11)
+- [ ] Track refunds + fees per pack per month (payment processor)
+- [ ] Track net revenue per pack per month (payment processor)
+- [x] Track *usage* per pack: opens, sittings, installs, handoff cards filled, PDF downloads, buy clicks. Owner-only dashboard on Atlas at `/admin/voyage-usage` (tailnet + owner token), fed by `atlas/server/voyage-usage-snapshot.mjs`. Every number is a floor. (2026-09-05)
 - [ ] Set aside ~25% of net for self-employment tax (US) — talk to your accountant about whether quarterly estimated payments are needed once revenue is non-trivial
 - [ ] If using Gumroad / Lemon Squeezy, they handle EU VAT automatically; you'll receive 1099-K from them at year-end if US revenue crosses the threshold ($600+ for individual reporting starting 2026)
 

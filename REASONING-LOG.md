@@ -18,7 +18,17 @@
 
 *What the checker will do to PR #2565.* When the Icon of the Seas pack lands with its companion, the registry check will report `unregistered-file` and fail the build until the pack is registered. That is the intended behaviour: a pack is not done until it is on the registry. It will need one record added at merge time.
 
-**Decided.** (amended as the loop runs; see the commits on this branch for each slice)
+*Tracker (slice 2).* One ES5 module for every surface, with the property whitelist in exactly one place. The tests do not trust the whitelist by name; they read the queued payload and check that `name`, `phone`, `email`, `ip` and a prototype-polluting key all vanished. Removing the Do-Not-Track guard turned one test red and the file was restored.
+
+*Relay (slice 3).* The stated claim is "nothing about the traveler reaches Umami." The test hands the Worker a request carrying a spoofed forwarded-IP header, a real iPhone user agent, and Cloudflare metadata naming a city and coordinates, then reads the outbound request literally: no IP header, the fixed relay user agent, no city, only whitelisted keys plus country and region. Country and region are deliberately not client-settable; a client claiming `country:"ZZ"` is overwritten by Cloudflare's own value. The daily sitting-link dial is built and off.
+
+*Snapshot job and dashboard (slices 5 to 7, in open-claw-stuff).* Two of the snapshot tests failed on their first run, both on behaviours they exist to pin: the auth-refused run kept spending calls across windows, and a second 429 was reported as a generic status. Both fixed in the client, not the tests. The dashboard view test's first draft had my own arithmetic wrong (nine null cells, not ten); corrected in the test after reading the column list, and the fixture's one legitimate zero is now asserted to stay a zero. The route matrix (401 anonymous, 403 family, 200 owner, 503 with a reason and only to the owner) passed first time because the central gate already does the work.
+
+*Companions (slices 11 to 24).* The patch is a script, not fourteen hand edits, and it is idempotent and refuses a page that already names a different slug. Per-tab events were dropped in favour of one per-sitting summary so no path can be stitched even by us. Playwright reads the relay payloads on the Prima companion: whitelisted keys only, and the chosen location and unit set in localStorage never appear.
+
+**Decided.** All 26 slices built on this branch and open-claw-stuff's, each with tests that read outputs literally. InTheWake: registry + checker in CI, tracker module, relay Worker, landing buy clicks, three instrumented renders, fourteen instrumented companions with the footer promise pinned unchanged, docs and privacy wording. open-claw-stuff: snapshot job with the sales seam, launchd template, owner-only dashboard and routes. Test counts: 31 node tests in InTheWake, 18 in open-claw-stuff, 11 Playwright specs across landing, renders and a companion; one mutation per load-bearing claim.
+
+**What is not done, and cannot be from here.** Three operator steps: deploy the relay with `wrangler` from a machine holding Cloudflare credentials and bind `usage.cruisinginthewake.com`; generate the Umami API key and install the plist on the Atlas node; confirm on the first live run that Umami's `path=` and `event=` filter parameters behave as the docs describe (the landing figure will read implausibly large if they do not). Until the relay is bound, companions queue events locally and drop them after 200; nothing breaks, nothing is counted.
 
 **Unsure.** Whether Ken wants the daily sitting-link dial on. It is built into the relay behind a secret and defaults off; flipping it is an operator action on the Worker, not a code change.
 
