@@ -4,6 +4,45 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-05 - "Write them all": seven new articles, one wrong premise corrected
+
+**Asked.** "Propose a new batch of articles" then "Write them all" — seven pieces (A-G) proposed and approved in one breath.
+
+**Weighed.**
+
+*The premise I got wrong, and am not quietly fixing.* I proposed article G (Great Stirrup Cay costs) on the argument that "we already own the primary source and haven't used it — the zipline pricing board and safety rules are sitting in the repo, published nowhere except a passing mention." That was false. Both photographs are fully published in the Day 4 logbook entry, with the prices transcribed, the tax line quoted, and the ladder requirement called out. I had a stale note and did not check the file before pitching the piece. The article is still worth having — a costs reference page a planner can find by searching is a different artifact from a paragraph inside one week's diary, and the diary will never rank for "what does Great Stirrup Cay cost" — but the *reason I gave you* for writing it was wrong, and the honest correction is cheaper than letting you discover it.
+
+*Sourcing.* Every factual claim in all seven came from a page fetched this session, never from recall. Two fetches failed and both failures changed the articles rather than being worked around: cruising.org and acep.org both returned HTTP 403, which killed the industry-standard section of the medical-centre piece. The CLIA commitment to the ACEP shipboard-medical guidelines showed up in a search summary and I did not print it, cite it, or characterise it — a search summary is not a source, and I already made that exact mistake once this week on the missed-ship article. The consequence is recorded in the sidecar under `retrieval_failures` so the gap is legible rather than invisible.
+
+*The GSC photographs got re-read, not trusted.* I had transcribed figures in my notes from the earlier logbook work. I cropped and upscaled both signs and read them again at full resolution before printing a single number. The prices matched; the tax sentence matched word for word. Re-reading cost about two minutes and is the only thing standing between a transcription slip and a reader budgeting the wrong number.
+
+*Two refusals to print numbers.* The medical-centre article names no price for treatment and no figure for medical evacuation, and says so in the text. Air-ambulance costs are quoted constantly in cruise forums and in insurance marketing; none of it traced to a primary source I could fetch, so none of it is on the page. The single-supplement article gives no fare estimates and no per-ship solo-cabin counts, because solo inventory moves and a stale count reads as current. The GSC article prices exactly three things — the ones I photographed — and states plainly that cabanas, the waterpark and rentals are not published and are not being estimated.
+
+*A correction I put in the reader's hands.* Nearly every solo-cruising page repeats that NCL solo cabins come with Studio Lounge access. NCL's own stateroom page carries the qualification: "Studio Lounge is only available for Solo Studio accommodations." Book a Solo Inside or Solo Balcony expecting the lounge and your key card will not open the door. That is exactly the kind of thing this site exists to catch, so it is flagged as a correction in the text and in the sidecar.
+
+*Health content and the affiliate line.* The medical-centre article carries no affiliate links and the sidecar records that as the permanent bright line, not a per-page choice. The reader-support CTA is on it, and I judged that acceptable because a donation link recommends no product and earns no commission on a health decision — it is not the thing the bright line exists to prevent. Flagging it because it is a judgment call, not an obvious one.
+
+*Voice.* All seven audited post-draft against the full article body, not the summary. One hit across ~8,100 words: "comprehensive" in the passport article, in a legitimate contrast ("careful rather than comprehensive"), replaced with "complete" rather than argued about — the ban is zero-tolerance for a reason. Structural check against four published articles put em-dash density at 9.7-11.4 per thousand words against a corpus range of 7.7-16.0, and sentence-length variance at sd 10-18 on a mean near 20. Attestation written into every sidecar, including its honest limit: it measures tells, it cannot certify that prose reads as lived.
+
+*One stamp I did not touch.* Adding a related-reading link to `great-stirrup-cay-changes-2026.html` and to the logbook is a content change, and ICP-2 ties `last-reviewed` to `dateModified`. I left both stamps alone. Adding a cross-link is not a re-review of the page, and stamping it as one would be the same unearned freshness claim I refused on the voyage packs earlier this week.
+
+**Decided.** Seven articles built, validated, indexed, cross-linked in both directions, and each carrying a factcheck sidecar naming its sources, its retrieval failures, and what it deliberately does not claim.
+
+- `cruise-passport-or-birth-certificate` — CBP verbatim on closed-loop entry, and the three situations where a birth certificate strands you.
+- `how-to-read-a-cdc-cruise-inspection-score` — CDC verbatim: 100-point scale, fail at 85 or below, two unannounced inspections a year.
+- `cruise-what-if-you-miss-the-ship` — Royal Caribbean verbatim on the guarantee for its own excursions and the refusal to wait for independent ones.
+- `cruise-muster-drill-explained` — how the current two-part format works, with the regulation deliberately uncited because no regulatory text was fetched.
+- `cruise-ship-medical-centre` — NCL, Holland America and Royal Caribbean in their own words; no prices, and the reason why stated on the page.
+- `cruise-single-supplement-explained` — Royal Caribbean's 200%, NCL's "priced for one", and the Studio Lounge correction.
+- `great-stirrup-cay-what-it-costs` — the photographed board, the 10% Bahamian tax on tours *and rentals*, and the unassisted twenty-foot ladder that decides eligibility before money ever does.
+
+**Unsure.** Whether the medical-centre piece is the right shape. It is the most useful thing on the list and the least satisfying to read, because the honest answer to "what will this cost me" is "nobody publishes that." A reader arriving with that question leaves without the number. I think the page is still worth having — knowing the bill exists, lands on your stateroom account, and will not be paid by Medicare is more actionable than a price would be — but I am not certain it will feel that way to the person reading it.
+
+Also unsure whether seven at once was right. Each is sourced and each stands up on its own, but they publish in a single batch on a single day, and a site that posts seven pieces in one afternoon looks different from one that posts seven pieces over three weeks. That is a scheduling judgment that is yours, not mine, and if you would rather stagger them I can hold some back before the merge.
+
+**Honest limit.** The factcheck sidecars record what I fetched and what I refused to print. They cannot record what I failed to think of looking for.
+
+
 ## 2026-08-27 - Merge main: another lane superseded the family-app tab design; pack renumbered v0.1.19
 
 **Asked.** "proceed as recomended" — loop step 1, fetch/resolve/merge.
