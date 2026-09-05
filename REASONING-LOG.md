@@ -2,6 +2,54 @@
 
 # Reasoning Log
 
+## 2026-09-05 - The custom-pack page, and reversing my own "keep it paid" call (yumi)
+
+**Asked.** Ken, answering a direct question about what a "sales" page should be: *"custom pack sales
+page, but its for tips. There should also be a list of existing pages presented in an atractive way,
+that doesnt look like AI built it. Clean. Nautical. In the wake language and design style. Gentle
+sales push. Linked from the homepage, its now our best product. Estimate a week to build the voyage
+pack."*
+
+**Weighed.** Two of those reverse decisions I had made earlier the same session, and I want that on
+the record rather than quietly folded in:
+
+1. I had **kept custom packs paid** at $49 to $79, reasoning that bespoke commissioned labour is not
+   the same as a download. Ken says tips. That is his call and it is now applied; the price is gone.
+2. The live page said lead time is **2 to 4 weeks**. Ken says about a week. That was a factual
+   correction to shipped copy, not a preference.
+
+Making custom packs free means **nothing on this site is sold any more**, and that has a longer tail
+than the price line. I swept for it rather than editing the obvious spot: the refund policy, the
+cancellation FAQ ("if you bought the pack and the cruise gets cancelled"), the FAQ answer describing
+a paid tier, and one sentence claiming "that's the part the small purchase price funds" were all
+still true only under the old model. All four are reconciled. A price removed from a button while
+four other surfaces still describe a purchase would have been worse than leaving it alone.
+
+**On "doesn't look like AI built it."** I did not invent a visual language. I extracted the real page
+shell from voyage-packs.html, kept its header, nav and footer verbatim, and reused the existing
+nautical tokens (--sea #0a3d62, --ink #083041, --accent #0e6e8e, --rope #d9b382). The one new
+component is a logbook-style list for the seven packs: ship, route, when, download, ruled lines,
+rope-coloured underline on the link. No emoji, no icon grid, no three-column feature tiles, no
+"unlock". The voice follows the house register ("It is calm by design", "From the Logbook").
+
+**Decided.** New `/custom-voyage-pack.html`: what arrives (the eight sections), how it goes (you
+write, questions come back, about a week), what it costs (nothing, tip what it was worth), what it is
+not, what to send, and the seven already written. Retargeted its page identity properly, which
+mattered: the inherited JSON-LD would otherwise have claimed this page IS the Voyage Packs page.
+
+Homepage: it did not link the packs **at all**. Added a section directly after "What are you
+planning?" and before the calculators, because that is the moment the reader has just been asked what
+they are planning, and because a product Ken calls the best one should not be a sixth tile in a grid
+of calculators.
+
+**Unsure.** I cannot see the rendered page; I verified structure (tags balanced, 7 sections, links
+resolve, guards pass) rather than appearance, and "attractive" is exactly the claim a structural
+check cannot make. Worth a look before it goes out. I also left the three inherited nav directory
+links (/cruise-lines/, /ports/, /restaurants/) alone: they resolve to no file, but they are identical
+on every page including ones that pass CI, so that is a pre-existing site-wide condition and not
+mine to fix inside this change.
+
+
 ## 2026-09-05 - Published two of three unlisted packs, and stopped on the third (yumi)
 
 **Asked.** Ken: "also do the three unlisted packs." Three finished packs existed in `admin/` that
