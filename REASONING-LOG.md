@@ -2,6 +2,54 @@
 
 # Reasoning Log
 
+## 2026-09-05 - GSC Great Tides audit: the corpus was already current, and the one real defect was an inference from an absence (yumi)
+
+**Asked.** Work the registered P3 `itw-gsc-great-tides-waterpark-voyage-pack-audit`: grep packs for
+stale GSC / CocoCay / Norwegian Aqua content and apply September 2026 hedges. Its handoff says
+plainly: "audit grep/edit not yet run."
+
+**Weighed.** The premise was that packs carried pre-opening content. Measured against the archived
+NCL booklet (`admin/sources/ncl-gsc-great-tides-waterpark/`), that premise did not hold:
+
+- No "coming soon" or "opens in 2026" language anywhere in the packs.
+- All five GSC packs and `ports/great-stirrup-cay.html` already name Great Tides.
+- Upcharge language present in every pack; **zero** false "the waterpark is included" claims.
+- The two CocoCay-uniqueness greps hit unrelated text (Hideaway Beach, Ocean Cay).
+
+So later pack authors had already absorbed the booklet. The correct audit answer was mostly "clean",
+and reporting that honestly matters more than manufacturing an edit.
+
+**One real defect, and it is a class this household keeps paying for.** The booklet marks upcharge
+venues with `$`, and the source's own derived-facts section hedges Great Life Lagoon as *"appears
+complimentary (no `$` marker)"*. Two packs converted that inference-from-an-absence into flat
+assertions: `**Free.**`, `- included.`, and `**Free with fare:** ... Great Life Lagoon ...`. A
+missing marker became a positive claim about price, which is the same shape as counting a missing
+field as the negative value. A reader budgets nothing and is surprised at the till.
+
+**Checked before assuming a second defect.** The Aug 2026 pack lists "Splash Harbor" as free while
+the booklet marks "Splash Cay$" as paid. That looked like a naming-and-cost error. It is not: the
+booklet's island map lists **both**, `Splash Harbor (NEW)` unmarked and `Splash Cay$` marked, so
+they are two venues and the packs have them right.
+
+**Decided.** Hedged the November 2026 pack (a **future** sailing, so the money risk is live) in both
+its long-form and condensed sources, to wording that matches the evidence: no upcharge marker, so
+expect it to be included, and NCL publishes no prices outside the app, so confirm there.
+
+Left the August 2026 pack alone deliberately. Its cover reads "August 24 to 28, 2026", its text says
+"your visit is eight days before it opens", and it is linked only from the family pages. It is a
+correctly-dated record of a completed sailing, not a live claim.
+
+Rebuilt both stale PDFs and **verified the hedge in the served artifact** by extracting its text,
+rather than trusting the build's exit code: the hedge appears once, the bare "Free." is gone.
+
+**Unsure.** Whether NCL actually charges for Great Life Lagoon. Nobody knows from these sources; the
+booklet discloses no pricing at all and directs to the app. That is precisely why the hedge is the
+honest wording rather than either "free" or "paid". Also: the build script claims "the pre-commit
+hook will block commits that change a pack .md without an updated .pdf". On macOS that hook fails
+open (registered #2592), so that protection is currently inert and my manual rebuild is the only
+thing that kept source and artifact in step.
+
+
 ## 2026-09-05 - Voyage Packs go free with a tip jar (yumi)
 
 **Asked.** Ken: "I have a buy me a coffee. Maybe for now they are available free, with a tip
