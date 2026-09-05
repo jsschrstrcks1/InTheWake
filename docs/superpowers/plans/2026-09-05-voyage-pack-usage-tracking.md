@@ -64,7 +64,19 @@ The landing page links to **no** PDF and **no** PWA directly (verified by grep);
 
 | # | Decision | Recommended default | Why it is his, not mine |
 |---|---|---|---|
-| **D1** | **PWA telemetry vs. the "No tracking" promise.** Fourteen shipped companions tell travelers *no tracking*. Adding events to them, however anonymous, changes a promise already made to real people (including Tina Maulsby's guests). | Add **anonymous, cookie-free, aggregate-only** events to the *pack* companions, and **reword the promise to be true**: *"No ads. Anonymous usage counts only — nothing about you, your card, or your trip leaves this phone."* Leave the family page untouched. Until Ken says go, **Phase C builds nothing** and the plan still delivers Phases A–B. | It is a promise, and the household rule is that a UI claim must never contradict reality. Only the person who made the promise can amend it. |
+| **D1** | **PWA telemetry vs. the "No tracking" promise — wording stays.** (Revised 2026-09-05 after Ken ruled out changing the footer.) Fourteen shipped companions tell travelers *no tracking*, and that sentence is not being edited. So the question becomes: what measurement is still honest under that sentence? Three settings, from strictest to loosest — see §2.1. | **Setting 1, "counts only."** Events leave the phone through a geo-blind first-party relay that discards the sender's IP before anything reaches Umami. What survives is *how many times* a feature was used on which voyage day, and which features were used together in one sitting — never who, never where from, never a thread between two sittings. That is measurement of the app, not tracking of a person, and the footer stays true on its plain reading. | The line between "counting" and "tracking" is a judgment about a promise Ken made; the plan can only make the options and their costs legible. |
+
+### 2.1 The three settings behind D1 (what each can answer, and what it costs the promise)
+
+| Setting | Mechanism | Can answer | Cannot answer | Promise |
+|---|---|---|---|---|
+| **1 — Counts only** *(recommended)* | Events → **geo-blind relay** (Cloudflare Worker, Task 5b) → Umami. The relay drops the client IP and User-Agent, re-validates the property whitelist server-side, and forwards. Umami therefore sees one "visitor" (the relay) and no geography. | Used at all? Which tabs? Which voyage day (`day` index)? Before / during / after? How many opens? Which features go together in one sitting (`vp_pwa_session`)? | How many *people*. Where they are from. Whether Tuesday's open and Thursday's open were the same phone. | **Kept on its plain reading.** Nothing about a person is collected or derivable. The card never leaves the phone. |
+| **2 — Umami standard** | Events straight to `cloud.umami.is`, as the landing page and HTML renders already do. Umami derives country / region / city from the IP and a daily-rotating visitor hash `[unverified recollection: hash of IP + user agent + salt; not confirmed from Umami's docs this session]`. | Everything in Setting 1, plus daily unique visitors and country-level origin. | Cross-day identity (by design). | **Defensible but arguable.** `privacy.html` already defines Umami as "does not track personally identifiable information," so the site's own vocabulary is consistent. A traveler's plain reading of "No tracking" is broader. **And city-level geo on a hosted-group pack is a re-identification risk:** a Tina-hosted sailing is a few dozen people, and "one from Hudson, FL" is a name to her, not a statistic. |
+| **3 — Journeys** | Per-visitor path following: "one from Hudson FL visited Weather, then Day 4, then Forecast." | Everything. | — | **Broken.** Following one person's steps is what the word "tracking" means, whether or not a name is attached. Declined; not built under any wording. |
+
+**Fence that holds in every setting:** the dashboard never shows region or city, and for hosted-group packs never shows geography at all. Small group + place = a person. Handoff-card contents, chosen weather location, and unit preference never leave the device.
+
+**What Setting 1 still gives Ken, concretely:** "The Sisters at Sea companion was opened 41 times during the sailing; Day 4 and the Now tab were the most-opened; 9 sittings used Radar; the emergency tab was opened 6 times; nothing at all was opened on the Bliss Alaska companion in 90 days." That answers *is it used, which parts, when* — three of the four questions — and gives up *how many people* in exchange for the promise. A floor on opens is an honest proxy: 41 opens on a 30-guest sailing is not zero people.
 | **D2** | **Dashboard visibility.** The repo deploys public; a dashboard under `admin/voyage-packs/usage/` is world-readable. | **Public, aggregate-only, `noindex`.** The snapshot excludes revenue, refunds, and any per-session data; the page states its own floor. Revisit (Cloudflare Access is free for a handful of users) only if sales data ever needs to sit beside usage. | Ken decides what the site says about itself in public. |
 | **D3** | **Source of truth.** Umami only, GA4 as manual cross-check. | As stated. | Cheap to reverse; flagged so it is a choice, not a drift. |
 | **D4** | **Umami Cloud tier.** API keys and event quota may be plan-gated. | Ken generates an API key in the Umami Cloud dashboard and stores it as the repository secret `UMAMI_API_KEY`. If the tier refuses, fallback is a self-hosted Umami on the Cloudflare tenant (memory `e74cbef8` already assumes that tenant for the paywall) — a separate task, not this plan. | Account access is his. |
@@ -84,9 +96,11 @@ All events go to the one existing Umami website. Names are ≤50 chars, prefixed
 | `vp_print` | A `data-print-scope` button is used | `pack`, `scope` ∈ `emergency-only\|entire-pack` | pack HTML |
 | `vp_pdf_download` | A `data-pdf-scope` button generates a PDF | `pack`, `scope` | pack HTML, reaching-someone-at-sea |
 | `vp_handoff_filled` | First time on this device that ≥1 handoff field is non-empty | `pack` | pack HTML, PWA emergency tab |
-| `vp_pwa_open` | PWA shell built | `pack`, `standalone` (bool), `offline` (bool), `phase` ∈ `before\|during\|after` | PWA |
-| `vp_pwa_tab` | A tab other than Overview is selected | `pack`, `tab` | PWA |
+| `vp_pwa_open` | PWA shell built | `pack`, `standalone` (bool), `offline` (bool), `phase` ∈ `before\|during\|after`, `day` (voyage day index, or `0` outside the sailing) | PWA |
+| `vp_pwa_session` | One sitting ends (`visibilitychange → hidden`); replaces per-tab events so no two events can be stitched into a path | `pack`, `phase`, `day`, `tabs` (sorted, de-duplicated tab names joined by `,`, e.g. `now,radar,voyage`) | PWA |
 | `vp_pwa_install` | `appinstalled` window event | `pack` | PWA |
+
+Under Setting 1 (§2.1) every PWA event travels through the geo-blind relay, so the properties above are the **entire** record Umami ever holds for a sitting: no IP, no user agent, no visitor hash, no timestamp finer than the day it was flushed.
 
 `phase` is computed **on the device** from the itinerary dates already in `window.__VOYAGE` (today < first date → `before`; within → `during`; after → `after`). It is the single most useful bit on the dashboard: it says whether the companion is used *on the ship*, which is the thing it was built for.
 
@@ -143,7 +157,7 @@ Every chart mirrors into a visually-hidden table (the drink-calculator `#chart-s
 |---|---|---|---|
 | **A — Foundation** | 1, 2, 6, 7, 9 | D4 only (an API key) | Registry, tracker module, snapshot pipeline, CLI. Dashboard-ready data even before any new events: landing + pack-HTML pageviews by path already exist in Umami today. |
 | **B — Site surfaces** | 3, 4, 8, 10 | No | Buy clicks, print/PDF/handoff events on the HTML renders, the dashboard, docs. |
-| **C — PWA companions** | 5 | **D1** | At-sea usage, installs, tab use, before/during/after. |
+| **C — PWA companions** | 5b then 5 | **D1** (a setting, not a wording change) | At-sea usage counts, installs, feature combinations per sitting, before/during/after, by voyage day — with nothing about any person created anywhere. |
 | **D — Sales seam** | 11 | D5 (paywall platform) | Purchase counts beside usage. |
 
 Phases A + B are roughly two focused sessions. Phase C is one session once D1 is answered; most of it is mechanical across 14 files.
@@ -312,9 +326,11 @@ Design constraints, all of them fences (careful-not-clever Layer 0):
 (function (w) {
   'use strict';
   var WEBSITE = '9661a449-3ba9-49ea-88e8-4493363578d2';
-  var ENDPOINT = 'https://cloud.umami.is/api/send';
+  // Setting 1 (§2.1): the PWAs point this at the geo-blind relay (Task 5b), e.g.
+  // 'https://usage.cruisinginthewake.com/send'; site pages may keep Umami's own endpoint.
+  var ENDPOINT = (w.ITW_USAGE_ENDPOINT || 'https://cloud.umami.is/api/send');
   var KEY = 'itw:vp-usage-queue';
-  var ALLOW = { pack: 1, price: 1, variant: 1, scope: 1, standalone: 1, offline: 1, phase: 1, tab: 1 };
+  var ALLOW = { pack: 1, price: 1, variant: 1, scope: 1, standalone: 1, offline: 1, phase: 1, day: 1, tabs: 1 };
   var MAX = 200;
 
   function optedOut() {
@@ -392,16 +408,71 @@ Tests (node:test with a minimal `window` stub): whitelist drops unknown keys; DN
 
 **Files:** `admin/voyage-pwa/companion.js`, `admin/voyage-pwa/sw.js`, all 14 `admin/voyage-pwa/*.html`.
 
-Do **not** start this task until Ken has answered D1. When he has:
+Do **not** start this task until Ken has picked a setting under D1 (§2.1). Task 5b (the relay) ships **before** this task under Setting 1, so no PWA ever points at Umami directly. **The footer wording is not touched** — `grep -c "No tracking" admin/voyage-pwa/*.html` must still return 14 afterward; pin that as a unit test that reads the files, so a future "tidy-up" cannot quietly edit the promise.
 
-- [ ] Each PWA `<meta http-equiv="Content-Security-Policy">`: add `https://cloud.umami.is` to `connect-src`. (No `script-src` change — the module is same-origin under `/assets/js/`, but `/assets/` is outside `sw.js`'s `OWN_SCOPE`, so add `/assets/js/voyage-usage.js` to `PRECACHE` **and** extend `cacheable()` to allow exactly that path; bump `CACHE` to `voyage-v5`.)
-- [ ] `companion.js` `buildShell()` end: compute `phase` from `ITIN[0].date` / `ITIN[ITIN.length-1].date` vs `todayISO()`; `ITW_USAGE.track('vp_pwa_open', {pack: V.slug, standalone: matchMedia('(display-mode: standalone)').matches, offline: !navigator.onLine, phase})`. Each voyage page gains `slug:"…"` in `window.__VOYAGE` (from the registry).
-- [ ] Tab click handler: `track('vp_pwa_tab', {pack, tab})` for tabs other than `overview`.
+- [ ] Each PWA `<meta http-equiv="Content-Security-Policy">`: add the relay origin (Setting 1) to `connect-src`. (No `script-src` change — the module is same-origin under `/assets/js/`, but `/assets/` is outside `sw.js`'s `OWN_SCOPE`, so add `/assets/js/voyage-usage.js` to `PRECACHE` **and** extend `cacheable()` to allow exactly that path; bump `CACHE` to `voyage-v5`.)
+- [ ] Each PWA page sets `window.ITW_USAGE_ENDPOINT` to the relay URL before loading the module, and gains `slug:"…"` in `window.__VOYAGE` (from the registry).
+- [ ] `companion.js` `buildShell()` end: compute `phase` and `day` from `ITIN` vs `todayISO()`; `ITW_USAGE.track('vp_pwa_open', {pack: V.slug, standalone: matchMedia('(display-mode: standalone)').matches, offline: !navigator.onLine, phase, day})`.
+- [ ] Tab click handler: add the tab name to an in-memory `Set` for this sitting. On `visibilitychange → hidden`, `track('vp_pwa_session', {pack, phase, day, tabs: sorted.join(',')})` once, then clear the set. No per-tab events.
 - [ ] `window.addEventListener('appinstalled', …)` → `vp_pwa_install`.
 - [ ] Emergency tab inputs: same once-per-device `vp_handoff_filled` rule as Task 4, keyed by `E.storageKey`.
 - [ ] Overview PDF links: `vp_pdf_open` with `variant`, only when the `href` is on `cruisinginthewake.com`.
-- [ ] Replace the footer sentence in `companion.js` default and all 14 `footerDisc` strings with the D1-approved wording. `grep -c "No tracking" admin/voyage-pwa/*.html` must return 0 afterward — pin as a unit test that reads the files.
-- [ ] Flip `instrumented.pwa = true`; commit `feat(voyage-pwa): anonymous usage events + offline queue; promise wording corrected`.
+- [ ] Flip `instrumented.pwa = true`; commit `feat(voyage-pwa): anonymous usage counts via geo-blind relay; footer promise unchanged`.
+
+### Task 5b: The geo-blind relay — **ships before Task 5 under Setting 1**
+
+**Files:** Create `admin/voyage-usage-relay/worker.js`, `admin/voyage-usage-relay/wrangler.toml`, `admin/voyage-usage-relay/README.md`; Test `tests/unit/voyage-usage/relay.test.mjs` (the handler is a pure function of `Request → Response`, testable without Cloudflare).
+
+A Cloudflare Worker on the household's existing Cloudflare tenant (the site is already proxied through it), bound to a hostname such as `usage.cruisinginthewake.com`. It exists to make the promise **mechanical** rather than a matter of client-side good behaviour:
+
+- Accepts only `POST /send` with a JSON body `{name, data}`; anything else is `404`.
+- **Re-validates** `name` against the `vp_*` vocabulary and `data` against the property whitelist, server-side. Unknown keys are dropped; unknown event names are `400`. The relay is the second fence; the client module is the first.
+- Forwards to `https://cloud.umami.is/api/send` with a **fixed** `User-Agent` (`itw-voyage-usage-relay/1`), **no** `X-Forwarded-For`, **no** `CF-Connecting-IP`, and `url` set to the pack's canonical companion path from the registry (not whatever the client sent). Umami therefore records the relay as the visitor and the relay's location as the geography — which is to say, nothing about the traveler.
+- Sets `Access-Control-Allow-Origin: https://cruisinginthewake.com` only.
+- Never logs request bodies or client addresses. `wrangler.toml` sets `logpush = false`; the README says why.
+
+```js
+// admin/voyage-usage-relay/worker.js — Soli Deo Gloria.
+// Geo-blind relay: strips who and where; forwards what and when (to the day).
+const UMAMI = 'https://cloud.umami.is/api/send';
+const WEBSITE = '9661a449-3ba9-49ea-88e8-4493363578d2';
+const EVENTS = new Set(['vp_pdf_open', 'vp_handoff_filled', 'vp_pwa_open', 'vp_pwa_session', 'vp_pwa_install']);
+const ALLOW = new Set(['pack', 'variant', 'standalone', 'offline', 'phase', 'day', 'tabs']);
+const ORIGIN = 'https://cruisinginthewake.com';
+
+export function scrub(body) {
+  if (!body || typeof body !== 'object' || !EVENTS.has(body.name)) return null;
+  const data = {};
+  for (const k of Object.keys(body.data || {})) {
+    if (ALLOW.has(k) && body.data[k] != null) data[k] = String(body.data[k]).slice(0, 64);
+  }
+  if (!/^v0\.[0-9.]+-[a-z0-9-]+$/.test(data.pack || '')) return null; // pack slug is required and shaped
+  return { name: body.name, data };
+}
+
+export default {
+  async fetch(req) {
+    const cors = { 'Access-Control-Allow-Origin': ORIGIN, 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'Content-Type' };
+    if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
+    const url = new URL(req.url);
+    if (req.method !== 'POST' || url.pathname !== '/send') return new Response('not found', { status: 404, headers: cors });
+    let ev = null;
+    try { ev = scrub(await req.json()); } catch { /* fall through */ }
+    if (!ev) return new Response('bad event', { status: 400, headers: cors });
+    const payload = { type: 'event', payload: {
+      website: WEBSITE, hostname: 'cruisinginthewake.com',
+      url: '/admin/voyage-pwa/' + ev.data.pack, title: ev.data.pack,
+      name: ev.name, data: ev.data, language: '', screen: ''
+    } };
+    const r = await fetch(UMAMI, { method: 'POST', headers: { 'Content-Type': 'application/json', 'User-Agent': 'itw-voyage-usage-relay/1' }, body: JSON.stringify(payload) });
+    return new Response(null, { status: r.ok ? 204 : 502, headers: cors });
+  }
+};
+```
+
+Tests for `scrub`: unknown event → `null`; unknown keys dropped; a body with `name`, `phone`, `ip`, `lat` yields only whitelisted keys; a malformed pack slug → `null`; oversized values truncated. Layer 3 self-attack of the stated claim *"nothing about the traveler reaches Umami"*: with `wrangler dev`, send a request carrying a spoofed `X-Forwarded-For` and a real browser UA, then read the outbound request Umami receives (mock it) literally — neither header may be present, and `url` must be the registry path, not the client's. `[unverified]` Cloudflare Workers free-tier request allowance was not checked this session; it is far above the traffic a few dozen companions produce, but confirm before relying on it.
+
+**Why a relay and not "just don't look at the city column":** Umami stores what it derives at ingest. A policy not to *display* geography leaves the data sitting in a third party's database; the relay means it was never created. The promise is kept by construction, which is the only way a promise to strangers should be kept.
 
 ### Task 6: The snapshot script
 
@@ -518,6 +589,7 @@ When `itw-voyage-packs-paywall-platform` lands, the processor's webhook (memory 
 - It does not measure **purchases** until D5, and it will never measure revenue on a public page.
 - It does not measure the **family** weather page or the Maulsby-hosted packs whose only deliverable lives on maulsbytravel.com.
 - It cannot tell *why* a pack is unused — only that it is. The "quiet / unused" labels are prompts for a conversation with Tina, not verdicts.
-- Umami Cloud is a third party; the promise wording in D1 must say "anonymous counts go to our analytics provider (Umami)" if Ken wants it fully true. Self-hosting is the way to remove that clause, and it is a separate task.
+- Under Setting 1 it counts **opens and sittings, never people**. "41 opens during the sailing" is honest; "N travelers" is not available and the dashboard must not imply it.
+- Umami Cloud is a third party. Under Setting 1 it receives only event names and whitelisted properties, from the relay's address, and could not reconstruct a traveler if it tried. Self-hosting Umami on the Cloudflare tenant would remove the third party altogether; it is a separate task.
 
 *Soli Deo Gloria.*

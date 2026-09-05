@@ -4,6 +4,28 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-05 - "Without breaking our promise, and without changing our wording": counting is not tracking, but following is
+
+**Asked.** How to measure the companions without breaking "No tracking, no ads" and without editing that sentence — could it be anonymised: area the IP resolves to, unique IPs, how one visitor moves across the pack ("1 from Hudson FL visited weather, port day 4, forecast").
+
+**Weighed.**
+
+*The example answers itself, and not the way it was meant.* "One from Hudson, FL, went Weather → Day 4 → Forecast" is a person's steps. On a Tina-hosted sailing of a few dozen solo travelers, Hudson is not a region, it is a name Tina could say out loud. Anonymised tracking is still tracking; the promise is about the verb, not about whether a name is attached. So the journey view is declined outright, under any wording. I would rather say that plainly than build it and call it anonymous.
+
+*What the sentence does permit.* Counting how often a feature was used is measurement of the app, not of a person, provided nothing about a person is ever created. The site's own privacy page already draws the line there for Umami ("does not track personally identifiable information"), so the vocabulary is at least consistent. But Umami derives country, region and city from the IP at ingest — I verified the API exposes `region` and `city` metric types — so pointing the companions straight at Umami creates exactly the small-group re-identification data I just said we must not create, even if the dashboard never shows it. A policy not to look is not a promise kept.
+
+*So the promise gets kept by construction.* The plan now routes companion events through a small first-party relay (a Cloudflare Worker on the tenant that already fronts the site) that drops the sender's IP and user agent, re-validates the event whitelist server-side, and forwards only the event name and its handful of properties. Umami sees one visitor at one location — the relay — and no geography. The data that would break the promise is never born. This is the same instinct as the pre-commit guards in this repo: make the right thing mechanical, not a matter of everyone remembering.
+
+*What we give up.* Unique people. Under this setting the dashboard can say "41 opens during the sailing, Day 4 and Now most used, 9 sittings used Radar, the emergency tab was opened 6 times," and it cannot say "12 travelers." That is the price of the sentence, and I think it is the right trade: 41 opens on a 30-guest sailing is not nothing, and "is it used at all, which parts, when" — three of the four original questions — survive intact. Per-tab events also became one per-sitting summary, so no two events can be stitched into a path even by us.
+
+*One thing I could not verify.* How Umami builds its daily visitor hash (IP + user agent + rotating salt, as I recall) is marked as an unverified recollection in the plan rather than stated as fact; the FAQ I fetched does not say. It only matters for Setting 2, which I am not recommending.
+
+**Decided.** D1 rewritten: the footer stays byte-for-byte, pinned by a unit test that fails if "No tracking" ever disappears from the fourteen files. Three settings laid out with what each can answer and what it costs the promise; Setting 1 ("counts only," via the relay) recommended; Setting 3 (journeys) declined. New Task 5b builds the relay before any companion is instrumented, with its own self-attack: spoof the forwarded-IP header and read what reaches Umami literally. Event vocabulary gains `day` and a per-sitting `tabs` summary; per-tab events removed. Standing fence added: the dashboard never shows region or city, and for hosted-group packs no geography at all.
+
+**Unsure.** Whether Ken will feel "opens, not people" is enough. If it is not, Setting 2 is on the page with its cost stated honestly, and the choice is his — but I would not pick it for him, and I would not pick it for Tina's guests.
+
+**Honest limit.** A relay keeps a promise about *our* data. It cannot make the phone's own network invisible to the carrier or the ship's Wi-Fi provider; those were never ours to promise about.
+
 ## 2026-09-05 - Voyage-pack usage tracking and dashboard: a plan, and three decisions I would not make for you
 
 **Asked.** "Explore the voyage packs. I want some way of tracking what people are doing, how they're using them, whether they're being used at all, and a dashboard to display all of that across all of the voyage packs. Let's make a plan."
