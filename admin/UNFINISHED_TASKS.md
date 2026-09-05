@@ -878,3 +878,24 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-09-05T04:11:36.475Z -->
 | article-how-to-escalate-a-complaint-on-a-cruise-ship-the-chain-o | 1 | Article: how to escalate a complaint on a cruise ship — the chain of command and what 'noted in the report' means |
+
+<!-- library register 2026-09-05T13:30:34.500Z -->
+| article-passport-or-birth-certificate-for-a-cruise-closed-loop-d | 1 | Article: passport or birth certificate for a cruise — closed-loop document rules and where the birth-certificate route breaks (needs CBP + State Dept sourcing) |
+
+<!-- library register 2026-09-05T13:30:34.968Z -->
+| article-what-happens-if-you-miss-the-ship-ship-sponsored-vs-inde | 1 | Article: what happens if you miss the ship — ship-sponsored vs independent excursions, the port agent, and who pays |
+
+<!-- library register 2026-09-05T13:30:35.337Z -->
+| article-how-to-read-a-cdc-vessel-sanitation-inspection-score-eve | 1 | Article: how to read a CDC vessel sanitation inspection score (evergreen anchor for the Ruby Princess and Norwegian Dawn news pieces) |
+
+<!-- library register 2026-09-05T13:30:35.765Z -->
+| article-the-cruise-ship-medical-centre-what-it-handles-that-you- | 1 | Article: the cruise ship medical centre — what it handles, that you pay up front, and how insurance and evacuation actually work |
+
+<!-- library register 2026-09-05T13:30:36.141Z -->
+| article-the-single-supplement-why-solo-cruisers-pay-near-double- | 1 | Article: the single supplement — why solo cruisers pay near-double, studio cabins, and how to judge a waiver |
+
+<!-- library register 2026-09-05T13:30:36.565Z -->
+| article-the-muster-drill-how-the-current-version-works-and-what- | 1 | Article: the muster drill — how the current version works and what you must actually do |
+
+<!-- library register 2026-09-05T13:30:36.984Z -->
+| article-great-stirrup-cay-costs-publish-the-photographed-zipline | 1 | Article: Great Stirrup Cay costs — publish the photographed zipline pricing board, the 10 percent Bahamian sales tax line, and the attraction physical requirements |
