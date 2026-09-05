@@ -902,3 +902,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-09-05T21:27:14.497Z -->
 | itw-voyage-packs-usage-dashboard | 2 | Voyage packs — usage tracking (Umami events on landing/pack HTML/PWA companions) + cross-pack usage dashboard; plan first |
+
+<!-- library register 2026-09-05T22:07:48.260Z -->
+| itw-voyage-packs-landing-feature-cards | 2 | voyage-packs.html: feature cards with explanation + calm CTA per pack feature, and accessible install-guide popups (iOS/Android add-to-home-screen) for the Voyage companion |

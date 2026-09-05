@@ -4,6 +4,32 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-05 - Voyage Packs landing page: feature cards with wayfinding CTAs, and an install guide for the companion
+
+**Asked.** Evaluate the landing page, build cards with a CTA and explanation for each feature of a pack, plus popups that show people how to install the companion on their phone.
+
+**Weighed.**
+
+*What the page was doing well, and what it was not.* The hero paragraph is the best writing on the page and I left it alone. The "What's in every pack" section was a seven-item bullet list: accurate, but a wall, and nothing in it let a reader test the claim before paying. The companion, which is the most distinctive thing a pack ships, was mentioned only inside the Volendam product card. And the offline banner promised an app-like experience without ever saying how to get one onto a phone.
+
+*CTAs as wayfinding, not conversion.* The CTA style guide says CTAs point, they do not push. So each card's link goes to the free thing that shows the kind of writing the paid thing contains: the ship profiles, a port guide, the packing lists, the budget calculator, the accessibility page, the free any-cruise handoff card. The "day by day" card is the one feature with no free analogue, so it points down the page to the sailings covered so far. No "buy now" appears on any card; the Buy buttons already exist on the product cards and that is where they belong.
+
+*Honesty on the companion card.* Three of the four listed packs ship a companion and one ships an offline HTML render instead, and the product cards' own delivery lines do not all say "companion" even where one exists in the repo. I did not touch those delivery claims; the feature card says "included with packs that ship one; each card below says which formats it comes in," which is true of the page as it stands. Reconciling the delivery lines is a separate, small task for you, because it changes what a buyer is told they receive.
+
+*One dialog, three panels, not three popups.* "A set of popups" could mean three separate dialogs. One dialog with device tabs is easier to keep accessible (one focus trap, one Escape path, one place to return focus) and easier to reach from anywhere on the page. The iPhone steps are from Safari's Share sheet; Android from Chrome's menu, with a note that Install app may appear instead of Add to Home screen; computers get Chrome and Edge's install icon and Safari's Add to Dock. The script guesses the visitor's device from the user agent and preselects that tab, and stores nothing.
+
+*Claims I checked against the companion's own code before printing them.* The service worker never caches the weather, radar or alert APIs, so "live forecasts need a signal" is true; the itinerary, averages and emergency card come from the page and localStorage, so "those work offline" is true. I deliberately did not claim the page refreshes itself when reconnected, because I did not read that far into the fetch strategy.
+
+*Verification.* Seven Playwright tests, run against the pre-installed Chromium (the pinned Playwright version wanted a newer headless shell, so I pointed it at the container's binary rather than downloading one): card count and structure, every internal link resolves to a real file, no inline handlers, hidden-until-opened with correct ARIA, focus lands inside and Tab wraps, Escape closes and returns focus to the opener, tabs switch by click and arrow keys, close button and backdrop both close, every trigger opens the same dialog. All seven green. Mutation: renamed the Escape key check and the Escape test went red, then restored. Two screenshots sent.
+
+*A pre-existing hazard I noticed and did not fix.* The site nav links to `/ports/`, which has no index file; on GitHub Pages that is a 404 and the Netlify redirect that used to rescue it is inert. My card links to `/ports.html` directly. Worth its own line.
+
+**Decided.** `voyage-packs.html`: the bullet list became eight feature cards in a responsive grid, each with an icon, a heading, an explanation, and one wayfinding link, plus two triggers for the install guide (the companion card and the offline banner). New `assets/css/voyage-packs.css` and `assets/js/voyage-install-guide.js`; new Playwright spec. The install-guide triggers carry a `vp_install_guide_open` Umami attribute, consistent with the usage-tracking plan's vocabulary. The `last-reviewed` stamp was left alone: I added structure and an install guide; I did not re-verify prices or dates.
+
+**Unsure.** Whether eight cards is one too many on a phone, where they stack into a long column. The grid collapses gracefully, but you may prefer the companion card promoted above the others since it is the thing nobody else sells. Also unsure whether "Try the free, any-cruise version" undersells the paid handoff card; it is honest, and I would rather undersell than oversell.
+
+**Honest limit.** No automated accessibility audit ran; the ARIA pattern follows the drink calculator's quiz modal and the WAI tabs pattern, and the tests check the mechanics, but a screen-reader pass by a person is still owed before this is called finished.
+
 ## 2026-09-05 - Correction: the "Tina would recognise a guest" argument was overstated; what survives it, and a setting that gives Ken the sentence he asked for
 
 **Asked.** Ken: realistically he does not know who is on Tina's hosted cruises, and Tina has no access to any of this data. She is a friend of the site, not a reader of its analytics.
