@@ -4,6 +4,26 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-05 - Build loop: D1 = Setting 1.5; the 26 usage-tracking slices, built in board order
+
+**Asked.** "Go with the middle setting, and begin creating all the slices, loop as often as you need to until all related tasks are complete."
+
+**Weighed.**
+
+*The setting.* The middle of the three is Setting 1.5: events leave the phone through the geo-blind relay, which discards the IP and user agent and attaches only the state and country Cloudflare already knows; city is never read; the daily sitting-link dial stays off. The fourteen companion footers stay byte for byte. That is the decision the whole Phase C builds against, and it is recorded here before a line of Phase C is written.
+
+*Order.* Board order, which is sailing order: the foundation first because Prima (2026-09-27) depends on all of it, then the three HTML renders, then the fourteen companions soonest-first, then docs and the sales seam. Each slice is checked out under patron `vin`, built, tested, committed, and released with evidence; this entry is amended as the loop runs rather than one entry per slice, to keep the log signal.
+
+*Registry (slice 1).* Seventeen real pack sources; the eighteenth `.md` in the directory is the fact-check log, not a pack. Sailing dates came from each companion's `window.__VOYAGE` and, for the two packs without a companion, from the pack source; end dates where the companion does not carry one are start plus the night count in the title and the schema says so. Getaway Bahamas has no verifiable date in its source and is registered with null dates rather than a guess. The checker caught its own first bug: `2027-13-01` has the shape of a date and is not one; the validator now parses, and the test that exposed it stays.
+
+*What the checker will do to PR #2565.* When the Icon of the Seas pack lands with its companion, the registry check will report `unregistered-file` and fail the build until the pack is registered. That is the intended behaviour: a pack is not done until it is on the registry. It will need one record added at merge time.
+
+**Decided.** (amended as the loop runs; see the commits on this branch for each slice)
+
+**Unsure.** Whether Ken wants the daily sitting-link dial on. It is built into the relay behind a secret and defaults off; flipping it is an operator action on the Worker, not a code change.
+
+**Honest limit.** Relay and plist are code and templates; neither is deployed from this container. The Worker needs `wrangler` on a machine holding the Cloudflare credentials, and the plist needs installing on the Atlas node with a real key. Both steps are written down and both are Ken's hands.
+
 ## 2026-09-05 - The usage-tracking plan goes on the board as 26 slices, soonest sailing first
 
 **Asked.** "Add all the new tasks to HLS slice by slice, priority given to closer sailings."
