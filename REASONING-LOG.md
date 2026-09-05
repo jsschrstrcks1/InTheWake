@@ -4,6 +4,26 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-05 - Correction: the "Tina would recognise a guest" argument was overstated; what survives it, and a setting that gives Ken the sentence he asked for
+
+**Asked.** Ken: realistically he does not know who is on Tina's hosted cruises, and Tina has no access to any of this data. She is a friend of the site, not a reader of its analytics.
+
+**Weighed.**
+
+*He is right, and the earlier entry leaned on it too hard.* I argued that "one from Hudson, FL" on a hosted sailing is a name the host could say out loud. That requires the host to see the data, and she cannot; and it requires Ken to know the guest list, and he does not. So the re-identification harm I described was mostly imagined. Recorded as a correction in the plan itself, not silently rewritten, because a future reader should be able to see that the stricter line was drawn on a false premise.
+
+*What does not fall with it.* Two things. First, the dashboard is public because the whole repository deploys, so "nobody has access" is only true of the Umami store, not of anything the dashboard shows; the fence "never finer than state on the page" stays for that reason alone. Second, the promise argument was never about who could see the data. "No tracking" is a sentence a traveler reads on their own phone, and its plain meaning is about what the app does, not about who reads the result. Following one visitor's steps is the verb the sentence forbids, whether or not anyone could ever attach a name. That argument stands on its own.
+
+*So the middle ground is real, and I had not offered it.* Cloudflare already knows the country and state of every request before the relay runs; the Worker can copy those two fields onto the event and still throw the IP away. That yields exactly the sentence Ken asked for, one level up: "one sitting from Florida used Now, Day 4 and Radar." No city, no IP anywhere, no person. And if he wants same-day unique devices, the relay can hash IP plus user agent plus the calendar date plus a secret it alone holds, which links sittings within a day and is worthless after midnight. That is, as far as I can tell, the same trick Umami uses on every other page of the site; doing it in our own Worker means we can read the code that keeps the promise instead of trusting a vendor's description of theirs. I left that dial default-off, because opens answer "is it used" well enough and the extra column is not worth an inch of the promise. His call.
+
+*Cloudflare field names.* `request.cf.country` and `request.cf.region` are from memory, not from documentation fetched this session. Marked as unverified in the plan; the first step of Task 5b checks them.
+
+**Decided.** Setting 1.5 added to the plan (state and country from Cloudflare's request metadata, IP discarded, city never read), with an optional default-off daily-link dial. The "no geography at all for hosted-group packs" fence relaxed to "never finer than state, never city," because its stricter form rested on the argument Ken corrected. Setting 2's row now carries the correction in its own words.
+
+**Unsure.** Whether a same-day hash is "tracking" under the footer's plain reading. I lean no, because it cannot follow anyone past midnight and creates nothing a person could be found by; but I would not turn it on without Ken saying so, and the plan says that.
+
+**Honest limit.** None of this changes the fact that every number is a floor. State-level place from Cloudflare is the connecting network's location, which at sea is the ship's satellite provider, not Florida.
+
 ## 2026-09-05 - "Without breaking our promise, and without changing our wording": counting is not tracking, but following is
 
 **Asked.** How to measure the companions without breaking "No tracking, no ads" and without editing that sentence — could it be anonymised: area the IP resolves to, unique IPs, how one visitor moves across the pack ("1 from Hudson FL visited weather, port day 4, forecast").
