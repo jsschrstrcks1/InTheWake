@@ -4,15 +4,15 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking. Load the `dataviz` skill before Task 8 (the dashboard) and the `accessibility-audit` skill before shipping any page.
 
-**Status:** PLAN — nothing below is built. Three decisions (§2) are Ken's before Phase C starts. Phases A and B need no decision beyond an API key and can start now.
+**Status:** PLAN — nothing below is built. D2 is decided (Atlas-served, tailnet-only, owner token; §4.1). D1 (§2.1) is Ken's before Phase C starts. Phases A and B need no decision beyond an API key installed on the Atlas node and can start now. The work now spans two repos: InTheWake (registry, tracker, site events) and open-claw-stuff (snapshot job, launchd plist, dashboard, Atlas routes).
 
 **HLS:** `itw-voyage-packs-usage-dashboard` (registered 2026-09-05, patron `syl`). Related open tasks: `itw-voyage-packs-paywall-platform` (P2, gates sales data), `itw-voyage-pwa-integration` (P2, changes `companion.js` — coordinate). Open PR **#2565** (Icon of the Seas pack) edits `voyage-packs.html`; Task 3 must union-merge with it, never overwrite.
 
 **Goal:** Answer, per pack and across all packs, four questions Ken cannot answer today — *is anyone using this at all, how many, which parts, and when (before / during / after the sailing)* — on one dashboard, without collecting anything about any individual traveler.
 
-**Architecture:** A machine-readable pack registry (`packs.json`) becomes the single source of truth that ties every surface of a pack together (landing card, PDFs, HTML render, PWA companion). Every surface emits a small, fixed vocabulary of anonymous Umami events keyed by pack slug. A scheduled GitHub Action pulls aggregates from the Umami Cloud API into a committed JSON snapshot; a static, dependency-free dashboard page renders that snapshot. Nothing personal is ever sent: no names, no handoff-card values, no user IDs, no cookies.
+**Architecture:** A machine-readable pack registry (`packs.json`) becomes the single source of truth that ties every surface of a pack together (landing card, PDFs, HTML render, PWA companion). Every surface emits a small, fixed vocabulary of anonymous Umami events keyed by pack slug. A launchd job on the Atlas node pulls aggregates from the Umami Cloud API into an off-git snapshot under `$ATLAS_DATA`; Atlas serves a dependency-free dashboard page over that snapshot at `/admin/voyage-usage`, reachable only on the tailnet and only to the owner token. Nothing personal is ever sent: no names, no handoff-card values, no user IDs, no cookies.
 
-**Tech Stack:** Umami Cloud (already on every site page and on the three pack HTML renders, website id `9661a449-3ba9-49ea-88e8-4493363578d2`), vanilla ES5-compatible JS (the PWAs are ES5 by convention), `node:test` unit tests, Playwright smoke test, GitHub Actions cron with a repository secret. No new dependencies.
+**Tech Stack:** Umami Cloud (already on every site page and on the three pack HTML renders, website id `9661a449-3ba9-49ea-88e8-4493363578d2`), vanilla ES5-compatible JS (the PWAs are ES5 by convention), `node:test` unit tests in both repos, a launchd plist on the Atlas node holding the Umami key, Atlas's existing tailnet bind and owner-only `/admin` gate. No new dependencies.
 
 ---
 
@@ -34,7 +34,7 @@ The landing page links to **no** PDF and **no** PWA directly (verified by grep);
 ### 1.2 Hosting facts that shape the design
 
 - Production is **GitHub Pages behind Cloudflare** (`x-github-request-id` + `server: cloudflare` on the live response this session). The `_headers` / `_redirects` files are Netlify-era and inert here. Consequence: there are no server logs to mine; everything we learn must come from the browser.
-- The deploy workflow uploads the **entire repository** (`static.yml`, `path: '.'`). Anything committed under `admin/` — including a dashboard and its data — is **public**. The design treats that as a constraint, not a surprise: the snapshot carries aggregate counts only, never revenue.
+- The deploy workflow uploads the **entire repository** (`static.yml`, `path: '.'`). Anything committed under `admin/` is **public**. That is why (D2) neither the dashboard nor its data lives in this repo at all: only the pack registry (`packs.json`, which holds nothing a visitor cannot already see on the site) stays here, and Atlas reads it from the live site.
 - `sw.js` for the PWAs only caches same-origin requests under `/admin/voyage-pwa/` plus the Leaflet CDN. A third-party tracker script is therefore never available offline — which matters, because the PWA's whole purpose is use **at sea, with no signal**.
 
 ### 1.3 Analytics facts (verified against docs.umami.is this session)
@@ -79,7 +79,7 @@ The landing page links to **no** PDF and **no** PWA directly (verified by grep);
 **Fence that holds in every setting:** the dashboard never shows anything finer than state/province, and never city. Handoff-card contents, chosen weather location, and unit preference never leave the device. (The earlier, stricter "no geography at all for hosted-group packs" was built on the host-recognises-a-guest argument that Ken corrected; it is relaxed to state level, which is where the plain-reading argument, not the host argument, draws the line.)
 
 **What Setting 1 still gives Ken, concretely:** "The Sisters at Sea companion was opened 41 times during the sailing; Day 4 and the Now tab were the most-opened; 9 sittings used Radar; the emergency tab was opened 6 times; nothing at all was opened on the Bliss Alaska companion in 90 days." That answers *is it used, which parts, when* — three of the four questions — and gives up *how many people* in exchange for the promise. A floor on opens is an honest proxy: 41 opens on a 30-guest sailing is not zero people.
-| **D2** | **Dashboard visibility.** The repo deploys public; a dashboard under `admin/voyage-packs/usage/` is world-readable. | **Public, aggregate-only, `noindex`.** The snapshot excludes revenue, refunds, and any per-session data; the page states its own floor. Revisit (Cloudflare Access is free for a handful of users) only if sales data ever needs to sit beside usage. | Ken decides what the site says about itself in public. |
+| **D2** | **Dashboard visibility.** | **DECIDED by Ken, 2026-09-05: the dashboard is served only by Atlas, only on the tailnet, only to a caller holding the token.** Nothing about usage is committed to the public InTheWake repo or deployed to cruisinginthewake.com. The page lives at `/admin/voyage-usage` on Atlas, which the existing central gate already makes owner-only (`OWNER_ONLY_PREFIXES` = `/helm`, `/admin` in `cluster/lib/auth-policy.mjs`); the snapshot data lives under `$ATLAS_DATA/voyage-usage/`, off git like every other Atlas data file; the Umami API key lives in the launchd plist's environment on the Atlas node, never in a repository or a GitHub secret. See §4.1. | Decided. |
 | **D3** | **Source of truth.** Umami only, GA4 as manual cross-check. | As stated. | Cheap to reverse; flagged so it is a choice, not a drift. |
 | **D4** | **Umami Cloud tier.** API keys and event quota may be plan-gated. | Ken generates an API key in the Umami Cloud dashboard and stores it as the repository secret `UMAMI_API_KEY`. If the tier refuses, fallback is a self-hosted Umami on the Cloudflare tenant (memory `e74cbef8` already assumes that tenant for the paywall) — a separate task, not this plan. | Account access is his. |
 | **D5** | **Sales data.** | Deferred behind `itw-voyage-packs-paywall-platform`; Task 11 leaves a typed seam so the processor's webhook can land purchase counts in the same snapshot later. | Already an open HLS decision. |
@@ -114,7 +114,7 @@ Under Setting 1 (§2.1) every PWA event travels through the geo-blind relay, so 
 
 ## 4. What the dashboard answers
 
-One page, `admin/voyage-packs/usage/index.html`, reading `snapshot.json`. Sections, top to bottom:
+One page, served by Atlas at `/admin/voyage-usage`, reading `/admin/voyage-usage/snapshot.json` from the same origin. Sections, top to bottom:
 
 1. **Header with the floor statement** and the snapshot timestamp + window (last 30 / 90 / 365 days toggle, all pre-computed in the snapshot).
 2. **Across all packs**: landing pageviews, unique visitors, Buy clicks and click-through rate, PDF opens, PWA opens, PWA installs, handoff cards filled. Seven stat tiles with 12-week sparklines (inline SVG, no library).
@@ -124,6 +124,20 @@ One page, `admin/voyage-packs/usage/index.html`, reading `snapshot.json`. Sectio
 6. **Data provenance footer**: source (Umami website id), API calls made, rate-limit waits, failures, and the commit that produced the snapshot.
 
 Every chart mirrors into a visually-hidden table (the drink-calculator `#chart-sr-table` pattern). Reduced-motion and high-contrast media queries as on the calculator. Chaste voice; no dashboard cheerleading.
+
+### 4.1 Where it runs, and who can reach it (D2, measured against the Atlas code 2026-09-05)
+
+| Layer | Mechanism already in Atlas | What it gives this dashboard |
+|---|---|---|
+| Network | `atlas/server/atlas-bind.sh` resolves `ATLAS_BIND` from `tailscale ip -4` and refuses to start without one; `main.mjs` listens on that address (loopback only as a loud failover). | Unreachable off the tailnet. No Cloudflare, no public DNS, nothing to leak. |
+| Identity | `resolvePrincipal()` in `cluster/lib/auth-roles.mjs`: a token as `Authorization: Bearer …` or the `atlas_token` cookie, else a mapped Tailscale identity (#704 SSO). `ATLAS_OWNER_TOKEN` / `ATLAS_TOKEN` is the owner secret; partner and family tokens are lower tiers. | "Those who have the token." |
+| Policy | `decideAccess()` in `cluster/lib/auth-policy.mjs`: any path under `/admin` or `/helm` requires the **owner** role even to read; an unknown or missing token fails closed with 401 once role secrets are configured. Every decision is recorded by the #703 audit log, readable at `/admin/audit`. | Placing the page and its JSON under `/admin/voyage-usage` makes it owner-only **with no policy change at all**, and every read of it is audited. |
+| Data | `$ATLAS_DATA` (default `~/atlas-data`) holds off-git files (`face-consent.json`, `recipes-manifest.json`, the storm archive). | `$ATLAS_DATA/voyage-usage/snapshot.json` and `history.ndjson` live there. Never in a repo. |
+| Cadence | launchd plists in `atlas/deploy/*.plist.example` (`com.atlas.adventures-poll` runs a poller every 15 minutes with its secret in the plist's `EnvironmentVariables`, installed by hand, kept out of git). | The snapshot job runs the same way, with `UMAMI_API_KEY` in the installed plist on the Atlas node only. |
+
+**One nuance for Ken to confirm.** With #704 tailnet SSO configured, a mapped Tailscale identity resolves to a role **without** presenting a token. If "and to those who have the token" means the token is required even on the tailnet, the fix is small and explicit: the two `/admin/voyage-usage` routes check `presentedToken(req.headers)` themselves and refuse an SSO-only owner. The plan's default follows the existing gate (token **or** mapped identity, owner role either way), because that is the posture every other owner surface on Atlas already has; say the word and Task 8 adds the stricter check.
+
+**What happens when Atlas is down.** The relay and Umami keep collecting; only the *view* is unavailable. The next snapshot run backfills the windows, because every window is recomputed from Umami on each run rather than accumulated locally.
 
 ---
 
@@ -142,13 +156,14 @@ Every chart mirrors into a visually-hidden table (the drink-calculator `#chart-s
 | `admin/voyage-pwa/companion.js` | *(Phase C, gated on D1)* emit `vp_pwa_open`, `vp_pwa_tab`, `vp_pwa_install`, `vp_pdf_open`; new footer default text | Modify |
 | `admin/voyage-pwa/*.html` ×14 | *(Phase C)* CSP `connect-src` + tracker include + footer text | Modify |
 | `admin/voyage-pwa/sw.js` | *(Phase C)* precache `/assets/js/voyage-usage.js`; bump `voyage-v4` → `voyage-v5` | Modify |
-| `admin/scripts/voyage-usage-snapshot.mjs` | Pulls Umami API → `usage/snapshot.json` (+ appends `usage/history.ndjson`); three-state exit; throttled to the 50/15s limit | New |
-| `.github/workflows/voyage-usage-snapshot.yml` | Weekly cron + manual dispatch; commits the snapshot `[skip ci]` | New |
-| `admin/voyage-packs/usage/index.html`, `usage/dashboard.js`, `usage/dashboard.css` | The dashboard | New |
-| `admin/voyage-packs/usage/snapshot.json`, `usage/history.ndjson` | Committed data (aggregate only) | Generated |
-| `admin/scripts/voyage-usage-report.mjs` | CLI: same snapshot code, prints a table to the terminal for a one-off look | New |
-| `tests/unit/voyage-usage/*.test.mjs` | node:test suites: registry check, tracker queue, snapshot aggregation, dashboard status rules | New |
-| `tests/playwright/voyage-usage-dashboard.spec.js` | Renders the dashboard from a fixture snapshot; checks headings, SR tables, zero-list | New |
+| **open-claw-stuff** `atlas/server/voyage-usage-snapshot.mjs` | Pulls the Umami API → `$ATLAS_DATA/voyage-usage/snapshot.json` (+ appends `history.ndjson`); three-state exit; throttled to the 50/15s limit; `--print` renders the per-pack table to the terminal instead. Modeled on `atlas/server/snapshot.mjs` (the storm archiver). | New |
+| **open-claw-stuff** `atlas/deploy/com.atlas.voyage-usage-snapshot.plist.example` | launchd template: daily run, `UMAMI_API_KEY` + `ATLAS_DATA` in the plist environment, installed by hand on the Atlas node, never committed filled-in | New |
+| **open-claw-stuff** `helm/admin/voyage-usage.html`, `helm/admin/voyage-usage.mjs` | The dashboard page and its module, served under the owner-only `/admin` and `/helm/` prefixes; styled with `helm/helm.css`; strict per-page CSP like `helm/admin/benchmark.html` (no inline script, `connect-src 'self'`) | New |
+| **open-claw-stuff** `atlas/server/server.mjs` | Two routes in the buffered branch next to `/admin/benchmark`: `GET /admin/voyage-usage` → the HTML; `GET /admin/voyage-usage/snapshot.json` → the data file from `dataDir`, `NO_STORE`, 503 with `{state:"unavailable"}` when the file is absent | Modify (additive, ~12 lines) |
+| **open-claw-stuff** `docs/SERVICE-RESTART-REGISTRY.md` | One row for the new plist (the registry check requires every service-defining file to be named) | Modify |
+| `$ATLAS_DATA/voyage-usage/snapshot.json`, `history.ndjson` | Off-git data on the Atlas node | Generated |
+| `tests/unit/voyage-usage/*.test.mjs` (InTheWake) | node:test suites: registry check, tracker queue | New |
+| **open-claw-stuff** `atlas/tests/voyage-usage-snapshot.test.mjs`, `atlas/tests/voyage-usage-route.test.mjs` | Snapshot aggregation (fixtures, null-never-zero, 429 handling); the two routes deny a partner/family token with 403 and an absent token with 401 once roles are configured, and serve the owner | New |
 | `admin/voyage-packs/README.md`, `privacy.html`, `.claude/skills/analytics-tracking/SKILL.md`, `admin/W12-PRODUCT-LAUNCH-CHECKLIST.md` | Documentation of the new lifecycle step ("register the pack, instrument the pack") and the amended privacy wording | Modify |
 
 ---
@@ -157,8 +172,8 @@ Every chart mirrors into a visually-hidden table (the drink-calculator `#chart-s
 
 | Phase | Tasks | Needs a decision? | Delivers |
 |---|---|---|---|
-| **A — Foundation** | 1, 2, 6, 7, 9 | D4 only (an API key) | Registry, tracker module, snapshot pipeline, CLI. Dashboard-ready data even before any new events: landing + pack-HTML pageviews by path already exist in Umami today. |
-| **B — Site surfaces** | 3, 4, 8, 10 | No | Buy clicks, print/PDF/handoff events on the HTML renders, the dashboard, docs. |
+| **A — Foundation** | 1, 2, 6, 7, 9 | D4 only (an API key, installed on the Atlas node) | Registry (InTheWake), tracker module (InTheWake), snapshot job + launchd plist (open-claw-stuff). Dashboard-ready data even before any new events: landing + pack-HTML pageviews by path already exist in Umami today. |
+| **B — Site surfaces + dashboard** | 3, 4, 8, 10 | No | Buy clicks, print/PDF/handoff events on the HTML renders (InTheWake); the owner-only dashboard on Atlas (open-claw-stuff); docs. |
 | **C — PWA companions** | 5b then 5 | **D1** (a setting, not a wording change) | At-sea usage counts, installs, feature combinations per sitting, before/during/after, by voyage day — with nothing about any person created anywhere. |
 | **D — Sales seam** | 11 | D5 (paywall platform) | Purchase counts beside usage. |
 
@@ -477,11 +492,11 @@ Tests for `scrub`: unknown event → `null`; unknown keys dropped; a body with `
 
 **Why a relay and not "just don't look at the city column":** Umami stores what it derives at ingest. A policy not to *display* geography leaves the data sitting in a third party's database; the relay means it was never created. The promise is kept by construction, which is the only way a promise to strangers should be kept.
 
-### Task 6: The snapshot script
+### Task 6: The snapshot job (open-claw-stuff, runs on the Atlas node)
 
-**Files:** Create `admin/scripts/voyage-usage-snapshot.mjs`; Test `tests/unit/voyage-usage/snapshot.test.mjs`.
+**Files:** Create `atlas/server/voyage-usage-snapshot.mjs`; Test `atlas/tests/voyage-usage-snapshot.test.mjs`.
 
-Reads `packs.json`, calls the Umami API with `UMAMI_API_KEY`, writes `admin/voyage-packs/usage/snapshot.json` and appends one line to `usage/history.ndjson`. Exit codes follow the household three-state rule: 0 wrote a complete snapshot; 3 wrote a snapshot with one or more metrics marked `unavailable`; 2 could not write at all (no key, auth refused, registry unreadable). **A metric that could not be fetched is written as `null` with a reason, never as 0.**
+Invoked as `ATLAS_DATA=~/atlas-data UMAMI_API_KEY=… node atlas/server/voyage-usage-snapshot.mjs`, the same shape as the storm archiver `atlas/server/snapshot.mjs`. It fetches the pack registry from the live site (`https://cruisinginthewake.com/admin/voyage-packs/packs.json`; override with `ITW_PACKS_URL` or a local path in `ITW_PACKS_FILE` for tests and for the at-sea node), calls the Umami API, writes `$ATLAS_DATA/voyage-usage/snapshot.json` atomically (write `.tmp`, rename) and appends one line to `$ATLAS_DATA/voyage-usage/history.ndjson`. Exit codes follow the household three-state rule: 0 wrote a complete snapshot; 3 wrote a snapshot with one or more metrics marked `unavailable`; 2 could not write at all (no key, auth refused, registry unreachable). **A metric that could not be fetched is written as `null` with a reason, never as 0.** The key is read from the environment only; the script refuses to start if `UMAMI_API_KEY` looks like a path or a placeholder, and never logs it.
 
 Calls per run, for each window (30d / 90d / 365d): one `/stats` filtered to the landing path; one `/metrics?type=path` (prefix-matched client-side to the pack HTML and PWA paths); one `/metrics?type=event`; one `/event-data/values?event=<e>&propertyName=pack` per event name (8); one `/events/series?unit=week` for the sparkline. That is about 12 calls per window, 36 per run — under the 50-per-15-second limit, but the client still sleeps 350 ms between calls and honors a 429 with one backoff-and-retry, then marks that metric unavailable.
 
@@ -516,52 +531,75 @@ export async function buildSnapshot({ packs, api, now = Date.now() }) {
 
 Tests: aggregation from fixtures; `null` beats 0; 429 → one retry then `unavailable`; missing key → exit 2; provenance counts calls. Commit `feat(voyage-usage): Umami → snapshot builder (3-state, null-never-zero)`.
 
-### Task 7: The scheduled workflow
+### Task 7: The cadence job (launchd on the Atlas node; nothing in GitHub)
 
-**Files:** Create `.github/workflows/voyage-usage-snapshot.yml`.
+**Files:** Create `atlas/deploy/com.atlas.voyage-usage-snapshot.plist.example`; Modify `docs/SERVICE-RESTART-REGISTRY.md` (one row).
 
-```yaml
-name: Voyage pack usage snapshot
-on:
-  schedule: [{ cron: '17 9 * * 1' }]   # Mondays 09:17 UTC — off the :00 crowd
-  workflow_dispatch: {}
-permissions: { contents: write }
-jobs:
-  snapshot:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4 (pinned like static.yml)
-      - uses: actions/setup-node@<pinned sha>
-        with: { node-version: 22 }
-      - name: Build snapshot
-        env: { UMAMI_API_KEY: ${{ secrets.UMAMI_API_KEY }} }
-        run: node admin/scripts/voyage-usage-snapshot.mjs || test $? -eq 3
-      - name: Commit snapshot
-        run: |
-          git config user.name "voyage-usage-bot"
-          git config user.email "noreply@cruisinginthewake.com"
-          git add admin/voyage-packs/usage/snapshot.json admin/voyage-packs/usage/history.ndjson
-          git diff --cached --quiet || git commit -m "chore(voyage-usage): weekly snapshot [skip ci] [no-reasoning]"
-          git push
+Modeled line for line on `atlas/deploy/com.atlas.adventures-poll.plist.example`:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Voyage-pack usage snapshot. Pulls aggregate counts from the Umami API into $ATLAS_DATA/voyage-usage/
+     for the owner-only /admin/voyage-usage dashboard. Copy → fill PLACEHOLDERS → install per atlas README.
+     The real plist holds UMAMI_API_KEY — keep it OUT of git, installed in ~/Library/LaunchAgents on the
+     node that runs Atlas. Soli Deo Gloria. -->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.atlas.voyage-usage-snapshot</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/path/to/node</string>
+    <string>/path/to/open-claw-stuff/atlas/server/voyage-usage-snapshot.mjs</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>ATLAS_DATA</key><string>/Users/YOUR_USER/atlas-data</string>
+    <key>UMAMI_API_KEY</key><string>FROM_KEYCHAIN_OR_FILE</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <dict><key>Hour</key><integer>5</integer><key>Minute</key><integer>17</integer></dict>
+  <key>RunAtLoad</key><true/>
+  <key>StandardOutPath</key><string>/Users/YOUR_USER/Library/Logs/openclaw/atlas-voyage-usage.log</string>
+  <key>StandardErrorPath</key><string>/Users/YOUR_USER/Library/Logs/openclaw/atlas-voyage-usage.err</string>
+</dict>
+</plist>
 ```
 
-Exit 3 (partial) still commits — a partial snapshot with named gaps is more honest than last week's complete one presented as current. Exit 2 fails the job loudly and commits nothing. Ken adds the `UMAMI_API_KEY` secret (D4) before the first run; the first run is manual via `workflow_dispatch`. Confirm the repo's pre-commit `.githooks` chain does not run in Actions (it does not: `core.hooksPath` is per-clone), so the bot commit needs `[no-reasoning]` only for the reasoning-log guard's sake on local replays.
+Daily at 05:17 local, off the :00 crowd; `RunAtLoad` gives a first snapshot the moment it is installed. Exit 3 (partial) still writes, with the gaps named in `provenance`; exit 2 writes nothing and leaves last time's file in place, and the dashboard shows that file's own `generated_at`, so a stale snapshot is visible as stale rather than mistaken for current. Install: `launchctl bootstrap "gui/$(id -u)" ~/Library/LaunchAgents/com.atlas.voyage-usage-snapshot.plist`; check with `launchctl print` per the restart registry. Ken generates the Umami API key (D4) and puts it in the installed plist; it exists nowhere else.
 
-### Task 8: The dashboard
+Whether the job should also run on the at-sea node (`m4max`) is Ken's call; the honest default is **no**, because a node with no internet cannot reach Umami and would only write `unavailable` snapshots over a good one. The dashboard reads whatever file the node it is served from holds.
 
-**Files:** Create `admin/voyage-packs/usage/index.html`, `dashboard.js`, `dashboard.css`; Test `tests/playwright/voyage-usage-dashboard.spec.js` + `tests/unit/voyage-usage/status.test.mjs`.
+### Task 8: The dashboard (open-claw-stuff, served by Atlas, owner-only)
 
-Load the `dataviz` skill first. Rules carried from the drink calculator: no libraries; all rendering through `textContent` / `createElement` (snapshot values are untrusted strings — a pack slug is data); every SVG sparkline has `role="img"`, `aria-label`, and a mirrored `<table>` in `.sr-only`; `<th scope="col">`; skip link; `prefers-reduced-motion` and `prefers-contrast` blocks; live region for the window toggle. Invocation comment and SDG footer as on every page. `<meta name="robots" content="noindex">` — public is not the same as promoted.
+**Files:** Create `helm/admin/voyage-usage.html`, `helm/admin/voyage-usage.mjs`; Modify `atlas/server/server.mjs` (two routes beside `/admin/benchmark`); Test `atlas/tests/voyage-usage-route.test.mjs` + a fixture-driven render test for the module.
 
-The page fetches `./snapshot.json` (same directory) and renders §4's sections. The `unused` list and the `unavailable` list are separate, and the coverage panel is drawn from `packs.json`'s `instrumented` flags so a zero on an uninstrumented surface is labelled `no-instrument`, never `0`.
+Routes, in the buffered `_handle` branch next to the existing `/admin/benchmark` lines:
 
-Playwright spec serves a fixture snapshot, asserts the floor sentence sits beside the `<h1>`, the per-pack table has one row per fixture pack, a pack with `status: unused` appears in the zero-list, a `null` metric renders as "unavailable" (not "0"), and every `svg[role=img]` has a sibling table. Commit `feat(voyage-usage): dashboard page (static, accessible, floor-labelled)`.
+```js
+// Voyage-pack usage dashboard (owner-only: /admin is in OWNER_ONLY_PREFIXES; the central gate above
+// has already refused everyone else). Data is whatever the snapshot job last wrote under dataDir.
+if (path === "/admin/voyage-usage" || path === "/admin/voyage-usage/")
+  return html(await readFile(join(import.meta.dirname, "..", "..", "helm", "admin", "voyage-usage.html")));
+if (path === "/admin/voyage-usage/snapshot.json") {
+  try {
+    const body = await readFile(join(dataDir, "voyage-usage", "snapshot.json"), "utf8");
+    return { status: 200, type: "application/json", body, headers: { ...NO_STORE } };
+  } catch {
+    return json({ state: "unavailable", reason: "no snapshot on this node yet" }, 503);
+  }
+}
+```
+
+The page follows `helm/admin/benchmark.html`: strict per-page CSP (`default-src 'self'`, no inline script, `connect-src 'self'`), `helm/helm.css`, the module loaded from `/helm/admin/voyage-usage.mjs`, which the existing `/helm/` static branch serves and the gate already restricts to the owner. Fetch with `credentials: "same-origin"` so the `atlas_token` cookie rides along, as `helm/world-state-panel.mjs` does. Load the `dataviz` skill before writing the module. Rules carried from the drink calculator: no libraries; all rendering through `textContent` / `createElement` (snapshot values are untrusted strings; a pack slug is data); every SVG sparkline has `role="img"`, `aria-label`, and a mirrored `<table>` in `.sr-only`; `<th scope="col">`; `prefers-reduced-motion` and `prefers-contrast` honored; live region for the window toggle. Invocation comment and SDG line as on every page.
+
+The module renders §4's sections. The `unused` list and the `unavailable` list are separate, the coverage panel is drawn from the registry's `instrumented` flags (carried inside the snapshot) so a zero on an uninstrumented surface is labelled `no-instrument`, never `0`, and a 503 from the JSON route renders as one honest sentence ("no snapshot on this node yet") rather than an empty dashboard.
+
+Tests: the route test builds the server with a configured role registry and asserts `/admin/voyage-usage` and its JSON return 401 with no token, 403 with the family token, 200 with the owner token, and 503 with a well-formed body when the data file is absent. The render test feeds a fixture snapshot to the module in a DOM stub and asserts the floor sentence sits beside the `<h1>`, one row per pack, an `unused` pack in the zero-list, a `null` metric rendered as "unavailable" (not "0"), and a sibling table for every `svg[role=img]`. Commit in open-claw-stuff: `feat(atlas): owner-only voyage-pack usage dashboard at /admin/voyage-usage`.
 
 ### Task 9: CLI report
 
-**Files:** Create `admin/scripts/voyage-usage-report.mjs`.
-
-`node admin/scripts/voyage-usage-report.mjs --since 30d` — reuses `buildSnapshot` and prints the per-pack table to the terminal. For the day Ken wants a number and does not want to wait for Monday. Same key, same three exit states. No test beyond a smoke run in Task 6's suite (`--help` exits 0).
+No new file: `node atlas/server/voyage-usage-snapshot.mjs --print [--window 30d|90d|365d]` reuses Task 6's `buildSnapshot` and prints the per-pack table to the terminal instead of writing, for the day Ken wants a number on the Atlas node without opening a browser. Same key, same three exit states. Smoke-tested in Task 6's suite (`--help` exits 0; `--print` against a fixture API prints one row per pack).
 
 ### Task 10: Documentation and the privacy page
 
@@ -581,7 +619,8 @@ When `itw-voyage-packs-paywall-platform` lands, the processor's webhook (memory 
 
 - `node --test tests/unit/voyage-usage/*.test.mjs` green, output pasted into the reasoning log.
 - `node admin/scripts/check-voyage-registry.mjs` → `CLEAN`.
-- `npx playwright test voyage-usage-dashboard.spec.js --workers=1` green.
+- In open-claw-stuff: `cd atlas && node --test "tests/voyage-usage-*.test.mjs"` green, including the 401 / 403 / 200 / 503 route matrix.
+- On the Atlas node after install: `launchctl print "gui/$(id -u)/com.atlas.voyage-usage-snapshot"` shows a last exit of 0 or 3, `$ATLAS_DATA/voyage-usage/snapshot.json` exists, and `curl -s -o /dev/null -w '%{http_code}' http://<tailnet-ip>:<port>/admin/voyage-usage` returns 401 without the token and 200 with it. Record the observation, not the expectation.
 - Manual: open a PWA in a fresh profile with the network throttled to Offline in devtools, tap two tabs, go online, confirm in Umami's realtime view that exactly the queued events arrive with **only** whitelisted properties. Record the observation, not the expectation.
 - Self-attack the three stated claims: *nothing personal leaves the device* (Task 2 probe), *null never renders as zero* (Task 8 fixture), *a partial snapshot is labelled partial* (Task 6 fixture with one failing endpoint).
 - `accessibility-audit` skill on the dashboard page; WCAG 2.1 AA is a promise, not a checkbox.
@@ -589,7 +628,8 @@ When `itw-voyage-packs-paywall-platform` lands, the processor's webhook (memory 
 ## 9. Honest limits (what this plan does not establish)
 
 - It measures **floors**. Ad-blockers, DNT users, saved PDFs, and cleared browsers all subtract, and the subtraction is unmeasured.
-- It does not measure **purchases** until D5, and it will never measure revenue on a public page.
+- It does not measure **purchases** until D5. When it does, the numbers sit on the same owner-only Atlas page, never on the public site.
+- The dashboard is only as available as Atlas: off the tailnet, or with Atlas down, there is no view. Collection continues regardless, and the next snapshot backfills.
 - It does not measure the **family** weather page or the Maulsby-hosted packs whose only deliverable lives on maulsbytravel.com.
 - It cannot tell *why* a pack is unused — only that it is. The "quiet / unused" labels are prompts for a conversation with Tina, not verdicts.
 - Under Setting 1 it counts **opens and sittings, never people**. "41 opens during the sailing" is honest; "N travelers" is not available and the dashboard must not imply it.

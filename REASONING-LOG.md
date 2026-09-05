@@ -4,6 +4,26 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-05 - D2 decided: the usage dashboard lives on Atlas, tailnet-only, behind the owner token
+
+**Asked.** "The dashboard should be only served by atlas/crane/helm. Only to those on the tailnet, and to those who have the token."
+
+**Weighed.**
+
+*Read the code before drawing the box.* I did not want to write "put it behind the token" and leave the mechanism to whoever builds it, so I read how Atlas actually does this. Three things turned out to be already true, which made the design mostly a matter of placement. The bind script refuses to start without a Tailscale address, so the process is unreachable off the tailnet by construction. The central access gate makes every path under `/admin` and `/helm` owner-only even to read, fails closed on a missing or unknown token once role secrets are configured, and audits every decision. And the off-git data directory and the launchd cadence-job pattern (the adventures poller keeps its secret in an installed plist that never touches git) are exactly the shape the snapshot job needs.
+
+*So the whole public half of the earlier plan is gone.* No GitHub Action, no committed snapshot, no page under the public repo's `admin/`, no `noindex` fig leaf. The dashboard is a page under Atlas's `/admin/voyage-usage`, which the existing policy table already restricts without a single change to the policy; the data is a file under `$ATLAS_DATA`; the Umami key is an environment variable in a plist on the Atlas node and nowhere else. The only thing that stays in InTheWake is the pack registry, which holds nothing a visitor cannot already see, and Atlas reads it from the live site.
+
+*One nuance I would rather surface than bury.* Atlas also supports tailnet-identity single sign-on: a mapped Tailscale identity resolves to a role without presenting a token. If "those who have the token" means the token is required even on the tailnet, that is a small explicit check on the two new routes, and I have written it into the plan as a one-line option rather than silently choosing either way. The default follows the posture every other owner surface on Atlas already has.
+
+*The relay does not move.* Phones at sea need a public HTTPS endpoint to flush their queues to, and Atlas is deliberately not public. So the geo-blind relay stays a Cloudflare Worker, Umami stays the store, and Atlas is only ever a reader of aggregates. Nothing about the promise changes.
+
+**Decided.** Plan revised: D2 marked decided, a new §4.1 that maps each of Ken's three conditions (Atlas-served, tailnet-only, token-holders only) to the mechanism in the code that enforces it, Tasks 6 through 9 moved into open-claw-stuff (snapshot job modeled on the storm archiver, launchd plist modeled on the adventures poller, dashboard page under the owner-only helm tree with two additive routes), a route test that asserts the 401 / 403 / 200 / 503 matrix, and the verification section extended with what to observe on the node after install.
+
+**Unsure.** Whether the snapshot job should also run on the at-sea node. The plan says no, because that node has no internet and would only overwrite a good snapshot with an unavailable one; but if Ken wants to read the dashboard aboard, the answer is to copy the file across before sailing, and that is a manual step worth naming.
+
+**Honest limit.** I read the gate and the bind; I did not run Atlas. The 401 / 403 / 200 matrix in the plan is what the policy table says will happen, and the route test exists to make it what does happen.
+
 ## 2026-09-05 - Voyage Packs landing page: feature cards with wayfinding CTAs, and an install guide for the companion
 
 **Asked.** Evaluate the landing page, build cards with a CTA and explanation for each feature of a pack, plus popups that show people how to install the companion on their phone.
