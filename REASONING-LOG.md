@@ -4,6 +4,33 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-05 - Full voice-skill pass on the seven new articles; it caught a sourcing violation the first audit missed
+
+**Asked.** "Run all of our voice skills against these new articles."
+
+**Weighed.**
+
+*My first pass was not the skill.* Before publishing I ran what I described as a voice audit and wrote an attestation into all seven sidecars. Reading `voice-audit` v2.3.0 properly this time, that pass covered maybe a third of Axis 1 and some cadence measurement. It never ran the announcement-before-move scan, the assumed-familiarity scan, the both-sides reflex, the lack-of-conviction greps, the outline-conclusion check, image density, or the AI-Authorship Cluster Detection framework at all — and the attestation I wrote was not schema-conformant, because it carried no `must_be_present`, no `cluster_detection` and no `risk_rating`. Those three fields are the ones the Anthem June 2026 failure exists to force. I marked the old block `supersedes` rather than silently overwriting it.
+
+*The finding that justifies the whole exercise.* Cluster detection Layer 1 looks for broad authority claims with no specifics. The single-supplement article closed with: *"Purpose-built solo cabins barely existed fifteen years ago and now run to the high hundreds across one line's fleet alone."* I never fetched a solo-cabin count or any history of the category. Worse, that sentence directly contradicts the article's own factcheck sidecar, which I had written hours earlier and which says in plain words: *"NO claim about the number of solo cabins on any ship or in any fleet."* The article and its own evidence record disagreed, and nothing caught it — not the validator, not my first audit, not the commit hooks, not the merge. A structural framework I had not run is what caught it. The closing now keeps only what NCL's page supports and says the count is not knowable from here.
+
+*A second, milder version of the same fault.* The muster article asserted international maritime regulation as flat fact while its sidecar recorded that no regulatory text was ever fetched. Same shape: body more confident than evidence. The body now states that limit where the reader can see it and warns against quoting a citation from the page.
+
+*The absence that the presence scan cannot see.* Three articles — CDC scores, missed ship, muster — had **zero** first-person presence of any kind. Not weak attestation; none. That is precisely the Anthem pattern: fact-correct, marketing-free, machine-tell-free, and read as AI by a reader within hours because the human signals never clustered. The skill offers a colophon-disclosure escape and these pages qualify for it, but the better fix was available and true: each had a real research event worth reporting. So the CDC page now says I went to CDC's own pages rather than take the failing threshold from a summary; the missed-ship page warns that searching this question returns a Royal Caribbean page about *cancellations* and that I nearly quoted it; the muster page states what it could not verify. **I did not manufacture lived experience.** Every added sentence reports something that actually happened, and six of these seven pages remain sourced research rather than reporting from aboard — the sidecars now say so per page instead of leaving it to be inferred.
+
+*Where I flagged my own instruments rather than the articles.* Two proofreader hits were my error. The double-space-after-period flags were an artifact of my replacing HTML tags with spaces before scanning; the raw markup has zero. And the short-sentence counter under-counts, because it splits on `[.!?]` plus whitespace and so merges any short sentence following a closing quote — which is why it reported the single-supplement article as cadence-thin when "Two hundred percent." is sitting right there. Both limits are recorded in the sidecars rather than left to mislead the next reader.
+
+*A skill that disagrees with the corpus.* `publication-proofreader` v1.0.0 requires curly quotes and curly apostrophes. The site has never used them: four published articles carry zero curly quotes between them and two to thirty-eight straight apostrophes each. I matched the corpus and did not churn seven pages into a convention the other sixty-five do not follow. That contradiction is yours to settle, not mine to resolve by fiat in either direction.
+
+**Decided.** Eleven corrections across five articles: one sourcing violation removed, one unverified claim softened, three authorial paragraphs added where there was a true thing to report, six word-level fixes (copulative avoidance, promotional verbs, intensifier padding, one unsourced generalisation about readers), and `target="_blank"` added to five external source links to match corpus convention. Sidecars rewritten to the skill's actual schema, with per-article cluster verdicts, risk ratings, the corrections, the false positives, and my instruments' own limits. All seven: **0 Layer 1 signals, verdict likely_human, risk Low.** Validator 7/7 PASS.
+
+**Unsure.** Whether adding a research-process paragraph to three articles is the right instrument or a tic. It is honest and it is the site's established voice, but if every article explains how it was researched, the explaining becomes the house style rather than the reporting. Three out of seven feels near the ceiling. If you read them and it grates, say so and I will pull them back to the colophon escape, which the skill explicitly permits.
+
+Also unsure how much of the batch's cross-page sameness matters. Two pages carry a "The short version" header and two carry a near-identical "One thing worth being clear about" / "One thing worth saying plainly". Per page that is fine; published the same afternoon it is visible. I did not rewrite them, because varying a header to defeat a pattern is a cosmetic answer to a real question about whether seven pieces should ship together at all.
+
+**Honest limit.** The scan measures tells, variance and clustering. It cannot tell you whether the prose reads as a person to a person. On six of these seven pages it does not even claim to — they are sourced research and now say so on their own faces.
+
+
 ## 2026-09-05 - "Write them all": seven new articles, one wrong premise corrected
 
 **Asked.** "Propose a new batch of articles" then "Write them all" — seven pieces (A-G) proposed and approved in one breath.
