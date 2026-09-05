@@ -2,6 +2,41 @@
 
 # Reasoning Log
 
+## 2026-09-05 - Voyage Packs go free with a tip jar (yumi)
+
+**Asked.** Ken: "I have a buy me a coffee. Maybe for now they are available free, with a tip
+suggestion." Then: proceed as I see fit until all voyage pack tasks are complete.
+
+**Weighed.** First finding: Buy Me a Coffee was ALREADY the platform. All four sold packs linked
+`buymeacoffee.com/inthewake/extras/...`, so the open P2 "pick a platform (Gumroad vs LemonSqueezy
+vs Stripe)" was stale on its own question. What Ken actually decided was the pricing MODEL.
+
+Second finding, and the reason this was not a find-and-replace: the newly merged Icon card linked
+the BMC **root**, not a product page, so its purchase path was already broken. Free plus tip fixes
+that rather than papering over it.
+
+Third: the five sold packs had no public file. Ten other packs were already served under `ships/`
+but linked only from hosted-group pages, so "free" was never a public tier. Making the five free
+meant actually publishing their PDFs, not just editing copy.
+
+**Decided.** Published the five PDFs to the existing served convention (`ships/<line>/<file>.pdf`)
+and converted every card from a buy button to a direct download plus an optional tip link. Rewrote
+the surfaces that asserted a price: the masthead comment, the ai-summary that feeds AI answer
+engines, the meta/og/twitter descriptions, the JSON-LD description, the lead, the "before you buy"
+section, and the FAQ.
+
+**Kept paid, deliberately:** the custom-pack tier at $49 to $79. That is bespoke commissioned work
+with a 2 to 4 week lead time. Ken said the packs are free; he did not say commissioned labor is
+free, and quietly zeroing a service price would be a business decision I was not given. The refund
+policy is therefore rescoped to custom packs rather than deleted, because it still applies there.
+
+**Unsure.** Three finished packs exist that are neither sold nor listed: RCL Anthem Alaska,
+MAS Islander, MSC World America Family. Publishing them is now nearly free of cost, but
+`PACK-PRESHIP-REVIEW-CHECKLIST.md` exists, which implies packs are gated on review before shipping.
+I did not ship unreviewed work. Ken's call. I also did not verify the served PDFs render correctly
+after copy; they are byte copies of files already treated as shippable.
+
+
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
 ## 2026-09-05 - Full voice-skill pass on the seven new articles; it caught a sourcing violation the first audit missed
