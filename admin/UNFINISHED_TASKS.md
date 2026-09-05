@@ -863,3 +863,18 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-09-04T15:09:51.428Z -->
 | indexnow-coverage-gap-posttooluse-hook-only-matches-edit-write-s | 2 | IndexNow coverage gap: PostToolUse hook only matches Edit|Write, so pages changed via Bash/sed/python (or by any other runtime) are never submitted — durable fix is a git post-commit/pre-push submitter driven by the diff, since git sees every edit path regardless of tool |
+
+<!-- library register 2026-09-05T04:11:34.443Z -->
+| article-the-last-night-on-a-cruise-folio-close-luggage-tags-dise | 1 | Article: the last night on a cruise — folio close, luggage tags, disembarkation timeline (companion to the embarkation-day guide) |
+
+<!-- library register 2026-09-05T04:11:34.897Z -->
+| article-when-your-cabin-isn-t-clean-document-report-escalate-and | 1 | Article: when your cabin isn't clean — document, report, escalate, and what a reasonable fix looks like |
+
+<!-- library register 2026-09-05T04:11:35.342Z -->
+| article-pool-and-hot-tub-lifts-the-accessibility-accommodation-t | 1 | Article: pool and hot tub lifts — the accessibility accommodation that exists but is rarely deployed (needs line policy + ADA sourcing) |
+
+<!-- library register 2026-09-05T04:11:36.041Z -->
+| article-wave-season-honestly-which-cruise-discounts-are-real-wav | 1 | Article: wave season honestly — which cruise discounts are real (WAVE-TIMED: publish before January) |
+
+<!-- library register 2026-09-05T04:11:36.475Z -->
+| article-how-to-escalate-a-complaint-on-a-cruise-ship-the-chain-o | 1 | Article: how to escalate a complaint on a cruise ship — the chain of command and what 'noted in the report' means |

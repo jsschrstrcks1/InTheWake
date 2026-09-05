@@ -184,6 +184,57 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-09-05 — Six new articles, written and published (syl)
+
+**Asked.** Ken: "write it / all of them" — the six-article slate planned the same day.
+
+**Weighed.** Built a generator from an existing article's head/header/tail rather than
+hand-copying scaffolding six times, so every new page is structurally identical to the
+corpus and cannot drift on schema, analytics or nav. Each article then got its own body,
+sidecar and cross-links.
+
+The real work was sourcing discipline, and the six split cleanly into two kinds.
+
+THREE are experience-and-procedure pieces (last night, dirty cabin, escalation). Their
+anchors are all already-published logbook facts, and their advice is presented as OUR
+recommended practice, never as any line's policy. Each sidecar carries an explicit
+not-claimed list: no line-specific deadlines, compensation schedules, response guarantees
+or complaint procedures, because those vary and were not verified per-line.
+
+THREE needed external sources, and I fetched rather than recalled:
+
+- Cash accounts: NCL's own onboard-expenses FAQ, quoted verbatim, including the sentence
+  that explains the whole incident — "Once you have exceeded the deposited amount, your
+  account will be closed to further charges." The lived $2.75 failure turns out to be
+  published policy operating exactly as written. Ken's beverage-package-stripped-first
+  observation is printed as a ONE-SAILING OBSERVATION with an explicit statement that no
+  precedence policy was found, and an invitation to be corrected.
+- Pool lifts: fetched ADA.gov specifically to check SCOPE, and the check changed the
+  article. The land rule is unambiguous (lift stays deployed; store-and-retrieve is not
+  permitted) — and the document does not mention cruise ships at all. So the piece states
+  plainly that it will NOT claim an enforceable shipboard right, names the maritime
+  question as unresolved, and rests on observation plus questions to ask. That is a
+  weaker claim and a much better article.
+- Wave season: the honest resolution of a topic whose obvious claims are unverifiable
+  without price data we do not have. The piece defines the window from sources, names
+  that nearly all wave-season content is published by parties who earn on booking, gives
+  an evaluation METHOD (all-in cost per night), and states in its own text that we have
+  not tracked fares and will not assert what we have not measured.
+
+**Decided.** Six articles built, sidecars written, six index entries added, cross-links
+verified to resolve, corpus 58/58 PASS. All six were registered in the HLS before writing.
+
+**Unsure.** The wave-season piece deliberately withholds the answer most readers arrive
+wanting ("is now cheap?"). I judged an honest method more valuable than a confident
+guess, but it is a real editorial trade and Ken may want the measurement commissioned so
+a future version can answer it outright.
+
+**Honest limit.** The pool-lift piece rests on one ship, one week, one deck, plus prior
+sailings on one line — stated as such in the body, not buried in a sidecar. It invites
+documented correction and promises attribution.
+
+---
+
 ## 2026-09-03 — Day 4: the island answers, and the last night goes wrong (syl)
 
 **Asked.** Ken: "write day 4." The last full day (Thursday Aug 27), briefed across
