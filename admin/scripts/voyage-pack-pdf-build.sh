@@ -83,7 +83,7 @@ LONG_FORM_PACKS=(
   "v0.1.17-hal-volendam-world-cruise-2028|"
   "v0.1.17-icon-eastern-caribbean-7n|"
   "v0.1.18-ncl-getaway-bahamas-aug-2026|ships/norwegian/v0.1.18-ncl-getaway-bahamas-aug-2026.pdf"
-  "v0.1.19-msc-world-america-family-dec-2026|"
+  "v0.1.19-msc-world-america-family-dec-2026|ships/msc/v0.1.19-msc-world-america-family-dec-2026.pdf"
 )
 
 # Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.

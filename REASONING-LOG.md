@@ -2,6 +2,46 @@
 
 # Reasoning Log
 
+## 2026-09-05 - Genericized the family pack, and gave it a served build target (yumi)
+
+**Asked.** Ken: "genericize the framing", after I stopped on the MSC World America pack because its
+byline read *"Built for our own family's December cruise"* and it named the exact ship and dates.
+
+**Weighed.** I did not want to over-edit. A broad grep for first-person framing returned 20 hits,
+but nearly all were `our` matching inside `your`; re-running with word boundaries left only "US"
+(United States) and a photo caption reading "WE (heart) OCEAN CAY". Exactly **two** lines were
+genuinely personal:
+
+- the cover byline, *"Built for our own family's December cruise"*
+- the fact table, `| **Audience** | Our family |`
+
+Everything else is second-person ("your kids", "your family"), which is correct for a family pack and
+would have been wrong to strip. "A family sailing" on the cover is descriptive, not personal, so it
+stays.
+
+**Decided.** Byline becomes "Written for families sailing this itinerary"; audience becomes "Families
+with children", matching the convention the other packs already use ("Solo travelers (hosted group)",
+"First-time Alaska cruisers from any background").
+
+**One thing I fixed that was not asked for, because publishing without it would rot.** The build
+script carried this pack with an EMPTY output override, meaning it only ever wrote to `admin/`. Every
+other published pack has a served path. Left alone, the next edit to this pack would have updated the
+markdown and silently left the public PDF stale, which is exactly the failure I hand-repaired for the
+Escape pack earlier today. Gave it `ships/msc/` so the build keeps them in step mechanically. That
+matters more than usual right now because the pre-commit hook that is supposed to catch this class
+fails open on macOS (P0 #2592).
+
+Verified in the artifact rather than the source: the rebuilt 18MB served PDF contains "Written for
+families sailing this itinerary" once and "our own family" zero times, and the audience row reads
+"Families with children".
+
+**Unsure.** The sailing is still named, December 5 to 12 2026, because that is what makes an itinerary
+pack useful. Genericizing the framing removes the statement that it is Ken's family's cruise; it does
+not and cannot hide that a pack exists for that sailing. If the concern was the sailing being
+identifiable at all rather than the ownership being stated, this does not solve it and he should say
+so.
+
+
 ## 2026-09-05 - The custom-pack page, and reversing my own "keep it paid" call (yumi)
 
 **Asked.** Ken, answering a direct question about what a "sales" page should be: *"custom pack sales
