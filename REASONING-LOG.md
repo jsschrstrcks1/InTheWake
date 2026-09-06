@@ -2,6 +2,28 @@
 
 # Reasoning Log
 
+## 2026-09-06 - Escape pre-ship pass: the pack sent readers to a lounge the ship does not have
+
+**Asked.** The proceed loop's next item after Encore: the Norwegian Escape Thanksgiving pack (sails 2026-11-20), the second-closest unlisted sailing.
+
+**Weighed.**
+
+*The finding that mattered.* The pack named an Observation Lounge ten times: the Day 1 sailaway gathering, sunrise coffee on both sea days, the solo section, the passage about the five o'clock hour on Thanksgiving. It also listed The Local and O'Sheehan's as two separate included venues and suggested Onda for a walk-up lunch. I suspected the forward Observation Lounge arrived with the younger sisters and read NCL's Escape deck plans to check: no Observation Lounge, no The Local, no Onda. O'Sheehan's is on Deck 7, the Garden Café on Deck 16 (the pack said 15), Spice H2O on 17, The Waterfront on 8. Every one of those passages now points at a venue the reader can find. The June factual sidecar never had a row for venues, which is exactly the "what nobody thought to check" gap the checklist exists for. The site's own ship page carries the same three names; that is registered as a follow-up, not fixed inside a pack pass.
+
+*Great Stirrup Cay.* The pack treated the cay as a tender call throughout. The Prima pass established from NCL's press materials that the multi-ship pier completed in late 2025 and the Welcome Plaza sits at it, so the Escape pack now says the same, with the honest caveat that weather can still close the pier and put tenders on.
+
+*Numbers changed, and why.* The Prima and Encore passes changed no number. This one changed six, all of them the pack disagreeing with itself: the drinks-package row said $760+ for a sum the row itself defines as $763 plus 20 percent; Magens Bay taxi was $12 in one place and $17 in another; Cane Garden Bay was $30 round trip in the budget and $20 to $30 each way in the port section, so the Tortola budget row and the mid-range total moved with it. None of those is a fresh fact from a source; each is the pack's own arithmetic made consistent, and the sidecar says which.
+
+*Room service.* "Room service is included with your fare" is the class of error that misleads a reader about money; NCL charges a convenience fee on most orders. Reworded to say so and to send the reader to the app.
+
+*The rest.* Both port pages the pack said did not exist do exist (Amber Cove and Great Stirrup Cay), now linked. The hurricane peak was placed in mid-October; it is September and early October. "Four port days plus one private-island day" counted the cay twice. The PTO arithmetic forgot that debark Friday is a workday. Superlatives about the busiest port, the most-photographed beach and the calmest week are hedged or cut. Two fresh verifications went into the sidecar with today's date: the 82 studio cabins (Wikipedia) and the venue list (deck plans).
+
+**Decided.** 60 edits, PDF rebuilt (41 pages), sidecar stamped 2026-09-06 with two new verified rows and the note, registry flags flipped, landing card between Encore and Aqua, custom-pack logbook entry, "eleven sailings." Follow-up registered for the ship page. Unit tests 33 pass, registry CLEAN at 18, companion instrumentation check clean, fact-check gate exit 0, Playwright landing spec 7 of 7.
+
+**Unsure.** Whether Le Bistro serves lunch on this ship at all; the line is hedged to "if it is serving lunch that day." The Tortola taxi fare is unverified in both directions; the pack is now consistent, not confirmed. The Encore, Bliss and Joy packs may carry the mirror error (O'Sheehan's where The Local is right); the follow-up task says to check.
+
+**Honest limit.** The service-charge rate and consular numbers were not re-fetched. The voice audit was not re-run. I did not read the companion PWA end to end; a grep found no wrong venue names in it.
+
 ## 2026-09-06 - Encore pre-ship pass: the tonnage-equals-safety sentence, a sea-day contradiction, and the prophecy bullets
 
 **Asked.** "Proceed" after the board showed the Norwegian Encore pack (sails 2026-10-12) as the closest unlisted sailing. The task row: run the pre-ship checklist, then list the pack.
