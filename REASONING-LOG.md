@@ -4,6 +4,80 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-06 - "by unknown" was a real rendering bug on the homepage, and 13 of the 21 were mine
+
+**Asked.** *"every 'by unknown' should be by me. Ken Baker. remember that!"* — then, when I went to
+the wrong place: *"I meant in the articles bud. we are in the article thread."* — then *"and careful
+not clever demands different behavior too."*
+
+**Weighed.**
+
+*I answered the wrong question first, and the rule against that was already written down.* I read
+"by unknown" as household ledger attribution and spent a turn on attestation fields, provenance
+records and a memory directive. Ken was in the article thread the whole time. CLAUDE.md's concept-
+ledger rule 4 says plainly: *"If the referent of a request is ambiguous — 'this repo', 'that model' —
+ASK before researching. A thorough answer to the wrong question is still the wrong answer."* The
+household paid for that rule on 2026-08-06 and I paid for it again here. The tell was available: we
+were mid-thread on articles, and I had just published fourteen of them.
+
+*The second nudge was the more useful one.* "Careful not clever demands different behavior too" —
+and it does, specifically. The skill has a **worked example for exactly this operation**, "Bulk JSON
+edit": read the file and confirm schema, state the assumption, dry-run or copy first, spot-check two
+or three records, run validation. I was about to go straight to the edit. Layer 2 also auto-activates
+here (a canonical data document, 70 entries), which demands verifying *dynamic* references, not just
+static ones — and that step is what actually found the bug.
+
+*What "by unknown" really was.* Not cosmetic. `assets/data/articles/index.json` had 21 entries whose
+`author` was the flattened **string** `"Ken Baker"` instead of the object form. Six pages —
+`index.html`, `about-us.html`, `accessibility.html`, `cruise-lines.html`, and both drink calculators
+— render `const name = author.name || 'Unknown'`. On a string, `author.name` is `undefined`, so those
+21 articles displayed the literal word **"Unknown"** where Ken's name belongs, on the homepage among
+others. `articles-hub.js` uses a different guard and rendered them with *no* author at all. I proved
+it by executing both shapes rather than reasoning about them, and simulated all 72 entries through
+the real expression: 21 "Unknown" before, 0 after.
+
+**Thirteen of the twenty-one were mine** — both batches I published this session used the flattened
+form, because I copied the shape from a batch-1 entry I had also written. The other eight predate me.
+
+*The image choice was genuinely ambiguous, so I asked instead of picking.* Three portrait paths were
+in play: `authors/img/ken1.jpg?v=3.009.023` (29 entries), `assets/articles/ken1.png` (20 entries,
+including the most recent), and `authors/img/ken1.webp` (what the author page itself uses, and 934
+files site-wide against 7 and 3). Ken chose the webp. That also happens to be the smallest and the
+only one matching the WebP-only rule in `admin/FOM-STORAGE-SPEC.md`, but it was his call to make, not
+mine to infer from file sizes.
+
+*One design detail that would have broken a page if I had guessed.* Six consumers read
+`author.webp || author.image`, but `travel.html` reads `author.image` **only**. Setting a new `webp`
+key and leaving `image` on the old path would have left travel.html pointing at the stale asset. So
+the webp path goes in `image`, which satisfies every consumer. Found by grepping the consumers, not
+by reading the schema.
+
+*Why bare paths and no `?v=`.* The entries I replaced carried `?v=3.009.023` while the site is on
+`3.010.400` — measured evidence that a version string in this particular data file does not get
+maintained and rots. A bare path cannot go stale, and 87 references site-wide already use it.
+
+*Three validator failures are not mine.* `articles.html`, `about-us.html` and `accessibility.html`
+fail with "unknown page type". I checked rather than assuming: the pristine HEAD copies fail
+identically, and `git status` shows I touched only the JSON. It is a validator classification gap,
+worth its own task, out of scope here.
+
+**Decided.** All 70 Ken-authored index entries normalised to
+`{name, url, image: /authors/img/ken1.webp}`. The 2 non-Ken entries (Tina Maulsby, In the Wake
+Editorial Team) verified untouched by diff. Also linked the 3 article bylines that had a bare
+`<span>` with no author-page link — same inconsistency, same directive — so all 65 bylines are now
+byte-identical.
+
+**Reversibility.** Trivial: the pre-change file is kept at `index.BEFORE.json` and the diff proves
+every non-author field is byte-identical.
+
+**Honest limit.** I verified the rendering fix by executing the six pages' actual expression against
+all 72 entries, not by loading the pages in a browser. The logic is proven; the visual result is not
+observed.
+
+**Unsure.** Whether the 8 non-mine flattened entries were deliberate. I normalised them because Ken
+said "make sure they are all like that", but if any of those eight were meant to be attributed
+differently, that intent is now gone and he should tell me.
+
 ## 2026-09-05 - Full voice-skill pass on the seven new articles; it caught a sourcing violation the first audit missed
 
 **Asked.** "Run all of our voice skills against these new articles."
