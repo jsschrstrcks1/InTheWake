@@ -2,6 +2,51 @@
 
 # Reasoning Log
 
+## 2026-09-05 - Re-stamped 16 factcheck sidecars, one of them honestly (yumi)
+
+**Asked.** Proceed as recommended. My recommendation was the wall the repaired gate now puts in
+front of every pack edit: 16 of 18 sidecars stale.
+
+**Weighed.** The cheapest way to clear this is to bump `last_factcheck_date` on all 16 and move on.
+That is exactly the failure the gate exists to catch, and the question careful-not-clever asks of any
+guard is *what is the cheapest way to make this pass*. So I diffed each pack from its sidecar's last
+commit and classified the changes instead.
+
+Thirteen were my own framing note plus the column rename, no factual claim touched. Two were link-only
+conversions, text byte-identical apart from the anchor. **One was not**, and that is the whole point
+of doing this by hand.
+
+`v0.1.13-ncl-gem` gained real claims in July: Magenta became "smaller and cozier than Grand Pacific,
+same included menu", Orchid Garden became "Asian Fusion, complimentary; the adjacent Sushi Bar and
+Sake Bar are a la carte". Those are **cost claims**, the class that misleads a reader about money,
+sitting behind a sidecar dated 2026-07-06 that never saw them.
+
+**Decided.** Verified rather than assumed: both claims match the In the Wake venue pages linked in
+the same commit, `restaurants/ncl/magenta.html` and `restaurants/ncl/orchid-garden.html`, which state
+the same thing in their own ai-summaries. So the pack agrees with the household corpus it cites.
+Re-stamped with a note recording exactly that, and recording its limit: grounding against our own
+sourced pages is not a fresh primary-source check with NCL.
+
+Every note records what changed, on what basis, and that the underlying ship/port/price verification
+still carries its ORIGINAL date. A freshness re-stamp is not a re-verification and must not be
+allowed to read as one.
+
+**A mistake I caught in my own work.** My classifier put v0.1.13 in the "link only, no change to the
+surrounding claims" bucket, because its added lines contained restaurant links and were short. That
+sentence would have been a false statement inside a factcheck record, which is the worst possible
+place for one. I noticed while reading the output, and rewrote that note by hand.
+
+**Verified.** Gate now exits 0, 18 passing, 0 stale. All 16 sidecars parse. Checked every sidecar for
+dropped top-level keys against HEAD: **zero lost**, and the July adversarial-audit notes are intact
+alongside the new ones.
+
+**Unsure.** Fifteen of these are freshness stamps resting on my classification of the diffs, not on
+re-reading each pack end to end. If a factual claim slipped into one of those diffs and I read it as
+formatting, this re-stamp would paper over it. The diffs are small (+1 to +8 lines) and I read each
+one, which is why I believe the classification, but I did not re-verify any pack's underlying facts
+and no note claims otherwise.
+
+
 ## 2026-09-05 - Took P0 #2592: two guards that printed errors and passed anyway (yumi)
 
 **Asked.** Ken: "Take it and do it." He had previously assigned this class to another sibling; no
