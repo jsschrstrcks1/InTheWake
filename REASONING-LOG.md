@@ -2,6 +2,67 @@
 
 # Reasoning Log
 
+## 2026-09-06 - The cabin-not-clean article had no rail and a borrowed head: crosslinked, corrected (syl)
+
+**Asked.** Ken: examine `/articles/cruise-cabin-not-clean-what-to-do.html`. It has no sidebar
+with links to other articles or ITW deep links. It should be crosslinked like Wikipedia,
+everywhere it can be.
+
+**Weighed.** Measured first, not assumed. `grep -L 'class="rail"' articles/*.html` returns all
+65 articles: NO article on the site has a sidebar rail. The rail pattern lives on port pages and
+hubs, driven by `assets/js/article-rail.js` (shared, `#recent-rail`, XSS-escaped, reads
+`{version, articles:[...]}` per directive memory 44809080) and the `.page-grid` two-column CSS.
+The article `<main>` already carries `page-grid`, so the second column existed and sat empty.
+Reading the page also surfaced defects that were not the ask but were on the page: the head
+comment, hero `aria-label`, tagline, FAQPage JSON-LD, Article `about` and Person `knowsAbout`
+were all still the EMBARKATION-DAY article's (template leftovers), and the footnote carried a
+literal `\u2019` escape that rendered as text. The FAQPage was answering six questions about
+embarkation on a page about dirty cabins. ICP-2 §anti-patterns forbids forced FAQ schema on
+pages without visible Q&A, so the honest fix is removal, not writing a FAQ to keep the schema.
+Open-PR board checked by hand (superset guard reported UNAVAILABLE: no `gh` in this container):
+7 open PRs, none touch article rails or crosslinking.
+
+**Decided.** (1) A `<aside class="rail">` after `</article>`: on-this-page nav (all eight
+existing `h2` ids), "the case behind this guide" (logbook, Norwegian Getaway ship guide, NCL
+line guide, escalation guide), related guides, tools (Stateroom Check, Ship Logbook, Ship Size
+Atlas, ship/line hubs), the standard Ken author card, and a Recent Stories section fed by the
+shared `article-rail.js`. (2) Inline first-mention links in the body: unpack → cabin
+organization, turnaround day → embarkation-day guide, guest services → escalation guide,
+"write it down" → Ship Logbook tool. Four, not forty: link farming is an ICP-2 anti-pattern.
+(3) Related-reading list expanded with one-line descriptions and the ship/line/CDC pages.
+(4) Template leftovers corrected; FAQPage removed; BreadcrumbList added; `dateModified`
+bumped. (5) Backlinks so the graph is bidirectional: the logbook (inline at "the same standard
+I'd ask readers to hold us to" plus its related list, which also gained the escalation guide
+it never linked), the Norwegian Getaway ship guide (which did not link its own August 2026
+logbook), the embarkation-day article, and the stateroom-sanity-check article.
+Verified: scripted edits asserting exactly one match each; internal-link, anchor, JSON-LD,
+duplicate-id and tag-balance checks over all five files (only hits are pre-existing
+`/ports/`-style nav links that `_redirects` 301s); headless Chromium render at 1400px shows
+the two-column layout with every card and the Recent Stories list populated from the index.
+The library preflight's repo onboarding rewrote three tracked `.claude/hooks/bootstrap-*`
+files as a side effect; restored with `git checkout` so this commit stays scoped.
+
+**Unsure.** At 420px both the new AND the untouched original render with body text clipped at
+the right edge in headless Chromium. It is not mine, and I could not confirm whether it is a
+real overflow on phones or a headless-viewport artifact. Left alone, recorded here. The shared
+rail script lists the five newest articles, which on this page includes the page itself; the
+script is shared by ~200 port pages, so I did not add a self-exclusion in this change. The
+other 64 articles still have no rail; that is a separate rollout, not this ask.
+
+**One backlink held back, and why.** I also added the logbook and this guide to "Plan Your
+Cruise" on `ships/norwegian/norwegian-getaway.html`. `.githooks/pre-commit` refused that file
+with `js:navigation/missing_nav_items`. The first run had crashed outright because `cheerio` was
+not installed in this fresh clone; `npm ci` fixed that and exposed the real finding. Measured on
+a copy of HEAD: the identical BLOCKING error is already there (the gold-standard nav wants
+`/planning.html`, `/restaurants.html`, `/ports.html`, `/cruise-lines.html`; the page's dropdown
+uses the `/ports/`-style forms), and the `audit-reports/` baseline is stale (`fail_codes: []`).
+My two `<li>` touch no nav. `--no-verify` is an operator switch, so I did not use it; the ship
+page is left untouched, the exact edit is saved as a patch for Ken, and the four files that pass
+the hooks are committed. Memory 298e33c9 (rails must match the ship-page template) was weighed:
+the author card is the same `author-card-vertical` block; the Recent Stories block deliberately
+keeps its `<noscript>` OUTSIDE `#recent-rail`, because the shared `article-rail.js` skips any
+container that already has a child element and would otherwise never populate.
+
 ## 2026-09-05 - "The plan is not THIS": the packs were prescribing a week they cannot know (yumi)
 
 **Asked.** Ken: make sure none of the voyage packs have language indicating the PLAN is THIS,
