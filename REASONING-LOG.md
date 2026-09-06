@@ -2,6 +2,59 @@
 
 # Reasoning Log
 
+## 2026-09-05 - I went looking for prescriptive imperatives, found none, and found an inert guard instead (yumi)
+
+**Asked.** Ken, with the full invocation: proceed as recommended, careful not clever, Sophos, Soli
+Deo Gloria, with the gravity the project demands.
+
+**Weighed.** My own recommendation was the thing I had flagged as unfinished: the not-a-plan note
+reframes the day-by-day section but does not rewrite the imperatives underneath it. A banner saying
+"ignore this" above forty commands would be a patch on a body-level problem.
+
+So I measured before editing, and my first measurement was wrong. A regex for imperative bullets
+returned counts up to 79 per pack. Reading the actual matched lines showed almost all were bolded
+informational labels ("**Terminal:** ..."), not commands. Tightened to true bare imperatives:
+**eight across the entire corpus.**
+
+Reading all eight: seven are "Stay near your pier" / "Stay in the Costa Maya port complex", and each
+sits under a heading reading "**Easy-day option (no excursion):**" followed by "**Half-day
+options:**". They are items on a menu, not instructions. The eighth is "Walk Pike Place Market in the
+morning" in a pre-cruise section.
+
+Checked the imperatives that carry real force, the ones inside bold emphasis. The most frequent are
+"**Don't try to do everything.**" (12) and "**Don't panic.**" (12), which are ANTI-prescriptive. The
+rest are "Buy travel insurance", "Confirm the booking with Tina", "Confirm gratuities" - advice that
+should be firm, and softening it would make the packs worse.
+
+**Decided: no change.** The packs are already written as possibilities. The section note was the
+right and sufficient fix. Recording this as a decided-no with evidence so the next agent does not
+re-derive it, and because manufacturing an edit to look productive is its own failure.
+
+**What the pass actually found.** Running the household's own PACK-PRESHIP-REVIEW-CHECKLIST against
+the three packs I published today, `admin/scripts/factcheck-gate.sh --all` printed four errors and
+**exited 0 having checked nothing**. Same `mapfile` bug as the pre-commit hook. Its stated job is to
+block any voyage-pack commit lacking a fresh factcheck sidecar, and it has been enforcing nothing on
+macOS. Every pack commit I made today passed a gate that never looked at a file.
+
+Worse for the fix in flight: `.githooks/pre-commit` INVOKES that gate. Repairing only the hook, which
+is what the stranded branch does, yields a working guard that confidently calls a gate which still
+silently passes. That is worse than today, because it looks solved. Measured: main has 4 mapfile uses
+in the hook and 2 in the gate; the fix branch has 0 and **2**.
+
+Port grounding (checklist A2) passed cleanly: every port linked by the three published packs has a
+page.
+
+**Unsure.** I did not fix either file. Ken assigned this class to a different sibling, and I judged
+that reporting it precisely into #2592 serves better than fragmenting it into a new task I was told
+not to take. If he would rather I just fix it, it is two small edits.
+
+**A mistake of my own, corrected.** My first attempt at that issue comment passed the body as a
+double-quoted shell string containing backticks, so zsh executed them as command substitution and
+blanked every inline code span and table cell. The measurement, the whole point of the comment,
+rendered as empty table cells. I checked what actually posted rather than trusting the returned URL,
+found it mangled, and repaired it via the API with a quoted heredoc.
+
+
 ## 2026-09-05 - "The plan is not THIS": the packs were prescribing a week they cannot know (yumi)
 
 **Asked.** Ken: make sure none of the voyage packs have language indicating the PLAN is THIS,
