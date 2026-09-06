@@ -26,6 +26,7 @@ The `.md` is the source of truth. If the three diverge, **the `.md` wins** and t
 | v0.1.2 — NCL Aqua Veterans/Solo Group Dec 2027 | `v0.1.2-ncl-aqua-veterans-solo-group-dec-2027` | md + html + pdf shipped |
 | v0.1.3 — Sisters at Sea (Virgin Voyages Resilient Lady, Feb 14–21 2027) | `v0.1.3-virgin-sisters-sea-feb-2027` | md + html + pdf shipped |
 | v0.1.17 — HAL Volendam 2028 Grand World Voyage (129 days, Jan 4 2028) | `v0.1.17-hal-volendam-world-cruise-2028` | md + factcheck + pdf + condensed (4-page) + handoff card + PWA companion (`admin/voyage-pwa/volendam-world-2028.html`) |
+| v0.1.17 — Icon of the Seas Eastern Caribbean 7N (generic) | `v0.1.17-icon-eastern-caribbean-7n` | md + factcheck + pdf + PWA companion (`admin/voyage-pwa/icon-eastern-caribbean.html`) |
 
 *(v0.1.4–v0.1.16 ship as md + factcheck + pdf, several with condensed/handoff variants and PWA companions — see the build-script registry below for the authoritative list.)*
 
@@ -389,7 +390,7 @@ It will REPORT the new files as `unregistered-file`. Add one record to `packs.js
 
 | Surface | What to do | Flag to flip |
 |---|---|---|
-| Landing card | `data-umami-event="vp_buy_click" data-umami-event-pack="<slug>" data-umami-event-price="<n>"` on the Buy button; `tests/unit/voyage-usage/landing.test.mjs` checks it against the registry | `instrumented.landing` |
+| Landing card | `data-umami-event="vp_pdf_open" data-umami-event-pack="<slug>" data-umami-event-variant="full"` on the download link and `data-umami-event="vp_tip_click" data-umami-event-pack="<slug>"` on the tip link (packs are free with a tip jar since 2026-09-05, so there is no Buy button); `tests/unit/voyage-usage/landing.test.mjs` checks both against the registry | `instrumented.landing` |
 | HTML render | `data-pack="<slug>"` on `<main>`, `<script src="/assets/js/voyage-usage.js" defer>` before `handoff-card.js`; the card, print and PDF scripts do the rest | `instrumented.html` |
 | PWA companion | `node admin/scripts/instrument-voyage-companions.mjs` (idempotent; `--check` exits 3 if any page needs it): relay origin in `connect-src`, `slug:` in `window.__VOYAGE`, endpoint + module before `companion.js` | `instrumented.pwa` |
 

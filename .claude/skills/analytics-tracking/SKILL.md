@@ -81,8 +81,8 @@ Plan and rationale: `docs/superpowers/plans/2026-09-05-voyage-pack-usage-trackin
 
 | Event | Fires when | Properties |
 |---|---|---|
-| `vp_buy_click` | Buy button on `/voyage-packs.html` | `pack`, `price` |
-| `vp_pdf_open` | a link to one of our PDFs is followed | `pack`, `variant` (`full` / `condensed` / `handoff`) |
+| `vp_tip_click` | the tip-jar link on a `/voyage-packs.html` card (replaced `vp_buy_click` when the packs went free on 2026-09-05; `price` is no longer emitted by any surface) | `pack` |
+| `vp_pdf_open` | a link to one of our PDFs is followed, including the free download link on each landing card | `pack`, `variant` (`full` / `condensed` / `handoff`) |
 | `vp_print` | a `data-print-scope` button | `pack`, `scope` |
 | `vp_pdf_download` | a `data-pdf-scope` button produced a PDF | `pack`, `scope` |
 | `vp_handoff_filled` | first time on a device that a handoff field is non-empty | `pack` |

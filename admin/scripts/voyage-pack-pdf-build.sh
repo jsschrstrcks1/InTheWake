@@ -16,6 +16,7 @@
 #   admin/scripts/voyage-pack-pdf-build.sh encore           # build only NCL Encore Allison Vancouver-LA Oct 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh escape           # build only NCL Escape Thanksgiving Nov 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh volendam         # build only HAL Volendam 2028 Grand World Voyage (long-form)
+#   admin/scripts/voyage-pack-pdf-build.sh icon             # build only Icon of the Seas Eastern Caribbean 7N (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh --force          # rebuild even if PDF is newer
 #   admin/scripts/voyage-pack-pdf-build.sh --check          # exit 1 if any PDF is stale (no build)
 #   admin/scripts/voyage-pack-pdf-build.sh --help
@@ -65,23 +66,24 @@ PDF_CSS_CONDENSED="$PACKS_DIR/voyage-pack-condensed-print.css"
 # Each entry: "md_stem|pdf_output_path" (pdf path is optional override; empty
 # = default which is "$PACKS_DIR/$stem.pdf")
 LONG_FORM_PACKS=(
-  "v0.1-symphony-western-caribbean-7n|"
-  "v0.1.2-ncl-aqua-veterans-solo-group-dec-2027|"
-  "v0.1.3-virgin-sisters-sea-feb-2027|"
-  "v0.1.4-rcl-anthem-alaska-7n|"
+  "v0.1-symphony-western-caribbean-7n|ships/rcl/v0.1-symphony-western-caribbean-7n.pdf"
+  "v0.1.2-ncl-aqua-veterans-solo-group-dec-2027|ships/norwegian/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.pdf"
+  "v0.1.3-virgin-sisters-sea-feb-2027|ships/virgin-voyages/v0.1.3-virgin-sisters-sea-feb-2027.pdf"
+  "v0.1.4-rcl-anthem-alaska-7n|ships/rcl/v0.1.4-rcl-anthem-alaska-7n.pdf"
   "v0.1.7-ncl-bliss-alaska-solo-group-jul-2026|ships/norwegian/v0.1.7-ncl-bliss-alaska-solo-group-jul-2026.pdf"
   "v0.1.8-msc-world-america-solo-group-apr-2027|ships/msc/v0.1.8-msc-world-america-solo-group-apr-2027.pdf"
   "v0.1.9-ncl-prima-solo-group-sep-2026|ships/norwegian/v0.1.9-ncl-prima-solo-group-sep-2026.pdf"
   "v0.1.10-ncl-encore-solo-group-oct-2026|ships/norwegian/v0.1.10-ncl-encore-solo-group-oct-2026.pdf"
   "v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026|ships/norwegian/v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026.pdf"
-  "v0.1.12-mas-islander-solo-group-jan-2027|"
+  "v0.1.12-mas-islander-solo-group-jan-2027|ships/margaritaville-at-sea/v0.1.12-mas-islander-solo-group-jan-2027.pdf"
   "v0.1.13-ncl-gem-solo-group-feb-2027|ships/norwegian/v0.1.13-ncl-gem-solo-group-feb-2027.pdf"
   "v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027|ships/norwegian/v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027.pdf"
   "v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027|ships/norwegian/v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027.pdf"
   "v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027|ships/norwegian/v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027.pdf"
-  "v0.1.17-hal-volendam-world-cruise-2028|"
+  "v0.1.17-hal-volendam-world-cruise-2028|ships/holland-america-line/v0.1.17-hal-volendam-world-cruise-2028.pdf"
+  "v0.1.17-icon-eastern-caribbean-7n|ships/rcl/v0.1.17-icon-eastern-caribbean-7n.pdf"
   "v0.1.18-ncl-getaway-bahamas-aug-2026|ships/norwegian/v0.1.18-ncl-getaway-bahamas-aug-2026.pdf"
-  "v0.1.19-msc-world-america-family-dec-2026|"
+  "v0.1.19-msc-world-america-family-dec-2026|ships/msc/v0.1.19-msc-world-america-family-dec-2026.pdf"
 )
 
 # Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.
@@ -379,7 +381,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|volendam|world-cruise|world-2028|getaway|ncl-getaway|bahamas-2026|all)
+    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|volendam|world-cruise|world-2028|icon|icon-eastern|eastern-caribbean|getaway|ncl-getaway|bahamas-2026|all)
       target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
@@ -447,6 +449,7 @@ case "$target" in
   fall-foliage|foliage) build_one_long "fall-foliage" "$ENGINE" || failures=$((failures + $?)) ;;
   aqua-thanksgiving) build_one_long "aqua-thanksgiving" "$ENGINE" || failures=$((failures + $?)) ;;
   volendam|world-cruise|world-2028) build_one_long "volendam" "$ENGINE" || failures=$((failures + $?)) ;;
+  icon|icon-eastern|eastern-caribbean) build_one_long "icon-eastern" "$ENGINE" || failures=$((failures + $?)) ;;
   getaway|ncl-getaway|bahamas-2026) build_one_long "getaway" "$ENGINE" || failures=$((failures + $?)) ;;
   all|"")
     echo "── Long-form packs ──"

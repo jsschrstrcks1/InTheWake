@@ -93,7 +93,7 @@ All events go to the one existing Umami website. Names are ≤50 chars, prefixed
 | Event | Fires when | Properties | Surface |
 |---|---|---|---|
 | *(pageview)* | Landing / pack HTML / PWA page load | Umami default (path, referrer, browser — no cookies) | all |
-| `vp_buy_click` | A Buy button is clicked | `pack`, `price` | landing |
+| `vp_tip_click` | The tip-jar link on a landing card is clicked (2026-09-06: replaces `vp_buy_click`; the packs went free with a tip jar on 2026-09-05, so no surface emits `price` any more and the landing download link emits `vp_pdf_open` with `variant=full`) | `pack` | landing |
 | `vp_pdf_open` | A link to one of **our** PDFs is followed | `pack`, `variant` ∈ `full\|condensed\|handoff` | PWA overview, pack HTML, articles |
 | `vp_print` | A `data-print-scope` button is used | `pack`, `scope` ∈ `emergency-only\|entire-pack` | pack HTML |
 | `vp_pdf_download` | A `data-pdf-scope` button generates a PDF | `pack`, `scope` | pack HTML, reaching-someone-at-sea |
@@ -117,8 +117,8 @@ Under Setting 1 (§2.1) every PWA event travels through the geo-blind relay, so 
 One page, served by Atlas at `/admin/voyage-usage`, reading `/admin/voyage-usage/snapshot.json` from the same origin. Sections, top to bottom:
 
 1. **Header with the floor statement** and the snapshot timestamp + window (last 30 / 90 / 365 days toggle, all pre-computed in the snapshot).
-2. **Across all packs**: landing pageviews, unique visitors, Buy clicks and click-through rate, PDF opens, PWA opens, PWA installs, handoff cards filled. Seven stat tiles with 12-week sparklines (inline SVG, no library).
-3. **Per pack table** (one row per registry entry, sortable by column, `<th scope="col">`, caption, SR-friendly): sailing date, days until/since, landing views, Buy clicks, PDF opens by variant, PWA opens split `before / during / after`, top tabs, installs, handoff filled, **last activity**, and a plain-language status: `unused (0 events in 90d)`, `quiet`, `active`, `sailing now`.
+2. **Across all packs**: landing pageviews, unique visitors, tip clicks and click-through rate (Buy clicks until the packs went free on 2026-09-05), PDF opens, PWA opens, PWA installs, handoff cards filled. Seven stat tiles with 12-week sparklines (inline SVG, no library).
+3. **Per pack table** (one row per registry entry, sortable by column, `<th scope="col">`, caption, SR-friendly): sailing date, days until/since, landing views, tip clicks, PDF opens by variant, PWA opens split `before / during / after`, top tabs, installs, handoff filled, **last activity**, and a plain-language status: `unused (0 events in 90d)`, `quiet`, `active`, `sailing now`.
 4. **"Is anyone using it at all?" list** — packs with zero events in the window, called out explicitly, because that is the question Ken asked first and a sortable table hides zeros.
 5. **Instrumentation coverage** — which surfaces of each pack are instrumented (from the registry) so a zero is legible as *nobody came* rather than *nothing was listening*. Three states, never two: `measured`, `no-instrument`, `unavailable` (snapshot fetch failed for that metric).
 6. **Data provenance footer**: source (Umami website id), API calls made, rate-limit waits, failures, and the commit that produced the snapshot.
@@ -149,7 +149,7 @@ Every chart mirrors into a visually-hidden table (the drink-calculator `#chart-s
 | `admin/voyage-packs/packs.schema.json` | JSON Schema for the registry (documents the shape; validator reads it) | New |
 | `admin/scripts/check-voyage-registry.mjs` | Registry ↔ disk cross-check, three-state exit (0 clean / 3 drift / 2 unavailable); wired into `quality.yml` | New |
 | `assets/js/voyage-usage.js` | **The one tracker module.** Property whitelist, DNT/GPC guard, offline queue, flush via `umami.track` when present else `fetch` to `/api/send` | New |
-| `voyage-packs.html` | `data-umami-event` attributes on the four Buy buttons | Modify (union with PR #2565) |
+| `voyage-packs.html` | `data-umami-event` attributes on the four Buy buttons; since the 2026-09-06 merge, `vp_pdf_open` on each download link and `vp_tip_click` on each tip link (eight cards) | Modify (union with PR #2565, done) |
 | `admin/voyage-packs/v0.1*.html` ×3 | Include tracker; `data-pack` on `<main>`; hook print/PDF buttons and handoff card | Modify |
 | `assets/js/handoff-card.js` | Emit `vp_handoff_filled` once per device (guarded by a localStorage flag) | Modify |
 | `assets/js/pdf-download.js` | Emit `vp_pdf_download` on success | Modify |
@@ -173,7 +173,7 @@ Every chart mirrors into a visually-hidden table (the drink-calculator `#chart-s
 | Phase | Tasks | Needs a decision? | Delivers |
 |---|---|---|---|
 | **A — Foundation** | 1, 2, 6, 7, 9 | D4 only (an API key, installed on the Atlas node) | Registry (InTheWake), tracker module (InTheWake), snapshot job + launchd plist (open-claw-stuff). Dashboard-ready data even before any new events: landing + pack-HTML pageviews by path already exist in Umami today. |
-| **B — Site surfaces + dashboard** | 3, 4, 8, 10 | No | Buy clicks, print/PDF/handoff events on the HTML renders (InTheWake); the owner-only dashboard on Atlas (open-claw-stuff); docs. |
+| **B — Site surfaces + dashboard** | 3, 4, 8, 10 | No | Tip clicks (Buy clicks before 2026-09-05), print/PDF/handoff events on the HTML renders (InTheWake); the owner-only dashboard on Atlas (open-claw-stuff); docs. |
 | **C — PWA companions** | 5b then 5 | **D1** (a setting, not a wording change) | At-sea usage counts, installs, feature combinations per sitting, before/during/after, by voyage day — with nothing about any person created anywhere. |
 | **D — Sales seam** | 11 | D5 (paywall platform) | Purchase counts beside usage. |
 

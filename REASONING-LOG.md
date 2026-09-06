@@ -2,7 +2,27 @@
 
 # Reasoning Log
 
-**For Ken. A running record of *how* and *why* — not just *what*.**
+## 2026-09-06 - Merged main into the usage-tracking branch: the packs went free while this was built, so the Buy instrumentation moved to the download and tip links
+
+**Asked.** "Fetch, merge, resolve conflicts. Newer isn't automatically better."
+
+**Weighed.**
+
+*What main carried.* Twenty-four commits, most of them yumi's: the Voyage Packs went free with a tip jar, the Icon of the Seas pack (PR #2565) and its companion landed, the Anthem Alaska, Margaritaville Islander and MSC World America family packs were published to the landing page, a custom-pack page was added, the day-by-day copy was reworded, sixteen fact-check sidecars were re-stamped, and the pre-commit guard was made fail-closed. Four files were touched on both sides; only `voyage-packs.html` conflicted, in the four product-card call-to-action blocks.
+
+*Newer is not automatically better, so I read before choosing.* The conflict was my Buy buttons carrying `vp_buy_click` and a price against main's free download link plus tip link. I did not take main's side because it was newer. I took it because yumi's 2026-09-05 entry records the decision as Ken's own words ("Maybe for now they are available free, with a tip suggestion") and records the later reversal on custom packs the same way. A merge is not the place to relitigate a product decision the operator made; it is the place to make the two changes coherent. Coherence here meant moving the instrumentation, not dropping it: the download link now emits `vp_pdf_open` with `variant=full`, an event the vocabulary already had, and the tip link emits a new `vp_tip_click`. Both carry the pack slug and nothing else. `price` is no longer emitted by any surface.
+
+*What the registry had to say.* The checker did its job on the merged tree: it reported the Icon PDF and companion as unregistered, which is exactly the outcome the plan promised for PR #2565. The Icon pack is now registered and its companion instrumented by the idempotent script (one file patched, then `--check` reports zero). Three packs main put on the landing page flip `landing:true`. The four prices go null, because nothing is sold. Eighteen packs, CLEAN.
+
+*The other three shared files.* `quality.yml`, the README and this log auto-merged. The log's union had main's 2026-09-05 entries above my 2026-09-06 one, so I moved mine back to the top; newest first is the rule and a merge does not get to break it. The README's landing row now describes the two links instead of the Buy button. The plan's vocabulary table carries the change with the date rather than being rewritten as if it had always said so.
+
+*On the other side of the fence.* open-claw-stuff's merge brought 198 commits; only the generated module graph conflicted and it was regenerated, the library files were union-merged by the driver with no collisions reported and the hash chain verified valid. The full Atlas suite then failed one test, a source invariant that allows exactly one inline `application/json` response in the server so every JSON reply inherits no-store. My snapshot route had added a second. It now goes through the same helper, which costs one parse of a small file and buys the cache header the invariant exists to guarantee. The dashboard column and snapshot event list were renamed from buy clicks to tip clicks to match.
+
+**Decided.** Both branches merged with main, conflicts resolved by reading rather than by timestamp, and the instrumentation adapted to the free model with the same privacy shape as before. Tests: the five InTheWake voyage-usage suites pass (33), the three open-claw-stuff suites pass (18), and the Atlas no-store invariant passes again.
+
+**Unsure.** The custom-pack page main added lists the same packs with download links and carries no usage attributes. I left it alone; it is a new page outside the plan's surface list, and adding events to it is a small follow-up rather than a merge resolution. The tracker unit test still uses `vp_buy_click` as an arbitrary sample name for its coercion check; it tests number-to-string handling, not the vocabulary, so I left it.
+
+**Honest limit.** Playwright coverage of the landing page was re-run against the merged file in this container, but the Icon companion's usage events are pinned only by the unit test that reads its markup, not by a browser run; the Prima companion remains the one exercised end to end.
 
 ## 2026-09-06 - The runbook reached the Mac: code re-proven there, the four deploy steps need Ken live
 
@@ -23,6 +43,415 @@
 **Unsure.** Whether the Mac holds valid Cloudflare credentials for cruisinginthewake.com; the Mac session could not tell and neither can I. Ken will know at step 4.
 
 **Honest limit.** Everything in "what the Mac session verified" is that session's report, relayed. I have not seen the Mac's terminal. The only thing I observed directly is that no new commits arrived on either branch, which is consistent with its account.
+
+## 2026-09-05 - Re-stamped 16 factcheck sidecars, one of them honestly (yumi)
+
+**Asked.** Proceed as recommended. My recommendation was the wall the repaired gate now puts in
+front of every pack edit: 16 of 18 sidecars stale.
+
+**Weighed.** The cheapest way to clear this is to bump `last_factcheck_date` on all 16 and move on.
+That is exactly the failure the gate exists to catch, and the question careful-not-clever asks of any
+guard is *what is the cheapest way to make this pass*. So I diffed each pack from its sidecar's last
+commit and classified the changes instead.
+
+Thirteen were my own framing note plus the column rename, no factual claim touched. Two were link-only
+conversions, text byte-identical apart from the anchor. **One was not**, and that is the whole point
+of doing this by hand.
+
+`v0.1.13-ncl-gem` gained real claims in July: Magenta became "smaller and cozier than Grand Pacific,
+same included menu", Orchid Garden became "Asian Fusion, complimentary; the adjacent Sushi Bar and
+Sake Bar are a la carte". Those are **cost claims**, the class that misleads a reader about money,
+sitting behind a sidecar dated 2026-07-06 that never saw them.
+
+**Decided.** Verified rather than assumed: both claims match the In the Wake venue pages linked in
+the same commit, `restaurants/ncl/magenta.html` and `restaurants/ncl/orchid-garden.html`, which state
+the same thing in their own ai-summaries. So the pack agrees with the household corpus it cites.
+Re-stamped with a note recording exactly that, and recording its limit: grounding against our own
+sourced pages is not a fresh primary-source check with NCL.
+
+Every note records what changed, on what basis, and that the underlying ship/port/price verification
+still carries its ORIGINAL date. A freshness re-stamp is not a re-verification and must not be
+allowed to read as one.
+
+**A mistake I caught in my own work.** My classifier put v0.1.13 in the "link only, no change to the
+surrounding claims" bucket, because its added lines contained restaurant links and were short. That
+sentence would have been a false statement inside a factcheck record, which is the worst possible
+place for one. I noticed while reading the output, and rewrote that note by hand.
+
+**Verified.** Gate now exits 0, 18 passing, 0 stale. All 16 sidecars parse. Checked every sidecar for
+dropped top-level keys against HEAD: **zero lost**, and the July adversarial-audit notes are intact
+alongside the new ones.
+
+**Unsure.** Fifteen of these are freshness stamps resting on my classification of the diffs, not on
+re-reading each pack end to end. If a factual claim slipped into one of those diffs and I read it as
+formatting, this re-stamp would paper over it. The diffs are small (+1 to +8 lines) and I read each
+one, which is why I believe the classification, but I did not re-verify any pack's underlying facts
+and no note claims otherwise.
+
+
+## 2026-09-05 - Took P0 #2592: two guards that printed errors and passed anyway (yumi)
+
+**Asked.** Ken: "Take it and do it." He had previously assigned this class to another sibling; no
+one took it, no PR existed, and the local fix branch had never been pushed.
+
+**Weighed.** I reproduced the defect in a throwaway git repo rather than the real one, because
+driving the real pre-commit hook writes real ledger rows. The reproduction is unambiguous:
+`.githooks/pre-commit` printed six errors, including unbound-variable aborts under `set -u`, and
+**exited 0**.
+
+Reading it showed why the `set -u` did not save us: nothing stops execution, and the script ends in
+an unconditional `exit 0` at line 180. So a broken guard walks past its own failure and reports
+success. That is the actual defect. `mapfile` is only the trigger.
+
+**Decided: fix both halves, in both files.**
+
+1. **Capability.** All six `mapfile` uses (4 in the hook, 2 in the gate) became bash-3.2-safe
+   while-read loops, with arrays pre-initialised so `set -u` cannot see them unset even when a
+   pipeline yields nothing.
+2. **Fail closed.** An `ERR` trap in each script that reports and exits 2. Without it, fixing
+   `mapfile` alone would leave the next unrelated breakage falling through to `exit 0` again.
+
+Fixing only the hook would have been worse than leaving it: the hook INVOKES the gate, so a repaired
+hook would confidently call a gate that still silently passed. The stranded branch did exactly that.
+
+**What the repaired gate immediately found.** It now exits 1 and reports **16 of 18 packs with a
+stale factcheck sidecar**. That matches my independent git-history count exactly, two different
+methods agreeing. Three of those went stale in **July**, which is the proof this was not today's
+mess: the gate has been waving pack edits through for two months.
+
+I also checked the gate's staleness method before trusting its verdict, and it is better than my
+first attempt: it compares git commit times when both files are clean, and only falls back to mtime
+while a file is actively being edited. My own first measurement used raw mtime after a
+`git reset --hard`, which is checkout time and meaningless. I threw that number away.
+
+**A third instance of the same class, found on the way.** `tests/unit` holds four suites and
+**nothing runs them** - not CI, not any npm script. My new guard test would have joined them in never
+executing, which is the same defect as a guard that exits 0 without looking. Added a `unit-tests` job
+to the quality workflow and wired it into the summary. All 65 tests pass, including the four suites
+that had never run anywhere.
+
+**Verification.** 9 new tests pinning both halves in both files, positive and negative fixtures per
+the repo's own claim-evidence doctrine, plus a TEETH test asserting the gate produces per-pack
+verdicts rather than merely not crashing. **5 of 5 mutants caught**: reverting either while-read,
+removing either ERR trap, and changing the trap to exit 0.
+
+**Unsure, and it will bite someone.** Now that the gate works, any pack edit is blocked until its
+sidecar is refreshed, and 16 are already stale. That is correct behaviour, not a regression, but it
+is a wall that appears the moment this lands. My own commit passes only because it stages no pack
+`.md`. Refreshing those 16 is the obvious follow-up, and for the ones I touched today it is a
+freshness stamp rather than re-verification, since my edits changed no factual claim. I have not
+confirmed that for all 16.
+
+
+## 2026-09-05 - I went looking for prescriptive imperatives, found none, and found an inert guard instead (yumi)
+
+**Asked.** Ken, with the full invocation: proceed as recommended, careful not clever, Sophos, Soli
+Deo Gloria, with the gravity the project demands.
+
+**Weighed.** My own recommendation was the thing I had flagged as unfinished: the not-a-plan note
+reframes the day-by-day section but does not rewrite the imperatives underneath it. A banner saying
+"ignore this" above forty commands would be a patch on a body-level problem.
+
+So I measured before editing, and my first measurement was wrong. A regex for imperative bullets
+returned counts up to 79 per pack. Reading the actual matched lines showed almost all were bolded
+informational labels ("**Terminal:** ..."), not commands. Tightened to true bare imperatives:
+**eight across the entire corpus.**
+
+Reading all eight: seven are "Stay near your pier" / "Stay in the Costa Maya port complex", and each
+sits under a heading reading "**Easy-day option (no excursion):**" followed by "**Half-day
+options:**". They are items on a menu, not instructions. The eighth is "Walk Pike Place Market in the
+morning" in a pre-cruise section.
+
+Checked the imperatives that carry real force, the ones inside bold emphasis. The most frequent are
+"**Don't try to do everything.**" (12) and "**Don't panic.**" (12), which are ANTI-prescriptive. The
+rest are "Buy travel insurance", "Confirm the booking with Tina", "Confirm gratuities" - advice that
+should be firm, and softening it would make the packs worse.
+
+**Decided: no change.** The packs are already written as possibilities. The section note was the
+right and sufficient fix. Recording this as a decided-no with evidence so the next agent does not
+re-derive it, and because manufacturing an edit to look productive is its own failure.
+
+**What the pass actually found.** Running the household's own PACK-PRESHIP-REVIEW-CHECKLIST against
+the three packs I published today, `admin/scripts/factcheck-gate.sh --all` printed four errors and
+**exited 0 having checked nothing**. Same `mapfile` bug as the pre-commit hook. Its stated job is to
+block any voyage-pack commit lacking a fresh factcheck sidecar, and it has been enforcing nothing on
+macOS. Every pack commit I made today passed a gate that never looked at a file.
+
+Worse for the fix in flight: `.githooks/pre-commit` INVOKES that gate. Repairing only the hook, which
+is what the stranded branch does, yields a working guard that confidently calls a gate which still
+silently passes. That is worse than today, because it looks solved. Measured: main has 4 mapfile uses
+in the hook and 2 in the gate; the fix branch has 0 and **2**.
+
+Port grounding (checklist A2) passed cleanly: every port linked by the three published packs has a
+page.
+
+**Unsure.** I did not fix either file. Ken assigned this class to a different sibling, and I judged
+that reporting it precisely into #2592 serves better than fragmenting it into a new task I was told
+not to take. If he would rather I just fix it, it is two small edits.
+
+**A mistake of my own, corrected.** My first attempt at that issue comment passed the body as a
+double-quoted shell string containing backticks, so zsh executed them as command substitution and
+blanked every inline code span and table cell. The measurement, the whole point of the comment,
+rendered as empty table cells. I checked what actually posted rather than trusting the returned URL,
+found it mangled, and repaired it via the API with a quoted heredoc.
+
+
+## 2026-09-05 - "The plan is not THIS": the packs were prescribing a week they cannot know (yumi)
+
+**Asked.** Ken: make sure none of the voyage packs have language indicating the PLAN is THIS,
+because it is not. Those are possibilities.
+
+**Weighed.** He is right, and the measurement is worse than I expected. Eleven long-form packs carry
+timed day-by-day schedules. **Nine of them had zero language anywhere telling the reader the day is
+optional.** The section-level framing that does exist hedges the wrong thing: it hedges the
+ITINERARY ("verify times in the app", "typical is not a forecast"), which protects the pack from
+being wrong about the ship. Nothing hedged the ACTIVITIES, which is what makes a reader feel behind.
+
+The failure mode is concrete. A line like "1:30 PM: Cabins open. Register the kids at Doremiland
+now" blends a real ship fact with an instruction, and the timetable format makes both read as
+obligations. A reader who spends the afternoon on the balcony has, by the document's own framing,
+fallen behind schedule on their holiday.
+
+**Decided.** A single note at the head of every day-by-day section, saying plainly what is actually
+fixed (muster, sailaway, arrival and all-aboard, anything already booked) and that everything else is
+a suggestion to ignore, reorder, or sleep through. Also changed the condensed sheets' column header
+from "The one thing" to "Worth knowing" in 11 files, because "the one thing" is prescriptive by
+construction.
+
+**Swept rather than stopping at the obvious.** Checked all packs for "your plan", "the plan for",
+"you must/should/need to do", "follow this schedule", "stick to". The only hit was 23 instances of
+"your plan", and reading them showed 11 were my own new note and the rest were phone roaming ("check
+your plan's roaming"). Every "must" is legitimate: carry-on rules, passport name match, insurance
+purchase windows. No further prescriptive language exists.
+
+**Two things I did NOT change, deliberately.** The HAL Volendam pack already says "day counts below
+are approximate reconstructions from the published route; treat them as shape, not schedule" - it
+had solved this before I arrived, so it keeps its own wording. And I left every real ship time alone;
+the muster drill genuinely is at a time.
+
+**A defect of my own, caught by verifying the artifact.** After rebuilding, only ONE of the eight
+served packs contained the note. Cause: in the last two PRs I published seven packs with a manual
+`cp` instead of giving them served build targets, so the build regenerated the `admin/` copies and
+left the public files untouched. That is exactly the rot I predicted for the MSC pack and fixed
+there, and did not fix for the others. Gave all seven proper `ships/` targets so publication is
+mechanical now. Then a second pass found three still missing, because my timed-line regex never
+matched Icon and MAS Islander; added the note there too.
+
+Final state verified in the served artifacts, not the sources: 8 of 8 downloadable packs carry the
+framing, 0 PDFs stale.
+
+**Unsure.** I have not read every pack end to end, so there may be individual sentences that still
+read as instructions rather than options. The note reframes the section; it does not rewrite every
+imperative underneath it. If Ken wants the imperatives themselves softened, that is a larger editing
+pass and worth saying so rather than implying this closed it completely.
+
+
+## 2026-09-05 - Genericized the family pack, and gave it a served build target (yumi)
+
+**Asked.** Ken: "genericize the framing", after I stopped on the MSC World America pack because its
+byline read *"Built for our own family's December cruise"* and it named the exact ship and dates.
+
+**Weighed.** I did not want to over-edit. A broad grep for first-person framing returned 20 hits,
+but nearly all were `our` matching inside `your`; re-running with word boundaries left only "US"
+(United States) and a photo caption reading "WE (heart) OCEAN CAY". Exactly **two** lines were
+genuinely personal:
+
+- the cover byline, *"Built for our own family's December cruise"*
+- the fact table, `| **Audience** | Our family |`
+
+Everything else is second-person ("your kids", "your family"), which is correct for a family pack and
+would have been wrong to strip. "A family sailing" on the cover is descriptive, not personal, so it
+stays.
+
+**Decided.** Byline becomes "Written for families sailing this itinerary"; audience becomes "Families
+with children", matching the convention the other packs already use ("Solo travelers (hosted group)",
+"First-time Alaska cruisers from any background").
+
+**One thing I fixed that was not asked for, because publishing without it would rot.** The build
+script carried this pack with an EMPTY output override, meaning it only ever wrote to `admin/`. Every
+other published pack has a served path. Left alone, the next edit to this pack would have updated the
+markdown and silently left the public PDF stale, which is exactly the failure I hand-repaired for the
+Escape pack earlier today. Gave it `ships/msc/` so the build keeps them in step mechanically. That
+matters more than usual right now because the pre-commit hook that is supposed to catch this class
+fails open on macOS (P0 #2592).
+
+Verified in the artifact rather than the source: the rebuilt 18MB served PDF contains "Written for
+families sailing this itinerary" once and "our own family" zero times, and the audience row reads
+"Families with children".
+
+**Unsure.** The sailing is still named, December 5 to 12 2026, because that is what makes an itinerary
+pack useful. Genericizing the framing removes the statement that it is Ken's family's cruise; it does
+not and cannot hide that a pack exists for that sailing. If the concern was the sailing being
+identifiable at all rather than the ownership being stated, this does not solve it and he should say
+so.
+
+
+## 2026-09-05 - The custom-pack page, and reversing my own "keep it paid" call (yumi)
+
+**Asked.** Ken, answering a direct question about what a "sales" page should be: *"custom pack sales
+page, but its for tips. There should also be a list of existing pages presented in an atractive way,
+that doesnt look like AI built it. Clean. Nautical. In the wake language and design style. Gentle
+sales push. Linked from the homepage, its now our best product. Estimate a week to build the voyage
+pack."*
+
+**Weighed.** Two of those reverse decisions I had made earlier the same session, and I want that on
+the record rather than quietly folded in:
+
+1. I had **kept custom packs paid** at $49 to $79, reasoning that bespoke commissioned labour is not
+   the same as a download. Ken says tips. That is his call and it is now applied; the price is gone.
+2. The live page said lead time is **2 to 4 weeks**. Ken says about a week. That was a factual
+   correction to shipped copy, not a preference.
+
+Making custom packs free means **nothing on this site is sold any more**, and that has a longer tail
+than the price line. I swept for it rather than editing the obvious spot: the refund policy, the
+cancellation FAQ ("if you bought the pack and the cruise gets cancelled"), the FAQ answer describing
+a paid tier, and one sentence claiming "that's the part the small purchase price funds" were all
+still true only under the old model. All four are reconciled. A price removed from a button while
+four other surfaces still describe a purchase would have been worse than leaving it alone.
+
+**On "doesn't look like AI built it."** I did not invent a visual language. I extracted the real page
+shell from voyage-packs.html, kept its header, nav and footer verbatim, and reused the existing
+nautical tokens (--sea #0a3d62, --ink #083041, --accent #0e6e8e, --rope #d9b382). The one new
+component is a logbook-style list for the seven packs: ship, route, when, download, ruled lines,
+rope-coloured underline on the link. No emoji, no icon grid, no three-column feature tiles, no
+"unlock". The voice follows the house register ("It is calm by design", "From the Logbook").
+
+**Decided.** New `/custom-voyage-pack.html`: what arrives (the eight sections), how it goes (you
+write, questions come back, about a week), what it costs (nothing, tip what it was worth), what it is
+not, what to send, and the seven already written. Retargeted its page identity properly, which
+mattered: the inherited JSON-LD would otherwise have claimed this page IS the Voyage Packs page.
+
+Homepage: it did not link the packs **at all**. Added a section directly after "What are you
+planning?" and before the calculators, because that is the moment the reader has just been asked what
+they are planning, and because a product Ken calls the best one should not be a sixth tile in a grid
+of calculators.
+
+**Unsure.** I cannot see the rendered page; I verified structure (tags balanced, 7 sections, links
+resolve, guards pass) rather than appearance, and "attractive" is exactly the claim a structural
+check cannot make. Worth a look before it goes out. I also left the three inherited nav directory
+links (/cruise-lines/, /ports/, /restaurants/) alone: they resolve to no file, but they are identical
+on every page including ones that pass CI, so that is a pre-existing site-wide condition and not
+mine to fix inside this change.
+
+
+## 2026-09-05 - Published two of three unlisted packs, and stopped on the third (yumi)
+
+**Asked.** Ken: "also do the three unlisted packs." Three finished packs existed in `admin/` that
+were neither sold nor listed: RCL Anthem Alaska, MAS Islander, MSC World America Family.
+
+**Weighed.** Checked each before publishing rather than treating "three" as a batch.
+
+- **Anthem Alaska (v0.1.4)** - generic itinerary pack, no fixed date, 7.7M PDF. Publishable.
+- **MAS Islander (v0.1.12)** - hosted solo group, January 2027, so a future sailing, 11M PDF.
+  Same shape as the Sisters at Sea pack already listed. Publishable.
+- **MSC World America (v0.1.19)** - **stopped here.** Its own byline reads *"Built for our own
+  family's December cruise"* and the body says *"It's a family sailing"*, naming the exact ship
+  and dates, December 5 to 12, 2026. Listing it publicly would put Ken's family's specific sailing
+  on a product page. That is a privacy call the operator owns, not a publishing chore.
+
+Checked the known dependency before shipping MAS: issues #2004 and #2005 say the Margaritaville at
+Sea ship and venue pages do not exist, and I confirmed they do not. But the pack does not link to
+them, and every internal link in both packs resolves on disk, so publishing creates no broken link.
+I also did not invent a ship-page link in the new card, which is how that gap would have bitten.
+
+Margaritaville at Sea had no `ships/<line>/` directory. Confirmed nothing enumerates `ships/`
+subdirectories except an image-reuse checker before creating one.
+
+**Decided.** Published both PDFs to the served convention, wrote two cards whose bullets are drawn
+from the packs' own text rather than plausible-sounding filler, and updated the `ai-summary` that
+feeds AI answer engines so it enumerates seven packs rather than five. Verified 7 cards, 7 download
+buttons, and all seven hrefs resolving on disk.
+
+**Unsure.** Whether the MSC family pack should be published at all, published with the personal
+framing genericized, or left private. I have not touched it. Also: `PACK-PRESHIP-REVIEW-CHECKLIST.md`
+exists and I did not run it against these two; I verified links, dates and provenance, which is not
+the same as the household's own preship review.
+
+
+## 2026-09-05 - GSC Great Tides audit: the corpus was already current, and the one real defect was an inference from an absence (yumi)
+
+**Asked.** Work the registered P3 `itw-gsc-great-tides-waterpark-voyage-pack-audit`: grep packs for
+stale GSC / CocoCay / Norwegian Aqua content and apply September 2026 hedges. Its handoff says
+plainly: "audit grep/edit not yet run."
+
+**Weighed.** The premise was that packs carried pre-opening content. Measured against the archived
+NCL booklet (`admin/sources/ncl-gsc-great-tides-waterpark/`), that premise did not hold:
+
+- No "coming soon" or "opens in 2026" language anywhere in the packs.
+- All five GSC packs and `ports/great-stirrup-cay.html` already name Great Tides.
+- Upcharge language present in every pack; **zero** false "the waterpark is included" claims.
+- The two CocoCay-uniqueness greps hit unrelated text (Hideaway Beach, Ocean Cay).
+
+So later pack authors had already absorbed the booklet. The correct audit answer was mostly "clean",
+and reporting that honestly matters more than manufacturing an edit.
+
+**One real defect, and it is a class this household keeps paying for.** The booklet marks upcharge
+venues with `$`, and the source's own derived-facts section hedges Great Life Lagoon as *"appears
+complimentary (no `$` marker)"*. Two packs converted that inference-from-an-absence into flat
+assertions: `**Free.**`, `- included.`, and `**Free with fare:** ... Great Life Lagoon ...`. A
+missing marker became a positive claim about price, which is the same shape as counting a missing
+field as the negative value. A reader budgets nothing and is surprised at the till.
+
+**Checked before assuming a second defect.** The Aug 2026 pack lists "Splash Harbor" as free while
+the booklet marks "Splash Cay$" as paid. That looked like a naming-and-cost error. It is not: the
+booklet's island map lists **both**, `Splash Harbor (NEW)` unmarked and `Splash Cay$` marked, so
+they are two venues and the packs have them right.
+
+**Decided.** Hedged the November 2026 pack (a **future** sailing, so the money risk is live) in both
+its long-form and condensed sources, to wording that matches the evidence: no upcharge marker, so
+expect it to be included, and NCL publishes no prices outside the app, so confirm there.
+
+Left the August 2026 pack alone deliberately. Its cover reads "August 24 to 28, 2026", its text says
+"your visit is eight days before it opens", and it is linked only from the family pages. It is a
+correctly-dated record of a completed sailing, not a live claim.
+
+Rebuilt both stale PDFs and **verified the hedge in the served artifact** by extracting its text,
+rather than trusting the build's exit code: the hedge appears once, the bare "Free." is gone.
+
+**Unsure.** Whether NCL actually charges for Great Life Lagoon. Nobody knows from these sources; the
+booklet discloses no pricing at all and directs to the app. That is precisely why the hedge is the
+honest wording rather than either "free" or "paid". Also: the build script claims "the pre-commit
+hook will block commits that change a pack .md without an updated .pdf". On macOS that hook fails
+open (registered #2592), so that protection is currently inert and my manual rebuild is the only
+thing that kept source and artifact in step.
+
+
+## 2026-09-05 - Voyage Packs go free with a tip jar (yumi)
+
+**Asked.** Ken: "I have a buy me a coffee. Maybe for now they are available free, with a tip
+suggestion." Then: proceed as I see fit until all voyage pack tasks are complete.
+
+**Weighed.** First finding: Buy Me a Coffee was ALREADY the platform. All four sold packs linked
+`buymeacoffee.com/inthewake/extras/...`, so the open P2 "pick a platform (Gumroad vs LemonSqueezy
+vs Stripe)" was stale on its own question. What Ken actually decided was the pricing MODEL.
+
+Second finding, and the reason this was not a find-and-replace: the newly merged Icon card linked
+the BMC **root**, not a product page, so its purchase path was already broken. Free plus tip fixes
+that rather than papering over it.
+
+Third: the five sold packs had no public file. Ten other packs were already served under `ships/`
+but linked only from hosted-group pages, so "free" was never a public tier. Making the five free
+meant actually publishing their PDFs, not just editing copy.
+
+**Decided.** Published the five PDFs to the existing served convention (`ships/<line>/<file>.pdf`)
+and converted every card from a buy button to a direct download plus an optional tip link. Rewrote
+the surfaces that asserted a price: the masthead comment, the ai-summary that feeds AI answer
+engines, the meta/og/twitter descriptions, the JSON-LD description, the lead, the "before you buy"
+section, and the FAQ.
+
+**Kept paid, deliberately:** the custom-pack tier at $49 to $79. That is bespoke commissioned work
+with a 2 to 4 week lead time. Ken said the packs are free; he did not say commissioned labor is
+free, and quietly zeroing a service price would be a business decision I was not given. The refund
+policy is therefore rescoped to custom packs rather than deleted, because it still applies there.
+
+**Unsure.** Three finished packs exist that are neither sold nor listed: RCL Anthem Alaska,
+MAS Islander, MSC World America Family. Publishing them is now nearly free of cost, but
+`PACK-PRESHIP-REVIEW-CHECKLIST.md` exists, which implies packs are gated on review before shipping.
+I did not ship unreviewed work. Ken's call. I also did not verify the served PDFs render correctly
+after copy; they are byte copies of files already treated as shippable.
+
+
+**For Ken. A running record of *how* and *why* — not just *what*.**
 
 ## 2026-09-05 - Build loop: D1 = Setting 1.5; the 26 usage-tracking slices, built in board order
 
@@ -685,6 +1114,27 @@ but that is a harness change and needs its own review, not a same-breath edit. A
 articles/cruise-tech-photography-guide.html was missing both analytics blocks (absent in
 the committed version too, verified via git show) and was the only article failing the
 validator; it now carries the same block as its 51 siblings and passes.
+## 2026-09-03 — Icon pack store listing via buymeacoffee.com/inthewake (grok1)
+
+**Asked.** Operator sent https://buymeacoffee.com/inthewake and said proceed — the omitted store buy button.
+
+**Weighed.** Existing extras URLs (`/extras/voyage-pack-…`) return HTTP 404. The shop root returns 200. Inventing a new extras slug would ship a dead Buy button, which is the footgun the last commit avoided.
+
+**Decided.** Added the Icon Eastern Caribbean $19 card on `voyage-packs.html` with the buy link to the live shop root. Did not retarget the other packs' 404 extras URLs (out of scope). FAQ_COUNT still checked out: extract tests 7/7; Page:0 false-positive class is 1/399; 64 ports still have schema-vs-visible drift (the #2444 follow-up), not rebuilt this commit.
+
+**Unsure.** Whether BMC extras will be recreated under the old slugs; the Icon button should move to an extras URL once that extra exists and 200s.
+
+---
+
+## 2026-09-03 — Icon Eastern Caribbean 7N generic pack + PWA (grok1)
+
+**Asked.** Find InTheWake HLS tasks, check them out, and build them. The returned hole was `voyage-pack-v0-1-17-icon-of-the-seas-eastern-caribbean-7n-generi` — pack + PWA companion, missing from `admin/voyage-packs/` and the public README table. A second checkout (`itw-faq-count-prefix`, #2444) was taken; origin/main already carries the validator format-4 fix that issue named.
+
+**Weighed.** Inventing a day-by-day would have been the failure mode (original-research). Royal Caribbean's generic product page lists order without clocks: Miami → 2 sea days → Philipsburg → Charlotte Amalie → sea day → CocoCay → Miami. Third-party listings publish clocks that vary. Symphony 7N is the length analog; Volendam/Anthem PWAs are the companion analog. A CocoCay-first variant exists; the pack names it and refuses a third routing. Store `voyage-packs.html` buy buttons need a real BuyMeACoffee extra — inventing a slug is a footgun, so the store card was left off this commit.
+
+**Decided.** Write v0.1.17-icon-eastern-caribbean-7n.md from sources opened this session (RCL itinerary + FAQs, DNV via Wikipedia, ITW ship/port pages). Disclose "I have not sailed this week." Distinguish Category 6 (ship) from CocoCay Thrill Waterpark (island). DNV length 364.75 m / 1,197 ft, with the site's 1,198 ft rounding named. No drink-package $/day. PWA uses `datesApprox` and a labeled sample Saturday–Saturday frame, not a booking. PDF via pandoc+weasyprint (26 pages). Factcheck-gate passed.
+
+**Unsure.** Laundry FAQ is fleet-wide "no self-service"; the pack bounds the claim to this 7-night. CocoCay add-on dollar ranges age off the Feb 2026 port-page review. Havensight vs Crown Bay is sailing-specific. FAQ_COUNT remaining live mismatches not re-measured this turn beyond reading the already-landed validator comments.
 
 ---
 
