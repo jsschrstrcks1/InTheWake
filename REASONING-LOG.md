@@ -2,6 +2,56 @@
 
 # Reasoning Log
 
+## 2026-09-05 - "The plan is not THIS": the packs were prescribing a week they cannot know (yumi)
+
+**Asked.** Ken: make sure none of the voyage packs have language indicating the PLAN is THIS,
+because it is not. Those are possibilities.
+
+**Weighed.** He is right, and the measurement is worse than I expected. Eleven long-form packs carry
+timed day-by-day schedules. **Nine of them had zero language anywhere telling the reader the day is
+optional.** The section-level framing that does exist hedges the wrong thing: it hedges the
+ITINERARY ("verify times in the app", "typical is not a forecast"), which protects the pack from
+being wrong about the ship. Nothing hedged the ACTIVITIES, which is what makes a reader feel behind.
+
+The failure mode is concrete. A line like "1:30 PM: Cabins open. Register the kids at Doremiland
+now" blends a real ship fact with an instruction, and the timetable format makes both read as
+obligations. A reader who spends the afternoon on the balcony has, by the document's own framing,
+fallen behind schedule on their holiday.
+
+**Decided.** A single note at the head of every day-by-day section, saying plainly what is actually
+fixed (muster, sailaway, arrival and all-aboard, anything already booked) and that everything else is
+a suggestion to ignore, reorder, or sleep through. Also changed the condensed sheets' column header
+from "The one thing" to "Worth knowing" in 11 files, because "the one thing" is prescriptive by
+construction.
+
+**Swept rather than stopping at the obvious.** Checked all packs for "your plan", "the plan for",
+"you must/should/need to do", "follow this schedule", "stick to". The only hit was 23 instances of
+"your plan", and reading them showed 11 were my own new note and the rest were phone roaming ("check
+your plan's roaming"). Every "must" is legitimate: carry-on rules, passport name match, insurance
+purchase windows. No further prescriptive language exists.
+
+**Two things I did NOT change, deliberately.** The HAL Volendam pack already says "day counts below
+are approximate reconstructions from the published route; treat them as shape, not schedule" - it
+had solved this before I arrived, so it keeps its own wording. And I left every real ship time alone;
+the muster drill genuinely is at a time.
+
+**A defect of my own, caught by verifying the artifact.** After rebuilding, only ONE of the eight
+served packs contained the note. Cause: in the last two PRs I published seven packs with a manual
+`cp` instead of giving them served build targets, so the build regenerated the `admin/` copies and
+left the public files untouched. That is exactly the rot I predicted for the MSC pack and fixed
+there, and did not fix for the others. Gave all seven proper `ships/` targets so publication is
+mechanical now. Then a second pass found three still missing, because my timed-line regex never
+matched Icon and MAS Islander; added the note there too.
+
+Final state verified in the served artifacts, not the sources: 8 of 8 downloadable packs carry the
+framing, 0 PDFs stale.
+
+**Unsure.** I have not read every pack end to end, so there may be individual sentences that still
+read as instructions rather than options. The note reframes the section; it does not rewrite every
+imperative underneath it. If Ken wants the imperatives themselves softened, that is a larger editing
+pass and worth saying so rather than implying this closed it completely.
+
+
 ## 2026-09-05 - Genericized the family pack, and gave it a served build target (yumi)
 
 **Asked.** Ken: "genericize the framing", after I stopped on the MSC World America pack because its
