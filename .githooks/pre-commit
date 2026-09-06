@@ -21,6 +21,14 @@
 # ============================================================================
 
 set -u
+set -E
+
+# FAIL CLOSED (P0 #2592). This guard previously printed errors and still exited 0:
+# `mapfile` is bash 4+, macOS ships bash 3.2, so every array came back unset, `set -u`
+# complained, execution carried on, and the unconditional `exit 0` at the end waved the
+# commit through. A guard that cannot run must BLOCK, never pass. Measured 2026-09-05:
+# the pre-fix hook exited 0 with six errors on a clean macOS checkout.
+trap 'guard_status=$?; echo "" >&2; echo "pre-commit: GUARD ABORTED (status ${guard_status}) — refusing the commit." >&2; echo "  A guard that cannot run must not wave a commit through. Fix the guard, or use --no-verify deliberately." >&2; exit 2' ERR
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 
@@ -53,20 +61,23 @@ IMAGE_REUSE_CLI="$REPO_ROOT/admin/check-image-reuse.cjs"
 VOYAGE_PACK_PDF_CHECK="$REPO_ROOT/admin/scripts/voyage-pack-pdf-build.sh"
 FACTCHECK_GATE="$REPO_ROOT/admin/scripts/factcheck-gate.sh"
 
-mapfile -t SHIP_FILES < <(
+SHIP_FILES=()
+while IFS= read -r _line; do [ -n "$_line" ] && SHIP_FILES+=("$_line"); done < <(
     git diff --cached --name-only --diff-filter=ACMR \
         | grep -E '^ships/[^/]+/[^/]+\.html$' \
         | grep -Ev '/(index|venues|quiz)\.html$' \
         || true
 )
 
-mapfile -t IMAGE_TARGETS < <(
+IMAGE_TARGETS=()
+while IFS= read -r _line; do [ -n "$_line" ] && IMAGE_TARGETS+=("$_line"); done < <(
     git diff --cached --name-only --diff-filter=ACMR \
         | grep -E '\.(webp|jpe?g|png|gif|avif)$|^(ships|ports|articles|authors)/.+\.html$' \
         || true
 )
 
-mapfile -t VOYAGE_PACK_MD < <(
+VOYAGE_PACK_MD=()
+while IFS= read -r _line; do [ -n "$_line" ] && VOYAGE_PACK_MD+=("$_line"); done < <(
     git diff --cached --name-only --diff-filter=ACMR \
         | grep -E '^admin/voyage-packs/v[0-9].*\.md$' \
         || true
@@ -143,7 +154,8 @@ fi
 #    .githooks/pre-commit (this file), CLAUDE.md, SKILLS.md, AGENT.md,
 #    audit-reports/, admin/check-no-getbets*. Exemptions MUST mirror those
 #    in .claude/hooks/no-getbets-guard.js EXEMPT_PATH_PATTERNS.
-mapfile -t PRODUCTION_FILES < <(
+PRODUCTION_FILES=()
+while IFS= read -r _line; do [ -n "$_line" ] && PRODUCTION_FILES+=("$_line"); done < <(
     git diff --cached --name-only --diff-filter=ACMR \
         | grep -Ev '^\.claude/(skills/no-getbets/|hooks/no-getbets-|standards/no-getbets)' \
         | grep -Ev '^\.githooks/pre-commit$' \

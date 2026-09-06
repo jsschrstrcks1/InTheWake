@@ -33,8 +33,8 @@ organization, turnaround day → embarkation-day guide, guest services → escal
 (4) Template leftovers corrected; FAQPage removed; BreadcrumbList added; `dateModified`
 bumped. (5) Backlinks so the graph is bidirectional: the logbook (inline at "the same standard
 I'd ask readers to hold us to" plus its related list, which also gained the escalation guide
-it never linked), the Norwegian Getaway ship guide (which did not link its own August 2026
-logbook), the embarkation-day article, and the stateroom-sanity-check article.
+it never linked), the embarkation-day article, and the stateroom-sanity-check article. The
+Norwegian Getaway ship guide was edited too and then HELD BACK — see the last paragraph.
 Verified: scripted edits asserting exactly one match each; internal-link, anchor, JSON-LD,
 duplicate-id and tag-balance checks over all five files (only hits are pre-existing
 `/ports/`-style nav links that `_redirects` 301s); headless Chromium render at 1400px shows
@@ -62,6 +62,157 @@ the hooks are committed. Memory 298e33c9 (rails must match the ship-page templat
 the author card is the same `author-card-vertical` block; the Recent Stories block deliberately
 keeps its `<noscript>` OUTSIDE `#recent-rail`, because the shared `article-rail.js` skips any
 container that already has a child element and would otherwise never populate.
+
+## 2026-09-05 - Re-stamped 16 factcheck sidecars, one of them honestly (yumi)
+
+**Asked.** Proceed as recommended. My recommendation was the wall the repaired gate now puts in
+front of every pack edit: 16 of 18 sidecars stale.
+
+**Weighed.** The cheapest way to clear this is to bump `last_factcheck_date` on all 16 and move on.
+That is exactly the failure the gate exists to catch, and the question careful-not-clever asks of any
+guard is *what is the cheapest way to make this pass*. So I diffed each pack from its sidecar's last
+commit and classified the changes instead.
+
+Thirteen were my own framing note plus the column rename, no factual claim touched. Two were link-only
+conversions, text byte-identical apart from the anchor. **One was not**, and that is the whole point
+of doing this by hand.
+
+`v0.1.13-ncl-gem` gained real claims in July: Magenta became "smaller and cozier than Grand Pacific,
+same included menu", Orchid Garden became "Asian Fusion, complimentary; the adjacent Sushi Bar and
+Sake Bar are a la carte". Those are **cost claims**, the class that misleads a reader about money,
+sitting behind a sidecar dated 2026-07-06 that never saw them.
+
+**Decided.** Verified rather than assumed: both claims match the In the Wake venue pages linked in
+the same commit, `restaurants/ncl/magenta.html` and `restaurants/ncl/orchid-garden.html`, which state
+the same thing in their own ai-summaries. So the pack agrees with the household corpus it cites.
+Re-stamped with a note recording exactly that, and recording its limit: grounding against our own
+sourced pages is not a fresh primary-source check with NCL.
+
+Every note records what changed, on what basis, and that the underlying ship/port/price verification
+still carries its ORIGINAL date. A freshness re-stamp is not a re-verification and must not be
+allowed to read as one.
+
+**A mistake I caught in my own work.** My classifier put v0.1.13 in the "link only, no change to the
+surrounding claims" bucket, because its added lines contained restaurant links and were short. That
+sentence would have been a false statement inside a factcheck record, which is the worst possible
+place for one. I noticed while reading the output, and rewrote that note by hand.
+
+**Verified.** Gate now exits 0, 18 passing, 0 stale. All 16 sidecars parse. Checked every sidecar for
+dropped top-level keys against HEAD: **zero lost**, and the July adversarial-audit notes are intact
+alongside the new ones.
+
+**Unsure.** Fifteen of these are freshness stamps resting on my classification of the diffs, not on
+re-reading each pack end to end. If a factual claim slipped into one of those diffs and I read it as
+formatting, this re-stamp would paper over it. The diffs are small (+1 to +8 lines) and I read each
+one, which is why I believe the classification, but I did not re-verify any pack's underlying facts
+and no note claims otherwise.
+
+
+## 2026-09-05 - Took P0 #2592: two guards that printed errors and passed anyway (yumi)
+
+**Asked.** Ken: "Take it and do it." He had previously assigned this class to another sibling; no
+one took it, no PR existed, and the local fix branch had never been pushed.
+
+**Weighed.** I reproduced the defect in a throwaway git repo rather than the real one, because
+driving the real pre-commit hook writes real ledger rows. The reproduction is unambiguous:
+`.githooks/pre-commit` printed six errors, including unbound-variable aborts under `set -u`, and
+**exited 0**.
+
+Reading it showed why the `set -u` did not save us: nothing stops execution, and the script ends in
+an unconditional `exit 0` at line 180. So a broken guard walks past its own failure and reports
+success. That is the actual defect. `mapfile` is only the trigger.
+
+**Decided: fix both halves, in both files.**
+
+1. **Capability.** All six `mapfile` uses (4 in the hook, 2 in the gate) became bash-3.2-safe
+   while-read loops, with arrays pre-initialised so `set -u` cannot see them unset even when a
+   pipeline yields nothing.
+2. **Fail closed.** An `ERR` trap in each script that reports and exits 2. Without it, fixing
+   `mapfile` alone would leave the next unrelated breakage falling through to `exit 0` again.
+
+Fixing only the hook would have been worse than leaving it: the hook INVOKES the gate, so a repaired
+hook would confidently call a gate that still silently passed. The stranded branch did exactly that.
+
+**What the repaired gate immediately found.** It now exits 1 and reports **16 of 18 packs with a
+stale factcheck sidecar**. That matches my independent git-history count exactly, two different
+methods agreeing. Three of those went stale in **July**, which is the proof this was not today's
+mess: the gate has been waving pack edits through for two months.
+
+I also checked the gate's staleness method before trusting its verdict, and it is better than my
+first attempt: it compares git commit times when both files are clean, and only falls back to mtime
+while a file is actively being edited. My own first measurement used raw mtime after a
+`git reset --hard`, which is checkout time and meaningless. I threw that number away.
+
+**A third instance of the same class, found on the way.** `tests/unit` holds four suites and
+**nothing runs them** - not CI, not any npm script. My new guard test would have joined them in never
+executing, which is the same defect as a guard that exits 0 without looking. Added a `unit-tests` job
+to the quality workflow and wired it into the summary. All 65 tests pass, including the four suites
+that had never run anywhere.
+
+**Verification.** 9 new tests pinning both halves in both files, positive and negative fixtures per
+the repo's own claim-evidence doctrine, plus a TEETH test asserting the gate produces per-pack
+verdicts rather than merely not crashing. **5 of 5 mutants caught**: reverting either while-read,
+removing either ERR trap, and changing the trap to exit 0.
+
+**Unsure, and it will bite someone.** Now that the gate works, any pack edit is blocked until its
+sidecar is refreshed, and 16 are already stale. That is correct behaviour, not a regression, but it
+is a wall that appears the moment this lands. My own commit passes only because it stages no pack
+`.md`. Refreshing those 16 is the obvious follow-up, and for the ones I touched today it is a
+freshness stamp rather than re-verification, since my edits changed no factual claim. I have not
+confirmed that for all 16.
+
+
+## 2026-09-05 - I went looking for prescriptive imperatives, found none, and found an inert guard instead (yumi)
+
+**Asked.** Ken, with the full invocation: proceed as recommended, careful not clever, Sophos, Soli
+Deo Gloria, with the gravity the project demands.
+
+**Weighed.** My own recommendation was the thing I had flagged as unfinished: the not-a-plan note
+reframes the day-by-day section but does not rewrite the imperatives underneath it. A banner saying
+"ignore this" above forty commands would be a patch on a body-level problem.
+
+So I measured before editing, and my first measurement was wrong. A regex for imperative bullets
+returned counts up to 79 per pack. Reading the actual matched lines showed almost all were bolded
+informational labels ("**Terminal:** ..."), not commands. Tightened to true bare imperatives:
+**eight across the entire corpus.**
+
+Reading all eight: seven are "Stay near your pier" / "Stay in the Costa Maya port complex", and each
+sits under a heading reading "**Easy-day option (no excursion):**" followed by "**Half-day
+options:**". They are items on a menu, not instructions. The eighth is "Walk Pike Place Market in the
+morning" in a pre-cruise section.
+
+Checked the imperatives that carry real force, the ones inside bold emphasis. The most frequent are
+"**Don't try to do everything.**" (12) and "**Don't panic.**" (12), which are ANTI-prescriptive. The
+rest are "Buy travel insurance", "Confirm the booking with Tina", "Confirm gratuities" - advice that
+should be firm, and softening it would make the packs worse.
+
+**Decided: no change.** The packs are already written as possibilities. The section note was the
+right and sufficient fix. Recording this as a decided-no with evidence so the next agent does not
+re-derive it, and because manufacturing an edit to look productive is its own failure.
+
+**What the pass actually found.** Running the household's own PACK-PRESHIP-REVIEW-CHECKLIST against
+the three packs I published today, `admin/scripts/factcheck-gate.sh --all` printed four errors and
+**exited 0 having checked nothing**. Same `mapfile` bug as the pre-commit hook. Its stated job is to
+block any voyage-pack commit lacking a fresh factcheck sidecar, and it has been enforcing nothing on
+macOS. Every pack commit I made today passed a gate that never looked at a file.
+
+Worse for the fix in flight: `.githooks/pre-commit` INVOKES that gate. Repairing only the hook, which
+is what the stranded branch does, yields a working guard that confidently calls a gate which still
+silently passes. That is worse than today, because it looks solved. Measured: main has 4 mapfile uses
+in the hook and 2 in the gate; the fix branch has 0 and **2**.
+
+Port grounding (checklist A2) passed cleanly: every port linked by the three published packs has a
+page.
+
+**Unsure.** I did not fix either file. Ken assigned this class to a different sibling, and I judged
+that reporting it precisely into #2592 serves better than fragmenting it into a new task I was told
+not to take. If he would rather I just fix it, it is two small edits.
+
+**A mistake of my own, corrected.** My first attempt at that issue comment passed the body as a
+double-quoted shell string containing backticks, so zsh executed them as command substitution and
+blanked every inline code span and table cell. The measurement, the whole point of the comment,
+rendered as empty table cells. I checked what actually posted rather than trusting the returned URL,
+found it mangled, and repaired it via the API with a quoted heredoc.
 
 ## 2026-09-05 - "The plan is not THIS": the packs were prescribing a week they cannot know (yumi)
 
