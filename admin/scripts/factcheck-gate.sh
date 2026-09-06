@@ -34,6 +34,13 @@
 # ============================================================================
 
 set -u
+set -E
+
+# FAIL CLOSED (P0 #2592). This gate previously printed four errors and exited 0 having
+# checked nothing: `mapfile` is bash 4+, macOS ships bash 3.2. Its whole job is to BLOCK a
+# voyage-pack commit that lacks a fresh factcheck sidecar, and it was enforcing nothing on
+# macOS while the pre-commit hook that invokes it read the 0 as a pass.
+trap 'gate_status=$?; echo "" >&2; echo "factcheck-gate: GATE ABORTED (status ${gate_status}) — refusing the commit." >&2; echo "  A gate that cannot run must not report success." >&2; exit 2' ERR
 
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 PACKS_DIR="admin/voyage-packs"
@@ -105,12 +112,16 @@ case "$MODE" in
     # ABOUT packs, not sellable packs, so they carry no sidecar either. Facts shared
     # across the trio should be consistent (a separate cross-doc consistency check
     # belongs in the build pipeline).
-    mapfile -t FILES_TO_CHECK < <(git diff --cached --name-only --diff-filter=ACMR 2>/dev/null \
+    FILES_TO_CHECK=()
+    while IFS= read -r _line; do [ -n "$_line" ] && FILES_TO_CHECK+=("$_line"); done < <(
+git diff --cached --name-only --diff-filter=ACMR 2>/dev/null \
       | grep -E "^${PACKS_DIR}/v[0-9].*\.md$" \
       | grep -v -E "(-condensed|-handoff-card|-FACT-CHECK)\.md$" || true)
     ;;
   all)
-    mapfile -t FILES_TO_CHECK < <(find "$PACKS_DIR" -maxdepth 1 -name "v[0-9]*.md" -type f \
+    FILES_TO_CHECK=()
+    while IFS= read -r _line; do [ -n "$_line" ] && FILES_TO_CHECK+=("$_line"); done < <(
+find "$PACKS_DIR" -maxdepth 1 -name "v[0-9]*.md" -type f \
       ! -name "*-condensed.md" ! -name "*-handoff-card.md" ! -name "*-FACT-CHECK.md" | sort)
     ;;
   explicit)

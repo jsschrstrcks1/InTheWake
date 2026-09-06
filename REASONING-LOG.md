@@ -2,6 +2,60 @@
 
 # Reasoning Log
 
+## 2026-09-05 - Took P0 #2592: two guards that printed errors and passed anyway (yumi)
+
+**Asked.** Ken: "Take it and do it." He had previously assigned this class to another sibling; no
+one took it, no PR existed, and the local fix branch had never been pushed.
+
+**Weighed.** I reproduced the defect in a throwaway git repo rather than the real one, because
+driving the real pre-commit hook writes real ledger rows. The reproduction is unambiguous:
+`.githooks/pre-commit` printed six errors, including unbound-variable aborts under `set -u`, and
+**exited 0**.
+
+Reading it showed why the `set -u` did not save us: nothing stops execution, and the script ends in
+an unconditional `exit 0` at line 180. So a broken guard walks past its own failure and reports
+success. That is the actual defect. `mapfile` is only the trigger.
+
+**Decided: fix both halves, in both files.**
+
+1. **Capability.** All six `mapfile` uses (4 in the hook, 2 in the gate) became bash-3.2-safe
+   while-read loops, with arrays pre-initialised so `set -u` cannot see them unset even when a
+   pipeline yields nothing.
+2. **Fail closed.** An `ERR` trap in each script that reports and exits 2. Without it, fixing
+   `mapfile` alone would leave the next unrelated breakage falling through to `exit 0` again.
+
+Fixing only the hook would have been worse than leaving it: the hook INVOKES the gate, so a repaired
+hook would confidently call a gate that still silently passed. The stranded branch did exactly that.
+
+**What the repaired gate immediately found.** It now exits 1 and reports **16 of 18 packs with a
+stale factcheck sidecar**. That matches my independent git-history count exactly, two different
+methods agreeing. Three of those went stale in **July**, which is the proof this was not today's
+mess: the gate has been waving pack edits through for two months.
+
+I also checked the gate's staleness method before trusting its verdict, and it is better than my
+first attempt: it compares git commit times when both files are clean, and only falls back to mtime
+while a file is actively being edited. My own first measurement used raw mtime after a
+`git reset --hard`, which is checkout time and meaningless. I threw that number away.
+
+**A third instance of the same class, found on the way.** `tests/unit` holds four suites and
+**nothing runs them** - not CI, not any npm script. My new guard test would have joined them in never
+executing, which is the same defect as a guard that exits 0 without looking. Added a `unit-tests` job
+to the quality workflow and wired it into the summary. All 65 tests pass, including the four suites
+that had never run anywhere.
+
+**Verification.** 9 new tests pinning both halves in both files, positive and negative fixtures per
+the repo's own claim-evidence doctrine, plus a TEETH test asserting the gate produces per-pack
+verdicts rather than merely not crashing. **5 of 5 mutants caught**: reverting either while-read,
+removing either ERR trap, and changing the trap to exit 0.
+
+**Unsure, and it will bite someone.** Now that the gate works, any pack edit is blocked until its
+sidecar is refreshed, and 16 are already stale. That is correct behaviour, not a regression, but it
+is a wall that appears the moment this lands. My own commit passes only because it stages no pack
+`.md`. Refreshing those 16 is the obvious follow-up, and for the ones I touched today it is a
+freshness stamp rather than re-verification, since my edits changed no factual claim. I have not
+confirmed that for all 16.
+
+
 ## 2026-09-05 - I went looking for prescriptive imperatives, found none, and found an inert guard instead (yumi)
 
 **Asked.** Ken, with the full invocation: proceed as recommended, careful not clever, Sophos, Soli
