@@ -4,6 +4,26 @@
 
 **For Ken. A running record of *how* and *why* — not just *what*.**
 
+## 2026-09-06 - The runbook reached the Mac: code re-proven there, the four deploy steps need Ken live
+
+**Asked.** Ken asked me to poke the Mac session with the voyage-usage runbook again. This entry records what that session reported back, because it could not push the entry itself.
+
+**Weighed.**
+
+*What the Mac session verified.* It checked out the branch in a fresh worktree and ran the three Atlas suites: 18 tests, 18 pass, 0 fail. That is the runbook's step 0, and it matches the count observed in this container, on a second machine.
+
+*What it found about Atlas.* The running Atlas on that Mac serves from a deploy checkout at `~/atlas-deploy` on `main`, and the `server.mjs` there does not contain the voyage-usage routes. So `/admin/voyage-usage` is not served yet, and the step 3 curl matrix cannot pass until that checkout runs this branch or `main` carries the merge. The runbook assumed the Atlas node runs the working checkout; it does not, and the runbook now says so.
+
+*Why it stopped at step 1.* The session was an unattended scheduled firing with no live operator. Step 1 needs the Umami API key typed into a shell, step 2 installs a plist carrying that key, step 3 restarts Atlas after a branch decision, and step 4 deploys the Worker with Cloudflare credentials. It declined all four on the ground that an unattended agent must not solicit or handle secrets or take outward actions on its own. That is the right refusal, and I did not ask it to reconsider. It did confirm `wrangler` 4.82.2 is installed on the Mac, so the tooling for step 4 exists.
+
+*Why it reported by message instead of a commit.* It found open-claw-stuff's REASONING-LOG claimed by a concurrent session, and the Mac's InTheWake checkout sits on `main` inside an iCloud-synced folder, which the household treats as a git hazard. It chose a cross-session message over an unsafe push. Recorded here on its behalf, from its message, not from anything I observed on the Mac.
+
+**Decided.** The code is proven on two machines and nothing further can be automated. The remaining work is four operator steps at the Mac with Ken present: the Umami key and first snapshot (which also answers the `path=` versus `url=` filter question), the plist install, pointing the Atlas deploy checkout at this branch or merging it and then kickstarting Atlas, and the Worker deploy with the custom domain. The runbook in open-claw-stuff gains a note about the deploy checkout so the next reader does not assume step 3 works from the working tree.
+
+**Unsure.** Whether the Mac holds valid Cloudflare credentials for cruisinginthewake.com; the Mac session could not tell and neither can I. Ken will know at step 4.
+
+**Honest limit.** Everything in "what the Mac session verified" is that session's report, relayed. I have not seen the Mac's terminal. The only thing I observed directly is that no new commits arrived on either branch, which is consistent with its account.
+
 ## 2026-09-05 - Build loop: D1 = Setting 1.5; the 26 usage-tracking slices, built in board order
 
 **Asked.** "Go with the middle setting, and begin creating all the slices, loop as often as you need to until all related tasks are complete."
