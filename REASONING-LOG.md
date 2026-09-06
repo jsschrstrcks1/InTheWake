@@ -2,6 +2,30 @@
 
 # Reasoning Log
 
+## 2026-09-06 - "Proceed with the listed tasks": the registry told the truth about ten served PDFs, Prima got its pre-ship pass and its card, and the board stopped describing a paid product
+
+**Asked.** Ken: "Proceed with the listed tasks." The list was the answer I had just given to "what's left to do to the voyage packs."
+
+**Weighed.**
+
+*The registry was wrong about ten packs, and I had written it.* The packs I had called companion-only all have a full PDF served under `ships/` already; yumi's log said so on 2026-09-05 and I had not read that sentence carefully. The registry now names those ten files, so the checker guards them, and "companion-only" in the status column now means what it says: no landing card, not no PDF.
+
+*Prima sails first, so Prima got the pre-ship review.* I read the pack end to end against the five classes in `PACK-PRESHIP-REVIEW-CHECKLIST.md` rather than listing it on the strength of a re-stamped sidecar. It found real things: the pack said the site had no Great Stirrup Cay page when `ports/great-stirrup-cay.html` exists; Section 5 listed tendering at the cay as included while Day 3 says the new pier is open; two comfort claims about corridor width and loading speed had no source; three sentences narrated the reader's week for them; the budget numbers carried no reader-facing verification date. Thirteen wording edits, no number changed and no new claim introduced. The sidecar note says exactly that, and says what was NOT done: U.S. government sites return 403 from this container, so the consular numbers were not re-fetched and carry their June and July 2026 verification dates.
+
+*Rebuilding the PDF was possible after all.* pandoc and weasyprint were absent and installed cleanly, so the served PDF is regenerated from the edited source rather than left a version behind. The pre-commit hook enforces exactly that pairing, and it would have been wrong to route around it with a copy.
+
+*Listing a hosted-group pack publicly.* Aqua Veterans and Sisters at Sea are Tina's hosted groups and are already on the page with "booking through Tina is separate", so listing Prima the same way follows established practice rather than setting new policy. The card names the hurricane-season window in its first paragraph, because the pack does.
+
+*The other seven unlisted packs.* Each needs the same read pass before a card, and a read pass is a few thousand words of judgment per pack. I registered one task per pack in sailing order rather than list them unreviewed or leave them invisible. Bliss has sailed and Getaway is source-only with no dates; neither got a task.
+
+*The board and the checklist described a product that no longer exists.* The paywall-platform row is superseded by a row recording the free-with-tip decision, which is registered after the fact so the supersede points at something real. The Sisters duplicate and the GSC audit landed before this session and are returned with evidence, quorum still owed. The W12 checklist's six paid-model sections are marked retired in place with the date and the reason, and kept, because deleting them would delete the reasoning that led here.
+
+**Decided.** Registry corrected and CLEAN at 18 packs; Prima reviewed, fixed, rebuilt, listed on `voyage-packs.html` and `custom-voyage-pack.html` with the same usage attributes as every other card; the custom-pack page's own download and tip links instrumented; seven pre-ship tasks on the board; four stale rows closed or returned; W12 checklist retired where it was false. Tests: the five voyage-usage suites pass (33), the registry checker is CLEAN, the fact-check gate exits 0, and the Playwright landing spec passes against the page with the new card.
+
+**Unsure.** Whether Ken wants the hosted-group packs on the public landing page at all, or only reachable from Tina's pages. The precedent says yes; the precedent was also set by an agent. If not, the Prima card is one article element to remove and the registry flag flips back.
+
+**Honest limit.** The voice audit was not re-run on the edited Prima pack; the edits removed prophecy rather than adding prose, but that is my reading, not the gate's. The Icon companion still has no browser-level test. The two-verifier quorum on all 26 usage slices and on today's returned rows is still owed by someone who is not me.
+
 ## 2026-09-06 - Merged main into the usage-tracking branch: the packs went free while this was built, so the Buy instrumentation moved to the download and tip links
 
 **Asked.** "Fetch, merge, resolve conflicts. Newer isn't automatically better."
