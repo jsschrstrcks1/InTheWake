@@ -2,6 +2,24 @@
 
 # Reasoning Log
 
+## 2026-09-06 - Encore pre-ship pass: the tonnage-equals-safety sentence, a sea-day contradiction, and the prophecy bullets
+
+**Asked.** "Proceed" after the board showed the Norwegian Encore pack (sails 2026-10-12) as the closest unlisted sailing. The task row: run the pre-ship checklist, then list the pack.
+
+**Weighed.**
+
+*What the checklist found.* The pack passed its factual sidecar in June and carries a boardroom record, and a fresh read still turned up one instance of every class the checklist names. Class A: Section 7 said "Encore is a 169,116-GT ship, heavy enough to handle real swells. You may notice motion; you won't be in danger," which is the Anthem tonnage-equals-stability error plus an absolute promise about a stranger's body; rewritten to say size does not cancel motion. Also cut: an unsourced "statistically safer than most cities," a "$200/day" insurance reimbursement figure nobody verified, at-sea cellular per-minute rates, carrier-specific day-pass claims, and a "within 5%" accuracy claim about the budget calculator. Class B: "two days at sea before San Francisco" contradicted the day-by-day (Victoria Wednesday evening, one full sea day, San Francisco Friday morning); and "seven years into service" is a few weeks early for a ship delivered 2019-10-30. Class C: the Day 1 first-timer bullets were pure second-person prophecy ("You will feel slightly stupid... You will get on an elevator... You will sit down at a bar"), adopted from the June boardroom; they keep their substance in the third person now. The Section 11 imagined-experience triplet (the Studio Lounge conversation, the 6 AM balcony, the 30 minutes watching San Francisco recede) is one sentence. "Iconic" three times is now zero. Class D: "Speedway-quality dining venues." Class E: no reader-facing price date in the budget section; added, mirroring Prima.
+
+*What did not change.* No number. The service-charge rate ($20 and $25) could not be re-verified from this container: the NCL service-charges URL returned 404 and the FAQ page did not carry it. The three sea distances stay approximate and unsourced as they were. Deck numbers for three venues were never in the sidecar and were not checked. The sidecar note says all of this.
+
+*Two San Francisco lines removed rather than fixed.* "Bay Bridge walking trail" and "Sunday Sundae at Ghirardelli Square (Saturday opening)": the first is a real path but starts on the Oakland side, and the second is garbled. Neither could be made true from here without a source, so both are gone.
+
+**Decided.** 34 wording edits to the pack, PDF rebuilt (40 pages), sidecar stamped 2026-09-06 with the note above, registry landing flags flipped, card added on the landing page between Prima and Aqua, custom-pack logbook entry added, "nine sailings" is "ten." Unit tests 33 pass, registry CLEAN at 18, fact-check gate exit 0.
+
+**Unsure.** The "Indulge Food Hall, wait, no, that's Prima class" aside in Section 10 reads like a model's riff to me, but it passed an operator-supervised pass in June and I left it. Whether the June boardroom's prophecy bullets were wanted in the second person is a voice call Ken may want to make himself; the substance is intact either way.
+
+**Honest limit.** This was a consistency and wording pass, not a re-verification. The voice audit block was not re-run; its counts are from June. The companion PWA for this sailing was not re-read.
+
 ## 2026-09-06 - Margaritaville at Sea Islander gets a ship page, built from facts the January pack had already verified
 
 **Asked.** Part of "proceed with the listed tasks": the January 2027 pack links a ship page that did not exist (board rows itw-gh-2004 and itw-gh-2005).
