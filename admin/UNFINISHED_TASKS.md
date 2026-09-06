@@ -995,3 +995,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-09-06T10:43:28.795Z -->
 | itw-vp-preship-v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027 | 4 | Pre-ship review + landing card: NCL Aqua Thanksgiving hosted solo group (sails 2027-11-21). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:59:30.725Z -->
+| itw-islander-logbook-and-videos | 4 | Islander ship page to validator standard: ten logbook stories across the named personas (disclosure type B, research-based, voice gates on) and ten curated, vetted videos across the eight validator categories for ships/margaritaville-at-sea/margaritaville-at-sea-islander.html. The page exists (2026-09-06) and ships at 36/100 with those two volume gates and the stale nav gold standard as the only blockers. Companion to itw-gh-2005 (venue pages). |

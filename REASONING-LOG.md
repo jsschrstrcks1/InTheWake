@@ -2,6 +2,26 @@
 
 # Reasoning Log
 
+## 2026-09-06 - Margaritaville at Sea Islander gets a ship page, built from facts the January pack had already verified
+
+**Asked.** Part of "proceed with the listed tasks": the January 2027 pack links a ship page that did not exist (board rows itw-gh-2004 and itw-gh-2005).
+
+**Weighed.**
+
+*Where the facts came from.* Not from memory. The pack's fact-check sidecar already carries the ship's record with sources and dates: tonnage, length, decks, capacity, crew, builder, yard number, IMO, name history, the Belfast refit, the June 2024 christening and godmother, the gratuity rate with its February 2026 increase, and the line's phone number. Wikipedia was re-read for the acquisition date, beam, draft, speed and flag, and the line's own Islander, restaurants-and-dining, bars-and-lounges and things-to-do pages were read for venue names and itinerary shapes. Where the line's page does not name a thing (spa, fitness center, kids club) the page says "which the line lists without detail" instead of borrowing a name from a review.
+
+*Photographs.* Three from Wikimedia Commons, each downloaded from upload.wikimedia.org with its SHA1 checked against the Commons API, converted to webp, inspected by eye, and given the site's attribution sidecar: the November 2024 stern-quarter shot with ISLANDER legible on the hull (CC BY-SA 4.0, Bassfish22), and two of the same hull as Costa Atlantica in 2010 and 2011 (public domain and CC BY 3.0), captioned as her first life so no reader takes a Costa-liveried ship for the current one. The image-reuse guardrail's concern is the same bytes standing for two entities; here two names stand for one hull, and every caption says which.
+
+*The validator.* The site's own ship-page validator scored the first draft 2 of 100. The mechanical errors were fixed as it named them: summary length, the Review schema (written without a star rating, because a templated number for a ship nobody here has sailed would be a fabrication, and the validator itself flags templated ratings), the search index, the sitemap, the fleet index, an honest empty logbook and video file, and the minimum of eight images. It also flagged casino, slots and betting as forbidden content under the site's purity rule; those lines are gone, and the bars list says one bar is omitted by house policy so the count of sixteen still reads true.
+
+*What the validator still blocks, and why it stays blocked.* Four errors remain. One is the navigation gold standard, which the Prima page also fails, because the validator's list predates the current nav; not mine to change inside a ship page. Three are volume gates: ten logbook stories across named personas, ten curated videos across eight categories. Those are editorial work with the household's voice gates on them, and vetted video embeds cannot be chosen from this container. Registered as a follow-up rather than filled with placeholders. The page ships at 36 of 100 by that scale, honestly labelled as a planning profile.
+
+**Decided.** `ships/margaritaville-at-sea/margaritaville-at-sea-islander.html` with three verified photographs, static dining and bars lists from the line's pages, the tracker on IMO 9187796, a seven-question FAQ, and the sources named in the attribution card. Registered in the sitemap, the search index, and the fleet index. The venue pages (itw-gh-2005) are not built; the dining lists name venues without links.
+
+**Unsure.** Whether the household wants Costa-era photographs on a Margaritaville page at all. They are the only licensed exterior shots of the hull beyond the single 2024 photo, and the captions are explicit; if the answer is no, two slides come out and the page drops to six images, under the validator's minimum.
+
+**Honest limit.** The ship facts carry their sidecar verification dates (2026-07-06), not a fresh check with the line; the line's own pages were read today. No one in the household has sailed her, and the page says so in the logbook slot and the Review schema.
+
 ## 2026-09-06 - "Proceed with the listed tasks": the registry told the truth about ten served PDFs, Prima got its pre-ship pass and its card, and the board stopped describing a paid product
 
 **Asked.** Ken: "Proceed with the listed tasks." The list was the answer I had just given to "what's left to do to the voyage packs."
