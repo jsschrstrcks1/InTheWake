@@ -2,6 +2,22 @@
 
 # Reasoning Log
 
+## 2026-09-06 - Three Breakaway Plus ship pages named the wrong pub, and one claimed a race track the ship does not have
+
+**Asked.** The follow-up I registered during the Escape pre-ship pass (itw-escape-ship-page-venue-audit), picked up in the same loop because the pages are live and public today while the packs are on a branch.
+
+**Weighed.** NCL's deck plans, read for Escape, Bliss and Encore in turn: Escape has O'Sheehan's on Deck 7 and no Observation Lounge; Bliss and Encore have The Local on Deck 7 and an Observation Lounge on Deck 15. The Escape page listed The Local, an Observation Lounge, and Palomar (a Prima-class venue), and its quick answer said she was "NCL's first to feature a multi-story go-kart race track," which the June sidecar for her own pack had already recorded as false (the Speedway arrived with Joy in 2017). The Bliss page listed O'Sheehan's and The Local as two venues; the Encore page said O'Sheehan's. Each page's validator score is unchanged after the edits (Escape 62, the two pre-existing blockers untouched: the nav gold standard and a "nightlife" purity hit, neither mine to fix inside a venue audit).
+
+*The one that came back on me.* Reading Encore's deck plans showed The Local on Deck 7; the Encore pack I pre-shipped earlier today said Deck 6, in the Day 1 timeline. Corrected, PDF rebuilt, and the sidecar note carries an addendum rather than a quiet edit.
+
+**Decided.** Five edits on the Escape page, one each on Bliss and Encore, one line in the Encore pack with its PDF and sidecar. Not touched: the Joy page (its venue list says The Local, which matches the pattern, but I did not read Joy's deck plans and will not stamp it), and the Getaway, Gem and Breakaway packs, which name O'Sheehan's for ships that may well still have it; those get checked in their own pre-ship passes.
+
+**Unsure.** Whether Escape's specialty list on the page is otherwise complete; the deck-plan fetch returned bars and included venues in full but only part of the specialty list, so I removed the one venue I could show was wrong and left the rest.
+
+**Honest limit.** Three deck-plan reads, not a venue-by-venue audit of any page. The Cavern Club deck on Encore is still unchecked.
+
+*Added after the commit was blocked.* The pre-commit ship-regression check compares each page against a dashboard baseline generated 2026-05-12, before the validator's navigation gold-standard rule existed, so it reported my venue edits as a nav regression on all three pages. The committed pages already fail that rule identically, and I did not use the bypass. Instead the four nav links the rule names were switched from directory form (/planning/, /cruise-lines/, /ports/, /restaurants/) to the .html files, which exist on disk (the directory forms have no index.html); 254 other ship pages still carry the directory form and that is a site-wide task, not this one. The baseline itself is four months stale and will keep flagging phantom regressions on any ship page anyone touches; regenerating it is a repo-wide change I left for Ken.
+
 ## 2026-09-06 - Escape pre-ship pass: the pack sent readers to a lounge the ship does not have
 
 **Asked.** The proceed loop's next item after Encore: the Norwegian Escape Thanksgiving pack (sails 2026-11-20), the second-closest unlisted sailing.
