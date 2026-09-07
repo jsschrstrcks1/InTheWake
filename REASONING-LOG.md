@@ -2,6 +2,26 @@
 
 # Reasoning Log
 
+## 2026-09-07 - The Escape pass fixed the pack a reader browses and left the one a reader carries
+
+**Asked.** Continue the proceed loop. I went looking for whether yesterday's venue finding was an instance or a class.
+
+**Weighed.**
+
+*The sweep.* I grepped every voyage pack and every NCL ship page for the three venue names at issue (The Local, O'Sheehan's, Observation Lounge). The pattern is mostly coherent and that is the good news: the older ships name O'Sheehan's, the Breakaway Plus and Prima generations name The Local, which matches NCL's actual history. The class I feared, packs inventing venues wholesale, is not there.
+
+*What the sweep found instead.* A pack is up to three shipped documents. The long form, a three-page condensed variant, and a one-page handoff card, each with its own PDF, all listed in the registry. Yesterday's pass read the long form. The condensed file still told a reader to have sunrise coffee in an Observation Lounge that Escape does not have, four times; still marked Great Stirrup Cay "yes" under its own Tender column, which is the error the long-form pass corrected; and still carried the two taxi fares the long-form pass had already reconciled. The condensed file is the one a person prints and takes ashore. I fixed the more browsable document and left the more useful one wrong.
+
+*Why the checklist did not catch it.* Because it does not mention variants at all. It says to run the pass on "a pack" and every one of its classes is written as though a pack is one file. That is the actual defect; the Escape condensed is just where it surfaced.
+
+*The build has the same shape.* `voyage-pack-pdf-build.sh escape` rebuilds the long form only. I ran it, saw a clean log, and the condensed PDF still had the old text; `condensed` is a separate target. I only caught that because I read the rebuilt PDF's text instead of trusting the log.
+
+**Decided.** Nine edits to the Escape condensed pack, its PDF rebuilt and its text verified. A new section F in the pre-ship checklist that names the variants, requires the grep items to run against each, and requires every variant's PDF to be rebuilt and read. The Escape sidecar carries an addendum saying plainly that yesterday's pass covered one file of three. The Encore condensed was checked and is correct: Encore genuinely has an Observation Lounge on Deck 15 and The Local on Deck 7.
+
+**Unsure.** Whether the other listed packs' condensed variants carry their own stale copies. I checked Encore's and Escape's; the remaining seven condensed files and eight handoff cards were not read line by line, and the sidecars will not tell anyone whether they were. Section F makes that a required step going forward, but it does not reach backward.
+
+**Honest limit.** This was a targeted sweep for three venue names plus a read of two condensed files, not a full pre-ship pass on any variant. A grep-based variant sweep in the fact-check gate is named in section F as a candidate and is not built.
+
 ## 2026-09-06 - Three Breakaway Plus ship pages named the wrong pub, and one claimed a race track the ship does not have
 
 **Asked.** The follow-up I registered during the Escape pre-ship pass (itw-escape-ship-page-venue-audit), picked up in the same loop because the pages are live and public today while the packs are on a branch.

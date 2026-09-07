@@ -75,6 +75,29 @@ The voice_audit block counts machine tells and runs cluster detection, but a fir
 
 ---
 
+## F. Variant coverage — the pass is not one file
+
+Added 2026-09-07, after the Escape pre-ship pass fixed the long-form pack and left the SAME defects
+standing in the condensed variant, which is the file a reader actually carries ashore.
+
+A pack is up to three shipped documents, each with its own `.md` and its own PDF, all listed in
+`packs.json`: the long form, `*-condensed.md` (3 pages), and `*-handoff-card.md` (1 page). They were
+written by copying from the long form, so **every defect class below propagates to them silently**,
+and nothing in the factual sidecar or the voice-audit block looks at them.
+
+- [ ] **List the variants before you start.** `ls admin/voyage-packs/ | grep <version>` — long form,
+      condensed, handoff card. The pass covers all of them or it is not finished.
+- [ ] **Re-run every grep-able item against each variant**, not just the long form. On Escape the
+      condensed file still named an Observation Lounge four times (a venue that ship does not have),
+      still marked Great Stirrup Cay as a tender call in its own Tender column, and still carried two
+      taxi fares the long-form pass had already reconciled.
+- [ ] **Rebuild every variant's PDF, not just the one you edited.** `voyage-pack-pdf-build.sh <ship>`
+      builds the LONG FORM ONLY; `condensed` and `handoff` are separate targets. A rebuilt long form
+      next to a stale condensed is the shape this rule exists to stop — verified by reading the
+      rebuilt PDF's text, not by trusting the build log.
+- [ ] **Owner:** this checklist. A per-pack variant sweep is a candidate for `factcheck-gate.sh`
+      (grep each variant for the phrases the long form no longer contains), not yet built.
+
 ## How this checklist runs
 
 1. After the factual sidecar passes and the voice_audit block is written, run THIS checklist as a final read pass.
