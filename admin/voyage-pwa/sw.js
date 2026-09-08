@@ -12,11 +12,15 @@
    entry (anthem-alaska.html, prima-caribbean.html, …) shares this one worker + shell
    cache; each installs as its own home-screen app via its own manifest. */
 
-const CACHE = "voyage-v4";
+const CACHE = "voyage-v5";
 const OWN_SCOPE = "/admin/voyage-pwa/";   // the only same-origin prefix this worker will cache
+// The one asset outside our scope we deliberately cache: the anonymous usage-count module. It must be
+// available offline so a sitting at sea is counted when signal returns (it queues in localStorage).
+const USAGE_MODULE = "/assets/js/voyage-usage.js";
 const PRECACHE = [
   "/admin/voyage-pwa/companion.css",
   "/admin/voyage-pwa/companion.js",
+  USAGE_MODULE,
   "/admin/voyage-pwa/icons/icon-192.png",
   "/admin/voyage-pwa/icons/icon-512.png",
   "/admin/voyage-pwa/icons/icon-maskable-512.png",
@@ -30,6 +34,7 @@ const NO_CACHE = ["api.open-meteo.com", "api.rainviewer.com", "api.weather.gov"]
 // May this request be stored in OUR cache? Only our own scope, or the Leaflet CDN. Nothing else.
 function cacheable(url) {
   if (url.hostname.endsWith("cdnjs.cloudflare.com")) return true;
+  if (url.origin === self.location.origin && url.pathname === USAGE_MODULE) return true;
   return url.origin === self.location.origin && url.pathname.startsWith(OWN_SCOPE);
 }
 

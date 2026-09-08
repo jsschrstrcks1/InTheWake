@@ -1,0 +1,183 @@
+/* In the Wake — Voyage Packs landing page: feature cards + install-guide dialog.
+   Soli Deo Gloria. "Whatever you do, work heartily, as for the Lord" — Col 3:23.
+   Loaded only by /voyage-packs.html. Tokens come from /assets/styles.css (:root). */
+
+/* ===== Feature cards ===== */
+.vp-features {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.vp-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 1.1rem 1.1rem 1rem;
+  border: 2px solid var(--sea, #0a3d62);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.vp-feature-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.vp-feature h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--ink, #083041);
+}
+.vp-feature p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink, #083041);
+  flex: 1 1 auto;
+}
+.vp-feature-cta {
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+}
+.vp-feature-cta a,
+.vp-feature-cta button {
+  color: var(--accent, #0e6e8e);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.vp-feature-cta button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.vp-feature-cta a:hover,
+.vp-feature-cta button:hover {
+  color: var(--sea, #0a3d62);
+}
+.vp-inline-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--accent, #0e6e8e);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ===== Install-guide dialog ===== */
+.vp-dialog[hidden] { display: none; }
+.vp-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(8, 48, 65, 0.62);
+}
+.vp-dialog-panel {
+  position: relative;
+  width: min(560px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  background: #fff;
+  border: 2px solid var(--rope, #d9b382);
+  border-radius: 14px;
+  padding: 1.5rem 1.5rem 1.25rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  color: var(--ink, #083041);
+}
+.vp-dialog-panel h2 {
+  margin: 0 2.5rem 0.5rem 0;
+  font-size: 1.3rem;
+}
+.vp-dialog-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 2px solid var(--sea, #0a3d62);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--sea, #0a3d62);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.vp-dialog-close:hover { background: var(--foam, #e6f4f8); }
+.vp-dialog-intro {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.vp-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+.vp-tab {
+  padding: 0.45rem 0.9rem;
+  border: 2px solid var(--sea, #0a3d62);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--sea, #0a3d62);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.vp-tab[aria-selected="true"] {
+  background: var(--sea, #0a3d62);
+  color: #fff;
+}
+.vp-tabpanel[hidden] { display: none; }
+.vp-tabpanel ol {
+  margin: 0 0 0.75rem;
+  padding-left: 1.4rem;
+}
+.vp-tabpanel li {
+  margin: 0.4rem 0;
+  line-height: 1.5;
+}
+.vp-tabpanel p {
+  margin: 0.5rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.vp-dialog-note {
+  margin: 1rem 0 0;
+  padding: 0.7rem 0.9rem;
+  border-left: 3px solid var(--rope, #d9b382);
+  background: rgba(217, 179, 130, 0.18);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.vp-kbd {
+  display: inline-block;
+  padding: 0 0.35rem;
+  border: 1px solid rgba(10, 61, 98, 0.35);
+  border-radius: 4px;
+  background: var(--foam, #e6f4f8);
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+/* Keep the page from scrolling behind the dialog */
+body.vp-dialog-open { overflow: hidden; }
+
+@media (prefers-contrast: high) {
+  .vp-feature, .vp-dialog-panel, .vp-tab { border-width: 3px; }
+}
