@@ -2,6 +2,34 @@
 
 # Reasoning Log
 
+## 2026-09-08 - Ken said "Fact check it": the Prima pack had the ports on the wrong days
+
+**Asked.** Fact-check the NCL Prima pack, the nearest sailing on the shelf (September 27, nineteen days out). Yesterday's answer to "is it ready" had fixed two lines in the condensed file and said plainly that it was not a full pass. This was the full pass.
+
+**Weighed.**
+
+*What "fact check" has to mean here.* Not "re-read the sidecar and see that every row has a date." The sidecar rows were dated June 11 and had been re-stamped twice since without a single claim being re-fetched. A stamp is not a verification. So I took the load-bearing and time-sensitive claims to their primary sources where the container could reach them: NCL's own pages, NCL Holdings press releases, the Port Canaveral master cruise schedule, the National Hurricane Center's climatology page, Wikipedia for the ship, and the port-by-port schedules for the days in question.
+
+*The day order.* The pack had a sea day Monday, the cay Tuesday, a sea day Wednesday, then Falmouth, Cayman and Cozumel on Thursday, Friday and Saturday, with Cozumel sailing at 7 PM and the ship alongside in Port Canaveral at 6:30 the next morning. That last leg is about six hundred nautical miles. It cannot be done overnight, and nobody had noticed because each day read fine on its own. NCL's published order for this fall's Western sailings is the cay on Monday (it is the short first hop), a sea day Tuesday, Falmouth Wednesday, George Town Thursday, Cozumel Friday, and a sea day Saturday for the run home. The Great Stirrup Cay and Falmouth port schedules show Prima on exactly those dates. Every port's hours were wrong too, mostly by an hour or two; Cozumel by three and a half, in the direction that would have had a reader ashore past all-aboard.
+
+*The terminal.* The pack said Cruise Terminal 10. The Port Authority's own 2026 master schedule, parsed from the PDF, has Prima at Terminal 5 on September 27 and Terminal 6 on October 4. Terminal 10 does not appear against her at all. I do not know where 10 came from; it is the terminal under renovation, which may be how it got into someone's head.
+
+*The drink package.* The pack priced the Unlimited Open Bar at $109 a day plus 20% and budgeted $760 or more. That is the pre-2025 list price. NCL's Free at Sea page, current as of this month, says the package is bundled for bookings made from November 5, 2025 and that bought on board it is $45 a day plus 20% in the first two days. What the guest pays as a pre-paid service charge on the bundled package, NCL does not state on that page, and the blogs disagree by a dollar or two, so the pack now tells the reader to confirm that figure with Tina rather than asserting one.
+
+*The ship.* The Cavern Club is not on Prima; Syd Norman's Pour House is. Soleil Bistro is not on Prima or anywhere else I can find; the pool-deck quick service is Surfside Grill. Hudson's is on Deck 7, not 8. And a bullet under "What's NOT on Prima" said Onda by Scarpetta was not aboard, three paragraphs above a dining list that named it, in a pack that later tells you Onda fills first. NCL's deck plans put Onda on Deck 8. The bullet went.
+
+*The handoff card.* The June audit marked the NCL Care Team numbers unverified and removed them from the long form. The handoff card, the one page a family member actually keeps, still carried both numbers as the 24/7 emergency line, and had no George Town consular agency. That is the third time this month a variant has held a defect the long form had already shed, and it is why checklist section F exists.
+
+*The pier.* The June row said the cay's pier would be "reopened by your September 29 call" on the strength of a January guide. That was a forecast wearing a verification date. The September 3 opening coverage says Norwegian Luna was scheduled to dock on September 4, and NCL's cay page now says walk ashore on the new pier. Whether the second berth is finished, NCL has not said, and CruiseMapper shows two NCL ships on the cay on September 27. So the pack now says the pier is open, says the second berth is an unknown, and points to the app the evening before.
+
+*Smaller things.* The NHC puts the peak on September 10; the pack called late September the highest-risk week of the year. Dunn's River is an hour from Falmouth, not two. No source supports a $399 Vibe week pass. Kennedy Space Center is $77. Online check-in closes three days out, not seven. The cay was leased in 1977 and bought in 1986. "NCL for Me app" is not a product name.
+
+**Decided.** Forty-eight edits to the long form, sixteen to the condensed, five to the handoff card, all applied by a script that asserts each target string exists exactly once. Day blocks reordered wholesale rather than patched. Every correction recorded in the sidecar with its source and the prior wrong value, so the next reader can see what was wrong, not only what is right now. All three PDFs rebuilt and their text read back. Gate passed, registry clean.
+
+**Unsure.** Departure time on September 27: NCL's listings say 4:00 PM and the Port Authority says 6:00 PM, and I could not reach a page that resolves it, so the pack states both and NCL's aboard-one-hour-before rule. George Town's hours on October 1 are inferred from the identical October 11 sailing and the September Thursday pattern, not read from an October 1 row. NCL's ship page shows 3,195 guests where the pack says 3,099 at double occupancy; I left the labeled figure and flagged the other.
+
+**Honest limit.** The U.S. embassy pages, NCL's dining and Vibe FAQs, and cruisetimetables.com would not serve this container, so the consular numbers were re-confirmed only through a search snippet of the embassy site (unchanged from July) and several port hours rest on secondary schedules. This was a check of the claims that decide a reader's day; the packing list and the excursion price ranges were not re-verified line by line. The pack is materially better than it was this morning and I would not call any pack finished nineteen days out.
+
 ## 2026-09-08 - Ken asked whether Prima is ready; it was not, and the flaw was in the file people print
 
 **Asked.** "Is the NCL Prima pack ready?" She sails 2026-09-27, nineteen days out, and is the nearest sailing on the shelf.
