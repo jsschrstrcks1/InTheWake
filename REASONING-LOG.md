@@ -2,6 +2,26 @@
 
 # Reasoning Log
 
+## 2026-09-08 - Ken asked whether Prima is ready; it was not, and the flaw was in the file people print
+
+**Asked.** "Is the NCL Prima pack ready?" She sails 2026-09-27, nineteen days out, and is the nearest sailing on the shelf.
+
+**Weighed.**
+
+*The shape of the answer.* Everything the registry tracks said yes: landing flag true, price null, three PDFs on disk, companion present, instrumentation flipped. That is exactly the answer I could have given from the registry alone, and it would have been wrong. The Escape lesson from yesterday was that a pack is three shipped documents and the pre-ship pass had only ever read one of them, so I read Prima's other two before answering.
+
+*What the condensed file still said.* Two things, both reader-facing. The itinerary table marked Great Stirrup Cay as a tender call in its own Tender column, and the note under it read "Two tender ports, Great Stirrup Cay and Grand Cayman, plan 20 to 30 minutes end to end at peak." The long form establishes the opposite from NCL's own materials: Prima docks at the new multi-ship pier, no tendering, with tendering returning only if weather closes it. So the count is one tender port, not two, and a solo cruiser reading the printed page was budgeting half an hour of tender queue for a walk-off.
+
+*The second one is subtler and I nearly missed it.* The same row said "manage expectations on amenity completeness, mid-redevelopment." That was true when the condensed was written and is not true now: Great Tides Waterpark opened 2026-09-04, twenty-five days before this call, and the long form says so plainly. The condensed was quietly telling the reader to expect less than what is actually there. A stale caution reads as prudence, which is why it survived.
+
+*Why the handoff card needed nothing.* Checked, not assumed: it carries no tender or pier claim at all, only the itinerary line and the consular routing.
+
+**Decided.** Two edits to the condensed pack, PDF rebuilt at three pages and its text verified by reading the PDF rather than the build log. Sidecar carries an addendum saying plainly that the 2026-09-06 pass covered one file of three and what that cost. No number changed except the tender-port count, which was wrong. Fact-check gate exit 0, registry CLEAN at 18.
+
+**Unsure.** Whether the same staleness about the cay's development state sits in other packs that call there. Escape's condensed was fixed yesterday and Prima's today; the Aqua, Sisters and World America packs also call at Great Stirrup Cay and their variants have not been read.
+
+**Honest limit.** This was a targeted comparison of Prima's condensed and handoff against the long form on the defect classes I already knew about, not a full pre-ship pass on either variant. The rest of the condensed, its budget figures and its packing list, was not re-verified line by line. Answering "is it ready" as a clean yes would have been the easy reply and the false one.
+
 ## 2026-09-07 - The Escape pass fixed the pack a reader browses and left the one a reader carries
 
 **Asked.** Continue the proceed loop. I went looking for whether yesterday's venue finding was an instance or a class.
