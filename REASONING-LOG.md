@@ -2,6 +2,16 @@
 
 # Reasoning Log
 
+## 2026-09-13 - Force-synced the sophos skill: it taught five layers, the guard requires seven (syl)
+
+**Asked** - "bootstrap sophos from project-sophos FIRST. fetch, resolve and union merge. careful not clever. newer isn't always better. easier isn't always better. thorough is better." This repo was reached through the household-wide skill-sync pass, not by a request naming it.
+
+**Weighed** - This checkout's `.claude/skills/sophos/SKILL.md` was flagged DRIFT by the skill-sync manifest and skipped by `sync --apply` as "locally-edited". Its hash matched Romans' stale copy exactly, so whatever made it "locally edited" was shared by two repos and is far more likely an old sync that never caught up than two independent deliberate edits. Ground truth was read off the guard rather than off either document: `bootstrap-lib.mjs ALL_LAYERS` requires SEVEN layers; this copy taught five. Both copies claim `version: 1.3.4`, so the version field discriminated nothing. Before using `--force`, diffed the whole file rather than trusting the hash, because a locally-edited copy could hold something canonical lacks and overwriting that would be the easy call rather than the better one. It held nothing unique: stale table rows, the "five-layer contract" line, the "layer 5 mechanics" heading, and none of the 2026-09-06/07 operator directive naming Project-Sophos as the kernel home.
+
+**Decided** - Force-synced to canonical, then verified byte-identity by sha256 across all fourteen checkouts before committing. Removed the tool's `.bak` file; git already holds the prior version, and an untracked backup beside a synced skill is a second answer to the same question. Also armed `core.hooksPath=.githooks` in this repo, which was UNSET: the `.githooks` chain was wired in the tree and dead in git, so every guard here including the reasoning-log guard was inert.
+
+**Unsure** - Whether the local edit was deliberate. Nothing in the file says, and the manifest records drift without recording intent. If it was deliberate, the force-sync destroyed it and this paragraph is the only surviving record. The hooksPath arming is per-clone git config and dies with this container.
+
 ## 2026-09-05 - Re-stamped 16 factcheck sidecars, one of them honestly (yumi)
 
 **Asked.** Proceed as recommended. My recommendation was the wall the repaired gate now puts in
