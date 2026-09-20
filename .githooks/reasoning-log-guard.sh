@@ -106,10 +106,10 @@ commit changes work and REASONING-LOG.md has no entry for that date.
   Append to ${LOG#$REPO_ROOT/}, newest at the top:
 
     ## ${TODAY} - <short title>
-    **Asked.**    What was requested, and how it was read.
-    **Weighed.**  The options on the table, and what ruled each in or out.
-    **Decided.**  The call, and what it rests on.
-    **Unsure.**   What is still uncertain or worth revisiting.
+    **Evidence.**      What prompted this, what was checked, what it showed.
+    **Possibilities.** The options that were on the table.
+    **Choice made.**   What was done, and what it rests on.
+    **Still open.**    What is unresolved or worth revisiting.
 
   Write it plainly. If something was a guess, say so; leaving the uncertainty
   on the page is the point of keeping the file.

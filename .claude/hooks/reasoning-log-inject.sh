@@ -13,11 +13,16 @@
 #      when the operator puts `--reasoning` in a request. Rationale: an ask that
 #      fires unconditionally on every prompt is noise in a long session, and a
 #      record written reflexively is worth less than one written on purpose.
-#   2. REWORDED. Earlier revisions framed the entry as explaining how a
-#      conclusion was reached. That framing described the wrong artifact. The
-#      entry documents THE WORK: what was requested, what options were on the
-#      table, what was chosen, what is still open. Ordinary engineering
-#      documentation, written about the project, not about the writer.
+#   2. REWORDED, including the four headings. Earlier revisions framed the
+#      entry as explaining how a conclusion was reached, and headed its parts
+#      Asked / Weighed / Decided / Unsure. Both described the wrong artifact:
+#      three of those four headings name something the WRITER did or felt.
+#      The headings are now Evidence / Possibilities / Choice made / Still
+#      open, which name what the RECORD CONTAINS. The entry documents the
+#      work, in the genre of an architecture decision record. Ordinary
+#      engineering documentation, written about the project, not the writer.
+#      Old entries keep their old headings; nothing is migrated, and the
+#      guard has never keyed on them.
 #
 # TWO MODES (argv[1], default "session"):
 #   session — SessionStart: one line naming the file and how to ask for it.
@@ -62,9 +67,9 @@ if [ "$MODE" = "prompt" ]; then
     if printf '%s' "$REQUEST" | grep -qiE '(^|[^a-z-])--reasoning([^a-z-]|$)'; then
         [ -n "${GITDIR:-}" ] && printf '%s' "$TODAY" > "$MARKER" 2>/dev/null
         if has_today; then
-            echo "[decision record] REQUESTED. REASONING-LOG.md already has a ${TODAY} section; add another for this work. Four parts: Asked / Weighed / Decided / Unsure. It is documentation of the work, written for Ken to read later."
+            echo "[decision record] REQUESTED. REASONING-LOG.md already has a ${TODAY} section; add another for this work. Four parts: Evidence / Possibilities / Choice made / Still open. It is documentation of the work, written for Ken to read later."
         else
-            echo "[decision record] REQUESTED. Write a ${TODAY} entry in REASONING-LOG.md covering this work, newest at the top. Four parts: Asked / Weighed / Decided / Unsure. It is documentation of the work, written for Ken to read later."
+            echo "[decision record] REQUESTED. Write a ${TODAY} entry in REASONING-LOG.md covering this work, newest at the top. Four parts: Evidence / Possibilities / Choice made / Still open. It is documentation of the work, written for Ken to read later."
         fi
         exit 0
     fi

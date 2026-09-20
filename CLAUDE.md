@@ -114,6 +114,11 @@ Enforcement:
 > clears it. `.claude/hooks/reasoning-log-inject.sh` is silent on every turn where
 > neither flag appeared, instead of asking on all of them.
 >
+> **The four parts are Evidence / Possibilities / Choice made / Still open**, renamed
+> from Asked / Weighed / Decided / Unsure on the same ruling. Three of those four named
+> something the writer did or felt; these name what the record contains. Old entries keep
+> their old headings and nothing is migrated, because the guard has never keyed on them.
+>
 > **The commit guard reads the same marker**, so the ask and the enforcement cannot
 > drift apart. No opt-in for today means `.githooks/reasoning-log-guard.sh` requires
 > nothing. This inverts its old default: it used to block unless excused, and it now
