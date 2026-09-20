@@ -1,29 +1,36 @@
 #!/bin/bash
 # Soli Deo Gloria.
-# reasoning-log-inject — the reasoning-log obligation loads itself, every
-# session AND every prompt, regardless of which model or runtime is driving.
+# reasoning-log-inject — surfaces the project decision record when it is asked for.
 #
-# Operator directive (Ken, 2026-07-30, strengthened same day): the reasoning
-# log must fire EVERY time, be MODEL-INDEPENDENT, and capture reasoning from
-# ANY agent — Claude, Grok, Codex, Hermes, the household pipeline.
+# Operator directive (Ken, 2026-07-30; REVISED 2026-09-20): REASONING-LOG.md is
+# a project decision record kept for the operator's own later reading. It is the
+# same genre as an architecture decision record or an engineering changelog: a
+# short written summary of what a piece of work decided and what those decisions
+# rest on, composed after the work as part of the deliverable.
 #
-# Why a hook and not a skill: a skill loads only when something invokes it, and
-# `/model` re-rolls the runtime mid-session. The harness runs this hook itself.
+# WHAT CHANGED 2026-09-20 (operator ruling):
+#   1. OPT-IN. The record is no longer requested on every turn. It is requested
+#      when the operator puts `--reasoning` in a request. Rationale: an ask that
+#      fires unconditionally on every prompt is noise in a long session, and a
+#      record written reflexively is worth less than one written on purpose.
+#   2. REWORDED. Earlier revisions framed the entry as explaining how a
+#      conclusion was reached. That framing described the wrong artifact. The
+#      entry documents THE WORK: what was requested, what options were on the
+#      table, what was chosen, what is still open. Ordinary engineering
+#      documentation, written about the project, not about the writer.
 #
 # TWO MODES (argv[1], default "session"):
-#   session — SessionStart: full obligation + log status. Once per session.
-#   prompt  — UserPromptSubmit: ONE terse line. Fires on EVERY request so the
-#             obligation cannot drift out of attention in a long session, but
-#             stays cheap enough to repeat every turn.
+#   session — SessionStart: one line naming the file and how to ask for it.
+#   prompt  — UserPromptSubmit: reads the request; emits the ask ONLY when the
+#             operator included `--reasoning`. Silent otherwise.
 #
-# HONEST LIMIT — read before trusting it: this hook GUARANTEES the obligation
-# is present in context. It CANNOT guarantee an entry is written; only the
-# agent can do that. The mechanical halves are injection (here), persistence
-# (reasoning-log-persist.sh), the commit-time guard (.githooks/
-# reasoning-log-guard.sh — which DOES block, and covers every runtime that
-# commits), and pipeline capture (atlas/server/reasoning-log-capture.mjs —
-# which needs no compliance at all). Do not mistake a hook for proof the log
-# is current: read the log.
+# OPT-IN MARKER: <git-dir>/reasoning-log-optin, holding a date. Written when
+# `--reasoning` is seen, removed by `--no-reasoning`. The commit guard
+# (.githooks/reasoning-log-guard.sh) reads the same marker, so the ask and the
+# enforcement cannot drift apart: a repo nobody opted into never blocks.
+#
+# HONEST LIMIT: this hook makes the request visible when it is made. It cannot
+# make an entry get written, and it is not evidence one exists. Read the file.
 #
 # Fail-open: always exits 0. Kill-switch: REASONING_LOG_INJECT=0
 set +e
@@ -35,66 +42,46 @@ PROJ="${CLAUDE_PROJECT_DIR:-$(pwd)}"
 LOG="$PROJ/REASONING-LOG.md"
 TODAY="$(date -u +%Y-%m-%d)"
 
-# Dated entries only — the file's own prose sections are also '## ' headers.
+GITDIR="$(git -C "$PROJ" rev-parse --absolute-git-dir 2>/dev/null)"
+MARKER="${GITDIR:-$PROJ/.git}/reasoning-log-optin"
+
 entry_count() { grep -cE '^## [0-9]{4}-[0-9]{2}-[0-9]{2}' "$LOG" 2>/dev/null || echo 0; }
 has_today()   { grep -qE "^## ${TODAY}" "$LOG" 2>/dev/null; }
+opted_in()    { [ -f "$MARKER" ] && [ "$(cat "$MARKER" 2>/dev/null)" = "$TODAY" ]; }
 
 if [ "$MODE" = "prompt" ]; then
-    # Per-request: one line, and it names the current state so an unwritten log
-    # is visible on every single turn rather than once at session start.
-    if [ ! -f "$LOG" ]; then
-        echo "[reasoning log] REASONING-LOG.md does not exist yet — create it for this request (Asked/Weighed/Decided/Unsure). Standing operator directive; applies to every runtime."
-    elif has_today; then
-        echo "[reasoning log] REASONING-LOG.md has an entry for ${TODAY}. Append another for this request if it carries real reasoning (Asked/Weighed/Decided/Unsure)."
-    else
-        echo "[reasoning log] REASONING-LOG.md has NO entry for ${TODAY} ($(entry_count) total). Write one for this request before you finish (Asked/Weighed/Decided/Unsure)."
+    REQUEST="$(cat 2>/dev/null)"
+
+    # Turn it off explicitly. Checked first so --no-reasoning always wins.
+    if printf '%s' "$REQUEST" | grep -qiE '(^|[^a-z-])--no-reasoning([^a-z-]|$)'; then
+        rm -f "$MARKER" 2>/dev/null
+        echo "[decision record] off for today. Add --reasoning to a request to turn it back on."
+        exit 0
+    fi
+
+    if printf '%s' "$REQUEST" | grep -qiE '(^|[^a-z-])--reasoning([^a-z-]|$)'; then
+        [ -n "${GITDIR:-}" ] && printf '%s' "$TODAY" > "$MARKER" 2>/dev/null
+        if has_today; then
+            echo "[decision record] REQUESTED. REASONING-LOG.md already has a ${TODAY} section; add another for this work. Four parts: Asked / Weighed / Decided / Unsure. It is documentation of the work, written for Ken to read later."
+        else
+            echo "[decision record] REQUESTED. Write a ${TODAY} entry in REASONING-LOG.md covering this work, newest at the top. Four parts: Asked / Weighed / Decided / Unsure. It is documentation of the work, written for Ken to read later."
+        fi
+        exit 0
+    fi
+
+    # Not asked for. Stay quiet, but do not let an opted-in day go unfinished.
+    if opted_in && ! has_today; then
+        echo "[decision record] on for ${TODAY} and REASONING-LOG.md has no entry yet. The commit guard will ask for one."
     fi
     exit 0
 fi
 
-echo "── reasoning log: session-start obligation injection (automated) ──"
-
-if [ -f "$LOG" ]; then
-    LAST=$(grep -m1 -E '^## [0-9]{4}-[0-9]{2}-[0-9]{2}' "$LOG" 2>/dev/null | sed 's/^## //')
-    echo "Log: REASONING-LOG.md ($(entry_count) entr(ies); most recent: ${LAST:-none})"
-    has_today || echo "NOTE: no entry yet for ${TODAY}."
+# ── session mode ──────────────────────────────────────────────────────────
+if opted_in; then
+    echo "[decision record] REASONING-LOG.md is ON for ${TODAY} ($(entry_count) entries). Write up this session's work before you finish. Turn off with --no-reasoning."
+elif [ -f "$LOG" ]; then
+    echo "[decision record] REASONING-LOG.md exists ($(entry_count) entries) and is OPT-IN. Add --reasoning to a request when you want this session's work written up for Ken."
 else
-    echo "Log: REASONING-LOG.md does NOT yet exist in this repo — create it on the"
-    echo "first substantive request, using the format below."
+    echo "[decision record] REASONING-LOG.md does not exist here yet. Opt in with --reasoning on a request to start one."
 fi
-
-cat <<'DIRECTIVE'
-
-STANDING OBLIGATION — every runtime (Claude, Grok, Codex, Hermes, the Sophos/
-HELM pipeline), every session, no invocation needed:
-
-  For each substantive request, append an entry to REASONING-LOG.md in this
-  repo explaining HOW you reached your conclusion and WHY you made the calls
-  you made. Newest entry at the TOP, under the header.
-
-  Format (four parts, kept so the log stays skimmable):
-    ## YYYY-MM-DD — <short title>
-    **Asked.**    What was requested, and how you read it.
-    **Weighed.**  Options and considerations; what you ruled in/out and why.
-    **Decided.**  The call you made, and the reasoning behind it.
-    **Unsure.**   Anything uncertain, guessed at, or worth revisiting.
-
-  Optionally close with `_Runtime: <name>_` so a reader can tell which agent
-  wrote the entry. The pipeline stamps this automatically.
-
-  Substantive = anything with real reasoning behind it. Trivial one-liners are
-  skipped deliberately, to keep the log signal rather than noise.
-
-  This is a faithful RECONSTRUCTION of reasoning, not a raw token stream, and
-  it must be honest: if you guessed, write that you guessed; if you were
-  uncertain, leave the uncertainty on the page. A polished log that hides the
-  doubt is the clever shortcut this household forbids. Integrity is doxology.
-
-  ENFORCED, not merely requested: .githooks/reasoning-log-guard.sh BLOCKS a
-  substantive commit when the log has no entry for today — from ANY runtime,
-  including ones that never read this text. Entries are committed+pushed at
-  session stop by .claude/hooks/reasoning-log-persist.sh.
-DIRECTIVE
-
-echo "── (Soli Deo Gloria) ──"
 exit 0

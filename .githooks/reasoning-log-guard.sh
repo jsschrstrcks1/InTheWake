@@ -8,7 +8,8 @@
 # way: `git commit`. So the obligation is enforced HERE, where all runtimes
 # converge.
 #
-# RULE: a substantive commit requires a REASONING-LOG.md entry dated today.
+# RULE: when --reasoning has been requested for today, a substantive commit
+#       requires a REASONING-LOG.md entry dated today. Otherwise: no requirement.
 #
 # Substantive = the commit stages something that is not itself bookkeeping.
 # Exempt (never require an entry):
@@ -27,6 +28,23 @@
 set -u
 
 [ "${REASONING_LOG_GUARD:-1}" = "0" ] && exit 0
+
+# ── OPT-IN GATE (operator ruling 2026-09-20) ────────────────────────────────
+# The decision record is requested per-day with `--reasoning`, not on every
+# commit. .claude/hooks/reasoning-log-inject.sh writes the marker when the
+# operator asks; this guard reads the SAME marker, so the ask and the
+# enforcement cannot drift apart. No marker for today means nobody asked for a
+# write-up, and this guard requires nothing.
+#
+# Deliberately NOT fail-toward-enforcement here, and that is a real change: the
+# old guard blocked by default. It now permits by default, because the operator
+# made the record opt-in. What is enforced is the PROMISE: if you asked for the
+# write-up today, a substantive commit has to carry it.
+GUARD_GITDIR="$(git rev-parse --absolute-git-dir 2>/dev/null || echo .git)"
+GUARD_MARKER="$GUARD_GITDIR/reasoning-log-optin"
+GUARD_TODAY="$(date -u +%Y-%m-%d)"
+[ -f "$GUARD_MARKER" ] || exit 0
+[ "$(cat "$GUARD_MARKER" 2>/dev/null)" = "$GUARD_TODAY" ] || exit 0
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
 LOG="$REPO_ROOT/REASONING-LOG.md"
@@ -77,25 +95,28 @@ if [ -f "$LOG" ] && grep -qE "^## ${TODAY}" "$LOG" 2>/dev/null; then
 fi
 
 cat >&2 <<EOF
-ERROR [reasoning-log]: this commit changes work but REASONING-LOG.md has no
-entry dated ${TODAY}.
+ERROR [decision record]: --reasoning was requested for ${TODAY}, but this
+commit changes work and REASONING-LOG.md has no entry for that date.
 
-  Operator directive (2026-07-30): every runtime — Claude, Grok, Codex, Hermes,
-  the household pipeline — records HOW it reached its conclusions and WHY it
-  made the calls it made. The log is kept for the operator's own reading.
+  REASONING-LOG.md is a project decision record kept for the operator's own
+  later reading, in the same genre as an architecture decision record. It
+  documents the work: what was asked for, what the options were, what was
+  chosen, and what is still open.
 
   Append to ${LOG#$REPO_ROOT/}, newest at the top:
 
-    ## ${TODAY} — <short title>
-    **Asked.**    What was requested, and how you read it.
-    **Weighed.**  Options considered; what you ruled in/out and why.
-    **Decided.**  The call you made, and the reasoning behind it.
-    **Unsure.**   Anything uncertain, guessed at, or worth revisiting.
+    ## ${TODAY} - <short title>
+    **Asked.**    What was requested, and how it was read.
+    **Weighed.**  The options on the table, and what ruled each in or out.
+    **Decided.**  The call, and what it rests on.
+    **Unsure.**   What is still uncertain or worth revisiting.
 
-  Be honest: if you guessed, say so. Uncertainty stays on the page.
+  Write it plainly. If something was a guess, say so; leaving the uncertainty
+  on the page is the point of keeping the file.
 
-  Genuinely trivial change? Add [no-reasoning] to the commit message — an
-  explicit, reviewable record of that judgment. Operator debugging override:
+  Not needed for this commit? Add [no-reasoning] to the message, an explicit
+  and reviewable record of that judgment. Done writing up for today?
+  --no-reasoning in a request clears the opt-in. Operator debugging override:
   REASONING_LOG_GUARD=0.
 EOF
 exit 1

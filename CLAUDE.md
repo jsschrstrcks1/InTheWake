@@ -101,6 +101,30 @@ Enforcement:
 
 ## 📓 Reasoning log — required, runtime-independent (operator directive 2026-07-30)
 
+> **REVISED 2026-09-20 (operator ruling). The section below describes the old
+> always-on behavior and is kept for lineage. What is true now:**
+>
+> **`REASONING-LOG.md` is a project decision record, and it is OPT-IN.** It is the
+> same genre as an architecture decision record: a short write-up of what a piece
+> of work decided and what those decisions rest on, kept for Ken to read later. It
+> documents the project, not the agent.
+>
+> **Ask for it with `--reasoning` in a request.** That turns it on for the rest of
+> the day in that repo and writes `<git-dir>/reasoning-log-optin`. `--no-reasoning`
+> clears it. `.claude/hooks/reasoning-log-inject.sh` is silent on every turn where
+> neither flag appeared, instead of asking on all of them.
+>
+> **The commit guard reads the same marker**, so the ask and the enforcement cannot
+> drift apart. No opt-in for today means `.githooks/reasoning-log-guard.sh` requires
+> nothing. This inverts its old default: it used to block unless excused, and it now
+> permits unless the write-up was asked for and then not delivered. Where the table
+> below says the guard blocks every runtime that commits, read that as **only on a
+> day someone asked for the record.**
+>
+> Kill-switches are unchanged and remain operator-only.
+
+
+
 **Every agent that works in this repo — Claude, Grok, Codex, Hermes, the
 Sophos/HELM pipeline — records the reasoning behind its calls.** Ken reads this
 to see *how* a conclusion was reached and *why* the calls were made, not just
