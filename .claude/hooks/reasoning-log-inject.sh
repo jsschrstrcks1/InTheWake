@@ -10,7 +10,8 @@
 #
 # WHAT CHANGED 2026-09-20 (operator ruling):
 #   1. OPT-IN. The record is no longer requested on every turn. It is requested
-#      when the operator puts `--reasoning` in a request. Rationale: an ask that
+#      when the operator puts `--reasoning` in a request (em dash and en dash
+#      forms accepted too; see DASH FORMS below). Rationale: an ask that
 #      fires unconditionally on every prompt is noise in a long session, and a
 #      record written reflexively is worth less than one written on purpose.
 #   2. REWORDED, including the four headings. Earlier revisions framed the
@@ -58,13 +59,18 @@ if [ "$MODE" = "prompt" ]; then
     REQUEST="$(cat 2>/dev/null)"
 
     # Turn it off explicitly. Checked first so --no-reasoning always wins.
-    if printf '%s' "$REQUEST" | grep -qiE '(^|[^a-z-])--no-reasoning([^a-z-]|$)'; then
+    # DASH FORMS (added 2026-09-20, the first real use of the flag failed on this).
+    # Smart-dash substitution on macOS/iOS turns "--" into an em dash before the
+    # text ever reaches here, so the operator typed the flag correctly and the
+    # hook ignored it. Accept ASCII "--", en dash, em dash and a single hyphen.
+    # A flag that only works when autocorrect happens to be off is not a flag.
+    if printf '%s' "$REQUEST" | grep -qiE '(^|[^a-z-])(--|—|–|-)no-reasoning([^a-z-]|$)'; then
         rm -f "$MARKER" 2>/dev/null
         echo "[decision record] off for today. Add --reasoning to a request to turn it back on."
         exit 0
     fi
 
-    if printf '%s' "$REQUEST" | grep -qiE '(^|[^a-z-])--reasoning([^a-z-]|$)'; then
+    if printf '%s' "$REQUEST" | grep -qiE '(^|[^a-z-])(--|—|–|-)reasoning([^a-z-]|$)'; then
         [ -n "${GITDIR:-}" ] && printf '%s' "$TODAY" > "$MARKER" 2>/dev/null
         if has_today; then
             echo "[decision record] REQUESTED. REASONING-LOG.md already has a ${TODAY} section; add another for this work. Four parts: Evidence / Possibilities / Choice made / Still open. It is documentation of the work, written for Ken to read later."
