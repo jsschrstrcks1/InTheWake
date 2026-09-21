@@ -3,7 +3,7 @@
   "_template": "admin/voyage-packs/FACTCHECK_TEMPLATE.json",
   "_note": "First .factcheck.json for v0.1.3 Virgin Sisters at Sea pack. Built fresh 2026-06-05 during the careful-not-clever one-pack-per-session pass (Virgin = second pack of the batch, after v0.1 Symphony committed 1cc6d785). Primary-source verification against Wikipedia (Resilient Lady, Brilliant Lady, Lady Class), Virgin Voyages press releases, virginvoyages.com FAQ pages (VoyageFair Choices Oct 7 2025 gratuity unbundling), Travel Market Report + Cruise Critic gratuity-policy coverage, The Points Guy + multiple Bimini guides for Beach Club / Resorts World relationship, NASA Earth Observatory + The Yucatan Times for Progreso pier. No claim cites another voyage pack in this repo (Copy-Propagation rule).",
   "pack_filename": "v0.1.3-virgin-sisters-sea-feb-2027.md",
-  "last_factcheck_date": "2026-06-05",
+  "last_factcheck_date": "2026-09-05",
   "verified_by": "Claude (operator-supervised) — full one-pack careful-not-clever pass",
   "verification_session": "Virgin Sisters at Sea second-pack-of-the-batch session per operator instruction 'one at a time, careful not clever, commit, then proceed in a new session.' All factual issues caught in this session corrected (Resilient Lady delivery date, Beach Club / Resorts World Bimini relationship, Virgin gratuity Oct 7 2025 unbundling); voice-audit v2.3.0 doctrine applied (honest-crutch count 14 -> 0; templated 'honest read on [port]' headers varied across three port days; generic 'genuinely' frequency reduced from 9 to 0); sidecar built fresh.",
   "ship_specs": {
@@ -467,5 +467,6 @@
     "source": "https://www.virginvoyages.com/itinerary/caribbean/7-nights-sisters-at-sea-resilient-lady-cruise",
     "verified": "2026-07-06",
     "notes": "Every day-of-week independently computed and confirmed against the real Feb 2027 calendar."
-  }
+  },
+  "_note_2026_09_05_restamp": "Re-stamp 2026-09-05 (yumi), previous 2026-06-05. Basis: the factcheck gate (admin/scripts/factcheck-gate.sh) had been INERT on macOS since at least July, so this sidecar drifted behind its pack without anything noticing; the gate was repaired in P0 #2592 and immediately flagged 16 of 18 packs. Every change to this pack since the sidecar's last commit (92bdbde67) was reviewed individually rather than date-bumped: added the day-by-day 'This is not your plan' framing note. NO NEW FACTUAL CLAIM about the ship, ports, prices or policies was introduced by those changes, so this is a freshness re-stamp and NOT a re-verification of the pack's underlying facts, which still carry their original 2026-06-05 verification. Diff size: +6/-0 lines."
 }
