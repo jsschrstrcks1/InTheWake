@@ -19,6 +19,16 @@
 
     const inputs = card.querySelectorAll('input[type="text"]');
 
+    // Anonymous usage counts (assets/js/voyage-usage.js), only on a page that names its pack.
+    // What is sent: the pack slug and the event name. Never a field value, never the card.
+    const packSlug = (document.querySelector('main[data-pack]') || {}).dataset
+      ? document.querySelector('main[data-pack]').dataset.pack : null;
+    const usage = (name, data) => {
+      if (!packSlug || !window.ITW_USAGE || typeof window.ITW_USAGE.track !== 'function') return;
+      try { window.ITW_USAGE.track(name, Object.assign({ pack: packSlug }, data || {})); } catch (e) {}
+    };
+    const filledKey = 'itw:vp-handoff-filled:' + storageKey;
+
     // Restore saved values
     try {
       const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
@@ -42,6 +52,14 @@
       } catch (e) {
         // Quota exceeded or storage disabled — fail silently
       }
+      // Once per device per pack: "someone filled this card in". A boolean, never the contents.
+      try {
+        const anyFilled = Object.keys(data).some((k) => String(data[k] || '').trim() !== '');
+        if (anyFilled && !localStorage.getItem(filledKey)) {
+          localStorage.setItem(filledKey, '1');
+          usage('vp_handoff_filled');
+        }
+      } catch (e) {}
     }
 
     inputs.forEach(input => {
@@ -64,6 +82,7 @@
     card.querySelectorAll('button[data-print-scope]').forEach(btn => {
       btn.addEventListener('click', () => {
         const scope = btn.dataset.printScope;
+        usage('vp_print', { scope });
         document.body.classList.add('printing-' + scope);
         // Run print after the class lands; remove class after print dialog closes
         setTimeout(() => {

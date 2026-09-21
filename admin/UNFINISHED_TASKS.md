@@ -899,3 +899,111 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-09-05T13:30:36.984Z -->
 | article-great-stirrup-cay-costs-publish-the-photographed-zipline | 1 | Article: Great Stirrup Cay costs — publish the photographed zipline pricing board, the 10 percent Bahamian sales tax line, and the attraction physical requirements |
+
+<!-- library register 2026-09-05T21:27:14.497Z -->
+| itw-voyage-packs-usage-dashboard | 2 | Voyage packs — usage tracking (Umami events on landing/pack HTML/PWA companions) + cross-pack usage dashboard; plan first |
+
+<!-- library register 2026-09-05T22:07:48.260Z -->
+| itw-voyage-packs-landing-feature-cards | 2 | voyage-packs.html: feature cards with explanation + calm CTA per pack feature, and accessible install-guide popups (iOS/Android add-to-home-screen) for the Voyage companion |
+
+<!-- library register 2026-09-05T22:27:09.202Z -->
+| itw-vu-01-registry | 1 | VU-01 Pack registry packs.json + schema + 3-state disk cross-check in quality.yml (plan Task 1) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:09.785Z -->
+| itw-vu-02-tracker | 1 | VU-02 Shared anonymous event module assets/js/voyage-usage.js: property whitelist, DNT/GPC guard, offline queue, Layer-3 self-attack tests (plan Task 2) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:10.358Z -->
+| itw-vu-05b-relay | 1 | VU-05b Geo-blind Cloudflare Worker relay admin/voyage-usage-relay: drops IP+UA, server-side whitelist, forwards to Umami /api/send; Setting 1.5 adds Cloudflare country/region only (plan Task 5b; ships BEFORE any companion is instrumented; needs D1 setting) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:13.220Z -->
+| itw-vu-03-landing-buy-click | 2 | VU-03 voyage-packs.html: data-umami-event vp_buy_click on Buy buttons; union-merge with PR #2565 (plan Task 3) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:13.768Z -->
+| itw-vu-10-docs | 3 | VU-10 Docs: voyage-packs README 'register and instrument' step, privacy.html Umami sentence + DNT/GPC, analytics-tracking skill vocabulary, W12 checklist pointers (plan Task 10) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:14.850Z -->
+| itw-vu-04-html-sisters | 3 | VU-04 Instrument HTML render v0.1.3 Sisters at Sea (sails 2027-02-14): print/PDF/handoff-filled events + data-pack (plan Task 4) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:15.394Z -->
+| itw-vu-04-html-symphony | 3 | VU-04 Instrument HTML render v0.1 Symphony Western Caribbean (generic, no fixed date): print/PDF/handoff-filled events + data-pack (plan Task 4) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:15.973Z -->
+| itw-vu-04-html-aqua-veterans | 4 | VU-04 Instrument HTML render v0.1.2 NCL Aqua Veterans (sails 2027-12-12): print/PDF/handoff-filled events + data-pack (plan Task 4) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:16.545Z -->
+| itw-vu-05-pwa-prima-caribbean | 1 | VU-05 [GATED D1] Instrument companion prima-caribbean (Norwegian Prima, sails 2026-09-27): CSP relay origin, vp_pwa_open/session/install, sw precache, footer wording UNCHANGED (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:17.339Z -->
+| itw-vu-05-pwa-encore-pacific | 1 | VU-05 [GATED D1] Instrument companion encore-pacific (Norwegian Encore, sails 2026-10-12) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:17.892Z -->
+| itw-vu-05-pwa-escape-thanksgiving | 2 | VU-05 [GATED D1] Instrument companion escape-thanksgiving (Norwegian Escape, sails 2026-11-20) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:18.439Z -->
+| itw-vu-05-pwa-world-america-family | 2 | VU-05 [GATED D1] Instrument companion world-america-family-dec-2026 (MSC World America, sails 2026-12-05) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:19.018Z -->
+| itw-vu-05-pwa-margaritaville | 3 | VU-05 [GATED D1] Instrument companion margaritaville-caribbean (MAS Islander, sails 2027-01-09) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:19.576Z -->
+| itw-vu-05-pwa-gem-new-orleans | 3 | VU-05 [GATED D1] Instrument companion gem-new-orleans (Norwegian Gem, sails 2027-02-05) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:20.104Z -->
+| itw-vu-05-pwa-sisters-at-sea | 3 | VU-05 [GATED D1] Instrument companion sisters-at-sea (Resilient Lady, sails 2027-02-14) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:20.665Z -->
+| itw-vu-05-pwa-world-america-caribbean | 3 | VU-05 [GATED D1] Instrument companion world-america-caribbean (MSC World America, sails 2027-04-24) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:21.206Z -->
+| itw-vu-05-pwa-breakaway-bermuda | 4 | VU-05 [GATED D1] Instrument companion breakaway-bermuda (Norwegian Breakaway, sails 2027-05-30) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:21.771Z -->
+| itw-vu-05-pwa-breakaway-fall-foliage | 4 | VU-05 [GATED D1] Instrument companion breakaway-fall-foliage (Norwegian Breakaway, sails 2027-09-26) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:22.337Z -->
+| itw-vu-05-pwa-aqua-thanksgiving | 4 | VU-05 [GATED D1] Instrument companion aqua-thanksgiving (Norwegian Aqua, sails 2027-11-21) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:22.898Z -->
+| itw-vu-05-pwa-aqua-veterans | 4 | VU-05 [GATED D1] Instrument companion aqua-veterans-caribbean (Norwegian Aqua, sails 2027-12-12) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:23.459Z -->
+| itw-vu-05-pwa-volendam-world-2028 | 4 | VU-05 [GATED D1] Instrument companion volendam-world-2028 (ms Volendam, sails 2028-01-04, 129 days; has emergency tab) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:24.086Z -->
+| itw-vu-05-pwa-anthem-alaska | 6 | VU-05 [GATED D1] Instrument companion anthem-alaska (Anthem of the Seas, sailed 2026-06-29, already complete; retro/maintenance only) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-06T10:39:19.554Z -->
+| itw-voyage-packs-free-with-tip | 2 | Voyage Packs are free with a tip jar (Ken's decision 2026-09-05; landed by yumi in InTheWake #2591 0afce055, custom-pack page #2596, eight cards on the landing page). Supersedes the paywall-platform question: no processor, no prices, no refunds. Registered after the fact so the paywall row can point at a real survivor. |
+
+<!-- library register 2026-09-06T10:43:25.753Z -->
+| itw-vp-preship-v0.1.10-ncl-encore-solo-group-oct-2026 | 2 | Pre-ship review + landing card: NCL Encore Pacific Coast hosted solo group (sails 2026-10-12). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.10-ncl-encore-solo-group-oct-2026.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:26.245Z -->
+| itw-vp-preship-v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026 | 2 | Pre-ship review + landing card: NCL Escape Thanksgiving hosted solo group (sails 2026-11-20). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:26.731Z -->
+| itw-vp-preship-v0.1.13-ncl-gem-solo-group-feb-2027 | 3 | Pre-ship review + landing card: NCL Gem New Orleans and Cozumel hosted solo group (sails 2027-02-05). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.13-ncl-gem-solo-group-feb-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:27.252Z -->
+| itw-vp-preship-v0.1.8-msc-world-america-solo-group-apr-2027 | 3 | Pre-ship review + landing card: MSC World America hosted solo group (sails 2027-04-24). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.8-msc-world-america-solo-group-apr-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:27.755Z -->
+| itw-vp-preship-v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027 | 3 | Pre-ship review + landing card: NCL Breakaway Bermuda and Halifax hosted solo group (sails 2027-05-30). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:28.245Z -->
+| itw-vp-preship-v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027 | 4 | Pre-ship review + landing card: NCL Breakaway fall foliage hosted solo group (sails 2027-09-26). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:28.795Z -->
+| itw-vp-preship-v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027 | 4 | Pre-ship review + landing card: NCL Aqua Thanksgiving hosted solo group (sails 2027-11-21). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:59:30.725Z -->
+| itw-islander-logbook-and-videos | 4 | Islander ship page to validator standard: ten logbook stories across the named personas (disclosure type B, research-based, voice gates on) and ten curated, vetted videos across the eight validator categories for ships/margaritaville-at-sea/margaritaville-at-sea-islander.html. The page exists (2026-09-06) and ships at 36/100 with those two volume gates and the stale nav gold standard as the only blockers. Companion to itw-gh-2005 (venue pages). |
+
+<!-- library register 2026-09-06T19:13:01.656Z -->
+| itw-escape-ship-page-venue-audit | 3 | ships/norwegian/norwegian-escape.html names venues Escape does not have: Observation Lounge (once), The Local (FAQ JSON-LD line 158 and the dining list line 473), Onda (once). NCL's Escape deck plans (read 2026-09-06 for the pre-ship pass on pack v0.1.11) list O'Sheehan's Neighborhood Bar & Grill Deck 7, Garden Cafe Deck 16, Spice H2O Deck 17, The Waterfront Deck 8, Pincho Deck 8, and no Observation Lounge, The Local or Onda. Fix the ship page against the deck plans and run admin/validate-ship-page.js; check whether the Joy/Bliss/Encore pages carry the mirror error (O'Sheehan's where The Local is right). Found during the Escape pre-ship pass; the pack itself is fixed in InTheWake on branch claude/voyage-packs-usage-tracking-w6vfof. |
+
+<!-- library register 2026-09-07T15:52:56.233Z -->
+| itw-preship-variant-sweep-backlog | 3 | P3 (found 2026-09-07): every pre-ship pass before today read the long-form pack only, so the condensed and handoff variants of the packs already reviewed were never checked. Escape's condensed file proved the class: four references to a venue the ship does not have, its own Tender column wrong, and two taxi fares the long-form pass had already reconciled — all shipped in a rebuilt-looking PDF. Fixed for Escape; checklist section F now requires variant coverage going forward, but it does not reach backward. BACKLOG: read the seven other condensed variants (Symphony, Aqua veterans, Sisters, Anthem, Bliss, World America, Prima, Volendam, Icon, World America family as present) and the eight handoff cards against their long forms, and rebuild any PDF that changes. Cheap mechanical first pass: grep each variant for phrases its long form no longer contains. Candidate for factcheck-gate.sh per section F. |
+
+<!-- library register 2026-09-08T15:23:18.777Z -->
+| itw-vp-factcheck-v0.1.9-ncl-prima-sep-2026 | 1 | Fact check: NCL Prima hosted solo group pack trio (sails 2026-09-27) against primary sources. Operator directive 2026-09-08 ('Fact check it'). Re-verify every load-bearing and time-sensitive claim in admin/voyage-packs/v0.1.9-ncl-prima-solo-group-sep-2026.md plus the condensed and handoff variants: itinerary day order and hours (port schedules), embarkation terminal (Port Canaveral master schedule), drink-package terms (NCL Free at Sea), ship venues (NCL deck plans), pier status at Great Stirrup Cay, NHC seasonal framing, emergency numbers; record each result and each prior wrong value in the sidecar; rebuild all three PDFs and read their text back. |

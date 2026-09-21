@@ -75,6 +75,23 @@ gtag('event', 'tool_complete', { tool_name: 'drink-calculator', result: 'worth-i
 gtag('event', 'outbound_click', { destination: 'royalcaribbean.com' });
 ```
 
+## Voyage-pack usage events (fixed vocabulary — reuse, never invent)
+
+Plan and rationale: `docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md`. Names are `vp_*`, at most 50 characters. Properties are a closed whitelist enforced twice (client module `assets/js/voyage-usage.js`, then the relay `admin/voyage-usage-relay/worker.js`); anything else is dropped.
+
+| Event | Fires when | Properties |
+|---|---|---|
+| `vp_tip_click` | the tip-jar link on a `/voyage-packs.html` card (replaced `vp_buy_click` when the packs went free on 2026-09-05; `price` is no longer emitted by any surface) | `pack` |
+| `vp_pdf_open` | a link to one of our PDFs is followed, including the free download link on each landing card | `pack`, `variant` (`full` / `condensed` / `handoff`) |
+| `vp_print` | a `data-print-scope` button | `pack`, `scope` |
+| `vp_pdf_download` | a `data-pdf-scope` button produced a PDF | `pack`, `scope` |
+| `vp_handoff_filled` | first time on a device that a handoff field is non-empty | `pack` |
+| `vp_pwa_open` | companion shell built | `pack`, `standalone`, `offline`, `phase` (`before` / `during` / `after`), `day` |
+| `vp_pwa_session` | a companion sitting ends | `pack`, `phase`, `day`, `tabs` (sorted, comma-joined) |
+| `vp_pwa_install` | `appinstalled` | `pack` |
+
+Never sent: handoff-card contents, chosen location, unit preference, any identifier. The relay adds `country` / `region` from Cloudflare's request metadata (Setting 1.5) and never a city. The dashboard is owner-only on Atlas (`/admin/voyage-usage`); no usage data is committed to this repo.
+
 ## Integration
 
 - **content-freshness** — correlate stale pages with traffic drops

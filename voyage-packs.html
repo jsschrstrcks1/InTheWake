@@ -17,7 +17,7 @@
   <script>document.documentElement.classList.remove('no-js');</script>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="referrer" content="strict-origin-when-cross-origin"/>
-  <meta name="ai-summary" content="Voyage Packs are free planning packs from In the Wake, tailored to a specific cruise itinerary. Each pack consolidates ship details, day-by-day plans, port intel, packing, budget, and an offline-capable family emergency contacts handoff card into one document. Available now: generic 7-night Royal Caribbean packs for Symphony of the Seas Western Caribbean, Icon of the Seas Eastern Caribbean, and Anthem of the Seas Alaska; hosted-group packs for NCL Aqua December 2027, Virgin Voyages Sisters at Sea February 2027, and Margaritaville at Sea Islander January 2027; a family pack for MSC World America December 2026; and a 129-day Holland America 2028 Grand World Voyage pack. All free to download; tips are welcome but never required.">
+  <meta name="ai-summary" content="Voyage Packs are free planning packs from In the Wake, tailored to a specific cruise itinerary. Each pack consolidates ship details, day-by-day plans, port intel, packing, budget, and an offline-capable family emergency contacts handoff card into one document. Available now: generic 7-night Royal Caribbean packs for Symphony of the Seas Western Caribbean, Icon of the Seas Eastern Caribbean, and Anthem of the Seas Alaska; hosted-group packs for NCL Prima September 2026, NCL Encore Pacific Coast October 2026, NCL Escape Thanksgiving November 2026, NCL Aqua December 2027, Virgin Voyages Sisters at Sea February 2027, and Margaritaville at Sea Islander January 2027; a family pack for MSC World America December 2026; and a 129-day Holland America 2028 Grand World Voyage pack. All free to download; tips are welcome but never required.">
   <meta name="last-reviewed" content="2026-09-03">
   <meta name="content-protocol" content="ICP-Lite v1.4">
 
@@ -69,6 +69,7 @@
   </script>
 
   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400"/>
+  <link rel="stylesheet" href="/assets/css/voyage-packs.css?v=2026-09-05"/>
 
   <!-- JSON-LD: WebPage (ICP-Lite) -->
   <script type="application/ld+json">
@@ -247,23 +248,65 @@
       <p>Free to download. No subscription, no account, no email required. Yours to keep, and designed to be shared with one trusted person at home before you sail.</p>
     </section>
 
-    <section class="card">
+    <section class="card" id="whats-in-every-pack">
       <h2>What's in every pack</h2>
-      <ul>
-        <li><strong>The ship.</strong> Cabin choice guidance, dining venues, drinks math, connectivity options, the rhythm of a typical sea day, which features actually matter and which don't.</li>
-        <li><strong>Day by day.</strong> An hour-by-hour rhythm for each port day and sea day, written for this specific itinerary — not a generic template.</li>
-        <li><strong>The ports.</strong> What's at the pier, how to get into town, taxi unions and licensing, what to skip, what's worth a paid excursion, when to be back onboard.</li>
-        <li><strong>The packing list.</strong> Calibrated to the climate, the dress code, and the specific ports. Not "everything you might possibly need."</li>
-        <li><strong>The budget.</strong> Honest math on what you'll actually spend onboard, line item by line item, with the cruise line's current auto-gratuity built in.</li>
-        <li><strong>Seasickness, practical logistics, accessibility.</strong> Multi-paragraph practical content for the questions cruisers actually have.</li>
-        <li><strong>The family Emergency Contacts section.</strong> A fillable handoff card (booking number, cabin number, insurance policy, trusted-contact details), the U.S. State Department's 24/7 line, the cruise line's contact numbers framed honestly (paid ship-phone vs free emergency desk), and the U.S. embassies and consulates for every port on this specific itinerary. Designed to be filled in once and shared with one trusted person at home — and to work offline at sea.</li>
+      <p>Eight parts, each written for one specific sailing. Where the free site already covers the same ground, the card points you there, so you can see the kind of writing you would be paying for before you pay for it.</p>
+      <ul class="vp-features">
+        <li class="vp-feature">
+          <span class="vp-feature-icon" aria-hidden="true">🚢</span>
+          <h3>The ship</h3>
+          <p>Cabin choice guidance, dining venues, drinks math, connectivity options, the rhythm of a typical sea day, and which features actually matter on this ship and which don't.</p>
+          <p class="vp-feature-cta"><a href="/ships/">Browse the free ship profiles</a></p>
+        </li>
+        <li class="vp-feature">
+          <span class="vp-feature-icon" aria-hidden="true">📅</span>
+          <h3>Day by day</h3>
+          <p>An hour-by-hour rhythm for each port day and sea day, written for this itinerary rather than adapted from a template. When to be up, when to be back aboard, when to do nothing at all.</p>
+          <p class="vp-feature-cta"><a href="#available-now">See the sailings covered so far</a></p>
+        </li>
+        <li class="vp-feature">
+          <span class="vp-feature-icon" aria-hidden="true">⚓</span>
+          <h3>The ports</h3>
+          <p>What's at the pier, how to get into town, taxi unions and licensing, what to skip, what's worth a paid excursion, and the all-aboard time that actually matters.</p>
+          <p class="vp-feature-cta"><a href="/ports.html">Read a free port guide first</a></p>
+        </li>
+        <li class="vp-feature">
+          <span class="vp-feature-icon" aria-hidden="true">🧳</span>
+          <h3>The packing list</h3>
+          <p>Calibrated to the climate, the dress code, and these specific ports. Not "everything you might possibly need."</p>
+          <p class="vp-feature-cta"><a href="/packing-lists.html">Start with the free packing lists</a></p>
+        </li>
+        <li class="vp-feature">
+          <span class="vp-feature-icon" aria-hidden="true">🧾</span>
+          <h3>The budget</h3>
+          <p>Honest math on what you'll actually spend onboard, line item by line item, with the cruise line's current auto-gratuity built in.</p>
+          <p class="vp-feature-cta"><a href="/tools/cruise-budget-calculator.html">Run the numbers with the budget calculator</a></p>
+        </li>
+        <li class="vp-feature">
+          <span class="vp-feature-icon" aria-hidden="true">♿</span>
+          <h3>Logistics and accessibility</h3>
+          <p>Seasickness, embarkation day, mobility, medication, sensory considerations. The practical questions cruisers actually have, answered for this sailing rather than in general.</p>
+          <p class="vp-feature-cta"><a href="/disability-at-sea.html">Accessibility at sea, on the free site</a></p>
+        </li>
+        <li class="vp-feature">
+          <span class="vp-feature-icon" aria-hidden="true">🆘</span>
+          <h3>The family handoff card</h3>
+          <p>A fillable card (booking number, cabin, insurance policy, trusted contact), the U.S. State Department's 24/7 line, the cruise line's numbers framed honestly, and the embassies and consulates for every port on your route. Fill it in once, share it with one person at home, and it works offline at sea.</p>
+          <p class="vp-feature-cta"><a href="/reaching-someone-at-sea.html">Try the free, any-cruise version</a></p>
+        </li>
+        <li class="vp-feature">
+          <span class="vp-feature-icon" aria-hidden="true">📲</span>
+          <h3>The Voyage companion</h3>
+          <p>Your route on a live map, seasonal weather normals for every stop, real forecasts and radar as each day comes within range, and U.S. weather alerts, saved to your phone like an app and working without signal once it has loaded. Included with packs that ship one; each card below says which formats it comes in.</p>
+          <p class="vp-feature-cta"><button type="button" data-vp-install-open data-umami-event="vp_install_guide_open">How to save it to your phone</button></p>
+        </li>
       </ul>
       <div class="offline-banner">
-        <strong>Offline-capable.</strong> After the first time you load a Voyage Pack, it's available without Wi-Fi. Useful at sea, in port, on a plane, or anywhere your family loses signal. The PWA caches the pack automatically.
+        <strong>Offline-capable.</strong> After the first time you load a Voyage Pack, it's available without Wi-Fi. Useful at sea, in port, on a plane, or anywhere your family loses signal. The PWA caches the pack automatically. <button type="button" class="vp-inline-button" data-vp-install-open data-umami-event="vp_install_guide_open">Here is how to save the companion to a phone.</button>
       </div>
     </section>
 
-    <section class="card">
+    <section class="card" id="available-now">
       <h2>Available now</h2>
 
       <article class="vp-product-card">
@@ -278,8 +321,8 @@
           <li>Emergency Contacts: U.S. State Dept, RCL ship-phone (with paid-per-minute caveat), embassies for Bahamas, Honduras, Mexico</li>
         </ul>
         <p class="vp-product-cta">
-          <a href="/ships/rcl/v0.1-symphony-western-caribbean-7n.pdf" class="vp-buy-button" download>Download the pack (free)</a>
-          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener">leave a tip</a>; it is never required.</span>
+          <a href="/ships/rcl/v0.1-symphony-western-caribbean-7n.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1-symphony-western-caribbean-7n" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1-symphony-western-caribbean-7n">leave a tip</a>; it is never required.</span>
         </p>
       </article>
 
@@ -296,8 +339,8 @@
           <li>Companion PWA: sample Saturday–Saturday frame, live forecasts as dates approach, offline emergency card</li>
         </ul>
         <p class="vp-product-cta">
-          <a href="/ships/rcl/v0.1.17-icon-eastern-caribbean-7n.pdf" class="vp-buy-button" download>Download the pack (free)</a>
-          <span class="vp-product-secondary">Free to download as PDF + offline-capable PWA companion. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener">leave a tip</a>; it is never required.</span>
+          <a href="/ships/rcl/v0.1.17-icon-eastern-caribbean-7n.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1.17-icon-eastern-caribbean-7n" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline-capable PWA companion. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1.17-icon-eastern-caribbean-7n">leave a tip</a>; it is never required.</span>
         </p>
       </article>
 
@@ -313,8 +356,65 @@
           <li>Emergency Contacts: the fillable family handoff card, U.S. State Dept line, and the jurisdictions covering an Alaska round-trip with a Canadian call</li>
         </ul>
         <p class="vp-product-cta">
-          <a href="/ships/rcl/v0.1.4-rcl-anthem-alaska-7n.pdf" class="vp-buy-button" download>Download the pack (free)</a>
-          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener">leave a tip</a>; it is never required.</span>
+          <a href="/ships/rcl/v0.1.4-rcl-anthem-alaska-7n.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1.4-rcl-anthem-alaska-7n" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1.4-rcl-anthem-alaska-7n">leave a tip</a>; it is never required.</span>
+        </p>
+      </article>
+
+      <article class="vp-product-card">
+        <h3>NCL Prima — Western Caribbean Hosted Solo Group, September 27 – October 4, 2026</h3>
+        <p class="vp-product-meta">Hosted-group itinerary pack · Free · Last updated 2026-09-06</p>
+        <p>For the hosted solo-cruisers group sailing 7 nights round-trip from Port Canaveral on Norwegian Prima, September 27 to October 4, 2026, calling at Great Stirrup Cay, Falmouth (Jamaica), Grand Cayman, and Cozumel. Organized and hosted on board by <a href="/authors/tina-maulsby.html">Tina Maulsby</a> of Maulsby Travel Co. Booking through Tina is separate; this pack is the planning companion. Sails in peak hurricane season, and says so.</p>
+        <ul>
+          <li>Norwegian Prima (lead ship of the Prima class, 2022) ship details, and the Solo Studio versus Balcony calculus at the group rates</li>
+          <li>Day-by-day for 7 nights — Port Canaveral · Great Stirrup Cay · Falmouth · Grand Cayman · Cozumel, with the tender and pier reality for each</li>
+          <li>Great Stirrup Cay as it stands for this sailing: the new pier, Great Tides Waterpark three weeks after opening, what is free and what is not</li>
+          <li>Hurricane-season playbook: what NCL refunds, what travel insurance covers, and how the host signals a reroute</li>
+          <li>Solo cruising: Studio Lounge rhythm, the unwritten rules of a hosted group, cabin and onboard safety</li>
+          <li>Emergency Contacts: the fillable family handoff card, U.S. State Dept line, NCL ship-phone (paid-per-minute caveat), and the consular contacts for Jamaica, the Caymans, and Mexico</li>
+          <li>Companion PWA: live map, port forecasts as the week approaches, offline emergency card</li>
+        </ul>
+        <p class="vp-product-cta">
+          <a href="/ships/norwegian/v0.1.9-ncl-prima-solo-group-sep-2026.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1.9-ncl-prima-solo-group-sep-2026" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline-capable PWA companion. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1.9-ncl-prima-solo-group-sep-2026">leave a tip</a>; it is never required.</span>
+        </p>
+      </article>
+
+      <article class="vp-product-card">
+        <h3>NCL Encore — Pacific Coast Hosted Solo Group, October 12 – 18, 2026</h3>
+        <p class="vp-product-meta">Hosted-group itinerary pack · Free · Last updated 2026-09-06</p>
+        <p>For the hosted solo-cruisers group sailing 6 nights one-way from Vancouver to Los Angeles on Norwegian Encore, October 12 to 18, 2026, with a day in Victoria and overnights in port at both Vancouver and San Francisco. Hosted on board by Allison Fishhead Burbank; booked through <a href="/authors/tina-maulsby.html">Tina Maulsby</a> of Maulsby Travel Co. Booking through Tina is separate; this pack is the planning companion. A repositioning sailing in the Pacific shoulder season, and it says so.</p>
+        <ul>
+          <li>Norwegian Encore (Breakaway Plus class, 2019) ship details, and the Solo Studio versus Ocean View versus Balcony calculus at the group rates</li>
+          <li>Day-by-day for 6 nights — Vancouver (overnight) · Victoria · at sea · San Francisco (overnight) · Los Angeles, with the Lions Gate and Golden Gate passages</li>
+          <li>Two overnights in port: dinner ashore in Gastown, the Ferry Building on a Saturday morning, and what all-aboard means on an overnight call</li>
+          <li>Pacific Northwest October rain plan, the one-way airfare problem, and what to do if the flight to Vancouver is cancelled</li>
+          <li>Solo cruising: Studio Lounge rhythm, the unwritten rules of a hosted group, cabin and after-hours safety</li>
+          <li>Emergency Contacts: the fillable family handoff card, U.S. State Dept line, NCL ship-phone (paid-per-minute caveat), and consular routing for British Columbia</li>
+          <li>Companion PWA: live map, port forecasts as the week approaches, offline emergency card</li>
+        </ul>
+        <p class="vp-product-cta">
+          <a href="/ships/norwegian/v0.1.10-ncl-encore-solo-group-oct-2026.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1.10-ncl-encore-solo-group-oct-2026" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline-capable PWA companion. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1.10-ncl-encore-solo-group-oct-2026">leave a tip</a>; it is never required.</span>
+        </p>
+      </article>
+
+      <article class="vp-product-card">
+        <h3>NCL Escape — Thanksgiving Caribbean Hosted Solo Group, November 20 – 27, 2026</h3>
+        <p class="vp-product-meta">Hosted-group itinerary pack · Free · Last updated 2026-09-06</p>
+        <p>For the hosted solo-cruisers group sailing 7 nights round-trip from Port Canaveral on Norwegian Escape, November 20 to 27, 2026, calling at Amber Cove (Puerto Plata), St. Thomas, Tortola, and Great Stirrup Cay, with Thanksgiving Day at the cay and the feast aboard that evening. Hosted on board by Pam Walters; booked through <a href="/authors/tina-maulsby.html">Tina Maulsby</a> of Maulsby Travel Co. Booking is separate; this pack is the planning companion. A Friday-to-Friday holiday week, and the pack names what that costs in PTO.</p>
+        <ul>
+          <li>Norwegian Escape (lead ship of the Breakaway Plus class, 2015) ship details, what she has and does not have, and the Solo Studio versus Ocean View versus Balcony calculus at the group rates</li>
+          <li>Day-by-day for 7 nights — Port Canaveral · at sea · Amber Cove · St. Thomas · Tortola · at sea · Great Stirrup Cay · Port Canaveral, each with a free option and a paid one</li>
+          <li>Great Stirrup Cay as it stands for this sailing: the new pier, Great Tides Waterpark eleven weeks after opening, what is free and what is not</li>
+          <li>Thanksgiving aboard: the feast, the specialty rooms that stay open, and an honest page about the five o'clock hour for a solo cruiser</li>
+          <li>Solo cruising: Studio Lounge rhythm, the unwritten rules of a hosted group, and the Black Friday flight home</li>
+          <li>Emergency Contacts: the fillable family handoff card, U.S. State Dept line, NCL ship-phone (paid-per-minute caveat), and consular routing for the Dominican Republic and the BVI</li>
+          <li>Companion PWA: live map, port forecasts as the week approaches, offline emergency card</li>
+        </ul>
+        <p class="vp-product-cta">
+          <a href="/ships/norwegian/v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline-capable PWA companion. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026">leave a tip</a>; it is never required.</span>
         </p>
       </article>
 
@@ -330,8 +430,8 @@
           <li>Emergency Contacts: U.S. State Dept, NCL ship-phone (with paid caveat), embassies for Bahamas, Jamaica, Cayman, Mexico</li>
         </ul>
         <p class="vp-product-cta">
-          <a href="/ships/norwegian/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.pdf" class="vp-buy-button" download>Download the pack (free)</a>
-          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener">leave a tip</a>; it is never required.</span>
+          <a href="/ships/norwegian/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1.2-ncl-aqua-veterans-solo-group-dec-2027" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1.2-ncl-aqua-veterans-solo-group-dec-2027">leave a tip</a>; it is never required.</span>
         </p>
       </article>
 
@@ -347,8 +447,8 @@
           <li>Emergency Contacts: U.S. State Dept (Virgin's own recommended path), embassies for Bahamas and Mexico, safety-honest framing on Virgin's lack of a public ship-phone</li>
         </ul>
         <p class="vp-product-cta">
-          <a href="/ships/virgin-voyages/v0.1.3-virgin-sisters-sea-feb-2027.pdf" class="vp-buy-button" download>Download the pack (free)</a>
-          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener">leave a tip</a>; it is never required.</span>
+          <a href="/ships/virgin-voyages/v0.1.3-virgin-sisters-sea-feb-2027.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1.3-virgin-sisters-sea-feb-2027" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1.3-virgin-sisters-sea-feb-2027">leave a tip</a>; it is never required.</span>
         </p>
       </article>
 
@@ -364,8 +464,8 @@
           <li>Emergency Contacts: the fillable family handoff card, U.S. State Dept line, and the jurisdictions covering the Caymans, Jamaica, and Mexico</li>
         </ul>
         <p class="vp-product-cta">
-          <a href="/ships/margaritaville-at-sea/v0.1.12-mas-islander-solo-group-jan-2027.pdf" class="vp-buy-button" download>Download the pack (free)</a>
-          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener">leave a tip</a>; it is never required.</span>
+          <a href="/ships/margaritaville-at-sea/v0.1.12-mas-islander-solo-group-jan-2027.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1.12-mas-islander-solo-group-jan-2027" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1.12-mas-islander-solo-group-jan-2027">leave a tip</a>; it is never required.</span>
         </p>
       </article>
 
@@ -382,8 +482,8 @@
           <li>Emergency Contacts: the fillable family handoff card, U.S. State Dept line, and the consulates covering Honduras, Mexico and the Bahamas</li>
         </ul>
         <p class="vp-product-cta">
-          <a href="/ships/msc/v0.1.19-msc-world-america-family-dec-2026.pdf" class="vp-buy-button" download>Download the pack (free)</a>
-          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener">leave a tip</a>; it is never required.</span>
+          <a href="/ships/msc/v0.1.19-msc-world-america-family-dec-2026.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1.19-msc-world-america-family-dec-2026" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline HTML. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1.19-msc-world-america-family-dec-2026">leave a tip</a>; it is never required.</span>
         </p>
       </article>
 
@@ -400,8 +500,8 @@
           <li>Companion PWA: the leg-by-leg route on a live map, seasonal weather normals for every stop, live forecasts as each call approaches — offline-capable for use at sea</li>
         </ul>
         <p class="vp-product-cta">
-          <a href="/ships/holland-america-line/v0.1.17-hal-volendam-world-cruise-2028.pdf" class="vp-buy-button" download>Download the pack (free)</a>
-          <span class="vp-product-secondary">Free to download as PDF + offline-capable PWA companion. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener">leave a tip</a>; it is never required.</span>
+          <a href="/ships/holland-america-line/v0.1.17-hal-volendam-world-cruise-2028.pdf" class="vp-buy-button" download data-umami-event="vp_pdf_open" data-umami-event-pack="v0.1.17-hal-volendam-world-cruise-2028" data-umami-event-variant="full">Download the pack (free)</a>
+          <span class="vp-product-secondary">Free to download as PDF + offline-capable PWA companion. No account, no email. If it helps you, you can <a href="https://buymeacoffee.com/inthewake" rel="noopener" data-umami-event="vp_tip_click" data-umami-event-pack="v0.1.17-hal-volendam-world-cruise-2028">leave a tip</a>; it is never required.</span>
         </p>
       </article>
     </section>
@@ -452,6 +552,55 @@
     </section>
 
   </main>
+
+  <!-- Install guide: how to save a Voyage companion to a phone. One dialog, three device panels.
+       Opened by any [data-vp-install-open] control; logic in /assets/js/voyage-install-guide.js. -->
+  <div id="vp-install-dialog" class="vp-dialog" role="dialog" aria-modal="true" aria-labelledby="vp-install-title" aria-describedby="vp-install-intro" aria-hidden="true" hidden>
+    <div class="vp-dialog-panel">
+      <button type="button" class="vp-dialog-close" aria-label="Close this guide">&times;</button>
+      <h2 id="vp-install-title">Save the Voyage companion to your phone</h2>
+      <p id="vp-install-intro" class="vp-dialog-intro">The companion is a web page that behaves like an app. There is nothing to download from an app store and no account to make. Open it once while you have signal and it saves itself to the phone; after that the itinerary and the weather averages keep working at sea with no connection at all.</p>
+
+      <div class="vp-tabs" role="tablist" aria-label="Choose your device">
+        <button type="button" role="tab" id="vp-tab-ios" class="vp-tab" data-platform="ios" aria-selected="true" aria-controls="vp-panel-ios">iPhone or iPad</button>
+        <button type="button" role="tab" id="vp-tab-android" class="vp-tab" data-platform="android" aria-selected="false" aria-controls="vp-panel-android" tabindex="-1">Android</button>
+        <button type="button" role="tab" id="vp-tab-desktop" class="vp-tab" data-platform="desktop" aria-selected="false" aria-controls="vp-panel-desktop" tabindex="-1">Computer</button>
+      </div>
+
+      <div id="vp-panel-ios" class="vp-tabpanel" role="tabpanel" aria-labelledby="vp-tab-ios">
+        <ol>
+          <li>Open the companion link from your purchase email in <strong>Safari</strong>.</li>
+          <li>Tap the <strong>Share</strong> button: the square with an arrow pointing up, at the bottom of the screen on an iPhone and at the top on an iPad.</li>
+          <li>Scroll the sheet down and tap <strong>Add to Home Screen</strong>.</li>
+          <li>Tap <strong>Add</strong> in the top corner. The companion appears on your Home Screen with the In the Wake icon.</li>
+        </ol>
+        <p>Open it from that icon rather than from a browser tab and it fills the whole screen like any other app.</p>
+      </div>
+
+      <div id="vp-panel-android" class="vp-tabpanel" role="tabpanel" aria-labelledby="vp-tab-android" hidden>
+        <ol>
+          <li>Open the companion link from your purchase email in <strong>Chrome</strong>.</li>
+          <li>Tap the <strong>three-dot menu</strong> in the top-right corner.</li>
+          <li>Tap <strong>Add to Home screen</strong>. On some phones Chrome offers <strong>Install app</strong> instead; either one works.</li>
+          <li>Tap <strong>Add</strong> or <strong>Install</strong>. The icon appears on your home screen.</li>
+        </ol>
+        <p>Samsung Internet and Firefox can do the same from their own menus; look for <strong>Add page to</strong> or <strong>Install</strong>.</p>
+      </div>
+
+      <div id="vp-panel-desktop" class="vp-tabpanel" role="tabpanel" aria-labelledby="vp-tab-desktop" hidden>
+        <ol>
+          <li>Open the companion link in <strong>Chrome</strong> or <strong>Edge</strong>.</li>
+          <li>Look at the right-hand end of the address bar for a small install icon, or open the browser menu and choose <strong>Install</strong>.</li>
+          <li>Confirm. The companion opens in its own window and appears alongside your other programs.</li>
+        </ol>
+        <p>Safari on a Mac: choose <strong>File</strong>, then <strong>Add to Dock</strong>. In a browser that does not offer an install option, a bookmark works, and the page still runs offline once it has loaded.</p>
+      </div>
+
+      <p class="vp-dialog-note"><strong>Two honest notes.</strong> Live forecasts, radar, and alerts need a signal; the itinerary, the weather averages, and the emergency contacts do not. And because it is a web page, the ship's Wi-Fi package is not required to open it once it has been saved.</p>
+      <div id="vp-install-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </div>
+  <script src="/assets/js/voyage-install-guide.js?v=2026-09-05" defer></script>
 
   <!-- FOOTER -->
   <footer class="wrap" role="contentinfo">
