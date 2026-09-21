@@ -220,6 +220,13 @@ jobs:
       - name: Fail on boilerplate ai-summary (ICP-018 / #2428)
         run: node admin/check-ai-summary-boilerplate.mjs
 
+      # Voyage-pack registry (admin/voyage-packs/packs.json) must match the pack files on disk:
+      # every referenced PDF / HTML render / PWA companion exists, and every pack file on disk is
+      # registered. Exit 3 = drift (fails the build), exit 2 = could not look (also fails; a check
+      # that could not look must never read as clean). Adding a pack means registering it.
+      - name: Voyage-pack registry ↔ disk cross-check
+        run: node admin/scripts/check-voyage-registry.mjs
+
   # Dead meta keywords guard (ICP-2 anti-pattern #4) — blocks regressions like #1851
   meta-keywords-guard:
     name: Meta Keywords Guard
