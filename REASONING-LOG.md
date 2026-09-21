@@ -211,6 +211,15 @@
 **Unsure.** Whether the Mac holds valid Cloudflare credentials for cruisinginthewake.com; the Mac session could not tell and neither can I. Ken will know at step 4.
 
 **Honest limit.** Everything in "what the Mac session verified" is that session's report, relayed. I have not seen the Mac's terminal. The only thing I observed directly is that no new commits arrived on either branch, which is consistent with its account.
+## 2026-09-13 - Force-synced the sophos skill: it taught five layers, the guard requires seven (syl)
+
+**Asked** - "bootstrap sophos from project-sophos FIRST. fetch, resolve and union merge. careful not clever. newer isn't always better. easier isn't always better. thorough is better." This repo was reached through the household-wide skill-sync pass, not by a request naming it.
+
+**Weighed** - This checkout's `.claude/skills/sophos/SKILL.md` was flagged DRIFT by the skill-sync manifest and skipped by `sync --apply` as "locally-edited". Its hash matched Romans' stale copy exactly, so whatever made it "locally edited" was shared by two repos and is far more likely an old sync that never caught up than two independent deliberate edits. Ground truth was read off the guard rather than off either document: `bootstrap-lib.mjs ALL_LAYERS` requires SEVEN layers; this copy taught five. Both copies claim `version: 1.3.4`, so the version field discriminated nothing. Before using `--force`, diffed the whole file rather than trusting the hash, because a locally-edited copy could hold something canonical lacks and overwriting that would be the easy call rather than the better one. It held nothing unique: stale table rows, the "five-layer contract" line, the "layer 5 mechanics" heading, and none of the 2026-09-06/07 operator directive naming Project-Sophos as the kernel home.
+
+**Decided** - Force-synced to canonical, then verified byte-identity by sha256 across all fourteen checkouts before committing. Removed the tool's `.bak` file; git already holds the prior version, and an untracked backup beside a synced skill is a second answer to the same question. Also armed `core.hooksPath=.githooks` in this repo, which was UNSET: the `.githooks` chain was wired in the tree and dead in git, so every guard here including the reasoning-log guard was inert.
+
+**Unsure** - Whether the local edit was deliberate. Nothing in the file says, and the manifest records drift without recording intent. If it was deliberate, the force-sync destroyed it and this paragraph is the only surviving record. The hooksPath arming is per-clone git config and dies with this container.
 
 ## 2026-09-05 - Re-stamped 16 factcheck sidecars, one of them honestly (yumi)
 
@@ -784,6 +793,79 @@ after copy; they are byte copies of files already treated as shippable.
 **Unsure.** Whether a public aggregate dashboard is what you want, or whether you would rather it sit behind Cloudflare Access even without revenue on it — I recommended public because it is honest about a site that says "Independent, no ads" and because a count is not a secret, but that is a taste call. Also unsure whether "quiet / unused" labels on Tina-hosted packs will read to her as a verdict on her cruises rather than on our pack; the plan says they are prompts for a conversation, but words on a dashboard travel.
 
 **Honest limit.** The plan measures floors, never totals, and it cannot say *why* a pack goes unused. It also cannot see a PDF opened from a saved file or an email — that traffic is gone the moment the file leaves our link.
+## 2026-09-06 - "by unknown" was a real rendering bug on the homepage, and 13 of the 21 were mine
+
+**Asked.** *"every 'by unknown' should be by me. Ken Baker. remember that!"* — then, when I went to
+the wrong place: *"I meant in the articles bud. we are in the article thread."* — then *"and careful
+not clever demands different behavior too."*
+
+**Weighed.**
+
+*I answered the wrong question first, and the rule against that was already written down.* I read
+"by unknown" as household ledger attribution and spent a turn on attestation fields, provenance
+records and a memory directive. Ken was in the article thread the whole time. CLAUDE.md's concept-
+ledger rule 4 says plainly: *"If the referent of a request is ambiguous — 'this repo', 'that model' —
+ASK before researching. A thorough answer to the wrong question is still the wrong answer."* The
+household paid for that rule on 2026-08-06 and I paid for it again here. The tell was available: we
+were mid-thread on articles, and I had just published fourteen of them.
+
+*The second nudge was the more useful one.* "Careful not clever demands different behavior too" —
+and it does, specifically. The skill has a **worked example for exactly this operation**, "Bulk JSON
+edit": read the file and confirm schema, state the assumption, dry-run or copy first, spot-check two
+or three records, run validation. I was about to go straight to the edit. Layer 2 also auto-activates
+here (a canonical data document, 70 entries), which demands verifying *dynamic* references, not just
+static ones — and that step is what actually found the bug.
+
+*What "by unknown" really was.* Not cosmetic. `assets/data/articles/index.json` had 21 entries whose
+`author` was the flattened **string** `"Ken Baker"` instead of the object form. Six pages —
+`index.html`, `about-us.html`, `accessibility.html`, `cruise-lines.html`, and both drink calculators
+— render `const name = author.name || 'Unknown'`. On a string, `author.name` is `undefined`, so those
+21 articles displayed the literal word **"Unknown"** where Ken's name belongs, on the homepage among
+others. `articles-hub.js` uses a different guard and rendered them with *no* author at all. I proved
+it by executing both shapes rather than reasoning about them, and simulated all 72 entries through
+the real expression: 21 "Unknown" before, 0 after.
+
+**Thirteen of the twenty-one were mine** — both batches I published this session used the flattened
+form, because I copied the shape from a batch-1 entry I had also written. The other eight predate me.
+
+*The image choice was genuinely ambiguous, so I asked instead of picking.* Three portrait paths were
+in play: `authors/img/ken1.jpg?v=3.009.023` (29 entries), `assets/articles/ken1.png` (20 entries,
+including the most recent), and `authors/img/ken1.webp` (what the author page itself uses, and 934
+files site-wide against 7 and 3). Ken chose the webp. That also happens to be the smallest and the
+only one matching the WebP-only rule in `admin/FOM-STORAGE-SPEC.md`, but it was his call to make, not
+mine to infer from file sizes.
+
+*One design detail that would have broken a page if I had guessed.* Six consumers read
+`author.webp || author.image`, but `travel.html` reads `author.image` **only**. Setting a new `webp`
+key and leaving `image` on the old path would have left travel.html pointing at the stale asset. So
+the webp path goes in `image`, which satisfies every consumer. Found by grepping the consumers, not
+by reading the schema.
+
+*Why bare paths and no `?v=`.* The entries I replaced carried `?v=3.009.023` while the site is on
+`3.010.400` — measured evidence that a version string in this particular data file does not get
+maintained and rots. A bare path cannot go stale, and 87 references site-wide already use it.
+
+*Three validator failures are not mine.* `articles.html`, `about-us.html` and `accessibility.html`
+fail with "unknown page type". I checked rather than assuming: the pristine HEAD copies fail
+identically, and `git status` shows I touched only the JSON. It is a validator classification gap,
+worth its own task, out of scope here.
+
+**Decided.** All 70 Ken-authored index entries normalised to
+`{name, url, image: /authors/img/ken1.webp}`. The 2 non-Ken entries (Tina Maulsby, In the Wake
+Editorial Team) verified untouched by diff. Also linked the 3 article bylines that had a bare
+`<span>` with no author-page link — same inconsistency, same directive — so all 65 bylines are now
+byte-identical.
+
+**Reversibility.** Trivial: the pre-change file is kept at `index.BEFORE.json` and the diff proves
+every non-author field is byte-identical.
+
+**Honest limit.** I verified the rendering fix by executing the six pages' actual expression against
+all 72 entries, not by loading the pages in a browser. The logic is proven; the visual result is not
+observed.
+
+**Unsure.** Whether the 8 non-mine flattened entries were deliberate. I normalised them because Ken
+said "make sure they are all like that", but if any of those eight were meant to be attributed
+differently, that intent is now gone and he should tell me.
 
 ## 2026-09-05 - Full voice-skill pass on the seven new articles; it caught a sourcing violation the first audit missed
 
