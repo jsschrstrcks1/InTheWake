@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cruisinginthewake.com/admin/voyage-packs/packs.schema.json",
+  "title": "Voyage pack registry",
+  "description": "One record per voyage pack. The single source of truth tying a pack to every surface it ships on (landing card, PDFs, offline HTML render, PWA companion). Checked against the files on disk by admin/scripts/check-voyage-registry.mjs. Soli Deo Gloria.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["slug", "title", "status", "sail_start", "sail_end", "price_usd", "host", "landing", "pdf", "html", "pwa", "instrumented"],
+    "properties": {
+      "slug": { "type": "string", "pattern": "^v0\\.[0-9.]+-[a-z0-9-]+$", "description": "The pack source basename without .md; also the value carried in every usage event as `pack`." },
+      "title": { "type": "string", "minLength": 3 },
+      "status": { "type": "string", "enum": ["shipped", "companion-only", "source-only", "sailed"], "description": "shipped: at least one buyer deliverable exists. companion-only: PWA but no PDF. source-only: markdown only. sailed: the voyage is in the past." },
+      "sail_start": { "type": ["string", "null"], "format": "date", "description": "First itinerary date, from the companion's window.__VOYAGE or the pack source. null for a generic pack or an unverified date." },
+      "sail_end": { "type": ["string", "null"], "format": "date", "description": "Last itinerary date. Where the companion does not carry it, derived as sail_start plus the night count in the pack title." },
+      "price_usd": { "type": ["integer", "null"], "minimum": 0, "description": "Price shown on the landing page, or null when the pack is not sold there." },
+      "host": { "type": ["string", "null"] },
+      "landing": { "type": "boolean", "description": "true when a product card for this pack exists on /voyage-packs.html." },
+      "pdf": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["full", "condensed", "handoff"],
+        "properties": {
+          "full": { "type": ["string", "null"] },
+          "condensed": { "type": ["string", "null"] },
+          "handoff": { "type": ["string", "null"] }
+        }
+      },
+      "html": { "type": ["string", "null"], "description": "Repo-relative path of the offline HTML render, or null." },
+      "pwa": { "type": ["string", "null"], "description": "Repo-relative path of the PWA companion page, or null." },
+      "instrumented": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["landing", "html", "pwa"],
+        "properties": {
+          "landing": { "type": "boolean" },
+          "html": { "type": "boolean" },
+          "pwa": { "type": "boolean" }
+        },
+        "description": "Flipped by the task that adds usage events to each surface; the dashboard's coverage panel is derived from these, never asserted."
+      }
+    }
+  }
+}

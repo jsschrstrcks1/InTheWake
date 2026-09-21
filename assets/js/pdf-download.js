@@ -67,6 +67,11 @@
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
       await html2pdf().from(element).set(opts).save();
+      // Anonymous usage count on pages that name their pack: the slug and the scope, nothing else.
+      const packEl = document.querySelector('main[data-pack]');
+      if (packEl && window.ITW_USAGE && typeof window.ITW_USAGE.track === 'function') {
+        try { window.ITW_USAGE.track('vp_pdf_download', { pack: packEl.dataset.pack, scope }); } catch (e) {}
+      }
     } catch (err) {
       console.error('[pdf-download]', err);
       alert('Could not generate PDF. You can use Print → Save as PDF as a fallback.');
