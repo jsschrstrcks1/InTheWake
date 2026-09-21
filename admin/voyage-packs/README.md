@@ -26,6 +26,7 @@ The `.md` is the source of truth. If the three diverge, **the `.md` wins** and t
 | v0.1.2 — NCL Aqua Veterans/Solo Group Dec 2027 | `v0.1.2-ncl-aqua-veterans-solo-group-dec-2027` | md + html + pdf shipped |
 | v0.1.3 — Sisters at Sea (Virgin Voyages Resilient Lady, Feb 14–21 2027) | `v0.1.3-virgin-sisters-sea-feb-2027` | md + html + pdf shipped |
 | v0.1.17 — HAL Volendam 2028 Grand World Voyage (129 days, Jan 4 2028) | `v0.1.17-hal-volendam-world-cruise-2028` | md + factcheck + pdf + condensed (4-page) + handoff card + PWA companion (`admin/voyage-pwa/volendam-world-2028.html`) |
+| v0.1.17 — Icon of the Seas Eastern Caribbean 7N (generic) | `v0.1.17-icon-eastern-caribbean-7n` | md + factcheck + pdf + PWA companion (`admin/voyage-pwa/icon-eastern-caribbean.html`) |
 
 *(v0.1.4–v0.1.16 ship as md + factcheck + pdf, several with condensed/handoff variants and PWA companions — see the build-script registry below for the authoritative list.)*
 
@@ -372,6 +373,28 @@ Run `admin/scripts/voyage-pack-pdf-build.sh --force <slug>` after any markdown e
 9. **Document** in this README's "Current packs" table; build the PDF with the script; commit + push.
 
 ---
+
+### M. Register and instrument — a pack is not done until it is on the registry
+
+`admin/voyage-packs/packs.json` is the single source of truth tying a pack to every surface it ships on: landing card, PDFs (full / condensed / handoff), offline HTML render, PWA companion, sailing dates, price, host, and which surfaces emit usage events. `admin/scripts/check-voyage-registry.mjs` cross-checks it against disk in both directions and runs in CI (`quality.yml`); a PDF, render or companion on disk that no record names fails the build, and so does a record naming a file that is not there. Three states, never two: CLEAN (exit 0), REPORT (exit 3, drift listed), UNAVAILABLE (exit 2, could not look).
+
+When you add a pack (after step 9 of §L):
+
+```bash
+node admin/scripts/check-voyage-registry.mjs
+```
+
+It will REPORT the new files as `unregistered-file`. Add one record to `packs.json` (copy a neighbour; `packs.schema.json` documents every field; dates come from the companion's `window.__VOYAGE`, never from memory), then run it again until CLEAN.
+
+**Instrumenting the surfaces** (plan: `docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md`):
+
+| Surface | What to do | Flag to flip |
+|---|---|---|
+| Landing card | `data-umami-event="vp_pdf_open" data-umami-event-pack="<slug>" data-umami-event-variant="full"` on the download link and `data-umami-event="vp_tip_click" data-umami-event-pack="<slug>"` on the tip link (packs are free with a tip jar since 2026-09-05, so there is no Buy button); `tests/unit/voyage-usage/landing.test.mjs` checks both against the registry | `instrumented.landing` |
+| HTML render | `data-pack="<slug>"` on `<main>`, `<script src="/assets/js/voyage-usage.js" defer>` before `handoff-card.js`; the card, print and PDF scripts do the rest | `instrumented.html` |
+| PWA companion | `node admin/scripts/instrument-voyage-companions.mjs` (idempotent; `--check` exits 3 if any page needs it): relay origin in `connect-src`, `slug:` in `window.__VOYAGE`, endpoint + module before `companion.js` | `instrumented.pwa` |
+
+The companion footer sentence *"No tracking, no ads, not a financial product."* is **not edited**, ever; `tests/unit/voyage-usage/companions.test.mjs` fails if it disappears from any page. Events leave the phone only through the geo-blind relay (`admin/voyage-usage-relay/`), which discards the IP and user agent and keeps state-level place at most. The owner-only dashboard lives on Atlas at `/admin/voyage-usage`, tailnet-only; nothing about usage is ever committed to this public repo.
 
 ## Common errors and fixes
 
