@@ -12,9 +12,11 @@
 #
 # DEFERRED (needs operator decision — intentionally NOT ported here):
 #   * Security file blocks (.py/.sh/.md/.csv/hidden/backup FilesMatch) and the
-#     /scripts/ block: Netlify has no FilesMatch; a clean block needs a 404
-#     target page (none exists yet). Better handled by not deploying those
-#     files or via a future 404.html + status rule.
+#     /scripts/ block: Netlify has no FilesMatch, so extension-wide blocks
+#     still cannot be expressed here. 404.html now EXISTS (2026-08-27) and the
+#     ten known internal documents in /data/ are blocked by exact path at the
+#     bottom of this file; anything beyond that list still needs the real fix —
+#     not deploying working files at all.
 #   * /admin/ block: NOT ported. Production pages legitimately link into
 #     /admin/ (e.g. the safety article's voyage-pack emergency PDF, family
 #     PWAs, trip pages). A blanket block would break live user downloads.
@@ -46,6 +48,12 @@ https://www.cruisinginthewake.com/*  https://cruisinginthewake.com/:splat  301!
 /ports/            /ports.html          301
 /cruise-lines/     /cruise-lines.html   301
 /restaurants/      /restaurants.html    301
+# Same class, found by the 2026-08-27 audit: the site-nav Planning dropdown on
+# 255 pages links /planning/ (no directory, no index — the real page is
+# planning.html, which 112 pages already link correctly); /solo/ is linked
+# once from solo/in-the-wake-of-grief.html and solo.html is the real hub.
+/planning/         /planning.html       301
+/solo/             /solo.html           301
 
 
 # --- Ship line-family path fixes (real pages live under the right-hand dir) ---
@@ -125,3 +133,20 @@ https://www.cruisinginthewake.com/*  https://cruisinginthewake.com/:splat  301!
 /videos       /ships.html         301
 /videos/      /ships.html         301
 /ships/ships.html  /ships.html    301
+
+# --- Internal working documents blocked (itw-gh-1737, audit 2026-08-27) ---
+# These are internal drafts/marketing-source files, linked from no live page or
+# script (verified by repo-wide grep). Netlify _redirects cannot match by file
+# extension, so each is blocked by exact URL-encoded path; `!` forces the rule
+# over the real file. NEW internal files dropped into data/ are NOT auto-covered —
+# keep working documents out of the deployed tree instead.
+/data/Cruise%20line%20marketing%20blurbs.docx  /404.html  404!
+/data/In%20The%20Wake%20Standards%20v2.228.docx  /404.html  404!
+/data/QUANTUM%20%20APR%2012TH%202023%20-%20FB%20%20%20TOURS.pdf  /404.html  404!
+/data/Radiance%20class%20marketing%20blurb.docx  /404.html  404!
+/data/Top%20Ten%20marketing%20blurbs.docx  /404.html  404!
+/data/Vision%20of%20the%20Seas%20marketing%20blurb.docx  /404.html  404!
+/data/freedom%20class%20marketing%20blurb.docx  /404.html  404!
+/data/oasis%20class%20marketing%20blurbs.docx  /404.html  404!
+/data/ovation.rtf  /404.html  404!
+/data/voyager%20class%20marketing%20blurbs.docx  /404.html  404!
