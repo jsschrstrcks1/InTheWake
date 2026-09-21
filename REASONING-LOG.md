@@ -1113,6 +1113,15 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-09-03 — Seven Alaska ports into seasonal-guides.json (grok1)
+
+**Asked.** Keep looping. HLS `itw-alaska-seasonal-json` (#2446): college-fjord, homer, kodiak, misty-fjords, petersburg, valdez, wrangell missing from seasonal-guides.json.
+
+**Weighed.** Inventing humidity/rain_days would fail original-research. NOAA 1991-2020 highs/lows (and rain_days where the Wikipedia climate table had them) were used. Humidity and some rain_days borrowed from nearest existing registry stations (Seward, Sitka, Whittier, Ketchikan) and named in `_source`. Misty Fjords and College Fjord have no town stations.
+
+**Decided.** Seven tier-1 entries. `_meta.lastUpdated` 2026-09-03. 381→387 port keys.
+
+**Unsure.** Wrangell monthly precip-days were not in the Wikipedia table; Ketchikan rain_days used and disclosed.
 ## 2026-09-05 — Six new articles, written and published (syl)
 
 **Asked.** Ken: "write it / all of them" — the six-article slate planned the same day.
@@ -1385,6 +1394,18 @@ validator; it now carries the same block as its 51 siblings and passes.
 **Decided.** Write v0.1.17-icon-eastern-caribbean-7n.md from sources opened this session (RCL itinerary + FAQs, DNV via Wikipedia, ITW ship/port pages). Disclose "I have not sailed this week." Distinguish Category 6 (ship) from CocoCay Thrill Waterpark (island). DNV length 364.75 m / 1,197 ft, with the site's 1,198 ft rounding named. No drink-package $/day. PWA uses `datesApprox` and a labeled sample Saturday–Saturday frame, not a booking. PDF via pandoc+weasyprint (26 pages). Factcheck-gate passed.
 
 **Unsure.** Laundry FAQ is fleet-wide "no self-service"; the pack bounds the claim to this 7-night. CocoCay add-on dollar ranges age off the Feb 2026 port-page review. Havensight vs Crown Bay is sailing-specific. FAQ_COUNT remaining live mismatches not re-measured this turn beyond reading the already-landed validator comments.
+
+---
+
+## 2026-09-03 — Seven Alaska ports into seasonal-guides.json (grok1)
+
+**Asked.** Keep looping. After FAQ_COUNT, HLS checkout `itw-alaska-seasonal-json` (#2446): college-fjord, homer, kodiak, misty-fjords, petersburg, valdez, wrangell missing.
+
+**Weighed.** Inventing humidity/rain_days would fail original-research. NOAA 1991-2020 highs/lows (and rain_days where the Wikipedia climate table had them) were used. Humidity and some rain_days borrowed from nearest existing registry stations (Seward, Sitka, Whittier, Ketchikan) and named in `_source`. Misty Fjords and College Fjord have no town stations.
+
+**Decided.** Seven tier-1 entries, `_meta.lastUpdated` 2026-09-03. 381→387 port keys.
+
+**Unsure.** Wrangell monthly precip-days were not in the Wikipedia table; Ketchikan rain_days used and disclosed.
 
 ---
 
