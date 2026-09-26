@@ -12,22 +12,23 @@
    entry (anthem-alaska.html, prima-caribbean.html, …) shares this one worker + shell
    cache; each installs as its own home-screen app via its own manifest. */
 
-const CACHE = "voyage-v17";
+const CACHE = "voyage-v18";
 const OWN_SCOPE = "/admin/voyage-pwa/";   // the only same-origin prefix this worker will cache
 // The one asset outside our scope we deliberately cache: the anonymous usage-count module. It must be
 // available offline so a sitting at sea is counted when signal returns (it queues in localStorage).
 const USAGE_MODULE = "/assets/js/voyage-usage.js";
 const PRECACHE = [
   // Versioned to match the ?v= the companion pages load; bump both together with CACHE.
-  "/admin/voyage-pwa/companion.css?v=17",
+  "/admin/voyage-pwa/companion.css?v=18",
   "/admin/voyage-pwa/guide.css?v=1",
-  "/admin/voyage-pwa/companion.js?v=17",
+  "/admin/voyage-pwa/companion.js?v=18",
   "/admin/voyage-pwa/alerts.json",
   USAGE_MODULE,
   "/admin/voyage-pwa/icons/icon-192.png",
   "/admin/voyage-pwa/icons/icon-512.png",
   "/admin/voyage-pwa/icons/icon-maskable-512.png",
   "/admin/voyage-pwa/icons/apple-touch-180.png",
+  "/admin/voyage-pwa/author-ken.webp",
   "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css",
   "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js",
 ];

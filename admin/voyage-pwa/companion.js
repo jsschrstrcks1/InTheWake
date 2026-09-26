@@ -113,6 +113,18 @@ function renderOverview(){var el=document.getElementById("pane-overview");if(!el
   if(V.host)h+='<div class="ov-card"><b>🌊 Sailing solo?</b>'
     +'<p>These are hosted group cruises built for solo travelers: come solo, leave with friends.</p>'
     +'<a class="ov-link" href="https://maulsbytravel.com/hosted-group-cruises-for-solos/" target="_blank" rel="noopener noreferrer">See all hosted group cruises for solo travelers →</a></div>';
+  // About the builder. Ken built this companion and the rest of In the Wake; a reader who wants to
+  // know whose hands made the tool gets his bio and his own site. V.author can override per voyage.
+  (function(){var A=V.author||{name:"Ken Baker",photo:"/admin/voyage-pwa/author-ken.webp",
+    bio:"Ken built this companion and In the Wake. He is a pastor, a family historian, a sheep farmer at Manatee Creek, and a cruiser who got tired of guessing at what a package was worth. He builds these tools so the numbers are honest and the day is easy.",
+    bioUrl:"/authors/ken-baker.html",site:"https://ken-baker.com"};
+    h+='<div class="ov-card ov-author"><b>\u2693 About the builder</b>';
+    if(A.photo)h+='<img class="ov-avatar" src="'+attr(A.photo)+'" alt="'+attr(A.name||"The builder")+'" width="64" height="64" loading="lazy" decoding="async">';
+    if(A.name)h+='<p class="ov-aname">'+esc(A.name)+'</p>';
+    if(A.bio)h+='<p>'+esc(A.bio)+'</p>';
+    if(A.bioUrl)h+='<a class="ov-link" href="'+attr(A.bioUrl)+'" target="_blank" rel="noopener noreferrer">Read '+esc((A.name||"the builder").split(" ")[0])+'\u2019s bio on In the Wake \u2192</a>';
+    if(A.site)h+='<a class="ov-link" href="'+attr(A.site)+'" target="_blank" rel="noopener noreferrer">'+esc(A.site.replace(/^https?:\/\//,""))+' \u2192</a>';
+    h+='</div>';})();
   if(V.pdfFull||V.pdfCondensed){h+='<div class="ov-pdfs"><b>🖨 Printable versions</b>';
     if(V.pdfFull)h+='<a class="ov-pdf" href="'+attr(V.pdfFull)+'" target="_blank" rel="noopener noreferrer">Printable version of the full voyage pack (PDF)</a>';
     if(V.pdfCondensed)h+='<a class="ov-pdf" href="'+attr(V.pdfCondensed)+'" target="_blank" rel="noopener noreferrer">Printable short version (PDF)</a>';
