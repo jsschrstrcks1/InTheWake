@@ -215,21 +215,46 @@ function shipPhoto(){var P=V.shipPhoto;if(!P||!P.src)return null;var fig=documen
   cap.appendChild(document.createTextNode("."));fig.appendChild(cap);return fig;}
 // Checked YouTube videos of this ship. Nothing loads from YouTube until the reader taps Play;
 // then the player comes from youtube-nocookie.com inside this page.
+// Which bucket a video's title puts it in, for the collapsible sections on the Ship tab. Presentation
+// only; the ship-page validator keeps its own categoryOf. First match wins, so a whole-ship tour is
+// caught before a stray "suite" in its title would pull it into cabins.
+// access is tested before cabin on purpose: an accessible cabin tour belongs in Accessibility, where
+// the person who needs it will look, not buried among the ordinary cabin tours.
+var VCATS=[
+  ["ship",/\b(ship tour|walk\s*-?\s*through|full tour|full ship|complete tour|ship walkthrough|full review)\b/],
+  ["access",/\b(accessible|accessibility|wheelchair|handicap(ped)?)\b/],
+  ["cabin",/\b(haven|suites?|balcon(y|ies)|ocean\s*view|inside cabin|interior|stateroom|studio|cabin)\b/],
+  ["food",/\b(food|dining|restaurants?|buffet|menu|specialty|everything we ate)\b/],
+  ["tips",/\btop\s*(10|ten)\b|\b\d+\s+things\b|\bthings (you must|to know|to do)\b|\bmust[-\s]?do\b|\b(tips|mistakes|secrets|hacks|need to know)\b/]
+];
+function videoCat(t){t=String(t||"").toLowerCase();for(var i=0;i<VCATS.length;i++)if(VCATS[i][1].test(t))return VCATS[i][0];return "more";}
+function videoCard(v){var card=document.createElement("div");card.className="pk-vid";
+  var t=document.createElement("h3");t.className="pk-vtitle";t.textContent=v.t;card.appendChild(t);
+  if(v.c){var c=document.createElement("p");c.className="pk-vch";c.textContent=v.c;card.appendChild(c);}
+  var row=document.createElement("p");row.className="pk-vrow";
+  var b=document.createElement("button");b.type="button";b.className="mapbtn pk-play";b.textContent="▶ Play here";b.setAttribute("aria-label","Play "+v.t);
+  b.addEventListener("click",function(){var box=document.createElement("div");box.className="pk-frame";var f=document.createElement("iframe");
+    f.src="https://www.youtube-nocookie.com/embed/"+encodeURIComponent(v.id)+"?autoplay=1&rel=0&playsinline=1";f.title=v.t;
+    f.setAttribute("allow","autoplay; encrypted-media; picture-in-picture; fullscreen");f.setAttribute("allowfullscreen","");f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
+    box.appendChild(f);row.parentNode.replaceChild(box,row);});
+  var a=document.createElement("a");a.className="ov-link pk-yt";a.href="https://www.youtube.com/watch?v="+encodeURIComponent(v.id);a.target="_blank";a.rel="noopener noreferrer";a.textContent="Open on YouTube ↗";
+  var sr=document.createElement("span");sr.className="sr-only";sr.textContent=" (opens in a new window)";a.appendChild(sr);
+  row.appendChild(b);row.appendChild(a);card.appendChild(row);return card;}
 function videoSection(){var sec=document.createElement("section");sec.className="pk-videos";sec.setAttribute("aria-labelledby","pk-videos-h");
   var h=document.createElement("h2");h.id="pk-videos-h";h.textContent="Videos of "+(V.ship||"the ship");sec.appendChild(h);
-  var n=document.createElement("p");n.className="pk-vnote";n.textContent="Picked from YouTube and checked against YouTube's own titles. They need the internet (cell data or Wi-Fi). Nothing loads from YouTube until you tap Play, and YouTube's terms apply once it plays.";sec.appendChild(n);
-  PACK_VIDEOS.forEach(function(v){var card=document.createElement("div");card.className="pk-vid";
-    var t=document.createElement("h3");t.className="pk-vtitle";t.textContent=v.t;card.appendChild(t);
-    if(v.c){var c=document.createElement("p");c.className="pk-vch";c.textContent=v.c;card.appendChild(c);}
-    var row=document.createElement("p");row.className="pk-vrow";
-    var b=document.createElement("button");b.type="button";b.className="mapbtn pk-play";b.textContent="▶ Play here";b.setAttribute("aria-label","Play "+v.t);
-    b.addEventListener("click",function(){var box=document.createElement("div");box.className="pk-frame";var f=document.createElement("iframe");
-      f.src="https://www.youtube-nocookie.com/embed/"+encodeURIComponent(v.id)+"?autoplay=1&rel=0&playsinline=1";f.title=v.t;
-      f.setAttribute("allow","autoplay; encrypted-media; picture-in-picture; fullscreen");f.setAttribute("allowfullscreen","");f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
-      box.appendChild(f);row.parentNode.replaceChild(box,row);});
-    var a=document.createElement("a");a.className="ov-link pk-yt";a.href="https://www.youtube.com/watch?v="+encodeURIComponent(v.id);a.target="_blank";a.rel="noopener noreferrer";a.textContent="Open on YouTube ↗";
-    var sr=document.createElement("span");sr.className="sr-only";sr.textContent=" (opens in a new window)";a.appendChild(sr);
-    row.appendChild(b);row.appendChild(a);card.appendChild(row);sec.appendChild(card);});
+  var n=document.createElement("p");n.className="pk-vnote";n.textContent="Picked from YouTube and checked against YouTube's own titles, then grouped by what each one shows. They need the internet (cell data or Wi-Fi). Nothing loads from YouTube until you tap Play, and YouTube's terms apply once it plays.";sec.appendChild(n);
+  // Group by what the title says the video is; a title nothing places lands in "More videos". Whole-ship
+  // tours come first and open by default, since that is what most people came to watch.
+  var groups={};PACK_VIDEOS.forEach(function(v){var g=videoCat(v.t);(groups[g]=groups[g]||[]).push(v);});
+  var order=[["ship","Ship tours"],["cabin","Cabin & room tours"],["food","Food & dining"],["access","Accessibility"],["tips","Tips & top tens"],["more","More videos"]];
+  var firstOpen=true;
+  order.forEach(function(o){var list=groups[o[0]];if(!list||!list.length)return;
+    var d=document.createElement("details");d.className="voy-row pk-vgroup";if(firstOpen){d.open=true;firstOpen=false;}
+    var sm=document.createElement("summary");sm.className="voy-sum";
+    var lab=document.createElement("span");lab.className="dloc";lab.textContent=o[1];sm.appendChild(lab);
+    var cnt=document.createElement("span");cnt.className="dbadge";cnt.textContent=String(list.length);sm.appendChild(cnt);d.appendChild(sm);
+    var body=document.createElement("div");body.className="voy-body";list.forEach(function(v){body.appendChild(videoCard(v));});d.appendChild(body);
+    sec.appendChild(d);});
   return sec;}
 // Live search over the whole pack, offline. The query never leaves the phone and is never counted.
 var preSearchTab="overview";
