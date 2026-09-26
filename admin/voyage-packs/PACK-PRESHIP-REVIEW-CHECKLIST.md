@@ -1,7 +1,7 @@
 # Voyage Pack Pre-Ship Review Checklist
 
 **Created:** 2026-06-04
-**Updated:** 2026-09-26: classes G (companion coverage), H (linked tools), I (PDF links) and J (media), each from a defect found in the Prima pre-ship pass. A–E are the original five; F was added 2026-09-07.
+**Updated:** 2026-09-26 (second pass): classes K (outside text into the page), L (ship facts and the ship-page FAQ) and M (live links) added, and G and J extended, all from the Prima pass. Earlier 2026-09-26: classes G (companion coverage), H (linked tools), I (PDF links) and J (media), each from a defect found in the Prima pre-ship pass. A–E are the original five; F was added 2026-09-07.
 **Purpose:** Catch the five problem-classes that have shipped in voyage packs despite the original-research factual gate and the voice-audit cluster framework. Built from a problem inventory of the v0.1.4 Anthem pack performed AFTER both sidecars were in place — proving that the sidecars alone do not catch everything.
 **Companion to:** `.claude/skills/original-research/ORIGINAL-RESEARCH.md` (factual), `.claude/skills/voice-audit/SKILL.md` v2.3.0 (voice), and the `.factcheck.json` sidecar schema.
 
@@ -119,6 +119,16 @@ opens at sea with no signal, and a PDF on the landing page does not keep it.
       link points at that IMO, not a name search. The schedule line (works offline) and the live map
       (loads only on a tap) stay separate, and neither passes for the other.
 - [ ] **The Emergency tab's numbers match the pack's**, number for number.
+- [ ] **No installed app claims more of the site than its own pages.** A web-app manifest's `scope`
+      decides which links Android opens inside that app. The private "Ken" app had `scope: "/admin/"`,
+      so on a phone without Chrome every voyage-pack link opened inside it and failed with "requires
+      Chrome". Every manifest's `scope` is its own folder or page; when narrowing one that is already
+      installed, pin `id` to its old identity so phones update it in place (fixed 2026-09-26,
+      checked with Chromium's own manifest parser).
+- [ ] **The footer carries the tip link, and nothing that tracks.** One line under the disclaimer:
+      "If this companion helped your trip, you can leave Ken a tip" to `buymeacoffee.com/inthewake`,
+      `rel="noopener"`, no `data-umami` attribute (the companion promises no tracking). The
+      disclaimer wording is never edited.
 - [ ] **Owner:** `build-voyage-guides.mjs --check`; `tests/unit/voyage-usage/guides.test.mjs`,
       `where-now.test.mjs` (pins every checked IMO), `companions.test.mjs`.
 
@@ -169,16 +179,91 @@ than keep a wrong one.
 - [ ] **Every video passes the name rule.** `node admin/scripts/verify-ship-videos.mjs --check`.
       In the companion, nothing loads from YouTube until the reader taps Play, and then only from
       `youtube-nocookie.com`.
+- [ ] **A video's category comes from YouTube's own title, never from us.** The checker stamps
+      `category` from the title (`categoryOf`); a title that names none gets none, and the ship
+      validator counts those stamps. Never invent or stretch a category to satisfy the validator: that
+      is how three Pearl vlogs became "Prima Suite Tour" 470 times. A ship short of a category gets
+      real videos found, looked up with YouTube oEmbed, recorded in
+      `admin/data/video-verification/`, and run through the checker, or it stays short.
+- [ ] **Every video meets the site's content standard, checked by a person watching it.** No
+      profanity, no vulgarity, no politics, no sexual or suggestive content, applied the same way to
+      every creator. A title and a channel name cannot show this; say so in the commit when a video
+      ships before it has been watched, and name who is watching it (Prima, 2026-09-26: 11 videos
+      put on the page for the operator to watch there).
+- [ ] **The ship page shows every checked video it has**, up to 24, built as in class K.
 - [ ] **A ship photo is licensed, credited and this ship's.** Licence, photographer, licence link and
       source on the caption; the image-reuse guardrail applies (one image, one ship).
-- [ ] **Owner:** `verify-ship-videos.mjs`; `tests/unit/ship-videos.test.mjs`; image-reuse-guardrail.
+- [ ] **Owner:** `verify-ship-videos.mjs`; `tests/unit/ship-videos.test.mjs`; `admin/validate-ship-page.js`; image-reuse-guardrail.
+
+## K. Outside text into the page — build it with DOM calls, never with HTML strings
+
+Added 2026-09-26. The ship-page video carousel put YouTube's own titles into an HTML string for
+`innerHTML`, escaping `<` and `>` but not `"`, so a quote in a title could break out of the `title`
+attribute. Found on 151 ship pages, with a dead `initVideos()` block carrying the same pattern, with
+no escaping at all, on 162. This is the house rule "no raw HTML injection from untrusted data", and
+this class exists so the fix is required, not optional.
+
+- [ ] **Anything that did not come from our own code reaches the page through DOM calls:**
+      `textContent`, `document.createElement`, property assignment or `setAttribute`. That covers
+      YouTube titles and channels, every API answer (weather, alerts, exchange rates), every JSON data
+      file, and anything a traveler types (the journal). Never concatenated into a string for
+      `innerHTML`, `outerHTML`, `insertAdjacentHTML` or `document.write`.
+- [ ] **Partial escaping is a failure, not a fix.** Escaping `<` and `>` leaves attributes open. Where
+      existing code builds HTML strings (the companion does), every outside value goes through the
+      escaper for its context: `esc()` for text between tags, `attr()` (which also escapes `"`) for
+      attribute values. Checked 2026-09-26: the companion does this throughout.
+- [ ] **Dead code with the unsafe pattern is removed, not left.** A never-called block is one
+      template edit away from live.
+- [ ] **Checked in a browser**, not only by reading: frames or items render, a test value containing
+      a double quote stays inside its attribute, 0 page errors.
+- [ ] **Owner:** `tests/unit/outside-text-dom.test.mjs` fails if a known-unsafe pattern returns to a
+      ship page or the companion.
+
+## L. Ship facts and the ship-page FAQ — the line's own current numbers, computed, never copied
+
+Added 2026-09-26. Prima's page said 1,388 crew; NCL's own Prima page says 1,506. Three of our data
+files disagreed with each other on tonnage, guests, crew and even the IMO number, and the page claimed
+"the highest guest-space ratio in the NCL fleet" with no source.
+
+- [ ] **Guests (double occupancy) and crew come from the line's own current ship page**, read from the
+      page text, not a search summary; gross tonnage from the classification register (DNV, Lloyd's
+      Register) as cited on the ship's Wikipedia infobox. A pre-build press-release figure is not a
+      delivered figure.
+- [ ] **Every copy of a figure agrees**: the page's fact block, key facts, stats fallback, noscript
+      line, stat tiles, and the data files (`ncl_ships_meta.json`, `fleet_index.json`,
+      `ship-space-and-crew.json`).
+- [ ] **Ratios are computed from those figures, never copied**: guests per crew member, gross tons
+      per guest (the space ratio), gross tons per person aboard. A comparison ship's figures are
+      sourced the same way. Say what the crew count includes (everyone who works aboard).
+- [ ] **Gross tonnage is explained, not converted.** It is volume ("a function of the moulded volume
+      of all enclosed spaces of the ship", IMO), so it is never turned into square feet; no line
+      publishes usable square feet per guest.
+- [ ] **A superlative without a source is removed** (original-research, confabulation mode 3).
+- [ ] **The FAQ keeps the validator's limit** (eight questions); fold an explanation into the answer
+      that uses it rather than adding a question.
+- [ ] **Owner:** `assets/data/ship-space-and-crew.json` (figures, sources, dates); original-research.
+
+## M. Live links — every link must open on the live site
+
+Added 2026-09-26. `/planning/`, `/cruise-lines/`, `/ports/` and `/restaurants/` all return 404 on
+cruisinginthewake.com, because the site is served by GitHub Pages and GitHub Pages ignores
+`_redirects`. About 250 ship pages linked them.
+
+- [ ] **Check a link against the live host, not the repo's redirect file.** Link the `.html` page
+      that actually loads.
+- [ ] **Owner:** `admin/validate-ship-page.js` (`navigation/missing_nav_items`).
 
 ## How this checklist runs
 
 1. After the factual sidecar passes and the voice_audit block is written, run THIS checklist as a final read pass.
 2. Each unchecked box is a finding; log findings into the relevant sidecar block (factual → `.factcheck.json` factual categories; voice → `voice_audit`; new classes D/E → a `preship_review` block).
-3. The grep-able items (repeated dollar figures, crutch-word count, internal-vocabulary list) should migrate into `factcheck-gate.sh` over time so they become mechanical. The judgment items (physics claims, geography, imagined-experience) stay human-or-Claude-read. Already mechanical, run them every pass: `build-voyage-guides.mjs --check` (G), `check-pack-pdf-links.mjs` (I), `verify-ship-videos.mjs --check` (J), `check-voyage-registry.mjs`, and `node --test "tests/unit/**/*.test.mjs"`.
+3. The grep-able items (repeated dollar figures, crutch-word count, internal-vocabulary list) should migrate into `factcheck-gate.sh` over time so they become mechanical. The judgment items (physics claims, geography, imagined-experience) stay human-or-Claude-read. Already mechanical, run them every pass: `build-voyage-guides.mjs --check` (G), `check-pack-pdf-links.mjs` (I), `verify-ship-videos.mjs --check` (J), `tests/unit/outside-text-dom.test.mjs` (K), `node admin/validate-ship-page.js <ship page>` (J, L, M), `check-voyage-registry.mjs`, and `node --test "tests/unit/**/*.test.mjs"`.
 4. **Do not ship a pack until this checklist has been run once with file access and the findings dispositioned.**
+5. **Never bypass a gate to ship.** When the ship-page regression gate blocks a commit, find why: on 2026-09-26 it blocked Prima because the validator counted a structure the honest-video cleanup had removed, and the fix was to give the checker real structure, not to refresh the baseline or use `--no-verify`.
+
+### Planned for the companion, not yet required
+
+The ship-tab FAQ for booked guests, the top-level Alerts tab (CDC outbreak notices plus US, UK and Canadian advisories for each port), and the private Journal (`admin/claude/plans/voyage-journal.md`). When each ships, it gets a class here.
 
 ---
 
