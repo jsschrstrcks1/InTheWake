@@ -418,7 +418,9 @@ class PortWeatherValidator {
       // be double-counted into a false mismatch. The deeper "visible FAQ set vs
       // FAQPage schema drift" question is tracked separately (see #2444 follow-up).
       const qPrefixed = this.count(/<p><strong>Q:|<strong>Q:|<summary[^>]*>Q:/);
-      const summaryFAQs = this.count(/<details class="faq-item"><summary>/);
+      // Whitespace between <details class="faq-item"> and <summary> is legal HTML.
+      // The old single-line regex produced Page:0 on indented markup (#2444 / chilean-fjords).
+      const summaryFAQs = this.count(/<details class="faq-item"[^>]*>\s*<summary/);
       const divFAQs = this.count(/<div[^>]*class="(?:[^"]*\s)?faq-item(?:\s[^"]*)?"[^>]*>\s*<h[1-6]/);
       const vq = Math.max(qPrefixed, summaryFAQs, divFAQs);
       if (sq !== vq) this.log('error', 'FAQ_COUNT', `FAQ count mismatch`, `Schema: ${sq}, Page: ${vq}`);
