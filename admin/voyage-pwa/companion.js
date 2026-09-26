@@ -61,7 +61,7 @@ function buildShell(){
    +(V.emergency?'<div class="wpane" id="pane-emg"><span class="muted">loading…</span></div>':'')
    +'</main>'
    +'<div id="a11y-status" role="status" aria-live="polite" class="sr-only"></div>'
-   +'<footer class="wfoot" role="contentinfo"><div class="disc">'+esc(V.footerDisc||"Planning aid only — forecasts and radar can and do change; always confirm conditions locally. No tracking, no ads, not a financial product.")+'</div></footer>'
+   +'<footer class="wfoot" role="contentinfo"><div class="disc">'+esc(V.footerDisc||"Planning aid only — forecasts and radar can and do change; always confirm conditions locally. No tracking, no ads, not a financial product.")+'</div><p class="tip">If this companion helped your trip, you can <a href="https://buymeacoffee.com/inthewake" target="_blank" rel="noopener">leave Ken a tip</a>.</p></footer>'
    +'<div class="sdg">Soli Deo Gloria</div>';
 }
 
