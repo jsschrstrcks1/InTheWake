@@ -86,7 +86,7 @@ function fetchVoyWx(s){var u="https://api.open-meteo.com/v1/forecast?latitude="+
 function renderOverview(){var el=document.getElementById("pane-overview");if(!el)return;var h='';
   h+='<p class="ov-lead">This is your offline travel companion for the sailing: the day-by-day itinerary, destination weather averages, and live forecasts as you get close, all in one place. <strong>Save it to your phone and it keeps working at sea and in port, even with no internet.</strong></p>';
   h+='<div class="ov-card ov-save"><b>📲 Save this app to your phone</b>'
-    +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow at the bottom), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
+    +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow: at the bottom of the screen on an iPhone, at the top on an iPad), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
     +'<p class="ov-step"><strong>Android (Chrome):</strong> tap the <strong>⋮</strong> menu (top-right), then <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</p>'
     +'<p class="ov-step">It opens full-screen like a real app and works offline once loaded, which is handy where the ship or port has no internet.</p></div>';
   if(V.shipPhoto&&V.shipPhoto.src)h+='<img class="ov-flyer ov-ship" src="'+attr(V.shipPhoto.src)+'" alt="'+attr(V.shipPhoto.alt||"")+'" decoding="async"'+(V.shipPhoto.w?' width="'+attr(V.shipPhoto.w)+'" height="'+attr(V.shipPhoto.h)+'"':'')+'><p class="ov-credit">Photo: '+esc(V.shipPhoto.credit||"")+', <a href="'+attr(V.shipPhoto.licenseUrl||"#")+'" target="_blank" rel="noopener noreferrer">'+esc(V.shipPhoto.license||"")+'</a>.</p>';
@@ -453,7 +453,7 @@ function maybeInstallPopup(){var seen=false;try{seen=!!localStorage.getItem("itw
   setTimeout(function(){if(document.getElementById("inst-dlg"))return;var prev=document.activeElement;var ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
     var bg=document.createElement("div");bg.className="inst-bg";var d=document.createElement("div");d.id="inst-dlg";d.className="inst-dlg";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-labelledby","inst-h");
     var h=document.createElement("h2");h.id="inst-h";h.textContent="📲 Save this app to your phone";d.appendChild(h);
-    var p1=document.createElement("p");p1.textContent=ios?"In Safari, tap the Share button (the square with an up-arrow), scroll down, then tap Add to Home Screen.":"Tap the ⋮ menu (top-right), then Add to Home screen or Install app.";d.appendChild(p1);
+    var p1=document.createElement("p");p1.textContent=ios?"In Safari, tap the Share button (the square with an up-arrow: at the bottom of the screen on an iPhone, at the top on an iPad), scroll down, then tap Add to Home Screen.":"Tap the ⋮ menu (top-right), then Add to Home screen or Install app.";d.appendChild(p1);
     var p2=document.createElement("p");p2.textContent="It then opens like a real app and keeps working at sea and in port, even with no internet.";d.appendChild(p2);
     var row=document.createElement("div");row.className="inst-row";
     function close(){try{localStorage.setItem("itw-install-seen","1");}catch(e){}bg.remove();d.remove();document.removeEventListener("keydown",esc1);if(prev&&prev.focus)prev.focus();}
