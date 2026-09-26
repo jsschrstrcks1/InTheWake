@@ -242,7 +242,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         "@type": "HowToStep",
         "position": 1,
         "name": "Select your cruise line",
-        "text": "Choose your cruise line from the dropdown. Royal Caribbean, Carnival, Norwegian, MSC, Virgin Voyages, and others are supported."
+        "text": "Choose your cruise line from the dropdown. Royal Caribbean and Norwegian are covered today; the tool says plainly how complete each ship's cabin data is, and names the lines it has no data for yet."
       },
       {
         "@type": "HowToStep",
@@ -460,13 +460,15 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <h2 id="form-heading" class="sr-only">Check Your Stateroom</h2>
 
       <form id="stateroom-form" novalidate>
-        <!-- Cruise Line Selection (locked to Royal Caribbean) -->
+        <!-- Cruise Line Selection: only lines with real cabin data are offered -->
         <div class="form-group">
           <label for="cruise-line-select">Cruise Line</label>
-          <select id="cruise-line-select" name="cruise-line" required disabled>
+          <select id="cruise-line-select" name="cruise-line" required aria-describedby="line-help-text line-gap-text">
             <option value="royal-caribbean" selected>Royal Caribbean</option>
+            <option value="norwegian">Norwegian Cruise Line</option>
           </select>
-          <p class="help-text">Currently supporting Royal Caribbean ships. More cruise lines coming soon!</p>
+          <p class="help-text" id="line-help-text">Royal Caribbean: all 29 ships checked cabin by cabin.</p>
+          <p class="help-text" id="line-gap-text">No cabin data yet for Carnival, Celebrity, Princess, MSC, Virgin Voyages, Holland America and other lines. We would rather say so than guess.</p>
         </div>
 
         <!-- Ship Class Selection -->
@@ -684,7 +686,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- JAVASCRIPT -->
 
   <!-- Stateroom Check Engine -->
-  <script src="/assets/js/stateroom-check.js?v=1.000"></script>
+  <script src="/assets/js/stateroom-check.js?v=1.001"></script>
 
   <!-- Navigation Dropdown Script -->
   <script src="/assets/js/dropdown.js"></script>
@@ -895,6 +897,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     'use strict';
 
     // ===== SHIP CLASS MAPPING =====
+    // Every ship listed here has a cabin data file that is complete or checked cabin by
+    // cabin (tests/unit/stateroom-check.test.mjs holds that line). Placeholder files are
+    // never offered: a verdict on a ship we know nothing about would be a guess.
     const SHIP_CLASSES = {
       'icon-class': [
         { value: 'icon-of-the-seas', label: 'Icon of the Seas' },
@@ -929,6 +934,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       'vision-class': [
         { value: 'enchantment-of-the-seas', label: 'Enchantment of the Seas' },
         { value: 'grandeur-of-the-seas', label: 'Grandeur of the Seas' },
+        { value: 'rhapsody-of-the-seas', label: 'Rhapsody of the Seas' },
         { value: 'vision-of-the-seas', label: 'Vision of the Seas' }
       ],
       'voyager-class': [
@@ -937,13 +943,103 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         { value: 'mariner-of-the-seas', label: 'Mariner of the Seas' },
         { value: 'navigator-of-the-seas', label: 'Navigator of the Seas' },
         { value: 'voyager-of-the-seas', label: 'Voyager of the Seas' }
+      ],
+      // Norwegian: classes as the data files name them. Sky, Spirit, Star and Sun carry no
+      // class in their files, so none is invented for them.
+      'ncl-prima-class': [
+        { value: 'norwegian-prima', label: 'Norwegian Prima' },
+        { value: 'norwegian-viva', label: 'Norwegian Viva' }
+      ],
+      'ncl-prima-plus-class': [
+        { value: 'norwegian-aqua', label: 'Norwegian Aqua' }
+      ],
+      'ncl-breakaway-plus-class': [
+        { value: 'norwegian-bliss', label: 'Norwegian Bliss' },
+        { value: 'norwegian-encore', label: 'Norwegian Encore' },
+        { value: 'norwegian-escape', label: 'Norwegian Escape' },
+        { value: 'norwegian-joy', label: 'Norwegian Joy' }
+      ],
+      'ncl-breakaway-class': [
+        { value: 'norwegian-breakaway', label: 'Norwegian Breakaway' },
+        { value: 'norwegian-getaway', label: 'Norwegian Getaway' }
+      ],
+      'ncl-epic-class': [
+        { value: 'norwegian-epic', label: 'Norwegian Epic' }
+      ],
+      'ncl-jewel-class': [
+        { value: 'norwegian-gem', label: 'Norwegian Gem' },
+        { value: 'norwegian-jade', label: 'Norwegian Jade' },
+        { value: 'norwegian-jewel', label: 'Norwegian Jewel' },
+        { value: 'norwegian-pearl', label: 'Norwegian Pearl' }
+      ],
+      'ncl-dawn-class': [
+        { value: 'norwegian-dawn', label: 'Norwegian Dawn' }
+      ],
+      'ncl-pride-of-america': [
+        { value: 'pride-of-america', label: 'Pride of America' }
+      ],
+      'ncl-other': [
+        { value: 'norwegian-sky', label: 'Norwegian Sky' },
+        { value: 'norwegian-spirit', label: 'Norwegian Spirit' },
+        { value: 'norwegian-star', label: 'Norwegian Star' },
+        { value: 'norwegian-sun', label: 'Norwegian Sun' }
       ]
     };
 
+    const LINES = {
+      'royal-caribbean': {
+        help: 'Royal Caribbean: all 29 ships checked cabin by cabin.',
+        classes: [
+          ['icon-class', 'Icon Class (Newest - 2024+)'],
+          ['oasis-class', 'Oasis Class (Largest - 2009-2024)'],
+          ['quantum-class', 'Quantum Class (High-Tech - 2014-2020)'],
+          ['freedom-class', 'Freedom Class (Mid-Size Evolution - 2006-2008)'],
+          ['radiance-class', 'Radiance Class (Scenic Views - 2001-2004)'],
+          ['vision-class', 'Vision Class (Classic - 1995-1998)'],
+          ['voyager-class', 'Voyager Class (Original Promenade - 1999-2004)']
+        ]
+      },
+      'norwegian': {
+        help: 'Norwegian: checked cabin by cabin, complete on Sky, Spirit, Star and Sun and partial on the rest. On a partial ship a clean result is good news, not a guarantee.',
+        classes: [
+          ['ncl-prima-class', 'Prima Class (2022-2023)'],
+          ['ncl-prima-plus-class', 'Prima Plus Class (2025+)'],
+          ['ncl-breakaway-plus-class', 'Breakaway Plus Class (2015-2019)'],
+          ['ncl-breakaway-class', 'Breakaway Class (2013-2014)'],
+          ['ncl-epic-class', 'Epic Class (2010)'],
+          ['ncl-jewel-class', 'Jewel Class (2005-2007)'],
+          ['ncl-dawn-class', 'Dawn Class (2002)'],
+          ['ncl-pride-of-america', 'Pride of America (2005)'],
+          ['ncl-other', 'Other Norwegian ships']
+        ]
+      }
+    };
+
     // ===== CASCADING DROPDOWNS =====
+    const lineSelect = document.getElementById('cruise-line-select');
+    const lineHelpText = document.getElementById('line-help-text');
     const classSelect = document.getElementById('ship-class-select');
     const shipSelect = document.getElementById('ship-select');
     const shipHelpText = document.getElementById('ship-help-text');
+
+    function resetShips() {
+      shipSelect.innerHTML = '<option value="">Select a class first...</option>';
+      shipSelect.disabled = true;
+      shipHelpText.textContent = 'Choose a ship class above to see available ships';
+    }
+
+    lineSelect.addEventListener('change', function() {
+      const line = LINES[this.value] || LINES['royal-caribbean'];
+      lineHelpText.textContent = line.help;
+      classSelect.innerHTML = '<option value="">Choose a ship class...</option>';
+      line.classes.forEach(([value, label]) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = label;
+        classSelect.appendChild(option);
+      });
+      resetShips();
+    });
 
     classSelect.addEventListener('change', function() {
       const selectedClass = this.value;
