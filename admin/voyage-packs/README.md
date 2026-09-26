@@ -241,9 +241,9 @@ Each link earns its place by helping the reader at the moment they encounter it.
 
 | Tool | URL | Section | RCL | NCL | Virgin |
 |---|---|---|---|---|---|
-| Drink Calculator | `/drink-calculator.html` | §1 Drinks / §5 Budget | ✓ | ✓ | skip (Virgin all-included) |
+| Drink Calculator | `/drink-calculator.html?line=<id>` | §1 Drinks / §5 Budget | ✓ `royal-caribbean` | ✓ `ncl` | skip (Virgin all-included) |
 | Drink Packages | `/drink-packages.html` | §1 Drinks | ✓ | ✓ | skip |
-| Stateroom Sanity Check | `/stateroom-check.html` | §1 Cabin choice | **✓ RCL only** | skip | skip |
+| Stateroom Sanity Check | `/stateroom-check.html` | §1 Cabin choice | ✓ | ✓ (say the data is partial on most ships) | skip |
 | Countdown | `/countdown.html` | §3 Pre-Cruise Countdown | ✓ | ✓ | ✓ |
 | Packing Lists | `/packing-lists.html` | §4 Packing | ✓ | ✓ | ✓ |
 | First-Cruise reference | `/first-cruise.html` | §11 First Cruise Notes | ✓ | ✓ | ✓ |
@@ -262,7 +262,10 @@ Each link earns its place by helping the reader at the moment they encounter it.
 
 **Limit each tool to 2–3 references per pack.** More than that reads as spam. Each link gets one sentence of why-click context — "see the [drink calculator](/drink-calculator.html)" alone is dumpy; "[run your specific drink-day numbers in the calculator](/drink-calculator.html) — it works across cruise lines" is helpful.
 
-**Important: stateroom-check.html only covers RCL ships right now.** Do not link it from NCL, Virgin, Carnival, MSC, or any other line's pack. Link it only from RCL packs (Symphony, Anthem, Wonder, etc.). When the tool extends to other lines, this README needs updating.
+**Link every tool preset to the pack's line, and only where the tool can answer for the pack's ship** (updated 2026-09-26; `PACK-PRESHIP-REVIEW-CHECKLIST.md` §H):
+
+- **Drink calculator:** always `?line=<id>`, with the id from `assets/data/calculator-config.json` (`royal-caribbean`, `ncl`, `carnival`, `celebrity`, `princess`, `holland`, `msc`, `virgin`, …). A bare `/drink-calculator.html` opens on Royal Caribbean. Before linking, check that the calculator's figures for that line agree with the pack's; where they differ, the line's own page decides and the wrong one is fixed first.
+- **Stateroom check:** covers Royal Caribbean (every cabin, every ship) and Norwegian (complete on Sky, Spirit, Star and Sun; partial on the other sixteen, and the tool says so on every result). Do not link it from Virgin, Carnival, MSC, Celebrity, Princess, Holland America or any other line's pack: those ships have placeholder files, and the tool declines them rather than guess. When another line's cabin data is real, update this line and the table.
 
 ### E. Wikipedia-style cross-linking — first mention links
 
@@ -342,7 +345,7 @@ Every pack ends with a Share/community paragraph that names the floating share b
 The build script (`admin/scripts/voyage-pack-pdf-build.sh`) handles:
 
 - Pandoc engine detection (weasyprint > wkhtmltopdf > xelatex > pdflatex)
-- The `/path` → `file://$REPO_ROOT/path` sed-pipe so absolute paths resolve to filesystem
+- Image paths (`![..](/..)`, `src="/.."`) → `file://$REPO_ROOT/..` so weasyprint can embed them; every other site link (`](/..)`, `href="/.."`) → `https://cruisinginthewake.com/..` so it works on a reader's phone. Until 2026-09-26 the image rule caught every link too; run `node admin/scripts/check-pack-pdf-links.mjs <pdf>` after any build
 - Page-break-before:auto on h2 (margin + rope rule for separation, not a forced page break)
 - Cover page detection via the `.vp-cover` class
 - 5.6"-wide centered measure for ~70-char readable line length
@@ -357,7 +360,7 @@ Run `admin/scripts/voyage-pack-pdf-build.sh --force <slug>` after any markdown e
 2. **Cover page** at the top using the standard or flyer-style block from section A.
 3. **Image discipline** per section B — verify, compress, caption honestly.
 4. **Wikipedia-style cross-links** per section E — link every named port, ship, restaurant, article, author at first mention in each section.
-5. **Tool integration** per section D — pick from the matrix; respect the RCL-only constraint on stateroom-check.
+5. **Tool integration** per section D — pick from the matrix; preset every calculator link to the pack's line (`?line=<id>`) and link the stateroom check only for Royal Caribbean and Norwegian ships.
 6. **Translate to `.html`** matching the `v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.html` conventions:
    - Same `<head>` template (ICP-Lite metas, OG/Twitter cards, JSON-LD, share-bar.js auto-loaded)
    - Same TOC sidebar pattern with `vp-toc` class

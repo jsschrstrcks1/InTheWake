@@ -1,6 +1,7 @@
 # Voyage Pack Pre-Ship Review Checklist
 
 **Created:** 2026-06-04
+**Updated:** 2026-09-26: classes G (companion coverage), H (linked tools), I (PDF links) and J (media), each from a defect found in the Prima pre-ship pass. A–E are the original five; F was added 2026-09-07.
 **Purpose:** Catch the five problem-classes that have shipped in voyage packs despite the original-research factual gate and the voice-audit cluster framework. Built from a problem inventory of the v0.1.4 Anthem pack performed AFTER both sidecars were in place — proving that the sidecars alone do not catch everything.
 **Companion to:** `.claude/skills/original-research/ORIGINAL-RESEARCH.md` (factual), `.claude/skills/voice-audit/SKILL.md` v2.3.0 (voice), and the `.factcheck.json` sidecar schema.
 
@@ -98,11 +99,85 @@ and nothing in the factual sidecar or the voice-audit block looks at them.
 - [ ] **Owner:** this checklist. A per-pack variant sweep is a candidate for `factcheck-gate.sh`
       (grep each variant for the phrases the long form no longer contains), not yet built.
 
+## G. Companion coverage — the promise is kept offline, or it is not kept
+
+Added 2026-09-26, during the Prima pre-ship pass (sailing 2026-09-27). Asked what the offline
+companion carried, the answer described a Ship section the companion did not have; the operator
+caught it. The pack's "What arrives" list is a promise about the **companion**, the thing a guest
+opens at sea with no signal, and a PDF on the landing page does not keep it.
+
+- [ ] **Every section the pack's promise names is in the companion, and loads offline.**
+      `node admin/scripts/build-voyage-guides.mjs --check` must print `CLEAN` (the Ship and Ports tabs,
+      the search index and the full-pack guide are generated from the pack's own `.md`). Then open the
+      companion, let the service worker install, go offline, reload, and read the Ship tab, a port
+      day, a search result and the full-pack guide. Checked by reading, not by trusting the build log.
+- [ ] **A change to `companion.js` or `companion.css` bumps the cache.** Every companion's `?v=` and
+      `sw.js`'s `CACHE` name and precache URLs move together (v10 → v11 on 2026-09-26). Without it,
+      an installed phone keeps the old code forever.
+- [ ] **"Where is the ship right now?" is anchored to the right ship.** Each companion's `imo:` field
+      is checked against a source outside our files (the ship's Wikipedia infobox), and its tracking
+      link points at that IMO, not a name search. The schedule line (works offline) and the live map
+      (loads only on a tap) stay separate, and neither passes for the other.
+- [ ] **The Emergency tab's numbers match the pack's**, number for number.
+- [ ] **Owner:** `build-voyage-guides.mjs --check`; `tests/unit/voyage-usage/guides.test.mjs`,
+      `where-now.test.mjs` (pins every checked IMO), `companions.test.mjs`.
+
+## H. Linked tools — a link must open on this ship's line, with data that agrees with the pack
+
+Added 2026-09-26. The Prima pack mentioned the drink calculator without linking it, and its one link
+opened the **Royal Caribbean** calculator for a Norwegian cruise. Fixing the link surfaced three
+more things: every `?line=` link hung on the loading screen (a boot-order bug), the calculator's NCL
+data said $109/day where NCL's own page said $45, and it warned that packages no longer covered
+Great Stirrup Cay, where NCL's page said the Open Bar covers the island. Separately, the stateroom
+check could not select a single non-RCL ship, while thirteen non-RCL packs told readers to run it.
+
+- [ ] **Every tool link opens preset to the pack's line.** The drink calculator takes
+      `?line=<id>` (ids in `assets/data/calculator-config.json`: `royal-caribbean`, `ncl`,
+      `carnival`, `msc`, …). Open each link in a browser and confirm it boots on that line.
+- [ ] **The tool's data agrees with the pack on every figure and policy both state.** Where they
+      disagree, the primary source decides (for Prima, NCL's Free at Sea page sided with the pack),
+      and whichever is wrong is fixed **before** the link ships, with the correction saying what
+      the old version claimed.
+- [ ] **Never send a reader to a tool that cannot answer for their ship.** The stateroom check
+      covers Royal Caribbean (every cabin, all ships) and Norwegian (complete on four ships, partial
+      on sixteen, and it says which). A ship whose file is a placeholder is not in its picker.
+      Confirm the pack's ship is offered before linking.
+- [ ] **Owner:** this checklist; `tests/unit/stateroom-check.test.mjs` (picker = ships with real
+      data); `scripts/test-math-engine.js` and `scripts/test-personas-calculator.js` (calculator data).
+
+## I. PDF links — every link must work on the reader's phone
+
+Added 2026-09-26. The PDF build rewrote **every** site link to a `file://` path on the machine that
+built it, so a reader tapping any site link in a shipped PDF opened nothing: 113 of the Prima PDF's
+119 links. The build now keeps `file://` for images only.
+
+- [ ] **Run the checker on every PDF the pack ships** (long form, condensed, handoff card):
+      `node admin/scripts/check-pack-pdf-links.mjs <pdf> [...]`, or `--all` for every PDF in
+      `packs.json`. It must say `CLEAN` for each. A `file://` link, or a site link to a page that
+      is not in the repo, is a `REPORT`. A PDF whose links it cannot read is `UNAVAILABLE` and is
+      never counted as clean. A handoff card with no links at all is `CLEAN: no links`.
+- [ ] **Rebuild after any build-script change**, not only after a text edit: a PDF built before
+      2026-09-26 carries the dead links even if its `.md` is untouched.
+- [ ] **Owner:** `admin/scripts/check-pack-pdf-links.mjs`; `tests/unit/pack-pdf-links.test.mjs`.
+
+## J. Media — real, checked, credited
+
+Added 2026-09-26. Ship videos across the site included clips that were not of the ship named; the
+cleanup kept only videos whose own YouTube title names the ship, and left 47 ships with none rather
+than keep a wrong one.
+
+- [ ] **Every video passes the name rule.** `node admin/scripts/verify-ship-videos.mjs --check`.
+      In the companion, nothing loads from YouTube until the reader taps Play, and then only from
+      `youtube-nocookie.com`.
+- [ ] **A ship photo is licensed, credited and this ship's.** Licence, photographer, licence link and
+      source on the caption; the image-reuse guardrail applies (one image, one ship).
+- [ ] **Owner:** `verify-ship-videos.mjs`; `tests/unit/ship-videos.test.mjs`; image-reuse-guardrail.
+
 ## How this checklist runs
 
 1. After the factual sidecar passes and the voice_audit block is written, run THIS checklist as a final read pass.
 2. Each unchecked box is a finding; log findings into the relevant sidecar block (factual → `.factcheck.json` factual categories; voice → `voice_audit`; new classes D/E → a `preship_review` block).
-3. The grep-able items (repeated dollar figures, crutch-word count, internal-vocabulary list) should migrate into `factcheck-gate.sh` over time so they become mechanical. The judgment items (physics claims, geography, imagined-experience) stay human-or-Claude-read.
+3. The grep-able items (repeated dollar figures, crutch-word count, internal-vocabulary list) should migrate into `factcheck-gate.sh` over time so they become mechanical. The judgment items (physics claims, geography, imagined-experience) stay human-or-Claude-read. Already mechanical, run them every pass: `build-voyage-guides.mjs --check` (G), `check-pack-pdf-links.mjs` (I), `verify-ship-videos.mjs --check` (J), `check-voyage-registry.mjs`, and `node --test "tests/unit/**/*.test.mjs"`.
 4. **Do not ship a pack until this checklist has been run once with file access and the findings dispositioned.**
 
 ---

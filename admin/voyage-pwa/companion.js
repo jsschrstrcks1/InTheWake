@@ -22,11 +22,14 @@ function buildShell(){
    +'<span class="brand">◢ IN THE WAKE</span><span class="brand-sub">// '+esc(V.brandSub||"")+'</span>'
    +'<select id="wloc" aria-label="Choose a tracked location"></select>'
    +'<button id="wx-unit" class="unitbtn" type="button" aria-label="Toggle temperature units between Fahrenheit and Celsius">°F</button>'
+   +(PACK_INDEX?'<div class="pk-searchbox" role="search"><label class="sr-only" for="pk-q">Search this voyage pack</label><input id="pk-q" type="search" placeholder="Search the pack" autocomplete="off" enterkeyhint="search"></div>':'')
    +'</header>'
    +'<div class="dgr" id="dgr" role="alert" aria-live="assertive" aria-atomic="true"></div>'
    +'<nav class="wtabs" role="tablist" aria-label="Voyage views">'
    +'<button class="wtab on" data-t="overview" role="tab" aria-selected="true" type="button">Overview</button>'
    +'<button class="wtab" data-t="voyage" role="tab" aria-selected="false" type="button">Voyage</button>'
+   +(TPL_SHIP?'<button class="wtab" data-t="ship" role="tab" aria-selected="false" type="button">Ship</button>':'')
+   +(TPL_PORTS?'<button class="wtab" data-t="ports" role="tab" aria-selected="false" type="button">Ports</button>':'')
    +'<button class="wtab" data-t="weather" role="tab" aria-selected="false" type="button">Weather</button>'
    +(V.emergency?'<button class="wtab" data-t="emg" role="tab" aria-selected="false" type="button">Emergency</button>':'')
    +'</nav>'
@@ -47,6 +50,9 @@ function buildShell(){
      +'<div id="voy-list"><span class="muted">loading voyage…</span></div>'
      +'<p class="voy-note">'+esc(V.note||"")+'</p>'
    +'</div>'
+   +(TPL_SHIP?'<div class="wpane pk-pane" id="pane-ship"></div>':'')
+   +(TPL_PORTS?'<div class="wpane pk-pane" id="pane-ports"></div>':'')
+   +(PACK_INDEX?'<div class="wpane" id="pane-search"><p class="pk-count" id="pk-count" role="status" aria-live="polite"></p><ol class="pk-results" id="pk-results"></ol></div>':'')
    +'<div class="wpane" id="pane-averages"><span class="muted">loading averages…</span></div>'
    +'<div class="wpane" id="pane-now"><span class="muted">loading…</span></div>'
    +'<div class="wpane" id="pane-10day"><span class="muted">loading 10-day forecast…</span></div>'
@@ -67,6 +73,7 @@ function voyStatusBase(){var t=todayISO(),first=ITIN[0].date,last=ITIN[ITIN.leng
 function seasonLabel(){return V.seasonLabel||"Typical";}
 function fetchVoyWx(s){var u="https://api.open-meteo.com/v1/forecast?latitude="+s.lat+"&longitude="+s.lon+"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit="+uTemp()+"&timezone=auto&start_date="+s.date+"&end_date="+s.date;retryJSON(u,1).then(function(j){if(!j||!j.daily||!j.daily.time||!j.daily.time.length)return;var d=j.daily,hi=d.temperature_2m_max[0],lo=d.temperature_2m_min[0];if(hi==null||lo==null)return;var el=document.getElementById("voy-wx-"+s.d);if(!el)return;var code=(d.weather_code&&d.weather_code[0]!=null)?(WMO[d.weather_code[0]]||""):"";var pp=(d.precipitation_probability_max&&d.precipitation_probability_max[0]!=null)?d.precipitation_probability_max[0]+"% rain":"";el.innerHTML=seasonLabel()+": "+vT(s.wx.hi)+"° / "+vT(s.wx.lo)+"° · "+esc(s.wx.txt)+'<br><span class="fc">Forecast '+voyDate(s.date)+": "+Math.round(hi)+"° / "+Math.round(lo)+"°"+(code?" · "+esc(code):"")+(pp?" · "+pp:"")+"</span>";});}
 function renderOverview(){var el=document.getElementById("pane-overview");if(!el)return;var h='';
+  if(V.shipPhoto&&V.shipPhoto.src)h+='<img class="ov-flyer ov-ship" src="'+attr(V.shipPhoto.src)+'" alt="'+attr(V.shipPhoto.alt||"")+'" decoding="async"'+(V.shipPhoto.w?' width="'+attr(V.shipPhoto.w)+'" height="'+attr(V.shipPhoto.h)+'"':'')+'><p class="ov-credit">Photo: '+esc(V.shipPhoto.credit||"")+', <a href="'+attr(V.shipPhoto.licenseUrl||"#")+'" target="_blank" rel="noopener noreferrer">'+esc(V.shipPhoto.license||"")+'</a>.</p>';
   if(V.flyer)h+='<img class="ov-flyer" src="'+attr(V.flyer)+'" alt="'+attr((V.ship||"This")+" hosted group cruise flyer")+'" loading="lazy" decoding="async">';
   h+='<div class="voy-cta-wrap">';
   if(V.pdfFull)h+='<a class="voy-cta" href="'+attr(V.pdfFull)+'" target="_blank" rel="noopener noreferrer">📖 '+esc(V.pdfFullLabel||"Open the full Voyage Pack (PDF)")+' →</a>';
@@ -79,10 +86,13 @@ function renderOverview(){var el=document.getElementById("pane-overview");if(!el
   h+='<p>This is your offline travel companion for the sailing — the day-by-day itinerary, destination weather averages, and live forecasts as you get close, all in one place. Save it to your phone and it keeps working at sea and in port, with no signal.</p></div>';
   h+='<div class="ov-card"><b>🧭 How to use this page</b>'
     +'<p class="ov-step"><strong>Pick a place</strong> in the box at the top. Every weather view follows it. The <strong>°F</strong> button switches to °C.</p>'
+    +(TPL_SHIP?'<p class="ov-step"><strong>Ship</strong> is the pack\'s guide to the ship: layout, cabins, dining, what to book ahead'+(PACK_VIDEOS.length?', plus videos of the ship that play right here when you have a signal':'')+'.</p>':'')
+    +(TPL_PORTS?'<p class="ov-step"><strong>Ports</strong> covers every port day: pier or tender, getting into town, what to do and what to skip.</p>':'')
+    +(PACK_INDEX?'<p class="ov-step"><strong>Search</strong> (the box at the top) finds any word in the whole pack, even with no signal.</p>':'')
     +'<p class="ov-step"><strong>Voyage</strong> is the day-by-day plan: where the ship is each day, what to do there, and a button that opens a live ship tracker in a new window.</p>'
     +'<p class="ov-step"><strong>Weather</strong> has five parts: <strong>Now</strong> (conditions right now), <strong>Forecast</strong> (the next 10 days), <strong>Radar</strong> (rain over the last two hours, on a map with your stops numbered), <strong>Averages</strong> (what this time of year usually brings) and <strong>Alerts</strong> (official US weather warnings).</p>'
     +(V.emergency?'<p class="ov-step"><strong>Emergency</strong> holds the phone numbers and a card to share with someone at home.</p>':'')
-    +'<p class="ov-step">With no signal, Voyage, Averages'+(V.emergency?' and Emergency':'')+' still work. Now, Forecast, Radar and Alerts come back when the signal does.</p></div>';
+    +'<p class="ov-step">With no signal, Voyage, Averages'+(V.emergency?' and Emergency':'')+' still work'+(TPL_SHIP||TPL_PORTS?', and so do Ship, Ports and Search':'')+'. Now, Forecast, Radar and Alerts come back when the signal does.</p></div>';
   h+='<div class="ov-card"><b>📲 Save this app to your phone</b>'
     +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow at the bottom), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
     +'<p class="ov-step"><strong>Android (Chrome):</strong> tap the <strong>⋮</strong> menu (top-right), then <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</p>'
@@ -101,6 +111,103 @@ function renderVoyage(){var el=document.getElementById("voy-list");if(!el)return
 // fillable fields persisted in localStorage, so the card survives with no
 // signal once the page has loaded once. Never fetches anything.
 function emgVal(k){return lsG((V.emergency&&V.emergency.storageKey||"itw-emg")+":"+k)||"";}
+// Ship and Ports: the pack's own sections, written into this page at build time as inert <template>s
+// (admin/scripts/build-voyage-guides.mjs). Cloned once, never parsed from a string at run time.
+var TPL_SHIP=document.getElementById("tpl-ship"),TPL_PORTS=document.getElementById("tpl-ports"),PACK_INDEX=null;
+try{var _pi=document.getElementById("pack-index");if(_pi)PACK_INDEX=JSON.parse(_pi.textContent);}catch(e){PACK_INDEX=null;}
+var PACK_VIDEOS=[];try{var _pv=document.getElementById("pack-videos");if(_pv)PACK_VIDEOS=JSON.parse(_pv.textContent)||[];}catch(e){PACK_VIDEOS=[];}
+function fullPackLink(){if(!V.guide)return null;var p=document.createElement("p");p.className="pk-full";var a=document.createElement("a");a.className="ov-link";a.href=String(V.guide.url);a.textContent="Read the whole pack: packing, budget, emergency and the rest →";p.appendChild(a);return p;}
+function renderPackTab(which){var el=document.getElementById("pane-"+which),tpl=which==="ship"?TPL_SHIP:TPL_PORTS;if(!el||!tpl||el.getAttribute("data-filled"))return;
+  if(which==="ship"){var ph=shipPhoto();if(ph)el.appendChild(ph);var wn=whereNow();if(wn)el.appendChild(wn);}
+  el.appendChild(document.importNode(tpl.content,true));
+  if(which==="ship"&&PACK_VIDEOS.length)el.appendChild(videoSection());
+  var f=fullPackLink();if(f)el.appendChild(f);el.setAttribute("data-filled","1");}
+// Where the ship is. Two answers, kept apart so neither passes for the other: what the
+// published schedule says for today (in the page, so it works with no signal), and the
+// live AIS position from VesselFinder, the same map the ship pages use. The map loads
+// nothing until the reader taps, because at sea that is their data and a third party.
+function schedNow(){if(!ITIN.length)return null;var t=todayISO(),a=ITIN[0],z=ITIN[ITIN.length-1],i,p,n,ship=V.ship||"The ship";
+  if(t<a.date)return {k:"Before the cruise",v:ship+" has not sailed yet. On "+voyDate(a.date)+" she leaves "+a.loc+". Until then the live map shows her on another voyage."};
+  if(t>z.date)return {k:"After the cruise",v:"This voyage ended "+voyDate(z.date)+" at "+z.loc+". The live map shows her wherever she is now."};
+  for(i=0;i<ITIN.length;i++){if(ITIN[i].date===t)return {k:"By the schedule · "+voyDate(t),v:"Day "+ITIN[i].d+". "+(ITIN[i].pos||ITIN[i].loc),at:ITIN[i]};}
+  for(i=1;i<ITIN.length;i++){if(ITIN[i].date>t){p=ITIN[i-1];n=ITIN[i];return {k:"By the schedule · "+voyDate(t),v:"Between stops: last "+p.loc+" ("+voyDate(p.date)+"), next "+n.loc+" ("+voyDate(n.date)+").",at:p};}}
+  return null;}
+function whereNow(){var s=schedNow();if(!s&&!V.imo)return null;var ship=V.ship||"the ship";
+  var sec=document.createElement("section");sec.className="pk-whereis";sec.setAttribute("aria-labelledby","pk-where-h");
+  var h=document.createElement("h2");h.id="pk-where-h";h.textContent="Where is "+ship+" right now?";sec.appendChild(h);
+  if(s){var box=document.createElement("div");box.className="pk-sched";
+    var k=document.createElement("p");k.className="pk-sched-k";k.textContent=s.k;box.appendChild(k);
+    var v=document.createElement("p");v.className="pk-sched-v";v.textContent=s.v;box.appendChild(v);
+    var q=document.createElement("p");q.className="pk-vnote";q.textContent="This is the published schedule, not a live fix, and it works with no signal. Weather and the captain can change the plan."+(V.datesApprox?" Dates here are estimated; your cruise documents are authoritative.":"");box.appendChild(q);
+    sec.appendChild(box);}
+  if(V.imo||V.trackUrl){var h3=document.createElement("h3");h3.className="pk-vtitle pk-live-h";h3.textContent="Live position";sec.appendChild(h3);
+    var note=document.createElement("p");note.className="pk-vnote";note.setAttribute("aria-live","polite");
+    note.textContent="The ship's own AIS transponder, plotted by VesselFinder. It needs a signal, and nothing loads until you tap. Out at sea the dot can be hours old.";sec.appendChild(note);
+    var row=document.createElement("p");row.className="pk-vrow";
+    if(V.imo){var b=document.createElement("button");b.type="button";b.className="mapbtn pk-play";b.textContent="◢ Show live map";b.setAttribute("aria-label","Show the live map of "+ship);
+      b.addEventListener("click",function(){if(navigator.onLine===false){note.textContent="No signal right now, so the live map can't load. The schedule above still works.";return;}
+        var c=s&&s.at?s.at:(ITIN[0]||{}),m=document.createElement("div");m.className="pk-map";var f=document.createElement("iframe");
+        f.src="https://www.vesselfinder.com/aismap?imo="+encodeURIComponent(V.imo)+(c.lat!=null?"&lat="+c.lat+"&lon="+c.lon:"")+"&zoom=5&track=true&names=true";
+        f.title="Live position of "+ship+" on VesselFinder";f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
+        m.appendChild(f);row.parentNode.insertBefore(m,row);row.removeChild(b);});
+      row.appendChild(b);}
+    if(V.trackUrl){var a=document.createElement("a");a.className="ov-link";a.href=V.trackUrl;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Open in MarineTraffic ↗";
+      var sr=document.createElement("span");sr.className="sr-only";sr.textContent=" (opens in a new window)";a.appendChild(sr);row.appendChild(a);}
+    sec.appendChild(row);}
+  return sec;}
+// One chosen photograph of the ship, credited as its licence requires.
+function shipPhoto(){var P=V.shipPhoto;if(!P||!P.src)return null;var fig=document.createElement("figure");fig.className="ship-photo";
+  var img=document.createElement("img");img.src=P.src;img.alt=P.alt||"";img.decoding="async";if(P.w)img.width=P.w;if(P.h)img.height=P.h;fig.appendChild(img);
+  var cap=document.createElement("figcaption");cap.appendChild(document.createTextNode((P.caption?P.caption+" ":"")+"Photo: "+(P.credit||"")+", "));
+  var l=document.createElement("a");l.href=P.licenseUrl||"#";l.target="_blank";l.rel="noopener noreferrer";l.textContent=P.license||"licence";cap.appendChild(l);
+  if(P.source){cap.appendChild(document.createTextNode(", via "));var s=document.createElement("a");s.href=P.source;s.target="_blank";s.rel="noopener noreferrer";s.textContent="Wikimedia Commons";cap.appendChild(s);}
+  cap.appendChild(document.createTextNode("."));fig.appendChild(cap);return fig;}
+// Checked YouTube videos of this ship. Nothing loads from YouTube until the reader taps Play;
+// then the player comes from youtube-nocookie.com inside this page.
+function videoSection(){var sec=document.createElement("section");sec.className="pk-videos";sec.setAttribute("aria-labelledby","pk-videos-h");
+  var h=document.createElement("h2");h.id="pk-videos-h";h.textContent="Videos of "+(V.ship||"the ship");sec.appendChild(h);
+  var n=document.createElement("p");n.className="pk-vnote";n.textContent="Picked from YouTube and checked against YouTube's own titles. They need a signal. Nothing loads from YouTube until you tap Play, and YouTube's terms apply once it plays.";sec.appendChild(n);
+  PACK_VIDEOS.forEach(function(v){var card=document.createElement("div");card.className="pk-vid";
+    var t=document.createElement("h3");t.className="pk-vtitle";t.textContent=v.t;card.appendChild(t);
+    if(v.c){var c=document.createElement("p");c.className="pk-vch";c.textContent=v.c;card.appendChild(c);}
+    var row=document.createElement("p");row.className="pk-vrow";
+    var b=document.createElement("button");b.type="button";b.className="mapbtn pk-play";b.textContent="▶ Play here";b.setAttribute("aria-label","Play "+v.t);
+    b.addEventListener("click",function(){var box=document.createElement("div");box.className="pk-frame";var f=document.createElement("iframe");
+      f.src="https://www.youtube-nocookie.com/embed/"+encodeURIComponent(v.id)+"?autoplay=1&rel=0&playsinline=1";f.title=v.t;
+      f.setAttribute("allow","autoplay; encrypted-media; picture-in-picture; fullscreen");f.setAttribute("allowfullscreen","");f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
+      box.appendChild(f);row.parentNode.replaceChild(box,row);});
+    var a=document.createElement("a");a.className="ov-link pk-yt";a.href="https://www.youtube.com/watch?v="+encodeURIComponent(v.id);a.target="_blank";a.rel="noopener noreferrer";a.textContent="Open on YouTube ↗";
+    var sr=document.createElement("span");sr.className="sr-only";sr.textContent=" (opens in a new window)";a.appendChild(sr);
+    row.appendChild(b);row.appendChild(a);card.appendChild(row);sec.appendChild(card);});
+  return sec;}
+// Live search over the whole pack, offline. The query never leaves the phone and is never counted.
+var preSearchTab="overview";
+function fold(s){s=String(s).toLowerCase();try{s=s.normalize("NFD").replace(/[̀-ͯ]/g,"");}catch(e){}return s;}
+function runSearch(q){var list=document.getElementById("pk-results"),cnt=document.getElementById("pk-count");if(!list||!PACK_INDEX)return;while(list.firstChild)list.removeChild(list.firstChild);
+  var terms=fold(q).split(/\s+/).filter(function(t){return t.length>0;});if(!terms.length){cnt.textContent="";return;}
+  var hits=[];PACK_INDEX.forEach(function(b){var ft=fold(b.t),fx=fold(b.x),ok=true,score=0;for(var i=0;i<terms.length;i++){var inT=ft.indexOf(terms[i])>=0,inX=fx.indexOf(terms[i])>=0;if(!inT&&!inX){ok=false;break;}score+=inT?3:1;}if(ok)hits.push({b:b,score:score});});
+  hits.sort(function(a,b){return b.score-a.score;});
+  cnt.textContent=hits.length?(hits.length+(hits.length===1?" place":" places")+" in the pack mention “"+q+"”"):("Nothing in the pack mentions “"+q+"”.");
+  hits.slice(0,40).forEach(function(h){var b=h.b,li=document.createElement("li"),a=document.createElement("a");a.className="pk-hit";
+    if(b.s==="guide"&&V.guide)a.href=String(V.guide.url)+"#"+b.a;else a.href="#"+b.a;
+    var where=document.createElement("span");where.className="pk-where";where.textContent=b.s==="ship"?"Ship":b.s==="ports"?"Ports":"Full pack";
+    var ttl=document.createElement("span");ttl.className="pk-title";ttl.textContent=b.t;
+    a.appendChild(where);a.appendChild(ttl);
+    if(b.s!=="guide")a.addEventListener("click",function(ev){ev.preventDefault();openHit(b);});
+    li.appendChild(a);li.appendChild(snippet(b.x,terms));list.appendChild(li);});}
+function snippet(text,terms){var p=document.createElement("p");p.className="pk-snip";var ft=fold(text),at=-1;for(var i=0;i<terms.length&&at<0;i++)at=ft.indexOf(terms[i]);if(at<0)at=0;
+  var s0=Math.max(0,at-70),s1=Math.min(text.length,at+150),piece=(s0>0?"…":"")+text.slice(s0,s1)+(s1<text.length?"…":"");
+  var fp=fold(piece),pos=0;while(pos<piece.length){var next=-1,len=0;terms.forEach(function(t){var k=fp.indexOf(t,pos);if(k>=0&&(next<0||k<next)){next=k;len=t.length;}});
+    if(next<0){p.appendChild(document.createTextNode(piece.slice(pos)));break;}
+    if(next>pos)p.appendChild(document.createTextNode(piece.slice(pos,next)));var m=document.createElement("mark");m.textContent=piece.slice(next,next+len);p.appendChild(m);pos=next+len;}
+  return p;}
+function openHit(b){var box=document.getElementById("pk-q");if(box)box.value="";setTab(b.s);var t=document.getElementById(b.a);if(t){t.scrollIntoView({block:"start"});t.setAttribute("tabindex","-1");try{t.focus({preventScroll:true});}catch(e){}}}
+function bindSearch(){var box=document.getElementById("pk-q");if(!box)return;var timer=null;
+  box.addEventListener("input",function(){clearTimeout(timer);timer=setTimeout(function(){var q=box.value.trim();if(q.length>=2){if(tab!=="search")preSearchTab=tab;setTab("search");runSearch(q);}else if(tab==="search"){setTab(preSearchTab);}},120);});
+  box.addEventListener("keydown",function(ev){if(ev.key==="Escape"){box.value="";if(tab==="search")setTab(preSearchTab);}});}
+// Warm the offline copy: the service worker stores this same-scope response, so the guide opens at sea.
+function prefetchGuide(){try{if(V.guide&&navigator.onLine!==false)fetch(String(V.guide.url),{credentials:"same-origin"}).catch(function(){});}catch(e){}}
+
 function renderEmergency(){var el=document.getElementById("pane-emg");if(!el||!V.emergency)return;var E=V.emergency,h="";
   h+='<div class="ov-card"><b>⚑ Emergency contacts — works offline</b>'
     +(E.intro?'<p>'+esc(E.intro)+'</p>':'')
@@ -172,7 +279,7 @@ function fetch10(p){return retryJSON("https://api.open-meteo.com/v1/forecast?lat
 function setRow10(idx,d){var row=document.getElementById("d10-"+idx);if(!row)return;var days=row.querySelector(".d10-days");if(!days)return;if(!d||!d.daily){days.innerHTML='<span class="muted">forecast unavailable</span>';return;}var dd=d.daily,h="",n=Math.min(10,dd.time.length);for(var k=0;k<n;k++){h+='<div class="wx-day"><b>'+(k===0?"TODAY":dn(dd.time[k]))+'</b><span class="d10-c">'+esc(WMO[dd.weather_code[k]]||"—")+'</span><span class="hl">'+Math.round(dd.temperature_2m_max[k])+'°</span> / <span class="lo">'+Math.round(dd.temperature_2m_min[k])+'°</span><span class="pp">'+(dd.precipitation_probability_max&&dd.precipitation_probability_max[k]!=null?dd.precipitation_probability_max[k]+'%':'')+'</span></div>';}days.innerHTML=h;}
 function load10day(){var el=document.getElementById("pane-10day");if(!el)return;var html="";LOCS.forEach(function(p,idx){html+='<div class="d10-row" id="d10-'+idx+'"><div class="d10-loc">'+esc(p.label)+'</div><div class="d10-days"><span class="muted">…</span></div></div>';});el.innerHTML=html;var i=0,active=0;function pump(){while(active<4&&i<LOCS.length){(function(idx,p){active++;fetch10(p).then(function(d){setRow10(idx,d);active--;pump();}).catch(function(){setRow10(idx,null);active--;pump();});})(i,LOCS[i]);i++;}}pump();}
 function fcHour(iso){var h=parseInt(iso.slice(11,13),10);var ap=h<12?"AM":"PM";var hh=h%12;if(hh===0)hh=12;return hh+" "+ap;}
-var WX_TABS=["now","ten","radar","averages","alerts"],lastWx="now";function setTab(t){if(t==="weather")t=lastWx;var isWx=WX_TABS.indexOf(t)>=0;if(isWx)lastWx=t;tab=t;if(t!=="overview")sessTabs[t]=1;["overview","voyage","weather","emg"].forEach(function(x){var b=document.querySelector('.wtab:not(.wsub)[data-t="'+x+'"]');if(b){var on=x===t||(x==="weather"&&isWx);b.classList.toggle("on",on);b.setAttribute("aria-selected",on?"true":"false");}});WX_TABS.forEach(function(x){var b=document.querySelector('.wsub[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});var _ws=document.getElementById("wsubtabs");if(_ws)_ws.hidden=!isWx;document.getElementById("pane-overview").classList.toggle("on",t==="overview");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-averages").classList.toggle("on",t==="averages");document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");var _pe=document.getElementById("pane-emg");if(_pe)_pe.classList.toggle("on",t==="emg");if(t==="overview")renderOverview();else if(t==="voyage")renderVoyage();else if(t==="averages")renderAverages();else if(t==="now")loadNow();else if(t==="ten")load10day();else if(t==="alerts")loadAlerts();else if(t==="radar"){mode="past";showMap();}else if(t==="emg")renderEmergency();}
+var WX_TABS=["now","ten","radar","averages","alerts"],lastWx="now";function setTab(t){if(t==="weather")t=lastWx;var isWx=WX_TABS.indexOf(t)>=0;if(isWx)lastWx=t;tab=t;if(t!=="overview"&&t!=="search")sessTabs[t]=1;["overview","voyage","ship","ports","weather","emg"].forEach(function(x){var b=document.querySelector('.wtab:not(.wsub)[data-t="'+x+'"]');if(b){var on=x===t||(x==="weather"&&isWx);b.classList.toggle("on",on);b.setAttribute("aria-selected",on?"true":"false");}});WX_TABS.forEach(function(x){var b=document.querySelector('.wsub[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});var _ws=document.getElementById("wsubtabs");if(_ws)_ws.hidden=!isWx;document.getElementById("pane-overview").classList.toggle("on",t==="overview");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-averages").classList.toggle("on",t==="averages");document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");var _pe=document.getElementById("pane-emg");if(_pe)_pe.classList.toggle("on",t==="emg");["ship","ports","search"].forEach(function(x){var p=document.getElementById("pane-"+x);if(p)p.classList.toggle("on",t===x);});if(t==="overview")renderOverview();else if(t==="voyage")renderVoyage();else if(t==="averages")renderAverages();else if(t==="now")loadNow();else if(t==="ten")load10day();else if(t==="alerts")loadAlerts();else if(t==="radar"){mode="past";showMap();}else if(t==="emg")renderEmergency();else if(t==="ship"||t==="ports")renderPackTab(t);}
 function refresh(){buildSel();if(tab==="overview")renderOverview();else if(tab==="voyage")renderVoyage();else if(tab==="averages")renderAverages();else if(tab==="now")loadNow();else if(tab==="ten")load10day();else if(tab==="alerts")loadAlerts();else if(tab==="radar")showMap();loadAlerts();}
 
 // ---- Boot ---------------------------------------------------------------------
@@ -181,7 +288,7 @@ document.querySelectorAll(".wtab").forEach(function(b){b.onclick=function(){setT
 var pb=document.getElementById("mr-play");if(pb)pb.onclick=togglePlay;
 var fb=document.getElementById("mr-fit");if(fb)fb.onclick=fitAll;
 var ub=document.getElementById("wx-unit");if(ub){ub.textContent=(uTemp()==="celsius"?"°C":"°F");ub.onclick=toggleUnit;}
-buildSel();renderOverview();loadAlerts();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
+buildSel();renderOverview();loadAlerts();prefetchGuide();bindSearch();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
 // Usage: one open event now, one session summary when the sitting ends, one install event ever.
 (function(){var w=voyWhen(),standalone=false;try{standalone=!!(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;}catch(e){}
 usage("vp_pwa_open",{standalone:standalone,offline:!(navigator.onLine!==false),phase:w.phase,day:w.day});
