@@ -509,7 +509,8 @@ function initVideos(){
     var w=document.querySelector('#video-wrapper .swiper-wrapper');
     if(!w||!d.videos) return;
     var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
-    w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
+    // Built with DOM calls, never HTML strings: titles and ids come from a data file.
+    w.textContent='';vids.slice(0,24).forEach(function(v){if(!/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||'')))return;var s=document.createElement('div');s.className='swiper-slide';var y=document.createElement('lite-youtube');y.setAttribute('videoid',v.videoId);y.setAttribute('title',String(v.title||''));s.appendChild(y);w.appendChild(s);});
     if(window.__swiperReady) new Swiper('#video-wrapper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
   }).catch(function(){});
 }
