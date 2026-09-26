@@ -23,6 +23,15 @@ Shown at the top of the Journal tab the first time it opens, and kept one tap aw
 > That also means: **if you delete this app, your journal is deleted with it. If you lose this
 > phone, your journal is gone too.** Tap **Save a copy** to keep it safe.
 
+**Extra line shown only on iPhone and iPad** (operator decision 2026-09-26):
+
+> **On iPhone:** the app on your home screen keeps its own storage, separate from Safari.
+> Anything you write in Safari before adding the app to your home screen will not show up in the
+> app. Add the app to your home screen first, then write in it there.
+
+(The underlying WebKit behavior is still to be confirmed against Apple's documentation before
+the wording ships; see the limits below.)
+
 The warning is not optional small print. A trip journal lost to a dropped phone is a real loss,
 and the person has to know that before they write in it, not after.
 
@@ -72,10 +81,22 @@ here from memory, not yet checked):
 - Works offline.
 - Checked at phone width.
 
-## Open questions
+## Decisions (operator, 2026-09-26)
 
-1. Photos in the first version (shrunk before saving), or text first and photos second?
-2. Couples on one phone: one journal per phone, or a name on each entry so two people can share?
+1. **Text first, photos second.** Version 1 is text only. Photos (shrunk before saving) follow
+   in the next build.
+2. **Both, for couples.** Each person can keep a journal on their own phone, and people sharing
+   one phone can turn on **"Whose entry"** so each entry carries a name. Each person can save
+   their own copy.
+
+## Settings page
+
+A small **Settings** screen for the Journal:
+
+- **"Whose entry"**: off by default. When on, each entry asks whose it is (names typed once and
+  remembered on this phone), and Save a copy can save everyone's entries or just one person's.
+- **Cloud backup: coming soon.** Shown as a disabled item with one plain line, so nobody thinks
+  their journal is already backed up. No sign-up, no collection of anything, until it is real.
 
 ---
 
