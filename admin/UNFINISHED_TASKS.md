@@ -1056,3 +1056,9 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-09-26T11:51:12.904Z -->
 | itw-add-verified-videos-empty-ships | 3 | Add real videos to the ships left with none after the 2026-09-26 fake-video cleanup: 48 files emptied, Norwegian Prima since filled with 13, 47 remain (find them: video files in assets/data/videos and ships/*/assets whose videos list is empty). Method: search YouTube per ship, check each id with YouTube oEmbed, keep only titles that name the ship (same rule as admin/scripts/verify-ship-videos.mjs), record every lookup in admin/data/video-verification/, never invent titles or categories. Supersedes the pre-cleanup task 10-unfinished-add-video-data-for-ships-without-videos. |
+
+<!-- library register 2026-09-26T13:40:35.641Z -->
+| article-what-a-shore-excursion-actually-buys-you-line-booked-vs- | 2 | Article: what a shore excursion actually buys you (line-booked vs independent), the explainer 14 published articles assume and none provides |
+
+<!-- library register 2026-09-26T13:40:43.908Z -->
+| article-what-the-cruise-passenger-contract-actually-says-the-doc | 2 | Article: what the cruise passenger contract actually says, the document 8 published articles lean on and none explains |
