@@ -1062,3 +1062,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-09-26T13:40:43.908Z -->
 | article-what-the-cruise-passenger-contract-actually-says-the-doc | 2 | Article: what the cruise passenger contract actually says, the document 8 published articles lean on and none explains |
+
+<!-- library register 2026-09-26T14:12:25.224Z -->
+| correction-to-the-2026-09-26-em-dash-pass-it-fixed-article-body- | 2 | CORRECTION to the 2026-09-26 em dash pass: it fixed article BODY prose only. 169 reader-visible prose em dashes remain in 16 files, and 726 more sit in title, meta description, ai-summary and JSON-LD FAQ text, which is exactly where machines read. The earlier 'down to 12' report came from a faulty regex that stopped at the first closing div and so measured almost nothing. |
