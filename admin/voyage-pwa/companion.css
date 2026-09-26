@@ -85,10 +85,13 @@ body.danger .sdg{color:#ff4d6a}
 .g-toc{margin:.3em 0 0;padding-left:1.1em}
 .g-toc li{margin:.35em 0}
 /* Ship + Ports tabs: the pack's own prose, set for reading rather than as a dashboard */
-.pk-pane{font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#dcedf3;max-width:720px}
-.pk-pane h2{font-size:1.3em;color:#eafcff;margin:.4em 0 .5em}
-.pk-pane h3{font-size:1.1em;color:#bff3fb;margin:1.6em 0 .4em;padding-top:.6em;border-top:1px solid rgba(46,230,255,.2);scroll-margin-top:12px}
-.pk-pane h4{font-size:1em;color:#bff3fb;margin:1.2em 0 .3em}
+/* Ship and Ports speak the same visual language as the other tabs (operator review 2026-09-26):
+   the companion's monospace, FAQ-sized body text, small uppercase cyan labels, white titles,
+   and sizes that follow the text-size buttons. They used to be a big sans-serif article. */
+.pk-pane{font-family:inherit;font-size:calc(14px*var(--fs,1));line-height:1.6;color:#d6f4fa;max-width:720px}
+.pk-pane h2{font-size:calc(11px*var(--fs,1));letter-spacing:.14em;text-transform:uppercase;color:#5fd2e6;margin:1.6em 0 .6em;scroll-margin-top:12px}
+.pk-pane h3{font-size:calc(14.5px*var(--fs,1));color:#eafcff;margin:1.6em 0 .4em;padding-top:.8em;border-top:1px solid rgba(46,230,255,.2);scroll-margin-top:12px}
+.pk-pane h4{font-size:calc(11px*var(--fs,1));letter-spacing:.12em;text-transform:uppercase;color:#5fd2e6;margin:1.2em 0 .3em}
 .pk-pane p,.pk-pane li{max-width:68ch}
 .pk-pane a{color:#5fe0f5}
 .pk-pane img{max-width:100%;height:auto;border-radius:4px}
@@ -110,11 +113,15 @@ body.danger .sdg{color:#ff4d6a}
 .pk-vrow{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:0}
 .pk-frame{position:relative;width:100%;aspect-ratio:16/9;margin-top:.4em}
 .pk-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.pk-whereis{margin:0 0 1.6em}
-.pk-sched{border:1px solid rgba(46,230,255,.3);background:rgba(8,22,32,.55);padding:10px 13px;margin:0 0 12px}
-.pk-sched-k{margin:0;font-size:calc(11px*var(--fs,1));letter-spacing:.14em;text-transform:uppercase;color:#2ee6ff}
-.pk-sched-v{margin:4px 0 6px;color:#eafcff;font-size:1em}
-.pk-pane h3.pk-live-h{margin:.4em 0 0}
+/* Cards at the top of the Ship tab: the Overview's .ov-card, with its label as a real heading. */
+.pk-pane h2.pk-card-k{margin:0 0 7px;font-size:calc(10px*var(--fs,1));letter-spacing:.14em;color:#5fd2e6;text-transform:uppercase}
+.pk-card{scroll-margin-top:12px}
+.pk-card .pk-vrow{margin-bottom:.2em}
+.pk-sched-v{margin:.35em 0;color:#eafcff;font-size:calc(14px*var(--fs,1));line-height:1.6}
+.pk-ql ul{margin:0;padding-left:18px;font-size:calc(13px*var(--fs,1));line-height:1.55}
+.pk-ql li{margin:.2em 0}
+.pk-ql a{color:#7fe9ff}
+.pk-ql a:focus-visible,.pk-pane h3:focus-visible,.pk-card:focus-visible,.pk-full:focus-visible{outline:2px solid #7fe9ff;outline-offset:3px}
 .pk-map{position:relative;width:100%;height:min(62vh,460px);min-height:280px;margin:.4em 0;border:1px solid rgba(46,230,255,.22);border-radius:4px;overflow:hidden;background:#0b1a24}
 .pk-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 /* Live search */
@@ -249,8 +256,13 @@ body.danger .sdg{color:#ff4d6a}
 .j-toggle,.j-soon{display:block;margin:10px 0 0;font-size:calc(13.5px*var(--fs,1));color:#cfeff7}
 .j-soon{color:#74acbe}
 /* FAQ */
-.faq-q .faq-t{text-transform:none;letter-spacing:.01em;font-size:calc(14.5px*var(--fs,1))}
+.faq-q .voy-sum{flex-wrap:nowrap}
+.faq-q .faq-t{flex:1;text-transform:none;letter-spacing:.01em;font-size:calc(14.5px*var(--fs,1))}
 .faq-q .voy-body p{font-size:calc(14px*var(--fs,1));color:#d6f4fa;line-height:1.55;margin:0 0 8px}
 .faq-links{margin:4px 0 6px;padding-left:18px;font-size:calc(13.5px*var(--fs,1))}
 .faq-links a{color:#7fe9ff}.faq-links a:focus-visible{outline:2px solid #7fe9ff;outline-offset:2px}
 .faq-src{font-size:calc(11.5px*var(--fs,1))!important;color:#74acbe!important}
+/* The way-back bar: appears only when the app reloaded while the reader was out on a link. */
+.spot-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;gap:8px;align-items:center;justify-content:center;padding:10px 12px;background:rgba(5,12,20,.94);border-top:1px solid rgba(46,230,255,.35)}
+.spot-x{background:transparent;border:1px solid rgba(46,230,255,.3);color:#74acbe;font:inherit;font-size:calc(12px*var(--fs,1));padding:6px 10px;cursor:pointer}
+.spot-x:focus-visible,.spot-bar .mapbtn:focus-visible{outline:2px solid #7fe9ff;outline-offset:2px}

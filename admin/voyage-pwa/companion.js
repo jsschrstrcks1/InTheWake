@@ -136,10 +136,27 @@ try{var _pi=document.getElementById("pack-index");if(_pi)PACK_INDEX=JSON.parse(_
 var PACK_VIDEOS=[];try{var _pv=document.getElementById("pack-videos");if(_pv)PACK_VIDEOS=JSON.parse(_pv.textContent)||[];}catch(e){PACK_VIDEOS=[];}
 function fullPackLink(){if(!V.guide)return null;var p=document.createElement("p");p.className="pk-full";var a=document.createElement("a");a.className="ov-link";a.href=String(V.guide.url);a.textContent="Read the whole pack: packing, budget, emergency and the rest →";p.appendChild(a);return p;}
 function renderPackTab(which){var el=document.getElementById("pane-"+which),tpl=which==="ship"?TPL_SHIP:TPL_PORTS;if(!el||!tpl||el.getAttribute("data-filled"))return;
-  if(which==="ship"){var ph=shipPhoto();if(ph)el.appendChild(ph);var wn=whereNow();if(wn)el.appendChild(wn);}
-  el.appendChild(document.importNode(tpl.content,true));
+  var body=document.importNode(tpl.content,true),f=fullPackLink();
+  if(which==="ship"){var ph=shipPhoto();if(ph)el.appendChild(ph);
+    // Order (operator review 2026-09-26): quick links, then the schedule, then the live position.
+    var sc=schedCard(),wn=whereNow(),ql=[];
+    if(sc)ql.push([sc.id,sc.getAttribute("data-k")]);if(wn)ql.push([wn.id,"Where is "+(V.ship||"the ship")+" right now?"]);
+    Array.prototype.forEach.call(body.querySelectorAll("h3[id]"),function(h){ql.push([h.id,h.textContent]);});
+    if(PACK_VIDEOS.length)ql.push(["pk-videos-h","Videos"]);if(f){f.id="pk-full";ql.push(["pk-full","The whole pack"]);}
+    if(ql.length>1)el.appendChild(quickLinks(ql));if(sc)el.appendChild(sc);if(wn)el.appendChild(wn);}
+  el.appendChild(body);
   if(which==="ship"&&PACK_VIDEOS.length)el.appendChild(videoSection());
-  var f=fullPackLink();if(f)el.appendChild(f);el.setAttribute("data-filled","1");}
+  if(f)el.appendChild(f);el.setAttribute("data-filled","1");}
+// A box of jump links to the sections below. Real links (#id) so they read as links, but the jump
+// is done here: the address bar is left alone and focus moves to the section for keyboard users.
+function jumpTo(id){var t=document.getElementById(id);if(!t)return;t.scrollIntoView({block:"start"});if(!t.hasAttribute("tabindex"))t.setAttribute("tabindex","-1");try{t.focus({preventScroll:true});}catch(e){}}
+// Card titles: the icon is decoration, so a screen reader hears only the words.
+function cardHead(h,icon,txt){var i=document.createElement("span");i.setAttribute("aria-hidden","true");i.textContent=icon+" ";h.appendChild(i);h.appendChild(document.createTextNode(txt));}
+function quickLinks(list){var nav=document.createElement("nav");nav.className="ov-card pk-card pk-ql";nav.setAttribute("aria-labelledby","pk-ql-h");
+  var h=document.createElement("h2");h.id="pk-ql-h";h.className="pk-card-k";cardHead(h,"⚓","On this page");nav.appendChild(h);
+  var ul=document.createElement("ul");list.forEach(function(x){var li=document.createElement("li"),a=document.createElement("a");a.href="#"+x[0];a.textContent=x[1];
+    a.addEventListener("click",function(e){e.preventDefault();jumpTo(x[0]);});li.appendChild(a);ul.appendChild(li);});
+  nav.appendChild(ul);return nav;}
 // Where the ship is. Two answers, kept apart so neither passes for the other: what the
 // published schedule says for today (in the page, so it works with no signal), and the
 // live AIS position from VesselFinder, the same map the ship pages use. The map loads
@@ -150,22 +167,26 @@ function schedNow(){if(!ITIN.length)return null;var t=todayISO(),a=ITIN[0],z=ITI
   for(i=0;i<ITIN.length;i++){if(ITIN[i].date===t)return {k:"By the schedule · "+voyDate(t),v:"Day "+ITIN[i].d+". "+(ITIN[i].pos||ITIN[i].loc),at:ITIN[i]};}
   for(i=1;i<ITIN.length;i++){if(ITIN[i].date>t){p=ITIN[i-1];n=ITIN[i];return {k:"By the schedule · "+voyDate(t),v:"Between stops: last "+p.loc+" ("+voyDate(p.date)+"), next "+n.loc+" ("+voyDate(n.date)+").",at:p};}}
   return null;}
-function whereNow(){var s=schedNow();if(!s&&!V.imo)return null;var ship=V.ship||"the ship";
-  var sec=document.createElement("section");sec.className="pk-whereis";sec.setAttribute("aria-labelledby","pk-where-h");
-  var h=document.createElement("h2");h.id="pk-where-h";h.textContent="Where is "+ship+" right now?";sec.appendChild(h);
-  if(s){var box=document.createElement("div");box.className="pk-sched";
-    var k=document.createElement("p");k.className="pk-sched-k";k.textContent=s.k;box.appendChild(k);
-    var v=document.createElement("p");v.className="pk-sched-v";v.textContent=s.v;box.appendChild(v);
-    var q=document.createElement("p");q.className="pk-vnote";q.textContent="This is the published schedule, not a live fix, and it works with no internet. Weather and the captain can change the plan."+(V.datesApprox?" Dates here are estimated; your cruise documents are authoritative.":"");box.appendChild(q);
-    sec.appendChild(box);}
-  if(V.imo||V.trackUrl){var h3=document.createElement("h3");h3.className="pk-vtitle pk-live-h";h3.textContent="Live position";sec.appendChild(h3);
-    var note=document.createElement("p");note.className="pk-vnote";note.setAttribute("aria-live","polite");
+// The schedule card: what the published itinerary says for today. It is in the page, so it works
+// with no internet, and it sits above the live map so the two are never read as one.
+function schedCard(){var s=schedNow();if(!s)return null;
+  var box=document.createElement("section");box.id="pk-sched";box.className="ov-card pk-card";box.setAttribute("aria-labelledby","pk-sched-h");box.setAttribute("data-k",s.k);
+  var k=document.createElement("h2");k.id="pk-sched-h";k.className="pk-card-k";cardHead(k,"🗓",s.k);box.appendChild(k);
+  var v=document.createElement("p");v.className="pk-sched-v";v.textContent=s.v;box.appendChild(v);
+  var q=document.createElement("p");q.className="pk-vnote";q.textContent="This is the published schedule, not a live fix, and it works with no internet. Weather and the captain can change the plan."+(V.datesApprox?" Dates here are estimated; your cruise documents are authoritative.":"");box.appendChild(q);
+  return box;}
+function whereNow(){if(!V.imo&&!V.trackUrl)return null;var ship=V.ship||"the ship";
+  var sec=document.createElement("section");sec.id="pk-where";sec.className="ov-card pk-card pk-whereis";sec.setAttribute("aria-labelledby","pk-where-h");
+  var h=document.createElement("h2");h.id="pk-where-h";h.className="pk-card-k";cardHead(h,"◢","Where is "+ship+" right now?");sec.appendChild(h);
+  if(V.imo||V.trackUrl){var note=document.createElement("p");note.className="pk-vnote";note.setAttribute("aria-live","polite");
     note.textContent="The ship's own AIS transponder, plotted by VesselFinder. It needs the internet (cell data or Wi-Fi), and nothing loads until you tap. Out at sea the dot can be hours old.";sec.appendChild(note);
     var row=document.createElement("p");row.className="pk-vrow";
     if(V.imo){var b=document.createElement("button");b.type="button";b.className="mapbtn pk-play";b.textContent="◢ Show live map";b.setAttribute("aria-label","Show the live map of "+ship);
       b.addEventListener("click",function(){if(navigator.onLine===false){note.textContent="No internet right now (no cell data or Wi-Fi), so the live map can't load. The schedule above still works.";return;}
-        var c=s&&s.at?s.at:(ITIN[0]||{}),m=document.createElement("div");m.className="pk-map";var f=document.createElement("iframe");
-        f.src="https://www.vesselfinder.com/aismap?imo="+encodeURIComponent(V.imo)+(c.lat!=null?"&lat="+c.lat+"&lon="+c.lon:"")+"&zoom=5&track=true&names=true";
+        var m=document.createElement("div");m.className="pk-map";var f=document.createElement("iframe");
+        // Exactly the address the ship pages use. The scheduled lat/lon this used to add produced
+        // "Bad request" from VesselFinder (operator report 2026-09-26); the map centres on the IMO anyway.
+        f.src="https://www.vesselfinder.com/aismap?imo="+encodeURIComponent(V.imo)+"&zoom=5&track=true&names=true";
         f.title="Live position of "+ship+" on VesselFinder";f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
         m.appendChild(f);row.parentNode.insertBefore(m,row);row.removeChild(b);});
       row.appendChild(b);}
@@ -326,8 +347,39 @@ function fetch10(p){return retryJSON("https://api.open-meteo.com/v1/forecast?lat
 function setRow10(idx,d){var row=document.getElementById("d10-"+idx);if(!row)return;var days=row.querySelector(".d10-days");if(!days)return;if(!d||!d.daily){days.innerHTML='<span class="muted">forecast unavailable</span>';return;}var dd=d.daily,h="",n=Math.min(10,dd.time.length);for(var k=0;k<n;k++){h+='<div class="wx-day"><b>'+(k===0?"TODAY":dn(dd.time[k]))+'</b><span class="d10-c">'+esc(WMO[dd.weather_code[k]]||"—")+'</span><span class="hl">'+Math.round(dd.temperature_2m_max[k])+'°</span> / <span class="lo">'+Math.round(dd.temperature_2m_min[k])+'°</span><span class="pp">'+(dd.precipitation_probability_max&&dd.precipitation_probability_max[k]!=null?dd.precipitation_probability_max[k]+'%':'')+'</span></div>';}days.innerHTML=h;}
 function load10day(){var el=document.getElementById("pane-10day");if(!el)return;var html="";LOCS.forEach(function(p,idx){html+='<div class="d10-row" id="d10-'+idx+'"><div class="d10-loc">'+esc(p.label)+'</div><div class="d10-days"><span class="muted">…</span></div></div>';});el.innerHTML=html;var i=0,active=0;function pump(){while(active<4&&i<LOCS.length){(function(idx,p){active++;fetch10(p).then(function(d){setRow10(idx,d);active--;pump();}).catch(function(){setRow10(idx,null);active--;pump();});})(i,LOCS[i]);i++;}}pump();}
 function fcHour(iso){var h=parseInt(iso.slice(11,13),10);var ap=h<12?"AM":"PM";var hh=h%12;if(hh===0)hh=12;return hh+" "+ap;}
-var WX_TABS=["now","ten","radar","averages"],lastWx="now";function setTab(t){if(t==="weather")t=lastWx;var isWx=WX_TABS.indexOf(t)>=0;if(isWx)lastWx=t;tab=t;if(t!=="overview"&&t!=="search")sessTabs[t]=1;["overview","voyage","ship","ports","faq","weather","emg","journal","alerts"].forEach(function(x){var b=document.querySelector('.wtab:not(.wsub)[data-t="'+x+'"]');if(b){var on=x===t||(x==="weather"&&isWx);b.classList.toggle("on",on);b.setAttribute("aria-selected",on?"true":"false");}});WX_TABS.forEach(function(x){var b=document.querySelector('.wsub[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});var _ws=document.getElementById("wsubtabs");if(_ws)_ws.hidden=!isWx;document.getElementById("pane-overview").classList.toggle("on",t==="overview");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-averages").classList.toggle("on",t==="averages");document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");var _pe=document.getElementById("pane-emg");if(_pe)_pe.classList.toggle("on",t==="emg");["ship","ports","search","journal","faq"].forEach(function(x){var p=document.getElementById("pane-"+x);if(p)p.classList.toggle("on",t===x);});if(t==="overview")renderOverview();else if(t==="voyage")renderVoyage();else if(t==="averages")renderAverages();else if(t==="now")loadNow();else if(t==="ten")load10day();else if(t==="alerts"){loadAlerts();loadVoyageAlerts();}else if(t==="radar"){mode="past";showMap();}else if(t==="emg")renderEmergency();else if(t==="ship"||t==="ports")renderPackTab(t);else if(t==="journal")renderJournal();else if(t==="faq")renderFaq();}
+var WX_TABS=["now","ten","radar","averages"],lastWx="now";function setTab(t){if(t==="weather")t=lastWx;var isWx=WX_TABS.indexOf(t)>=0;if(isWx)lastWx=t;tab=t;if(t!=="overview"&&t!=="search")sessTabs[t]=1;["overview","voyage","ship","ports","faq","weather","emg","journal","alerts"].forEach(function(x){var b=document.querySelector('.wtab:not(.wsub)[data-t="'+x+'"]');if(b){var on=x===t||(x==="weather"&&isWx);b.classList.toggle("on",on);b.setAttribute("aria-selected",on?"true":"false");}});WX_TABS.forEach(function(x){var b=document.querySelector('.wsub[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});var _ws=document.getElementById("wsubtabs");if(_ws)_ws.hidden=!isWx;document.getElementById("pane-overview").classList.toggle("on",t==="overview");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-averages").classList.toggle("on",t==="averages");document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");var _pe=document.getElementById("pane-emg");if(_pe)_pe.classList.toggle("on",t==="emg");["ship","ports","search","journal","faq"].forEach(function(x){var p=document.getElementById("pane-"+x);if(p)p.classList.toggle("on",t===x);});if(t==="overview")renderOverview();else if(t==="voyage")renderVoyage();else if(t==="averages")renderAverages();else if(t==="now")loadNow();else if(t==="ten")load10day();else if(t==="alerts"){loadAlerts();loadVoyageAlerts();}else if(t==="radar"){mode="past";showMap();}else if(t==="emg")renderEmergency();else if(t==="ship"||t==="ports")renderPackTab(t);else if(t==="journal")renderJournal();else if(t==="faq")renderFaq();blankify(document.body);}
 function refresh(){buildSel();if(tab==="overview")renderOverview();else if(tab==="voyage")renderVoyage();else if(tab==="averages")renderAverages();else if(tab==="now")loadNow();else if(tab==="ten")load10day();else if(tab==="alerts")loadAlerts();else if(tab==="radar")showMap();loadAlerts();}
+
+// ---- Links that leave the page (operator directive 2026-09-26) -----------------------------
+// Installed to a home screen the companion has no back button, so a link that navigates this page
+// away strands the reader. Every link to anywhere else, cruisinginthewake.com included, opens in a
+// new window. Two ties: blankify() rewrites each pane as it renders (so screen readers are told
+// before the tap), and a capture-phase click handler catches anything rendered later.
+function isExternal(a){var h=a.getAttribute("href")||"";if(!h||h.charAt(0)==="#")return false;
+  try{var u=new URL(h,location.href);if(u.protocol!=="http:"&&u.protocol!=="https:")return false;
+    return !(u.origin===location.origin&&u.pathname===location.pathname);}catch(e){return false;}}
+function blankify(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll("a[href]").forEach(function(a){if(!isExternal(a)||a.target==="_blank")return;
+  a.target="_blank";a.rel="noopener noreferrer";var sr=document.createElement("span");sr.className="sr-only";sr.textContent=" (opens in a new window)";a.appendChild(sr);});}
+// The way back: the reader's tab and scroll spot are saved when they tap out. Normally the app is
+// still on screen when they return. But phones (iPhone especially) can drop the app from memory
+// while the browser is up, and it reopens on the Overview; then this saved spot puts a
+// "Back to where you were" button at the bottom. Returning alive clears the spot, so the button
+// never shows stale.
+function spotKey(){return "itw-spot:"+(V.slug||location.pathname);}
+function saveSpot(){try{localStorage.setItem(spotKey(),JSON.stringify({t:tab,y:Math.round(window.scrollY||0),ts:Date.now()}));}catch(e){}}
+function clearSpot(){try{localStorage.removeItem(spotKey());}catch(e){}}
+document.addEventListener("click",function(e){var n=e.target,a=null;while(n&&n!==document){if(n.tagName==="A"){a=n;break;}n=n.parentNode;}
+  if(!a||!isExternal(a))return;a.target="_blank";a.rel="noopener noreferrer";saveSpot();},true);
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")clearSpot();});
+function spotBar(){var raw=null;try{raw=localStorage.getItem(spotKey());}catch(e){}if(!raw)return;
+  var sp=null;try{sp=JSON.parse(raw);}catch(e){}
+  if(!sp||!sp.t||!(Date.now()-(sp.ts||0)<12*3600000)){clearSpot();return;}
+  var bar=document.createElement("div");bar.className="spot-bar";bar.setAttribute("role","region");bar.setAttribute("aria-label","Pick up where you left off");
+  var b=document.createElement("button");b.type="button";b.className="mapbtn";b.textContent="\u21a9 Back to where you were";
+  b.addEventListener("click",function(){clearSpot();bar.remove();try{setTab(sp.t);}catch(e){}setTimeout(function(){window.scrollTo(0,sp.y||0);},150);});
+  var x=document.createElement("button");x.type="button";x.className="spot-x";x.textContent="\u2715";x.setAttribute("aria-label","Dismiss");
+  x.addEventListener("click",function(){clearSpot();bar.remove();});
+  bar.appendChild(b);bar.appendChild(x);document.body.appendChild(bar);}
 
 // ---- Boot ---------------------------------------------------------------------
 buildShell();
@@ -432,7 +484,7 @@ function renderFaq(){var el=document.getElementById("pane-faq");if(!el||el.getAt
     if(f.source)b.appendChild(jEl("p","faq-src","Source: "+f.source));
     d.appendChild(b);el.appendChild(d);});
   el.setAttribute("data-filled","1");}
-initFs();buildSel();renderOverview();loadAlerts();loadVoyageAlerts();maybeInstallPopup();prefetchGuide();bindSearch();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
+initFs();buildSel();renderOverview();blankify(document.body);spotBar();loadAlerts();loadVoyageAlerts();maybeInstallPopup();prefetchGuide();bindSearch();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
 // Usage: one open event now, one session summary when the sitting ends, one install event ever.
 (function(){var w=voyWhen(),standalone=false;try{standalone=!!(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;}catch(e){}
 usage("vp_pwa_open",{standalone:standalone,offline:!(navigator.onLine!==false),phase:w.phase,day:w.day});

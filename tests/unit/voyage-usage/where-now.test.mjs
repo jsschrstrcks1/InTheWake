@@ -67,6 +67,20 @@ test('the live map waits for a tap, checks for a signal, and keeps the schedule 
   assert.ok(body.indexOf('navigator.onLine===false') > click && body.indexOf('navigator.onLine===false') < frame, 'offline check must come before the frame is built');
   assert.ok(body.includes('encodeURIComponent(V.imo)'), 'IMO must be encoded into the map URL');
   assert.ok(!body.includes('"loading","lazy"'), 'a tapped map must not be lazy-loaded');
-  assert.ok(body.includes('not a live fix'), 'the schedule must say it is not a live position');
-  assert.ok(js.includes('var wn=whereNow();if(wn)el.appendChild(wn);'), 'Ship tab must include the section');
+  // The schedule (works offline) and the live fix are two separate cards. The "not a live fix"
+  // caution lives with the schedule card, above the map, so neither passes for the other.
+  const sched = js.slice(js.indexOf('function schedCard('), js.indexOf('function whereNow('));
+  assert.ok(sched.includes('not a live fix'), 'the schedule card must say it is not a live position');
+  assert.ok(js.includes('var sc=schedCard(),wn=whereNow()'), 'Ship tab must build both cards');
+  assert.ok(js.includes('if(sc)el.appendChild(sc);if(wn)el.appendChild(wn);'), 'Ship tab must append both cards');
+});
+
+test('the live map asks VesselFinder exactly what the ship pages ask: IMO, zoom, track, names, nothing else', async () => {
+  const { readFileSync } = await import('node:fs');
+  const js = readFileSync(new URL('../../../admin/voyage-pwa/companion.js', import.meta.url), 'utf8');
+  const m = /f\.src="https:\/\/www\.vesselfinder\.com\/aismap\?([^;]*);/.exec(js);
+  assert.ok(m, 'map address not found');
+  assert.equal(m[1], 'imo="+encodeURIComponent(V.imo)+"&zoom=5&track=true&names=true"');
+  const ship = readFileSync(new URL('../../../ships/norwegian/norwegian-prima.html', import.meta.url), 'utf8');
+  assert.match(ship, /vesselfinder\.com\/aismap\?imo=9823986&amp;zoom=5&amp;track=true&amp;names=true/);
 });
