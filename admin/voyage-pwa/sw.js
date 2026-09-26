@@ -12,14 +12,15 @@
    entry (anthem-alaska.html, prima-caribbean.html, …) shares this one worker + shell
    cache; each installs as its own home-screen app via its own manifest. */
 
-const CACHE = "voyage-v6";
+const CACHE = "voyage-v7";
 const OWN_SCOPE = "/admin/voyage-pwa/";   // the only same-origin prefix this worker will cache
 // The one asset outside our scope we deliberately cache: the anonymous usage-count module. It must be
 // available offline so a sitting at sea is counted when signal returns (it queues in localStorage).
 const USAGE_MODULE = "/assets/js/voyage-usage.js";
 const PRECACHE = [
-  "/admin/voyage-pwa/companion.css",
-  "/admin/voyage-pwa/companion.js",
+  // Versioned to match the ?v= the companion pages load; bump both together with CACHE.
+  "/admin/voyage-pwa/companion.css?v=7",
+  "/admin/voyage-pwa/companion.js?v=7",
   USAGE_MODULE,
   "/admin/voyage-pwa/icons/icon-192.png",
   "/admin/voyage-pwa/icons/icon-512.png",
@@ -43,7 +44,7 @@ self.addEventListener("install", (e) => {
   // a missing CDN asset (the page still works online) so one hiccup can't brick install.
   e.waitUntil(
     caches.open(CACHE).then((c) => Promise.all(
-      PRECACHE.map((u) => c.add(u).catch(() => null))
+      PRECACHE.map((u) => c.add(new Request(u, { cache: "reload" })).catch(() => null))
     )).then(() => self.skipWaiting())
   );
 });
@@ -71,7 +72,7 @@ self.addEventListener("fetch", (e) => {
   const isPage = req.mode === "navigate" && inScope;
   if (isPage) {
     e.respondWith(
-      fetch(req).then((res) => {
+      fetch(req, { cache: "no-cache" }).then((res) => {
         if (res && res.status === 200) {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put(req, copy));

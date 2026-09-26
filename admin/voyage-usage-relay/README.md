@@ -35,6 +35,7 @@ The stated claim is *nothing about the traveler reaches Umami*. The test feeds a
 
 ## Honest limits
 
+- **Umami's bot filter (found 2026-09-26).** Umami drops any request whose User-Agent the `isbot` library flags, and replies `200 {"beep":"boop"}` rather than an error. The first relay UA carried a URL, isbot flagged it, and every event was discarded while the relay reported success. The UA is now `Mozilla/5.0 (compatible; itw-voyage-usage-relay/1)` (not flagged by isbot 5 as of that date), and a `beep` reply is returned to the phone as 502 so it keeps the event queued. If isbot's list changes, events queue on phones instead of vanishing; watch the Worker's 5xx rate.
 - Cloudflare's `request.cf.country` / `request.cf.region` field names are from memory; confirm against the Workers runtime docs on first deploy. The tests exercise the code path with those names.
 - Cloudflare's free-tier request allowance was not checked this session; it is far above a few dozen companions' traffic, but confirm before relying on it.
 - State-level place is the connecting network's location. At sea that is the ship's satellite provider, not the traveler's home.

@@ -47,7 +47,10 @@ test('nothing about the traveler reaches Umami: spoofed IP header, real UA, city
   const hdrs = Object.fromEntries(Object.entries(init.headers).map(([k, v]) => [k.toLowerCase(), v]));
   assert.equal(hdrs['x-forwarded-for'], undefined);
   assert.equal(hdrs['cf-connecting-ip'], undefined);
-  assert.match(hdrs['user-agent'], /^itw-voyage-usage-relay\//);
+  // Umami discards requests whose UA isbot flags; the old UA was flagged for its URL and its bare
+  // product token. Keep the browser-style prefix and no URL, domain or 'bot' in it.
+  assert.match(hdrs['user-agent'], /^Mozilla\/5\.0 \(compatible; itw-voyage-usage-relay\/\d+\)$/);
+  assert.ok(!/https?:|\.com|bot/i.test(hdrs['user-agent']), 'relay UA must not carry isbot triggers');
   const text = JSON.stringify(body);
   assert.ok(!text.includes('203.0.113.9'));
   assert.ok(!text.includes('Hudson'));
@@ -93,6 +96,18 @@ test('an Umami failure is reported as 502, never as success', async () => {
   const fetchFn = async () => ({ ok: false, status: 500 });
   const r = await handle(req({ name: 'vp_pwa_open', data: { pack: 'v0.1.9-x' } }), {}, { fetchFn });
   assert.equal(r.status, 502);
+});
+
+test('an Umami bot-filter drop (200 {"beep":"boop"}) is reported as 502, not as delivered', async () => {
+  const fetchFn = async () => ({ ok: true, status: 200, text: async () => '{"beep":"boop"}' });
+  const r = await handle(req({ name: 'vp_pwa_open', data: { pack: 'v0.1.9-x' } }), {}, { fetchFn });
+  assert.equal(r.status, 502);
+});
+
+test('a real Umami acceptance body still reads as delivered', async () => {
+  const fetchFn = async () => ({ ok: true, status: 200, text: async () => '{"cache":"x","sessionId":"y","visitId":"z"}' });
+  const r = await handle(req({ name: 'vp_pwa_open', data: { pack: 'v0.1.9-x' } }), {}, { fetchFn });
+  assert.equal(r.status, 204);
 });
 
 test('coarsePlace never returns a city and validates the country code shape', () => {

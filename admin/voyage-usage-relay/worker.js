@@ -21,7 +21,11 @@
 const UMAMI = 'https://cloud.umami.is/api/send';
 const WEBSITE = '9661a449-3ba9-49ea-88e8-4493363578d2';
 const ORIGIN = 'https://cruisinginthewake.com';
-const RELAY_UA = 'itw-voyage-usage-relay/1 (+https://cruisinginthewake.com/privacy.html)';
+// Umami drops any request whose User-Agent the `isbot` library flags, and answers 200 {"beep":"boop"}
+// instead of an error. The first relay UA ('itw-voyage-usage-relay/1 (+https://...)') matched isbot on
+// its URL, so every event was silently discarded. This one does not match isbot 5 (checked 2026-09-26);
+// it still names the relay honestly and carries nothing about the traveler's device.
+export const RELAY_UA = 'Mozilla/5.0 (compatible; itw-voyage-usage-relay/1)';
 
 export const EVENTS = new Set([
   'vp_pdf_open', 'vp_print', 'vp_pdf_download', 'vp_handoff_filled',
@@ -100,6 +104,8 @@ export async function handle(req, env = {}, { fetchFn = fetch, now = Date.now() 
       body: JSON.stringify(umamiPayload(ev)),
     });
     ok = !!r && r.ok;
+    // A bot-filtered event comes back 200 with {"beep":"boop"}: that is a drop, not a delivery.
+    if (ok && typeof r.text === 'function' && /"beep"\s*:/.test(await r.text())) ok = false;
   } catch { ok = false; }
   return new Response(null, { status: ok ? 204 : 502, headers: cors });
 }
