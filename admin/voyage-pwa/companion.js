@@ -73,6 +73,7 @@ function voyStatusBase(){var t=todayISO(),first=ITIN[0].date,last=ITIN[ITIN.leng
 function seasonLabel(){return V.seasonLabel||"Typical";}
 function fetchVoyWx(s){var u="https://api.open-meteo.com/v1/forecast?latitude="+s.lat+"&longitude="+s.lon+"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit="+uTemp()+"&timezone=auto&start_date="+s.date+"&end_date="+s.date;retryJSON(u,1).then(function(j){if(!j||!j.daily||!j.daily.time||!j.daily.time.length)return;var d=j.daily,hi=d.temperature_2m_max[0],lo=d.temperature_2m_min[0];if(hi==null||lo==null)return;var el=document.getElementById("voy-wx-"+s.d);if(!el)return;var code=(d.weather_code&&d.weather_code[0]!=null)?(WMO[d.weather_code[0]]||""):"";var pp=(d.precipitation_probability_max&&d.precipitation_probability_max[0]!=null)?d.precipitation_probability_max[0]+"% rain":"";el.innerHTML=seasonLabel()+": "+vT(s.wx.hi)+"° / "+vT(s.wx.lo)+"° · "+esc(s.wx.txt)+'<br><span class="fc">Forecast '+voyDate(s.date)+": "+Math.round(hi)+"° / "+Math.round(lo)+"°"+(code?" · "+esc(code):"")+(pp?" · "+pp:"")+"</span>";});}
 function renderOverview(){var el=document.getElementById("pane-overview");if(!el)return;var h='';
+  if(V.shipPhoto&&V.shipPhoto.src)h+='<img class="ov-flyer ov-ship" src="'+attr(V.shipPhoto.src)+'" alt="'+attr(V.shipPhoto.alt||"")+'" decoding="async"'+(V.shipPhoto.w?' width="'+attr(V.shipPhoto.w)+'" height="'+attr(V.shipPhoto.h)+'"':'')+'><p class="ov-credit">Photo: '+esc(V.shipPhoto.credit||"")+', <a href="'+attr(V.shipPhoto.licenseUrl||"#")+'" target="_blank" rel="noopener noreferrer">'+esc(V.shipPhoto.license||"")+'</a>.</p>';
   if(V.flyer)h+='<img class="ov-flyer" src="'+attr(V.flyer)+'" alt="'+attr((V.ship||"This")+" hosted group cruise flyer")+'" loading="lazy" decoding="async">';
   h+='<div class="voy-cta-wrap">';
   if(V.pdfFull)h+='<a class="voy-cta" href="'+attr(V.pdfFull)+'" target="_blank" rel="noopener noreferrer">📖 '+esc(V.pdfFullLabel||"Open the full Voyage Pack (PDF)")+' →</a>';
@@ -85,7 +86,7 @@ function renderOverview(){var el=document.getElementById("pane-overview");if(!el
   h+='<p>This is your offline travel companion for the sailing — the day-by-day itinerary, destination weather averages, and live forecasts as you get close, all in one place. Save it to your phone and it keeps working at sea and in port, with no signal.</p></div>';
   h+='<div class="ov-card"><b>🧭 How to use this page</b>'
     +'<p class="ov-step"><strong>Pick a place</strong> in the box at the top. Every weather view follows it. The <strong>°F</strong> button switches to °C.</p>'
-    +(TPL_SHIP?'<p class="ov-step"><strong>Ship</strong> is the pack\'s guide to the ship: layout, cabins, dining, what to book ahead.</p>':'')
+    +(TPL_SHIP?'<p class="ov-step"><strong>Ship</strong> is the pack\'s guide to the ship: layout, cabins, dining, what to book ahead'+(PACK_VIDEOS.length?', plus videos of the ship that play right here when you have a signal':'')+'.</p>':'')
     +(TPL_PORTS?'<p class="ov-step"><strong>Ports</strong> covers every port day: pier or tender, getting into town, what to do and what to skip.</p>':'')
     +(PACK_INDEX?'<p class="ov-step"><strong>Search</strong> (the box at the top) finds any word in the whole pack, even with no signal.</p>':'')
     +'<p class="ov-step"><strong>Voyage</strong> is the day-by-day plan: where the ship is each day, what to do there, and a button that opens a live ship tracker in a new window.</p>'
@@ -114,8 +115,38 @@ function emgVal(k){return lsG((V.emergency&&V.emergency.storageKey||"itw-emg")+"
 // (admin/scripts/build-voyage-guides.mjs). Cloned once, never parsed from a string at run time.
 var TPL_SHIP=document.getElementById("tpl-ship"),TPL_PORTS=document.getElementById("tpl-ports"),PACK_INDEX=null;
 try{var _pi=document.getElementById("pack-index");if(_pi)PACK_INDEX=JSON.parse(_pi.textContent);}catch(e){PACK_INDEX=null;}
+var PACK_VIDEOS=[];try{var _pv=document.getElementById("pack-videos");if(_pv)PACK_VIDEOS=JSON.parse(_pv.textContent)||[];}catch(e){PACK_VIDEOS=[];}
 function fullPackLink(){if(!V.guide)return null;var p=document.createElement("p");p.className="pk-full";var a=document.createElement("a");a.className="ov-link";a.href=String(V.guide.url);a.textContent="Read the whole pack: packing, budget, emergency and the rest →";p.appendChild(a);return p;}
-function renderPackTab(which){var el=document.getElementById("pane-"+which),tpl=which==="ship"?TPL_SHIP:TPL_PORTS;if(!el||!tpl||el.getAttribute("data-filled"))return;el.appendChild(document.importNode(tpl.content,true));var f=fullPackLink();if(f)el.appendChild(f);el.setAttribute("data-filled","1");}
+function renderPackTab(which){var el=document.getElementById("pane-"+which),tpl=which==="ship"?TPL_SHIP:TPL_PORTS;if(!el||!tpl||el.getAttribute("data-filled"))return;
+  if(which==="ship"){var ph=shipPhoto();if(ph)el.appendChild(ph);}
+  el.appendChild(document.importNode(tpl.content,true));
+  if(which==="ship"&&PACK_VIDEOS.length)el.appendChild(videoSection());
+  var f=fullPackLink();if(f)el.appendChild(f);el.setAttribute("data-filled","1");}
+// One chosen photograph of the ship, credited as its licence requires.
+function shipPhoto(){var P=V.shipPhoto;if(!P||!P.src)return null;var fig=document.createElement("figure");fig.className="ship-photo";
+  var img=document.createElement("img");img.src=P.src;img.alt=P.alt||"";img.decoding="async";if(P.w)img.width=P.w;if(P.h)img.height=P.h;fig.appendChild(img);
+  var cap=document.createElement("figcaption");cap.appendChild(document.createTextNode((P.caption?P.caption+" ":"")+"Photo: "+(P.credit||"")+", "));
+  var l=document.createElement("a");l.href=P.licenseUrl||"#";l.target="_blank";l.rel="noopener noreferrer";l.textContent=P.license||"licence";cap.appendChild(l);
+  if(P.source){cap.appendChild(document.createTextNode(", via "));var s=document.createElement("a");s.href=P.source;s.target="_blank";s.rel="noopener noreferrer";s.textContent="Wikimedia Commons";cap.appendChild(s);}
+  cap.appendChild(document.createTextNode("."));fig.appendChild(cap);return fig;}
+// Checked YouTube videos of this ship. Nothing loads from YouTube until the reader taps Play;
+// then the player comes from youtube-nocookie.com inside this page.
+function videoSection(){var sec=document.createElement("section");sec.className="pk-videos";sec.setAttribute("aria-labelledby","pk-videos-h");
+  var h=document.createElement("h2");h.id="pk-videos-h";h.textContent="Videos of "+(V.ship||"the ship");sec.appendChild(h);
+  var n=document.createElement("p");n.className="pk-vnote";n.textContent="Picked from YouTube and checked against YouTube's own titles. They need a signal. Nothing loads from YouTube until you tap Play, and YouTube's terms apply once it plays.";sec.appendChild(n);
+  PACK_VIDEOS.forEach(function(v){var card=document.createElement("div");card.className="pk-vid";
+    var t=document.createElement("h3");t.className="pk-vtitle";t.textContent=v.t;card.appendChild(t);
+    if(v.c){var c=document.createElement("p");c.className="pk-vch";c.textContent=v.c;card.appendChild(c);}
+    var row=document.createElement("p");row.className="pk-vrow";
+    var b=document.createElement("button");b.type="button";b.className="mapbtn pk-play";b.textContent="▶ Play here";b.setAttribute("aria-label","Play "+v.t);
+    b.addEventListener("click",function(){var box=document.createElement("div");box.className="pk-frame";var f=document.createElement("iframe");
+      f.src="https://www.youtube-nocookie.com/embed/"+encodeURIComponent(v.id)+"?autoplay=1&rel=0&playsinline=1";f.title=v.t;
+      f.setAttribute("allow","autoplay; encrypted-media; picture-in-picture; fullscreen");f.setAttribute("allowfullscreen","");f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
+      box.appendChild(f);row.parentNode.replaceChild(box,row);});
+    var a=document.createElement("a");a.className="ov-link pk-yt";a.href="https://www.youtube.com/watch?v="+encodeURIComponent(v.id);a.target="_blank";a.rel="noopener noreferrer";a.textContent="Open on YouTube ↗";
+    var sr=document.createElement("span");sr.className="sr-only";sr.textContent=" (opens in a new window)";a.appendChild(sr);
+    row.appendChild(b);row.appendChild(a);card.appendChild(row);sec.appendChild(card);});
+  return sec;}
 // Live search over the whole pack, offline. The query never leaves the phone and is never counted.
 var preSearchTab="overview";
 function fold(s){s=String(s).toLowerCase();try{s=s.normalize("NFD").replace(/[̀-ͯ]/g,"");}catch(e){}return s;}

@@ -16,7 +16,7 @@
 //       node admin/scripts/build-voyage-guides.mjs --check    exit 3 if any guide or companion is stale
 //       node admin/scripts/build-voyage-guides.mjs <slug>     build one pack
 // Three states, never two: CLEAN (0) · REPORT (3, stale) · UNAVAILABLE (2, could not look).
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
@@ -167,12 +167,31 @@ export function packContent(fragment, guideUrl) {
   return { shipHtml, portsHtml, index };
 }
 
-export function contentBlock({ shipHtml, portsHtml, index }) {
+// The ship's checked YouTube videos (assets/data/videos, cleaned by verify-ship-videos.mjs): only
+// entries with YouTube's own title and channel are carried. Nothing plays until the reader taps.
+export function shipVideos(shipName, root = '.') {
+  const slug = (s) => String(s).toLowerCase().replace(/^(ms|m\/s)\s+/, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const want = slug(shipName);
+  const dir = path.join(root, 'assets/data/videos');
+  if (!want || !existsSync(dir)) return [];
+  for (const line of readdirSync(dir)) {
+    const f = path.join(dir, line, want + '.json');
+    if (!existsSync(f)) continue;
+    const d = JSON.parse(readFileSync(f, 'utf8'));
+    const items = Array.isArray(d.videos) ? d.videos : Object.values(d.videos || {}).flat();
+    return items.filter((v) => v && v.verified && /^[A-Za-z0-9_-]{11}$/.test(v.videoId) && v.title)
+      .map((v) => ({ id: v.videoId, t: v.title, c: v.channel || '' }));
+  }
+  return [];
+}
+
+export function contentBlock({ shipHtml, portsHtml, index, videos = [] }) {
   const json = JSON.stringify(index).replace(/</g, '\\u003c');
   return MARK_START + '\n'
     + (shipHtml ? '<template id="tpl-ship">\n' + shipHtml + '</template>\n' : '')
     + (portsHtml ? '<template id="tpl-ports">\n' + portsHtml + '</template>\n' : '')
     + '<script type="application/json" id="pack-index">' + json + '</script>\n'
+    + (videos.length ? '<script type="application/json" id="pack-videos">' + JSON.stringify(videos).replace(/</g, '\\u003c') + '</script>\n' : '')
     + MARK_END + '\n';
 }
 
@@ -200,7 +219,7 @@ export function build(p, root = '.') {
   const hash = createHash('sha256').update(TEMPLATE_VERSION + '\n' + out).digest('hex').slice(0, 10);
   const file = path.join(GUIDE_DIR, base + '-guide.html');
   const guide = { url: '/' + file + '?v=' + hash, sections: sectionsOf(fragment) };
-  const content = packContent(fragment, guide.url);
+  const content = { ...packContent(fragment, guide.url), videos: shipVideos(ship, root) };
   const companion = setContent(setGuide(companionHtml, p.slug, guide), contentBlock(content));
   return { file, out, guide, content, companion, companionPath: p.pwa };
 }
@@ -230,7 +249,7 @@ if (invokedDirectly) {
     writeFileSync(r.file, r.out);
     writeFileSync(r.companionPath, r.companion);
     built++;
-    console.log(`built ${r.file}  (${r.guide.sections.length} sections; ship ${r.content.shipHtml ? 'yes' : 'NO'}; ports ${(r.content.portsHtml.match(/<h3 /g) || []).length}; search blocks ${r.content.index.length})`);
+    console.log(`built ${r.file}  (${r.guide.sections.length} sections; ship ${r.content.shipHtml ? 'yes' : 'NO'}; ports ${(r.content.portsHtml.match(/<h3 /g) || []).length}; search blocks ${r.content.index.length}; videos ${r.content.videos.length})`);
   }
   if (check) { console.log(stale ? `[guides] REPORT: ${stale} stale` : '[guides] CLEAN'); process.exit(stale ? 3 : 0); }
   console.log(`[guides] built ${built}`);
