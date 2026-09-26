@@ -220,9 +220,13 @@ build_pack() {
 
   case "$engine" in
     weasyprint|wkhtmltopdf)
-      # Convert /asset/path-style markdown image refs into file:// URLs
-      # weasyprint can resolve. Also handles src="/..." in inline HTML img tags.
-      sed "s|](/|](file://$REPO_ROOT/|g; s|src=\"/|src=\"file://$REPO_ROOT/|g" "$md" | pandoc \
+      # Images (markdown ![..](/..) and inline src="/..") become file:// paths so
+      # weasyprint can embed them. Every other site-relative link, markdown ](/..) and
+      # inline href="/..", points at the live site: it is read on a reader's phone,
+      # where a file:// path on the build machine is a dead link. Until 2026-09-26 the
+      # image rule caught every link too, and every pack PDF shipped with its site links
+      # pointing into the build machine's disk.
+      sed -E "s#(!\[[^]]*\])\(/#\1(file://$REPO_ROOT/#g; s#src=\"/#src=\"file://$REPO_ROOT/#g; s#\]\(/#](https://cruisinginthewake.com/#g; s#href=\"/#href=\"https://cruisinginthewake.com/#g" "$md" | pandoc \
         --pdf-engine="$engine" \
         --css="$css" \
         --metadata author="In the Wake" \
