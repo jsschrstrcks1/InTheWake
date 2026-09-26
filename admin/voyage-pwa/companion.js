@@ -19,7 +19,8 @@ function buildShell(){
   if(!app)return;
   app.innerHTML=
    '<header class="wbar" role="banner">'
-   +'<span class="brand">◢ IN THE WAKE</span><span class="brand-sub">// '+esc(V.brandSub||"")+'</span>'
+   +'<span class="brand">◢ IN THE WAKE</span><span class="brand-sub">// '+esc(V.brandSub||"")+(V.dateRange?' · '+esc(V.dateRange):'')+'</span>'
+   +'<div class="fsz" role="group" aria-label="Text size"><button type="button" data-fs="0.9" aria-label="Smaller text" aria-pressed="false">A</button><button type="button" data-fs="1" aria-label="Standard text size" aria-pressed="true">A</button><button type="button" data-fs="1.3" aria-label="Larger text" aria-pressed="false">A</button></div>'
    +'<select id="wloc" aria-label="Choose a tracked location"></select>'
    +'<button id="wx-unit" class="unitbtn" type="button" aria-label="Toggle temperature units between Fahrenheit and Celsius">°F</button>'
    +(PACK_INDEX?'<div class="pk-searchbox" role="search"><label class="sr-only" for="pk-q">Search this voyage pack</label><input id="pk-q" type="search" placeholder="Search the pack" autocomplete="off" enterkeyhint="search"></div>':'')
@@ -47,7 +48,7 @@ function buildShell(){
        +'<span class="vt" id="voy-status">'+esc(V.statusInit||(V.ship||"")+" · "+(V.dateRange||""))+'</span>'
        +(V.trackUrl?'<a class="voy-track" href="'+attr(V.trackUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(V.trackLabel||"◢ Track live ↗")+'<span class="sr-only"> (opens in a new window)</span></a>':'')
      +'</div>'
-     +'<div id="voy-list"><span class="muted">loading voyage…</span></div>'
+     +'<p class="voy-tip">▸ Tap a day to open it. Tap it again to close it.</p><div id="voy-list"><span class="muted">loading voyage…</span></div>'
      +'<p class="voy-note">'+esc(V.note||"")+'</p>'
    +'</div>'
    +(TPL_SHIP?'<div class="wpane pk-pane" id="pane-ship"></div>':'')
@@ -79,39 +80,44 @@ function voyStatusBase(){var t=todayISO(),first=ITIN[0].date,last=ITIN[ITIN.leng
 function seasonLabel(){return V.seasonLabel||"Typical";}
 function fetchVoyWx(s){var u="https://api.open-meteo.com/v1/forecast?latitude="+s.lat+"&longitude="+s.lon+"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit="+uTemp()+"&timezone=auto&start_date="+s.date+"&end_date="+s.date;retryJSON(u,1).then(function(j){if(!j||!j.daily||!j.daily.time||!j.daily.time.length)return;var d=j.daily,hi=d.temperature_2m_max[0],lo=d.temperature_2m_min[0];if(hi==null||lo==null)return;var el=document.getElementById("voy-wx-"+s.d);if(!el)return;var code=(d.weather_code&&d.weather_code[0]!=null)?(WMO[d.weather_code[0]]||""):"";var pp=(d.precipitation_probability_max&&d.precipitation_probability_max[0]!=null)?d.precipitation_probability_max[0]+"% rain":"";el.innerHTML=seasonLabel()+": "+vT(s.wx.hi)+"° / "+vT(s.wx.lo)+"° · "+esc(s.wx.txt)+'<br><span class="fc">Forecast '+voyDate(s.date)+": "+Math.round(hi)+"° / "+Math.round(lo)+"°"+(code?" · "+esc(code):"")+(pp?" · "+pp:"")+"</span>";});}
 function renderOverview(){var el=document.getElementById("pane-overview");if(!el)return;var h='';
+  h+='<p class="ov-lead">This is your offline travel companion for the sailing: the day-by-day itinerary, destination weather averages, and live forecasts as you get close, all in one place. <strong>Save it to your phone and it keeps working at sea and in port, even with no internet.</strong></p>';
+  h+='<div class="ov-card ov-save"><b>📲 Save this app to your phone</b>'
+    +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow at the bottom), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
+    +'<p class="ov-step"><strong>Android (Chrome):</strong> tap the <strong>⋮</strong> menu (top-right), then <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</p>'
+    +'<p class="ov-step">It opens full-screen like a real app and works offline once loaded, which is handy where the ship or port has no internet.</p></div>';
   if(V.shipPhoto&&V.shipPhoto.src)h+='<img class="ov-flyer ov-ship" src="'+attr(V.shipPhoto.src)+'" alt="'+attr(V.shipPhoto.alt||"")+'" decoding="async"'+(V.shipPhoto.w?' width="'+attr(V.shipPhoto.w)+'" height="'+attr(V.shipPhoto.h)+'"':'')+'><p class="ov-credit">Photo: '+esc(V.shipPhoto.credit||"")+', <a href="'+attr(V.shipPhoto.licenseUrl||"#")+'" target="_blank" rel="noopener noreferrer">'+esc(V.shipPhoto.license||"")+'</a>.</p>';
   if(V.flyer)h+='<img class="ov-flyer" src="'+attr(V.flyer)+'" alt="'+attr((V.ship||"This")+" hosted group cruise flyer")+'" loading="lazy" decoding="async">';
-  h+='<div class="voy-cta-wrap">';
-  if(V.pdfFull)h+='<a class="voy-cta" href="'+attr(V.pdfFull)+'" target="_blank" rel="noopener noreferrer">📖 '+esc(V.pdfFullLabel||"Open the full Voyage Pack (PDF)")+' →</a>';
-  if(V.pdfCondensed)h+='<a class="voy-cta-sec" href="'+attr(V.pdfCondensed)+'" target="_blank" rel="noopener noreferrer">or the condensed quick-reference version (PDF) →</a>';
-  if(V.trackUrl)h+='<a class="voy-track voy-track-ov" href="'+attr(V.trackUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(V.trackLabel||"◢ Track live ↗")+'<span class="sr-only"> (opens in a new window)</span></a>';
-  h+='</div>';
   h+='<div class="ov-card"><b>'+esc((V.ship||"Your voyage")+" · "+(V.dateRange||""))+'</b>';
   if(V.overview)h+='<p>'+esc(V.overview)+'</p>';
   if(V.host)h+='<p class="ov-host">Hosted by '+esc(V.host)+'</p>';
-  h+='<p>This is your offline travel companion for the sailing — the day-by-day itinerary, destination weather averages, and live forecasts as you get close, all in one place. Save it to your phone and it keeps working at sea and in port, with no signal.</p></div>';
+  if(V.trackUrl)h+='<a class="voy-track voy-track-ov" href="'+attr(V.trackUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(V.trackLabel||"◢ Track live ↗")+'<span class="sr-only"> (opens in a new window)</span></a>';
+  h+='</div>';
+  function go(t,label){return '<button type="button" class="ov-go" data-go="'+attr(t)+'">'+esc(label)+'</button>';}
   h+='<div class="ov-card"><b>🧭 How to use this page</b>'
-    +'<p class="ov-step"><strong>Pick a place</strong> in the box at the top. Every weather view follows it. The <strong>°F</strong> button switches to °C.</p>'
-    +(TPL_SHIP?'<p class="ov-step"><strong>Ship</strong> is the pack\'s guide to the ship: layout, cabins, dining, what to book ahead'+(PACK_VIDEOS.length?', plus videos of the ship that play right here when you have a signal':'')+'.</p>':'')
-    +(TPL_PORTS?'<p class="ov-step"><strong>Ports</strong> covers every port day: pier or tender, getting into town, what to do and what to skip.</p>':'')
-    +(PACK_INDEX?'<p class="ov-step"><strong>Search</strong> (the box at the top) finds any word in the whole pack, even with no signal.</p>':'')
-    +'<p class="ov-step"><strong>Voyage</strong> is the day-by-day plan: where the ship is each day, what to do there, and a button that opens a live ship tracker in a new window.</p>'
-    +'<p class="ov-step"><strong>Weather</strong> has five parts: <strong>Now</strong> (conditions right now), <strong>Forecast</strong> (the next 10 days), <strong>Radar</strong> (rain over the last two hours, on a map with your stops numbered), <strong>Averages</strong> (what this time of year usually brings) and <strong>Alerts</strong> (official US weather warnings).</p>'
-    +(V.emergency?'<p class="ov-step"><strong>Emergency</strong> holds the phone numbers and a card to share with someone at home.</p>':'')
-    +'<p class="ov-step">With no signal, Voyage, Averages'+(V.emergency?' and Emergency':'')+' still work'+(TPL_SHIP||TPL_PORTS?', and so do Ship, Ports and Search':'')+'. Now, Forecast, Radar and Alerts come back when the signal does.</p></div>';
-  h+='<div class="ov-card"><b>📲 Save this app to your phone</b>'
-    +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow at the bottom), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
-    +'<p class="ov-step"><strong>Android (Chrome):</strong> tap the <strong>⋮</strong> menu (top-right), then <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</p>'
-    +'<p class="ov-step">It opens full-screen like a real app and works offline once loaded — handy where the ship or port has no signal.</p></div>';
+    +'<p class="ov-step"><strong>Internet</strong>, in this app, means a connection of any kind: cell data or Wi-Fi, including the ship\'s Wi-Fi. Anything that says it needs the internet waits until you have one.</p>'
+    +'<p class="ov-step"><strong>Pick a place</strong> in the box at the top. Every weather view follows it. The <strong>°F</strong> button switches to °C, and the three <strong>A</strong> buttons make the text smaller or larger.</p>'
+    +'<p class="ov-step">'+go("voyage","Voyage")+' is the day-by-day plan: tap a day to open it and see where the ship is, what to do there, and the time to be back aboard.</p>'
+    +(TPL_SHIP?'<p class="ov-step">'+go("ship","Ship")+' is your guide to the ship: layout, cabins, dining, what to book ahead'+(PACK_VIDEOS.length?', plus videos of the ship that play right here when you have internet':'')+'.</p>':'')
+    +(TPL_PORTS?'<p class="ov-step">'+go("ports","Ports")+' covers every port day: pier or tender, getting into town, what to do and what to skip.</p>':'')
+    +'<p class="ov-step">'+go("weather","Weather")+' has four parts: <strong>Now</strong> (conditions right now), <strong>Forecast</strong> (the next 10 days), <strong>Radar</strong> (rain over the last two hours, on a map with your stops numbered) and <strong>Averages</strong> (what this time of year usually brings).</p>'
+    +(V.emergency?'<p class="ov-step">'+go("emg","Emergency")+' holds the phone numbers and a card to share with someone at home.</p>':'')
+    +'<p class="ov-step">'+go("alerts","Alerts")+' is always the last tab. It turns <strong class="al-k-yel">yellow</strong> or <strong class="al-k-red">red</strong> when something needs your attention: official weather warnings, a CDC stomach-illness notice for this ship, and U.S., UK and Canadian government travel advice for the countries you visit.</p>'
+    +(PACK_INDEX?'<p class="ov-step"><strong>Search</strong> (the box at the top) finds any word in the whole pack, even with no internet.</p>':'')
+    +'<p class="ov-step">With no internet, Voyage, Averages'+(V.emergency?', Emergency':'')+(TPL_SHIP||TPL_PORTS?', Ship, Ports and Search':'')+' still work, and Alerts shows the last copy it saved. Now, Forecast and Radar come back when you have internet again.</p></div>';
   if(V.host)h+='<div class="ov-card"><b>🌊 Sailing solo?</b>'
-    +'<p>These are hosted group cruises built for solo travelers — come solo, leave with friends.</p>'
+    +'<p>These are hosted group cruises built for solo travelers: come solo, leave with friends.</p>'
     +'<a class="ov-link" href="https://maulsbytravel.com/hosted-group-cruises-for-solos/" target="_blank" rel="noopener noreferrer">See all hosted group cruises for solo travelers →</a></div>';
-  el.innerHTML=h;usagePdfLinks(el);}
+  if(V.pdfFull||V.pdfCondensed){h+='<div class="ov-pdfs"><b>🖨 Printable versions</b>';
+    if(V.pdfFull)h+='<a class="ov-pdf" href="'+attr(V.pdfFull)+'" target="_blank" rel="noopener noreferrer">Printable version of the full voyage pack (PDF)</a>';
+    if(V.pdfCondensed)h+='<a class="ov-pdf" href="'+attr(V.pdfCondensed)+'" target="_blank" rel="noopener noreferrer">Printable short version (PDF)</a>';
+    h+='</div>';}
+  el.innerHTML=h;usagePdfLinks(el);
+  el.querySelectorAll(".ov-go").forEach(function(b){b.addEventListener("click",function(){setTab(b.getAttribute("data-go"));var want=b.getAttribute("data-go"),n=[].filter.call(document.querySelectorAll(".wtab"),function(x){return x.getAttribute("data-t")===want;})[0];if(n)n.focus();});});}
 function renderAverages(){var el=document.getElementById("pane-averages");if(!el)return;var h='<div class="fc-head">Destination weather averages · '+esc(V.seasonLabel||"typical")+'</div>';
   ITIN.forEach(function(s){h+='<div class="avg-row"><span class="avg-date">'+(V.datesApprox?"~":"")+voyDate(s.date)+'</span><span class="avg-loc">'+esc(s.loc)+'</span><span class="avg-temp">'+vT(s.wx.hi)+'° / <span class="lo">'+vT(s.wx.lo)+'°</span></span><span class="avg-txt">'+esc(s.wx.txt)+'</span></div>';});
   h+='<p class="voy-note">Typical seasonal averages for your dates — not a forecast. A real forecast appears on the Now and 10-Day tabs once a date falls within about 16 days. Tap °F / °C (top right) to switch units.</p>';
   el.innerHTML=h;}
-function renderVoyage(){var el=document.getElementById("voy-list");if(!el)return;var st=document.getElementById("voy-status");if(st)st.textContent=voyStatus();var t=todayISO(),html="";ITIN.forEach(function(s){var today=(s.date===t),badge=s.type==="port"?'<span class="dbadge b-port">Port</span>':(s.type==="scenic"?'<span class="dbadge b-scenic">Scenic</span>':'<span class="dbadge">Sea</span>');html+='<details class="voy-row'+(today?" voy-today":"")+'" id="voy-'+s.d+'"'+(today?" open":"")+'><summary class="voy-sum"><span class="dnum">DAY '+s.d+" · "+(V.datesApprox?"~":"")+voyDate(s.date)+'</span><span class="dloc">'+esc(s.loc)+"</span>"+badge+(today?'<span class="dnow">Today</span>':"")+'</summary><div class="voy-body"><p class="voy-pos">◢ '+esc(s.pos)+'</p>'+(s.dock?'<p class="voy-dock">⚓ '+esc(s.dock)+'</p>':"")+'<p class="voy-wx" id="voy-wx-'+s.d+'">'+seasonLabel()+": "+vT(s.wx.hi)+"° / "+vT(s.wx.lo)+"° · "+esc(s.wx.txt)+'</p>'+(s.booked&&s.booked.length?'<div class="voy-booked"><b>◆ Booked</b><ul>'+s.booked.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>":"")+'<div class="voy-grid">';if(s.plan&&s.plan.length)html+='<div class="voy-sec"><b>'+esc(s.planLabel||"Ideas")+'</b><ul>'+s.plan.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>";if(s.hist)html+='<div class="voy-sec"><b>History</b><p>'+esc(s.hist)+"</p></div>";if(s.poi&&s.poi.length)html+='<div class="voy-sec"><b>Points of Interest</b><ul>'+s.poi.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>";html+="</div></div></details>";});el.innerHTML=html;ITIN.forEach(function(s){fetchVoyWx(s);});}
+function renderVoyage(){var el=document.getElementById("voy-list");if(!el)return;var st=document.getElementById("voy-status");if(st)st.textContent=voyStatus();var t=todayISO(),html="",anyToday=ITIN.some(function(s){return s.date===t;}),seaN=0,SH=V.shipHistory||[];ITIN.forEach(function(s,idx){var today=(s.date===t),open=today||(!anyToday&&idx===0),badge=s.type==="port"?'':(s.type==="scenic"?'<span class="dbadge b-scenic">Scenic</span>':'<span class="dbadge b-sea">Sea Day</span>');var shist=(s.type==="sea"&&SH.length)?SH[(seaN++)%SH.length]:"";html+='<details class="voy-row'+(today?" voy-today":"")+'" id="voy-'+s.d+'"'+(open?" open":"")+'><summary class="voy-sum"><span class="dnum">DAY '+s.d+" · "+(V.datesApprox?"~":"")+voyDate(s.date)+'</span><span class="dloc">'+esc(s.loc)+"</span>"+badge+(today?'<span class="dnow">Today</span>':"")+'</summary><div class="voy-body"><p class="voy-pos">◢ '+esc(s.pos)+'</p>'+(s.dock?'<p class="voy-dock">⚓ '+esc(s.dock)+'</p>':"")+'<p class="voy-wx" id="voy-wx-'+s.d+'">'+seasonLabel()+": "+vT(s.wx.hi)+"° / "+vT(s.wx.lo)+"° · "+esc(s.wx.txt)+'</p>'+(s.booked&&s.booked.length?'<div class="voy-booked"><b>◆ Booked</b><ul>'+s.booked.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>":"")+'<div class="voy-grid">';if(s.plan&&s.plan.length)html+='<div class="voy-sec"><b>'+esc(s.planLabel||"Ideas")+'</b><ul>'+s.plan.map(function(x){return /^depart\b/i.test(x)?'<li class="voy-depart"><b>'+esc(x)+'</b><span class="depart-note">Verify this time on your way off the ship. It is <strong>ship time</strong>, not local time.</span></li>':"<li>"+esc(x)+"</li>";}).join("")+"</ul></div>";if(shist)html+='<div class="voy-sec voy-shiphist"><b>About your ship</b><p>'+esc(shist)+"</p></div>";if(s.hist)html+='<div class="voy-sec"><b>History</b><p>'+esc(s.hist)+"</p></div>";if(s.poi&&s.poi.length)html+='<div class="voy-sec"><b>Points of Interest</b><ul>'+s.poi.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul></div>";html+="</div></div></details>";});el.innerHTML=html;ITIN.forEach(function(s){fetchVoyWx(s);});}
 // ---- Emergency tab (renders only when the voyage supplies V.emergency) -------
 // The offline family-handoff card: cruise-line + State Dept numbers plus
 // fillable fields persisted in localStorage, so the card survives with no
@@ -144,14 +150,14 @@ function whereNow(){var s=schedNow();if(!s&&!V.imo)return null;var ship=V.ship||
   if(s){var box=document.createElement("div");box.className="pk-sched";
     var k=document.createElement("p");k.className="pk-sched-k";k.textContent=s.k;box.appendChild(k);
     var v=document.createElement("p");v.className="pk-sched-v";v.textContent=s.v;box.appendChild(v);
-    var q=document.createElement("p");q.className="pk-vnote";q.textContent="This is the published schedule, not a live fix, and it works with no signal. Weather and the captain can change the plan."+(V.datesApprox?" Dates here are estimated; your cruise documents are authoritative.":"");box.appendChild(q);
+    var q=document.createElement("p");q.className="pk-vnote";q.textContent="This is the published schedule, not a live fix, and it works with no internet. Weather and the captain can change the plan."+(V.datesApprox?" Dates here are estimated; your cruise documents are authoritative.":"");box.appendChild(q);
     sec.appendChild(box);}
   if(V.imo||V.trackUrl){var h3=document.createElement("h3");h3.className="pk-vtitle pk-live-h";h3.textContent="Live position";sec.appendChild(h3);
     var note=document.createElement("p");note.className="pk-vnote";note.setAttribute("aria-live","polite");
-    note.textContent="The ship's own AIS transponder, plotted by VesselFinder. It needs a signal, and nothing loads until you tap. Out at sea the dot can be hours old.";sec.appendChild(note);
+    note.textContent="The ship's own AIS transponder, plotted by VesselFinder. It needs the internet (cell data or Wi-Fi), and nothing loads until you tap. Out at sea the dot can be hours old.";sec.appendChild(note);
     var row=document.createElement("p");row.className="pk-vrow";
     if(V.imo){var b=document.createElement("button");b.type="button";b.className="mapbtn pk-play";b.textContent="◢ Show live map";b.setAttribute("aria-label","Show the live map of "+ship);
-      b.addEventListener("click",function(){if(navigator.onLine===false){note.textContent="No signal right now, so the live map can't load. The schedule above still works.";return;}
+      b.addEventListener("click",function(){if(navigator.onLine===false){note.textContent="No internet right now (no cell data or Wi-Fi), so the live map can't load. The schedule above still works.";return;}
         var c=s&&s.at?s.at:(ITIN[0]||{}),m=document.createElement("div");m.className="pk-map";var f=document.createElement("iframe");
         f.src="https://www.vesselfinder.com/aismap?imo="+encodeURIComponent(V.imo)+(c.lat!=null?"&lat="+c.lat+"&lon="+c.lon:"")+"&zoom=5&track=true&names=true";
         f.title="Live position of "+ship+" on VesselFinder";f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
@@ -172,7 +178,7 @@ function shipPhoto(){var P=V.shipPhoto;if(!P||!P.src)return null;var fig=documen
 // then the player comes from youtube-nocookie.com inside this page.
 function videoSection(){var sec=document.createElement("section");sec.className="pk-videos";sec.setAttribute("aria-labelledby","pk-videos-h");
   var h=document.createElement("h2");h.id="pk-videos-h";h.textContent="Videos of "+(V.ship||"the ship");sec.appendChild(h);
-  var n=document.createElement("p");n.className="pk-vnote";n.textContent="Picked from YouTube and checked against YouTube's own titles. They need a signal. Nothing loads from YouTube until you tap Play, and YouTube's terms apply once it plays.";sec.appendChild(n);
+  var n=document.createElement("p");n.className="pk-vnote";n.textContent="Picked from YouTube and checked against YouTube's own titles. They need the internet (cell data or Wi-Fi). Nothing loads from YouTube until you tap Play, and YouTube's terms apply once it plays.";sec.appendChild(n);
   PACK_VIDEOS.forEach(function(v){var card=document.createElement("div");card.className="pk-vid";
     var t=document.createElement("h3");t.className="pk-vtitle";t.textContent=v.t;card.appendChild(t);
     if(v.c){var c=document.createElement("p");c.className="pk-vch";c.textContent=v.c;card.appendChild(c);}
@@ -323,7 +329,27 @@ document.querySelectorAll(".wtab").forEach(function(b){b.onclick=function(){setT
 var pb=document.getElementById("mr-play");if(pb)pb.onclick=togglePlay;
 var fb=document.getElementById("mr-fit");if(fb)fb.onclick=fitAll;
 var ub=document.getElementById("wx-unit");if(ub){ub.textContent=(uTemp()==="celsius"?"°C":"°F");ub.onclick=toggleUnit;}
-buildSel();renderOverview();loadAlerts();loadVoyageAlerts();prefetchGuide();bindSearch();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
+// Text size: a little A, a standard A and a large A. Scales every font size in companion.css through
+// --fs, so text reflows instead of the page zooming (zoom would break the radar map's tap targets).
+// The choice is a per-phone convenience, kept in localStorage when the browser allows it.
+function setFs(k){k=Number(k)||1;document.documentElement.style.setProperty("--fs",String(k));document.querySelectorAll(".fsz button").forEach(function(b){b.setAttribute("aria-pressed",Number(b.getAttribute("data-fs"))===k?"true":"false");});try{localStorage.setItem("itw-fs",String(k));}catch(e){}}
+function initFs(){var k=1;try{k=Number(localStorage.getItem("itw-fs"))||1;}catch(e){}setFs(k);document.querySelectorAll(".fsz button").forEach(function(b){b.addEventListener("click",function(){setFs(b.getAttribute("data-fs"));});});}
+// Install popup: shown once per phone, never when the app is already installed. Built with DOM calls.
+var _bip=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();_bip=e;});
+function installedAlready(){try{return window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true;}catch(e){return false;}}
+function maybeInstallPopup(){var seen=false;try{seen=!!localStorage.getItem("itw-install-seen");}catch(e){seen=true;}if(seen||installedAlready())return;
+  setTimeout(function(){if(document.getElementById("inst-dlg"))return;var prev=document.activeElement;var ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+    var bg=document.createElement("div");bg.className="inst-bg";var d=document.createElement("div");d.id="inst-dlg";d.className="inst-dlg";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-labelledby","inst-h");
+    var h=document.createElement("h2");h.id="inst-h";h.textContent="📲 Save this app to your phone";d.appendChild(h);
+    var p1=document.createElement("p");p1.textContent=ios?"In Safari, tap the Share button (the square with an up-arrow), scroll down, then tap Add to Home Screen.":"Tap the ⋮ menu (top-right), then Add to Home screen or Install app.";d.appendChild(p1);
+    var p2=document.createElement("p");p2.textContent="It then opens like a real app and keeps working at sea and in port, even with no internet.";d.appendChild(p2);
+    var row=document.createElement("div");row.className="inst-row";
+    function close(){try{localStorage.setItem("itw-install-seen","1");}catch(e){}bg.remove();d.remove();document.removeEventListener("keydown",esc1);if(prev&&prev.focus)prev.focus();}
+    function esc1(e){if(e.key==="Escape")close();}
+    if(_bip){var ib=document.createElement("button");ib.type="button";ib.className="inst-go";ib.textContent="Install now";ib.addEventListener("click",function(){_bip.prompt();_bip=null;close();});row.appendChild(ib);}
+    var ok=document.createElement("button");ok.type="button";ok.className="inst-ok";ok.textContent="Got it";ok.addEventListener("click",close);row.appendChild(ok);d.appendChild(row);
+    bg.addEventListener("click",close);document.body.appendChild(bg);document.body.appendChild(d);document.addEventListener("keydown",esc1);(row.firstChild||ok).focus();},2500);}
+initFs();buildSel();renderOverview();loadAlerts();loadVoyageAlerts();maybeInstallPopup();prefetchGuide();bindSearch();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
 // Usage: one open event now, one session summary when the sitting ends, one install event ever.
 (function(){var w=voyWhen(),standalone=false;try{standalone=!!(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;}catch(e){}
 usage("vp_pwa_open",{standalone:standalone,offline:!(navigator.onLine!==false),phase:w.phase,day:w.day});

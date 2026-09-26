@@ -125,6 +125,26 @@ opens at sea with no signal, and a PDF on the landing page does not keep it.
       Chrome". Every manifest's `scope` is its own folder or page; when narrowing one that is already
       installed, pin `id` to its old identity so phones update it in place (fixed 2026-09-26,
       checked with Chromium's own manifest parser).
+- [ ] **The Overview reads in the operator's order** (review of 2026-09-26): the companion's purpose
+      first, larger, with "save it to your phone and it keeps working… even with no internet" in bold;
+      the save-to-phone box second (plus a one-time install popup, never shown once installed); the
+      printable PDFs last and quiet, labelled "Printable version of the full voyage pack (PDF)" and
+      "Printable short version (PDF)". The header carries the cruise dates. The how-to names every tab
+      as a working link, Alerts included, and says "Ship is your guide to the ship".
+- [ ] **"Signal" is never left to mean a signal.** The companion and the pack say internet: "cell data
+      or Wi-Fi, including the ship's Wi-Fi".
+- [ ] **The Voyage tab tells people to tap a day**, opens the first day before the cruise (today's once
+      it starts), marks only sea days ("Sea Day"), and puts under every "Depart" time: verify it on
+      your way off the ship; it is **ship time**, not local time. Sea days may carry sourced ship
+      history ("About your ship").
+- [ ] **Something that opened recently is described by the reader's place in its story, not a date**
+      ("your sailing is one of the first to experience it since it opened"), and a day count that
+      will be wrong tomorrow is never written.
+- [ ] **Buying advice quotes the line.** An operator-suggested claim with no source ("cheaper bought
+      in advance") is not written; what the line actually says is (Great Tides: pre-book up to two
+      days before sailing; onboard passes limited and not guaranteed).
+- [ ] **Text size is adjustable** with a small, standard and large A; every font size scales and the
+      page still fits a phone at the largest size.
 - [ ] **The footer carries the tip link, and nothing that tracks.** One line under the disclaimer:
       "If this companion helped your trip, you can leave Ken a tip" to `buymeacoffee.com/inthewake`,
       `rel="noopener"`, no `data-umami` attribute (the companion promises no tracking). The
