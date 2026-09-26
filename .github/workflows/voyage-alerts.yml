@@ -1,0 +1,58 @@
+name: Voyage companion alerts (daily)
+
+# Refreshes admin/voyage-pwa/alerts.json, the data behind every voyage companion's Alerts tab:
+# CDC outbreak notices for each ship, and US, UK and Canadian travel advisories for each port's
+# country. The companion shows the file's date and goes yellow when it is more than 14 days old,
+# so a stopped schedule is visible on the phone, not silent. Soli Deo Gloria.
+
+on:
+  schedule:
+    - cron: '43 10 * * *'   # daily, 10:43 UTC (early morning in US Eastern)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write   # to start the Pages deploy: a push made with GITHUB_TOKEN does not trigger it
+
+concurrency:
+  group: voyage-alerts
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build alerts.json
+        # Exit 0: every source read. Exit 2: one or more sources unavailable; the file records which,
+        # and the companion shows "couldn't check" for them, so it is still committed. Exit 3: a
+        # companion calls at a port the script cannot place; that needs a person, so the job fails.
+        run: |
+          set +e
+          node admin/scripts/build-voyage-alerts.mjs
+          code=$?
+          set -e
+          if [ "$code" -eq 3 ]; then echo "::error::Unmapped port; add it to PORT_COUNTRY"; exit 1; fi
+          if [ "$code" -eq 2 ]; then echo "::warning::One or more alert sources were unavailable"; fi
+
+      - name: Commit and deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet admin/voyage-pwa/alerts.json; then
+            echo "No alert changes."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add admin/voyage-pwa/alerts.json
+          git commit -m "chore(voyage-alerts): daily refresh of CDC and travel advisories"
+          git push
+          gh workflow run static.yml --ref main

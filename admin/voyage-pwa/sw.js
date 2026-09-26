@@ -12,16 +12,17 @@
    entry (anthem-alaska.html, prima-caribbean.html, …) shares this one worker + shell
    cache; each installs as its own home-screen app via its own manifest. */
 
-const CACHE = "voyage-v12";
+const CACHE = "voyage-v13";
 const OWN_SCOPE = "/admin/voyage-pwa/";   // the only same-origin prefix this worker will cache
 // The one asset outside our scope we deliberately cache: the anonymous usage-count module. It must be
 // available offline so a sitting at sea is counted when signal returns (it queues in localStorage).
 const USAGE_MODULE = "/assets/js/voyage-usage.js";
 const PRECACHE = [
   // Versioned to match the ?v= the companion pages load; bump both together with CACHE.
-  "/admin/voyage-pwa/companion.css?v=12",
+  "/admin/voyage-pwa/companion.css?v=13",
   "/admin/voyage-pwa/guide.css?v=1",
-  "/admin/voyage-pwa/companion.js?v=12",
+  "/admin/voyage-pwa/companion.js?v=13",
+  "/admin/voyage-pwa/alerts.json",
   USAGE_MODULE,
   "/admin/voyage-pwa/icons/icon-192.png",
   "/admin/voyage-pwa/icons/icon-512.png",
@@ -80,6 +81,18 @@ self.addEventListener("fetch", (e) => {
         }
         return res;
       }).catch(() => caches.match(req).then((hit) => hit || caches.match("/admin/voyage-pwa/companion.js")))
+    );
+    return;
+  }
+
+  // The alert list changes daily: NETWORK-FIRST, falling back to the last copy when offline, so an
+  // installed phone is never stuck on the first alerts.json it ever saw.
+  if (url.origin === self.location.origin && url.pathname === "/admin/voyage-pwa/alerts.json") {
+    e.respondWith(
+      fetch(req, { cache: "no-cache" }).then((res) => {
+        if (res && res.status === 200) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(url.pathname, copy)); }
+        return res;
+      }).catch(() => caches.match(url.pathname))
     );
     return;
   }

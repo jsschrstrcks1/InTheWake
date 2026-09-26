@@ -55,6 +55,17 @@ a:focus,button:focus,select:focus,[tabindex]:focus{outline:2px solid #2ee6ff;out
 .alertc{border:1px solid rgba(46,230,255,.2);border-left:3px solid var(--ac,#5aa8ff);padding:11px 15px;margin:0 0 11px;background:rgba(8,22,32,.5)}
 .alertc .ev{font-size:14px;color:#eafcff}.alertc .meta{font-size:11px;color:#74acbe;margin-top:3px}.alertc .desc{font-size:12px;color:#bcdfe9;margin-top:8px;max-height:150px;overflow:auto;white-space:pre-wrap}
 .sev-Extreme,.sev-Severe{--ac:#ff4d6a}.sev-Moderate{--ac:#ffb13e}.sev-Minor,.sev-Unknown{--ac:#5aa8ff}
+/* Top-level Alerts tab: always last; lit by the worst item inside. Colour never stands alone: the tab also gains a mark and a spoken word. */
+.wtab.al-red:not(.on){color:#ff6b82;border-color:#ff4d6a;box-shadow:0 0 10px rgba(255,77,106,.45)}
+.wtab.al-yel:not(.on){color:#ffc062;border-color:#ffb13e;box-shadow:0 0 8px rgba(255,177,62,.35)}
+.wtab.al-red.on{background:#ff4d6a;color:#1a0306}.wtab.al-yel.on{background:#ffb13e;color:#1a1003}
+.al-intro{font-size:12.5px;color:#bcdfe9;margin:0 0 14px;line-height:1.55}
+.al-k-red{color:#ff6b82}.al-k-yel{color:#ffc062}
+.al-sec{margin:0 0 18px}.al-sec h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fe9ff;margin:0 0 8px}
+.alertc.al-red{--ac:#ff4d6a}.alertc.al-yel,.alertc.al-unknown{--ac:#ffb13e}.alertc.al-ok{--ac:#3ddc97}
+.alertc .meta a{color:#7fe9ff}.alertc .meta a:focus-visible{outline:2px solid #7fe9ff;outline-offset:2px}
+.alertc .al-note{color:#ffd79a}
+.al-stamp{font-size:11px;color:#74acbe;line-height:1.5;margin:6px 0 0}
 .dgr{display:none;background:rgba(255,77,106,.14);border:1px solid #ff4d6a;color:#ffd6dd;padding:11px 16px;margin-bottom:14px;font-size:13px}
 body.danger .dgr{display:block}body.danger{background:#0c0306}
 body.danger .wbar .brand{color:#ff4d6a;text-shadow:0 0 14px rgba(255,77,106,.6)}
