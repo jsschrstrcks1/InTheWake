@@ -515,11 +515,16 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       }
       function renderVideos(arr){
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
-        mount.innerHTML=arr.slice(0,12).map(v=>{
-          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'Seven Seas Splendor').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
-        }).join('');
+        // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+        mount.textContent='';
+        arr.slice(0,24).forEach(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return;
+          const slide=document.createElement('div'); slide.className='swiper-slide';
+          const frame=document.createElement('iframe');
+          frame.src=url; frame.title=String(v.title||'Seven Seas Splendor'); frame.allow='encrypted-media';
+          frame.allowFullscreen=true; frame.loading='lazy';
+          slide.appendChild(frame); mount.appendChild(slide);
+        });
         if(mount.children.length&&window.Swiper){
           setTimeout(()=>{
             try{
@@ -722,8 +727,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
   <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
-  <!-- initVideos — fetch video JSON, render thumbnails -->
-  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/regent/seven-seas-splendor.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
   <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
   <!-- initDining — fetch dining JSON -->

@@ -468,12 +468,16 @@ Dining Venues on Carnival Magic <a href="/restaurants/" style="font-size: 1rem; 
       var wrapper=document.getElementById('video-wrapper'),counter=document.getElementById('video-counter');
       if(!wrapper||!data.videos)return;
       wrapper.innerHTML='';
-      data.videos.forEach(function(v){
+      // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+      var list=(Array.isArray(data.videos)?data.videos:Object.values(data.videos).flat()).filter(function(v){return v&&/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''));}).slice(0,24);
+      list.forEach(function(v){
         var slide=document.createElement('div');slide.className='swiper-slide';
-        slide.innerHTML='<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/'+v.videoId+'" title="'+v.title+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
-        wrapper.appendChild(slide);
+        var box=document.createElement('div');box.className='video-embed';
+        var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+v.videoId;f.title=String(v.title||'');
+        f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.loading='lazy';
+        box.appendChild(f);slide.appendChild(box);wrapper.appendChild(slide);
       });
-      if(counter)counter.textContent=data.videos.length+' videos available';
+      if(counter)counter.textContent=list.length+' videos available';
       if(window.videoSwiper)window.videoSwiper.update();
     }).catch(function(){});
     </script>
@@ -749,7 +753,7 @@ function initVideos(){
       let vids=[];
       if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
       else if(Array.isArray(d.videos)) vids=d.videos;
-      if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+      if(vids.length) w.textContent='';vids.filter(v=>v&&/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''))).slice(0,24).forEach(v=>{const s=document.createElement('div');s.className='swiper-slide';const a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+v.videoId;a.target='_blank';a.rel='noopener';a.className='video-thumb';const im=document.createElement('img');im.src='https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg';im.alt=String(v.title||'Video');im.loading='lazy';a.appendChild(im);s.appendChild(a);w.appendChild(s);});
       new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
     }).catch(()=>{});
 }
