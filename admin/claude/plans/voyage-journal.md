@@ -1,6 +1,6 @@
 # Voyage companion: the Journal tab
 
-**Status:** Planned. Not built.
+**Status:** Built 2026-09-26 (text; photos next). Code: `admin/voyage-pwa/companion.js` (Journal section); tests: `tests/unit/voyage-journal.test.mjs`.
 **Target:** the shared companion (`admin/voyage-pwa/companion.js` and `companion.css`), so all
 15 voyage companions get it at once.
 **Goal:** a private place for each traveler to write about the trip, day by day, that stays on
