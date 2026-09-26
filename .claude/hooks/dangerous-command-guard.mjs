@@ -12,6 +12,8 @@
 // HLS: destructive-command-hook-grok (dual-runtime extension of Claude belt).
 
 import crypto from "node:crypto";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import {
   normalizeHookInput,
   appendEvent,
@@ -41,6 +43,38 @@ function envInt(name, fallback) {
 }
 const STDIN_MS = envInt("DANGEROUS_COMMAND_GUARD_STDIN_MS", 5000);
 const STDIN_MAX_BYTES = envInt("DANGEROUS_COMMAND_GUARD_STDIN_MAX_BYTES", 1024 * 1024);
+
+// --- scan budget (#2744) -------------------------------------------------------------------------
+// The stdin bound above closes the read side. The SCAN side had no bound. Measured 2026-09-20 with inert
+// strings, scanCommand() is quadratic in command length for a single long token (131,077 chars: 190.8 s) and
+// for repeated wrappers (`eval eval ...`: 1.79 s at 2 KB, 7.24 s at 4 KB), and EXPONENTIAL for wrappers that
+// carry a command substitution: `eval $(a) eval $(a) ...` took 16 ms at 64 chars, 295 ms at 128, 31.9 s at
+// 192 and over 40 s at 256. The detector's own ceiling of 128 execution delimiters is far too high to bound
+// that. The harness PROCEEDS when a PreToolUse hook times out (this repo's settings.json gives this hook 10 s;
+// a user-level entry with no timeout runs 600 s), so a guard still scanning when its clock ends has, in
+// effect, allowed the command, and a command of about 200 characters is enough to get there.
+//
+// Two ties, on different planes, because the ceiling is NOT a time bound and the deadline is the only thing
+// that is. NO length is small enough to scan unguarded (the blow-up starts near 100 chars and a length
+// threshold is exactly what an attacker picks around), so EVERY scan runs under the deadline:
+//   DEADLINE: the scan runs in a child this process can SIGKILL, because the scan is synchronous JS and no
+//     timer can interrupt it. Only a well-formed verdict from the child inside the budget can allow; every
+//     other outcome (timeout, crash, garbage) is a DENY. The budget counts from PROCESS START (stdin wait,
+//     import, spawn, scan) and must stay under the smallest harness timeout;
+//     dangerous-command-scan-budget.test.mjs binds the two so they cannot drift.
+//   CEILING: a command longer than CMD_MAX_CHARS is denied before any scan starts. A resource bound and a
+//     second, size-based tie: it needs no child process, so it holds if spawning is what is broken. The
+//     detector already refuses unreviewable shell structure the same way ("put complex logic in a reviewed
+//     file"). Cost: a legitimate command over the ceiling is denied; use the Write tool for that text.
+//
+// A 0 for any knob is honoured (UL-895), but the budget has a floor so a 0 can never mean "no deadline".
+// Root cause (the exponential recursion in the detector) is NOT fixed here; this makes it unable to fail open.
+const CMD_MAX_CHARS = envInt("DANGEROUS_COMMAND_GUARD_CMD_MAX_CHARS", 65536);
+const BUDGET_MS = envInt("DANGEROUS_COMMAND_GUARD_BUDGET_MS", 8000);
+const BUDGET_FLOOR_MS = 250;
+// The CHILD half of the deadline. Selected by ARGV, never by env: an env switch that made the hook print a
+// verdict and exit 0 would be a bypass knob. Argv is only reachable by editing the hook's own settings entry.
+const VERDICT_MODE = process.argv[2] === "--scan-verdict";
 
 function denyUninspectable(why) {
   process.stderr.write(
@@ -122,6 +156,9 @@ if (!command.trim()) process.exit(0);
 
 function deny(msg, meta = {}) {
   process.stderr.write(msg);
+  // The scan CHILD only reports. It exits 2 with no verdict on stdout, the PARENT treats that as a deny and
+  // writes the one ledger event, so a single denial is never recorded twice.
+  if (VERDICT_MODE) process.exit(2);
   // Best-effort ledger (never breaks the deny path).
   try {
     const sessionId = normalized?.session_id || "unknown";
@@ -150,6 +187,18 @@ function deny(msg, meta = {}) {
     /* ignore */
   }
   process.exit(2);
+}
+
+// CEILING (#2744, see the scan-budget note above). Checked before the detector is even loaded, and not
+// in the child: the parent owns this decision.
+if (!VERDICT_MODE && command.length > CMD_MAX_CHARS) {
+  deny(
+    `⛔ A.B.O.R.T. destructive-command guard\n` +
+      `BLOCKED (fail-closed): this command is ${command.length} characters, over the review ceiling of ${CMD_MAX_CHARS}. ` +
+      `A command this guard cannot review inside its time budget is a command it has not cleared. ` +
+      `Put the long text in a file (the Write tool) and run the file, or split the command.\n`,
+    { rule_id: "command-over-review-ceiling" },
+  );
 }
 
 // Load the shared detector. On import failure DO NOT fail open — a guard-module
@@ -212,9 +261,47 @@ try {
   );
 }
 
+// DEADLINE (#2744, see the scan-budget note above). Runs the scan in a child this process can SIGKILL and
+// returns its verdict; anything else is a DENY, because a scan the guard could not finish is a command it
+// has not cleared and the harness proceeds when THIS process times out. Never returns a non-verdict.
+function scanUnderDeadline() {
+  const remaining = Math.max(BUDGET_FLOOR_MS, BUDGET_MS - Math.round(process.uptime() * 1000));
+  const child = spawnSync(process.execPath, [fileURLToPath(import.meta.url), "--scan-verdict"], {
+    input: rawText,
+    encoding: "utf8",
+    timeout: remaining,
+    killSignal: "SIGKILL",
+    maxBuffer: 1024 * 1024,
+    windowsHide: true,
+  });
+  let verdict = null;
+  if (!child.error && child.status === 0) {
+    try { verdict = JSON.parse(child.stdout); } catch { verdict = null; }
+  }
+  if (verdict && typeof verdict.blocked === "boolean" && Array.isArray(verdict.matched)) return verdict;
+  const timedOut = child.error?.code === "ETIMEDOUT";
+  const why = timedOut
+    ? `the review of this ${command.length}-character command did not finish inside its ${remaining} ms budget`
+    : `the review of this ${command.length}-character command returned no usable verdict (${
+        String(child.error?.code || (child.signal ? `signal ${child.signal}` : `exit ${child.status}`))
+      }${child.stderr ? `: ${String(child.stderr).replace(/\s+/g, " ").slice(0, 160)}` : ""})`;
+  deny(
+    `⛔ A.B.O.R.T. destructive-command guard\n` +
+      `BLOCKED (fail-closed): ${why}. A command this guard has not finished reading is a command it has not cleared. ` +
+      `Put the long text in a file (the Write tool) and run the file, or split the command.\n`,
+    { rule_id: timedOut ? "scan-deadline-exceeded" : "scan-child-failed" },
+  );
+}
+
 let result;
 try {
-  result = scanCommand(command);
+  if (VERDICT_MODE) {
+    // The CHILD half: report the detector's verdict as JSON and exit 0; the PARENT judges it.
+    const v = scanCommand(command);
+    process.stdout.write(JSON.stringify({ blocked: v.blocked === true, matched: Array.isArray(v.matched) ? v.matched : [] }));
+    process.exit(0);
+  }
+  result = scanUnderDeadline();
 } catch (error) {
   deny(
     `⛔ dangerous-command-guard: detector runtime error — BLOCKED (fail-closed). ` +
