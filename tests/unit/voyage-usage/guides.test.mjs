@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { sectionsOf, setGuide, page } from '../../../admin/scripts/build-voyage-guides.mjs';
+import { sectionsOf, setGuide, page, packContent, contentBlock, setContent, MARK_START } from '../../../admin/scripts/build-voyage-guides.mjs';
 
 const ROOT = new URL('../../../', import.meta.url);
 const voyageOf = (html) => {
@@ -61,4 +61,45 @@ test('the page template escapes the title and forbids script by CSP', () => {
   assert.ok(out.includes('A &lt;b&gt; &amp; &quot;c&quot;'));
   assert.ok(out.includes("script-src 'none'"));
   assert.ok(out.includes('<main id="content"'));
+});
+
+test('every companion embeds its Ship and Ports tabs and an offline search index, once', async () => {
+  const packs = JSON.parse(await readFile(new URL('admin/voyage-packs/packs.json', ROOT), 'utf8'));
+  for (const p of packs) {
+    if (!p.pwa || !existsSync(new URL(`admin/voyage-packs/${p.slug}.md`, ROOT))) continue;
+    const html = await readFile(new URL(p.pwa, ROOT), 'utf8');
+    assert.equal(html.split(MARK_START).length, 2, `${p.pwa} pack-content block missing or duplicated`);
+    const ship = html.match(/<template id="tpl-ship">([\s\S]*?)<\/template>/);
+    assert.ok(ship && /<h2 id="pk-[^"]+"[^>]*>[^<]*Your Ship/i.test(ship[1]), `${p.pwa} has no Ship tab content`);
+    const ports = html.match(/<template id="tpl-ports">([\s\S]*?)<\/template>/);
+    assert.ok(ports && (ports[1].match(/<h3 /g) || []).length >= 3, `${p.pwa} has too few port days`);
+    const idx = JSON.parse(html.match(/<script type="application\/json" id="pack-index">([\s\S]*?)<\/script>/)[1]);
+    assert.ok(idx.length >= 20 && idx.every((b) => b.t && b.a && ['ship', 'ports', 'guide'].includes(b.s)), `${p.pwa} search index shape`);
+    assert.ok(!/<script(?! type="application\/json")/.test(ship[1] + ports[1]), `${p.pwa} embedded content carries a script`);
+  }
+});
+
+test('packContent: ship from Your Ship, ports from the day-by-day minus sea days, search spans the pack', () => {
+  const f = '<h2 id="welcome">Welcome</h2><p>hi</p>'
+    + '<h2 id="section-1">Section 1 — Your Ship: X</h2><h3 id="cabins">Cabins</h3><p>quiet aft <a href="#section-6">see</a></p>'
+    + '<h2 id="section-2">Section 2 — Day by Day</h2><h3 id="d1">Day 1 — Port A</h3><p>tender</p><h3 id="d2">Day 2 — Cruising at sea</h3><p>spa</p><h3 id="d3">Day 3 — Port B</h3><p>walk</p>'
+    + '<h2 id="section-4">Section 4 — Packing</h2><p>hat</p>';
+  const c = packContent(f, '/g.html?v=1');
+  assert.ok(c.shipHtml.includes('id="pk-cabins"') && c.shipHtml.includes('href="/g.html?v=1#section-6"'));
+  assert.ok(c.portsHtml.includes('Port A') && c.portsHtml.includes('Port B') && !c.portsHtml.includes('Cruising at sea'));
+  const by = Object.fromEntries(c.index.map((b) => [b.t, b]));
+  assert.equal(by['Cabins'].s, 'ship'); assert.equal(by['Cabins'].a, 'pk-cabins');
+  assert.equal(by['Day 1 — Port A'].s, 'ports');
+  assert.equal(by['Day 2 — Cruising at sea'].s, 'guide');
+  assert.equal(by['Section 4 — Packing'].s, 'guide'); assert.equal(by['Section 4 — Packing'].x, 'hat');
+});
+
+test('setContent replaces its own block in place and the JSON cannot close its script tag', () => {
+  const html = "<div id=app></div>\n<script>if('serviceWorker' in navigator){}</script>";
+  const b1 = contentBlock({ shipHtml: '<h2>A</h2>', portsHtml: '', index: [{ t: '</script><b>', s: 'guide', a: 'x', x: '' }] });
+  const once = setContent(html, b1);
+  const twice = setContent(once, contentBlock({ shipHtml: '<h2>B</h2>', portsHtml: '', index: [] }));
+  assert.equal(twice.split(MARK_START).length, 2);
+  assert.ok(twice.includes('<h2>B</h2>') && !twice.includes('<h2>A</h2>'));
+  assert.ok(!b1.includes('</script><b>'), 'index JSON must escape <');
 });
