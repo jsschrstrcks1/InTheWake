@@ -1,7 +1,7 @@
 # Voyage Pack Pre-Ship Review Checklist
 
 **Created:** 2026-06-04
-**Updated:** 2026-09-26 (second pass): classes K (outside text into the page), L (ship facts and the ship-page FAQ) and M (live links) added, and G and J extended, all from the Prima pass. Earlier 2026-09-26: classes G (companion coverage), H (linked tools), I (PDF links) and J (media), each from a defect found in the Prima pre-ship pass. A–E are the original five; F was added 2026-09-07.
+**Updated:** 2026-09-26 (second pass): classes K (outside text into the page), L (ship facts and the ship-page FAQ), M (live links) and N (the Alerts tab) added, and G and J extended, all from the Prima pass. Earlier 2026-09-26: classes G (companion coverage), H (linked tools), I (PDF links) and J (media), each from a defect found in the Prima pre-ship pass. A–E are the original five; F was added 2026-09-07.
 **Purpose:** Catch the five problem-classes that have shipped in voyage packs despite the original-research factual gate and the voice-audit cluster framework. Built from a problem inventory of the v0.1.4 Anthem pack performed AFTER both sidecars were in place — proving that the sidecars alone do not catch everything.
 **Companion to:** `.claude/skills/original-research/ORIGINAL-RESEARCH.md` (factual), `.claude/skills/voice-audit/SKILL.md` v2.3.0 (voice), and the `.factcheck.json` sidecar schema.
 
@@ -253,6 +253,36 @@ cruisinginthewake.com, because the site is served by GitHub Pages and GitHub Pag
       that actually loads.
 - [ ] **Owner:** `admin/validate-ship-page.js` (`navigation/missing_nav_items`).
 
+## N. Alerts — its own tab, always last, lit by the worst thing in it
+
+Added 2026-09-26. The operator asked for Alerts as a top-level category, always the last tab, lit red
+or yellow by severity, carrying CDC outbreak notices for the ship and US, UK and Canadian travel
+advisories for every port's country. It was written up as "planned" instead of built, and the
+operator found it missing on the Prima companion the day before she sailed. When the operator
+describes a feature and says to build it, it is built, not filed.
+
+- [ ] **Alerts is the last top-level tab** in every companion, not a weather sub-tab.
+- [ ] **It is lit by the worst item inside it**: red for US level 3 or 4, UK advice against all or
+      all-but-essential travel to the whole country, Canada "avoid non-essential" or "avoid all", or a
+      CDC outbreak on this ship posted this month or last; yellow for US level 2, UK advice about
+      parts of a country, Canada "high degree of caution" or a regional advisory, an older CDC
+      outbreak, anything that could not be checked, or data more than 14 days old. The tab also
+      gains a mark and a spoken word ("serious", "take care"); colour never stands alone.
+- [ ] **A check that failed never reads as all clear.** "Couldn't check" and "not an all-clear" are
+      said in words. The National Weather Service answers 400 for every point outside U.S. waters;
+      that is "not covered here", not a failure and not a colour.
+- [ ] **Government and CDC wording is quoted and linked**, and advice that covers only parts of a
+      country says so and asks the reader to check whether it includes their port.
+- [ ] **The data is current.** `node admin/scripts/build-voyage-alerts.mjs` writes
+      `admin/voyage-pwa/alerts.json`; `.github/workflows/voyage-alerts.yml` runs it daily and starts
+      the Pages deploy (a push made with the workflow's own token does not). Every companion port
+      must map to a country or the script fails with exit 3. The State Department feed has errors
+      (on 2026-09-26 the UAE was filed under Argentina's code and Brazil was missing), so an advisory
+      is used only when its code and the country named in its own title agree.
+- [ ] **`alerts.json` is network-first in `sw.js`**, with the last copy kept for offline use.
+- [ ] **Owner:** `admin/scripts/build-voyage-alerts.mjs`; `tests/unit/voyage-alerts.test.mjs`;
+      `.github/workflows/voyage-alerts.yml`.
+
 ## How this checklist runs
 
 1. After the factual sidecar passes and the voice_audit block is written, run THIS checklist as a final read pass.
@@ -263,7 +293,7 @@ cruisinginthewake.com, because the site is served by GitHub Pages and GitHub Pag
 
 ### Planned for the companion, not yet required
 
-The ship-tab FAQ for booked guests, the top-level Alerts tab (CDC outbreak notices plus US, UK and Canadian advisories for each port), and the private Journal (`admin/claude/plans/voyage-journal.md`). When each ships, it gets a class here.
+The ship-tab FAQ for booked guests and the private Journal (`admin/claude/plans/voyage-journal.md`). When each ships, it gets a class here. (Alerts was on this list and should not have been: see class N.)
 
 ---
 
