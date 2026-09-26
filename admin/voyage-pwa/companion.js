@@ -27,6 +27,7 @@ function buildShell(){
    +'<nav class="wtabs" role="tablist" aria-label="Voyage views">'
    +'<button class="wtab on" data-t="overview" role="tab" aria-selected="true" type="button">Overview</button>'
    +'<button class="wtab" data-t="voyage" role="tab" aria-selected="false" type="button">Voyage</button>'
+   +(V.guide?'<button class="wtab" data-t="guide" role="tab" aria-selected="false" type="button">Guide</button>':'')
    +'<button class="wtab" data-t="weather" role="tab" aria-selected="false" type="button">Weather</button>'
    +(V.emergency?'<button class="wtab" data-t="emg" role="tab" aria-selected="false" type="button">Emergency</button>':'')
    +'</nav>'
@@ -47,6 +48,7 @@ function buildShell(){
      +'<div id="voy-list"><span class="muted">loading voyage…</span></div>'
      +'<p class="voy-note">'+esc(V.note||"")+'</p>'
    +'</div>'
+   +(V.guide?'<div class="wpane" id="pane-guide"></div>':'')
    +'<div class="wpane" id="pane-averages"><span class="muted">loading averages…</span></div>'
    +'<div class="wpane" id="pane-now"><span class="muted">loading…</span></div>'
    +'<div class="wpane" id="pane-10day"><span class="muted">loading 10-day forecast…</span></div>'
@@ -79,10 +81,11 @@ function renderOverview(){var el=document.getElementById("pane-overview");if(!el
   h+='<p>This is your offline travel companion for the sailing — the day-by-day itinerary, destination weather averages, and live forecasts as you get close, all in one place. Save it to your phone and it keeps working at sea and in port, with no signal.</p></div>';
   h+='<div class="ov-card"><b>🧭 How to use this page</b>'
     +'<p class="ov-step"><strong>Pick a place</strong> in the box at the top. Every weather view follows it. The <strong>°F</strong> button switches to °C.</p>'
+    +(V.guide?'<p class="ov-step"><strong>Guide</strong> is the full Voyage Pack, the same text as the PDF, readable with no signal.</p>':'')
     +'<p class="ov-step"><strong>Voyage</strong> is the day-by-day plan: where the ship is each day, what to do there, and a button that opens a live ship tracker in a new window.</p>'
     +'<p class="ov-step"><strong>Weather</strong> has five parts: <strong>Now</strong> (conditions right now), <strong>Forecast</strong> (the next 10 days), <strong>Radar</strong> (rain over the last two hours, on a map with your stops numbered), <strong>Averages</strong> (what this time of year usually brings) and <strong>Alerts</strong> (official US weather warnings).</p>'
     +(V.emergency?'<p class="ov-step"><strong>Emergency</strong> holds the phone numbers and a card to share with someone at home.</p>':'')
-    +'<p class="ov-step">With no signal, Voyage, Averages'+(V.emergency?' and Emergency':'')+' still work. Now, Forecast, Radar and Alerts come back when the signal does.</p></div>';
+    +'<p class="ov-step">With no signal, Voyage, Averages'+(V.emergency?' and Emergency':'')+' still work'+(V.guide?', and so does the Guide once it has loaded once':'')+'. Now, Forecast, Radar and Alerts come back when the signal does.</p></div>';
   h+='<div class="ov-card"><b>📲 Save this app to your phone</b>'
     +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow at the bottom), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
     +'<p class="ov-step"><strong>Android (Chrome):</strong> tap the <strong>⋮</strong> menu (top-right), then <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</p>'
@@ -101,6 +104,16 @@ function renderVoyage(){var el=document.getElementById("voy-list");if(!el)return
 // fillable fields persisted in localStorage, so the card survives with no
 // signal once the page has loaded once. Never fetches anything.
 function emgVal(k){return lsG((V.emergency&&V.emergency.storageKey||"itw-emg")+":"+k)||"";}
+// The full pack as a readable page (guides/*-guide.html, built from the same markdown as the PDF).
+// Links only; the pack text is never injected into this page.
+function renderGuide(){var el=document.getElementById("pane-guide");if(!el||!V.guide)return;var G=V.guide,u=String(G.url),h="";
+  h+='<div class="ov-card"><b>📖 The full Voyage Pack</b><p>The same text as the PDF: the ship, every day, every port, packing, budget, emergency contacts and the rest. It opens as its own page and keeps working with no signal once this companion has loaded it online.</p>'
+    +'<a class="voy-cta" href="'+attr(u)+'">Read the full pack →</a></div>';
+  if(G.sections&&G.sections.length){h+='<div class="ov-card"><b>Jump to a section</b><ul class="g-toc">'+G.sections.map(function(s){return '<li><a class="ov-link" href="'+attr(u+"#"+s.id)+'">'+esc(s.label)+'</a></li>';}).join("")+'</ul></div>';}
+  el.innerHTML=h;}
+// Warm the offline copy: the service worker stores this same-scope response, so the guide opens at sea.
+function prefetchGuide(){try{if(V.guide&&navigator.onLine!==false)fetch(String(V.guide.url),{credentials:"same-origin"}).catch(function(){});}catch(e){}}
+
 function renderEmergency(){var el=document.getElementById("pane-emg");if(!el||!V.emergency)return;var E=V.emergency,h="";
   h+='<div class="ov-card"><b>⚑ Emergency contacts — works offline</b>'
     +(E.intro?'<p>'+esc(E.intro)+'</p>':'')
@@ -172,7 +185,7 @@ function fetch10(p){return retryJSON("https://api.open-meteo.com/v1/forecast?lat
 function setRow10(idx,d){var row=document.getElementById("d10-"+idx);if(!row)return;var days=row.querySelector(".d10-days");if(!days)return;if(!d||!d.daily){days.innerHTML='<span class="muted">forecast unavailable</span>';return;}var dd=d.daily,h="",n=Math.min(10,dd.time.length);for(var k=0;k<n;k++){h+='<div class="wx-day"><b>'+(k===0?"TODAY":dn(dd.time[k]))+'</b><span class="d10-c">'+esc(WMO[dd.weather_code[k]]||"—")+'</span><span class="hl">'+Math.round(dd.temperature_2m_max[k])+'°</span> / <span class="lo">'+Math.round(dd.temperature_2m_min[k])+'°</span><span class="pp">'+(dd.precipitation_probability_max&&dd.precipitation_probability_max[k]!=null?dd.precipitation_probability_max[k]+'%':'')+'</span></div>';}days.innerHTML=h;}
 function load10day(){var el=document.getElementById("pane-10day");if(!el)return;var html="";LOCS.forEach(function(p,idx){html+='<div class="d10-row" id="d10-'+idx+'"><div class="d10-loc">'+esc(p.label)+'</div><div class="d10-days"><span class="muted">…</span></div></div>';});el.innerHTML=html;var i=0,active=0;function pump(){while(active<4&&i<LOCS.length){(function(idx,p){active++;fetch10(p).then(function(d){setRow10(idx,d);active--;pump();}).catch(function(){setRow10(idx,null);active--;pump();});})(i,LOCS[i]);i++;}}pump();}
 function fcHour(iso){var h=parseInt(iso.slice(11,13),10);var ap=h<12?"AM":"PM";var hh=h%12;if(hh===0)hh=12;return hh+" "+ap;}
-var WX_TABS=["now","ten","radar","averages","alerts"],lastWx="now";function setTab(t){if(t==="weather")t=lastWx;var isWx=WX_TABS.indexOf(t)>=0;if(isWx)lastWx=t;tab=t;if(t!=="overview")sessTabs[t]=1;["overview","voyage","weather","emg"].forEach(function(x){var b=document.querySelector('.wtab:not(.wsub)[data-t="'+x+'"]');if(b){var on=x===t||(x==="weather"&&isWx);b.classList.toggle("on",on);b.setAttribute("aria-selected",on?"true":"false");}});WX_TABS.forEach(function(x){var b=document.querySelector('.wsub[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});var _ws=document.getElementById("wsubtabs");if(_ws)_ws.hidden=!isWx;document.getElementById("pane-overview").classList.toggle("on",t==="overview");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-averages").classList.toggle("on",t==="averages");document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");var _pe=document.getElementById("pane-emg");if(_pe)_pe.classList.toggle("on",t==="emg");if(t==="overview")renderOverview();else if(t==="voyage")renderVoyage();else if(t==="averages")renderAverages();else if(t==="now")loadNow();else if(t==="ten")load10day();else if(t==="alerts")loadAlerts();else if(t==="radar"){mode="past";showMap();}else if(t==="emg")renderEmergency();}
+var WX_TABS=["now","ten","radar","averages","alerts"],lastWx="now";function setTab(t){if(t==="weather")t=lastWx;var isWx=WX_TABS.indexOf(t)>=0;if(isWx)lastWx=t;tab=t;if(t!=="overview")sessTabs[t]=1;["overview","voyage","guide","weather","emg"].forEach(function(x){var b=document.querySelector('.wtab:not(.wsub)[data-t="'+x+'"]');if(b){var on=x===t||(x==="weather"&&isWx);b.classList.toggle("on",on);b.setAttribute("aria-selected",on?"true":"false");}});WX_TABS.forEach(function(x){var b=document.querySelector('.wsub[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});var _ws=document.getElementById("wsubtabs");if(_ws)_ws.hidden=!isWx;document.getElementById("pane-overview").classList.toggle("on",t==="overview");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-averages").classList.toggle("on",t==="averages");document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");var _pe=document.getElementById("pane-emg");if(_pe)_pe.classList.toggle("on",t==="emg");var _pg=document.getElementById("pane-guide");if(_pg)_pg.classList.toggle("on",t==="guide");if(t==="overview")renderOverview();else if(t==="voyage")renderVoyage();else if(t==="averages")renderAverages();else if(t==="now")loadNow();else if(t==="ten")load10day();else if(t==="alerts")loadAlerts();else if(t==="radar"){mode="past";showMap();}else if(t==="emg")renderEmergency();else if(t==="guide")renderGuide();}
 function refresh(){buildSel();if(tab==="overview")renderOverview();else if(tab==="voyage")renderVoyage();else if(tab==="averages")renderAverages();else if(tab==="now")loadNow();else if(tab==="ten")load10day();else if(tab==="alerts")loadAlerts();else if(tab==="radar")showMap();loadAlerts();}
 
 // ---- Boot ---------------------------------------------------------------------
@@ -181,7 +194,7 @@ document.querySelectorAll(".wtab").forEach(function(b){b.onclick=function(){setT
 var pb=document.getElementById("mr-play");if(pb)pb.onclick=togglePlay;
 var fb=document.getElementById("mr-fit");if(fb)fb.onclick=fitAll;
 var ub=document.getElementById("wx-unit");if(ub){ub.textContent=(uTemp()==="celsius"?"°C":"°F");ub.onclick=toggleUnit;}
-buildSel();renderOverview();loadAlerts();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
+buildSel();renderOverview();loadAlerts();prefetchGuide();setInterval(function(){if(tab==="now")loadNow();loadAlerts();},600000);
 // Usage: one open event now, one session summary when the sitting ends, one install event ever.
 (function(){var w=voyWhen(),standalone=false;try{standalone=!!(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;}catch(e){}
 usage("vp_pwa_open",{standalone:standalone,offline:!(navigator.onLine!==false),phase:w.phase,day:w.day});
