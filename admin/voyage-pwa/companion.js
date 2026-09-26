@@ -147,6 +147,19 @@ var TPL_SHIP=document.getElementById("tpl-ship"),TPL_PORTS=document.getElementBy
 try{var _pi=document.getElementById("pack-index");if(_pi)PACK_INDEX=JSON.parse(_pi.textContent);}catch(e){PACK_INDEX=null;}
 var PACK_VIDEOS=[];try{var _pv=document.getElementById("pack-videos");if(_pv)PACK_VIDEOS=JSON.parse(_pv.textContent)||[];}catch(e){PACK_VIDEOS=[];}
 function fullPackLink(){if(!V.guide)return null;var p=document.createElement("p");p.className="pk-full";var a=document.createElement("a");a.className="ov-link";a.href=String(V.guide.url);a.textContent="Read the whole pack: packing, budget, emergency and the rest →";p.appendChild(a);return p;}
+// A credited photo for a port day, sourced from the port's own page on the site so its attribution is
+// the same one the port page carries. Like the videos and the live map, it needs the internet; the port
+// text works offline and the alt text stands in when the photo cannot load.
+function portFigure(P){if(!P||!P.src)return null;var fig=document.createElement("figure");fig.className="ship-photo port-photo";
+  var img=document.createElement("img");img.src=P.src;img.alt=P.alt||"";img.loading="lazy";img.decoding="async";if(P.w)img.width=P.w;if(P.h)img.height=P.h;fig.appendChild(img);
+  var cap=document.createElement("figcaption");cap.appendChild(document.createTextNode(P.caption?P.caption+" ":""));
+  if(P.flickers){cap.appendChild(document.createTextNode("Photo © "));var fl=document.createElement("a");fl.href="https://www.flickersofmajesty.com";fl.target="_blank";fl.rel="noopener noreferrer";fl.textContent="Flickers of Majesty";var s1=document.createElement("span");s1.className="sr-only";s1.textContent=" (opens in a new window)";fl.appendChild(s1);cap.appendChild(fl);}
+  else{cap.appendChild(document.createTextNode("Photo: "+(P.credit||"")+(P.license?" ("+P.license+")":"")+(P.source?" via ":"")));if(P.source){var sc=document.createElement("a");sc.href=P.source;sc.target="_blank";sc.rel="noopener noreferrer";sc.textContent="Wikimedia Commons";var s2=document.createElement("span");s2.className="sr-only";s2.textContent=" (opens in a new window)";sc.appendChild(s2);cap.appendChild(sc);}}
+  fig.appendChild(cap);return fig;}
+// Drop each port's photo in right under that port day's heading. The key is a slug the day's id contains
+// (pk-day-cozumel matches "cozumel"); a day nothing matches, like the sea days and embarkation, gets none.
+function insertPortPhotos(body){var P=V.portPhotos;if(!P)return;var keys=Object.keys(P);
+  Array.prototype.forEach.call(body.querySelectorAll("h3[id]"),function(h){for(var i=0;i<keys.length;i++){if(h.id.indexOf(keys[i])>=0){var fig=portFigure(P[keys[i]]);if(fig&&h.parentNode)h.parentNode.insertBefore(fig,h.nextSibling);break;}}});}
 function renderPackTab(which){var el=document.getElementById("pane-"+which),tpl=which==="ship"?TPL_SHIP:TPL_PORTS;if(!el||!tpl||el.getAttribute("data-filled"))return;
   var body=document.importNode(tpl.content,true),f=fullPackLink();
   if(which==="ship"){var ph=shipPhoto();if(ph)el.appendChild(ph);
@@ -156,6 +169,10 @@ function renderPackTab(which){var el=document.getElementById("pane-"+which),tpl=
     Array.prototype.forEach.call(body.querySelectorAll("h3[id]"),function(h){ql.push([h.id,h.textContent]);});
     if(PACK_VIDEOS.length)ql.push(["pk-videos-h","Videos"]);if(f){f.id="pk-full";ql.push(["pk-full","The whole pack"]);}
     if(ql.length>1)el.appendChild(quickLinks(ql));if(sc)el.appendChild(sc);if(wn)el.appendChild(wn);}
+  else if(which==="ports"){insertPortPhotos(body);
+    var qlp=[];Array.prototype.forEach.call(body.querySelectorAll("h3[id]"),function(h){qlp.push([h.id,h.textContent]);});
+    if(f){f.id="pk-full";qlp.push(["pk-full","The whole pack"]);}
+    if(qlp.length>1)el.appendChild(quickLinks(qlp));}
   el.appendChild(body);
   if(which==="ship"&&PACK_VIDEOS.length)el.appendChild(videoSection());
   if(f)el.appendChild(f);el.setAttribute("data-filled","1");}
