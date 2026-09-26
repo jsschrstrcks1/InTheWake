@@ -1056,3 +1056,6 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-09-26T11:51:12.904Z -->
 | itw-add-verified-videos-empty-ships | 3 | Add real videos to the ships left with none after the 2026-09-26 fake-video cleanup: 48 files emptied, Norwegian Prima since filled with 13, 47 remain (find them: video files in assets/data/videos and ships/*/assets whose videos list is empty). Method: search YouTube per ship, check each id with YouTube oEmbed, keep only titles that name the ship (same rule as admin/scripts/verify-ship-videos.mjs), record every lookup in admin/data/video-verification/, never invent titles or categories. Supersedes the pre-cleanup task 10-unfinished-add-video-data-for-ships-without-videos. |
+
+<!-- library register 2026-09-26T15:14:04.198Z -->
+| itw-validator-video-rule-vs-verified | 3 | Ship validator video rule fights the 2026-09-26 honest-video cleanup: validate-ship-page.js counts only category keys (8 required, min 10), but verify-ship-videos.mjs (732ccf80) rewrites every file as one flat 'verified' list and strips the invented categories, so every ship page reads 0 videos and the pre-commit regression gate blocks any edit. Decide: count verified videos, make categories a warning, or have the checker file videos by category derived from YouTube's own title. Prima blocked on this (FAQ + crew fix + nav links uncommitted). |

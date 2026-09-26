@@ -2282,7 +2282,16 @@ async function validateVideos(slug, cruiseLine = 'rcl', isHistoric = false, isTB
     await access(videoPath);
     const content = await readFile(videoPath, 'utf-8');
     const data = JSON.parse(content);
-    const videos = data.videos || {};
+    // Since 2026-09-26 the checker (admin/scripts/verify-ship-videos.mjs) writes one flat
+    // `verified` list and stamps each video with a category read from YouTube's own title.
+    // Group those stamps so the category rules below count real, checked videos. Files still
+    // keyed by category name keep working unchanged.
+    const videos = { ...(data.videos || {}) };
+    if (Array.isArray(videos.verified)) {
+      for (const v of videos.verified) {
+        if (v && v.category) (videos[v.category] = videos[v.category] || []).push(v);
+      }
+    }
 
     let totalVideos = 0;
     let fakeVideos = 0;

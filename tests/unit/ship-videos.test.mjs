@@ -4,7 +4,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { matches, clean, videoFiles, RECORD } from '../../admin/scripts/verify-ship-videos.mjs';
+import { matches, clean, videoFiles, RECORD, categoryOf } from '../../admin/scripts/verify-ship-videos.mjs';
 
 const ROOT = new URL('../../', import.meta.url);
 process.chdir(ROOT.pathname);
@@ -55,4 +55,34 @@ test('every committed video entry is in the YouTube record, under YouTube\'s own
     assert.deepEqual(clean(f, d, lookups).out.videos, d.videos, `${f} would change under the rule; rerun verify-ship-videos.mjs`);
   }
   assert.ok(n > 3000, `only ${n} verified videos; the record or files look truncated`);
+});
+
+test('a category comes only from words in YouTube\'s own title, first rule wins, and nothing is guessed', () => {
+  const cases = [
+    ['NCL Prima | Full Ship Walkthrough Tour & Review 4K', 'ship walk through'],
+    ['Norwegian Prima Ship Tour - NEW for 2026 + MUST-KNOW tips!', 'ship walk through'],
+    ['Norwegian Prima | The HAVEN Full Walkthrough Tour & Review 4K', 'suite'],
+    ['Norwegian Prima | Balcony Stateroom Walkthrough Tour & Review 4K', 'balcony'],
+    ['NCL Prima Handicap Accessible Inside Cabin Tour', 'accessible'],
+    ['Norwegian Prima Cabin 12212 (Wheelchair Accessible Balcony) Tour', 'accessible'],
+    ['Top 10 Must-Do Experiences on Norwegian Prima', 'top ten'],
+    ['10 Things You Must Do On NCL Prima!', 'top ten'],
+    ['Norwegian Prima LARGE Oceanview Cabin Tour', 'oceanview'],
+    ['Norwegian Prima | Inside Stateroom Walkthrough Tour & Review 4K', 'interior'],
+    ['Everything We Ate At Indulge Food Hall on NCL Prima', 'food'],
+    ['Full Ship Tour of Norwegian Prima: every restaurant and bar', 'ship walk through'],
+    ['Norwegian Prima Studio Cabin Tour (Studio Lounge, Too!)', null],
+    ['Norwegian Prima Full Review (2025): What we loved', null],
+    ['NCL Prima Deck 8 walk', null],
+    ['Norwegian Prima interior design details', null],
+    ['Day 10 on Norwegian Prima', null],
+  ];
+  for (const [title, want] of cases) assert.equal(categoryOf(title), want, title);
+});
+
+test('clean() stamps the category from YouTube\'s title, never from the old list\'s heading', () => {
+  const lookups = { aaaaaaaaaaa: { status: 'ok', title: 'Norwegian Prima Oceanview Cabin Tour', author: 'Chan' } };
+  const d = { ship: 'Norwegian Prima', videos: { suite: [{ videoId: 'aaaaaaaaaaa', title: 'Norwegian Prima Suite Tour' }] } };
+  const r = clean('assets/data/videos/norwegian/norwegian-prima.json', d, lookups);
+  assert.equal(r.out.videos.verified[0].category, 'oceanview');
 });
