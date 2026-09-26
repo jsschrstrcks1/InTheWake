@@ -12,7 +12,8 @@ export const RELAY_ORIGIN = 'https://usage.cruisinginthewake.com';
 export const RELAY_ENDPOINT = RELAY_ORIGIN + '/send';
 const CSP_OLD = 'connect-src https://api.open-meteo.com https://api.rainviewer.com https://api.weather.gov';
 const CSP_NEW = CSP_OLD + ' ' + RELAY_ORIGIN;
-const COMPANION_TAG = '<script src="/admin/voyage-pwa/companion.js" defer></script>';
+// The shared script may carry a ?v= cache-buster; match the tag with or without it.
+const COMPANION_TAG_RE = /<script src="\/admin\/voyage-pwa\/companion\.js(?:\?v=[\w.]+)?" defer><\/script>/;
 const USAGE_TAGS = '<script>window.ITW_USAGE_ENDPOINT="' + RELAY_ENDPOINT + '";</script>\n<script src="/assets/js/voyage-usage.js" defer></script>\n';
 
 export function patchCompanion(html, slug) {
@@ -29,8 +30,9 @@ export function patchCompanion(html, slug) {
     throw new Error('page already carries a different slug');
   }
   if (!out.includes('/assets/js/voyage-usage.js')) {
-    if (!out.includes(COMPANION_TAG)) throw new Error('companion.js script tag not found');
-    out = out.replace(COMPANION_TAG, USAGE_TAGS + COMPANION_TAG); notes.push('module');
+    const tag = out.match(COMPANION_TAG_RE);
+    if (!tag) throw new Error('companion.js script tag not found');
+    out = out.replace(tag[0], USAGE_TAGS + tag[0]); notes.push('module');
   }
   return { html: out, changed: notes };
 }
