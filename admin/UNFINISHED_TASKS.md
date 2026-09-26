@@ -1057,5 +1057,13 @@ node admin/library.mjs mirrors --repo InTheWake
 <!-- library register 2026-09-26T11:51:12.904Z -->
 | itw-add-verified-videos-empty-ships | 3 | Add real videos to the ships left with none after the 2026-09-26 fake-video cleanup: 48 files emptied, Norwegian Prima since filled with 13, 47 remain (find them: video files in assets/data/videos and ships/*/assets whose videos list is empty). Method: search YouTube per ship, check each id with YouTube oEmbed, keep only titles that name the ship (same rule as admin/scripts/verify-ship-videos.mjs), record every lookup in admin/data/video-verification/, never invent titles or categories. Supersedes the pre-cleanup task 10-unfinished-add-video-data-for-ships-without-videos. |
 
+<!-- library register 2026-09-26T13:40:35.641Z -->
+| article-what-a-shore-excursion-actually-buys-you-line-booked-vs- | 2 | Article: what a shore excursion actually buys you (line-booked vs independent), the explainer 14 published articles assume and none provides |
+
+<!-- library register 2026-09-26T13:40:43.908Z -->
+| article-what-the-cruise-passenger-contract-actually-says-the-doc | 2 | Article: what the cruise passenger contract actually says, the document 8 published articles lean on and none explains |
+
+<!-- library register 2026-09-26T14:12:25.224Z -->
+| correction-to-the-2026-09-26-em-dash-pass-it-fixed-article-body- | 2 | CORRECTION to the 2026-09-26 em dash pass: it fixed article BODY prose only. 169 reader-visible prose em dashes remain in 16 files, and 726 more sit in title, meta description, ai-summary and JSON-LD FAQ text, which is exactly where machines read. The earlier 'down to 12' report came from a faulty regex that stopped at the first closing div and so measured almost nothing. |
 <!-- library register 2026-09-26T15:14:04.198Z -->
 | itw-validator-video-rule-vs-verified | 3 | Ship validator video rule fights the 2026-09-26 honest-video cleanup: validate-ship-page.js counts only category keys (8 required, min 10), but verify-ship-videos.mjs (732ccf80) rewrites every file as one flat 'verified' list and strips the invented categories, so every ship page reads 0 videos and the pre-commit regression gate blocks any edit. Decide: count verified videos, make categories a warning, or have the checker file videos by category derived from YouTube's own title. Prima blocked on this (FAQ + crew fix + nav links uncommitted). |
