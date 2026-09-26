@@ -8,7 +8,8 @@
 //
 // This keeps a video only when YouTube's OWN title (oEmbed, recorded in
 // admin/data/video-verification/) names the ship, replaces every title with YouTube's, names the
-// channel, and drops the made-up descriptions and categories. Removed, private and non-embeddable
+// channel, and drops the made-up descriptions and categories. A category comes back only when
+// YouTube's own title names one (categoryOf, below), so the ship validator has real structure to read. Removed, private and non-embeddable
 // videos go too. Nothing here is guessed: no match, no entry.
 //
 // Match rule, per video:
@@ -65,6 +66,26 @@ export function lineOf(file) {
   if (p[0] === 'ships') return p[1];
   return '';
 }
+// A category is read from YouTube's OWN title, never guessed: a title that names none of these gets
+// no category. The names are the ship validator's required categories (validate-ship-page.js).
+// Order matters, first match wins: "Accessible Inside Cabin" is accessible before it is interior,
+// "Balcony Stateroom Walkthrough" is balcony before it is a ship walk-through, and
+// "Full Ship Tour" is a walk-through even when it mentions the restaurants.
+export const CATEGORY_RULES = [
+  ['accessible', /\b(accessible|accessibility|wheelchair|handicap(ped)?)\b/],
+  ['top ten', /\btop\s*(10|ten)\b|^\s*(10|ten)\s+(things|amazing|best|must|reasons|tips|features)\b/],
+  ['suite', /\b(haven|suites?)\b/],
+  ['balcony', /\bbalcon(y|ies)\b/],
+  ['oceanview', /\bocean\s*view\b/],
+  ['interior', /\b(inside|interior)\s+(cabin|stateroom|room)s?\b|\b(inside|interior)\b.*\bcategory\s+i/],
+  ['ship walk through', /\b(ship tour|walk\s*-?\s*through|full tour|full ship)\b/],
+  ['food', /\b(food|dining|restaurants?|buffet|menu|everything we ate)\b/],
+];
+export function categoryOf(title) {
+  const t = String(title || '').toLowerCase();
+  for (const [cat, re] of CATEGORY_RULES) if (re.test(t)) return cat;
+  return null;
+}
 const itemsOf = (v) => (Array.isArray(v) ? v : Object.values(v || {}).flat()).filter((i) => i && typeof i === 'object' && i.videoId);
 
 export function clean(file, d, lookups) {
@@ -76,7 +97,10 @@ export function clean(file, d, lookups) {
     const r = lookups[i.videoId];
     if (!r || r.status !== 'ok') { dropped.dead++; continue; }
     if (!matches(line, ship, r.title)) { dropped.nomatch++; continue; }
-    kept.push({ videoId: i.videoId, provider: 'youtube', title: r.title, channel: r.author, verified: CHECKED });
+    const entry = { videoId: i.videoId, provider: 'youtube', title: r.title, channel: r.author, verified: CHECKED };
+    const cat = categoryOf(r.title);
+    if (cat) entry.category = cat;
+    kept.push(entry);
   }
   const out = { ...d };
   // Side indexes built from the unverified list (only adventure-of-the-seas has them; no page reads them).
