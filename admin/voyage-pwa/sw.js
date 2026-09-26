@@ -12,7 +12,7 @@
    entry (anthem-alaska.html, prima-caribbean.html, …) shares this one worker + shell
    cache; each installs as its own home-screen app via its own manifest. */
 
-const CACHE = "voyage-v5";
+const CACHE = "voyage-v6";
 const OWN_SCOPE = "/admin/voyage-pwa/";   // the only same-origin prefix this worker will cache
 // The one asset outside our scope we deliberately cache: the anonymous usage-count module. It must be
 // available offline so a sitting at sea is counted when signal returns (it queues in localStorage).
