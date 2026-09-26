@@ -225,7 +225,7 @@ function isTruncatedPage($, html) {
 /**
  * Run basic validation (for all page types)
  */
-async function runBasicValidation($, html, filepath) {
+async function runBasicValidation($, html, filepath, pageType = null) {
   const errors = [];
   const warnings = [];
 
@@ -278,6 +278,19 @@ async function runBasicValidation($, html, filepath) {
   }
   if (!hasUmami) {
     errors.push({ rule: 'umami', message: 'Missing Umami Analytics script' });
+  }
+
+  // Reader-support CTA — REQUIRED on every article (operator directive 2026-09-03).
+  // The site takes no money from cruise lines or travel agents; reader support is the
+  // funding model, so an article that ships without the ask is a publishing defect.
+  // Articles only: hub/index/tool pages are exempt by design.
+  if (pageType === 'article' && !isRedirect && !isTruncated) {
+    if (!html.includes('buymeacoffee.com/inthewake')) {
+      errors.push({
+        rule: 'support_cta',
+        message: 'Missing reader-support CTA (buymeacoffee.com/inthewake) — required on every article'
+      });
+    }
   }
 
   // Check for proper HTML5 structure (skip for redirect pages)
@@ -342,7 +355,7 @@ async function validatePage(filepath, options = {}) {
     result.detectionMethod = detection.method;
 
     // Run basic validation
-    const basicResult = await runBasicValidation($, html, filepath);
+    const basicResult = await runBasicValidation($, html, filepath, detection.type);
     result.basicValidation = basicResult;
 
     // Run mobile readiness validation (applies to all page types)

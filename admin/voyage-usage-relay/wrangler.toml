@@ -1,0 +1,15 @@
+# Cloudflare Worker: geo-blind relay for voyage-pack usage events. Soli Deo Gloria.
+# Deploy from a machine holding the Cloudflare credentials:  npx wrangler deploy
+# Bind a hostname in the Cloudflare dashboard (e.g. usage.cruisinginthewake.com) or via `routes`.
+name = "itw-voyage-usage-relay"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+# No request-body logging, ever. The relay exists to make sure the client address never leaves it.
+logpush = false
+
+# Optional daily sitting-link dial (plan §2.1). Default OFF. To turn on:
+#   npx wrangler secret put RELAY_SECRET
+# The secret is never in this file and never in git.
+
+# routes = [{ pattern = "usage.cruisinginthewake.com", custom_domain = true }]
