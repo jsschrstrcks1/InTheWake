@@ -98,6 +98,22 @@ A small **Settings** screen for the Journal:
 - **Cloud backup: coming soon.** Shown as a disabled item with one plain line, so nobody thinks
   their journal is already backed up. No sign-up, no collection of anything, until it is real.
 
+## Upcoming features page
+
+A short **Coming soon** screen in the companion (operator decision 2026-09-26), so travelers can
+see what is on the way without anything pretending to be ready:
+
+- **Photos in your journal.** The next build after text.
+- **Cloud backup, per trip.** See the section below.
+- **Your favorite photos, printed and delivered.** Pick the ones you love and have them printed
+  and sent to your home. (Idea stage: the printing partner, prices, and what leaves the phone
+  to make a print all need deciding first. Sending a photo to a printer is the one place the
+  "never sent anywhere" promise would bend, so it has to be opt-in, per order, and say so
+  plainly.)
+
+Rules for the page: no dates we cannot keep, no sign-up forms, no email collection. Each item is
+one or two plain sentences and the word "Coming soon".
+
 ---
 
 ## Later: paid cloud backup (idea, not a commitment)
