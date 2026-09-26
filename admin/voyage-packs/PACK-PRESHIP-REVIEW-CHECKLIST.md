@@ -145,6 +145,12 @@ opens at sea with no signal, and a PDF on the landing page does not keep it.
       days before sailing; onboard passes limited and not guaranteed).
 - [ ] **Text size is adjustable** with a small, standard and large A; every font size scales and the
       page still fits a phone at the largest size.
+- [ ] **Every line a traveler reads gets one proofreading pass**: the companion's itinerary strings
+      (position, dock, plan, points of interest, history) and the pack's port sections, read as
+      sentences, not checked as facts. Added 2026-09-26 after the operator found "if it's your first
+      Jamaica", "the trip that converts non-snorkelers" (converts them into what?), "among the best
+      reef" and "(settled second sea day)" in a pack that had passed every factual check. A fact pass
+      does not catch a broken sentence.
 - [ ] **The footer carries the tip link, and nothing that tracks.** One line under the disclaimer:
       "If this companion helped your trip, you can leave Ken a tip" to `buymeacoffee.com/inthewake`,
       `rel="noopener"`, no `data-umami` attribute (the companion promises no tracking). The
