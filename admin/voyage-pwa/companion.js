@@ -118,10 +118,43 @@ try{var _pi=document.getElementById("pack-index");if(_pi)PACK_INDEX=JSON.parse(_
 var PACK_VIDEOS=[];try{var _pv=document.getElementById("pack-videos");if(_pv)PACK_VIDEOS=JSON.parse(_pv.textContent)||[];}catch(e){PACK_VIDEOS=[];}
 function fullPackLink(){if(!V.guide)return null;var p=document.createElement("p");p.className="pk-full";var a=document.createElement("a");a.className="ov-link";a.href=String(V.guide.url);a.textContent="Read the whole pack: packing, budget, emergency and the rest →";p.appendChild(a);return p;}
 function renderPackTab(which){var el=document.getElementById("pane-"+which),tpl=which==="ship"?TPL_SHIP:TPL_PORTS;if(!el||!tpl||el.getAttribute("data-filled"))return;
-  if(which==="ship"){var ph=shipPhoto();if(ph)el.appendChild(ph);}
+  if(which==="ship"){var ph=shipPhoto();if(ph)el.appendChild(ph);var wn=whereNow();if(wn)el.appendChild(wn);}
   el.appendChild(document.importNode(tpl.content,true));
   if(which==="ship"&&PACK_VIDEOS.length)el.appendChild(videoSection());
   var f=fullPackLink();if(f)el.appendChild(f);el.setAttribute("data-filled","1");}
+// Where the ship is. Two answers, kept apart so neither passes for the other: what the
+// published schedule says for today (in the page, so it works with no signal), and the
+// live AIS position from VesselFinder, the same map the ship pages use. The map loads
+// nothing until the reader taps, because at sea that is their data and a third party.
+function schedNow(){if(!ITIN.length)return null;var t=todayISO(),a=ITIN[0],z=ITIN[ITIN.length-1],i,p,n,ship=V.ship||"The ship";
+  if(t<a.date)return {k:"Before the cruise",v:ship+" has not sailed yet. On "+voyDate(a.date)+" she leaves "+a.loc+". Until then the live map shows her on another voyage."};
+  if(t>z.date)return {k:"After the cruise",v:"This voyage ended "+voyDate(z.date)+" at "+z.loc+". The live map shows her wherever she is now."};
+  for(i=0;i<ITIN.length;i++){if(ITIN[i].date===t)return {k:"By the schedule · "+voyDate(t),v:"Day "+ITIN[i].d+". "+(ITIN[i].pos||ITIN[i].loc),at:ITIN[i]};}
+  for(i=1;i<ITIN.length;i++){if(ITIN[i].date>t){p=ITIN[i-1];n=ITIN[i];return {k:"By the schedule · "+voyDate(t),v:"Between stops: last "+p.loc+" ("+voyDate(p.date)+"), next "+n.loc+" ("+voyDate(n.date)+").",at:p};}}
+  return null;}
+function whereNow(){var s=schedNow();if(!s&&!V.imo)return null;var ship=V.ship||"the ship";
+  var sec=document.createElement("section");sec.className="pk-whereis";sec.setAttribute("aria-labelledby","pk-where-h");
+  var h=document.createElement("h2");h.id="pk-where-h";h.textContent="Where is "+ship+" right now?";sec.appendChild(h);
+  if(s){var box=document.createElement("div");box.className="pk-sched";
+    var k=document.createElement("p");k.className="pk-sched-k";k.textContent=s.k;box.appendChild(k);
+    var v=document.createElement("p");v.className="pk-sched-v";v.textContent=s.v;box.appendChild(v);
+    var q=document.createElement("p");q.className="pk-vnote";q.textContent="This is the published schedule, not a live fix, and it works with no signal. Weather and the captain can change the plan."+(V.datesApprox?" Dates here are estimated; your cruise documents are authoritative.":"");box.appendChild(q);
+    sec.appendChild(box);}
+  if(V.imo||V.trackUrl){var h3=document.createElement("h3");h3.className="pk-vtitle pk-live-h";h3.textContent="Live position";sec.appendChild(h3);
+    var note=document.createElement("p");note.className="pk-vnote";note.setAttribute("aria-live","polite");
+    note.textContent="The ship's own AIS transponder, plotted by VesselFinder. It needs a signal, and nothing loads until you tap. Out at sea the dot can be hours old.";sec.appendChild(note);
+    var row=document.createElement("p");row.className="pk-vrow";
+    if(V.imo){var b=document.createElement("button");b.type="button";b.className="mapbtn pk-play";b.textContent="◢ Show live map";b.setAttribute("aria-label","Show the live map of "+ship);
+      b.addEventListener("click",function(){if(navigator.onLine===false){note.textContent="No signal right now, so the live map can't load. The schedule above still works.";return;}
+        var c=s&&s.at?s.at:(ITIN[0]||{}),m=document.createElement("div");m.className="pk-map";var f=document.createElement("iframe");
+        f.src="https://www.vesselfinder.com/aismap?imo="+encodeURIComponent(V.imo)+(c.lat!=null?"&lat="+c.lat+"&lon="+c.lon:"")+"&zoom=5&track=true&names=true";
+        f.title="Live position of "+ship+" on VesselFinder";f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
+        m.appendChild(f);row.parentNode.insertBefore(m,row);row.removeChild(b);});
+      row.appendChild(b);}
+    if(V.trackUrl){var a=document.createElement("a");a.className="ov-link";a.href=V.trackUrl;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Open in MarineTraffic ↗";
+      var sr=document.createElement("span");sr.className="sr-only";sr.textContent=" (opens in a new window)";a.appendChild(sr);row.appendChild(a);}
+    sec.appendChild(row);}
+  return sec;}
 // One chosen photograph of the ship, credited as its licence requires.
 function shipPhoto(){var P=V.shipPhoto;if(!P||!P.src)return null;var fig=document.createElement("figure");fig.className="ship-photo";
   var img=document.createElement("img");img.src=P.src;img.alt=P.alt||"";img.decoding="async";if(P.w)img.width=P.w;if(P.h)img.height=P.h;fig.appendChild(img);
