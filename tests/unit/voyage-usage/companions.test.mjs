@@ -49,7 +49,9 @@ test('patchCompanion is idempotent and refuses a page that already names a diffe
 
 test('the service worker precaches the usage module and keeps its scope discipline', async () => {
   const sw = await readFile(new URL('admin/voyage-pwa/sw.js', ROOT), 'utf8');
-  assert.ok(sw.includes('const CACHE = "voyage-v5"'), 'cache name bumped');
+  // v5 added the usage module to the precache; any later bump (v6: map + Weather tabs) must keep it.
+  const cacheVer = Number((sw.match(/const CACHE = "voyage-v(\d+)"/) || [])[1]);
+  assert.ok(cacheVer >= 5, 'cache name bumped to v5 or later');
   assert.ok(sw.includes('"/assets/js/voyage-usage.js"') || sw.includes('USAGE_MODULE = "/assets/js/voyage-usage.js"'));
   assert.ok(sw.includes('url.pathname === USAGE_MODULE'), 'cacheable() allows exactly that path');
   assert.ok(!sw.includes('usage.cruisinginthewake.com'), 'the relay is never cached');
