@@ -112,7 +112,7 @@ opens at sea with no signal, and a PDF on the landing page does not keep it.
       companion, let the service worker install, go offline, reload, and read the Ship tab, a port
       day, a search result and the full-pack guide. Checked by reading, not by trusting the build log.
 - [ ] **A change to `companion.js` or `companion.css` bumps the cache.** Every companion's `?v=` and
-      `sw.js`'s `CACHE` name and precache URLs move together (v10 → v11 on 2026-09-26). Without it,
+      `sw.js`'s `CACHE` name and precache URLs move together (bumped through v19 across the 2026-09-26 passes). Without it,
       an installed phone keeps the old code forever.
 - [ ] **"Where is the ship right now?" is anchored to the right ship.** Each companion's `imo:` field
       is checked against a source outside our files (the ship's Wikipedia infobox), and its tracking
@@ -155,8 +155,33 @@ opens at sea with no signal, and a PDF on the landing page does not keep it.
       "If this companion helped your trip, you can leave Ken a tip" to `buymeacoffee.com/inthewake`,
       `rel="noopener"`, no `data-umami` attribute (the companion promises no tracking). The
       disclaimer wording is never edited.
+- [ ] **The FAQ tab carries the voyage's own sourced answers** (`V.faq`), each with a `source` line,
+      links site-relative or https only, questions collapsed with the first open. It sits **next to
+      last in the nav, right before Alerts** (operator 2026-09-26: it is a reference tab, not a primary
+      one). Answers hold the content standard: no profanity, politics or glamorized overconsumption;
+      port-safety and money answers say what the line or the government actually says, gently. Prima
+      ships 18, including the shows (with the honest note that NCL prints no per-sailing showtimes), the
+      solo hub, the cash-account freeze, and 2026 port safety (the Nassau welcome-bracelet, named plainly).
+- [ ] **The Journal is private, on the phone, and honest about the cost.** It says it lives only on this
+      phone and is gone if the app is deleted or the phone lost; it names the iPhone home-screen storage
+      split; it offers a keepsake HTML export (every value through `jEsc`) and a JSON data copy, and sends
+      nothing anywhere (no `fetch`/`sendBeacon` in the journal code). The one untrusted input, a loaded
+      data copy, is sanitized on the way in: `jClean` strips control/zero-width/bidi characters, a file
+      over 5 MB is refused before parsing, the entry count is capped (2000) and the names list bounded (50).
+- [ ] **A link that leaves the page opens in a new window**, cruisinginthewake.com included, with a
+      screen-reader "(opens in a new window)" note; in-page `#` jumps stay in the app. If the installed
+      app was dropped from memory while the reader was out on a link, a "Back to where you were" bar
+      restores their tab and scroll spot on return.
+- [ ] **The Ship tab reads in the companion's own visual language**, not a big sans-serif article: photo,
+      an "On this page" quick-links box, the "Before the cruise" schedule card, then "Where is the ship
+      right now?" (its live map matching the ship pages' IMO-only address, no scheduled lat/lon, which is
+      what produced "Bad request"), then the pack sections, videos and the full-pack link.
+- [ ] **The Overview carries an About-the-builder card** with Ken's photo (precached in the app), a short
+      bio, and links to his In the Wake author page and ken-baker.com (both open in a new window).
 - [ ] **Owner:** `build-voyage-guides.mjs --check`; `tests/unit/voyage-usage/guides.test.mjs`,
-      `where-now.test.mjs` (pins every checked IMO), `companions.test.mjs`.
+      `where-now.test.mjs` (pins every checked IMO), `companions.test.mjs`; the companion feature tests
+      `voyage-alerts.test.mjs`, `voyage-journal.test.mjs` (privacy words + import sanitizer) and
+      `outside-text-dom.test.mjs` (no HTML-string building, in the companion and on the ship pages).
 
 ## H. Linked tools — a link must open on this ship's line, with data that agrees with the pack
 
@@ -315,11 +340,28 @@ describes a feature and says to build it, it is built, not filed.
 2. Each unchecked box is a finding; log findings into the relevant sidecar block (factual → `.factcheck.json` factual categories; voice → `voice_audit`; new classes D/E → a `preship_review` block).
 3. The grep-able items (repeated dollar figures, crutch-word count, internal-vocabulary list) should migrate into `factcheck-gate.sh` over time so they become mechanical. The judgment items (physics claims, geography, imagined-experience) stay human-or-Claude-read. Already mechanical, run them every pass: `build-voyage-guides.mjs --check` (G), `check-pack-pdf-links.mjs` (I), `verify-ship-videos.mjs --check` (J), `tests/unit/outside-text-dom.test.mjs` (K), `node admin/validate-ship-page.js <ship page>` (J, L, M), `check-voyage-registry.mjs`, and `node --test "tests/unit/**/*.test.mjs"`.
 4. **Do not ship a pack until this checklist has been run once with file access and the findings dispositioned.**
-5. **Never bypass a gate to ship.** When the ship-page regression gate blocks a commit, find why: on 2026-09-26 it blocked Prima because the validator counted a structure the honest-video cleanup had removed, and the fix was to give the checker real structure, not to refresh the baseline or use `--no-verify`.
+5. **Never bypass a gate to ship.** When the ship-page regression gate blocks a commit, find why before touching it. Two honest outcomes, and the difference is everything:
+   - If your change genuinely introduced a new failure, fix the change (or give the checker the real structure it looks for) — never `--no-verify`, never edit the baseline to hide it.
+   - If the gate is blaming your change for a failure it did not cause, prove it: run the validator on the file with your change and on the clean base version, in place, and compare the codes. On 2026-09-26 the honest-video cleanup produced byte-identical validator output to clean `main` on every one of 256 pages; the three "regressions" were pre-existing drift the 2026-05-12 baseline never recorded (it was four months stale). There the correct fix WAS to refresh the baseline — regenerated from a **clean** tree with `admin/aggregate-ship-validation.js` so it records deployed-main truth, never from your own patched tree, then the gate re-run confirmed 0 regressions. Refreshing a stale baseline from clean is maintenance; refreshing it to paper over a regression your change caused is the bypass this rule forbids.
 
 ### Planned for the companion, not yet required
 
-The ship-tab FAQ for booked guests and the private Journal (`admin/claude/plans/voyage-journal.md`). When each ships, it gets a class here. (Alerts was on this list and should not have been: see class N.)
+The FAQ and the private Journal shipped 2026-09-26 and are now class-G items above. The next queued
+companion work is the nav-ergonomics evaluation of the same date (below).
+
+**Nav ergonomics (operator asked for a hard read, 2026-09-26).** Measured on a 390-wide phone:
+- The chrome above content is **283px, about 34% of a 390×844 iPhone** on every tab (brand + subtitle,
+  a control row of text-size/location/unit, the search box, then the nav). A third of the first screen
+  is spent before any content. Candidate: collapse the control row, or fold search behind a tap.
+- The nav is **9 tabs wrapping to three rows** (4 + 4 + 1), with Alerts stranded alone on the last row.
+  Nine exceeds the 7±2 span and the wrap means a tab's row position is not stable across voyages (FAQ and
+  Emergency are conditional). Candidate: a single-row horizontally-scrollable nav keeps spatial memory and
+  reclaims ~80px; or group Weather+Alerts.
+- Weather hides a **second tier of four sub-tabs** (Now / 10-Day / Radar / Averages) shown only when it
+  is active; discoverability is low.
+- The Overview front-loads **eight stacked cards**; a first-time reader scrolls the whole deck before
+  reaching a tab. Mostly well-chunked, but the how-to card could be a collapsed `details`.
+These are findings, not yet changes — the operator asked for the evaluation, not the build.
 
 ---
 

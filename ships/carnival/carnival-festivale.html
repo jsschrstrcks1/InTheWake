@@ -602,11 +602,16 @@ if ('serviceWorker' in navigator) {
       }
       function renderVideos(arr){
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
-        mount.innerHTML=arr.slice(0,12).map(v=>{
-          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'Carnival Festivale').replace(/</g,'&lt;');
-          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
-        }).join('');
+        // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+        mount.textContent='';
+        arr.slice(0,24).forEach(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return;
+          const slide=document.createElement('div'); slide.className='swiper-slide';
+          const frame=document.createElement('iframe');
+          frame.src=url; frame.title=String(v.title||'Carnival Festivale'); frame.allow='encrypted-media';
+          frame.allowFullscreen=true; frame.loading='lazy';
+          slide.appendChild(frame); mount.appendChild(slide);
+        });
         if(mount.children.length&&window.Swiper){
           setTimeout(()=>{
             try{
@@ -914,7 +919,7 @@ function initVideos(){
       let vids=[];
       if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
       else if(Array.isArray(d.videos)) vids=d.videos;
-      if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+      if(vids.length) w.textContent='';vids.filter(v=>v&&/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''))).slice(0,24).forEach(v=>{const s=document.createElement('div');s.className='swiper-slide';const a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+v.videoId;a.target='_blank';a.rel='noopener';a.className='video-thumb';const im=document.createElement('img');im.src='https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg';im.alt=String(v.title||'Video');im.loading='lazy';a.appendChild(im);s.appendChild(a);w.appendChild(s);});
       new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
     }).catch(()=>{});
 }

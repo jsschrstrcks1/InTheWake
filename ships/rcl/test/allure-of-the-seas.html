@@ -877,11 +877,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     }
     function renderVideos(arr){
       if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
-      mount.innerHTML=arr.map(v=>{
-        const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-        const title=String(v.title||'Allure of the Seas').replace(/</g,'&lt;');
-        return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
-      }).join('');
+      // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+      mount.textContent='';
+      arr.slice(0,24).forEach(v=>{
+        const url=getVideoURL(v.videoId,v.provider); if(!url) return;
+        const slide=document.createElement('div'); slide.className='swiper-slide';
+        const frame=document.createElement('iframe');
+        frame.src=url; frame.title=String(v.title||'Allure of the Seas'); frame.allow='encrypted-media';
+        frame.allowFullscreen=true; frame.loading='lazy';
+        slide.appendChild(frame); mount.appendChild(slide);
+      });
       if(mount.children.length&&window.__swiperReady&&window.Swiper){
         setTimeout(()=>{
           try{

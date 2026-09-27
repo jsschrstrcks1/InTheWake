@@ -876,10 +876,17 @@ Dining Venues on Carnival Celebration</h2>
     function abs(p){return (window._abs?_abs(p):p);}
     function renderVideos(arr){
       if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
-      mount.innerHTML=arr.map(v=>{
-        const url='https://www.youtube-nocookie.com/embed/'+v.videoId+'?rel=0&modestbranding=1';
-        return '<div class="swiper-slide"><iframe src="'+url+'" title="'+String(v.title||'').replace(/</g,'&lt;')+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
-      }).join('');
+      // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+      mount.textContent='';
+      arr.slice(0,24).forEach(v=>{
+        if(!/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''))) return;
+        const slide=document.createElement('div'); slide.className='swiper-slide';
+        const frame=document.createElement('iframe');
+        frame.src='https://www.youtube-nocookie.com/embed/'+v.videoId+'?rel=0&modestbranding=1';
+        frame.title=String(v.title||'Carnival Celebration'); frame.allow='encrypted-media';
+        frame.allowFullscreen=true; frame.loading='lazy';
+        slide.appendChild(frame); mount.appendChild(slide);
+      });
       if(window.__swiperReady&&window.Swiper){
         setTimeout(()=>{ try{ new Swiper('.swiper.videos',{loop:false,rewind:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}}); }catch(_){} },150);
       }

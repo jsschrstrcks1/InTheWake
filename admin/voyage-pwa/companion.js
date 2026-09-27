@@ -31,10 +31,10 @@ function buildShell(){
    +'<button class="wtab" data-t="voyage" role="tab" aria-selected="false" type="button">Voyage</button>'
    +(TPL_SHIP?'<button class="wtab" data-t="ship" role="tab" aria-selected="false" type="button">Ship</button>':'')
    +(TPL_PORTS?'<button class="wtab" data-t="ports" role="tab" aria-selected="false" type="button">Ports</button>':'')
-   +(V.faq&&V.faq.length?'<button class="wtab" data-t="faq" role="tab" aria-selected="false" type="button">FAQ</button>':'')
    +'<button class="wtab" data-t="weather" role="tab" aria-selected="false" type="button">Weather</button>'
    +(V.emergency?'<button class="wtab" data-t="emg" role="tab" aria-selected="false" type="button">Emergency</button>':'')
    +'<button class="wtab" data-t="journal" role="tab" aria-selected="false" type="button">Journal</button>'
+   +(V.faq&&V.faq.length?'<button class="wtab" data-t="faq" role="tab" aria-selected="false" type="button">FAQ</button>':'')
    +'<button class="wtab wtab-al" data-t="alerts" role="tab" aria-selected="false" type="button"><span class="al-mark" aria-hidden="true"></span>Alerts<span class="sr-only al-sr"></span></button>'
    +'</nav>'
    +'<nav class="wtabs wsubtabs" id="wsubtabs" role="tablist" aria-label="Weather views" hidden>'
@@ -86,7 +86,7 @@ function fetchVoyWx(s){var u="https://api.open-meteo.com/v1/forecast?latitude="+
 function renderOverview(){var el=document.getElementById("pane-overview");if(!el)return;var h='';
   h+='<p class="ov-lead">This is your offline travel companion for the sailing: the day-by-day itinerary, destination weather averages, and live forecasts as you get close, all in one place. <strong>Save it to your phone and it keeps working at sea and in port, even with no internet.</strong></p>';
   h+='<div class="ov-card ov-save"><b>📲 Save this app to your phone</b>'
-    +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow at the bottom), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
+    +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow: at the bottom of the screen on an iPhone, at the top on an iPad), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
     +'<p class="ov-step"><strong>Android (Chrome):</strong> tap the <strong>⋮</strong> menu (top-right), then <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</p>'
     +'<p class="ov-step">It opens full-screen like a real app and works offline once loaded, which is handy where the ship or port has no internet.</p></div>';
   if(V.shipPhoto&&V.shipPhoto.src)h+='<img class="ov-flyer ov-ship" src="'+attr(V.shipPhoto.src)+'" alt="'+attr(V.shipPhoto.alt||"")+'" decoding="async"'+(V.shipPhoto.w?' width="'+attr(V.shipPhoto.w)+'" height="'+attr(V.shipPhoto.h)+'"':'')+'><p class="ov-credit">Photo: '+esc(V.shipPhoto.credit||"")+', <a href="'+attr(V.shipPhoto.licenseUrl||"#")+'" target="_blank" rel="noopener noreferrer">'+esc(V.shipPhoto.license||"")+'</a>.</p>';
@@ -147,6 +147,19 @@ var TPL_SHIP=document.getElementById("tpl-ship"),TPL_PORTS=document.getElementBy
 try{var _pi=document.getElementById("pack-index");if(_pi)PACK_INDEX=JSON.parse(_pi.textContent);}catch(e){PACK_INDEX=null;}
 var PACK_VIDEOS=[];try{var _pv=document.getElementById("pack-videos");if(_pv)PACK_VIDEOS=JSON.parse(_pv.textContent)||[];}catch(e){PACK_VIDEOS=[];}
 function fullPackLink(){if(!V.guide)return null;var p=document.createElement("p");p.className="pk-full";var a=document.createElement("a");a.className="ov-link";a.href=String(V.guide.url);a.textContent="Read the whole pack: packing, budget, emergency and the rest →";p.appendChild(a);return p;}
+// A credited photo for a port day, sourced from the port's own page on the site so its attribution is
+// the same one the port page carries. Like the videos and the live map, it needs the internet; the port
+// text works offline and the alt text stands in when the photo cannot load.
+function portFigure(P){if(!P||!P.src)return null;var fig=document.createElement("figure");fig.className="ship-photo port-photo";
+  var img=document.createElement("img");img.src=P.src;img.alt=P.alt||"";img.loading="lazy";img.decoding="async";if(P.w)img.width=P.w;if(P.h)img.height=P.h;fig.appendChild(img);
+  var cap=document.createElement("figcaption");cap.appendChild(document.createTextNode(P.caption?P.caption+" ":""));
+  if(P.flickers){cap.appendChild(document.createTextNode("Photo © "));var fl=document.createElement("a");fl.href="https://www.flickersofmajesty.com";fl.target="_blank";fl.rel="noopener noreferrer";fl.textContent="Flickers of Majesty";var s1=document.createElement("span");s1.className="sr-only";s1.textContent=" (opens in a new window)";fl.appendChild(s1);cap.appendChild(fl);}
+  else{cap.appendChild(document.createTextNode("Photo: "+(P.credit||"")+(P.license?" ("+P.license+")":"")+(P.source?" via ":"")));if(P.source){var sc=document.createElement("a");sc.href=P.source;sc.target="_blank";sc.rel="noopener noreferrer";sc.textContent="Wikimedia Commons";var s2=document.createElement("span");s2.className="sr-only";s2.textContent=" (opens in a new window)";sc.appendChild(s2);cap.appendChild(sc);}}
+  fig.appendChild(cap);return fig;}
+// Drop each port's photo in right under that port day's heading. The key is a slug the day's id contains
+// (pk-day-cozumel matches "cozumel"); a day nothing matches, like the sea days and embarkation, gets none.
+function insertPortPhotos(body){var P=V.portPhotos;if(!P)return;var keys=Object.keys(P);
+  Array.prototype.forEach.call(body.querySelectorAll("h3[id]"),function(h){for(var i=0;i<keys.length;i++){if(h.id.indexOf(keys[i])>=0){var fig=portFigure(P[keys[i]]);if(fig&&h.parentNode)h.parentNode.insertBefore(fig,h.nextSibling);break;}}});}
 function renderPackTab(which){var el=document.getElementById("pane-"+which),tpl=which==="ship"?TPL_SHIP:TPL_PORTS;if(!el||!tpl||el.getAttribute("data-filled"))return;
   var body=document.importNode(tpl.content,true),f=fullPackLink();
   if(which==="ship"){var ph=shipPhoto();if(ph)el.appendChild(ph);
@@ -156,6 +169,10 @@ function renderPackTab(which){var el=document.getElementById("pane-"+which),tpl=
     Array.prototype.forEach.call(body.querySelectorAll("h3[id]"),function(h){ql.push([h.id,h.textContent]);});
     if(PACK_VIDEOS.length)ql.push(["pk-videos-h","Videos"]);if(f){f.id="pk-full";ql.push(["pk-full","The whole pack"]);}
     if(ql.length>1)el.appendChild(quickLinks(ql));if(sc)el.appendChild(sc);if(wn)el.appendChild(wn);}
+  else if(which==="ports"){insertPortPhotos(body);
+    var qlp=[];Array.prototype.forEach.call(body.querySelectorAll("h3[id]"),function(h){qlp.push([h.id,h.textContent]);});
+    if(f){f.id="pk-full";qlp.push(["pk-full","The whole pack"]);}
+    if(qlp.length>1)el.appendChild(quickLinks(qlp));}
   el.appendChild(body);
   if(which==="ship"&&PACK_VIDEOS.length)el.appendChild(videoSection());
   if(f)el.appendChild(f);el.setAttribute("data-filled","1");}
@@ -215,21 +232,46 @@ function shipPhoto(){var P=V.shipPhoto;if(!P||!P.src)return null;var fig=documen
   cap.appendChild(document.createTextNode("."));fig.appendChild(cap);return fig;}
 // Checked YouTube videos of this ship. Nothing loads from YouTube until the reader taps Play;
 // then the player comes from youtube-nocookie.com inside this page.
+// Which bucket a video's title puts it in, for the collapsible sections on the Ship tab. Presentation
+// only; the ship-page validator keeps its own categoryOf. First match wins, so a whole-ship tour is
+// caught before a stray "suite" in its title would pull it into cabins.
+// access is tested before cabin on purpose: an accessible cabin tour belongs in Accessibility, where
+// the person who needs it will look, not buried among the ordinary cabin tours.
+var VCATS=[
+  ["ship",/\b(ship tour|walk\s*-?\s*through|full tour|full ship|complete tour|ship walkthrough|full review)\b/],
+  ["access",/\b(accessible|accessibility|wheelchair|handicap(ped)?)\b/],
+  ["cabin",/\b(haven|suites?|balcon(y|ies)|ocean\s*view|inside cabin|interior|stateroom|studio|cabin)\b/],
+  ["food",/\b(food|dining|restaurants?|buffet|menu|specialty|everything we ate)\b/],
+  ["tips",/\btop\s*(10|ten)\b|\b\d+\s+things\b|\bthings (you must|to know|to do)\b|\bmust[-\s]?do\b|\b(tips|mistakes|secrets|hacks|need to know)\b/]
+];
+function videoCat(t){t=String(t||"").toLowerCase();for(var i=0;i<VCATS.length;i++)if(VCATS[i][1].test(t))return VCATS[i][0];return "more";}
+function videoCard(v){var card=document.createElement("div");card.className="pk-vid";
+  var t=document.createElement("h3");t.className="pk-vtitle";t.textContent=v.t;card.appendChild(t);
+  if(v.c){var c=document.createElement("p");c.className="pk-vch";c.textContent=v.c;card.appendChild(c);}
+  var row=document.createElement("p");row.className="pk-vrow";
+  var b=document.createElement("button");b.type="button";b.className="mapbtn pk-play";b.textContent="▶ Play here";b.setAttribute("aria-label","Play "+v.t);
+  b.addEventListener("click",function(){var box=document.createElement("div");box.className="pk-frame";var f=document.createElement("iframe");
+    f.src="https://www.youtube-nocookie.com/embed/"+encodeURIComponent(v.id)+"?autoplay=1&rel=0&playsinline=1";f.title=v.t;
+    f.setAttribute("allow","autoplay; encrypted-media; picture-in-picture; fullscreen");f.setAttribute("allowfullscreen","");f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
+    box.appendChild(f);row.parentNode.replaceChild(box,row);});
+  var a=document.createElement("a");a.className="ov-link pk-yt";a.href="https://www.youtube.com/watch?v="+encodeURIComponent(v.id);a.target="_blank";a.rel="noopener noreferrer";a.textContent="Open on YouTube ↗";
+  var sr=document.createElement("span");sr.className="sr-only";sr.textContent=" (opens in a new window)";a.appendChild(sr);
+  row.appendChild(b);row.appendChild(a);card.appendChild(row);return card;}
 function videoSection(){var sec=document.createElement("section");sec.className="pk-videos";sec.setAttribute("aria-labelledby","pk-videos-h");
   var h=document.createElement("h2");h.id="pk-videos-h";h.textContent="Videos of "+(V.ship||"the ship");sec.appendChild(h);
-  var n=document.createElement("p");n.className="pk-vnote";n.textContent="Picked from YouTube and checked against YouTube's own titles. They need the internet (cell data or Wi-Fi). Nothing loads from YouTube until you tap Play, and YouTube's terms apply once it plays.";sec.appendChild(n);
-  PACK_VIDEOS.forEach(function(v){var card=document.createElement("div");card.className="pk-vid";
-    var t=document.createElement("h3");t.className="pk-vtitle";t.textContent=v.t;card.appendChild(t);
-    if(v.c){var c=document.createElement("p");c.className="pk-vch";c.textContent=v.c;card.appendChild(c);}
-    var row=document.createElement("p");row.className="pk-vrow";
-    var b=document.createElement("button");b.type="button";b.className="mapbtn pk-play";b.textContent="▶ Play here";b.setAttribute("aria-label","Play "+v.t);
-    b.addEventListener("click",function(){var box=document.createElement("div");box.className="pk-frame";var f=document.createElement("iframe");
-      f.src="https://www.youtube-nocookie.com/embed/"+encodeURIComponent(v.id)+"?autoplay=1&rel=0&playsinline=1";f.title=v.t;
-      f.setAttribute("allow","autoplay; encrypted-media; picture-in-picture; fullscreen");f.setAttribute("allowfullscreen","");f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
-      box.appendChild(f);row.parentNode.replaceChild(box,row);});
-    var a=document.createElement("a");a.className="ov-link pk-yt";a.href="https://www.youtube.com/watch?v="+encodeURIComponent(v.id);a.target="_blank";a.rel="noopener noreferrer";a.textContent="Open on YouTube ↗";
-    var sr=document.createElement("span");sr.className="sr-only";sr.textContent=" (opens in a new window)";a.appendChild(sr);
-    row.appendChild(b);row.appendChild(a);card.appendChild(row);sec.appendChild(card);});
+  var n=document.createElement("p");n.className="pk-vnote";n.textContent="Picked from YouTube and checked against YouTube's own titles, then grouped by what each one shows. They need the internet (cell data or Wi-Fi). Nothing loads from YouTube until you tap Play, and YouTube's terms apply once it plays.";sec.appendChild(n);
+  // Group by what the title says the video is; a title nothing places lands in "More videos". Whole-ship
+  // tours come first and open by default, since that is what most people came to watch.
+  var groups={};PACK_VIDEOS.forEach(function(v){var g=videoCat(v.t);(groups[g]=groups[g]||[]).push(v);});
+  var order=[["ship","Ship tours"],["cabin","Cabin & room tours"],["food","Food & dining"],["access","Accessibility"],["tips","Tips & top tens"],["more","More videos"]];
+  var firstOpen=true;
+  order.forEach(function(o){var list=groups[o[0]];if(!list||!list.length)return;
+    var d=document.createElement("details");d.className="voy-row pk-vgroup";if(firstOpen){d.open=true;firstOpen=false;}
+    var sm=document.createElement("summary");sm.className="voy-sum";
+    var lab=document.createElement("span");lab.className="dloc";lab.textContent=o[1];sm.appendChild(lab);
+    var cnt=document.createElement("span");cnt.className="dbadge";cnt.textContent=String(list.length);sm.appendChild(cnt);d.appendChild(sm);
+    var body=document.createElement("div");body.className="voy-body";list.forEach(function(v){body.appendChild(videoCard(v));});d.appendChild(body);
+    sec.appendChild(d);});
   return sec;}
 // Live search over the whole pack, offline. The query never leaves the phone and is never counted.
 var preSearchTab="overview";
@@ -359,7 +401,7 @@ function fetch10(p){return retryJSON("https://api.open-meteo.com/v1/forecast?lat
 function setRow10(idx,d){var row=document.getElementById("d10-"+idx);if(!row)return;var days=row.querySelector(".d10-days");if(!days)return;if(!d||!d.daily){days.innerHTML='<span class="muted">forecast unavailable</span>';return;}var dd=d.daily,h="",n=Math.min(10,dd.time.length);for(var k=0;k<n;k++){h+='<div class="wx-day"><b>'+(k===0?"TODAY":dn(dd.time[k]))+'</b><span class="d10-c">'+esc(WMO[dd.weather_code[k]]||"—")+'</span><span class="hl">'+Math.round(dd.temperature_2m_max[k])+'°</span> / <span class="lo">'+Math.round(dd.temperature_2m_min[k])+'°</span><span class="pp">'+(dd.precipitation_probability_max&&dd.precipitation_probability_max[k]!=null?dd.precipitation_probability_max[k]+'%':'')+'</span></div>';}days.innerHTML=h;}
 function load10day(){var el=document.getElementById("pane-10day");if(!el)return;var html="";LOCS.forEach(function(p,idx){html+='<div class="d10-row" id="d10-'+idx+'"><div class="d10-loc">'+esc(p.label)+'</div><div class="d10-days"><span class="muted">…</span></div></div>';});el.innerHTML=html;var i=0,active=0;function pump(){while(active<4&&i<LOCS.length){(function(idx,p){active++;fetch10(p).then(function(d){setRow10(idx,d);active--;pump();}).catch(function(){setRow10(idx,null);active--;pump();});})(i,LOCS[i]);i++;}}pump();}
 function fcHour(iso){var h=parseInt(iso.slice(11,13),10);var ap=h<12?"AM":"PM";var hh=h%12;if(hh===0)hh=12;return hh+" "+ap;}
-var WX_TABS=["now","ten","radar","averages"],lastWx="now";function setTab(t){if(t==="weather")t=lastWx;var isWx=WX_TABS.indexOf(t)>=0;if(isWx)lastWx=t;tab=t;if(t!=="overview"&&t!=="search")sessTabs[t]=1;["overview","voyage","ship","ports","faq","weather","emg","journal","alerts"].forEach(function(x){var b=document.querySelector('.wtab:not(.wsub)[data-t="'+x+'"]');if(b){var on=x===t||(x==="weather"&&isWx);b.classList.toggle("on",on);b.setAttribute("aria-selected",on?"true":"false");}});WX_TABS.forEach(function(x){var b=document.querySelector('.wsub[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});var _ws=document.getElementById("wsubtabs");if(_ws)_ws.hidden=!isWx;document.getElementById("pane-overview").classList.toggle("on",t==="overview");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-averages").classList.toggle("on",t==="averages");document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");var _pe=document.getElementById("pane-emg");if(_pe)_pe.classList.toggle("on",t==="emg");["ship","ports","search","journal","faq"].forEach(function(x){var p=document.getElementById("pane-"+x);if(p)p.classList.toggle("on",t===x);});if(t==="overview")renderOverview();else if(t==="voyage")renderVoyage();else if(t==="averages")renderAverages();else if(t==="now")loadNow();else if(t==="ten")load10day();else if(t==="alerts"){loadAlerts();loadVoyageAlerts();}else if(t==="radar"){mode="past";showMap();}else if(t==="emg")renderEmergency();else if(t==="ship"||t==="ports")renderPackTab(t);else if(t==="journal")renderJournal();else if(t==="faq")renderFaq();blankify(document.body);}
+var WX_TABS=["now","ten","radar","averages"],lastWx="now";function setTab(t){if(t==="weather")t=lastWx;var isWx=WX_TABS.indexOf(t)>=0;if(isWx)lastWx=t;tab=t;if(t!=="overview"&&t!=="search")sessTabs[t]=1;["overview","voyage","ship","ports","weather","emg","journal","faq","alerts"].forEach(function(x){var b=document.querySelector('.wtab:not(.wsub)[data-t="'+x+'"]');if(b){var on=x===t||(x==="weather"&&isWx);b.classList.toggle("on",on);b.setAttribute("aria-selected",on?"true":"false");}});WX_TABS.forEach(function(x){var b=document.querySelector('.wsub[data-t="'+x+'"]');if(b){b.classList.toggle("on",x===t);b.setAttribute("aria-selected",x===t?"true":"false");}});var _ws=document.getElementById("wsubtabs");if(_ws)_ws.hidden=!isWx;document.getElementById("pane-overview").classList.toggle("on",t==="overview");document.getElementById("pane-voyage").classList.toggle("on",t==="voyage");document.getElementById("pane-averages").classList.toggle("on",t==="averages");document.getElementById("pane-now").classList.toggle("on",t==="now");document.getElementById("pane-10day").classList.toggle("on",t==="ten");document.getElementById("pane-map").classList.toggle("on",t==="radar");document.getElementById("pane-alerts").classList.toggle("on",t==="alerts");var _pe=document.getElementById("pane-emg");if(_pe)_pe.classList.toggle("on",t==="emg");["ship","ports","search","journal","faq"].forEach(function(x){var p=document.getElementById("pane-"+x);if(p)p.classList.toggle("on",t===x);});if(t==="overview")renderOverview();else if(t==="voyage")renderVoyage();else if(t==="averages")renderAverages();else if(t==="now")loadNow();else if(t==="ten")load10day();else if(t==="alerts"){loadAlerts();loadVoyageAlerts();}else if(t==="radar"){mode="past";showMap();}else if(t==="emg")renderEmergency();else if(t==="ship"||t==="ports")renderPackTab(t);else if(t==="journal")renderJournal();else if(t==="faq")renderFaq();blankify(document.body);}
 function refresh(){buildSel();if(tab==="overview")renderOverview();else if(tab==="voyage")renderVoyage();else if(tab==="averages")renderAverages();else if(tab==="now")loadNow();else if(tab==="ten")load10day();else if(tab==="alerts")loadAlerts();else if(tab==="radar")showMap();loadAlerts();}
 
 // ---- Links that leave the page (operator directive 2026-09-26) -----------------------------
@@ -411,7 +453,7 @@ function maybeInstallPopup(){var seen=false;try{seen=!!localStorage.getItem("itw
   setTimeout(function(){if(document.getElementById("inst-dlg"))return;var prev=document.activeElement;var ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
     var bg=document.createElement("div");bg.className="inst-bg";var d=document.createElement("div");d.id="inst-dlg";d.className="inst-dlg";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-labelledby","inst-h");
     var h=document.createElement("h2");h.id="inst-h";h.textContent="📲 Save this app to your phone";d.appendChild(h);
-    var p1=document.createElement("p");p1.textContent=ios?"In Safari, tap the Share button (the square with an up-arrow), scroll down, then tap Add to Home Screen.":"Tap the ⋮ menu (top-right), then Add to Home screen or Install app.";d.appendChild(p1);
+    var p1=document.createElement("p");p1.textContent=ios?"In Safari, tap the Share button (the square with an up-arrow: at the bottom of the screen on an iPhone, at the top on an iPad), scroll down, then tap Add to Home Screen.":"Tap the ⋮ menu (top-right), then Add to Home screen or Install app.";d.appendChild(p1);
     var p2=document.createElement("p");p2.textContent="It then opens like a real app and keeps working at sea and in port, even with no internet.";d.appendChild(p2);
     var row=document.createElement("div");row.className="inst-row";
     function close(){try{localStorage.setItem("itw-install-seen","1");}catch(e){}bg.remove();d.remove();document.removeEventListener("keydown",esc1);if(prev&&prev.focus)prev.focus();}
@@ -435,6 +477,12 @@ function jEl(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=
 function jWhose(){return jGet("whose")==="1";}
 function jNames(){try{return JSON.parse(jGet("names")||"[]").filter(function(x){return typeof x==="string"&&x;});}catch(e){return [];}}
 function jEsc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+// jClean strips control and invisible/bidi characters from UNTRUSTED imported text — a loaded journal
+// file could come from anywhere. Keeps tab, newline and carriage return; everything a reader can see
+// stays, emoji included. Applied to imported data only, never to the traveler's own typing. This is
+// defence in depth: rendering is already textContent/textarea.value and the keepsake escapes via jEsc,
+// so imported text cannot execute; jClean keeps a hostile file from smuggling invisible content in.
+function jClean(s){var re=new RegExp("[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F\\u007F-\\u009F\\u200B-\\u200F\\u2028\\u2029\\u202A-\\u202E\\uFEFF]","g");return String(s==null?"":s).replace(re,"");}
 function jDownload(name,type,body){var blob=new Blob([body],{type:type});var file=null;try{file=new File([blob],name,{type:type});}catch(e){}
   if(file&&navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:name}).catch(function(){});return;}
   var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1500);}
@@ -478,12 +526,19 @@ function renderJournal(){var el=document.getElementById("pane-journal");if(!el)r
     setTimeout(function(){jDownload(slug+"-journal-data.json","application/json",JSON.stringify({app:"itw-journal",v:1,slug:slug,ship:V.ship||"",saved:new Date().toISOString(),entries:all.filter(function(e){return !who||e.person===who;}).map(function(e){return {day:e.day,person:e.person||"",text:e.text||"",updated:e.updated||""};})},null,1));},600);
     status.textContent="Saved two files: a keepsake you can open and print, and a data copy you can load into the app on another phone.";}).catch(function(){status.textContent="Couldn't read the journal to save it.";});});
   load.addEventListener("click",function(){file.click();});
-  file.addEventListener("change",function(){var f=file.files&&file.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){var d=null;try{d=JSON.parse(String(rd.result));}catch(e){}
-    if(!d||d.app!=="itw-journal"||!Array.isArray(d.entries)){status.textContent="That file isn't a saved journal data copy (its name ends in -journal-data.json).";return;}
-    if(d.slug&&V.slug&&d.slug!==V.slug&&!window.confirm("This journal was saved from a different voyage. Load it into this one anyway?"))return;
-    jAll().then(function(all){var by={};all.forEach(function(e){by[e.k]=e;});var n=0,ps=[];d.entries.forEach(function(e){var day=Number(e.day);if(!ITIN.some(function(s){return s.d===day;}))return;var person=String(e.person||"").slice(0,40),text=String(e.text||"").slice(0,20000),k=jKey(day,person),cur=by[k];
-      if(cur&&cur.updated&&e.updated&&cur.updated>=e.updated)return;n++;ps.push(jPut({k:k,slug:V.slug,day:day,person:person,text:text,updated:String(e.updated||new Date().toISOString())}));if(person){var ns=jNames();if(ns.indexOf(person)<0){ns.push(person);jSet("names",JSON.stringify(ns));}}});
-      Promise.all(ps).then(function(){renderJournal();var s2=document.querySelector("#pane-journal .j-status");if(s2)s2.textContent=n?("Loaded "+n+" entr"+(n===1?"y":"ies")+". Newer entries already on this phone were kept."):"Nothing new to load: this phone already has those entries.";});});};rd.readAsText(f);});
+  file.addEventListener("change",function(){var f=file.files&&file.files[0];if(!f){return;}
+    // A journal data copy is tiny (days × people). Anything over 5 MB is not one, and reading it would
+    // just be a way to hang the phone, so refuse before parsing.
+    if(f.size>5*1024*1024){status.textContent="That file is too large to be a journal data copy.";file.value="";return;}
+    var rd=new FileReader();rd.onload=function(){var d=null;try{d=JSON.parse(String(rd.result));}catch(e){}
+    if(!d||typeof d!=="object"||d.app!=="itw-journal"||!Array.isArray(d.entries)){status.textContent="That file isn't a saved journal data copy (its name ends in -journal-data.json).";file.value="";return;}
+    if(d.slug&&V.slug&&d.slug!==V.slug&&!window.confirm("This journal was saved from a different voyage. Load it into this one anyway?")){file.value="";return;}
+    // Cap the rows a single file can add. A real trip has at most days × people entries; a file with
+    // thousands is malformed or hostile, and processing it unbounded would exhaust this phone's storage.
+    var MAXE=2000,rows=d.entries.slice(0,MAXE),truncated=d.entries.length>MAXE;
+    jAll().then(function(all){var by={};all.forEach(function(e){by[e.k]=e;});var n=0,ps=[];rows.forEach(function(e){if(!e||typeof e!=="object")return;var day=Number(e.day);if(!ITIN.some(function(s){return s.d===day;}))return;var person=jClean(String(e.person||"")).slice(0,40),text=jClean(String(e.text||"")).slice(0,20000),k=jKey(day,person),cur=by[k];
+      if(cur&&cur.updated&&e.updated&&cur.updated>=e.updated)return;n++;ps.push(jPut({k:k,slug:V.slug,day:day,person:person,text:text,updated:String(e.updated||new Date().toISOString()).slice(0,40)}));if(person){var ns=jNames();if(ns.indexOf(person)<0&&ns.length<50){ns.push(person);jSet("names",JSON.stringify(ns));}}});
+      Promise.all(ps).then(function(){renderJournal();var s2=document.querySelector("#pane-journal .j-status");if(s2)s2.textContent=(n?("Loaded "+n+" entr"+(n===1?"y":"ies")+". Newer entries already on this phone were kept."):"Nothing new to load: this phone already has those entries.")+(truncated?" The file held more than "+MAXE+" entries; the rest were skipped.":"");});});file.value="";};rd.readAsText(f);});
 }
 // ---- FAQ: the questions people ask once they're booked, per voyage (V.faq). Each answer names its
 // source. Built with DOM calls; links must be site-relative or https.

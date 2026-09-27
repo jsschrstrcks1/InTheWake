@@ -686,9 +686,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
   <!-- initFirstLook — Swiper for .firstlook carousel -->
 <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}
 </script>
-<!-- initVideos — fetch video JSON, render thumbnails -->
-<script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/seabourn/seabourn-quest.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{const vids=Object.values(data.videos||{}).flat();if(!vids.length){w.innerHTML='<p>No videos available.</p>';return;}w.innerHTML=vids.slice(0,6).map(v=>`<div class="video-thumb"><iframe src="https://www.youtube-nocookie.com/embed/${v.videoId}?rel=0" title="${v.title}" loading="lazy" allowfullscreen></iframe></div>`).join('');}).catch(()=>{w.innerHTML='<p>Videos currently unavailable.</p>';});}
-</script>
 <!-- initStats — parse ship-stats-fallback JSON -->
 <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);const t=document.getElementById('stats-table');if(t&&d){t.innerHTML=`<tr><th>Gross Tonnage</th><td>${d.gt}</td></tr><tr><th>Guests</th><td>${d.guests}</td></tr><tr><th>Crew</th><td>${d.crew}</td></tr><tr><th>Class</th><td>${d.class}</td></tr><tr><th>Entered Service</th><td>${d.entered_service}</td></tr>`;}}catch(e){}}
 </script>
