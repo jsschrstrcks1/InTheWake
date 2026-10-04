@@ -34,6 +34,8 @@ test('every companion with an Emergency tab carries the State Department line', 
     assert.ok(V.emergency.storageKey, `${f}: storage key present (the card saves offline)`);
     // A generic pack (Icon) carries the tab without a printed card; where a card is linked, it is a PDF.
     if (V.emergency.cardPdf) assert.match(V.emergency.cardPdf, /\.pdf$/, `${f}: card link is a PDF`);
+    // An office's web page, where given, is https (the renderer drops anything else).
+    for (const n of V.emergency.numbers) if (n.url) assert.match(n.url, /^https:\/\//, `${f}: ${n.label} link is https`);
   }
   assert.ok(withTab >= 2, 'at least Prima and the World America family companion carry the tab');
 });
