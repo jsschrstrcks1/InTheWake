@@ -3,7 +3,7 @@
   "_template": "admin/voyage-packs/FACTCHECK_TEMPLATE.json",
   "_note": "Sidecar for the v0.1.19 MSC World America FAMILY pack (renumbered from v0.1.18 in the 2026-08-27 merge: main claimed v0.1.18 for the NCL Getaway pack first) (PortMiami, Dec 5 - 12 2026; Roatan, Costa Maya, Cozumel, Ocean Cay). Built 2026-08-20 alongside the pack itself. Ship specs, christening, terminal, port docks, consulate numbers, and gratuity rate are INHERITED from the v0.1.8 sidecar (verified 2026-07-06 against the primary sources recorded there) — same ship, same ports; inheritance is recorded per-claim below rather than silently copied, per the copy-propagation rule. Newly verified this session: the Dec 5 2026 sailing itself (date, departure port, port order) and the December weather normals (computed, not recalled).",
   "pack_filename": "v0.1.19-msc-world-america-family-dec-2026.md",
-  "last_factcheck_date": "2026-09-26",
+  "last_factcheck_date": "2026-10-04",
   "verified_by": "syl (claude-code remote session, operator-directed family pack build)",
   "verification_session": "Sailing verified 2026-08-20 via two independent aggregators: web search results for 'MSC World America December 5 2026' (cruisetimetables/cruiseweb/cruisesonly summary: Sat Dec 5 2026 depart Miami ~4:30 PM; Roatan Dec 7 9a-6p; Costa Maya Dec 8 8a-5p; Cozumel Dec 9 9a-7p; Ocean Cay Dec 11 7a-6p; return Dec 12 7a) and icruise.com December-2026 itinerary page fetched in-session (Dec 5 2026, 7-night, Miami, ports Miami-Roatan-Costa Maya-Cozumel-Ocean Cay-Miami; also lists the 14-night B2B extension). Port-call TIMES rest on the aggregator summary only (single-source) — the pack therefore phrases every time as 'published ~X, verify in the MSC for Me app'. PORT ORDER and DATE are two-source. Departure port is Miami (PortMiami MSC terminal), not Port Everglades — both sources agree.",
   "sailing": {
@@ -111,9 +111,11 @@
       "disposition": "carried unchanged"
     },
     "venom_drop": {
-      "claim": "11-deck dry slide, the longest at sea",
-      "source": "inherited from v0.1.8 pack body (MSC claim)",
-      "disposition": "carried unchanged"
+      "claim": "Jaw Drop @ The Spiral: 11-deck dry slide, Deck 20 to Deck 8, 'one of the longest dry slides at sea' (MSC's own wording)",
+      "source": "https://cruiseindustrynews.com/cruise-news/2024/07/msc-cruises-unveils-details-of-the-world-americas-harbour",
+      "corroboration": "Post-launch: Cruise Critic passenger reviews (https://www.cruisecritic.com/cruise/msc/msc-world-america/reviews/727400) and Caribbean Journal (caribjournal.com, July 2025 World America article), both naming it Jaw Drop; deck span 20 to 8 from the review summary.",
+      "verified": "2026-10-04",
+      "disposition": "CORRECTION 2026-10-04: the pack called it 'Venom Drop' (World Europa's slide name, carried by copy from the v0.1.8 pack) and said 'the longest at sea'. Renamed to Jaw Drop and softened to MSC's own 'one of the longest'. The key name venom_drop is kept so the correction stays findable."
     }
   },
   "voice_audit": {
@@ -209,7 +211,8 @@
       "value": "No self-service guest laundry on any MSC ship (World America included). Paid valet laundry, pressing, and dry cleaning only (per-item and package pricing; same-day for-fee except the last day). MSC Voyagers Club tiers get small discounts.",
       "source": "https://emmacruises.com/msc-cruises-laundry/",
       "verified": "2026-07-06",
-      "notes": "Verified live this session; corroborated by MSC's own laundry page (msccruisesusa.com/manage-booking/before-you-go/laundry) and cruisefever.net's self-service list (MSC absent). Not a headline claim in the pack body; recorded to satisfy the gate."
+      "notes": "Verified live this session; corroborated by MSC's own laundry page (msccruisesusa.com/manage-booking/before-you-go/laundry) and cruisefever.net's self-service list (MSC absent). Not a headline claim in the pack body; recorded to satisfy the gate.",
+      "disposition_2026_10_04": "CORRECTION: Day 6 told families to use 'the self-service launderettes', contradicting this very entry. Rewritten to the paid valet service the source describes."
     },
     "emergency_contacts": {
       "value": "Handoff card now leads with US State Dept Overseas Citizens Services (24/7): +1-888-407-4747 (US/Canada) / +1-202-501-4444 (abroad). MSC Guest Relations +1-877-665-4655 (business hours ET) listed as the reach-a-guest-aboard line.",
@@ -254,5 +257,12 @@
     "_inheritance": "Inherited verbatim from v0.1.8 sidecar (verified 2026-07-06 against the sources recorded per-claim); same ship and same five ports. Not re-verified 2026-08-20; inheritance recorded here per the copy-propagation rule."
   },
   "_note_2026_09_05_restamp": "Re-stamp 2026-09-05 (yumi), previous 2026-08-20. Basis: the factcheck gate (admin/scripts/factcheck-gate.sh) had been INERT on macOS since at least July, so this sidecar drifted behind its pack without anything noticing; the gate was repaired in P0 #2592 and immediately flagged 16 of 18 packs. Every change to this pack since the sidecar's last commit (60824fe9b) was reviewed individually rather than date-bumped: added the day-by-day 'This is not your plan' framing note; genericized the cover byline and audience row, removing personal framing; no cruise fact touched. NO NEW FACTUAL CLAIM about the ship, ports, prices or policies was introduced by those changes, so this is a freshness re-stamp and NOT a re-verification of the pack's underlying facts, which still carry their original 2026-08-20 verification. Diff size: +8/-2 lines.",
-  "_note_2026_09_26_stateroom_wording": "Stateroom check wording corrected (operator: 'fix both'). The pack described the stateroom sanity check as 'a four-question filter' and credited it with judging whether a windowless room or a missing balcony would bother the reader. The article has no four questions (it names seven trouble spots) and the tool only looks up where a given cabin sits. RCL and NCL packs now link /stateroom-check.html and say what it checks (NCL packs add that its list is partial on most Norwegian ships). Packs for lines the tool does not cover (MSC, Virgin, Margaritaville) now send the reader to the deck plan with the article's seven trouble spots and say the checker does not cover their line yet. No price, date or ship fact changed."
+  "_note_2026_09_26_stateroom_wording": "Stateroom check wording corrected (operator: 'fix both'). The pack described the stateroom sanity check as 'a four-question filter' and credited it with judging whether a windowless room or a missing balcony would bother the reader. The article has no four questions (it names seven trouble spots) and the tool only looks up where a given cabin sits. RCL and NCL packs now link /stateroom-check.html and say what it checks (NCL packs add that its list is partial on most Norwegian ships). Packs for lines the tool does not cover (MSC, Virgin, Margaritaville) now send the reader to the deck plan with the article's seven trouble spots and say the checker does not cover their line yet. No price, date or ship fact changed.",
+  "harbour_aquapark": {
+    "claim": "The Harbour Aquapark: waterslides including a 90-degree vertical-drop slide and a raft slide with virtual reality, plus a splash area",
+    "source": "https://cruiseindustrynews.com/cruise-news/2024/07/msc-cruises-unveils-details-of-the-world-americas-harbour",
+    "verified": "2026-10-04",
+    "disposition": "CORRECTION 2026-10-04: Section 1 said 'No waterpark ... nothing on the scale of ...' while two other lines said The Harbour has a water park. The 'No waterpark' bullet was wrong and is removed; an Aquapark bullet is added. Ocean Cay's separate 'No waterpark' line is about the island, NOT this ship, and is untouched pending the operator's source (operator said 2026-10-04 an Ocean Cay water park is open; this session found none in MSC's announced 2026 Ocean Cay additions)."
+  },
+  "_note_2026_10_04_integrity_pass": "Integrity pass (operator: 'fix the integrity issues first'). Fixed: slide name and superlative, Aquapark contradiction, laundry, 'seven-deck' World Promenade wording (unsourced; now 'open-air promenade', Deck 8 kept, corroborated by the slide ending there), an unsourced '10 AM' slide opening time, 'tender pier' on a no-tender itinerary, and the cash 'skip' line that contradicted the money section. Checked and KEPT: the four MDR names (La Foglia, Esagono, Hexagon, Bubbles) are real and distinct per https://www.cruisebound.com/articles/msc-world-america-dining-guide. Same fixes applied to the condensed pack."
 }
