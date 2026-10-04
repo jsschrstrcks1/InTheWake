@@ -18,6 +18,13 @@ export function panelTitleSize(title) {
   return 38;
 }
 
+// Port names never break inside themselves, and each separator stays with the name before it,
+// so a line never starts with a dot. Accepts an array of names (preferred) or a ready string.
+export function portLine(ports) {
+  if (!Array.isArray(ports)) return String(ports || '');
+  return ports.map((p) => String(p).replace(/ /g, '\u00a0')).join('\u00a0· ');
+}
+
 export function voyagePhotoCard({ photoDataUrl, photoAlt, title, kicker, dates, ports, byline, url }) {
   if (!photoDataUrl || !/^data:image\/(jpeg|png|webp);base64,/.test(photoDataUrl)) {
     throw new Error('voyagePhotoCard needs the photo as a base64 data URL (jpeg, png or webp).');
@@ -57,7 +64,7 @@ export function voyagePhotoCard({ photoDataUrl, photoAlt, title, kicker, dates, 
             }},
             { type: 'div', props: {
               style: { display: 'flex', fontSize: 24, lineHeight: 1.4, color: PALETTE.foam, marginTop: 14, maxWidth: PANEL_WIDTH - 92 },
-              children: ports,
+              children: portLine(ports),
             }},
             { type: 'div', props: { style: { flexGrow: 1 }}},
             { type: 'div', props: {

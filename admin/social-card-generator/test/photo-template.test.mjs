@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { voyagePhotoCard, panelTitleSize, PHOTO_WIDTH, PANEL_WIDTH } from '../templates/voyage-photo-card.js';
+import { voyagePhotoCard, panelTitleSize, portLine, PHOTO_WIDTH, PANEL_WIDTH } from '../templates/voyage-photo-card.js';
 
 const DATA = 'data:image/jpeg;base64,/9j/AAAA';
 const base = { photoDataUrl: DATA, photoAlt: 'a', title: 'MSC World America', kicker: 'Family voyage', dates: 'Dec 5', ports: 'Miami', byline: 'In the Wake', url: 'cruisinginthewake.com' };
@@ -27,4 +27,11 @@ test('panel title size steps down as titles grow', () => {
   assert.equal(panelTitleSize('a'.repeat(15)), 52);
   assert.equal(panelTitleSize('a'.repeat(21)), 44);
   assert.equal(panelTitleSize('a'.repeat(29)), 38);
+});
+
+test('port line keeps names whole and never starts a line with a dot', () => {
+  const line = portLine(['Port Canaveral', 'Great Stirrup Cay', 'Cozumel']);
+  assert.equal(line, 'Port\u00a0Canaveral\u00a0· Great\u00a0Stirrup\u00a0Cay\u00a0· Cozumel');
+  assert.ok(!/ ·/.test(line), 'no breakable space before a separator');
+  assert.equal(portLine('Already a string'), 'Already a string');
 });
