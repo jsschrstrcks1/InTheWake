@@ -21,11 +21,11 @@ Three changes per footer:
 
        <ul>/<li> nav variant (some articles):
          <li><a href="/terms.html">Terms</a></li>
-         <li><a href="/affiliate-disclosure.html">Affiliate Disclosure</a></li>
+         <li><a href="/affiliate-disclosure.html">No affiliate links</a></li>
        New:
          <li><a href="/terms.html">Terms</a></li>
          <li><a href="/support.html">Support</a></li>
-         <li><a href="/affiliate-disclosure.html">Affiliate Disclosure</a></li>
+         <li><a href="/affiliate-disclosure.html">No affiliate links</a></li>
 
   3. W6.2: insert a "Reach Family at Sea" link in the footer nav,
        immediately AFTER the Support link in the Help column. Applies to
@@ -67,19 +67,19 @@ import sys
 # Port pages have an additional accurate "Works offline" claim (PWA caches them).
 # We preserve it: drop only the "Minimal analytics" portion if present.
 OLD_BADGE_PATTERNS = [
-    '<p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>',
-    '<p class="trust-badge">✓ Independent, minimal analytics, affiliate links disclosed. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>',
-    '<p class="trust-badge">&check; No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>',
+    '<p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>',
+    '<p class="trust-badge">✓ Independent, minimal analytics, affiliate links disclosed. <a href="/affiliate-disclosure.html">No affiliate links</a></p>',
+    '<p class="trust-badge">&check; No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>',
     # Numeric entity variant for ✓ used on a few tools/ship pages
-    '<p class="trust-badge">&#10003; No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>',
+    '<p class="trust-badge">&#10003; No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>',
     # Port pages missing checkmark prefix — add ✓ for visual consistency with rest of site
-    '<p class="trust-badge">No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>',
+    '<p class="trust-badge">No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>',
 ]
-NEW_BADGE_CHECKMARK_UNICODE = '<p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>'
-NEW_BADGE_CHECKMARK_ENTITY  = '<p class="trust-badge">&check; No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>'
+NEW_BADGE_CHECKMARK_UNICODE = '<p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>'
+NEW_BADGE_CHECKMARK_ENTITY  = '<p class="trust-badge">&check; No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>'
 
 # Port-page variant: keeps "Works offline" (accurate PWA claim). Already W5-compliant.
-PORT_BADGE_VARIANT = '<p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>'
+PORT_BADGE_VARIANT = '<p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>'
 
 # Standard <p> nav variant
 STANDARD_NAV_OLD_DOT = '''      <a href="/privacy.html">Privacy</a> ·
@@ -117,12 +117,12 @@ STANDARD_NAV_NEW_MIDDOT = '''      <a href="/privacy.html">Privacy</a> &middot;
 UL_NAV_OLD = '''        <li><a href="/about-us.html">About</a></li>
         <li><a href="/privacy.html">Privacy</a></li>
         <li><a href="/terms.html">Terms</a></li>
-        <li><a href="/affiliate-disclosure.html">Affiliate Disclosure</a></li>'''
+        <li><a href="/affiliate-disclosure.html">No affiliate links</a></li>'''
 UL_NAV_NEW = '''        <li><a href="/about-us.html">About</a></li>
         <li><a href="/privacy.html">Privacy</a></li>
         <li><a href="/terms.html">Terms</a></li>
         <li><a href="/support.html">Support</a></li>
-        <li><a href="/affiliate-disclosure.html">Affiliate Disclosure</a></li>'''
+        <li><a href="/affiliate-disclosure.html">No affiliate links</a></li>'''
 
 # --- Reach Family at Sea second-pass insertion (W6.2) ---
 # Adds <a href="/reaching-someone-at-sea.html">Reach Family at Sea</a>
@@ -161,11 +161,11 @@ PORT_NAV_POST_REACH_DOT = '''      <a href="/about-us.html">About</a> ·
 # <ul>/<li> nav variant
 UL_NAV_PRE_REACH = '''        <li><a href="/terms.html">Terms</a></li>
         <li><a href="/support.html">Support</a></li>
-        <li><a href="/affiliate-disclosure.html">Affiliate Disclosure</a></li>'''
+        <li><a href="/affiliate-disclosure.html">No affiliate links</a></li>'''
 UL_NAV_POST_REACH = '''        <li><a href="/terms.html">Terms</a></li>
         <li><a href="/support.html">Support</a></li>
         <li><a href="/reaching-someone-at-sea.html">Reach Family at Sea</a></li>
-        <li><a href="/affiliate-disclosure.html">Affiliate Disclosure</a></li>'''
+        <li><a href="/affiliate-disclosure.html">No affiliate links</a></li>'''
 
 # Already-up-to-date sentinel for Reach Family link
 ALREADY_HAS_REACH = re.compile(r'href="/reaching-someone-at-sea\.html"\s*>\s*Reach Family at Sea')
@@ -245,7 +245,7 @@ def update_content(content: str, path: str) -> tuple[str, dict]:
             if '&check;' in old or '&#10003;' in old:
                 # Preserve the entity form already in use
                 new = NEW_BADGE_CHECKMARK_ENTITY if '&check;' in old else \
-                      '<p class="trust-badge">&#10003; No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>'
+                      '<p class="trust-badge">&#10003; No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>'
             elif 'Works offline' in old:
                 # Port pages: preserve "Works offline" + add missing ✓ prefix
                 new = PORT_BADGE_VARIANT
@@ -351,7 +351,7 @@ def main():
                 NEW_BADGE_CHECKMARK_UNICODE,
                 NEW_BADGE_CHECKMARK_ENTITY,
                 PORT_BADGE_VARIANT,
-                '<p class="trust-badge">&#10003; No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>',
+                '<p class="trust-badge">&#10003; No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>',
             ]
             if 'trust-badge' in orig and not any(p in orig for p in already_compliant_badges):
                 counts['no_recognized_footer'] += 1

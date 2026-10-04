@@ -438,7 +438,7 @@ function generatePage(config) {
   </main>
 
   <footer class="wrap" role="contentinfo">
-    <p>© ${new Date().getFullYear()} In the Wake. All rights reserved. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p>© ${new Date().getFullYear()} In the Wake. All rights reserved. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
   <script src="/assets/js/main.js" defer></script>

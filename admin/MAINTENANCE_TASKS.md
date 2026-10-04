@@ -409,7 +409,7 @@ node admin/batch-fix-org-jsonld-v3.js
 
 **Required Badge:**
 ```html
-<p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+<p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
 ```
 
 **Check:** The ICP-Lite validator checks for this automatically.

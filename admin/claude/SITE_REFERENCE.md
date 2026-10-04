@@ -219,7 +219,7 @@ All work on this project is offered as a gift to God.
     <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
   </p>
   <p class="tiny center visually-hidden" aria-hidden="true">Soli Deo Gloria — Every pixel...</p>
-  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+  <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
 </footer>
 ```
 
