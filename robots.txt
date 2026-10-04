@@ -112,6 +112,17 @@ Disallow: /ships/virgin-voyages/assets/
 Disallow: /*.json$
 Allow: /sitemap*.json
 
+# === Link previews (Facebook / Messenger) ===
+# facebookexternalhit fetches a page only when someone shares its link, to build the
+# preview card. It is not Meta's training crawler (meta-externalagent, blocked at the
+# edge). A named group replaces the * group for this bot, so the voyage companions and
+# their share images open to it while the rest of /admin/ stays closed. Without this,
+# Facebook's Sharing Debugger reports a 403 for every companion link.
+User-agent: facebookexternalhit
+Allow: /admin/voyage-pwa/
+Allow: /assets/social/
+Disallow: /admin/
+
 # === Sitemap references ===
 Sitemap: https://cruisinginthewake.com/sitemap.xml
 
@@ -133,3 +144,5 @@ Sitemap: https://cruisinginthewake.com/sitemap.xml
 #   2 tools to sitemap (1,150 → 1,227 URLs). Updated counts to match actual repo.
 # - Updated 2026-05-03: Added explicit AI-bot policy header explaining the
 #   Cloudflare-managed training-bot block and the inference-bot allowance.
+# - Updated 2026-10-04: Let facebookexternalhit read the voyage companions under
+#   /admin/voyage-pwa/ and /assets/social/ so shared links get a preview card.
