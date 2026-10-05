@@ -1144,6 +1144,45 @@ compliance from anyone — if the run happened, the entry is true.
 
 ---
 
+## 2026-10-04 — pre-commit hook silently no-op'd on macOS bash 3.2 (mapfile)
+
+**Asked.** Fix `.githooks/pre-commit`, which uses the bash 4+ builtin `mapfile` at four
+sites. macOS `/bin/bash` is 3.2.57 (no `mapfile`), so the arrays never built and every
+guard below skipped — the commit proceeded with zero enforcement. Also verify each guard
+fires after the fix, and check whether `pre-push`/other hooks share the dependency.
+
+**Weighed.** Two fix options: (1) re-exec under a bash 4+ (`/opt/homebrew/bin/bash`), or
+(2) replace `mapfile` with a bash-3.2 read loop. Checked the host: no homebrew bash exists,
+so (1) is not available here and would also be brittle (depends on an optional install).
+Chose (2) — portable, no new dependency, works on the bash that is actually present.
+Verified the bash-3.2 gotcha empirically first: under `set -u`, `${#arr[@]}` on an empty
+array is safe but `"${arr[@]}"` expansion is not; confirmed every `"${arr[@]}"` in the
+script is already guarded by a `${#...} -gt 0` count check, so the read-loop replacement
+needs nothing more. A `declare -n` nameref helper to avoid repeating the loop is bash 4.3+,
+so I inlined four read loops rather than add an unavailable abstraction.
+
+**Decided.** Replaced all four `mapfile -t VAR < <(...)` with
+`VAR=(); while IFS= read -r line; do [ -n "$line" ] && VAR+=("$line"); done < <(...)`,
+preserving the `|| true` and the grep pipelines verbatim. Left a NOTE comment explaining
+why `mapfile` is banned here. Proved the fix by mutation (careful-not-clever L1.6 / axiom
+23): staged a cross-entity duplicate image (copied Quantum of the Seas' bytes to a new ship
+path) and ran both hook versions against the real git index — OLD hook exited 0 with no
+block (reuse slipped through), NEW hook exited 1 with the image-reuse BLOCKED banner. Also
+confirmed the regression guard now runs. All three hooks (`commit-msg`, `pre-commit`,
+`reasoning-log-guard.sh`) pass `bash -n` under 3.2; no `pre-push` exists; only `pre-commit`
+used `mapfile` and no other bash-4-only builtin appears in any hook.
+
+**Unsure.** Confirmed the bug report's "commit proceeds" claim was literally true on bash
+3.2 (set -u prints the unbound-variable error but does NOT abort the script the way bash 4+
+does) — a minimal repro misled me at first by exiting 1, so I reproduced against the actual
+HEAD hook to be sure. Did not commit; left the change in the working tree for operator
+review. Did not add a standing regression test that would fail if someone reintroduces
+`mapfile` — worth considering, but out of scope for this fix.
+
+_Runtime: Claude Code (Opus 4.8)_
+
+---
+
 ## 2026-09-03 — FAQ_COUNT: validator whitespace + schema sync (grok1)
 
 **Asked.** Keep looping until tasks are complete. I had stopped after the Icon store listing; FAQ_COUNT (`itw-faq-count-prefix`, #2444) was still checked out.
