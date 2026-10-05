@@ -85,6 +85,7 @@ LONG_FORM_PACKS=(
   "v0.1.18-ncl-getaway-bahamas-aug-2026|ships/norwegian/v0.1.18-ncl-getaway-bahamas-aug-2026.pdf"
   "v0.1.19-msc-world-america-family-dec-2026|ships/msc/v0.1.19-msc-world-america-family-dec-2026.pdf"
   "v0.1.20-ncl-aura-solo-group-oct-2028|ships/norwegian/v0.1.20-ncl-aura-solo-group-oct-2028.pdf"
+  "v0.1.21-virgin-brilliant-lady-solo-group-nov-2026|ships/virgin-voyages/v0.1.21-virgin-brilliant-lady-solo-group-nov-2026.pdf"
 )
 
 # Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.
@@ -102,6 +103,7 @@ CONDENSED_PACKS=(
   "v0.1.17-hal-volendam-world-condensed"
   "v0.1.19-msc-world-america-family-condensed"
   "v0.1.20-ncl-aura-solo-group-condensed"
+  "v0.1.21-virgin-brilliant-lady-solo-group-condensed"
 )
 
 # Handoff cards: 1-2 page emergency contact docs. Use voyage-pack-condensed-print.css.
@@ -116,6 +118,7 @@ HANDOFF_CARDS=(
   "emergency-handoff-card-agnostic"
   "v0.1.19-msc-world-america-family-handoff-card"
   "v0.1.20-ncl-aura-solo-group-handoff-card"
+  "v0.1.21-virgin-brilliant-lady-solo-group-handoff-card"
 )
 
 # Mode flags
@@ -388,7 +391,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|volendam|world-cruise|world-2028|icon|icon-eastern|eastern-caribbean|getaway|ncl-getaway|bahamas-2026|aura|ncl-aura|aura-solo|all)
+    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|volendam|world-cruise|world-2028|icon|icon-eastern|eastern-caribbean|getaway|ncl-getaway|bahamas-2026|aura|ncl-aura|aura-solo|brilliant|brilliant-lady|bl-solo|all)
       target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
@@ -459,6 +462,7 @@ case "$target" in
   icon|icon-eastern|eastern-caribbean) build_one_long "icon-eastern" "$ENGINE" || failures=$((failures + $?)) ;;
   getaway|ncl-getaway|bahamas-2026) build_one_long "getaway" "$ENGINE" || failures=$((failures + $?)) ;;
   aura|ncl-aura|aura-solo) build_one_long "ncl-aura" "$ENGINE" || failures=$((failures + $?)) ;;
+  brilliant|brilliant-lady|bl-solo) build_one_long "brilliant-lady" "$ENGINE" || failures=$((failures + $?)) ;;
   all|"")
     echo "── Long-form packs ──"
     build_all_long_form "$ENGINE" || failures=$((failures + $?))

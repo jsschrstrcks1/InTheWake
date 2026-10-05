@@ -25,6 +25,8 @@ const CHECKED = {
   // Aura (2026-10-05): one source only, CruiseMapper. No Wikipedia article yet, an empty Commons
   // category, and VesselFinder has no record because she is not delivered. Re-check once she sails.
   'Norwegian Aura': '9862580',
+  // Brilliant Lady (2026-10-05): Wikipedia infobox and CruiseMapper agree.
+  'Brilliant Lady': '9870654',
 };
 
 const pages = (await readdir(DIR)).filter((f) => f.endsWith('.html'));
