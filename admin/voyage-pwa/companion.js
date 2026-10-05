@@ -85,6 +85,11 @@ function seasonLabel(){return V.seasonLabel||"Typical";}
 function fetchVoyWx(s){var u="https://api.open-meteo.com/v1/forecast?latitude="+s.lat+"&longitude="+s.lon+"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit="+uTemp()+"&timezone=auto&start_date="+s.date+"&end_date="+s.date;retryJSON(u,1).then(function(j){if(!j||!j.daily||!j.daily.time||!j.daily.time.length)return;var d=j.daily,hi=d.temperature_2m_max[0],lo=d.temperature_2m_min[0];if(hi==null||lo==null)return;var el=document.getElementById("voy-wx-"+s.d);if(!el)return;var code=(d.weather_code&&d.weather_code[0]!=null)?(WMO[d.weather_code[0]]||""):"";var pp=(d.precipitation_probability_max&&d.precipitation_probability_max[0]!=null)?d.precipitation_probability_max[0]+"% rain":"";el.innerHTML=seasonLabel()+": "+vT(s.wx.hi)+"° / "+vT(s.wx.lo)+"° · "+esc(s.wx.txt)+'<br><span class="fc">Forecast '+voyDate(s.date)+": "+Math.round(hi)+"° / "+Math.round(lo)+"°"+(code?" · "+esc(code):"")+(pp?" · "+pp:"")+"</span>";});}
 function renderOverview(){var el=document.getElementById("pane-overview");if(!el)return;var h='';
   h+='<p class="ov-lead">This is your offline travel companion for the sailing: the day-by-day itinerary, destination weather averages, and live forecasts as you get close, all in one place. <strong>Save it to your phone and it keeps working at sea and in port, even with no internet.</strong></p>';
+  if(inAppBrowser()){h+='<div class="ov-card ov-inapp"><b>⚠️ Open this in Safari or Chrome first</b>'
+    +'<p class="ov-step">You opened this page inside Facebook, Messenger or Instagram. That app\'s built-in browser can\'t save it to your phone, and anything you write in here stays inside that app.</p>'
+    +INAPP_STEPS.map(function(s){return '<p class="ov-step"><strong>'+esc(s[0])+'</strong> '+esc(s[1])+'</p>';}).join("")
+    +'<p class="ov-step"><button type="button" class="inapp-copy">Copy link</button></p><p class="ov-step inapp-msg" role="status"></p>'
+    +'<p class="ov-step">Then follow the steps below in Safari or Chrome.</p></div>';}
   h+='<div class="ov-card ov-save"><b>📲 Save this app to your phone</b>'
     +'<p class="ov-step"><strong>iPhone / iPad (Safari):</strong> tap the <strong>Share</strong> button (the square with an up-arrow: at the bottom of the screen on an iPhone, at the top on an iPad), scroll down, then tap <strong>Add to Home Screen</strong>.</p>'
     +'<p class="ov-step"><strong>Android (Chrome):</strong> tap the <strong>⋮</strong> menu (top-right), then <strong>Add to Home screen</strong> (or <strong>Install app</strong>).</p>'
@@ -130,6 +135,7 @@ function renderOverview(){var el=document.getElementById("pane-overview");if(!el
     if(V.pdfCondensed)h+='<a class="ov-pdf" href="'+attr(V.pdfCondensed)+'" target="_blank" rel="noopener noreferrer">Printable short version (PDF)</a>';
     h+='</div>';}
   el.innerHTML=h;usagePdfLinks(el);
+  var cp=el.querySelector(".inapp-copy");if(cp)cp.addEventListener("click",function(){copyPageLink(el.querySelector(".inapp-msg"));});
   el.querySelectorAll(".ov-go").forEach(function(b){b.addEventListener("click",function(){setTab(b.getAttribute("data-go"));var want=b.getAttribute("data-go"),n=[].filter.call(document.querySelectorAll(".wtab"),function(x){return x.getAttribute("data-t")===want;})[0];if(n)n.focus();});});}
 function renderAverages(){var el=document.getElementById("pane-averages");if(!el)return;var h='<div class="fc-head">Destination weather averages · '+esc(V.seasonLabel||"typical")+'</div>';
   ITIN.forEach(function(s){h+='<div class="avg-row"><span class="avg-date">'+(V.datesApprox?"~":"")+voyDate(s.date)+'</span><span class="avg-loc">'+esc(s.loc)+'</span><span class="avg-temp">'+vT(s.wx.hi)+'° / <span class="lo">'+vT(s.wx.lo)+'°</span></span><span class="avg-txt">'+esc(s.wx.txt)+'</span></div>';});
@@ -448,20 +454,39 @@ var ub=document.getElementById("wx-unit");if(ub){ub.textContent=(uTemp()==="cels
 // The choice is a per-phone convenience, kept in localStorage when the browser allows it.
 function setFs(k){k=Number(k)||1;document.documentElement.style.setProperty("--fs",String(k));document.querySelectorAll(".fsz button").forEach(function(b){b.setAttribute("aria-pressed",Number(b.getAttribute("data-fs"))===k?"true":"false");});try{localStorage.setItem("itw-fs",String(k));}catch(e){}}
 function initFs(){var k=1;try{k=Number(localStorage.getItem("itw-fs"))||1;}catch(e){}setFs(k);document.querySelectorAll(".fsz button").forEach(function(b){b.addEventListener("click",function(){setFs(b.getAttribute("data-fs"));});});}
+// Facebook, Messenger and Instagram open links in their own built-in browser. That browser cannot add a
+// page to the home screen, and what is saved in it stays inside the app, so a traveler who arrives from
+// a Facebook post is told to reopen the page in Safari or Chrome first. Matched on the user-agent markers
+// those apps add (FBAN/FBAV/FBIOS on iPhone, FB_IAB on Android, "Instagram" in both).
+function inAppBrowser(){return /FBAN|FBAV|FBIOS|FB_IAB|Instagram/i.test(navigator.userAgent||"");}
+// The link to copy is this page without Facebook's tracking parameter and without any #fragment.
+function cleanPageLink(){try{var u=new URL(location.href);u.searchParams.delete("fbclid");u.hash="";return u.toString();}catch(e){return location.href.split("#")[0];}}
+// Copies the clean link and reports the result in msg (a role="status" element, so it is announced).
+function copyPageLink(msg){var link=cleanPageLink();
+  function say(ok){if(msg)msg.textContent=ok?"Link copied. Open Safari or Chrome and paste it into the address bar.":"Couldn't copy. Press and hold this link to copy it: "+link;}
+  function legacy(){try{var t=document.createElement("textarea");t.value=link;t.setAttribute("readonly","");t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();var ok=document.execCommand("copy");t.remove();return !!ok;}catch(e){return false;}}
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(link).then(function(){say(true);},function(){say(legacy());});return;}}catch(e){}
+  say(legacy());}
+var INAPP_STEPS=[["iPhone:","tap the three-dot menu (usually top-right) and choose Open in Safari or Open in external browser."],["Android:","tap the three-dot menu (usually top-right) and choose Open in Chrome or Open in external browser."],["No such option?","copy the link below, open Safari or Chrome yourself, and paste it into the address bar."]];
 // Install popup: shown once per phone, never when the app is already installed. Built with DOM calls.
 var _bip=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();_bip=e;});
 function installedAlready(){try{return window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true;}catch(e){return false;}}
 function maybeInstallPopup(){var seen=false;try{seen=!!localStorage.getItem("itw-install-seen");}catch(e){seen=true;}if(seen||installedAlready())return;
   setTimeout(function(){if(document.getElementById("inst-dlg"))return;var prev=document.activeElement;var ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
     var bg=document.createElement("div");bg.className="inst-bg";var d=document.createElement("div");d.id="inst-dlg";d.className="inst-dlg";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-labelledby","inst-h");
-    var h=document.createElement("h2");h.id="inst-h";h.textContent="📲 Save this app to your phone";d.appendChild(h);
-    var p1=document.createElement("p");p1.textContent=ios?"In Safari, tap the Share button (the square with an up-arrow: at the bottom of the screen on an iPhone, at the top on an iPad), scroll down, then tap Add to Home Screen.":"Tap the ⋮ menu (top-right), then Add to Home screen or Install app.";d.appendChild(p1);
+    var inapp=inAppBrowser();
+    var h=document.createElement("h2");h.id="inst-h";h.textContent=inapp?"⚠️ Open this in Safari or Chrome first":"📲 Save this app to your phone";d.appendChild(h);
+    if(inapp){var pi=document.createElement("p");pi.textContent="You opened this inside Facebook, Messenger or Instagram, and that app's browser can't save it to your phone.";d.appendChild(pi);
+      INAPP_STEPS.forEach(function(s){var q=document.createElement("p"),st=document.createElement("strong");st.textContent=s[0];q.appendChild(st);q.appendChild(document.createTextNode(" "+s[1]));d.appendChild(q);});
+      var im=document.createElement("p");im.setAttribute("role","status");}
+    var p1=document.createElement("p");p1.textContent=inapp?"Once it is open in Safari or Chrome, you can add it to your home screen.":ios?"In Safari, tap the Share button (the square with an up-arrow: at the bottom of the screen on an iPhone, at the top on an iPad), scroll down, then tap Add to Home Screen.":"Tap the ⋮ menu (top-right), then Add to Home screen or Install app.";d.appendChild(p1);
     var p2=document.createElement("p");p2.textContent="It then opens like a real app and keeps working at sea and in port, even with no internet.";d.appendChild(p2);
     var row=document.createElement("div");row.className="inst-row";
     function close(){try{localStorage.setItem("itw-install-seen","1");}catch(e){}bg.remove();d.remove();document.removeEventListener("keydown",esc1);if(prev&&prev.focus)prev.focus();}
     function esc1(e){if(e.key==="Escape")close();}
-    if(_bip){var ib=document.createElement("button");ib.type="button";ib.className="inst-go";ib.textContent="Install now";ib.addEventListener("click",function(){_bip.prompt();_bip=null;close();});row.appendChild(ib);}
-    var ok=document.createElement("button");ok.type="button";ok.className="inst-ok";ok.textContent="Got it";ok.addEventListener("click",close);row.appendChild(ok);d.appendChild(row);
+    if(inapp){var cb=document.createElement("button");cb.type="button";cb.className="inst-go";cb.textContent="Copy link";cb.addEventListener("click",function(){copyPageLink(im);});row.appendChild(cb);}
+    if(_bip&&!inapp){var ib=document.createElement("button");ib.type="button";ib.className="inst-go";ib.textContent="Install now";ib.addEventListener("click",function(){_bip.prompt();_bip=null;close();});row.appendChild(ib);}
+    var ok=document.createElement("button");ok.type="button";ok.className="inst-ok";ok.textContent="Got it";ok.addEventListener("click",close);row.appendChild(ok);d.appendChild(row);if(inapp)d.appendChild(im);
     bg.addEventListener("click",close);document.body.appendChild(bg);document.body.appendChild(d);document.addEventListener("keydown",esc1);(row.firstChild||ok).focus();},2500);}
 // ---- Journal: private, per voyage, kept only on this phone (plan: admin/claude/plans/voyage-journal.md) ----
 // IndexedDB, keyed by voyage slug, day and (optionally) whose entry. Nothing is sent anywhere. Every
