@@ -314,7 +314,7 @@ function prefetchGuide(){try{if(V.guide&&navigator.onLine!==false)fetch(String(V
 function renderEmergency(){var el=document.getElementById("pane-emg");if(!el||!V.emergency)return;var E=V.emergency,h="";
   h+='<div class="ov-card"><b>⚑ Emergency contacts — works offline</b>'
     +(E.intro?'<p>'+esc(E.intro)+'</p>':'')
-    +'<ul class="emg-nums">'+(E.numbers||[]).map(function(n){return '<li><span class="emg-lbl">'+esc(n.label)+'</span><br><a class="emg-tel" href="tel:'+attr(String(n.tel).replace(/[^+\d]/g,""))+'">'+esc(n.tel)+'</a>'+(n.note?' <span class="muted">'+esc(n.note)+'</span>':'')
+    +'<ul class="emg-nums">'+(E.numbers||[]).map(function(n){return '<li><span class="emg-lbl">'+esc(n.label)+'</span><br>'+(n.tel?'<a class="emg-tel" href="tel:'+attr(String(n.tel).replace(/[^+\d]/g,""))+'">'+esc(n.tel)+'</a>':'')+(n.note?' <span class="muted">'+esc(n.note)+'</span>':'')
       // The office's own web page, when the voyage names one. https only; it needs a signal, the number does not.
       +(n.url&&/^https:\/\//.test(String(n.url))?'<br><a class="ov-link emg-web" href="'+attr(n.url)+'" target="_blank" rel="noopener noreferrer">'+esc(n.urlLabel||"Official page")+' →<span class="sr-only"> (opens in a new window)</span></a>':'')+'</li>';}).join("")+'</ul></div>';
   h+='<div class="ov-card"><b>Family handoff card</b>'

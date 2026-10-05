@@ -40,7 +40,7 @@ export const PORT_COUNTRY = {
   'Grand Cayman': 'KY', 'Ocho Rios, Jamaica': 'JM', 'Falmouth, Jamaica': 'JM',
   'Victoria, BC': 'CA', 'Vancouver, BC': 'CA', 'Halifax, NS': 'CA', 'Saint John, NB': 'CA',
   'Roatán, Honduras': 'HN', 'Bermuda (Kings Wharf)': 'BM', 'Tortola, BVI': 'VG', 'Philipsburg, St. Maarten': 'SX',
-  'Bridgetown, Barbados': 'BB', 'Amber Cove, DR': 'DO',
+  'Bridgetown, Barbados': 'BB', 'Amber Cove, DR': 'DO', 'Puerto Plata, Dominican Republic': 'DO',
   'Wellington, New Zealand': 'NZ', 'Tauranga, New Zealand': 'NZ', 'Picton, New Zealand': 'NZ', 'New Plymouth, New Zealand': 'NZ',
   'Auckland, New Zealand': 'NZ', 'Lyttelton (Christchurch), NZ': 'NZ',
   'Townsville, Australia': 'AU', 'Sydney, Australia': 'AU', 'Darwin, Australia': 'AU', 'Cairns, Australia': 'AU', 'Brisbane, Australia': 'AU',
