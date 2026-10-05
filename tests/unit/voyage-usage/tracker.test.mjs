@@ -8,12 +8,12 @@ import vm from 'node:vm';
 
 const SRC = await readFile(new URL('../../../assets/js/voyage-usage.js', import.meta.url), 'utf8');
 
-function makeWindow({ online = true, dnt = '0', gpc = false, umami = null, fetchImpl, protocol = 'https:' } = {}) {
+function makeWindow({ online = true, dnt = '0', gpc = false, umami = null, fetchImpl, protocol = 'https:', endpoint = 'https://usage.example.test/send' } = {}) {
   const store = new Map();
   const listeners = {};
   const sent = [];
   const w = {
-    ITW_USAGE_ENDPOINT: 'https://usage.example.test/send',
+    ITW_USAGE_ENDPOINT: endpoint,
     navigator: { onLine: online, doNotTrack: dnt, globalPrivacyControl: gpc, language: 'en-US' },
     location: { protocol, hostname: 'cruisinginthewake.com', pathname: '/admin/voyage-pwa/x.html' },
     document: { title: 'x', visibilityState: 'visible', readyState: 'complete' },
@@ -38,8 +38,8 @@ test('only whitelisted properties survive; personal-looking keys are dropped', a
   w.ITW_USAGE.track('vp_pwa_open', { pack: 'v0.1.9-x', name: 'Jane', phone: '555-0100', email: 'j@x', ip: '1.2.3.4', lat: 28.3, phase: 'during', day: 4 });
   await tick();
   assert.equal(sent.length, 1);
-  assert.deepEqual(sent[0].body.payload.data, { pack: 'v0.1.9-x', phase: 'during', day: '4' });
-  assert.equal(sent[0].body.payload.name, 'vp_pwa_open');
+  assert.deepEqual(sent[0].body.data, { pack: 'v0.1.9-x', phase: 'during', day: '4' });
+  assert.equal(sent[0].body.name, 'vp_pwa_open');
   assert.equal(sent[0].url, 'https://usage.example.test/send');
 });
 
@@ -48,14 +48,14 @@ test('a prototype-polluting key cannot smuggle a property', async () => {
   const data = JSON.parse('{"pack":"v0.1.9-x","__proto__":{"tabs":"radar"},"constructor":"x"}');
   w.ITW_USAGE.track('vp_pwa_session', data);
   await tick();
-  assert.deepEqual(sent[0].body.payload.data, { pack: 'v0.1.9-x' });
+  assert.deepEqual(sent[0].body.data, { pack: 'v0.1.9-x' });
 });
 
 test('values are strings capped at 64 characters; markup is inert data', async () => {
   const { w, sent } = makeWindow();
   w.ITW_USAGE.track('vp_pwa_tab', { pack: '<script>alert(1)</script>' + 'a'.repeat(100), tabs: 12 });
   await tick();
-  const d = sent[0].body.payload.data;
+  const d = sent[0].body.data;
   assert.equal(d.pack.length, 64);
   assert.equal(typeof d.tabs, 'string');
 });
@@ -86,7 +86,7 @@ test('offline: events queue in order and flush when the network returns', async 
   w.navigator.onLine = true;
   fire('online');
   await tick();
-  assert.deepEqual(sent.map((s) => s.body.payload.name), ['vp_pwa_open', 'vp_pwa_session']);
+  assert.deepEqual(sent.map((s) => s.body.name), ['vp_pwa_open', 'vp_pwa_session']);
   assert.equal(w.ITW_USAGE._queue().length, 0);
 });
 
@@ -137,4 +137,23 @@ test('a file: page sends nothing (a saved copy is not the site)', async () => {
   await tick();
   assert.equal(sent.length, 0);
   assert.equal(store.size, 0);
+});
+
+// The relay takes {name, data} and nothing else; the page's title, screen size and language
+// are never sent to it. Pinned 2026-10-05, when the Umami envelope was found going to the relay.
+test('to the relay: the body is exactly {name, data}', async () => {
+  const { w, sent } = makeWindow();
+  w.ITW_USAGE.track('vp_pwa_open', { pack: 'v0.1.9-x', day: 2 });
+  await tick();
+  assert.deepEqual(sent[0].body, { name: 'vp_pwa_open', data: { pack: 'v0.1.9-x', day: '2' } });
+});
+
+test('with no relay set, events go to Umami in its own envelope', async () => {
+  const { w, sent } = makeWindow({ endpoint: null });
+  w.ITW_USAGE.track('vp_pwa_open', { pack: 'v0.1.9-x' });
+  await tick();
+  assert.equal(sent[0].url, 'https://cloud.umami.is/api/send');
+  assert.equal(sent[0].body.type, 'event');
+  assert.equal(sent[0].body.payload.name, 'vp_pwa_open');
+  assert.deepEqual(sent[0].body.payload.data, { pack: 'v0.1.9-x' });
 });
