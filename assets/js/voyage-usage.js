@@ -9,7 +9,8 @@
   var WEBSITE = '9661a449-3ba9-49ea-88e8-4493363578d2';
   // Setting 1.5 (plan §2.1): companion pages point this at the geo-blind relay, e.g.
   // 'https://usage.cruisinginthewake.com/send'. Site pages may keep Umami's own endpoint.
-  var ENDPOINT = (typeof w.ITW_USAGE_ENDPOINT === 'string' && w.ITW_USAGE_ENDPOINT) || 'https://cloud.umami.is/api/send';
+  var UMAMI = 'https://cloud.umami.is/api/send';
+  var ENDPOINT = (typeof w.ITW_USAGE_ENDPOINT === 'string' && w.ITW_USAGE_ENDPOINT) || UMAMI;
   var KEY = 'itw:vp-usage-queue';
   var ALLOW = { pack: 1, price: 1, variant: 1, scope: 1, standalone: 1, offline: 1, phase: 1, day: 1, tabs: 1 };
   var MAX = 200;
@@ -45,6 +46,10 @@
       name: ev.name, data: ev.data
     } };
   }
+  // The relay (admin/voyage-usage-relay/worker.js, scrub) takes {name, data} and builds Umami's
+  // envelope itself; only Umami's own endpoint takes the envelope. From 2026-09-05 to 2026-10-05 the
+  // envelope went to the relay, which answered 400 "bad event", and every companion event was dropped.
+  function body(ev) { return ENDPOINT === UMAMI ? payload(ev) : { name: ev.name, data: ev.data }; }
   function requeue(ev) { var r = load(); r.push(ev); save(r); }
   function send(ev) {
     if (w.umami && typeof w.umami.track === 'function') {
@@ -53,7 +58,7 @@
     }
     try {
       w.fetch(ENDPOINT, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload(ev)) })
+        body: JSON.stringify(body(ev)) })
         .then(function (r) { if (!r || (!r.ok && r.status !== 400)) requeue(ev); }, function () { requeue(ev); });
     } catch (e) { requeue(ev); }
   }

@@ -77,7 +77,11 @@ test('the companion puts Alerts last as a top-level tab, and never calls a faile
   assert.equal(tabs[tabs.length - 1], 'alerts');
   assert.doesNotMatch(js, /class="wtab wsub" data-t="alerts"/, 'Alerts must not also be a weather sub-tab');
   assert.match(js, /if\(fs===null\)\{[^}]*Couldn\\'t check weather warnings/);
-  assert.match(js, /r\.status===400\)return\{outside:true\}/, 'NWS 400 (outside coverage) is "not covered", not a failure');
+  assert.match(js, /r\.status===400\)\{try\{localStorage\.setItem\(ok,"1"\);\}catch\(e\)\{\}return\{outside:true\};\}/, 'NWS 400 (outside coverage) is "not covered", not a failure, and is remembered');
+  // Only the 400 is remembered (2026-10-05): coverage does not move, but a 5xx or a dropped
+  // connection says nothing about coverage and must be asked again next time.
+  assert.equal((js.match(/localStorage\.setItem\(ok,"1"\)/g) || []).length, 1, 'only the 400 path remembers "not covered"');
+  assert.match(js, /if\(known\)\{renderAlerts\(\[\],p,true\);return;\}/, 'a remembered point shows "not covered" without asking');
   const sw = readFileSync(ROOT + 'admin/voyage-pwa/sw.js', 'utf8');
   assert.match(sw, /url\.pathname === "\/admin\/voyage-pwa\/alerts\.json"/, 'alerts.json must be network-first');
 });
