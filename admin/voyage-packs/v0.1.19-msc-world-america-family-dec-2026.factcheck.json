@@ -131,6 +131,45 @@
       "banned_vocabulary_hits": 0,
       "verdict": "likely_human",
       "verdict_justification": "Zero AI/LLM mentions across 809 lines; strong firsthand from-the-pier specificity and honest operational hedges throughout the read portion. The elevated 'honest'/'genuinely' counts are a style-trim gap, not a cluster signal."
+    },
+    "solo_edition_reaudit_2026_10_05": {
+      "audited_against": "voice-audit v2.3.0 (.claude/skills/voice-audit/SKILL.md), full body of the long pack, condensed pack, handoff card, and the companion's overview, FAQ, itinerary notes and histories",
+      "audited_by": "Claude (operator-directed: 'make sure the voyage pack text is ready. understandable. no ai slop.')",
+      "audit_scope": "full pack body",
+      "machine_tells_after": {
+        "banned_cruise_vocab": 0,
+        "ai_vocab": 0,
+        "filler_transitions": 0,
+        "announcement_before_move": 0,
+        "assumed_familiarity": 0,
+        "copulative_avoidance": 0,
+        "stock_phrases": 0,
+        "note": "'Symphony' (ship name) and two plain-sense 'especially' remain by design"
+      },
+      "fixed": [
+        "In-sentence em dashes in the long pack cut from 140 to 0 by hand (headings, list labels, table empty-cell markers and the fill-in card keep theirs as layout); condensed pack and handoff card likewise; companion sentences likewise",
+        "'World-class' (caption), 'calibrated' x3, 'iconic', 'genuinely' x3, 'the calm read', 'earns its keep', 'the honest fallback' replaced with plain words",
+        "Triplet-of-absences reduced from three to one (Welcome keeps 'no urgency, no upsell, no countdown timer')",
+        "Jargon defined or removed: MDR, PWA, fare names (Bella/Fantastica/Aurea now named as MSC's fare levels)",
+        "Leftovers from the family edition: 'nap runs', 'per person', 'anyone's motion-prone', a duplicated Harbour line in the condensed pack",
+        "Own errors from the 2026-10-05 solo edit: 'Whether you needs', forecast window stated as ~16 days (companion now ~two weeks)",
+        "Accuracy: medical bills 'often aren't' covered (was absolute); an unverified ordering of MSC fare levels removed; Costa Maya embellishment 'and nothing else' removed before commit"
+      ],
+      "must_be_present": {
+        "first_person_attestation_with_date": "one firsthand line (PortMiami garage parking, May 2026); otherwise missing, colophon-disclosure escape invoked: Closing section 'How this pack was made' says the pack is research, names the sources, and marks firsthand lines",
+        "honest_limitation_acknowledged": "several: Roatán rain odds, Costa Maya 'least authentic', lighthouse show not guaranteed, solo meetups unconfirmed, Studio sizes disagree between sources",
+        "from_the_pier_specificity": "present (Coxen Hole vs Mahogany Bay, Punta Langosta boardwalk, Ocean Cay gangway-to-sand 5-10 min)",
+        "real_numbers": "many (prices, times, temperatures, decks)",
+        "named_real_specifics": "present but research-grade, not lived-grade"
+      },
+      "cluster_detection": {
+        "layer_1_signals": "0 after edits",
+        "layer_2_signals": "1 (research-grade named specifics without lived narration)",
+        "layer_3_counter_signals": "1 lived-grade (firsthand May 2026 parking); colophon discloses the rest",
+        "verdict": "unclear leaning likely_human; honest about being research"
+      },
+      "risk_rating": "Low",
+      "outstanding_drift_notes": "Not independently audited: this is the editing session checking its own and earlier text. A reader-facing pass by the operator is the real check."
     }
   },
   "ship_specs": {
