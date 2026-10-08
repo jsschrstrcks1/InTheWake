@@ -964,6 +964,39 @@ Also unsure whether seven at once was right. Each is sourced and each stands up 
 **Honest limit.** The factcheck sidecars record what I fetched and what I refused to print. They cannot record what I failed to think of looking for.
 
 
+## 2026-10-08 — Galveston: the hurricane history comes out
+
+**What was asked.** *"Strip out the hurricane stuff. its a vacation site not scare your guests site."*
+Then: *"update the verbiage. do research at primary sources to resolve discrepancies and fact check."*
+
+**What came out.** The 1900 storm narrative, the death toll, the September 8 1900 line, "the deadliest
+natural disaster in American history", "the deadliest storm", the Hurricane Ike paragraph, "Galveston was
+devastated in 1900", "survived the 1900 hurricane" (three places), Bishop's Palace "survived the Great
+Storm when lesser buildings were swept into the Gulf", the seawall's "built after the devastating 1900
+hurricane, saved Galveston from future storms", the closing "resilience is not about avoiding
+catastrophe" paragraph, and the "1900 hurricane history" meta descriptions. The Island's Own history is
+kept — the Strand, the cotton brokers, the Wall Street of the South wealth, the Seawall as a promenade —
+and told as a vacation site tells it.
+
+**Kept deliberately:** the bare weather fact that the Atlantic season runs June–November, in the weather
+and planning lines. That is travel planning; what was removed is the *tragedy*, not the timing.
+
+**Resolved at primary sources.** Maceo Spice & Import: the page claimed "since 1946"; the company's own
+site says **"Galveston's Original Spice and Import, since 1944"**, and the family account (Rosario Maceo)
+agrees on 1944. Corrected in both places. HOU is ~45 miles and IAH ~70 miles from the port — the page's
+"about 60 minutes" for Hobby holds; the repo's own `planning.html` says IAH 75–110 while the page says
+75–90, a conflict between two files in the same repo that is **named, not silently picked**.
+
+**Caught in my own edit:** a regex of mine appended a second "peak risk is August and September" clause
+instead of replacing the first, so the FAQ answered itself twice. Fixed before commit. The user-visible
+lesson is the same one recorded in the other repo today: the prose was written by regex, so the prose had
+to be re-read, not assumed.
+
+**Named limit:** the weather/planning lines still say "Hurricane Season: June through November" where it
+is a calendar fact. If those should go too, that is a decision, not an oversight.
+
+_Runtime: Hermes (deepseek-v4.1-flash, nous)_
+
 ## 2026-08-27 - Merge main: another lane superseded the family-app tab design; pack renumbered v0.1.19
 
 **Asked.** "proceed as recomended" — loop step 1, fetch/resolve/merge.
