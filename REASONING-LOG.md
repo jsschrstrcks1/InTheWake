@@ -2183,6 +2183,48 @@ International Pier); reported as such, not pinned.
 
 ---
 
+## 2026-10-08 — A port page that claimed a sailing nobody made
+
+**What was asked.** *"In the repo in the wake, on the galveston page, I've never sailed from
+galveston, and you have me sailing from there. Change it to a third person voice."*
+
+**What was actually there.** `ports/galveston.html` asserted first-hand experience fifteen
+times: "I've sailed from many ports, but Galveston holds a special place in my logbook", "I
+walk the Strand District", "I walk it often", "When I finally board my ship, I carry that
+Texas warmth with me", a section headed "The Moment That Stays With Me", a closing paragraph
+of things "Galveston taught me", two more "where I always begin" lines and a "My Logbook"
+heading.
+
+**The page was arguing with itself, and that is the part worth recording.** Line 648 — the
+standing disclaimer that has been on every port page since the beginning — reads *"Until I
+have sailed this port myself, these notes are soundings in another's wake."* The page told
+the truth in its footer while its body claimed the opposite. A disclaimer that the body above
+it contradicts is worse than no disclaimer, because it reads as a formality rather than a
+limit. The footer is kept exactly as it was; the body was brought into agreement with it.
+
+**How the rewrite was scoped.** Facts untouched: 1825, fourth busiest, the Strand, the 1900
+storm and its 6,000–8,000 dead, the seawall, the Moody legacy, Maceo Spice since 1946. Only
+the *experience* claims were removed, and they were removed rather than re-attributed — the
+passages now describe a port instead of narrating a visit. This commit does not assert
+anything new about Galveston; it stops asserting something about the author.
+
+**Deliberately left alone.** The FAQ entries ("Should I arrive a day early?", "Where should I
+park?") — that "I" is the *reader's*, which is ordinary FAQ voice and not a claim about
+anyone's travels. Rewriting those would have been over-correction dressed as thoroughness.
+
+**Named limit.** This page only. The same defect is visible elsewhere and is reported rather
+than silently swept: `ports/cozumel.html:274` ("I've lost count of how many times I've visited
+Cozumel") and `ships/carnival/carnival-jubilee.html:766` ("we drove to Galveston and boarded
+whatever Carnival had decided Texas was good enough for"). Both make the same first-hand
+claim and neither is touched here, so this repair is not read as broader than it is.
+
+**Noted on the way through.** The commit was refused the first time by
+`.githooks/reasoning-log-guard.sh` — the guard built in the *other* repo earlier the same day,
+which blocks a substantive commit with no entry dated today. It was right, and this entry is
+the answer to it. A guard that stops its own author is doing its job.
+
+_Runtime: Hermes (deepseek-v4.1-flash, nous)_
+
 ## 2026-08-12 — the guard was shipping a detector it could not find (P0, measured)
 
 **Asked.** Continue the merge campaign into this repo. Two of the six branches carrying
