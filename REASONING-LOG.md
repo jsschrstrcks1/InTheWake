@@ -964,6 +964,31 @@ Also unsure whether seven at once was right. Each is sourced and each stands up 
 **Honest limit.** The factcheck sidecars record what I fetched and what I refused to print. They cannot record what I failed to think of looking for.
 
 
+## 2026-10-08 — Galveston: the figures, checked at the source
+
+Ken: *"all set?"* — no, and the honest list was longer than I had said. This pass closes the defects I
+introduced and the stale numbers a full check turned up.
+
+**Mine, fixed.** (1) I had welded the tail of an old sentence onto the hurricane FAQ, which read *"...
+if you sail in that window.–September cancellations possible."* (2) *"serving since 1946"* survived in a
+third phrasing — my earlier "both occurrences corrected" was an unmeasured coverage claim, which is F8 in
+my own failure register. (3) I had replaced Bishop's Palace's safe wording with *"It is a National
+Historic Landmark"*; it is a contributing property to the East End National Historic Landmark District,
+not an individually designated NHL. The original wording was better than my edit.
+
+**Stale, corrected at source.** "over a million passengers annually" → the port's own material says
+*nearly two million*. Parking "$10-20/day" → 2026 rates run ~$20-35/day. "two cruise terminals" → four
+(Piers 25, 27, 10, 16). "IAH 75-90 minutes" → 75-110, which is what planning.html already said, so the
+two files now agree. Cruise-line list was missing Norwegian. The Uber fare appeared as three different
+figures on one page and now agrees. The seawall's unconfirmed "1961" end date became "extended over the
+following decades".
+
+**A voice problem the footer had all along:** *"based on official sources and verified firsthand"* — the
+author has not been to Galveston, so "verified firsthand" was a claim the page could not make. Changed to
+"official sources and public records", and the review date brought current.
+
+_Runtime: Hermes (deepseek-v4.1-flash, nous)_
+
 ## 2026-10-08 — Galveston: the hurricane history comes out
 
 **What was asked.** *"Strip out the hurricane stuff. its a vacation site not scare your guests site."*
