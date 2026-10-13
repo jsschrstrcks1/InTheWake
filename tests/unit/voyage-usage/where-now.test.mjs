@@ -27,6 +27,8 @@ const CHECKED = {
   'Norwegian Aura': '9862580',
   // Brilliant Lady (2026-10-05): Wikipedia infobox and CruiseMapper agree.
   'Brilliant Lady': '9870654',
+  // Norwegian Jewel (2026-10-11): Wikipedia infobox and VesselFinder agree.
+  'Norwegian Jewel': '9304045',
 };
 
 const pages = (await readdir(DIR)).filter((f) => f.endsWith('.html'));

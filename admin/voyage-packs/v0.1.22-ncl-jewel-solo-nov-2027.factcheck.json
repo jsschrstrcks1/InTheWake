@@ -1,0 +1,750 @@
+{
+  "_doctrine": ".claude/skills/original-research/SKILL.md",
+  "_note": "Every factual claim in the pack, condensed and handoff card, with its source. Fetched 2026-10-11 unless noted. Quotes from WebFetch pass through a summarizing model; NCL schedule, UK FCDO, US embassy and NCL contact pages were read raw with curl.",
+  "pack_filename": "v0.1.22-ncl-jewel-solo-nov-2027.md",
+  "variants": [
+    "v0.1.22-ncl-jewel-solo-condensed.md",
+    "v0.1.22-ncl-jewel-solo-handoff-card.md"
+  ],
+  "last_factcheck_date": "2026-10-11",
+  "verified_by": "Claude (claude-code session), for the operator",
+  "verification_session": "2026-10-11, InTheWake branch claude/voyage-packs-usage-tracking-w6vfof",
+  "sailing_identity": {
+    "operator_decision": {
+      "value": "Build for Monday Nov 29, 2027 (voyage 25386145). The traveler wrote 11/29/26; no Jewel sailing leaves Miami on 2026-11-29 (the nearest is Nov 28, 2026, voyage 23425667). The operator chose the Nov 29, 2027 sailing when shown both.",
+      "source": "https://www.ncl.com/cruises/10-day-caribbean-round-trip-miami-curacao-aruba-and-dominican-republic-JEWEL10MIANPICBRORJWILFMHGECMIA",
+      "verified": "2026-10-11"
+    },
+    "voyage": {
+      "value": "Voyage 25386145, itinerary code JEWEL10MIANPICBRORJWILFMHGECMIA, 10 nights",
+      "source": "https://www.ncl.com/cruises/10-day-caribbean-round-trip-miami-curacao-aruba-and-dominican-republic-JEWEL10MIANPICBRORJWILFMHGECMIA",
+      "verified": "2026-10-11",
+      "quote": "embedded sailing data: packageId 25386145, first event 2027-11-29 16:00 MIA D",
+      "notes": "Read from the page's embedded JSON events list, raw HTML via curl."
+    }
+  },
+  "ship_specs": {
+    "imo": {
+      "value": "9304045",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Jewel",
+      "verified": "2026-10-11",
+      "quote": "9304045",
+      "notes": "Cross-checked: VesselFinder https://www.vesselfinder.com/vessels/details/9304045 shows IMO 9304045. Companion imo field uses this."
+    },
+    "gross_tonnage": {
+      "value": "93,502",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Jewel",
+      "verified": "2026-10-11",
+      "quote": "93,502 GT",
+      "notes": "VesselFinder also 93502. NCL's ship page gives no tonnage. Pack explains GT as enclosed volume, not weight."
+    },
+    "guests_double_occupancy": {
+      "value": "2,368",
+      "source": "https://www.ncl.com/cruise-ship/jewel",
+      "verified": "2026-10-11",
+      "quote": "2,368 Guest Capacity (Double Occupancy)",
+      "notes": "Wikipedia gives other figures (2,376 as built; 2,394 later). Pack uses NCL's own."
+    },
+    "crew": {
+      "value": "1,069",
+      "source": "https://www.ncl.com/cruise-ship/jewel",
+      "verified": "2026-10-11",
+      "quote": "1,069 Ship Crew"
+    },
+    "ratios_computed": {
+      "value": "2368/1069 = 2.2 guests per crew member; 93502/2368 = 39.5 GT per guest (pack says 'about 39')",
+      "source": "https://www.ncl.com/cruise-ship/jewel",
+      "verified": "2026-10-11",
+      "notes": "Computed, not copied (pre-ship checklist class L)."
+    },
+    "length": {
+      "value": "965 ft (294 m)",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Jewel",
+      "verified": "2026-10-11",
+      "quote": "294.13 m (965 ft 0 in)",
+      "notes": "NCL ship page also 965 ft."
+    },
+    "decks": {
+      "value": "decks 4 to 15 on NCL's deck plans",
+      "source": "https://www.ncl.com/cruise-ships/norwegian-jewel/deck-plans",
+      "verified": "2026-10-11",
+      "notes": "Wikipedia says 15 decks; pack states the deck-plan range rather than a guest-deck count."
+    },
+    "builder": {
+      "value": "Meyer Werft, Papenburg, Germany; completed 4 August 2005",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Jewel",
+      "verified": "2026-10-11",
+      "quote": "Meyer Werft; Papenburg, Germany; completed 4 August 2005"
+    },
+    "class": {
+      "value": "Jewel class, first of her class",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Jewel",
+      "verified": "2026-10-11",
+      "quote": "Jewel-class cruise ship",
+      "notes": "NCL's smoking FAQ also refers to 'Jewel and Star Class ships'."
+    },
+    "refurbished": {
+      "value": "2025",
+      "source": "https://www.ncl.com/cruise-ship/jewel",
+      "verified": "2026-10-11",
+      "quote": "2025 Year Refurbished (Built in 2005)"
+    },
+    "vibe_beach_club_added": {
+      "value": "Vibe Beach Club recently added",
+      "source": "https://www.nclhltd.com/investors/news-events/press-releases/detail/790/norwegian-cruise-line-brings-cruising-back-to-philadelphia",
+      "verified": "2026-10-11",
+      "quote": "Aboard Norwegian Jewel, guests can also enjoy the recently added Vibe Beach Club, NCL's popular, adults-only outdoor oasis.",
+      "notes": "Release dated 2026-04-17."
+    },
+    "solo_cabins": {
+      "value": "Solo Inside, Solo Oceanview and Solo Balcony on Jewel; no Studio cabins or Studio Lounge",
+      "source": "https://www.ncl.com/staterooms/studio-and-solo",
+      "verified": "2026-10-11",
+      "quote": "Studios listed for: Norwegian Aqua, Bliss, Breakaway, Encore, Epic, Escape, Getaway, Prima, Viva and Pride of America; 'Norwegian Jewel' listed under Solo Balcony and Solo Oceanview",
+      "notes": "'*Studio Lounge is only available for Solo Studio accommodations.'"
+    },
+    "solo_pricing": {
+      "value": "'double occupancy rates don't apply' in Solo staterooms",
+      "source": "https://www.ncl.com/cruise-deals/solo-cruising",
+      "verified": "2026-10-11",
+      "quote": "Double occupancy rates don't apply when you stay in a Solo Stateroom, available fleetwide."
+    },
+    "solo_meetups": {
+      "value": "NCL's current pages do not promise solo meetups on Jewel; travelers report meetups listed in the daily schedule on many NCL ships, often early evening; Cruise Critic has a Roll Calls section with a thread per sailing date",
+      "source": "https://www.ncl.com/newsroom/norwegian-cruise-line-announces-fleetwide-expansion-of-its-solo-stateroom-category",
+      "verified": "2026-10-11",
+      "quote": "In addition to their own lounge, solo cruisers can enjoy activities scheduled for single travelers to mix and mingle.",
+      "notes": "NCL's solo-cruising, studio-and-solo and Jewel ship pages read raw 2026-10-11: no meetup wording. Traveler reports via search of boards.cruisecritic.com (threads returned 403 to direct fetch) and a Cruise Critic UK thread on roll calls (boards.cruisecritic.co.uk/topic/1400693). Labeled in the pack as travelers' reports."
+    },
+    "single_supplement": {
+      "value": "No published rule; promotion terms speak of 'singles paying 200%'",
+      "source": "https://www.ncl.com/cruise-deals/promotion-terms",
+      "verified": "2026-10-11",
+      "quote": "Singles paying 200% of voyage fare qualify",
+      "notes": "Pack says NCL doesn't publish a rule and quotes the promo wording."
+    }
+  },
+  "christening": {
+    "godparent": {
+      "value": "Not named in the pack",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Jewel",
+      "verified": "2026-10-11",
+      "notes": "Wikipedia names a godmother, but NCL's 2005 release it cites could not be fetched (404; archive blocked), and the naming sentence carries no citation. Under the household content standard the pack names no one rather than rely on an uncited line."
+    },
+    "date": {
+      "value": "3 November 2005, Port of Miami (per Wikipedia; not used in the pack)",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Jewel",
+      "verified": "2026-10-11",
+      "quote": "The ship was formally named Norwegian Jewel on 3 November 2005 in a ceremony at the Port of Miami",
+      "notes": "Uncited in the article; the pack does not state it."
+    }
+  },
+  "policies": {
+    "auto_gratuity_rate": {
+      "value": "$20 per person per day, Club Balcony Suite and below; $25 The Haven and suites; bookings on or after Jan 1, 2023; guests 3+; prepayable up to 24 hours before sailing; refundable",
+      "source": "https://www.ncl.com/faq/what-is-ncl-onboard-service-charge",
+      "verified": "2026-10-11",
+      "quote": "$20.00 USD per person per day for Club Balcony Suite and below; $25.00 USD per person per day for The Haven and Suites"
+    },
+    "laundry_availability": {
+      "value": "Not self-service; order form in the stateroom; steward collects and returns it clean and folded; express same-day available; prices on the form",
+      "source": "https://www.ncl.com/cruise-preparation/what-to-pack",
+      "verified": "2026-10-11",
+      "quote": "Express, same-day service is also available. Just complete the order form in your stateroom and your stateroom steward will pick up your laundry and return it to you clean and folded. Please note that laundry is not self-service.",
+      "notes": "Read raw 2026-10-11. No price published online; pack says prices are on the form."
+    },
+    "all_aboard": {
+      "value": "Back aboard no later than one hour before scheduled departure",
+      "source": "https://www.ncl.com/cruise-preparation/departure-day",
+      "verified": "2026-10-11",
+      "quote": "be back onboard the ship no later than one (1) hour prior to the ship's scheduled departure time"
+    },
+    "embarkation_arrival": {
+      "value": "With online check-in, arrive no later than one hour before the scheduled embarkation time; be aboard one hour before departure",
+      "source": "https://www.ncl.com/ca/en/faq/boarding-times",
+      "verified": "2026-10-11",
+      "quote": "should arrive at the terminal no later than one (1) hour prior to the scheduled embarkation time"
+    },
+    "documents": {
+      "value": "Closed loop: valid passport, or state-certified US birth certificate plus government photo ID; passport card accepted; NCL strongly recommends a passport",
+      "source": "https://www.ncl.com/cruise-preparation/travel-documents",
+      "verified": "2026-10-11",
+      "quote": "Norwegian Cruise Line strongly recommends all guests to obtain a passport for their cruise vacation.",
+      "notes": "Six-month validity rule stated only for non-US citizens; pack does not state one."
+    },
+    "free_at_sea": {
+      "value": "For bookings from Nov 5, 2025: open bar 21+, onboard and at Great Stirrup Cay; 4 specialty meals on 9+ nights; 150 Wi-Fi minutes; $50 excursion credit per port for guest 1",
+      "source": "https://www.ncl.com/cruise-deals/free-at-sea",
+      "verified": "2026-10-11",
+      "quote": "Includes unlimited premium spirits, cocktails, wines, draft beer, juice and soda — onboard and at Great Stirrup Cay.",
+      "notes": "Name change confirmed at https://www.ncl.com/travel-blog/everything-you-need-to-know-about-more-at-sea"
+    },
+    "drink_package_service_charge": {
+      "value": "$28.50 per person per day for guests 21+ (pre-cruise price; onboard price will vary); guests 3-20 get soda and juice for $12.50/day",
+      "source": "https://www.ncl.com/sites/default/files/Free-at-Sea-Plus-Comparison-Flyer_0.pdf",
+      "verified": "2026-10-11",
+      "quote": "Gratuities are $28.50/per person/per day for all Guests 21+. Please note this is the pre-cruise price. The onboard price will vary.",
+      "notes": "NCL's own Free at Sea vs. Free at Sea Plus flyer, PDF created 2025-12-03, read with pypdf 2026-10-11. RESOLVES the earlier UNVERIFIED item. Agrees with the drink calculator ($28.50). Pack computes about $285 for ten nights, one guest."
+    },
+    "specialty_and_bar_charge": {
+      "value": "20% added to specialty dining and beverage purchases",
+      "source": "https://www.ncl.com/faq/how-do-gratuities-work-on-cruise",
+      "verified": "2026-10-11",
+      "quote": "an 20% gratuity and specialty service charge added to all specialty restaurant dining"
+    },
+    "drinking_age": {
+      "value": "21 on US sailings",
+      "source": "https://www.ncl.com/faq/alcohol-consumption",
+      "verified": "2026-10-11",
+      "quote": "Passengers must be 21 years of age or older to purchase or consume alcohol whilst in US sailings."
+    },
+    "wine_carry_on": {
+      "value": "Wine and champagne bottles allowed; no box wine or other alcohol; corkage $15 per 750 ml, waived with a beverage package",
+      "source": "https://www.ncl.com/faq/alcohol-consumption",
+      "verified": "2026-10-11",
+      "quote": "Guests may bring bottles of wine and champagne on board.",
+      "notes": "Corkage waiver: https://www.ncl.com/faq/do-i-have-to-pay-a-corkage-fee-if-i-have-free-at-sea"
+    },
+    "smoking": {
+      "value": "$250 cleaning charge for smoking in cabin or on balcony; cigars in cigar lounge; cigarettes in casino for active players; Jewel outdoor area Deck 13 forward port side",
+      "source": "https://www.ncl.com/faq/smoking",
+      "verified": "2026-10-11",
+      "quote": "Smoking inside your stateroom or on your balcony will result in a $250 USD cleaning charge"
+    },
+    "dress_code": {
+      "value": "Restaurants: shirts and footwear required; swimwear for the pool",
+      "source": "https://www.ncl.com/cruise-preparation/what-to-pack",
+      "verified": "2026-10-11",
+      "quote": "shirts and footwear required"
+    },
+    "wifi": {
+      "value": "Voyage Wi-Fi Pass $29.99 per stateroom per day; Streaming Voyage Wi-Fi Pass $39.99 per stateroom per day; additional devices $14.99 per device per day",
+      "source": "https://www.ncl.com/cruise-deals/free-at-sea",
+      "verified": "2026-10-11",
+      "quote": "Voyage Wi-Fi Pass (1.5MBPS) for $29.99 per stateroom per day. Streaming Voyage Wi-Fi Pass for $39.99 per stateroom per day. Additional devices may be added for $14.99 per device per day",
+      "notes": "Read raw from the Free at Sea page FAQ, 2026-10-11. Starlink: https://www.ncl.com/packages-and-gifts/options/internet-packages"
+    },
+    "ship_contact_number": {
+      "value": "1.833.810.7963 from US/Canada; 1.321.953.9006 international; paid by MasterCard, Visa or American Express",
+      "source": "https://www.ncl.com/faq/how-do-you-contact-someone-cruise-ship",
+      "verified": "2026-10-11",
+      "quote": "you can reach a person on a Norwegian Cruise Line ship from the United States or Canada, call 1.833.810.7963, or 1.321.953.9006 for international calls. You will need to pay with a MasterCard, Visa, or American Express.",
+      "notes": "Read raw with curl. Other NCL market pages show a different US number (1.888.627.4477 on the French-English page); the US page is used."
+    }
+  },
+  "onboard_venues": {
+    "included_dining": {
+      "value": "Azura, Tsar's Palace (Deck 6); Garden Café, The Great Outdoors, Topsiders (Deck 12); O'Sheehan's (Deck 8, 24 hours)",
+      "source": "https://www.ncl.com/cruise-ships/norwegian-jewel/whats-on-board",
+      "verified": "2026-10-11"
+    },
+    "specialty_dining": {
+      "value": "Cagney's, Moderno, La Cucina, Le Bistro, Teppanyaki, Chin Chin, Sushi; $40 to $60 cover or Free at Sea",
+      "source": "https://www.ncl.com/cruise-ships/norwegian-jewel/whats-on-board",
+      "verified": "2026-10-11"
+    },
+    "bars": {
+      "value": "Maltings, Shaker's, Bliss Ultra Lounge, Sugarcane Mojito Bar, Spinnaker Lounge, Sake Bar, Starbucks, among others",
+      "source": "https://www.ncl.com/cruise-ships/norwegian-jewel/whats-on-board",
+      "verified": "2026-10-11"
+    },
+    "theater": {
+      "value": "Stardust Theater",
+      "source": "https://www.ncl.com/cruise-ships/norwegian-jewel/whats-on-board",
+      "verified": "2026-10-11",
+      "notes": "Show line-up may change by 2027; pack says check the app."
+    },
+    "spa_pool_fitness": {
+      "value": "Sapphire Pools (12), Mandara Spa, Pulse Fitness; Thermal Suite adults only, paid pass",
+      "source": "https://www.ncl.com/cruise-ships/norwegian-jewel/whats-on-board",
+      "verified": "2026-10-11"
+    },
+    "vibe_beach_club": {
+      "value": "Deck 14, adults only, paid pass",
+      "source": "https://www.ncl.com/cruise-ships/norwegian-jewel/whats-on-board",
+      "verified": "2026-10-11",
+      "quote": "Pass or Cabana for two"
+    }
+  },
+  "itinerary_facts": {
+    "schedule": {
+      "value": "Mon Nov 29 Miami dep 16:00; Tue Nov 30 Great Stirrup Cay 07:00-15:00; Wed Dec 1 sea; Thu Dec 2 Cabo Rojo 09:00-16:00; Fri Dec 3 Oranjestad 11:00-20:00; Sat Dec 4 Willemstad 07:00-19:00; Sun Dec 5 sea; Mon Dec 6 Falmouth 07:00-17:00; Tue Dec 7 George Town 07:00-17:00; Wed Dec 8 sea; Thu Dec 9 Miami arr 07:00",
+      "source": "https://www.ncl.com/cruises/10-day-caribbean-round-trip-miami-curacao-aruba-and-dominican-republic-JEWEL10MIANPICBRORJWILFMHGECMIA",
+      "verified": "2026-10-11",
+      "notes": "Raw embedded events for voyage 25386145. Weekdays computed. All-aboard times derived from NCL's one-hour rule."
+    },
+    "itinerary_name": {
+      "value": "10-Day Caribbean Round-trip Miami: Curaçao, Aruba & Dominican Republic",
+      "source": "https://www.ncl.com/cruises/10-day-caribbean-round-trip-miami-curacao-aruba-and-dominican-republic-JEWEL10MIANPICBRORJWILFMHGECMIA",
+      "verified": "2026-10-11"
+    },
+    "portmiami_terminal": {
+      "value": "Terminal B is NCL's; Terminal C serves ships from several cruise lines; no terminal published for a 2027 sailing; eDocs name it",
+      "source": "https://www.miamidade.gov/portmiami/cruise-terminals.page",
+      "verified": "2026-10-11",
+      "quote": "Known as The Pearl of Miami, Norwegian Cruise Line's Terminal B is 190,000 square feet ... PortMiami's Terminal C serves ships from several cruise lines.",
+      "notes": "Read raw 2026-10-11. PortMiami publishes no ship-by-terminal schedule online (cruise-schedule pages 404). Garage C: https://www.miamidade.gov/portmiami/parking-information.asp 1648 N Cruise Blvd., $28 per day."
+    },
+    "parking": {
+      "value": "Garage B, 1756 N Cruise Blvd., $35/day effective Jan 1, 2025; debit cards not accepted",
+      "source": "https://www.miamidade.gov/portmiami/parking-information.asp",
+      "verified": "2026-10-11",
+      "quote": "Effective January 1, 2025, the parking rate will be $35 per vehicle, per space, per day."
+    },
+    "thanksgiving_2027": {
+      "value": "Thanksgiving is Thursday Nov 25, 2027, so Sunday Nov 28 is the Sunday after",
+      "source": "https://www.nhc.noaa.gov/climo/",
+      "verified": "2026-10-11",
+      "notes": "Computed: 2027-11-25 is the fourth Thursday of November (Python datetime). Source field holds the NOAA season page used in the same paragraph. No superlative about travel volume is made."
+    }
+  },
+  "port_facts": {
+    "gsc_pier": {
+      "value": "Multi-ship pier debuted December 2025; can serve every NCLH ship, two at once; on Dec 28, 2025 Norwegian Gem (Jewel class) anchored and tendered while Getaway docked",
+      "source": "https://www.cruisehive.com/big-change-for-great-stirrup-cay-as-first-ship-finally-docks/195826",
+      "verified": "2026-10-11",
+      "quote": "anchored offshore and proceeded with the normal tender operations",
+      "notes": "NCL newsroom confirms the December 2025 debut: https://www.ncl.com/newsroom/great-stirrup-cay. Cruise Industry News (2026-09-16) reports the first double call (Prima and Getaway) and says the new pier opened in August 2026. Whether Jewel docks on a given day is not published: the pack says she may dock or tender."
+    },
+    "gsc_free_and_paid": {
+      "value": "Free: beaches, loungers, umbrellas, Splash Harbor splash pad; open bar applies. Paid: Great Tides (from $89, Oct 2026), cabanas, Vibe Shore Club, zipline, rentals",
+      "source": "https://www.ncl.com/newsroom/norwegian-cruise-line-celebrates-the-opening-of-its-all-new-great-tides-waterpark-on-its-private-island-great-stirrup-cay-with-an-exclusive-preview-event",
+      "verified": "2026-10-11",
+      "notes": "Price: https://www.ncl.com/shore-excursions/NPIN75/Great-Tides-Waterpark-Tickets 'From $ 89'. Opening Sept 4, 2026 per NCL's 27 May 2026 release."
+    },
+    "cabo_rojo_ncl": {
+      "value": "Pedernales Province, SW Dominican Republic near Haiti; 'sparsely populated'; 'there aren't any recommended shopping areas'; Bahía de las Águilas 'the country's most beautiful beach', five miles long; Jaragua National Park a UNESCO Biosphere Reserve",
+      "source": "https://www.ncl.com/cruises-to/cabo-rojo-dominican-republic",
+      "verified": "2026-10-11",
+      "quote": "The region is known for its sparsely populated, spectacular lands; therefore, there aren't any recommended shopping areas."
+    },
+    "cabo_rojo_access": {
+      "value": "Reached by all-terrain vehicle or by boat from the shores of Cabo Rojo; five miles; no hotels, shops or restaurants; unshaded",
+      "source": "https://www.godominicanrepublic.com/things-to-do/bahia-de-las-guilas",
+      "verified": "2026-10-11",
+      "quote": "You can reach Bahía de Las Águilas by an all-terrain vehicle, or by boat from the shores of Cabo Rojo.",
+      "notes": "Dominican Republic tourism ministry's official site. Also: 'no hotels, shops, or restaurants'; 'Bring plenty of sun protection for this unshaded piece of paradise.'"
+    },
+    "cabo_rojo_opening": {
+      "value": "First cruise ship expected December 2023",
+      "source": "https://www.caribjournal.com/?p=115795",
+      "verified": "2026-10-11",
+      "quote": "will welcome its first cruise ship in December",
+      "notes": "Article dated 2023-09-11. Port has no InTheWake page (checklist A2); the pack makes no claim beyond NCL and this report."
+    },
+    "aruba_arikok": {
+      "value": "Nearly 20% of Aruba is national park; ticket required; no official fee published; travel guides give $11 or $22; ACF guided hikes $25, starting 6:00 to 8:00 AM; guides report closing mid-afternoon (3:30 to 4 PM)",
+      "source": "https://aruba.com/us/explore/arikok-national-park",
+      "verified": "2026-10-11",
+      "quote": "Nearly 20% of Aruba is a designated National Park.",
+      "notes": "Guided hikes: https://www.acf.aw/experiences ('Price: $25 guided hike fee', suggested starts 6:00 to 8:00 am), read raw 2026-10-11. Fee conflict ($11 Lonely Planet/tripjive vs $22 Boardwalk Aruba) left as a range in the pack; closing time from the same guides (secondary)."
+    },
+    "aruba_ed_card": {
+      "value": "ED card does not apply to cruise passengers",
+      "source": "https://travelmarketreport.com/destinations/articles/a-guide-to-arubas-ed-card-for-entry",
+      "verified": "2026-10-11",
+      "quote": "The ED card does not, however, apply to cruise passengers.",
+      "notes": "Travel Market Report, 2025-01-20, Briana Bonfiglio. Secondary source; the official ED card site did not answer. Labeled in the pack."
+    },
+    "curacao_bridge": {
+      "value": "Queen Emma Bridge built 1888; swings open for ships; free ponchi ferry while open",
+      "source": "https://curacao.com/fr/article/bridges",
+      "verified": "2026-10-11",
+      "quote": "When the bridge is open to let ships from the harbour pass, pedestrians are transported free of charge by the ponchi, a small ferry."
+    },
+    "curacao_currency": {
+      "value": "Caribbean guilder (XCG) replaced the Netherlands Antillean guilder on March 31, 2025; pegged at 1.79 per US dollar",
+      "source": "https://exch.centralbank.cw/functions/banknotes-coins/caribbean-guilder/frequently-asked-questions",
+      "verified": "2026-10-11",
+      "notes": "Central Bank of Curaçao and Sint Maarten FAQ; date and peg also in the CBCS Wikipedia entry. FINDING: /ports/curacao.html still names the old Netherlands Antilles florin; flagged to the operator, not changed here."
+    },
+    "curacao_di_card": {
+      "value": "Online immigration card described as required for 'any person traveling to Curaçao by air'; nothing about cruise passengers",
+      "source": "https://www.curacao.com/de/article/curacaos-immigration-card-goes-fully-digital",
+      "verified": "2026-10-11",
+      "quote": "Any person traveling to Curaçao by air, who is not registered at the island's Civil Registry",
+      "notes": "Notice dated 2019-10-01."
+    },
+    "emergency_bahamas": {
+      "value": "911 or 919",
+      "source": "https://www.gov.uk/foreign-travel-advice/bahamas/getting-help",
+      "verified": "2026-10-11",
+      "quote": "Telephone: 911 or 919 (ambulance, fire, police)"
+    },
+    "emergency_dr": {
+      "value": "911; not full coverage",
+      "source": "https://www.gov.uk/foreign-travel-advice/dominican-republic/getting-help",
+      "verified": "2026-10-11",
+      "quote": "The 911 emergency number does not have full coverage across the country"
+    },
+    "emergency_aruba": {
+      "value": "Ambulance and fire 911; police 100",
+      "source": "https://www.gov.uk/foreign-travel-advice/aruba/getting-help",
+      "verified": "2026-10-11",
+      "quote": "Ambulance and fire: 911 Police: 100"
+    },
+    "emergency_curacao": {
+      "value": "Ambulance 912; fire 911; police 911",
+      "source": "https://www.gov.uk/foreign-travel-advice/curacao/getting-help",
+      "verified": "2026-10-11",
+      "quote": "Ambulance: 912 Fire: 911 Police: 911"
+    },
+    "emergency_jamaica": {
+      "value": "Police 119; ambulance and fire 110",
+      "source": "https://www.gov.uk/foreign-travel-advice/jamaica/getting-help",
+      "verified": "2026-10-11",
+      "quote": "Ambulance: 110 Fire: 110 Police: 119",
+      "notes": "CONFLICT: the US Embassy Kingston page lists 'Police: 110'. UK's 119 for police is used; recorded here."
+    },
+    "emergency_cayman": {
+      "value": "911",
+      "source": "https://www.gov.uk/foreign-travel-advice/cayman-islands/getting-help",
+      "verified": "2026-10-11",
+      "quote": "Telephone: 911 (ambulance, fire, police, police marine unit)"
+    },
+    "state_dept_ocs": {
+      "value": "+1-888-407-4747 from the US; +1-202-501-4444 from abroad",
+      "source": "https://cw.usconsulate.gov/",
+      "verified": "2026-10-11",
+      "quote": "Americans who need assistance: call 24/7 at +1-202-501-4444 (from abroad) and +1-888-407-4747",
+      "notes": "Same line on https://jm.usembassy.gov/. travel.state.gov returned 403."
+    },
+    "consulate_curacao": {
+      "value": "+599 (9) 433-2200; +1 301-985-8733 within the US; covers Aruba, Bonaire, Curaçao, Saba, Sint Eustatius and Sint Maarten",
+      "source": "https://cw.usconsulate.gov/",
+      "verified": "2026-10-11",
+      "quote": "Citizens with Emergencies Please call: +599 (9) 433-2200 Within the United States: +1 301-985-8733"
+    },
+    "embassy_kingston": {
+      "value": "1 (876) 702-6000 after hours; also responsible for the Cayman Islands",
+      "source": "https://jm.usembassy.gov/",
+      "verified": "2026-10-11",
+      "quote": "Outside of Office Hours, contact: 1 (876) 702-6000",
+      "notes": "Cayman coverage: https://travel.state.gov/content/travel/en/resourcesold/csi/embassy-and-consulate-lists/cayman-islands.html (search result: part-time consular agent in Cayman; contact Embassy Kingston)."
+    },
+    "embassy_santo_domingo": {
+      "value": "(809) 567-7775",
+      "source": "https://do.usembassy.gov/",
+      "verified": "2026-10-11",
+      "quote": "Citizens with Emergencies Please call: (809) 567-7775"
+    },
+    "embassy_nassau": {
+      "value": "242-461-5025, ext 1",
+      "source": "https://bs.usembassy.gov/",
+      "verified": "2026-10-11",
+      "quote": "Citizens with Emergencies Please call: 242-461-5025, ext 1"
+    },
+    "advisories": {
+      "value": "Bahamas L2 (2026-07-27), DR L2 (2025-06-11), Aruba L1 (2026-08-19), Curaçao L1 (2026-09-08), Jamaica L2 (2026-06-22), Cayman L1 (2026-05-20)",
+      "source": "https://cadataapi.state.gov/api/TravelAdvisories",
+      "verified": "2026-10-11",
+      "notes": "State Department feed, read 2026-10-11; Aruba code AA and Curaçao code UC checked against each advisory's own title. Companion Alerts tab refreshes daily."
+    },
+    "hurricane_season": {
+      "value": "June 1 to November 30",
+      "source": "https://www.nhc.noaa.gov/climo/",
+      "verified": "2026-10-11",
+      "quote": "The Atlantic hurricane season runs from June 1 to November 30",
+      "notes": "NOAA National Hurricane Center, read raw."
+    }
+  },
+  "pricing": {
+    "service_charge_10_nights": {
+      "value": "$200 standard cabin ($20 x 10)",
+      "source": "https://www.ncl.com/faq/what-is-ncl-onboard-service-charge",
+      "verified": "2026-10-11",
+      "notes": "Computed. 'About $200' in the pack."
+    },
+    "specialty_cover": {
+      "value": "$40 to $60 per person",
+      "source": "https://www.ncl.com/cruise-ships/norwegian-jewel/whats-on-board",
+      "verified": "2026-10-11"
+    },
+    "great_tides": {
+      "value": "From $89, October 2026",
+      "source": "https://www.ncl.com/shore-excursions/NPIN75/Great-Tides-Waterpark-Tickets",
+      "verified": "2026-10-11",
+      "quote": "From $ 89"
+    },
+    "parking": {
+      "value": "$35 a day",
+      "source": "https://www.miamidade.gov/portmiami/parking-information.asp",
+      "verified": "2026-10-11"
+    },
+    "corkage": {
+      "value": "$15 per 750 ml",
+      "source": "https://www.ncl.com/faq/alcohol-consumption",
+      "verified": "2026-10-11"
+    }
+  },
+  "weather_normals": {
+    "method": {
+      "value": "Open-Meteo archive, daily max/min temperature and precipitation, 2020-11-29 to 2024-12-09, filtered to Nov 29 to Dec 9 each year (55 days per stop). Wet day = more than 1.0 mm.",
+      "source": "https://archive-api.open-meteo.com/v1/archive",
+      "verified": "2026-10-11",
+      "notes": "One request per stop. Grid points: Miami 25.77,-80.17; Great Stirrup Cay 25.83,-77.92; Cabo Rojo 17.90,-71.66; Oranjestad 12.52,-70.03; Willemstad 12.11,-68.93; Falmouth 18.49,-77.66; George Town 19.29,-81.38."
+    },
+    "results": {
+      "value": "Miami 78/65 20%; Great Stirrup Cay 77/74 15%; Cabo Rojo 87/72 16%; Aruba 85/79 60%; Curaçao 85/78 58%; Falmouth 83/73 47%; Grand Cayman 83/78 42%",
+      "source": "https://archive-api.open-meteo.com/v1/archive",
+      "verified": "2026-10-11",
+      "notes": "Physics check (class A): reanalysis grids count light drizzle, and the Aruba/Curaçao points may sit over water, so the wet-day share likely overstates noticeable rain. The pack says a short shower counts the same as a wet day."
+    }
+  },
+  "media": {
+    "ship_photo": {
+      "value": "Norwegian Jewel at anchor off George Town, Grand Cayman, 2007; public domain; photographer Kyle.died.rich",
+      "source": "https://commons.wikimedia.org/wiki/File:Norwegian_Jewel_Georgetown.JPG",
+      "verified": "2026-10-11",
+      "quote": "The M/V Norwegian Jewel at anchor in Georgetown, Grand Cayman.",
+      "notes": "Commons API: License pd, AttributionRequired false. Visually confirmed: hull lettering NORWEGIAN JEWEL legible. Used on the pack cover, the companion Overview/Ship tab, and the share card. Attribution file: admin/voyage-pwa/ship-photos/norwegian-jewel-george-town.webp.attr.json. The site's existing assets/ships/Norwegian_Jewel_*.jpg files are 2 KB placeholders, not photos; flagged to the operator."
+    }
+  },
+  "gap_research_2026_10_11": {
+    "operator_request": "do original research to fill the gaps",
+    "closed": "Free at Sea drink gratuity ($28.50, NCL flyer); Wi-Fi prices (NCL); laundry ordering (NCL); Bahia de las Aguilas access (DR tourism ministry); Arikok hikes and hours (ACF, guides)",
+    "narrowed_not_closed": "Great Stirrup Cay dock vs tender (pier serves all NCLH ships, but a Jewel-class sister tendered on day one; no per-sailing schedule exists); PortMiami terminal (B is NCL's, C shared; no 2027 assignment exists yet); solo meetups on Jewel (NCL silent; traveler reports only); Arikok entry fee (no official figure; guides conflict)",
+    "source": "see the entries above",
+    "verified": "2026-10-11"
+  },
+  "firsthand_attestation": {
+    "aruba_ed_card_2023": {
+      "value": "Cruise passengers calling at Aruba in 2023 were exempt from the ED card; where a port has required paperwork, the cruise line handled it or said when it could not",
+      "source": "operator, firsthand (Ken Baker), stated in session 2026-10-11",
+      "verified": "2026-10-11",
+      "quote": "In my experience in 2023 we were exempt, and when we are not the cruiseline handled things for us, or tells us when they can't.",
+      "notes": "Firsthand, dated 2023, attributed in the pack to the author's own sailing (long form, Aruba section and the first-hand note). Not a primary source for 2027 rules; the conflicting written sources stay in the text beside it. The prior line 'if a form is needed, NCL will ask' was replaced, because no NCL source says so."
+    }
+  },
+  "assertion_audit_2026_10_11": {
+    "operator_rule": "If it's asserted as fact, it needs to be verified with a primary source if possible.",
+    "method": "Every factual sentence in the long form, condensed, handoff card and companion re-read; each checked against the body that owns the fact. Corrected where a primary source disagreed; reworded to attribution where only a secondary source exists; removed where nothing supports it.",
+    "corrected_by_primary_source": {
+      "hurricane_wording": {
+        "value": "Replaced 'Storms are rare that late' with NOAA's own words",
+        "source": "https://www.nhc.noaa.gov/climo/",
+        "verified": "2026-10-11",
+        "quote": "tropical cyclone activity sometimes occurs before and after these dates"
+      },
+      "ginger_and_bands": {
+        "value": "Replaced 'help some people' with the CDC's finding",
+        "source": "https://www.cdc.gov/yellow-book/hcp/travel-air-sea/motion-sickness.html",
+        "verified": "2026-10-11",
+        "quote": "Laboratory trials show that acupressure bands or similar treatments are no more effective than placebo.",
+        "notes": "Ginger: 'has only weak and contradictory supporting evidence'. Horizon: 'Shown to provide some protection in ships'. Medications meclizine, dimenhydrinate, scopolamine named by CDC; brand names removed."
+      },
+      "health_coverage": {
+        "value": "Replaced 'most US health plans don't cover care at sea' with Medicare's own rule",
+        "source": "https://www.medicare.gov/publications/11037-medicare-coverage-outside-the-united-states.pdf",
+        "verified": "2026-10-11",
+        "quote": "Medicare doesn't cover health care services you get when the ship is more than 6 hours away from a U.S. port"
+      },
+      "cabo_rojo_opening": {
+        "value": "Replaced the 2023 Caribbean Journal forecast with the port authority's record: first cruise ship 4 January 2024",
+        "source": "https://portuaria.gob.do/presidente-luis-abinader-inaugura-puerto-de-cabo-rojo-con-la-llegada-de-su-primer-crucero",
+        "verified": "2026-10-11",
+        "quote": "Publicado el enero 4, 2024 ... inaugura puerto de Cabo Rojo con la llegada de su primer crucero"
+      },
+      "curacao_peg_removed": {
+        "value": "1.79 peg removed (no primary source read); dates confirmed by Deutsche Bundesbank",
+        "source": "https://www.bundesbank.de/de/startseite/newsletter/meldewesen-aussenwirtschaft-876226",
+        "verified": "2026-10-11",
+        "quote": "Die neue Währung wird zum 31. März 2025 gültig. Die alte Währung ANG wird am 1. Juli 2025 als gesetzliches Zahlungsmittel auslaufen.",
+        "notes": "CBCS site refused (TLS mismatch / 403)."
+      },
+      "great_stirrup_pier": {
+        "value": "Reframed: NCL said all visiting ships will benefit from the pier; Gem's tender happened while it was unfinished; new pier opened August 2026",
+        "source": "https://cruiseindustrynews.com/cruise-news/2025/12/norwegian-welcomes-first-ship-in-great-stirrup-cays-pier/",
+        "verified": "2026-10-11",
+        "quote": "all ships visiting the destination, including those from Norwegian, Oceania and Regent, will benefit from the multi-berth pier in the future ... guests no longer being required to tender from ship to shore",
+        "notes": "NCL statement as quoted by Cruise Industry News (read raw). August 2026 opening: https://cruiseindustrynews.com/cruise-news/2026/09/great-stirrup-cay-pier-welcomes-first-double-call/"
+      },
+      "aruba_ed_card": {
+        "value": "Now reports the conflict: aruba.com says mandatory for all entering; its cruise page is silent; Travel Market Report says not for cruise passengers",
+        "source": "https://www.aruba.com/uk/traveler-health-requirements/before-you-travel",
+        "verified": "2026-10-11",
+        "quote": "The Aruba ED Card (Embarkation/Disembarkation) is a mandatory requirement for all individuals, including infants and children, entering Aruba."
+      }
+    },
+    "upgraded_to_primary_source": {
+      "builder_and_class": {
+        "value": "Meyer Werft handed her over 4 Aug 2005; 'the first cruise ship out of a series of four new vessels' for NCL",
+        "source": "https://www.meyerwerft.de/en/press/press_detail/early_delivery_of_norwegian_jewel.jsp",
+        "verified": "2026-10-11",
+        "quote": "On 4th August 2005 MEYER WERFT handed over the 93,500-gt cruise ship Norwegian Jewel"
+      },
+      "gross_tonnage_definition": {
+        "value": "GT explained in the IMO's words",
+        "source": "https://www.imo.org/en/about/Conventions/Pages/International-Convention-on-Tonnage-Measurement-of-Ships.aspx",
+        "verified": "2026-10-11",
+        "quote": "The gross tonnage is a function of the moulded volume of all enclosed spaces of the ship."
+      },
+      "aruba_walks_beaches_money": {
+        "value": "Main Street 10-minute walk; Surfside Beach 15; beaches public and free; USD widely accepted; some refuse $50/$100",
+        "source": "https://www.aruba.com/uk/aruba-by-cruise",
+        "verified": "2026-10-11",
+        "quote": "Mainstreet ... just a ten-minute walk from the cruise terminal",
+        "notes": "Money: https://www.aruba.com/us/plan-your-visit/tips-for-visitors/currency 'U.S. dollars are widely accepted'. Walking-distance sites: https://www.arubaports.com/main/facilities-services/"
+      },
+      "curacao_piers": {
+        "value": "Ships dock at the Mega Pier or the Otrobanda wharves on St. Anna Bay",
+        "source": "https://curports.com/cruise/",
+        "verified": "2026-10-11",
+        "quote": "Currently cruise ships dock at either the Mega Pier Cruise facility or the Otrabanda wharves located in the St. Anna Bay inlet.",
+        "notes": "Replaces the unsourced 10 to 15 minute walk."
+      },
+      "falmouth": {
+        "value": "Pier developed by the Port Authority of Jamaica in Falmouth; Georgian architecture; national monument 21 Aug 1996",
+        "source": "https://jamaica55.gov.jm/?p=194",
+        "verified": "2026-10-11",
+        "quote": "Falmouth is renowned for its beautiful Georgian architecture ... On August 21, 1996 the town was declared a national monument.",
+        "notes": "Pier: https://jamaica55.gov.jm/?p=187"
+      },
+      "cayman_money": {
+        "value": "US currency used interchangeably",
+        "source": "https://www.visitcaymanislands.com/en-us/planning/faq",
+        "verified": "2026-10-11",
+        "quote": "Does Cayman have its own currency? Yes, but we use U.S. currency interchangeably."
+      },
+      "cayman_no_pier": {
+        "value": "Port Authority sought bids for a new cruise berthing facility in George Town (2017)",
+        "source": "https://www.caymanport.com/cruise-berthing-facility-prequalification-of-bidders/",
+        "verified": "2026-10-11",
+        "quote": "invites interested parties to prequalify for the provision of a new cruise berthing facility in George Town, Grand Cayman",
+        "notes": "Tendering itself is described by travel guides (Cruise Critic, CruiseHive, Cayman Compass); the pack attributes it to them."
+      },
+      "onboard_currency": {
+        "value": "US dollar onboard; shipboard account",
+        "source": "https://www.ncl.com/faq/accepted-currency-onboard",
+        "verified": "2026-10-11",
+        "quote": "The currency used on board our ships is the U.S. dollar."
+      },
+      "missed_ship": {
+        "value": "Guest pays to rejoin",
+        "source": "https://www.ncl.com/cruise-preparation/departure-day",
+        "verified": "2026-10-11",
+        "quote": "In the event a guest misses the ship, it will be the guest's responsibility to pay all expenses incurred to rejoin the ship."
+      },
+      "itinerary_changes": {
+        "value": "NCL: itineraries subject to change",
+        "source": "https://www.ncl.com/cruise-preparation/departure-day",
+        "verified": "2026-10-11",
+        "quote": "Itineraries are subject to change without notice."
+      },
+      "carry_on_bag": {
+        "value": "Small bag while luggage is delivered",
+        "source": "https://www.ncl.com/cruise-preparation/departure-day",
+        "verified": "2026-10-11",
+        "quote": "This bag should contain items you will need on the first and last day of your cruise while your luggage is delivered to/from your stateroom."
+      },
+      "state_dept_24_7": {
+        "value": "Line answers 24/7",
+        "source": "https://cw.usconsulate.gov/",
+        "verified": "2026-10-11",
+        "quote": "Americans who need assistance: call 24/7",
+        "notes": "Replaces 'free' and 'works with cruise lines and embassies', which no page read states."
+      },
+      "cayman_embassy": {
+        "value": "Embassy Kingston handles the Cayman Islands (part-time consular agent in Grand Cayman)",
+        "source": "https://travel.state.gov/content/travel/en/resourcesold/csi/embassy-and-consulate-lists/cayman-islands.html",
+        "verified": "2026-10-11",
+        "quote": "For routine assistance please contact the U.S. Embassy in Kingston, Jamaica.",
+        "notes": "Read via search result; travel.state.gov returns 403 to direct fetch."
+      }
+    },
+    "removed_no_source": "Cabins smaller than most hotel rooms; Jamaica and Curacao US-dollar acceptance; 'purchases go on your ship card' at Great Stirrup Cay; 'book a flight after midday'; 'an NCL excursion gets you back in time'; 'silence usually means no signal'; the Curacao 1.79 peg; 'the NCL app runs the week'; Berry Islands location in the companion.",
+    "still_secondary_and_labeled": "Gem tendering on 28 Dec 2025 (CruiseHive); Arikok fee and closing time (travel guides); solo meetups (travelers' reports); Aruba ED card exemption (Travel Market Report); Grand Cayman tendering practice (travel guides). Each is attributed in the text.",
+    "physics_not_sourced": "Cabin location for motion: stated as how a ship pitches and rolls about its middle, not as a citation.",
+    "source": "see entries above",
+    "verified": "2026-10-11"
+  },
+  "superlatives": {
+    "bahia_de_las_aguilas": {
+      "claim": "'the country's most beautiful beach'",
+      "source": "https://www.ncl.com/cruises-to/cabo-rojo-dominican-republic",
+      "verified": "2026-10-11",
+      "disposition": "Quoted and attributed to NCL, not asserted by the pack."
+    },
+    "first_of_class": {
+      "claim": "the first of NCL's Jewel class / the ship the class is named for",
+      "source": "https://en.wikipedia.org/wiki/Norwegian_Jewel",
+      "verified": "2026-10-11",
+      "disposition": "Class name and lead-ship status from the infobox."
+    },
+    "cabo_rojo_warmest": {
+      "claim": "Cabo Rojo has the warmest afternoons; Aruba and Curaçao most likely to see a shower; Miami coolest at night",
+      "source": "https://archive-api.open-meteo.com/v1/archive",
+      "verified": "2026-10-11",
+      "disposition": "Computed from the pack's own table, among these seven stops only."
+    },
+    "removed_in_draft": {
+      "claim": "'In the main dining rooms you can ask for a shared table'; 'the ship keeps track of who's out'; 'nobody minds a table for one'; a godmother's name",
+      "source": "https://www.ncl.com/cruise-ship/jewel",
+      "verified": "2026-10-11",
+      "disposition": "Cut in self-review: no source found (or, for the godmother, an uncited line)."
+    }
+  },
+  "preship_review": {
+    "checklist": "admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md",
+    "run_date": "2026-10-11",
+    "A_physics_geography": "Gross tonnage explained as volume; no comfort claim drawn from size. Seasickness advice hedged. Weather caveat on wet-day counts.",
+    "A2_port_grounding": "Ports with InTheWake pages: Miami, Great Stirrup Cay, Aruba, Curaçao, Falmouth, Grand Cayman. Cabo Rojo has none: every Cabo Rojo claim is from NCL's page or the dated Caribbean Journal report; the pack says the site has no page yet. Grand Cayman tender listed in the day entry and in Accessibility.",
+    "B_internal_consistency": "Service charge $20/$25 and 'about $200' consistent across long form and condensed. All-aboard times derived the same way everywhere. Handoff card numbers match Section 6 number for number.",
+    "C_voice": "No imagined-experience passages; no second-person prophecy section; crutch-word count 0.",
+    "D_register": "No internal vocabulary (research-mode, funnel, cohort, segment, persona) found.",
+    "E_time_sensitivity": "Sailing 13+ months out: Welcome, budget and condensed all say prices were checked October 2026 and to check again.",
+    "F_variants": "Condensed and handoff card read against the long form.",
+    "H_linked_tools": "Drink calculator linked with ?line=ncl; its $28.50 Free at Sea figure now matches NCL's own flyer. Stateroom check offers Norwegian Jewel in its picker.",
+    "sailing_date_note": "Traveler wrote 11/29/26; operator chose Nov 29, 2027 after seeing both candidate sailings."
+  },
+  "voice_audit": {
+    "_doctrine": ".claude/skills/voice-audit/SKILL.md (v2.3.0)",
+    "audited_against": "voice-audit v2.3.0",
+    "audit_date": "2026-10-11",
+    "audit_scope": "Full pack body end to end (Welcome, At a Glance, all eleven sections, the handoff card, Closing and the sources rows), plus the condensed variant and the standalone handoff card.",
+    "machine_tells": {
+      "templated_section_headers": {
+        "count": 0,
+        "notes": "House 11-section template by design; content specific to this sailing."
+      },
+      "honest_crutch_frequency": {
+        "count": 0,
+        "notes": "None."
+      },
+      "genuinely_truly_crutch_frequency": {
+        "count": 0,
+        "notes": "None."
+      },
+      "iconic_prose_frequency": {
+        "count": 0,
+        "notes": "None."
+      },
+      "banned_cruise_vocab_count": 0,
+      "ai_mentions": 0,
+      "ai_implication_check": "PASS: no wording implies AI authorship."
+    },
+    "must_be_present": {
+      "first_person_attestation_with_date": {
+        "count": 1,
+        "notes": "'I haven't sailed Norwegian Jewel' with the October 2026 check date."
+      },
+      "itinerary_specific_friction": {
+        "count": 4,
+        "notes": "Late Aruba arrival; Grand Cayman tender; Cabo Rojo's sparse surroundings; pier-or-tender unknown at Great Stirrup Cay."
+      }
+    },
+    "measurements": {
+      "long_form_sentences": 240,
+      "mean_sentence_words": 15.9,
+      "sentence_length_cv": 0.92,
+      "condensed_cv": 0.58,
+      "prose_em_dashes": 0,
+      "notes": "Em dashes only in the table of contents and headings (house format)."
+    },
+    "risk_rating": "Low",
+    "cluster_detection": {
+      "verdict": "likely_human",
+      "notes": "Self-audit by the writing session; the voice-audit skill notes an author cannot fully audit their own prose. No outside review run."
+    }
+  }
+}
