@@ -29,6 +29,8 @@ const CHECKED = {
   'Brilliant Lady': '9870654',
   // Norwegian Jewel (2026-10-11): Wikipedia infobox and VesselFinder agree.
   'Norwegian Jewel': '9304045',
+  // Norwegian Sun (2026-10-13): Wikipedia infobox and VesselFinder agree.
+  'Norwegian Sun': '9218131',
 };
 
 const pages = (await readdir(DIR)).filter((f) => f.endsWith('.html'));
