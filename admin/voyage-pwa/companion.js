@@ -66,7 +66,7 @@ function buildShell(){
      +'<p class="al-intro">Everything that could affect this sailing, in one place. <b class="al-k al-k-red">Red</b> means serious. <b class="al-k al-k-yel">Yellow</b> means take care. Each item quotes its source and links to it.</p>'
      +'<section class="al-sec" aria-labelledby="al-h-wx"><h2 id="al-h-wx">Weather warnings</h2><div id="al-wx"><span class="muted">loading…</span></div></section>'
      +'<section class="al-sec" aria-labelledby="al-h-ship"><h2 id="al-h-ship">Ship health</h2><div id="al-ship"><span class="muted">loading…</span></div></section>'
-     +'<section class="al-sec" aria-labelledby="al-h-ports"><h2 id="al-h-ports">Government travel advisories for your ports</h2><div id="al-ports"><span class="muted">loading…</span></div></section>'
+     +'<section class="al-sec" aria-labelledby="al-h-ports"><h2 id="al-h-ports">Government travel advisories for your ports</h2><p class="al-note">These advisories describe the world as it stands today, not as it will stand on the day you sail. They change in both directions: a level can rise or fall before you go. Look again in the week before you sail.</p><div id="al-ports"><span class="muted">loading…</span></div></section>'
      +'<p class="al-stamp" id="al-stamp"></p>'
    +'</div>'
    +(V.emergency?'<div class="wpane" id="pane-emg"><span class="muted">loading…</span></div>':'')
