@@ -471,11 +471,19 @@ function inAppBrowser(){return /FBAN|FBAV|FBIOS|FB_IAB|Instagram/i.test(navigato
 // The link to copy is this page without Facebook's tracking parameter and without any #fragment.
 function cleanPageLink(){try{var u=new URL(location.href);u.searchParams.delete("fbclid");u.hash="";return u.toString();}catch(e){return location.href.split("#")[0];}}
 // Copies the clean link and reports the result in msg (a role="status" element, so it is announced).
-function copyPageLink(msg){var link=cleanPageLink();
-  function say(ok){if(msg)msg.textContent=ok?"Link copied. Open Safari or Chrome and paste it into the address bar.":"Couldn't copy. Press and hold this link to copy it: "+link;}
-  function legacy(){try{var t=document.createElement("textarea");t.value=link;t.setAttribute("readonly","");t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();var ok=document.execCommand("copy");t.remove();return !!ok;}catch(e){return false;}}
-  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(link).then(function(){say(true);},function(){say(legacy());});return;}}catch(e){}
-  say(legacy());}
+// Android's Facebook browser is a WebView, and there navigator.clipboard.writeText can be refused, or can
+// never answer at all, so the old code waited on it and the traveler saw nothing happen (reported on an
+// Android phone, 2026-10-16). Now the textarea copy runs first, inside the tap itself; the Clipboard API is
+// a second try with a time limit; and the link is always shown in a box the traveler can press and hold,
+// because a WebView can also report a copy that did not happen.
+function legacyCopy(text){var a=document.activeElement,ok=false,t=null;try{t=document.createElement("textarea");t.value=text;t.setAttribute("readonly","");t.setAttribute("aria-hidden","true");t.style.cssText="position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;border:0;padding:0";document.body.appendChild(t);t.focus();t.select();try{t.setSelectionRange(0,text.length);}catch(e){}ok=document.execCommand("copy");}catch(e){ok=false;}if(t&&t.parentNode)t.parentNode.removeChild(t);try{if(a&&a.focus)a.focus();}catch(e){}return !!ok;}
+function copyPageLink(msg){var link=cleanPageLink(),done=false,timer=null;
+  function say(ok){if(done)return;done=true;if(timer)clearTimeout(timer);if(!msg)return;msg.textContent="";
+    msg.appendChild(document.createTextNode(ok?"Link copied. Open Safari or Chrome and paste it into the address bar. If nothing pastes, press and hold the link below and choose Copy.":"This app wouldn't let the button copy. Press and hold the link below, choose Copy, then paste it into Safari or Chrome."));
+    var f=document.createElement("input");f.type="text";f.readOnly=true;f.value=link;f.className="inapp-link";f.setAttribute("aria-label","Link to this page");f.addEventListener("focus",function(){try{f.select();}catch(e){}});msg.appendChild(f);}
+  if(legacyCopy(link)){say(true);return;}
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){timer=setTimeout(function(){say(false);},1500);navigator.clipboard.writeText(link).then(function(){say(true);},function(){say(false);});return;}}catch(e){}
+  say(false);}
 var INAPP_STEPS=[["iPhone:","tap the three-dot menu (usually top-right) and choose Open in Safari or Open in external browser."],["Android:","tap the three-dot menu (usually top-right) and choose Open in Chrome or Open in external browser."],["No such option?","copy the link below, open Safari or Chrome yourself, and paste it into the address bar."]];
 // Install popup: shown once per phone, never when the app is already installed. Built with DOM calls.
 var _bip=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();_bip=e;});
