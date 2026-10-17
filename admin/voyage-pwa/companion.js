@@ -95,6 +95,7 @@ function renderOverview(){var el=document.getElementById("pane-overview");if(!el
   if(inAppBrowser()){h+='<div class="ov-card ov-inapp"><b>⚠️ Open this in Safari or Chrome first</b>'
     +'<p class="ov-step">You opened this page inside Facebook, Messenger or Instagram. That app\'s built-in browser can\'t save it to your phone, and anything you write in here stays inside that app.</p>'
     +INAPP_STEPS.map(function(s){return '<p class="ov-step"><strong>'+esc(s[0])+'</strong> '+esc(s[1])+'</p>';}).join("")
+    +(chromeIntentLink()?'<p class="ov-step"><a class="inapp-chrome" href="'+attr(chromeIntentLink())+'">Open in Chrome</a></p>':'')
     +'<p class="ov-step"><button type="button" class="inapp-copy">Copy link</button></p><p class="ov-step inapp-msg" role="status"></p>'
     +'<p class="ov-step">Then follow the steps below in Safari or Chrome.</p></div>';}
   h+='<div class="ov-card ov-save"><b>📲 Save this app to your phone</b>'
@@ -470,6 +471,11 @@ function initFs(){var k=1;try{k=Number(localStorage.getItem("itw-fs"))||1;}catch
 function inAppBrowser(){return /FBAN|FBAV|FBIOS|FB_IAB|Instagram/i.test(navigator.userAgent||"");}
 // The link to copy is this page without Facebook's tracking parameter and without any #fragment.
 function cleanPageLink(){try{var u=new URL(location.href);u.searchParams.delete("fbclid");u.hash="";return u.toString();}catch(e){return location.href.split("#")[0];}}
+// On Android an intent: link asks the phone to open this page in Chrome itself, so the traveler can leave
+// Facebook's browser without copying anything. Android only: iPhone has no such link. If Chrome is missing,
+// browser_fallback_url sends the phone to the same clean link instead. Copy link stays beside it, because
+// the app is free to ignore the request.
+function chromeIntentLink(){if(!inAppBrowser()||!/Android/i.test(navigator.userAgent||""))return "";try{var u=new URL(cleanPageLink());if(u.protocol!=="https:")return "";return "intent://"+u.host+u.pathname+u.search+"#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url="+encodeURIComponent(u.toString())+";end";}catch(e){return "";}}
 // Copies the clean link and reports the result in msg (a role="status" element, so it is announced).
 // Android's Facebook browser is a WebView, and there navigator.clipboard.writeText can be refused, or can
 // never answer at all, so the old code waited on it and the traveler saw nothing happen (reported on an
@@ -501,6 +507,7 @@ function maybeInstallPopup(){var seen=false;try{seen=!!localStorage.getItem("itw
     var row=document.createElement("div");row.className="inst-row";
     function close(){try{localStorage.setItem("itw-install-seen","1");}catch(e){}bg.remove();d.remove();document.removeEventListener("keydown",esc1);if(prev&&prev.focus)prev.focus();}
     function esc1(e){if(e.key==="Escape")close();}
+    if(inapp&&chromeIntentLink()){var ca=document.createElement("a");ca.className="inst-go inapp-chrome";ca.href=chromeIntentLink();ca.textContent="Open in Chrome";row.appendChild(ca);}
     if(inapp){var cb=document.createElement("button");cb.type="button";cb.className="inst-go";cb.textContent="Copy link";cb.addEventListener("click",function(){copyPageLink(im);});row.appendChild(cb);}
     if(_bip&&!inapp){var ib=document.createElement("button");ib.type="button";ib.className="inst-go";ib.textContent="Install now";ib.addEventListener("click",function(){_bip.prompt();_bip=null;close();});row.appendChild(ib);}
     var ok=document.createElement("button");ok.type="button";ok.className="inst-ok";ok.textContent="Got it";ok.addEventListener("click",close);row.appendChild(ok);d.appendChild(row);if(inapp)d.appendChild(im);

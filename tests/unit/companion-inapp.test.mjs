@@ -121,3 +121,27 @@ test('copy: a refused clipboard falls back at once, and a working one reports su
   assert.match(said(ok.msg), /^Link copied/);
   assert.ok(box(ok.msg));
 });
+
+// OPEN IN CHROME (2026-10-17). On Android the in-app notice offers an intent: link that asks the phone to
+// open the page in Chrome. It must appear only inside an Android in-app browser, carry the clean link, and
+// fall back to that same link when Chrome is missing.
+function intentFor(ua, href) {
+  const body = fn('inAppBrowser') + fn('cleanPageLink') + fn('chromeIntentLink');
+  // eslint-disable-next-line no-new-func
+  return Function('navigator', 'location', body + '; return chromeIntentLink();')({ userAgent: ua }, { href });
+}
+
+test('Open in Chrome: an Android in-app browser gets an intent link to the clean page', () => {
+  const href = 'https://cruisinginthewake.com/admin/voyage-pwa/sun-panama-mar-2027.html?fbclid=IwAR0abc#faq';
+  const clean = 'https://cruisinginthewake.com/admin/voyage-pwa/sun-panama-mar-2027.html';
+  assert.equal(intentFor(IN_APP['Facebook, Android'], href),
+    'intent://cruisinginthewake.com/admin/voyage-pwa/sun-panama-mar-2027.html#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='
+    + encodeURIComponent(clean) + ';end');
+});
+
+test('Open in Chrome TEETH: never offered on iPhone, in a real browser, or off https', () => {
+  const href = 'https://cruisinginthewake.com/admin/voyage-pwa/x.html';
+  for (const name of ['Facebook, iPhone', 'Messenger, iPhone', 'Instagram, iPhone']) assert.equal(intentFor(IN_APP[name], href), '', name);
+  for (const [name, ua] of Object.entries(REAL_BROWSERS)) assert.equal(intentFor(ua, href), '', name);
+  assert.equal(intentFor(IN_APP['Facebook, Android'], 'http://127.0.0.1:8765/x.html'), '', 'plain http');
+});
