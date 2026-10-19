@@ -964,6 +964,64 @@ Also unsure whether seven at once was right. Each is sourced and each stands up 
 **Honest limit.** The factcheck sidecars record what I fetched and what I refused to print. They cannot record what I failed to think of looking for.
 
 
+## 2026-10-08 — Galveston: the figures, checked at the source
+
+Ken: *"all set?"* — no, and the honest list was longer than I had said. This pass closes the defects I
+introduced and the stale numbers a full check turned up.
+
+**Mine, fixed.** (1) I had welded the tail of an old sentence onto the hurricane FAQ, which read *"...
+if you sail in that window.–September cancellations possible."* (2) *"serving since 1946"* survived in a
+third phrasing — my earlier "both occurrences corrected" was an unmeasured coverage claim, which is F8 in
+my own failure register. (3) I had replaced Bishop's Palace's safe wording with *"It is a National
+Historic Landmark"*; it is a contributing property to the East End National Historic Landmark District,
+not an individually designated NHL. The original wording was better than my edit.
+
+**Stale, corrected at source.** "over a million passengers annually" → the port's own material says
+*nearly two million*. Parking "$10-20/day" → 2026 rates run ~$20-35/day. "two cruise terminals" → four
+(Piers 25, 27, 10, 16). "IAH 75-90 minutes" → 75-110, which is what planning.html already said, so the
+two files now agree. Cruise-line list was missing Norwegian. The Uber fare appeared as three different
+figures on one page and now agrees. The seawall's unconfirmed "1961" end date became "extended over the
+following decades".
+
+**A voice problem the footer had all along:** *"based on official sources and verified firsthand"* — the
+author has not been to Galveston, so "verified firsthand" was a claim the page could not make. Changed to
+"official sources and public records", and the review date brought current.
+
+_Runtime: Hermes (deepseek-v4.1-flash, nous)_
+
+## 2026-10-08 — Galveston: the hurricane history comes out
+
+**What was asked.** *"Strip out the hurricane stuff. its a vacation site not scare your guests site."*
+Then: *"update the verbiage. do research at primary sources to resolve discrepancies and fact check."*
+
+**What came out.** The 1900 storm narrative, the death toll, the September 8 1900 line, "the deadliest
+natural disaster in American history", "the deadliest storm", the Hurricane Ike paragraph, "Galveston was
+devastated in 1900", "survived the 1900 hurricane" (three places), Bishop's Palace "survived the Great
+Storm when lesser buildings were swept into the Gulf", the seawall's "built after the devastating 1900
+hurricane, saved Galveston from future storms", the closing "resilience is not about avoiding
+catastrophe" paragraph, and the "1900 hurricane history" meta descriptions. The Island's Own history is
+kept — the Strand, the cotton brokers, the Wall Street of the South wealth, the Seawall as a promenade —
+and told as a vacation site tells it.
+
+**Kept deliberately:** the bare weather fact that the Atlantic season runs June–November, in the weather
+and planning lines. That is travel planning; what was removed is the *tragedy*, not the timing.
+
+**Resolved at primary sources.** Maceo Spice & Import: the page claimed "since 1946"; the company's own
+site says **"Galveston's Original Spice and Import, since 1944"**, and the family account (Rosario Maceo)
+agrees on 1944. Corrected in both places. HOU is ~45 miles and IAH ~70 miles from the port — the page's
+"about 60 minutes" for Hobby holds; the repo's own `planning.html` says IAH 75–110 while the page says
+75–90, a conflict between two files in the same repo that is **named, not silently picked**.
+
+**Caught in my own edit:** a regex of mine appended a second "peak risk is August and September" clause
+instead of replacing the first, so the FAQ answered itself twice. Fixed before commit. The user-visible
+lesson is the same one recorded in the other repo today: the prose was written by regex, so the prose had
+to be re-read, not assumed.
+
+**Named limit:** the weather/planning lines still say "Hurricane Season: June through November" where it
+is a calendar fact. If those should go too, that is a decision, not an oversight.
+
+_Runtime: Hermes (deepseek-v4.1-flash, nous)_
+
 ## 2026-08-27 - Merge main: another lane superseded the family-app tab design; pack renumbered v0.1.19
 
 **Asked.** "proceed as recomended" — loop step 1, fetch/resolve/merge.
@@ -2182,6 +2240,48 @@ climate station) — stated as a proxy. MSC's Cozumel pier varies (Punta Langost
 International Pier); reported as such, not pinned.
 
 ---
+
+## 2026-10-08 — A port page that claimed a sailing nobody made
+
+**What was asked.** *"In the repo in the wake, on the galveston page, I've never sailed from
+galveston, and you have me sailing from there. Change it to a third person voice."*
+
+**What was actually there.** `ports/galveston.html` asserted first-hand experience fifteen
+times: "I've sailed from many ports, but Galveston holds a special place in my logbook", "I
+walk the Strand District", "I walk it often", "When I finally board my ship, I carry that
+Texas warmth with me", a section headed "The Moment That Stays With Me", a closing paragraph
+of things "Galveston taught me", two more "where I always begin" lines and a "My Logbook"
+heading.
+
+**The page was arguing with itself, and that is the part worth recording.** Line 648 — the
+standing disclaimer that has been on every port page since the beginning — reads *"Until I
+have sailed this port myself, these notes are soundings in another's wake."* The page told
+the truth in its footer while its body claimed the opposite. A disclaimer that the body above
+it contradicts is worse than no disclaimer, because it reads as a formality rather than a
+limit. The footer is kept exactly as it was; the body was brought into agreement with it.
+
+**How the rewrite was scoped.** Facts untouched: 1825, fourth busiest, the Strand, the 1900
+storm and its 6,000–8,000 dead, the seawall, the Moody legacy, Maceo Spice since 1946. Only
+the *experience* claims were removed, and they were removed rather than re-attributed — the
+passages now describe a port instead of narrating a visit. This commit does not assert
+anything new about Galveston; it stops asserting something about the author.
+
+**Deliberately left alone.** The FAQ entries ("Should I arrive a day early?", "Where should I
+park?") — that "I" is the *reader's*, which is ordinary FAQ voice and not a claim about
+anyone's travels. Rewriting those would have been over-correction dressed as thoroughness.
+
+**Named limit.** This page only. The same defect is visible elsewhere and is reported rather
+than silently swept: `ports/cozumel.html:274` ("I've lost count of how many times I've visited
+Cozumel") and `ships/carnival/carnival-jubilee.html:766` ("we drove to Galveston and boarded
+whatever Carnival had decided Texas was good enough for"). Both make the same first-hand
+claim and neither is touched here, so this repair is not read as broader than it is.
+
+**Noted on the way through.** The commit was refused the first time by
+`.githooks/reasoning-log-guard.sh` — the guard built in the *other* repo earlier the same day,
+which blocks a substantive commit with no entry dated today. It was right, and this entry is
+the answer to it. A guard that stops its own author is doing its job.
+
+_Runtime: Hermes (deepseek-v4.1-flash, nous)_
 
 ## 2026-08-12 — the guard was shipping a detector it could not find (P0, measured)
 
