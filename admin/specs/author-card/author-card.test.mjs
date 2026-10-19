@@ -7,7 +7,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { injectAuthorCard, OPEN, CLOSE } from "./inject-author-card.mjs";
+import { injectAuthorCard, matchElement, OPEN, CLOSE } from "./inject-author-card.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const CARD = fs.readFileSync(path.join(HERE, "author-card.html"), "utf8");
@@ -76,4 +76,12 @@ test("the emitted markup meets the contract: one label target, an h3, and no eva
 
 test("the component file is inert data (no script, no handlers, no eval)", () => {
   assert.doesNotMatch(CARD, /<script|\bon[a-z]+\s*=|eval\s*\(|new\s+Function\b/i);
+});
+
+test("matchElement finds the matching close tag through nesting, not the first close", () => {
+  const html = `<div id="outer"><div id="inner">x</div></div><p>after</p>`;
+  const m = matchElement(html, html.indexOf("<div"));
+  assert.equal(m.tag, "div");
+  assert.equal(html.slice(m.end - "</div>".length, m.end), "</div>");
+  assert.ok(m.end <= html.indexOf("<p>"), "it closed the OUTER div, not the inner one");
 });

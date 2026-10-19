@@ -1,0 +1,45 @@
+{
+  "schema": "code-library-catalog/1",
+  "about": "The capability cards for In The Wake admin/specs. Same shape as Project-Sophos admin/lib/CATALOG.json: id, kind (code|concept|anti-pattern|procedure|test), module, exports, purpose, when to use, when NOT to, tests, state, household_id, need, inspired_by, supersedes/superseded_by.",
+  "cards": [
+    {
+      "id": "author-card",
+      "kind": "code",
+      "module": "admin/specs/author-card/inject-author-card.mjs",
+      "exports": [
+        "injectAuthorCard",
+        "matchElement"
+      ],
+      "purpose": "Place the ONE accessible About-the-Author card on a page: replace in place (marker or measured variant), insert exactly one when absent, never append.",
+      "when_to_use": [
+        "Any port page that needs the author card",
+        "Migrating a page from the div/h4 or details/summary variant to the admissible section/h3 component"
+      ],
+      "when_not_to_use": [
+        "Replacing the live pages themselves — that is a separate, reviewed task per generator",
+        "Producing the card from hand-copied HTML instead of this injector"
+      ],
+      "aliases": [
+        "author card",
+        "about the author",
+        "about the author card",
+        "author-card-vertical"
+      ],
+      "risk": "write",
+      "replaces": [],
+      "tests": [
+        "admin/specs/author-card/author-card.test.mjs"
+      ],
+      "state": "unverified",
+      "provenance": {
+        "added": "2026-10-19",
+        "basis": "M3.4 spec measured against InTheWake main; M3.5 component + injector + 7 tests"
+      },
+      "household_id": "InTheWake",
+      "need": "need:author-card-20261019",
+      "inspired_by": [],
+      "supersedes": [],
+      "superseded_by": null
+    }
+  ]
+}
