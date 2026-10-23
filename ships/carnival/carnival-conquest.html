@@ -712,7 +712,8 @@ fetch('/assets/data/logbook/carnival/carnival-conquest.json').then(r=>r.json()).
     const SOURCES=[abs('/assets/data/ships/carnival-conquest.json'),abs('/ships/carnival/assets/carnival-conquest.json')];
     function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
-    tryFetch().then(data=>{ if(data) renderStats(data); });
+    // Only stats data may replace the fallback; the second source can be the ship's logbook file.
+    tryFetch().then(data=>{ if(data && (data.gt || data.guests)) renderStats(data); });
   })();
   </script>
 
