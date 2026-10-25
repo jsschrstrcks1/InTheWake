@@ -43,11 +43,34 @@ property, most authoritative first:
 | `trade-press` | a contemporary trade press page (Cruise Critic, Cruise Hive, Cruzely, Eat Sleep Cruise) | `secondary` |
 | `itw-data` | a data file already in this repository | `secondary` |
 
+## The line's own page comes first (operator ruling, 2026-10-25)
+
+> "the primary source should be the cruise lines website it self." (Ken)
+
+`admin/lexicon/capture-official.mjs` opens each pilot ship's page on the line's own site in a real browser and
+records every figure exactly as the page shows it, beside its label, in `assets/data/lexicon/observations/`,
+with the URL, the time it was read and a hash of the page text. The generator files those figures as
+`verified` statements (evidence tier `primary`) at rank **`preferred`**: where the line's page speaks, its
+figure is the one shown. This repo's own figure for the same property stays filed beside it, and a
+disagreement between the two is still listed by `findConflicts`, never hidden.
+
+Each entity file lists under `checks` every line page that was opened and what came back:
+
+| Outcome | Meaning |
+|---|---|
+| `captured` | the page showed figures; each is filed or listed in `not_filed` with the reason |
+| `no_figures_on_page` | a real page, with no ship figures on it |
+| `content_not_served` | under 1,000 characters came back (a bot check or an error shell): the ship was never seen |
+| `fetch_failed` | the page could not be opened |
+
+A figure the line does not label plainly is not filed: Carnival's "Guest Capacity" and MSC's "Number of
+passengers" do not say double occupancy or maximum, and a length given only in feet is not converted.
+
 ## What status a statement may carry
 
 | Status | When |
 |---|---|
-| `verified` | read from the line's own page in the session (the only tier the household lets mint it) |
+| `verified` | read from the line's own page by `capture-official.mjs` (the only tier the household lets mint it); rank `preferred` |
 | `inference` | from secondary sources only: trade press, or this repo's own data files |
 | `unknown` | no source could be found: value `null`. This is BLOCKED, said out loud |
 
