@@ -83,6 +83,21 @@ while IFS= read -r _line; do [ -n "$_line" ] && VOYAGE_PACK_MD+=("$_line"); done
         || true
 )
 
+# 0. Deployments stored in one direction (Lexicon C5, gates itw_link_one_direction and
+#    itw_ships_visiting_stale). Runs before the early exit below, because a commit that
+#    touches only the data file must still be checked. The tool prints the code and the
+#    remedy; its exit codes are listed at the top of admin/lexicon/deployments.mjs.
+DEPLOYMENTS_CLI="$REPO_ROOT/admin/lexicon/deployments.mjs"
+if [ -f "$DEPLOYMENTS_CLI" ] && git diff --cached --name-only --diff-filter=ACMR \
+        | grep -qE '^(assets/data/ship-deployments\.json|ports/[^/]+\.html|admin/lexicon/deployments\.mjs)$'; then
+    if ! node "$DEPLOYMENTS_CLI" --check; then
+        echo ""
+        echo "pre-commit: ship deployments or a port page's generated ships block is out of date. Commit blocked."
+        echo "  Fix:   node admin/lexicon/deployments.mjs   (then stage what it rewrites)"
+        exit 1
+    fi
+fi
+
 if [ "${#SHIP_FILES[@]}" -eq 0 ] && [ "${#IMAGE_TARGETS[@]}" -eq 0 ] && [ "${#VOYAGE_PACK_MD[@]}" -eq 0 ]; then
     exit 0
 fi
