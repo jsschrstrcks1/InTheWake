@@ -1,0 +1,27 @@
+{
+  "format": "lexicon-pack/1",
+  "pack": "cruise.ship",
+  "version": 1,
+  "entity_type": "ship",
+  "partition": "public",
+  "_about": "Which facts a ship carries in the Lexicon, their type and unit, which sources are authoritative (most authoritative first), and how long a checked value stays fresh. Format: Project-Sophos sophos/src/lexicon/packs.mjs (validatePack, checkStatement). Rules for how a value is sourced and what status it may carry: assets/data/entities/README.md. Tekton itw-c1-cruise-pack-schema. Soli Deo Gloria.",
+  "identity": {
+    "key": "ship:<slug>, where <slug> is the In the Wake ship page slug; when two ships share a name, each takes the year it entered service as a suffix (ship:legend-of-the-seas-1995). The rule is decided per case in the entity file, never by renaming a page.",
+    "aliases": ["imo", "former_name", "itw_page"]
+  },
+  "source_kinds": {
+    "line-official": "the cruise line's own ship page or fact sheet, read in the session; evidence tier primary",
+    "trade-press": "a contemporary trade press source (Cruise Critic, Cruise Hive, Cruzely, Eat Sleep Cruise); evidence tier secondary",
+    "itw-data": "a data file already in this repository; evidence tier secondary"
+  },
+  "properties": {
+    "gross_tonnage": { "value_type": "integer", "unit": "GT", "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": 365 },
+    "guests_double": { "value_type": "integer", "unit": "guests", "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": 365 },
+    "guests_max": { "value_type": "integer", "unit": "guests", "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": 365 },
+    "crew": { "value_type": "integer", "unit": "crew", "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": 365 },
+    "entered_service": { "value_type": "date", "unit": null, "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": null },
+    "length_m": { "value_type": "number", "unit": "m", "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": 1825 },
+    "ship_class": { "value_type": "string", "unit": null, "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": null },
+    "line": { "value_type": "entity", "unit": null, "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": 365 }
+  }
+}
