@@ -32,6 +32,7 @@ The `.md` is the source of truth. If the three diverge, **the `.md` wins** and t
 
 ### Other files in this directory
 
+- `AGENT-HANDOFF.md` — field guide for an agent building a new pack: operator rules, the step-by-step pipeline with exact commands, the source map, and the traps. `AGENT-PROMPT.md` is the fill-in prompt that starts such a session.
 - `voyage-pack-print.css` — shared print stylesheet used by the PDF build.
 - `v0.1-v0.1.2-FACT-CHECK.md` — fact-check audit log; must be updated when any fact in either pack is corrected.
 - `W12-VOYAGE-PACKS-PLAYBOOK.md` (parent dir) — the W12 product strategy reference.
