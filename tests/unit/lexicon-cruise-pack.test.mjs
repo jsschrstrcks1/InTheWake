@@ -9,7 +9,7 @@ import path from 'node:path';
 import { buildLineAliases, render, normaliseName, OUT } from '../../admin/lexicon/line-aliases.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const pack = JSON.parse(readFileSync(path.join(ROOT, 'assets/data/entities/packs/cruise.ship.pack.json'), 'utf8'));
+const pack = JSON.parse(readFileSync(path.join(ROOT, 'assets/data/lexicon/cruise.ship.pack.json'), 'utf8'));
 const LEX = path.resolve(ROOT, '..', 'Project-Sophos', 'sophos', 'src', 'lexicon');
 const skip = !existsSync(path.join(LEX, 'packs.mjs')) && 'Project-Sophos not beside this checkout';
 

@@ -12,7 +12,7 @@
 // pages are the ships a line's fleet lists). Anything that cannot be matched is listed under `unmatched`
 // with the reason. Nothing is guessed: an unmatched alias is a question for a person, not a default.
 //
-//   node admin/lexicon/line-aliases.mjs           write assets/data/entities/line-aliases.json
+//   node admin/lexicon/line-aliases.mjs           write assets/data/lexicon/line-aliases.json
 //   node admin/lexicon/line-aliases.mjs --check   exit 1 if the file is not what the data says
 //
 // Exit codes (every refusal names its code and remedy):
@@ -26,7 +26,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
-export const OUT = "assets/data/entities/line-aliases.json";
+export const OUT = "assets/data/lexicon/line-aliases.json";
 const SHIP_PAGE_SKIP = new Set(["index", "venues"]);
 const MIN_SHIP_OVERLAP = 2;
 

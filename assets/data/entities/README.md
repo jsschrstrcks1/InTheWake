@@ -14,9 +14,12 @@ Plan: Project-Sophos `docs/lexicon/LEXICON-PLAN-3.1.md`, Track C. Contract:
 
 | Path | What |
 |---|---|
-| `packs/cruise.ship.pack.json` | which facts a ship carries, their type and unit, which sources are authoritative, how long a value stays fresh (`lexicon-pack/1`) |
-| `line-aliases.json` | generated: which spelling of a cruise line in which file means which line. Do not edit by hand |
 | `ship/<slug>.json` | one file per ship (Track C2), `lexicon-entity/1` |
+| `../lexicon/cruise.ship.pack.json` | which facts a ship carries, their type and unit, which sources are authoritative, how long a value stays fresh (`lexicon-pack/1`) |
+| `../lexicon/line-aliases.json` | generated: which spelling of a cruise line in which file means which line. Do not edit by hand |
+
+Only entity files live under `entities/`: Argus reads every `entities/<type>/<slug>.json` as one, so the
+pack and the alias table sit beside it in `assets/data/lexicon/`.
 
 ## An entity file
 
@@ -62,7 +65,7 @@ automatic.
 ## Lines
 
 A statement names a line as `line:<id>`, where `<id>` is the line's id in `brands.json`.
-`line-aliases.json` maps the other spellings to it, each with the evidence it rests on:
+`assets/data/lexicon/line-aliases.json` maps the other spellings to it, each with the evidence it rests on:
 
 ```bash
 node admin/lexicon/line-aliases.mjs           # regenerate after changing brands, fleets or ships/
