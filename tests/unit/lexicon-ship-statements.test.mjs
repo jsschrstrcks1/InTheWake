@@ -6,7 +6,8 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { readField, buildShipStatements, loadContract, PILOT, OUT_DIR } from '../../admin/lexicon/ship-statements.mjs';
+import { readField, readOfficial, buildShipStatements, loadContract, PILOT, OUT_DIR } from '../../admin/lexicon/ship-statements.mjs';
+import { outcomeOf, figureLabel } from '../../admin/lexicon/capture-official.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const LEX = path.resolve(ROOT, '..', 'Project-Sophos', 'sophos', 'src', 'lexicon');
@@ -42,19 +43,65 @@ test('the contract finds the census conflicts and picks no side; the clean ship 
   assert.equal(findConflicts(radiance).length, 2);
   assert.equal(currentValue(entity('legend-of-the-seas-1995').statements, 'ship:legend-of-the-seas-1995#guests_double', at).state, 'conflicting');
   const grandiosa = entity('msc-grandiosa').statements;
-  assert.equal(findConflicts(grandiosa).length, 0);
+  // One disagreement, listed not hidden: MSC's own 331.43 m against this repo's rounded 331. The line's page
+  // is the primary source (operator ruling 2026-10-25), so its statement is preferred and resolves it.
+  assert.deepEqual(findConflicts(grandiosa).map((c) => c.subject), ['ship:msc-grandiosa#length_m']);
   for (const s of grandiosa) assert.equal(currentValue(grandiosa, s.subject, at).state, 'resolved', s.subject);
+  assert.equal(currentValue(grandiosa, 'ship:msc-grandiosa#length_m', at).statement.ext.value, 331.43);
   for (const ship of PILOT) {
-    for (const s of entity(ship.entity.split(':')[1]).statements) {
+    const d = entity(ship.entity.split(':')[1]);
+    const captured = new Set(d.checks.filter((c) => c.outcome === 'captured').map((c) => c.url));
+    for (const s of d.statements) {
       assert.equal(validateStatement(JSON.parse(JSON.stringify(s))).ok, true, s.subject);
-      assert.equal(s.epistemic.status, 'inference', `${s.subject}: itw-data is secondary, never verified or known`);
+      assert.ok(['inference', 'verified'].includes(s.epistemic.status), `${s.subject}: never known (training recall)`);
       for (const e of s.epistemic.evidence) {
-        assert.equal(e.tier, 'secondary');
-        const file = e.ref.replace(/^itw:/, '').split('#')[0];
-        assert.ok(existsSync(path.join(ROOT, file)), `${s.subject} cites ${file}, which exists`);
+        if (s.epistemic.status === 'verified') {
+          // verified only from a line page this repo actually captured, as primary evidence, ranked preferred
+          assert.equal(e.tier, 'primary');
+          assert.ok(captured.has(e.ref), `${s.subject} cites ${e.ref}, a captured line page`);
+          assert.equal(s.ext.rank, 'preferred');
+        } else {
+          assert.equal(e.tier, 'secondary');
+          const file = e.ref.replace(/^itw:/, '').split('#')[0];
+          assert.ok(existsSync(path.join(ROOT, file)), `${s.subject} cites ${file}, which exists`);
+        }
       }
     }
   }
+});
+
+test('a figure on the line\'s own page is read only when its label says plainly what it is', () => {
+  assert.deepEqual(readOfficial('Gross Tonnage:', '181.541 tons'), [{ property: 'gross_tonnage', value: 181541, unit: 'GT' }]);
+  assert.deepEqual(readOfficial('Gross Tonnage', '133,500'), [{ property: 'gross_tonnage', value: 133500, unit: 'GT' }]);
+  assert.match(readOfficial('Gross Tonnage:', '181.54 tons')[0].skip, /not a plain tonnage/, 'a decimal is never read as a thousands group');
+  assert.match(readOfficial('Gross Tonnage:', '181,541.5 tons')[0].skip, /not a plain tonnage/);
+  assert.deepEqual(readOfficial('Onboard Crew', '1,450'), [{ property: 'crew', value: 1450, unit: 'crew' }]);
+  assert.match(readOfficial('Guest Capacity', '3,934')[0].skip, /double occupancy or maximum/);
+  assert.match(readOfficial('Number of passengers:', '6,334 guests')[0].skip, /double occupancy or maximum/);
+  assert.match(readOfficial('Length In Feet', '1,055')[0].skip, /feet only/);
+  assert.deepEqual(readOfficial('Length/Beam/Height:', '331.43 m / 43 m / 75.5 m'), [{ property: 'length_m', value: 331.43, unit: 'm' }]);
+  assert.match(readOfficial('Crew members:', 'about 1,700')[0].skip, /approximate|not a plain/);
+});
+
+test('the line\'s page wins where it speaks; where it was not served, nothing is verified and the check says why', { skip }, async () => {
+  const { currentValue } = await import(pathToFileURL(path.join(LEX, 'statement.mjs')).href);
+  const at = { at: '2026-10-25T04:00:00Z' };
+  const vista = entity('carnival-vista');
+  assert.equal(vista.checks[0].outcome, 'captured');
+  for (const p of ['gross_tonnage', 'crew']) {
+    const cv = currentValue(vista.statements, `ship:carnival-vista#${p}`, at);
+    assert.equal(cv.state, 'resolved');
+    assert.equal(cv.statement.epistemic.status, 'verified', p);
+    assert.equal(cv.statement.timestamps.observed_at, vista.checks[0].retrieved_at, 'observed when the page was read');
+  }
+  assert.ok(vista.not_filed.some((n) => n.source.endsWith('#Guest Capacity') && /double occupancy or maximum/.test(n.reason)));
+  for (const slug of ['radiance-of-the-seas', 'quantum-of-the-seas', 'legend-of-the-seas-2026']) {
+    const d = entity(slug);
+    assert.equal(d.checks.length, 1, `${slug} records the line page it tried`);
+    assert.notEqual(d.checks[0].outcome, 'captured');
+    assert.ok(!d.statements.some((s) => s.epistemic.status === 'verified'), `${slug}: nothing verified from a page that showed nothing`);
+  }
+  assert.deepEqual(entity('legend-of-the-seas-1995').checks, [], 'a retired ship has no line page; none is claimed');
 });
 
 test('nothing interpreted is filed: every approximate or placeholder value sits in not_filed with its reason', { skip }, () => {
@@ -82,4 +129,12 @@ test('identity: the two 1995 Legend pages share an IMO and fold; a pilot entry m
   assert.equal(new Set(imos).size, imos.length, 'no two entities share an IMO');
   const mixed = [{ entity: 'ship:legend-mixed', lineDir: 'rcl', pages: ['rcl/legend-of-the-seas', 'rcl/legend-of-the-seas-icon-class-entering-service-in-2026'] }];
   await assert.rejects(buildShipStatements(ROOT, await loadContract(), mixed), (e) => e.code === 'itw_identity_split');
+});
+
+test('the capture tool never calls a page it was not shown "no figures"', () => {
+  assert.equal(outcomeOf([{ label: 'Onboard Crew', raw: '1,450' }], 180000), 'captured');
+  assert.equal(outcomeOf([], 170), 'content_not_served', 'a 170-character bot check is not a ship page');
+  assert.equal(outcomeOf([], 40000), 'no_figures_on_page');
+  for (const l of ['Gross Tonnage:', 'Gross Tonnage', 'Onboard Crew', 'Crew members:', 'Number of passengers:', 'Guest Capacity', 'Length In Feet', 'Length/Beam/Height:']) assert.ok(figureLabel(l), l);
+  for (const l of ['Number of cabins:', 'Maximum Speed:', 'Find out what our guests have to say about MSC Grandiosa.']) assert.ok(!figureLabel(l), l);
 });
