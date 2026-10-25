@@ -69,3 +69,79 @@ test('every companion page loads the companion version the service worker caches
     }
   }
 });
+
+// THE COPY BUTTON MUST ALWAYS ANSWER (2026-10-16). In Facebook's Android browser the Copy link button did
+// nothing: the old code waited on navigator.clipboard.writeText, which a WebView can leave unanswered, and
+// only then fell back. These run copyPageLink against a fake page and pin the three ways it can go.
+function copyHarness({ exec, clip }) {
+  const start = src.indexOf('function legacyCopy(');
+  const end = src.indexOf('var INAPP_STEPS=');
+  assert.ok(start > 0 && end > start, 'companion.js defines legacyCopy() and copyPageLink()');
+  const body = src.slice(start, end) + fn('cleanPageLink');
+  const el = () => ({ children: [], style: {}, textContent: '', parentNode: null, setAttribute() {}, addEventListener() {},
+    focus() {}, select() {}, setSelectionRange() {}, appendChild(c) { this.children.push(c); c.parentNode = this; },
+    removeChild(c) { this.children = this.children.filter((x) => x !== c); } });
+  const document = { activeElement: null, body: el(), createElement: el, createTextNode: (t) => ({ text: t }),
+    execCommand: () => exec };
+  const writeText = clip === 'hang' ? () => new Promise(() => {}) : clip === 'reject' ? () => Promise.reject(new Error('denied')) : () => Promise.resolve();
+  const navigator = { clipboard: { writeText } };
+  const location = { href: 'https://cruisinginthewake.com/admin/voyage-pwa/x.html?fbclid=IwAR0abc' };
+  // eslint-disable-next-line no-new-func
+  const copy = Function('document', 'navigator', 'location', 'setTimeout', 'clearTimeout', body + '; return copyPageLink;')(document, navigator, location, setTimeout, clearTimeout);
+  const msg = el();
+  return { msg, run: () => copy(msg) };
+}
+const said = (msg) => msg.children.filter((c) => c.text).map((c) => c.text).join('');
+const box = (msg) => msg.children.find((c) => c.className === 'inapp-link');
+
+test('copy: the textarea copy runs first, inside the tap, and the link is still shown', () => {
+  const h = copyHarness({ exec: true, clip: 'hang' });
+  h.run();
+  assert.match(said(h.msg), /^Link copied/);
+  assert.equal(box(h.msg).value, 'https://cruisinginthewake.com/admin/voyage-pwa/x.html');
+});
+
+test('copy TEETH: a clipboard that never answers still ends in a link to press and hold', async () => {
+  const h = copyHarness({ exec: false, clip: 'hang' });
+  h.run();
+  assert.equal(h.msg.children.length, 0, 'nothing is claimed before the time limit');
+  await new Promise((r) => setTimeout(r, 1700));
+  assert.match(said(h.msg), /wouldn't let the button copy/);
+  assert.equal(box(h.msg).value, 'https://cruisinginthewake.com/admin/voyage-pwa/x.html');
+});
+
+test('copy: a refused clipboard falls back at once, and a working one reports success', async () => {
+  const refused = copyHarness({ exec: false, clip: 'reject' });
+  refused.run();
+  await new Promise((r) => setTimeout(r, 20));
+  assert.match(said(refused.msg), /wouldn't let the button copy/);
+  const ok = copyHarness({ exec: false, clip: 'ok' });
+  ok.run();
+  await new Promise((r) => setTimeout(r, 20));
+  assert.match(said(ok.msg), /^Link copied/);
+  assert.ok(box(ok.msg));
+});
+
+// OPEN IN CHROME (2026-10-17). On Android the in-app notice offers an intent: link that asks the phone to
+// open the page in Chrome. It must appear only inside an Android in-app browser, carry the clean link, and
+// fall back to that same link when Chrome is missing.
+function intentFor(ua, href) {
+  const body = fn('inAppBrowser') + fn('cleanPageLink') + fn('chromeIntentLink');
+  // eslint-disable-next-line no-new-func
+  return Function('navigator', 'location', body + '; return chromeIntentLink();')({ userAgent: ua }, { href });
+}
+
+test('Open in Chrome: an Android in-app browser gets an intent link to the clean page', () => {
+  const href = 'https://cruisinginthewake.com/admin/voyage-pwa/sun-panama-mar-2027.html?fbclid=IwAR0abc#faq';
+  const clean = 'https://cruisinginthewake.com/admin/voyage-pwa/sun-panama-mar-2027.html';
+  assert.equal(intentFor(IN_APP['Facebook, Android'], href),
+    'intent://cruisinginthewake.com/admin/voyage-pwa/sun-panama-mar-2027.html#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='
+    + encodeURIComponent(clean) + ';end');
+});
+
+test('Open in Chrome TEETH: never offered on iPhone, in a real browser, or off https', () => {
+  const href = 'https://cruisinginthewake.com/admin/voyage-pwa/x.html';
+  for (const name of ['Facebook, iPhone', 'Messenger, iPhone', 'Instagram, iPhone']) assert.equal(intentFor(IN_APP[name], href), '', name);
+  for (const [name, ua] of Object.entries(REAL_BROWSERS)) assert.equal(intentFor(ua, href), '', name);
+  assert.equal(intentFor(IN_APP['Facebook, Android'], 'http://127.0.0.1:8765/x.html'), '', 'plain http');
+});

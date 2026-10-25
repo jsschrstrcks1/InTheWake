@@ -42,6 +42,7 @@ export const PORT_COUNTRY = {
   'Roatán, Honduras': 'HN', 'Bermuda (Kings Wharf)': 'BM', 'Tortola, BVI': 'VG', 'Philipsburg, St. Maarten': 'SX',
   'Bridgetown, Barbados': 'BB', 'Amber Cove, DR': 'DO', 'Puerto Plata, Dominican Republic': 'DO', 'Cabo Rojo, Dominican Republic': 'DO',
   'Oranjestad, Aruba': 'AW', 'Willemstad, Curaçao': 'CW', 'Frederiksted, St. Croix': 'US',
+  'Cartagena, Colombia': 'CO', 'Gatun Lake, Panama': 'PA', 'Colón, Panama': 'PA', 'Puerto Limón, Costa Rica': 'CR',
   'Wellington, New Zealand': 'NZ', 'Tauranga, New Zealand': 'NZ', 'Picton, New Zealand': 'NZ', 'New Plymouth, New Zealand': 'NZ',
   'Auckland, New Zealand': 'NZ', 'Lyttelton (Christchurch), NZ': 'NZ',
   'Townsville, Australia': 'AU', 'Sydney, Australia': 'AU', 'Darwin, Australia': 'AU', 'Cairns, Australia': 'AU', 'Brisbane, Australia': 'AU',
@@ -62,7 +63,7 @@ export const UK_SLUG = {
   AU: 'australia', NA: 'namibia', AR: 'argentina', GH: 'ghana', SG: 'singapore', CL: 'chile', BR: 'brazil',
   CV: 'cape-verde', FK: 'falkland-islands', MU: 'mauritius', TH: 'thailand', PF: 'french-polynesia', UY: 'uruguay',
   MV: 'maldives', RE: 'reunion', ID: 'indonesia', ZA: 'south-africa', GF: 'french-guiana', LK: 'sri-lanka', CI: 'cote-d-ivoire',
-  AW: 'aruba', CW: 'curacao',
+  AW: 'aruba', CW: 'curacao', CO: 'colombia', PA: 'panama', CR: 'costa-rica',
 };
 
 // The State Department feed files advisories under FIPS 10-4 codes (Bahamas BF, Cayman CJ), and the
@@ -75,7 +76,7 @@ export const US_NAME = {
   AU: 'Australia', NA: 'Namibia', AR: 'Argentina', GH: 'Ghana', SG: 'Singapore', CL: 'Chile', BR: 'Brazil',
   CV: 'Cabo Verde', MU: 'Mauritius', TH: 'Thailand', PF: 'French Polynesia', UY: 'Uruguay', MV: 'Maldives',
   ID: 'Indonesia', ZA: 'South Africa', GF: 'French Guiana', LK: 'Sri Lanka', CI: 'Cote d Ivoire',
-  AW: 'Aruba', CW: 'Curaçao',
+  AW: 'Aruba', CW: 'Curaçao', CO: 'Colombia', PA: 'Panama', CR: 'Costa Rica',
 };
 const nameKey = (s) => slug(s).replace(/^the-/, '');
 export function usFind(feed, iso) {
@@ -89,7 +90,7 @@ export const US_CODE = {
   MX: 'MX', BS: 'BF', KY: 'CJ', JM: 'JM', CA: 'CA', HN: 'HO', BM: 'BD', VG: 'VI', SX: 'NN', BB: 'BB', DO: 'DR',
   NZ: 'NZ', AU: 'AS', NA: 'WA', AR: 'AR', GH: 'GH', SG: 'SN', CL: 'CI', BR: 'BR', CV: 'CV', MU: 'MP', TH: 'TH',
   PF: 'FP', UY: 'UY', MV: 'MV', ID: 'ID', ZA: 'SF', GF: 'A2', LK: 'CE', CI: 'IV',
-  AW: 'AA', CW: 'UC',
+  AW: 'AA', CW: 'UC', CO: 'CO', PA: 'PM', CR: 'CS',
 };
 
 export const RANK = { none: 0, yellow: 1, red: 2 };
