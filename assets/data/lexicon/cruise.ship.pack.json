@@ -1,7 +1,7 @@
 {
   "format": "lexicon-pack/1",
   "pack": "cruise.ship",
-  "version": 1,
+  "version": 2,
   "entity_type": "ship",
   "partition": "public",
   "_about": "Which facts a ship carries in the Lexicon, their type and unit, which sources are authoritative (most authoritative first), and how long a checked value stays fresh. Format: Project-Sophos sophos/src/lexicon/packs.mjs (validatePack, checkStatement). Rules for how a value is sourced and what status it may carry: assets/data/entities/README.md. Tekton itw-c1-cruise-pack-schema. Soli Deo Gloria.",
@@ -22,6 +22,7 @@
     "entered_service": { "value_type": "date", "unit": null, "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": null },
     "length_m": { "value_type": "number", "unit": "m", "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": 1825 },
     "ship_class": { "value_type": "string", "unit": null, "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": null },
-    "line": { "value_type": "entity", "unit": null, "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": 365 }
+    "line": { "value_type": "entity", "unit": null, "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": 365 },
+    "imo": { "value_type": "string", "unit": null, "authority": ["line-official", "trade-press", "itw-data"], "ttl_days": null }
   }
 }
