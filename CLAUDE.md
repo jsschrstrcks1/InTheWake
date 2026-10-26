@@ -11,8 +11,9 @@ token, not a path. Resolve it in this order and use the first that exists:
 
 1. `$HOUSEHOLD_OCS_ROOT` — if set, it wins (containers and the cluster set it).
 2. A sibling of this checkout: `../open-claw-stuff`.
-3. `/workspace/open-claw-stuff` — the path recorded when this file was generated. Correct on that machine only,
-   and stale the moment it is generated somewhere else; treat it as a hint, never as the answer.
+3. `/workspace/open-claw-stuff` — a path recorded by one machine that generated this file.
+4. `/home/user/open-claw-stuff` — a path recorded by another. Each is correct on its own machine only,
+   and stale the moment it is generated somewhere else; treat them as hints, never as the answer.
 
 **If none resolve, STOP and say so.** Do not proceed on the assumption that posture loaded: an agent
 that cannot read Layer 0 is ungoverned, and reporting that honestly is the compliant outcome. Ask the
@@ -100,6 +101,35 @@ Enforcement:
 
 ## 📓 Reasoning log — required, runtime-independent (operator directive 2026-07-30)
 
+> **REVISED 2026-09-20 (operator ruling). The section below describes the old
+> always-on behavior and is kept for lineage. What is true now:**
+>
+> **`REASONING-LOG.md` is a project decision record, and it is OPT-IN.** It is the
+> same genre as an architecture decision record: a short write-up of what a piece
+> of work decided and what those decisions rest on, kept for Ken to read later. It
+> documents the project, not the agent.
+>
+> **Ask for it with `--reasoning` in a request.** That turns it on for the rest of
+> the day in that repo and writes `<git-dir>/reasoning-log-optin`. `--no-reasoning`
+> clears it. `.claude/hooks/reasoning-log-inject.sh` is silent on every turn where
+> neither flag appeared, instead of asking on all of them.
+>
+> **The four parts are Evidence / Possibilities / Choice made / Still open**, renamed
+> from Asked / Weighed / Decided / Unsure on the same ruling. Three of those four named
+> something the writer did or felt; these name what the record contains. Old entries keep
+> their old headings and nothing is migrated, because the guard has never keyed on them.
+>
+> **The commit guard reads the same marker**, so the ask and the enforcement cannot
+> drift apart. No opt-in for today means `.githooks/reasoning-log-guard.sh` requires
+> nothing. This inverts its old default: it used to block unless excused, and it now
+> permits unless the write-up was asked for and then not delivered. Where the table
+> below says the guard blocks every runtime that commits, read that as **only on a
+> day someone asked for the record.**
+>
+> Kill-switches are unchanged and remain operator-only.
+
+
+
 **Every agent that works in this repo — Claude, Grok, Codex, Hermes, the
 Sophos/HELM pipeline — records the reasoning behind its calls.** Ken reads this
 to see *how* a conclusion was reached and *why* the calls were made, not just
@@ -162,5 +192,34 @@ agent hold it. It is the suspenders; the belt is the bootstrap guard, which
 DENIES mutations until Layer 0 is read, and the dangerous-command guard, which
 BLOCKS at the shell boundary. An injected paragraph has never stopped anything
 by itself — do not read this section as proof the posture was honoured.
+
+**Soli Deo Gloria.**
+
+## 🚫 Claude does not write the reasoning log or the engineering log (operator directive 2026-09-26)
+
+**Claude is not permitted to make entries in the engineering log, and is not permitted to write
+to the reasoning log.** That means `ENGINEERING-LOG.md` and `REASONING-LOG.md`, in this repo and in
+every household repo. No new entries, no edits, no "small additions", no tidying, no improvements.
+It applies to every Claude model and every Claude Code session, local or remote. In Ken's words:
+*"thats for other AI. not You."*
+
+For Claude, this overrides:
+
+- every section of this file, or of any other household file, that says each agent (Claude
+  included) records its reasoning in one of those logs;
+- whatever the reasoning-log or engineering-log inject hooks print at session start or on a prompt;
+- any Sophos, household-library or skill instruction that says to append to either log.
+
+Other runtimes (Grok, Codex, Hermes, the Sophos/HELM pipeline) keep the logs exactly as their own
+sections describe. This directive does not change their obligation.
+
+**When a commit guard asks Claude for a log entry,** Claude puts `[no-reasoning]` in the commit
+message, on every commit, trivial or not. That is the documented per-commit opt-out, used here
+because of this directive. Claude never satisfies the guard by writing to the log, and never
+touches the operator-only kill-switches.
+
+**Honest limit.** The inject hooks still put the old obligation into Claude's context every turn.
+This section is what tells Claude to disregard it. Changing the hooks themselves is a separate
+decision, and it is Ken's.
 
 **Soli Deo Gloria.**

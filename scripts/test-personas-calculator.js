@@ -384,11 +384,12 @@ function main() {
       if (!Array.isArray(fasp.includes) || fasp.includes.length === 0) fasIssues.push('freeAtSeaPlus.includes must be non-empty array');
     }
 
-    // Policy block sanity — the Great Stirrup Cay policy must be present with a 2026 effectiveDate
-    const gscPolicy = (ncl.policies || []).find(p => p.id === 'great-stirrup-cay-2026');
-    if (!gscPolicy) fasIssues.push('Missing great-stirrup-cay-2026 policy (critical 2026 rule)');
-    else if (!gscPolicy.effectiveDate || !gscPolicy.effectiveDate.startsWith('2026-')) {
-      fasIssues.push(`great-stirrup-cay-2026.effectiveDate missing or not 2026 (${gscPolicy.effectiveDate})`);
+    // Policy block sanity — NCL's Free at Sea page (checked 2026-09-26) says the Open Bar covers
+    // Great Stirrup Cay, so the config must say the island is covered and carry no exclusion.
+    const gscPolicy = (ncl.policies || []).find(p => p.id === 'great-stirrup-cay-covered');
+    if (!gscPolicy) fasIssues.push('Missing great-stirrup-cay-covered policy');
+    if ((ncl.policies || []).some(p => p.id === 'great-stirrup-cay-2026')) {
+      fasIssues.push('Stale great-stirrup-cay-2026 exclusion is back; NCL says the island is covered');
     }
 
     if (fasIssues.length) {

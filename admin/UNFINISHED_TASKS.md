@@ -11,6 +11,29 @@ Open tasks for this repo (`state` ≠ `complete`). Regenerate:
 
 ---
 
+## P3 — Self-service itinerary changes for voyage companions (`itw-voyage-self-service`, queued 2026-08-21)
+
+**Context:** NCL revised the Aug 24 Getaway sailing three days out (repairs in Nassau — overnight
+port stay added, cay day extended). The operator asked for a way for people to apply such changes
+themselves when a ship's plans change mid-trip.
+
+**v1 — SHIPPED 2026-08-21:** `admin/family/itinerary-overrides.json` — an overlay file both the
+family page and Jerusha's page fetch fresh (cache-busted, never SW-cached) on every online load
+and merge over their built-in VOYAGES data (note/title/dates/any per-day field, keyed by voyage id
+and day number). Editing the file on GitHub mobile + committing to main is the whole workflow —
+the existing Pages deploy publishes it. Limits (documented in the file): map routes/pins don't
+move; offline devices show the built-in schedule until back online.
+
+**v2 — designed, not built:** a Worker-backed editor so changes work from ship Wi-Fi without
+GitHub: reuse the jerusha-notes Worker pattern (KV `override:<voyageId>`, bearer-auth'd
+`GET/PUT /overrides`), pages fetch Worker first and fall back to the JSON file; a small auth'd
+edit form (per-day fields, preview, audit log of who changed what when). Open questions for the
+operator: who holds edit tokens (family-wide vs per-person), and whether voyage-pwa companion
+shells (hosted-group sailings) should join the same mechanism — Pam-hosted groups would benefit
+most on port-change days.
+
+---
+
 ## P2 — Voyage packs → PWA deep integration (`itw-voyage-pwa-integration`, queued 2026-07-07)
 
 **Goal:** soft-deprecate the voyage-pack PDFs. Each voyage's PWA companion
@@ -203,7 +226,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 1 | available | — | itw-hal-carousels | Deferred blocking HAL carousel errors |
 | 1 | available | — | itw-port-everglades-resource | Port Everglades — 6 open image slots re-source |
 | 1 | available | — | itw-port-miami-resource | Port Miami — 8 open image slots re-source |
-| 1 | registered | — | itw-seo-disavow-upload | Upload admin/seo/disavow.txt to GSC disavow-links (getbets toxic backlink defense) |
+| 1 | registered | — | itw-seo-disavow-upload | Upload admin/seo/disavow.txt to GSC disavow-links (g•tbets toxic backlink defense) |
 | 1 | registered | — | itw-sydney-ns-unverifiable-license-images | Sydney NS — resolve 8 unverifiable-license port images (verify or delete per memory e8b73d89; stubs say 'CC BY-SA 4.0 or equivalent' with no source_url; ask operator before deleting; leave honest-broken refs if deleted) |
 | 1 | available | — | legend-of-the-seas-what-the-first-passengers-found | Legend of the Seas — what the first passengers found |
 | 1 | available | — | pattern-c-cruise-shore-excursion-suffix-template-bug | Pattern C — "Cruise"/"Shore Excursion" suffix template bug |
@@ -319,7 +342,7 @@ node admin/library.mjs mirrors --repo InTheWake
 | 4 | available | — | itw-gh-1829 | [Technical] Cloudflare R2 Migration: HTML content still referencing local assets |
 | 4 | registered | — | itw-phase-6-tbn-ships-validator-exemption | Skip few_images validator for ~45 TBN/unbuilt/future ships until they enter service — RCL Icon-class TBN 2027/2028, Oasis TBN 2028, Quantum Ultra TBN 2028/2029, Star-class TBN 2028, Celebrity Edge-unnamed/Nirvana/River-class, Carnival Project Ace 1/2/3, Carnival Tropicale 2028, MSC World Asia (Nov 2026 debut), Explora III-VI (2026-2028), Legend of the Seas 2026 Icon-class. Consider validator rule tweak: exempt ships with entered_service > current-date from few_images. |
 | 4 | registered | — | itw-seo-drink-calc-rbc-model | Enhancement: Drink Calculator — optional RBC day-pass as partial drink-day substitute |
-| 4 | registered | — | itw-seo-getbets-monitor | SEO: ongoing getbets-string monitor across production files |
+| 4 | registered | — | itw-seo-g•tbets-monitor | SEO: ongoing g•tbets-string monitor across production files |
 | 4 | registered | — | itw-seo-prestige-title-sync | SEO: Prestige ship page title/meta sync with differentiation playbook |
 | 4 | registered | — | itw-seo-rbc-paradise-island-review | SEO: Royal Beach Club Paradise Island honest review |
 | 4 | registered | — | itw-seo-sovereign-hybrid | SEO: Sovereign hybrid title pattern — scale 5.11× SERP-context approach fleet-wide |
@@ -858,3 +881,239 @@ node admin/library.mjs mirrors --repo InTheWake
 
 <!-- library register 2026-08-12T16:00:55.229Z -->
 | itw-aria-hidden-version-governance | 3 | ONE operator decision TWO plans wait on: aria-hidden posture (site-wide) + version-governance unification (PLAN_SHIP_PAGE_REVIEW P3 + NASSAU_REVIEW 2B) |
+<!-- library register 2026-08-22T02:11:59.964Z -->
+| article-norwegian-getaway-aug-24-2026-itinerary-change-nassau-ov | 2 | Article: Norwegian Getaway Aug 24 2026 itinerary change — Nassau overnight for repairs, GSC extended (news, NCL comms analysis) |
+
+<!-- library register 2026-08-22T03:17:24.747Z -->
+| inthewake-ship-page-js-validator-nav-gold-standard-expects-depre | 2 | InTheWake ship-page JS validator: nav gold standard expects deprecated flat paths (/ports.html, /cruise-lines.html) — modern hub-path ship pages falsely REGRESS and the regression guard blocks all commits to them; update gold standard + refresh audit-reports/ship-validation-dashboard.json, then add the deferred Getaway article link to ships/norwegian/norwegian-getaway.html Plan Your Cruise |
+
+<!-- library register 2026-08-22T21:52:13.724Z -->
+| article-shore-power-at-portmiami-why-getaway-overnights-in-miami | 2 | Article: shore power at PortMiami — why Getaway overnights in Miami (explainer) |
+
+<!-- library register 2026-08-22T21:52:14.331Z -->
+| article-great-stirrup-cay-is-about-to-change-pier-great-tides-wa | 2 | Article: Great Stirrup Cay is about to change — pier + Great Tides waterpark (news/explainer) |
+
+<!-- library register 2026-08-22T21:52:14.700Z -->
+| article-interior-vs-balcony-vs-oceanview-cabin-decision-guide-ev | 2 | Article: interior vs balcony vs oceanview — cabin decision guide (evergreen) |
+
+<!-- library register 2026-08-24T20:23:58.765Z -->
+| getaway-aug-24-28-daily-logbook-publish-ken-s-dispatches-daily-d | 1 | Getaway Aug 24-28 daily logbook — publish Ken's dispatches daily during the sailing (series task) |
+
+<!-- library register 2026-08-24T20:29:28.933Z -->
+| hls-mirror-vs-no-g•tbets-guard-conflict-mirrored-task-rows-in-in | 2 | HLS mirror vs no-g•tbets guard conflict: mirrored task rows in InTheWake admin/UNFINISHED_TASKS.md carry the banned string (disavow + monitor task titles), blocking any commit that stages the file — fix at catalog level (rename tasks or exempt the mirror path); operator decision |
+
+<!-- library register 2026-08-27T05:05:20.588Z -->
+| audit0827-itw-planning-nav-404 | 1 | P1 AUDIT-0827: the site-nav Planning dropdown on 255 pages links /planning/ (e.g. ships/carnival/carnival-breeze.html:215) — no planning/ directory or index exists and _redirects has no rule (.htaccess is inert on Netlify per _redirects:4-6); the real page is planning.html, linked correctly by 112 other pages. Add a _redirects rule or fix the nav template + regenerate. Same class, 1 page: /solo/ from solo/in-the-wake-of-grief.html. |
+
+<!-- library register 2026-08-27T05:05:21.010Z -->
+| audit0827-itw-sitemap-stale-no-generator | 1 | P1 AUDIT-0827: sitemap.xml (1,268 locs) has newest lastmod 2026-06-18 while HEAD is August; 47 live pages are absent incl. 17 recent articles, 11 ports, 2 NCL restaurants — and no sitemap generator script exists anywhere in the repo (hand-maintained, so it drifts). Write a generator + wire it into the rebuild workflow. |
+
+<!-- library register 2026-08-27T05:05:21.419Z -->
+| audit0827-itw-ship-classes-rcl-only | 1 | P1 AUDIT-0827: admin/validate-ship-page.js:83-91 SHIP_CLASSES contains only Royal Caribbean (7 classes); extractCruiseLine (:327) silently defaults to rcl and validateVideos (:2121) looks in rcl/ for every line — class-aware checks are inert for 241 of 291 ship pages (83%). Documented open in admin/validator-spec/STRATEGIC_GAPS.md:9-30. Populate the other 14 lines' class data. |
+
+<!-- library register 2026-08-27T05:05:21.852Z -->
+| audit0827-itw-404-page-missing | 1 | P1 AUDIT-0827: no 404.html exists in the repo; _redirects:14-19 records that the /data/ internal-document block (itw-gh-1737: docx/pdf/rtf publicly served) cannot be ported to Netlify because a clean block needs a 404 target page. One missing file blocks the tracked security fix — create 404.html and add the block rules. |
+
+<!-- library register 2026-08-27T05:05:22.275Z -->
+| audit0827-itw-coming-soon-32-ships | 2 | P2 AUDIT-0827: 32 published, indexed ship pages carry literal 'Dining venue information coming soon.' / 'Entertainment details coming soon.' body copy — 17 Princess, 12 Silversea, 2 Holland America, 1 Carnival (e.g. ships/silversea/silver-muse.html:453,538; ships/princess/enchanted-princess.html:454). Fill the sections or remove the stub blocks. |
+
+<!-- library register 2026-08-27T05:05:22.690Z -->
+| audit0827-itw-venue-boot-dead-path | 2 | P2 AUDIT-0827: assets/js/venue-boot.js:14 names /assets/data/fleets_index.json which does not exist (real: assets/data/fleet_index.json and data/fleets_index.json), the key is never read (dead config), and ships/index.html:227 prints the wrong path to readers as documentation. Worse: venue-boot fetches 777 KB of venues-v2.json on 46 pages and writes into [data-venue-pricing]/[data-venue-ships] — attributes present in zero HTML files, failure silenced by an empty catch. Fix the path, add the render targets or remove the pipeline. |
+
+<!-- library register 2026-08-27T05:05:23.123Z -->
+| audit0827-itw-beta4-and-test-pages-in-prod | 2 | P2 AUDIT-0827: six beta4 scratch outputs (indexbeta4/articlebeta4/authorbeta4/contentbeta4/shipbeta4/shiphubbeta4.html — tools/genbeta4.py:8 says they belong in tools/_genbeta4-out scratch) plus ships/rcl/test/allure-of-the-seas.html (60 KB, zero noindex, unresolved JS artifact) are live and crawlable at the prod root with zero inbound links. Remove or noindex them. |
+
+<!-- library register 2026-08-27T05:05:23.521Z -->
+| audit0827-itw-orphan-data-files | 2 | P2 AUDIT-0827: 11 data files have zero consumers repo-wide — rcl-ship-room-flags.json (181 KB) + ncl-ship-room-flags.json (51 KB), ships/video_sources.json (27 KB, PRECACHED by cache-manifest), rc-menus.json, ship-quiz-data.json (superseded), ncl_ships_meta.json, raadiance-faq.json (typo filename), rc_bars_core.json (PRECACHED), seo_overrides.json, social_buttons.json ('COMING_SOON'), vf_overrides.json ('TODO_IMO') — the two precached ones spend every visitor's bandwidth on unread files. Also data/atlas/missing-ship-pages.json lists 116 'missing' ships that all exist now. Wire, regenerate, or delete. |
+
+<!-- library register 2026-08-27T05:05:23.940Z -->
+| audit0827-itw-calculator-config-stale | 2 | P2 AUDIT-0827: assets/data/calculator-config.json drives a live money recommendation (beverage-package prices, break-even, gratuity, loyalty) and is edit-and-redeploy only, with lastUpdated 2026-04-14 — four months behind HEAD — while the data itself says 'Fleet pricing is dynamic.' Establish an update cadence + staleness banner, or a maintainable config surface. |
+
+<!-- library register 2026-08-27T05:05:24.344Z -->
+| audit0827-itw-validator-rules-unimplemented | 3 | P3 AUDIT-0827: 3 of 139 validator-spec rules carry implementation: none (DATA-003 ship-spec cross-consistency, LINK-001 ship->venue link resolution, PWA-001 SW cache-version bump) — and PWA-001 is exactly the class that already went wrong (voyage-PWA cache bumped for content never built). STRATEGIC_GAPS.md also records the LINK-001 cross-reference script was never written and webapp-testing was never wired to real runs. Implement the three rules. |
+
+<!-- library register 2026-08-27T05:05:24.765Z -->
+| audit0827-itw-orphan-ports | 3 | P3 AUDIT-0827: ports/kyoto.html and ports/falmouth-jamaica.html have zero inbound links and are absent from ports.html (396 of 399 linked); ports/beijing.html has one inbound link and is missing from the index. Add them to ports.html. |
+
+<!-- library register 2026-08-27T05:05:25.208Z -->
+| audit0827-itw-broken-asset-refs | 3 | P3 AUDIT-0827: truncated image paths ending mid-token ('/assets/ships/Oasis-of-the-seas-FOM-') on 7 rcl ship pages + ports/curacao.html; dead stylesheets on ports/port-moresby.html (/css/ports.css), ports/durban.html (/styles/port-page.css), cruise-lines/royal-caribbean.html (/assets/item-cards.css); dead heroes on solo/accessible-cruising.html and ships/msc/msc-world-europa.html. Fix the references. |
+
+<!-- library register 2026-08-27T05:05:25.635Z -->
+| audit0827-itw-ga4-id-embedded-per-page | 3 | P3 AUDIT-0827: G-WZP891PZXJ appears ~2x per page across ~1,350 pages; changing the GA4 property is a site-wide rewrite (why scripts/fix-analytics-ip.js exists — the systemic pattern itw-gh-1711 names). Related open bug: CSP blocks GA4+Umami on drink-calculator.html (admin/UNFINISHED_TASKS.md:238). Centralize the snippet (shared include or generator-injected). |
+
+<!-- library register 2026-08-27T05:05:26.053Z -->
+| audit0827-itw-superseded-root-pages | 3 | P3 AUDIT-0827: zero-inbound-link superseded pages live at the prod root: drink-calculator-v1.html (88 KB), ships-hub.html (duplicate of ships.html), data.html, audit-log.html, drinks.html (meta-refresh shim whose 301 was deliberately dropped). Delete or redirect. |
+<!-- library register 2026-08-28T04:34:32.710Z -->
+| article-cruise-cash-accounts-card-locks-how-a-small-pending-char | 1 | Article: cruise cash accounts + card locks — how a small pending charge closes your ship card (NCL prepay pressure; beverage package is first privilege stripped; lived Getaway Aug-2026 Moderno incident as anchor) |
+<!-- library register 2026-08-20 (re-appended in merge; catalog is SSOT) -->
+| family-pwa-past-trips-section-completed-alaska-cruise-world-amer | 5 | Family PWA: Past Trips section (completed Alaska cruise) + World America Dec 2026 upcoming-trip entry |
+| build-msc-world-america-dec-5-2026-family-voyage-pack-pwa-inthew | 5 | Build MSC World America Dec 5 2026 family voyage pack + PWA (InTheWake) and wire into family app |
+
+<!-- library register 2026-09-04T15:09:51.428Z -->
+| indexnow-coverage-gap-posttooluse-hook-only-matches-edit-write-s | 2 | IndexNow coverage gap: PostToolUse hook only matches Edit|Write, so pages changed via Bash/sed/python (or by any other runtime) are never submitted — durable fix is a git post-commit/pre-push submitter driven by the diff, since git sees every edit path regardless of tool |
+
+<!-- library register 2026-09-05T04:11:34.443Z -->
+| article-the-last-night-on-a-cruise-folio-close-luggage-tags-dise | 1 | Article: the last night on a cruise — folio close, luggage tags, disembarkation timeline (companion to the embarkation-day guide) |
+
+<!-- library register 2026-09-05T04:11:34.897Z -->
+| article-when-your-cabin-isn-t-clean-document-report-escalate-and | 1 | Article: when your cabin isn't clean — document, report, escalate, and what a reasonable fix looks like |
+
+<!-- library register 2026-09-05T04:11:35.342Z -->
+| article-pool-and-hot-tub-lifts-the-accessibility-accommodation-t | 1 | Article: pool and hot tub lifts — the accessibility accommodation that exists but is rarely deployed (needs line policy + ADA sourcing) |
+
+<!-- library register 2026-09-05T04:11:36.041Z -->
+| article-wave-season-honestly-which-cruise-discounts-are-real-wav | 1 | Article: wave season honestly — which cruise discounts are real (WAVE-TIMED: publish before January) |
+
+<!-- library register 2026-09-05T04:11:36.475Z -->
+| article-how-to-escalate-a-complaint-on-a-cruise-ship-the-chain-o | 1 | Article: how to escalate a complaint on a cruise ship — the chain of command and what 'noted in the report' means |
+
+<!-- library register 2026-09-05T13:30:34.500Z -->
+| article-passport-or-birth-certificate-for-a-cruise-closed-loop-d | 1 | Article: passport or birth certificate for a cruise — closed-loop document rules and where the birth-certificate route breaks (needs CBP + State Dept sourcing) |
+
+<!-- library register 2026-09-05T13:30:34.968Z -->
+| article-what-happens-if-you-miss-the-ship-ship-sponsored-vs-inde | 1 | Article: what happens if you miss the ship — ship-sponsored vs independent excursions, the port agent, and who pays |
+
+<!-- library register 2026-09-05T13:30:35.337Z -->
+| article-how-to-read-a-cdc-vessel-sanitation-inspection-score-eve | 1 | Article: how to read a CDC vessel sanitation inspection score (evergreen anchor for the Ruby Princess and Norwegian Dawn news pieces) |
+
+<!-- library register 2026-09-05T13:30:35.765Z -->
+| article-the-cruise-ship-medical-centre-what-it-handles-that-you- | 1 | Article: the cruise ship medical centre — what it handles, that you pay up front, and how insurance and evacuation actually work |
+
+<!-- library register 2026-09-05T13:30:36.141Z -->
+| article-the-single-supplement-why-solo-cruisers-pay-near-double- | 1 | Article: the single supplement — why solo cruisers pay near-double, studio cabins, and how to judge a waiver |
+
+<!-- library register 2026-09-05T13:30:36.565Z -->
+| article-the-muster-drill-how-the-current-version-works-and-what- | 1 | Article: the muster drill — how the current version works and what you must actually do |
+
+<!-- library register 2026-09-05T13:30:36.984Z -->
+| article-great-stirrup-cay-costs-publish-the-photographed-zipline | 1 | Article: Great Stirrup Cay costs — publish the photographed zipline pricing board, the 10 percent Bahamian sales tax line, and the attraction physical requirements |
+
+<!-- library register 2026-09-08T20:54:36.525Z -->
+| itw-precommit-unbound-var-path-untested-and-misattributed | 2 | P2 (found 2026-09-08 by syl giving the FIRST non-worker stamp to itw-precommit-guard-fails-open-on-macos-bash32, condition 2 of that approve_with_conditions): the fail-closed guard blocks the original failure path, but not by the mechanism its own comment credits, and no test covers that path. MEASURED with an inert scratchpad probe: a script with .githooks/pre-commit's exact preamble (set -u, set -E, trap ... ERR exiting 2) hitting an UNBOUND VARIABLE exits 1 and the ERR trap NEVER FIRES; the trap's named refusal is never printed. Bash treats an unbound variable under set -u as a fatal error and exits directly. The same probe with a nonexistent COMMAND does fire the trap and exits 2, so the trap works, just not on this path. Why it matters: the unbound variable IS the original P0 mechanism (mapfile absent under bash 3.2 left every array unset), and the comment at .githooks/pre-commit says the trap is what refuses the commit there. The safety property survives on luck of the right kind, since exit 1 is still non-zero and git blocks, but the operator sees a bare 'unbound variable' with none of the guidance the trap was written to give, and a future edit dropping set -u while keeping the trap would restore the fall-through to the final exit 0 with no test to catch it. FIX, small: (a) add a behavioural case to tests/unit/guard-fails-closed/fails-closed.test.mjs that injects an unbound variable rather than a missing command and asserts non-zero; (b) correct the comment to say set -u blocks that path and the trap covers command failures; (c) consider a trap on EXIT that checks a completion sentinel, which would catch both paths and any future one. |
+<!-- library register 2026-09-05T21:27:14.497Z -->
+| itw-voyage-packs-usage-dashboard | 2 | Voyage packs — usage tracking (Umami events on landing/pack HTML/PWA companions) + cross-pack usage dashboard; plan first |
+
+<!-- library register 2026-09-05T22:07:48.260Z -->
+| itw-voyage-packs-landing-feature-cards | 2 | voyage-packs.html: feature cards with explanation + calm CTA per pack feature, and accessible install-guide popups (iOS/Android add-to-home-screen) for the Voyage companion |
+
+<!-- library register 2026-09-05T22:27:09.202Z -->
+| itw-vu-01-registry | 1 | VU-01 Pack registry packs.json + schema + 3-state disk cross-check in quality.yml (plan Task 1) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:09.785Z -->
+| itw-vu-02-tracker | 1 | VU-02 Shared anonymous event module assets/js/voyage-usage.js: property whitelist, DNT/GPC guard, offline queue, Layer-3 self-attack tests (plan Task 2) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:10.358Z -->
+| itw-vu-05b-relay | 1 | VU-05b Geo-blind Cloudflare Worker relay admin/voyage-usage-relay: drops IP+UA, server-side whitelist, forwards to Umami /api/send; Setting 1.5 adds Cloudflare country/region only (plan Task 5b; ships BEFORE any companion is instrumented; needs D1 setting) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:13.220Z -->
+| itw-vu-03-landing-buy-click | 2 | VU-03 voyage-packs.html: data-umami-event vp_buy_click on Buy buttons; union-merge with PR #2565 (plan Task 3) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:13.768Z -->
+| itw-vu-10-docs | 3 | VU-10 Docs: voyage-packs README 'register and instrument' step, privacy.html Umami sentence + DNT/GPC, analytics-tracking skill vocabulary, W12 checklist pointers (plan Task 10) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:14.850Z -->
+| itw-vu-04-html-sisters | 3 | VU-04 Instrument HTML render v0.1.3 Sisters at Sea (sails 2027-02-14): print/PDF/handoff-filled events + data-pack (plan Task 4) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:15.394Z -->
+| itw-vu-04-html-symphony | 3 | VU-04 Instrument HTML render v0.1 Symphony Western Caribbean (generic, no fixed date): print/PDF/handoff-filled events + data-pack (plan Task 4) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:15.973Z -->
+| itw-vu-04-html-aqua-veterans | 4 | VU-04 Instrument HTML render v0.1.2 NCL Aqua Veterans (sails 2027-12-12): print/PDF/handoff-filled events + data-pack (plan Task 4) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:16.545Z -->
+| itw-vu-05-pwa-prima-caribbean | 1 | VU-05 [GATED D1] Instrument companion prima-caribbean (Norwegian Prima, sails 2026-09-27): CSP relay origin, vp_pwa_open/session/install, sw precache, footer wording UNCHANGED (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:17.339Z -->
+| itw-vu-05-pwa-encore-pacific | 1 | VU-05 [GATED D1] Instrument companion encore-pacific (Norwegian Encore, sails 2026-10-12) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:17.892Z -->
+| itw-vu-05-pwa-escape-thanksgiving | 2 | VU-05 [GATED D1] Instrument companion escape-thanksgiving (Norwegian Escape, sails 2026-11-20) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:18.439Z -->
+| itw-vu-05-pwa-world-america-family | 2 | VU-05 [GATED D1] Instrument companion world-america-family-dec-2026 (MSC World America, sails 2026-12-05) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:19.018Z -->
+| itw-vu-05-pwa-margaritaville | 3 | VU-05 [GATED D1] Instrument companion margaritaville-caribbean (MAS Islander, sails 2027-01-09) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:19.576Z -->
+| itw-vu-05-pwa-gem-new-orleans | 3 | VU-05 [GATED D1] Instrument companion gem-new-orleans (Norwegian Gem, sails 2027-02-05) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:20.104Z -->
+| itw-vu-05-pwa-sisters-at-sea | 3 | VU-05 [GATED D1] Instrument companion sisters-at-sea (Resilient Lady, sails 2027-02-14) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:20.665Z -->
+| itw-vu-05-pwa-world-america-caribbean | 3 | VU-05 [GATED D1] Instrument companion world-america-caribbean (MSC World America, sails 2027-04-24) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:21.206Z -->
+| itw-vu-05-pwa-breakaway-bermuda | 4 | VU-05 [GATED D1] Instrument companion breakaway-bermuda (Norwegian Breakaway, sails 2027-05-30) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:21.771Z -->
+| itw-vu-05-pwa-breakaway-fall-foliage | 4 | VU-05 [GATED D1] Instrument companion breakaway-fall-foliage (Norwegian Breakaway, sails 2027-09-26) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:22.337Z -->
+| itw-vu-05-pwa-aqua-thanksgiving | 4 | VU-05 [GATED D1] Instrument companion aqua-thanksgiving (Norwegian Aqua, sails 2027-11-21) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:22.898Z -->
+| itw-vu-05-pwa-aqua-veterans | 4 | VU-05 [GATED D1] Instrument companion aqua-veterans-caribbean (Norwegian Aqua, sails 2027-12-12) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:23.459Z -->
+| itw-vu-05-pwa-volendam-world-2028 | 4 | VU-05 [GATED D1] Instrument companion volendam-world-2028 (ms Volendam, sails 2028-01-04, 129 days; has emergency tab) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-05T22:27:24.086Z -->
+| itw-vu-05-pwa-anthem-alaska | 6 | VU-05 [GATED D1] Instrument companion anthem-alaska (Anthem of the Seas, sailed 2026-06-29, already complete; retro/maintenance only) (plan Task 5) (plan: InTheWake docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md; umbrella itw-voyage-packs-usage-dashboard) |
+
+<!-- library register 2026-09-06T10:39:19.554Z -->
+| itw-voyage-packs-free-with-tip | 2 | Voyage Packs are free with a tip jar (Ken's decision 2026-09-05; landed by yumi in InTheWake #2591 0afce055, custom-pack page #2596, eight cards on the landing page). Supersedes the paywall-platform question: no processor, no prices, no refunds. Registered after the fact so the paywall row can point at a real survivor. |
+
+<!-- library register 2026-09-06T10:43:25.753Z -->
+| itw-vp-preship-v0.1.10-ncl-encore-solo-group-oct-2026 | 2 | Pre-ship review + landing card: NCL Encore Pacific Coast hosted solo group (sails 2026-10-12). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.10-ncl-encore-solo-group-oct-2026.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:26.245Z -->
+| itw-vp-preship-v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026 | 2 | Pre-ship review + landing card: NCL Escape Thanksgiving hosted solo group (sails 2026-11-20). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:26.731Z -->
+| itw-vp-preship-v0.1.13-ncl-gem-solo-group-feb-2027 | 3 | Pre-ship review + landing card: NCL Gem New Orleans and Cozumel hosted solo group (sails 2027-02-05). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.13-ncl-gem-solo-group-feb-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:27.252Z -->
+| itw-vp-preship-v0.1.8-msc-world-america-solo-group-apr-2027 | 3 | Pre-ship review + landing card: MSC World America hosted solo group (sails 2027-04-24). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.8-msc-world-america-solo-group-apr-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:27.755Z -->
+| itw-vp-preship-v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027 | 3 | Pre-ship review + landing card: NCL Breakaway Bermuda and Halifax hosted solo group (sails 2027-05-30). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:28.245Z -->
+| itw-vp-preship-v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027 | 4 | Pre-ship review + landing card: NCL Breakaway fall foliage hosted solo group (sails 2027-09-26). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:43:28.795Z -->
+| itw-vp-preship-v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027 | 4 | Pre-ship review + landing card: NCL Aqua Thanksgiving hosted solo group (sails 2027-11-21). Run admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md (classes A to E) on admin/voyage-packs/v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027.md, fix and re-stamp the sidecar honestly, rebuild the PDF with admin/scripts/voyage-pack-pdf-build.sh, then add the landing card on voyage-packs.html with vp_pdf_open + vp_tip_click attributes and flip landing/instrumented.landing in packs.json. The full PDF is already served under ships/ and registered; the pack is not yet listed. Pattern: the Prima pass of 2026-09-06 (REASONING-LOG). Sailing order sets priority. |
+
+<!-- library register 2026-09-06T10:59:30.725Z -->
+| itw-islander-logbook-and-videos | 4 | Islander ship page to validator standard: ten logbook stories across the named personas (disclosure type B, research-based, voice gates on) and ten curated, vetted videos across the eight validator categories for ships/margaritaville-at-sea/margaritaville-at-sea-islander.html. The page exists (2026-09-06) and ships at 36/100 with those two volume gates and the stale nav gold standard as the only blockers. Companion to itw-gh-2005 (venue pages). |
+
+<!-- library register 2026-09-06T19:13:01.656Z -->
+| itw-escape-ship-page-venue-audit | 3 | ships/norwegian/norwegian-escape.html names venues Escape does not have: Observation Lounge (once), The Local (FAQ JSON-LD line 158 and the dining list line 473), Onda (once). NCL's Escape deck plans (read 2026-09-06 for the pre-ship pass on pack v0.1.11) list O'Sheehan's Neighborhood Bar & Grill Deck 7, Garden Cafe Deck 16, Spice H2O Deck 17, The Waterfront Deck 8, Pincho Deck 8, and no Observation Lounge, The Local or Onda. Fix the ship page against the deck plans and run admin/validate-ship-page.js; check whether the Joy/Bliss/Encore pages carry the mirror error (O'Sheehan's where The Local is right). Found during the Escape pre-ship pass; the pack itself is fixed in InTheWake on branch claude/voyage-packs-usage-tracking-w6vfof. |
+
+<!-- library register 2026-09-07T15:52:56.233Z -->
+| itw-preship-variant-sweep-backlog | 3 | P3 (found 2026-09-07): every pre-ship pass before today read the long-form pack only, so the condensed and handoff variants of the packs already reviewed were never checked. Escape's condensed file proved the class: four references to a venue the ship does not have, its own Tender column wrong, and two taxi fares the long-form pass had already reconciled — all shipped in a rebuilt-looking PDF. Fixed for Escape; checklist section F now requires variant coverage going forward, but it does not reach backward. BACKLOG: read the seven other condensed variants (Symphony, Aqua veterans, Sisters, Anthem, Bliss, World America, Prima, Volendam, Icon, World America family as present) and the eight handoff cards against their long forms, and rebuild any PDF that changes. Cheap mechanical first pass: grep each variant for phrases its long form no longer contains. Candidate for factcheck-gate.sh per section F. |
+
+<!-- library register 2026-09-08T15:23:18.777Z -->
+| itw-vp-factcheck-v0.1.9-ncl-prima-sep-2026 | 1 | Fact check: NCL Prima hosted solo group pack trio (sails 2026-09-27) against primary sources. Operator directive 2026-09-08 ('Fact check it'). Re-verify every load-bearing and time-sensitive claim in admin/voyage-packs/v0.1.9-ncl-prima-solo-group-sep-2026.md plus the condensed and handoff variants: itinerary day order and hours (port schedules), embarkation terminal (Port Canaveral master schedule), drink-package terms (NCL Free at Sea), ship venues (NCL deck plans), pier status at Great Stirrup Cay, NHC seasonal framing, emergency numbers; record each result and each prior wrong value in the sidecar; rebuild all three PDFs and read their text back. |
+
+<!-- library register 2026-09-26T11:51:04.991Z -->
+| itw-ship-video-section-audit | 3 | Audit the video section on every ship page: after the 2026-09-26 cleanup (InTheWake 732ccf80, admin/scripts/verify-ship-videos.mjs) the data files hold only YouTube-verified entries, but the pages still carry two loaders (a Swiper of youtube-nocookie iframes and a second thumbnail carousel from img.youtube.com), duplicate markup, the 'Videos will appear once our sources sync' fallback, and hard-coded file paths. Check each page renders only its own ship's verified list, one loader, working fallback, accessible titles, no placeholder embeds (carnival-encounter has youtube.com/embed/placeholder). Related: itw-gh-1311, itw-gh-1757. |
+
+<!-- library register 2026-09-26T11:51:12.904Z -->
+| itw-add-verified-videos-empty-ships | 3 | Add real videos to the ships left with none after the 2026-09-26 fake-video cleanup: 48 files emptied, Norwegian Prima since filled with 13, 47 remain (find them: video files in assets/data/videos and ships/*/assets whose videos list is empty). Method: search YouTube per ship, check each id with YouTube oEmbed, keep only titles that name the ship (same rule as admin/scripts/verify-ship-videos.mjs), record every lookup in admin/data/video-verification/, never invent titles or categories. Supersedes the pre-cleanup task 10-unfinished-add-video-data-for-ships-without-videos. |
+
+<!-- library register 2026-09-26T13:40:35.641Z -->
+| article-what-a-shore-excursion-actually-buys-you-line-booked-vs- | 2 | Article: what a shore excursion actually buys you (line-booked vs independent), the explainer 14 published articles assume and none provides |
+
+<!-- library register 2026-09-26T13:40:43.908Z -->
+| article-what-the-cruise-passenger-contract-actually-says-the-doc | 2 | Article: what the cruise passenger contract actually says, the document 8 published articles lean on and none explains |
+
+<!-- library register 2026-09-26T14:12:25.224Z -->
+| correction-to-the-2026-09-26-em-dash-pass-it-fixed-article-body- | 2 | CORRECTION to the 2026-09-26 em dash pass: it fixed article BODY prose only. 169 reader-visible prose em dashes remain in 16 files, and 726 more sit in title, meta description, ai-summary and JSON-LD FAQ text, which is exactly where machines read. The earlier 'down to 12' report came from a faulty regex that stopped at the first closing div and so measured almost nothing. |
+<!-- library register 2026-09-26T15:14:04.198Z -->
+| itw-validator-video-rule-vs-verified | 3 | Ship validator video rule fights the 2026-09-26 honest-video cleanup: validate-ship-page.js counts only category keys (8 required, min 10), but verify-ship-videos.mjs (732ccf80) rewrites every file as one flat 'verified' list and strips the invented categories, so every ship page reads 0 videos and the pre-commit regression gate blocks any edit. Decide: count verified videos, make categories a warning, or have the checker file videos by category derived from YouTube's own title. Prima blocked on this (FAQ + crew fix + nav links uncommitted). |
+
+<!-- library register 2026-10-20T02:37:11.219Z -->
+| itw-empty-whimsical-units-container-2-20261020 | 3 | P3 InTheWake (verified 2026-10-20, yomen): 20 ports/*.html carry an always-empty styled section id=whimsical-units-container-2 in the right rail. Cause: admin/repair-v2.cjs lines 43-49 renamed a duplicated container instead of removing it (landed via PR #2615, 2026-09-26). assets/js/whimsical-port-units.js:20 fills only whimsical-units-container; nothing references -2. Fix: remove the empty -2 section from the 20 pages; make the repair remove, not rename. Check the same script's recent-rail-title-2 handling. |

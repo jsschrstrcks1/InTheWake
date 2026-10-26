@@ -680,11 +680,16 @@ Dining Venues</h2>
       }
       function renderVideos(arr){
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
-        mount.innerHTML=arr.slice(0,12).map(v=>{
-          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'Carnival Glory').replace(/</g,'&lt;');
-          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
-        }).join('');
+        // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+        mount.textContent='';
+        arr.slice(0,24).forEach(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return;
+          const slide=document.createElement('div'); slide.className='swiper-slide';
+          const frame=document.createElement('iframe');
+          frame.src=url; frame.title=String(v.title||'Carnival Glory'); frame.allow='encrypted-media';
+          frame.allowFullscreen=true; frame.loading='lazy';
+          slide.appendChild(frame); mount.appendChild(slide);
+        });
         if(mount.children.length&&window.Swiper){
           setTimeout(()=>{
             try{
@@ -758,13 +763,13 @@ Dining Venues</h2>
   </button>
 </main>
 
-<footer role="contentinfo"><p><strong>In the Wake</strong></p><p class="tiny">© <script>document.write(new Date().getFullYear())</script> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" >Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+<footer role="contentinfo"><p><strong>In the Wake</strong></p><p class="tiny">© <script>document.write(new Date().getFullYear())</script> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p><p class="tiny" style="opacity:0;position:absolute" >Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" integrity="sha256-mF8SJMDu7JnTZ6nbNeWORLIefrnORYMbFbTBCOQf2X8=" crossorigin="anonymous"></script>
 <script>
 new Swiper('#photo-swiper',{loop:false,rewind:false,pagination:{el:'.swiper-pagination',clickable:true}});
-fetch('/assets/data/videos/carnival/carnival-glory.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.innerHTML=d.videos.map(v=>`<div class="swiper-slide"><a href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy"/></a></div>`).join('');new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
+fetch('/assets/data/videos/carnival/carnival-glory.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.textContent='';(Array.isArray(d.videos)?d.videos:Object.values(d.videos).flat()).filter(v=>v&&/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''))).slice(0,24).forEach(v=>{const s=document.createElement('div');s.className='swiper-slide';const a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+v.videoId;a.target='_blank';a.rel='noopener';a.className='video-thumb';const im=document.createElement('img');im.src='https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg';im.alt=String(v.title||'');im.loading='lazy';a.appendChild(im);s.appendChild(a);w.appendChild(s);});new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
 fetch('/assets/data/logbook/carnival/carnival-glory.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
 </script>
 
@@ -852,11 +857,16 @@ fetch('/assets/data/logbook/carnival/carnival-glory.json').then(r=>r.json()).the
     }
     function renderVideos(arr){
       if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
-      mount.innerHTML=arr.map(v=>{
-        const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-        const title=String(v.title||'Carnival Glory').replace(/</g,'&lt;');
-        return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
-      }).join('');
+      // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+      mount.textContent='';
+      arr.slice(0,24).forEach(v=>{
+        const url=getVideoURL(v.videoId,v.provider); if(!url) return;
+        const slide=document.createElement('div'); slide.className='swiper-slide';
+        const frame=document.createElement('iframe');
+        frame.src=url; frame.title=String(v.title||'Carnival Glory'); frame.allow='encrypted-media';
+        frame.allowFullscreen=true; frame.loading='lazy';
+        slide.appendChild(frame); mount.appendChild(slide);
+      });
       if(mount.children.length&&window.__swiperReady&&window.Swiper){
         setTimeout(()=>{
           try{
@@ -880,45 +890,6 @@ fetch('/assets/data/logbook/carnival/carnival-glory.json').then(r=>r.json()).the
   })();
   </script>
 
-  <!-- ===== Ship stats loader ===== -->
-  <script>
-  (function initStats(){
-    const mount=document.getElementById('ship-stats'); if(!mount) return;
-    const fallbackEl=document.getElementById('ship-stats-fallback');
-    function abs(p){return (window._abs?_abs(p):p);}
-    function renderStats(obj){
-      if(!obj) return;
-      const keys=['class','entered_service','gt','guests','crew','length','beam','registry'];
-      const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
-      mount.innerHTML=keys.map(k=>{
-        const val=obj[k]; if(!val) return '';
-        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;')+'</span>';
-        if((k==='length'||k==='beam') && window.funDistance){
-          const feetMatch = String(val).match(/(\d+(?:,\d+)?)\s*(?:ft|feet)/i);
-          if(feetMatch){
-            const feet = parseInt(feetMatch[1].replace(/,/g,''));
-            const conversion = k==='length' ? window.funDistance.shipLength(feet) : window.funDistance.shipBeam(feet);
-            if(conversion && (conversion.practical || conversion.absurd)){
-              const parts = [];
-              if(conversion.practical) parts.push(conversion.practical);
-              if(conversion.absurd) parts.push(conversion.absurd);
-              if(parts.length > 0){ statHtml += '<span class="stat-fun">'+parts.join(', or ')+'</span>'; }
-            }
-          }
-        }
-        statHtml += '</div>';
-        return statHtml;
-      }).join('');
-    }
-    if(fallbackEl){
-      try{ const fb=JSON.parse(fallbackEl.textContent||'{}'); if(fb) renderStats(fb); }catch(_){}
-    }
-    const SOURCES=[abs('/assets/data/ships/carnival-glory.json'),abs('/ships/carnival/assets/carnival-glory.json')];
-    function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
-      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
-    tryFetch().then(data=>{ if(data) renderStats(data); });
-  })();
-  </script>
 
   <!-- ===== Dining loader ===== -->
   <script>
@@ -991,5 +962,6 @@ fetch('/assets/data/logbook/carnival/carnival-glory.json').then(r=>r.json()).the
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+  <script src="/assets/js/ship-stats.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,136 @@
+{
+  "_doctrine": ".claude/skills/original-research/SKILL.md",
+  "_note": "Sidecar for the passenger-contract explainer. Every quoted passage is taken from a cruise line's own ticket contract, fetched and text-extracted in-session on 2026-09-26. No claim is taken from training data, from another file in this repo, or from a search-result snippet. Method: each contract was fetched in-session and converted to text LOCALLY, never summarised by a model and then quoted. Royal Caribbean's current contract and Carnival's contract are HTML and were tag-stripped. Royal Caribbean's February 2023 revision and Norwegian's 02/2026 contract are PDFs; a purpose-written extractor inflated the content streams and recovered the text. Norwegian's PDF uses a shifted subset-font encoding which had to be decoded; because a decoding artefact inside quotation marks would be a fabricated quote, the decode was cross-checked three independent ways (the year 2024, the Miami ZIP 33126, and the street number 7665 all decoded consistently), and every passage attributed to Norwegian was then matched byte-for-byte against the extracted source. All 34 quoted passages across both articles were verified programmatically against the saved source texts: 34 of 34 matched, 0 unverified. Three defects were found and fixed by that check before publication: a dropped 'shall be' in a Royal Caribbean quotation (twice) and a silently elided parenthetical in the Passenger Bill of Rights quotation.",
+  "article_filename": "what-the-cruise-passenger-contract-says.html",
+  "last_factcheck_date": "2026-09-26",
+  "verified_by": "Ken Baker (operator); drafted and source-verified in-session, all quotations machine-checked against saved primary text",
+  "verification_session": "Passenger contract explainer build 2026-09-26. Document analysis. No legal advice is given and the article says so.",
+  "claims": {
+    "agreement_by_boarding": {
+      "value": "Norwegian: 'EMBARKING ON YOUR CRUISE SHALL CONSTITUTE YOUR AGREEMENT TO ALL OF THESE TERMS AND CONDITIONS.' Royal Caribbean: 'Purchase or use of this Ticket Contract, whether or not signed by Guest, shall constitute the agreement by Guest, on behalf of himself and all other persons traveling under this Ticket Contract (including any accompanying minors...).'",
+      "source": "https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/NCL-Guest-Ticket-Contract-EN02-2026.pdf ; https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "rccl_injury_deadlines": {
+      "value": "Written notice within six (6) months; suit filed within one (1) year; process served within 120 days after filing.",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "carnival_injury_deadlines": {
+      "value": "Full particulars in writing within 185 days; suit filed within one year; served within 120 days after filing.",
+      "source": "https://www.carnival.com/about-carnival/legal-notice/ticket-contract.aspx",
+      "verified": "2026-09-26"
+    },
+    "ncl_injury_deadlines": {
+      "value": "Written notice within 185 days of the incident; all lawsuits for injury, illness or death commenced within one (1) year.",
+      "source": "https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/NCL-Guest-Ticket-Contract-EN02-2026.pdf",
+      "verified": "2026-09-26",
+      "notes": "Taken from Norwegian's own 'Important Summary of Dispute Resolution Terms' inside the contract, which cites paragraph 11(a). Norwegian's service-of-process window was NOT located and is shown as blank in the article's table rather than guessed."
+    },
+    "carnival_non_injury_deadlines": {
+      "value": "Clause 14(b): full particulars in writing within 30 days after the guest is landed; proceedings commenced 'within six months after the date Guest is landed from the Vessel'; served within 120 days. The guest 'expressly waives all other potentially applicable state or federal limitation periods for claims which include, but are not limited to, allegations concerning any and all civil rights, the Americans With Disabilities Act (ADA), trade practices and/or advertising.'",
+      "source": "https://www.carnival.com/about-carnival/legal-notice/ticket-contract.aspx",
+      "verified": "2026-09-26"
+    },
+    "ncl_non_injury_deadlines": {
+      "value": "All legal action other than for injury, illness or death commenced within six (6) months from the date the claim arose, with notice to the carrier within thirty (30) days of the termination of the cruise.",
+      "source": "https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/NCL-Guest-Ticket-Contract-EN02-2026.pdf",
+      "verified": "2026-09-26"
+    },
+    "rccl_non_injury_deadline": {
+      "value": "For all other claims, arbitration must be commenced within one (1) year from the date the cause arose 'or be forever barred'.",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26",
+      "notes": "This differs from the February 2023 revision, which required such claims to be FILED within one year rather than arbitrated. The change was observed by reading both documents."
+    },
+    "forum_selection": {
+      "value": "All three name the United States District Court for the Southern District of Florida in Miami-Dade County for US cruises, and a Miami-Dade court where that court lacks subject matter jurisdiction, 'to the exclusion of all other courts or tribunals.'",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/ ; https://www.carnival.com/about-carnival/legal-notice/ticket-contract.aspx ; https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/NCL-Guest-Ticket-Contract-EN02-2026.pdf",
+      "verified": "2026-09-26"
+    },
+    "carnival_jury": {
+      "value": "Clause 14(c): where no diversity jurisdiction exists 'the matter must proceed under the Court's admiralty jurisdiction and Guest may not be allowed a trial by jury'; Carnival consents to a jury under FRCP 39(c), and the guest 'knowingly and voluntarily waives a trial by jury' if the court does not grant one.",
+      "source": "https://www.carnival.com/about-carnival/legal-notice/ticket-contract.aspx",
+      "verified": "2026-09-26"
+    },
+    "class_action_waivers": {
+      "value": "All three contracts contain a class or representative action waiver. Royal Caribbean: the guest 'may bring claims against Carrier only in Guest's individual capacity.'",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/ ; https://www.carnival.com/about-carnival/legal-notice/ticket-contract.aspx ; https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/NCL-Guest-Ticket-Contract-EN02-2026.pdf",
+      "verified": "2026-09-26"
+    },
+    "rccl_arbitration_is_new": {
+      "value": "Royal Caribbean's current contract carries a broad mandatory arbitration agreement at Section 10.c which is absent from its own February 2023 revision.",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/ ; https://www.royalcaribbean.com/guest-terms/content/uploads/2023/03/Royal-CTC-U.S.-rev-02.17.23-final.pdf",
+      "verified": "2026-09-26",
+      "notes": "MEASURED, not assumed: both documents were extracted to text in-session and compared. The 2023 PDF contains no Section 10.c arbitration agreement and no rejection mechanism; the live contract contains both."
+    },
+    "rccl_arbitration_scope": {
+      "value": "'any dispute or claim between you and us must be arbitrated', 'intended to be broadly interpreted'; excluded are claims arising from personal injury, illness or death and disputes over the arbitration clause itself, and those exclusions are 'intended to be interpreted narrowly'.",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "rccl_notice_of_dispute": {
+      "value": "A pre-arbitration written Notice of Dispute must go to Royal Caribbean's Legal Department in Miami, must be 'personally signed by you', and must contain name and contact details, loyalty number, reservation number, onboard folio number, a description of the claim, and the specific relief sought. Within 60 days either side may request an individualised settlement conference.",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "ncl_arbitration_and_cap": {
+      "value": "Non-injury disputes are arbitrated through National Arbitration and Mediation. On cruises that do not embark, disembark or call at a US port, injury, illness and death claims are resolved by mandatory binding arbitration and damages are capped at 400,000 Special Drawing Rights, which Norwegian's own summary puts at approximately $535,000 as of October 2024.",
+      "source": "https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/NCL-Guest-Ticket-Contract-EN02-2026.pdf",
+      "verified": "2026-09-26",
+      "notes": "The dollar figure is Norwegian's own stated approximation with its own October 2024 date, reproduced as such. The SDR is a fluctuating basket and the article says so."
+    },
+    "itinerary_change_rights": {
+      "value": "Carnival Clause 8(d): may change duration or itinerary at any time and 'omit or change any or all port calls, arrival or departure times, with or without notice, for any reason whatsoever', with 'all such deviations being considered as forming part of and included in the proposed voyage'. Royal Caribbean Section 7: the guest's 'sole and exclusive remedy' for a carrier cancellation is a refund or future cruise credit.",
+      "source": "https://www.carnival.com/about-carnival/legal-notice/ticket-contract.aspx ; https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "missed_ship": {
+      "value": "Royal Caribbean Section 9: no refund owed to a guest who fails 'for any reason' to board by the cut-off time, and the carrier 'shall not be responsible for lodging, meals, transportation or other expenses incurred by Guest as a result thereof'. Carnival Clause 4(d) puts rejoin costs on the guest.",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/ ; https://www.carnival.com/about-carnival/legal-notice/ticket-contract.aspx",
+      "verified": "2026-09-26"
+    },
+    "independent_contractors_incl_medical": {
+      "value": "Royal Caribbean: medical personnel arranged by the carrier 'work directly for the Passenger', the carrier 'is not a medical provider', and it 'assumes no liability whatsoever' for treatment, failure to treat, diagnosis or alleged malpractice.",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "pbor_controls": {
+      "value": "Royal Caribbean: 'In the event of a direct conflict between a provision of this Ticket Contract and a provision of the CLIA Passenger Bill of Rights in effect at the time of booking (the “CLIA Passenger Bill of Rights”), the CLIA Passenger Bill of Rights controls.' Norwegian: 'In the event of a direct conflict between a provision of this Contract and a provision of the Cruise Industry Passenger Bill of Rights (PBOR) in effect at the time of booking, the PBOR controls.'",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/ ; https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/NCL-Guest-Ticket-Contract-EN02-2026.pdf",
+      "verified": "2026-09-26"
+    },
+    "mechanical_failure_rights": {
+      "value": "Royal Caribbean Section 7: on cancellation or early termination due to mechanical failures the guest has a right to a full refund if the whole cruise is cancelled or a partial refund if terminated early, transportation to the scheduled disembarkation port or home city, and lodging if an unscheduled overnight is required.",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "right_to_reject_arbitration_changes": {
+      "value": "Royal Caribbean Section 10.c.ix: a future change to Section 10.c (other than a change of Notice Address) may be rejected by written, personally signed notice within thirty (30) days of first notice of the change.",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    }
+  },
+  "deliberate_omissions": {
+    "clia_passenger_bill_of_rights_text": "CLIA's own Passenger Bill of Rights page returned HTTP 403 to us on 2026-09-26 on two attempts with different user agents. The rights are therefore quoted from the cruise contracts themselves, which is the enforceable text, and the article states in its footnote that CLIA's page could not be read. No CLIA wording is paraphrased from memory or from a snippet.",
+    "ncl_service_of_process_window": "Not located in the document; the table cell reads 'not stated in the summary we read' rather than carrying a guess.",
+    "case_law": "No court decision is cited. None was read in full, and the article makes no claim about how any clause has been enforced."
+  },
+  "honest_limits": [
+    "Contracts differ by line, by region and by sailing date, and they change. The Royal Caribbean arbitration section is itself proof of that, and the article uses it as the example.",
+    "Only three lines were read. Nothing here is claimed about lines that were not read.",
+    "Norwegian's contract text was recovered from a shifted font encoding. The decode was cross-checked three ways and every quoted passage was matched against the extracted source, but this is a machine decode and is recorded as such.",
+    "This is journalism, not legal advice, and it is no substitute for a maritime lawyer. The article says so in its footnote and in its closing section."
+  ],
+  "voice_audit": {
+    "skill": ".claude/skills/voice-audit/SKILL.md v2.3.0",
+    "date": "2026-09-26",
+    "six_axis_machine_tells": 1,
+    "cluster_detection": "0 Layer 1 signals, 0 Layer 2 signals, 5 Layer 3 counter-signals. Scoring rule: 0 Layer 1 => likely human regardless of Layer 2.",
+    "counter_signal_grade": "Research-grade, not lived-grade. The article contains no first-person cruise experience because it is a document analysis. Per the skill, research-grade counter-signals neutralise toward AI rather than overriding, so the verdict rests on the zero Layer 1 count, not on the counter-signals.",
+    "cadence": "Author prose only, quotations excluded: 94 sentences, mean 14.8 words, sd 10.7, sCV 0.72. Corpus baseline over 64 published articles: mean 15.4, sd 9.7, sCV 0.63. One 61-word author sentence was found by the cadence check and split into four.",
+    "em_dashes_in_prose": 0,
+    "known_false_positive": "One hit for the banned marketing word 'exclusive', inside the verbatim contract phrase 'sole and exclusive remedy'. Not altered: a voice rule never edits a quotation.",
+    "risk_rating": "Low"
+  }
+}

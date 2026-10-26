@@ -754,16 +754,17 @@ Dining Venues on Carnival Celebration</h2>
           <strong>Best For:</strong> Miami cruisers, 50th anniversary celebration seekers, 820 Biscayne zone enthusiasts, and families wanting BOLT coaster thrills.
         </p>
         <div class="key-facts" style="margin:1rem 0;padding:1rem;background:#f7fdff;border-radius:8px;border:1px solid #e0f0f5;">
-          <h3 style="margin:0 0 .5rem;font-size:1rem;color:#134;">Key Facts</h3>
-          <ul style="margin:0;padding-left:1.25rem;">
-            <li><strong>Class:</strong> Excel Class (2nd ship)</li>
-            <li><strong>Year:</strong> 2022</li>
-            <li><strong>Tonnage:</strong> 183,521 GT</li>
-            <li><strong>Guests:</strong> 5,374 (max)</li>
-            <li><strong>Homeport:</strong> Miami, FL</li>
-            <li><strong>IMO:</strong> 9837456</li>
-          </ul>
-        </div>
+        <h3 style="margin:0 0 .5rem;font-size:1rem;color:#134;">Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Excel Class (2nd ship)</li>
+          <li><strong>Year:</strong> 2022</li>
+          <li><strong>Tonnage:</strong> 183,521 GT</li>
+          <li><strong>Guests:</strong> 5,374 (max)</li>
+          <li><strong>Crew:</strong> 1,745</li>
+          <li><strong>Homeport:</strong> Miami, FL</li>
+          <li><strong>IMO:</strong> 9837456</li>
+        </ul>
+      </div>
       </section>
 
       <!-- Ship Quiz CTA -->
@@ -813,7 +814,7 @@ Dining Venues on Carnival Celebration</h2>
     <p>&copy; <script>document.write(new Date().getFullYear())</script> In the Wake - A Cruise Traveler's Logbook - All rights reserved.</p>
     <p class="tiny" style="margin-top:.5rem;"><a href="/privacy.html">Privacy</a> - <a href="/terms.html">Terms</a> - <a href="/about-us.html">About</a> - <a href="/accessibility.html">Accessibility</a></p>
     <p class="tiny dedication-hidden" >Soli Deo Gloria - Every pixel and part of this project is offered as worship to God.</p>
-    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
   <!-- JAVASCRIPT -->
@@ -875,10 +876,17 @@ Dining Venues on Carnival Celebration</h2>
     function abs(p){return (window._abs?_abs(p):p);}
     function renderVideos(arr){
       if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
-      mount.innerHTML=arr.map(v=>{
-        const url='https://www.youtube-nocookie.com/embed/'+v.videoId+'?rel=0&modestbranding=1';
-        return '<div class="swiper-slide"><iframe src="'+url+'" title="'+String(v.title||'').replace(/</g,'&lt;')+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
-      }).join('');
+      // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+      mount.textContent='';
+      arr.slice(0,24).forEach(v=>{
+        if(!/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''))) return;
+        const slide=document.createElement('div'); slide.className='swiper-slide';
+        const frame=document.createElement('iframe');
+        frame.src='https://www.youtube-nocookie.com/embed/'+v.videoId+'?rel=0&modestbranding=1';
+        frame.title=String(v.title||'Carnival Celebration'); frame.allow='encrypted-media';
+        frame.allowFullscreen=true; frame.loading='lazy';
+        slide.appendChild(frame); mount.appendChild(slide);
+      });
       if(window.__swiperReady&&window.Swiper){
         setTimeout(()=>{ try{ new Swiper('.swiper.videos',{loop:false,rewind:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}}); }catch(_){} },150);
       }
@@ -983,5 +991,6 @@ Dining Venues on Carnival Celebration</h2>
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+  <script src="/assets/js/ship-stats.js" defer></script>
 </body>
 </html>

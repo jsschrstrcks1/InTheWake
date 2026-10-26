@@ -26,11 +26,13 @@ The `.md` is the source of truth. If the three diverge, **the `.md` wins** and t
 | v0.1.2 — NCL Aqua Veterans/Solo Group Dec 2027 | `v0.1.2-ncl-aqua-veterans-solo-group-dec-2027` | md + html + pdf shipped |
 | v0.1.3 — Sisters at Sea (Virgin Voyages Resilient Lady, Feb 14–21 2027) | `v0.1.3-virgin-sisters-sea-feb-2027` | md + html + pdf shipped |
 | v0.1.17 — HAL Volendam 2028 Grand World Voyage (129 days, Jan 4 2028) | `v0.1.17-hal-volendam-world-cruise-2028` | md + factcheck + pdf + condensed (4-page) + handoff card + PWA companion (`admin/voyage-pwa/volendam-world-2028.html`) |
+| v0.1.17 — Icon of the Seas Eastern Caribbean 7N (generic) | `v0.1.17-icon-eastern-caribbean-7n` | md + factcheck + pdf + PWA companion (`admin/voyage-pwa/icon-eastern-caribbean.html`) |
 
 *(v0.1.4–v0.1.16 ship as md + factcheck + pdf, several with condensed/handoff variants and PWA companions — see the build-script registry below for the authoritative list.)*
 
 ### Other files in this directory
 
+- `AGENT-HANDOFF.md` — field guide for an agent building a new pack: operator rules, the step-by-step pipeline with exact commands, the source map, and the traps. `AGENT-PROMPT.md` is the fill-in prompt that starts such a session.
 - `voyage-pack-print.css` — shared print stylesheet used by the PDF build.
 - `v0.1-v0.1.2-FACT-CHECK.md` — fact-check audit log; must be updated when any fact in either pack is corrected.
 - `W12-VOYAGE-PACKS-PLAYBOOK.md` (parent dir) — the W12 product strategy reference.
@@ -240,9 +242,9 @@ Each link earns its place by helping the reader at the moment they encounter it.
 
 | Tool | URL | Section | RCL | NCL | Virgin |
 |---|---|---|---|---|---|
-| Drink Calculator | `/drink-calculator.html` | §1 Drinks / §5 Budget | ✓ | ✓ | skip (Virgin all-included) |
+| Drink Calculator | `/drink-calculator.html?line=<id>` | §1 Drinks / §5 Budget | ✓ `royal-caribbean` | ✓ `ncl` | skip (Virgin all-included) |
 | Drink Packages | `/drink-packages.html` | §1 Drinks | ✓ | ✓ | skip |
-| Stateroom Sanity Check | `/stateroom-check.html` | §1 Cabin choice | **✓ RCL only** | skip | skip |
+| Stateroom Sanity Check | `/stateroom-check.html` | §1 Cabin choice | ✓ | ✓ (say the data is partial on most ships) | skip |
 | Countdown | `/countdown.html` | §3 Pre-Cruise Countdown | ✓ | ✓ | ✓ |
 | Packing Lists | `/packing-lists.html` | §4 Packing | ✓ | ✓ | ✓ |
 | First-Cruise reference | `/first-cruise.html` | §11 First Cruise Notes | ✓ | ✓ | ✓ |
@@ -261,7 +263,10 @@ Each link earns its place by helping the reader at the moment they encounter it.
 
 **Limit each tool to 2–3 references per pack.** More than that reads as spam. Each link gets one sentence of why-click context — "see the [drink calculator](/drink-calculator.html)" alone is dumpy; "[run your specific drink-day numbers in the calculator](/drink-calculator.html) — it works across cruise lines" is helpful.
 
-**Important: stateroom-check.html only covers RCL ships right now.** Do not link it from NCL, Virgin, Carnival, MSC, or any other line's pack. Link it only from RCL packs (Symphony, Anthem, Wonder, etc.). When the tool extends to other lines, this README needs updating.
+**Link every tool preset to the pack's line, and only where the tool can answer for the pack's ship** (updated 2026-09-26; `PACK-PRESHIP-REVIEW-CHECKLIST.md` §H):
+
+- **Drink calculator:** always `?line=<id>`, with the id from `assets/data/calculator-config.json` (`royal-caribbean`, `ncl`, `carnival`, `celebrity`, `princess`, `holland`, `msc`, `virgin`, …). A bare `/drink-calculator.html` opens on Royal Caribbean. Before linking, check that the calculator's figures for that line agree with the pack's; where they differ, the line's own page decides and the wrong one is fixed first.
+- **Stateroom check:** covers Royal Caribbean (every cabin, every ship) and Norwegian (complete on Sky, Spirit, Star and Sun; partial on the other sixteen, and the tool says so on every result). Do not link it from Virgin, Carnival, MSC, Celebrity, Princess, Holland America or any other line's pack: those ships have placeholder files, and the tool declines them rather than guess. When another line's cabin data is real, update this line and the table.
 
 ### E. Wikipedia-style cross-linking — first mention links
 
@@ -341,7 +346,7 @@ Every pack ends with a Share/community paragraph that names the floating share b
 The build script (`admin/scripts/voyage-pack-pdf-build.sh`) handles:
 
 - Pandoc engine detection (weasyprint > wkhtmltopdf > xelatex > pdflatex)
-- The `/path` → `file://$REPO_ROOT/path` sed-pipe so absolute paths resolve to filesystem
+- Image paths (`![..](/..)`, `src="/.."`) → `file://$REPO_ROOT/..` so weasyprint can embed them; every other site link (`](/..)`, `href="/.."`) → `https://cruisinginthewake.com/..` so it works on a reader's phone. Until 2026-09-26 the image rule caught every link too; run `node admin/scripts/check-pack-pdf-links.mjs <pdf>` after any build
 - Page-break-before:auto on h2 (margin + rope rule for separation, not a forced page break)
 - Cover page detection via the `.vp-cover` class
 - 5.6"-wide centered measure for ~70-char readable line length
@@ -356,7 +361,7 @@ Run `admin/scripts/voyage-pack-pdf-build.sh --force <slug>` after any markdown e
 2. **Cover page** at the top using the standard or flyer-style block from section A.
 3. **Image discipline** per section B — verify, compress, caption honestly.
 4. **Wikipedia-style cross-links** per section E — link every named port, ship, restaurant, article, author at first mention in each section.
-5. **Tool integration** per section D — pick from the matrix; respect the RCL-only constraint on stateroom-check.
+5. **Tool integration** per section D — pick from the matrix; preset every calculator link to the pack's line (`?line=<id>`) and link the stateroom check only for Royal Caribbean and Norwegian ships.
 6. **Translate to `.html`** matching the `v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.html` conventions:
    - Same `<head>` template (ICP-Lite metas, OG/Twitter cards, JSON-LD, share-bar.js auto-loaded)
    - Same TOC sidebar pattern with `vp-toc` class
@@ -372,6 +377,28 @@ Run `admin/scripts/voyage-pack-pdf-build.sh --force <slug>` after any markdown e
 9. **Document** in this README's "Current packs" table; build the PDF with the script; commit + push.
 
 ---
+
+### M. Register and instrument — a pack is not done until it is on the registry
+
+`admin/voyage-packs/packs.json` is the single source of truth tying a pack to every surface it ships on: landing card, PDFs (full / condensed / handoff), offline HTML render, PWA companion, sailing dates, price, host, and which surfaces emit usage events. `admin/scripts/check-voyage-registry.mjs` cross-checks it against disk in both directions and runs in CI (`quality.yml`); a PDF, render or companion on disk that no record names fails the build, and so does a record naming a file that is not there. Three states, never two: CLEAN (exit 0), REPORT (exit 3, drift listed), UNAVAILABLE (exit 2, could not look).
+
+When you add a pack (after step 9 of §L):
+
+```bash
+node admin/scripts/check-voyage-registry.mjs
+```
+
+It will REPORT the new files as `unregistered-file`. Add one record to `packs.json` (copy a neighbour; `packs.schema.json` documents every field; dates come from the companion's `window.__VOYAGE`, never from memory), then run it again until CLEAN.
+
+**Instrumenting the surfaces** (plan: `docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md`):
+
+| Surface | What to do | Flag to flip |
+|---|---|---|
+| Landing card | `data-umami-event="vp_pdf_open" data-umami-event-pack="<slug>" data-umami-event-variant="full"` on the download link and `data-umami-event="vp_tip_click" data-umami-event-pack="<slug>"` on the tip link (packs are free with a tip jar since 2026-09-05, so there is no Buy button); `tests/unit/voyage-usage/landing.test.mjs` checks both against the registry | `instrumented.landing` |
+| HTML render | `data-pack="<slug>"` on `<main>`, `<script src="/assets/js/voyage-usage.js" defer>` before `handoff-card.js`; the card, print and PDF scripts do the rest | `instrumented.html` |
+| PWA companion | `node admin/scripts/instrument-voyage-companions.mjs` (idempotent; `--check` exits 3 if any page needs it): relay origin in `connect-src`, `slug:` in `window.__VOYAGE`, endpoint + module before `companion.js` | `instrumented.pwa` |
+
+The companion footer sentence *"No tracking, no ads, not a financial product."* is **not edited**, ever; `tests/unit/voyage-usage/companions.test.mjs` fails if it disappears from any page. Events leave the phone only through the geo-blind relay (`admin/voyage-usage-relay/`), which discards the IP and user agent and keeps state-level place at most. The owner-only dashboard lives on Atlas at `/admin/voyage-usage`, tailnet-only; nothing about usage is ever committed to this public repo.
 
 ## Common errors and fixes
 

@@ -393,6 +393,11 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
         <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Expedition Class</li>
+          <li><strong>Year:</strong> 2024</li>
+          <li><strong>Tonnage:</strong> 5,739 GT</li>
+          <li><strong>Guests:</strong> 100</li>
+          <li><strong>Crew:</strong> 78</li>
           <li><strong>Cruise Line:</strong> Celebrity Cruises</li>
           <li><strong>Resources:</strong> Deck plans, dining venues, live tracker</li>
           <li><strong>Reservations:</strong> Book via cruise line or travel advisor</li>
@@ -467,7 +472,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center dedication-hidden" >Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
     <!-- ICP-Lite FAQ Section -->
@@ -624,8 +629,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 
 <!-- initFirstLook — Swiper for .firstlook carousel -->
 <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
-<!-- initVideos — fetch video JSON, render thumbnails -->
-<script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/celebrity-cruises/celebrity-xperience.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
 <!-- initStats — parse ship-stats-fallback JSON -->
 <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
 <!-- initDining — fetch dining JSON -->
@@ -654,5 +657,6 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
   </script>
   <script src="/assets/js/ship-port-links.js" defer></script>
   <script src="/assets/js/sw-bridge.js" defer></script>
+  <script src="/assets/js/ship-stats.js" defer></script>
 </body>
 </html>

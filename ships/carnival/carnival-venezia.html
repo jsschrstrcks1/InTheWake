@@ -453,6 +453,7 @@
           <li><strong>Year:</strong> 2023</li>
           <li><strong>Tonnage:</strong> 135,225 GT</li>
           <li><strong>Guests:</strong> 4,208</li>
+          <li><strong>Crew:</strong> 1,278</li>
           <li><strong>IMO:</strong> 9319466</li>
         </ul>
       </div>
@@ -908,11 +909,16 @@ Dining Venues on Carnival Venezia <a href="/restaurants/" style="font-size: 1rem
       }
       function renderVideos(arr){
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
-        mount.innerHTML=arr.slice(0,12).map(v=>{
-          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'Carnival Venezia').replace(/</g,'&lt;');
-          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
-        }).join('');
+        // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+        mount.textContent='';
+        arr.slice(0,24).forEach(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return;
+          const slide=document.createElement('div'); slide.className='swiper-slide';
+          const frame=document.createElement('iframe');
+          frame.src=url; frame.title=String(v.title||'Carnival Venezia'); frame.allow='encrypted-media';
+          frame.allowFullscreen=true; frame.loading='lazy';
+          slide.appendChild(frame); mount.appendChild(slide);
+        });
         if(mount.children.length&&window.Swiper){
           setTimeout(()=>{
             try{
@@ -990,7 +996,7 @@ Dining Venues on Carnival Venezia <a href="/restaurants/" style="font-size: 1rem
       <a href="/accessibility.html">Accessibility</a>
     </p>
     <p class="tiny" style="opacity: 0; position: absolute; pointer-events: none;" >Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
   <script>
@@ -1035,7 +1041,16 @@ Dining Venues on Carnival Venezia <a href="/restaurants/" style="font-size: 1rem
     if(!c) return;
     fetch('/assets/data/logbook/carnival/carnival-venezia.json')
       .then(r=>r.json()).then(d=>{
-        if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split(\'\\n\\n\')[0].replace(/\*\*/g,\'\')+'</p></article>').join('');
+        if(!d||!Array.isArray(d.stories)||!d.stories.length) return;
+        c.textContent='';
+        d.stories.slice(0,3).forEach(s=>{
+          const a=document.createElement('article');a.className='logbook-entry';
+          const h=document.createElement('h3');h.textContent=String(s.title||'');
+          const m=document.createElement('p');m.className='logbook-meta';
+          m.textContent=[s.persona_label,s.author&&s.author.name].filter(Boolean).join(' · ');
+          const p=document.createElement('p');p.textContent=String(s.markdown||'').split('\n\n')[0].replace(/\*\*/g,'');
+          a.append(h,m,p);c.appendChild(a);
+        });
       }).catch(()=>{});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
@@ -1051,7 +1066,7 @@ Dining Venues on Carnival Venezia <a href="/restaurants/" style="font-size: 1rem
         let vids=[];
         if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
         else if(Array.isArray(d.videos)) vids=d.videos;
-        if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+        if(vids.length) w.textContent='';vids.filter(v=>v&&/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''))).slice(0,24).forEach(v=>{const s=document.createElement('div');s.className='swiper-slide';const a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+v.videoId;a.target='_blank';a.rel='noopener';a.className='video-thumb';const im=document.createElement('img');im.src='https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg';im.alt=String(v.title||'Video');im.loading='lazy';a.appendChild(im);s.appendChild(a);w.appendChild(s);});
         new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
       }).catch(()=>{});
   }
@@ -1105,5 +1120,6 @@ Dining Venues on Carnival Venezia <a href="/restaurants/" style="font-size: 1rem
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+  <script src="/assets/js/ship-stats.js" defer></script>
 </body>
 </html>

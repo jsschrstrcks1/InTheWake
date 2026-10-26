@@ -447,45 +447,69 @@ ITW-Lite v3.010 | ICP-Lite v1.4
 
       <!-- JSON-LD: FAQPage -->
       <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Is Punta del Este expensive?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, by South American standards — comparable to European resorts in peak season. Off-season is more reasonable. Port area shops and restaurants are priciest. Budget $30-$80 per person for a comfortable day ashore."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I walk to the main attractions?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. La Mano is 15-20 minutes from port. Beaches and Gorlero shopping are walkable. Casapueblo requires a taxi (15km, about $25 each way)."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the best time to visit Punta del Este?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Spring and early autumn offer the most comfortable conditions — mild temperatures and manageable crowds. Summer brings warmth but also peak cruise traffic and higher prices."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do I need to exchange currency before arriving?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The local currency is UYU but USD is widely accepted. Most tourist businesses take credit cards. ATMs near the port offer competitive rates. Carry some local cash for markets and tips."
-            }
-          }
-        ]
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Punta del Este expensive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, by South American standards — comparable to European resorts in peak season. Off-season is more reasonable. Port area shops and restaurants are priciest. Budget $30-$80 per person for a comfortable day ashore."
       }
-      </script>
+    },
+    {
+      "@type": "Question",
+      "name": "Can I walk to the main attractions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. La Mano is 15-20 minutes from port. Beaches and Gorlero shopping are walkable. Casapueblo requires a taxi (15km, about $25 each way)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is José Ignacio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A smaller, bohemian-chic beach town 30km east. Famous for fire-grilled restaurant Parador La Huella. Worth a day trip if you have 4+ hours in port."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best time to visit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Spring and early autumn offer the most comfortable conditions — mild temperatures and manageable crowds. Summer brings warmth but also peak cruise traffic and higher prices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Punta del Este accessible for passengers with mobility challenges?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Accessibility varies. The port vicinity and main streets are generally manageable. Some areas feature uneven surfaces. Consider an accessible ship excursion if you have concerns."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to exchange currency before arriving?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The local currency is UYU but USD is widely accepted. Most tourist businesses take credit cards. ATMs near the port offer competitive rates. Carry some local cash for markets and tips."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I explore independently or should I book a ship excursion?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both work well. Ship excursions guarantee return to the vessel. Independent exploration costs less and allows flexibility — just allow a 30-minute buffer before all-aboard time."
+      }
+    }
+  ]
+}
+  </script>
 
           <section class="disclaimers">
             <p class="disclaimer"><strong>Author's Note:</strong> Punta del Este rewards strolling. Walk the beaches, photograph La Mano, and visit Casapueblo for sunset if time permits.</p>
@@ -552,9 +576,16 @@ ITW-Lite v3.010 | ICP-Lite v1.4
       <section class="card ships-visiting" aria-labelledby="ships-visiting-title">
         <h3 id="ships-visiting-title">Ships That Visit Here</h3>
         <p class="tiny" style="margin-bottom: 0.75rem; color: var(--ink-mid, #3d5a6a); line-height: 1.5;">Cruise ships with Punta Del Este on their itineraries:</p>
+        <!-- itw:ships-visiting generated from assets/data/ship-deployments.json by admin/lexicon/deployments.mjs; edit the data, not this list -->
+        <p class="cruise-line-label">MSC Cruises</p>
+        <div class="ship-links">
+          <a href="/ships/msc/msc-splendida.html" class="ship-link-pill" data-line="msc" title="MSC Splendida (Fantasia Class)">MSC Splendida</a>
+        </div>
+        <p class="cruise-line-label">Costa Cruises</p>
         <div class="ship-links">
           <a href="/ships/costa/costa-fascinosa.html" class="ship-link-pill" data-line="costa" title="Costa Fascinosa (Concordia Class)">Costa Fascinosa</a>
         </div>
+        <!-- /itw:ships-visiting -->
         <p class="tiny" style="margin-top: 0.75rem; color: var(--ink-light, #6b8a9a);"><a href="/ships/">Browse all cruise ships →</a></p>
       </section>
 
@@ -614,7 +645,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
         <nav class="footer-nav"><a href="/ports/">All Ports</a><a href="/planning.html">Planning</a><a href="/about-us.html">About</a></nav>
         <p class="copyright">© <script>document.write(new Date().getFullYear())</script> In the Wake.</p>
       </div>
-      <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+      <p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
     </footer>
     <script src="/assets/js/ship-port-links.js" defer=""></script>
   <script src="/assets/js/port-logbook-btn.js" defer=""></script>

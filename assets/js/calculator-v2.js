@@ -97,7 +97,7 @@
 
   /* ==================== VERSION & INITIALIZATION GUARD ==================== */
 
-  const VERSION = '1.003.000'; // ✅ FIXED: Removed 'v' prefix
+  const VERSION = '1.003.001'; // ✅ FIXED: Removed 'v' prefix
 
   if (window.ITW_BOOTED) {
 
@@ -1751,14 +1751,18 @@
       } catch (e) { return null; }
     })();
     const targetLineId = urlLineId || storedLineId || null;
-    await loadLineConfig(targetLineId);
-    if (targetLineId && window.ITW_LINE_CONFIG?.id === targetLineId && targetLineId !== 'royal-caribbean') {
-      await switchCruiseLine(targetLineId);
-    }
+    // Start on the default line so loadDataset() has a line to load against, then switch.
+    // Switching first threw (switchCruiseLine copies a dataset that did not exist yet), and
+    // the throw stopped initialize() before the calculator was ever shown: every ?line= link
+    // and every returning visitor on a non-default line sat on the loading screen.
+    await loadLineConfig(null);
     await loadFXRates();
     setupCurrencySelector();
     await loadBrandConfig();
     await loadDataset();
+    if (targetLineId && targetLineId !== 'royal-caribbean' && window.ITW_CALC_CONFIG?.lines?.[targetLineId]) {
+      await switchCruiseLine(targetLineId);
+    }
 
     if (CONFIG.WORKER.enabled) {
       initializeWorker();

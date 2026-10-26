@@ -41,6 +41,7 @@ ocs=""
 for cand in "${HOUSEHOLD_OCS_ROOT:-}" \
             "${selfrepo}/../open-claw-stuff" \
             "${HOME:-/nonexistent}/open-claw-stuff" \
+            "${HOME:-/nonexistent}/ocs-work" \
             "/workspace/open-claw-stuff"; do
   [ -n "$cand" ] || continue
   if [ -d "$cand" ] && [ -e "$cand/.household-library" ] && [ -f "$cand/.claude/hooks/$target" ]; then
@@ -54,7 +55,7 @@ if [ -z "$ocs" ]; then
     echo "⛔ HLS UNREACHABLE — open-claw-stuff could not be resolved from $(basename "$selfrepo")."
     echo "   Consequence: the HLS preflight/guard ($target) did NOT run. Work here is UNGOVERNED by"
     echo "   the library — you will not be told if a task is already checked out by another patron."
-    echo "   Tried: \$HOUSEHOLD_OCS_ROOT, ${selfrepo}/../open-claw-stuff, \$HOME/open-claw-stuff, /workspace/open-claw-stuff"
+    echo "   Tried: \$HOUSEHOLD_OCS_ROOT, ${selfrepo}/../open-claw-stuff, \$HOME/open-claw-stuff, \$HOME/ocs-work, /workspace/open-claw-stuff"
     echo "   Remedy: set HOUSEHOLD_OCS_ROOT=<path to open-claw-stuff>, or clone it beside this repo."
   } >&2
   exit 0

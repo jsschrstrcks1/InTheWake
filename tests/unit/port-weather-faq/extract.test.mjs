@@ -55,3 +55,14 @@ test("mixed formats accumulate across all four", () => {
   const q = extract(html);
   assert.deepEqual(q.sort(), ["One?", "Three?", "Two?"]);
 });
+
+test("FAQ_COUNT regex counts indented details.faq-item (not Page:0)", () => {
+  const v = new PortWeatherValidator("/virtual/petersburg.html");
+  v.content = `<details class="faq-item">
+        <summary>What is Petersburg Alaska known for?</summary>
+        <p>Little Norway.</p>
+      </details>`;
+  assert.equal(v.count(/<details class="faq-item"[^>]*>\s*<summary/), 1);
+  v.content = `<details class="faq-item" style="margin:0"><summary>Q?</summary></details>`;
+  assert.equal(v.count(/<details class="faq-item"[^>]*>\s*<summary/), 1);
+});

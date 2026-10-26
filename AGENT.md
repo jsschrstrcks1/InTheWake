@@ -9,8 +9,9 @@ token, not a path. Resolve it in this order and use the first that exists:
 
 1. `$HOUSEHOLD_OCS_ROOT` — if set, it wins (containers and the cluster set it).
 2. A sibling of this checkout: `../open-claw-stuff`.
-3. `/workspace/open-claw-stuff` — the path recorded when this file was generated. Correct on that machine only,
-   and stale the moment it is generated somewhere else; treat it as a hint, never as the answer.
+3. `/workspace/open-claw-stuff` — a path recorded by one machine that generated this file.
+4. `/home/user/open-claw-stuff` — a path recorded by another. Each is correct on its own machine only,
+   and stale the moment it is generated somewhere else; treat them as hints, never as the answer.
 
 **If none resolve, STOP and say so.** Do not proceed on the assumption that posture loaded: an agent
 that cannot read Layer 0 is ungoverned, and reporting that honestly is the compliant outcome. Ask the
@@ -83,5 +84,34 @@ resolved. If none do, it says so: an agent that cannot reach Layer 0 is
 ungoverned and must report that rather than assume posture loaded.
 
 Kill-switch: `SOPHOS_INJECT=0` (operator debugging only).
+
+**Soli Deo Gloria.**
+
+## 🚫 Claude does not write the reasoning log or the engineering log (operator directive 2026-09-26)
+
+**Claude is not permitted to make entries in the engineering log, and is not permitted to write
+to the reasoning log.** That means `ENGINEERING-LOG.md` and `REASONING-LOG.md`, in this repo and in
+every household repo. No new entries, no edits, no "small additions", no tidying, no improvements.
+It applies to every Claude model and every Claude Code session, local or remote. In Ken's words:
+*"thats for other AI. not You."*
+
+For Claude, this overrides:
+
+- every section of this file, or of any other household file, that says each agent (Claude
+  included) records its reasoning in one of those logs;
+- whatever the reasoning-log or engineering-log inject hooks print at session start or on a prompt;
+- any Sophos, household-library or skill instruction that says to append to either log.
+
+Other runtimes (Grok, Codex, Hermes, the Sophos/HELM pipeline) keep the logs exactly as their own
+sections describe. This directive does not change their obligation.
+
+**When a commit guard asks Claude for a log entry,** Claude puts `[no-reasoning]` in the commit
+message, on every commit, trivial or not. That is the documented per-commit opt-out, used here
+because of this directive. Claude never satisfies the guard by writing to the log, and never
+touches the operator-only kill-switches.
+
+**Honest limit.** The inject hooks still put the old obligation into Claude's context every turn.
+This section is what tells Claude to disregard it. Changing the hooks themselves is a separate
+decision, and it is Ken's.
 
 **Soli Deo Gloria.**

@@ -464,6 +464,7 @@ Dining Venues on Carnival Vista</h2>
           <li><strong>Year:</strong> 2016</li>
           <li><strong>Tonnage:</strong> 133,500 GT</li>
           <li><strong>Guests:</strong> 3,936</li>
+          <li><strong>Crew:</strong> 1,450</li>
           <li><strong>IMO:</strong> 9692569</li>
         </ul>
       </div>
@@ -530,14 +531,14 @@ Dining Venues on Carnival Vista</h2>
     <p>&copy; <script>document.write(new Date().getFullYear())</script> In the Wake - A Cruise Traveler's Logbook - All rights reserved.</p>
     <p class="tiny" style="margin-top:.5rem;"><a href="/privacy.html">Privacy</a> - <a href="/terms.html">Terms</a> - <a href="/about-us.html">About</a> - <a href="/accessibility.html">Accessibility</a></p>
     <p class="tiny dedication-hidden" >Soli Deo Gloria - Every pixel offered as worship to God.</p>
-    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
   <script>(function(){function go(){if(!window.__swiperReady||!window.Swiper)return setTimeout(go,120);try{new Swiper('.swiper.firstlook',{loop:false,rewind:false,pagination:{el:'.swiper.firstlook .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.firstlook .swiper-button-next',prevEl:'.swiper.firstlook .swiper-button-prev'}});}catch(_){}}go();})();</script>
 
   <script>(function(){const mount=document.getElementById('logbook-stories');if(!mount)return;function abs(p){return(window._abs?_abs(p):p);}fetch(abs('/assets/data/logbook/carnival/carnival-vista.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{if(!data||!data.stories||!data.stories.length)return;let i=0;const arr=data.stories;function render(){const s=arr[i];mount.innerHTML='<article><h3>'+s.title+'</h3><div>'+s.markdown.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')+'</div></article>';}render();const nav=document.createElement('nav');nav.style.cssText='display:flex;gap:.5rem;margin-top:1rem;';const prev=document.createElement('button');prev.textContent='Previous';prev.style.cssText='flex:1;padding:.5rem;border:1px solid #e8ecf0;background:white;cursor:pointer;border-radius:4px;';const next=document.createElement('button');next.textContent='Next';next.style.cssText='flex:1;padding:.5rem;border:1px solid #e8ecf0;background:white;cursor:pointer;border-radius:4px;';nav.append(prev,next);mount.after(nav);prev.onclick=()=>{i=Math.max(0,i-1);render();prev.disabled=i===0;next.disabled=i===arr.length-1;};next.onclick=()=>{i=Math.min(arr.length-1,i+1);render();prev.disabled=i===0;next.disabled=i===arr.length-1;};prev.disabled=true;next.disabled=arr.length<=1;}).catch(()=>{});})();</script>
 
-  <script>(function(){const mount=document.getElementById('featuredVideos');if(!mount)return;function abs(p){return(window._abs?_abs(p):p);}fetch(abs('/assets/data/videos/carnival/carnival-vista.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{if(!data||!data.videos)return;mount.innerHTML=data.videos.map(v=>'<div class="swiper-slide"><iframe src="https://www.youtube-nocookie.com/embed/'+v.videoId+'?rel=0" title="'+v.title+'" allowfullscreen loading="lazy"></iframe></div>').join('');if(window.__swiperReady)setTimeout(()=>{try{new Swiper('.swiper.videos',{loop:false,rewind:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}});}catch(_){}},150);}).catch(()=>{});})();</script>
+  <script>(function(){const mount=document.getElementById('featuredVideos');if(!mount)return;function abs(p){return(window._abs?_abs(p):p);}fetch(abs('/assets/data/videos/carnival/carnival-vista.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{if(!data||!data.videos)return;mount.textContent='';(Array.isArray(data.videos)?data.videos:Object.values(data.videos).flat()).filter(v=>v&&/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''))).slice(0,24).forEach(v=>{const s=document.createElement('div');s.className='swiper-slide';const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+v.videoId+'?rel=0';f.title=String(v.title||'');f.allowFullscreen=true;f.loading='lazy';s.appendChild(f);mount.appendChild(s);});if(window.__swiperReady)setTimeout(()=>{try{new Swiper('.swiper.videos',{loop:false,rewind:false,pagination:{el:'.swiper.videos .swiper-pagination',clickable:true},navigation:{nextEl:'.swiper.videos .swiper-button-next',prevEl:'.swiper.videos .swiper-button-prev'}});}catch(_){}},150);}).catch(()=>{});})();</script>
 
   <script>(function(){const m=document.getElementById('ship-stats'),f=document.getElementById('ship-stats-fallback');if(!m||!f)return;try{const o=JSON.parse(f.textContent);const k=['class','entered_service','gt','guests','crew','length','beam','registry'];const l={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};m.innerHTML=k.map(key=>o[key]?'<div class="stat-line"><span class="stat-key">'+l[key]+'</span><span class="stat-val">'+o[key]+'</span></div>':'').join('');}catch(_){}})();</script>
 
@@ -578,18 +579,6 @@ function initFirstLook(){
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
 </script>
 
-<!-- ===== JS Module: Ship Logbook ===== -->
-<script>
-function initShipLogbook(){
-  const c=document.getElementById('logbook-container');
-  if(!c) return;
-  fetch('/assets/data/logbook/carnival/carnival-vista.json')
-    .then(r=>r.json()).then(d=>{
-      if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')+'</p></article>').join('');
-    }).catch(()=>{});
-}
-if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
-</script>
 
 <!-- ===== JS Module: Video Loader ===== -->
 <script>
@@ -601,7 +590,7 @@ function initVideos(){
       let vids=[];
       if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
       else if(Array.isArray(d.videos)) vids=d.videos;
-      if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+      if(vids.length) w.textContent='';vids.filter(v=>v&&/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''))).slice(0,24).forEach(v=>{const s=document.createElement('div');s.className='swiper-slide';const a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+v.videoId;a.target='_blank';a.rel='noopener';a.className='video-thumb';const im=document.createElement('img');im.src='https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg';im.alt=String(v.title||'Video');im.loading='lazy';a.appendChild(im);s.appendChild(a);w.appendChild(s);});
       new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
     }).catch(()=>{});
 }
@@ -655,5 +644,6 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/ship-port-links.js" defer></script>
+  <script src="/assets/js/ship-stats.js" defer></script>
 </body>
 </html>
