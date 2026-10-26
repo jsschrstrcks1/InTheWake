@@ -326,6 +326,12 @@ jobs:
       - name: Run tool-page smoke gate
         run: npx playwright test tools-smoke.spec.js --workers=1
 
+      # Ship stats card (Tekton itw-stats-card-wiped-on-8-ship-pages): 152 ship pages showed an empty
+      # card and an inline loader wiped it on 4 more. The spec waits for the logbook fetch that used to
+      # wipe it, then counts the lines. Serial for the same single-threaded-server reason as above.
+      - name: Run ship stats card gate
+        run: npx playwright test ship-stats-card.spec.js --workers=1
+
   # Summary job
   unit-tests:
     name: Unit Tests
