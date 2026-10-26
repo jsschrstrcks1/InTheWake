@@ -1176,50 +1176,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- ===== Fun Distance Units Converter ===== -->
   <script src="/assets/js/whimsical-ship-units.js" defer></script>
 
-  <!-- ===== Ship stats loader ===== -->
-  <script>
-  (function initStats(){
-    const mount=document.getElementById('ship-stats'); if(!mount) return;
-    const fallbackEl=document.getElementById('ship-stats-fallback');
-    function abs(p){return (window._abs?_abs(p):p);}
-    function renderStats(obj){
-      if(!obj) return;
-      const keys=['class','entered_service','gt','guests','crew','length','beam','registry'];
-      const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
-      mount.innerHTML=keys.map(k=>{
-        const val=obj[k]; if(!val) return '';
-        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</span>';
-
-        // Add fun distance conversions for length and beam
-        if((k==='length'||k==='beam') && window.funDistance){
-          const feetMatch = String(val).match(/(\d+(?:,\d+)?)\s*(?:ft|feet)/i);
-          if(feetMatch){
-            const feet = parseInt(feetMatch[1].replace(/,/g,''));
-            const conversion = k==='length' ? window.funDistance.shipLength(feet) : window.funDistance.shipBeam(feet);
-            if(conversion && (conversion.practical || conversion.absurd)){
-              const parts = [];
-              if(conversion.practical) parts.push(conversion.practical);
-              if(conversion.absurd) parts.push(conversion.absurd);
-              if(parts.length > 0){
-                statHtml += '<span class="stat-fun">'+parts.join(', or ')+'</span>';
-              }
-            }
-          }
-        }
-
-        statHtml += '</div>';
-        return statHtml;
-      }).join('');
-    }
-    if(fallbackEl){
-      try{ const fb=JSON.parse(fallbackEl.textContent||'{}'); if(fb) renderStats(fb); }catch(_){}
-    }
-    const SOURCES=[abs('/assets/data/ships/ovation-of-the-seas.json'),abs('/ships/rcl/assets/ovation-of-the-seas.json')];
-    function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
-      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
-    tryFetch().then(data=>{ if(data) renderStats(data); });
-  })();
-  </script>
 
   <!-- ===== Dining loader ===== -->
   <script>
@@ -1407,5 +1363,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/sw-bridge.js" defer></script>
+  <script src="/assets/js/ship-stats.js" defer></script>
 </body>
 </html>
