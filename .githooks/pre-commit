@@ -98,6 +98,23 @@ if [ -f "$DEPLOYMENTS_CLI" ] && git diff --cached --name-only --diff-filter=ACMR
     fi
 fi
 
+# 0b. Ship facts carried by more than one file must agree (Lexicon C8, gate itw_data_cross_check).
+#    Runs when the commit touches a ship page, a ship record, a fleet or meta file the check reads, or
+#    its baseline. A disagreement the baseline does not hold is refused, and so is a baseline that grew
+#    since HEAD. Codes and remedies: admin/lexicon/CROSS-CHECK.md.
+# @exit 1 refused (itw_data_cross_check): two files disagree on a ship fact, or the baseline grew. remedy: correct the wrong copy from a primary source; never add a baseline entry
+# @exit 3 could not look (itw_cross_check_unavailable): a source file does not parse. remedy: fix the file the message names
+CROSS_CHECK_CLI="$REPO_ROOT/admin/lexicon/cross-check.mjs"
+if [ -f "$CROSS_CHECK_CLI" ] && git diff --cached --name-only --diff-filter=ACMR \
+        | grep -qE '^(ships/[^/]+/[^/]+\.html|assets/data/ships/.+\.page\.json|assets/data/(rc|ncl)_ships_meta\.json|assets/data/(vf_overrides|ship-space-and-crew|fleet_index)\.json|data/atlas/ship-size-atlas\.json|assets/data/lexicon/cross-check-baseline\.json|admin/lexicon/cross-check\.mjs)$'; then
+    if ! node "$CROSS_CHECK_CLI" --base HEAD; then
+        echo ""
+        echo "pre-commit: two of In the Wake's files disagree on a ship fact (see above). Commit blocked."
+        echo "  Fix:   correct the wrong copy from a primary source; docs: admin/lexicon/CROSS-CHECK.md"
+        exit 1
+    fi
+fi
+
 if [ "${#SHIP_FILES[@]}" -eq 0 ] && [ "${#IMAGE_TARGETS[@]}" -eq 0 ] && [ "${#VOYAGE_PACK_MD[@]}" -eq 0 ]; then
     exit 0
 fi
