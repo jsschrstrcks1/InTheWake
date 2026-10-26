@@ -398,16 +398,18 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <section class="page-intro">
         <p class="answer-line"><strong>Quick Answer:</strong> Carnival Adventure is a Grand Class ship (108,865 GT, 2,600 guests, launched 2001 as Golden Princess) featuring Movies Under the Stars, multiple pools, and family-friendly amenities — now sailing Carnival itineraries from Mobile and Sydney.</p>
         <div class="key-facts">
-          <h3>Key Facts</h3>
-          <ul>
-            <li><strong>Cruise Line:</strong> Carnival Cruise Line</li>
-            <li><strong>Class:</strong> Grand Class (Ex-Princess)</li>
-            <li><strong>Gross Tonnage:</strong> 108,865 GT</li>
-            <li><strong>Guests:</strong> ~2,600 (double occupancy)</li>
-            <li><strong>Entered Service:</strong> 2001 (as Golden Princess)</li>
-            <li><strong>Homeports:</strong> Mobile, AL; Sydney, Australia</li>
-          </ul>
-        </div>
+        <h3>Key Facts</h3>
+        <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Class:</strong> Grand Class (Ex-Princess)</li>
+          <li><strong>Year:</strong> 2001</li>
+          <li><strong>Tonnage:</strong> 108,865 GT</li>
+          <li><strong>Guests:</strong> ~2,600 (double occupancy)</li>
+          <li><strong>Cruise Line:</strong> Carnival Cruise Line</li>
+          <li><strong>Gross Tonnage:</strong> 108,865 GT</li>
+          <li><strong>Entered Service:</strong> 2001 (as Golden Princess)</li>
+          <li><strong>Homeports:</strong> Mobile, AL; Sydney, Australia</li>
+        </ul>
+      </div>
         <p>Carnival Adventure was built by Fincantieri in Monfalcone, Italy in 2001. She sailed as <em>Golden Princess</em> for Princess Cruises before transferring to P&amp;O Cruises Australia as <em>Pacific Adventure</em> in 2021. In March 2025, she joined Carnival Cruise Line, bringing Grand Class elegance — including a full Movies Under the Stars LED screen, multiple pool decks, and a diverse dining lineup — to Carnival's mid-market fleet. At 108,865 gross tons across 17 decks, she offers a mid-sized cruising experience with broad destination flexibility.</p>
       </section>
 
@@ -619,7 +621,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
 <footer class="wrap" role="contentinfo">
     <p>&copy; <script>document.write(new Date().getFullYear())</script> In the Wake &middot; A Cruise Traveler's Logbook</p>
     <p class="tiny"><a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a></p>
-    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
 <!-- ===== Ship-page JS modules ===== -->
@@ -646,7 +648,8 @@ function initVideos(){
     var w=document.querySelector('#video-wrapper .swiper-wrapper');
     if(!w||!d.videos) return;
     var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
-    w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
+    // Built with DOM calls, never HTML strings: titles and ids come from a data file.
+    w.textContent='';vids.slice(0,24).forEach(function(v){if(!/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||'')))return;var s=document.createElement('div');s.className='swiper-slide';var y=document.createElement('lite-youtube');y.setAttribute('videoid',v.videoId);y.setAttribute('title',String(v.title||''));s.appendChild(y);w.appendChild(s);});
     if(window.__swiperReady) new Swiper('#video-wrapper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
   }).catch(function(){});
 }

@@ -447,7 +447,7 @@ ${faqDetailsHtml}
     </div>
     <p>&copy; 2025 In the Wake. All rights reserved.</p>
   </div>
-  <p class="trust-badge">&check; No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+  <p class="trust-badge">&check; No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 <script src="/assets/nav.js" defer></script>
 </body>

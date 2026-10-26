@@ -202,7 +202,7 @@ element.innerHTML = userInput;  // XSS vulnerability!
 
 - Footer trust badge MUST match actual site behavior
 - If analytics are used, Privacy Policy must disclose them
-- Current accurate badge: "✓ No ads. Minimal analytics. Independent of cruise lines. Affiliate Disclosure"
+- Current accurate badge: "✓ No ads. Minimal analytics. Independent of cruise lines. No affiliate links" (link text changed 2026-10-04 when the Amazon Associates program ended; the link still goes to /affiliate-disclosure.html)
 
 ### Protected by .htaccess
 

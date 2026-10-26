@@ -23,7 +23,7 @@
   // CONSTANTS & CONFIGURATION
   // ============================================================
 
-  const VERSION = '1.000.alpha';
+  const VERSION = '1.001.alpha';
   const DATA_PATH_TEMPLATE = '/assets/data/staterooms/stateroom-exceptions.{ship}.v2.json';
 
   const TRAVELER_TYPES = {
@@ -150,9 +150,12 @@
 
     // Handle nested structure: { "radiance-of-the-seas": { exceptions: [...] } }
     // Extract the ship data from the wrapper object
+    // Keep the wrapper's own fields (audit_status, methodology, last_updated sit there on
+    // some files); the inner object wins where both name the same field.
     let shipData;
-    if (rawData && rawData[slug]) {
-      shipData = rawData[slug];
+    if (rawData && rawData[slug] && typeof rawData[slug] === 'object') {
+      shipData = Object.assign({}, rawData, rawData[slug]);
+      delete shipData[slug];
     } else {
       // Fallback: if data is already in correct format
       shipData = rawData;
@@ -183,18 +186,37 @@
       'MOTION_FORWARD': { category: 'motion', severity: 'info', heading: 'Forward Motion' },
       'MOTION_AFT': { category: 'motion', severity: 'info', heading: 'Aft Motion' },
       'MOTION_HIGH_DECK': { category: 'motion', severity: 'info', heading: 'Higher Deck Motion' },
-      'CONNECTING_DOOR': { category: 'noise', severity: 'info', heading: 'Connecting Door' }
+      'CONNECTING_DOOR': { category: 'noise', severity: 'info', heading: 'Connecting Door' },
+      // Norwegian files (cruisedeckplans.com checks) use their own flags, put the finding in
+      // `notes`, and grade severity themselves. Their grade is used as written.
+      'VIEW_OBSTRUCTED_100_PERCENT': { category: 'view', heading: 'Fully Obstructed View' },
+      'VIEW_OBSTRUCTED_90_PERCENT': { category: 'view', heading: 'Mostly Obstructed View' },
+      'VIEW_OBSTRUCTED_1_PERCENT': { category: 'view', heading: 'Slight View Obstruction' },
+      'FROSTED_WINDOW': { category: 'view', heading: 'Frosted Window' },
+      'BALCONY_PRIVACY_LIMITED': { category: 'view', heading: 'Limited Balcony Privacy' },
+      'NO_BATHTUB': { category: 'general', heading: 'No Bathtub' },
+      'NO_BATHTUB_POST_2021': { category: 'general', heading: 'No Bathtub (Since 2021)' },
+      'HAS_BATHTUB': { category: 'general', heading: 'Has a Bathtub' },
+      'NO_GUEST_BATH': { category: 'general', heading: 'No Guest Bathroom' },
+      'NO_HOT_TUB_ON_BALCONY': { category: 'general', heading: 'No Balcony Hot Tub' },
+      'CABIN_DOOR_SMALLER_THAN_STANDARD': { category: 'general', heading: 'Smaller Cabin Door' },
+      'BATHROOM_UNIQUE_LAYOUT': { category: 'general', heading: 'Unusual Bathroom Layout' },
+      'BATHROOM_OPEN_PLAN': { category: 'general', heading: 'Open-Plan Bathroom' }
     };
+    const dataSeverity = { critical: 'major', major: 'major', moderate: 'minor', minor: 'minor', low: 'info', info: 'info', positive: 'info' };
 
     const mapping = flagToCategorySeverity[ex.flag] || { category: 'general', severity: 'info', heading: 'Note' };
+    const severity = mapping.severity || dataSeverity[String(ex.severity || '').toLowerCase()] || 'info';
+    let text = ex.evidence_summary || ex.description || ex.notes;
+    if (text && !/[.!?]$/.test(String(text).trim())) text = String(text).trim() + '.';
 
     return {
       rooms: ex.rooms,
       category: mapping.category,
-      severity: mapping.severity,
+      severity: severity,
       display_heading: mapping.heading,
-      pastoral_description: ex.evidence_summary || ex.description || 'Please note this cabin has a quirk.',
-      description: ex.evidence_summary || ex.description,
+      pastoral_description: text || 'Please note this cabin has a quirk.',
+      description: text,
       flag: ex.flag,
       trust_score: ex.trust_score,
       report_count: ex.report_count
@@ -213,9 +235,12 @@
     const cabin = parseInt(cabinNum, 10);
 
     if (isNaN(cabin)) return [];
+    const category = getCabinCategory(cabin, exceptionsData);
 
     exceptionsData.exceptions.forEach(exception => {
-      if (cabinMatchesSpec(cabin, exception.rooms)) {
+      const whole = typeof exception.rooms === 'string' && /^all (.+) cabins$/i.exec(exception.rooms.trim());
+      const byType = whole && category && whole[1].toLowerCase() === category.toLowerCase();
+      if (byType || cabinMatchesSpec(cabin, exception.rooms)) {
         // Normalize exception data before adding
         matches.push(normalizeException(exception));
       }
@@ -225,25 +250,19 @@
   }
 
   /**
-   * Determine category from cabin number (basic heuristic fallback)
+   * How much a ship's file can support. 'complete': every cabin checked and listed by type.
+   * 'partial': checked cabin by cabin but not finished. 'none': a placeholder with no cabin data.
    */
-  function inferCategory(cabinNum) {
-    const cabin = parseInt(cabinNum, 10);
-    const deck = Math.floor(cabin / 1000);
-
-    // Very basic inference - this should ideally come from data
-    if (cabin >= 1000 && cabin < 3000) {
-      return 'Interior';
-    } else if (cabin >= 7000 && cabin < 9000) {
-      return 'Balcony';
-    } else if (cabin >= 9000) {
-      return 'Suite';
-    }
-    return 'Ocean View';
+  function dataTier(shipData) {
+    if (!shipData) return 'none';
+    if (String(shipData.audit_status || '').toUpperCase() === 'COMPLETE') return 'complete';
+    const method = String(shipData.methodology || '');
+    if (method && !/^baseline/i.test(method)) return 'partial';
+    return 'none';
   }
 
   /**
-   * Get cabin category using ship-specific overrides first, then fallback to inference
+   * Get cabin category from the ship's data; null when the data does not list this cabin
    * @param {string|number} cabinNum - The cabin number
    * @param {Object} shipData - The ship data object (may contain category_overrides)
    * @returns {string} The cabin category
@@ -260,14 +279,15 @@
         // Skip metadata fields (those starting with underscore)
         if (category.startsWith('_')) continue;
 
-        if (Array.isArray(cabins) && cabins.includes(cabin)) {
+        // Some files list cabins as numbers, some as strings; compare as numbers.
+        if (Array.isArray(cabins) && cabins.some(c => parseInt(c, 10) === cabin)) {
           return category;
         }
       }
     }
 
-    // Fallback to heuristic inference
-    return inferCategory(cabinNum);
+    // Not in the data: say so rather than guess from the number.
+    return null;
   }
 
   /**
@@ -304,16 +324,41 @@
   function generateVerdict(cabinNum, shipSlug, exceptions, travelerType, shipData) {
     const cabin = String(cabinNum);
     const category = getCabinCategory(cabinNum, shipData);
-    const travelerLabel = TRAVELER_TYPES[travelerType] || 'Traveler';
+    const tier = dataTier(shipData);
+    const aOrAn = (w) => (/^[aeiou]/i.test(String(w)) ? 'an' : 'a');
+    const typeLine = category ? `Stateroom ${cabin} is ${aOrAn(category)} ${category} cabin. ` : '';
+    const checkBooking = 'Your booking confirmation is the final word on the cabin number and type.';
 
-    if (exceptions.length === 0) {
-      // No issues - great choice!
+    if (exceptions.length === 0 && tier === 'complete' && category) {
       return {
         verdict: 'great',
         title: `Stateroom ${cabin} — A Wonderful Choice`,
-        summary: `Stateroom ${cabin} is a ${category} cabin on this ship. You've chosen well—this room has no notable quirks or concerns. Most travelers find it comfortable and well-located.`,
+        summary: `Stateroom ${cabin} is ${aOrAn(category)} ${category} cabin on this ship. You've chosen well: it has no known quirks on our verified list for this ship.`,
         issues: [],
         encouragement: getEncouragementText(travelerType, 'great'),
+        category: category
+      };
+    }
+
+    if (exceptions.length === 0 && tier === 'complete') {
+      return {
+        verdict: 'note',
+        title: `Stateroom ${cabin} — Not on Our List`,
+        summary: `We can't find stateroom ${cabin} on our verified cabin list for this ship. Check the number on your booking. If it is right, our list is missing it, so treat this cabin as unchecked.`,
+        issues: [],
+        encouragement: checkBooking,
+        category: null
+      };
+    }
+
+    if (exceptions.length === 0) {
+      const when = shipData && shipData.last_updated ? ` (last updated ${shipData.last_updated})` : '';
+      return {
+        verdict: 'note',
+        title: `Stateroom ${cabin} — Nothing Flagged`,
+        summary: `${typeLine}We have no known quirks on file for this cabin. Our cabin notes for this ship are still partial${when}, so a clean result here is good news, not a guarantee.`,
+        issues: [],
+        encouragement: checkBooking,
         category: category
       };
     }
@@ -336,7 +381,7 @@
     return {
       verdict: primaryException.severity === 'major' ? 'caution' : 'note',
       title: `Stateroom ${cabin} — ${primaryException.display_heading || 'Good Choice, With a Note'}`,
-      summary: `Stateroom ${cabin} is a ${category} cabin. ${primaryException.pastoral_description || primaryException.description || 'There\'s one small thing to know about this location.'}`,
+      summary: `${typeLine}${primaryException.pastoral_description || primaryException.description || 'There\'s one small thing to know about this location.'}`,
       issues: issuesList,
       encouragement: getEncouragementText(travelerType, primaryException.severity || 'minor'),
       category: category
@@ -406,20 +451,6 @@
         '@type': 'Product',
         'name': shipName,
         'category': 'Cruise Ship'
-      },
-      'review': {
-        '@type': 'Review',
-        'reviewRating': {
-          '@type': 'Rating',
-          'ratingValue': verdict.verdict === 'great' ? '5' : (verdict.verdict === 'note' ? '4' : '3'),
-          'bestRating': '5',
-          'worstRating': '1'
-        },
-        'author': {
-          '@type': 'Organization',
-          'name': 'In the Wake'
-        },
-        'reviewBody': verdict.summary + ' ' + verdict.encouragement
       }
     };
   }
@@ -476,7 +507,7 @@
         'name': `Is this a good cabin for families?`,
         'acceptedAnswer': {
           '@type': 'Answer',
-          'text': `Stateroom ${cabin} is a ${verdict.category} cabin. Families often appreciate proximity to activities and dining. ${verdict.encouragement}`
+          'text': `${verdict.category ? `Stateroom ${cabin} is ${/^[aeiou]/i.test(verdict.category) ? 'an' : 'a'} ${verdict.category} cabin. ` : ''}Families often appreciate proximity to activities and dining. ${verdict.encouragement}`
         }
       }
     ];
@@ -529,7 +560,7 @@
       <article class="stateroom-result ${verdictClass}" role="region" aria-live="polite">
         <header class="result-header">
           <h2>${verdictIcon} ${escapeHtml(verdict.title)}</h2>
-          <p class="cabin-meta">${escapeHtml(verdict.category)} · ${escapeHtml(shipName)}</p>
+          <p class="cabin-meta">${escapeHtml(verdict.category || 'Cabin type: check your booking')} · ${escapeHtml(shipName)}</p>
         </header>
 
         <div class="result-summary">
@@ -593,6 +624,13 @@
       };
     }
 
+    if (dataTier(data) === 'none') {
+      return {
+        error: true,
+        message: 'We don\'t have cabin data for this ship yet, so we won\'t guess. Your booking confirmation and the line\'s deck plans are the best guide for now.'
+      };
+    }
+
     // Find exceptions
     const exceptions = findExceptions(cabin, data);
 
@@ -604,7 +642,7 @@
       verdict: verdict,
       cabin: cabin,
       ship: ship,
-      shipName: data.ship_name || 'Radiance of the Seas',
+      shipName: data.ship_name || ship,
       travelerType: type
     };
   }
@@ -653,6 +691,7 @@
     check: checkStateroom,
     render: renderResult,
     parseRoomRange: parseRoomRange,
+    dataTier: dataTier,
     TRAVELER_TYPES: TRAVELER_TYPES
   };
 

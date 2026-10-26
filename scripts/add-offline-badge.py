@@ -13,11 +13,11 @@ PORTS_DIR = (Path(__file__).resolve().parents[1] / 'ports')
 # Pattern to match trust badge without offline messaging
 OLD_BADGE_PATTERNS = [
     # Most common pattern
-    (r'<p class="trust-badge">✓ No ads\. Minimal analytics\. Independent of cruise lines\. <a href="/affiliate-disclosure\.html">Affiliate Disclosure</a></p>',
-     '<p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>'),
+    (r'<p class="trust-badge">✓ No ads\. Minimal analytics\. Independent of cruise lines\. <a href="/affiliate-disclosure\.html">No affiliate links</a></p>',
+     '<p class="trust-badge">✓ No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>'),
     # With checkmark entity
-    (r'<p class="trust-badge">&check; No ads\. Minimal analytics\. Independent of cruise lines\. <a href="/affiliate-disclosure\.html">Affiliate Disclosure</a></p>',
-     '<p class="trust-badge">&check; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>'),
+    (r'<p class="trust-badge">&check; No ads\. Minimal analytics\. Independent of cruise lines\. <a href="/affiliate-disclosure\.html">No affiliate links</a></p>',
+     '<p class="trust-badge">&check; No ads. Works offline. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>'),
 ]
 
 def update_port_file(filepath):

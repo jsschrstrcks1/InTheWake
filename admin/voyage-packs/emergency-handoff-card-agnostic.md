@@ -75,7 +75,7 @@ MOST RECENT KNOWN POSITION:
 | Bermuda | US Consulate Hamilton +1 (441) 295-1342 |
 | Caribbean (general) | US Consulate Bridgetown (Barbados) +1 (246) 227-4000 |
 | Dominican Republic | US Embassy Santo Domingo +1 (809) 567-7775 |
-| Honduras (Roatán) | US Consulate Tegucigalpa +504 2236-9320 |
+| Honduras (Roatán) | US Embassy Tegucigalpa +504 2217-5000 (from within Honduras) |
 | Mexico (Yucatán, Cozumel, Costa Maya) | US Consulate Mérida +1 (844) 528-6611 (US) / 999 689-0660 |
 | Mexico (Pacific, Cabo, Puerto Vallarta) | US Consulate Guadalajara +52 (33) 3268-2100 |
 | Jamaica | US Embassy Kingston +1 (876) 702-6000 |

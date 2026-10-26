@@ -929,6 +929,51 @@ function validateNoFabricatedUnknown($, html) {
 }
 
 /**
+ * Validate SSOT key-facts compliance — the ship-stats-fallback JSON is the single source
+ * of truth for ship facts. Every core SSOT field (cruise_line, class, year, tonnage,
+ * guests) must appear in the rendered key-facts (#2501 SSOT wiring).
+ */
+function validateSSOTKeyFacts($, html) {
+  const errors = [];
+  const warnings = [];
+  const statsEl = $('#ship-stats-fallback');
+  if (!statsEl.length) return { valid: true, errors, warnings };
+  let data = {};
+  try { data = JSON.parse(statsEl.html() || '{}'); } catch { return { valid: true, errors, warnings }; }
+
+  const keyFactsSection = html.match(/class="key-facts"[^>]*>[\s\S]*?<\/div>/);
+  if (!keyFactsSection) return { valid: true, errors, warnings };
+
+  const section = keyFactsSection[0];
+  const checks = [
+    { field: 'cruise_line', label: 'Cruise Line' },
+    { field: 'class', label: 'Class' },
+    { field: 'entered_service', label: 'Year' },
+    { field: 'gt', label: 'Tonnage' },
+    { field: 'guests', label: 'Guests' },
+  ];
+
+  for (const { field, label } of checks) {
+    const val = String(data[field] || '').trim();
+    if (!val || /^(unknown|tbd|tbn|n\/a)$/i.test(val)) continue;
+    const re = new RegExp(`<strong>${label}:</strong>\\s*${escapeRegex(val)}`);
+    if (!re.test(section)) {
+      errors.push({
+        section: 'ship_facts_ssot',
+        rule: `ssot_key_facts_missing_${field}`,
+        message: `Key facts missing "${label}" matching SSOT value "${val}" — SSOT wiring incomplete (#2501)`,
+        severity: 'BLOCKING',
+      });
+    }
+  }
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
  * Validate dining data source JSON
  */
 function validateDiningJSON($) {
@@ -2237,7 +2282,16 @@ async function validateVideos(slug, cruiseLine = 'rcl', isHistoric = false, isTB
     await access(videoPath);
     const content = await readFile(videoPath, 'utf-8');
     const data = JSON.parse(content);
-    const videos = data.videos || {};
+    // Since 2026-09-26 the checker (admin/scripts/verify-ship-videos.mjs) writes one flat
+    // `verified` list and stamps each video with a category read from YouTube's own title.
+    // Group those stamps so the category rules below count real, checked videos. Files still
+    // keyed by category name keep working unchanged.
+    const videos = { ...(data.videos || {}) };
+    if (Array.isArray(videos.verified)) {
+      for (const v of videos.verified) {
+        if (v && v.category) (videos[v.category] = videos[v.category] || []).push(v);
+      }
+    }
 
     let totalVideos = 0;
     let fakeVideos = 0;
@@ -2997,6 +3051,7 @@ async function validateShipPage(filepath) {
     const contentPurityResult = validateContentPurity($, html);
     const shipStatsResult = validateShipStatsJSON($);
     const noFabUnknownResult = validateNoFabricatedUnknown($, html);
+    const ssotKeyFactsResult = validateSSOTKeyFacts($, html);
     const diningResult = validateDiningJSON($);
     const wordCountResult = validateWordCounts($, isHistoric);
     const printButtonResult = validatePrintButton($, html);
@@ -3067,7 +3122,7 @@ async function validateShipPage(filepath) {
       ...runtimeDataResult.errors, ...renderingResult.errors,
       ...mainEntityResult.errors, ...aiSummaryBoilerplateResult.errors,
       ...internalNumericResult.errors, ...proseTicsResult.errors,
-      ...noFabUnknownResult.errors
+      ...noFabUnknownResult.errors, ...ssotKeyFactsResult.errors
     ];
     const preliminaryWarnings = [
       ...analyticsResult.warnings, ...soliDeoGloriaResult.warnings,

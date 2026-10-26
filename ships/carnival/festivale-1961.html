@@ -246,6 +246,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
         <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Cruise Line:</strong> Carnival Cruise Line</li>
           <li><strong>Class:</strong> Converted Ocean Liner</li>
           <li><strong>Year:</strong> 1978</li>
           <li><strong>Tonnage:</strong> 32,697 GT</li>
@@ -429,7 +430,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   </button>
 </main>
 
-<footer class="footer" role="contentinfo"><p>© <script>document.write(new Date().getFullYear())</script> In The Wake — Cruise encyclopedic planning built AI-first, human-first, Google second.</p><p style="font-size:.75rem;margin-top:.5rem">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+<footer class="footer" role="contentinfo"><p>© <script>document.write(new Date().getFullYear())</script> In The Wake — Cruise encyclopedic planning built AI-first, human-first, Google second.</p><p style="font-size:.75rem;margin-top:.5rem">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
 <script>fetch('/assets/data/logbook/carnival/festivale-1961.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h3>${s.title}</h3><p style="font-size:.85rem;color:#64748b;margin:.25rem 0">${s.persona_label}</p><div>${s.markdown.split('\n\n').slice(0,2).map(p=>'<p>'+p.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</p>').join('')}</div></article>`).join('');}).catch(()=>{document.getElementById('logbook-container').innerHTML='<p>Stories coming soon.</p>';});</script>
@@ -481,7 +482,8 @@ function initVideos(){
     var w=document.querySelector('#video-wrapper .swiper-wrapper');
     if(!w||!d.videos) return;
     var vids=[];Object.keys(d.videos).forEach(function(k){d.videos[k].forEach(function(v){vids.push(v);});});
-    w.innerHTML=vids.slice(0,8).map(function(v){return '<div class="swiper-slide"><lite-youtube videoid="'+v.videoId+'" title="'+v.title+'"></lite-youtube></div>';}).join('');
+    // Built with DOM calls, never HTML strings: titles and ids come from a data file.
+    w.textContent='';vids.slice(0,24).forEach(function(v){if(!/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||'')))return;var s=document.createElement('div');s.className='swiper-slide';var y=document.createElement('lite-youtube');y.setAttribute('videoid',v.videoId);y.setAttribute('title',String(v.title||''));s.appendChild(y);w.appendChild(s);});
     if(window.__swiperReady) new Swiper('#video-wrapper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2}}});
   }).catch(function(){});
 }

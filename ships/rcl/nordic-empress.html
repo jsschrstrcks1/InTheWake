@@ -458,6 +458,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
           <li><strong>Year:</strong> 1990</li>
           <li><strong>Tonnage:</strong> 48,563 GT</li>
           <li><strong>Guests:</strong> 1,600</li>
+          <li><strong>Crew:</strong> TBD</li>
         </ul>
       </div>
       <p class="answer-line">
@@ -865,7 +866,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center">Soli Deo Gloria — Every pixel and part of this project is offered as worship to God, in gratitude for the beautiful things He has created for us to enjoy. ✝️</p>
-    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
   <!-- JAVASCRIPT -->
@@ -952,11 +953,16 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
     }
     function renderVideos(arr){
       if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
-      mount.innerHTML=arr.map(v=>{
-        const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-        const title=String(v.title||'Nordic Empress').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-        return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
-      }).join('');
+      // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+      mount.textContent='';
+      arr.slice(0,24).forEach(v=>{
+        const url=getVideoURL(v.videoId,v.provider); if(!url) return;
+        const slide=document.createElement('div'); slide.className='swiper-slide';
+        const frame=document.createElement('iframe');
+        frame.src=url; frame.title=String(v.title||'Nordic Empress'); frame.allow='encrypted-media';
+        frame.allowFullscreen=true; frame.loading='lazy';
+        slide.appendChild(frame); mount.appendChild(slide);
+      });
       function initSwiper(){
         if(mount.children.length&&window.Swiper){
           try{

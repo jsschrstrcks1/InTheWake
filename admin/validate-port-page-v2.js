@@ -408,6 +408,9 @@ const CONTENT_PURITY_ALLOWLIST = {
   ],
   'grand-cayman':     [{ match: /\bhell\b/i, category: 'profanity' }],
   'nosy-be':          [{ match: /hell-ville/i, category: 'profanity' }],
+  // Hell-Bourg, Cirque de Salazie — named for Admiral de Hell, a 19th-century
+  // governor of the island, and listed among les plus beaux villages de France.
+  'reunion':          [{ match: /hell-bourg/i, category: 'profanity' }],
   // Place names containing "Casino"
   'monte-carlo':      [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
   'monaco':           [{ match: /casino\s*(de\s*)?monte[- ]carlo/i, category: 'gambling' }],
@@ -2416,7 +2419,7 @@ function validateTrustBadge($) {
     errors.push({
       section: 'footer',
       rule: 'trust_badge_missing',
-      message: 'Missing trust badge in footer. Expected: <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>',
+      message: 'Missing trust badge in footer. Expected: <p class="trust-badge">✓ No ads. Minimal analytics. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>',
       severity: 'BLOCKING'
     });
   }

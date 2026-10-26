@@ -292,6 +292,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h3>
         <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Cruise Line:</strong> Carnival Cruise Line</li>
           <li><strong>Class:</strong> Fantasy Class</li>
           <li><strong>Year:</strong> 1990</li>
           <li><strong>Tonnage:</strong> 70,367 GT</li>
@@ -496,10 +497,9 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
   </button>
 </main>
 
-<footer class="footer" role="contentinfo"><p>© <script>document.write(new Date().getFullYear())</script> In The Wake — Cruise encyclopedic planning built AI-first, human-first, Google second.</p><p style="font-size:.75rem;margin-top:.5rem">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+<footer class="footer" role="contentinfo"><p>© <script>document.write(new Date().getFullYear())</script> In The Wake — Cruise encyclopedic planning built AI-first, human-first, Google second.</p><p style="font-size:.75rem;margin-top:.5rem">Soli Deo Gloria</p>  <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
-<script>fetch('/assets/data/logbook/carnival/carnival-fantasy.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h3>${s.title}</h3><p style="font-size:.85rem;color:#64748b;margin:.25rem 0">${s.persona_label}</p><div>${s.markdown.split('\n\n').slice(0,2).map(p=>'<p>'+p.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</p>').join('')}</div></article>`).join('');}).catch(()=>{document.getElementById('logbook-container').innerHTML='<p>Stories coming soon.</p>';});</script>
 <script>
 (function(){
   const rail=document.getElementById('recent-rail'),fb=document.getElementById('recent-rail-fallback');
@@ -542,7 +542,16 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
     if(!c) return;
     fetch('/assets/data/logbook/carnival/carnival-fantasy.json')
       .then(r=>r.json()).then(d=>{
-        if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split(\'\\n\\n\')[0].replace(/\*\*/g,\'\')+'</p></article>').join('');
+        if(!d||!Array.isArray(d.stories)||!d.stories.length) return;
+        c.textContent='';
+        d.stories.slice(0,3).forEach(s=>{
+          const a=document.createElement('article');a.className='logbook-entry';
+          const h=document.createElement('h3');h.textContent=String(s.title||'');
+          const m=document.createElement('p');m.className='logbook-meta';
+          m.textContent=[s.persona_label,s.author&&s.author.name].filter(Boolean).join(' · ');
+          const p=document.createElement('p');p.textContent=String(s.markdown||'').split('\n\n')[0].replace(/\*\*/g,'');
+          a.append(h,m,p);c.appendChild(a);
+        });
       }).catch(()=>{});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
@@ -558,7 +567,7 @@ STANDARDS: ITW-Lite v3.010 · ICP-Lite v1.0 · WCAG 2.1 AA
         let vids=[];
         if(d.videos&&typeof d.videos==='object'&&!Array.isArray(d.videos)){Object.values(d.videos).forEach(a=>{if(Array.isArray(a))vids=vids.concat(a);});}
         else if(Array.isArray(d.videos)) vids=d.videos;
-        if(vids.length) w.innerHTML=vids.map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" class="video-thumb"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+(v.title||'Video')+'" loading="lazy"/></a></div>').join('');
+        if(vids.length) w.textContent='';vids.filter(v=>v&&/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''))).slice(0,24).forEach(v=>{const s=document.createElement('div');s.className='swiper-slide';const a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+v.videoId;a.target='_blank';a.rel='noopener';a.className='video-thumb';const im=document.createElement('img');im.src='https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg';im.alt=String(v.title||'Video');im.loading='lazy';a.appendChild(im);s.appendChild(a);w.appendChild(s);});
         new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
       }).catch(()=>{});
   }

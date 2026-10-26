@@ -16,6 +16,7 @@
 #   admin/scripts/voyage-pack-pdf-build.sh encore           # build only NCL Encore Allison Vancouver-LA Oct 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh escape           # build only NCL Escape Thanksgiving Nov 2026 (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh volendam         # build only HAL Volendam 2028 Grand World Voyage (long-form)
+#   admin/scripts/voyage-pack-pdf-build.sh icon             # build only Icon of the Seas Eastern Caribbean 7N (long-form)
 #   admin/scripts/voyage-pack-pdf-build.sh --force          # rebuild even if PDF is newer
 #   admin/scripts/voyage-pack-pdf-build.sh --check          # exit 1 if any PDF is stale (no build)
 #   admin/scripts/voyage-pack-pdf-build.sh --help
@@ -65,21 +66,28 @@ PDF_CSS_CONDENSED="$PACKS_DIR/voyage-pack-condensed-print.css"
 # Each entry: "md_stem|pdf_output_path" (pdf path is optional override; empty
 # = default which is "$PACKS_DIR/$stem.pdf")
 LONG_FORM_PACKS=(
-  "v0.1-symphony-western-caribbean-7n|"
-  "v0.1.2-ncl-aqua-veterans-solo-group-dec-2027|"
-  "v0.1.3-virgin-sisters-sea-feb-2027|"
-  "v0.1.4-rcl-anthem-alaska-7n|"
+  "v0.1-symphony-western-caribbean-7n|ships/rcl/v0.1-symphony-western-caribbean-7n.pdf"
+  "v0.1.2-ncl-aqua-veterans-solo-group-dec-2027|ships/norwegian/v0.1.2-ncl-aqua-veterans-solo-group-dec-2027.pdf"
+  "v0.1.3-virgin-sisters-sea-feb-2027|ships/virgin-voyages/v0.1.3-virgin-sisters-sea-feb-2027.pdf"
+  "v0.1.4-rcl-anthem-alaska-7n|ships/rcl/v0.1.4-rcl-anthem-alaska-7n.pdf"
   "v0.1.7-ncl-bliss-alaska-solo-group-jul-2026|ships/norwegian/v0.1.7-ncl-bliss-alaska-solo-group-jul-2026.pdf"
   "v0.1.8-msc-world-america-solo-group-apr-2027|ships/msc/v0.1.8-msc-world-america-solo-group-apr-2027.pdf"
   "v0.1.9-ncl-prima-solo-group-sep-2026|ships/norwegian/v0.1.9-ncl-prima-solo-group-sep-2026.pdf"
   "v0.1.10-ncl-encore-solo-group-oct-2026|ships/norwegian/v0.1.10-ncl-encore-solo-group-oct-2026.pdf"
   "v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026|ships/norwegian/v0.1.11-ncl-escape-thanksgiving-solo-group-nov-2026.pdf"
-  "v0.1.12-mas-islander-solo-group-jan-2027|"
+  "v0.1.12-mas-islander-solo-group-jan-2027|ships/margaritaville-at-sea/v0.1.12-mas-islander-solo-group-jan-2027.pdf"
   "v0.1.13-ncl-gem-solo-group-feb-2027|ships/norwegian/v0.1.13-ncl-gem-solo-group-feb-2027.pdf"
   "v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027|ships/norwegian/v0.1.14-ncl-breakaway-bermuda-solo-group-may-2027.pdf"
   "v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027|ships/norwegian/v0.1.15-ncl-breakaway-fall-foliage-solo-group-sep-2027.pdf"
   "v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027|ships/norwegian/v0.1.16-ncl-aqua-thanksgiving-solo-group-nov-2027.pdf"
-  "v0.1.17-hal-volendam-world-cruise-2028|"
+  "v0.1.17-hal-volendam-world-cruise-2028|ships/holland-america-line/v0.1.17-hal-volendam-world-cruise-2028.pdf"
+  "v0.1.17-icon-eastern-caribbean-7n|ships/rcl/v0.1.17-icon-eastern-caribbean-7n.pdf"
+  "v0.1.18-ncl-getaway-bahamas-aug-2026|ships/norwegian/v0.1.18-ncl-getaway-bahamas-aug-2026.pdf"
+  "v0.1.19-msc-world-america-family-dec-2026|ships/msc/v0.1.19-msc-world-america-family-dec-2026.pdf"
+  "v0.1.20-ncl-aura-solo-group-oct-2028|ships/norwegian/v0.1.20-ncl-aura-solo-group-oct-2028.pdf"
+  "v0.1.21-virgin-brilliant-lady-solo-group-nov-2026|ships/virgin-voyages/v0.1.21-virgin-brilliant-lady-solo-group-nov-2026.pdf"
+  "v0.1.22-ncl-jewel-solo-nov-2027|ships/norwegian/v0.1.22-ncl-jewel-solo-nov-2027.pdf"
+  "v0.1.23-ncl-sun-panama-solo-group-mar-2027|ships/norwegian/v0.1.23-ncl-sun-panama-solo-group-mar-2027.pdf"
 )
 
 # Condensed 3-page packs: distilled pocket reference. Use voyage-pack-condensed-print.css.
@@ -95,6 +103,11 @@ CONDENSED_PACKS=(
   "v0.1.10-ncl-encore-solo-group-condensed"
   "v0.1.11-ncl-escape-thanksgiving-solo-group-condensed"
   "v0.1.17-hal-volendam-world-condensed"
+  "v0.1.19-msc-world-america-family-condensed"
+  "v0.1.20-ncl-aura-solo-group-condensed"
+  "v0.1.21-virgin-brilliant-lady-solo-group-condensed"
+  "v0.1.22-ncl-jewel-solo-condensed"
+  "v0.1.23-ncl-sun-panama-solo-group-condensed"
 )
 
 # Handoff cards: 1-2 page emergency contact docs. Use voyage-pack-condensed-print.css.
@@ -107,6 +120,11 @@ HANDOFF_CARDS=(
   "v0.1.11-ncl-escape-thanksgiving-handoff-card"
   "v0.1.17-hal-volendam-world-handoff-card"
   "emergency-handoff-card-agnostic"
+  "v0.1.19-msc-world-america-family-handoff-card"
+  "v0.1.20-ncl-aura-solo-group-handoff-card"
+  "v0.1.21-virgin-brilliant-lady-solo-group-handoff-card"
+  "v0.1.22-ncl-jewel-solo-handoff-card"
+  "v0.1.23-ncl-sun-panama-solo-group-handoff-card"
 )
 
 # Mode flags
@@ -200,8 +218,12 @@ build_pack() {
 
   mkdir -p "$(dirname "$pdf")"
 
-  # Idempotency: skip if PDF is newer than .md (unless --force) and CSS too
-  if [ "$FORCE" -eq 0 ] && [ -f "$pdf" ] && [ "$pdf" -nt "$md" ] && [ "$pdf" -nt "$css" ]; then
+  # Idempotency: skip when the PDF is current (unless --force). Uses the same
+  # clone-stable pdf_is_stale as --check — raw mtime comparisons lie in a fresh
+  # clone (checkout order sets mtimes), which both skipped genuinely-stale PDFs
+  # and rebuilt current ones. CSS gets an mtime guard only while actively edited.
+  if [ "$FORCE" -eq 0 ] && [ -f "$pdf" ] && ! pdf_is_stale "$md" "$pdf" \
+     && { ! _git_dirty "$css" || ! [ "$css" -nt "$pdf" ]; }; then
     echo "  · $label: up-to-date, skipping"
     return 0
   fi
@@ -210,9 +232,13 @@ build_pack() {
 
   case "$engine" in
     weasyprint|wkhtmltopdf)
-      # Convert /asset/path-style markdown image refs into file:// URLs
-      # weasyprint can resolve. Also handles src="/..." in inline HTML img tags.
-      sed "s|](/|](file://$REPO_ROOT/|g; s|src=\"/|src=\"file://$REPO_ROOT/|g" "$md" | pandoc \
+      # Images (markdown ![..](/..) and inline src="/..") become file:// paths so
+      # weasyprint can embed them. Every other site-relative link, markdown ](/..) and
+      # inline href="/..", points at the live site: it is read on a reader's phone,
+      # where a file:// path on the build machine is a dead link. Until 2026-09-26 the
+      # image rule caught every link too, and every pack PDF shipped with its site links
+      # pointing into the build machine's disk.
+      sed -E "s#(!\[[^]]*\])\(/#\1(file://$REPO_ROOT/#g; s#src=\"/#src=\"file://$REPO_ROOT/#g; s#\]\(/#](https://cruisinginthewake.com/#g; s#href=\"/#href=\"https://cruisinginthewake.com/#g" "$md" | pandoc \
         --pdf-engine="$engine" \
         --css="$css" \
         --metadata author="In the Wake" \
@@ -371,7 +397,7 @@ for arg in "$@"; do
       ;;
     --force) FORCE=1 ;;
     --check) CHECK_ONLY=1 ;;
-    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|volendam|world-cruise|world-2028|all)
+    long|long-form|condensed|handoff|symphony|ncl-aqua|aqua|ncl|sisters-sea|sisters|virgin|anthem-alaska|anthem|alaska|bliss-solo|bliss|world-america|wa|prima|prima-solo|encore|encore-solo|escape|escape-solo|thanksgiving|margaritaville|mas|islander|gem|ncl-gem|breakaway-bermuda|bermuda|fall-foliage|foliage|aqua-thanksgiving|volendam|world-cruise|world-2028|icon|icon-eastern|eastern-caribbean|getaway|ncl-getaway|bahamas-2026|aura|ncl-aura|aura-solo|brilliant|brilliant-lady|bl-solo|jewel|ncl-jewel|jewel-solo|sun|ncl-sun|sun-panama|all)
       target="$arg" ;;
     *)
       echo "Unknown argument: $arg. Use --help for usage."
@@ -439,6 +465,12 @@ case "$target" in
   fall-foliage|foliage) build_one_long "fall-foliage" "$ENGINE" || failures=$((failures + $?)) ;;
   aqua-thanksgiving) build_one_long "aqua-thanksgiving" "$ENGINE" || failures=$((failures + $?)) ;;
   volendam|world-cruise|world-2028) build_one_long "volendam" "$ENGINE" || failures=$((failures + $?)) ;;
+  icon|icon-eastern|eastern-caribbean) build_one_long "icon-eastern" "$ENGINE" || failures=$((failures + $?)) ;;
+  getaway|ncl-getaway|bahamas-2026) build_one_long "getaway" "$ENGINE" || failures=$((failures + $?)) ;;
+  aura|ncl-aura|aura-solo) build_one_long "ncl-aura" "$ENGINE" || failures=$((failures + $?)) ;;
+  brilliant|brilliant-lady|bl-solo) build_one_long "brilliant-lady" "$ENGINE" || failures=$((failures + $?)) ;;
+  jewel|ncl-jewel|jewel-solo) build_one_long "ncl-jewel" "$ENGINE" || failures=$((failures + $?)) ;;
+  sun|ncl-sun|sun-panama) build_one_long "ncl-sun" "$ENGINE" || failures=$((failures + $?)) ;;
   all|"")
     echo "── Long-form packs ──"
     build_all_long_form "$ENGINE" || failures=$((failures + $?))

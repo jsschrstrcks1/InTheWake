@@ -454,10 +454,14 @@ assert(allAdultsP && allAdultsP.effective === true, 'policy without effectiveDat
 // Advisory only: trip totals identical
 assert(near(pre.trip, post.trip, 0.01), 'grandfathering has no math impact');
 
-// NCL policies with effectiveDate
-const nclPre = run(ncl, { bookingDate: '2026-02-01', drinks: { cocktail: 1 } });
-const nclGsc = nclPre.appliedPolicies.find(p => p.id === 'great-stirrup-cay-2026');
-assert(nclGsc && nclGsc.grandfathered === true, 'NCL GSC policy grandfathered for Feb booking');
+// Dated policies: a booking made before the effective date is grandfathered.
+// (NCL's Great Stirrup Cay exclusion was the dated policy here until 2026-09-26, when NCL's
+// Free at Sea page said the Open Bar covers the island; the grandfathering check moved to RCL.)
+const rclPre = run(rcl, { bookingDate: '2026-02-01', drinks: { cocktail: 1 } });
+const rclCoke = rclPre.appliedPolicies.find(p => p.id === 'coca-cola-freestyle-cut-2026');
+assert(rclCoke && rclCoke.grandfathered === true, 'RCL Freestyle policy grandfathered for Feb booking');
+const nclGscNow = (ncl.policies || []).find(p => p.id === 'great-stirrup-cay-covered');
+assert(nclGscNow && !nclGscNow.effectiveDate, 'NCL: Great Stirrup Cay covered, no dated exclusion');
 
 // ═══════════════════════════════════════════════════════════════
 // L. CROSS-FEATURE INTERACTIONS
@@ -474,7 +478,7 @@ assert(combo.freeAtSeaActive === true, 'combo: FaS active');
 assert(combo.appliedPolicies.length > 0, 'combo: appliedPolicies populated');
 assert(collectNonFinite(combo, '').length === 0, 'combo: no NaN');
 const comboGsc = combo.appliedPolicies.find(p => p.id === 'great-stirrup-cay-2026');
-assert(comboGsc && comboGsc.grandfathered === true, 'combo: GSC grandfathered');
+assert(!comboGsc, 'combo: no Great Stirrup Cay exclusion applied (NCL covers the island)');
 
 // FaS + vouchers (NCL has no vouchers, but passing the object shouldn't crash)
 const fasVoucher = run(ncl, {

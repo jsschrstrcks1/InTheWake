@@ -1,0 +1,89 @@
+{
+  "_doctrine": ".claude/skills/original-research/SKILL.md",
+  "_note": "Sidecar for the shore-excursion explainer. Every quoted passage is taken from a cruise line's own contract or purchase terms, fetched and text-extracted in-session on 2026-09-26. No claim is taken from training data, from another file in this repo, or from a search-result snippet. Method: each contract was fetched in-session and converted to text LOCALLY, never summarised by a model and then quoted. Royal Caribbean's current contract and Carnival's contract are HTML and were tag-stripped. Royal Caribbean's February 2023 revision and Norwegian's 02/2026 contract are PDFs; a purpose-written extractor inflated the content streams and recovered the text. Norwegian's PDF uses a shifted subset-font encoding which had to be decoded; because a decoding artefact inside quotation marks would be a fabricated quote, the decode was cross-checked three independent ways (the year 2024, the Miami ZIP 33126, and the street number 7665 all decoded consistently), and every passage attributed to Norwegian was then matched byte-for-byte against the extracted source. All 34 quoted passages across both articles were verified programmatically against the saved source texts: 34 of 34 matched, 0 unverified. Three defects were found and fixed by that check before publication: a dropped 'shall be' in a Royal Caribbean quotation (twice) and a silently elided parenthetical in the Passenger Bill of Rights quotation.",
+  "article_filename": "what-a-shore-excursion-actually-buys-you.html",
+  "last_factcheck_date": "2026-09-26",
+  "verified_by": "Ken Baker (operator); drafted and source-verified in-session, all quotations machine-checked against saved primary text",
+  "verification_session": "Shore excursion explainer build 2026-09-26. Document analysis. No first-hand excursion experience is claimed anywhere in the article.",
+  "claims": {
+    "excursion_operators_are_independent_contractors": {
+      "value": "Royal Caribbean Section 6: tour arrangements are 'made solely for Guest's convenience and are at Guest's risk' and providers 'are independent contractors and are not acting as agents or representatives of Carrier.'",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "line_profits_but_disclaims_suitability": {
+      "value": "Royal Caribbean Section 6: even though the carrier may profit from selling excursions it 'does not undertake to supervise or control such independent contractors' and 'makes no representation, whether express or implied, regarding their suitability or safety.'",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "carnival_same_disclaimer": {
+      "value": "Carnival Clause 12: 'Carnival neither supervises nor controls their actions, nor makes any representation either expressed or implied as to their suitability.'",
+      "source": "https://www.carnival.com/about-carnival/legal-notice/ticket-contract.aspx",
+      "verified": "2026-09-26"
+    },
+    "ncl_operators_work_for_guest": {
+      "value": "Norwegian Section 9(a): off-vessel services are provided by independent contractors 'who work directly for the Guest.'",
+      "source": "https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/NCL-Guest-Ticket-Contract-EN02-2026.pdf",
+      "verified": "2026-09-26"
+    },
+    "the_backstop": {
+      "value": "Royal Caribbean shore excursion purchase terms: 'In the unlikely event that your tour is significantly delayed, we will make all the arrangements for you to return to the ship at the earliest opportunity at no expense to you.'",
+      "source": "https://www.royalcaribbean.com/guest-terms/global-purchase-terms-and-conditions/en/",
+      "verified": "2026-09-26",
+      "notes": "This is the article's central claim and it lives in the PURCHASE terms, a different document from the ticket contract. The article says so explicitly."
+    },
+    "claims_routed_to_the_operator": {
+      "value": "Royal Caribbean Section 19: a dispute arising out of participation in such services 'must be brought against the independent contractor providing, owning and/or operating such services.'",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "rejoin_costs_are_the_guests": {
+      "value": "Carnival Clause 4(d): costs of transporting a guest to rejoin the vessel, 'including, but not limited to, governmental fees, visa fees, subsistence, lodging, air fare, launch fare, car hire or agency fees shall be for the account of Guest.'",
+      "source": "https://www.carnival.com/about-carnival/legal-notice/ticket-contract.aspx",
+      "verified": "2026-09-26",
+      "notes": "Read in full: the clause contains no exception for tours sold by the line. That absence is stated in the article as an absence, not as an affirmative rule."
+    },
+    "no_refund_for_missing_the_ship": {
+      "value": "Royal Caribbean Section 9: no refund is required for a guest who fails 'for any reason' to be aboard by the cut-off time, and the carrier 'shall not be responsible for lodging, meals, transportation or other expenses incurred by Guest as a result thereof.'",
+      "source": "https://www.royalcaribbean.com/guest-terms/us/united-states-english/",
+      "verified": "2026-09-26"
+    },
+    "ncl_responsibility_ends_at_the_hull": {
+      "value": "Norwegian terms: 'NCL's responsibility does not extend beyond the vessel.' and 'Passengers going ashore on their own are responsible for reboarding the ship prior to departure from port.'",
+      "source": "https://www.ncl.com/about/terms-and-conditions",
+      "verified": "2026-09-26",
+      "notes": "Quoted from Norwegian's website terms page, not from the Guest Ticket Contract. The article does not attribute it to the contract."
+    },
+    "cancellation_windows": {
+      "value": "Royal Caribbean purchase terms: excursions may be modified or cancelled up to 48 hours before tour port arrival without penalty; tours involving flights, trains, special events, overnight or hotel stays and Private Journeys must be cancelled 30 days prior to sailing.",
+      "source": "https://www.royalcaribbean.com/guest-terms/global-purchase-terms-and-conditions/en/",
+      "verified": "2026-09-26"
+    },
+    "minors_on_independently_operated_tours": {
+      "value": "Norwegian Guest Ticket Contract: 'Adult guest must accompany all minors on any independently operated shore excursion purchased through Carrier.'",
+      "source": "https://www.ncl.com/content/dam/ncl/us/en/downloads/travel-documents/NCL-Guest-Ticket-Contract-EN02-2026.pdf",
+      "verified": "2026-09-26"
+    }
+  },
+  "deliberate_omissions": {
+    "prices": "No price or percentage figure appears anywhere in the article. Whether a ship tour costs more than an independent one is port-specific and seasonal, and the household catalog already carries three registered tasks for per-port price comparison (diy-vs-excursion-comparison-expansion, expand-diy-vs-excursion-comparisons-from-38-to-top-50-ports, format-ship-excursion-x-diy-y-you-save-z). This article is the explainer those numbers serve; it deliberately does not pre-empt them with an unsourced figure.",
+    "safety_statistics": "No excursion injury or incident rate is claimed. None was located in a primary source."
+  },
+  "honest_limits": [
+    "Contracts differ by line, by region and by sailing date, and they change. The article says this in its footnote.",
+    "Only three lines were read. Nothing here is claimed about lines that were not read.",
+    "The article makes no claim about how lines actually vet operators in practice, only about what the contracts say and disclaim.",
+    "This is journalism, not legal advice, and the article says so."
+  ],
+  "voice_audit": {
+    "skill": ".claude/skills/voice-audit/SKILL.md v2.3.0",
+    "date": "2026-09-26",
+    "six_axis_machine_tells": 0,
+    "cluster_detection": "0 Layer 1 signals, 0 Layer 2 signals, 5 Layer 3 counter-signals. Scoring rule: 0 Layer 1 => likely human regardless of Layer 2.",
+    "counter_signal_grade": "Research-grade, not lived-grade. The article contains no first-person cruise experience because it is a document analysis. Per the skill, research-grade counter-signals neutralise toward AI rather than overriding, so the verdict rests on the zero Layer 1 count, not on the counter-signals.",
+    "cadence": "Author prose only, quotations excluded: 74 sentences, mean 14.7 words, sd 9.0, sCV 0.61. Corpus baseline over 64 published articles: mean 15.4, sd 9.7, sCV 0.63. Including quotations the mean rises to 19.6 because contract sentences are long.",
+    "em_dashes_in_prose": 0,
+    "known_false_positive": "None on this page.",
+    "risk_rating": "Low"
+  }
+}

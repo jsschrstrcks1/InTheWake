@@ -1,16 +1,18 @@
 # W12 Voyage Pack — Product Launch Operational Checklist
 
-**Status:** Pre-launch. Landing page (`/voyage-packs.html`) exists with placeholder Buy URLs.
+**Status:** Launched free. The packs are free downloads with an optional tip jar (Buy Me a Coffee) since 2026-09-05, by Ken's decision; nothing on this site is sold. Eight packs are listed on `/voyage-packs.html` with a download link and a tip link each.
 **Owner:** Ken
-**Last updated:** 2026-05-06
+**Last updated:** 2026-09-06
 
-The landing page is shipped. None of the buy buttons actually work yet because there's no payment processor wired up. This document tracks every operational item that must happen before W12 can take its first dollar.
+This checklist was written for a paid launch. Sections 1, 2, 3, 6, 7 and 8 describe a payment processor, product entries, refunds and a buy flow that no longer exist; they are marked **Retired** below and kept for lineage rather than deleted, so the reasoning that led to the free model stays legible. Sections 4, 5, 9, 10 and 11 still apply. The operational item that replaced the buy flow is the usage dashboard: `docs/superpowers/plans/2026-09-05-voyage-pack-usage-tracking.md`.
 
 Items are ordered in dependency order: do them top-to-bottom; each downstream item assumes the previous ones are done.
 
 ---
 
 ## 1. Payment processor decision
+
+**Retired 2026-09-05.** Packs are free with a tip jar; no processor: the packs are free and the tip jar is Buy Me a Coffee, which was already the link target. Kept for lineage; the boxes below are not open work.
 
 **Status:** ⏳ open — needs your call.
 
@@ -31,6 +33,8 @@ Lemon Squeezy is a fine middle option if you specifically want better margins fr
 ---
 
 ## 2. Account setup (depends on item 1)
+
+**Retired 2026-09-05.** Packs are free with a tip jar; no processor account is needed. Kept for lineage; the boxes below are not open work.
 
 ### If Gumroad
 - [ ] Create Gumroad account, verify email
@@ -53,6 +57,8 @@ Lemon Squeezy is a fine middle option if you specifically want better margins fr
 ---
 
 ## 3. Product creation
+
+**Retired 2026-09-05.** Packs are free with a tip jar; there are no product entries and no prices; the landing card and the registry (`admin/voyage-packs/packs.json`) are the product record. Kept for lineage; the boxes below are not open work.
 
 For both prototypes — repeat for each:
 
@@ -99,6 +105,8 @@ Open question: do you want to ship the HTML version with the same `data-storage-
 
 ## 6. Refund mechanics
 
+**Retired 2026-09-05.** Packs are free with a tip jar; nothing is sold, so there is nothing to refund; the landing page FAQ says so. Kept for lineage; the boxes below are not open work.
+
 - [ ] Document the refund process in your own playbook (one paragraph, internal): when someone emails asking for a refund, how do you process it?
 - [ ] On Gumroad / Lemon Squeezy: refunds processed in-platform with a click; refund automatically removes platform fees. On Stripe: refund the charge and email the customer.
 - [ ] Decide refund window honestly: the landing page says "14 days, no questions asked." Stick to that.
@@ -107,6 +115,8 @@ Open question: do you want to ship the HTML version with the same `data-storage-
 ---
 
 ## 7. Wire the buy buttons on /voyage-packs.html
+
+**Retired 2026-09-05.** Packs are free with a tip jar; the Buy buttons were replaced by a free download link and a tip link on each card (usage events `vp_pdf_open` and `vp_tip_click`). Kept for lineage; the boxes below are not open work.
 
 Once items 1–4 are done:
 
@@ -118,6 +128,8 @@ Once items 1–4 are done:
 ---
 
 ## 8. End-to-end live test before marketing
+
+**Retired 2026-09-05.** Packs are free with a tip jar; no purchase to test; the offline-HTML and companion checks in section 4 still apply. Kept for lineage; the boxes below are not open work.
 
 Before adding `/voyage-packs.html` to the homepage hero or main nav:
 
@@ -152,9 +164,10 @@ After live test passes:
 
 ## 11. Tax / accounting baseline
 
-- [ ] Track gross revenue per pack per month
-- [ ] Track refunds + fees per pack per month
-- [ ] Track net revenue per pack per month
+- [ ] Track gross revenue per pack per month (source: the payment processor, once chosen; the Atlas snapshot job accepts purchase *counts* through `SALES_SOURCE_URL`, never dollars — see the usage plan Task 11)
+- [ ] Track refunds + fees per pack per month (payment processor)
+- [ ] Track net revenue per pack per month (payment processor)
+- [x] Track *usage* per pack: opens, sittings, installs, handoff cards filled, PDF downloads, buy clicks. Owner-only dashboard on Atlas at `/admin/voyage-usage` (tailnet + owner token), fed by `atlas/server/voyage-usage-snapshot.mjs`. Every number is a floor. (2026-09-05)
 - [ ] Set aside ~25% of net for self-employment tax (US) — talk to your accountant about whether quarterly estimated payments are needed once revenue is non-trivial
 - [ ] If using Gumroad / Lemon Squeezy, they handle EU VAT automatically; you'll receive 1099-K from them at year-end if US revenue crosses the threshold ($600+ for individual reporting starting 2026)
 
@@ -164,6 +177,7 @@ After live test passes:
 
 These are documented in `/root/.claude/plans/resilient-dancing-turtle.md` but worth restating here for the W12 path:
 
+- *(Retired 2026-09-05: nothing is sold. The usage dashboard's per-pack counts replace sales as the signal.)*
 - **W12 v0.1 sells ≥1 pack within 30 days of launch** → expand to top 3 popular itineraries (Caribbean Princess, Carnival, etc.)
 - **W12 v0.1 sells 0 packs in 30 days** → reassess. Likely diagnoses: (a) marketing surface insufficient; (b) the audience isn't ready to pay for a planning artifact; (c) the price point is wrong. Don't kill the product on 30-day data; reassess at 60-90.
 - **Refund rate >10%** → product-quality signal. Read the refund-request emails. If a pattern emerges, fix the pack.
@@ -185,7 +199,7 @@ These are documented in `/root/.claude/plans/resilient-dancing-turtle.md` but wo
 
 ## What done looks like for this checklist
 
-When items 1–9 are complete, you can take the first dollar. Items 10–11 are post-launch hardening; item 12 is the trigger map.
+The packs launched free on 2026-09-05, so "the first dollar" is no longer the finish line. Done now means: every listed pack passes the pre-ship review (`admin/voyage-packs/PACK-PRESHIP-REVIEW-CHECKLIST.md`), sections 4, 5, 9 and 10 are complete, and the usage dashboard is live on Atlas. Item 11 is post-launch hardening; item 12 is the trigger map with its sales triggers retired.
 
 The checklist is self-contained and survives interruptions: pick it back up at whichever item you stopped at.
 

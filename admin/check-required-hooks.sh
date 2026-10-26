@@ -35,7 +35,13 @@ SETTINGS="$REPO_ROOT/.claude/settings.json"
 # Protected hook commands (substring match). One per line. To retire a hook,
 # delete its line here in the same commit that removes it from settings.json.
 PROTECTED=(
-  "observe-tool-use.sh"                 # Slice 6 cognitive-memory observation
+  # Stem, not the full filename. The hook is no longer invoked directly: it now runs
+  # through household-hook-dispatch.sh as "observe-tool-use-dispatch.sh", which does NOT
+  # contain "observe-tool-use.sh" as a substring, so the old entry fired as if the hook
+  # had been dropped. The cheapest way to make this guard pass was to delete this line —
+  # which would have ended the protection for real. Matching the stem keeps it enforced
+  # across both the direct and the dispatched wiring.
+  "observe-tool-use"                    # Slice 6 cognitive-memory observation
   "MEMORY_AUTO_OBSERVE_ENABLED"         # memory capture env flag
   "session-start-guardrail.sh"
   "session-pulse-scan.sh"

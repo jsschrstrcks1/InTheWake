@@ -226,8 +226,24 @@
       // Add all markers to a layer group
       const markerGroup = L.layerGroup(markers).addTo(map);
 
-      // Fit map to show all POIs with padding
-      if (bounds.length > 0) {
+      // Initial view.
+      //
+      // Normally we fit to every marker. That breaks down when one marker sits
+      // far outside the cluster the reader actually walks: fitBounds then picks
+      // a zoom at which the whole walkable day collapses into an unreadable
+      // clump. Belem is the case that forced this — the tender lands 18 km
+      // north of a historic centre 2 km across, and no single auto-fit shows
+      // both legibly. A manifest may therefore supply an explicit opening view
+      // via `fit`. It never removes markers: everything is still on the map,
+      // and zooming out reveals it.
+      const fit = portManifest.fit;
+      if (fit && Number.isFinite(fit.south) && Number.isFinite(fit.west) &&
+          Number.isFinite(fit.north) && Number.isFinite(fit.east)) {
+        map.fitBounds([[fit.south, fit.west], [fit.north, fit.east]], {
+          padding: [20, 20],
+          maxZoom: Number.isFinite(fit.max_zoom) ? fit.max_zoom : 15
+        });
+      } else if (bounds.length > 0) {
         map.fitBounds(bounds, {
           padding: [30, 30],
           maxZoom: 14

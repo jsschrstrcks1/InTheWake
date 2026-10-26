@@ -374,17 +374,19 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       <div class="key-facts" style="margin: 1rem 0; padding: 1rem; background: #f7fdff; border-radius: 8px; border: 1px solid #e0f0f5;">
         <h2 style="margin: 0 0 0.5rem; font-size: 1rem; color: #134;">Key Facts</h2>
         <ul style="margin: 0; padding-left: 1.25rem;">
+          <li><strong>Cruise Line:</strong> MSC Cruises</li>
           <li><strong>Class:</strong> Fantasia Class (2nd of 4; direct sister MSC Fantasia)</li>
-          <li><strong>Delivered:</strong> 4 July 2009, Saint-Nazaire (STX France)</li>
-          <li><strong>Godmother:</strong> Sophia Loren (12 July 2009, Barcelona — ceremony with José Carreras)</li>
+          <li><strong>Year:</strong> 2009</li>
           <li><strong>Tonnage:</strong> 137,936 GT</li>
           <li><strong>Guests:</strong> 3,274 (double) / 4,363 (max)</li>
           <li><strong>Crew:</strong> ~1,370</li>
+          <li><strong>IMO:</strong> 9359806</li>
+          <li><strong>Delivered:</strong> 4 July 2009, Saint-Nazaire (STX France)</li>
+          <li><strong>Godmother:</strong> Sophia Loren (12 July 2009, Barcelona — ceremony with José Carreras)</li>
           <li><strong>Cabins:</strong> 1,637 (43 accessible)</li>
           <li><strong>Length &times; Beam:</strong> 333.30 m &times; 37.92 m</li>
           <li><strong>Build cost:</strong> ~USD 550 million</li>
           <li><strong>Registry:</strong> Panama</li>
-          <li><strong>IMO:</strong> 9359806</li>
           <li><strong>MSC Yacht Club:</strong> Yes (from 2009 delivery, 71 suites)</li>
         </ul>
       </div>
@@ -592,11 +594,16 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       }
       function renderVideos(arr){
         if(!arr||!arr.length){ if(fallback) fallback.classList.remove('hidden'); return; }
-        mount.innerHTML=arr.slice(0,12).map(v=>{
-          const url=getVideoURL(v.videoId,v.provider); if(!url) return '';
-          const title=String(v.title||'MSC Splendida').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-          return '<div class="swiper-slide"><iframe src="'+url+'" title="'+title+'" allow="encrypted-media" allowfullscreen loading="lazy"></iframe></div>';
-        }).join('');
+        // Built with DOM calls, never HTML strings: titles come from YouTube, so they are outside data.
+        mount.textContent='';
+        arr.slice(0,24).forEach(v=>{
+          const url=getVideoURL(v.videoId,v.provider); if(!url) return;
+          const slide=document.createElement('div'); slide.className='swiper-slide';
+          const frame=document.createElement('iframe');
+          frame.src=url; frame.title=String(v.title||'MSC Splendida'); frame.allow='encrypted-media';
+          frame.allowFullscreen=true; frame.loading='lazy';
+          slide.appendChild(frame); mount.appendChild(slide);
+        });
         if(mount.children.length&&window.Swiper){
           setTimeout(()=>{
             try{
@@ -802,13 +809,11 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
       <a href="/accessibility.html">Accessibility &amp; WCAG 2.1 AA Commitment</a>
     </p>
     <p class="tiny center dedication-hidden" >Soli Deo Gloria</p>
-    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">Affiliate Disclosure</a></p>
+    <p class="trust-badge">✓ No ads. Independent of cruise lines. <a href="/affiliate-disclosure.html">No affiliate links</a></p>
   </footer>
 
   <!-- initFirstLook — Swiper for .firstlook carousel -->
   <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
-  <!-- initVideos — fetch video JSON, render thumbnails -->
-  <script>function initVideos(){const w=document.getElementById('video-wrapper');if(!w)return;fetch('/assets/data/videos/msc/msc-splendida.json').then(r=>r.json()).then(d=>{const vids=d.videos||{};const all=Object.values(vids).flat();if(!all.length)return;const sw=w.querySelector('.swiper-wrapper');sw.innerHTML=all.slice(0,8).map(v=>'<div class="swiper-slide"><a href="https://www.youtube.com/watch?v='+v.videoId+'" target="_blank" rel="noopener" aria-label="'+v.title+'"><img src="https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg" alt="'+v.title+'" loading="lazy"/></a></div>').join('');if(typeof Swiper!=='undefined')new Swiper(w,{loop:false,rewind:false,slidesPerView:2,spaceBetween:12,breakpoints:{768:{slidesPerView:3}}});}).catch(()=>{});}</script>
   <!-- initStats — parse ship-stats-fallback JSON -->
   <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
   <!-- initDining — fetch dining JSON -->

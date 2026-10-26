@@ -1,7 +1,5 @@
 {
   "env": {
-    "HOUSEHOLD_OCS_ROOT": "/Users/kenbaker/ocs-work",
-    "INTHEWAKE_ROOT": "/Users/kenbaker/Documents/Claude/Projects/InTheWake-branch",
     "MEMORY_OBSERVATIONS_ENABLED": "true",
     "MEMORY_AUTO_OBSERVE_ENABLED": "true"
   },
@@ -20,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /Users/kenbaker/ocs-work/.claude/hooks/library-preflight-inject.sh"
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/household-hook-dispatch.sh library-preflight-inject.sh"
           },
           {
             "type": "command",
@@ -45,6 +43,15 @@
             "timeout": 30
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/sophos-inject.sh session",
+            "timeout": 30
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
@@ -52,7 +59,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /Users/kenbaker/ocs-work/.claude/hooks/library-preflight-inject.sh"
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/household-hook-dispatch.sh library-preflight-inject.sh"
           },
           {
             "type": "command",
@@ -75,6 +82,8 @@
             "type": "command",
             "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/hier-memory-inject.mjs prompt",
             "timeout": 20
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/sophos-inject.sh prompt",
+            "timeout": 15
           }
         ]
       }
@@ -85,7 +94,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node /Users/kenbaker/ocs-work/.claude/hooks/library-preflight-guard.js"
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/household-hook-dispatch.sh library-preflight-guard.js"
           },
           {
             "type": "command",
@@ -122,6 +131,16 @@
             "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/bootstrap-guard.mjs"
           }
         ]
+      },
+      {
+        "matcher": "Bash|Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/reasoning-reveal.mjs",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -151,7 +170,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/home/user/ken/.claude/hooks/observe-tool-use.sh"
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/household-hook-dispatch.sh observe-tool-use-dispatch.sh"
           }
         ]
       },
