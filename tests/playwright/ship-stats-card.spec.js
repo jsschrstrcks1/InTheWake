@@ -10,8 +10,13 @@
 // Each case waits for the logbook persona fetch where the page makes one, because the old wipe happened
 // only after that response arrived: a check taken before it would pass on the broken page too.
 // Hosts other than the test server are refused so a CDN cannot make the run slow or flaky.
+// Service workers are blocked: the card never uses one, and every ship page's worker fires a precache
+// burst. The first CI run (job 121380284109) lost its last case to a headless-shell SIGSEGV with that
+// burst running under request interception; the cause inside Chromium is not established.
 
 import { test, expect } from "@playwright/test";
+
+test.use({ serviceWorkers: "block" });
 
 const CASES = [
   // The wipe: the page still fetches this persona file for its logbook, and the card must survive it.
