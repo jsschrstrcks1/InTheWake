@@ -85,3 +85,41 @@ test("matchElement finds the matching close tag through nesting, not the first c
   assert.equal(html.slice(m.end - "</div>".length, m.end), "</div>");
   assert.ok(m.end <= html.indexOf("<p>"), "it closed the OUTER div, not the inner one");
 });
+
+test("MUST-FAIL (#1916): a page that already carries two cards leaves with exactly one, and a rerun changes nothing", () => {
+  const variant = (h, id) => `<section class="card author-card-vertical" aria-labelledby="${id}"><${h} id="${id}">About the Author</${h}><p>x</p></section>`;
+  const page = `<html><body><main><h2>A</h2>${variant("h3", "author-heading")}<p>mid</p>${variant("h4", "author-heading-2")}</main></body></html>`;
+  const once = injectAuthorCard(page);
+  const twice = injectAuthorCard(once.html);
+  const cards = (s) => (s.match(/author-card-vertical/g) || []).length;
+  assert.equal(cards(once.html), 1);
+  assert.equal(once.removed, 1);
+  assert.ok(!once.html.includes("author-heading-2"), "the band-aid duplicate is gone, not renamed");
+  assert.ok(once.html.indexOf("About the Author") < once.html.indexOf("<p>mid</p>"), "the card stands where the first one stood");
+  assert.equal(twice.html, once.html, "idempotent");
+  assert.equal(twice.removed, 0);
+  // A marked card with a stray unmarked copy before it: still exactly one, at the marked place.
+  const marked = injectAuthorCard(`<main>${variant("h4", "x")}<p>between</p></main>`).html;
+  const stray = `<main>${variant("h3", "y")}<p>lead</p>${marked.replace("<main>", "")}`;
+  const fixed = injectAuthorCard(stray);
+  assert.equal(cards(fixed.html), 1);
+  assert.equal(fixed.mode, "replaced-marker");
+  assert.equal(fixed.removed, 1);
+  assert.ok(fixed.html.indexOf("<p>lead</p>") < fixed.html.indexOf("About the Author"), "the marked place wins, and the stray copy before it is removed");
+  const component = fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), "author-card.html"), "utf8").trim();
+  assert.equal(fixed.html, `<main><p>lead</p>${component}<p>between</p></main>`, "the card lands exactly at the marked place, shifted for the removal before it");
+});
+
+test("MUST-FAIL: a stray open marker with no close never pairs with ours; nothing between them is cut", () => {
+  const variant = `<section class="card author-card-vertical" aria-labelledby="author-heading"><h3 id="author-heading">About the Author</h3></section>`;
+  // The ports/ocean-cay.html shape: a stray open comment before an aside, the card after it.
+  const page = `<main><!-- Author Card -->\n<aside class="card">keep me</aside>\n${variant}</main>`;
+  const once = injectAuthorCard(page);
+  const twice = injectAuthorCard(once.html);
+  assert.ok(twice.html.includes("keep me"), "the aside survives the second run");
+  assert.equal(twice.html, once.html, "idempotent");
+  // The bimini.html shape: a stray open comment directly before the card is the card's, and goes with it.
+  const lead = injectAuthorCard(`<main><p>a</p>\n<!-- Author Card -->\n${variant}</main>`).html;
+  assert.equal(lead.split(OPEN).length - 1, 1, "one open marker, not two");
+  assert.equal(injectAuthorCard(lead).html, lead);
+});

@@ -53,37 +53,66 @@ function enclosingDetails(html, cardIndex) {
   return null;
 }
 
+const CARD_CLASS = /class\s*=\s*"[^"]*\bauthor-card-vertical\b/;
+
 /**
- * Inject the author card. Pure: returns { html, mode } where mode is
- * replaced-marker | replaced-details | replaced-element | inserted | unchanged.
+ * Inject the author card. Pure: returns { html, mode, removed } where mode is
+ * replaced-marker | replaced-details | replaced-element | inserted, and `removed` counts the EXTRA
+ * cards taken out. Every existing card is removed and the one component stands where the first one
+ * stood (our marked region first, else the first measured variant). A page that already carries two
+ * cards (the #1916 shape) leaves with exactly one; replacing only the first would keep the duplicate.
  */
 export function injectAuthorCard(html, component) {
   const card = String(component ?? fs.readFileSync(CARD_PATH, "utf8")).trim();
+  let out = String(html);
+  let at = null;
+  let mode = null;
+  let removed = 0;
 
-  // 1. Our own markers win: replace the whole marked region.
-  const o = html.indexOf(OPEN);
-  const c = html.indexOf(CLOSE, o < 0 ? 0 : o);
-  if (o !== -1 && c !== -1 && c > o) {
-    return { html: html.slice(0, o) + card + html.slice(c + CLOSE.length), mode: "replaced-marker" };
+  // 1. Our own markers win: the marked region goes, and its place is where the card returns. The
+  //    close pairs with the NEAREST open before it. Seven port pages carry a stray open comment with
+  //    no close (measured 2026-10-26); pairing the first open with our close would cut out whatever
+  //    sits between them (on ports/ocean-cay.html, an <aside>).
+  const c = out.indexOf(CLOSE);
+  const o = c === -1 ? -1 : out.lastIndexOf(OPEN, c);
+  if (o !== -1 && c !== -1) {
+    out = out.slice(0, o) + out.slice(c + CLOSE.length);
+    at = o;
+    mode = "replaced-marker";
   }
 
-  // 2. A measured variant. Replace the element that CARRIES the class, or its details wrapper.
-  const classAt = html.search(/class\s*=\s*"[^"]*\bauthor-card-vertical\b/);
-  if (classAt !== -1) {
-    const openAt = html.lastIndexOf("<", classAt);
-    const details = enclosingDetails(html, openAt);
-    const target = details ?? (openAt !== -1 ? { start: openAt, ...matchElement(html, openAt) } : null);
-    if (target && target.end > target.start) {
-      return { html: html.slice(0, target.start) + card + html.slice(target.end), mode: details ? "replaced-details" : "replaced-element" };
+  // 2. Every remaining card (a measured variant, or a band-aid duplicate) is removed: the element that
+  //    CARRIES the class, or its details wrapper. The first one's place is kept when no marker set it.
+  for (let guard = 0; guard < 1000; guard++) {
+    const classAt = out.search(CARD_CLASS);
+    if (classAt === -1) break;
+    const openAt = out.lastIndexOf("<", classAt);
+    if (openAt === -1) break;
+    const details = enclosingDetails(out, openAt);
+    const own = matchElement(out, openAt);
+    const target = details ?? (own ? { start: openAt, ...own } : null);
+    // An element whose close tag cannot be found is left alone rather than cut at a guess.
+    if (!target || !(target.end > target.start)) break;
+    // An orphan open marker directly before the card (whitespace between) belongs to it and goes too.
+    const lead = /<!-- Author Card -->\s*$/.exec(out.slice(0, target.start));
+    if (lead) target.start = lead.index;
+    out = out.slice(0, target.start) + out.slice(target.end);
+    if (at === null) {
+      at = target.start;
+      mode = details ? "replaced-details" : "replaced-element";
+    } else {
+      removed += 1;
+      if (target.start < at) at -= target.end - target.start;
     }
   }
+  if (at !== null) return { html: out.slice(0, at) + card + out.slice(at), mode, removed };
 
   // 3. No card: place exactly one before </main>, else before </body>, else at the end.
-  const mainClose = html.lastIndexOf("</main>");
-  if (mainClose !== -1) return { html: html.slice(0, mainClose) + card + "\n" + html.slice(mainClose), mode: "inserted" };
-  const bodyClose = html.lastIndexOf("</body>");
-  if (bodyClose !== -1) return { html: html.slice(0, bodyClose) + card + "\n" + html.slice(bodyClose), mode: "inserted" };
-  return { html: `${html}\n${card}\n`, mode: "inserted" };
+  const mainClose = out.lastIndexOf("</main>");
+  if (mainClose !== -1) return { html: out.slice(0, mainClose) + card + "\n" + out.slice(mainClose), mode: "inserted", removed };
+  const bodyClose = out.lastIndexOf("</body>");
+  if (bodyClose !== -1) return { html: out.slice(0, bodyClose) + card + "\n" + out.slice(bodyClose), mode: "inserted", removed };
+  return { html: `${out}\n${card}\n`, mode: "inserted", removed };
 }
 
 function main() {
@@ -98,7 +127,7 @@ function main() {
   const r = injectAuthorCard(before);
   if (write) {
     if (r.html === before) console.log(`unchanged (${r.mode})`);
-    else { fs.writeFileSync(file, r.html); console.log(`wrote ${file} (${r.mode})`); }
+    else { fs.writeFileSync(file, r.html); console.log(`wrote ${file} (${r.mode}${r.removed ? `, ${r.removed} duplicate card(s) removed` : ""})`); }
   } else {
     process.stdout.write(r.html);
     console.error(`(${r.mode})`);
