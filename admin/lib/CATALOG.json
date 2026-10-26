@@ -10,7 +10,7 @@
         "injectAuthorCard",
         "matchElement"
       ],
-      "purpose": "Place the ONE accessible About-the-Author card on a page: replace in place (marker or measured variant), insert exactly one when absent, never append.",
+      "purpose": "Place the ONE accessible About-the-Author card on a page: remove every existing card (marker or measured variant, duplicates included), put the component where the first one stood, insert exactly one when absent, never append.",
       "when_to_use": [
         "Any port page that needs the author card",
         "Migrating a page from the div/h4 or details/summary variant to the admissible section/h3 component"
@@ -33,7 +33,7 @@
       "state": "unverified",
       "provenance": {
         "added": "2026-10-19",
-        "basis": "M3.4 spec measured against InTheWake main; M3.5 component + injector + 7 tests"
+        "basis": "M3.4 spec measured against InTheWake main; M3.5 component + injector; 2026-10-26: two-card and stray-marker fixes, 10 injector tests, dry run over 399 port pages (exactly one card each, idempotent)"
       },
       "household_id": "InTheWake",
       "need": "need:author-card-20261019",
