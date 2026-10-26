@@ -10,7 +10,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync, readFileSync } from 'nod
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { collect, compare, judge, parseBaseline, renderBaseline, BASELINE } from '../../admin/lexicon/cross-check.mjs';
+import { collect, compare, judge, parseBaseline, renderBaseline, baselineSources, readPackSpec, unjoinedPacks, FIRST_SOURCES, BASELINE, PACK_SHIPS } from '../../admin/lexicon/cross-check.mjs';
 
 const ROOT = new URL('../../', import.meta.url).pathname;
 const CLI = join(ROOT, 'admin/lexicon/cross-check.mjs');
@@ -123,6 +123,125 @@ test('cross-check CLI: with --base, a baseline that grew since the base is refus
   assert.equal(cli(dir).status, 0, 'without a base, the grown file just makes the disagreement known');
   const r = cli(dir, '--base', 'HEAD');
   assert.equal(r.status, 1); assert.match(r.stderr, /grew at "alpha-of-the-seas#imo"/);
+});
+
+// The two sources C8 added second: the line's own captured page (C2b) and the voyage-pack fact sheets.
+const PACK = (specs) => ({ ship_specs: specs });
+const OFFICIAL = (entity, outcome, items) => ({ format: 'lexicon-observation/1', entity, outcome, items });
+const SECOND = {
+  'assets/data/lexicon/observations/alpha-of-the-seas.json': OFFICIAL('ship:alpha-of-the-seas', 'captured', [
+    { label: 'Gross Tonnage', raw: '100,000' }, { label: 'Guest Capacity', raw: '2,000' }, { label: 'Onboard Crew', raw: '910' }]),
+  'assets/data/lexicon/observations/beta-of-the-seas.json': OFFICIAL('ship:beta-of-the-seas', 'content_not_served', [{ label: 'Gross Tonnage', raw: '1' }]),
+  'admin/voyage-packs/v1-alpha.factcheck.json': PACK({ gross_tonnage: { value: '100,000 GT', source: 'x' }, crew: { value: '900 crew' },
+    capacity_double_max: { value: '2,000 double occupancy / 2,600 maximum' }, imo: { value: '1234567' } }),
+  'admin/voyage-packs/v1-beta.factcheck.json': PACK({ gross_tonnage: { value: 'about 90,000 GT' }, crew: '~1,000' }),
+  'admin/voyage-packs/v1-stray.factcheck.json': PACK({ gross_tonnage: { value: '5 GT' } }),
+  [PACK_SHIPS]: { packs: { 'v1-alpha': 'alpha-of-the-seas', 'v1-beta': 'beta-of-the-seas' } },
+};
+
+test('cross-check: a pack figure is read only when it carries its own label; approximate prose is skipped whole', () => {
+  const v = (k, raw) => readPackSpec(k, raw).filter((r) => !r.skip).map((r) => `${r.property}=${r.value}`);
+  assert.deepEqual(v('crew', '1,733 crew'), ['crew=1733']);
+  assert.deepEqual(v('crew', '647 (Wikipedia); pack does not assert a crew count'), []);
+  assert.deepEqual(v('crew', 'about 1,150 to 1,160'), []);
+  assert.deepEqual(v('gross_tonnage', 'about 170,000 GT'), []);
+  assert.deepEqual(v('guests', 'about 2,000 guests at double occupancy'), [], 'approximate prose is skipped even where the label is plain');
+  assert.deepEqual(v('capacity', 'roughly 3,000 maximum'), []);
+  assert.deepEqual(v('gross_tonnage', '93,502'), ['gross_tonnage=93502']);
+  assert.deepEqual(v('guests', '4,218 guests at double occupancy'), ['guests_double=4218']);
+  assert.deepEqual(v('capacity_double_max', '5,610 double / 7,600 max'), ['guests_double=5610', 'guests_max=7600']);
+  assert.deepEqual(v('capacity_double_max', '1,432 guests (double occupancy)'), ['guests_double=1432']);
+  assert.deepEqual(v('capacity_double_max', '3,998 lower berths / 4,004 at double occupancy'), ['guests_double=4004'], 'lower berths is not double occupancy');
+  assert.deepEqual(v('capacity_double_max', '2,114 guests at lower berths; 2,680 at full occupancy'), [], 'neither label is double or max');
+  assert.deepEqual(v('capacity', '2,394 guests'), []);
+  assert.deepEqual(v('guests', '2,770 Sailors (Virgin fleet figure); no double-occupancy figure published'), []);
+  assert.deepEqual(v('guests_double_occupancy', '3,879'), ['guests_double=3879']);
+  assert.deepEqual(v('imo', '9677076'), ['imo=9677076']);
+  assert.deepEqual(v('decks', '20'), [], 'a property the check does not compare is not read');
+});
+
+test('cross-check: the line-official and voyage-pack sources read their shapes, and a pack joins only through the map', (t) => {
+  const dir = tree(t, { ...FIXTURE, ...SECOND });
+  const { observations, perSource } = collect(dir);
+  const via = (id) => observations.filter((o) => o.via === id).map((o) => `${o.slug}#${o.property}=${o.value}`).sort();
+  assert.deepEqual(via('line-official'), ['alpha-of-the-seas#crew=910', 'alpha-of-the-seas#gross_tonnage=100000'],
+    'an unlabelled guest capacity is not read, and a page the line did not serve holds no figure');
+  assert.deepEqual(via('voyage-pack'), ['alpha-of-the-seas#crew=900', 'alpha-of-the-seas#gross_tonnage=100000',
+    'alpha-of-the-seas#guests_double=2000', 'alpha-of-the-seas#guests_max=2600', 'alpha-of-the-seas#imo=1234567']);
+  assert.equal(observations.some((o) => o.value === '5'), false, 'an unmapped pack is never guessed onto a ship');
+  assert.deepEqual(unjoinedPacks(dir), ['v1-stray']);
+  assert.equal(perSource['voyage-pack'], 5);
+});
+
+test('cross-check CLI: a pack map that is not slug-shaped is UNAVAILABLE; an unmapped pack is named on every run', (t) => {
+  const dir = tree(t, { ...SECOND, [PACK_SHIPS]: { packs: { 'v1-alpha': 'Alpha of the Seas' } } });
+  const r = cli(dir);
+  assert.equal(r.status, 3); assert.match(r.stderr, /must map to a ship slug/);
+  const ok = cli(tree(t, { ...SECOND, [BASELINE]: renderBaseline({}) }), '--report');
+  assert.match(ok.stdout, /not joined to a ship .*: v1-stray/);
+});
+
+// A tree whose committed baseline predates the second sources, as main's did.
+function adoptable(t, files) {
+  const dir = tree(t, { ...FIXTURE, ...SECOND, [BASELINE]: renderBaseline({
+    'alpha-of-the-seas#crew': ['900', '905'], 'alpha-of-the-seas#gross_tonnage': ['100000', '101000'], 'alpha-of-the-seas#imo': ['1234567', '7654321'] }, FIRST_SOURCES) });
+  const git = (...a) => spawnSync('git', ['-C', dir, ...a], { encoding: 'utf8' });
+  git('init', '-q'); git('config', 'user.email', 't@example.invalid'); git('config', 'user.name', 't'); git('config', 'core.hooksPath', '/dev/null');
+  git('add', '-A'); git('commit', '-qm', 'base');
+  for (const [rel, body] of Object.entries(files || {})) writeFileSync(join(dir, rel), typeof body === 'string' ? body : JSON.stringify(body));
+  return dir;
+}
+
+test('cross-check CLI: a source the baseline does not record is refused until adopted; adoption admits what only it reveals', (t) => {
+  const dir = adoptable(t);
+  const before = cli(dir);
+  assert.equal(before.status, 1); assert.match(before.stderr, /differs at line-official, voyage-pack/);
+  const a = cli(dir, '--adopt-sources');
+  assert.equal(a.status, 0, a.stderr);
+  const b = parseBaseline(readFileSync(join(dir, BASELINE), 'utf8'));
+  assert.deepEqual(b['alpha-of-the-seas#crew'], ['900', '905', '910'], 'the line page adds a third crew reading');
+  assert.equal(cli(dir).status, 0);
+  const based = cli(dir, '--base', 'HEAD');
+  assert.equal(based.status, 0, based.stderr); assert.match(based.stdout, /admitted because only the newly read/);
+});
+
+test('cross-check CLI: adoption refuses a disagreement an old copy caused in the same commit', (t) => {
+  // The page.json gross tonnage is edited at the same time the new sources arrive.
+  const dir = adoptable(t, { 'assets/data/ships/rcl/alpha-of-the-seas.page.json': { imo: '1234567', gt: 99999, tracker: { imo: '7654321' } } });
+  const a = cli(dir, '--adopt-sources');
+  assert.equal(a.status, 1); assert.match(a.stderr, /not the new source's alone/); assert.match(a.stderr, /alpha-of-the-seas#gross_tonnage/);
+});
+
+test('cross-check CLI: with --base, an adopted entry may not park a value nobody reads, and a dropped source is refused', (t) => {
+  const dir = adoptable(t);
+  assert.equal(cli(dir, '--adopt-sources').status, 0);
+  const b = parseBaseline(readFileSync(join(dir, BASELINE), 'utf8'));
+  writeFileSync(join(dir, BASELINE), renderBaseline({ ...b, 'alpha-of-the-seas#crew': [...b['alpha-of-the-seas#crew'], '1999'] }));
+  const parked = cli(dir, '--base', 'HEAD');
+  assert.equal(parked.status, 1); assert.match(parked.stderr, /grew at "alpha-of-the-seas#crew"/);
+  // A baseline recording a source the tool no longer reads.
+  writeFileSync(join(dir, BASELINE), renderBaseline(b, [...FIRST_SOURCES, 'line-official', 'voyage-pack', 'retired-reader']));
+  const stale = cli(dir);
+  assert.equal(stale.status, 1); assert.match(stale.stderr, /differs at retired-reader/);
+});
+
+test('cross-check CLI: with --base, a commit that stops reading a source and drops it from the baseline is refused', (t) => {
+  const dir = adoptable(t);
+  assert.equal(cli(dir, '--adopt-sources').status, 0);
+  const b = parseBaseline(readFileSync(join(dir, BASELINE), 'utf8'));
+  const git = (...a) => spawnSync('git', ['-C', dir, ...a], { encoding: 'utf8' });
+  writeFileSync(join(dir, BASELINE), renderBaseline(b, [...baselineSources(readFileSync(join(dir, BASELINE), 'utf8')), 'retired-reader']));
+  git('add', '-A'); git('commit', '-qm', 'a baseline that once recorded another reader');
+  writeFileSync(join(dir, BASELINE), renderBaseline(b));
+  const r = cli(dir, '--base', 'HEAD');
+  assert.equal(r.status, 1); assert.match(r.stderr, /grew at "sources:retired-reader"/);
+});
+
+test('cross-check CLI: --shrink-baseline keeps the recorded sources; it never adopts one', (t) => {
+  const dir = adoptable(t);
+  assert.equal(cli(dir, '--shrink-baseline').status, 0);
+  assert.deepEqual(baselineSources(readFileSync(join(dir, BASELINE), 'utf8')), [...FIRST_SOURCES].sort());
+  assert.equal(cli(dir).status, 1, 'still refused until --adopt-sources');
 });
 
 test('cross-check: this repository has no ship-fact disagreement the baseline does not hold', () => {
