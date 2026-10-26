@@ -125,17 +125,24 @@ export function readOfficial(label, raw) {
   const l = String(label).trim().replace(/:$/, "").toLowerCase();
   const r = String(raw).trim();
   if (APPROX.test(r)) return [{ skip: "approximate" }];
-  if (l === "gross tonnage") {
+  // "GT", "CREW", "GUESTS (DOUBLE OCCUPANCY)" and "METRES LONG" are how Royal Caribbean's fact sheets print them.
+  if (l === "gross tonnage" || l === "gt") {
     const n = r.replace(/\s*tons?$/i, "");
     return GROUPED.test(n) ? [{ property: "gross_tonnage", value: Number(n.replace(/[.,]/g, "")), unit: "GT" }] : [{ skip: "not a plain tonnage" }];
   }
-  if (l === "onboard crew" || l === "crew members") {
+  if (l === "onboard crew" || l === "crew members" || l === "crew") {
     return GROUPED.test(r) ? [{ property: "crew", value: Number(r.replace(/[.,]/g, "")), unit: "crew" }] : [{ skip: "not a plain count" }];
+  }
+  if (l === "guests (double occupancy)") {
+    return GROUPED.test(r) ? [{ property: "guests_double", value: Number(r.replace(/[.,]/g, "")), unit: "guests" }] : [{ skip: "not a plain count" }];
+  }
+  if (l === "metres long") {
+    return /^\d+(?:\.\d+)?$/.test(r) ? [{ property: "length_m", value: Number(r), unit: "m" }] : [{ skip: "not a plain length in metres" }];
   }
   if (["guest capacity", "number of passengers", "number of guests"].includes(l)) {
     return [{ skip: "the line does not say whether this is double occupancy or maximum" }];
   }
-  if (l === "length in feet") return [{ skip: "feet only; not converted" }];
+  if (l === "length in feet" || l === "feet long") return [{ skip: "feet only; not converted" }];
   if (l === "length/beam/height") {
     const m = /^(\d+(?:\.\d+)?)\s*m\b/.exec(r);
     return m ? [{ property: "length_m", value: Number(m[1]), unit: "m" }] : [{ skip: "no length in metres first" }];

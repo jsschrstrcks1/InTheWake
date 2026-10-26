@@ -144,8 +144,9 @@ node admin/lexicon/cross-check.mjs --adopt-sources     # in the commit that adds
 - **A new pack is compared only once someone maps it** in `pack-ships.json`. Until then each run names it. A pack
   that is mapped later brings its readings through the existing `voyage-pack` source. Those readings are not
   adopted: a disagreement they show must be reconciled.
-- **Only four line-official figures are read today.** Three of the five captures came back `content_not_served`,
-  and the line pages label guest capacity without saying double or maximum.
+- **Line-official figures cover only the five pilot ships.** That's 13 figures today. Royal Caribbean's three come
+  from its press-center fact-sheet PDFs (see `admin/lexicon/capture-official.mjs`). Carnival's and MSC's pages
+  label guest capacity without saying double or maximum, so those two are not compared.
 - **`data/fleets_index.json` and the quiz files are not read yet.** Each needs its own adapter. The adapter
   list is the place to extend, one shape at a time, each with a fixture test.
 - **Agreement is not truth.** Three copies that agree can all be wrong. This check finds disagreement; the

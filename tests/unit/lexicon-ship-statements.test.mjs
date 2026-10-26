@@ -3,11 +3,13 @@
 // skip, saying so, when it is not beside this repo.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync, mkdtempSync, mkdirSync, copyFileSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { readField, readOfficial, buildShipStatements, loadContract, PILOT, OUT_DIR } from '../../admin/lexicon/ship-statements.mjs';
-import { outcomeOf, figureLabel } from '../../admin/lexicon/capture-official.mjs';
+import { outcomeOf, figureLabel, factSheetFigures, factSheetUpdated, OFFICIAL } from '../../admin/lexicon/capture-official.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const LEX = path.resolve(ROOT, '..', 'Project-Sophos', 'sophos', 'src', 'lexicon');
@@ -38,9 +40,17 @@ test('the entity files are exactly what the records say (regenerate if this fail
 test('the contract finds the census conflicts and picks no side; the clean ship resolves', { skip }, async () => {
   const { currentValue, findConflicts, validateStatement } = await import(pathToFileURL(path.join(LEX, 'statement.mjs')).href);
   const at = { at: '2026-10-25T00:00:00Z' };
+  // Radiance's own two records disagree on crew and double-occupancy guests. The conflict stays listed, and
+  // Royal Caribbean's fact sheet, the primary source, is preferred and resolves it.
   const radiance = entity('radiance-of-the-seas').statements;
-  for (const p of ['crew', 'guests_double']) assert.equal(currentValue(radiance, `ship:radiance-of-the-seas#${p}`, at).state, 'conflicting', p);
-  assert.equal(findConflicts(radiance).length, 2);
+  assert.deepEqual([...new Set(findConflicts(radiance).map((c) => c.subject))].sort(),
+    ['ship:radiance-of-the-seas#crew', 'ship:radiance-of-the-seas#guests_double']);
+  for (const [p, v] of [['crew', 894], ['guests_double', 2143]]) {
+    const cv = currentValue(radiance, `ship:radiance-of-the-seas#${p}`, at);
+    assert.equal(cv.state, 'resolved', p);
+    assert.equal(cv.statement.epistemic.status, 'verified', p);
+    assert.equal(cv.statement.ext.value, v, p);
+  }
   assert.equal(currentValue(entity('legend-of-the-seas-1995').statements, 'ship:legend-of-the-seas-1995#guests_double', at).state, 'conflicting');
   const grandiosa = entity('msc-grandiosa').statements;
   // One disagreement, listed not hidden: MSC's own 331.43 m against this repo's rounded 331. The line's page
@@ -83,7 +93,7 @@ test('a figure on the line\'s own page is read only when its label says plainly 
   assert.match(readOfficial('Crew members:', 'about 1,700')[0].skip, /approximate|not a plain/);
 });
 
-test('the line\'s page wins where it speaks; where it was not served, nothing is verified and the check says why', { skip }, async () => {
+test('the line\'s page wins where it speaks, and Royal Caribbean\'s speaks through its fact-sheet PDF', { skip }, async () => {
   const { currentValue } = await import(pathToFileURL(path.join(LEX, 'statement.mjs')).href);
   const at = { at: '2026-10-25T04:00:00Z' };
   const vista = entity('carnival-vista');
@@ -95,13 +105,78 @@ test('the line\'s page wins where it speaks; where it was not served, nothing is
     assert.equal(cv.statement.timestamps.observed_at, vista.checks[0].retrieved_at, 'observed when the page was read');
   }
   assert.ok(vista.not_filed.some((n) => n.source.endsWith('#Guest Capacity') && /double occupancy or maximum/.test(n.reason)));
+  // Royal Caribbean: royalcaribbean.com serves a headless browser a block page, so its figures are read from the
+  // fact-sheet PDF its press center links. Every figure the sheet prints is verified and wins.
   for (const slug of ['radiance-of-the-seas', 'quantum-of-the-seas', 'legend-of-the-seas-2026']) {
     const d = entity(slug);
+    const obs = JSON.parse(readFileSync(path.join(ROOT, 'assets/data/lexicon/observations', `${slug}.json`), 'utf8'));
     assert.equal(d.checks.length, 1, `${slug} records the line page it tried`);
-    assert.notEqual(d.checks[0].outcome, 'captured');
-    assert.ok(!d.statements.some((s) => s.epistemic.status === 'verified'), `${slug}: nothing verified from a page that showed nothing`);
+    assert.equal(d.checks[0].outcome, 'captured', slug);
+    assert.match(d.checks[0].url, /^https:\/\/royalcaribbeanmedia\.com\/files\/fact-sheets\/en\/[a-z]+-fact-sheet\.pdf$/, slug);
+    assert.match(obs.found_via, /^https:\/\/royalcaribbeanpresscenter\.com\/fact-sheet\/[a-z]+$/, slug);
+    assert.match(obs.document_sha256, /^[0-9a-f]{64}$/, `${slug}: the PDF read is pinned by its hash`);
+    for (const item of obs.items) {
+      for (const r of readOfficial(item.label, item.raw).filter((x) => !x.skip)) {
+        const cv = currentValue(d.statements, `ship:${slug}#${r.property}`, at);
+        assert.equal(cv.statement.epistemic.status, 'verified', `${slug} ${r.property}`);
+        assert.equal(cv.statement.ext.value, r.value, `${slug} ${r.property}`);
+      }
+    }
   }
   assert.deepEqual(entity('legend-of-the-seas-1995').checks, [], 'a retired ship has no line page; none is claimed');
+});
+
+test('a page the line did not serve verifies nothing, even if a capture file carried figures', { skip }, async (t) => {
+  // Real data no longer has an unserved pilot page, so the rule is pinned on a throwaway tree: Quantum's two
+  // records, and an observation that says content_not_served yet lists a figure. Nothing may be verified.
+  const dir = mkdtempSync(path.join(tmpdir(), 'itw-obs-'));
+  t.after(() => rmSync(dir, { recursive: true, force: true }));
+  for (const rel of ['assets/data/lexicon/cruise.ship.pack.json', 'assets/data/lexicon/line-aliases.json', 'ships/rcl/quantum-of-the-seas.html', 'assets/data/ships/rcl/quantum-of-the-seas.page.json']) {
+    mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true });
+    copyFileSync(path.join(ROOT, rel), path.join(dir, rel));
+  }
+  const obsRel = 'assets/data/lexicon/observations/quantum-of-the-seas.json';
+  mkdirSync(path.dirname(path.join(dir, obsRel)), { recursive: true });
+  const served = (outcome) => writeFileSync(path.join(dir, obsRel), JSON.stringify({ format: 'lexicon-observation/1', entity: 'ship:quantum-of-the-seas',
+    source_kind: 'line-official', publisher: 'Royal Caribbean', url: 'https://example.invalid/sheet.pdf', retrieved_at: '2026-10-26T00:00:00.000Z', outcome, items: [{ label: 'CREW', raw: '9,999' }] }));
+  const git = (...a) => spawnSync('git', ['-C', dir, ...a], { encoding: 'utf8' });
+  git('init', '-q'); git('config', 'user.email', 't@example.invalid'); git('config', 'user.name', 't'); git('config', 'core.hooksPath', '/dev/null');
+  git('add', '-A'); git('commit', '-qm', 'fixture');
+  const quantum = PILOT.filter((p) => p.entity === 'ship:quantum-of-the-seas');
+  const verifiedCrew = async () => {
+    const { files } = await buildShipStatements(dir, await loadContract(), quantum);
+    const d = JSON.parse(files[`${OUT_DIR}/quantum-of-the-seas.json`]);
+    return d.statements.filter((s) => s.epistemic.status === 'verified').map((s) => s.ext.value);
+  };
+  served('content_not_served');
+  assert.deepEqual(await verifiedCrew(), [], 'an unserved page verifies nothing');
+  served('captured');
+  assert.deepEqual(await verifiedCrew(), [9999], 'the same file marked captured does: the guard is the outcome, not the items');
+});
+
+test('a Royal Caribbean fact sheet is read figure by label, as printed, and a sheet that contradicts itself is not', () => {
+  // Lines as pdftotext prints Quantum of the Seas' sheet (updated 7.22.26): reading order, and -layout for length.
+  const raw = '1,500 CREW\n(INTERNATIONAL)\n\n2,094 STATEROOMS\n4,180 GUESTS\n(DOUBLE OCCUPANCY)\n\n168,666 GT\n1,141\n\nUpdated 7.22.26\n';
+  const layout = '• WINDJAMMER         1,500 CREW\n                     1,141   FEET,    348      METRES   LONG\n                     136   FEET,   41   METRES   WIDE\n';
+  assert.deepEqual(factSheetFigures(raw, layout), [
+    { label: 'CREW', raw: '1,500' }, { label: 'GUESTS (DOUBLE OCCUPANCY)', raw: '4,180' }, { label: 'GT', raw: '168,666' },
+    { label: 'FEET LONG', raw: '1,141' }, { label: 'METRES LONG', raw: '348' }]);
+  assert.equal(factSheetUpdated(raw), '7.22.26');
+  assert.deepEqual(factSheetFigures('4,180 GUESTS\n', ''), [], 'a guest count with no (DOUBLE OCCUPANCY) under it is not read');
+  assert.deepEqual(factSheetFigures('1,500 CREW\n1,600 CREW\n', ''), [], 'two different crew figures: the sheet contradicts itself');
+  assert.deepEqual(factSheetFigures('1,500 CREW\n1,500 CREW\n', ''), [{ label: 'CREW', raw: '1,500' }], 'the same figure printed twice is one figure');
+  assert.deepEqual(factSheetFigures('', '136   FEET,   41   METRES   WIDE'), [], 'width is not length');
+  assert.deepEqual(readOfficial('CREW', '1,500'), [{ property: 'crew', value: 1500, unit: 'crew' }]);
+  assert.deepEqual(readOfficial('GUESTS (DOUBLE OCCUPANCY)', '4,180'), [{ property: 'guests_double', value: 4180, unit: 'guests' }]);
+  assert.deepEqual(readOfficial('GT', '168,666'), [{ property: 'gross_tonnage', value: 168666, unit: 'GT' }]);
+  assert.deepEqual(readOfficial('METRES LONG', '348'), [{ property: 'length_m', value: 348, unit: 'm' }]);
+  assert.match(readOfficial('FEET LONG', '1,141')[0].skip, /feet only/);
+  assert.ok(readOfficial('GUESTS', '4,180')[0].skip, 'GUESTS without (DOUBLE OCCUPANCY) says neither double nor maximum');
+  assert.match(readOfficial('GUESTS (DOUBLE OCCUPANCY)', '~4,180')[0].skip, /approximate/);
+  for (const t of OFFICIAL.filter((x) => x.publisher === 'Royal Caribbean')) {
+    assert.equal(t.extractor, 'rcl-fact-sheet-pdf', t.entity);
+    assert.match(t.url, /^https:\/\/royalcaribbeanpresscenter\.com\/fact-sheet\/[a-z]+$/, t.entity);
+  }
 });
 
 test('nothing interpreted is filed: every approximate or placeholder value sits in not_filed with its reason', { skip }, () => {
