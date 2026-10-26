@@ -544,7 +544,6 @@ Dining Venues on Carnival Elation <a href="/restaurants/" style="font-size: 1rem
 <script>
 new Swiper('#photo-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,pagination:{el:'.swiper-pagination',clickable:true},breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});
 fetch('/assets/data/videos/carnival/carnival-elation.json').then(r=>r.json()).then(d=>{const w=document.getElementById('video-wrapper');if(w&&d.videos)w.textContent='';(Array.isArray(d.videos)?d.videos:Object.values(d.videos).flat()).filter(v=>v&&/^[A-Za-z0-9_-]{11}$/.test(String(v.videoId||''))).slice(0,24).forEach(v=>{const s=document.createElement('div');s.className='swiper-slide';const a=document.createElement('a');a.href='https://www.youtube.com/watch?v='+v.videoId;a.target='_blank';a.rel='noopener';a.className='video-thumb';const im=document.createElement('img');im.src='https://img.youtube.com/vi/'+v.videoId+'/mqdefault.jpg';im.alt=String(v.title||'');im.loading='lazy';a.appendChild(im);s.appendChild(a);w.appendChild(s);});new Swiper('#video-swiper',{loop:false,rewind:false,slidesPerView:1,spaceBetween:16,breakpoints:{640:{slidesPerView:2},900:{slidesPerView:3}}});}).catch(()=>{});
-fetch('/assets/data/logbook/carnival/carnival-elation.json').then(r=>r.json()).then(d=>{const c=document.getElementById('logbook-container');if(c&&d.stories)c.innerHTML=d.stories.slice(0,3).map(s=>`<article class="logbook-entry"><h4>${s.title}</h4><p class="logbook-meta">${s.persona_label} · ${s.author.name}</p><p>${s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')}</p></article>`).join('');}).catch(()=>{});
 </script>
 <script>
 (function(){
@@ -588,7 +587,16 @@ fetch('/assets/data/logbook/carnival/carnival-elation.json').then(r=>r.json()).t
     if(!c) return;
     fetch('/assets/data/logbook/carnival/carnival-elation.json')
       .then(r=>r.json()).then(d=>{
-        if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split(\'\\n\\n\')[0].replace(/\*\*/g,\'\')+'</p></article>').join('');
+        if(!d||!Array.isArray(d.stories)||!d.stories.length) return;
+        c.textContent='';
+        d.stories.slice(0,3).forEach(s=>{
+          const a=document.createElement('article');a.className='logbook-entry';
+          const h=document.createElement('h3');h.textContent=String(s.title||'');
+          const m=document.createElement('p');m.className='logbook-meta';
+          m.textContent=[s.persona_label,s.author&&s.author.name].filter(Boolean).join(' · ');
+          const p=document.createElement('p');p.textContent=String(s.markdown||'').split('\n\n')[0].replace(/\*\*/g,'');
+          a.append(h,m,p);c.appendChild(a);
+        });
       }).catch(()=>{});
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
