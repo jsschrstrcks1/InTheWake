@@ -579,18 +579,6 @@ function initFirstLook(){
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initFirstLook); else initFirstLook();
 </script>
 
-<!-- ===== JS Module: Ship Logbook ===== -->
-<script>
-function initShipLogbook(){
-  const c=document.getElementById('logbook-container');
-  if(!c) return;
-  fetch('/assets/data/logbook/carnival/carnival-vista.json')
-    .then(r=>r.json()).then(d=>{
-      if(d.stories) c.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h4>'+s.title+'</h4><p class="logbook-meta">'+s.persona_label+' · '+s.author.name+'</p><p>'+s.markdown.split('\\n\\n')[0].replace(/\*\*/g,'')+'</p></article>').join('');
-    }).catch(()=>{});
-}
-if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initShipLogbook); else initShipLogbook();
-</script>
 
 <!-- ===== JS Module: Video Loader ===== -->
 <script>
