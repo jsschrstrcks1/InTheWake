@@ -149,6 +149,23 @@ test('apply-official: an edit that changes text but not what the file says is re
   assert.match(r.stderr, /REFUSED itw_apply_official_unverified: alpha-of-the-seas#crew in data\/atlas\/ship-size-atlas\.json does not read 2109/);
 });
 
+test('apply-official: an atlas row is found under any line prefix, never guessed', (t) => {
+  // Norwegian rows are ncl-<slug>; the first build looked only for rcl- and found none (caught by the re-read).
+  const ncl = tree(t, { ...FILES,
+    'assets/data/lexicon/observations/alpha-of-the-seas.json': OBS('ship:alpha-of-the-seas', [{ label: 'CREW', raw: '2,109' }]),
+    'data/atlas/ship-size-atlas.json': ATLAS.replace('"ship_id": "rcl-alpha-of-the-seas"', '"ship_id": "ncl-alpha-of-the-seas"') });
+  const r = apply(ncl, plan(ncl).changes);
+  assert.equal(r.failed.length, 0);
+  assert.match(readFileSync(join(ncl, 'data/atlas/ship-size-atlas.json'), 'utf8'), /"ship_id": "ncl-alpha-of-the-seas",[\s\S]*?"crew": 2109/);
+  const two = tree(t, { ...FILES,
+    'assets/data/lexicon/observations/alpha-of-the-seas.json': OBS('ship:alpha-of-the-seas', [{ label: 'CREW', raw: '2,109' }]),
+    'data/atlas/ship-size-atlas.json': ATLAS.replace('"ship_id": "rcl-beta-of-the-seas"', '"ship_id": "ncl-alpha-of-the-seas"') });
+  const before = readFileSync(join(two, 'data/atlas/ship-size-atlas.json'), 'utf8');
+  const r2 = apply(two, plan(two).changes);
+  assert.ok(r2.failed.length >= 1 && r2.failed.every((f) => f.file === 'data/atlas/ship-size-atlas.json'), 'two rows for one slug: every atlas edit is refused');
+  assert.equal(readFileSync(join(two, 'data/atlas/ship-size-atlas.json'), 'utf8'), before, 'and the atlas is not touched');
+});
+
 test('apply-official: a dry run changes nothing', (t) => {
   const dir = tree(t, FILES);
   const r = spawnSync(process.execPath, [CLI, '--root', dir], { encoding: 'utf8' });

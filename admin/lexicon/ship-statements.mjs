@@ -130,10 +130,10 @@ export function readOfficial(label, raw) {
     const n = r.replace(/\s*tons?$/i, "");
     return GROUPED.test(n) ? [{ property: "gross_tonnage", value: Number(n.replace(/[.,]/g, "")), unit: "GT" }] : [{ skip: "not a plain tonnage" }];
   }
-  if (l === "onboard crew" || l === "crew members" || l === "crew") {
+  if (l === "onboard crew" || l === "crew members" || l === "crew" || l === "ship crew") {
     return GROUPED.test(r) ? [{ property: "crew", value: Number(r.replace(/[.,]/g, "")), unit: "crew" }] : [{ skip: "not a plain count" }];
   }
-  if (l === "guests (double occupancy)") {
+  if (l === "guests (double occupancy)" || l === "guest capacity (double occupancy)") {
     return GROUPED.test(r) ? [{ property: "guests_double", value: Number(r.replace(/[.,]/g, "")), unit: "guests" }] : [{ skip: "not a plain count" }];
   }
   if (l === "metres long") {
@@ -142,7 +142,7 @@ export function readOfficial(label, raw) {
   if (["guest capacity", "number of passengers", "number of guests"].includes(l)) {
     return [{ skip: "the line does not say whether this is double occupancy or maximum" }];
   }
-  if (l === "length in feet" || l === "feet long") return [{ skip: "feet only; not converted" }];
+  if (l === "length in feet" || l === "feet long" || l === "overall length") return [{ skip: "feet only; not converted" }];
   if (l === "length/beam/height") {
     const m = /^(\d+(?:\.\d+)?)\s*m\b/.exec(r);
     return m ? [{ property: "length_m", value: Number(m[1]), unit: "m" }] : [{ skip: "no length in metres first" }];

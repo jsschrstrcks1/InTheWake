@@ -15,7 +15,8 @@
 //   data/atlas/ship-size-atlas.json  gt, crew, pax_double; the field's `sources` entry becomes
 //                                    ["Royal Caribbean Official"], the label the atlas already uses
 //   assets/data/fleet_index.json      gt
-//   assets/data/rc_ships_meta.json    ships[].gt and ships[].crew
+//   assets/data/rc_ships_meta.json,  ships[].gt and ships[].crew
+//   assets/data/ncl_ships_meta.json
 //   ships/<line>/<slug>.html          the #ship-stats-fallback block: gt, crew, and the "(double)" figure of guests;
 //                                    and the page's own labelled stat slots holding exactly the old figure: the
 //                                    "<strong>Tonnage:</strong>", "Crew:", "Guests:" list and the stat-key/stat-val
@@ -42,7 +43,7 @@ import { collect, compare } from "./cross-check.mjs";
 
 const ROOT = fileURLToPath(new URL("../..", import.meta.url));
 const OFFICIAL = "assets/data/lexicon/observations/";
-const LINE_LABEL = { "Royal Caribbean": "Royal Caribbean Official" };
+const LINE_LABEL = { "Royal Caribbean": "Royal Caribbean Official", "Norwegian Cruise Line": "Norwegian Cruise Line Official" };
 
 const group = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -81,7 +82,11 @@ function blockOf(text, opener, nextOpener) {
 const WRITERS = [
   { match: /^data\/atlas\/ship-size-atlas\.json$/, fields: { gross_tonnage: "gt", crew: "crew", guests_double: "pax_double" },
     edit(text, slug, field, value, line) {
-      const b = blockOf(text, `"ship_id": "rcl-${slug}"`, `"ship_id":`);
+      // The atlas keys a ship as <line>-<slug> (rcl-, ncl-, carnival- ...): found the way the cross-check joins it,
+      // by any one line prefix, and only when exactly one row matches.
+      const ids = [...text.matchAll(new RegExp(`"ship_id": "(?:[a-z0-9]+-)?${esc(slug)}"`, "g"))];
+      if (ids.length !== 1) return null;
+      const b = blockOf(text, ids[0][0], `"ship_id":`);
       if (!b) return null;
       let t = setField(text, b[0], b[1], field, () => String(value));
       if (t === null) return null;
@@ -103,7 +108,7 @@ const WRITERS = [
       const b = blockOf(text, `"slug": "${slug}"`, `"slug":`);
       return b && setField(text, b[0], b[1], field, (old) => restyle(old, value));
     } },
-  { match: /^assets\/data\/rc_ships_meta\.json$/, fields: { gross_tonnage: "gt", crew: "crew" },
+  { match: /^assets\/data\/(rc|ncl)_ships_meta\.json$/, fields: { gross_tonnage: "gt", crew: "crew" },
     edit(text, slug, field, value) {
       const b = blockOf(text, `"slug": "${slug}"`, `"slug":`);
       return b && setField(text, b[0], b[1], field, (old) => restyle(old, value));

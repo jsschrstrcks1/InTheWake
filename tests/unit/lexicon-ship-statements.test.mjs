@@ -9,7 +9,7 @@ import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { readField, readOfficial, buildShipStatements, loadContract, PILOT, OUT_DIR } from '../../admin/lexicon/ship-statements.mjs';
-import { outcomeOf, figureLabel, factSheetFigures, factSheetUpdated, OFFICIAL } from '../../admin/lexicon/capture-official.mjs';
+import { outcomeOf, figureLabel, factSheetFigures, factSheetUpdated, nclFigures, withHolds, OFFICIAL } from '../../admin/lexicon/capture-official.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const LEX = path.resolve(ROOT, '..', 'Project-Sophos', 'sophos', 'src', 'lexicon');
@@ -229,4 +229,44 @@ test('the capture tool never calls a page it was not shown "no figures"', () => 
   assert.equal(outcomeOf([], 40000), 'no_figures_on_page');
   for (const l of ['Gross Tonnage:', 'Gross Tonnage', 'Onboard Crew', 'Crew members:', 'Number of passengers:', 'Guest Capacity', 'Length In Feet', 'Length/Beam/Height:']) assert.ok(figureLabel(l), l);
   for (const l of ['Number of cabins:', 'Maximum Speed:', 'Find out what our guests have to say about MSC Grandiosa.']) assert.ok(!figureLabel(l), l);
+});
+
+test('a Norwegian ship page is read value-above-label, and only where the label says what the number is', () => {
+  // The shape of ncl.com/cruise-ships/<ship> as Chromium renders it: the number on the line above its label.
+  const page = ['Ship Facts', '3,565', 'Guest Capacity', '(Double Occupancy)', '1,597', 'Ship Crew', '1056ft', 'Overall Length', '20', 'Decks'];
+  assert.deepEqual(nclFigures(page), [
+    { label: 'Guest Capacity (Double Occupancy)', raw: '3,565' },
+    { label: 'Ship Crew', raw: '1,597' },
+    { label: 'Overall Length', raw: '1056ft' },
+  ]);
+  assert.deepEqual(nclFigures(['3,565', 'Guest Capacity']), [], 'guest capacity without "(Double Occupancy)" says neither double nor maximum');
+  assert.deepEqual(nclFigures(['about 1,600', 'Ship Crew']), [], 'an approximate figure is not read');
+  assert.deepEqual(nclFigures(['1056', 'Overall Length']), [], 'a length with no unit is not read');
+  assert.deepEqual(nclFigures(['1,597', 'Ship Crew', '1,650', 'Ship Crew']), [], 'a page that gives two crews gives none');
+  assert.deepEqual(readOfficial('Guest Capacity (Double Occupancy)', '3,565'), [{ property: 'guests_double', value: 3565, unit: 'guests' }]);
+  assert.deepEqual(readOfficial('Ship Crew', '1,597'), [{ property: 'crew', value: 1597, unit: 'crew' }]);
+  assert.match(readOfficial('Overall Length', '1056ft')[0].skip, /feet only/, 'feet are never converted into a metre figure');
+});
+
+test('a held figure is kept word for word, out of the items the cross-check reads, and only where a target holds it', () => {
+  const obs = { outcome: 'captured', items: [{ label: 'Guest Capacity (Double Occupancy)', raw: '3,565' }, { label: 'Ship Crew', raw: '1,597' }] };
+  const held = withHolds(obs, { 'Guest Capacity (Double Occupancy)': 'pack' });
+  assert.deepEqual(held.items, [{ label: 'Ship Crew', raw: '1,597' }]);
+  assert.deepEqual(held.held, [{ label: 'Guest Capacity (Double Occupancy)', raw: '3,565', reason: 'pack' }]);
+  assert.equal(held.outcome, 'captured');
+  assert.equal(withHolds(obs, undefined), obs, 'no hold, no change');
+  assert.equal(withHolds(obs, { 'Gross Tonnage': 'x' }), obs, 'a hold on a figure the page did not give changes nothing');
+  const holders = OFFICIAL.filter((t) => t.hold).map((t) => t.entity).sort();
+  assert.deepEqual(holders, ['ship:norwegian-aqua', 'ship:norwegian-bliss'], 'a new hold is a decision to name in review, not a quiet edit');
+  for (const t of OFFICIAL.filter((x) => x.hold)) for (const reason of Object.values(t.hold)) assert.match(reason, /NCL-PROSE-TO-REVIEW\.md/);
+});
+
+test('the committed Norwegian captures: Sky (whose page redirects) is no target, and the held counts stay out of items', () => {
+  const sky = OFFICIAL.find((t) => t.entity === 'ship:norwegian-sky');
+  assert.equal(sky, undefined, 'Norwegian Sky\'s page redirects to the fleet list, so she is not a target');
+  for (const s of ['aqua', 'bliss']) {
+    const o = JSON.parse(readFileSync(path.join(ROOT, `assets/data/lexicon/observations/norwegian-${s}.json`), 'utf8'));
+    assert.ok(!o.items.some((i) => /guest capacity/i.test(i.label)), `${s}: the held guest count must not be in items`);
+    assert.equal(o.held.length, 1, s);
+  }
 });

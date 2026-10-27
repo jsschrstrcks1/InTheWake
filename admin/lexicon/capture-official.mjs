@@ -40,6 +40,10 @@ export const OBS_DIR = "assets/data/lexicon/observations";
 const MIN_PAGE_CHARS = 1000;
 const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36";
 
+// Norwegian's guest count for Aqua and Bliss differs from the figure a voyage pack quotes (from Wikipedia) and
+// repeats in its prose. A pack is a person's to reconcile, so these two are held, not fed to the cross-check.
+const PACK_HOLD = "A voyage pack quotes a different figure, from Wikipedia, and repeats it in its prose. Held until a person reconciles the pack: admin/lexicon/NCL-PROSE-TO-REVIEW.md";
+
 // Each line's own page, and how that page lays out its figures. Royal Caribbean's are its press-center fact
 // sheets (see ROYAL CARIBBEAN above); the old /fact-sheet/15/... address answers 404.
 export const OFFICIAL = Object.freeze([
@@ -79,6 +83,29 @@ export const OFFICIAL = Object.freeze([
   { entity: "ship:grandeur-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/grandeur", extractor: "rcl-fact-sheet-pdf" },
   { entity: "ship:rhapsody-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/rhapsody", extractor: "rcl-fact-sheet-pdf" },
   { entity: "ship:vision-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/vision", extractor: "rcl-fact-sheet-pdf" },
+  // Norwegian Cruise Line: every ship In the Wake has a page for (ships/norwegian/, read 2026-10-27), each slug
+  // written out. ncl.com prints a figure above its label ("4,218" / "Guest Capacity" / "(Double Occupancy)",
+  // "1,733" / "Ship Crew"). Norwegian Sky is not listed: her address redirects to the fleet list, so there is
+  // no page of hers to read.
+  { entity: "ship:norwegian-aqua", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-aqua", extractor: "ncl-value-then-label", hold: { "Guest Capacity (Double Occupancy)": PACK_HOLD } },
+  { entity: "ship:norwegian-bliss", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-bliss", extractor: "ncl-value-then-label", hold: { "Guest Capacity (Double Occupancy)": PACK_HOLD } },
+  { entity: "ship:norwegian-breakaway", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-breakaway", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-dawn", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-dawn", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-encore", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-encore", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-epic", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-epic", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-escape", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-escape", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-gem", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-gem", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-getaway", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-getaway", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-jade", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-jade", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-jewel", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-jewel", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-joy", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-joy", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-pearl", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-pearl", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-prima", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-prima", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-spirit", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-spirit", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-star", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-star", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-sun", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-sun", extractor: "ncl-value-then-label" },
+  { entity: "ship:norwegian-viva", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/norwegian-viva", extractor: "ncl-value-then-label" },
+  { entity: "ship:pride-of-america", publisher: "Norwegian Cruise Line", url: "https://www.ncl.com/cruise-ships/pride-of-america", extractor: "ncl-value-then-label" },
 ]);
 
 // Where a fact sheet's PDF may live: Royal Caribbean's own media and press hosts, nothing else.
@@ -128,6 +155,25 @@ export function factSheetFigures(raw, layout) {
   return out;
 }
 
+/**
+ * The figures on a Norwegian ship page, from its text lines (innerText, trimmed, blanks dropped). The page prints
+ * each figure on the line above its label: "4,218" / "Guest Capacity" / "(Double Occupancy)", "1,733" / "Ship Crew",
+ * "1069ft" / "Overall Length". A guest capacity is read only with "(Double Occupancy)" on the line below it, and
+ * the figure line must be a number and nothing else. A label printed twice with different figures records nothing.
+ */
+export function nclFigures(lines) {
+  const L = lines.map((x) => String(x).trim()).filter(Boolean);
+  const found = new Map();
+  const add = (label, raw) => { if (!found.has(label)) found.set(label, new Set()); found.get(label).add(raw); };
+  L.forEach((line, i) => {
+    const above = L[i - 1] ?? "";
+    if (/^guest capacity$/i.test(line) && /^\(double occupancy\)$/i.test(L[i + 1] ?? "") && /^\d[\d,]*$/.test(above)) add("Guest Capacity (Double Occupancy)", above);
+    if (/^ship crew$/i.test(line) && /^\d[\d,]*$/.test(above)) add("Ship Crew", above);
+    if (/^overall length$/i.test(line) && /^\d[\d,]*\s*ft$/i.test(above)) add("Overall Length", above);
+  });
+  return [...found].filter(([, v]) => v.size === 1).map(([label, v]) => ({ label, raw: [...v][0] }));
+}
+
 /** The date a fact sheet says it was last updated ("Updated 7.22.26"), as printed, or null. */
 export const factSheetUpdated = (raw) => (/\bUpdated\s+(\d{1,2}\.\d{1,2}\.\d{2,4})\b/.exec(String(raw)) || [])[1] ?? null;
 
@@ -139,6 +185,19 @@ function pdfText(buf, layout) {
 const LABEL = /^(gross tonnage|number of passengers|number of guests|guest capacity|crew members|onboard crew|length(\s*\/.*|\s+in\s+feet)?)\s*:?$/i;
 
 /** What a read found: figures, a real page with none, or no page content at all. */
+/**
+ * Move the figures a target holds out of `items` and into `held`, with the reason. A held figure is still
+ * recorded, word for word, so nothing the line said is lost; the cross-check reads only `items`. Holding is
+ * for a figure a person must reconcile first, never a way to make a disagreement go quiet.
+ */
+export function withHolds(obs, hold) {
+  if (!hold || !obs.items?.length) return obs;
+  const held = obs.items.filter((i) => Object.hasOwn(hold, i.label)).map((i) => ({ ...i, reason: hold[i.label] }));
+  if (!held.length) return obs;
+  const items = obs.items.filter((i) => !Object.hasOwn(hold, i.label));
+  return { ...obs, items, held };
+}
+
 export function outcomeOf(items, textChars) {
   if (items.length) return "captured";
   return textChars < MIN_PAGE_CHARS ? "content_not_served" : "no_figures_on_page";
@@ -185,6 +244,7 @@ export async function capture(targets = OFFICIAL, { now = () => new Date().toISO
       let obs;
       try {
         if (t.extractor === "rcl-fact-sheet-pdf") { results.push(await factSheet(page, t, base, now)); continue; }
+        if (t.extractor === "ncl-value-then-label") { results.push(withHolds(await nclPage(page, t, base, now), t.hold)); continue; }
         const res = await page.goto(t.url, { waitUntil: "domcontentloaded", timeout: 45000 });
         await page.waitForTimeout(6000);
         const retrievedAt = now();
@@ -227,6 +287,20 @@ async function factSheet(page, t, base, now) {
     document_sha256: crypto.createHash("sha256").update(buf).digest("hex"), published_as_of: factSheetUpdated(raw),
     text_sha256: crypto.createHash("sha256").update(raw).digest("hex"), text_chars: raw.length,
     outcome: outcomeOf(items, raw.length), items };
+}
+
+/** Open a Norwegian ship page and read its figures. A redirect away from the ship's own page is not her page. */
+async function nclPage(page, t, base, now) {
+  const res = await page.goto(t.url, { waitUntil: "domcontentloaded", timeout: 45000 });
+  await page.waitForTimeout(5000);
+  const retrievedAt = now();
+  const landed = page.url().replace(/\/$/, "");
+  const text = await page.evaluate(() => document.body.innerText);
+  const common = { ...base, retrieved_at: retrievedAt, http_status: res ? res.status() : null,
+    text_sha256: crypto.createHash("sha256").update(text).digest("hex"), text_chars: text.length };
+  if (landed !== t.url.replace(/\/$/, "")) return { ...common, outcome: "content_not_served", note: `redirected to ${landed}`, items: [] };
+  const items = nclFigures(text.split("\n"));
+  return { ...common, outcome: outcomeOf(items, text.length), items };
 }
 
 async function main(argv) {
