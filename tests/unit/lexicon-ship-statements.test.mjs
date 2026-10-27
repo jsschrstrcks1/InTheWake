@@ -166,6 +166,23 @@ test('a Royal Caribbean fact sheet is read figure by label, as printed, and a sh
   assert.deepEqual(factSheetFigures('1,500 CREW\n1,600 CREW\n', ''), [], 'two different crew figures: the sheet contradicts itself');
   assert.deepEqual(factSheetFigures('1,500 CREW\n1,500 CREW\n', ''), [{ label: 'CREW', raw: '1,500' }], 'the same figure printed twice is one figure');
   assert.deepEqual(factSheetFigures('', '136   FEET,   41   METRES   WIDE'), [], 'width is not length');
+  // Sheets whose reading order parts a label from its figure (Allure, Enchantment; Anthem, Independence, Liberty):
+  // the layout keeps them together, by column for guests and by the line below for length.
+  const allure = [
+    '                                                                      5,718 GUESTS',
+    '• CANDY BEACH           • GIOVANNI’S TABLE       • SAMBA GRILL',
+    '• CHEF’S TABLE          • IZUMI                  • STARBUCKS',
+    '• CHOPS GRILLE          • JOHNNY ROCKETS                              (DOUBLE OCCUPANCY)',
+  ].join('\n');
+  assert.deepEqual(factSheetFigures('5,718 GUESTS\n225,282 GT\n', allure), [{ label: 'GUESTS (DOUBLE OCCUPANCY)', raw: '5,718' }, { label: 'GT', raw: '225,282' }]);
+  assert.deepEqual(factSheetFigures('', allure.replace('(DOUBLE OCCUPANCY)', '          (DOUBLE OCCUPANCY)')), [], 'the label in another column is not this figure\'s');
+  assert.deepEqual(factSheetFigures('', allure.replace('(DOUBLE OCCUPANCY)', '(DOUBLE OCCUPANCY) 9')), [], 'text after the label: not the label alone');
+  assert.deepEqual(factSheetFigures('', `${allure}\n\n\n\n`.replace(/\n• CHOPS/, '\n\n• CHOPS')), [], 'more than three lines below is too far');
+  const anthem = '          1,141            348            LONG\nTAGES\n                      FEET,          METRES\n';
+  assert.deepEqual(factSheetFigures('', anthem), [{ label: 'FEET LONG', raw: '1,141' }, { label: 'METRES LONG', raw: '348' }]);
+  assert.deepEqual(factSheetFigures('', anthem.replace('METRES\n', 'METRES   WIDE\n')), [], 'the line below must end FEET, METRES');
+  assert.deepEqual(factSheetFigures('', `${anthem}1,141   FEET,   350   METRES   LONG\n`), [], 'two readings that disagree: nothing');
+  assert.deepEqual(factSheetFigures('5,718 GUESTS\n(DOUBLE OCCUPANCY)\n', allure.replace('5,718 GUESTS', '5,719 GUESTS')), [], 'raw and layout disagree on guests: nothing');
   assert.deepEqual(readOfficial('CREW', '1,500'), [{ property: 'crew', value: 1500, unit: 'crew' }]);
   assert.deepEqual(readOfficial('GUESTS (DOUBLE OCCUPANCY)', '4,180'), [{ property: 'guests_double', value: 4180, unit: 'guests' }]);
   assert.deepEqual(readOfficial('GT', '168,666'), [{ property: 'gross_tonnage', value: 168666, unit: 'GT' }]);

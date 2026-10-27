@@ -48,6 +48,37 @@ export const OFFICIAL = Object.freeze([
   { entity: "ship:radiance-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/radiance", extractor: "rcl-fact-sheet-pdf" },
   { entity: "ship:quantum-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/quantum", extractor: "rcl-fact-sheet-pdf" },
   { entity: "ship:legend-of-the-seas-2026", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/legend", extractor: "rcl-fact-sheet-pdf" },
+  // The rest of the fleet the press center lists (royalcaribbeanpresscenter.com/ships, read 2026-10-26: 31 fact
+  // sheets). Each slug is written out, never derived: "<name>-of-the-seas" is the page name In the Wake uses for
+  // every one but Hero, which has no page here yet and so joins nothing.
+  { entity: "ship:hero-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/hero", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:icon-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/icon", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:star-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/star", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:oasis-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/oasis", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:symphony-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/symphony", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:utopia-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/utopia", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:wonder-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/wonder", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:allure-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/allure", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:harmony-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/harmony", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:odyssey-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/odyssey", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:spectrum-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/spectrum", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:anthem-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/anthem", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:ovation-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/ovation", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:freedom-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/freedom", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:independence-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/independence", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:liberty-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/liberty", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:explorer-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/explorer", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:mariner-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/mariner", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:navigator-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/navigator", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:voyager-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/voyager", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:adventure-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/adventure", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:brilliance-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/brilliance", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:jewel-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/jewel", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:serenade-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/serenade", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:enchantment-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/enchantment", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:grandeur-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/grandeur", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:rhapsody-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/rhapsody", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:vision-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/vision", extractor: "rcl-fact-sheet-pdf" },
 ]);
 
 // Where a fact sheet's PDF may live: Royal Caribbean's own media and press hosts, nothing else.
@@ -57,21 +88,42 @@ const RCL_DOC_HOST = /^(?:www\.)?royalcaribbean(?:media|presscenter)\.com$/;
  * The figures on a Royal Caribbean "Fast Facts" sheet, from the PDF's text: `raw` is pdftotext's reading order,
  * `layout` its -layout output. The sheet prints a figure before its label ("1,500 CREW", "168,666 GT", "4,180
  * GUESTS" over "(DOUBLE OCCUPANCY)", "1,141 FEET, 348 METRES LONG"). Each is recorded with the label as printed.
- * A figure printed twice with different values is not recorded: the sheet would be contradicting itself.
+ *
+ * Some sheets come out of pdftotext with a label away from its figure, so two readings are taken and must agree:
+ * - Guests: reading order puts "(DOUBLE OCCUPANCY)" on the next line; on some sheets only the layout keeps them
+ *   together, with "(DOUBLE OCCUPANCY)" ending a line within three lines below, starting in the same column
+ *   (two characters of slack). Any other text after it on that line, or another column, is not that label.
+ * - Length: "1,141 FEET, 348 METRES LONG" on one line, or the figures on one line ("1,141   348   LONG") with
+ *   "FEET,   METRES" ending a line within two lines below.
+ * A figure whose readings give two different values is not recorded: the sheet would be contradicting itself.
  */
 export function factSheetFigures(raw, layout) {
-  const one = (re, text) => {
-    const vals = [...new Set([...String(text).matchAll(re)].map((m) => m.slice(1)).map((g) => JSON.stringify(g)))];
-    return vals.length === 1 ? JSON.parse(vals[0]) : null;
-  };
+  const only = (values) => { const v = [...new Set(values.map((x) => JSON.stringify(x)))]; return v.length === 1 ? JSON.parse(v[0]) : null; };
+  const all = (re, text) => [...String(text).matchAll(re)].map((m) => m.slice(1));
+  const lines = String(layout).split("\n");
+  const guests = all(/^(\d[\d,]*) GUESTS[ \t]*\n[ \t]*\(DOUBLE OCCUPANCY\)/gm, raw).map((g) => g[0]);
+  const length = all(/(\d[\d,]*)\s+FEET,\s+(\d+(?:\.\d+)?)\s+METRES\s+LONG/g, layout);
+  lines.forEach((line, i) => {
+    const g = /(\d[\d,]*) GUESTS\s*$/.exec(line);
+    if (g) {
+      for (let k = 1; k <= 3 && i + k < lines.length; k += 1) {
+        const at = lines[i + k].indexOf("(DOUBLE OCCUPANCY)");
+        if (at >= 0 && Math.abs(at - g.index) <= 2 && /^\(DOUBLE OCCUPANCY\)\s*$/.test(lines[i + k].slice(at))) { guests.push(g[1]); break; }
+      }
+    }
+    const n = /(\d[\d,]*)\s+(\d+(?:\.\d+)?)\s+LONG\s*$/.exec(line);
+    if (n && !/FEET|METRES/.test(line)) {
+      for (let k = 1; k <= 2 && i + k < lines.length; k += 1) if (/FEET,\s+METRES\s*$/.test(lines[i + k])) { length.push([n[1], n[2]]); break; }
+    }
+  });
   const out = [];
-  const crew = one(/^(\d[\d,]*) CREW$/gm, raw);
-  if (crew) out.push({ label: "CREW", raw: crew[0] });
-  const guests = one(/^(\d[\d,]*) GUESTS[ \t]*\n[ \t]*\(DOUBLE OCCUPANCY\)/gm, raw);
-  if (guests) out.push({ label: "GUESTS (DOUBLE OCCUPANCY)", raw: guests[0] });
-  const gt = one(/^(\d[\d,]*) GT$/gm, raw);
-  if (gt) out.push({ label: "GT", raw: gt[0] });
-  const len = one(/(\d[\d,]*)\s+FEET,\s+(\d+(?:\.\d+)?)\s+METRES\s+LONG/g, layout);
+  const crew = only(all(/^(\d[\d,]*) CREW$/gm, raw).map((g) => g[0]));
+  if (crew) out.push({ label: "CREW", raw: crew });
+  const dbl = only(guests);
+  if (dbl) out.push({ label: "GUESTS (DOUBLE OCCUPANCY)", raw: dbl });
+  const gt = only(all(/^(\d[\d,]*) GT$/gm, raw).map((g) => g[0]));
+  if (gt) out.push({ label: "GT", raw: gt });
+  const len = only(length);
   if (len) out.push({ label: "FEET LONG", raw: len[0] }, { label: "METRES LONG", raw: len[1] });
   return out;
 }

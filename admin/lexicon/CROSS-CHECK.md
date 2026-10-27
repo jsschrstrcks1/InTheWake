@@ -76,12 +76,41 @@ A voyage pack writes its figures as prose, so `readPackSpec` reads them:
 A **disagreement** is a ship and property with two or more distinct values. The check never picks a side and
 never edits data.
 
+## Applying the line's figure
+
+`admin/lexicon/apply-official.mjs` carries out the remedy once the line's figure has been captured. For every
+disagreement the line-official reading takes part in, it sets each differing copy to the line's figure:
+- the size atlas (gt, crew, pax_double, and that field's `sources`, which becomes the line's label), `fleet_index.json`
+  (gt) and `rc_ships_meta.json` (ships[] gt and crew);
+- a ship page's `#ship-stats-fallback` block (gt, crew, and only the "(double)" figure of guests);
+- the page's labelled stat slots ("Tonnage:", "Guests:", "Crew:", and the stat-key/stat-val grid), when they hold
+  exactly the old figure.
+
+Every edit is surgical, so nothing else in the file moves. It refuses to guess:
+- a record found more than once is not edited;
+- a fact the line itself states two ways is left alone;
+- an approximate figure is never a reading.
+
+After `--apply` it re-reads every copy it changed, and one that does not read the line's figure is refused
+(`itw_apply_official_unverified`, exit 1). It never edits prose, and it names every page where the old figure
+is still written: a sentence can state history. The 2026-10-27 run's list is `admin/lexicon/RCL-PROSE-TO-REVIEW.md`.
+
+```bash
+node admin/lexicon/apply-official.mjs            # dry run: every change it would make
+node admin/lexicon/apply-official.mjs --apply    # make them, re-read each, name the prose left
+```
+
+The first run (2026-10-27) made 90 changes across 18 ship pages, the size atlas, `fleet_index.json` and
+`rc_ships_meta.json`. It also set 36 labelled stat slots and resolved 32 known disagreements. 643 facts are now
+shared and 188 disagree.
+
 ## Codes
 
 | Code | Exit | Cause | Remedy |
 |---|---|---|---|
 | `itw_data_cross_check` | 1 | Two files disagree on a ship fact the baseline does not hold, or the baseline grew beyond what a newly read source alone reveals | Correct the wrong copy from a primary source (the line's own ship page, or the IMO register), so every file says the same. Never add a baseline entry by hand |
 | `itw_data_cross_check` | 1 | The baseline's `sources` list is not the list the tool reads | In the commit that adds or removes a source, run `--adopt-sources` (see below) |
+| `itw_apply_official_unverified` | 1 | `apply-official.mjs --apply` changed a copy that still does not read the line's figure, or could not find its record exactly once | Look at the file the message names; the failed edit is printed |
 | `itw_cross_check_unavailable` | 3 | A source file could not be read or parsed, the baseline is malformed, or `pack-ships.json` maps a pack to something that is not a slug | Fix the file the message names. A source that cannot be read is never a pass |
 
 Exit 0 means every disagreement is a known one.
@@ -144,9 +173,10 @@ node admin/lexicon/cross-check.mjs --adopt-sources     # in the commit that adds
 - **A new pack is compared only once someone maps it** in `pack-ships.json`. Until then each run names it. A pack
   that is mapped later brings its readings through the existing `voyage-pack` source. Those readings are not
   adopted: a disagreement they show must be reconciled.
-- **Line-official figures cover only the five pilot ships.** That's 13 figures today. Royal Caribbean's three come
-  from its press-center fact-sheet PDFs (see `admin/lexicon/capture-official.mjs`). Carnival's and MSC's pages
-  label guest capacity without saying double or maximum, so those two are not compared.
+- **Line-official figures cover Royal Caribbean's whole fleet and two other ships.** That's 97 figures: all 31
+  ships on Royal Caribbean's press center, from its fact-sheet PDFs, plus Carnival Vista and MSC Grandiosa.
+  Carnival's and MSC's pages label guest capacity without saying double or maximum, so those two are not
+  compared. No other line is captured yet.
 - **`data/fleets_index.json` and the quiz files are not read yet.** Each needs its own adapter. The adapter
   list is the place to extend, one shape at a time, each with a fixture test.
 - **Agreement is not truth.** Three copies that agree can all be wrong. This check finds disagreement; the
