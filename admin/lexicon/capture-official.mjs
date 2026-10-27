@@ -15,14 +15,24 @@
 //
 //   node admin/lexicon/capture-official.mjs [ship:slug ...]   capture all (or the named) ships
 //
-// Needs network access and Playwright's Chromium. It is not run by the tests; the files it writes are.
-// Exit codes: 0 every target recorded (whatever its outcome); 2 itw_capture_unavailable (Playwright or
-// Chromium missing; remedy: npm ci, or run where Chromium is installed).
+// ROYAL CARIBBEAN (2026-10-26). royalcaribbean.com serves a headless browser its "ON VACATION" block page
+// (170 characters), and the ship pages carry no figure table anyway. The line's official figures are the
+// "Fast Facts" PDF each fact sheet on its press center (royalcaribbeanpresscenter.com/ships) links as
+// "Download PDF", hosted on royalcaribbeanmedia.com. For those ships the browser opens the fact sheet, follows
+// that link, and the figures are read from the PDF's own text (pdftotext). The observation's `url` is the PDF
+// the figures came from; `found_via` is the press-center page that linked it.
+//
+// Needs network access, Playwright's Chromium and, for a fact sheet, pdftotext (poppler-utils). It is not
+// run by the tests; the files it writes are, and the PDF reader (factSheetFigures) is tested on the text.
+// Exit codes: 0 every target recorded (whatever its outcome); 2 itw_capture_unavailable (Playwright,
+// Chromium or pdftotext missing; remedy: npm ci, or run where Chromium and poppler-utils are installed, or
+// set ITW_CHROMIUM_PATH to an installed Chromium).
 // Soli Deo Gloria.
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { createRequire } from "node:module";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -30,15 +40,100 @@ export const OBS_DIR = "assets/data/lexicon/observations";
 const MIN_PAGE_CHARS = 1000;
 const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36";
 
-// Each line's own page, and how that page lays out its figures. Royal Caribbean publishes no figures on
-// royalcaribbean.com; its press center fact sheets are its official figures, and they are what is tried.
+// Each line's own page, and how that page lays out its figures. Royal Caribbean's are its press-center fact
+// sheets (see ROYAL CARIBBEAN above); the old /fact-sheet/15/... address answers 404.
 export const OFFICIAL = Object.freeze([
   { entity: "ship:carnival-vista", publisher: "Carnival Cruise Line", url: "https://www.carnival.com/cruise-ships/carnival-vista", extractor: "carnival-li" },
   { entity: "ship:msc-grandiosa", publisher: "MSC Cruises", url: "https://www.msccruises.com/int/our-cruises/ships/msc-grandiosa", extractor: "label-then-value" },
-  { entity: "ship:radiance-of-the-seas", publisher: "Royal Caribbean", url: "https://www.royalcaribbeanpresscenter.com/fact-sheet/15/radiance-of-the-seas/", extractor: "label-then-value" },
-  { entity: "ship:quantum-of-the-seas", publisher: "Royal Caribbean", url: "https://www.royalcaribbean.com/cruise-ships/quantum-of-the-seas", extractor: "label-then-value" },
-  { entity: "ship:legend-of-the-seas-2026", publisher: "Royal Caribbean", url: "https://www.royalcaribbean.com/cruise-ships/legend-of-the-seas", extractor: "label-then-value" },
+  { entity: "ship:radiance-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/radiance", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:quantum-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/quantum", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:legend-of-the-seas-2026", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/legend", extractor: "rcl-fact-sheet-pdf" },
+  // The rest of the fleet the press center lists (royalcaribbeanpresscenter.com/ships, read 2026-10-26: 31 fact
+  // sheets). Each slug is written out, never derived: "<name>-of-the-seas" is the page name In the Wake uses for
+  // every one but Hero, which has no page here yet and so joins nothing.
+  { entity: "ship:hero-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/hero", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:icon-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/icon", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:star-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/star", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:oasis-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/oasis", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:symphony-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/symphony", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:utopia-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/utopia", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:wonder-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/wonder", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:allure-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/allure", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:harmony-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/harmony", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:odyssey-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/odyssey", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:spectrum-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/spectrum", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:anthem-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/anthem", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:ovation-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/ovation", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:freedom-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/freedom", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:independence-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/independence", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:liberty-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/liberty", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:explorer-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/explorer", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:mariner-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/mariner", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:navigator-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/navigator", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:voyager-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/voyager", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:adventure-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/adventure", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:brilliance-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/brilliance", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:jewel-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/jewel", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:serenade-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/serenade", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:enchantment-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/enchantment", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:grandeur-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/grandeur", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:rhapsody-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/rhapsody", extractor: "rcl-fact-sheet-pdf" },
+  { entity: "ship:vision-of-the-seas", publisher: "Royal Caribbean", url: "https://royalcaribbeanpresscenter.com/fact-sheet/vision", extractor: "rcl-fact-sheet-pdf" },
 ]);
+
+// Where a fact sheet's PDF may live: Royal Caribbean's own media and press hosts, nothing else.
+const RCL_DOC_HOST = /^(?:www\.)?royalcaribbean(?:media|presscenter)\.com$/;
+
+/**
+ * The figures on a Royal Caribbean "Fast Facts" sheet, from the PDF's text: `raw` is pdftotext's reading order,
+ * `layout` its -layout output. The sheet prints a figure before its label ("1,500 CREW", "168,666 GT", "4,180
+ * GUESTS" over "(DOUBLE OCCUPANCY)", "1,141 FEET, 348 METRES LONG"). Each is recorded with the label as printed.
+ *
+ * Some sheets come out of pdftotext with a label away from its figure, so two readings are taken and must agree:
+ * - Guests: reading order puts "(DOUBLE OCCUPANCY)" on the next line; on some sheets only the layout keeps them
+ *   together, with "(DOUBLE OCCUPANCY)" ending a line within three lines below, starting in the same column
+ *   (two characters of slack). Any other text after it on that line, or another column, is not that label.
+ * - Length: "1,141 FEET, 348 METRES LONG" on one line, or the figures on one line ("1,141   348   LONG") with
+ *   "FEET,   METRES" ending a line within two lines below.
+ * A figure whose readings give two different values is not recorded: the sheet would be contradicting itself.
+ */
+export function factSheetFigures(raw, layout) {
+  const only = (values) => { const v = [...new Set(values.map((x) => JSON.stringify(x)))]; return v.length === 1 ? JSON.parse(v[0]) : null; };
+  const all = (re, text) => [...String(text).matchAll(re)].map((m) => m.slice(1));
+  const lines = String(layout).split("\n");
+  const guests = all(/^(\d[\d,]*) GUESTS[ \t]*\n[ \t]*\(DOUBLE OCCUPANCY\)/gm, raw).map((g) => g[0]);
+  const length = all(/(\d[\d,]*)\s+FEET,\s+(\d+(?:\.\d+)?)\s+METRES\s+LONG/g, layout);
+  lines.forEach((line, i) => {
+    const g = /(\d[\d,]*) GUESTS\s*$/.exec(line);
+    if (g) {
+      for (let k = 1; k <= 3 && i + k < lines.length; k += 1) {
+        const at = lines[i + k].indexOf("(DOUBLE OCCUPANCY)");
+        if (at >= 0 && Math.abs(at - g.index) <= 2 && /^\(DOUBLE OCCUPANCY\)\s*$/.test(lines[i + k].slice(at))) { guests.push(g[1]); break; }
+      }
+    }
+    const n = /(\d[\d,]*)\s+(\d+(?:\.\d+)?)\s+LONG\s*$/.exec(line);
+    if (n && !/FEET|METRES/.test(line)) {
+      for (let k = 1; k <= 2 && i + k < lines.length; k += 1) if (/FEET,\s+METRES\s*$/.test(lines[i + k])) { length.push([n[1], n[2]]); break; }
+    }
+  });
+  const out = [];
+  const crew = only(all(/^(\d[\d,]*) CREW$/gm, raw).map((g) => g[0]));
+  if (crew) out.push({ label: "CREW", raw: crew });
+  const dbl = only(guests);
+  if (dbl) out.push({ label: "GUESTS (DOUBLE OCCUPANCY)", raw: dbl });
+  const gt = only(all(/^(\d[\d,]*) GT$/gm, raw).map((g) => g[0]));
+  if (gt) out.push({ label: "GT", raw: gt });
+  const len = only(length);
+  if (len) out.push({ label: "FEET LONG", raw: len[0] }, { label: "METRES LONG", raw: len[1] });
+  return out;
+}
+
+/** The date a fact sheet says it was last updated ("Updated 7.22.26"), as printed, or null. */
+export const factSheetUpdated = (raw) => (/\bUpdated\s+(\d{1,2}\.\d{1,2}\.\d{2,4})\b/.exec(String(raw)) || [])[1] ?? null;
+
+function pdfText(buf, layout) {
+  return execFileSync("pdftotext", [...(layout ? ["-layout"] : []), "-", "-"], { input: buf, encoding: "utf8", maxBuffer: 16 << 20 });
+}
 
 // The labels a figure may sit beside. Matched against the label exactly as the page shows it.
 const LABEL = /^(gross tonnage|number of passengers|number of guests|guest capacity|crew members|onboard crew|length(\s*\/.*|\s+in\s+feet)?)\s*:?$/i;
@@ -72,7 +167,16 @@ export async function capture(targets = OFFICIAL, { now = () => new Date().toISO
   let chromium;
   try { ({ chromium } = createRequire(import.meta.url)("playwright")); }
   catch (err) { throw Object.assign(new Error(`playwright not loadable: ${err.message}`), { code: "itw_capture_unavailable" }); }
-  const browser = await chromium.launch();
+  if (targets.some((t) => t.extractor === "rcl-fact-sheet-pdf")) {
+    try { execFileSync("pdftotext", ["-v"], { stdio: "ignore" }); }
+    catch { throw Object.assign(new Error("pdftotext not found (poppler-utils)"), { code: "itw_capture_unavailable" }); }
+  }
+  // ITW_CHROMIUM_PATH points at an installed Chromium when the repo's Playwright wants a build that is not on
+  // this machine (its own error says "Executable doesn't exist").
+  const executablePath = process.env.ITW_CHROMIUM_PATH || undefined;
+  let browser;
+  try { browser = await chromium.launch(executablePath ? { executablePath } : {}); }
+  catch (err) { throw Object.assign(new Error(String(err?.message ?? err).split("\n")[0]), { code: "itw_capture_unavailable" }); }
   const page = await browser.newPage({ userAgent: UA });
   const results = [];
   try {
@@ -80,6 +184,7 @@ export async function capture(targets = OFFICIAL, { now = () => new Date().toISO
       const base = { format: "lexicon-observation/1", entity: t.entity, source_kind: "line-official", publisher: t.publisher, url: t.url, extractor: t.extractor };
       let obs;
       try {
+        if (t.extractor === "rcl-fact-sheet-pdf") { results.push(await factSheet(page, t, base, now)); continue; }
         const res = await page.goto(t.url, { waitUntil: "domcontentloaded", timeout: 45000 });
         await page.waitForTimeout(6000);
         const retrievedAt = now();
@@ -101,12 +206,35 @@ export async function capture(targets = OFFICIAL, { now = () => new Date().toISO
   return results;
 }
 
+/** Open a Royal Caribbean fact sheet, follow its "Download PDF" link, and read the figures from the PDF. */
+async function factSheet(page, t, base, now) {
+  await page.goto(t.url, { waitUntil: "domcontentloaded", timeout: 45000 });
+  await page.waitForTimeout(4000);
+  const links = await page.evaluate(() => [...document.querySelectorAll("a")]
+    .filter((a) => /^\s*download pdf\s*$/i.test(a.textContent)).map((a) => a.href));
+  const pdfs = [...new Set(links)].filter((h) => { try { const u = new URL(h); return u.protocol === "https:" && RCL_DOC_HOST.test(u.hostname); } catch { return false; } });
+  // No link, or more than one, is never guessed at: the page did not say which document is the fact sheet.
+  if (pdfs.length !== 1) return { ...base, retrieved_at: now(), outcome: "no_figures_on_page", note: `found ${pdfs.length} "Download PDF" link(s) on Royal Caribbean's hosts`, items: [] };
+  const res = await page.request.get(pdfs[0], { timeout: 45000 });
+  const retrievedAt = now();
+  const buf = Buffer.from(await res.body());
+  if (!res.ok() || buf.subarray(0, 5).toString("latin1") !== "%PDF-") {
+    return { ...base, url: pdfs[0], found_via: t.url, retrieved_at: retrievedAt, http_status: res.status(), outcome: "content_not_served", items: [] };
+  }
+  const raw = pdfText(buf, false), layout = pdfText(buf, true);
+  const items = factSheetFigures(raw, layout);
+  return { ...base, url: pdfs[0], found_via: t.url, retrieved_at: retrievedAt, http_status: res.status(),
+    document_sha256: crypto.createHash("sha256").update(buf).digest("hex"), published_as_of: factSheetUpdated(raw),
+    text_sha256: crypto.createHash("sha256").update(raw).digest("hex"), text_chars: raw.length,
+    outcome: outcomeOf(items, raw.length), items };
+}
+
 async function main(argv) {
   const want = argv.filter((a) => a.startsWith("ship:"));
   const targets = want.length ? OFFICIAL.filter((t) => want.includes(t.entity)) : OFFICIAL;
   let results;
   try { results = await capture(targets); }
-  catch (err) { process.stderr.write(`capture-official: ${err.code ?? "itw_capture_unavailable"}: ${err.message}\n  remedy: npm ci, or run where Playwright's Chromium is installed\n`); return 2; }
+  catch (err) { process.stderr.write(`capture-official: ${err.code ?? "itw_capture_unavailable"}: ${err.message}\n  remedy: npm ci, or run where Playwright's Chromium and poppler-utils (pdftotext) are installed; or set ITW_CHROMIUM_PATH to an installed Chromium\n`); return 2; }
   fs.mkdirSync(path.join(ROOT, OBS_DIR), { recursive: true });
   for (const o of results) {
     const rel = `${OBS_DIR}/${o.entity.split(":")[1]}.json`;
