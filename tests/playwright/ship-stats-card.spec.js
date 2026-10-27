@@ -1,56 +1,67 @@
-// Regression: the ship stats card must still show its stats after the page's
-// stats loader finishes. The loader renders the inline #ship-stats-fallback JSON,
-// then fetches SOURCES; on some pages the second source is the logbook/persona
-// file (ships/<line>/assets/<slug>.json), which carries no stat keys. Rendering
-// that over the fallback emptied the card (only "Class" on Quantum).
-// Found 2026-10-23. Run: npx playwright test ship-stats-card
+// tests/playwright/ship-stats-card.spec.js
+//
+// The ship stats card, in a real browser (Tekton itw-stats-card-wiped-on-8-ship-pages). Soli Deo Gloria.
+//
+// Measured 2026-10-26 over all 278 ship pages: 152 showed an empty stats card because nothing filled
+// #ship-stats, and on Quantum and Radiance an inline loader drew the card and then replaced it with a
+// fetched logbook persona file once that fetch landed (Quantum was left showing "Class" alone).
+// assets/js/ship-stats.js now draws every card from the page's own #ship-stats-fallback.
+//
+// Each case waits for the logbook persona fetch where the page makes one, because the old wipe happened
+// only after that response arrived: a check taken before it would pass on the broken page too.
+// Hosts other than the test server are refused so a CDN cannot make the run slow or flaky.
+// Service workers are blocked: the card never uses one, and every ship page's worker fires a precache
+// burst. The first CI run (job 121380284109) lost its last case to a headless-shell SIGSEGV with that
+// burst running under request interception; the cause inside Chromium is not established.
+
 import { test, expect } from "@playwright/test";
 
-// The page registers /sw.js; requests it serves bypass page.route, and its
-// takeover reloads the page mid-test. The loader is under test, not the worker.
 test.use({ serviceWorkers: "block" });
 
-// The four pages whose second source resolves to a non-stats file, plus one
-// control whose sources both 404 (the fallback must survive either way).
-const PAGES = [
-  "/ships/carnival/carnival-jubilee.html",
-  "/ships/rcl/grandeur-of-the-seas.html",
-  "/ships/rcl/quantum-of-the-seas.html",
-  "/ships/rcl/radiance-of-the-seas.html",
-  "/ships/rcl/allure-of-the-seas.html",
+const CASES = [
+  // The wipe: the page still fetches this persona file for its logbook, and the card must survive it.
+  { url: "/ships/rcl/quantum-of-the-seas.html", lines: 8, waitFor: "/ships/rcl/assets/quantum-of-the-seas.json", first: ["Class", "Quantum Class"] },
+  { url: "/ships/rcl/radiance-of-the-seas.html", lines: 8, waitFor: "/ships/rcl/assets/radiance-of-the-seas.json" },
+  { url: "/ships/rcl/grandeur-of-the-seas.html", lines: 8 },
+  { url: "/ships/carnival/carnival-jubilee.html", lines: 8 },
+  // Never filled before.
+  { url: "/ships/carnival/carnival-elation.html", lines: 8, first: ["Class", "Fantasy Class"] },
+  { url: "/ships/celebrity-cruises/celebrity-eclipse.html", lines: 5 },
+  // "N/A" states no fact and is not shown: four keys, three lines.
+  { url: "/ships/celebrity-cruises/celebrity-compass.html", lines: 3, absent: "N/A" },
+  // Only "Historic" in every key: nothing is drawn and the mount is not marked.
+  { url: "/ships/holland-america-line/amsterdam.html", lines: 0 },
 ];
 
-for (const path of PAGES) {
-  test(`stats card keeps Gross Tonnage after load: ${path}`, async ({ page }) => {
-    // Only the local test server is under test; drop third-party requests.
-    await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
-    await page.goto(path, { waitUntil: "load" });
-    // The logbook loader fetches the same ships/<line>/assets/<slug>.json URL, so
-    // waiting on one response races. Wait for the network to go quiet, give the
-    // last .then() a beat, and settle again before reading the card.
-    // simplify: fixed 1.5s settle — replace with a loader-done signal if one is added.
-    await page.waitForLoadState("networkidle");
-    await page.waitForTimeout(1500);
-    await page.waitForLoadState("networkidle");
+test.beforeEach(async ({ context, baseURL }) => {
+  await context.route("**/*", (route) =>
+    route.request().url().startsWith(baseURL) ? route.continue() : route.abort());
+});
 
-    // One read of the settled card, not a retrying matcher: a retrying matcher
-    // can pass on the fallback render before the fetch overwrites it.
-    const keys = await page.locator("#ship-stats .stat-key").allInnerTexts();
-    expect(keys).toContain("Gross Tonnage");
-    expect(keys).toContain("Guests");
+for (const c of CASES) {
+  test(`stats card: ${c.url} shows ${c.lines} line(s)`, async ({ page }) => {
+    const errors = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    const waited = c.waitFor ? page.waitForResponse((r) => r.url().endsWith(c.waitFor)) : null;
+    await page.goto(c.url, { waitUntil: "load" });
+    if (waited) { await waited; await page.waitForTimeout(500); }
+    const mount = page.locator("#ship-stats");
+    await expect(mount.locator(".stat-line")).toHaveCount(c.lines);
+    if (c.lines) await expect(mount).toHaveAttribute("data-stats-rendered", String(c.lines));
+    else expect(await mount.getAttribute("data-stats-rendered")).toBeNull();
+    if (c.first) {
+      await expect(mount.locator(".stat-line").first().locator(".stat-key")).toHaveText(c.first[0]);
+      await expect(mount.locator(".stat-line").first().locator(".stat-val")).toHaveText(c.first[1]);
+    }
+    if (c.absent) await expect(mount).not.toContainText(c.absent);
+    expect(errors.filter((m) => /ship-stats/.test(m))).toEqual([]);
   });
 }
 
-// The guard must not block genuine stats data: a stats file at the first source
-// still replaces the fallback, as it did before the fix.
-test("genuine stats data still replaces the fallback", async ({ page }) => {
-  await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
-  await page.route("**/assets/data/ships/quantum-of-the-seas.json", (r) =>
-    r.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ gt: "999,999 GT (test)", guests: "1 (test)" }) }));
-  await page.goto("/ships/rcl/quantum-of-the-seas.html", { waitUntil: "load" });
-  await page.waitForLoadState("networkidle");
-  await page.waitForTimeout(1500);
-  await page.waitForLoadState("networkidle");
-  const vals = await page.locator("#ship-stats .stat-val").allInnerTexts();
-  expect(vals).toContain("999,999 GT (test)");
+test("stats card: a hand-written card is left as written", async ({ page }) => {
+  await page.goto("/ships/carnival/carnival-adventure.html", { waitUntil: "load" });
+  const mount = page.locator("#ship-stats");
+  await expect(mount.locator(".stat-item")).toHaveCount(6);
+  await expect(mount.locator(".stat-line")).toHaveCount(0);
+  expect(await mount.getAttribute("data-stats-rendered")).toBeNull();
 });

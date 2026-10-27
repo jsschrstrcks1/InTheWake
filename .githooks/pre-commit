@@ -83,6 +83,39 @@ while IFS= read -r _line; do [ -n "$_line" ] && VOYAGE_PACK_MD+=("$_line"); done
         || true
 )
 
+# 0. Deployments stored in one direction (Lexicon C5, gates itw_link_one_direction and
+#    itw_ships_visiting_stale). Runs before the early exit below, because a commit that
+#    touches only the data file must still be checked. The tool prints the code and the
+#    remedy; its exit codes are listed at the top of admin/lexicon/deployments.mjs.
+DEPLOYMENTS_CLI="$REPO_ROOT/admin/lexicon/deployments.mjs"
+if [ -f "$DEPLOYMENTS_CLI" ] && git diff --cached --name-only --diff-filter=ACMR \
+        | grep -qE '^(assets/data/ship-deployments\.json|ports/[^/]+\.html|admin/lexicon/deployments\.mjs)$'; then
+    if ! node "$DEPLOYMENTS_CLI" --check; then
+        echo ""
+        echo "pre-commit: ship deployments or a port page's generated ships block is out of date. Commit blocked."
+        echo "  Fix:   node admin/lexicon/deployments.mjs   (then stage what it rewrites)"
+        exit 1
+    fi
+fi
+
+# 0b. Ship facts carried by more than one file must agree (Lexicon C8, gate itw_data_cross_check).
+#    Runs when the commit touches a ship page, a ship record, a fleet or meta file, a voyage-pack fact sheet,
+#    a line-official capture or the pack map the check reads, the tool, or
+#    its baseline. A disagreement the baseline does not hold is refused, and so is a baseline that grew
+#    since HEAD. Codes and remedies: admin/lexicon/CROSS-CHECK.md.
+# @exit 1 refused (itw_data_cross_check): two files disagree on a ship fact, the baseline grew beyond what a newly read source alone reveals, or its sources list is stale. remedy: correct the wrong copy from a primary source; never add a baseline entry by hand (a new source is recorded with --adopt-sources)
+# @exit 3 could not look (itw_cross_check_unavailable): a source file does not parse. remedy: fix the file the message names
+CROSS_CHECK_CLI="$REPO_ROOT/admin/lexicon/cross-check.mjs"
+if [ -f "$CROSS_CHECK_CLI" ] && git diff --cached --name-only --diff-filter=ACMR \
+        | grep -qE '^(ships/[^/]+/[^/]+\.html|assets/data/ships/.+\.page\.json|assets/data/(rc|ncl)_ships_meta\.json|assets/data/(vf_overrides|ship-space-and-crew|fleet_index)\.json|data/atlas/ship-size-atlas\.json|admin/voyage-packs/[^/]+\.factcheck\.json|assets/data/lexicon/(cross-check-baseline|pack-ships|observations/[^/]+)\.json|admin/lexicon/(cross-check|ship-statements)\.mjs)$'; then
+    if ! node "$CROSS_CHECK_CLI" --base HEAD; then
+        echo ""
+        echo "pre-commit: two of In the Wake's files disagree on a ship fact (see above). Commit blocked."
+        echo "  Fix:   correct the wrong copy from a primary source; docs: admin/lexicon/CROSS-CHECK.md"
+        exit 1
+    fi
+fi
+
 if [ "${#SHIP_FILES[@]}" -eq 0 ] && [ "${#IMAGE_TARGETS[@]}" -eq 0 ] && [ "${#VOYAGE_PACK_MD[@]}" -eq 0 ]; then
     exit 0
 fi

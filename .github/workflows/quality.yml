@@ -326,6 +326,12 @@ jobs:
       - name: Run tool-page smoke gate
         run: npx playwright test tools-smoke.spec.js --workers=1
 
+      # Ship stats card (Tekton itw-stats-card-wiped-on-8-ship-pages): 152 ship pages showed an empty
+      # card and an inline loader wiped it on 4 more. The spec waits for the logbook fetch that used to
+      # wipe it, then counts the lines. Serial for the same single-threaded-server reason as above.
+      - name: Run ship stats card gate
+        run: npx playwright test ship-stats-card.spec.js --workers=1
+
   # Summary job
   unit-tests:
     name: Unit Tests
@@ -344,6 +350,15 @@ jobs:
       # exits 0 without looking, which is what this job's own subject was.
       - name: Run unit tests
         run: node --test "tests/unit/**/*.test.mjs"
+
+      # Ship-fact cross-check, baseline growth (Lexicon C8; admin/lexicon/CROSS-CHECK.md). The unit tests above
+      # already refuse a disagreement the baseline does not hold. This step also refuses a baseline that grew
+      # against the PR's base, which a pre-commit hook cannot enforce on a merge made on GitHub.
+      - name: Ship-fact cross-check (baseline only shrinks)
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
+          node admin/lexicon/cross-check.mjs --base FETCH_HEAD
 
   summary:
     name: Quality Summary

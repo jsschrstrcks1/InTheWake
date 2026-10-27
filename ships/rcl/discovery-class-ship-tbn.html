@@ -931,28 +931,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   </script>
 
   <!-- ===== Stats loader ===== -->
-  <script>
-  (function initStats(){
-    const mount=document.getElementById('ship-stats'); if(!mount) return;
-    const fallbackEl=document.getElementById('ship-stats-fallback');
-    function abs(p){return (window._abs?_abs(p):p);}
-    function renderStats(obj){
-      if(!obj) return;
-      const keys=['class','entered_service','gt','guests'];
-      const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests'};
-      mount.innerHTML=keys.map(k=>{
-        const val=obj[k]; if(!val) return '';
-        return '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</span></div>';
-      }).join('');
-    }
-    if(fallbackEl){ try{ const fb=JSON.parse(fallbackEl.textContent||'{}'); if(fb) renderStats(fb); }catch(_){} }
-    const SOURCES=[abs('/assets/data/ships/discovery-class-ship-tbn.json')];
-    function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
-      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
-    // Only stats data may replace the fallback; the second source can be the ship's logbook file.
-    tryFetch().then(data=>{ if(data && (data.gt || data.guests)) renderStats(data); });
-  })();
-  </script>
 
   <!-- ===== Dining loader ===== -->
   <script>
@@ -1000,5 +978,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/sw-bridge.js" defer></script>
+  <script src="/assets/js/ship-stats.js" defer></script>
 </body>
 </html>

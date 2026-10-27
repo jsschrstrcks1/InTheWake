@@ -279,7 +279,17 @@ Sections MUST appear in this exact order within `<main class="wrap">`:
   "crew": "{Crew Size}"
 }
 </script>
+
+<!-- Before </body>: draws the card from the fallback above -->
+<script src="/assets/js/ship-stats.js" defer></script>
 ```
+
+**The stats card has one renderer.** `assets/js/ship-stats.js` draws `#ship-stats` from
+`#ship-stats-fallback` and reads nothing else. Do not add an inline stats loader: the old ones fetched
+logbook persona files and overwrote the card with them (Tekton `itw-stats-card-wiped-on-8-ship-pages`).
+Leave `#ship-stats` empty (a `<noscript>` copy is fine); a mount with hand-written markup is left as
+written. A value of `Historic`, `N/A` or `Unknown` is not shown; `TBD` is. `node admin/migrate-ship-stats-card.mjs --check`
+and `tests/unit/ship-stats-card.test.mjs` refuse a page that breaks this.
 
 ---
 
@@ -528,6 +538,7 @@ This script:
 - [ ] Add all required sections in correct order
 - [ ] Add data-ship and data-imo attributes
 - [ ] Add #ship-stats-fallback JSON
+- [ ] Load `/assets/js/ship-stats.js` (defer) before `</body>`; no inline stats loader
 - [ ] Add #dining-data-source JSON
 - [ ] Create `assets/data/logbook/{cruise-line}/{ship-slug}.json` (10+ stories)
 - [ ] Create `assets/data/videos/{cruise-line}/{ship-slug}.json` (10+ videos)

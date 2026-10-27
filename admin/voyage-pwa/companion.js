@@ -66,7 +66,7 @@ function buildShell(){
      +'<p class="al-intro">Everything that could affect this sailing, in one place. <b class="al-k al-k-red">Red</b> means serious. <b class="al-k al-k-yel">Yellow</b> means take care. Each item quotes its source and links to it.</p>'
      +'<section class="al-sec" aria-labelledby="al-h-wx"><h2 id="al-h-wx">Weather warnings</h2><div id="al-wx"><span class="muted">loading…</span></div></section>'
      +'<section class="al-sec" aria-labelledby="al-h-ship"><h2 id="al-h-ship">Ship health</h2><div id="al-ship"><span class="muted">loading…</span></div></section>'
-     +'<section class="al-sec" aria-labelledby="al-h-ports"><h2 id="al-h-ports">Government travel advisories for your ports</h2><div id="al-ports"><span class="muted">loading…</span></div></section>'
+     +'<section class="al-sec" aria-labelledby="al-h-ports"><h2 id="al-h-ports">Government travel advisories for your ports</h2><p class="al-note">These advisories describe the world as it stands today, not as it will stand on the day you sail. They change in both directions: a level can rise or fall before you go. Look again in the week before you sail.</p><div id="al-ports"><span class="muted">loading…</span></div></section>'
      +'<p class="al-stamp" id="al-stamp"></p>'
    +'</div>'
    +(V.emergency?'<div class="wpane" id="pane-emg"><span class="muted">loading…</span></div>':'')
@@ -95,6 +95,7 @@ function renderOverview(){var el=document.getElementById("pane-overview");if(!el
   if(inAppBrowser()){h+='<div class="ov-card ov-inapp"><b>⚠️ Open this in Safari or Chrome first</b>'
     +'<p class="ov-step">You opened this page inside Facebook, Messenger or Instagram. That app\'s built-in browser can\'t save it to your phone, and anything you write in here stays inside that app.</p>'
     +INAPP_STEPS.map(function(s){return '<p class="ov-step"><strong>'+esc(s[0])+'</strong> '+esc(s[1])+'</p>';}).join("")
+    +(chromeIntentLink()?'<p class="ov-step"><a class="inapp-chrome" href="'+attr(chromeIntentLink())+'">Open in Chrome</a></p>':'')
     +'<p class="ov-step"><button type="button" class="inapp-copy">Copy link</button></p><p class="ov-step inapp-msg" role="status"></p>'
     +'<p class="ov-step">Then follow the steps below in Safari or Chrome.</p></div>';}
   h+='<div class="ov-card ov-save"><b>📲 Save this app to your phone</b>'
@@ -470,12 +471,25 @@ function initFs(){var k=1;try{k=Number(localStorage.getItem("itw-fs"))||1;}catch
 function inAppBrowser(){return /FBAN|FBAV|FBIOS|FB_IAB|Instagram/i.test(navigator.userAgent||"");}
 // The link to copy is this page without Facebook's tracking parameter and without any #fragment.
 function cleanPageLink(){try{var u=new URL(location.href);u.searchParams.delete("fbclid");u.hash="";return u.toString();}catch(e){return location.href.split("#")[0];}}
+// On Android an intent: link asks the phone to open this page in Chrome itself, so the traveler can leave
+// Facebook's browser without copying anything. Android only: iPhone has no such link. If Chrome is missing,
+// browser_fallback_url sends the phone to the same clean link instead. Copy link stays beside it, because
+// the app is free to ignore the request.
+function chromeIntentLink(){if(!inAppBrowser()||!/Android/i.test(navigator.userAgent||""))return "";try{var u=new URL(cleanPageLink());if(u.protocol!=="https:")return "";return "intent://"+u.host+u.pathname+u.search+"#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url="+encodeURIComponent(u.toString())+";end";}catch(e){return "";}}
 // Copies the clean link and reports the result in msg (a role="status" element, so it is announced).
-function copyPageLink(msg){var link=cleanPageLink();
-  function say(ok){if(msg)msg.textContent=ok?"Link copied. Open Safari or Chrome and paste it into the address bar.":"Couldn't copy. Press and hold this link to copy it: "+link;}
-  function legacy(){try{var t=document.createElement("textarea");t.value=link;t.setAttribute("readonly","");t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();var ok=document.execCommand("copy");t.remove();return !!ok;}catch(e){return false;}}
-  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(link).then(function(){say(true);},function(){say(legacy());});return;}}catch(e){}
-  say(legacy());}
+// Android's Facebook browser is a WebView, and there navigator.clipboard.writeText can be refused, or can
+// never answer at all, so the old code waited on it and the traveler saw nothing happen (reported on an
+// Android phone, 2026-10-16). Now the textarea copy runs first, inside the tap itself; the Clipboard API is
+// a second try with a time limit; and the link is always shown in a box the traveler can press and hold,
+// because a WebView can also report a copy that did not happen.
+function legacyCopy(text){var a=document.activeElement,ok=false,t=null;try{t=document.createElement("textarea");t.value=text;t.setAttribute("readonly","");t.setAttribute("aria-hidden","true");t.style.cssText="position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;border:0;padding:0";document.body.appendChild(t);t.focus();t.select();try{t.setSelectionRange(0,text.length);}catch(e){}ok=document.execCommand("copy");}catch(e){ok=false;}if(t&&t.parentNode)t.parentNode.removeChild(t);try{if(a&&a.focus)a.focus();}catch(e){}return !!ok;}
+function copyPageLink(msg){var link=cleanPageLink(),done=false,timer=null;
+  function say(ok){if(done)return;done=true;if(timer)clearTimeout(timer);if(!msg)return;msg.textContent="";
+    msg.appendChild(document.createTextNode(ok?"Link copied. Open Safari or Chrome and paste it into the address bar. If nothing pastes, press and hold the link below and choose Copy.":"This app wouldn't let the button copy. Press and hold the link below, choose Copy, then paste it into Safari or Chrome."));
+    var f=document.createElement("input");f.type="text";f.readOnly=true;f.value=link;f.className="inapp-link";f.setAttribute("aria-label","Link to this page");f.addEventListener("focus",function(){try{f.select();}catch(e){}});msg.appendChild(f);}
+  if(legacyCopy(link)){say(true);return;}
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){timer=setTimeout(function(){say(false);},1500);navigator.clipboard.writeText(link).then(function(){say(true);},function(){say(false);});return;}}catch(e){}
+  say(false);}
 var INAPP_STEPS=[["iPhone:","tap the three-dot menu (usually top-right) and choose Open in Safari or Open in external browser."],["Android:","tap the three-dot menu (usually top-right) and choose Open in Chrome or Open in external browser."],["No such option?","copy the link below, open Safari or Chrome yourself, and paste it into the address bar."]];
 // Install popup: shown once per phone, never when the app is already installed. Built with DOM calls.
 var _bip=null;window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();_bip=e;});
@@ -493,6 +507,7 @@ function maybeInstallPopup(){var seen=false;try{seen=!!localStorage.getItem("itw
     var row=document.createElement("div");row.className="inst-row";
     function close(){try{localStorage.setItem("itw-install-seen","1");}catch(e){}bg.remove();d.remove();document.removeEventListener("keydown",esc1);if(prev&&prev.focus)prev.focus();}
     function esc1(e){if(e.key==="Escape")close();}
+    if(inapp&&chromeIntentLink()){var ca=document.createElement("a");ca.className="inst-go inapp-chrome";ca.href=chromeIntentLink();ca.textContent="Open in Chrome";row.appendChild(ca);}
     if(inapp){var cb=document.createElement("button");cb.type="button";cb.className="inst-go";cb.textContent="Copy link";cb.addEventListener("click",function(){copyPageLink(im);});row.appendChild(cb);}
     if(_bip&&!inapp){var ib=document.createElement("button");ib.type="button";ib.className="inst-go";ib.textContent="Install now";ib.addEventListener("click",function(){_bip.prompt();_bip=null;close();});row.appendChild(ib);}
     var ok=document.createElement("button");ok.type="button";ok.className="inst-ok";ok.textContent="Got it";ok.addEventListener("click",close);row.appendChild(ok);d.appendChild(row);if(inapp)d.appendChild(im);

@@ -449,9 +449,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
         <ul style="margin: 0; padding-left: 1.25rem;">
           <li><strong>Class:</strong> Oasis Class</li>
           <li><strong>Year:</strong> 2024</li>
-          <li><strong>Tonnage:</strong> 236,857 GT</li>
+          <li><strong>Tonnage:</strong> 236,473 GT</li>
           <li><strong>Guests:</strong> 5,668</li>
-          <li><strong>Crew:</strong> 2,200</li>
+          <li><strong>Crew:</strong> 2,290</li>
           <li><strong>IMO:</strong> 9711146</li>
         </ul>
       </div>
@@ -668,9 +668,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
             <noscript>
               <div class="stat-line"><span class="stat-key">Class</span><span class="stat-val">Oasis Class</span></div>
               <div class="stat-line"><span class="stat-key">Entered Service</span><span class="stat-val">2024</span></div>
-              <div class="stat-line"><span class="stat-key">Gross Tonnage</span><span class="stat-val">236,857 GT</span></div>
+              <div class="stat-line"><span class="stat-key">Gross Tonnage</span><span class="stat-val">236,473 GT</span></div>
               <div class="stat-line"><span class="stat-key">Guests</span><span class="stat-val">5,668 (double occupancy)</span></div>
-              <div class="stat-line"><span class="stat-key">Crew</span><span class="stat-val">2,200</span></div>
+              <div class="stat-line"><span class="stat-key">Crew</span><span class="stat-val">2,290</span></div>
               <div class="stat-line"><span class="stat-key">Registry</span><span class="stat-val">Bahamas</span></div>
             </noscript>
           </div>
@@ -680,9 +680,9 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   "name": "Utopia of the Seas",
   "class": "Oasis Class",
   "entered_service": 2024,
-  "gt": "236,857 GT",
+  "gt": "236,473 GT",
   "guests": "5,668 (double) ~6,988 (max)",
-  "crew": "2,200",
+  "crew": "2,290",
   "length": "1,188 ft (362 m)",
   "beam": "211 ft (64.3 m)",
   "registry": "Bahamas"
@@ -1266,51 +1266,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- ===== Fun Distance Units Converter ===== -->
   <script src="/assets/js/fun-distance-units.js" defer></script>
 
-  <!-- ===== Ship stats loader ===== -->
-  <script>
-  (function initStats(){
-    const mount=document.getElementById('ship-stats'); if(!mount) return;
-    const fallbackEl=document.getElementById('ship-stats-fallback');
-    function abs(p){return (window._abs?_abs(p):p);}
-    function renderStats(obj){
-      if(!obj) return;
-      const keys=['class','entered_service','gt','guests','crew','length','beam','registry'];
-      const labels={class:'Class',entered_service:'Entered Service',gt:'Gross Tonnage',guests:'Guests',crew:'Crew',length:'Length',beam:'Beam',registry:'Registry'};
-      mount.innerHTML=keys.map(k=>{
-        const val=obj[k]; if(!val) return '';
-        let statHtml = '<div class="stat-line"><span class="stat-key">'+labels[k]+'</span><span class="stat-val">'+String(val).replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</span>';
-
-        // Add fun distance conversions for length and beam
-        if((k==='length'||k==='beam') && window.funDistance){
-          const feetMatch = String(val).match(/(\d+(?:,\d+)?)\s*(?:ft|feet)/i);
-          if(feetMatch){
-            const feet = parseInt(feetMatch[1].replace(/,/g,''));
-            const conversion = k==='length' ? window.funDistance.shipLength(feet) : window.funDistance.shipBeam(feet);
-            if(conversion && (conversion.practical || conversion.absurd)){
-              const parts = [];
-              if(conversion.practical) parts.push(conversion.practical);
-              if(conversion.absurd) parts.push(conversion.absurd);
-              if(parts.length > 0){
-                statHtml += '<span class="stat-fun">'+parts.join(', or ')+'</span>';
-              }
-            }
-          }
-        }
-
-        statHtml += '</div>';
-        return statHtml;
-      }).join('');
-    }
-    if(fallbackEl){
-      try{ const fb=JSON.parse(fallbackEl.textContent||'{}'); if(fb) renderStats(fb); }catch(_){}
-    }
-    const SOURCES=[abs('/assets/data/ships/utopia-of-the-seas.json'),abs('/ships/rcl/assets/utopia-of-the-seas.json')];
-    function tryFetch(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
-      return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():tryFetch(i+1)).catch(()=>tryFetch(i+1));}
-    // Only stats data may replace the fallback; the second source can be the ship's logbook file.
-    tryFetch().then(data=>{ if(data && (data.gt || data.guests)) renderStats(data); });
-  })();
-  </script>
 
   <!-- ===== Dining loader ===== -->
   <script>
@@ -1499,5 +1454,6 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- In-App Browser Detection & Escape Banner -->
   <script src="/assets/js/in-app-browser-escape.js"></script>
   <script src="/assets/js/sw-bridge.js" defer></script>
+  <script src="/assets/js/ship-stats.js" defer></script>
 </body>
 </html>
