@@ -31,6 +31,9 @@
 //   4  itw_source_uncommitted: a source record has no commit or has uncommitted edits. A statement cites
 //      committed content only. Remedy: commit the record first.
 //   5  itw_statement_refused: the contract or the pack refused a statement this tool built (a defect here).
+//   6  itw_source_history_shallow: UNAVAILABLE, not stale. The clone is shallow and a record's last commit is
+//      cut off, so the commit git names is only the shallow boundary and its date is not the record's.
+//      #2667 wrote boundary dates for 103 ships this way (2026-10-27). Remedy: git fetch --unshallow, rerun.
 // Soli Deo Gloria.
 import fs from "node:fs";
 import path from "node:path";
@@ -217,11 +220,25 @@ function recordsFor(root, page) {
   return out;
 }
 
-function commitDate(root, file) {
+/** The commits a shallow clone was cut at; empty for a full clone. */
+function shallowBoundary(root) {
+  try {
+    const p = execFileSync("git", ["-C", root, "rev-parse", "--git-path", "shallow"], { encoding: "utf8" }).trim();
+    const abs = path.isAbsolute(p) ? p : path.join(root, p);
+    return new Set(fs.existsSync(abs) ? fs.readFileSync(abs, "utf8").split("\n").map((l) => l.trim()).filter(Boolean) : []);
+  } catch { return new Set(); }
+}
+
+export function commitDate(root, file) {
   const run = (args) => execFileSync("git", ["-C", root, ...args], { encoding: "utf8" }).trim();
-  let iso;
-  try { iso = run(["log", "-1", "--format=%cI", "--", file]); } catch { iso = ""; }
+  let line;
+  try { line = run(["log", "-1", "--format=%H %cI", "--", file]); } catch { line = ""; }
+  const [sha, iso] = line.split(" ");
   if (!iso) throw fail("itw_source_uncommitted", `${file} has no commit`);
+  // In a shallow clone, git names the boundary commit for any file whose real last change is older than it.
+  if (shallowBoundary(root).has(sha)) {
+    throw fail("itw_source_history_shallow", `${file}: its last commit is behind this shallow clone's boundary (${sha.slice(0, 9)}), so its date is unknown here`);
+  }
   if (run(["status", "--porcelain", "--", file])) throw fail("itw_source_uncommitted", `${file} has uncommitted edits`);
   return new Date(iso).toISOString();
 }
@@ -336,7 +353,7 @@ async function main(argv) {
   let built;
   try { built = await buildShipStatements(ROOT, await loadContract()); }
   catch (err) {
-    const exit = { itw_contract_unavailable: 2, itw_identity_split: 3, itw_source_uncommitted: 4, itw_statement_refused: 5 }[err.code] ?? 5;
+    const exit = { itw_contract_unavailable: 2, itw_identity_split: 3, itw_source_uncommitted: 4, itw_statement_refused: 5, itw_source_history_shallow: 6 }[err.code] ?? 5;
     process.stderr.write(`ship-statements: ${err.code ?? "itw_statement_refused"}: ${err.message}\n  remedy: see the exit codes at the top of admin/lexicon/ship-statements.mjs\n`);
     return exit;
   }

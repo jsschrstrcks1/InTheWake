@@ -316,3 +316,54 @@ test('the real store: every ship page is an entity, no IMO is shared, and every 
   }
   assert.equal(JSON.parse(readFileSync(path.join(ROOT, OUT_DIR, 'legend-of-the-seas-1995.json'), 'utf8')).statements.find((s) => s.ext.property === 'imo').ext.value, '9070620');
 });
+
+// 2026-10-27: #2667 was generated in a shallow clone, and `git log -1 -- <file>` there names the shallow
+// boundary for any record last changed before it, so 103 ships carried the boundary's date. A boundary
+// commit is now UNAVAILABLE (itw_source_history_shallow), never a date; a record changed after the boundary
+// still dates correctly in the same clone.
+import { commitDate } from '../../admin/lexicon/ship-statements.mjs';
+
+function shallowFixture() {
+  const base = mkdtempSync(path.join(tmpdir(), 'itw-shallow-'));
+  const full = path.join(base, 'full');
+  mkdirSync(full);
+  const git = (cwd, ...args) => spawnSync('git', ['-C', cwd, '-c', 'user.email=t@t', '-c', 'user.name=t', ...args], { encoding: 'utf8' });
+  // The author date is set a year earlier than the committer date: the generator dates by COMMIT (%cI).
+  const at = (cwd, date, ...args) => spawnSync('git', ['-C', cwd, '-c', 'user.email=t@t', '-c', 'user.name=t', ...args], { encoding: 'utf8', env: { ...process.env, GIT_COMMITTER_DATE: date, GIT_AUTHOR_DATE: date.replace(/^2026/, '2025') } });
+  git(full, 'init', '-q');
+  writeFileSync(path.join(full, 'old.json'), '{"a":1}\n');
+  at(full, '2026-04-26T23:31:18Z', 'add', 'old.json'); at(full, '2026-04-26T23:31:18Z', 'commit', '-qm', 'old record');
+  writeFileSync(path.join(full, 'other.txt'), 'x\n');
+  at(full, '2026-09-26T18:11:04Z', 'add', 'other.txt'); at(full, '2026-09-26T18:11:04Z', 'commit', '-qm', 'unrelated');
+  writeFileSync(path.join(full, 'new.json'), '{"b":2}\n');
+  at(full, '2026-10-26T10:00:00Z', 'add', 'new.json'); at(full, '2026-10-26T10:00:00Z', 'commit', '-qm', 'new record');
+  const shallow = path.join(base, 'shallow');
+  spawnSync('git', ['clone', '-q', '--depth', '1', pathToFileURL(full).href, shallow], { encoding: 'utf8' });
+  return { base, full, shallow };
+}
+
+test('a full clone dates a record by its own last commit', () => {
+  const { base, full } = shallowFixture();
+  try { assert.equal(commitDate(full, 'old.json'), '2026-04-26T23:31:18.000Z'); }
+  finally { rmSync(base, { recursive: true, force: true }); }
+});
+
+test('a shallow clone refuses to date a record whose last commit is behind its boundary', () => {
+  const { base, shallow } = shallowFixture();
+  try {
+    assert.equal(spawnSync('git', ['-C', shallow, 'rev-parse', '--is-shallow-repository'], { encoding: 'utf8' }).stdout.trim(), 'true');
+    assert.throws(() => commitDate(shallow, 'old.json'), (e) => e.code === 'itw_source_history_shallow');
+  } finally { rmSync(base, { recursive: true, force: true }); }
+});
+
+test('in a two-deep clone the newest record still dates normally and the cut-off one is refused', () => {
+  // The rule is precise, not "refuse every shallow clone": only a record whose dating commit is a boundary
+  // commit is unknowable. Two deep, new.json's commit sits above the boundary and dates as in full history.
+  const { base, full } = shallowFixture();
+  const two = path.join(base, 'two');
+  spawnSync('git', ['clone', '-q', '--depth', '2', pathToFileURL(full).href, two], { encoding: 'utf8' });
+  try {
+    assert.equal(commitDate(two, 'new.json'), '2026-10-26T10:00:00.000Z');
+    assert.throws(() => commitDate(two, 'old.json'), (e) => e.code === 'itw_source_history_shallow');
+  } finally { rmSync(base, { recursive: true, force: true }); }
+});
