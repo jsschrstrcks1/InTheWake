@@ -67,6 +67,15 @@ Each entity file lists under `checks` every line page that was opened and what c
 A figure the line does not label plainly is not filed: Carnival's "Guest Capacity" and MSC's "Number of
 passengers" do not say double occupancy or maximum, and a length given only in feet is not converted.
 
+**Royal Caribbean** serves a headless browser a block page at royalcaribbean.com, and its ship pages carry no
+figure table. Its official figures are the "Fast Facts" PDF that each fact sheet on its press center
+(`royalcaribbeanpresscenter.com/fact-sheet/<ship>`) links as "Download PDF", on `royalcaribbeanmedia.com`.
+- For those ships the observation's `url` is the PDF, and `found_via` is the fact-sheet page.
+- `document_sha256` pins the exact PDF that was read, and `published_as_of` is the sheet's own "Updated" date.
+- The sheet prints `1,500 CREW`, `168,666 GT`, `4,180 GUESTS (DOUBLE OCCUPANCY)` and `348 METRES LONG`, and
+  each is filed under the label as printed.
+- A figure the sheet prints twice with different values is not filed.
+
 ## What status a statement may carry
 
 | Status | When |

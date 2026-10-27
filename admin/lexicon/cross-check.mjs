@@ -13,26 +13,35 @@
 // IDENTITY. Sources are joined on the ship slug alone, exactly as each file spells it. Nothing is matched by
 // name or by similarity, so two spellings of one ship are not compared (an honest miss, counted as `unjoined`),
 // and two different ships are never merged. The size atlas keys ships as `<line>-<slug>`; its line prefix is
-// removed only when what remains is a slug some other source uses.
+// removed only when what remains is a slug some other source uses. A voyage pack names its ship only in prose, so a
+// pack is joined through the hand-declared map in assets/data/lexicon/pack-ships.json and through nothing else.
 //
 //   node admin/lexicon/cross-check.mjs                    check: refuse a disagreement the baseline does not hold
 //   node admin/lexicon/cross-check.mjs --base <ref>       same, and refuse a baseline that grew since <ref> (CI)
 //   node admin/lexicon/cross-check.mjs --report           print every disagreement and what each source says
 //   node admin/lexicon/cross-check.mjs --shrink-baseline  drop baseline entries that no longer disagree
+//   node admin/lexicon/cross-check.mjs --adopt-sources    record a newly read source, admitting only what it alone reveals
 //
 // @exit 0 nothing refused: every disagreement is a known one in the baseline (resolved ones are reported, not refused)
-// @exit 1 refused (itw_data_cross_check): two files disagree on a ship fact the baseline does not hold, or the baseline grew. remedy: correct the wrong copy from a primary source (the line's own page or the IMO register), never edit the baseline to admit it
+// @exit 1 refused (itw_data_cross_check): two files disagree on a ship fact the baseline does not hold, the baseline grew beyond what a newly read source alone reveals, or its "sources" list is not the tool's. remedy: correct the wrong copy from a primary source (the line's own page or the IMO register), never edit the baseline to admit it
 // @exit 3 could not look (itw_cross_check_unavailable): a source file could not be read or parsed, or the baseline is malformed. remedy: fix the file the message names; a source that cannot be read is never a pass
 import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { readField } from "./ship-statements.mjs";
+import { readField, readOfficial } from "./ship-statements.mjs";
 
 const ROOT = fileURLToPath(new URL("../..", import.meta.url));
 export const BASELINE = "assets/data/lexicon/cross-check-baseline.json";
 const DOC = "admin/lexicon/CROSS-CHECK.md";
 export const PROPERTIES = ["imo", "gross_tonnage", "guests_double", "guests_max", "crew"];
+const OBS_DIR = "assets/data/lexicon/observations";
+const PACK_DIR = "admin/voyage-packs";
+// A pack names its ship in prose ("NCL Escape"), not by slug, so the join is declared by hand here and never
+// inferred from a name.
+export const PACK_SHIPS = "assets/data/lexicon/pack-ships.json";
+const APPROX_WORDS = /~|≈|approx|\babout\b|\baround\b|\broughly\b/i;
+const INT_ONLY = /^\d{1,3}(?:,\d{3})+$|^\d+$/;
 
 const unavailable = (detail) => Object.assign(new Error(detail), { code: "itw_cross_check_unavailable" });
 
@@ -142,7 +151,95 @@ export const SOURCES = [
       });
       return out;
     } },
+  { id: "line-official", describe: `${OBS_DIR}/<slug>.json, figures captured from the line's own ship page (C2b)`,
+    collect(root) {
+      const dir = join(root, OBS_DIR);
+      if (!existsSync(dir)) return [];
+      const out = [];
+      for (const f of readdirSync(dir).filter((n) => n.endsWith(".json")).sort()) {
+        const rel = `${OBS_DIR}/${f}`, o = readJson(root, rel);
+        // Only a page the line actually served is a reading; content_not_served and the like hold no figures.
+        if (o.outcome !== "captured" || typeof o.entity !== "string" || !o.entity.startsWith("ship:")) continue;
+        (Array.isArray(o.items) ? o.items : []).forEach((it, i) => {
+          if (!it || typeof it !== "object") return;
+          for (const r of readOfficial(it.label, it.raw)) {
+            if (r.skip || !PROPERTIES.includes(r.property)) continue;
+            out.push({ slug: o.entity.slice(5), property: r.property, value: String(r.value), source: `${rel} $.items[${i}]` });
+          }
+        });
+      }
+      return out;
+    } },
+  { id: "voyage-pack", describe: `${PACK_DIR}/<pack>.factcheck.json ship_specs, joined to a ship only through ${PACK_SHIPS}`,
+    collect(root) {
+      const dir = join(root, PACK_DIR);
+      if (!existsSync(dir)) return [];
+      const map = packShips(root);
+      const out = [];
+      for (const f of readdirSync(dir).filter((n) => n.endsWith(".factcheck.json")).sort()) {
+        const slug = map[f.slice(0, -".factcheck.json".length)];
+        if (typeof slug !== "string") continue; // not joined: named by unjoinedPacks, never guessed from the name
+        const rel = `${PACK_DIR}/${f}`, specs = readJson(root, rel).ship_specs;
+        if (!specs || typeof specs !== "object") continue;
+        for (const [key, entry] of Object.entries(specs)) {
+          const raw = entry && typeof entry === "object" ? entry.value : entry;
+          for (const r of readPackSpec(key, raw)) {
+            if (r.skip || !PROPERTIES.includes(r.property)) continue;
+            out.push({ slug, property: r.property, value: String(r.value), source: `${rel} $.ship_specs.${key}` });
+          }
+        }
+      }
+      return out;
+    } },
 ];
+
+function packShips(root) {
+  if (!existsSync(join(root, PACK_SHIPS))) return {};
+  const map = readJson(root, PACK_SHIPS).packs;
+  if (!map || typeof map !== "object" || Array.isArray(map)) throw unavailable(`${PACK_SHIPS}: "packs" must be an object`);
+  for (const [k, v] of Object.entries(map)) {
+    if (!/^[a-z0-9-]+$/.test(String(v))) throw unavailable(`${PACK_SHIPS}: pack "${k}" must map to a ship slug`);
+  }
+  return map;
+}
+
+/** Packs with a fact sheet that PACK_SHIPS does not join to a ship: compared with nothing, and said so on every run. */
+export function unjoinedPacks(root = ROOT) {
+  const dir = join(root, PACK_DIR);
+  if (!existsSync(dir)) return [];
+  const map = packShips(root);
+  return readdirSync(dir).filter((n) => n.endsWith(".factcheck.json")).map((n) => n.slice(0, -".factcheck.json".length))
+    .filter((p) => !(p in map)).sort();
+}
+
+/**
+ * A voyage pack's ship_specs value, read as strictly as readField. A pack writes prose ("1,733 crew", "4,218 guests
+ * at double occupancy", "5,610 double / 7,600 max"), so only a figure carrying its own label is read: a guest count
+ * is double or maximum only when it says so ("lower berths" and "full occupancy" are read as neither), and anything
+ * approximate ("~", "about") is skipped whole.
+ */
+export function readPackSpec(key, raw) {
+  if (typeof raw !== "string" && typeof raw !== "number") return [];
+  const s = String(raw).trim();
+  if (APPROX_WORDS.test(s)) return [{ skip: "approximate" }];
+  const count = (t) => Number(t.replace(/,/g, ""));
+  switch (key) {
+    case "gross_tonnage": return readField("gross_tonnage", s);
+    case "crew": return readField("crew", s.replace(/\s+crew$/i, ""));
+    case "imo": return readField("imo", s);
+    case "guests_double_occupancy":
+      return INT_ONLY.test(s) ? [{ property: "guests_double", value: count(s), unit: "guests" }] : [{ skip: "not a plain count" }];
+    case "guests": case "capacity": case "capacity_double_max": {
+      const out = [];
+      const dbl = /(\d[\d,]*)\s+(?:guests\s+)?(?:at\s+)?\(?double\b/i.exec(s);
+      const max = /(\d[\d,]*)\s+(?:guests\s+)?(?:at\s+)?(?:maximum|max)\b/i.exec(s);
+      if (dbl && INT_ONLY.test(dbl[1])) out.push({ property: "guests_double", value: count(dbl[1]), unit: "guests" });
+      if (max && INT_ONLY.test(max[1])) out.push({ property: "guests_max", value: count(max[1]), unit: "guests" });
+      return out.length ? out : [{ skip: "an unlabelled guest count (neither double nor max is stated)" }];
+    }
+    default: return [];
+  }
+}
 
 /** Read every source. Returns { observations, perSource }. */
 export function collect(root = ROOT, sources = SOURCES) {
@@ -150,12 +247,16 @@ export function collect(root = ROOT, sources = SOURCES) {
   const later = [];
   for (const s of sources) {
     if (s.collect.length >= 2) { later.push(s); continue; }
-    const got = s.collect(root);
+    const got = s.collect(root).map((o) => ({ ...o, via: s.id }));
     perSource[s.id] = got.length;
     observations.push(...got);
   }
   const known = new Set(observations.map((o) => o.slug));
-  for (const s of later) { const got = s.collect(root, known); perSource[s.id] = got.length; observations.push(...got); }
+  for (const s of later) {
+    const got = s.collect(root, known).map((o) => ({ ...o, via: s.id }));
+    perSource[s.id] = got.length;
+    observations.push(...got);
+  }
   return { observations, perSource };
 }
 
@@ -190,12 +291,50 @@ export function parseBaseline(text) {
   return b.known;
 }
 
-export function renderBaseline(known) {
+// The sources the first baseline (2026-10-26, #2661) was built with. It recorded none, so a baseline without a
+// "sources" list means exactly these.
+export const FIRST_SOURCES = Object.freeze(["ship-page", "ship-record", "rc_ships_meta", "ncl_ships_meta", "vf_overrides", "ship-space-and-crew", "fleet_index", "ship-size-atlas"]);
+
+/** The source ids a baseline was built with. */
+export function baselineSources(text) {
+  if (text == null) return null;
+  const s = JSON.parse(text).sources;
+  if (s === undefined) return [...FIRST_SOURCES];
+  if (!Array.isArray(s) || s.some((x) => typeof x !== "string")) throw new Error(`${BASELINE}: "sources" must be a list of source ids`);
+  return s;
+}
+
+export function renderBaseline(known, sources = SOURCES.map((s) => s.id)) {
   const sorted = Object.fromEntries(Object.keys(known).sort().map((k) => [k, [...known[k]].sort()]));
   return JSON.stringify({
-    _about: `Lexicon C8 shrink-only baseline: ship facts on which In the Wake's own files already disagreed when the check was built, with the values each disagreement had. ${DOC}. An entry may be removed when the copies are reconciled (node admin/lexicon/cross-check.mjs --shrink-baseline), never added. A new value in a known disagreement is a new disagreement.`,
+    _about: `Lexicon C8 shrink-only baseline: ship facts on which In the Wake's own files already disagreed when each source was first read, with the values each disagreement had. ${DOC}. An entry may be removed when the copies are reconciled (node admin/lexicon/cross-check.mjs --shrink-baseline), never added, except in the commit that adds a source to "sources", and then only for what that new source alone reveals. A new value in a known disagreement is a new disagreement.`,
+    sources: [...sources].sort(),
     known: sorted,
   }, null, 2) + "\n";
+}
+
+/**
+ * The one way the baseline may grow: the commit that adds a source may admit what that source alone reveals. A grown
+ * key is admitted only when, with the new sources' readings removed, it either does not disagree or holds no value
+ * the prior baseline lacked. So a copy edited in an old file in the same commit is still refused, and a source that
+ * was dropped is refused outright, because dropping a reader is the quiet way to make a disagreement disappear. With
+ * `known` (the baseline being judged), an admitted entry may hold only values read today or already known.
+ * Returns { admitted, refused, dropped }.
+ */
+export function adoption(grew, observations, priorSources, currentSources, priorKnown, known = null) {
+  const added = currentSources.filter((s) => !priorSources.includes(s));
+  const dropped = priorSources.filter((s) => !currentSources.includes(s)).sort();
+  const admitted = [], refused = [];
+  for (const key of grew) {
+    if (!added.length) { refused.push(key); continue; }
+    const old = new Set(observations.filter((o) => `${o.slug}#${o.property}` === key && !added.includes(o.via)).map((o) => o.value));
+    const p = priorKnown[key] || [];
+    // The entry itself may hold only values that are read today or were already known: no spare value to park.
+    const seen = new Set(observations.filter((o) => `${o.slug}#${o.property}` === key).map((o) => o.value));
+    const honest = !known || (known[key] || []).every((v) => seen.has(v) || p.includes(v));
+    (honest && (old.size < 2 || [...old].every((v) => p.includes(v))) ? admitted : refused).push(key);
+  }
+  return { admitted, refused, dropped, added };
 }
 
 /**
@@ -234,9 +373,15 @@ function main(argv) {
   const { observations, perSource } = collect(root);
   const { disagreements, compared } = compare(observations);
   const baselinePath = join(root, BASELINE);
-  let known;
-  try { known = parseBaseline(existsSync(baselinePath) ? readFileSync(baselinePath, "utf8") : null); }
-  catch (e) { throw unavailable(e.message); }
+  const current = SOURCES.map((s) => s.id);
+  let known, recorded;
+  try {
+    const text = existsSync(baselinePath) ? readFileSync(baselinePath, "utf8") : null;
+    known = parseBaseline(text);
+    recorded = baselineSources(text) || [...current];
+  } catch (e) { throw unavailable(e.message); }
+  const unjoined = unjoinedPacks(root);
+  if (unjoined.length) console.log(`cross-check: ${unjoined.length} voyage pack(s) not joined to a ship in ${PACK_SHIPS}, so compared with nothing: ${unjoined.join(", ")}`);
 
   if (argv.includes("--report")) {
     console.log(`cross-check: ${observations.length} values from ${Object.keys(perSource).length} sources (${Object.entries(perSource).map(([k, v]) => `${k} ${v}`).join(", ")})`);
@@ -255,18 +400,49 @@ function main(argv) {
       removedValues += vals.length - keep.length;
       next[k] = keep;
     }
-    writeFileSync(baselinePath, renderBaseline(next));
+    writeFileSync(baselinePath, renderBaseline(next, recorded));
     console.log(`cross-check: baseline shrunk (${Object.keys(known).length - Object.keys(next).length} resolved, ${removedValues} value(s) dropped); stage ${BASELINE}`);
     return 0;
   }
-  let priorKnown = null;
+  if (argv.includes("--adopt-sources")) {
+    // Records the sources the tool now reads, admitting only what a newly read source alone reveals.
+    const { fresh } = judge(disagreements, known, null);
+    const r = adoption(fresh.map((d) => d.key), observations, recorded, current, known);
+    if (r.dropped.length || r.refused.length) {
+      for (const id of r.dropped) console.error(`cross-check: REFUSED itw_data_cross_check: source "${id}" is in the baseline but no longer read`);
+      for (const d of fresh.filter((x) => r.refused.includes(x.key))) console.error(`cross-check: REFUSED itw_data_cross_check: this disagreement is not the new source's alone:\n${show(d)}`);
+      console.error(`  remedy: correct the wrong copy among the sources already read, then adopt again. ${DOC}`);
+      return 1;
+    }
+    const next = { ...known };
+    for (const d of fresh) next[d.key] = d.values.map((v) => v.value);
+    writeFileSync(baselinePath, renderBaseline(next, current));
+    console.log(`cross-check: adopted ${r.added.length ? r.added.join(", ") : "no new source"}; ${fresh.length} disagreement(s) that only the new source reveals were recorded; stage ${BASELINE}`);
+    return 0;
+  }
+  const stale = [...current.filter((s) => !recorded.includes(s)), ...recorded.filter((s) => !current.includes(s))];
+  if (stale.length) {
+    console.error(`cross-check: REFUSED itw_data_cross_check: the baseline's "sources" (${recorded.join(", ")}) is not the list the tool reads; differs at ${stale.join(", ")}`);
+    console.error(`  remedy: run node admin/lexicon/cross-check.mjs --adopt-sources in the commit that adds or removes a source. ${DOC}`);
+    return 1;
+  }
+  let priorKnown = null, priorSources = null;
   const base = argv.includes("--base") ? argv[argv.indexOf("--base") + 1] : null;
   if (base) {
     let text = null;
     try { text = execFileSync("git", ["-C", root, "show", `${base}:${BASELINE}`], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }); } catch { text = null; }
-    try { priorKnown = text == null ? null : parseBaseline(text); } catch (e) { throw unavailable(`${base}:${BASELINE}: ${e.message}`); }
+    try {
+      priorKnown = text == null ? null : parseBaseline(text);
+      priorSources = baselineSources(text);
+    } catch (e) { throw unavailable(`${base}:${BASELINE}: ${e.message}`); }
   }
-  const { fresh, resolved, narrowed, grew } = judge(disagreements, known, priorKnown);
+  const { fresh, resolved, narrowed, grew: grown } = judge(disagreements, known, priorKnown);
+  let grew = grown;
+  if (priorKnown && (grown.length || priorSources.some((s) => !recorded.includes(s)))) {
+    const r = adoption(grown, observations, priorSources, recorded, priorKnown, known);
+    if (r.admitted.length) console.log(`cross-check: ${r.admitted.length} baseline entr(ies) admitted because only the newly read ${r.added.join(", ")} reveals them`);
+    grew = [...r.refused, ...r.dropped.map((id) => `sources:${id}`)];
+  }
   if (resolved.length || narrowed.length) console.log(`cross-check: ${resolved.length} known disagreement(s) resolved and ${narrowed.length} narrowed (not refused). Shrink with: node admin/lexicon/cross-check.mjs --shrink-baseline`);
   if (fresh.length || grew.length) {
     for (const d of fresh) console.error(`cross-check: REFUSED itw_data_cross_check: two files disagree on a ship fact the baseline does not hold:\n${show(d)}`);
