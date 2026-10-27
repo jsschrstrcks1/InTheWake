@@ -32,9 +32,10 @@ register, and this check does not decide it.
 
 The voyage packs brought twelve more: eight new disagreements, and four known ones that gained a reading. Every one
 is a Norwegian ship or Volendam. Eight are double-occupancy guest counts where the pack and the size atlas differ by
-2 to 60 guests; four are crew. (Getaway's pack figure, 3,903, is the figure `ship-space-and-crew.json` gives her
-sister Breakaway.) The one
-to look at first is Norwegian Encore's crew: the pack says 2,100, and every other file says 1,735.
+2 to 60 guests; four are crew. (Getaway's pack figure, 3,903, is also the figure `ship-space-and-crew.json` gives
+her sister Breakaway. That looked like a copy slip; ncl.com, captured 2026-10-27, gives 3,903 for both, so the pack
+was right.) The one to look at first is Norwegian Encore's crew: the pack says 2,100, and ncl.com and every other
+file say 1,735.
 
 ## What it compares
 
@@ -81,7 +82,8 @@ never edits data.
 `admin/lexicon/apply-official.mjs` carries out the remedy once the line's figure has been captured. For every
 disagreement the line-official reading takes part in, it sets each differing copy to the line's figure:
 - the size atlas (gt, crew, pax_double, and that field's `sources`, which becomes the line's label), `fleet_index.json`
-  (gt) and `rc_ships_meta.json` (ships[] gt and crew);
+  (gt) and `rc_ships_meta.json` / `ncl_ships_meta.json` (ships[] gt and crew). The atlas row is the one whose
+  `ship_id` is the slug, with or without the line's prefix (`rcl-`, `ncl-`), found exactly once;
 - a ship page's `#ship-stats-fallback` block (gt, crew, and only the "(double)" figure of guests);
 - the page's labelled stat slots ("Tonnage:", "Guests:", "Crew:", and the stat-key/stat-val grid), when they hold
   exactly the old figure.
@@ -93,7 +95,14 @@ Every edit is surgical, so nothing else in the file moves. It refuses to guess:
 
 After `--apply` it re-reads every copy it changed, and one that does not read the line's figure is refused
 (`itw_apply_official_unverified`, exit 1). It never edits prose, and it names every page where the old figure
-is still written: a sentence can state history. The 2026-10-27 run's list is `admin/lexicon/RCL-PROSE-TO-REVIEW.md`.
+is still written: a sentence can state history. The 2026-10-27 runs' lists are `admin/lexicon/RCL-PROSE-TO-REVIEW.md`
+and `admin/lexicon/NCL-PROSE-TO-REVIEW.md`.
+
+A capture target can **hold** a figure (`hold` in `OFFICIAL`): the figure is kept word for word under `held` in the
+observation file, with the reason, and neither this check nor `apply-official.mjs` reads it. It is for a figure a
+person must reconcile first, such as a voyage pack whose prose repeats a different number; it never makes a
+disagreement go quiet, because the disagreement it would have settled stays in the baseline. Today Norwegian
+Aqua's and Bliss's guest counts are held; the reason and the way to release them are in the NCL list.
 
 ```bash
 node admin/lexicon/apply-official.mjs            # dry run: every change it would make
