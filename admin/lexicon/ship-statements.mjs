@@ -44,7 +44,8 @@ const ALIASES_FILE = "assets/data/lexicon/line-aliases.json";
 const ACTOR = Object.freeze({ kind: "tool", id: "itw-lexicon-ship-statements", provider: "household" });
 
 // The five pilot ships (plan 3.1 section 7). Legend of the Seas is two ships on three pages: the 1995
-// Vision-class ship (IMO 9102978 on both of its pages) and the 2026 Icon-class ship (IMO 9888560).
+// Vision-class ship (IMO 9070620 on both of its pages; she sails today as Marella Discovery 2, and 9102978, which
+// both pages carried until 2026-10-27, is her sister Grandeur of the Seas) and the 2026 Icon-class ship (IMO 9888560).
 export const PILOT = Object.freeze([
   { entity: "ship:msc-grandiosa", lineDir: "msc", pages: ["msc/msc-grandiosa"] },
   { entity: "ship:carnival-vista", lineDir: "carnival", pages: ["carnival/carnival-vista"] },
@@ -55,6 +56,47 @@ export const PILOT = Object.freeze([
 ]);
 
 const fail = (code, message) => Object.assign(new Error(message), { code });
+
+// Every other ship: one page is one ship, named by its file. A page that is not a ship (a fleet index, a venue
+// list) is skipped by name; a ship with a capture from its line but no page of its own is still an entity,
+// filed from the capture alone. The pilot entries above win for any page they name, because they carry the
+// identity decisions (Legend of the Seas) a file name cannot.
+const NOT_A_SHIP = new Set(["index", "venues"]);
+const LINE_DIR_OF_PUBLISHER = Object.freeze({ "Royal Caribbean": "rcl", "Norwegian Cruise Line": "norwegian" });
+
+/** The pilot entries plus one entry per remaining ship page and per capture with no page. Sorted, deterministic. */
+export function fleet(root = ROOT, pilot = PILOT) {
+  const taken = new Set(pilot.flatMap((p) => p.pages));
+  const named = new Set(pilot.map((p) => p.entity));
+  const out = [...pilot];
+  const shipsDir = path.join(root, "ships");
+  for (const lineDir of fs.readdirSync(shipsDir).sort()) {
+    if (!fs.statSync(path.join(shipsDir, lineDir)).isDirectory()) continue;
+    for (const f of fs.readdirSync(path.join(shipsDir, lineDir)).sort()) {
+      if (!f.endsWith(".html")) continue;
+      const slug = f.slice(0, -5);
+      const page = `${lineDir}/${slug}`;
+      if (NOT_A_SHIP.has(slug) || taken.has(page)) continue;
+      const entity = `ship:${slug}`;
+      if (named.has(entity)) throw fail("itw_identity_split", `${entity} is named by two pages (${page} and another)`);
+      named.add(entity);
+      out.push({ entity, lineDir, pages: [page] });
+    }
+  }
+  const obsDir = path.join(root, OBS_DIR);
+  for (const f of fs.existsSync(obsDir) ? fs.readdirSync(obsDir).sort() : []) {
+    if (!f.endsWith(".json")) continue;
+    const entity = `ship:${f.slice(0, -5)}`;
+    if (named.has(entity)) continue;
+    const obs = JSON.parse(fs.readFileSync(path.join(obsDir, f), "utf8"));
+    const lineDir = LINE_DIR_OF_PUBLISHER[obs.publisher];
+    if (!lineDir) throw fail("itw_statement_refused", `${f}: no ships/ folder is known for publisher ${JSON.stringify(obs.publisher)}`);
+    named.add(entity);
+    out.push({ entity, lineDir, pages: [] });
+  }
+  return out;
+}
+
 
 // ── reading a value only when the record plainly states it ────────────────────────────────────────
 const APPROX = /~|≈|approx/i;
@@ -196,7 +238,7 @@ export async function loadContract(env = process.env) {
 }
 
 /** Build every pilot entity file. Returns { files: { relPath: text } }. Deterministic for a given tree. */
-export async function buildShipStatements(root = ROOT, contract, pilot = PILOT) {
+export async function buildShipStatements(root = ROOT, contract, pilot = fleet(root)) {
   const pack = JSON.parse(fs.readFileSync(path.join(root, PACK_FILE), "utf8"));
   const v = contract.validatePack(pack);
   if (!v.ok) throw fail("itw_statement_refused", `the cruise pack is invalid: ${v.errors.join("; ")}`);
@@ -234,6 +276,9 @@ export async function buildShipStatements(root = ROOT, contract, pilot = PILOT) 
     const obs = observationFor(root, ship.entity);
     const checks = obs ? [{ source_kind: obs.source_kind, publisher: obs.publisher, url: obs.url, retrieved_at: obs.retrieved_at, outcome: obs.outcome, figures: obs.items.length }] : [];
     const official = [];
+    // A held figure is the line's word, kept back until a person reconciles a copy (capture-official.mjs); it is
+    // listed, never filed and never dropped.
+    for (const h of obs?.held ?? []) notFiled.push({ source: `${obs.url}#${h.label}`, raw: h.raw, reason: `held: ${h.reason}` });
     for (const item of obs?.outcome === "captured" ? obs.items : []) {
       for (const got of readOfficial(item.label, item.raw)) {
         if (got.skip) notFiled.push({ source: `${obs.url}#${item.label}`, raw: item.raw, reason: got.skip });

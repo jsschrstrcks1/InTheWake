@@ -8,13 +8,13 @@ them (Track C3), so a fact is written once and every page that shows it agrees.
 
 Plan: Project-Sophos `docs/lexicon/LEXICON-PLAN-3.1.md`, Track C. Contract:
 `docs/lexicon/STATEMENT-CONTRACT.md` there. Tekton `itw-c1-cruise-pack-schema` (this structure) and
-`itw-c2-ship-pilot-five` (the first five ships).
+`itw-c2-ship-pilot-five` (the first five ships); `itw-c2c-fleet-ship-statements` (every ship, 2026-10-27).
 
 ## What is here
 
 | Path | What |
 |---|---|
-| `ship/<slug>.json` | one file per ship (Track C2), `lexicon-entity/1` |
+| `ship/<slug>.json` | one file per ship (Track C2), `lexicon-entity/1`: every page under `ships/<line>/` except a fleet index or venue list, plus any ship the line's site describes that has no page yet |
 | `../lexicon/cruise.ship.pack.json` | which facts a ship carries, their type and unit, which sources are authoritative, how long a value stays fresh (`lexicon-pack/1`) |
 | `../lexicon/line-aliases.json` | generated: which spelling of a cruise line in which file means which line. Do not edit by hand |
 | `../ship-deployments.json` | which ships call where, stored per ship; `port_to_ships` is generated (Track C5, below) |
@@ -33,6 +33,27 @@ its id is a hash of its content, and a hand edit breaks it (the contract refuses
 name the entity: `ship/quantum-of-the-seas.json` holds `ship:quantum-of-the-seas` and nothing else.
 Argus reads these files and serves them through `lexicon_statements`.
 
+## Which ships, and how a ship is named
+
+`admin/lexicon/ship-statements.mjs` builds one entity per ship (`fleet()`):
+
+- The pilot list (`PILOT`) comes first, because it carries the identity calls a file name cannot. Legend of
+  the Seas is two ships on three pages, so the list names which page is which ship.
+- Every other page under `ships/<line>/` is one ship, named by its file: `ships/rcl/grandeur-of-the-seas.html`
+  is `ship:grandeur-of-the-seas`. A fleet index (`index.html`) or a venue list (`venues.html`) is not a ship.
+- A ship the line's own site describes but this site has no page for yet (Hero of the Seas, in
+  `assets/data/lexicon/observations/`) is still an entity, filed from the line's figures alone.
+- The same file name under two lines is refused (`itw_identity_split`): the tool will not guess which is
+  which. Two ships whose records name one IMO are refused the same way. The first whole-fleet run found one:
+  both 1995 Legend of the Seas records carried her sister Grandeur's IMO. They now carry 9070620 (VesselFinder:
+  MARELLA DISCOVERY 2, built 1995, which the page says she became).
+- A figure the line's capture holds back for a person (`held`) is listed under `not_filed` with its reason.
+
+After a ship page, a ship record or a capture is **committed**, run `node admin/lexicon/ship-statements.mjs`
+and commit what it writes. It reads committed content only (each fact is dated by its source's commit), so it
+cannot run inside the commit that changes the source. The unit test `the entity files are exactly what the
+records say` fails while any file is behind.
+
 ## Where a fact may come from (operator directives 7f0df2b6 and 4918b2a5)
 
 Training data is never a source. A fact comes from one of three kinds, listed in the pack for every
@@ -48,7 +69,7 @@ property, most authoritative first:
 
 > "the primary source should be the cruise lines website it self." (Ken)
 
-`admin/lexicon/capture-official.mjs` opens each pilot ship's page on the line's own site in a real browser and
+`admin/lexicon/capture-official.mjs` opens each ship's page on the line's own site in a real browser and
 records every figure exactly as the page shows it, beside its label, in `assets/data/lexicon/observations/`,
 with the URL, the time it was read and a hash of the page text. The generator files those figures as
 `verified` statements (evidence tier `primary`) at rank **`preferred`**: where the line's page speaks, its

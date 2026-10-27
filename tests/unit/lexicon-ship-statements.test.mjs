@@ -8,7 +8,7 @@ import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { readField, readOfficial, buildShipStatements, loadContract, PILOT, OUT_DIR } from '../../admin/lexicon/ship-statements.mjs';
+import { readField, readOfficial, buildShipStatements, loadContract, fleet, PILOT, OUT_DIR } from '../../admin/lexicon/ship-statements.mjs';
 import { outcomeOf, figureLabel, factSheetFigures, factSheetUpdated, nclFigures, withHolds, OFFICIAL } from '../../admin/lexicon/capture-official.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -216,7 +216,7 @@ test('nothing interpreted is filed: every approximate or placeholder value sits 
 test('identity: the two 1995 Legend pages share an IMO and fold; a pilot entry mixing ships is refused', { skip }, async () => {
   const legend = entity('legend-of-the-seas-1995');
   assert.equal(legend.sources.length, 4);
-  assert.deepEqual(legend.statements.filter((s) => s.ext.property === 'imo').map((s) => s.ext.value), ['9102978']);
+  assert.deepEqual(legend.statements.filter((s) => s.ext.property === 'imo').map((s) => s.ext.value), ['9070620']);
   const imos = PILOT.map((p) => entity(p.entity.split(':')[1]).statements.find((s) => s.ext.property === 'imo')?.ext.value).filter(Boolean);
   assert.equal(new Set(imos).size, imos.length, 'no two entities share an IMO');
   const mixed = [{ entity: 'ship:legend-mixed', lineDir: 'rcl', pages: ['rcl/legend-of-the-seas', 'rcl/legend-of-the-seas-icon-class-entering-service-in-2026'] }];
@@ -269,4 +269,50 @@ test('the committed Norwegian captures: Sky (whose page redirects) is no target,
     assert.ok(!o.items.some((i) => /guest capacity/i.test(i.label)), `${s}: the held guest count must not be in items`);
     assert.equal(o.held.length, 1, s);
   }
+});
+
+test('the store holds every ship: one page is one ship, the pilot identities win, and a capture with no page still counts', (t) => {
+  const dir = mkdtempSync(path.join(tmpdir(), 'itw-fleet-'));
+  t.after(() => rmSync(dir, { recursive: true, force: true }));
+  const put = (rel, text = '') => { mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true }); writeFileSync(path.join(dir, rel), text); };
+  for (const p of ['rcl/index', 'rcl/venues', 'rcl/legend-of-the-seas', 'rcl/legend-of-the-seas-1995-built', 'rcl/grandeur-of-the-seas', 'norwegian/norwegian-aqua']) put(`ships/${p}.html`);
+  put('ships/rcl/rc_ship_videos.json', '{}');
+  const obs = (slug, publisher) => put(`assets/data/lexicon/observations/${slug}.json`, JSON.stringify({ publisher }));
+  obs('hero-of-the-seas', 'Royal Caribbean');
+  obs('norwegian-aqua', 'Norwegian Cruise Line');
+  const legend = PILOT.filter((p) => p.entity === 'ship:legend-of-the-seas-1995');
+  const got = fleet(dir, legend);
+  assert.deepEqual(got.map((e) => e.entity), ['ship:legend-of-the-seas-1995', 'ship:norwegian-aqua', 'ship:grandeur-of-the-seas', 'ship:hero-of-the-seas']);
+  assert.deepEqual(got.find((e) => e.entity === 'ship:grandeur-of-the-seas'), { entity: 'ship:grandeur-of-the-seas', lineDir: 'rcl', pages: ['rcl/grandeur-of-the-seas'] });
+  assert.deepEqual(got.find((e) => e.entity === 'ship:hero-of-the-seas'), { entity: 'ship:hero-of-the-seas', lineDir: 'rcl', pages: [] }, 'a capture with no page is filed from the capture alone');
+  assert.equal(got.find((e) => e.entity === 'ship:norwegian-aqua').pages.length, 1, 'a capture of a ship with a page adds no second entity');
+
+  put('ships/norwegian/grandeur-of-the-seas.html');
+  assert.throws(() => fleet(dir, legend), (e) => e.code === 'itw_identity_split', 'one name on two lines is two ships the tool cannot tell apart');
+  rmSync(path.join(dir, 'ships/norwegian/grandeur-of-the-seas.html'));
+  obs('mystery-of-the-seas', 'Some Other Line');
+  assert.throws(() => fleet(dir, legend), (e) => e.code === 'itw_statement_refused', 'a capture from a line with no folder is refused, not guessed into one');
+});
+
+test('the real store: every ship page is an entity, no IMO is shared, and every held figure is listed, not filed', () => {
+  const entities = fleet();
+  const pages = readdirSync(path.join(ROOT, 'ships'), { withFileTypes: true }).filter((d) => d.isDirectory())
+    .flatMap((d) => readdirSync(path.join(ROOT, 'ships', d.name)).filter((f) => f.endsWith('.html') && !['index.html', 'venues.html'].includes(f)).map((f) => `${d.name}/${f.slice(0, -5)}`));
+  const covered = new Set(entities.flatMap((e) => e.pages));
+  assert.deepEqual(pages.filter((p) => !covered.has(p)), [], 'every ship page belongs to an entity');
+  assert.deepEqual(readdirSync(path.join(ROOT, OUT_DIR)).sort(), entities.map((e) => `${e.entity.split(':')[1]}.json`).sort(), 'one file per entity, and no orphan files');
+  const imoOwner = new Map();
+  for (const f of readdirSync(path.join(ROOT, OUT_DIR))) {
+    const d = JSON.parse(readFileSync(path.join(ROOT, OUT_DIR, f), 'utf8'));
+    for (const s of d.statements.filter((x) => x.ext.property === 'imo')) {
+      assert.ok(!imoOwner.has(s.ext.value) || imoOwner.get(s.ext.value) === d.entity, `IMO ${s.ext.value}: ${imoOwner.get(s.ext.value)} and ${d.entity}`);
+      imoOwner.set(s.ext.value, d.entity);
+    }
+  }
+  for (const slug of ['norwegian-aqua', 'norwegian-bliss']) {
+    const d = JSON.parse(readFileSync(path.join(ROOT, OUT_DIR, `${slug}.json`), 'utf8'));
+    assert.ok(!d.statements.some((s) => s.ext.property === 'guests_double' && s.epistemic.status === 'verified'), `${slug}: a held count is never filed`);
+    assert.ok(d.not_filed.some((n) => n.reason.startsWith('held: ')), `${slug}: the held count is listed with its reason`);
+  }
+  assert.equal(JSON.parse(readFileSync(path.join(ROOT, OUT_DIR, 'legend-of-the-seas-1995.json'), 'utf8')).statements.find((s) => s.ext.property === 'imo').ext.value, '9070620');
 });
