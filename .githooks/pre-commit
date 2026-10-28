@@ -32,6 +32,38 @@ trap 'guard_status=$?; echo "" >&2; echo "pre-commit: GUARD ABORTED (status ${gu
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 
+# --- change record (household) BEGIN: written by Project-Sophos admin/change-record-deploy.mjs; rerun it, do not edit by hand ---
+# Every commit that changes this repository's code carries a change entry: why it mattered and what it
+# enables (Ken 2026-10-27: "it should be required on a per commit bassis"). Content and generated files
+# are exempt (lexicon/change-record.json). Judged by Project-Sophos admin/change-record.mjs; doc docs/lexicon/CHANGE-RECORD.md there.
+# @exit 1 refused: a commit without its change entry, or one that is malformed, unproven or stale. remedy: the command each finding prints
+# @exit 4 could not look: no Project-Sophos checkout at engine version 2 or later. remedy: set SOPHOS_ROOT to a current Project-Sophos checkout
+# Kill-switch (operator only): CHANGE_RECORD=0.
+if [ "${CHANGE_RECORD:-1}" != "0" ]; then
+  _cr_root="$(git rev-parse --show-toplevel)"
+  _cr_engine=""
+  for _cr_try in "${SOPHOS_ROOT:-}" "$_cr_root/../Project-Sophos" "$_cr_root/../project-sophos" "${HOME:-}/Project-Sophos" "${HOME:-}/code/Project-Sophos"; do
+    if [ -n "$_cr_try" ] && [ -f "$_cr_try/admin/change-record.mjs" ] && command -v node >/dev/null 2>&1; then
+      _cr_v="$(node "$_cr_try/admin/change-record.mjs" version 2>/dev/null || true)"
+      if [ "${_cr_v#change-record }" != "$_cr_v" ] && [ "${_cr_v#change-record }" -ge 2 ] 2>/dev/null; then _cr_engine="$_cr_try"; break; fi
+    fi
+  done
+  if [ -z "$_cr_engine" ]; then
+    echo "change-record: change_unavailable: no Project-Sophos checkout with engine version 2 or later (tried SOPHOS_ROOT, ../Project-Sophos, ~/Project-Sophos, ~/code/Project-Sophos)." >&2
+    echo "change-record: NOT CHECKED (change_unavailable) - allowing the commit. Set SOPHOS_ROOT to a current Project-Sophos checkout so it is judged." >&2
+  else
+    _cr_rc=0
+    if node "$_cr_engine/admin/change-record.mjs" check --staged --repo "$_cr_root"; then _cr_rc=0; else _cr_rc=$?; fi
+    if [ "$_cr_rc" = "4" ]; then
+      echo "change-record: NOT CHECKED (change_unavailable) - allowing the commit. Set SOPHOS_ROOT to a current Project-Sophos checkout so it is judged." >&2
+    elif [ "$_cr_rc" != "0" ]; then
+      echo "pre-commit: REFUSING, see change-record above. Codes and remedies: $_cr_engine/docs/lexicon/CHANGE-RECORD.md" >&2
+      exit 1
+    fi
+  fi
+fi
+# --- change record (household) END ---
+
 # Required-hooks guard — runs on EVERY commit, INCLUDING merges. A merge is
 # exactly how .claude/settings.json hooks got silently dropped once, and the
 # per-file checks below skip merges, so this must run before that skip block.
