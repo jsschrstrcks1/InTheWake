@@ -199,9 +199,11 @@ names:
 5. Confirm `bootstrap-status` shows this session `complete: true`, then resume.
 
 Measured 2026-10-28: a session re-read the six layers after a CI wake found them expired and left the recall
-and directives unrun. That half re-bootstrap is what this rule forbids. **Honest limit:** the guard checks only
-the reads it names, so nothing yet refuses work with a stale recall after an expiry; this section, the memory
-and `Project-Sophos/docs/BOOTSTRAP-NEW-SESSION.md` §11a are the ties until a gate is built.
+and directives unrun. That half re-bootstrap is what this rule forbids. **Enforcement:** the bootstrap guard ages every checklist step on the same clock as the reads
+(`missingActions`; open-claw-stuff since 2026-10-12, Project-Sophos from `5c9802a9`), so a re-bootstrap that
+skips a step credited longer ago than `LAYER_READ_TTL_MS` is refused, and the refusal names this sequence.
+**Honest limit:** a credit still inside its window is not demanded again, so the guard enforces each expired
+piece rather than the whole sequence at one moment; this section, the memory and the guide carry the rest.
 
 ## ⚡ DONE MEANS USABLE — the whole stack, planned and built (operator directive 2026-10-19)
 

@@ -133,7 +133,9 @@ not only the reads the guard names:
 4. Re-confirm your patron. A hold may have ended and handed you a new name; use it.
 5. Confirm `bootstrap-status` shows your session `complete: true`, then resume.
 
-Memory `f34f3c1a`. Steps: `Project-Sophos/docs/BOOTSTRAP-NEW-SESSION.md` §11a. **Honest limit:** the guard
-checks only the reads it names, so nothing yet refuses work on a stale recall after an expiry. This block, the
-memory and the guide are the ties until a gate is built.
+Memory `f34f3c1a`. Steps: `Project-Sophos/docs/BOOTSTRAP-NEW-SESSION.md` §11a. **Enforcement:** the bootstrap guard ages every checklist step on the same clock as the reads
+(`missingActions`; open-claw-stuff since 2026-10-12, Project-Sophos from `5c9802a9`), so a re-bootstrap that
+skips a step credited longer ago than `LAYER_READ_TTL_MS` is refused, and the refusal names this sequence.
+**Honest limit:** a credit still inside its window is not demanded again, so the guard enforces each expired
+piece rather than the whole sequence at one moment; this block, the memory and the guide carry the rest.
 <!-- /household-rebootstrap-on-expiry -->
