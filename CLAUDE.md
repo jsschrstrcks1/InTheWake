@@ -223,3 +223,25 @@ This section is what tells Claude to disregard it. Changing the hooks themselves
 decision, and it is Ken's.
 
 **Soli Deo Gloria.**
+
+<!-- household-rebootstrap-on-expiry: v1 -->
+## ⚡ An expired bootstrap is redone at that point (operator directive 2026-10-28)
+
+> "Going forward, when a bootstrap expires, your requirement is to rebootstrap it at that point." (Ken, 2026-10-28)
+
+**Binds every runtime and every session.** Layer reads expire (`LAYER_READ_TTL_MS` in
+`.claude/hooks/bootstrap-lib.mjs`). When the bootstrap guard reports them expired (`BOOTSTRAP_READS_EXPIRED`),
+or `bootstrap-status` shows your session `complete: false` after it was complete, re-bootstrap **at that
+point**: before any other work, not after the task in hand, and never by an override. Do the whole sequence,
+not only the reads the guard names:
+
+1. Re-read the six layer files and this repo's pointer file.
+2. Run a real recall: `python3 <OCS>/admin/memory_evidence.py recall "<topic>"`.
+3. Run the directives: `memory-directives-inject.sh`, or `memory_evidence.py directives`.
+4. Re-confirm your patron. A hold may have ended and handed you a new name; use it.
+5. Confirm `bootstrap-status` shows your session `complete: true`, then resume.
+
+Memory `f34f3c1a`. Steps: `Project-Sophos/docs/BOOTSTRAP-NEW-SESSION.md` §11a. **Honest limit:** the guard
+checks only the reads it names, so nothing yet refuses work on a stale recall after an expiry. This block, the
+memory and the guide are the ties until a gate is built.
+<!-- /household-rebootstrap-on-expiry -->
