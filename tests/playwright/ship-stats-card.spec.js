@@ -13,6 +13,11 @@
 // Service workers are blocked: the card never uses one, and every ship page's worker fires a precache
 // burst. The first CI run (job 121380284109) lost its last case to a headless-shell SIGSEGV with that
 // burst running under request interception; the cause inside Chromium is not established.
+//
+// Quantum and Radiance are Lexicon pilot pages (Tekton itw-c3-infobox-renderer): their card is written ahead
+// of time from the statement store by admin/lexicon/render-infobox.mjs, so ship-stats.js must leave it alone
+// (no data-stats-rendered) and it must still survive the logbook fetch that once wiped it. Nine lines: the
+// fallback's eight keys plus IMO, which the statements carry.
 
 import { test, expect } from "@playwright/test";
 
@@ -20,8 +25,9 @@ test.use({ serviceWorkers: "block" });
 
 const CASES = [
   // The wipe: the page still fetches this persona file for its logbook, and the card must survive it.
-  { url: "/ships/rcl/quantum-of-the-seas.html", lines: 8, waitFor: "/ships/rcl/assets/quantum-of-the-seas.json", first: ["Class", "Quantum Class"] },
-  { url: "/ships/rcl/radiance-of-the-seas.html", lines: 8, waitFor: "/ships/rcl/assets/radiance-of-the-seas.json" },
+  // Both are rendered from statements now (see the header): the fetch must not wipe that card either.
+  { url: "/ships/rcl/quantum-of-the-seas.html", lines: 9, rendered: true, waitFor: "/ships/rcl/assets/quantum-of-the-seas.json", first: ["Class", "Quantum Class"] },
+  { url: "/ships/rcl/radiance-of-the-seas.html", lines: 9, rendered: true, waitFor: "/ships/rcl/assets/radiance-of-the-seas.json" },
   { url: "/ships/rcl/grandeur-of-the-seas.html", lines: 8 },
   { url: "/ships/carnival/carnival-jubilee.html", lines: 8 },
   // Never filled before.
@@ -47,7 +53,11 @@ for (const c of CASES) {
     if (waited) { await waited; await page.waitForTimeout(500); }
     const mount = page.locator("#ship-stats");
     await expect(mount.locator(".stat-line")).toHaveCount(c.lines);
-    if (c.lines) await expect(mount).toHaveAttribute("data-stats-rendered", String(c.lines));
+    if (c.rendered) {
+      // Written from statements: ship-stats.js draws nothing over it and does not mark it.
+      await expect(mount).toHaveAttribute("data-infobox", "statements");
+      expect(await mount.getAttribute("data-stats-rendered")).toBeNull();
+    } else if (c.lines) await expect(mount).toHaveAttribute("data-stats-rendered", String(c.lines));
     else expect(await mount.getAttribute("data-stats-rendered")).toBeNull();
     if (c.first) {
       await expect(mount.locator(".stat-line").first().locator(".stat-key")).toHaveText(c.first[0]);

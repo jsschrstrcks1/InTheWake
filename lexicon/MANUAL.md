@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261029-itw-c3-stats-card-spec-rendered
+
+Task `itw-c3-infobox-renderer`.
+
+**Why.** The browser test for the stats card expected Quantum and Radiance to be drawn by ship-stats.js with eight lines. Since C3 renders those two pilot cards from statements, they carry nine lines (IMO added) and ship-stats.js rightly leaves them alone, so the spec failed (Tools Smoke on InTheWake #2672).
+
+**Enables.** The spec now checks what is true for a rendered card: it survives the logbook fetch that once wiped it, carries the statements marker, has nine lines, and is not overdrawn by ship-stats.js. The other cases still check ship-stats.js as before.
+
+**Untested:** This entry is the browser spec itself; it ran 9 of 9 locally under Playwright, where it ran 7 of 9 before the change.
+
 ### 20261029-itw-c3-infobox-renderer
 
 Task `itw-c3-infobox-renderer`.
