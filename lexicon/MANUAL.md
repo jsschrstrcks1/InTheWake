@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261029-itw-c3-infobox-renderer
+
+Task `itw-c3-infobox-renderer`.
+
+**Why.** A pilot ship's stats card showed figures typed by hand into its page, while the statement store held the same figures with sources and, for most pilot ships, the cruise line's own figure. The two could disagree silently, and a disputed figure (Legend of the Seas 1995 double-occupancy guests) could reach readers. Operator decision D7, 2026-10-29: render infoboxes from statements.
+
+**Enables.** The seven pilot pages' cards are written from the statements: the line's preferred figure where it spoke, a disputed figure withheld and named, an unknown named, every source shown with the day the line was read, and --check reports any card that drifts. A statement change now reaches the card by re-rendering, not by hand.
+
+**Proved by** `tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)`.
+
 ### 20261028-change-record-in-inthewake
 
 Task `change-record-deploy-repos-20261028`.

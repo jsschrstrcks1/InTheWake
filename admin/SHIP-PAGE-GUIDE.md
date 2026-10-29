@@ -291,6 +291,11 @@ Leave `#ship-stats` empty (a `<noscript>` copy is fine); a mount with hand-writt
 written. A value of `Historic`, `N/A` or `Unknown` is not shown; `TBD` is. `node admin/migrate-ship-stats-card.mjs --check`
 and `tests/unit/ship-stats-card.test.mjs` refuse a page that breaks this.
 
+**Except on the Lexicon pilot pages**, whose card is written ahead of time from the statement store by
+`node admin/lexicon/render-infobox.mjs`, between `<!-- itw:infobox -->` markers (Track C3; how it chooses each
+value: `assets/data/entities/README.md`). Do not edit inside those markers; change the statements and
+re-render. `ship-stats.js` leaves a rendered card alone because its mount is not empty.
+
 ---
 
 ## Required JSON Files

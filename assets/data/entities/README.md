@@ -3,8 +3,8 @@
 # Entities: the facts behind the pages
 
 This folder holds In the Wake's facts as **statements**: one property of one ship (or, later, port or
-venue), one value, the sources it rests on, and the time it is true for. Pages will be rendered from
-them (Track C3), so a fact is written once and every page that shows it agrees.
+venue), one value, the sources it rests on, and the time it is true for. The pilot ships' stats cards are
+rendered from them (Track C3, below), so a fact is written once and every page that shows it agrees.
 
 Plan: Project-Sophos `docs/lexicon/LEXICON-PLAN-3.1.md`, Track C. Contract:
 `docs/lexicon/STATEMENT-CONTRACT.md` there. Tekton `itw-c1-cruise-pack-schema` (this structure) and
@@ -115,6 +115,39 @@ Two sources that disagree are two statements. Neither is deleted and neither is 
 `currentValue` returns `conflicting`, and a page shows **no** value for it until a person settles it.
 Settling is a governance act (rank `preferred` on the side the evidence supports), recorded, never
 automatic.
+
+## The stats card, rendered from statements (Track C3)
+
+Operator decision D7 (Ken, 2026-10-29): render the infobox from statements. On every pilot page (`PILOT` in
+`admin/lexicon/ship-statements.mjs`, seven pages for six ships), `admin/lexicon/render-infobox.mjs` writes the
+whole `#ship-stats` mount between `<!-- itw:infobox ... -->` and `<!-- /itw:infobox -->` markers:
+
+| Row | Where its value comes from |
+|---|---|
+| Class, entered service, gross tonnage, guests, crew, length, IMO | the statements, through the contract's `currentValue`: the line's own figure where it is the one preferred statement |
+| a figure the statements disagree on | **nothing**: it is named under the card ("Not shown while sources disagree") until a person settles it, and the page's typed figure does not stand in |
+| a figure filed as `unknown` | nothing; named under the card ("No source found yet") |
+| beam, registry, or a row no statement covers at all | the page's own `#ship-stats-fallback`, as `ship-stats.js` shows it today, marked `data-prop="page:<key>"` and credited as "this page's own records" |
+
+Under the card, one line names every source shown. A cruise line's page or fact sheet is linked (marked
+"(PDF)" when it is one) with the day it was read. This site's records carry no date: they are dated by
+their source's last commit, and the ship page is one of those sources, so a date there would change the
+page every time it is committed and never settle.
+
+```bash
+node admin/lexicon/render-infobox.mjs           # render the pilot cards
+node admin/lexicon/render-infobox.mjs --check   # exit 1 itw_infobox_drift, 2 itw_infobox_unavailable, 3 itw_infobox_hand_mount
+```
+
+Change a figure in the statements (or the record they are filed from), regenerate the entity files, then
+render; never edit inside the markers. The card is plain HTML, so it reads the same with JavaScript off, and
+`ship-stats.js` leaves it alone because the mount is not empty. `tests/unit/lexicon-render-infobox.test.mjs`
+fails while any pilot card is not what its statements render.
+
+**Not covered, said plainly.** The prose, the Key Facts list, the meta description and the JSON-LD on the
+same pages still repeat figures by hand and can still disagree with the card (Grandiosa's prose says 331
+metres; MSC's own page, which the card shows, says 331.43). The commit gate that refuses a stale card is
+Track C4, not built yet, and the unit test above skips where Project-Sophos is not beside the checkout.
 
 ## Deployments: one direction (Track C5)
 
