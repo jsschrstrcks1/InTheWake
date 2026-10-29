@@ -146,8 +146,36 @@ fails while any pilot card is not what its statements render.
 
 **Not covered, said plainly.** The prose, the Key Facts list, the meta description and the JSON-LD on the
 same pages still repeat figures by hand and can still disagree with the card (Grandiosa's prose says 331
-metres; MSC's own page, which the card shows, says 331.43). The commit gate that refuses a stale card is
-Track C4, not built yet, and the unit test above skips where Project-Sophos is not beside the checkout.
+metres; MSC's own page, which the card shows, says 331.43). A stale card is refused by the gates below.
+
+## Gates (Track C4)
+
+`admin/lexicon/statement-gates.mjs` runs at pre-commit (when a commit touches a ship page, an entity file, the
+card manifest or the tools that write them) and in CI (`quality.yml`, step "Statement gates"). Every refusal
+prints its code, the remedy, and a link to this section.
+
+**Two depths.** The statement contract lives in Project-Sophos, which is private, so this public repo's CI cannot
+load it. Where the contract is beside the checkout (or `LEXICON_CONTRACT_DIR` names it), the gates run at **full
+depth**: every pilot card is re-rendered and compared, and every value it shows is resolved again. Elsewhere, and
+always in CI (`--ci`), they run at **manifest depth**: unsourced statements in full, and every pilot card against
+`assets/data/lexicon/infobox-manifest.json`, the sha256 the renderer records of each card and of the entity file,
+fallback JSON and renderer it was written from. The output names the depth and what it did not check; a missing
+contract is reported as UNAVAILABLE, never as a full pass.
+
+| Code | Exit | Refuses | Repair by hand |
+|---|---|---|---|
+| `itw_statement_unsourced` | 1 | a statement with status verified, known or inference that names no evidence (or a blank one), has no `source_ref`, or is `verified` without a web page read in the session | Find what the claim rests on. If it is this site's record, fix the record and run `node admin/lexicon/ship-statements.mjs`; if it is the line's page, capture it with `admin/lexicon/capture-official.mjs` first. Never edit a statement by hand: its id is a hash of its content. If no source exists, the honest status is `unknown` |
+| `itw_statement_gates_unavailable` | 2 | an entity file, a pilot page or the manifest could not be read | Open the file the message names and fix its JSON or path. Nothing unread is reported as clean |
+| `itw_infobox_drift` | 3 | a pilot card that is not what its statements render: edited inside the markers, or written from an entity file, a fallback or a renderer that has changed since (a missing or hand-written mount too) | Run `node admin/lexicon/render-infobox.mjs` and stage the pages and the manifest it rewrites. To change what a card says, change the record the statement is filed from, regenerate with `ship-statements.mjs`, then render. After committing a pilot page, regenerate the entity files and render again in the next commit: the entity files are re-dated, the cards stay the same, and the manifest records the new hashes |
+| `itw_conflict_published` | 4 | a pilot card showing a value whose statements disagree, or the page's own figure standing in where statements exist (full depth only) | Re-render: the renderer withholds a disputed value and names it under the card. To show a value, settle the dispute in the statements first (see Disagreements) |
+
+There is **no baseline**: measured 2026-10-29, 0 of 1,848 statements were unsourced, so no existing debt needed
+holding and every unsourced statement is refused. Tests: `tests/unit/lexicon-statement-gates.test.mjs`.
+
+**Honest limit.** The manifest depth proves a card is what the renderer last wrote from the files as they are
+now; it cannot prove that render was right, and it cannot see a disputed value. A contributor without
+Project-Sophos beside the checkout gets only the manifest depth at pre-commit too. Neither depth sees a value
+whose statement's validity window ends between renders.
 
 ## Deployments: one direction (Track C5)
 

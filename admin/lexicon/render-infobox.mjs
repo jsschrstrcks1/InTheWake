@@ -28,6 +28,13 @@
 //   node admin/lexicon/render-infobox.mjs            render the pilot pages' cards
 //   node admin/lexicon/render-infobox.mjs --check    change nothing; exit non-zero if a card is not current
 //
+// MANIFEST. Each render also writes assets/data/lexicon/infobox-manifest.json: per pilot page, the sha256 of
+// the card as rendered, of the entity file it came from, of the page's fallback JSON, and of this renderer.
+// verifyManifest() checks those hashes against the tree WITHOUT the statement contract, which lives in
+// Project-Sophos (private) and so is not available to this public repo's CI. It cannot prove a card is right;
+// it proves the card is what the renderer last wrote and that nothing it was written from has changed since
+// (Track C4, admin/lexicon/statement-gates.mjs).
+//
 // @exit 0 every pilot card is what the statements render (or, without --check, now is)
 // @exit 1 refused: itw_infobox_drift, a pilot card differs from what the statements render, or is not yet converted. remedy: run node admin/lexicon/render-infobox.mjs and commit the pages it rewrites; change a figure in the statements (admin/lexicon/ship-statements.mjs), never in the marked block
 // @exit 2 could not look: itw_infobox_unavailable, the statement contract (Project-Sophos beside this checkout, or LEXICON_CONTRACT_DIR), an entity file, a page or its fallback JSON could not be read. remedy: fix or provide the named file; an unreadable card is never reported as current
@@ -35,10 +42,13 @@
 // Soli Deo Gloria.
 import fs from "node:fs";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { PILOT, OUT_DIR } from "./ship-statements.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
+export const MANIFEST = "assets/data/lexicon/infobox-manifest.json";
+export const RENDERER = "admin/lexicon/render-infobox.mjs";
 export const MARK_END = "<!-- /itw:infobox -->";
 export const markStart = (slug) => `<!-- itw:infobox generated from ${OUT_DIR}/${slug}.json by admin/lexicon/render-infobox.mjs; edit the statements, not this block -->`;
 const MARK_START_RE = /<!-- itw:infobox generated from [^>]*-->/;
@@ -237,13 +247,79 @@ export function plan(root, currentValue, { at = new Date().toISOString(), pilot 
   return pages;
 }
 
+const sha = (text) => createHash("sha256").update(text).digest("hex");
+const fallbackText = (html) => /<script type="application\/json" id="ship-stats-fallback">([\s\S]*?)<\/script>/.exec(html)?.[1] ?? null;
+
+/** The hashes of one page's card and of everything it was written from, read from the tree. */
+function pageHashes(root, entityRel, html) {
+  const where = classifyMount(html);
+  if (where.kind !== "marked") return { card: null, kind: where.kind };
+  const fb = fallbackText(html);
+  return {
+    card_sha256: sha(html.slice(where.start, where.end)),
+    entity_sha256: sha(fs.readFileSync(path.join(root, entityRel))),
+    fallback_sha256: fb === null ? null : sha(fb),
+  };
+}
+
+/** The manifest text for a set of rendered pages (their `next` html). Stable: sorted keys, two-space JSON. */
+export function manifestText(root, pages, pilot = PILOT) {
+  const entityOf = new Map(pilot.flatMap((p) => p.pages.map((pg) => [`ships/${pg}.html`, p.entity])));
+  const out = {
+    format: "itw-infobox-manifest/1",
+    _about: "Written by admin/lexicon/render-infobox.mjs on every render; do not edit by hand. sha256 of each pilot card as rendered and of what it was written from, so admin/lexicon/statement-gates.mjs can tell a stale or hand-edited card without the statement contract. assets/data/entities/README.md#gates-track-c4",
+    renderer_sha256: sha(fs.readFileSync(path.join(root, RENDERER))),
+    pages: {},
+  };
+  for (const p of [...pages].sort((a, b) => (a.rel < b.rel ? -1 : 1))) {
+    if (p.kind === "hand" || p.kind === "none") continue;
+    const entity = entityOf.get(p.rel);
+    const h = pageHashes(root, `${OUT_DIR}/${entity.split(":")[1]}.json`, p.next);
+    out.pages[p.rel] = { entity, ...h, withheld: p.withheld };
+  }
+  return `${JSON.stringify(out, null, 2)}\n`;
+}
+
+/**
+ * Contract-free check: is every pilot card what the renderer last wrote, written from the files as they are now?
+ * Returns a list of { rel, why }; empty means current. Never throws for a missing page or manifest: it reports it.
+ */
+export function verifyManifest(root, pilot = PILOT) {
+  const found = [];
+  let m;
+  try { m = JSON.parse(fs.readFileSync(path.join(root, MANIFEST), "utf8")); }
+  catch (e) { return [{ rel: MANIFEST, why: `cannot be read (${e.code || e.message}); run the renderer` }]; }
+  const rendererNow = sha(fs.readFileSync(path.join(root, RENDERER)));
+  if (m.renderer_sha256 !== rendererNow) found.push({ rel: RENDERER, why: "the renderer changed since the cards were rendered" });
+  for (const p of pilot) {
+    const entityRel = `${OUT_DIR}/${p.entity.split(":")[1]}.json`;
+    for (const pg of p.pages) {
+      const rel = `ships/${pg}.html`;
+      let html;
+      try { html = fs.readFileSync(path.join(root, rel), "utf8"); } catch (e) { found.push({ rel, why: `cannot be read (${e.code})` }); continue; }
+      const want = m.pages?.[rel];
+      if (!want) { found.push({ rel, why: "not in the manifest (never rendered)" }); continue; }
+      const now = pageHashes(root, entityRel, html);
+      if (!now.card_sha256) { found.push({ rel, why: `the card is not marked (${now.kind})` }); continue; }
+      if (now.card_sha256 !== want.card_sha256) found.push({ rel, why: "the card was edited after it was rendered" });
+      if (now.entity_sha256 !== want.entity_sha256) found.push({ rel, why: `${entityRel} changed since the card was rendered` });
+      if (now.fallback_sha256 !== want.fallback_sha256) found.push({ rel, why: "the page's #ship-stats-fallback changed since the card was rendered" });
+    }
+  }
+  return found;
+}
+
 async function main(argv) {
   const check = argv.includes("--check");
   try {
     const pages = plan(ROOT, await loadCurrentValue());
     const hand = pages.filter((p) => p.kind === "hand" || p.kind === "none");
     const stale = pages.filter((p) => p.next !== p.html);
-    if (!check) for (const p of stale) fs.writeFileSync(path.join(ROOT, p.rel), p.next);
+    const manifest = manifestText(ROOT, pages);
+    let manifestNow = null;
+    try { manifestNow = fs.readFileSync(path.join(ROOT, MANIFEST), "utf8"); } catch { /* absent: stale below */ }
+    if (manifestNow !== manifest) stale.push({ rel: MANIFEST });
+    if (!check) for (const p of stale) fs.writeFileSync(path.join(ROOT, p.rel), p.rel === MANIFEST ? manifest : p.next);
     for (const p of pages) {
       const state = p.kind === "hand" || p.kind === "none" ? `LEFT ALONE (${p.why || "no #ship-stats"})` : p.next === p.html ? "current" : check ? "STALE" : "rendered";
       process.stdout.write(`  ${p.rel}: ${state}${p.rows !== undefined ? `, ${p.rows} rows${p.withheld.length ? `, withheld while sources disagree: ${p.withheld.join(", ")}` : ""}` : ""}\n`);

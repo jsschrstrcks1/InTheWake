@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261029-itw-c4-statement-gates
+
+Task `itw-c4-statement-gates`.
+
+**Why.** Nothing refused a statement filed with nothing under it, a pilot card edited by hand inside its markers, a card left stale after its statements changed, or a card showing a value its sources dispute. The statement contract lives in private Project-Sophos, so this public repo's CI could not load it and the C2 and C3 statement tests skipped there in silence.
+
+**Enables.** Pre-commit and CI refuse itw_statement_unsourced, itw_infobox_drift and itw_conflict_published, each with a remedy and a repair-by-hand link. Where the contract is present every card is re-rendered and every value resolved again; in CI a hash manifest the renderer writes proves each card is what was rendered from the files as they are, and the output names what that depth cannot see.
+
+**Proved by** `tests/unit/lexicon-statement-gates.test.mjs::the committed tree passes at the manifest depth, and says what that depth does not check`.
+
 ### 20261029-itw-c3-stats-card-spec-rendered
 
 Task `itw-c3-infobox-renderer`.

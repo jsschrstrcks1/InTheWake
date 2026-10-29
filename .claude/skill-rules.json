@@ -1006,6 +1006,43 @@
         "Committing an image without an attribution row in atribution_registry.json",
         "Bypassing the pre-commit hook with --no-verify on an image reuse"
       ]
+    },
+    "cruise-statements": {
+      "enabled": true,
+      "type": "skill",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Upkeep of ship statements and the pilot stats cards rendered from them (Lexicon Track C): change the record, regenerate the statements, render the cards, pass the gates. Repair paths for itw_statement_unsourced, itw_infobox_drift and itw_conflict_published.",
+      "promptTriggers": {
+        "keywords": [
+          "itw_statement_unsourced",
+          "itw_infobox_drift",
+          "itw_conflict_published",
+          "statement gates",
+          "render infobox",
+          "ship statements"
+        ],
+        "intentPatterns": [
+          "(change|update|fix|correct).*?(tonnage|guests|crew|length|IMO).*?(pilot|statement|card|infobox)",
+          "itw_(statement|infobox|conflict)_"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "assets/data/entities/**/*.json",
+          "assets/data/lexicon/infobox-manifest.json",
+          "admin/lexicon/render-infobox.mjs",
+          "admin/lexicon/statement-gates.mjs",
+          "admin/lexicon/ship-statements.mjs"
+        ],
+        "exclude": []
+      },
+      "autoLoad": {
+        "mainFile": ".claude/skills/cruise-statements/SKILL.md",
+        "maxLines": 120,
+        "loadOnFirstFileEdit": false,
+        "note": "Loaded on a statement-gate code in output, or an edit to an entity file or the card tools."
+      }
     }
   },
   "globalSettings": {
