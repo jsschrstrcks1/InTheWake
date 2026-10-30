@@ -177,6 +177,51 @@ now; it cannot prove that render was right, and it cannot see a disputed value. 
 Project-Sophos beside the checkout gets only the manifest depth at pre-commit too. Neither depth sees a value
 whose statement's validity window ends between renders.
 
+## Ports (Track C6)
+
+A port lived in seven files with no shared identity: its page, `assets/data/ports/port-registry.json`,
+`ports-geo.json`, `port-summaries.json`, `seasonal-guides.json`, `assets/data/maps/<slug>.map.json` and
+`data/ports.csv`. Every port page is now one entity, `port:<slug>` (`port/<slug>.json`, 399 of them), filed by
+`admin/lexicon/port-statements.mjs` from this site's own committed files under the pack
+`assets/data/lexicon/cruise.port.pack.json`.
+
+| Property | From | Note |
+|---|---|---|
+| `name` | the registry (ports-geo carries the same, cited on it) | the short name: "Abu Dhabi" |
+| `page_place_name` | the page's JSON-LD `mainEntity.name` | how the page names its place, often qualified: "Abu Dhabi / Zayed Port". A second fact, not a disputed copy of `name` |
+| `place_position` | the page's JSON-LD `mainEntity.geo`, the registry, ports-geo | the destination the guide is about; tolerance **5 km** |
+| `terminal_position` | the map's `port_pin` | where a ship docks or tenders, which can lie kilometres from the town; tolerance **500 m** |
+| `tender_port` | the registry | |
+
+**Positions are geo values with a tolerance** (operator ruling 2026-10-29; Project-Sophos #1488). Two sources
+within the property's tolerance name the same place, and every tool that reads them agrees, because the
+tolerance is sealed into the statement. 5 km is the threshold the Lexicon plan's census used for its 37
+page-versus-registry disagreements. **Identical values from several files are one statement citing all of
+them**: ports-geo matches the registry to the metre on every port, so it is a copy, never a second witness.
+
+**Identity.** `assets/data/lexicon/port-aliases.json` maps every list's key to `port:<slug>`. Every slug-keyed
+list maps fully. `data/ports.csv`, keyed by name, maps only on an exact normalised name: 146 match, 1 is
+ambiguous, 202 have no page (many are ports this site has no guide for) and are listed, never guessed. ken's
+whatsinport list lives in another repository and is not read here.
+
+**Disputes.** `assets/data/lexicon/port-disputes.json` lists every disagreement beyond tolerance with each side's
+sources: 46 `place_position` disputes (the plan's 37 page-versus-registry, plus 9 ports where only the page and
+ports-geo exist). Neither side is picked. These are the ports the next build reads a gazetteer for. Its
+`name_review` lists ports whose short name and page name share no part, for a person to read (9 today).
+
+```bash
+node admin/lexicon/port-statements.mjs           # after a port page or port file is committed
+node admin/lexicon/port-statements.mjs --check   # exit 1 itw_port_statements_stale, 2 itw_port_statements_unavailable
+```
+
+Like the ship statements, it reads committed content only, because each fact is dated by its source's commit.
+The statement gates (above) cover these files too: an unsourced port statement is refused at pre-commit and in CI.
+
+**Honest limits.** Nothing here says which side of a dispute is right; that waits for the gazetteer. The tests
+that need the geo contract skip until Project-Sophos #1488 is merged (they say so), and CI cannot run them in any
+case (Project-Sophos is private), so a port file left stale after a source change is caught only where the
+contract is beside the checkout.
+
 ## Deployments: one direction (Track C5)
 
 Which ships call at which ports is stored once, in `assets/data/ship-deployments.json` under `ships[*]`:

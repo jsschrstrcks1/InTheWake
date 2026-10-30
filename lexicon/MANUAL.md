@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261029-itw-c6-port-pack
+
+Task `itw-c6-port-pack`.
+
+**Why.** A port lived in seven files with no shared identity, each with its own copy of its name and position, and nothing said where they disagreed. The Lexicon plan's census found ports whose page and registry put them in different places, and no tool could find them again or tell a copy from a second witness.
+
+**Enables.** Every port page is one entity, port:<slug>, with its name, page name, destination position, terminal position and tender flag filed as statements from this site's own files. Every list's key maps to that identity, names that do not match are listed rather than guessed, and every disagreement beyond the pack's declared tolerance is named with its sources: the work list for the gazetteer reads.
+
+**Proved by** `tests/unit/lexicon-port-statements.test.mjs::every named dispute is beyond the pack's tolerance, and no two positions within it are named`.
+
 ### 20261029-itw-c4-statement-gates
 
 Task `itw-c4-statement-gates`.
