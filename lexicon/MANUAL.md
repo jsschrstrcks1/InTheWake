@@ -18,6 +18,16 @@ Task `itw-c6b-port-gazetteer`.
 
 **Proved by** `tests/unit/lexicon-ship-statements.test.mjs::the entity files are exactly what the records say (regenerate if this fails)`.
 
+### 20261030-itw-lexicon-stable-dates
+
+Task `itw-lexicon-stable-dates`.
+
+**Why.** A statement was dated by its source file's last commit, so a squash merge, which gives every touched file a new commit, left main's ship and port statements stale the moment a pull request merged; after #2672 six ships had to be re-dated by hand.
+
+**Enables.** An unchanged statement now keeps the date it was first filed with, read from the committed entity file, so a Lexicon pull request stays current on main through a squash merge and the C7 venue and price files will too.
+
+**Proved by** `tests/unit/lexicon-stable-dates.test.mjs::earlier dates come from HEAD, never the working tree, and survive a squash merge`.
+
 ### 20261030-itw-c6b-port-gazetteer
 
 Task `itw-c6b-port-gazetteer`.
