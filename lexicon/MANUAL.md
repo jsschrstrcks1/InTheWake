@@ -28,6 +28,16 @@ Task `itw-lexicon-stable-dates`.
 
 **Proved by** `tests/unit/lexicon-stable-dates.test.mjs::earlier dates come from HEAD, never the working tree, and survive a squash merge`.
 
+### 20261030-itw-c7a-venue-identity
+
+Task `itw-c7a-venue-identity`.
+
+**Why.** A venue lived in six stores with no shared identity, and their slugs collide across lines (Norwegian's teppanyaki is not Royal Caribbean's), so no tool could say which record described which venue or where two stores disagreed.
+
+**Enables.** Every venue is now one line-scoped entity with its facts as sourced statements, every store key is mapped or listed with the reason, and the disagreements and possible duplicates are listed, which is the identity the C7b menu and price work files against.
+
+**Proved by** `tests/unit/lexicon-venue-statements.test.mjs::the colliding slugs are different venues on different lines`.
+
 ### 20261030-itw-c6b-port-gazetteer
 
 Task `itw-c6b-port-gazetteer`.

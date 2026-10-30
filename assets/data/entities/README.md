@@ -276,6 +276,55 @@ harbour. A port GeoNames lists under a name this site never uses (CocoCay found 
 "perfect day at cococay") is `no_match` until that name is recorded somewhere this tool reads. GeoNames updates its dump daily; the observation names the files
 it read, and a later capture may differ.
 
+## Venues (Track C7a)
+
+A venue lived in six stores with no shared identity: `assets/data/venues-v2.json` (2,101 venues over 290 ships),
+`venues.json` (an older 83), one venue file each for Carnival, Norwegian, MSC and Virgin, the restaurant pages, and
+`venues_by_ship/`. Their slugs collide across lines: `main-dining-room` is in the Carnival file and the MSC file, and
+`teppanyaki` is a Royal Caribbean venue in venues-v2 and a Norwegian one in `ncl-venues.json`. So a bare slug is not an
+identity. Every venue is now `venue:<line>.<slug>` (`venue/<line>.<slug>.json`, 2,014 of them), filed by
+`admin/lexicon/venue-statements.mjs` under the pack `assets/data/lexicon/cruise.venue.pack.json`. Tekton
+`itw-c7a-venue-identity`.
+
+**Which line.** A venues-v2 venue takes the line of the ships that list it (no venue is listed on two lines). A
+venue on no ship takes its own `line` field, else the line of the venue it consolidates into, else the provider its
+own restaurant page names, mapped through the line alias table above. 129 venues-v2 venues have none of these and
+are listed as unplaced, not filed.
+
+**Which venue.** A line's own file, `venues.json` and `venues_by_ship/` map a key only to a venue of the same line:
+exact slug, then the line's prefixed slug (`ncl-taste` for `taste`), then a name exactly one venue of that line
+carries. Two candidates is listed as ambiguous (3, all MSC venues venues-v2 keeps one per ship). No candidate in a
+line's own file is a venue venues-v2 does not have, filed from that file alone (42). `assets/data/lexicon/venue-aliases.json`
+records every key and how it mapped.
+
+| Property | From | Note |
+|---|---|---|
+| `name`, `category`, `subcategory`, `premium` | venues-v2, the line files, `venues.json` | as each store writes them. A `-` subcategory is a placeholder and is not filed; `venues.json`'s category is another scheme (casual, specialty, mdr) and is not filed |
+| `line` | whichever store placed it | cited on the store or page that placed it |
+| `ships` | venues-v2 only | `{ "ships": [ship entities] }`: the one store that covers every ship. A relation is stored once (the C5 rule) |
+| `consolidate_into` | venues-v2 | its own pointer to the venue this one is a variant of |
+
+Not filed, and listed per venue under `not_filed`: `cost` (a price, Track C7b) and `description` (prose).
+
+**Review list** (`assets/data/lexicon/venue-disputes.json`), nothing settled:
+
+| List | Count | What |
+|---|---|---|
+| `disputes` | 88 | two stores give one venue different values (62 subcategory, 10 name, 9 premium, 7 category) |
+| `same_name` | 142 | venues of one line sharing a name: possible duplicates (MSC keeps a Top Sail Lounge per ship) |
+| `ship_review` | 228 | an older store puts a venue on a ship venues-v2 does not |
+| `unplaced` | 132 | the 129 venues with no line, and the 3 ambiguous keys |
+
+```bash
+node admin/lexicon/venue-statements.mjs           # after a venue store or restaurant page is committed
+node admin/lexicon/venue-statements.mjs --check   # exit 1 itw_venue_statements_stale, 2 itw_venue_statements_unavailable
+```
+
+**Honest limits.** Every venue statement is this site's own record (status `inference`); no line's own site has been
+read for venues yet. A case-only difference ("ChiBang!" and "Chibang!") is a name dispute, because the contract
+compares values exactly. 93 restaurant pages map to no venue because their venue is unplaced. The ship review
+compares only the older stores; whether venues-v2's own ship lists are current is a separate question.
+
 ## Deployments: one direction (Track C5)
 
 Which ships call at which ports is stored once, in `assets/data/ship-deployments.json` under `ships[*]`:

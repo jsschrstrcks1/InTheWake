@@ -1,0 +1,25 @@
+{
+  "format": "lexicon-pack/1",
+  "pack": "cruise.venue",
+  "version": 1,
+  "entity_type": "venue",
+  "partition": "public",
+  "_about": "Which facts a venue carries in the Lexicon (Track C7a). A venue's identity is scoped by its cruise line, venue:<line>.<slug>, because the same slug names different venues on different lines (main-dining-room is a Carnival venue and an MSC venue; teppanyaki is a Royal Caribbean venue and a Norwegian one). ships is one statement listing every ship entity the venue is on, from venues-v2.json, the one store that covers every ship; the older stores' ship lists are compared and their differences listed for review, never filed as rival lists. category and subcategory are filed as each store writes them; venues.json's category is another scheme (casual, specialty, mdr) and is not filed. Menus and prices are the price pack's (Track C7b). Tekton itw-c7a-venue-identity; assets/data/entities/README.md#venues-track-c7a. Soli Deo Gloria.",
+  "identity": {
+    "key": "venue:<line>.<slug>, where <line> is the line's id in brands.json and <slug> is the venue's venues-v2.json slug, or its slug in a line's own venue file when venues-v2.json has no such venue for that line. A store's key maps to a venue only within the same line: an exact slug, the line's prefixed slug (ncl-taste for taste), or a name that exactly one venue of that line carries. Anything else is listed, never guessed (assets/data/lexicon/venue-aliases.json).",
+    "aliases": ["slug", "name", "itw_page"]
+  },
+  "source_kinds": {
+    "line-official": "the line's own site or deck plan; evidence tier primary. Not yet read for venues",
+    "itw-data": "a data file or page already in this repository; evidence tier secondary"
+  },
+  "properties": {
+    "name": { "value_type": "string", "unit": null, "authority": ["line-official", "itw-data"], "ttl_days": 365 },
+    "line": { "value_type": "entity", "unit": null, "authority": ["itw-data"], "ttl_days": null },
+    "category": { "value_type": "string", "unit": null, "authority": ["itw-data"], "ttl_days": null },
+    "subcategory": { "value_type": "string", "unit": null, "authority": ["itw-data"], "ttl_days": null },
+    "premium": { "value_type": "boolean", "unit": null, "authority": ["line-official", "itw-data"], "ttl_days": 180 },
+    "ships": { "value_type": "object", "unit": null, "authority": ["line-official", "itw-data"], "ttl_days": 180 },
+    "consolidate_into": { "value_type": "entity", "unit": null, "authority": ["itw-data"], "ttl_days": null }
+  }
+}
