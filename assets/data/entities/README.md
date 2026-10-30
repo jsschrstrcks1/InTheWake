@@ -50,9 +50,18 @@ Argus reads these files and serves them through `lexicon_statements`.
 - A figure the line's capture holds back for a person (`held`) is listed under `not_filed` with its reason.
 
 After a ship page, a ship record or a capture is **committed**, run `node admin/lexicon/ship-statements.mjs`
-and commit what it writes. It reads committed content only (each fact is dated by its source's commit), so it
+and commit what it writes. It reads committed content only (a new fact is dated by its source's commit), so it
 cannot run inside the commit that changes the source. The unit test `the entity files are exactly what the
 records say` fails while any file is behind.
+
+**A date survives a squash merge** (Tekton `itw-lexicon-stable-dates`, `admin/lexicon/stable-dates.mjs`). A
+statement keeps the dates it was first filed with for as long as everything else about it is unchanged: entity,
+property, value, unit, status, rank, evidence, publisher and actor. Only a new or changed statement is dated by
+its sources' commits. The earlier dates are read from the entity files as committed at HEAD, never the working
+tree, so a hand edit cannot plant one. Before this, a statement was re-dated by every commit to its source file,
+so a squash merge, which gives every touched file a new commit, left main's entity files stale the moment a pull
+request merged (measured after #2672: six ships). A date now means when this value, from these sources, was
+first filed; an edit elsewhere in the same page no longer re-dates a fact it did not change.
 
 ## Where a fact may come from (operator directives 7f0df2b6 and 4918b2a5)
 
@@ -166,7 +175,7 @@ contract is reported as UNAVAILABLE, never as a full pass.
 |---|---|---|---|
 | `itw_statement_unsourced` | 1 | a statement with status verified, known or inference that names no evidence (or a blank one), has no `source_ref`, or is `verified` without a web page read in the session | Find what the claim rests on. If it is this site's record, fix the record and run `node admin/lexicon/ship-statements.mjs`; if it is the line's page, capture it with `admin/lexicon/capture-official.mjs` first. Never edit a statement by hand: its id is a hash of its content. If no source exists, the honest status is `unknown` |
 | `itw_statement_gates_unavailable` | 2 | an entity file, a pilot page or the manifest could not be read | Open the file the message names and fix its JSON or path. Nothing unread is reported as clean |
-| `itw_infobox_drift` | 3 | a pilot card that is not what its statements render: edited inside the markers, or written from an entity file, a fallback or a renderer that has changed since (a missing or hand-written mount too) | Run `node admin/lexicon/render-infobox.mjs` and stage the pages and the manifest it rewrites. To change what a card says, change the record the statement is filed from, regenerate with `ship-statements.mjs`, then render. After committing a pilot page, regenerate the entity files and render again in the next commit: the entity files are re-dated, the cards stay the same, and the manifest records the new hashes |
+| `itw_infobox_drift` | 3 | a pilot card that is not what its statements render: edited inside the markers, or written from an entity file, a fallback or a renderer that has changed since (a missing or hand-written mount too) | Run `node admin/lexicon/render-infobox.mjs` and stage the pages and the manifest it rewrites. To change what a card says, change the record the statement is filed from, regenerate with `ship-statements.mjs`, then render. After committing a pilot page, regenerate the entity files: a fact you changed takes the new commit's date, and every other statement keeps its own (stable-dates.mjs), so the cards and the manifest change only where a fact did |
 | `itw_conflict_published` | 4 | a pilot card showing a value whose statements disagree, or the page's own figure standing in where statements exist (full depth only) | Re-render: the renderer withholds a disputed value and names it under the card. To show a value, settle the dispute in the statements first (see Disagreements) |
 
 There is **no baseline**: measured 2026-10-29, 0 of 1,848 statements were unsourced, so no existing debt needed
@@ -214,7 +223,8 @@ node admin/lexicon/port-statements.mjs           # after a port page or port fil
 node admin/lexicon/port-statements.mjs --check   # exit 1 itw_port_statements_stale, 2 itw_port_statements_unavailable
 ```
 
-Like the ship statements, it reads committed content only, because each fact is dated by its source's commit.
+Like the ship statements, it reads committed content only, because a new fact is dated by its source's commit,
+and an unchanged one keeps its date through a squash merge (above).
 The statement gates (above) cover these files too: an unsourced port statement is refused at pre-commit and in CI.
 
 **Honest limits.** Nothing here says which side of a dispute is right; the gazetteer reads below are evidence
