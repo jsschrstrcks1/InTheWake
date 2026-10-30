@@ -148,6 +148,26 @@ if [ -f "$CROSS_CHECK_CLI" ] && git diff --cached --name-only --diff-filter=ACMR
     fi
 fi
 
+# 0c. Statements and the cards rendered from them (Lexicon C4, gates itw_statement_unsourced,
+#    itw_infobox_drift and itw_conflict_published). Runs when the commit touches a ship page, an entity
+#    file, the card manifest, or the tools that write them. Full depth where Project-Sophos's statement
+#    contract is beside this checkout; otherwise the manifest depth, which says what it did not check.
+#    Codes, remedies and repairs by hand: assets/data/entities/README.md#gates-track-c4.
+# @exit 1 refused (itw_statement_unsourced): a statement claiming verified, known or inference names no evidence, or a verified one rests on no web page. remedy: file the claim with admin/lexicon/ship-statements.mjs, never by hand
+# @exit 2 could not look (itw_statement_gates_unavailable): an entity file, a pilot page or the manifest could not be read. remedy: fix the file the message names
+# @exit 3 refused (itw_infobox_drift): a pilot card is not what its statements render, or was written from files that have changed. remedy: node admin/lexicon/render-infobox.mjs, then stage the pages and assets/data/lexicon/infobox-manifest.json
+# @exit 4 refused (itw_conflict_published): a pilot card shows a value its statements dispute. remedy: re-render; settle the dispute in the statements before showing it
+STATEMENT_GATES_CLI="$REPO_ROOT/admin/lexicon/statement-gates.mjs"
+if [ -f "$STATEMENT_GATES_CLI" ] && git diff --cached --name-only --diff-filter=ACMRD \
+        | grep -qE '^(ships/[^/]+/[^/]+\.html|assets/data/entities/.+\.json|assets/data/lexicon/infobox-manifest\.json|admin/lexicon/(render-infobox|ship-statements|statement-gates)\.mjs)$'; then
+    if ! node "$STATEMENT_GATES_CLI"; then
+        echo ""
+        echo "pre-commit: a statement or a card rendered from statements failed its gate (see above). Commit blocked."
+        echo "  Fix:   the remedy above; repairs by hand: assets/data/entities/README.md#gates-track-c4"
+        exit 1
+    fi
+fi
+
 if [ "${#SHIP_FILES[@]}" -eq 0 ] && [ "${#IMAGE_TARGETS[@]}" -eq 0 ] && [ "${#VOYAGE_PACK_MD[@]}" -eq 0 ]; then
     exit 0
 fi

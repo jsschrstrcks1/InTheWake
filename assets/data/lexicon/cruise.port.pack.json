@@ -1,0 +1,24 @@
+{
+  "format": "lexicon-pack/1",
+  "pack": "cruise.port",
+  "version": 1,
+  "entity_type": "port",
+  "partition": "public",
+  "_about": "Which facts a port carries in the Lexicon, their type, which sources are authoritative (most authoritative first), and how long a checked value stays fresh. Format: Project-Sophos sophos/src/lexicon/packs.mjs. A position is a geo value with a tolerance (operator ruling 2026-10-29): two sources within it name the same place. place_position is the destination a guide is about (a town, an island); terminal_position is where a ship docks or tenders, which can lie kilometres away and is a different place, not a disputed one. 5 km for a destination is the threshold the Lexicon plan's census used (37 of 330 page-versus-registry pairs beyond it); 500 m for a terminal or pier. name is the short name the registry gives (\"Abu Dhabi\"); page_place_name is the name a page uses for its place, often qualified with a terminal or region (\"Abu Dhabi / Zayed Port\", \"Airlie Beach, Queensland\"). They are two facts, not one disputed fact. Tekton itw-c6-port-pack; assets/data/entities/README.md. Soli Deo Gloria.",
+  "identity": {
+    "key": "port:<slug>, where <slug> is the In the Wake port page slug (ports/<slug>.html). Every list keyed by slug maps to it directly; a list keyed by name maps only on an exact normalized name, and anything else is listed as unmatched, never guessed (assets/data/lexicon/port-aliases.json).",
+    "aliases": ["locode", "name", "itw_page"]
+  },
+  "source_kinds": {
+    "gazetteer": "a public gazetteer read in the session (UN/LOCODE, GeoNames); evidence tier primary. Read in the next build for the disputed ports",
+    "port-authority": "the port authority's or cruise line's own page for a terminal or tender point; evidence tier primary",
+    "itw-data": "a data file or page already in this repository; evidence tier secondary"
+  },
+  "properties": {
+    "name": { "value_type": "string", "unit": null, "authority": ["gazetteer", "itw-data"], "ttl_days": null },
+    "page_place_name": { "value_type": "string", "unit": null, "authority": ["itw-data"], "ttl_days": null },
+    "place_position": { "value_type": "geo", "unit": null, "authority": ["gazetteer", "itw-data"], "ttl_days": 1825, "tolerance_m": 5000 },
+    "terminal_position": { "value_type": "geo", "unit": null, "authority": ["port-authority", "itw-data"], "ttl_days": 365, "tolerance_m": 500 },
+    "tender_port": { "value_type": "boolean", "unit": null, "authority": ["port-authority", "itw-data"], "ttl_days": 365 }
+  }
+}
