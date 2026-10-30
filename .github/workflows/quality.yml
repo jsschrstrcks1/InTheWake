@@ -351,6 +351,13 @@ jobs:
       - name: Run unit tests
         run: node --test "tests/unit/**/*.test.mjs"
 
+      # Statement gates at the manifest depth (Lexicon C4; assets/data/entities/README.md#gates-track-c4).
+      # Project-Sophos, which holds the statement contract, is private, so CI cannot run the full depth: this
+      # step refuses unsourced statements and any pilot card that is not what the renderer last wrote from
+      # the files as they are now, and prints what it cannot check. Pre-commit runs the full depth.
+      - name: Statement gates (manifest depth)
+        run: node admin/lexicon/statement-gates.mjs --ci
+
       # Ship-fact cross-check, baseline growth (Lexicon C8; admin/lexicon/CROSS-CHECK.md). The unit tests above
       # already refuse a disagreement the baseline does not hold. This step also refuses a baseline that grew
       # against the PR's base, which a pre-commit hook cannot enforce on a merge made on GitHub.

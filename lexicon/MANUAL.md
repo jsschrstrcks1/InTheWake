@@ -8,6 +8,46 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261029-itw-c6-port-pack
+
+Task `itw-c6-port-pack`.
+
+**Why.** A port lived in seven files with no shared identity, each with its own copy of its name and position, and nothing said where they disagreed. The Lexicon plan's census found ports whose page and registry put them in different places, and no tool could find them again or tell a copy from a second witness.
+
+**Enables.** Every port page is one entity, port:<slug>, with its name, page name, destination position, terminal position and tender flag filed as statements from this site's own files. Every list's key maps to that identity, names that do not match are listed rather than guessed, and every disagreement beyond the pack's declared tolerance is named with its sources: the work list for the gazetteer reads.
+
+**Proved by** `tests/unit/lexicon-port-statements.test.mjs::every named dispute is beyond the pack's tolerance, and no two positions within it are named`.
+
+### 20261029-itw-c4-statement-gates
+
+Task `itw-c4-statement-gates`.
+
+**Why.** Nothing refused a statement filed with nothing under it, a pilot card edited by hand inside its markers, a card left stale after its statements changed, or a card showing a value its sources dispute. The statement contract lives in private Project-Sophos, so this public repo's CI could not load it and the C2 and C3 statement tests skipped there in silence.
+
+**Enables.** Pre-commit and CI refuse itw_statement_unsourced, itw_infobox_drift and itw_conflict_published, each with a remedy and a repair-by-hand link. Where the contract is present every card is re-rendered and every value resolved again; in CI a hash manifest the renderer writes proves each card is what was rendered from the files as they are, and the output names what that depth cannot see.
+
+**Proved by** `tests/unit/lexicon-statement-gates.test.mjs::the committed tree passes at the manifest depth, and says what that depth does not check`.
+
+### 20261029-itw-c3-stats-card-spec-rendered
+
+Task `itw-c3-infobox-renderer`.
+
+**Why.** The browser test for the stats card expected Quantum and Radiance to be drawn by ship-stats.js with eight lines. Since C3 renders those two pilot cards from statements, they carry nine lines (IMO added) and ship-stats.js rightly leaves them alone, so the spec failed (Tools Smoke on InTheWake #2672).
+
+**Enables.** The spec now checks what is true for a rendered card: it survives the logbook fetch that once wiped it, carries the statements marker, has nine lines, and is not overdrawn by ship-stats.js. The other cases still check ship-stats.js as before.
+
+**Untested:** This entry is the browser spec itself; it ran 9 of 9 locally under Playwright, where it ran 7 of 9 before the change.
+
+### 20261029-itw-c3-infobox-renderer
+
+Task `itw-c3-infobox-renderer`.
+
+**Why.** A pilot ship's stats card showed figures typed by hand into its page, while the statement store held the same figures with sources and, for most pilot ships, the cruise line's own figure. The two could disagree silently, and a disputed figure (Legend of the Seas 1995 double-occupancy guests) could reach readers. Operator decision D7, 2026-10-29: render infoboxes from statements.
+
+**Enables.** The seven pilot pages' cards are written from the statements: the line's preferred figure where it spoke, a disputed figure withheld and named, an unknown named, every source shown with the day the line was read, and --check reports any card that drifts. A statement change now reaches the card by re-rendering, not by hand.
+
+**Proved by** `tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)`.
+
 ### 20261028-change-record-in-inthewake
 
 Task `change-record-deploy-repos-20261028`.

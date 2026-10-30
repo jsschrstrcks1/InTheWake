@@ -1,0 +1,599 @@
+{
+  "format": "lexicon-entity/1",
+  "entity": "change:20261029-itw-c3-infobox-renderer",
+  "_about": "Written by admin/change-record.mjs new. Append-only once on main; a correction is a new entry naming this one in supersedes. docs/lexicon/CHANGE-RECORD.md",
+  "statements": [
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261029-itw-c3-infobox-renderer#task",
+      "content": {
+        "summary": "change:20261029-itw-c3-infobox-renderer task = \"itw-c3-infobox-renderer\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c3-infobox-renderer",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "elhokar",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c3-infobox-renderer",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-10-29T17:59:12.746Z",
+        "observed_at": "2026-10-29T17:59:12.746Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261029-itw-c3-infobox-renderer",
+        "property": "task",
+        "value": "itw-c3-infobox-renderer",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-1d1729b86dc1750c"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261029-itw-c3-infobox-renderer#why",
+      "content": {
+        "summary": "change:20261029-itw-c3-infobox-renderer why = \"A pilot ship's stats card showed figures typed by hand into its page, while the statement store held the same figures with sources and, for most pilot ships, the cruise line's own figure. The two could disagree silently, and a disputed figure (Legend of the Seas 1995 double-occupancy guests) could reach readers. Operator decision D7, 2026-10-29: render infoboxes from statements.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c3-infobox-renderer",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "elhokar",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c3-infobox-renderer",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-10-29T17:59:12.746Z",
+        "observed_at": "2026-10-29T17:59:12.746Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261029-itw-c3-infobox-renderer",
+        "property": "why",
+        "value": "A pilot ship's stats card showed figures typed by hand into its page, while the statement store held the same figures with sources and, for most pilot ships, the cruise line's own figure. The two could disagree silently, and a disputed figure (Legend of the Seas 1995 double-occupancy guests) could reach readers. Operator decision D7, 2026-10-29: render infoboxes from statements.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-768585ad01e1b401"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261029-itw-c3-infobox-renderer#enables",
+      "content": {
+        "summary": "change:20261029-itw-c3-infobox-renderer enables = \"The seven pilot pages' cards are written from the statements: the line's preferred figure where it spoke, a disputed figure withheld and named, an unknown named, every source shown with the day the line was read, and --check reports any card that drifts. A statement change now reaches the card by re-rendering, not by hand.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c3-infobox-renderer",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "elhokar",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c3-infobox-renderer",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-10-29T17:59:12.746Z",
+        "observed_at": "2026-10-29T17:59:12.746Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261029-itw-c3-infobox-renderer",
+        "property": "enables",
+        "value": "The seven pilot pages' cards are written from the statements: the line's preferred figure where it spoke, a disputed figure withheld and named, an unknown named, every source shown with the day the line was read, and --check reports any card that drifts. A statement change now reaches the card by re-rendering, not by hand.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-cb6d6d062bb9cc23"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261029-itw-c3-infobox-renderer#proved_by",
+      "content": {
+        "summary": "change:20261029-itw-c3-infobox-renderer proved_by = \"tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c3-infobox-renderer",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "elhokar",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c3-infobox-renderer",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-10-29T17:59:12.746Z",
+        "observed_at": "2026-10-29T17:59:12.746Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261029-itw-c3-infobox-renderer",
+        "property": "proved_by",
+        "value": "tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-7126e88ac73cff39"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261029-itw-c3-infobox-renderer#rests_on",
+      "content": {
+        "summary": "change:20261029-itw-c3-infobox-renderer rests_on = \"plan 3.1 ADR-4\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c3-infobox-renderer",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "elhokar",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c3-infobox-renderer",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-10-29T17:59:12.746Z",
+        "observed_at": "2026-10-29T17:59:12.746Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261029-itw-c3-infobox-renderer",
+        "property": "rests_on",
+        "value": "plan 3.1 ADR-4",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-36dbb86a596b25f8"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261029-itw-c3-infobox-renderer#costs",
+      "content": {
+        "summary": "change:20261029-itw-c3-infobox-renderer costs = \"renderer script\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c3-infobox-renderer",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "elhokar",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c3-infobox-renderer",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-10-29T17:59:12.746Z",
+        "observed_at": "2026-10-29T17:59:12.746Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261029-itw-c3-infobox-renderer",
+        "property": "costs",
+        "value": "renderer script",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-4ecd863630407704"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261029-itw-c3-infobox-renderer#retires",
+      "content": {
+        "summary": "change:20261029-itw-c3-infobox-renderer retires = \"hand-typed ship figures on converted pages\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c3-infobox-renderer",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "elhokar",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c3-infobox-renderer",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-10-29T17:59:12.746Z",
+        "observed_at": "2026-10-29T17:59:12.746Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261029-itw-c3-infobox-renderer",
+        "property": "retires",
+        "value": "hand-typed ship figures on converted pages",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-07cf3569f594b75c"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261029-itw-c3-infobox-renderer#moved",
+      "content": {
+        "summary": "change:20261029-itw-c3-infobox-renderer moved = {}",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c3-infobox-renderer",
+        "uri": null,
+        "publisher": "measured",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "elhokar",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c3-infobox-renderer",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-render-infobox.test.mjs::every pilot card on disk is what its statements render (run admin/lexicon/render-infobox.mjs if this fails)",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-10-29T17:59:12.746Z",
+        "observed_at": "2026-10-29T17:59:12.746Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261029-itw-c3-infobox-renderer",
+        "property": "moved",
+        "value": {},
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-aa5fc5ff771ca70a"
+    }
+  ]
+}

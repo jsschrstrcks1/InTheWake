@@ -3,8 +3,8 @@
 # Entities: the facts behind the pages
 
 This folder holds In the Wake's facts as **statements**: one property of one ship (or, later, port or
-venue), one value, the sources it rests on, and the time it is true for. Pages will be rendered from
-them (Track C3), so a fact is written once and every page that shows it agrees.
+venue), one value, the sources it rests on, and the time it is true for. The pilot ships' stats cards are
+rendered from them (Track C3, below), so a fact is written once and every page that shows it agrees.
 
 Plan: Project-Sophos `docs/lexicon/LEXICON-PLAN-3.1.md`, Track C. Contract:
 `docs/lexicon/STATEMENT-CONTRACT.md` there. Tekton `itw-c1-cruise-pack-schema` (this structure) and
@@ -115,6 +115,112 @@ Two sources that disagree are two statements. Neither is deleted and neither is 
 `currentValue` returns `conflicting`, and a page shows **no** value for it until a person settles it.
 Settling is a governance act (rank `preferred` on the side the evidence supports), recorded, never
 automatic.
+
+## The stats card, rendered from statements (Track C3)
+
+Operator decision D7 (Ken, 2026-10-29): render the infobox from statements. On every pilot page (`PILOT` in
+`admin/lexicon/ship-statements.mjs`, seven pages for six ships), `admin/lexicon/render-infobox.mjs` writes the
+whole `#ship-stats` mount between `<!-- itw:infobox ... -->` and `<!-- /itw:infobox -->` markers:
+
+| Row | Where its value comes from |
+|---|---|
+| Class, entered service, gross tonnage, guests, crew, length, IMO | the statements, through the contract's `currentValue`: the line's own figure where it is the one preferred statement |
+| a figure the statements disagree on | **nothing**: it is named under the card ("Not shown while sources disagree") until a person settles it, and the page's typed figure does not stand in |
+| a figure filed as `unknown` | nothing; named under the card ("No source found yet") |
+| beam, registry, or a row no statement covers at all | the page's own `#ship-stats-fallback`, as `ship-stats.js` shows it today, marked `data-prop="page:<key>"` and credited as "this page's own records" |
+
+Under the card, one line names every source shown. A cruise line's page or fact sheet is linked (marked
+"(PDF)" when it is one) with the day it was read. This site's records carry no date: they are dated by
+their source's last commit, and the ship page is one of those sources, so a date there would change the
+page every time it is committed and never settle.
+
+```bash
+node admin/lexicon/render-infobox.mjs           # render the pilot cards
+node admin/lexicon/render-infobox.mjs --check   # exit 1 itw_infobox_drift, 2 itw_infobox_unavailable, 3 itw_infobox_hand_mount
+```
+
+Change a figure in the statements (or the record they are filed from), regenerate the entity files, then
+render; never edit inside the markers. The card is plain HTML, so it reads the same with JavaScript off, and
+`ship-stats.js` leaves it alone because the mount is not empty. `tests/unit/lexicon-render-infobox.test.mjs`
+fails while any pilot card is not what its statements render.
+
+**Not covered, said plainly.** The prose, the Key Facts list, the meta description and the JSON-LD on the
+same pages still repeat figures by hand and can still disagree with the card (Grandiosa's prose says 331
+metres; MSC's own page, which the card shows, says 331.43). A stale card is refused by the gates below.
+
+## Gates (Track C4)
+
+`admin/lexicon/statement-gates.mjs` runs at pre-commit (when a commit touches a ship page, an entity file, the
+card manifest or the tools that write them) and in CI (`quality.yml`, step "Statement gates"). Every refusal
+prints its code, the remedy, and a link to this section.
+
+**Two depths.** The statement contract lives in Project-Sophos, which is private, so this public repo's CI cannot
+load it. Where the contract is beside the checkout (or `LEXICON_CONTRACT_DIR` names it), the gates run at **full
+depth**: every pilot card is re-rendered and compared, and every value it shows is resolved again. Elsewhere, and
+always in CI (`--ci`), they run at **manifest depth**: unsourced statements in full, and every pilot card against
+`assets/data/lexicon/infobox-manifest.json`, the sha256 the renderer records of each card and of the entity file,
+fallback JSON and renderer it was written from. The output names the depth and what it did not check; a missing
+contract is reported as UNAVAILABLE, never as a full pass.
+
+| Code | Exit | Refuses | Repair by hand |
+|---|---|---|---|
+| `itw_statement_unsourced` | 1 | a statement with status verified, known or inference that names no evidence (or a blank one), has no `source_ref`, or is `verified` without a web page read in the session | Find what the claim rests on. If it is this site's record, fix the record and run `node admin/lexicon/ship-statements.mjs`; if it is the line's page, capture it with `admin/lexicon/capture-official.mjs` first. Never edit a statement by hand: its id is a hash of its content. If no source exists, the honest status is `unknown` |
+| `itw_statement_gates_unavailable` | 2 | an entity file, a pilot page or the manifest could not be read | Open the file the message names and fix its JSON or path. Nothing unread is reported as clean |
+| `itw_infobox_drift` | 3 | a pilot card that is not what its statements render: edited inside the markers, or written from an entity file, a fallback or a renderer that has changed since (a missing or hand-written mount too) | Run `node admin/lexicon/render-infobox.mjs` and stage the pages and the manifest it rewrites. To change what a card says, change the record the statement is filed from, regenerate with `ship-statements.mjs`, then render. After committing a pilot page, regenerate the entity files and render again in the next commit: the entity files are re-dated, the cards stay the same, and the manifest records the new hashes |
+| `itw_conflict_published` | 4 | a pilot card showing a value whose statements disagree, or the page's own figure standing in where statements exist (full depth only) | Re-render: the renderer withholds a disputed value and names it under the card. To show a value, settle the dispute in the statements first (see Disagreements) |
+
+There is **no baseline**: measured 2026-10-29, 0 of 1,848 statements were unsourced, so no existing debt needed
+holding and every unsourced statement is refused. Tests: `tests/unit/lexicon-statement-gates.test.mjs`.
+
+**Honest limit.** The manifest depth proves a card is what the renderer last wrote from the files as they are
+now; it cannot prove that render was right, and it cannot see a disputed value. A contributor without
+Project-Sophos beside the checkout gets only the manifest depth at pre-commit too. Neither depth sees a value
+whose statement's validity window ends between renders.
+
+## Ports (Track C6)
+
+A port lived in seven files with no shared identity: its page, `assets/data/ports/port-registry.json`,
+`ports-geo.json`, `port-summaries.json`, `seasonal-guides.json`, `assets/data/maps/<slug>.map.json` and
+`data/ports.csv`. Every port page is now one entity, `port:<slug>` (`port/<slug>.json`, 399 of them), filed by
+`admin/lexicon/port-statements.mjs` from this site's own committed files under the pack
+`assets/data/lexicon/cruise.port.pack.json`.
+
+| Property | From | Note |
+|---|---|---|
+| `name` | the registry (ports-geo carries the same, cited on it) | the short name: "Abu Dhabi" |
+| `page_place_name` | the page's JSON-LD `mainEntity.name` | how the page names its place, often qualified: "Abu Dhabi / Zayed Port". A second fact, not a disputed copy of `name` |
+| `place_position` | the page's JSON-LD `mainEntity.geo`, the registry, ports-geo | the destination the guide is about; tolerance **5 km** |
+| `terminal_position` | the map's `port_pin` | where a ship docks or tenders, which can lie kilometres from the town; tolerance **500 m** |
+| `tender_port` | the registry | |
+
+**Positions are geo values with a tolerance** (operator ruling 2026-10-29; Project-Sophos #1488). Two sources
+within the property's tolerance name the same place, and every tool that reads them agrees, because the
+tolerance is sealed into the statement. 5 km is the threshold the Lexicon plan's census used for its 37
+page-versus-registry disagreements. **Identical values from several files are one statement citing all of
+them**: ports-geo matches the registry to the metre on every port, so it is a copy, never a second witness.
+
+**Identity.** `assets/data/lexicon/port-aliases.json` maps every list's key to `port:<slug>`. Every slug-keyed
+list maps fully. `data/ports.csv`, keyed by name, maps only on an exact normalised name: 146 match, 1 is
+ambiguous, 202 have no page (many are ports this site has no guide for) and are listed, never guessed. ken's
+whatsinport list lives in another repository and is not read here.
+
+**Disputes.** `assets/data/lexicon/port-disputes.json` lists every disagreement beyond tolerance with each side's
+sources: 46 `place_position` disputes (the plan's 37 page-versus-registry, plus 9 ports where only the page and
+ports-geo exist). Neither side is picked. These are the ports the next build reads a gazetteer for. Its
+`name_review` lists ports whose short name and page name share no part, for a person to read (9 today).
+
+```bash
+node admin/lexicon/port-statements.mjs           # after a port page or port file is committed
+node admin/lexicon/port-statements.mjs --check   # exit 1 itw_port_statements_stale, 2 itw_port_statements_unavailable
+```
+
+Like the ship statements, it reads committed content only, because each fact is dated by its source's commit.
+The statement gates (above) cover these files too: an unsourced port statement is refused at pre-commit and in CI.
+
+**Honest limits.** Nothing here says which side of a dispute is right; that waits for the gazetteer. The tests
+that need the geo contract skip until Project-Sophos #1488 is merged (they say so), and CI cannot run them in any
+case (Project-Sophos is private), so a port file left stale after a source change is caught only where the
+contract is beside the checkout.
 
 ## Deployments: one direction (Track C5)
 
