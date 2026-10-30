@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261030-itw-ship-statements-redated
+
+Task `itw-c6b-port-gazetteer`.
+
+**Why.** The squash merge of the C3 pull request gave six ships' source files a new last commit, so main's ship statements carried the branch's dates and no longer matched what the records say.
+
+**Enables.** Main's ship statements and the stats-card manifest match their records again, so the ship-statements test and the full-depth statement gates hold wherever the contract is beside the checkout.
+
+**Proved by** `tests/unit/lexicon-ship-statements.test.mjs::the entity files are exactly what the records say (regenerate if this fails)`.
+
 ### 20261029-itw-c6-port-pack
 
 Task `itw-c6-port-pack`.
