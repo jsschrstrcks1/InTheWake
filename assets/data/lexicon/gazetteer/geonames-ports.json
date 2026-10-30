@@ -1,0 +1,1566 @@
+{
+  "format": "itw-gazetteer-observation/1",
+  "_about": "Written by admin/lexicon/port-gazetteer.mjs capture; do not edit by hand. What GeoNames (a public gazetteer, CC BY 4.0, https://www.geonames.org) records under the names this site gives each disputed port, near either side of the dispute, read from the dump files named under `files`. Every matching feature is listed; which one a guide is about is not decided here. assets/data/entities/README.md#gazetteer-reads-track-c6b",
+  "gazetteer": "GeoNames",
+  "license": "CC BY 4.0",
+  "attribution": "GeoNames, https://www.geonames.org",
+  "read_at": "2026-10-30T04:21:43.748Z",
+  "rule": {
+    "kinds": "feature class P, T, H or L, or A with a PCL* code",
+    "country_search_m": 300000,
+    "window_m": 300000,
+    "tolerance_m": 5000
+  },
+  "files": {
+    "cities500.zip": {
+      "url": "https://download.geonames.org/export/dump/cities500.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:55:00 GMT",
+      "bytes": 13912118,
+      "sha256": "7be539cffb2799ad31004ff44370edf5ad72cf683429d929d34b02949349daca"
+    },
+    "AE.zip": {
+      "url": "https://download.geonames.org/export/dump/AE.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:47:25 GMT",
+      "bytes": 345308,
+      "sha256": "6ea8287120263427d89d6882b9c6f5e37d051adcb07fc568968b8b7e25fad8ee"
+    },
+    "AQ.zip": {
+      "url": "https://download.geonames.org/export/dump/AQ.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:47:39 GMT",
+      "bytes": 576792,
+      "sha256": "99ea99e7b0055e6312e6c1df250af7bec47228122013a1fe2f1e5da363ef095d"
+    },
+    "AR.zip": {
+      "url": "https://download.geonames.org/export/dump/AR.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:47:42 GMT",
+      "bytes": 1908360,
+      "sha256": "c7b908b00fefb512eb79d98668cb5f614fed09218efd354f5c42280aab8be0f7"
+    },
+    "AU.zip": {
+      "url": "https://download.geonames.org/export/dump/AU.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:47:50 GMT",
+      "bytes": 5745182,
+      "sha256": "c3effe9e9b28eea07b32a056deeed9405a3d089074418eeb5340e3f037c8c439"
+    },
+    "BB.zip": {
+      "url": "https://download.geonames.org/export/dump/BB.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:47:53 GMT",
+      "bytes": 40421,
+      "sha256": "e743d950798bafa7788ea413e750d8476a43952ca3e25f852b295d250542fa35"
+    },
+    "BM.zip": {
+      "url": "https://download.geonames.org/export/dump/BM.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:47:57 GMT",
+      "bytes": 24831,
+      "sha256": "05805ba1de650fb3a165d39e443566708e2fb6c956519a8846e3d482ff36f5d6"
+    },
+    "BS.zip": {
+      "url": "https://download.geonames.org/export/dump/BS.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:48:07 GMT",
+      "bytes": 96429,
+      "sha256": "7420a51d9dd66528be09cd5b67a28d3eb3d446ebd604876dd9c8403a6f53c80b"
+    },
+    "BZ.zip": {
+      "url": "https://download.geonames.org/export/dump/BZ.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:48:09 GMT",
+      "bytes": 78384,
+      "sha256": "6ca7bbe59da529bda8ec6269ffa2ed5c39bba2921c73106deb1ed89ecf9f2ad0"
+    },
+    "CL.zip": {
+      "url": "https://download.geonames.org/export/dump/CL.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:48:26 GMT",
+      "bytes": 1421434,
+      "sha256": "069f37b2f6a1ae6eca2960fef04f45f2ab840895cf6e9f9a734e22cf3a5818ef"
+    },
+    "CR.zip": {
+      "url": "https://download.geonames.org/export/dump/CR.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:49:04 GMT",
+      "bytes": 586165,
+      "sha256": "de9a0e4c81dc99935e9808fc8233a6f8df13486a0d3b8506eb482c634fb01c22"
+    },
+    "CW.zip": {
+      "url": "https://download.geonames.org/export/dump/CW.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:49:06 GMT",
+      "bytes": 18034,
+      "sha256": "5b356c1beb07587a3e54d598a255a953344e437438fcc4b4ba418bacfd1b4b54"
+    },
+    "DM.zip": {
+      "url": "https://download.geonames.org/export/dump/DM.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:49:17 GMT",
+      "bytes": 26400,
+      "sha256": "f25fb3e03c2756e763e686650a7c63c3fcfe55dc24389ae0c2e5533668d3ce7b"
+    },
+    "DO.zip": {
+      "url": "https://download.geonames.org/export/dump/DO.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:49:18 GMT",
+      "bytes": 1068125,
+      "sha256": "54a5515232ab36974de3e4a1c1cc89171c210cef82850af92319f8f7298f191c"
+    },
+    "EG.zip": {
+      "url": "https://download.geonames.org/export/dump/EG.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:49:22 GMT",
+      "bytes": 1859097,
+      "sha256": "98b79014739d4f59c87cb305cb7c3844db53f038deb6f8526d6e79252257d76b"
+    },
+    "ES.zip": {
+      "url": "https://download.geonames.org/export/dump/ES.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:49:26 GMT",
+      "bytes": 3336257,
+      "sha256": "f22efc9ec30c191d1bcf0177cfd5580c55a8412c4445cb127a03cee17695adaa"
+    },
+    "GB.zip": {
+      "url": "https://download.geonames.org/export/dump/GB.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:49:55 GMT",
+      "bytes": 3639271,
+      "sha256": "ac6ad8b94cc2d34a9f181405644f13fd7286cb3ee8123d34e2dca665651cb056"
+    },
+    "GR.zip": {
+      "url": "https://download.geonames.org/export/dump/GR.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:49:59 GMT",
+      "bytes": 1739617,
+      "sha256": "3a57e8786aedf7989aa89ac7320cfd778ebf1c03e36d8146f28da5e8d887d60c"
+    },
+    "HN.zip": {
+      "url": "https://download.geonames.org/export/dump/HN.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:50:01 GMT",
+      "bytes": 483381,
+      "sha256": "b009a21da190bfc631017af1bdf2ad3a6b70d7a2f9d6205fdeafd69d927678f6"
+    },
+    "HT.zip": {
+      "url": "https://download.geonames.org/export/dump/HT.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:50:02 GMT",
+      "bytes": 426213,
+      "sha256": "00544237cb365c69e89fac6c23d4337f924cb967461d38ad00b08bed3c05acb4"
+    },
+    "ID.zip": {
+      "url": "https://download.geonames.org/export/dump/ID.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:50:16 GMT",
+      "bytes": 10389782,
+      "sha256": "78d10c8609124356d004be6d021f792682ca636ea0bb2f52eaf09e2b57b883af"
+    },
+    "JM.zip": {
+      "url": "https://download.geonames.org/export/dump/JM.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:50:55 GMT",
+      "bytes": 236672,
+      "sha256": "1fbfc53e2bc61806ac273e15b27eed0b3600f523a90b1929cee43525af8693a6"
+    },
+    "JP.zip": {
+      "url": "https://download.geonames.org/export/dump/JP.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:51:01 GMT",
+      "bytes": 4959621,
+      "sha256": "227d230a0a8105fc14655e2380ad6a05cc914501ae184b64a0da62421e307b99"
+    },
+    "MG.zip": {
+      "url": "https://download.geonames.org/export/dump/MG.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:51:30 GMT",
+      "bytes": 1383062,
+      "sha256": "e4b83aea5991911310cd410be72803a323c263d3bee128254a12eba52b296ea7"
+    },
+    "NC.zip": {
+      "url": "https://download.geonames.org/export/dump/NC.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:51:56 GMT",
+      "bytes": 144402,
+      "sha256": "3294ea115561761cd1dcf997ea45c7ac774e9d8f7a734b1f44bc9e12e8b00d02"
+    },
+    "NO.zip": {
+      "url": "https://download.geonames.org/export/dump/NO.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:52:17 GMT",
+      "bytes": 15771884,
+      "sha256": "1b20ea96336ff51ad4ce88b5b2537c90ae8eb8df4de881a6d175fe4ab2a7f196"
+    },
+    "OM.zip": {
+      "url": "https://download.geonames.org/export/dump/OM.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:52:23 GMT",
+      "bytes": 587820,
+      "sha256": "5655d5e29e670928a0fc5b42074102401ebef4bd096bb91d00d60a46c2b3d4b9"
+    },
+    "PA.zip": {
+      "url": "https://download.geonames.org/export/dump/PA.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:52:24 GMT",
+      "bytes": 931970,
+      "sha256": "56b3f1211d07a6b8225d31dda883fdfd063186a97b808cda2f9c16c96b3dbf9c"
+    },
+    "PF.zip": {
+      "url": "https://download.geonames.org/export/dump/PF.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:52:27 GMT",
+      "bytes": 128908,
+      "sha256": "edd47e087330617894a7425ae0901c5e6a1b084c037d5e6d6d3e7fc14bbcb975"
+    },
+    "PW.zip": {
+      "url": "https://download.geonames.org/export/dump/PW.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:52:42 GMT",
+      "bytes": 49592,
+      "sha256": "976129e79e3c212494eedbac8e86c55333cd4c1d53bbb391d2bce1e388e2adb3"
+    },
+    "TH.zip": {
+      "url": "https://download.geonames.org/export/dump/TH.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:53:26 GMT",
+      "bytes": 9811182,
+      "sha256": "90e4fe25f0e2b0b9c6be295fc9774ed5d5fb1aa7d7889d114117409e179330b0"
+    },
+    "TO.zip": {
+      "url": "https://download.geonames.org/export/dump/TO.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:53:27 GMT",
+      "bytes": 29647,
+      "sha256": "8b47b1249830d2e44ed63a6ee00e677ec6f67e3a8f215b88c68e88ab1bf276ba"
+    },
+    "TT.zip": {
+      "url": "https://download.geonames.org/export/dump/TT.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:53:32 GMT",
+      "bytes": 68434,
+      "sha256": "10a9ab6c44027a90a93456c10ce4965980bfeca6082673aae81a76c21d270a98"
+    },
+    "US.zip": {
+      "url": "https://download.geonames.org/export/dump/US.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:54:46 GMT",
+      "bytes": 71108509,
+      "sha256": "09ab4d4450a483a3e1a22e15e0fc15bb3bf1ed9ad82c3ee9066bf38064df97d9"
+    },
+    "VI.zip": {
+      "url": "https://download.geonames.org/export/dump/VI.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:54:49 GMT",
+      "bytes": 72412,
+      "sha256": "b38f47632f9bc36dc5ca60924c5cc13c9a22ede41a21e48f4f92a8aefdced2b0"
+    },
+    "VN.zip": {
+      "url": "https://download.geonames.org/export/dump/VN.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:54:51 GMT",
+      "bytes": 1967757,
+      "sha256": "5d35bc3bf56fbae9a9cbed4d46ad9e39c7cbfedb2ed66e15e1e765c990698e3c"
+    },
+    "VU.zip": {
+      "url": "https://download.geonames.org/export/dump/VU.zip",
+      "last_modified": "Fri, 30 Oct 2026 02:54:51 GMT",
+      "bytes": 135955,
+      "sha256": "45a87dc18c4c943e0cc4817fb6e3048996096eff4c189aa95bbbc881e90fec89"
+    }
+  },
+  "ports": {
+    "adelaide": {
+      "names": [
+        "adelaide",
+        "adelaide port adelaide",
+        "port adelaide"
+      ],
+      "countries": [
+        "AU"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 2063059,
+          "name": "Port Adelaide",
+          "feature": "P.PPLX",
+          "country": "AU",
+          "lat": -34.8462,
+          "lon": 138.50302,
+          "population": 1197,
+          "matched_name": "port adelaide"
+        },
+        {
+          "geonameid": 2078025,
+          "name": "Adelaide",
+          "feature": "P.PPLA",
+          "country": "AU",
+          "lat": -34.92866,
+          "lon": 138.59863,
+          "population": 1469163,
+          "matched_name": "adelaide"
+        },
+        {
+          "geonameid": 11523930,
+          "name": "Adelaide",
+          "feature": "L.RGN",
+          "country": "AU",
+          "lat": -34.83313,
+          "lon": 138.62537,
+          "population": 0,
+          "matched_name": "adelaide"
+        },
+        {
+          "geonameid": 11886621,
+          "name": "Port Adelaide",
+          "feature": "L.PRT",
+          "country": "AU",
+          "lat": -34.84274,
+          "lon": 138.50296,
+          "population": 0,
+          "matched_name": "port adelaide"
+        }
+      ]
+    },
+    "amber-cove": {
+      "names": [
+        "amber cove",
+        "amber cove puerto plata",
+        "puerto plata"
+      ],
+      "countries": [
+        "DO"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3493175,
+          "name": "Puerto Plata",
+          "feature": "P.PPLA",
+          "country": "DO",
+          "lat": 19.79344,
+          "lon": -70.6884,
+          "population": 146000,
+          "matched_name": "puerto plata"
+        },
+        {
+          "geonameid": 13132240,
+          "name": "Puerto Plata",
+          "feature": "H.HBR",
+          "country": "DO",
+          "lat": 19.80359,
+          "lon": -70.70083,
+          "population": 0,
+          "matched_name": "puerto plata"
+        }
+      ]
+    },
+    "antarctic-peninsula": {
+      "names": [
+        "antarctic peninsula"
+      ],
+      "countries": [
+        "AQ"
+      ],
+      "window_m": 300000,
+      "features": []
+    },
+    "antarctica": {
+      "names": [
+        "antarctica"
+      ],
+      "countries": [
+        "AQ"
+      ],
+      "window_m": 300000,
+      "features": []
+    },
+    "bali": {
+      "names": [
+        "bali",
+        "bali benoa",
+        "benoa"
+      ],
+      "countries": [
+        "ID"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 1621139,
+          "name": "Selat Bali",
+          "feature": "H.STRT",
+          "country": "ID",
+          "lat": -8.3,
+          "lon": 114.425,
+          "population": 0,
+          "matched_name": "bali"
+        },
+        {
+          "geonameid": 1649125,
+          "name": "Benoa",
+          "feature": "P.PPL",
+          "country": "ID",
+          "lat": -8.7548,
+          "lon": 115.2184,
+          "population": 39570,
+          "matched_name": "benoa"
+        },
+        {
+          "geonameid": 1650534,
+          "name": "Bali",
+          "feature": "T.ISL",
+          "country": "ID",
+          "lat": -8.33333,
+          "lon": 115,
+          "population": 4225384,
+          "matched_name": "bali"
+        },
+        {
+          "geonameid": 6773142,
+          "name": "Bali",
+          "feature": "P.PPL",
+          "country": "ID",
+          "lat": -7.9622,
+          "lon": 112.7533,
+          "population": 0,
+          "matched_name": "bali"
+        }
+      ]
+    },
+    "bangkok": {
+      "names": [
+        "bangkok",
+        "bangkok laem chabang",
+        "laem chabang"
+      ],
+      "countries": [
+        "TH"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 1609350,
+          "name": "Bangkok",
+          "feature": "P.PPLC",
+          "country": "TH",
+          "lat": 13.75398,
+          "lon": 100.50144,
+          "population": 5104476,
+          "matched_name": "bangkok"
+        },
+        {
+          "geonameid": 1609469,
+          "name": "Laem Krabang",
+          "feature": "T.PT",
+          "country": "TH",
+          "lat": 13.07722,
+          "lon": 100.87243,
+          "population": 0,
+          "matched_name": "laem chabang"
+        },
+        {
+          "geonameid": 1611244,
+          "name": "Maenam Chao Phraya",
+          "feature": "H.STM",
+          "country": "TH",
+          "lat": 13.53333,
+          "lon": 100.60214,
+          "population": 0,
+          "matched_name": "bangkok"
+        },
+        {
+          "geonameid": 1897926,
+          "name": "Laem Chabang",
+          "feature": "P.PPL",
+          "country": "TH",
+          "lat": 13.08775,
+          "lon": 100.88433,
+          "population": 88271,
+          "matched_name": "laem chabang"
+        },
+        {
+          "geonameid": 11876553,
+          "name": "Bangkok",
+          "feature": "L.PRT",
+          "country": "TH",
+          "lat": 13.70352,
+          "lon": 100.57718,
+          "population": 0,
+          "matched_name": "bangkok"
+        }
+      ]
+    },
+    "barbados": {
+      "names": [
+        "barbados"
+      ],
+      "countries": [
+        "BB"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3374084,
+          "name": "Barbados",
+          "feature": "A.PCLI",
+          "country": "BB",
+          "lat": 13.16453,
+          "lon": -59.55165,
+          "population": 282623,
+          "matched_name": "barbados"
+        },
+        {
+          "geonameid": 3374085,
+          "name": "Barbados",
+          "feature": "T.ISL",
+          "country": "BB",
+          "lat": 13.16457,
+          "lon": -59.55208,
+          "population": 279254,
+          "matched_name": "barbados"
+        }
+      ]
+    },
+    "bermuda": {
+      "names": [
+        "bermuda"
+      ],
+      "countries": [
+        "BM"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3573342,
+          "name": "Bermudas",
+          "feature": "T.ISLS",
+          "country": "BM",
+          "lat": 32.30444,
+          "lon": -64.75167,
+          "population": 0,
+          "matched_name": "bermuda"
+        },
+        {
+          "geonameid": 3573345,
+          "name": "Bermuda",
+          "feature": "A.PCLD",
+          "country": "BM",
+          "lat": 32.33022,
+          "lon": -64.74003,
+          "population": 64555,
+          "matched_name": "bermuda"
+        }
+      ]
+    },
+    "cape-cod": {
+      "names": [
+        "cape cod"
+      ],
+      "countries": [
+        "US"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 4933508,
+          "name": "Cape Cod",
+          "feature": "T.CAPE",
+          "country": "US",
+          "lat": 41.6862,
+          "lon": -70.24308,
+          "population": 0,
+          "matched_name": "cape cod"
+        }
+      ]
+    },
+    "cephalonia": {
+      "names": [
+        "cephalonia",
+        "cephalonia kefalonia",
+        "kefalonia"
+      ],
+      "countries": [
+        "GR"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 260311,
+          "name": "Kefalonia Island",
+          "feature": "T.ISL",
+          "country": "GR",
+          "lat": 38.25,
+          "lon": 20.58333,
+          "population": 36064,
+          "matched_name": "cephalonia"
+        },
+        {
+          "geonameid": 7290409,
+          "name": "Kefalonia",
+          "feature": "P.PPL",
+          "country": "GR",
+          "lat": 38.12227,
+          "lon": 20.50246,
+          "population": 0,
+          "matched_name": "kefalonia"
+        }
+      ]
+    },
+    "chilean-fjords": {
+      "names": [
+        "chilean fjords"
+      ],
+      "countries": [
+        "AR"
+      ],
+      "window_m": 300000,
+      "features": []
+    },
+    "cococay": {
+      "names": [
+        "cococay",
+        "perfect day at cococay"
+      ],
+      "countries": [
+        "BS"
+      ],
+      "window_m": 300000,
+      "features": []
+    },
+    "curacao": {
+      "names": [
+        "curacao"
+      ],
+      "countries": [
+        "CW"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3513790,
+          "name": "Curaçao Island",
+          "feature": "T.ISL",
+          "country": "CW",
+          "lat": 12.1819,
+          "lon": -68.99248,
+          "population": 142000,
+          "matched_name": "curacao"
+        },
+        {
+          "geonameid": 7626836,
+          "name": "Country of Curaçao",
+          "feature": "A.PCLIX",
+          "country": "CW",
+          "lat": 12.16667,
+          "lon": -68.96667,
+          "population": 156263,
+          "matched_name": "curacao"
+        }
+      ]
+    },
+    "dominica": {
+      "names": [
+        "dominica"
+      ],
+      "countries": [
+        "DM"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3575830,
+          "name": "Dominica",
+          "feature": "A.PCLI",
+          "country": "DM",
+          "lat": 15.5,
+          "lon": -61.33333,
+          "population": 65871,
+          "matched_name": "dominica"
+        },
+        {
+          "geonameid": 3575831,
+          "name": "Dominica",
+          "feature": "T.ISL",
+          "country": "DM",
+          "lat": 15.43713,
+          "lon": -61.34216,
+          "population": 0,
+          "matched_name": "dominica"
+        }
+      ]
+    },
+    "dubai": {
+      "names": [
+        "dubai"
+      ],
+      "countries": [
+        "AE"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 292223,
+          "name": "Dubai",
+          "feature": "P.PPLA",
+          "country": "AE",
+          "lat": 25.07725,
+          "lon": 55.30927,
+          "population": 3790000,
+          "matched_name": "dubai"
+        }
+      ]
+    },
+    "endicott-arm": {
+      "names": [
+        "endicott arm"
+      ],
+      "countries": [
+        "US"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 5846060,
+          "name": "Endicott Arm",
+          "feature": "H.BAY",
+          "country": "US",
+          "lat": 57.62778,
+          "lon": -133.26083,
+          "population": 0,
+          "matched_name": "endicott arm"
+        }
+      ]
+    },
+    "gatun-lake": {
+      "names": [
+        "gatun lake"
+      ],
+      "countries": [
+        "PA"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3709289,
+          "name": "Lago Gatún",
+          "feature": "H.RSV",
+          "country": "PA",
+          "lat": 9.19895,
+          "lon": -79.89502,
+          "population": 0,
+          "matched_name": "gatun lake"
+        }
+      ]
+    },
+    "glacier-alley": {
+      "names": [
+        "glacier alley"
+      ],
+      "countries": [
+        "AR",
+        "CL"
+      ],
+      "window_m": 300000,
+      "features": []
+    },
+    "glacier-bay": {
+      "names": [
+        "glacier bay",
+        "glacier bay national park"
+      ],
+      "countries": [
+        "US"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 5846640,
+          "name": "Glacier Bay",
+          "feature": "H.BAY",
+          "country": "US",
+          "lat": 58.70691,
+          "lon": -136.1673,
+          "population": 0,
+          "matched_name": "glacier bay"
+        },
+        {
+          "geonameid": 5846642,
+          "name": "Glacier Bay National Park and Preserve",
+          "feature": "L.PRK",
+          "country": "US",
+          "lat": 58.50056,
+          "lon": -137.00056,
+          "population": 0,
+          "matched_name": "glacier bay"
+        }
+      ]
+    },
+    "harvest-caye": {
+      "names": [
+        "harvest caye"
+      ],
+      "countries": [
+        "BZ",
+        "HN"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3581973,
+          "name": "Harvest Cay",
+          "feature": "T.ISL",
+          "country": "BZ",
+          "lat": 16.47922,
+          "lon": -88.40218,
+          "population": 0,
+          "matched_name": "harvest caye"
+        }
+      ]
+    },
+    "ho-chi-minh": {
+      "names": [
+        "ho chi minh",
+        "ho chi minh city"
+      ],
+      "countries": [
+        "VN"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 1566083,
+          "name": "Ho Chi Minh City",
+          "feature": "P.PPL",
+          "country": "VN",
+          "lat": 10.82302,
+          "lon": 106.62965,
+          "population": 14002598,
+          "matched_name": "ho chi minh city"
+        }
+      ]
+    },
+    "jamaica": {
+      "names": [
+        "falmouth",
+        "falmouth jamaica",
+        "jamaica",
+        "jamaica falmouth"
+      ],
+      "countries": [
+        "JM"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3489940,
+          "name": "Jamaica",
+          "feature": "A.PCLI",
+          "country": "JM",
+          "lat": 18.16667,
+          "lon": -77.25,
+          "population": 2837077,
+          "matched_name": "jamaica"
+        },
+        {
+          "geonameid": 3489941,
+          "name": "Jamaica",
+          "feature": "T.ISL",
+          "country": "JM",
+          "lat": 18.17717,
+          "lon": -77.37122,
+          "population": 2950210,
+          "matched_name": "jamaica"
+        },
+        {
+          "geonameid": 3490520,
+          "name": "Falmouth",
+          "feature": "P.PPLA",
+          "country": "JM",
+          "lat": 18.49358,
+          "lon": -77.65587,
+          "population": 7779,
+          "matched_name": "falmouth"
+        }
+      ]
+    },
+    "koh-samui": {
+      "names": [
+        "koh samui"
+      ],
+      "countries": [
+        "TH"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 1154689,
+          "name": "Ko Samui",
+          "feature": "P.PPLA2",
+          "country": "TH",
+          "lat": 9.53567,
+          "lon": 99.93567,
+          "population": 50000,
+          "matched_name": "koh samui"
+        },
+        {
+          "geonameid": 1606595,
+          "name": "Ko Samui Island",
+          "feature": "T.ISL",
+          "country": "TH",
+          "lat": 9.50376,
+          "lon": 99.99357,
+          "population": 0,
+          "matched_name": "koh samui"
+        }
+      ]
+    },
+    "labadee": {
+      "names": [
+        "labadee"
+      ],
+      "countries": [
+        "HT"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3723428,
+          "name": "Labadie",
+          "feature": "P.PPL",
+          "country": "HT",
+          "lat": 19.77172,
+          "lon": -72.24529,
+          "population": 0,
+          "matched_name": "labadee"
+        }
+      ]
+    },
+    "lombok": {
+      "names": [
+        "indonesia",
+        "lombok",
+        "lombok indonesia"
+      ],
+      "countries": [
+        "ID"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 7869837,
+          "name": "Lombok Island",
+          "feature": "T.ISL",
+          "country": "ID",
+          "lat": -8.67697,
+          "lon": 116.33286,
+          "population": 3311044,
+          "matched_name": "lombok"
+        }
+      ]
+    },
+    "marthas-vineyard": {
+      "names": [
+        "martha s vineyard",
+        "marthas vineyard"
+      ],
+      "countries": [
+        "US"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 4943231,
+          "name": "Martha's Vineyard Island",
+          "feature": "T.ISL",
+          "country": "US",
+          "lat": 41.41678,
+          "lon": -70.61614,
+          "population": 0,
+          "matched_name": "marthas vineyard"
+        }
+      ]
+    },
+    "maui": {
+      "names": [
+        "hawaii",
+        "maui",
+        "maui hawaii"
+      ],
+      "countries": [
+        "US"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 5849227,
+          "name": "Keoneheʻeheʻe",
+          "feature": "T.LAVA",
+          "country": "US",
+          "lat": 20.86777,
+          "lon": -156.96019,
+          "population": 0,
+          "matched_name": "maui"
+        },
+        {
+          "geonameid": 5850862,
+          "name": "Maui",
+          "feature": "T.ISL",
+          "country": "US",
+          "lat": 20.77024,
+          "lon": -156.26816,
+          "population": 154834,
+          "matched_name": "maui"
+        },
+        {
+          "geonameid": 5855799,
+          "name": "Island of Hawai‘i",
+          "feature": "T.ISL",
+          "country": "US",
+          "lat": 19.54814,
+          "lon": -155.66494,
+          "population": 185079,
+          "matched_name": "hawaii"
+        }
+      ]
+    },
+    "muscat": {
+      "names": [
+        "muscat"
+      ],
+      "countries": [
+        "OM"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 287286,
+          "name": "Muscat",
+          "feature": "P.PPLC",
+          "country": "OM",
+          "lat": 23.58413,
+          "lon": 58.40778,
+          "population": 797000,
+          "matched_name": "muscat"
+        },
+        {
+          "geonameid": 13440507,
+          "name": "Masqaţ",
+          "feature": "P.PPL",
+          "country": "OM",
+          "lat": 23.61398,
+          "lon": 58.59105,
+          "population": 0,
+          "matched_name": "muscat"
+        }
+      ]
+    },
+    "mystery-island": {
+      "names": [
+        "mystery island"
+      ],
+      "countries": [
+        "VU"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 8556372,
+          "name": "Mystery Island",
+          "feature": "T.ISL",
+          "country": "VU",
+          "lat": -20.24831,
+          "lon": 169.77284,
+          "population": 0,
+          "matched_name": "mystery island"
+        }
+      ]
+    },
+    "norwegian-fjords": {
+      "names": [
+        "norwegian fjords"
+      ],
+      "countries": [
+        "NO"
+      ],
+      "window_m": 300000,
+      "features": []
+    },
+    "nosy-be": {
+      "names": [
+        "madagascar",
+        "nosy be",
+        "nosy be madagascar"
+      ],
+      "countries": [
+        "MG"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 1058089,
+          "name": "Nosy-Be",
+          "feature": "P.PPL",
+          "country": "MG",
+          "lat": -13.3,
+          "lon": 48.255,
+          "population": 0,
+          "matched_name": "nosy be"
+        },
+        {
+          "geonameid": 1058090,
+          "name": "Nosy Be",
+          "feature": "T.ISL",
+          "country": "MG",
+          "lat": -13.31421,
+          "lon": 48.25899,
+          "population": 0,
+          "matched_name": "nosy be"
+        },
+        {
+          "geonameid": 1068724,
+          "name": "Nosy Be",
+          "feature": "T.ISL",
+          "country": "MG",
+          "lat": -13.3,
+          "lon": 50,
+          "population": 0,
+          "matched_name": "nosy be"
+        }
+      ]
+    },
+    "noumea": {
+      "names": [
+        "new caledonia",
+        "noumea",
+        "noumea new caledonia"
+      ],
+      "countries": [
+        "NC"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 2139509,
+          "name": "New Caledonia",
+          "feature": "T.ISL",
+          "country": "NC",
+          "lat": -21.5,
+          "lon": 165.5,
+          "population": 0,
+          "matched_name": "new caledonia"
+        },
+        {
+          "geonameid": 2139521,
+          "name": "Nouméa",
+          "feature": "P.PPLC",
+          "country": "NC",
+          "lat": -22.27407,
+          "lon": 166.44884,
+          "population": 93060,
+          "matched_name": "noumea"
+        },
+        {
+          "geonameid": 2139685,
+          "name": "New Caledonia",
+          "feature": "A.PCLD",
+          "country": "NC",
+          "lat": -21.5,
+          "lon": 165.5,
+          "population": 295333,
+          "matched_name": "new caledonia"
+        }
+      ]
+    },
+    "palau": {
+      "names": [
+        "koror",
+        "palau",
+        "palau koror"
+      ],
+      "countries": [
+        "PW"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 1559446,
+          "name": "Koror",
+          "feature": "P.PPLA",
+          "country": "PW",
+          "lat": 7.33978,
+          "lon": 134.47326,
+          "population": 14000,
+          "matched_name": "koror"
+        },
+        {
+          "geonameid": 1559582,
+          "name": "Republic of Palau",
+          "feature": "A.PCLF",
+          "country": "PW",
+          "lat": 7.503,
+          "lon": 134.621,
+          "population": 17663,
+          "matched_name": "palau"
+        },
+        {
+          "geonameid": 1559586,
+          "name": "Koror Island",
+          "feature": "T.ISL",
+          "country": "PW",
+          "lat": 7.339,
+          "lon": 134.479,
+          "population": 0,
+          "matched_name": "koror"
+        }
+      ]
+    },
+    "panama-canal": {
+      "names": [
+        "panama canal"
+      ],
+      "countries": [
+        "PA"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3703441,
+          "name": "Panama Canal",
+          "feature": "H.CNLN",
+          "country": "PA",
+          "lat": 8.99797,
+          "lon": -79.59269,
+          "population": 0,
+          "matched_name": "panama canal"
+        }
+      ]
+    },
+    "portland": {
+      "names": [
+        "oregon",
+        "portland",
+        "portland oregon"
+      ],
+      "countries": [
+        "GB",
+        "US"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 2640033,
+          "name": "Portland Bill",
+          "feature": "T.PT",
+          "country": "GB",
+          "lat": 50.51316,
+          "lon": -2.45655,
+          "population": 0,
+          "matched_name": "portland"
+        },
+        {
+          "geonameid": 5746545,
+          "name": "Portland",
+          "feature": "P.PPLA2",
+          "country": "US",
+          "lat": 45.52345,
+          "lon": -122.67621,
+          "population": 652503,
+          "matched_name": "portland"
+        },
+        {
+          "geonameid": 6692041,
+          "name": "Portland",
+          "feature": "P.PPL",
+          "country": "GB",
+          "lat": 50.56748,
+          "lon": -2.44472,
+          "population": 12710,
+          "matched_name": "portland"
+        },
+        {
+          "geonameid": 13264760,
+          "name": "Portland",
+          "feature": "P.PPLX",
+          "country": "GB",
+          "lat": 51.1291,
+          "lon": -2.75316,
+          "population": 0,
+          "matched_name": "portland"
+        }
+      ]
+    },
+    "puerto-caldera": {
+      "names": [
+        "puerto caldera"
+      ],
+      "countries": [
+        "CR"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 9256799,
+          "name": "Puerto de Caldera",
+          "feature": "L.PRT",
+          "country": "CR",
+          "lat": 9.91151,
+          "lon": -84.72193,
+          "population": 0,
+          "matched_name": "puerto caldera"
+        }
+      ]
+    },
+    "san-francisco": {
+      "names": [
+        "san francisco",
+        "san francisco cruise terminal"
+      ],
+      "countries": [
+        "US"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 5391959,
+          "name": "San Francisco",
+          "feature": "P.PPLA2",
+          "country": "US",
+          "lat": 37.77493,
+          "lon": -122.41942,
+          "population": 827526,
+          "matched_name": "san francisco"
+        }
+      ]
+    },
+    "scotland": {
+      "names": [
+        "scotland",
+        "scotland cruise ports"
+      ],
+      "countries": [
+        "GB"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 13280464,
+          "name": "Scotland",
+          "feature": "P.PPL",
+          "country": "GB",
+          "lat": 53.8578,
+          "lon": -1.64198,
+          "population": 0,
+          "matched_name": "scotland"
+        }
+      ]
+    },
+    "sharm-el-sheikh": {
+      "names": [
+        "egypt",
+        "sharm el sheikh",
+        "sharm el sheikh egypt"
+      ],
+      "countries": [
+        "EG"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 349275,
+          "name": "Sharm ash Shaykh",
+          "feature": "H.BAY",
+          "country": "EG",
+          "lat": 27.85148,
+          "lon": 34.2806,
+          "population": 0,
+          "matched_name": "sharm el sheikh"
+        },
+        {
+          "geonameid": 349340,
+          "name": "Sharm el-Sheikh",
+          "feature": "P.PPL",
+          "country": "EG",
+          "lat": 27.91582,
+          "lon": 34.32995,
+          "population": 38478,
+          "matched_name": "sharm el sheikh"
+        }
+      ]
+    },
+    "south-pacific": {
+      "names": [
+        "south pacific",
+        "south pacific islands"
+      ],
+      "countries": [
+        "PF"
+      ],
+      "window_m": 300000,
+      "features": []
+    },
+    "south-shetland-islands": {
+      "names": [
+        "south shetland islands"
+      ],
+      "countries": [
+        "AQ"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 6625769,
+          "name": "South Shetland Islands",
+          "feature": "T.ISL",
+          "country": "AQ",
+          "lat": -62,
+          "lon": -58,
+          "population": 0,
+          "matched_name": "south shetland islands"
+        }
+      ]
+    },
+    "st-john-usvi": {
+      "names": [
+        "st john",
+        "st john u s virgin islands",
+        "st john usvi",
+        "u s virgin islands"
+      ],
+      "countries": [
+        "VI"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 4796527,
+          "name": "Saint John",
+          "feature": "P.PPL",
+          "country": "VI",
+          "lat": 18.33968,
+          "lon": -64.74958,
+          "population": 0,
+          "matched_name": "st john"
+        },
+        {
+          "geonameid": 4796775,
+          "name": "United States Virgin Islands",
+          "feature": "A.PCLD",
+          "country": "VI",
+          "lat": 18.34829,
+          "lon": -64.98348,
+          "population": 103792,
+          "matched_name": "u s virgin islands"
+        }
+      ]
+    },
+    "tobago": {
+      "names": [
+        "scarborough",
+        "tobago",
+        "tobago scarborough"
+      ],
+      "countries": [
+        "TT"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 3573607,
+          "name": "Tobago",
+          "feature": "T.ISL",
+          "country": "TT",
+          "lat": 11.25,
+          "lon": -60.66667,
+          "population": 0,
+          "matched_name": "tobago"
+        },
+        {
+          "geonameid": 3573703,
+          "name": "Scarborough",
+          "feature": "P.PPLA",
+          "country": "TT",
+          "lat": 11.18229,
+          "lon": -60.73525,
+          "population": 17000,
+          "matched_name": "scarborough"
+        },
+        {
+          "geonameid": 11525718,
+          "name": "Scarborough",
+          "feature": "L.PRT",
+          "country": "TT",
+          "lat": 11.18333,
+          "lon": -60.73333,
+          "population": 0,
+          "matched_name": "scarborough"
+        }
+      ]
+    },
+    "tokyo": {
+      "names": [
+        "tokyo",
+        "tokyo yokohama",
+        "yokohama"
+      ],
+      "countries": [
+        "JP"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 1848354,
+          "name": "Yokohama",
+          "feature": "P.PPLA",
+          "country": "JP",
+          "lat": 35.43333,
+          "lon": 139.65,
+          "population": 3777491,
+          "matched_name": "yokohama"
+        },
+        {
+          "geonameid": 1850147,
+          "name": "Tokyo",
+          "feature": "P.PPLC",
+          "country": "JP",
+          "lat": 35.6895,
+          "lon": 139.69171,
+          "population": 9733276,
+          "matched_name": "tokyo"
+        }
+      ]
+    },
+    "tonga": {
+      "names": [
+        "nuku alofa",
+        "nuku alofa tonga",
+        "tonga",
+        "tonga nuku alofa"
+      ],
+      "countries": [
+        "TO"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 4032283,
+          "name": "Kingdom of Tonga",
+          "feature": "A.PCLI",
+          "country": "TO",
+          "lat": -20,
+          "lon": -175,
+          "population": 103742,
+          "matched_name": "tonga"
+        },
+        {
+          "geonameid": 4032402,
+          "name": "Nuku‘alofa",
+          "feature": "P.PPLC",
+          "country": "TO",
+          "lat": -21.13683,
+          "lon": -175.20114,
+          "population": 22400,
+          "matched_name": "nuku alofa"
+        }
+      ]
+    },
+    "valencia": {
+      "names": [
+        "valencia"
+      ],
+      "countries": [
+        "ES"
+      ],
+      "window_m": 300000,
+      "features": [
+        {
+          "geonameid": 2509953,
+          "name": "Valencia",
+          "feature": "L.RGN",
+          "country": "ES",
+          "lat": 39.5,
+          "lon": -0.66667,
+          "population": 0,
+          "matched_name": "valencia"
+        },
+        {
+          "geonameid": 2509954,
+          "name": "Valencia",
+          "feature": "P.PPLA",
+          "country": "ES",
+          "lat": 39.47391,
+          "lon": -0.37966,
+          "population": 824340,
+          "matched_name": "valencia"
+        }
+      ]
+    }
+  }
+}

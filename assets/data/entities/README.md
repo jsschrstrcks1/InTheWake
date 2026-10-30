@@ -206,7 +206,7 @@ whatsinport list lives in another repository and is not read here.
 
 **Disputes.** `assets/data/lexicon/port-disputes.json` lists every disagreement beyond tolerance with each side's
 sources: 46 `place_position` disputes (the plan's 37 page-versus-registry, plus 9 ports where only the page and
-ports-geo exist). Neither side is picked. These are the ports the next build reads a gazetteer for. Its
+ports-geo exist). Neither side is picked. Each one carries what a gazetteer says about it (below). Its
 `name_review` lists ports whose short name and page name share no part, for a person to read (9 today).
 
 ```bash
@@ -217,10 +217,54 @@ node admin/lexicon/port-statements.mjs --check   # exit 1 itw_port_statements_st
 Like the ship statements, it reads committed content only, because each fact is dated by its source's commit.
 The statement gates (above) cover these files too: an unsourced port statement is refused at pre-commit and in CI.
 
-**Honest limits.** Nothing here says which side of a dispute is right; that waits for the gazetteer. The tests
-that need the geo contract skip until Project-Sophos #1488 is merged (they say so), and CI cannot run them in any
-case (Project-Sophos is private), so a port file left stale after a source change is caught only where the
-contract is beside the checkout.
+**Honest limits.** Nothing here says which side of a dispute is right; the gazetteer reads below are evidence
+for a person, not a ruling. The tests that need the geo contract skip when Project-Sophos is not beside the
+checkout (they say so), and CI cannot run them in any case (Project-Sophos is private), so a port file left stale
+after a source change is caught only where the contract is beside the checkout.
+
+## Gazetteer reads (Track C6b)
+
+For each disputed `place_position`, `admin/lexicon/port-gazetteer.mjs capture` asks **GeoNames**, a public
+gazetteer (CC BY 4.0, https://www.geonames.org), what it records under the names this site already gives the port,
+and writes it to `assets/data/lexicon/gazetteer/geonames-ports.json` with the dump files it read (URL, date,
+sha256). Tekton `itw-c6b-port-gazetteer`.
+
+- **Names, never guesses.** A feature matches only when its name, ASCII name or an alternate name equals, after
+  normalising case, accents and punctuation, the slug's words, the registry name, the page's place name, or a
+  part of a qualified one ("Bangkok (Laem Chabang)" gives "Bangkok" and "Laem Chabang").
+- **Places only.** Towns, islands, capes, fjords, bays, lakes, parks and countries count. A building, road,
+  airport or administrative district never does.
+- **Near the dispute.** Only GeoNames files for the countries the sides lie in, and only features within 300 km
+  of a side, are read.
+
+`port-statements.mjs` then gives every `place_position` dispute a `gazetteer` block:
+
+| Verdict | Meaning | Filed |
+|---|---|---|
+| `supports_one_side` | a feature carrying the port's name lies within the 5 km tolerance of one side only | the nearest such feature, as a `place_position` statement published by GeoNames: evidence tier primary, status `inference`, rank `normal` |
+| `names_both_sides` | each side sits on a place carrying one of the port's names (Bangkok and Laem Chabang; Tokyo and Yokohama) | nothing: both are real places, and which one the guide is about is a person's call |
+| `names_neither` | features were found, none within tolerance of either side; the nearest is named | nothing |
+| `no_match` | no feature carries any of the port's names (regions such as Antarctica or the Norwegian fjords, and private islands such as CocoCay) | nothing |
+| `not_read` | the dispute is newer than the last capture | nothing; run the capture again |
+
+The first read (2026-10-30): 21 `supports_one_side`, 9 `names_both_sides`, 9 `names_neither`, 7 `no_match`.
+
+**A read settles nothing.** The GeoNames statement is filed after the disputes are named, so it is never a side
+of one, and at rank `normal` the dispute stays `conflicting` and no page shows a position from it. Settling stays
+a governance act: rank `preferred` on the side the evidence supports, recorded by a person. Status stays
+`inference` because `verified` is minted only by the line-official capture; whether a gazetteer read earns it is
+the operator's call.
+
+```bash
+node admin/lexicon/port-gazetteer.mjs capture [--cache DIR]   # needs download.geonames.org and unzip; exit 2 itw_gazetteer_unavailable
+node admin/lexicon/port-statements.mjs                        # after the observation file is committed
+```
+
+**Honest limits.** A name match is not identity: two towns can share a name (both Portlands here are real), and
+a feature's GeoNames point is where GeoNames puts it, which for an island or a country is its middle, not its
+harbour. A port GeoNames lists under a name this site never uses (CocoCay found nothing under "cococay" or
+"perfect day at cococay") is `no_match` until that name is recorded somewhere this tool reads. GeoNames updates its dump daily; the observation names the files
+it read, and a later capture may differ.
 
 ## Deployments: one direction (Track C5)
 

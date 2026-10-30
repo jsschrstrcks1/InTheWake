@@ -18,6 +18,16 @@ Task `itw-c6b-port-gazetteer`.
 
 **Proved by** `tests/unit/lexicon-ship-statements.test.mjs::the entity files are exactly what the records say (regenerate if this fails)`.
 
+### 20261030-itw-c6b-port-gazetteer
+
+Task `itw-c6b-port-gazetteer`.
+
+**Why.** The port pack named 46 ports whose own files place them beyond tolerance of each other, and nothing outside this site had been asked which side is the place, so a person settling one had only the two disagreeing files to go on.
+
+**Enables.** Each disputed port position now carries what the GeoNames gazetteer records near each side under the port's own names, and where it supports one side that reading is filed as a primary-evidence statement, so a person can settle the dispute with outside evidence in hand while the read itself settles nothing.
+
+**Proved by** `tests/unit/lexicon-port-gazetteer.test.mjs::a gazetteer statement is filed exactly where GeoNames supports one side, cites its feature, and settles nothing`.
+
 ### 20261029-itw-c6-port-pack
 
 Task `itw-c6-port-pack`.
