@@ -8,6 +8,26 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261030-itw-ship-statements-redated
+
+Task `itw-c6b-port-gazetteer`.
+
+**Why.** The squash merge of the C3 pull request gave six ships' source files a new last commit, so main's ship statements carried the branch's dates and no longer matched what the records say.
+
+**Enables.** Main's ship statements and the stats-card manifest match their records again, so the ship-statements test and the full-depth statement gates hold wherever the contract is beside the checkout.
+
+**Proved by** `tests/unit/lexicon-ship-statements.test.mjs::the entity files are exactly what the records say (regenerate if this fails)`.
+
+### 20261030-itw-c6b-port-gazetteer
+
+Task `itw-c6b-port-gazetteer`.
+
+**Why.** The port pack named 46 ports whose own files place them beyond tolerance of each other, and nothing outside this site had been asked which side is the place, so a person settling one had only the two disagreeing files to go on.
+
+**Enables.** Each disputed port position now carries what the GeoNames gazetteer records near each side under the port's own names, and where it supports one side that reading is filed as a primary-evidence statement, so a person can settle the dispute with outside evidence in hand while the read itself settles nothing.
+
+**Proved by** `tests/unit/lexicon-port-gazetteer.test.mjs::a gazetteer statement is filed exactly where GeoNames supports one side, cites its feature, and settles nothing`.
+
 ### 20261029-itw-c6-port-pack
 
 Task `itw-c6-port-pack`.

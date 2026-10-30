@@ -23,8 +23,15 @@
 // Identical values from several files are ONE statement citing all of them. Different values are separate
 // statements; the contract's findConflicts names a disagreement only beyond the pack's tolerance (5 km for a
 // destination, 500 m for a terminal), and every disagreement is written to assets/data/lexicon/port-disputes.json,
-// the work list for the gazetteer reads. Every statement is status inference (this site's own records); training
-// recall is never a source. A record dated by its file's last commit, so committed content only.
+// the work list for the gazetteer reads. Every statement is status inference; training recall is never a source.
+// A record of this site's is dated by its file's last commit, so committed content only.
+//
+// GAZETTEER READS (Tekton itw-c6b-port-gazetteer). Where assets/data/lexicon/gazetteer/geonames-ports.json is
+// present (written by admin/lexicon/port-gazetteer.mjs capture), each place_position dispute carries what GeoNames
+// says about its sides (port-gazetteer.mjs verdict()). Where GeoNames supports exactly one side, the feature it
+// matched is filed as a place_position statement published by GeoNames, evidence tier primary, rank normal, dated
+// by the read. It is filed after the disputes are named, so it never makes a dispute of its own, and it settles
+// nothing: the dispute stays conflicting until a person ranks a side preferred.
 //
 //   node admin/lexicon/port-statements.mjs           write the entity files, the alias table and the dispute list
 //   node admin/lexicon/port-statements.mjs --check   change nothing; exit 1 if any of them is not what the files say
@@ -37,6 +44,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { commitDate, loadContract } from "./ship-statements.mjs";
+import { OBSERVATION_FILE as GAZETTEER_FILE, verdict as gazetteerVerdict } from "./port-gazetteer.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 export const OUT_DIR = "assets/data/entities/port";
@@ -50,6 +58,7 @@ const SEASONAL = "assets/data/ports/seasonal-guides.json";
 const MAPS_DIR = "assets/data/maps";
 const CSV = "data/ports.csv";
 const ACTOR = Object.freeze({ kind: "tool", id: "itw-lexicon-port-statements", provider: "household" });
+const GAZETTEER_ACTOR = Object.freeze({ kind: "tool", id: "itw-lexicon-port-gazetteer", provider: "household" });
 const fail = (code, message) => Object.assign(new Error(message), { code });
 const readJson = (root, rel) => {
   try { return JSON.parse(fs.readFileSync(path.join(root, rel), "utf8")); }
@@ -173,6 +182,7 @@ export async function buildPortStatements(root = ROOT, contract) {
   if (!v.ok) throw fail("itw_port_statements_unavailable", `the port pack is invalid: ${v.errors.join("; ")}`);
   const { currentValue, findConflicts, distanceM } = await import(new URL(`file://${path.join(contract.dir, "statement.mjs")}`).href);
   const src = readSources(root);
+  const gazetteer = fs.existsSync(path.join(root, GAZETTEER_FILE)) ? readJson(root, GAZETTEER_FILE) : null;
   const dates = new Map();
   const dated = (file) => { if (!dates.has(file)) dates.set(file, commitDate(root, file)); return dates.get(file); };
   const files = {}, disputes = [], nameReview = [];
@@ -198,9 +208,32 @@ export async function buildPortStatements(root = ROOT, contract) {
       if (!ok.ok || !fits.ok) throw fail("itw_port_statements_unavailable", `${entity} ${g.property}: ${[...(ok.errors ?? []), ...(fits.errors ?? [])].join("; ")}`);
       statements.push(s);
     }
+    const filed = new Set();
     for (const c of findConflicts(statements)) {
       const side = (x) => ({ value: x.ext.value, refs: x.epistemic.evidence.map((e) => e.ref) });
-      disputes.push({ entity, property: c.a.ext.property, ...(c.a.ext.tolerance_m ? { distance_m: Math.round(distanceM(c.a.ext.value, c.b.ext.value)), tolerance_m: c.a.ext.tolerance_m } : {}), sides: [side(c.a), side(c.b)] });
+      const d = { entity, property: c.a.ext.property, ...(c.a.ext.tolerance_m ? { distance_m: Math.round(distanceM(c.a.ext.value, c.b.ext.value)), tolerance_m: c.a.ext.tolerance_m } : {}), sides: [side(c.a), side(c.b)] };
+      const read = d.property === "place_position" && gazetteer ? gazetteer.ports[slug] : null;
+      if (read) {
+        const v = gazetteerVerdict(d, read.features, d.tolerance_m);
+        d.gazetteer = { verdict: v.verdict, ...(v.side !== undefined ? { supports_side: v.side } : {}), sides: v.sides.map((x) => x.features), ...(v.nearest ? { nearest: v.nearest } : {}) };
+        if (v.file) filed.add(v.file.geonameid);
+      } else if (d.property === "place_position") d.gazetteer = { verdict: "not_read" };
+      disputes.push(d);
+    }
+    // Filed after the disputes are named, so a gazetteer read never makes a dispute of its own: the dispute list
+    // stays this site's files against each other, and the read is the evidence attached to it.
+    for (const id of [...filed].sort((a, b) => a - b)) {
+      const f = gazetteer.ports[slug].features.find((x) => x.geonameid === id);
+      const p = pack.properties.place_position, at = gazetteer.read_at;
+      const s = contract.makeStatement({
+        pack: pack.pack, entity, property: "place_position", value: { lat: f.lat, lon: f.lon }, unit: p.unit, partition: pack.partition,
+        status: "inference", evidence: [{ ref: `geonames:${id}`, tier: "primary" }], sourceRef: `https://www.geonames.org/${id}`, publisher: "GeoNames",
+        assertedAt: at, observedAt: at, actor: GAZETTEER_ACTOR, clock: () => at, toleranceM: p.tolerance_m,
+      });
+      const ok = contract.validateStatement(JSON.parse(JSON.stringify(s)));
+      const fits = contract.checkStatement(pack, s);
+      if (!ok.ok || !fits.ok) throw fail("itw_port_statements_unavailable", `${entity} gazetteer ${id}: ${[...(ok.errors ?? []), ...(fits.errors ?? [])].join("; ")}`);
+      statements.push(s);
     }
     const short = groups.filter((g) => g.property === "name").map((g) => g.value), shown = groups.filter((g) => g.property === "page_place_name").map((g) => g.value);
     for (const a of short) for (const b of shown) {
@@ -210,14 +243,14 @@ export async function buildPortStatements(root = ROOT, contract) {
     files[`${OUT_DIR}/${slug}.json`] = `${JSON.stringify({
       format: "lexicon-entity/1", entity,
       _about: "Generated by admin/lexicon/port-statements.mjs from this repository's own committed files; do not edit by hand (each statement's id is a hash of its content). Identical values from several files are one statement citing all of them. assets/data/entities/README.md#ports-track-c6",
-      sources: [...new Set((src.facts[slug] || []).map((f) => f.file))].sort(),
+      sources: [...new Set([...(src.facts[slug] || []).map((f) => f.file), ...(filed.size ? [GAZETTEER_FILE] : [])])].sort(),
       states, statements,
     }, null, 2)}\n`;
   }
   files[ALIASES_FILE] = `${JSON.stringify(aliasTable(src), null, 2)}\n`;
   files[DISPUTES_FILE] = `${JSON.stringify({
     format: "itw-port-disputes/1",
-    _about: "Generated by admin/lexicon/port-statements.mjs; do not edit by hand. Every disagreement between this site's own files beyond the pack's tolerance (5 km for a destination, 500 m for a terminal), with each side's sources. Neither side is picked: these are the ports the next build reads a gazetteer for (operator ruling 2026-10-29).",
+    _about: "Generated by admin/lexicon/port-statements.mjs; do not edit by hand. Every disagreement between this site's own files beyond the pack's tolerance (5 km for a destination, 500 m for a terminal), with each side's sources. Neither side is picked. For a place_position dispute, `gazetteer` says what GeoNames records near each side under the port's own names (admin/lexicon/port-gazetteer.mjs): supports_one_side (that side's feature is filed as a statement), names_both_sides, names_neither (with the nearest feature), no_match, or not_read. Settling stays a person's act: rank preferred on the side the evidence supports.",
     count: disputes.length, by_property: Object.fromEntries([...new Set(disputes.map((d) => d.property))].sort().map((p) => [p, disputes.filter((d) => d.property === p).length])),
     disputes,
     name_review: { _about: "Ports whose registry name and page place name share no part (neither contains the other after normalising case, accents and punctuation). A heuristic for a person to read, not a conflict.", count: nameReview.length, ports: nameReview },
