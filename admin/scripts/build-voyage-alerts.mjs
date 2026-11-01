@@ -43,6 +43,8 @@ export const PORT_COUNTRY = {
   'Bridgetown, Barbados': 'BB', 'Amber Cove, DR': 'DO', 'Puerto Plata, Dominican Republic': 'DO', 'Cabo Rojo, Dominican Republic': 'DO',
   'Oranjestad, Aruba': 'AW', 'Willemstad, Curaçao': 'CW', 'Frederiksted, St. Croix': 'US',
   'Cartagena, Colombia': 'CO', 'Gatun Lake, Panama': 'PA', 'Colón, Panama': 'PA', 'Puerto Limón, Costa Rica': 'CR',
+  'Barcelona, Spain': 'ES', 'Valletta, Malta': 'MT', 'Souda (Chania), Greece': 'GR', 'Mykonos, Greece': 'GR',
+  'Kusadasi (Ephesus), Turkey': 'TR', 'Piraeus (Athens), Greece': 'GR',
   'Wellington, New Zealand': 'NZ', 'Tauranga, New Zealand': 'NZ', 'Picton, New Zealand': 'NZ', 'New Plymouth, New Zealand': 'NZ',
   'Auckland, New Zealand': 'NZ', 'Lyttelton (Christchurch), NZ': 'NZ',
   'Townsville, Australia': 'AU', 'Sydney, Australia': 'AU', 'Darwin, Australia': 'AU', 'Cairns, Australia': 'AU', 'Brisbane, Australia': 'AU',
@@ -64,6 +66,7 @@ export const UK_SLUG = {
   CV: 'cape-verde', FK: 'falkland-islands', MU: 'mauritius', TH: 'thailand', PF: 'french-polynesia', UY: 'uruguay',
   MV: 'maldives', RE: 'reunion', ID: 'indonesia', ZA: 'south-africa', GF: 'french-guiana', LK: 'sri-lanka', CI: 'cote-d-ivoire',
   AW: 'aruba', CW: 'curacao', CO: 'colombia', PA: 'panama', CR: 'costa-rica',
+  ES: 'spain', MT: 'malta', GR: 'greece', TR: 'turkey',
 };
 
 // The State Department feed files advisories under FIPS 10-4 codes (Bahamas BF, Cayman CJ), and the
@@ -77,6 +80,7 @@ export const US_NAME = {
   CV: 'Cabo Verde', MU: 'Mauritius', TH: 'Thailand', PF: 'French Polynesia', UY: 'Uruguay', MV: 'Maldives',
   ID: 'Indonesia', ZA: 'South Africa', GF: 'French Guiana', LK: 'Sri Lanka', CI: 'Cote d Ivoire',
   AW: 'Aruba', CW: 'Curaçao', CO: 'Colombia', PA: 'Panama', CR: 'Costa Rica',
+  ES: 'Spain', MT: 'Malta', GR: 'Greece', TR: 'Turkey',
 };
 const nameKey = (s) => slug(s).replace(/^the-/, '');
 export function usFind(feed, iso) {
@@ -91,6 +95,7 @@ export const US_CODE = {
   NZ: 'NZ', AU: 'AS', NA: 'WA', AR: 'AR', GH: 'GH', SG: 'SN', CL: 'CI', BR: 'BR', CV: 'CV', MU: 'MP', TH: 'TH',
   PF: 'FP', UY: 'UY', MV: 'MV', ID: 'ID', ZA: 'SF', GF: 'A2', LK: 'CE', CI: 'IV',
   AW: 'AA', CW: 'UC', CO: 'CO', PA: 'PM', CR: 'CS',
+  ES: 'SP', MT: 'MT', GR: 'GR', TR: 'TU',
 };
 
 export const RANK = { none: 0, yellow: 1, red: 2 };

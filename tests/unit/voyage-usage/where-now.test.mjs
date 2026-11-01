@@ -31,6 +31,9 @@ const CHECKED = {
   'Norwegian Jewel': '9304045',
   // Norwegian Sun (2026-10-13): Wikipedia infobox and VesselFinder agree.
   'Norwegian Sun': '9218131',
+  // Oosterdam (2026-11-01): VesselFinder and the data-imo on ships/holland-america-line/oosterdam.html agree.
+  // Wikipedia not consulted (operator asks to be asked first).
+  'Oosterdam': '9221281',
 };
 
 const pages = (await readdir(DIR)).filter((f) => f.endsWith('.html'));

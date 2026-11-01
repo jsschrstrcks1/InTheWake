@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261101-oosterdam-pack-wikipedia-sidecar
+
+Task `voyage-pack-hal-oosterdam-journeys-of-paul-alistair-begg-bar`.
+
+**Why.** The operator allowed Wikipedia for Oosterdam's crew, decks and christening; what it said, and why none of it can be printed, has to be on the record so the next session does not re-read it or print it.
+
+**Enables.** Anyone checking the Oosterdam pack sees the Wikipedia figures, their conflicts and the photo candidate without fetching again.
+
+**Untested:** A sidecar note records sources read and not printed; there is no behavior to test. factcheck-gate.sh checks the sidecar's shape and passes.
+
 ### 20261101-observer-post-commit-hook
 
 Task `argus-s32-observer-all-repos`.
