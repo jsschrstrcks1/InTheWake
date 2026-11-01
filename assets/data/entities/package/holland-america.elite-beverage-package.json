@@ -130,8 +130,8 @@
       "timestamps": {
         "valid_from": null,
         "valid_until": null,
-        "asserted_at": "2026-09-26T00:00:00.000Z",
-        "observed_at": "2026-09-26T00:00:00.000Z"
+        "asserted_at": "2026-04-17T00:00:00.000Z",
+        "observed_at": "2026-04-17T00:00:00.000Z"
       },
       "decision": null,
       "ext": {
@@ -145,7 +145,7 @@
         "partition": "public"
       },
       "classification": "public",
-      "id": "env-ba2da8d648ec9004"
+      "id": "env-c89cff8d33f13d09"
     },
     {
       "schema_version": "envelope/1",
@@ -200,8 +200,8 @@
       "timestamps": {
         "valid_from": null,
         "valid_until": null,
-        "asserted_at": "2026-09-26T00:00:00.000Z",
-        "observed_at": "2026-09-26T00:00:00.000Z"
+        "asserted_at": "2026-04-17T00:00:00.000Z",
+        "observed_at": "2026-04-17T00:00:00.000Z"
       },
       "decision": null,
       "ext": {
@@ -215,7 +215,7 @@
         "partition": "public"
       },
       "classification": "public",
-      "id": "env-325890cabfed9db1"
+      "id": "env-0458b41c5ecead86"
     },
     {
       "schema_version": "envelope/1",
@@ -298,6 +298,76 @@
       },
       "provenance": {
         "source_kind": "lexicon-statement",
+        "source_ref": "itw:assets/data/calculator-config.json#lines.holland.packages.deluxe.name",
+        "uri": null,
+        "publisher": "In the Wake",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "tool",
+        "id": "itw-lexicon-package-statements",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "inference",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "itw:assets/data/calculator-config.json#lines.holland.packages.deluxe.name",
+            "tier": "secondary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.5,
+        "conflict": 0,
+        "basis": "statement with status 'inference' and 1 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-04-17T00:00:00.000Z",
+        "observed_at": "2026-04-17T00:00:00.000Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "cruise.package",
+        "entity": "package:holland-america.elite-beverage-package",
+        "property": "name",
+        "value": "Elite Beverage Package",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-95caf19605c3bf28"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "package:holland-america.elite-beverage-package#name",
+      "content": {
+        "summary": "package:holland-america.elite-beverage-package name = \"Elite Beverage Package\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
         "source_ref": "itw:assets/data/lines/holland-america.json#packages.elite.name",
         "uri": null,
         "publisher": "In the Wake",
@@ -356,76 +426,6 @@
       },
       "classification": "public",
       "id": "env-aef3b9ea72646836"
-    },
-    {
-      "schema_version": "envelope/1",
-      "kind": "claim",
-      "subject": "package:holland-america.elite-beverage-package#name",
-      "content": {
-        "summary": "package:holland-america.elite-beverage-package name = \"Elite Beverage Package\"",
-        "ref": null,
-        "hash": null
-      },
-      "provenance": {
-        "source_kind": "lexicon-statement",
-        "source_ref": "itw:assets/data/calculator-config.json#lines.holland.packages.deluxe.name",
-        "uri": null,
-        "publisher": "In the Wake",
-        "trust_tier": "unrated"
-      },
-      "actor": {
-        "kind": "tool",
-        "id": "itw-lexicon-package-statements",
-        "provider": "household",
-        "model": null
-      },
-      "epistemic": {
-        "status": "inference",
-        "tier": null,
-        "evidence": [
-          {
-            "ref": "itw:assets/data/calculator-config.json#lines.holland.packages.deluxe.name",
-            "tier": "secondary"
-          }
-        ]
-      },
-      "uncertainty": {
-        "ignorance": 0.5,
-        "conflict": 0,
-        "basis": "statement with status 'inference' and 1 evidence ref(s); not calibrated"
-      },
-      "validators": [],
-      "policies": [],
-      "dependencies": [],
-      "lineage": {
-        "parents": [],
-        "derived_by": null
-      },
-      "cost": {
-        "tokens_in": null,
-        "tokens_out": null,
-        "usd": null,
-        "ms": null
-      },
-      "timestamps": {
-        "valid_from": null,
-        "valid_until": null,
-        "asserted_at": "2026-09-26T00:00:00.000Z",
-        "observed_at": "2026-09-26T00:00:00.000Z"
-      },
-      "decision": null,
-      "ext": {
-        "type": "lexicon-statement/1",
-        "pack": "cruise.package",
-        "entity": "package:holland-america.elite-beverage-package",
-        "property": "name",
-        "value": "Elite Beverage Package",
-        "unit": null,
-        "rank": "normal",
-        "partition": "public"
-      },
-      "classification": "public",
-      "id": "env-d6648006a8ba9dd2"
     },
     {
       "schema_version": "envelope/1",
@@ -550,8 +550,8 @@
       "dependencies": [],
       "lineage": {
         "parents": [
-          "env-ba2da8d648ec9004",
-          "env-f708c9923b1816a6"
+          "env-c89cff8d33f13d09",
+          "env-f978b1a593c990fb"
         ],
         "derived_by": "base_price_per_day x (1 + beverage_gratuity_rate), rounded to the cent"
       },
@@ -564,8 +564,8 @@
       "timestamps": {
         "valid_from": null,
         "valid_until": null,
-        "asserted_at": "2026-09-26T00:00:00.000Z",
-        "observed_at": "2026-09-26T00:00:00.000Z"
+        "asserted_at": "2026-04-17T00:00:00.000Z",
+        "observed_at": "2026-04-17T00:00:00.000Z"
       },
       "decision": null,
       "ext": {
@@ -579,7 +579,7 @@
         "partition": "public"
       },
       "classification": "public",
-      "id": "env-e46eb8bfeaa4f7f5"
+      "id": "env-4de77d9f91779802"
     }
   ]
 }

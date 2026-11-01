@@ -341,8 +341,9 @@ name in kebab case within its line) and each line's beverage gratuity as `line:<
   in `assets/data/lexicon/package-review.json` with the reason, never guessed.
 - **The gratuity rate is its own fact, and it goes stale.** It is filed only where the file states the percentage
   in words, and it carries the pack's 90-day window (the Lexicon plan's freshness for line prices). Its check date is
-  the note's own "verified YYYY-MM-DD" (Royal Caribbean: 2026-04-14), else the calculator's `lastUpdated`, else the
-  file's commit. A stored 0 means nothing is added on top (MSC's prices include it; Virgin adds none): listed under
+  the gratuity note's own "verified YYYY-MM-DD" (Royal Caribbean: 2026-04-14), else the line note's, else the
+  calculator's `lastUpdated`, else the file's commit. A price's check date is the line note's "verified" date the same
+  way. `lastUpdated` is when the file last changed, not when its prices were checked, so it is only the last resort. A stored 0 means nothing is added on top (MSC's prices include it; Virgin adds none): listed under
   `zero_rates`, never filed as a 0 percent rate.
 - **A computed price names what it rests on.** Its `lineage.parents` are the base and the rate (Project-Sophos #1509,
   `derivedFrom`), so the contract's `freshness()` reads it `rests_on_stale` once the rate is stale, with nothing in

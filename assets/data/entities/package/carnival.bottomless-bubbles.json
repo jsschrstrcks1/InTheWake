@@ -130,8 +130,8 @@
       "timestamps": {
         "valid_from": null,
         "valid_until": null,
-        "asserted_at": "2026-09-26T00:00:00.000Z",
-        "observed_at": "2026-09-26T00:00:00.000Z"
+        "asserted_at": "2026-04-14T00:00:00.000Z",
+        "observed_at": "2026-04-14T00:00:00.000Z"
       },
       "decision": null,
       "ext": {
@@ -145,7 +145,7 @@
         "partition": "public"
       },
       "classification": "public",
-      "id": "env-73ee2bd886b3e069"
+      "id": "env-318b8112a71ca5db"
     },
     {
       "schema_version": "envelope/1",
@@ -270,8 +270,8 @@
       "timestamps": {
         "valid_from": null,
         "valid_until": null,
-        "asserted_at": "2026-09-26T00:00:00.000Z",
-        "observed_at": "2026-09-26T00:00:00.000Z"
+        "asserted_at": "2026-04-14T00:00:00.000Z",
+        "observed_at": "2026-04-14T00:00:00.000Z"
       },
       "decision": null,
       "ext": {
@@ -285,7 +285,7 @@
         "partition": "public"
       },
       "classification": "public",
-      "id": "env-d6ac2746627b6433"
+      "id": "env-ac25b7dc4b4f7a08"
     },
     {
       "schema_version": "envelope/1",
@@ -340,8 +340,8 @@
       "timestamps": {
         "valid_from": null,
         "valid_until": null,
-        "asserted_at": "2026-09-26T00:00:00.000Z",
-        "observed_at": "2026-09-26T00:00:00.000Z"
+        "asserted_at": "2026-04-14T00:00:00.000Z",
+        "observed_at": "2026-04-14T00:00:00.000Z"
       },
       "decision": null,
       "ext": {
@@ -355,7 +355,7 @@
         "partition": "public"
       },
       "classification": "public",
-      "id": "env-9b19d16b6585ad85"
+      "id": "env-72c9efce6ed3f2fd"
     },
     {
       "schema_version": "envelope/1",
@@ -426,6 +426,83 @@
       },
       "classification": "public",
       "id": "env-ec1dc05effb86289"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "package:carnival.bottomless-bubbles#price_per_day",
+      "content": {
+        "summary": "package:carnival.bottomless-bubbles price_per_day = 14.39 USD/day incl. gratuity",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "itw:assets/data/calculator-config.json#lines.carnival.packages.soda.priceMid",
+        "uri": null,
+        "publisher": "In the Wake",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "tool",
+        "id": "itw-lexicon-package-statements",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "inference",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "itw:assets/data/calculator-config.json#lines.carnival.packages.soda.priceMid",
+            "tier": "secondary"
+          },
+          {
+            "ref": "itw:assets/data/calculator-config.json#lines.carnival.rules.gratuity",
+            "tier": "secondary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.5,
+        "conflict": 0,
+        "basis": "statement with status 'inference' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [
+          "env-318b8112a71ca5db",
+          "env-a1b7b9f5e5a0b664"
+        ],
+        "derived_by": "base_price_per_day x (1 + beverage_gratuity_rate), rounded to the cent"
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-04-14T00:00:00.000Z",
+        "observed_at": "2026-04-14T00:00:00.000Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "cruise.package",
+        "entity": "package:carnival.bottomless-bubbles",
+        "property": "price_per_day",
+        "value": 14.39,
+        "unit": "USD/day incl. gratuity",
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-a49faf00c8fc5b2d"
     },
     {
       "schema_version": "envelope/1",
@@ -503,83 +580,6 @@
       },
       "classification": "public",
       "id": "env-d9661582001cae8c"
-    },
-    {
-      "schema_version": "envelope/1",
-      "kind": "claim",
-      "subject": "package:carnival.bottomless-bubbles#price_per_day",
-      "content": {
-        "summary": "package:carnival.bottomless-bubbles price_per_day = 14.39 USD/day incl. gratuity",
-        "ref": null,
-        "hash": null
-      },
-      "provenance": {
-        "source_kind": "lexicon-statement",
-        "source_ref": "itw:assets/data/calculator-config.json#lines.carnival.packages.soda.priceMid",
-        "uri": null,
-        "publisher": "In the Wake",
-        "trust_tier": "unrated"
-      },
-      "actor": {
-        "kind": "tool",
-        "id": "itw-lexicon-package-statements",
-        "provider": "household",
-        "model": null
-      },
-      "epistemic": {
-        "status": "inference",
-        "tier": null,
-        "evidence": [
-          {
-            "ref": "itw:assets/data/calculator-config.json#lines.carnival.packages.soda.priceMid",
-            "tier": "secondary"
-          },
-          {
-            "ref": "itw:assets/data/calculator-config.json#lines.carnival.rules.gratuity",
-            "tier": "secondary"
-          }
-        ]
-      },
-      "uncertainty": {
-        "ignorance": 0.5,
-        "conflict": 0,
-        "basis": "statement with status 'inference' and 2 evidence ref(s); not calibrated"
-      },
-      "validators": [],
-      "policies": [],
-      "dependencies": [],
-      "lineage": {
-        "parents": [
-          "env-73ee2bd886b3e069",
-          "env-8389cff2ccfcb402"
-        ],
-        "derived_by": "base_price_per_day x (1 + beverage_gratuity_rate), rounded to the cent"
-      },
-      "cost": {
-        "tokens_in": null,
-        "tokens_out": null,
-        "usd": null,
-        "ms": null
-      },
-      "timestamps": {
-        "valid_from": null,
-        "valid_until": null,
-        "asserted_at": "2026-09-26T00:00:00.000Z",
-        "observed_at": "2026-09-26T00:00:00.000Z"
-      },
-      "decision": null,
-      "ext": {
-        "type": "lexicon-statement/1",
-        "pack": "cruise.package",
-        "entity": "package:carnival.bottomless-bubbles",
-        "property": "price_per_day",
-        "value": 14.39,
-        "unit": "USD/day incl. gratuity",
-        "rank": "normal",
-        "partition": "public"
-      },
-      "classification": "public",
-      "id": "env-de78a995848cdc96"
     }
   ]
 }

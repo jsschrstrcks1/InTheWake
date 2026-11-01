@@ -95,3 +95,20 @@ test('the entity files and the review list are exactly what the files say (regen
   for (const d of [PACKAGE_DIR, LINE_DIR]) assert.deepEqual(readdirSync(path.join(ROOT, d)).map((f) => `${d}/${f}`).sort(), Object.keys(files).filter((r) => r.startsWith(d)).sort());
   assert.ok(json(REVIEW_FILE).counts.disputes > 0);
 });
+
+test("a calculator price is dated by the line note's own verified date, never by the file's lastUpdated", () => {
+  const calc = JSON.parse(readFileSync(path.join(ROOT, "assets/data/calculator-config.json"), "utf8"));
+  const { prices, rates } = readFigures(ROOT);
+  const fromCalc = prices.filter((p) => p.file === 'assets/data/calculator-config.json');
+  assert.ok(fromCalc.length > 0);
+  for (const p of fromCalc) {
+    const key = p.ref.split('#lines.')[1].split('.')[0];
+    const stated = verifiedDate(calc.lines[key]._sources?.note);
+    assert.ok(stated, `${key} states a verified date`);
+    assert.equal(p.checked, stated, `${p.pkg} (${key})`);
+    assert.notEqual(p.checked, `${calc.lastUpdated}T00:00:00.000Z`, `${p.pkg} is not dated by lastUpdated`);
+  }
+  // Carnival's gratuity note gives no date, so its rate falls to the line note: "verified 2026-04-14".
+  const carnival = rates.find((r) => r.file === 'assets/data/calculator-config.json' && r.line === 'carnival');
+  assert.equal(carnival.checked, '2026-04-14T00:00:00.000Z');
+});

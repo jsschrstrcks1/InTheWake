@@ -18,8 +18,8 @@
 //   a rate         line:<id>#beverage_gratuity_rate, only where rules.gratuity is above 0 AND the same file states
 //                  that percentage in words (the calculator's gratuityNote, or a package note "+N% gratuity"). A
 //                  stored 0 means nothing is added on top (MSC's prices already include it; Virgin adds none); it is
-//                  listed, never filed as a 0 percent rate. Checked: the note's own "verified YYYY-MM-DD" when it
-//                  gives one, else the calculator's lastUpdated, else the line file's commit.
+//                  listed, never filed as a 0 percent rate. Checked: the gratuity note's own "verified YYYY-MM-DD",
+//                  else the line note's (_sources.note), else the calculator's lastUpdated, else the line file's commit.
 //   a price        only where the source's own note says how the gratuity is treated:
 //                    "+N% gratuity" or "+N% service charge", N equal to the file's rate: base_price_per_day is the
 //                      figure as given, and price_per_day = base x (1 + rate), to the cent, derived from both
@@ -113,10 +113,14 @@ export function readFigures(root) {
   for (const [key, l] of Object.entries(calc.lines ?? {}).sort(([a], [b]) => (a < b ? -1 : 1))) {
     const at = calculatorLine(key, l, brands, aliasTable);
     if (!at) { unmatched.push({ store: CALC, key, reason: "no line id through the alias table, its slug or its exact name" }); continue; }
-    const checked = verifiedDate(l._sources?.gratuityNote) ?? (calc.lastUpdated ? `${calc.lastUpdated}T00:00:00.000Z` : null);
+    // A check date is the date a note says the figure was verified. lastUpdated is when the FILE last changed, which is
+    // not a check of its prices, so it is only the last resort (no calculator line needs it today).
+    const fileDate = calc.lastUpdated ? `${calc.lastUpdated}T00:00:00.000Z` : null;
+    const lineVerified = verifiedDate(l._sources?.note);
+    const checked = verifiedDate(l._sources?.gratuityNote) ?? lineVerified ?? fileDate;
     sources.push({
       file: CALC, line: at.line, key, by: at.by, rate: l.rules?.gratuity, rateNote: l._sources?.gratuityNote ?? null,
-      rateRef: `itw:${CALC}#lines.${key}.rules.gratuity`, checked, priceChecked: calc.lastUpdated ? `${calc.lastUpdated}T00:00:00.000Z` : null,
+      rateRef: `itw:${CALC}#lines.${key}.rules.gratuity`, checked, priceChecked: lineVerified ?? fileDate,
       packages: Object.entries(l.packages ?? {}).map(([k, p]) => ({ key: k, name: p.name, mid: p.priceMid, note: p.priceNote, ref: `itw:${CALC}#lines.${key}.packages.${k}` })),
     });
   }
