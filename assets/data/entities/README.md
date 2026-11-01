@@ -359,8 +359,9 @@ node admin/lexicon/package-statements.mjs --freshness [--at T]   # fresh / stale
 
 **What the first build found** (the review list): 11 disputes. Bottomless Bubbles is the one the plan named: the
 calculator's base is $11.99 and Carnival's line file's is $9.50, both "+20%", so $14.39 against $11.40 with the
-gratuity in. Neither is picked. Royal Caribbean's 18% was last verified 2026-04-14, so it reads stale now, and every
-Royal Caribbean price built on it reads `rests_on_stale`.
+gratuity in. Neither is picked. Every calculator line's note says its prices were verified 2026-04-14 or 2026-04-17,
+so at 2026-11-01 all 98 rate and price statements read stale. A price whose own check is current but whose rate is
+not reads `rests_on_stale`; none does today, because each line's rate and prices were checked together.
 
 **Honest limits.** Both stores are this site's own records (status `inference`); no line's site has been read for
 prices. Two stores naming one package differently ("CHEERS! Beverage Program" and "CHEERS! Beverage Package") are two
