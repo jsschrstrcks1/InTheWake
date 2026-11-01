@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261101-itw-c7b-package-prices
+
+Task `itw-c7b-package-prices`.
+
+**Why.** The operator ruled that a stored drink-package price includes the gratuity, and that the gratuity can go stale and must be marked so. The site held package prices in two files that disagreed (Bottomless Bubbles at 9.50 against 11.99, both before a 20 percent gratuity) with no rule for which figure was what.
+
+**Enables.** Every package price is now one gratuity-inclusive statement, with its base and the line's rate beside it. The rate reads stale once its window passes, and so does every price built on it, so a stale price shows itself. The disagreements are listed for a person to settle.
+
+**Proved by** `tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing`.
+
 ### 20261030-itw-ship-statements-redated
 
 Task `itw-c6b-port-gazetteer`.

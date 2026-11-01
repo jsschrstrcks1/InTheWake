@@ -7,7 +7,8 @@
 // ship-statements test went red wherever the contract sits beside the checkout (fixed by hand in #2675).
 //
 // THE RULE. A statement keeps the dates it was first filed with for as long as everything else about it is
-// unchanged: the same entity, property, value, unit, status, rank, evidence, publisher and actor. Only a new
+// unchanged: the same entity, property, value, unit, status, rank, evidence, publisher, actor and the
+// statements it was derived from (lineage.parents). Only a new
 // statement, or one whose content changed, takes a date from its sources' commits. The earlier dates are read
 // from the entity files as COMMITTED at HEAD (never the working tree, so a hand edit cannot plant a date), and a
 // squash keeps those files' content, so regenerating on main after a squash finds every date it needs.
@@ -23,6 +24,7 @@ export function signature(s) {
     s.subject, s.ext?.pack, s.ext?.value, s.ext?.unit ?? null, s.ext?.rank ?? null, s.ext?.partition ?? null, s.ext?.tolerance_m ?? null,
     s.epistemic?.status, (s.epistemic?.evidence ?? []).map((e) => [e.ref, e.tier]),
     s.provenance?.publisher ?? null, s.provenance?.source_ref ?? null, s.provenance?.uri ?? null, s.actor?.id ?? null,
+    s.lineage?.parents ?? [],
   ]);
 }
 

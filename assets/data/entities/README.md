@@ -325,6 +325,47 @@ read for venues yet. A case-only difference ("ChiBang!" and "Chibang!") is a nam
 compares values exactly. 93 restaurant pages map to no venue because their venue is unplaced. The ship review
 compares only the older stores; whether venues-v2's own ship lists are current is a separate question.
 
+## Drink-package prices (Track C7b)
+
+> "Include gratuity but that's a piece of knowledge that can go stale it should be marked as such." (Ken,
+> 2026-10-31, memory `446c35a2`)
+
+`admin/lexicon/package-statements.mjs` files beverage packages as `package:<line>.<slug>` (`package/`, the package
+name in kebab case within its line) and each line's beverage gratuity as `line:<id>#beverage_gratuity_rate`
+(`line/`), under the packs `cruise.package` and `cruise.line`. Tekton `itw-c7b-package-prices`.
+
+- **A stored price includes the gratuity.** `price_per_day` is the gratuity-inclusive figure. Where a source gives a
+  base price with "+N% gratuity" (or "service charge"), the base is filed as `base_price_per_day`, and `price_per_day`
+  is computed from it and the line's rate, to the cent. Where the note says the gratuity is included, the figure is
+  the price. A note that says neither, a percentage that is not the file's own rate, or no price at all, is listed
+  in `assets/data/lexicon/package-review.json` with the reason, never guessed.
+- **The gratuity rate is its own fact, and it goes stale.** It is filed only where the file states the percentage
+  in words, and it carries the pack's 90-day window (the Lexicon plan's freshness for line prices). Its check date is
+  the note's own "verified YYYY-MM-DD" (Royal Caribbean: 2026-04-14), else the calculator's `lastUpdated`, else the
+  file's commit. A stored 0 means nothing is added on top (MSC's prices include it; Virgin adds none): listed under
+  `zero_rates`, never filed as a 0 percent rate.
+- **A computed price names what it rests on.** Its `lineage.parents` are the base and the rate (Project-Sophos #1509,
+  `derivedFrom`), so the contract's `freshness()` reads it `rests_on_stale` once the rate is stale, with nothing in
+  the price's own record changing.
+
+Freshness depends on the day you ask, so it is never stored. Ask the tool:
+
+```bash
+node admin/lexicon/package-statements.mjs                        # after the calculator or a line file is committed
+node admin/lexicon/package-statements.mjs --check                # exit 1 itw_package_statements_stale, 2 itw_package_statements_unavailable
+node admin/lexicon/package-statements.mjs --freshness [--at T]   # fresh / stale / rests_on_stale for every rate and price
+```
+
+**What the first build found** (the review list): 11 disputes. Bottomless Bubbles is the one the plan named: the
+calculator's base is $11.99 and Carnival's line file's is $9.50, both "+20%", so $14.39 against $11.40 with the
+gratuity in. Neither is picked. Royal Caribbean's 18% was last verified 2026-04-14, so it reads stale now, and every
+Royal Caribbean price built on it reads `rests_on_stale`.
+
+**Honest limits.** Both stores are this site's own records (status `inference`); no line's site has been read for
+prices. Two stores naming one package differently ("CHEERS! Beverage Program" and "CHEERS! Beverage Package") are two
+packages until a person says otherwise. Child prices and price ranges are not filed yet. The calculator itself still
+reads `calculator-config.json`, not these statements.
+
 ## Deployments: one direction (Track C5)
 
 Which ships call at which ports is stored once, in `assets/data/ship-deployments.json` under `ships[*]`:
