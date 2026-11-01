@@ -38,6 +38,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import { priorDates, keepDates } from "./stable-dates.mjs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -263,6 +264,9 @@ export async function buildShipStatements(root = ROOT, contract, pilot = fleet(r
   const lineOf = (dir) => Object.entries(aliases).find(([, l]) => l.aliases.some((a) => a.vocabulary === "ships/" && a.alias === dir));
   const imoOwner = new Map();
   const files = {};
+  // An unchanged statement keeps the dates it was committed with, so a squash merge cannot re-date it
+  // (stable-dates.mjs). Only a new or changed statement is dated by its sources' commits.
+  const prior = priorDates(root, pilot.map((ship) => `${OUT_DIR}/${ship.entity.split(":")[1]}.json`));
 
   for (const ship of pilot) {
     const records = ship.pages.flatMap((p) => recordsFor(root, p));
@@ -313,12 +317,11 @@ export async function buildShipStatements(root = ROOT, contract, pilot = fleet(r
     const statements = [];
     for (const f of [...found.values()].sort((a, b) => a.property.localeCompare(b.property) || JSON.stringify(a.value).localeCompare(JSON.stringify(b.value)))) {
       const refs = [...f.refs].sort();
-      const at = refs.map((ref) => commitDate(root, fileOfRef.get(ref))).sort().at(-1);
-      const s = contract.makeStatement({
+      const s = keepDates(prior, (at) => contract.makeStatement({
         pack: pack.pack, entity: ship.entity, property: f.property, value: f.value, unit: f.unit, partition: pack.partition,
         status: "inference", evidence: refs.map((ref) => ({ ref, tier: "secondary" })), sourceRef: refs[0], publisher: "In the Wake",
         assertedAt: at, observedAt: at, actor: ACTOR, clock: () => at,
-      });
+      }), () => refs.map((ref) => commitDate(root, fileOfRef.get(ref))).sort().at(-1));
       const ok = contract.validateStatement(JSON.parse(JSON.stringify(s)));
       const fits = contract.checkStatement(pack, s);
       if (!ok.ok || !fits.ok) throw fail("itw_statement_refused", `${ship.entity} ${f.property}: ${[...(ok.errors ?? []), ...(fits.errors ?? [])].join("; ")}`);
