@@ -365,8 +365,33 @@ not reads `rests_on_stale`; none does today, because each line's rate and prices
 
 **Honest limits.** Both stores are this site's own records (status `inference`); no line's site has been read for
 prices. Two stores naming one package differently ("CHEERS! Beverage Program" and "CHEERS! Beverage Package") are two
-packages until a person says otherwise. Child prices and price ranges are not filed yet. The calculator itself still
-reads `calculator-config.json`, not these statements.
+packages until a person says otherwise. Child prices and price ranges are not filed yet. The calculator still takes
+its numbers from `calculator-config.json`; what it reads from these statements is when each one was last checked
+(Track C7c, below).
+
+## The calculator's "last checked" line (Track C7c)
+
+The Lexicon plan (Project-Sophos `docs/lexicon/LEXICON-PLAN-3.1.md`, ADR-4) gives In the Wake's reader-facing pages a
+"last checked" line, and Ken's ruling of 2026-10-31 says a price that can go stale is marked as such. So each package
+card on `drink-calculator.html` says when its price was last checked, and says plainly when it may be out of date.
+
+- **What it reads.** `assets/data/lexicon/calculator-checked.json`, written by `package-statements.mjs` from the
+  package and line statements (never from the config directly). For each calculator line and package it holds the
+  figure the card shows, the date the record says it was checked, and `stale_after`, the last instant it reads fresh,
+  taken from the contract's `freshness()`. Those don't change with the clock, so the file is as deterministic as the
+  entity files, and `--check` covers it.
+- **What the page says.** `assets/js/calculator-checked.js` compares the current date with `stale_after`:
+  - in its window: *"Price last checked April 14, 2026."*;
+  - past it: *"…so it may be out of date. Confirm it in your cruise planner before you buy."*;
+  - a current price whose gratuity rate is past its own window: *"The 18% gratuity added to it was last checked …, so
+    it may have changed."*
+- **When it says nothing.** No line appears when the record could not be loaded, has no entry for the line or
+  package, or is disputed (Carnival's Bottomless Bubbles), or when the price on the card is not the price in the
+  record (the reader edited it). A date never vouches for a figure the record does not hold.
+- **Safety.** Same-origin fetch, text set with `textContent`, no HTML from data, no inline handlers. The service
+  worker and `precache-manifest.json` list both files, so the line also shows offline.
+- **Proved by** `tests/unit/lexicon-calculator-checked.test.mjs`, and every dated entry is checked against the figure
+  `calculator-config.json` shows and the date its line note states.
 
 ## Deployments: one direction (Track C5)
 
