@@ -1807,6 +1807,7 @@
           <p class="small">per person, per day <span class="tiny muted" data-grat-label>(before gratuity)</span></p>
           <p class="tiny muted">Fountain soda, Coca-Cola Freestyle</p>
           <div class="tiny" data-inc="soda">Includes: $0/day</div>
+          <p class="tiny muted" data-checked="soda" hidden></p>
         </div>
         
         <div class="package-card" data-card="refresh" data-package="refresh">
@@ -1817,6 +1818,7 @@
           <p class="small">per person, per day <span class="tiny muted" data-grat-label>(before gratuity)</span></p>
           <p class="tiny muted">Non-alcoholic specialty drinks</p>
           <div class="tiny" data-inc="refresh">Includes: $0/day</div>
+          <p class="tiny muted" data-checked="refresh" hidden></p>
         </div>
         
         <div class="package-card" data-card="deluxe" data-package="deluxe">
@@ -1827,6 +1829,7 @@
           <p class="small">per person, per day <span class="tiny muted" data-grat-label>(before gratuity)</span></p>
           <p class="tiny muted">Cocktails, beer, wine up to $14/drink</p>
           <div class="tiny" data-inc="deluxe">Includes: $0/day</div>
+          <p class="tiny muted" data-checked="deluxe" hidden></p>
           <div class="tiny overcap-note" id="overcap-est">Over-cap: $0/day</div>
         </div>
       </section>
@@ -2143,8 +2146,11 @@
   <!-- Core engine SECOND -->
   <script src="/assets/js/calculator-v2.js?v=3.010.301" defer></script>
   
+  <!-- Last-checked line under each package price, read from the Lexicon (Track C7c); before the UI layer, which calls it -->
+  <script src="/assets/js/calculator-checked.js?v=1.000.000" defer></script>
+
   <!-- UI layer THIRD -->
-  <script src="/assets/js/calculator-ui-v2.js?v=3.010.300" defer></script>
+  <script src="/assets/js/calculator-ui-v2.js?v=3.010.301" defer></script>
   <!-- ✅ NEW: Package Selection Feature -->
   <script src="/assets/js/package-selection-feature-v2.js?v=3.010.300" defer></script>
   
