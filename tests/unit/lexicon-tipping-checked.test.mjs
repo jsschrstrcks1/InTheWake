@@ -147,7 +147,8 @@ test("C7e: the drink calculator's Princess and Holland America rate is the lines
       if (e.gratuity_rate === undefined) continue;
       assert.equal(e.gratuity_rate, 0.2, `${key}.${tier}`);
       assert.equal(e.rate_checked, '2026-11-04', `${key}.${tier}: the rate is dated by the note`);
-      assert.equal(e.checked, '2026-04-17', `${key}.${tier}: the price keeps its own older check date`);
+      const priceDate = /verified\s+(\d{4}-\d{2}-\d{2})/i.exec(l._sources.note)[1];
+      assert.equal(e.checked, priceDate, `${key}.${tier}: the price keeps its own check date, not the rate's`);
     }
     // What still disagrees comes only from the older per-line file, which this change does not touch, so its prices
     // are not re-dated by a commit that never checked them.
@@ -156,6 +157,28 @@ test("C7e: the drink calculator's Princess and Holland America rate is the lines
     assert.ok(stale.length >= 1, `${line}: the older line file is still named`);
     for (const s of stale) assert.ok(s.refs.every((r) => r.startsWith('itw:assets/data/lines/')), `${line}: ${s.refs}`);
   }
+});
+
+test("C7f: Holland America's packages show the prices hollandamerica.com listed on 2026-11-04, dated by that check", () => {
+  const calc = JSON.parse(read('assets/data/calculator-config.json'));
+  const hal = calc.lines.holland;
+  const listed = { soda: 17.95, refreshment: 55.95, deluxe: 60.95 }; // Quench, Signature, Elite, pre-cruise, per guest per day
+  for (const [tier, price] of Object.entries(listed)) {
+    const p = hal.packages[tier];
+    assert.equal(p.priceMid, price, `${tier} priceMid`);
+    assert.ok(p.priceMin <= price && price <= p.priceMax, `${tier}: the range holds the listed price`);
+    assert.ok(p.priceNote.startsWith(`$${price.toFixed(2)}/day pre-cruise`), `${tier}: the card note shows the same price`);
+  }
+  assert.match(hal._sources.note, /^Package prices verified 2026-11-04 against hollandamerica\.com/);
+  assert.match(hal._sources.note, /were not re-checked/, 'what was not re-checked is said');
+  const faqAnswer = hal.faq.find((q) => /Quench \(\$17\.95\/day\)/.test(q.answer));
+  assert.ok(faqAnswer, 'the FAQ answer that prices all three packages is present');
+  for (const text of [faqAnswer.answer, hal.quickAnswer]) {
+    assert.match(text, /Signature \(\$55\.95\/day\)/);
+    assert.match(text, /Elite \(\$60\.95\/day\)/);
+  }
+  const quench = JSON.parse(read('assets/data/lexicon/calculator-checked.json')).lines.holland.soda;
+  assert.equal(quench.checked, '2026-11-04', 'the Quench card is dated by this check');
 });
 
 test('a tier with no property, a non-dollar rate and an undated file are listed with their reasons, never filed', (t) => {

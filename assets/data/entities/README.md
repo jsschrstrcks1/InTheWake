@@ -431,6 +431,13 @@ purpose:
   beverage purchases. Whether the listed price already contains the charge is not settled, so the calculator still
   adds it on top, and the `gratuityNote` says so.
 
+**Holland America prices (Track C7f, 2026-11-04).** The same options FAQ lists Quench US$17.95, Signature US$55.95
+and Elite US$60.95, pre-cruise, per guest per day. The calculator had Signature at $50.95 and Elite at $55.95, and its
+own FAQ text put Elite at $65.95. All three now match the FAQ, and the line's `_sources.note` says `Package prices
+verified 2026-11-04` and names what was not re-checked (`priceMax`, drink prices). The Signature and Elite cards stay
+disputed, because `assets/data/lines/holland-america.json` still gives Signature $60.95 and Elite $59.95. That file
+is the same unchecked older store named above.
+
 **On the page.** `assets/data/lexicon/tipping-checked.json` holds, per line, the date and `stale_after`, built from
 the statements. `assets/js/tools/cruise-tipping-calculator/checked.js` shows *"Tipping details last checked May 8,
 2026."* under the line's details, and once the window has passed adds *"…so they may be out of date. Confirm with the

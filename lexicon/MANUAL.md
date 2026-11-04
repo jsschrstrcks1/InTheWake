@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261104-itw-c7f-hal-package-prices
+
+Task `itw-c7f-hal-package-prices`.
+
+**Why.** The drink calculator priced Holland America's Signature package at 50.95 dollars a day and Elite at 55.95, five dollars under what hollandamerica.com lists today, and its own FAQ text gave Elite a third figure. A reader deciding whether a package pays off was comparing against prices Holland America no longer charges.
+
+**Enables.** Holland America readers of the drink calculator compare against the package prices the line lists today, every place the page shows them, with those prices dated by the day they were checked so the page can say when they may be out of date.
+
+**Proved by** `tests/unit/lexicon-tipping-checked.test.mjs::C7f: Holland America's packages show the prices hollandamerica.com listed on 2026-11-04, dated by that check`.
+
 ### 20261104-itw-c7e-gratuity-rate-reconcile
 
 Task `itw-c7e-gratuity-rate-reconcile`.
