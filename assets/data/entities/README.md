@@ -393,6 +393,33 @@ card on `drink-calculator.html` says when its price was last checked, and says p
 - **Proved by** `tests/unit/lexicon-calculator-checked.test.mjs`, and every dated entry is checked against the figure
   `calculator-config.json` shows and the date its line note states.
 
+## Tipping rates (Track C7d)
+
+The tipping calculator reads `assets/data/tipping/<line>.json`, one file per line, each with its own `verifiedAt`.
+`package-statements.mjs` now files those figures as line statements too, dated by that `verifiedAt`, under the
+`cruise.line` pack with a 60-day window (the re-verify cadence task `itw-cruise-tipping-reverify-60d` sets it):
+
+- `gratuities_in_fare`, for every line: true for the five lines that include crew gratuities in the fare (Explora,
+  Oceania, Regent, Seabourn, Silversea), which file nothing else.
+- `daily_gratuity_<tier>` (standard, suite, concierge, mini_suite, onboard), USD per guest per day, filed only where
+  the line has one worldwide rate. MSC and Costa vary by region and file none: the pack has no region qualifier yet,
+  so no one region's figure stands for the line. Listed under `tipping.not_filed` with the reason.
+- `bar_gratuity_rate`, the automatic charge on bar purchases and drink packages, as a fraction.
+- A change the file itself announces (`dailyRates.upcomingChange`, Holland America's on 2026-06-01) is filed as a
+  second figure valid from that date, and the current one as valid until it, so the two are not a conflict.
+
+**Cross-check.** `bar_gratuity_rate` and the drink calculator's `beverage_gratuity_rate` both describe the charge on a
+drink package. They are different properties, so the contract never pairs them; `package-review.json` lists every
+line where they differ under `tipping.rate_disagreements`, with both figures and their sources, and picks neither.
+The first build names two: Princess (calculator 18%, tipping file 20%) and Holland America (its tipping file says the
+bar charge rose from 18% to 20% on 2026-06-01; the calculator still says 18%).
+
+**On the page.** `assets/data/lexicon/tipping-checked.json` holds, per line, the date and `stale_after`, built from
+the statements. `assets/js/tools/cruise-tipping-calculator/checked.js` shows *"Tipping details last checked May 8,
+2026."* under the line's details, and once the window has passed adds *"…so they may be out of date. Confirm with the
+cruise line before you sail."* It says nothing when the record cannot load or has no entry for the line. Text only,
+same-origin fetch. Proved by `tests/unit/lexicon-tipping-checked.test.mjs`.
+
 ## Deployments: one direction (Track C5)
 
 Which ships call at which ports is stored once, in `assets/data/ship-deployments.json` under `ships[*]`:

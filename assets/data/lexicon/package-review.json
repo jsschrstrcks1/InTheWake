@@ -7,7 +7,10 @@
     "disputes": 11,
     "zero_rates": 16,
     "not_filed": 34,
-    "unmatched": 0
+    "unmatched": 0,
+    "tipping_facts": 43,
+    "tipping_not_filed": 5,
+    "rate_disagreements": 2
   },
   "sources": [
     {
@@ -677,5 +680,90 @@
       "reason": "no price (included in the fare, or not sold)"
     }
   ],
-  "unmatched": []
+  "unmatched": [],
+  "tipping": {
+    "rate_disagreements": [
+      {
+        "line": "line:holland-america",
+        "beverage_gratuity_rate": [
+          {
+            "value": 0.18,
+            "refs": [
+              "itw:assets/data/lines/holland-america.json#rules.gratuity"
+            ]
+          },
+          {
+            "value": 0.18,
+            "refs": [
+              "itw:assets/data/calculator-config.json#lines.holland.rules.gratuity"
+            ]
+          }
+        ],
+        "bar_gratuity_rate": [
+          {
+            "value": 0.18,
+            "refs": [
+              "itw:assets/data/tipping/holland-america.json#autoGratuities.bar.percent"
+            ],
+            "valid_until": "2026-06-01T00:00:00.000Z"
+          },
+          {
+            "value": 0.2,
+            "refs": [
+              "itw:assets/data/tipping/holland-america.json#dailyRates.upcomingChange.autoGratuitiesPercent"
+            ],
+            "valid_from": "2026-06-01T00:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "line": "line:princess",
+        "beverage_gratuity_rate": [
+          {
+            "value": 0.18,
+            "refs": [
+              "itw:assets/data/lines/princess.json#rules.gratuity"
+            ]
+          },
+          {
+            "value": 0.18,
+            "refs": [
+              "itw:assets/data/calculator-config.json#lines.princess.rules.gratuity"
+            ]
+          }
+        ],
+        "bar_gratuity_rate": [
+          {
+            "value": 0.2,
+            "refs": [
+              "itw:assets/data/tipping/princess.json#autoGratuities.bar.percent"
+            ]
+          }
+        ]
+      }
+    ],
+    "not_filed": [
+      {
+        "source": "itw:assets/data/tipping/costa.json#dailyRates",
+        "reason": "rates vary by region (this file's default is 'South America (USD)'); the pack has no region qualifier yet, so no one region's figure stands for the line"
+      },
+      {
+        "source": "itw:assets/data/tipping/costa.json#autoGratuities.bar.percent",
+        "reason": "filed with the line's daily rates, which vary by region"
+      },
+      {
+        "source": "itw:assets/data/tipping/msc.json#dailyRates",
+        "reason": "rates vary by region (this file's default is 'Caribbean / Alaska (USD)'); the pack has no region qualifier yet, so no one region's figure stands for the line"
+      },
+      {
+        "source": "itw:assets/data/tipping/msc.json#autoGratuities.bar.percent",
+        "reason": "filed with the line's daily rates, which vary by region"
+      },
+      {
+        "source": "itw:assets/data/tipping/virgin-voyages.json#autoGratuities.bar.percent",
+        "reason": "no bar gratuity percentage"
+      }
+    ],
+    "unmatched": []
+  }
 }

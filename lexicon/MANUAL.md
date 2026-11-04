@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261104-itw-c7d-tipping-rates
+
+Task `itw-c7d-tipping-rates`.
+
+**Why.** The tipping calculator showed every line's daily charges with no date at all, though each figure was last verified in May. Gratuities are knowledge that can go stale, and the drink calculator and tipping files disagreed on two lines' bar charges with nobody told.
+
+**Enables.** A reader of the tipping calculator sees when the selected line's details were last checked, and is told to confirm them once that check is old. The Lexicon now holds every line's tipping figures and names where the two stores disagree.
+
+**Proved by** `tests/unit/lexicon-tipping-checked.test.mjs::every line's date is its tipping file's own verified date, and every tipping file is covered`.
+
 ### 20261101-observer-post-commit-hook
 
 Task `argus-s32-observer-all-repos`.
