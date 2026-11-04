@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261104-itw-c7e-gratuity-rate-reconcile
+
+Task `itw-c7e-gratuity-rate-reconcile`.
+
+**Why.** The drink calculator told Princess and Holland America readers that an 18% charge is added to drink packages, while both lines' own pages say 20% and the site's tipping calculator already said 20%. Readers were getting two different answers about the same charge, and the drink calculator's was the stale one.
+
+**Enables.** Princess and Holland America readers of the drink calculator see the 20% the lines charge today, with that rate dated by the day it was checked against the lines' own pages, while the package prices keep their own older date.
+
+**Proved by** `tests/unit/lexicon-tipping-checked.test.mjs::C7e: the drink calculator's Princess and Holland America rate is the lines' current 20%, dated by its own note`.
+
 ### 20261104-itw-c7d-tipping-rates
 
 Task `itw-c7d-tipping-rates`.

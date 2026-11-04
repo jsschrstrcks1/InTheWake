@@ -414,6 +414,23 @@ line where they differ under `tipping.rate_disagreements`, with both figures and
 The first build names two: Princess (calculator 18%, tipping file 20%) and Holland America (its tipping file says the
 bar charge rose from 18% to 20% on 2026-06-01; the calculator still says 18%).
 
+**Settled (Track C7e, 2026-11-04).** Both lines' own pages, read that day, say 20%: Princess's crew appreciation
+page (a 20% service charge on optional drink purchases) and Holland America's crew appreciation and beverage package
+FAQs (a 20% service charge on beverage purchases). `calculator-config.json` now says 20% for `princess` and
+`holland`, every package note there says `+20% gratuity`, and each `gratuityNote` carries `verified 2026-11-04`, so
+the rate is dated by that check while the package prices keep their own older check date. Two things stay open, on
+purpose:
+
+- `assets/data/lines/princess.json` and `holland-america.json` still say 18%. They feed only the older
+  `drink-calculator-v1.html` (noindex); the live page reads `calculator-config.json`. They carry no verified date of
+  their own, so their figures are dated by the file's last commit, and editing the rate there would re-date their
+  January prices as if checked today. They stay as they are, and `rate_disagreements` keeps naming them until someone
+  re-checks those files whole or retires them.
+- Holland America's FAQ *"Are gratuities included in the beverage package purchase price?"* says the 20% is included
+  in the package purchase price, while its package options FAQ lists per-day prices and says the 20% is applied to
+  beverage purchases. Whether the listed price already contains the charge is not settled, so the calculator still
+  adds it on top, and the `gratuityNote` says so.
+
 **On the page.** `assets/data/lexicon/tipping-checked.json` holds, per line, the date and `stale_after`, built from
 the statements. `assets/js/tools/cruise-tipping-calculator/checked.js` shows *"Tipping details last checked May 8,
 2026."* under the line's details, and once the window has passed adds *"…so they may be out of date. Confirm with the

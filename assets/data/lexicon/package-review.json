@@ -4,7 +4,7 @@
   "counts": {
     "lines_with_a_rate": 8,
     "packages": 60,
-    "disputes": 11,
+    "disputes": 13,
     "zero_rates": 16,
     "not_filed": 34,
     "unmatched": 0,
@@ -196,6 +196,42 @@
   ],
   "disputes": [
     {
+      "entity": "line:holland-america",
+      "property": "beverage_gratuity_rate",
+      "sides": [
+        {
+          "value": 0.18,
+          "refs": [
+            "itw:assets/data/lines/holland-america.json#rules.gratuity"
+          ]
+        },
+        {
+          "value": 0.2,
+          "refs": [
+            "itw:assets/data/calculator-config.json#lines.holland.rules.gratuity"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "line:princess",
+      "property": "beverage_gratuity_rate",
+      "sides": [
+        {
+          "value": 0.2,
+          "refs": [
+            "itw:assets/data/calculator-config.json#lines.princess.rules.gratuity"
+          ]
+        },
+        {
+          "value": 0.18,
+          "refs": [
+            "itw:assets/data/lines/princess.json#rules.gratuity"
+          ]
+        }
+      ]
+    },
+    {
       "entity": "package:carnival.bottomless-bubbles",
       "property": "base_price_per_day",
       "sides": [
@@ -385,14 +421,14 @@
           ]
         },
         {
-          "value": 66.02,
+          "value": 67.14,
           "refs": [
             "itw:assets/data/calculator-config.json#lines.holland.packages.deluxe.priceMid",
             "itw:assets/data/calculator-config.json#lines.holland.rules.gratuity"
           ],
           "derived_from": [
-            "env-c89cff8d33f13d09",
-            "env-f978b1a593c990fb"
+            "env-7882f8f48f10563d",
+            "env-c89cff8d33f13d09"
           ]
         }
       ]
@@ -420,14 +456,14 @@
       "property": "price_per_day",
       "sides": [
         {
-          "value": 60.12,
+          "value": 61.14,
           "refs": [
             "itw:assets/data/calculator-config.json#lines.holland.packages.refreshment.priceMid",
             "itw:assets/data/calculator-config.json#lines.holland.rules.gratuity"
           ],
           "derived_from": [
             "env-1715d984fb0f30bc",
-            "env-f978b1a593c990fb"
+            "env-7882f8f48f10563d"
           ]
         },
         {
@@ -693,7 +729,7 @@
             ]
           },
           {
-            "value": 0.18,
+            "value": 0.2,
             "refs": [
               "itw:assets/data/calculator-config.json#lines.holland.rules.gratuity"
             ]
@@ -720,15 +756,15 @@
         "line": "line:princess",
         "beverage_gratuity_rate": [
           {
-            "value": 0.18,
+            "value": 0.2,
             "refs": [
-              "itw:assets/data/lines/princess.json#rules.gratuity"
+              "itw:assets/data/calculator-config.json#lines.princess.rules.gratuity"
             ]
           },
           {
             "value": 0.18,
             "refs": [
-              "itw:assets/data/calculator-config.json#lines.princess.rules.gratuity"
+              "itw:assets/data/lines/princess.json#rules.gratuity"
             ]
           }
         ],

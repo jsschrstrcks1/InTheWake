@@ -115,20 +115,47 @@ test("Holland America's announced change is filed as a second figure from its da
   ]);
   const bar = hal.filter((x) => x.property === 'bar_gratuity_rate').map((x) => x.value).sort();
   assert.deepEqual(bar, [0.18, 0.2]);
-  assert.ok(!REVIEW.disputes.some((d) => d.entity === 'line:holland-america'), 'windows that touch are not a dispute');
+  const windowed = new Set(['bar_gratuity_rate', 'daily_gratuity_standard', 'daily_gratuity_suite']);
+  assert.ok(!REVIEW.disputes.some((d) => d.entity === 'line:holland-america' && windowed.has(d.property)), 'windows that touch are not a dispute');
 });
 
 test('the bar gratuity and the drink calculator package rate are compared, and a difference is named', () => {
   const lines = REVIEW.tipping.rate_disagreements.map((d) => d.line);
-  assert.ok(lines.includes('line:princess'), 'Princess: calculator 18%, tipping file 20%');
+  assert.ok(lines.includes('line:princess'), 'Princess: the older line file still says 18%, the tipping file 20%');
   const princess = REVIEW.tipping.rate_disagreements.find((d) => d.line === 'line:princess');
-  assert.deepEqual([...new Set(princess.beverage_gratuity_rate.map((x) => x.value))], [0.18]);
+  assert.deepEqual([...new Set(princess.beverage_gratuity_rate.map((x) => x.value))].sort(), [0.18, 0.2]);
   assert.deepEqual(princess.bar_gratuity_rate.map((x) => x.value), [0.2]);
   assert.ok(!lines.includes('line:royal-caribbean'), 'both say 18%');
   const s = (entity, property, value) => ({ ext: { entity, property, value }, epistemic: { evidence: [{ ref: 'r' }] }, timestamps: {} });
   assert.deepEqual(rateDisagreementsOf([s('line:a', 'beverage_gratuity_rate', 0.18), s('line:a', 'bar_gratuity_rate', 0.18)]), []);
   assert.equal(rateDisagreementsOf([s('line:a', 'beverage_gratuity_rate', 0.18), s('line:a', 'bar_gratuity_rate', 0.2)]).length, 1);
   assert.deepEqual(rateDisagreementsOf([s('line:a', 'bar_gratuity_rate', 0.2)]), [], 'one store alone is nothing to compare');
+});
+
+test("C7e: the drink calculator's Princess and Holland America rate is the lines' current 20%, dated by its own note", () => {
+  const calc = JSON.parse(read('assets/data/calculator-config.json'));
+  const checkedModel = JSON.parse(read('assets/data/lexicon/calculator-checked.json'));
+  for (const [key, line] of [['princess', 'line:princess'], ['holland', 'line:holland-america']]) {
+    const l = calc.lines[key];
+    assert.equal(l.rules.gratuity, 0.2, key);
+    assert.match(l._sources.gratuityNote, /\b20%/, `${key}: the note states the rate in words`);
+    assert.match(l._sources.gratuityNote, /verified 2026-11-04/, `${key}: the note dates the rate`);
+    for (const [tier, p] of Object.entries(l.packages)) {
+      assert.ok(!/\+18% gratuity/.test(p.priceNote ?? ''), `${key}.${tier}: no package note still adds 18%`);
+    }
+    for (const [tier, e] of Object.entries(checkedModel.lines[key])) {
+      if (e.gratuity_rate === undefined) continue;
+      assert.equal(e.gratuity_rate, 0.2, `${key}.${tier}`);
+      assert.equal(e.rate_checked, '2026-11-04', `${key}.${tier}: the rate is dated by the note`);
+      assert.equal(e.checked, '2026-04-17', `${key}.${tier}: the price keeps its own older check date`);
+    }
+    // What still disagrees comes only from the older per-line file, which this change does not touch, so its prices
+    // are not re-dated by a commit that never checked them.
+    const d = REVIEW.tipping.rate_disagreements.find((x) => x.line === line);
+    const stale = d.beverage_gratuity_rate.filter((x) => x.value !== 0.2);
+    assert.ok(stale.length >= 1, `${line}: the older line file is still named`);
+    for (const s of stale) assert.ok(s.refs.every((r) => r.startsWith('itw:assets/data/lines/')), `${line}: ${s.refs}`);
+  }
 });
 
 test('a tier with no property, a non-dollar rate and an undated file are listed with their reasons, never filed', (t) => {
