@@ -559,6 +559,8 @@ const CALC_SHELL_URLS = [
   '/assets/js/calculator-worker-v2.js',
   '/assets/js/package-selection-feature-v2.js',
   '/assets/data/calculator-config.json',
+  '/assets/js/calculator-checked.js',
+  '/assets/data/lexicon/calculator-checked.json',
   '/assets/css/calculator.css'
 ];
 let calcShellWarmed = false;

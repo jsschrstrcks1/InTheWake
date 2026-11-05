@@ -50,9 +50,18 @@ Argus reads these files and serves them through `lexicon_statements`.
 - A figure the line's capture holds back for a person (`held`) is listed under `not_filed` with its reason.
 
 After a ship page, a ship record or a capture is **committed**, run `node admin/lexicon/ship-statements.mjs`
-and commit what it writes. It reads committed content only (each fact is dated by its source's commit), so it
+and commit what it writes. It reads committed content only (a new fact is dated by its source's commit), so it
 cannot run inside the commit that changes the source. The unit test `the entity files are exactly what the
 records say` fails while any file is behind.
+
+**A date survives a squash merge** (Tekton `itw-lexicon-stable-dates`, `admin/lexicon/stable-dates.mjs`). A
+statement keeps the dates it was first filed with for as long as everything else about it is unchanged: entity,
+property, value, unit, status, rank, evidence, publisher and actor. Only a new or changed statement is dated by
+its sources' commits. The earlier dates are read from the entity files as committed at HEAD, never the working
+tree, so a hand edit cannot plant one. Before this, a statement was re-dated by every commit to its source file,
+so a squash merge, which gives every touched file a new commit, left main's entity files stale the moment a pull
+request merged (measured after #2672: six ships). A date now means when this value, from these sources, was
+first filed; an edit elsewhere in the same page no longer re-dates a fact it did not change.
 
 ## Where a fact may come from (operator directives 7f0df2b6 and 4918b2a5)
 
@@ -166,7 +175,7 @@ contract is reported as UNAVAILABLE, never as a full pass.
 |---|---|---|---|
 | `itw_statement_unsourced` | 1 | a statement with status verified, known or inference that names no evidence (or a blank one), has no `source_ref`, or is `verified` without a web page read in the session | Find what the claim rests on. If it is this site's record, fix the record and run `node admin/lexicon/ship-statements.mjs`; if it is the line's page, capture it with `admin/lexicon/capture-official.mjs` first. Never edit a statement by hand: its id is a hash of its content. If no source exists, the honest status is `unknown` |
 | `itw_statement_gates_unavailable` | 2 | an entity file, a pilot page or the manifest could not be read | Open the file the message names and fix its JSON or path. Nothing unread is reported as clean |
-| `itw_infobox_drift` | 3 | a pilot card that is not what its statements render: edited inside the markers, or written from an entity file, a fallback or a renderer that has changed since (a missing or hand-written mount too) | Run `node admin/lexicon/render-infobox.mjs` and stage the pages and the manifest it rewrites. To change what a card says, change the record the statement is filed from, regenerate with `ship-statements.mjs`, then render. After committing a pilot page, regenerate the entity files and render again in the next commit: the entity files are re-dated, the cards stay the same, and the manifest records the new hashes |
+| `itw_infobox_drift` | 3 | a pilot card that is not what its statements render: edited inside the markers, or written from an entity file, a fallback or a renderer that has changed since (a missing or hand-written mount too) | Run `node admin/lexicon/render-infobox.mjs` and stage the pages and the manifest it rewrites. To change what a card says, change the record the statement is filed from, regenerate with `ship-statements.mjs`, then render. After committing a pilot page, regenerate the entity files: a fact you changed takes the new commit's date, and every other statement keeps its own (stable-dates.mjs), so the cards and the manifest change only where a fact did |
 | `itw_conflict_published` | 4 | a pilot card showing a value whose statements disagree, or the page's own figure standing in where statements exist (full depth only) | Re-render: the renderer withholds a disputed value and names it under the card. To show a value, settle the dispute in the statements first (see Disagreements) |
 
 There is **no baseline**: measured 2026-10-29, 0 of 1,848 statements were unsourced, so no existing debt needed
@@ -214,7 +223,8 @@ node admin/lexicon/port-statements.mjs           # after a port page or port fil
 node admin/lexicon/port-statements.mjs --check   # exit 1 itw_port_statements_stale, 2 itw_port_statements_unavailable
 ```
 
-Like the ship statements, it reads committed content only, because each fact is dated by its source's commit.
+Like the ship statements, it reads committed content only, because a new fact is dated by its source's commit,
+and an unchanged one keeps its date through a squash merge (above).
 The statement gates (above) cover these files too: an unsourced port statement is refused at pre-commit and in CI.
 
 **Honest limits.** Nothing here says which side of a dispute is right; the gazetteer reads below are evidence
@@ -265,6 +275,150 @@ a feature's GeoNames point is where GeoNames puts it, which for an island or a c
 harbour. A port GeoNames lists under a name this site never uses (CocoCay found nothing under "cococay" or
 "perfect day at cococay") is `no_match` until that name is recorded somewhere this tool reads. GeoNames updates its dump daily; the observation names the files
 it read, and a later capture may differ.
+
+## Venues (Track C7a)
+
+A venue lived in six stores with no shared identity: `assets/data/venues-v2.json` (2,101 venues over 290 ships),
+`venues.json` (an older 83), one venue file each for Carnival, Norwegian, MSC and Virgin, the restaurant pages, and
+`venues_by_ship/`. Their slugs collide across lines: `main-dining-room` is in the Carnival file and the MSC file, and
+`teppanyaki` is a Royal Caribbean venue in venues-v2 and a Norwegian one in `ncl-venues.json`. So a bare slug is not an
+identity. Every venue is now `venue:<line>.<slug>` (`venue/<line>.<slug>.json`, 2,014 of them), filed by
+`admin/lexicon/venue-statements.mjs` under the pack `assets/data/lexicon/cruise.venue.pack.json`. Tekton
+`itw-c7a-venue-identity`.
+
+**Which line.** A venues-v2 venue takes the line of the ships that list it (no venue is listed on two lines). A
+venue on no ship takes its own `line` field, else the line of the venue it consolidates into, else the provider its
+own restaurant page names, mapped through the line alias table above. 129 venues-v2 venues have none of these and
+are listed as unplaced, not filed.
+
+**Which venue.** A line's own file, `venues.json` and `venues_by_ship/` map a key only to a venue of the same line:
+exact slug, then the line's prefixed slug (`ncl-taste` for `taste`), then a name exactly one venue of that line
+carries. Two candidates is listed as ambiguous (3, all MSC venues venues-v2 keeps one per ship). No candidate in a
+line's own file is a venue venues-v2 does not have, filed from that file alone (42). `assets/data/lexicon/venue-aliases.json`
+records every key and how it mapped.
+
+| Property | From | Note |
+|---|---|---|
+| `name`, `category`, `subcategory`, `premium` | venues-v2, the line files, `venues.json` | as each store writes them. A `-` subcategory is a placeholder and is not filed; `venues.json`'s category is another scheme (casual, specialty, mdr) and is not filed |
+| `line` | whichever store placed it | cited on the store or page that placed it |
+| `ships` | venues-v2 only | `{ "ships": [ship entities] }`: the one store that covers every ship. A relation is stored once (the C5 rule) |
+| `consolidate_into` | venues-v2 | its own pointer to the venue this one is a variant of |
+
+Not filed, and listed per venue under `not_filed`: `cost` (a price, Track C7b) and `description` (prose).
+
+**Review list** (`assets/data/lexicon/venue-disputes.json`), nothing settled:
+
+| List | Count | What |
+|---|---|---|
+| `disputes` | 88 | two stores give one venue different values (62 subcategory, 10 name, 9 premium, 7 category) |
+| `same_name` | 142 | venues of one line sharing a name: possible duplicates (MSC keeps a Top Sail Lounge per ship) |
+| `ship_review` | 228 | an older store puts a venue on a ship venues-v2 does not |
+| `unplaced` | 132 | the 129 venues with no line, and the 3 ambiguous keys |
+
+```bash
+node admin/lexicon/venue-statements.mjs           # after a venue store or restaurant page is committed
+node admin/lexicon/venue-statements.mjs --check   # exit 1 itw_venue_statements_stale, 2 itw_venue_statements_unavailable
+```
+
+**Honest limits.** Every venue statement is this site's own record (status `inference`); no line's own site has been
+read for venues yet. A case-only difference ("ChiBang!" and "Chibang!") is a name dispute, because the contract
+compares values exactly. 93 restaurant pages map to no venue because their venue is unplaced. The ship review
+compares only the older stores; whether venues-v2's own ship lists are current is a separate question.
+
+## Drink-package prices (Track C7b)
+
+> "Include gratuity but that's a piece of knowledge that can go stale it should be marked as such." (Ken,
+> 2026-10-31, memory `446c35a2`)
+
+`admin/lexicon/package-statements.mjs` files beverage packages as `package:<line>.<slug>` (`package/`, the package
+name in kebab case within its line) and each line's beverage gratuity as `line:<id>#beverage_gratuity_rate`
+(`line/`), under the packs `cruise.package` and `cruise.line`. Tekton `itw-c7b-package-prices`.
+
+- **A stored price includes the gratuity.** `price_per_day` is the gratuity-inclusive figure. Where a source gives a
+  base price with "+N% gratuity" (or "service charge"), the base is filed as `base_price_per_day`, and `price_per_day`
+  is computed from it and the line's rate, to the cent. Where the note says the gratuity is included, the figure is
+  the price. A note that says neither, a percentage that is not the file's own rate, or no price at all, is listed
+  in `assets/data/lexicon/package-review.json` with the reason, never guessed.
+- **The gratuity rate is its own fact, and it goes stale.** It is filed only where the file states the percentage
+  in words, and it carries the pack's 90-day window (the Lexicon plan's freshness for line prices). Its check date is
+  the gratuity note's own "verified YYYY-MM-DD" (Royal Caribbean: 2026-04-14), else the line note's, else the
+  calculator's `lastUpdated`, else the file's commit. A price's check date is the line note's "verified" date the same
+  way. `lastUpdated` is when the file last changed, not when its prices were checked, so it is only the last resort. A stored 0 means nothing is added on top (MSC's prices include it; Virgin adds none): listed under
+  `zero_rates`, never filed as a 0 percent rate.
+- **A computed price names what it rests on.** Its `lineage.parents` are the base and the rate (Project-Sophos #1509,
+  `derivedFrom`), so the contract's `freshness()` reads it `rests_on_stale` once the rate is stale, with nothing in
+  the price's own record changing.
+
+Freshness depends on the day you ask, so it is never stored. Ask the tool:
+
+```bash
+node admin/lexicon/package-statements.mjs                        # after the calculator or a line file is committed
+node admin/lexicon/package-statements.mjs --check                # exit 1 itw_package_statements_stale, 2 itw_package_statements_unavailable
+node admin/lexicon/package-statements.mjs --freshness [--at T]   # fresh / stale / rests_on_stale for every rate and price
+```
+
+**What the first build found** (the review list): 11 disputes. Bottomless Bubbles is the one the plan named: the
+calculator's base is $11.99 and Carnival's line file's is $9.50, both "+20%", so $14.39 against $11.40 with the
+gratuity in. Neither is picked. Every calculator line's note says its prices were verified 2026-04-14 or 2026-04-17,
+so at 2026-11-01 all 98 rate and price statements read stale. A price whose own check is current but whose rate is
+not reads `rests_on_stale`; none does today, because each line's rate and prices were checked together.
+
+**Honest limits.** Both stores are this site's own records (status `inference`); no line's site has been read for
+prices. Two stores naming one package differently ("CHEERS! Beverage Program" and "CHEERS! Beverage Package") are two
+packages until a person says otherwise. Child prices and price ranges are not filed yet. The calculator still takes
+its numbers from `calculator-config.json`; what it reads from these statements is when each one was last checked
+(Track C7c, below).
+
+## The calculator's "last checked" line (Track C7c)
+
+The Lexicon plan (Project-Sophos `docs/lexicon/LEXICON-PLAN-3.1.md`, ADR-4) gives In the Wake's reader-facing pages a
+"last checked" line, and Ken's ruling of 2026-10-31 says a price that can go stale is marked as such. So each package
+card on `drink-calculator.html` says when its price was last checked, and says plainly when it may be out of date.
+
+- **What it reads.** `assets/data/lexicon/calculator-checked.json`, written by `package-statements.mjs` from the
+  package and line statements (never from the config directly). For each calculator line and package it holds the
+  figure the card shows, the date the record says it was checked, and `stale_after`, the last instant it reads fresh,
+  taken from the contract's `freshness()`. Those don't change with the clock, so the file is as deterministic as the
+  entity files, and `--check` covers it.
+- **What the page says.** `assets/js/calculator-checked.js` compares the current date with `stale_after`:
+  - in its window: *"Price last checked April 14, 2026."*;
+  - past it: *"…so it may be out of date. Confirm it in your cruise planner before you buy."*;
+  - a current price whose gratuity rate is past its own window: *"The 18% gratuity added to it was last checked …, so
+    it may have changed."*
+- **When it says nothing.** No line appears when the record could not be loaded, has no entry for the line or
+  package, or is disputed (Carnival's Bottomless Bubbles), or when the price on the card is not the price in the
+  record (the reader edited it). A date never vouches for a figure the record does not hold.
+- **Safety.** Same-origin fetch, text set with `textContent`, no HTML from data, no inline handlers. The service
+  worker and `precache-manifest.json` list both files, so the line also shows offline.
+- **Proved by** `tests/unit/lexicon-calculator-checked.test.mjs`, and every dated entry is checked against the figure
+  `calculator-config.json` shows and the date its line note states.
+
+## Tipping rates (Track C7d)
+
+The tipping calculator reads `assets/data/tipping/<line>.json`, one file per line, each with its own `verifiedAt`.
+`package-statements.mjs` now files those figures as line statements too, dated by that `verifiedAt`, under the
+`cruise.line` pack with a 60-day window (the re-verify cadence task `itw-cruise-tipping-reverify-60d` sets it):
+
+- `gratuities_in_fare`, for every line: true for the five lines that include crew gratuities in the fare (Explora,
+  Oceania, Regent, Seabourn, Silversea), which file nothing else.
+- `daily_gratuity_<tier>` (standard, suite, concierge, mini_suite, onboard), USD per guest per day, filed only where
+  the line has one worldwide rate. MSC and Costa vary by region and file none: the pack has no region qualifier yet,
+  so no one region's figure stands for the line. Listed under `tipping.not_filed` with the reason.
+- `bar_gratuity_rate`, the automatic charge on bar purchases and drink packages, as a fraction.
+- A change the file itself announces (`dailyRates.upcomingChange`, Holland America's on 2026-06-01) is filed as a
+  second figure valid from that date, and the current one as valid until it, so the two are not a conflict.
+
+**Cross-check.** `bar_gratuity_rate` and the drink calculator's `beverage_gratuity_rate` both describe the charge on a
+drink package. They are different properties, so the contract never pairs them; `package-review.json` lists every
+line where they differ under `tipping.rate_disagreements`, with both figures and their sources, and picks neither.
+The first build names two: Princess (calculator 18%, tipping file 20%) and Holland America (its tipping file says the
+bar charge rose from 18% to 20% on 2026-06-01; the calculator still says 18%).
+
+**On the page.** `assets/data/lexicon/tipping-checked.json` holds, per line, the date and `stale_after`, built from
+the statements. `assets/js/tools/cruise-tipping-calculator/checked.js` shows *"Tipping details last checked May 8,
+2026."* under the line's details, and once the window has passed adds *"…so they may be out of date. Confirm with the
+cruise line before you sail."* It says nothing when the record cannot load or has no entry for the line. Text only,
+same-origin fetch. Proved by `tests/unit/lexicon-tipping-checked.test.mjs`.
 
 ## Deployments: one direction (Track C5)
 
