@@ -951,6 +951,9 @@ function renderPackageCards(results) {
     if (priceElements.deluxe) priceElements.deluxe.textContent = formatMoney(economics.pkg.deluxe);
   }
 
+  // Lexicon C7c: when each price was last checked, or nothing when the card no longer shows the recorded price
+  if (window.ITW_CHECKED && typeof window.ITW_CHECKED.render === 'function') window.ITW_CHECKED.render();
+
   // ✅ Announce winners to screen readers
   if (results.ariaAnnouncement) {
     announce(results.ariaAnnouncement);
