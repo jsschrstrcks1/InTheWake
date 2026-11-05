@@ -4,6 +4,7 @@ import { createState } from "./state.js";
 import { attachPersistence } from "./persist.js";
 import { calcGrandTotal } from "./calc.js";
 import { renderLineSelect, renderRegions, renderCabinTiers, renderBundledBanner, renderCashExtras, renderResult, renderChildAges } from "./render.js";
+import { load as loadChecked, render as renderChecked } from "./checked.js";
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -149,14 +150,16 @@ async function init() {
     renderCabinTiers($("#cabin-tier"), line, v.cabinTier, v.region);
     renderChildAges($("#children-ages"), v, line);
     renderBundledBanner(bundledBanner, line);
+    renderChecked($("#rates-checked"), v.line);
     renderCashExtras(cashPanel, line, v);
     const totals = calcGrandTotal(line, v);
     renderResult(headline, breakdown, line, totals, v);
     if (!$("#compare-column").hidden) renderCompareColumn($("#compare-column"), state);
   });
 
-  // Initial paint.
+  // Initial paint, then once more when the Lexicon's last-checked record arrives (Track C7d).
   state.update({});
+  loadChecked().then(() => renderChecked($("#rates-checked"), state.get().line));
 }
 
 // Mirror state values back into form inputs so hash/storage restore is visible
