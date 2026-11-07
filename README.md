@@ -47,7 +47,7 @@ line. The voice is honest, calm, and concrete: facts over superlatives.
 | Solo travel articles | Multiple under `/solo/articles/` |
 | WebP images | 4,475 (682 of them ship images) |
 | JSON data files | 1,310 in `assets/data/` |
-| Service Worker | v14.3.0 |
+| Service Worker | v14.4.0 (`sw.js` VERSION and `precache-manifest.json` "version" are bumped together; `tests/unit/precache-manifest.test.mjs` holds them equal) |
 | Page template | v3.010.305 (some at v3.010.300 / v3.010.400) |
 | CSS query | `?v=3.010.400` on new pages |
 
