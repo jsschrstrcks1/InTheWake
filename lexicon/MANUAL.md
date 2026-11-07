@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261107-itw-pwa-precache-tied-to-sw
+
+Task `itw-pwa-precache-tied-to-sw-20261107`.
+
+**Why.** Edits to the precache manifest never reached anyone who had already installed the site as an app, because the service worker only reads the manifest when sw.js itself changes, and three pages were added that way in May. The manifest also listed a file that does not exist, and the cruise tipping calculator was not precached, so a reader who opened it at home could not use it at sea.
+
+**Enables.** A reader who has opened the site once can use the cruise tipping calculator with no signal, and any later change to the precache list reaches installed apps, because the manifest's version and the service worker's are held equal by a test.
+
+**Proved by** `tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed`.
+
 ### 20261104-itw-c7f-hal-package-prices
 
 Task `itw-c7f-hal-package-prices`.

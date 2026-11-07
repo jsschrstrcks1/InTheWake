@@ -332,6 +332,12 @@ jobs:
       - name: Run ship stats card gate
         run: npx playwright test ship-stats-card.spec.js --workers=1
 
+      # Offline tipping calculator (Tekton itw-pwa-precache-tied-to-sw-20261107, issues #1728 and #1682): installs the
+      # service worker, cuts the network, reloads, and checks the calculator still fills in. Serial for the same
+      # single-threaded-server reason as above.
+      - name: Run offline tipping calculator gate
+        run: npx playwright test pwa-offline.spec.js --workers=1
+
   # Summary job
   unit-tests:
     name: Unit Tests
