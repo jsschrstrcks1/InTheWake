@@ -18,6 +18,16 @@ Task `itw-pwa-precache-tied-to-sw-20261107`.
 
 **Proved by** `tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed`.
 
+### 20261107-itw-pwa-drink-calc-offline
+
+Task `itw-pwa-drink-calc-offline-20261107`.
+
+**Why.** Offline, the drink calculator page came back but none of its scripts or versioned data did, because the precache listed bare paths while the page asks for every file with a version query. The calculator never started and readers saw the page's built-in placeholder prices as if they were real.
+
+**Enables.** A reader who has opened the site once can use the drink calculator with no signal, with the Royal Caribbean line, its gratuity and its prices loaded from the same files the page uses online.
+
+**Proved by** `tests/playwright/pwa-offline.spec.js::the drink calculator starts offline after the service worker has installed`.
+
 ### 20261104-itw-c7f-hal-package-prices
 
 Task `itw-c7f-hal-package-prices`.

@@ -98,6 +98,25 @@ test('the tipping calculator opens offline: its page, scripts, styles, modules a
   assert.deepEqual(files.filter((u) => !listed.has(u)), [], 'requested by the tipping calculator but not precached');
 });
 
+/** The same-site scripts and stylesheets a page names in its own HTML, exactly as written (query included). */
+function pageTags(page) {
+  const html = read(page.slice(1));
+  const sameSite = (u) => u.startsWith('/') && !u.startsWith('//');
+  const urls = new Set([page]);
+  for (const m of html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)) if (sameSite(m[1])) urls.add(m[1]);
+  for (const m of html.matchAll(/<link\b[^>]*\brel="stylesheet"[^>]*\bhref="([^"]+)"/g)) if (sameSite(m[1])) urls.add(m[1]);
+  return [...urls].sort();
+}
+
+test('the drink calculator opens offline: its page and every script and stylesheet it names are precached as written', () => {
+  // What the page loads at run time (its config and brands with ?v=, the worker, the chart library, the data) cannot be
+  // read from the HTML; tests/playwright/pwa-offline.spec.js proves those end to end, offline, in CI.
+  const files = pageTags('/drink-calculator.html');
+  assert.ok(files.length >= 8, `found the page's own tags (${files.length})`);
+  for (const u of files) assert.ok(exists(u), `${u} exists`);
+  assert.deepEqual(files.filter((u) => !listed.has(u)), [], 'named by drink-calculator.html but not precached as written');
+});
+
 test('the manifest lists each url once', () => {
   const all = LISTS.flatMap((k) => (MANIFEST[k] || []).map(urlOf));
   assert.deepEqual(all.filter((u, i) => all.indexOf(u) !== i), []);
