@@ -29,7 +29,8 @@ path when a gate refuses. The full rules are `assets/data/entities/README.md`; t
    (`assets/data/ships/<line>/<slug>.page.json` or the page's `#ship-stats-fallback`) or from the cruise line's own
    page, captured by `admin/lexicon/capture-official.mjs`. Training recall is never a source.
 2. **Commit the record**, then regenerate the statements: `node admin/lexicon/ship-statements.mjs`. It reads
-   committed content only, because each fact is dated by its source's commit.
+   committed content only, because a new fact is dated by its source's commit. An unchanged fact keeps its date,
+   so the files stay current through a squash merge (`admin/lexicon/stable-dates.mjs`).
 3. **Render the cards:** `node admin/lexicon/render-infobox.mjs`. It rewrites the pilot cards and
    `assets/data/lexicon/infobox-manifest.json`.
 4. **Gate:** `node admin/lexicon/statement-gates.mjs`. Full depth needs Project-Sophos beside the checkout; the
