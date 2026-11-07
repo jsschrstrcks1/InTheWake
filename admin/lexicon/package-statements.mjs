@@ -48,6 +48,15 @@ export const LINE_DIR = "assets/data/entities/line";
 export const PACKAGE_PACK = "assets/data/lexicon/cruise.package.pack.json";
 export const LINE_PACK = "assets/data/lexicon/cruise.line.pack.json";
 export const REVIEW_FILE = "assets/data/lexicon/package-review.json";
+export const CALC_CHECKED_FILE = "assets/data/lexicon/calculator-checked.json";
+export const TIPPING_CHECKED_FILE = "assets/data/lexicon/tipping-checked.json";
+const TIPPING_DIR = "assets/data/tipping";
+// A tipping file's cabin tier slug and the cruise.line property it files under (Track C7d). A tier not named here is
+// listed under not_filed with its reason, never filed under a guessed property.
+export const TIER_PROPERTY = Object.freeze({
+  standard: "daily_gratuity_standard", suite: "daily_gratuity_suite", concierge: "daily_gratuity_concierge",
+  "mini-suite": "daily_gratuity_mini_suite", onboard: "daily_gratuity_onboard",
+});
 const CALC = "assets/data/calculator-config.json";
 const LINES_DIR = "assets/data/lines";
 const BRANDS = "assets/data/brands.json";
@@ -157,6 +166,62 @@ export function readFigures(root) {
   return { rates, prices, notFiled, zeroRates, unmatched, sources: sources.map((s) => ({ file: s.file, key: s.key, line: `line:${s.line}`, by: s.by })) };
 }
 
+/**
+ * The tipping calculator's per-line files (Track C7d) as facts to file; nothing dated or sealed yet. Pure over the
+ * files. Every figure is dated by the file's own verifiedAt; a file with no verified date files nothing.
+ *   gratuities_in_fare   every line: whether the fare already includes crew gratuities
+ *   daily_gratuity_<t>   per cabin tier, USD per guest per day, only where the rate is one worldwide figure; a line
+ *                        whose rates vary by region files none (the pack has no region qualifier yet)
+ *   bar_gratuity_rate    the automatic charge on bar purchases and drink packages, as a fraction
+ * A change the file itself announces (dailyRates.upcomingChange) is filed as a second figure from its effective date,
+ * and the current figure is filed as valid until then, so the two are not a conflict.
+ */
+export function readTipping(root) {
+  const brands = new Set((readJson(root, BRANDS).brands ?? []).map((b) => b.id));
+  const facts = [], notFiled = [], unmatched = [];
+  let names;
+  try { names = fs.readdirSync(path.join(root, TIPPING_DIR)).filter((f) => f.endsWith(".json") && !f.startsWith("_")).sort(); }
+  catch (e) { throw fail("itw_package_statements_unavailable", `${TIPPING_DIR} could not be read (${e.message})`); }
+  const isDate = (v) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v);
+  for (const f of names) {
+    const rel = `${TIPPING_DIR}/${f}`, d = readJson(root, rel), at = (key) => `itw:${rel}#${key}`;
+    const line = d.lineId;
+    if (line !== f.slice(0, -5) || !brands.has(line)) { unmatched.push({ store: rel, key: line ?? null, reason: "lineId is not the file's name, or is not a line id in brands.json" }); continue; }
+    if (!isDate(d.verifiedAt)) { notFiled.push({ source: at("verifiedAt"), reason: "no verified date, so nothing in this file can be dated" }); continue; }
+    const checked = `${d.verifiedAt}T00:00:00.000Z`;
+    const push = (property, value, ref, extra = {}) => facts.push({ line, property, value, ref, file: rel, checked, ...extra });
+    if (typeof d.bundledInFare !== "boolean") { notFiled.push({ source: at("bundledInFare"), reason: "not true or false" }); continue; }
+    push("gratuities_in_fare", d.bundledInFare, at("bundledInFare"));
+    if (d.bundledInFare) continue; // nothing is charged per day or on the bar tab: that is the fact just filed
+    const regional = d.region !== "global" || Array.isArray(d.regions);
+    if (regional) {
+      notFiled.push({ source: at("dailyRates"), reason: `rates vary by region (this file's default is '${d.region}'); the pack has no region qualifier yet, so no one region's figure stands for the line` });
+      notFiled.push({ source: at("autoGratuities.bar.percent"), reason: "filed with the line's daily rates, which vary by region" });
+      continue;
+    }
+    if (d.currency !== "USD") { notFiled.push({ source: at("currency"), reason: `rates are in ${d.currency}; the pack's unit is USD` }); continue; }
+    const dr = d.dailyRates, up = dr?.upcomingChange ?? null;
+    if (up && !isDate(up.effectiveDate)) { notFiled.push({ source: at("dailyRates.upcomingChange"), reason: "an upcoming change with no effective date" }); continue; }
+    const from = up ? `${up.effectiveDate}T00:00:00.000Z` : null;
+    const tiers = (list, key, window) => {
+      for (const t of Array.isArray(list) ? list : []) {
+        const property = TIER_PROPERTY[t.slug], ref = at(`${key}.${t.slug}.amount`);
+        if (!property) { notFiled.push({ source: ref, reason: `tier '${t.slug}' has no property in the cruise.line pack` }); continue; }
+        if (!(Number.isFinite(t.amount) && t.amount > 0)) { notFiled.push({ source: ref, reason: "no positive amount" }); continue; }
+        push(property, t.amount, ref, window);
+      }
+    };
+    if (!Array.isArray(dr?.tiers)) notFiled.push({ source: at("dailyRates"), reason: "no daily rate tiers" });
+    tiers(dr?.tiers, "dailyRates.tiers", from ? { validUntil: from } : {});
+    if (up) tiers(up.tiers, "dailyRates.upcomingChange.tiers", { validFrom: from });
+    const pct = d.autoGratuities?.bar?.percent;
+    if (Number.isFinite(pct) && pct > 0 && pct < 100) push("bar_gratuity_rate", cents(pct / 100), at("autoGratuities.bar.percent"), from ? { validUntil: from } : {});
+    else notFiled.push({ source: at("autoGratuities.bar.percent"), reason: "no bar gratuity percentage" });
+    if (up && Number.isFinite(up.autoGratuitiesPercent)) push("bar_gratuity_rate", cents(up.autoGratuitiesPercent / 100), at("dailyRates.upcomingChange.autoGratuitiesPercent"), { validFrom: from });
+  }
+  return { facts, notFiled, unmatched };
+}
+
 /** Load the contract and refuse one without freshness.mjs or derivedFrom (Project-Sophos #1509). */
 export async function loadPriceContract(env = process.env) {
   const c = await loadContract(env);
@@ -239,6 +304,13 @@ export async function buildPackageStatements(root = ROOT, contract) {
       { derivedFrom: [base.id, rate.id], derivedBy: DERIVED_BY }));
   }
 
+  // The tipping calculator's facts (Track C7d), each dated by its file's own verified date.
+  const tip = readTipping(root);
+  for (const f of tip.facts) {
+    const window = { ...(f.validFrom ? { validFrom: f.validFrom } : {}), ...(f.validUntil ? { validUntil: f.validUntil } : {}) };
+    push(`line:${f.line}`, seal(packs.line, `line:${f.line}`, f.property, f.value, [f.ref], { fixed: f.checked }, window));
+  }
+
   const files = {}, disputes = [];
   for (const [entity, statements] of [...byEntity].sort(([a], [b]) => (a < b ? -1 : 1))) {
     const ordered = statements.sort((a, b) => (a.ext.property < b.ext.property ? -1 : a.ext.property > b.ext.property ? 1 : a.id < b.id ? -1 : 1));
@@ -254,13 +326,112 @@ export async function buildPackageStatements(root = ROOT, contract) {
       statements: ordered,
     }, null, 2)}\n`;
   }
+  files[CALC_CHECKED_FILE] = `${JSON.stringify(calculatorChecked(fig, [...byEntity.values()].flat(), disputes, packs, contract), null, 2)}\n`;
+  files[TIPPING_CHECKED_FILE] = `${JSON.stringify(tippingChecked([...byEntity.values()].flat(), packs, contract), null, 2)}\n`;
+  const rateDisagreements = rateDisagreementsOf([...byEntity.values()].flat());
   files[REVIEW_FILE] = `${JSON.stringify({
     format: "itw-package-review/1",
     _about: "Generated by admin/lexicon/package-statements.mjs; do not edit by hand. Nothing here is settled. disputes: two stores giving one package or line different values (gratuity-inclusive prices compared). zero_rates: lines whose files add nothing on top of a package price, which is not a 0 percent gratuity. not_filed: each figure left out, and why. unmatched: store keys with no line id. Freshness is not stored here because it changes with the clock: run node admin/lexicon/package-statements.mjs --freshness.",
-    counts: { lines_with_a_rate: lineIds.length, packages: pkgIds.length, disputes: disputes.length, zero_rates: fig.zeroRates.length, not_filed: fig.notFiled.length, unmatched: fig.unmatched.length },
+    counts: { lines_with_a_rate: lineIds.length, packages: pkgIds.length, disputes: disputes.length, zero_rates: fig.zeroRates.length, not_filed: fig.notFiled.length, unmatched: fig.unmatched.length, tipping_facts: tip.facts.length, tipping_not_filed: tip.notFiled.length, rate_disagreements: rateDisagreements.length },
     sources: fig.sources, disputes, zero_rates: fig.zeroRates, not_filed: fig.notFiled, unmatched: fig.unmatched,
+    tipping: { rate_disagreements: rateDisagreements, not_filed: tip.notFiled, unmatched: tip.unmatched },
   }, null, 2)}\n`;
   return { files, disputes, statements: [...byEntity.values()].flat(), packs };
+}
+
+/**
+ * Lines where the drink calculator's package gratuity (beverage_gratuity_rate) and the tipping file's bar gratuity
+ * (bar_gratuity_rate) give different fractions (Track C7d). They are different properties, so findConflicts never
+ * pairs them; but both describe the charge on a drink package, so a difference is named here for a person to settle.
+ * Every figure is listed with its sources and any validity window; nothing is picked.
+ */
+export function rateDisagreementsOf(statements) {
+  const byLine = new Map();
+  for (const s of statements) {
+    if (s.ext.property !== "beverage_gratuity_rate" && s.ext.property !== "bar_gratuity_rate") continue;
+    const line = s.ext.entity;
+    (byLine.get(line) ?? byLine.set(line, { beverage: [], bar: [] }).get(line))[s.ext.property === "bar_gratuity_rate" ? "bar" : "beverage"].push(s);
+  }
+  const side = (s) => ({
+    value: s.ext.value, refs: s.epistemic.evidence.map((e) => e.ref),
+    ...(s.timestamps.valid_from ? { valid_from: s.timestamps.valid_from } : {}), ...(s.timestamps.valid_until ? { valid_until: s.timestamps.valid_until } : {}),
+  });
+  const out = [];
+  for (const [line, { beverage, bar }] of [...byLine].sort(([a], [b]) => (a < b ? -1 : 1))) {
+    if (!beverage.length || !bar.length) continue;
+    const values = new Set([...beverage, ...bar].map((s) => s.ext.value));
+    if (values.size > 1) out.push({ line, beverage_gratuity_rate: beverage.map(side), bar_gratuity_rate: bar.map(side) });
+  }
+  return out;
+}
+
+/**
+ * The tipping calculator's read model (Track C7d): for each line, the date its tipping file was last verified and the
+ * last instant those figures read fresh (from the contract's freshness(), so it never changes with the clock), with
+ * the ids of the statements behind it. Built from the statements, never from the tipping files directly.
+ */
+export function tippingChecked(statements, packs, contract) {
+  const ttl = (s) => (s.ext.pack === packs.line.pack ? packs.line : packs.pkg).properties[s.ext.property]?.ttl_days ?? null;
+  const parents = new Map(statements.map((s) => [s.id, { statement: s, ttlDays: ttl(s) }]));
+  const fromTipping = (s) => s.epistemic.evidence.some((e) => e.ref.startsWith(`itw:${TIPPING_DIR}/`));
+  const lines = {};
+  for (const s of [...statements].filter(fromTipping).sort((a, b) => (a.id < b.id ? -1 : 1))) {
+    const f = contract.freshness(s, { ttlDays: ttl(s), at: s.timestamps.observed_at, parents });
+    if (!f.checked_at || !f.stale_after) continue;
+    const line = s.ext.entity.slice("line:".length);
+    const e = (lines[line] ??= { checked: f.checked_at.slice(0, 10), stale_after: f.stale_after, statements: [] });
+    if (f.checked_at.slice(0, 10) < e.checked) e.checked = f.checked_at.slice(0, 10);
+    if (f.stale_after < e.stale_after) e.stale_after = f.stale_after;
+    e.statements.push(s.id);
+  }
+  return {
+    format: "itw-tipping-checked/1",
+    _about: "Generated by admin/lexicon/package-statements.mjs from the line statements filed from assets/data/tipping/; do not edit by hand. Read by assets/js/tools/cruise-tipping-calculator/checked.js to tell a reader when a line's tipping rates were last checked, and to say so when they may be out of date (operator ruling 2026-10-31; task itw-cruise-tipping-reverify-60d sets the 60-day window). stale_after is the last instant the figures read fresh. assets/data/entities/README.md#tipping-rates-track-c7d",
+    lines: Object.fromEntries(Object.entries(lines).sort(([a], [b]) => (a < b ? -1 : 1))),
+  };
+}
+
+/**
+ * The calculator's read model (Track C7c): for each calculator line key and package tier, what the statements say
+ * about the figure the calculator shows. Built from the statements, never from the config directly, so the page
+ * reads the Lexicon. stale_after comes from the contract's freshness(), the last instant a value reads fresh; it does
+ * not change with the clock, so this file is as deterministic as the entity files. A disputed package is listed with
+ * disputed: true and no dates, because a date would vouch for a figure the record does not settle.
+ */
+export function calculatorChecked(fig, statements, disputes, packs, contract) {
+  const ttl = (s) => (s.ext.pack === packs.line.pack ? packs.line : packs.pkg).properties[s.ext.property]?.ttl_days ?? null;
+  const parents = new Map(statements.map((s) => [s.id, { statement: s, ttlDays: ttl(s) }]));
+  const byRef = (property, ref) => statements.filter((s) => s.ext.property === property && s.epistemic.evidence.some((e) => e.ref === ref));
+  const day = (iso) => iso.slice(0, 10);
+  const lines = {};
+  for (const p of fig.prices.filter((x) => x.file === CALC && x.kind !== "name_only").sort((a, b) => (a.ref < b.ref ? -1 : 1))) {
+    const key = p.ref.split("#lines.")[1].split(".")[0];
+    const price = byRef("price_per_day", `${p.ref}.priceMid`);
+    const base = p.kind === "added" ? byRef("base_price_per_day", `${p.ref}.priceMid`) : [];
+    if (price.length !== 1 || (p.kind === "added" && base.length !== 1)) {
+      throw fail("itw_package_statements_unavailable", `${p.ref}: expected one statement per figure, found ${price.length} price and ${base.length} base`);
+    }
+    const entry = { package: p.pkg, name: p.name, shown: p.kind === "added" ? p.base : p.price, includes_gratuity: p.kind === "included" };
+    if (disputes.some((d) => d.entity === p.pkg && (d.property === "price_per_day" || d.property === "base_price_per_day"))) {
+      (lines[key] ??= {})[p.key] = { ...entry, disputed: true };
+      continue;
+    }
+    const at = (s) => contract.freshness(s, { ttlDays: ttl(s), at: s.timestamps.observed_at, parents });
+    const own = at(price[0]);
+    const rate = p.kind === "added" ? statements.find((s) => price[0].lineage.parents.includes(s.id) && s.ext.property === "beverage_gratuity_rate") : null;
+    const r = rate ? at(rate) : null;
+    (lines[key] ??= {})[p.key] = {
+      ...entry, disputed: false, price_per_day: p.price, gratuity_rate: rate ? rate.ext.value : null,
+      checked: day(own.checked_at), stale_after: own.stale_after,
+      ...(r ? { rate_checked: day(r.checked_at), rate_stale_after: r.stale_after } : {}),
+      statements: { price: price[0].id, ...(base.length ? { base: base[0].id } : {}), ...(rate ? { rate: rate.id } : {}) },
+    };
+  }
+  return {
+    format: "itw-calculator-checked/1",
+    _about: "Generated by admin/lexicon/package-statements.mjs from the package and line statements; do not edit by hand. Read by assets/js/calculator-checked.js to tell a reader when the price on each package card was last checked, and to say so when it may be out of date (operator ruling 2026-10-31; LEXICON-PLAN-3.1 ADR-4). shown is the figure the calculator displays (before gratuity unless includes_gratuity). stale_after is the last instant a value reads fresh. A disputed package carries no dates. assets/data/entities/README.md#drink-package-prices-track-c7b",
+    lines,
+  };
 }
 
 async function main(argv) {

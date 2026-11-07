@@ -365,8 +365,84 @@ not reads `rests_on_stale`; none does today, because each line's rate and prices
 
 **Honest limits.** Both stores are this site's own records (status `inference`); no line's site has been read for
 prices. Two stores naming one package differently ("CHEERS! Beverage Program" and "CHEERS! Beverage Package") are two
-packages until a person says otherwise. Child prices and price ranges are not filed yet. The calculator itself still
-reads `calculator-config.json`, not these statements.
+packages until a person says otherwise. Child prices and price ranges are not filed yet. The calculator still takes
+its numbers from `calculator-config.json`; what it reads from these statements is when each one was last checked
+(Track C7c, below).
+
+## The calculator's "last checked" line (Track C7c)
+
+The Lexicon plan (Project-Sophos `docs/lexicon/LEXICON-PLAN-3.1.md`, ADR-4) gives In the Wake's reader-facing pages a
+"last checked" line, and Ken's ruling of 2026-10-31 says a price that can go stale is marked as such. So each package
+card on `drink-calculator.html` says when its price was last checked, and says plainly when it may be out of date.
+
+- **What it reads.** `assets/data/lexicon/calculator-checked.json`, written by `package-statements.mjs` from the
+  package and line statements (never from the config directly). For each calculator line and package it holds the
+  figure the card shows, the date the record says it was checked, and `stale_after`, the last instant it reads fresh,
+  taken from the contract's `freshness()`. Those don't change with the clock, so the file is as deterministic as the
+  entity files, and `--check` covers it.
+- **What the page says.** `assets/js/calculator-checked.js` compares the current date with `stale_after`:
+  - in its window: *"Price last checked April 14, 2026."*;
+  - past it: *"…so it may be out of date. Confirm it in your cruise planner before you buy."*;
+  - a current price whose gratuity rate is past its own window: *"The 18% gratuity added to it was last checked …, so
+    it may have changed."*
+- **When it says nothing.** No line appears when the record could not be loaded, has no entry for the line or
+  package, or is disputed (Carnival's Bottomless Bubbles), or when the price on the card is not the price in the
+  record (the reader edited it). A date never vouches for a figure the record does not hold.
+- **Safety.** Same-origin fetch, text set with `textContent`, no HTML from data, no inline handlers. The service
+  worker and `precache-manifest.json` list both files, so the line also shows offline.
+- **Proved by** `tests/unit/lexicon-calculator-checked.test.mjs`, and every dated entry is checked against the figure
+  `calculator-config.json` shows and the date its line note states.
+
+## Tipping rates (Track C7d)
+
+The tipping calculator reads `assets/data/tipping/<line>.json`, one file per line, each with its own `verifiedAt`.
+`package-statements.mjs` now files those figures as line statements too, dated by that `verifiedAt`, under the
+`cruise.line` pack with a 60-day window (the re-verify cadence task `itw-cruise-tipping-reverify-60d` sets it):
+
+- `gratuities_in_fare`, for every line: true for the five lines that include crew gratuities in the fare (Explora,
+  Oceania, Regent, Seabourn, Silversea), which file nothing else.
+- `daily_gratuity_<tier>` (standard, suite, concierge, mini_suite, onboard), USD per guest per day, filed only where
+  the line has one worldwide rate. MSC and Costa vary by region and file none: the pack has no region qualifier yet,
+  so no one region's figure stands for the line. Listed under `tipping.not_filed` with the reason.
+- `bar_gratuity_rate`, the automatic charge on bar purchases and drink packages, as a fraction.
+- A change the file itself announces (`dailyRates.upcomingChange`, Holland America's on 2026-06-01) is filed as a
+  second figure valid from that date, and the current one as valid until it, so the two are not a conflict.
+
+**Cross-check.** `bar_gratuity_rate` and the drink calculator's `beverage_gratuity_rate` both describe the charge on a
+drink package. They are different properties, so the contract never pairs them; `package-review.json` lists every
+line where they differ under `tipping.rate_disagreements`, with both figures and their sources, and picks neither.
+The first build names two: Princess (calculator 18%, tipping file 20%) and Holland America (its tipping file says the
+bar charge rose from 18% to 20% on 2026-06-01; the calculator still says 18%).
+
+**Settled (Track C7e, 2026-11-04).** Both lines' own pages, read that day, say 20%: Princess's crew appreciation
+page (a 20% service charge on optional drink purchases) and Holland America's crew appreciation and beverage package
+FAQs (a 20% service charge on beverage purchases). `calculator-config.json` now says 20% for `princess` and
+`holland`, every package note there says `+20% gratuity`, and each `gratuityNote` carries `verified 2026-11-04`, so
+the rate is dated by that check while the package prices keep their own older check date. Two things stay open, on
+purpose:
+
+- `assets/data/lines/princess.json` and `holland-america.json` still say 18%. They feed only the older
+  `drink-calculator-v1.html` (noindex); the live page reads `calculator-config.json`. They carry no verified date of
+  their own, so their figures are dated by the file's last commit, and editing the rate there would re-date their
+  January prices as if checked today. They stay as they are, and `rate_disagreements` keeps naming them until someone
+  re-checks those files whole or retires them.
+- Holland America's FAQ *"Are gratuities included in the beverage package purchase price?"* says the 20% is included
+  in the package purchase price, while its package options FAQ lists per-day prices and says the 20% is applied to
+  beverage purchases. Whether the listed price already contains the charge is not settled, so the calculator still
+  adds it on top, and the `gratuityNote` says so.
+
+**Holland America prices (Track C7f, 2026-11-04).** The same options FAQ lists Quench US$17.95, Signature US$55.95
+and Elite US$60.95, pre-cruise, per guest per day. The calculator had Signature at $50.95 and Elite at $55.95, and its
+own FAQ text put Elite at $65.95. All three now match the FAQ, and the line's `_sources.note` says `Package prices
+verified 2026-11-04` and names what was not re-checked (`priceMax`, drink prices). The Signature and Elite cards stay
+disputed, because `assets/data/lines/holland-america.json` still gives Signature $60.95 and Elite $59.95. That file
+is the same unchecked older store named above.
+
+**On the page.** `assets/data/lexicon/tipping-checked.json` holds, per line, the date and `stale_after`, built from
+the statements. `assets/js/tools/cruise-tipping-calculator/checked.js` shows *"Tipping details last checked May 8,
+2026."* under the line's details, and once the window has passed adds *"…so they may be out of date. Confirm with the
+cruise line before you sail."* It says nothing when the record cannot load or has no entry for the line. Text only,
+same-origin fetch. Proved by `tests/unit/lexicon-tipping-checked.test.mjs`.
 
 ## Deployments: one direction (Track C5)
 
