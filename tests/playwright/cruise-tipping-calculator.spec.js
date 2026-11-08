@@ -13,6 +13,15 @@ import { test, expect } from "@playwright/test";
 
 const URL = "/tools/cruise-tipping-calculator.html";
 
+// Keep the test to this site. With the network open, the page loads the consentmanager.net cookie dialog, which covers
+// the calculator, so a click on "Compare another line" or "Onboard extras" waits for a button it can never reach
+// (measured 2026-11-08: both tests timed out, and Playwright's page snapshot showed the dialog on top). The same guard
+// as tests/playwright/ship-stats-card.spec.js.
+test.beforeEach(async ({ context, baseURL }) => {
+  await context.route("**/*", (route) =>
+    route.request().url().startsWith(baseURL) ? route.continue() : route.abort());
+});
+
 test.describe("Cruise tipping calculator", () => {
   test("golden path: 7-night Carnival standard for 2 adults shows $238 daily charge", async ({ page }) => {
     await page.goto(URL);

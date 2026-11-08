@@ -338,6 +338,12 @@ jobs:
       - name: Run offline tipping calculator gate
         run: npx playwright test pwa-offline.spec.js --workers=1
 
+      # Tipping calculator (Tekton itw-tipping-spec-green-20261108): golden path, compare mode, share link, specialty
+      # dining, regional and child rates. Its two click tests timed out under the third-party cookie dialog until the spec
+      # kept to this site. Serial for the same single-threaded-server reason as above.
+      - name: Run tipping calculator gate
+        run: npx playwright test cruise-tipping-calculator.spec.js --workers=1
+
   # Summary job
   unit-tests:
     name: Unit Tests
