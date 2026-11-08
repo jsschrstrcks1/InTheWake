@@ -18,6 +18,16 @@ Task `itw-tipping-spec-green-20261108`.
 
 **Proved by** `tests/playwright/cruise-tipping-calculator.spec.js::compare mode shows a side-by-side total for a second line`.
 
+### 20261108-itw-every-spec-in-ci
+
+Task `automate-itw-tipping-spec-green-20261108-07f6bc`.
+
+**Why.** A Playwright spec that no workflow runs can go red and stay red with nobody seeing it. On main, CI ran three of the eight specs, and two of the five it skipped were red: the tipping calculator under a cookie dialog, and the voyage companion's usage spec, which had asserted the old relay wire format since 2026-10-05.
+
+**Enables.** Every browser spec now runs on each pull request or is named local-only with its reason, and a unit test fails the moment a new spec is added without one or the other. The companion's privacy promise is checked in CI: the phone sends the relay only the event name and its whitelisted data.
+
+**Proved by** `tests/unit/playwright-specs-in-ci.test.mjs::every Playwright spec is run by CI or named local-only with a reason`.
+
 ### 20261107-itw-pwa-precache-tied-to-sw
 
 Task `itw-pwa-precache-tied-to-sw-20261107`.
