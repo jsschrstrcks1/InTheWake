@@ -38,3 +38,29 @@ test("the tipping calculator fills in offline after the service worker has insta
   await page.fill("#adults", "2");
   await expect(page.locator("#result-headline")).toContainText("Carnival", { timeout: 10000 });
 });
+
+// The drink calculator, the same way. Measured 2026-11-07 before the fix: offline the page came back but every one of
+// its scripts and its versioned data (calculator-config.json?v=1.003.001 and others) failed, so the calculator never
+// started and the cards showed the page's built-in placeholder prices as if they were real.
+test("the drink calculator starts offline after the service worker has installed", async ({ page, context }) => {
+  await context.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
+  await page.goto("/drink-calculator.html");
+  await page.waitForFunction(() => window.ITW_LINE_CONFIG && window.ITW_LINE_CONFIG.id, null, { timeout: 15000 });
+  const online = await page.evaluate(() => ({ line: window.ITW_LINE_CONFIG.id, grat: window.ITW?.store?.get?.("economics")?.grat }));
+  expect(online.line).toBe("royal-caribbean");
+
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await expect.poll(async () => page.evaluate(async () => {
+    const names = await caches.keys();
+    const assets = names.find((n) => n.includes("-assets-"));
+    if (!assets) return 0;
+    const keys = await (await caches.open(assets)).keys();
+    return keys.filter((r) => r.url.includes("/assets/js/calculator-v2.js")).length;
+  }), { timeout: 30000 }).toBeGreaterThan(0);
+
+  await context.setOffline(true);
+  await page.reload();
+  await page.waitForFunction(() => window.ITW_LINE_CONFIG && window.ITW_LINE_CONFIG.id, null, { timeout: 15000 });
+  const offline = await page.evaluate(() => ({ line: window.ITW_LINE_CONFIG.id, grat: window.ITW?.store?.get?.("economics")?.grat }));
+  expect(offline).toEqual(online);
+});
