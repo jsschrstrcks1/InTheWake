@@ -1,0 +1,79 @@
+commit 539206a6118a0cc11a1b11ab805893b21948f382
+Author: Claude <noreply@anthropic.com>
+Date:   Tue Jul 14 05:22:42 2026 +0000
+
+    fix: purge forbidden /ships.html links site-wide + CI regression guard (issue #1708)
+    
+    The seven generators named in #1708 were verified already fixed in-tree
+    (all emit /ships/). The live content they'd polluted was not: 797 files
+    still carried the forbidden hub link. Fixed in three counted passes:
+    
+    - href="/ships.html" → href="/ships/": 669 replacements (nav pills,
+      body links) incl. assets/js/ship-port-links.js allShipsUrl (15 lines,
+      the shared runtime component) — external booking URLs (Costa,
+      Silversea, HAL) untouched by construction (patterns anchored to
+      internal forms).
+    - JSON-LD/absolute "https://cruisinginthewake.com/ships.html[#carnival]"
+      → /ships/: 329 replacements (BreadcrumbList items; #carnival resolves
+      nowhere, breadcrumbs point at the canonical hub — ships.html's own
+      rel=canonical already declares /ships/).
+    - Emitted ai-breadcrumbs 'parent: /ships.html' in
+      data/atlas/generate-ship-stubs.js: 1.
+    
+    NEW CI job 'Forbidden Ships Link Guard' in quality.yml fails on all
+    three fixed forms. Probed live: exit 0 on clean tree, exit 1 on an
+    injected violation, exit 0 after cleanup; YAML parses.
+    
+    DEFERRED LOUDLY (not silently): 221 href="/ships.html#<class>" deep
+    links remain — those anchors resolve only on the legacy ships.html page
+    today (oasis/voyager/vision/radiance/freedom/quantum) or nowhere
+    (#carnival, #excel-class); rewriting them to /ships/ would break 214
+    working deep-links. Registered as HLS itw-ships-html-fragment-links
+    (P2) with the anchor inventory; the guard's fragment exclusion is
+    documented in the workflow comment.
+    
+    sw.js isShipsIndexPage legacy detector left as-is (dead code, detects
+    inbound legacy URLs, emits nothing).
+    
+    Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_01F85vgz7aCJ4sx3HqkxMHBk
+
+diff --git a/articles/america-250-at-sea-2026.html b/articles/america-250-at-sea-2026.html
+index c49953d1..fa851e37 100644
+--- a/articles/america-250-at-sea-2026.html
++++ b/articles/america-250-at-sea-2026.html
+@@ -174,7 +174,7 @@ Soli Deo Gloria
+           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+           <div class="dropdown-menu" role="menu">
+             <a href="/first-cruise.html">Your First Cruise</a>
+-            <a href="/ships.html">Ships</a>
++            <a href="/ships/">Ships</a>
+             <a href="/cruise-lines.html">Cruise Lines</a>
+             <a href="/ports.html">Ports</a>
+             <a href="/packing-lists.html">Packing Lists</a>
+diff --git a/articles/caribbean-princess-power-loss-2026.html b/articles/caribbean-princess-power-loss-2026.html
+index cc654031..9fb17440 100644
+--- a/articles/caribbean-princess-power-loss-2026.html
++++ b/articles/caribbean-princess-power-loss-2026.html
+@@ -173,7 +173,7 @@ Soli Deo Gloria
+           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+           <div class="dropdown-menu" role="menu">
+             <a href="/first-cruise.html">Your First Cruise</a>
+-            <a href="/ships.html">Ships</a>
++            <a href="/ships/">Ships</a>
+             <a href="/cruise-lines.html">Cruise Lines</a>
+             <a href="/ports.html">Ports</a>
+             <a href="/packing-lists.html">Packing Lists</a>
+diff --git a/articles/cuba-earthquake-cruise-ships-2026.html b/articles/cuba-earthquake-cruise-ships-2026.html
+index c606ec0b..9d3912e8 100644
+--- a/articles/cuba-earthquake-cruise-ships-2026.html
++++ b/articles/cuba-earthquake-cruise-ships-2026.html
+@@ -180,7 +180,7 @@ Soli Deo Gloria
+           <button class="nav-pill" type="button" aria-expanded="false" aria-haspopup="true">Planning <span class="caret">&#9662;</span></button>
+           <div class="dropdown-menu" role="menu">
+             <a href="/first-cruise.html">Your First Cruise</a>
+-            <a href="/ships.html">Ships</a>
++            <a href="/ships/">Ships</a>
+             <a href="/cruise-lines.html">Cruise Lines</a>
+             <a href="/ports.html">Ports</a>
+             <a href="/packing-lists.html">Packing Lists</a>

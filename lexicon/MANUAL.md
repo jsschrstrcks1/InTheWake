@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261108-softening-detector
+
+Task `inthewake-detect-validator-green-by-softening`.
+
+**Why.** Three postmortems record pages pushed to validator green by softening content (repointed images, stripped qualifiers, questions reworded around regex bugs, sections moved unread), each found only when a person asked whether the work was careful or clever.
+
+**Enables.** admin/softening-detector.mjs reads a diff or commit range and flags those four patterns per page; advisory, never edits a page; three states with UNAVAILABLE never read as CLEAN.
+
+**Proved by** `admin/tests/softening-detector.test.mjs::Sydney: all eight descriptive image names repointed to numbered files are flagged as softening`.
+
 ### 20261108-itw-tipping-spec-no-sw
 
 Task `automate-itw-tipping-spec-green-20261108-07f6bc`.
