@@ -8,6 +8,36 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261108-itw-tipping-spec-no-sw
+
+Task `automate-itw-tipping-spec-green-20261108-07f6bc`.
+
+**Why.** In CI the headless browser crashed twice at the same point in the tipping calculator spec, right after a short test closed its page while the site's service worker was still fetching its precache list through the test's request interception.
+
+**Enables.** The tipping calculator spec runs without the service worker, so each test loads only the calculator's own files and CI is not left red by a browser crash; the offline spec still tests the service worker on its own.
+
+**Proved by** `tests/playwright/cruise-tipping-calculator.spec.js::Costa half-rate: family with one school-age child on Med EUR sailing pays €192.50, not €231`.
+
+### 20261108-itw-tipping-spec-green
+
+Task `itw-tipping-spec-green-20261108`.
+
+**Why.** Two of the tipping calculator's twelve browser tests timed out on every run, because with the network open the page loads a third-party cookie consent dialog that sits over the buttons the tests click. The spec was also not run in CI, so nothing showed it was red.
+
+**Enables.** The whole tipping calculator spec runs in CI on every pull request, so a break in compare mode, the share link, specialty dining or the regional and child rates is caught before it reaches readers.
+
+**Proved by** `tests/playwright/cruise-tipping-calculator.spec.js::compare mode shows a side-by-side total for a second line`.
+
+### 20261108-itw-every-spec-in-ci
+
+Task `automate-itw-tipping-spec-green-20261108-07f6bc`.
+
+**Why.** A Playwright spec that no workflow runs can go red and stay red with nobody seeing it. On main, CI ran three of the eight specs, and two of the five it skipped were red: the tipping calculator under a cookie dialog, and the voyage companion's usage spec, which had asserted the old relay wire format since 2026-10-05.
+
+**Enables.** Every browser spec now runs on each pull request or is named local-only with its reason, and a unit test fails the moment a new spec is added without one or the other. The companion's privacy promise is checked in CI: the phone sends the relay only the event name and its whitelisted data.
+
+**Proved by** `tests/unit/playwright-specs-in-ci.test.mjs::every Playwright spec is run by CI or named local-only with a reason`.
+
 ### 20261107-itw-pwa-precache-tied-to-sw
 
 Task `itw-pwa-precache-tied-to-sw-20261107`.

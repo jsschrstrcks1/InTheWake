@@ -338,6 +338,20 @@ jobs:
       - name: Run offline tipping calculator gate
         run: npx playwright test pwa-offline.spec.js --workers=1
 
+      # Tipping calculator (Tekton itw-tipping-spec-green-20261108): golden path, compare mode, share link, specialty
+      # dining, regional and child rates. Its two click tests timed out under the third-party cookie dialog until the spec
+      # kept to this site. Serial for the same single-threaded-server reason as above.
+      - name: Run tipping calculator gate
+        run: npx playwright test cruise-tipping-calculator.spec.js --workers=1
+
+      # Voyage packs: the landing page, the pack render's usage events, and the PWA companion's usage events
+      # (what the phone sends the relay, and that it is only the event name and its whitelisted data). CI did not
+      # run these until 2026-11-08, and the companion spec had been red since 2026-10-05 unseen.
+      # tests/unit/playwright-specs-in-ci.test.mjs now fails when a spec is neither run here nor named
+      # local-only. Serial for the same single-threaded-server reason as above.
+      - name: Run voyage pack gates
+        run: npx playwright test voyage-packs-landing.spec.js voyage-pack-render-usage.spec.js voyage-companion-usage.spec.js --workers=1
+
   # Summary job
   unit-tests:
     name: Unit Tests
