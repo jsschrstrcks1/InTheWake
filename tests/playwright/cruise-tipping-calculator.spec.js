@@ -17,6 +17,15 @@ const URL = "/tools/cruise-tipping-calculator.html";
 // the calculator, so a click on "Compare another line" or "Onboard extras" waits for a button it can never reach
 // (measured 2026-11-08: both tests timed out, and Playwright's page snapshot showed the dialog on top). The same guard
 // as tests/playwright/ship-stats-card.spec.js.
+//
+// No service worker either. The page registers /sw.js, whose install fetches the whole precache list through the
+// route above: measured 2026-11-08, one load made 139 requests with the worker and 34 without. In CI that day
+// chrome-headless-shell crashed with SIGSEGV twice at the same point, just after the short "region picker is
+// hidden" test closed its context (InTheWake #2689 job 128617842941, #2690 job 128699148981), and the log shows
+// the precache burst in the half second before. Not reproduced locally, on a newer headless shell build. Playwright's docs say to block service workers when routing requests.
+// This spec checks the calculator's arithmetic; tests/playwright/pwa-offline.spec.js checks the service worker.
+test.use({ serviceWorkers: "block" });
+
 test.beforeEach(async ({ context, baseURL }) => {
   await context.route("**/*", (route) =>
     route.request().url().startsWith(baseURL) ? route.continue() : route.abort());

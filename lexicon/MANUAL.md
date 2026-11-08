@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261108-itw-tipping-spec-no-sw
+
+Task `automate-itw-tipping-spec-green-20261108-07f6bc`.
+
+**Why.** In CI the headless browser crashed twice at the same point in the tipping calculator spec, right after a short test closed its page while the site's service worker was still fetching its precache list through the test's request interception.
+
+**Enables.** The tipping calculator spec runs without the service worker, so each test loads only the calculator's own files and CI is not left red by a browser crash; the offline spec still tests the service worker on its own.
+
+**Proved by** `tests/playwright/cruise-tipping-calculator.spec.js::Costa half-rate: family with one school-age child on Med EUR sailing pays €192.50, not €231`.
+
 ### 20261108-itw-tipping-spec-green
 
 Task `itw-tipping-spec-green-20261108`.
