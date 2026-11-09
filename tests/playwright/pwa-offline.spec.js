@@ -13,6 +13,9 @@ import { test, expect } from "@playwright/test";
 
 const URL = "/tools/cruise-tipping-calculator.html";
 
+// playwright.config.js blocks service workers for every spec; this one tests the worker, so it allows it.
+test.use({ serviceWorkers: "allow" });
+
 test("the tipping calculator fills in offline after the service worker has installed", async ({ page, context }) => {
   await context.route(/^https?:\/\/(?!127\.0\.0\.1)/, (r) => r.abort());
   await page.goto(URL);

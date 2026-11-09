@@ -1,0 +1,599 @@
+{
+  "format": "lexicon-entity/1",
+  "entity": "change:20261109-itw-playwright-sw-default",
+  "_about": "Written by admin/change-record.mjs new. Append-only once on main; a correction is a new entry naming this one in supersedes. docs/lexicon/CHANGE-RECORD.md",
+  "statements": [
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-playwright-sw-default#task",
+      "content": {
+        "summary": "change:20261109-itw-playwright-sw-default task = \"syl-keep-prs-current-20261109\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:syl-keep-prs-current-20261109",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:syl-keep-prs-current-20261109",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T15:17:07.837Z",
+        "observed_at": "2026-11-09T15:17:07.837Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-playwright-sw-default",
+        "property": "task",
+        "value": "syl-keep-prs-current-20261109",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-0e3c0bacab69d0fb"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-playwright-sw-default#why",
+      "content": {
+        "summary": "change:20261109-itw-playwright-sw-default why = \"In CI the headless browser crashed three times when a test closed its page while the site's service worker was installing its precache list, the third time in the voyage landing spec, which intercepts no requests. Blocking the worker in one spec at a time only moved the crash.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:syl-keep-prs-current-20261109",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:syl-keep-prs-current-20261109",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T15:17:07.837Z",
+        "observed_at": "2026-11-09T15:17:07.837Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-playwright-sw-default",
+        "property": "why",
+        "value": "In CI the headless browser crashed three times when a test closed its page while the site's service worker was installing its precache list, the third time in the voyage landing spec, which intercepts no requests. Blocking the worker in one spec at a time only moved the crash.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-707927ca8e88dadb"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-playwright-sw-default#enables",
+      "content": {
+        "summary": "change:20261109-itw-playwright-sw-default enables = \"Every Playwright spec, including ones written later, runs without the service worker unless it says otherwise, so a page closing mid-install can no longer crash CI; the two specs that test the worker still run it and fail if their opt-in is removed.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:syl-keep-prs-current-20261109",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:syl-keep-prs-current-20261109",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T15:17:07.837Z",
+        "observed_at": "2026-11-09T15:17:07.837Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-playwright-sw-default",
+        "property": "enables",
+        "value": "Every Playwright spec, including ones written later, runs without the service worker unless it says otherwise, so a page closing mid-install can no longer crash CI; the two specs that test the worker still run it and fail if their opt-in is removed.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-7ce8ee4117fb62e1"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-playwright-sw-default#proved_by",
+      "content": {
+        "summary": "change:20261109-itw-playwright-sw-default proved_by = \"tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:syl-keep-prs-current-20261109",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:syl-keep-prs-current-20261109",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T15:17:07.837Z",
+        "observed_at": "2026-11-09T15:17:07.837Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-playwright-sw-default",
+        "property": "proved_by",
+        "value": "tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-5ccc952702ac6566"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-playwright-sw-default#rests_on",
+      "content": {
+        "summary": "change:20261109-itw-playwright-sw-default rests_on = \"admin/bring-current.mjs, ledger-intake.mjs render, tekton.mjs index and change-record.mjs build, which regenerate every conflicted generated file from merged inputs\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:syl-keep-prs-current-20261109",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:syl-keep-prs-current-20261109",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T15:17:07.837Z",
+        "observed_at": "2026-11-09T15:17:07.837Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-playwright-sw-default",
+        "property": "rests_on",
+        "value": "admin/bring-current.mjs, ledger-intake.mjs render, tekton.mjs index and change-record.mjs build, which regenerate every conflicted generated file from merged inputs",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-dc8563cf89ed6ee2"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-playwright-sw-default#costs",
+      "content": {
+        "summary": "change:20261109-itw-playwright-sw-default costs = \"nothing for future changes; merge commits on two branches\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:syl-keep-prs-current-20261109",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:syl-keep-prs-current-20261109",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T15:17:07.837Z",
+        "observed_at": "2026-11-09T15:17:07.837Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-playwright-sw-default",
+        "property": "costs",
+        "value": "nothing for future changes; merge commits on two branches",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-9d1d47816a665c1a"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-playwright-sw-default#retires",
+      "content": {
+        "summary": "change:20261109-itw-playwright-sw-default retires = \"two PRs left conflicted while main moves\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:syl-keep-prs-current-20261109",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:syl-keep-prs-current-20261109",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T15:17:07.837Z",
+        "observed_at": "2026-11-09T15:17:07.837Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-playwright-sw-default",
+        "property": "retires",
+        "value": "two PRs left conflicted while main moves",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-b17ae1377404530d"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-playwright-sw-default#moved",
+      "content": {
+        "summary": "change:20261109-itw-playwright-sw-default moved = {}",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:syl-keep-prs-current-20261109",
+        "uri": null,
+        "publisher": "measured",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:syl-keep-prs-current-20261109",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T15:17:07.837Z",
+        "observed_at": "2026-11-09T15:17:07.837Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-playwright-sw-default",
+        "property": "moved",
+        "value": {},
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-488c03f4e6d26093"
+    }
+  ]
+}

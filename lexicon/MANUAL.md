@@ -28,6 +28,16 @@ Task `automate-itw-atlas-rcl-link-fix-ee5a74`.
 
 **Proved by** `tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves`.
 
+### 20261109-itw-playwright-sw-default
+
+Task `syl-keep-prs-current-20261109`.
+
+**Why.** In CI the headless browser crashed three times when a test closed its page while the site's service worker was installing its precache list, the third time in the voyage landing spec, which intercepts no requests. Blocking the worker in one spec at a time only moved the crash.
+
+**Enables.** Every Playwright spec, including ones written later, runs without the service worker unless it says otherwise, so a page closing mid-install can no longer crash CI; the two specs that test the worker still run it and fail if their opt-in is removed.
+
+**Proved by** `tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed`.
+
 ### 20261109-hook-tmp-paths
 
 Task `hook-tmp-household-sweep-20261109`.
