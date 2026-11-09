@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261109-skill-sync-four-questions
+
+Task `ocs-mirror-four-questions-20261109`.
+
+**Why.** The four-questions skill changed at its source (Project-Sophos@960ef7be0dbf) and this copy is declared synced.
+
+**Enables.** This repository carries the current four-questions skill, byte-identical to its source.
+
+**Untested:** a mirrored skill file; skill-sync verified it byte-identical to the source before staging
+
 ### 20261108-softening-detector
 
 Task `inthewake-detect-validator-green-by-softening`.
