@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261109-hook-tmp-paths
+
+Task `hook-tmp-household-sweep-20261109`.
+
+**Why.** This repo's hooks redirected to fixed /tmp files; where another user or job owned one, the redirect failed and its command never ran, so encoded memories could silently fail to persist, and its directive hook was an old copy that only looked for ken's older rule.
+
+**Enables.** memory-autopersist (and reasoning-log-persist where present) try the append and fall back to a per-user file, and memory-directives-inject is the Project-Sophos canonical: it loads the open-claw-stuff directive rule first and writes its error detail to a per-run file.
+
+**Untested:** this repo has no hooks test folder; with the default autopersist log path made a directory, the patched hook committed the memory file; admin/hook-tmp-path-lint.mjs (Project-Sophos) reads this repo CLEAN; the mechanism is pinned in Project-Sophos .claude/hooks/tests/hook-log-fallback.test.mjs
+
 ### 20261108-itw-tipping-spec-no-sw
 
 Task `automate-itw-tipping-spec-green-20261108-07f6bc`.
