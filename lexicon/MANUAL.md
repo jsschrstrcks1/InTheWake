@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261109-itw-tool-links
+
+Task `automate-itw-atlas-rcl-link-fix-ee5a74`.
+
+**Why.** Both drink calculator pages showed readers three related-article links to pages the site never had, so every click was a 404. Nothing caught it, because Check Links reads HTML as written and these links are written by a script after the page loads.
+
+**Enables.** The drink calculator's article links now open real pages, and every tool page's script-rendered links are checked in CI, so a dead link a script writes fails the pull request instead of reaching readers.
+
+**Proved by** `tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves`.
+
 ### 20261108-itw-tipping-spec-no-sw
 
 Task `automate-itw-tipping-spec-green-20261108-07f6bc`.
