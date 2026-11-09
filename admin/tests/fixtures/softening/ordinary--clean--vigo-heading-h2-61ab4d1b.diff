@@ -1,0 +1,63 @@
+commit 61ab4d1b76646b254d3cf0abae24dc8c3a14867b
+Author: Claude <noreply@anthropic.com>
+Date:   Thu May 21 12:19:36 2026 +0000
+
+    ports/vigo: promote port-map heading to h2, document reshuffle review
+    
+    Closes the Vigo branch of the careful-not-clever cleanup. Reading the
+    page top-to-bottom found two things:
+    
+    1. The section reshuffle from commit 495a860a was directionally
+       correct (the original Vigo had cruise-port, getting-around, and
+       excursions dumped after FAQ at the bottom of the page; the new
+       order — hero, logbook, cruise-port, getting-around, port-map,
+       excursions, weather-guide, depth-soundings, faq — reads naturally:
+       terminal location → transport → visual orientation → things to do
+       → reference material). The transition sentences between each
+       moved pair work; this part of the reshuffle is left as-is.
+    
+    2. The port-map section's summary still used <h3>Vigo Area Map</h3>.
+       That heading level was correct when the map was nested inside
+       weather-guide (its original location, where it was a sub-element
+       of the weather section). After being pulled out and promoted to a
+       top-level <details class="port-section">, the heading should be
+       <h2> to match the other 380+ ports (Adelaide Area Map, Acapulco
+       Area Map, Agadir Area Map, etc. all use <h2>). Left as <h3>, the
+       page had a heading hierarchy gap (h2 Getting Around → h3 Vigo
+       Area Map → h2 Excursions) that affects screen-reader navigation.
+    
+    Fix: <h3> → <h2> on line 391. No other changes.
+    
+    What this does NOT cover: a real browser walk of the page. The flow
+    review here was textual (read each section's opening sentence to
+    verify transitions). A future reviewer should still open the page in
+    a browser and confirm the visual layout works at the breakpoints
+    the CSS targets — column widths, the map's interactive controls,
+    and the way the activity-row block lays out alongside the rest of
+    the weather guide. Per
+    admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md §4 (section reshuffle
+    without reader check), this commit is the textual-flow check; a
+    browser walk is still owed.
+    
+    Validators: vigo.html PASSES both port validators (58/100 on the
+    v2 page validator, 55-pass on the weather sub-validator). Warnings
+    in the v2 report are content-quality items pre-dating this commit.
+    
+    Pattern reference: admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md §4
+    (section reshuffle without reader check).
+    
+    https://claude.ai/code/session_017m1iWTcHm8pcJsQFJD2wQV
+
+diff --git a/ports/vigo.html b/ports/vigo.html
+index a891fec1..a244d7e6 100644
+--- a/ports/vigo.html
++++ b/ports/vigo.html
+@@ -388,7 +388,7 @@ Soli Deo Gloria
+         </ul>
+       </details>
+       <details class="port-section port-map-section" id="port-map-section" open="">
+-            <summary><h3>Vigo Area Map</h3></summary>
++            <summary><h2>Vigo Area Map</h2></summary>
+       <p class="map-intro">Interactive map showing cruise terminal and Vigo attractions. Click any marker for details.</p>
+       <div id="vigo-port-map" class="port-map-container" role="application" aria-label="Interactive map of Vigo port and points of interest">
+         <noscript>
