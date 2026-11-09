@@ -33,6 +33,10 @@ import { test, expect } from "@playwright/test";
 
 const OBJECT_OBJECT_RE = /\[object(?:%20|\s|_)?Object\]/i;
 
+// playwright.config.js blocks service workers for every spec. Check (e) watches the worker's own requests and the
+// test waits for the worker to become active, so this spec allows it.
+test.use({ serviceWorkers: "allow" });
+
 const TOOLS = [
   { url: "/tools/cruise-budget-calculator.html",  h1: /Cruise Budget Calculator/ },
   { url: "/tools/port-day-planner.html",          h1: /Port Day Planner/ },

@@ -352,6 +352,13 @@ jobs:
       - name: Run voyage pack gates
         run: npx playwright test voyage-packs-landing.spec.js voyage-pack-render-usage.spec.js voyage-companion-usage.spec.js --workers=1
 
+      # Links a tool page's scripts render (Tekton automate-itw-atlas-rcl-link-fix-ee5a74). Check Links reads HTML as
+      # written; this loads every tools/*.html and the root tools, opens their tabs, and asks the server for every
+      # same-site link they show. Its first run found three dead links on both drink calculator pages. Serial for the
+      # same single-threaded-server reason as above.
+      - name: Run rendered tool links gate
+        run: npx playwright test tool-links.spec.js --workers=1
+
   # Summary job
   unit-tests:
     name: Unit Tests

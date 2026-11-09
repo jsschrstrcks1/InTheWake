@@ -1,10 +1,10 @@
-/* Service Worker v14.5.0 - In the Wake
+/* Service Worker v14.5.1 - In the Wake
  * Site-wide unified caching strategy with offline support
  * Supports: Ships, Ports, Restaurants, Planning Tools, Drink Calculator
  * Soli Deo Gloria ✝️
  */
 
-const VERSION = '14.5.0';
+const VERSION = '14.5.1';
 const CACHE_PREFIX = 'itw-site';
 
 /* Network state (updated by client via NETWORK_INFO message) */
