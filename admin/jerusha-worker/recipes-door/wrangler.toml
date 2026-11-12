@@ -1,0 +1,27 @@
+# The door: read-only recipes for one person outside the household network.
+# See README.md for the runbook. No secret values belong in this file.
+
+name = "jerusha-recipes"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+# Served on the workers.dev hostname. To use a custom hostname instead, add a route here and
+# set workers_dev = false.
+workers_dev = true
+
+# No [vars], no KV, no bindings. The Worker keeps no state and logs nothing.
+
+# Five secrets. Set each with `wrangler secret put <NAME>` (it prompts; the value never
+# touches this file or the shell history):
+#
+#   wrangler secret put DOOR_TOKEN               # her sign-in token. Long and random, at least
+#                                                # 24 characters (shorter is treated as unset -> 503).
+#   wrangler secret put DOOR_COOKIE_KEY          # optional. Any random string. Change it to sign
+#                                                # every device out without issuing a new link.
+#   wrangler secret put UPSTREAM                 # https origin of the tunnel hostname,
+#                                                # e.g. https://recipes-door.example.com
+#   wrangler secret put CF_ACCESS_CLIENT_ID      # Cloudflare Access service token: Client ID
+#   wrangler secret put CF_ACCESS_CLIENT_SECRET  # Cloudflare Access service token: Client Secret
+#
+# If DOOR_TOKEN, UPSTREAM or either Access value is missing, every request answers
+# 503 "door not configured". That is deliberate: the door fails closed.

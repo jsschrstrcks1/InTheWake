@@ -1,3 +1,6 @@
+// READ FIRST: admin/claude/plans/jerusha-SYSTEM-OVERVIEW.md (how the whole app works) and
+// admin/jerusha-worker/CHANGE-GUIDE.md (how to change and deploy this file; back up before deploying).
+//
 // Jerusha notes relay + Web Push — Cloudflare Worker (Slice 1 + Slice 2)
 //
 // Slice 1: zero-knowledge notes relay (POST/GET /notes), ciphertext only.
@@ -5,6 +8,7 @@
 //   POST /subscribe {role, subscription}  -> store push subscription in KV
 //   on a new note                          -> contentless push to the OTHER role
 //   Cron                                   -> daily gentle push to Jerusha (encrypted body)
+// Calendar: GET /cal?who=ken -> read-only ICS relay from a secret URL (NOT zero-knowledge).
 //
 // VAPID private key is a Worker SECRET (wrangler secret put VAPID_PRIVATE). The
 // public key below is public by design. See README.md for deploy + the redeploy steps.
@@ -13,19 +17,32 @@ const ALLOW_ORIGIN = "https://cruisinginthewake.com";
 const MAX_BYTES = 4096, MAX_RETURN = 2000;
 const VAPID_PUBLIC = "BEL3ZiWyByJhb13fxPkKHmyFKjP-153wslofMSl4Wh334a_9MXu65xEMzbrVF_2jlSNWdDkL3nSq0_k-UQOhftE";
 const VAPID_SUBJECT = "mailto:jcr.chilis@gmail.com";
+// GET /cal: which Worker SECRET holds each person's calendar feed URL, and its limits.
+const CAL_SECRETS = { ken: "CAL_KEN_URL", jerusha: "CAL_JERUSHA_URL" };
+const CAL_MAX_BYTES = 2097152, CAL_TIMEOUT_MS = 10000; // 2 MB, 10 s
 
-// Daily push lines (editable). Cruise dates keyed; otherwise a gentle rotation.
-const DAILY = {
-  "2026-06-28": "Flying to Seattle today. Not toward you, I know — but I carry you every mile of it. 💛",
-  "2026-06-29": "Boarding the ship in Seattle. Wish you were walking up the gangway with me.",
-  "2026-06-30": "A whole day at sea. I'll be in the hot tub by 9 thinking of you.",
-  "2026-07-01": "Sitka this morning, then the bears this afternoon. Picking you up a little something.",
-  "2026-07-02": "Skagway — riding the White Pass railway up into the mountains. The views will be unreal.",
-  "2026-07-03": "Up early for Dawes Glacier, then whales. Two of my favorite things; you're the third I'm missing.",
-  "2026-07-04": "Last sea day. Slow morning, pool later — counting the days till the one I finally make it to you.",
-  "2026-07-05": "Victoria tonight — harbor lights and gardens. Saving it all to tell you.",
-  "2026-07-06": "Off the ship in Seattle. The trip's behind me; you're still ahead of me.",
-  "2026-07-07": "Flying home today. Wish the next flight was toward you.",
+// Daily push lines, per voyage: voyage id -> { "YYYY-MM-DD" (UTC): line }. The cron
+// looks today's date up across ALL voyages (see datedLine); a date with no line falls
+// back to the AFFIRM rotation. Keyed by voyage so one trip's lines can be added or
+// retired without touching another's.
+const VOYAGE_PUSH = {
+  "anthem-alaska": {
+    "2026-06-28": "Flying to Seattle today. Not toward you, I know — but I carry you every mile of it. 💛",
+    "2026-06-29": "Boarding the ship in Seattle. Wish you were walking up the gangway with me.",
+    "2026-06-30": "A whole day at sea. I'll be in the hot tub by 9 thinking of you.",
+    "2026-07-01": "Sitka this morning, then the bears this afternoon. Picking you up a little something.",
+    "2026-07-02": "Skagway — riding the White Pass railway up into the mountains. The views will be unreal.",
+    "2026-07-03": "Up early for Dawes Glacier, then whales. Two of my favorite things; you're the third I'm missing.",
+    "2026-07-04": "Last sea day. Slow morning, pool later — counting the days till the one I finally make it to you.",
+    "2026-07-05": "Victoria tonight — harbor lights and gardens. Saving it all to tell you.",
+    "2026-07-06": "Off the ship in Seattle. The trip's behind me; you're still ahead of me.",
+    "2026-07-07": "Flying home today. Wish the next flight was toward you.",
+  },
+  // These lines are written by Ken, the operator, in his own words. They must NEVER
+  // be invented, drafted or filled in by anyone else (human or agent). Empty means
+  // the cron falls back to AFFIRM on this voyage's dates, which is the correct
+  // behaviour until Ken writes them.
+  "world-america-dec": {},
 };
 const AFFIRM = [
   "Good morning, love. You are thought of.",
@@ -52,6 +69,32 @@ function b64uTo(b) { b = b.replace(/-/g, "+").replace(/_/g, "/"); while (b.lengt
 function toB64u(buf) { const u = new Uint8Array(buf); let s = ""; for (let i = 0; i < u.length; i++) s += String.fromCharCode(u[i]); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
 function cat() { let n = 0; for (const a of arguments) n += a.length; const o = new Uint8Array(n); let p = 0; for (const a of arguments) { o.set(a, p); p += a.length; } return o; }
 const enc = (s) => new TextEncoder().encode(s);
+// Today's dated line from whichever voyage has one, else null (caller falls back to AFFIRM).
+// hasOwn, not a bare index: the lookup key must never resolve to an Object.prototype member.
+function datedLine(day) {
+  for (const voyage of Object.keys(VOYAGE_PUSH)) {
+    const lines = VOYAGE_PUSH[voyage];
+    if (Object.hasOwn(lines, day) && lines[day]) return lines[day];
+  }
+  return null;
+}
+// KV list() returns at most 1000 keys per call. A single call silently truncates past
+// that: the NEWEST notes vanish from GET (keys sort oldest-first) and DELETE cannot
+// find anything beyond the first page. Follow the cursor until list_complete and
+// return every key name under the prefix, in KV's lexicographic (= oldest-first) order.
+async function listAll(env, prefix) {
+  const names = [];
+  let cursor;
+  for (;;) {
+    const page = await env.NOTES.list(cursor ? { prefix, limit: 1000, cursor } : { prefix, limit: 1000 });
+    for (const k of page.keys) names.push(k.name);
+    // Stop on list_complete; also stop if no cursor came back, so a malformed page
+    // can never spin this loop forever.
+    if (page.list_complete || !page.cursor) break;
+    cursor = page.cursor;
+  }
+  return names;
+}
 
 /* ---------- VAPID (RFC 8292) ---------- */
 async function buildJwt(endpoint, vapidPrivate) {
@@ -188,8 +231,7 @@ export default {
       }
       if (req.method === "GET") {
         const since = url.searchParams.get("since") || "";
-        const listed = await env.NOTES.list({ prefix: "loc:", limit: 1000 });
-        const names = listed.keys.map((k) => k.name).filter((n) => n.slice(4) > since).slice(-MAX_RETURN);
+        const names = (await listAll(env, "loc:")).filter((n) => n.slice(4) > since).slice(-MAX_RETURN);
         const points = [];
         for (const name of names) { const v = await env.NOTES.get(name); if (v) points.push(JSON.parse(v)); }
         points.sort((a, b) => (a.ts < b.ts ? -1 : 1));
@@ -212,17 +254,21 @@ export default {
         const lat = q.get("lat") != null && isFinite(Number(q.get("lat"))) ? Number(q.get("lat")) : null;
         const lon = q.get("lon") != null && isFinite(Number(q.get("lon"))) ? Number(q.get("lon")) : null;
         const day = (q.get("day") || "").slice(0, 12) || null;
+        // Who uploaded it. Only the two roles are valid; anything else (or absent) is
+        // stored as null rather than guessed. Records written before this field existed
+        // simply have no `by` and are left alone.
+        const byQ = q.get("by");
+        const by = byQ === "jerusha" || byQ === "me" ? byQ : null;
         const len = Number(req.headers.get("content-length") || 0);
         if (len > 230686720) return json({ error: "too large" }, 413); // 220 MB ciphertext (chunked video)
         await env.MEDIA.put("media/" + id, req.body);
         const ts = new Date().toISOString();
-        await env.NOTES.put("media:" + ts + "-" + id, JSON.stringify({ v: 1, id, kind, mime, lat, lon, day, ts }));
+        await env.NOTES.put("media:" + ts + "-" + id, JSON.stringify({ v: 1, id, kind, mime, lat, lon, day, by, ts }));
         return json({ ok: true, id, ts }, 201);
       }
       if (req.method === "GET" && !pid) {
-        const listed = await env.NOTES.list({ prefix: "media:", limit: 1000 });
         const out = [];
-        for (const k of listed.keys) { const v = await env.NOTES.get(k.name); if (v) out.push(JSON.parse(v)); }
+        for (const name of await listAll(env, "media:")) { const v = await env.NOTES.get(name); if (v) out.push(JSON.parse(v)); }
         out.sort((a, b) => (a.ts < b.ts ? -1 : 1));
         return json({ media: out });
       }
@@ -233,14 +279,66 @@ export default {
       }
       if (req.method === "DELETE" && pid) {
         await env.MEDIA.delete("media/" + pid);
-        const listed = await env.NOTES.list({ prefix: "media:", limit: 1000 });
-        const k = listed.keys.find((x) => x.name.endsWith("-" + pid));
-        if (k) await env.NOTES.delete(k.name);
+        const k = (await listAll(env, "media:")).find((name) => name.endsWith("-" + pid));
+        if (k) await env.NOTES.delete(k);
         return json({ ok: true });
       }
       return json({ error: "method not allowed" }, 405);
     }
 
+    // Read-only calendar relay: GET /cal?who=ken -> that person's ICS feed, as-is.
+    // Sits behind the same origin + token checks as every other route (above).
+    //
+    // NOT ZERO-KNOWLEDGE. Unlike notes and media, the calendar is plaintext: this
+    // worker (and Cloudflare) sees the calendar text in transit. It parses nothing,
+    // stores nothing and logs nothing; it only passes the bytes through.
+    //
+    // The ONLY source of the URL that gets fetched is a Worker secret (CAL_KEN_URL /
+    // CAL_JERUSHA_URL). Nothing from the request (query, header or body) is ever
+    // used to build it; `who` only selects WHICH secret. A relay that fetched a
+    // caller-supplied URL would be an open proxy (SSRF) for anyone holding the token.
+    // The secret URL is itself a credential (private feed address), so it is never
+    // echoed in a response or an error.
+    if (url.pathname === "/cal") {
+      if (req.method !== "GET") return json({ error: "method not allowed" }, 405);
+      const who = url.searchParams.get("who");
+      // hasOwn: "constructor" / "__proto__" must not resolve to a prototype member.
+      if (typeof who !== "string" || !Object.hasOwn(CAL_SECRETS, who)) return json({ error: "bad who" }, 400);
+      let target = env[CAL_SECRETS[who]];
+      if (typeof target !== "string" || !target.trim()) return json({ error: "calendar not configured" }, 404);
+      target = target.trim();
+      // Calendar apps hand out webcal:// links; that scheme is just https by convention.
+      if (target.startsWith("webcal://")) target = "https://" + target.slice(9);
+      // https only: never fetch plaintext http, file:, data: or anything else.
+      let parsed; try { parsed = new URL(target); } catch { return json({ error: "calendar misconfigured" }, 500); }
+      if (parsed.protocol !== "https:") return json({ error: "calendar misconfigured" }, 500);
+      const ac = new AbortController();
+      const timer = setTimeout(() => ac.abort(), CAL_TIMEOUT_MS); // covers connect AND body read
+      try {
+        const r = await fetch(target, { method: "GET", redirect: "follow", signal: ac.signal });
+        if (!r.ok) return json({ error: "calendar unreachable" }, 502);
+        if (Number(r.headers.get("content-length") || 0) > CAL_MAX_BYTES) { ac.abort(); return json({ error: "calendar too large" }, 502); }
+        // Content-Length can be absent or wrong, so count the bytes as they arrive and
+        // stop at the cap instead of buffering an unbounded body.
+        const chunks = []; let total = 0;
+        if (r.body) {
+          const reader = r.body.getReader();
+          for (;;) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            total += value.length;
+            if (total > CAL_MAX_BYTES) { ac.abort(); return json({ error: "calendar too large" }, 502); }
+            chunks.push(value);
+          }
+        }
+        // Bytes passed through untouched (no decode/re-encode, nothing parsed).
+        return new Response(cat.apply(null, chunks), { status: 200, headers: { "Content-Type": "text/calendar; charset=utf-8", "Cache-Control": "no-store", ...cors() } });
+      } catch (_) {
+        return json({ error: "calendar unreachable" }, 502); // network error, abort/timeout
+      } finally {
+        clearTimeout(timer);
+      }
+    }
 
     // Restore from a backup file (Slice 5b). Body {notes:[{id,sender,ts,iv,ct},...]}.
     // Re-seeds KV using each record's OWN id+ts, so re-importing is idempotent (same
@@ -267,14 +365,13 @@ export default {
 
     if (req.method === "GET") {
       const since = url.searchParams.get("since") || "";
-      const listed = await env.NOTES.list({ prefix: "note:", limit: 1000 });
-      const names = listed.keys.map((k) => k.name).filter((n) => n.slice(5) > since).slice(-MAX_RETURN);
+      const names = (await listAll(env, "note:")).filter((n) => n.slice(5) > since).slice(-MAX_RETURN);
       const out = [];
       for (const name of names) { const v = await env.NOTES.get(name); if (v) out.push(JSON.parse(v)); }
       out.sort((a, b) => (a.ts < b.ts ? -1 : 1));
       // tombstones: ids the clients should drop from their local caches (delete propagation)
-      const del = await env.NOTES.list({ prefix: "del:", limit: 1000 });
-      return json({ notes: out, deletions: del.keys.map((k) => k.name.slice(4)) });
+      const del = await listAll(env, "del:");
+      return json({ notes: out, deletions: del.map((name) => name.slice(4)) });
     }
     if (req.method === "POST") {
       const body = await req.text();
@@ -292,9 +389,8 @@ export default {
       const id = url.searchParams.get("id") || "";
       if (!id) return json({ error: "no id" }, 400);
       // find the one note key that ends with -<id> and remove it
-      const listed = await env.NOTES.list({ prefix: "note:", limit: 1000 });
-      const k = listed.keys.find((x) => x.name.endsWith("-" + id));
-      if (k) await env.NOTES.delete(k.name);
+      const k = (await listAll(env, "note:")).find((name) => name.endsWith("-" + id));
+      if (k) await env.NOTES.delete(k);
       // leave a tombstone so the OTHER device drops it from its cache on next sync.
       // 90-day TTL: by then the note is long gone from every client anyway.
       await env.NOTES.put("del:" + id, "1", { expirationTtl: 7776000 });
@@ -306,7 +402,7 @@ export default {
   // Cron: gentle daily push to Jerusha (encrypted body)
   async scheduled(event, env) {
     const today = new Date().toISOString().slice(0, 10);
-    const body = DAILY[today] || AFFIRM[new Date().getUTCDate() % AFFIRM.length];
+    const body = datedLine(today) || AFFIRM[new Date().getUTCDate() % AFFIRM.length];
     await pushRole(env, "jerusha", JSON.stringify({ title: "💛 In the Wake", body }));
   },
 };
