@@ -1,9 +1,14 @@
-# Jerusha notes relay — Cloudflare Worker
+# Jerusha notes relay: Cloudflare Worker
 
-The backend for the encrypted Jerusha page's two features. **Slice 1 (this code):**
-the zero-knowledge two-way "write back" thread. Push (Slice 2) and itinerary prompts
-(Slice 3) are deferred — see the build order below and the plan docs in
-`../claude/plans/`.
+**Start with** `../claude/plans/jerusha-SYSTEM-OVERVIEW.md` (how the whole app works) and
+`CHANGE-GUIDE.md` in this folder (how to change, test, back up and deploy). This README is the original design
+record from June 2026 and is kept for the reasoning. Where it disagrees with those two, they are right.
+
+What this Worker does today: the two-way encrypted notes thread, Web Push with diagnostics, the location
+breadcrumb, the encrypted photo and video gallery, notes import, a daily push, and (in the repo, not yet
+deployed as of 2026-11-12) a read-only relay for Ken's calendar feed.
+
+No secret belongs in this directory, and this repo is public.
 
 ---
 
@@ -118,5 +123,5 @@ Then, on the page side (Slice 1b, a decrypt→edit→re-encrypt cycle):
    (needs the domain on Cloudflare).
 3. Confirm ship-time policy (affects Slice 2 push timing) — see the itinerary plan.
 
-> Nothing secret lives in this directory. `NOTES_TOKEN` and (later) the VAPID
-> private key are Worker **secrets**, set via `wrangler secret put`, never committed.
+> No secret belongs in this directory: `NOTES_TOKEN`, `VAPID_PRIVATE` and the calendar addresses are Worker
+> **secrets**, set with `wrangler secret put`, never committed.

@@ -2,6 +2,36 @@
 
 # Reasoning Log
 
+## 2026-11-12 — Jerusha app: archive, strip, calendar, Worker fixes, recipes door, documentation (patron fable-jerusha, Tekton jerusha-phase2-page-202611 + jerusha-worker-fixes-202611 + jerusha-recipes-door-202611)
+
+**Asked.** Ken, after a long talk about what earns its keep: add the "where he is" strip and his calendar to the plan, "and execute".
+
+**Weighed.** Ken and Jerusha talk on WhatsApp daily, so I dropped every messenger-shaped idea and kept what a messenger cannot do: read the ship's schedule. The strip keeps three sources apart (schedule, phone, calendar) because a plan is not an observation. For the calendar I routed through the Worker with the address as a secret, since the page's CSP would block a direct fetch and a secret can be changed without a rebuild; I named plainly that this is not zero-knowledge. The saved copy is encrypted on the phone and deleted on a 404, so switching the calendar off really switches it off. I did not build the December stock gallery, because its captions are written in his voice and are his to write. The Worker and the door were written by two helper agents in scratch; I re-ran their suites in the repo and then tested the door in a real browser against the Atlas running on this machine, because a passing unit suite does not show that the recipes page works without its shell. The archive turned out to mostly exist already, and I said so.
+
+**Decided.** Page: Archive section, photos by day (day tag before nearness), strip, December port hours, Calendar tab, uploader in captions. Worker (repo only): cursor paging, `by`, `VOYAGE_PUSH`, `GET /cal`, blob backup. Door (repo only): allowlist Worker with the Atlas shell refused, tunnel config example, runbook, local smoke test. Docs: system overview rewritten, change guide new. Evidence: page specs print `50 passed`; Worker `45` pass; door `30` pass; sixteen deliberate breaks of the new page code were each caught; the smoke test showed the recipes page rendering and `/admin`, `/helm`, `/photos`, `/whoami` and every write refused.
+
+**Unsure.** Nothing here is deployed, and nothing has run on her phone or on Cloudflare. The calendar parser has only seen made-up fixtures, never a real export from Ken's calendar. Whether `cloudflared`'s path rule includes the query string is unchecked, and so is Cloudflare's cap on KV reads per request. Port hours are read as the ship's clock in Eastern time; Roatan may be an hour off if the ship changes clocks. The helpers' self-attack tables were not re-run by me. This repo is public, so some security detail is left out of this entry on purpose; it is in Ken's private notes.
+
+## 2026-11-12 — Jerusha app Phase 1b: six page fixes inside the encrypted payload (patron fable-jerusha, Tekton jerusha-phase1b-page-202611)
+
+**Asked.** Ken: "Keep building" after Phase 1a was committed.
+
+**Weighed.** I took the page items that need nothing from Ken and nothing from the Worker deploy. Alerts: the page showed "No active NWS alerts" whenever the feed gave no answer, which is every foreign port and every outage; I split it into three states so a silent feed reads as unknown. Overrides: I added a `changed` flag so an empty overrides file no longer re-renders and re-fetches on every load, and rebuilt the location list when something did change; I left map lines alone because the overrides file already states that limit. Forecast range: I chose a fixed 15-day cutoff over probing the API, since asking for a date it cannot serve was the waste. Push panel: built now even though the live Worker answers 404 for it, because the page says so plainly and it becomes useful the day the Worker is deployed. Map photos by day: the function existed and nothing called it; I wired it to the day pins and released its object URLs on close. Tabs: semantics and arrow keys only; the map role, reduced motion and the popup are left open and named.
+
+**Decided.** All edits are in the payload source, rebuilt into `admin/alaska-trip.html` with the repo tool. Thirteen tests in `jerusha-units.spec.js` now. Evidence: three spec files print `17 passed`; the Phase 1b tests against the Phase 1a page print `7 failed`, `6 passed`, and the six are the earlier tests plus the two controls.
+
+**Unsure.** The map test picks a pin by drawing order (index 6), which will break if `drawRoute` changes order; the test says so. The popup was tested with an empty day, not with a real decrypted photo. Local Node 26 and desktop Chromium only.
+
+## 2026-11-12 — Jerusha app: upgrade plan and Phase 1a (offline fix, first page fixes) (patron fable-jerusha, Tekton jerusha-upgrade-plan-202611 + jerusha-phase1a-sw-page-202611)
+
+**Asked.** Ken: understand the Jerusha app inside and out, plan to fix everything, archive past cruises, add the December 5 cruise, give her read-only Atlas recipes, document it for a future session, delay the passphrase change. Then: "start phase 1".
+
+**Weighed.** The service worker still cached and fell back to `/admin/weather-jerusha.html`, a redirect stub since the June rename, so an offline open looped between the stub and a failed fetch. I rejected a one-line path swap, because the worker's scope is `/admin/` and it was also caching and answering for every other admin page; the rewrite keys on the real shell, answers the old address from the cached shell, and leaves sibling pages alone. For "today", one global Anchorage timezone was wrong for the Caribbean voyages; a `tz` per voyage costs three words of data and keeps Alaska exactly as it was. For escaping, `esc` skipped quotes and two builders put worker-supplied values into attributes raw; I fixed `esc` and routed those values through it, which is smaller than rebuilding the nodes with DOM calls and is pinned by a hostile-value test. The manifest name was left alone because Ken has not said what her app should be called, and its `id` must never change or Android treats it as a different app.
+
+**Decided.** Rewrote `admin/sw-jerusha.js` (cache `jerusha-v5`). In the encrypted payload: per-voyage `tz`, `esc` covers quotes, attribute values escaped, notes key derived once per load, canonical and `og:url` corrected. Rebuilt `admin/alaska-trip.html` with `jerusha-payload.mjs build` (same passphrase, same salt, fresh IV, round-trip checked by the tool). New specs `jerusha-offline.spec.js` and `jerusha-units.spec.js`. Evidence: the three Jerusha spec files print `8 passed`; run against the old worker and old payload the same specs print `6 failed`, `1 passed` (the one pass is the Alaska control, which is meant to hold on both).
+
+**Unsure.** All of this was measured on local Node 26 and desktop Chromium, not on her Android phone and not on CI's pinned Node. The key-reuse change has no pin of its own; the gallery spec exercises it but would not catch a regression to per-note derivation. The live Worker returned 404 for `/push-status`, so the deployed copy is older than the repo; nothing here touches or deploys the Worker.
+
 ## 2026-11-01 — Argus observer post-commit hook (argus-s32)
 
 **Asked.** Ken: give Argus observation in every household repo that lacks it, one repo per commit.
