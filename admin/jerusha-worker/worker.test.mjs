@@ -40,6 +40,7 @@ class MockR2 {
   constructor() { this.m = new Map(); }
   async put(k, body) { this.m.set(k, body == null ? new Uint8Array(0) : new Uint8Array(await new Response(body).arrayBuffer())); }
   async get(k) { return this.m.has(k) ? { body: this.m.get(k) } : null; }
+  async head(k) { return this.m.has(k) ? { key: k } : null; }
   async delete(k) { this.m.delete(k); }
 }
 function mkEnv(extra = {}) { return { NOTES: new MockKV(), MEDIA: new MockR2(), NOTES_TOKEN: TOKEN, ...extra }; }
@@ -501,4 +502,45 @@ test("/cal ATTACK: a URL supplied in the request is never fetched; only the secr
   const r3 = await worker.fetch(rq("/cal?who=" + e), env);
   assert.equal(r3.status, 400);
   assert.equal(calls.length, attempts.length, "no further fetches");
+});
+
+/* ---------- PUT /media/<id>: replace one blob's bytes, and nothing else (the re-key tool) ---------- */
+async function seedOneMedia(env) {
+  const r = await worker.fetch(rq("/media?id=p1&kind=photo&mime=image%2Fwebp&day=2026-01-02&by=jerusha&lat=1&lon=2", { method: "POST", headers: { "content-length": "3" }, body: new Uint8Array([1, 2, 3]) }), env);
+  assert.equal(r.status, 201);
+}
+const kvDump = (env) => JSON.stringify([...env.NOTES.m].sort());
+
+test("media PUT: replaces the bytes of an existing blob and writes no record", async () => {
+  const env = mkEnv(); await seedOneMedia(env);
+  const kvBefore = kvDump(env);
+  const r = await worker.fetch(rq("/media/p1", { method: "PUT", headers: { "content-length": "4" }, body: new Uint8Array([9, 8, 7, 6]) }), env);
+  assert.equal(r.status, 200);
+  assert.deepEqual([...env.MEDIA.m.get("media/p1")], [9, 8, 7, 6]);
+  assert.equal(kvDump(env), kvBefore, "PUT must not touch KV: one gallery entry per photo, metadata unchanged");
+  assert.equal(env.MEDIA.m.size, 1);
+});
+test("media PUT: an id that does not exist is refused and nothing is created", async () => {
+  const env = mkEnv(); await seedOneMedia(env);
+  const r = await worker.fetch(rq("/media/nope", { method: "PUT", headers: { "content-length": "1" }, body: new Uint8Array([1]) }), env);
+  assert.equal(r.status, 404);
+  assert.equal(env.MEDIA.m.size, 1); assert.equal(env.MEDIA.m.has("media/nope"), false);
+});
+test("media PUT: no id, no length, too large and no token are each refused with the blob untouched", async () => {
+  const env = mkEnv(); await seedOneMedia(env);
+  const same = () => assert.deepEqual([...env.MEDIA.m.get("media/p1")], [1, 2, 3]);
+  let r = await worker.fetch(rq("/media", { method: "PUT", headers: { "content-length": "1" }, body: new Uint8Array([1]) }), env);
+  assert.equal(r.status, 400); same();
+  r = await worker.fetch(rq("/media/p1", { method: "PUT" }), env);
+  assert.equal(r.status, 400); same();
+  r = await worker.fetch(rq("/media/p1", { method: "PUT", headers: { "content-length": "0" } }), env);
+  assert.equal(r.status, 400); same();
+  r = await worker.fetch(rq("/media/p1", { method: "PUT", headers: { "content-length": "230686721" }, body: new Uint8Array([1]) }), env);
+  assert.equal(r.status, 413); same();
+  r = await worker.fetch(rq("/media/p1", { method: "PUT", auth: false, headers: { "content-length": "1" }, body: new Uint8Array([1]) }), env);
+  assert.ok(r.status === 401 || r.status === 403, "status " + r.status); same();
+});
+test("media PUT: the page cannot call it (not in the CORS method list)", () => {
+  const m = SRC.match(/"Access-Control-Allow-Methods": "([^"]*)"/);
+  assert.ok(m); assert.equal(m[1].split(",").includes("PUT"), false);
 });

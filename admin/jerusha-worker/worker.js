@@ -277,6 +277,22 @@ export default {
         if (!obj) return json({ error: "not found" }, 404);
         return new Response(obj.body, { headers: { "Content-Type": "application/octet-stream", ...cors() } });
       }
+      // Replace the bytes of ONE existing blob, and nothing else (the re-key tool,
+      // admin/jerusha-worker/jerusha-rekey.mjs). Unlike POST, this writes no metadata
+      // record, so the gallery keeps one entry per photo with its date, place and
+      // uploader untouched. It refuses an id that does not exist: a replace must never
+      // create. A body with no length is refused too, because R2 would store it as a
+      // 0-byte photo. The body is streamed, never buffered: a video is far larger than
+      // a Worker's memory. Not in the CORS method list on purpose: the page never calls this.
+      if (req.method === "PUT") {
+        if (!pid) return json({ error: "no id" }, 400);
+        const len = Number(req.headers.get("content-length") || 0);
+        if (!(len > 0)) return json({ error: "empty" }, 400);
+        if (len > 230686720) return json({ error: "too large" }, 413);
+        if (!(await env.MEDIA.head("media/" + pid))) return json({ error: "not found" }, 404);
+        await env.MEDIA.put("media/" + pid, req.body);
+        return json({ ok: true, id: pid });
+      }
       if (req.method === "DELETE" && pid) {
         await env.MEDIA.delete("media/" + pid);
         const k = (await listAll(env, "media:")).find((name) => name.endsWith("-" + pid));

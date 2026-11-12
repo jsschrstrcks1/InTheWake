@@ -116,8 +116,20 @@ Any change to caching rules in `admin/sw-jerusha.js` needs a new `CACHE` name.
 3. Update OwnTracks on Ken's phone, which uses the token in its URL.
 Between steps 1 and 2 the shipped page cannot reach the Worker. Do them together.
 
-**Do not rotate the passphrase with this recipe.** It locks every note and photo. See the upgrade plan,
-section 8.
+**Do not change the passphrase with this recipe.** See the next section.
+
+---
+
+## Change the passphrase
+
+Follow `admin/jerusha-worker/ROTATION-RUNBOOK.md`, every step, in order. Do not improvise.
+
+- The passphrase only wraps the page. Notes and photos are sealed with the data keys in `DATA_KEYS`, a ring
+  inside the encrypted page. The first key writes; every key is tried for reading.
+- Only `jerusha-payload.mjs rotate` and `drop-legacy` may change the ring. Never edit it by hand.
+- Only `jerusha-rekey.mjs apply` rewrites the thread on the server. It saves every original first.
+- **Prove a change to any of this:** `node --test admin/jerusha-worker/jerusha-rekey.test.mjs` and
+  `npx playwright test jerusha-keys`. The second makes the real page open what the tools sealed.
 
 ---
 
@@ -160,3 +172,10 @@ add a room.
 9. **`git status` shows a `node_modules` symlink** in a worktree if you made one to run tests. Never commit it.
 10. **This repo is public.** Never write a secret, a private address, or a note about where one can be found
     into a file, a test, or a commit message here. Security notes go in Ken's private notes.
+11. **A source file from before a rotation is poison.** It carries the old ring. `build` refuses it. Extract
+    again; never paste a ring in to get past the refusal.
+12. **A test that starts a command-line tool against a server in its own process must not use a blocking
+    spawn.** The server freezes and the two wait on each other forever. `jerusha-rekey.test.mjs` uses an async
+    spawn for that reason.
+13. **The household outward-action guard reads `method: "PUT"` in a shell heredoc as a real submission.** Write
+    test code with the editor, not by piping it through a shell command.

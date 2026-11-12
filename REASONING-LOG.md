@@ -2,6 +2,18 @@
 
 # Reasoning Log
 
+## 2026-11-12 — Jerusha app: data-key ring, re-key tool, rotation runbook (patron fable-jerusha, Tekton jerusha-data-key-202611)
+
+**Asked.** Ken, after the upgrade PR merged: build the passphrase change now, while he deploys the Worker.
+
+**Weighed.** The plan's sketch was "a random data key, wrapped by the passphrase". The page is already a blob sealed by the passphrase, so the simplest wrap is to keep the data key inside the page. No second wrapped blob, no new storage. I chose a ring of keys over a key id on each record: AES-GCM refuses a wrong key, so trying each key needs no change to what the Worker stores, and old and new ciphertext can sit side by side while a re-key is under way. I put the re-key in a command-line tool, not in the page, because it has to save originals to disk, read every replacement back, and be testable against the real Worker code. Notes go back through the existing `/import`, which overwrites in place. Photos needed one new route, because the existing upload route would have written a second gallery record for the same photo.
+
+**Decided.** Shipping the ring empty, so this change alters nothing on her phone: an empty ring derives the key the old way. `rotate` fills it. `build` now refuses a source whose ring is not the live page's ring, because a source file left over from before a rotation would otherwise ship a page that cannot read the thread. `drop-legacy` runs the audit itself and refuses unless it is clean.
+
+**Unsure.** No rotation has been run. The tool has only met the real Worker code on in-memory storage, never Cloudflare, so R2's behaviour on the replace route is untested. The rehearsal used a real backup of the notes, and every one opened and moved, but that backup held no photo files. Whether a phone's keyboard will type a given new passphrase the way the Mac did is a real risk; the tool warns and the runbook says to try it on both phones first.
+
+_Runtime: Claude Code_
+
 ## 2026-11-12 — Jerusha app: archive, strip, calendar, Worker fixes, recipes door, documentation (patron fable-jerusha, Tekton jerusha-phase2-page-202611 + jerusha-worker-fixes-202611 + jerusha-recipes-door-202611)
 
 **Asked.** Ken, after a long talk about what earns its keep: add the "where he is" strip and his calendar to the plan, "and execute".

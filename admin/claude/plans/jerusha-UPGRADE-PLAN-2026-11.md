@@ -495,9 +495,36 @@ Written in the same commits as the work, not afterward.
 6. Done means she can use it: she opens the app in Lahore, sees December, finds Alaska in the archive, sends a
    note, gets a push, and opens a recipe.
 
-## 8. Deferred by Ken: the passphrase change
+## 8. The passphrase change
 
-Not in this build. Recorded so it is not lost.
+**Status, 2026-11-12: the tooling is built. No rotation has been run.** Ken asked for the build after the first
+PR merged. The steps are in `admin/jerusha-worker/ROTATION-RUNBOOK.md`.
+
+What was built (Tekton `jerusha-data-key-202611`):
+
+| Piece | Where | Proof |
+|---|---|---|
+| Key ring in the page: first key seals, every key is tried to read | payload, `_keyRing` / `_tryKeys` | `jerusha-keys.spec.js`, 5 tests |
+| A phone's cached thread heals itself after a re-key | payload, `_usHeal` | same spec |
+| `rotate`, `drop-legacy`, and a `build` that refuses a stale source | `jerusha-payload.mjs` | `jerusha-rekey.test.mjs` |
+| Re-key tool: `audit` and `apply` | `jerusha-rekey.mjs` | same file, 15 tests |
+| One shared module for the ring and both ciphertext formats | `jerusha-keys.mjs` | both of the above |
+| `PUT /media/<id>`: replace a blob's bytes, write no record | `worker.js` | `worker.test.mjs`, 4 tests |
+
+How it was checked: 24 deliberate breaks of the new code, one at a time. 22 were caught on the first pass. The
+two that were not each got a new test, and then were caught. Then a local rehearsal on a scratch copy of the
+real page with a real backup of the thread: the kept old key opened every note, the re-key moved every note,
+and the one remaining key read every note afterward.
+
+**Not done, and not claimed:**
+
+- No rotation has been run. The live page still has an empty ring and the old passphrase.
+- The re-key has never run against Cloudflare, only against the real `worker.js` on in-memory storage.
+- The rehearsal backup held no photo files, so real photos have not been through the tool. Made-up ones have.
+- The page with the ring has not been opened on a phone.
+- The Worker with the new route is not deployed.
+
+The design notes below are the original sketch, kept for lineage.
 
 - The page key and the notes and media key both come from the one passphrase. Re-encrypting the page alone
   would lock every existing note, photo and video.
