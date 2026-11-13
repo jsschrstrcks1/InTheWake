@@ -168,8 +168,16 @@ online load and laid over the built-in data. It can correct `arr` and `dep`. Map
 ## 6. Crypto
 
 - **Page key.** PBKDF2-SHA256(passphrase, page `SALT`, 150000) to AES-GCM-256. Decrypts the payload only.
-- **Notes and media key.** PBKDF2-SHA256(passphrase, `NOTES_SALT`, 150000) to AES-GCM-256. Derived once per
-  page load and reused (`_notesKey`).
+- **Data keys (since 2026-11).** `DATA_KEYS` in the payload is a ring of raw AES-256 keys. The first seals
+  everything new (`_notesKey`). Every key is tried when reading (`_tryKeys`), so old and new ciphertext both
+  open. The ring is built once per page load (`_keyRing`). Only `jerusha-payload.mjs rotate` and `drop-legacy`
+  change it.
+- **Empty ring = the old way.** With no keys in the ring the page derives one key,
+  PBKDF2-SHA256(passphrase, `NOTES_SALT`, 150000). That is how every page before the first rotation works.
+- **Why the ring exists.** The passphrase now only wraps the page, so it can change without touching a note
+  or a photo. How to change it: `admin/jerusha-worker/ROTATION-RUNBOOK.md`.
+- **Node side.** `admin/jerusha-worker/jerusha-keys.mjs` holds the same formats for the tools.
+  `tests/playwright/jerusha-keys.spec.js` makes the real page open what that module sealed.
 - **A note** on the wire: `{iv, ct}` base64, a fresh 12-byte IV each.
 - **Media up to 4 MiB:** `[12-byte IV][ciphertext]`.
 - **Larger media ("JCM1"):** bytes `4A 43 4D 31`, a little-endian uint32 header length, a JSON header
