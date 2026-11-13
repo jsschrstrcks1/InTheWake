@@ -24,6 +24,17 @@ const SPEC_RE = /\.spec\.(?:js|mjs|cjs|ts)$/;
 export const LOCAL_ONLY = {
   'jerusha-gallery.spec.js':
     'needs the plaintext payload source, which is gitignored and exists only on the M4; elsewhere the test skips itself',
+  // The four below drive the app inside the encrypted page. They load its plaintext source, which is gitignored
+  // and never leaves the machine that extracted it. Without it each test skips itself. jerusha-offline.spec.js
+  // is NOT here: it needs only the shipped gate page and service worker, so CI runs it (quality.yml).
+  'jerusha-units.spec.js':
+    'needs the plaintext payload source, which is gitignored; without it every test skips itself',
+  'jerusha-voyage.spec.js':
+    'needs the plaintext payload source, which is gitignored; without it every test skips itself',
+  'jerusha-calendar.spec.js':
+    'needs the plaintext payload source, which is gitignored; without it every test skips itself',
+  'jerusha-keys.spec.js':
+    'needs the plaintext payload source, which is gitignored; without it every test skips itself',
 };
 
 /** The spec files under tests/playwright, at any depth, as playwright.config.js testDir finds them. */

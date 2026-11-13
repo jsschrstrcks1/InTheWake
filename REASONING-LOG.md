@@ -2,6 +2,18 @@
 
 # Reasoning Log
 
+## 2026-11-13 — My two Jerusha PRs left a unit test red on main; fixed (patron fable-jerusha, Tekton jerusha-specs-ci-register-202611)
+
+**Asked.** Ken asked to be walked through the remaining rotation steps. Checking where things stood first, I found PR 2695 had merged with two failed checks, the same two as PR 2694.
+
+**Weighed.** One of the two is mine. `tests/unit/playwright-specs-in-ci.test.mjs` requires every browser spec to be run by CI or named local-only with a reason. I added five specs across the two PRs and registered none. On the first PR I reported that no checks had reported yet and never went back to read them. Four of the five need the gitignored plaintext source, so they belong in `LOCAL_ONLY`. The fifth, `jerusha-offline.spec.js`, needs only the shipped gate page and service worker, so calling it local-only would be false. It goes in `quality.yml`.
+
+**Decided.** Four reasons added to `LOCAL_ONLY`, one step added to the browser job. Nothing else touched.
+
+**Unsure.** The other failed check is not mine and is not fixed here: the browser job dies at `npx playwright install` with "Playwright does not support chromium on ubuntu26.04-x64", so no browser spec has run in CI since the runner image moved. My new step sits in that job and will not run until that is fixed. That needs its own task.
+
+_Runtime: Claude Code_
+
 ## 2026-11-12 — Jerusha app: data-key ring, re-key tool, rotation runbook (patron fable-jerusha, Tekton jerusha-data-key-202611)
 
 **Asked.** Ken, after the upgrade PR merged: build the passphrase change now, while he deploys the Worker.

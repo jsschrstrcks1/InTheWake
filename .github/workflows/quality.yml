@@ -359,6 +359,13 @@ jobs:
       - name: Run rendered tool links gate
         run: npx playwright test tool-links.spec.js --workers=1
 
+      # Private-page service worker (admin/sw-jerusha.js): installs it from the shipped gate page, cuts the network,
+      # and checks the gate still opens at its real address and that the worker answers for no other admin page.
+      # It needs no secret and no plaintext source. The other jerusha-*.spec.js files do, and are named local-only
+      # in tests/unit/playwright-specs-in-ci.test.mjs. Serial for the same single-threaded-server reason as above.
+      - name: Run private-page offline gate
+        run: npx playwright test jerusha-offline.spec.js --workers=1
+
   # Summary job
   unit-tests:
     name: Unit Tests
