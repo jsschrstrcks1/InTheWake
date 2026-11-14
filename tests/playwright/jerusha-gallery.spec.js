@@ -7,6 +7,7 @@
 import { test, expect } from "@playwright/test";
 import { webcrypto as wc } from "node:crypto";
 import fs from "node:fs";
+import * as K from "../../admin/jerusha-worker/jerusha-keys.mjs";
 
 const SRC_REL = "/admin/jerusha-src/alaska-trip.payload.html";
 const SRC_ABS = "admin/jerusha-src/alaska-trip.payload.html";
@@ -14,7 +15,12 @@ const TESTPASS = "render-test-passphrase";
 const NOTES_SALT = "amVydXNoYS1ub3Rlcy12MQ==";
 const PNG = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==", "base64");
 
+// Until the first passphrase rotation the page derived its data key from the passphrase, so a fixture sealed
+// with TESTPASS opened. Since the rotation the page reads only with the keys in its DATA_KEYS ring, so the
+// fixture is sealed with the ring's first key, read from the source in memory and never printed.
 async function key() {
+  const ring = K.readRing(fs.readFileSync(SRC_ABS, "utf8"));
+  if (ring.length) return K.importRaw(ring[0]);
   const bk = await wc.subtle.importKey("raw", new TextEncoder().encode(TESTPASS), "PBKDF2", false, ["deriveKey"]);
   return wc.subtle.deriveKey({ name: "PBKDF2", salt: Buffer.from(NOTES_SALT, "base64"), iterations: 150000, hash: "SHA-256" }, bk, { name: "AES-GCM", length: 256 }, false, ["encrypt"]);
 }
