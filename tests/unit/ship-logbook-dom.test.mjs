@@ -59,12 +59,11 @@ export function findUnsafe(text) {
 // fails until its line is deleted here. Named limit: the pattern reads the `s.` story variable only;
 // loaders that name it differently, and the initShipLogbook family that writes data.entries into
 // #logbook-entries on about 230 pages, are not covered here.
+// 2026-11-16: the fourteen pages whose only logbook loader wrote #logbook-container were rebuilt with DOM
+// calls (Tekton itw-logbook-dom-only-remaining-20261116) and left this list for REBUILT below.
 const INNERHTML_DEBT = new Set([
-  'carnival-adventure', 'carnival-breeze', 'carnival-conquest', 'carnival-dream', 'carnival-freedom',
-  'carnival-glory', 'carnival-horizon', 'carnival-inspiration', 'carnival-magic', 'carnival-sensation',
-  'carnival-tropicale', 'carnival-vista', 'carnivale-1956', 'celebration-1987', 'festivale-1961',
-  'holiday-1985', 'jubilee-1986', 'mardi-gras-1972', 'tropicale-1981', 'unnamed-project-ace-1',
-  'unnamed-project-ace-2', 'unnamed-project-ace-3',
+  'carnival-breeze', 'carnival-conquest', 'carnival-dream', 'carnival-freedom', 'carnival-glory',
+  'carnival-horizon', 'carnival-magic', 'carnival-vista',
 ].map((s) => `ships/carnival/${s}.html`));
 
 test('the patterns catch every form found on 2026-10-26, and pass the DOM-built fix', () => {
@@ -115,6 +114,11 @@ const REBUILT = [
   'carnival-luminosa', 'carnival-miracle', 'carnival-panorama', 'carnival-paradise', 'carnival-pride',
   'carnival-radiance', 'carnival-spirit', 'carnival-splendor', 'carnival-sunrise', 'carnival-sunshine',
   'carnival-valor', 'carnival-venezia', 'mardi-gras',
+  // 2026-11-16, itw-logbook-dom-only-remaining-20261116: rebuilt the same way, and each one's duplicate
+  // footer loader (a second innerHTML writer to the same container) removed.
+  'carnival-adventure', 'carnival-inspiration', 'carnival-sensation', 'carnival-tropicale', 'carnivale-1956',
+  'celebration-1987', 'festivale-1961', 'holiday-1985', 'jubilee-1986', 'mardi-gras-1972', 'tropicale-1981',
+  'unnamed-project-ace-1', 'unnamed-project-ace-2', 'unnamed-project-ace-3',
 ].map((s) => `ships/carnival/${s}.html`);
 const REMOVED = ['carnival-magic', 'carnival-vista'].map((s) => `ships/carnival/${s}.html`);
 
@@ -128,6 +132,9 @@ test('the rebuilt pages load #logbook-container once, through DOM calls only', (
     const m = t.match(/function initShipLogbook\(\)\{[\s\S]*?<\/script>/);
     if (!m) { bad.push(`${f}: initShipLogbook is gone`); continue; }
     if (!/createElement\('article'\)/.test(m[0]) || !/\.textContent=/.test(m[0]) || /innerHTML/.test(m[0])) bad.push(`${f}: initShipLogbook not DOM-built`);
+    // A loader nobody calls renders nothing. Found 2026-11-16: four pages defined it and never called it, and on
+    // one of them a second innerHTML loader was the only thing that showed the stories.
+    if (!/(?<!function )initShipLogbook\(\)\s*;/.test(t)) bad.push(`${f}: initShipLogbook is defined and never called`);
   }
   for (const f of REMOVED) {
     if (/function initShipLogbook\(\)/.test(readFileSync(path.join(ROOT, f), 'utf8'))) bad.push(`${f}: the dead initShipLogbook block is back`);

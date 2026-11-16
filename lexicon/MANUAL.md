@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261116-carnival-logbook-dom-only-fourteen
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** Fourteen Carnival ship pages still built their logbook stories into the page as HTML strings from fetched JSON, ten of them through a second duplicate loader, and four defined a loader nobody called, so one page showed stories only through the unsafe duplicate and three showed none.
+
+**Enables.** Every Carnival page with a logbook container now renders story text with DOM calls only, through one loader that is actually called; the guard test fails if innerHTML returns, a second loader appears, or the loader goes uncalled.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only`.
+
 ### 20261109-skill-sync-four-questions
 
 Task `ocs-mirror-four-questions-20261109`.
