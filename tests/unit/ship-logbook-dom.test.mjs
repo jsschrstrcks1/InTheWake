@@ -67,33 +67,8 @@ const INNERHTML_DEBT = new Set([
   'carnival-breeze', 'carnival-conquest', 'carnival-dream', 'carnival-freedom', 'carnival-glory',
   'carnival-horizon', 'carnival-magic', 'carnival-vista',
 ].map((s) => `ships/carnival/${s}.html`));
-// Debt, recorded 2026-11-16 when the entry pattern was added: the #logbook-entries family still writes entry
-// fields into innerHTML on these pages. Same rule: the list only shrinks.
-for (const f of [
-  'ships/seabourn/seabourn-encore.html',
-  'ships/seabourn/seabourn-odyssey.html',
-  'ships/seabourn/seabourn-ovation.html',
-  'ships/seabourn/seabourn-pursuit.html',
-  'ships/seabourn/seabourn-quest.html',
-  'ships/seabourn/seabourn-sojourn.html',
-  'ships/seabourn/seabourn-venture.html',
-  'ships/silversea/silver-cloud.html',
-  'ships/silversea/silver-dawn.html',
-  'ships/silversea/silver-endeavour.html',
-  'ships/silversea/silver-moon.html',
-  'ships/silversea/silver-muse.html',
-  'ships/silversea/silver-nova.html',
-  'ships/silversea/silver-origin.html',
-  'ships/silversea/silver-ray.html',
-  'ships/silversea/silver-shadow.html',
-  'ships/silversea/silver-spirit.html',
-  'ships/silversea/silver-whisper.html',
-  'ships/silversea/silver-wind.html',
-  'ships/virgin-voyages/brilliant-lady.html',
-  'ships/virgin-voyages/resilient-lady.html',
-  'ships/virgin-voyages/scarlet-lady.html',
-  'ships/virgin-voyages/valiant-lady.html',
-]) INNERHTML_DEBT.add(f);
+// The 23 #logbook-entries pages the entry pattern found on 2026-11-16 were rebuilt with DOM calls the same day
+// (still uncalled, as they were); none is debt.
 
 test('the patterns catch every form found on 2026-10-26, and pass the DOM-built fix', () => {
   const found = [

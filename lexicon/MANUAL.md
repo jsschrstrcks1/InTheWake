@@ -18,6 +18,16 @@ Task `itw-logbook-dom-only-remaining-20261116`.
 
 **Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
 
+### 20261116-entries-logbook-dom-only-24
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** Twenty-three #logbook-entries pages (Seabourn, Silversea, Virgin Voyages) and the Discovery-class placeholder still wrote logbook data with innerHTML inside their initShipLogbook block.
+
+**Enables.** No initShipLogbook block on any ship page writes innerHTML; the entries loaders stay uncalled as they were, and the Discovery page shows the same text through textContent.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
+
 ### 20261116-carousel-logbook-dom-only-77
 
 Task `itw-logbook-dom-only-remaining-20261116`.
