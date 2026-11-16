@@ -47,6 +47,8 @@ export const UNSAFE = [
   ['the concatenated logbook shape', /s\.persona_label\+' ·/],
   ['a backslash-escaped quote outside a string', /\.split\(\\'/],
   ['logbook story data inside an innerHTML string', /innerHTML[^;]{0,300}?\bs\.(title|persona_label|markdown|author)\b/],
+  // The template family (118 pages, 2026-11-16) named its item `e` and was invisible to the pattern above.
+  ['logbook entry data inside an innerHTML string', /innerHTML[^;]{0,300}?\be\.(title|body|date)\b/],
 ];
 
 export function findUnsafe(text) {
@@ -59,13 +61,13 @@ export function findUnsafe(text) {
 // fails until its line is deleted here. Named limit: the pattern reads the `s.` story variable only;
 // loaders that name it differently, and the initShipLogbook family that writes data.entries into
 // #logbook-entries on about 230 pages, are not covered here.
-const INNERHTML_DEBT = new Set([
-  'carnival-adventure', 'carnival-breeze', 'carnival-conquest', 'carnival-dream', 'carnival-freedom',
-  'carnival-glory', 'carnival-horizon', 'carnival-inspiration', 'carnival-magic', 'carnival-sensation',
-  'carnival-tropicale', 'carnival-vista', 'carnivale-1956', 'celebration-1987', 'festivale-1961',
-  'holiday-1985', 'jubilee-1986', 'mardi-gras-1972', 'tropicale-1981', 'unnamed-project-ace-1',
-  'unnamed-project-ace-2', 'unnamed-project-ace-3',
-].map((s) => `ships/carnival/${s}.html`));
+// 2026-11-16: the fourteen pages whose only logbook loader wrote #logbook-container were rebuilt with DOM
+// calls (Tekton itw-logbook-dom-only-remaining-20261116) and left this list for REBUILT below.
+// 2026-11-16: the last eight (breeze, conquest, dream, freedom, glory, horizon, magic, vista), whose second
+// logbook loader sat in another script, were rebuilt with DOM calls. The list is empty; keep it that way.
+const INNERHTML_DEBT = new Set([].map((s) => `ships/carnival/${s}.html`));
+// The 23 #logbook-entries pages the entry pattern found on 2026-11-16 were rebuilt with DOM calls the same day
+// (still uncalled, as they were); none is debt.
 
 test('the patterns catch every form found on 2026-10-26, and pass the DOM-built fix', () => {
   const found = [
@@ -97,7 +99,7 @@ test('no ship page builds HTML strings from logbook data, outside the recorded d
   const bad = [];
   for (const f of htmlFiles('ships')) {
     const hits = findUnsafe(readFileSync(path.join(ROOT, f), 'utf8'));
-    const allowed = INNERHTML_DEBT.has(f) ? hits.filter((h) => h !== 'logbook story data inside an innerHTML string') : hits;
+    const allowed = INNERHTML_DEBT.has(f) ? hits.filter((h) => h !== 'logbook story data inside an innerHTML string' && h !== 'logbook entry data inside an innerHTML string') : hits;
     if (allowed.length) bad.push(`${f}: ${allowed.join(', ')}`);
   }
   assert.deepEqual(bad, []);
@@ -115,6 +117,11 @@ const REBUILT = [
   'carnival-luminosa', 'carnival-miracle', 'carnival-panorama', 'carnival-paradise', 'carnival-pride',
   'carnival-radiance', 'carnival-spirit', 'carnival-splendor', 'carnival-sunrise', 'carnival-sunshine',
   'carnival-valor', 'carnival-venezia', 'mardi-gras',
+  // 2026-11-16, itw-logbook-dom-only-remaining-20261116: rebuilt the same way, and each one's duplicate
+  // footer loader (a second innerHTML writer to the same container) removed.
+  'carnival-adventure', 'carnival-inspiration', 'carnival-sensation', 'carnival-tropicale', 'carnivale-1956',
+  'celebration-1987', 'festivale-1961', 'holiday-1985', 'jubilee-1986', 'mardi-gras-1972', 'tropicale-1981',
+  'unnamed-project-ace-1', 'unnamed-project-ace-2', 'unnamed-project-ace-3',
 ].map((s) => `ships/carnival/${s}.html`);
 const REMOVED = ['carnival-magic', 'carnival-vista'].map((s) => `ships/carnival/${s}.html`);
 
@@ -128,9 +135,65 @@ test('the rebuilt pages load #logbook-container once, through DOM calls only', (
     const m = t.match(/function initShipLogbook\(\)\{[\s\S]*?<\/script>/);
     if (!m) { bad.push(`${f}: initShipLogbook is gone`); continue; }
     if (!/createElement\('article'\)/.test(m[0]) || !/\.textContent=/.test(m[0]) || /innerHTML/.test(m[0])) bad.push(`${f}: initShipLogbook not DOM-built`);
+    // A loader nobody calls renders nothing. Found 2026-11-16: four pages defined it and never called it, and on
+    // one of them a second innerHTML loader was the only thing that showed the stories.
+    if (!/(?<!function )initShipLogbook\(\)\s*;/.test(t)) bad.push(`${f}: initShipLogbook is defined and never called`);
   }
   for (const f of REMOVED) {
     if (/function initShipLogbook\(\)/.test(readFileSync(path.join(ROOT, f), 'utf8'))) bad.push(`${f}: the dead initShipLogbook block is back`);
   }
   assert.deepEqual(bad, []);
+});
+
+// The carousel family (#logbook-stories; 77 pages on 2026-11-16, Tekton itw-logbook-dom-only-remaining-20261116)
+// turned story markdown into HTML with mdToHtml and wrote it with innerHTML, links included. It now builds nodes
+// with mdNodes and renderOne. These two tests hold every converted page to that, and run the renderer itself.
+function carouselBlocks() {
+  const out = [];
+  for (const f of htmlFiles('ships')) {
+    const t = readFileSync(path.join(ROOT, f), 'utf8');
+    const i = t.indexOf('initShipLogbook');
+    if (i < 0) continue;
+    const block = t.slice(i, t.indexOf('</script>', i));
+    if (block.includes('function mdNodes')) out.push([f, block]);
+  }
+  return out;
+}
+
+test('every converted carousel logbook builds nodes: no innerHTML, no mdToHtml', () => {
+  const blocks = carouselBlocks();
+  assert.ok(blocks.length >= 77, `expected the 77 converted pages, found ${blocks.length}`);
+  const bad = blocks.filter(([, b]) => /innerHTML|mdToHtml/.test(b)).map(([f]) => f);
+  assert.deepEqual(bad, []);
+});
+
+test('the carousel renderer makes only safe elements from a hostile story', () => {
+  const [, block] = carouselBlocks().find(([f]) => f.endsWith('adventure-of-the-seas.html'));
+  const src = ['mdNodes', 'renderOne'].map((name) => {
+    const i = block.indexOf(`function ${name}(`);
+    const j = block.indexOf('\n    function ', i + 10);
+    return block.slice(i, j < 0 ? undefined : j);
+  }).join('\n');
+  class Node {
+    constructor(tag) { this.tag = tag; this.kids = []; this.attrs = {}; this.className = ''; }
+    append(...k) { for (const x of k) { if (x && x.tag === '#frag') this.kids.push(...x.kids); else this.kids.push(x); } }
+    set textContent(v) { this.kids = [{ tag: '#text', text: String(v) }]; }
+    get textContent() { return this.kids.map((k) => (k.tag === '#text' ? k.text : k.textContent)).join(''); }
+    setAttribute(k, v) { this.attrs[k] = String(v); }
+  }
+  const document = { createElement: (t) => new Node(t), createTextNode: (t) => ({ tag: '#text', text: t }), createDocumentFragment: () => new Node('#frag') };
+  const ctx = { document };
+  vm.createContext(ctx);
+  vm.runInContext(`${src}\nthis.renderOne = renderOne;`, ctx);
+  const el = ctx.renderOne({
+    title: '<img src=x onerror=alert(1)>Title',
+    markdown: '### Day one\nWe **sailed** at *dawn*.\n\n<script>alert(2)</script> [bad](javascript:alert(3)) [ok](https://example.com) [home](/ships.html)',
+  });
+  const tags = (n) => (n.tag === '#text' ? [] : [n.tag, ...n.kids.flatMap(tags)]);
+  const hrefs = (n) => (n.tag === '#text' ? [] : [...(n.attrs.href ? [n.attrs.href] : []), ...n.kids.flatMap(hrefs)]);
+  assert.deepEqual([...new Set(tags(el))].sort(), ['a', 'article', 'div', 'em', 'h3', 'p', 'strong']);
+  assert.deepEqual(hrefs(el), ['https://example.com', '/ships.html']);
+  assert.ok(el.textContent.includes('<script>alert(2)</script>'), 'markup in a story stays text');
+  assert.ok(el.textContent.startsWith('<img src=x onerror=alert(1)>Title'), 'a title stays text');
+  assert.equal(ctx.renderOne({ title: 't', markdown: '   ' }), null, 'an empty story renders nothing');
 });

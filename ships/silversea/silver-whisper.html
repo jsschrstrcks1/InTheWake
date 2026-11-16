@@ -703,7 +703,7 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 <script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:9192167" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
 </script>
 <!-- initShipLogbook — logbook loader -->
-<script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/silversea/silver-whisper.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.entries||[]).slice(0,5).map(e=>`<li>${e.date}: ${e.note}</li>`).join('');}). catch(()=>{});}
+<script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/silversea/silver-whisper.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.textContent='';(data.entries||[]).slice(0,5).forEach(e=>{const li=document.createElement('li');li.textContent=`${e.date}: ${e.note}`;el.appendChild(li);});}). catch(()=>{});}
 </script>
 <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>

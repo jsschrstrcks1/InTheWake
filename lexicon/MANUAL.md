@@ -8,6 +8,26 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261116-template-logbook-loader-dormant-dom-only
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** 118 ship pages carried a template logbook loader that built story HTML from fetched data, read an array shape no logbook file has, and was never called, so it was dead today and unsafe the day anyone wired it; the guard's pattern could not see it because the loader named its item e.
+
+**Enables.** The template loader on all 118 pages is DOM-only and reads the real stories shape, still uncalled so whether those stories appear stays the operator's decision; the guard now sees the e-named form, and the 23 #logbook-entries pages it newly finds are recorded as debt that can only shrink.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
+
+### 20261116-entries-logbook-dom-only-24
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** Twenty-three #logbook-entries pages (Seabourn, Silversea, Virgin Voyages) and the Discovery-class placeholder still wrote logbook data with innerHTML inside their initShipLogbook block.
+
+**Enables.** No initShipLogbook block on any ship page writes innerHTML; the entries loaders stay uncalled as they were, and the Discovery page shows the same text through textContent.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
+
 ### 20261116-ci-tools-smoke-ubuntu-2404
 
 Task `itw-ci-tools-smoke-ubuntu-2404-20261116`.
@@ -17,6 +37,36 @@ Task `itw-ci-tools-smoke-ubuntu-2404-20261116`.
 **Enables.** The tool-page smoke, ship stats card, both tipping calculator, voyage pack, rendered tool link and private-page offline gates run again on every PR and on main.
 
 **Untested:** A CI runner label; the proof is this pull request's own Tools Smoke run reaching and passing its gates.
+
+### 20261116-carousel-logbook-dom-only-77
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** 77 ship pages (RCL 49, Celebrity 15, Carnival 9, Holland America 4) turned logbook story markdown into HTML with mdToHtml and wrote it with innerHTML, link targets included, so a story's text or a javascript: link would reach the page as markup.
+
+**Enables.** Every carousel logbook builds its story from DOM nodes: the same markdown subset, links only to http(s), mailto, site paths and anchors, everything else shown as text; a test runs the renderer from a real page against a hostile story and holds all 77 pages to it.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::the carousel renderer makes only safe elements from a hostile story`.
+
+### 20261116-carnival-logbook-dom-only-fourteen
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** Fourteen Carnival ship pages still built their logbook stories into the page as HTML strings from fetched JSON, ten of them through a second duplicate loader, and four defined a loader nobody called, so one page showed stories only through the unsafe duplicate and three showed none.
+
+**Enables.** Every Carnival page with a logbook container now renders story text with DOM calls only, through one loader that is actually called; the guard test fails if innerHTML returns, a second loader appears, or the loader goes uncalled.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only`.
+
+### 20261116-carnival-last-eight-logbook-loaders
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** Eight Carnival pages still had a second logbook loader in another script that wrote story fields into innerHTML; they were the last entries on the guard's debt list.
+
+**Enables.** No ship page puts logbook data through innerHTML, and the guard's debt list is empty, so any return fails the build.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
 
 ### 20261109-skill-sync-four-questions
 
