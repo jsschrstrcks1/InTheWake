@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261116-template-logbook-loader-dormant-dom-only
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** 118 ship pages carried a template logbook loader that built story HTML from fetched data, read an array shape no logbook file has, and was never called, so it was dead today and unsafe the day anyone wired it; the guard's pattern could not see it because the loader named its item e.
+
+**Enables.** The template loader on all 118 pages is DOM-only and reads the real stories shape, still uncalled so whether those stories appear stays the operator's decision; the guard now sees the e-named form, and the 23 #logbook-entries pages it newly finds are recorded as debt that can only shrink.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
+
 ### 20261116-carnival-logbook-dom-only-fourteen
 
 Task `itw-logbook-dom-only-remaining-20261116`.
