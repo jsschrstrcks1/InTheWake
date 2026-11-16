@@ -48,6 +48,16 @@ Task `itw-logbook-dom-only-remaining-20261116`.
 
 **Proved by** `tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only`.
 
+### 20261116-carnival-last-eight-logbook-loaders
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** Eight Carnival pages still had a second logbook loader in another script that wrote story fields into innerHTML; they were the last entries on the guard's debt list.
+
+**Enables.** No ship page puts logbook data through innerHTML, and the guard's debt list is empty, so any return fails the build.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
+
 ### 20261109-skill-sync-four-questions
 
 Task `ocs-mirror-four-questions-20261109`.

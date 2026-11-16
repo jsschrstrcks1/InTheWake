@@ -496,10 +496,10 @@ Dining Venues on Carnival Breeze <a href="/restaurants/" class="section-label-li
     fetch('/assets/data/logbook/carnival/carnival-breeze.json').then(r=>r.json()).then(function(data){
       var container=document.getElementById('logbook-entries');
       if(!container||!data.stories)return;
-      container.innerHTML='';
+      container.textContent='';
       data.stories.slice(0,5).forEach(function(s){
         var entry=document.createElement('article');entry.className='logbook-entry';
-        entry.innerHTML='<h4>'+s.title+'</h4><div class="story-content">'+s.markdown.split('\n\n').slice(0,2).map(function(p){return '<p>'+p.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\[([^\]]+)\]\([^)]+\)/g,'$1')+'</p>';}).join('')+'</div><p class="author">— '+s.author.name+', '+s.author.location+'</p>';
+        var h=document.createElement('h4');h.textContent=String(s.title||'');var sc=document.createElement('div');sc.className='story-content';String(s.markdown||'').split('\n\n').slice(0,2).forEach(function(p){var pe=document.createElement('p');pe.textContent=p.replace(/\*\*(.*?)\*\*/g,'$1').replace(/\[([^\]]+)\]\([^)]+\)/g,'$1');sc.appendChild(pe);});var au=document.createElement('p');au.className='author';au.textContent='— '+[s.author&&s.author.name,s.author&&s.author.location].filter(Boolean).join(', ');entry.append(h,sc,au);
         container.appendChild(entry);
       });
       if(data.stories.length>5){

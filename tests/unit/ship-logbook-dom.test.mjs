@@ -63,10 +63,9 @@ export function findUnsafe(text) {
 // #logbook-entries on about 230 pages, are not covered here.
 // 2026-11-16: the fourteen pages whose only logbook loader wrote #logbook-container were rebuilt with DOM
 // calls (Tekton itw-logbook-dom-only-remaining-20261116) and left this list for REBUILT below.
-const INNERHTML_DEBT = new Set([
-  'carnival-breeze', 'carnival-conquest', 'carnival-dream', 'carnival-freedom', 'carnival-glory',
-  'carnival-horizon', 'carnival-magic', 'carnival-vista',
-].map((s) => `ships/carnival/${s}.html`));
+// 2026-11-16: the last eight (breeze, conquest, dream, freedom, glory, horizon, magic, vista), whose second
+// logbook loader sat in another script, were rebuilt with DOM calls. The list is empty; keep it that way.
+const INNERHTML_DEBT = new Set([].map((s) => `ships/carnival/${s}.html`));
 // The 23 #logbook-entries pages the entry pattern found on 2026-11-16 were rebuilt with DOM calls the same day
 // (still uncalled, as they were); none is debt.
 
