@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261116-ci-tools-smoke-ubuntu-2404
+
+Task `itw-ci-tools-smoke-ubuntu-2404-20261116`.
+
+**Why.** ubuntu-latest became Ubuntu 26.04, where Playwright 1.60 refuses to install Chromium, so the Tools Smoke job has failed at install since 2026-11-14 and its seven browser gates have run nowhere, on main or on any PR.
+
+**Enables.** The tool-page smoke, ship stats card, both tipping calculator, voyage pack, rendered tool link and private-page offline gates run again on every PR and on main.
+
+**Untested:** A CI runner label; the proof is this pull request's own Tools Smoke run reaching and passing its gates.
+
 ### 20261109-skill-sync-four-questions
 
 Task `ocs-mirror-four-questions-20261109`.
