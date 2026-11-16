@@ -837,13 +837,31 @@ Dining Venues on Carnival Celebration</h2>
     const SOURCES=[abs('/assets/data/logbook/'+ctx.line+'/'+ctx.slug+'.json')];
     function fetchFirst(i){i=i||0; if(i>=SOURCES.length) return Promise.resolve(null);
       return fetch(SOURCES[i],{cache:'no-store'}).then(r=>r.ok?r.json():fetchFirst(i+1)).catch(()=>fetchFirst(i+1));}
-    function mdToHtml(src){let html=String(src||'').trim(); if(!html) return '';
-      html=html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
-      html='<p>'+html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br/>')+'</p>'; return html;}
+    function mdNodes(src,headings){const text=String(src||'').trim(); if(!text) return null;
+      const frag=document.createDocumentFragment();
+      const SAFE=/^(https?:\/\/|mailto:|\/|#|\.\/)/i;
+      function inline(el,s){const re=/\*\*(.+?)\*\*|\*(.+?)\*|\[([^\]]+)\]\(([^)\s]+)\)/g; let last=0,m;
+        while((m=re.exec(s))){ if(m.index>last) el.append(document.createTextNode(s.slice(last,m.index)));
+          if(m[1]!==undefined){const b=document.createElement('strong');b.textContent=m[1];el.append(b);}
+          else if(m[2]!==undefined){const e=document.createElement('em');e.textContent=m[2];el.append(e);}
+          else if(SAFE.test(m[4])){const a=document.createElement('a');a.setAttribute('href',m[4]);if(/^https?:/i.test(m[4]))a.setAttribute('rel','noopener');a.textContent=m[3];el.append(a);}
+          else el.append(document.createTextNode(m[3]));
+          last=re.lastIndex;}
+        if(last<s.length) el.append(document.createTextNode(s.slice(last)));}
+      for(const block of text.split(/\n{2,}/)){ let p=null;
+        for(const line of block.split('\n')){ const h=headings&&line.match(/^###?\s+(.+)$/);
+          if(h){ if(p){frag.append(p);p=null;} const hd=document.createElement('h3'); inline(hd,h[1]); frag.append(hd); continue; }
+          if(!p) p=document.createElement('p'); else p.append(document.createElement('br'));
+          inline(p,line);}
+        if(p) frag.append(p);}
+      return frag;}
     const state={i:0,items:[]};
-    function renderOne(p){const title=String(p.title||'Guest Perspective').replace(/</g,'&lt;');
-      const body=String(p.markdown||p.body||'').trim(); if(!body) return '';
-      return '<article class="story"><h3>'+title+'</h3><div class="story-body">'+mdToHtml(body)+'</div></article>';}
+    function renderOne(p){const title=String(p.title||'Guest Perspective');
+      const body=String(p.markdown||p.body||'').trim(); if(!body) return null;
+      const a=document.createElement('article');a.className='story';
+      const h=document.createElement('h3');h.textContent=title;
+      const d=document.createElement('div');d.className='story-body';const n=mdNodes(body,false);if(n)d.append(n);
+      a.append(h,d);return a;}
     function ensureNav(){
       if(document.getElementById('logbook-nav')) return;
       const nav=document.createElement('nav'); nav.id='logbook-nav'; nav.style.cssText='display:flex;gap:.5rem;margin-top:1rem;';
@@ -854,8 +872,8 @@ Dining Venues on Carnival Celebration</h2>
       next.onclick=()=>{ state.i=clamp(state.i+1,0,state.items.length-1); renderCurrent(); };
     }
     function renderCurrent(){
-      const i=state.i,arr=state.items; if(!arr.length){mount.innerHTML='<p class="tiny">No logbook entries yet.</p>'; return;}
-      mount.innerHTML=renderOne(arr[i]);
+      const i=state.i,arr=state.items; if(!arr.length){{const q=document.createElement('p');q.className='tiny';q.textContent='No logbook entries yet.';mount.replaceChildren(q);} return;}
+      {const el=renderOne(arr[i]);mount.replaceChildren(...(el?[el]:[]));}
       const nav=document.getElementById('logbook-nav'); if(!nav) return;
       nav.querySelector('button:first-child').disabled=(i===0);
       nav.querySelector('button:last-child').disabled=(i===arr.length-1);

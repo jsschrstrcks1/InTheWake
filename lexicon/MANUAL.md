@@ -18,6 +18,16 @@ Task `itw-logbook-dom-only-remaining-20261116`.
 
 **Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
 
+### 20261116-carousel-logbook-dom-only-77
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** 77 ship pages (RCL 49, Celebrity 15, Carnival 9, Holland America 4) turned logbook story markdown into HTML with mdToHtml and wrote it with innerHTML, link targets included, so a story's text or a javascript: link would reach the page as markup.
+
+**Enables.** Every carousel logbook builds its story from DOM nodes: the same markdown subset, links only to http(s), mailto, site paths and anchors, everything else shown as text; a test runs the renderer from a real page against a hostile story and holds all 77 pages to it.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::the carousel renderer makes only safe elements from a hostile story`.
+
 ### 20261116-carnival-logbook-dom-only-fourteen
 
 Task `itw-logbook-dom-only-remaining-20261116`.

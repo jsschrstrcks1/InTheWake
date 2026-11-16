@@ -170,3 +170,56 @@ test('the rebuilt pages load #logbook-container once, through DOM calls only', (
   }
   assert.deepEqual(bad, []);
 });
+
+// The carousel family (#logbook-stories; 77 pages on 2026-11-16, Tekton itw-logbook-dom-only-remaining-20261116)
+// turned story markdown into HTML with mdToHtml and wrote it with innerHTML, links included. It now builds nodes
+// with mdNodes and renderOne. These two tests hold every converted page to that, and run the renderer itself.
+function carouselBlocks() {
+  const out = [];
+  for (const f of htmlFiles('ships')) {
+    const t = readFileSync(path.join(ROOT, f), 'utf8');
+    const i = t.indexOf('initShipLogbook');
+    if (i < 0) continue;
+    const block = t.slice(i, t.indexOf('</script>', i));
+    if (block.includes('function mdNodes')) out.push([f, block]);
+  }
+  return out;
+}
+
+test('every converted carousel logbook builds nodes: no innerHTML, no mdToHtml', () => {
+  const blocks = carouselBlocks();
+  assert.ok(blocks.length >= 77, `expected the 77 converted pages, found ${blocks.length}`);
+  const bad = blocks.filter(([, b]) => /innerHTML|mdToHtml/.test(b)).map(([f]) => f);
+  assert.deepEqual(bad, []);
+});
+
+test('the carousel renderer makes only safe elements from a hostile story', () => {
+  const [, block] = carouselBlocks().find(([f]) => f.endsWith('adventure-of-the-seas.html'));
+  const src = ['mdNodes', 'renderOne'].map((name) => {
+    const i = block.indexOf(`function ${name}(`);
+    const j = block.indexOf('\n    function ', i + 10);
+    return block.slice(i, j < 0 ? undefined : j);
+  }).join('\n');
+  class Node {
+    constructor(tag) { this.tag = tag; this.kids = []; this.attrs = {}; this.className = ''; }
+    append(...k) { for (const x of k) { if (x && x.tag === '#frag') this.kids.push(...x.kids); else this.kids.push(x); } }
+    set textContent(v) { this.kids = [{ tag: '#text', text: String(v) }]; }
+    get textContent() { return this.kids.map((k) => (k.tag === '#text' ? k.text : k.textContent)).join(''); }
+    setAttribute(k, v) { this.attrs[k] = String(v); }
+  }
+  const document = { createElement: (t) => new Node(t), createTextNode: (t) => ({ tag: '#text', text: t }), createDocumentFragment: () => new Node('#frag') };
+  const ctx = { document };
+  vm.createContext(ctx);
+  vm.runInContext(`${src}\nthis.renderOne = renderOne;`, ctx);
+  const el = ctx.renderOne({
+    title: '<img src=x onerror=alert(1)>Title',
+    markdown: '### Day one\nWe **sailed** at *dawn*.\n\n<script>alert(2)</script> [bad](javascript:alert(3)) [ok](https://example.com) [home](/ships.html)',
+  });
+  const tags = (n) => (n.tag === '#text' ? [] : [n.tag, ...n.kids.flatMap(tags)]);
+  const hrefs = (n) => (n.tag === '#text' ? [] : [...(n.attrs.href ? [n.attrs.href] : []), ...n.kids.flatMap(hrefs)]);
+  assert.deepEqual([...new Set(tags(el))].sort(), ['a', 'article', 'div', 'em', 'h3', 'p', 'strong']);
+  assert.deepEqual(hrefs(el), ['https://example.com', '/ships.html']);
+  assert.ok(el.textContent.includes('<script>alert(2)</script>'), 'markup in a story stays text');
+  assert.ok(el.textContent.startsWith('<img src=x onerror=alert(1)>Title'), 'a title stays text');
+  assert.equal(ctx.renderOne({ title: 't', markdown: '   ' }), null, 'an empty story renders nothing');
+});
