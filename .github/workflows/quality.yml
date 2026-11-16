@@ -298,7 +298,10 @@ jobs:
 
   tools-smoke:
     name: Tools Smoke (no JS errors)
-    runs-on: ubuntu-latest
+    # Pinned 2026-11-16: ubuntu-latest became Ubuntu 26.04, where `npx playwright install --with-deps chromium`
+    # (Playwright 1.60) refuses to install, so every browser gate below was skipped on main and every PR.
+    # Move back to ubuntu-latest once Playwright supports that image.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
