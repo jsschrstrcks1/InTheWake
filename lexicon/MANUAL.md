@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261117-visible-comment-fragments
+
+Task `itw-visible-comment-fragments-20261117`.
+
+**Why.** nine pages printed broken comment fragments as visible text (' Section -->' on five Carnival ship pages, ': Page Intro -->' on two RCL pages, a stray content= attribute left on izumi when its keywords meta was removed, a template note on grief-meta whose comment a bulk favicon insert closed early), and Argus's Lexicon index could not read past those error regions
+
+**Enables.** readers no longer see stray markup on those pages, and the Lexicon indexes all nine in full (Argus reported them as parse gaps)
+
+**Untested:** page markup only; checked by an HTML-parser scan of all 1397 pages for visible --> (0 after, 4 kinds caught on main) and the Argus parse diagnosis (all nine parse)
+
 ### 20261116-template-logbook-loader-dormant-dom-only
 
 Task `itw-logbook-dom-only-remaining-20261116`.
