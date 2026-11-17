@@ -68,6 +68,12 @@ for (const tool of TOOLS) {
       } catch { /* never let a listener exception break the test */ }
     });
 
+    // Hermetic: this gate is about our pages' own JavaScript, not third-party uptime. Requests that
+    // leave the local test server (analytics, CDNs, the exchange-rate API) are aborted, so an outside
+    // host that never settles cannot hold networkidle open. Measured 2026-11-17: main at cf2fc7bc
+    // passed at 03:45 and failed at 04:50 on three pages with no code change.
+    await context.route(/^https?:\/\/(?!127\.0\.0\.1:8765\/)/, (route) => route.abort());
+
     const response = await page.goto(tool.url);
     expect(response?.status(), `HTTP status for ${tool.url}`).toBe(200);
 
