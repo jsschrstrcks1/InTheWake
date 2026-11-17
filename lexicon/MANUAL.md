@@ -18,6 +18,16 @@ Task `itw-logbook-dom-only-remaining-20261116`.
 
 **Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
 
+### 20261116-image-licence-work-list
+
+Task `itw-c9-image-licence-debt`.
+
+**Why.** The 2026-10-23 census counted 1,364 port images with no attribution sidecar and 868 that say only 'Flickr (verify license)', but nothing listed which, so the debt could be counted and never worked down; licence text was also spelled a dozen ways with no common form.
+
+**Enables.** A committed, CI-checked work list of every port image whose licence is missing, unverified, incomplete or restricted, grouped by port, with the recognised licences normalised, so a person clearing licences knows which image to open next.
+
+**Proved by** `tests/unit/lexicon-image-licence-debt.test.mjs::the work list sorts a fixture into its states, keeps a path with a space whole, and lists only debt per port`.
+
 ### 20261116-entries-logbook-dom-only-24
 
 Task `itw-logbook-dom-only-remaining-20261116`.
