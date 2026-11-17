@@ -18,6 +18,16 @@ Task `itw-visible-comment-fragments-20261117`.
 
 **Untested:** page markup only; checked by an HTML-parser scan of all 1397 pages for visible --> (0 after, 4 kinds caught on main) and the Argus parse diagnosis (all nine parse)
 
+### 20261117-visible-comment-fragment-gate
+
+Task `automate-itw-visible-comment-fragments-20261117-a748e2`.
+
+**Why.** nine pages printed broken comment fragments as text until InTheWake #2701, and only Argus's Lexicon index noticed; nothing in CI looked
+
+**Enables.** a page whose text shows a comment closer fails the unit tests at PR time, so a bulk edit that breaks a comment is caught before it ships and before the index has a gap
+
+**Proved by** `tests/unit/visible-comment-fragments.test.mjs::no committed page prints a comment closer as text`.
+
 ### 20261117-tools-smoke-hermetic
 
 Task `itw-tools-smoke-hermetic-20261117`.
