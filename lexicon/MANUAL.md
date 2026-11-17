@@ -18,6 +18,16 @@ Task `itw-visible-comment-fragments-20261117`.
 
 **Untested:** page markup only; checked by an HTML-parser scan of all 1397 pages for visible --> (0 after, 4 kinds caught on main) and the Argus parse diagnosis (all nine parse)
 
+### 20261117-tools-smoke-hermetic
+
+Task `itw-tools-smoke-hermetic-20261117`.
+
+**Why.** Tools Smoke went red on main with no code change (cf2fc7bc passed at 03:45, failed at 04:50): drink-calculator, drink-calculator-v1 and stateroom-check never reached networkidle because an outside request never settled, so every open InTheWake PR was red
+
+**Enables.** the smoke gate judges our pages' own JavaScript and no longer fails when a third-party host stalls; every InTheWake PR can go green again
+
+**Proved by** `tests/playwright/tools-smoke.spec.js::smoke: ${tool.url} loads, renders h1, no JS pageerrors, no [object Object] requests`.
+
 ### 20261116-template-logbook-loader-dormant-dom-only
 
 Task `itw-logbook-dom-only-remaining-20261116`.
