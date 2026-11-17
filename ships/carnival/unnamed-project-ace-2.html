@@ -636,7 +636,24 @@ All work on this project is offered as a gift to God.
 <!-- initFirstLook — Swiper for .firstlook carousel -->
 <script>function initFirstLook(){const c=document.querySelector('.firstlook .swiper');if(!c||typeof Swiper==='undefined')return;new Swiper(c,{loop:false,rewind:false,lazy:true,autoplay:{delay:4500,disableOnInteraction:true},pagination:{el:'.swiper-pagination',clickable:true},navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'}});}</script>
 <!-- initShipLogbook — fetch logbook JSON, render entries -->
-<script>function initShipLogbook(){const el=document.getElementById('logbook-container');if(!el)return;fetch('/assets/data/logbook/carnival/unnamed-project-ace-2.json').then(r=>r.json()).then(d=>{if(d.stories)el.innerHTML=d.stories.slice(0,3).map(s=>'<article class="logbook-entry"><h3>'+s.title+'</h3><p style="font-size:.85rem;color:#64748b;margin:.25rem 0">'+s.persona_label+'</p><div>'+s.markdown.split('\n\n').slice(0,2).map(p=>'<p>'+p.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</p>').join('')+'</div></article>').join('');}).catch(()=>{});}</script>
+<script>function initShipLogbook(){
+    const c=document.getElementById('logbook-container');
+    if(!c) return;
+    fetch('/assets/data/logbook/carnival/unnamed-project-ace-2.json')
+      .then(r=>r.json()).then(d=>{
+        if(!d||!Array.isArray(d.stories)||!d.stories.length) return;
+        c.textContent='';
+        d.stories.slice(0,3).forEach(s=>{
+          const a=document.createElement('article');a.className='logbook-entry';
+          const h=document.createElement('h3');h.textContent=String(s.title||'');
+          const m=document.createElement('p');m.className='logbook-meta';
+          m.textContent=[s.persona_label,s.author&&s.author.name].filter(Boolean).join(' · ');
+          const p=document.createElement('p');p.textContent=String(s.markdown||'').split('\n\n')[0].replace(/\*\*/g,'');
+          a.append(h,m,p);c.appendChild(a);
+        });
+      }).catch(()=>{});
+  }
+  initShipLogbook();</script>
 <!-- initStats — parse ship-stats-fallback JSON -->
 <script>function initStats(){const el=document.getElementById('ship-stats-fallback');if(!el)return;try{const d=JSON.parse(el.textContent);if(d.name)document.title=d.name+' — In The Wake';}catch(_){}}</script>
 <!-- initDining — fetch dining JSON -->

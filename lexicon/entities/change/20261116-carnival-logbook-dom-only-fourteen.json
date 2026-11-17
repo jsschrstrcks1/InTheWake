@@ -1,0 +1,599 @@
+{
+  "format": "lexicon-entity/1",
+  "entity": "change:20261116-carnival-logbook-dom-only-fourteen",
+  "_about": "Written by admin/change-record.mjs new. Append-only once on main; a correction is a new entry naming this one in supersedes. docs/lexicon/CHANGE-RECORD.md",
+  "statements": [
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261116-carnival-logbook-dom-only-fourteen#task",
+      "content": {
+        "summary": "change:20261116-carnival-logbook-dom-only-fourteen task = \"itw-logbook-dom-only-remaining-20261116\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "evi",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-16T04:04:50.191Z",
+        "observed_at": "2026-11-16T04:04:50.191Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261116-carnival-logbook-dom-only-fourteen",
+        "property": "task",
+        "value": "itw-logbook-dom-only-remaining-20261116",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-5e6a2f2108411101"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261116-carnival-logbook-dom-only-fourteen#why",
+      "content": {
+        "summary": "change:20261116-carnival-logbook-dom-only-fourteen why = \"Fourteen Carnival ship pages still built their logbook stories into the page as HTML strings from fetched JSON, ten of them through a second duplicate loader, and four defined a loader nobody called, so one page showed stories only through the unsafe duplicate and three showed none.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "evi",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-16T04:04:50.191Z",
+        "observed_at": "2026-11-16T04:04:50.191Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261116-carnival-logbook-dom-only-fourteen",
+        "property": "why",
+        "value": "Fourteen Carnival ship pages still built their logbook stories into the page as HTML strings from fetched JSON, ten of them through a second duplicate loader, and four defined a loader nobody called, so one page showed stories only through the unsafe duplicate and three showed none.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-c5bcc1c677bf2948"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261116-carnival-logbook-dom-only-fourteen#enables",
+      "content": {
+        "summary": "change:20261116-carnival-logbook-dom-only-fourteen enables = \"Every Carnival page with a logbook container now renders story text with DOM calls only, through one loader that is actually called; the guard test fails if innerHTML returns, a second loader appears, or the loader goes uncalled.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "evi",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-16T04:04:50.191Z",
+        "observed_at": "2026-11-16T04:04:50.191Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261116-carnival-logbook-dom-only-fourteen",
+        "property": "enables",
+        "value": "Every Carnival page with a logbook container now renders story text with DOM calls only, through one loader that is actually called; the guard test fails if innerHTML returns, a second loader appears, or the loader goes uncalled.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-2990ca45760ace8a"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261116-carnival-logbook-dom-only-fourteen#proved_by",
+      "content": {
+        "summary": "change:20261116-carnival-logbook-dom-only-fourteen proved_by = \"tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "evi",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-16T04:04:50.191Z",
+        "observed_at": "2026-11-16T04:04:50.191Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261116-carnival-logbook-dom-only-fourteen",
+        "property": "proved_by",
+        "value": "tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-0c0c4c1a270d5c32"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261116-carnival-logbook-dom-only-fourteen#rests_on",
+      "content": {
+        "summary": "change:20261116-carnival-logbook-dom-only-fourteen rests_on = \"measured 2026-11-16 on InTheWake main 5a9a003819: per page, the script block from initShipLogbook to its </script>; 23 DOM-only (all Carnival), 233 with innerHTML (rcl 50, celebrity 29, msc 24, carnival 23, norwegian 20, princess 17, others)\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "evi",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-16T04:04:50.191Z",
+        "observed_at": "2026-11-16T04:04:50.191Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261116-carnival-logbook-dom-only-fourteen",
+        "property": "rests_on",
+        "value": "measured 2026-11-16 on InTheWake main 5a9a003819: per page, the script block from initShipLogbook to its </script>; 23 DOM-only (all Carnival), 233 with innerHTML (rcl 50, celebrity 29, msc 24, carnival 23, norwegian 20, princess 17, others)",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-e115f3dbbe009abe"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261116-carnival-logbook-dom-only-fourteen#costs",
+      "content": {
+        "summary": "change:20261116-carnival-logbook-dom-only-fourteen costs = \"a loader change per page family plus a guard test over every ship page\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "evi",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-16T04:04:50.191Z",
+        "observed_at": "2026-11-16T04:04:50.191Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261116-carnival-logbook-dom-only-fourteen",
+        "property": "costs",
+        "value": "a loader change per page family plus a guard test over every ship page",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-6fddb2c53ed8acf2"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261116-carnival-logbook-dom-only-fourteen#retires",
+      "content": {
+        "summary": "change:20261116-carnival-logbook-dom-only-fourteen retires = \"raw HTML built from logbook data on 233 ship pages\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "evi",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-16T04:04:50.191Z",
+        "observed_at": "2026-11-16T04:04:50.191Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261116-carnival-logbook-dom-only-fourteen",
+        "property": "retires",
+        "value": "raw HTML built from logbook data on 233 ship pages",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-8d04aae3601af66f"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261116-carnival-logbook-dom-only-fourteen#moved",
+      "content": {
+        "summary": "change:20261116-carnival-logbook-dom-only-fourteen moved = {}",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+        "uri": null,
+        "publisher": "measured",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "evi",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-logbook-dom-only-remaining-20261116",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-16T04:04:50.191Z",
+        "observed_at": "2026-11-16T04:04:50.191Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261116-carnival-logbook-dom-only-fourteen",
+        "property": "moved",
+        "value": {},
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-8c8a7d17b081ced7"
+    }
+  ]
+}
