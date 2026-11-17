@@ -38,6 +38,16 @@ Task `itw-tools-smoke-hermetic-20261117`.
 
 **Proved by** `tests/playwright/tools-smoke.spec.js::smoke: ${tool.url} loads, renders h1, no JS pageerrors, no [object Object] requests`.
 
+### 20261117-critical-css-rename
+
+Task `inthewake-rename-assets-js-modules-critical-js-css-saved-as-`.
+
+**Why.** assets/js/modules/critical.js held only CSS under a .js name, so the JavaScript grammar could not read it and the Lexicon listed it as an index gap. Nothing loads it.
+
+**Enables.** The stylesheet sits with the site's other CSS under its true type, parses cleanly, and leaves the Lexicon gap list; Ken chose to keep it rather than delete it (ruling 2026-11-17).
+
+**Untested:** a rename with a one-line header change and no page loading the file; measured instead: the Argus CSS parse reads it as ok with no error lines, and the unit suite passes 342 of 342
+
 ### 20261116-template-logbook-loader-dormant-dom-only
 
 Task `itw-logbook-dom-only-remaining-20261116`.
