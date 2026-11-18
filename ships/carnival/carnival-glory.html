@@ -797,7 +797,7 @@ fetch('/assets/data/logbook/carnival/carnival-glory.json').then(r=>r.json()).the
   <!-- ===== Ship Logbook loader ===== -->
   <script>
   (function initShipLogbook(){
-    const mount=document.getElementById('logbook-stories'); if(!mount) return;
+    const mount=document.getElementById('logbook-stories')||document.getElementById('logbook-container'); if(!mount) return;
     function abs(p){return (window._abs?_abs(p):p);}
     function clamp(n,a,b){return Math.max(a,Math.min(b,n));}
     function getShipContext(){
