@@ -694,7 +694,8 @@ STANDARDS: Every Page v3.010.400 · Production Template · Unified Nav v3.010.40
 <script>function initLiveTracker(){const el=document.querySelector('[data-imo]');if(!el)return;const imo=el.getAttribute('data-imo');if(!imo||imo==='0')return;const c=document.getElementById('ship-tracker-container');if(c){c.innerHTML=`<p><a href="https://www.marinetraffic.com/en/ais/details/ships/imo:9863108" target="_blank" rel="nofollow noopener">Track on MarineTraffic →</a></p>`;}}
 </script>
 <!-- initShipLogbook — logbook loader -->
-<script>function initShipLogbook(){const el=document.getElementById('logbook-entries');if(!el)return;fetch('/assets/data/logbook/silversea/silver-origin.json').then(r=>r.ok?r.json():Promise.reject()).then(data=>{el.innerHTML=(data.entries||[]).slice(0,5).map(e=>`<li>${e.date}: ${e.note}</li>`).join('');}). catch(()=>{});}
+<script>function initShipLogbook(){const c=document.getElementById('logbook-container');if(!c)return;const ship=c.getAttribute('data-ship');const line=c.getAttribute('data-line');if(!ship||!line)return;fetch('/assets/data/logbook/'+encodeURIComponent(line)+'/'+encodeURIComponent(ship)+'.json').then(r=>{if(!r.ok)throw 0;return r.json();}).then(d=>{const items=Array.isArray(d)?d:(d&&Array.isArray(d.stories)?d.stories:[]);if(!items.length)return;c.textContent='';items.slice(0,3).forEach(s=>{const a=document.createElement('article');a.className='logbook-entry';const h=document.createElement('h3');h.textContent=String(s.title||'');const p=document.createElement('p');p.textContent=String(s.markdown||s.body||'').split('\n\n')[0].replace(/\*\*/g,'');a.append(h,p);c.appendChild(a);});}).catch(()=>{});}
+initShipLogbook();
 </script>
 <script src="/assets/js/dropdown.js"></script>
   <script src="/assets/js/in-app-browser-escape.js"></script>

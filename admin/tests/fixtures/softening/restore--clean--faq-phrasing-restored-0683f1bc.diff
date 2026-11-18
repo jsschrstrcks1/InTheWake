@@ -1,0 +1,106 @@
+commit 0683f1bcb9b9dee4d9efcd077aaa89162cbd1a30
+Author: Claude <noreply@anthropic.com>
+Date:   Thu May 21 12:17:21 2026 +0000
+
+    validator+ports: fix REGEX-01/REGEX-02, restore natural FAQ phrasing
+    
+    Undoes the regex-collision dodging cleverness from the 2026-05 batch.
+    Per the careful path documented in REGEX-01 and REGEX-02, the
+    validator regexes are fixed centrally so the next agent doesn't trip
+    on the same substring traps, and the dodged FAQ wordings are
+    restored to natural phrasing.
+    
+    Validator changes (scripts/port-weather-validator-core.js):
+    
+    - Best-time regex (faqTopics[0]): each alternative in
+      (?:visit|go|cruise) now wrapped in \b word boundaries so "go" only
+      matches as a standalone word. Previously the substring "go" inside
+      Glasgow, Bogota, Otago, Gothenburg, etc. would match the when[^<]*
+      go branch and trigger a false best-time-topic match on any FAQ
+      containing "when" plus one of those place names.
+    
+    - Packing regex (faqTopics[2]): bare "bring" removed from the
+      what[^<]*(?:pack|bring|wear) alternation. Bring is too ambiguous in
+      English ("what currency should I bring", "what to bring back as a
+      souvenir", "what paperwork to bring") and was capturing FAQs whose
+      subject was not clothing. Pack and wear remain as unambiguous
+      packing-intent markers; clothing-context "bring" still matches the
+      first alternation when paired with weather/clothes/jacket/layer.
+    
+    Port restorations (the two FAQ rewords I had used to dodge the
+    collisions):
+    
+    - ports/glasgow.html — "What is the hurricane and storm season
+      here?" restored to "When is hurricane and storm season in
+      Glasgow?" Both the JSON-LD mainEntity Q and the visible HTML Q.
+      The original phrasing is more natural (names the city) and is
+      what the FAQ should have been all along.
+    
+    - ports/mauritius.html — "What currency is used in Mauritius?"
+      restored to "What currency should I bring to Mauritius?" Both
+      the JSON-LD and HTML versions. The "should I bring" phrasing
+      matches how a cruise visitor actually asks the question.
+    
+    Doc updates:
+    
+    - admin/VALIDATOR_REGEX_ISSUES.md — REGEX-01 and REGEX-02 moved from
+      Open to Closed; flag that an audit of the wider 66-port batch is
+      still owed because other rewords driven by the same traps may
+      exist (place names with "go" substrings, "What ... bring" Qs
+      about non-clothing topics).
+    
+    Both pages PASS the weather sub-validator: 55 passed, 0 errors, 1
+    unrelated SPEC_REG warning each (port not in registry).
+    
+    Pattern reference: admin/CAREFUL_NOT_CLEVER_FAILURE_2026_05_21.md §3
+    (regex collision dodging). Walking the cleanup one pattern at a time
+    as requested — Glasgow and Mauritius grouped here because they
+    share the validator-fix prerequisite, same as the Hobart/Lerwick/
+    La-Coruna batch in the previous commit.
+    
+    https://claude.ai/code/session_017m1iWTcHm8pcJsQFJD2wQV
+
+diff --git a/ports/glasgow.html b/ports/glasgow.html
+index 15730a73..1af8ebc3 100644
+--- a/ports/glasgow.html
++++ b/ports/glasgow.html
+@@ -69,7 +69,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
+       {"@type": "Question", "name": "Is Glasgow walkable from Greenock?", "acceptedAnswer": {"@type": "Answer", "text": "No. Greenock is 40 km from Glasgow. You will need a train, bus, taxi, or ship excursion to reach the city centre. Greenock itself has limited attractions for cruise visitors."}},
+       {"@type": "Question", "name": "What should I pack for Glasgow's weather?", "acceptedAnswer": {"@type": "Answer", "text": "Glasgow is mild but rainy year-round. Summer temperatures average 15-19°C with frequent showers. Pack waterproof layers and comfortable shoes regardless of the forecast. A dry day is the exception. Warm layers matter even in midsummer; the Packing Tips section in the seasonal panel above adds windproof essentials for the Firth-coast Greenock approach."}},
+       {"@type": "Question", "name": "When is the best time to visit Glasgow?", "acceptedAnswer": {"@type": "Answer", "text": "The Scottish cruise season runs May-September. June-August offers the warmest weather (15-19°C highs) and the longest daylight. May and September are transitional with thinner crowds at Kelvingrove and the Cathedral. Winter cruise calls are infrequent — Glasgow winters are dark, cold, and reliably wet. The live weather widget in the seasonal panel above is the primary source for short-term conditions on a specific sailing date."}},
+-      {"@type": "Question", "name": "What is the hurricane and storm season here?", "acceptedAnswer": {"@type": "Answer", "text": "The Weather Hazards panel above labels Glasgow's heavy-weather window 'Atlantic Storms & Year-Round Rain' with 'Season: Oct – Mar (storm peak); rain year-round' and 'Peak risk: Nov, Dec, Jan.' Glasgow (Greenock pier) sits at ~55°N on Scotland's west coast — outside the tropical-cyclone tracks but firmly in the Atlantic-storm path. Late-season Atlantic hurricanes occasionally recurve toward the British Isles (Ophelia 2017 is the recent example). The live weather widget in the seasonal panel above is the primary source for current conditions on a specific sailing date."}},
++      {"@type": "Question", "name": "When is hurricane and storm season in Glasgow?", "acceptedAnswer": {"@type": "Answer", "text": "The Weather Hazards panel above labels Glasgow's heavy-weather window 'Atlantic Storms & Year-Round Rain' with 'Season: Oct – Mar (storm peak); rain year-round' and 'Peak risk: Nov, Dec, Jan.' Glasgow (Greenock pier) sits at ~55°N on Scotland's west coast — outside the tropical-cyclone tracks but firmly in the Atlantic-storm path. Late-season Atlantic hurricanes occasionally recurve toward the British Isles (Ophelia 2017 is the recent example). The live weather widget in the seasonal panel above is the primary source for current conditions on a specific sailing date."}},
+       {"@type": "Question", "name": "Will rain ruin my Glasgow port day?", "acceptedAnswer": {"@type": "Answer", "text": "Scottish rain is part of the experience, and Glasgow is built for it. Kelvingrove Art Gallery (free, world-class), the Riverside Museum, Glasgow Cathedral, the SEC retail district, and the underground vaulted Buchanan Galleries are all substantially indoor. The train from Greenock keeps you dry getting in. Loch Lomond and Stirling excursions are more weather-sensitive — heavy rain or low cloud obscures the Highland scenery. The live weather widget in the seasonal panel above is the primary source for short-term forecasts on a specific sailing date."}}
+     ]
+   }
+@@ -391,7 +391,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
+ 
+             <p><strong>Q: When is the best time to visit Glasgow?</strong><br>A: The Scottish cruise season runs May-September. June-August offers the warmest weather (15-19°C highs) and the longest daylight. May and September are transitional with thinner crowds at Kelvingrove and the Cathedral. Winter cruise calls are infrequent — Glasgow winters are dark, cold, and reliably wet. The live weather widget in the seasonal panel above is the primary source for short-term conditions on a specific sailing date.</p>
+ 
+-            <p><strong>Q: What is the hurricane and storm season here?</strong><br>A: The Weather Hazards panel above labels Glasgow's heavy-weather window "Atlantic Storms &amp; Year-Round Rain" with "Season: Oct – Mar (storm peak); rain year-round" and "Peak risk: Nov, Dec, Jan." Glasgow (Greenock pier) sits at ~55°N on Scotland's west coast — outside the tropical-cyclone tracks but firmly in the Atlantic-storm path. Late-season Atlantic hurricanes occasionally recurve toward the British Isles (Ophelia 2017 is the recent example). The live weather widget in the seasonal panel above is the primary source for current conditions on a specific sailing date.</p>
++            <p><strong>Q: When is hurricane and storm season in Glasgow?</strong><br>A: The Weather Hazards panel above labels Glasgow's heavy-weather window "Atlantic Storms &amp; Year-Round Rain" with "Season: Oct – Mar (storm peak); rain year-round" and "Peak risk: Nov, Dec, Jan." Glasgow (Greenock pier) sits at ~55°N on Scotland's west coast — outside the tropical-cyclone tracks but firmly in the Atlantic-storm path. Late-season Atlantic hurricanes occasionally recurve toward the British Isles (Ophelia 2017 is the recent example). The live weather widget in the seasonal panel above is the primary source for current conditions on a specific sailing date.</p>
+ 
+             <p><strong>Q: Will rain ruin my Glasgow port day?</strong><br>A: Scottish rain is part of the experience, and Glasgow is built for it. Kelvingrove Art Gallery (free, world-class), the Riverside Museum, Glasgow Cathedral, the SEC retail district, and the underground vaulted Buchanan Galleries are all substantially indoor. The train from Greenock keeps you dry getting in. Loch Lomond and Stirling excursions are more weather-sensitive — heavy rain or low cloud obscures the Highland scenery. The live weather widget in the seasonal panel above is the primary source for short-term forecasts on a specific sailing date.</p>
+           </div>
+diff --git a/ports/mauritius.html b/ports/mauritius.html
+index a1f54f31..a9b646ee 100644
+--- a/ports/mauritius.html
++++ b/ports/mauritius.html
+@@ -63,7 +63,7 @@ Soli Deo Gloria
+       {"@type": "Question", "name": "Where do cruise ships dock in Mauritius?", "acceptedAnswer": {"@type": "Answer", "text": "Christian Decotter Cruise Terminal at Caudan Waterfront in Port Louis. Shopping, dining, the Blue Penny Museum, and tourist information are immediately adjacent. It is one of the most convenient cruise terminals in the Indian Ocean. The pier area is accessible for wheelchair users with level pathways."}},
+       {"@type": "Question", "name": "What is Aapravasi Ghat and why should I visit?", "acceptedAnswer": {"@type": "Answer", "text": "Aapravasi Ghat is a UNESCO World Heritage Site documenting indentured labor immigration from 1834 to 1920. Over 450,000 Indian laborers first landed here. It is deeply significant to Mauritian identity and global labor history. Free entry, ten minutes from the terminal."}},
+       {"@type": "Question", "name": "Is Port Louis safe for cruise visitors?", "acceptedAnswer": {"@type": "Answer", "text": "Tourist areas including Caudan Waterfront and the Central Market during daytime are generally safe. Exercise normal caution with belongings. Avoid wandering unfamiliar neighborhoods alone after dark. Petty theft is possible in crowded areas — keep valuables secure."}},
+-      {"@type": "Question", "name": "What currency is used in Mauritius?", "acceptedAnswer": {"@type": "Answer", "text": "Mauritian Rupee (MUR) is preferred for markets and local vendors. Euros and US dollars are accepted at tourist-facing venues. ATMs are widely available at Caudan Waterfront and throughout Port Louis. Credit cards are accepted at most established shops and restaurants."}},
++      {"@type": "Question", "name": "What currency should I bring to Mauritius?", "acceptedAnswer": {"@type": "Answer", "text": "Mauritian Rupee (MUR) is preferred for markets and local vendors. Euros and US dollars are accepted at tourist-facing venues. ATMs are widely available at Caudan Waterfront and throughout Port Louis. Credit cards are accepted at most established shops and restaurants."}},
+       {"@type": "Question", "name": "Can I visit Black River Gorges and Chamarel in one day from the cruise port?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, but it requires a full day and early departure. Both are about 45-60 minutes from Port Louis in different directions. An organized full-day tour or a hired taxi with driver can combine both efficiently. Budget approximately $100-130 per person for a guided tour or $90-120 for a private taxi for the day. Plan for at least eight hours total."}},
+       {"@type": "Question", "name": "What is the best time of year to visit Mauritius?", "acceptedAnswer": {"@type": "Answer", "text": "May through September offers the most comfortable weather — cooler, drier, and outside cyclone season. The peak cruise season aligns with these months. November through March is warmer and more humid, with cyclone risk in January through March. Check the seasonal panel above for activity-specific recommendations."}},
+       {"@type": "Question", "name": "What should I pack for a port day in Mauritius?", "acceptedAnswer": {"@type": "Answer", "text": "Sunscreen, comfortable walking shoes, a hat, and a light rain jacket for mountain excursions. Modest clothing for visiting temples and mosques. Cash in small denominations for market purchases and street food."}},
+@@ -503,7 +503,7 @@ Soli Deo Gloria
+           <p><strong>Q: Where do cruise ships dock in Mauritius?</strong><br>A: Christian Decotter Cruise Terminal at Caudan Waterfront in Port Louis. Shopping, dining, the Blue Penny Museum, and tourist information are immediately adjacent. It is one of the most convenient cruise terminals in the Indian Ocean. The pier area is accessible for wheelchair users with level pathways.</p>
+           <p><strong>Q: What is Aapravasi Ghat and why should I visit?</strong><br>A: Aapravasi Ghat is a UNESCO World Heritage Site documenting indentured labor immigration from 1834 to 1920. Over 450,000 Indian laborers first landed here. It is deeply significant to Mauritian identity and global labor history. Free entry, ten minutes from the terminal.</p>
+           <p><strong>Q: Is Port Louis safe for cruise visitors?</strong><br>A: Tourist areas including Caudan Waterfront and the Central Market during daytime are generally safe. Exercise normal caution with belongings. Avoid wandering unfamiliar neighborhoods alone after dark. Petty theft is possible in crowded areas — keep valuables secure.</p>
+-          <p><strong>Q: What currency is used in Mauritius?</strong><br>A: Mauritian Rupee (MUR) is preferred for markets and local vendors. Euros and US dollars are accepted at tourist-facing venues. ATMs are widely available at Caudan Waterfront and throughout Port Louis. Credit cards are accepted at most established shops and restaurants.</p>
++          <p><strong>Q: What currency should I bring to Mauritius?</strong><br>A: Mauritian Rupee (MUR) is preferred for markets and local vendors. Euros and US dollars are accepted at tourist-facing venues. ATMs are widely available at Caudan Waterfront and throughout Port Louis. Credit cards are accepted at most established shops and restaurants.</p>
+           <p><strong>Q: Can I visit Black River Gorges and Chamarel in one day from the cruise port?</strong><br>A: Yes, but it requires a full day and early departure. Both are about 45-60 minutes from Port Louis in different directions. An organized full-day tour or a hired taxi with driver can combine both efficiently. Budget approximately $100-130 per person for a guided tour or $90-120 for a private taxi for the day. Plan for at least eight hours total.</p>
+           <p><strong>Q: What is the best time of year to visit Mauritius?</strong><br>A: May through September offers the most comfortable weather — cooler, drier, and outside cyclone season. The peak cruise season aligns with these months. November through March is warmer and more humid, with cyclone risk in January through March. Check the seasonal panel above for activity-specific recommendations.</p>
+           <p><strong>Q: What should I pack for a port day in Mauritius?</strong><br>A: Sunscreen, comfortable walking shoes, a hat, and a light rain jacket for mountain excursions. Modest clothing for visiting temples and mosques. Cash in small denominations for market purchases and street food.</p>

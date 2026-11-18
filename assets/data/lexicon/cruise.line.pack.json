@@ -1,0 +1,93 @@
+{
+  "format": "lexicon-pack/1",
+  "pack": "cruise.line",
+  "version": 1,
+  "entity_type": "line",
+  "partition": "public",
+  "_about": "Which facts a cruise line carries in the Lexicon. Track C7b: beverage_gratuity_rate, the fraction a line adds to a beverage package price. Operator ruling 2026-10-31 (memory 446c35a2): the gratuity is knowledge that can go stale and must be marked as such, so it carries ttl_days 90 (LEXICON-PLAN-3.1 section 6, cruise.line: prices 90d) and Project-Sophos sophos/src/lexicon/freshness.mjs reads it stale once that long has passed since its last check. A line whose package prices already include the gratuity, or that adds none, files no rate: a stored 0 there means 'nothing is added on top', not '0 percent gratuity'. Track C7d adds the tipping calculator's figures from assets/data/tipping/: gratuities_in_fare (does the fare include crew gratuities), daily_gratuity_<tier> (USD per guest per day, one property per cabin tier, filed only where the line has one worldwide rate), and bar_gratuity_rate (the automatic charge on bar purchases and drink packages, a fraction). They carry ttl_days 60, the re-verify cadence task itw-cruise-tipping-reverify-60d sets. Identity: line:<id>, the line's id in brands.json (assets/data/lexicon/line-aliases.json). Soli Deo Gloria.",
+  "identity": {
+    "key": "line:<id>, the line's id in brands.json",
+    "aliases": [
+      "calculator_key",
+      "line_file"
+    ]
+  },
+  "source_kinds": {
+    "line-official": "the line's own site or FAQ; evidence tier primary. Not yet read in the session",
+    "itw-data": "a data file already in this repository; evidence tier secondary"
+  },
+  "properties": {
+    "beverage_gratuity_rate": {
+      "value_type": "number",
+      "unit": "fraction added to package prices",
+      "authority": [
+        "line-official",
+        "itw-data"
+      ],
+      "ttl_days": 90
+    },
+    "gratuities_in_fare": {
+      "value_type": "boolean",
+      "unit": null,
+      "authority": [
+        "line-official",
+        "itw-data"
+      ],
+      "ttl_days": 60
+    },
+    "daily_gratuity_standard": {
+      "value_type": "number",
+      "unit": "USD per guest per day",
+      "authority": [
+        "line-official",
+        "itw-data"
+      ],
+      "ttl_days": 60
+    },
+    "daily_gratuity_suite": {
+      "value_type": "number",
+      "unit": "USD per guest per day",
+      "authority": [
+        "line-official",
+        "itw-data"
+      ],
+      "ttl_days": 60
+    },
+    "daily_gratuity_concierge": {
+      "value_type": "number",
+      "unit": "USD per guest per day",
+      "authority": [
+        "line-official",
+        "itw-data"
+      ],
+      "ttl_days": 60
+    },
+    "daily_gratuity_mini_suite": {
+      "value_type": "number",
+      "unit": "USD per guest per day",
+      "authority": [
+        "line-official",
+        "itw-data"
+      ],
+      "ttl_days": 60
+    },
+    "daily_gratuity_onboard": {
+      "value_type": "number",
+      "unit": "USD per guest per day",
+      "authority": [
+        "line-official",
+        "itw-data"
+      ],
+      "ttl_days": 60
+    },
+    "bar_gratuity_rate": {
+      "value_type": "number",
+      "unit": "fraction added to bar purchases",
+      "authority": [
+        "line-official",
+        "itw-data"
+      ],
+      "ttl_days": 60
+    }
+  }
+}

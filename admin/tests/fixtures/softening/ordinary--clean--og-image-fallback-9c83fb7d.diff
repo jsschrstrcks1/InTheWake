@@ -1,0 +1,53 @@
+commit 9c83fb7d0e825e95213e865e1c6fb5b1d09a5cf4
+Author: jsschrstrcks1 <jcr.chilis@gmail.com>
+Date:   Tue Jul 21 09:29:50 2026 -0400
+
+    fix(itw-gh-1619): resolve social-preview 404s — 19 pages' og:image/twitter:image pointed to missing files (#2493)
+    
+    Reality-anchored: the task said '11 pages' but a recursive sweep found 19 PUBLIC pages (ports, restaurants,
+    cruise-lines, solo) whose og:image + twitter:image referenced image files that DON'T EXIST (e.g.
+    /images/ports/trinidad-og.jpg, /assets/og/chefs-table-hero.jpg) — a broken social card on share. Repointed
+    all 19 to the verified default social image (/assets/social/home-hero.jpg, exists, 371KB) so previews work.
+    
+    Careful, not clever: I did NOT fabricate per-page hero images — many of these pages' OWN hero images are
+    also missing (e.g. /ports/img/trinidad-hero.webp), a deeper content gap flagged separately. A branded
+    default preview beats a 404. Red-teamed: recursive re-sweep = 0 broken og/twitter images remaining;
+    24/24 surgical line changes.
+    
+    Co-authored-by: Claude Opus 4.8 <noreply@anthropic.com>
+
+diff --git a/ports/cairns.html b/ports/cairns.html
+index a5b01e3f..47fe3a51 100644
+--- a/ports/cairns.html
++++ b/ports/cairns.html
+@@ -15,7 +15,7 @@ Soli Deo Gloria
+   <meta property="og:title" content="Cairns Port Guide — Gateway to the Great Barrier Reef">
+   <meta property="og:description" content="First-person logbook guide to Cairns — gateway to the Great Barrier Reef, Daintree Rainforest, Cape Tribulation, Kuranda railway, and tropical Queensland adventure.">
+   <meta property="og:url" content="https://cruisinginthewake.com/ports/cairns.html">
+-  <meta property="og:image" content="https://cruisinginthewake.com/assets/ports/cairns/hero.webp">
++  <meta property="og:image" content="https://cruisinginthewake.com/assets/social/home-hero.jpg">
+   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
+   <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+@@ -66,7 +66,7 @@ Soli Deo Gloria
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:title" content="Cairns Port Guide — Gateway to the Great Barrier Reef">
+   <meta name="twitter:description" content="First-person logbook guide to Cairns — gateway to the Great Barrier Reef, Daintree Rainforest, and tropical Queensland adventure.">
+-  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/ports/cairns/hero.webp">
++  <meta name="twitter:image" content="https://cruisinginthewake.com/assets/social/home-hero.jpg">
+   <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-WZP891PZXJ"></script>
+   <script>
+     window.dataLayer=window.dataLayer||[];
+diff --git a/ports/colon.html b/ports/colon.html
+index b71c4b3e..ed3c28c2 100644
+--- a/ports/colon.html
++++ b/ports/colon.html
+@@ -23,7 +23,7 @@ ITW-Lite v3.010 | ICP-Lite v1.4
+     <meta property="og:description" content="Complete guide to Colón cruise port. Panama Canal viewing, UNESCO sites, and Portobelo colonial ruins.">
+     <meta property="og:type" content="article">
+     <meta property="og:url" content="https://cruisinginthewake.com/ports/colon">
+-    <meta property="og:image" content="https://cruisinginthewake.com/images/ports/colon-og.jpg">
++    <meta property="og:image" content="https://cruisinginthewake.com/assets/social/home-hero.jpg">
+ 
+     <!-- Structured Data: BreadcrumbList -->
+     <script type="application/ld+json">

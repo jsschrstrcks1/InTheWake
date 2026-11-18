@@ -44,6 +44,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { commitDate, loadContract } from "./ship-statements.mjs";
+import { priorDates, keepDates } from "./stable-dates.mjs";
 import { OBSERVATION_FILE as GAZETTEER_FILE, verdict as gazetteerVerdict } from "./port-gazetteer.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -183,6 +184,7 @@ export async function buildPortStatements(root = ROOT, contract) {
   const { currentValue, findConflicts, distanceM } = await import(new URL(`file://${path.join(contract.dir, "statement.mjs")}`).href);
   const src = readSources(root);
   const gazetteer = fs.existsSync(path.join(root, GAZETTEER_FILE)) ? readJson(root, GAZETTEER_FILE) : null;
+  const prior = priorDates(root, src.pages.map((slug) => `${OUT_DIR}/${slug}.json`));
   const dates = new Map();
   const dated = (file) => { if (!dates.has(file)) dates.set(file, commitDate(root, file)); return dates.get(file); };
   const files = {}, disputes = [], nameReview = [];
@@ -197,12 +199,11 @@ export async function buildPortStatements(root = ROOT, contract) {
     for (const g of groups.sort((a, b) => (a.property < b.property ? -1 : a.property > b.property ? 1 : JSON.stringify(a.value) < JSON.stringify(b.value) ? -1 : 1))) {
       const p = pack.properties[g.property];
       const refs = [...new Set(g.items.map((i) => i.ref))].sort();
-      const at = g.items.map((i) => dated(i.file)).sort().at(-1);
-      const s = contract.makeStatement({
+      const s = keepDates(prior, (at) => contract.makeStatement({
         pack: pack.pack, entity, property: g.property, value: g.value, unit: p.unit, partition: pack.partition,
         status: "inference", evidence: refs.map((ref) => ({ ref, tier: "secondary" })), sourceRef: refs[0], publisher: "In the Wake",
         assertedAt: at, observedAt: at, actor: ACTOR, clock: () => at, ...(p.value_type === "geo" ? { toleranceM: p.tolerance_m } : {}),
-      });
+      }), () => g.items.map((i) => dated(i.file)).sort().at(-1));
       const ok = contract.validateStatement(JSON.parse(JSON.stringify(s)));
       const fits = contract.checkStatement(pack, s);
       if (!ok.ok || !fits.ok) throw fail("itw_port_statements_unavailable", `${entity} ${g.property}: ${[...(ok.errors ?? []), ...(fits.errors ?? [])].join("; ")}`);

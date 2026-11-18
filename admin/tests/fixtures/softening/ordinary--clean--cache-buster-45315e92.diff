@@ -1,0 +1,56 @@
+commit 45315e926c3b313bec64042fa126d6205a6054f9
+Author: Claude <noreply@anthropic.com>
+Date:   Tue Jul 7 22:08:59 2026 +0000
+
+    Add cache-buster ?v=3.010.400 to 344 unversioned styles.css refs (#1632)
+    
+    344 pages (mostly port pages) loaded /assets/styles.css with no version
+    query string. Combined with the .htaccess `Cache-Control: immutable`
+    policy the owner documented, these were permanently cached with no way to
+    push CSS updates to returning visitors. Added ?v=3.010.400 — the site's
+    current majority version (792 other pages already use it) — so these
+    pages bust cache consistently with the rest of the site. 0 unversioned
+    styles.css refs remain.
+    
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_01BQVDWGoyzkcEHZYcBerCjA
+
+diff --git a/ports/abu-dhabi.html b/ports/abu-dhabi.html
+index e20f6563..c114363e 100644
+--- a/ports/abu-dhabi.html
++++ b/ports/abu-dhabi.html
+@@ -20,7 +20,7 @@ Soli Deo Gloria
+ 
+   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
+   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
+-  <link rel="stylesheet" href="/assets/styles.css">
++  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0">
+   <script type="application/ld+json">
+diff --git a/ports/acapulco.html b/ports/acapulco.html
+index 9be7cf38..b5cd245e 100644
+--- a/ports/acapulco.html
++++ b/ports/acapulco.html
+@@ -20,7 +20,7 @@ Soli Deo Gloria
+ 
+   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
+   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
+-  <link rel="stylesheet" href="/assets/styles.css">
++  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" integrity="sha256-dMpqrlRo28kkeQw7TSGaCJuQo0utU6D3yjpz5ztvWrg=" crossorigin="anonymous">
+diff --git a/ports/adelaide.html b/ports/adelaide.html
+index 5ca789f9..0fb526f3 100644
+--- a/ports/adelaide.html
++++ b/ports/adelaide.html
+@@ -20,7 +20,7 @@ Soli Deo Gloria
+ 
+   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/in_the_wake_icon_32x32.png">
+   <script>if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script>
+-  <link rel="stylesheet" href="/assets/styles.css">
++  <link rel="stylesheet" href="/assets/styles.css?v=3.010.400">
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+   <link rel="stylesheet" href="/assets/css/components/port-map.css?v=2.0.0">
+   <script type="application/ld+json">

@@ -1,0 +1,31 @@
+# cloudflared ingress for the door. EXAMPLE: placeholders only, copy and fill in on the home machine.
+#
+# This is the SECOND gate. The Worker's allowlist is the first, and the two must agree: when
+# you add a path to ROOMS in worker.js, add it to the regex below in the same change
+# (worker.test.mjs checks this file against the Worker's lists).
+#
+# Why a path rule here at all, when the Worker already filters: defence in depth. The door never
+# relies on the app behind it to refuse a request. If the Worker is ever wrong, or the
+# Access service token leaks, this rule is what still keeps /admin, /helm, /photos and the rest
+# off the tunnel.
+#
+# What this rule can NOT do: it matches paths only, not methods. A POST to an admitted path
+# passes it. Read-only is enforced by the Worker alone (and /recipe/correct is not admitted
+# here, so the one recipe write route is closed at this gate too).
+#
+# Atlas listens on port 8088 (atlas/server/server.mjs `listen: ({ port = 8088 ...`, and
+# atlas/README.md "http on <tailnet-ip>:8088"), and opens a 127.0.0.1 listener beside its
+# private-network one (server.mjs `loopbackServer.listen(port, "127.0.0.1")`).
+#
+# `path` is a Go regular expression matched against the request path. It is anchored with ^ and
+# $ on purpose: an unanchored pattern matches anywhere in the path. It is case-sensitive.
+
+tunnel: 00000000-0000-0000-0000-000000000000
+credentials-file: /path/to/.cloudflared/00000000-0000-0000-0000-000000000000.json
+
+ingress:
+  - hostname: recipes-door.example.com
+    path: '^/(recipes\.html|recipes\.mjs|recipes-print\.html|recipes-print\.mjs|recipes\.webmanifest|icons/atlas-recipes\.svg|recipes(/(random|analyze|bundle|duplicates|measures|tips|daily|confidence|by-ingredients|suggest|ingredients))?|recipe(/(card|measures))?|recipe/tools(/[a-z-]+)?|recipes/build(/[a-z-]+){0,2})$'
+    service: http://127.0.0.1:8088
+  # Everything else on this hostname, and every other hostname: nothing.
+  - service: http_status:404

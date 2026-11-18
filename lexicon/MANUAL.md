@@ -8,6 +8,276 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261118-ship-logbook-stories-shown
+
+Task `inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-`.
+
+**Why.** 138 ship pages had composed logbook stories and a DOM-only loader that nothing called, so readers saw only a placeholder; 23 of them also read an entries shape no file has and targeted an element the page lacks.
+
+**Enables.** Readers of 138 ship pages now see up to three of the ship's composed stories, rendered as text through DOM calls, as the operator ruled on 2026-11-18; a guard test keeps any page with a stories file from going dormant again.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::every ship page whose logbook container names a stories file calls its loader, once`.
+
+### 20261118-ship-logbook-carousel-mount
+
+Task `inthewake-mount-the-20-ship-page-logbook-carousels-on-logboo`.
+
+**Why.** 20 Carnival, Celebrity and Royal Caribbean ship pages hold 211 written stories behind a carousel that only looked for #logbook-stories, which those pages lack, so readers saw a placeholder forever. Ken ruled 'Show stories' on 2026-11-18.
+
+**Enables.** Readers of those 20 ship pages now see the logbook stories with previous and next buttons, and a test fails if any ship page runs the carousel with nowhere to mount.
+
+**Proved by** `tests/unit/ship-logbook-carousel-mount.test.mjs::every ship page that runs the carousel has an element the carousel can mount on`.
+
+### 20261118-critical-css-header-path
+
+Task `inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-`.
+
+**Why.** The rename in InTheWake #2705 staged the file before its header line was edited, so main's critical.css still names its old path, assets/js/modules/critical.js.
+
+**Enables.** The stylesheet's own header names where it lives, so a reader is not sent to a path that no longer exists.
+
+**Untested:** a one-line comment change in a stylesheet nothing loads; the Argus CSS parse still reads it as ok
+
+### 20261117-visible-comment-fragments
+
+Task `itw-visible-comment-fragments-20261117`.
+
+**Why.** nine pages printed broken comment fragments as visible text (' Section -->' on five Carnival ship pages, ': Page Intro -->' on two RCL pages, a stray content= attribute left on izumi when its keywords meta was removed, a template note on grief-meta whose comment a bulk favicon insert closed early), and Argus's Lexicon index could not read past those error regions
+
+**Enables.** readers no longer see stray markup on those pages, and the Lexicon indexes all nine in full (Argus reported them as parse gaps)
+
+**Untested:** page markup only; checked by an HTML-parser scan of all 1397 pages for visible --> (0 after, 4 kinds caught on main) and the Argus parse diagnosis (all nine parse)
+
+### 20261117-visible-comment-fragment-gate
+
+Task `automate-itw-visible-comment-fragments-20261117-a748e2`.
+
+**Why.** nine pages printed broken comment fragments as text until InTheWake #2701, and only Argus's Lexicon index noticed; nothing in CI looked
+
+**Enables.** a page whose text shows a comment closer fails the unit tests at PR time, so a bulk edit that breaks a comment is caught before it ships and before the index has a gap
+
+**Proved by** `tests/unit/visible-comment-fragments.test.mjs::no committed page prints a comment closer as text`.
+
+### 20261117-tools-smoke-hermetic
+
+Task `itw-tools-smoke-hermetic-20261117`.
+
+**Why.** Tools Smoke went red on main with no code change (cf2fc7bc passed at 03:45, failed at 04:50): drink-calculator, drink-calculator-v1 and stateroom-check never reached networkidle because an outside request never settled, so every open InTheWake PR was red
+
+**Enables.** the smoke gate judges our pages' own JavaScript and no longer fails when a third-party host stalls; every InTheWake PR can go green again
+
+**Proved by** `tests/playwright/tools-smoke.spec.js::smoke: ${tool.url} loads, renders h1, no JS pageerrors, no [object Object] requests`.
+
+### 20261117-critical-css-rename
+
+Task `inthewake-rename-assets-js-modules-critical-js-css-saved-as-`.
+
+**Why.** assets/js/modules/critical.js held only CSS under a .js name, so the JavaScript grammar could not read it and the Lexicon listed it as an index gap. Nothing loads it.
+
+**Enables.** The stylesheet sits with the site's other CSS under its true type, parses cleanly, and leaves the Lexicon gap list; Ken chose to keep it rather than delete it (ruling 2026-11-17).
+
+**Untested:** a rename with a one-line header change and no page loading the file; measured instead: the Argus CSS parse reads it as ok with no error lines, and the unit suite passes 342 of 342
+
+### 20261116-template-logbook-loader-dormant-dom-only
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** 118 ship pages carried a template logbook loader that built story HTML from fetched data, read an array shape no logbook file has, and was never called, so it was dead today and unsafe the day anyone wired it; the guard's pattern could not see it because the loader named its item e.
+
+**Enables.** The template loader on all 118 pages is DOM-only and reads the real stories shape, still uncalled so whether those stories appear stays the operator's decision; the guard now sees the e-named form, and the 23 #logbook-entries pages it newly finds are recorded as debt that can only shrink.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
+
+### 20261116-image-licence-work-list
+
+Task `itw-c9-image-licence-debt`.
+
+**Why.** The 2026-10-23 census counted 1,364 port images with no attribution sidecar and 868 that say only 'Flickr (verify license)', but nothing listed which, so the debt could be counted and never worked down; licence text was also spelled a dozen ways with no common form.
+
+**Enables.** A committed, CI-checked work list of every port image whose licence is missing, unverified, incomplete or restricted, grouped by port, with the recognised licences normalised, so a person clearing licences knows which image to open next.
+
+**Proved by** `tests/unit/lexicon-image-licence-debt.test.mjs::the work list sorts a fixture into its states, keeps a path with a space whole, and lists only debt per port`.
+
+### 20261116-entries-logbook-dom-only-24
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** Twenty-three #logbook-entries pages (Seabourn, Silversea, Virgin Voyages) and the Discovery-class placeholder still wrote logbook data with innerHTML inside their initShipLogbook block.
+
+**Enables.** No initShipLogbook block on any ship page writes innerHTML; the entries loaders stay uncalled as they were, and the Discovery page shows the same text through textContent.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
+
+### 20261116-ci-tools-smoke-ubuntu-2404
+
+Task `itw-ci-tools-smoke-ubuntu-2404-20261116`.
+
+**Why.** ubuntu-latest became Ubuntu 26.04, where Playwright 1.60 refuses to install Chromium, so the Tools Smoke job has failed at install since 2026-11-14 and its seven browser gates have run nowhere, on main or on any PR.
+
+**Enables.** The tool-page smoke, ship stats card, both tipping calculator, voyage pack, rendered tool link and private-page offline gates run again on every PR and on main.
+
+**Untested:** A CI runner label; the proof is this pull request's own Tools Smoke run reaching and passing its gates.
+
+### 20261116-carousel-logbook-dom-only-77
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** 77 ship pages (RCL 49, Celebrity 15, Carnival 9, Holland America 4) turned logbook story markdown into HTML with mdToHtml and wrote it with innerHTML, link targets included, so a story's text or a javascript: link would reach the page as markup.
+
+**Enables.** Every carousel logbook builds its story from DOM nodes: the same markdown subset, links only to http(s), mailto, site paths and anchors, everything else shown as text; a test runs the renderer from a real page against a hostile story and holds all 77 pages to it.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::the carousel renderer makes only safe elements from a hostile story`.
+
+### 20261116-carnival-logbook-dom-only-fourteen
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** Fourteen Carnival ship pages still built their logbook stories into the page as HTML strings from fetched JSON, ten of them through a second duplicate loader, and four defined a loader nobody called, so one page showed stories only through the unsafe duplicate and three showed none.
+
+**Enables.** Every Carnival page with a logbook container now renders story text with DOM calls only, through one loader that is actually called; the guard test fails if innerHTML returns, a second loader appears, or the loader goes uncalled.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::the rebuilt pages load #logbook-container once, through DOM calls only`.
+
+### 20261116-carnival-last-eight-logbook-loaders
+
+Task `itw-logbook-dom-only-remaining-20261116`.
+
+**Why.** Eight Carnival pages still had a second logbook loader in another script that wrote story fields into innerHTML; they were the last entries on the guard's debt list.
+
+**Enables.** No ship page puts logbook data through innerHTML, and the guard's debt list is empty, so any return fails the build.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::no ship page builds HTML strings from logbook data, outside the recorded debt`.
+
+### 20261109-skill-sync-four-questions
+
+Task `ocs-mirror-four-questions-20261109`.
+
+**Why.** The four-questions skill changed at its source (Project-Sophos@960ef7be0dbf) and this copy is declared synced.
+
+**Enables.** This repository carries the current four-questions skill, byte-identical to its source.
+
+**Untested:** a mirrored skill file; skill-sync verified it byte-identical to the source before staging
+
+### 20261109-itw-tool-links
+
+Task `automate-itw-atlas-rcl-link-fix-ee5a74`.
+
+**Why.** Both drink calculator pages showed readers three related-article links to pages the site never had, so every click was a 404. Nothing caught it, because Check Links reads HTML as written and these links are written by a script after the page loads.
+
+**Enables.** The drink calculator's article links now open real pages, and every tool page's script-rendered links are checked in CI, so a dead link a script writes fails the pull request instead of reaching readers.
+
+**Proved by** `tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves`.
+
+### 20261109-itw-playwright-sw-default
+
+Task `syl-keep-prs-current-20261109`.
+
+**Why.** In CI the headless browser crashed three times when a test closed its page while the site's service worker was installing its precache list, the third time in the voyage landing spec, which intercepts no requests. Blocking the worker in one spec at a time only moved the crash.
+
+**Enables.** Every Playwright spec, including ones written later, runs without the service worker unless it says otherwise, so a page closing mid-install can no longer crash CI; the two specs that test the worker still run it and fail if their opt-in is removed.
+
+**Proved by** `tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed`.
+
+### 20261109-hook-tmp-paths
+
+Task `hook-tmp-household-sweep-20261109`.
+
+**Why.** This repo's hooks redirected to fixed /tmp files; where another user or job owned one, the redirect failed and its command never ran, so encoded memories could silently fail to persist, and its directive hook was an old copy that only looked for ken's older rule.
+
+**Enables.** memory-autopersist (and reasoning-log-persist where present) try the append and fall back to a per-user file, and memory-directives-inject is the Project-Sophos canonical: it loads the open-claw-stuff directive rule first and writes its error detail to a per-run file.
+
+**Untested:** this repo has no hooks test folder; with the default autopersist log path made a directory, the patched hook committed the memory file; admin/hook-tmp-path-lint.mjs (Project-Sophos) reads this repo CLEAN; the mechanism is pinned in Project-Sophos .claude/hooks/tests/hook-log-fallback.test.mjs
+
+### 20261108-softening-detector
+
+Task `inthewake-detect-validator-green-by-softening`.
+
+**Why.** Three postmortems record pages pushed to validator green by softening content (repointed images, stripped qualifiers, questions reworded around regex bugs, sections moved unread), each found only when a person asked whether the work was careful or clever.
+
+**Enables.** admin/softening-detector.mjs reads a diff or commit range and flags those four patterns per page; advisory, never edits a page; three states with UNAVAILABLE never read as CLEAN.
+
+**Proved by** `admin/tests/softening-detector.test.mjs::Sydney: all eight descriptive image names repointed to numbered files are flagged as softening`.
+
+### 20261108-itw-tipping-spec-no-sw
+
+Task `automate-itw-tipping-spec-green-20261108-07f6bc`.
+
+**Why.** In CI the headless browser crashed twice at the same point in the tipping calculator spec, right after a short test closed its page while the site's service worker was still fetching its precache list through the test's request interception.
+
+**Enables.** The tipping calculator spec runs without the service worker, so each test loads only the calculator's own files and CI is not left red by a browser crash; the offline spec still tests the service worker on its own.
+
+**Proved by** `tests/playwright/cruise-tipping-calculator.spec.js::Costa half-rate: family with one school-age child on Med EUR sailing pays €192.50, not €231`.
+
+### 20261108-itw-tipping-spec-green
+
+Task `itw-tipping-spec-green-20261108`.
+
+**Why.** Two of the tipping calculator's twelve browser tests timed out on every run, because with the network open the page loads a third-party cookie consent dialog that sits over the buttons the tests click. The spec was also not run in CI, so nothing showed it was red.
+
+**Enables.** The whole tipping calculator spec runs in CI on every pull request, so a break in compare mode, the share link, specialty dining or the regional and child rates is caught before it reaches readers.
+
+**Proved by** `tests/playwright/cruise-tipping-calculator.spec.js::compare mode shows a side-by-side total for a second line`.
+
+### 20261108-itw-every-spec-in-ci
+
+Task `automate-itw-tipping-spec-green-20261108-07f6bc`.
+
+**Why.** A Playwright spec that no workflow runs can go red and stay red with nobody seeing it. On main, CI ran three of the eight specs, and two of the five it skipped were red: the tipping calculator under a cookie dialog, and the voyage companion's usage spec, which had asserted the old relay wire format since 2026-10-05.
+
+**Enables.** Every browser spec now runs on each pull request or is named local-only with its reason, and a unit test fails the moment a new spec is added without one or the other. The companion's privacy promise is checked in CI: the phone sends the relay only the event name and its whitelisted data.
+
+**Proved by** `tests/unit/playwright-specs-in-ci.test.mjs::every Playwright spec is run by CI or named local-only with a reason`.
+
+### 20261107-itw-pwa-precache-tied-to-sw
+
+Task `itw-pwa-precache-tied-to-sw-20261107`.
+
+**Why.** Edits to the precache manifest never reached anyone who had already installed the site as an app, because the service worker only reads the manifest when sw.js itself changes, and three pages were added that way in May. The manifest also listed a file that does not exist, and the cruise tipping calculator was not precached, so a reader who opened it at home could not use it at sea.
+
+**Enables.** A reader who has opened the site once can use the cruise tipping calculator with no signal, and any later change to the precache list reaches installed apps, because the manifest's version and the service worker's are held equal by a test.
+
+**Proved by** `tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed`.
+
+### 20261107-itw-pwa-drink-calc-offline
+
+Task `itw-pwa-drink-calc-offline-20261107`.
+
+**Why.** Offline, the drink calculator page came back but none of its scripts or versioned data did, because the precache listed bare paths while the page asks for every file with a version query. The calculator never started and readers saw the page's built-in placeholder prices as if they were real.
+
+**Enables.** A reader who has opened the site once can use the drink calculator with no signal, with the Royal Caribbean line, its gratuity and its prices loaded from the same files the page uses online.
+
+**Proved by** `tests/playwright/pwa-offline.spec.js::the drink calculator starts offline after the service worker has installed`.
+
+### 20261104-itw-c7f-hal-package-prices
+
+Task `itw-c7f-hal-package-prices`.
+
+**Why.** The drink calculator priced Holland America's Signature package at 50.95 dollars a day and Elite at 55.95, five dollars under what hollandamerica.com lists today, and its own FAQ text gave Elite a third figure. A reader deciding whether a package pays off was comparing against prices Holland America no longer charges.
+
+**Enables.** Holland America readers of the drink calculator compare against the package prices the line lists today, every place the page shows them, with those prices dated by the day they were checked so the page can say when they may be out of date.
+
+**Proved by** `tests/unit/lexicon-tipping-checked.test.mjs::C7f: Holland America's packages show the prices hollandamerica.com listed on 2026-11-04, dated by that check`.
+
+### 20261104-itw-c7e-gratuity-rate-reconcile
+
+Task `itw-c7e-gratuity-rate-reconcile`.
+
+**Why.** The drink calculator told Princess and Holland America readers that an 18% charge is added to drink packages, while both lines' own pages say 20% and the site's tipping calculator already said 20%. Readers were getting two different answers about the same charge, and the drink calculator's was the stale one.
+
+**Enables.** Princess and Holland America readers of the drink calculator see the 20% the lines charge today, with that rate dated by the day it was checked against the lines' own pages, while the package prices keep their own older date.
+
+**Proved by** `tests/unit/lexicon-tipping-checked.test.mjs::C7e: the drink calculator's Princess and Holland America rate is the lines' current 20%, dated by its own note`.
+
+### 20261104-itw-c7d-tipping-rates
+
+Task `itw-c7d-tipping-rates`.
+
+**Why.** The tipping calculator showed every line's daily charges with no date at all, though each figure was last verified in May. Gratuities are knowledge that can go stale, and the drink calculator and tipping files disagreed on two lines' bar charges with nobody told.
+
+**Enables.** A reader of the tipping calculator sees when the selected line's details were last checked, and is told to confirm them once that check is old. The Lexicon now holds every line's tipping figures and names where the two stores disagree.
+
+**Proved by** `tests/unit/lexicon-tipping-checked.test.mjs::every line's date is its tipping file's own verified date, and every tipping file is covered`.
+
 ### 20261101-oosterdam-pack-wikipedia-sidecar
 
 Task `voyage-pack-hal-oosterdam-journeys-of-paul-alistair-begg-bar`.
@@ -28,6 +298,36 @@ Task `argus-s32-observer-all-repos`.
 
 **Untested:** The hook body is generated by Argus and its behaviour is pinned by tests in the Argus repository (observer-hook-cli.test.mjs, 58 observer tests passing there); this repository has no test for it. Here the file was checked by sh -n, a mode check, byte equality across the rollout, and an opt-out probe that exited 0 silently.
 
+### 20261101-itw-c7c-calculator-last-checked
+
+Task `itw-c7c-calculator-last-checked`.
+
+**Why.** The calculator showed drink-package prices with no word on when anyone last checked them. Ken ruled on 2026-10-31 that knowledge which can go stale must be marked as such, and every price in it was last verified in April.
+
+**Enables.** A reader sees under each package price when it was last checked, and is told plainly to confirm it when the check is old. A disputed or edited price gets no date at all.
+
+**Proved by** `tests/unit/lexicon-calculator-checked.test.mjs::every dated entry vouches only for the figure the calculator actually shows`.
+
+### 20261101-itw-c7b-verified-dates
+
+Task `itw-c7b-package-prices`.
+
+**Why.** A price was dated by the day the calculator's file last changed, not the day its note says it was checked. Forty-four statements read fresh that were last verified in April, and the calculator is about to show readers a last-checked date.
+
+**Enables.** A last-checked date on a drink-package price now says when someone verified it. A reader can trust it, and a stale price reads stale.
+
+**Proved by** `tests/unit/lexicon-package-statements.test.mjs::a calculator price is dated by the line note's own verified date, never by the file's lastUpdated`.
+
+### 20261101-itw-c7b-package-prices
+
+Task `itw-c7b-package-prices`.
+
+**Why.** The operator ruled that a stored drink-package price includes the gratuity, and that the gratuity can go stale and must be marked so. The site held package prices in two files that disagreed (Bottomless Bubbles at 9.50 against 11.99, both before a 20 percent gratuity) with no rule for which figure was what.
+
+**Enables.** Every package price is now one gratuity-inclusive statement, with its base and the line's rate beside it. The rate reads stale once its window passes, and so does every price built on it, so a stale price shows itself. The disagreements are listed for a person to settle.
+
+**Proved by** `tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing`.
+
 ### 20261030-itw-ship-statements-redated
 
 Task `itw-c6b-port-gazetteer`.
@@ -37,6 +337,26 @@ Task `itw-c6b-port-gazetteer`.
 **Enables.** Main's ship statements and the stats-card manifest match their records again, so the ship-statements test and the full-depth statement gates hold wherever the contract is beside the checkout.
 
 **Proved by** `tests/unit/lexicon-ship-statements.test.mjs::the entity files are exactly what the records say (regenerate if this fails)`.
+
+### 20261030-itw-lexicon-stable-dates
+
+Task `itw-lexicon-stable-dates`.
+
+**Why.** A statement was dated by its source file's last commit, so a squash merge, which gives every touched file a new commit, left main's ship and port statements stale the moment a pull request merged; after #2672 six ships had to be re-dated by hand.
+
+**Enables.** An unchanged statement now keeps the date it was first filed with, read from the committed entity file, so a Lexicon pull request stays current on main through a squash merge and the C7 venue and price files will too.
+
+**Proved by** `tests/unit/lexicon-stable-dates.test.mjs::earlier dates come from HEAD, never the working tree, and survive a squash merge`.
+
+### 20261030-itw-c7a-venue-identity
+
+Task `itw-c7a-venue-identity`.
+
+**Why.** A venue lived in six stores with no shared identity, and their slugs collide across lines (Norwegian's teppanyaki is not Royal Caribbean's), so no tool could say which record described which venue or where two stores disagreed.
+
+**Enables.** Every venue is now one line-scoped entity with its facts as sourced statements, every store key is mapped or listed with the reason, and the disagreements and possible duplicates are listed, which is the identity the C7b menu and price work files against.
+
+**Proved by** `tests/unit/lexicon-venue-statements.test.mjs::the colliding slugs are different venues on different lines`.
 
 ### 20261030-itw-c6b-port-gazetteer
 

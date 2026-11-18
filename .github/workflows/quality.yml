@@ -298,7 +298,10 @@ jobs:
 
   tools-smoke:
     name: Tools Smoke (no JS errors)
-    runs-on: ubuntu-latest
+    # Pinned 2026-11-16: ubuntu-latest became Ubuntu 26.04, where `npx playwright install --with-deps chromium`
+    # (Playwright 1.60) refuses to install, so every browser gate below was skipped on main and every PR.
+    # Move back to ubuntu-latest once Playwright supports that image.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
@@ -331,6 +334,40 @@ jobs:
       # wipe it, then counts the lines. Serial for the same single-threaded-server reason as above.
       - name: Run ship stats card gate
         run: npx playwright test ship-stats-card.spec.js --workers=1
+
+      # Offline tipping calculator (Tekton itw-pwa-precache-tied-to-sw-20261107, issues #1728 and #1682): installs the
+      # service worker, cuts the network, reloads, and checks the calculator still fills in. Serial for the same
+      # single-threaded-server reason as above.
+      - name: Run offline tipping calculator gate
+        run: npx playwright test pwa-offline.spec.js --workers=1
+
+      # Tipping calculator (Tekton itw-tipping-spec-green-20261108): golden path, compare mode, share link, specialty
+      # dining, regional and child rates. Its two click tests timed out under the third-party cookie dialog until the spec
+      # kept to this site. Serial for the same single-threaded-server reason as above.
+      - name: Run tipping calculator gate
+        run: npx playwright test cruise-tipping-calculator.spec.js --workers=1
+
+      # Voyage packs: the landing page, the pack render's usage events, and the PWA companion's usage events
+      # (what the phone sends the relay, and that it is only the event name and its whitelisted data). CI did not
+      # run these until 2026-11-08, and the companion spec had been red since 2026-10-05 unseen.
+      # tests/unit/playwright-specs-in-ci.test.mjs now fails when a spec is neither run here nor named
+      # local-only. Serial for the same single-threaded-server reason as above.
+      - name: Run voyage pack gates
+        run: npx playwright test voyage-packs-landing.spec.js voyage-pack-render-usage.spec.js voyage-companion-usage.spec.js --workers=1
+
+      # Links a tool page's scripts render (Tekton automate-itw-atlas-rcl-link-fix-ee5a74). Check Links reads HTML as
+      # written; this loads every tools/*.html and the root tools, opens their tabs, and asks the server for every
+      # same-site link they show. Its first run found three dead links on both drink calculator pages. Serial for the
+      # same single-threaded-server reason as above.
+      - name: Run rendered tool links gate
+        run: npx playwright test tool-links.spec.js --workers=1
+
+      # Private-page service worker (admin/sw-jerusha.js): installs it from the shipped gate page, cuts the network,
+      # and checks the gate still opens at its real address and that the worker answers for no other admin page.
+      # It needs no secret and no plaintext source. The other jerusha-*.spec.js files do, and are named local-only
+      # in tests/unit/playwright-specs-in-ci.test.mjs. Serial for the same single-threaded-server reason as above.
+      - name: Run private-page offline gate
+        run: npx playwright test jerusha-offline.spec.js --workers=1
 
   # Summary job
   unit-tests:

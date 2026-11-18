@@ -1,0 +1,22 @@
+{
+  "format": "lexicon-pack/1",
+  "pack": "cruise.package",
+  "version": 1,
+  "entity_type": "package",
+  "partition": "public",
+  "_about": "Which facts a beverage package carries in the Lexicon (Track C7b). Operator ruling 2026-10-31 (memory 446c35a2): a stored package price INCLUDES the gratuity, and the gratuity is knowledge that can go stale and must be marked as such. So price_per_day is the gratuity-inclusive figure; where a source gives a base price plus a stated percentage, base_price_per_day is filed as given and price_per_day is computed from it and the line's beverage_gratuity_rate statement (cruise.line pack), naming both in its lineage, so when either goes stale the price reads stale too (Project-Sophos sophos/src/lexicon/freshness.mjs). ttl_days 90 is the Lexicon plan's freshness for line prices (LEXICON-PLAN-3.1 section 6, cruise.line: prices 90d). Tekton itw-c7b-package-prices; assets/data/entities/README.md#drink-package-prices-track-c7b. Soli Deo Gloria.",
+  "identity": {
+    "key": "package:<line>.<slug>, where <line> is the line's id in brands.json and <slug> is the package's name in kebab case. Two stores' packages of one line are one package when their names normalise to the same text; anything else is its own package or is listed, never guessed (assets/data/lexicon/package-review.json).",
+    "aliases": ["name", "calculator_key", "line_file_key"]
+  },
+  "source_kinds": {
+    "line-official": "the line's own site; evidence tier primary. Not yet read for packages",
+    "itw-data": "a data file already in this repository; evidence tier secondary"
+  },
+  "properties": {
+    "name": { "value_type": "string", "unit": null, "authority": ["line-official", "itw-data"], "ttl_days": null },
+    "line": { "value_type": "entity", "unit": null, "authority": ["itw-data"], "ttl_days": null },
+    "base_price_per_day": { "value_type": "number", "unit": "USD/day before gratuity", "authority": ["line-official", "itw-data"], "ttl_days": 90 },
+    "price_per_day": { "value_type": "number", "unit": "USD/day incl. gratuity", "authority": ["line-official", "itw-data"], "ttl_days": 90 }
+  }
+}

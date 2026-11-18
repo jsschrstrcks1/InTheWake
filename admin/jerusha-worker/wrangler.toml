@@ -21,6 +21,11 @@ crons = ["0 3 * * *", "0 16 * * *"]
 # SECRETS (never in this file):
 #   wrangler secret put NOTES_TOKEN     # bearer (already set)
 #   wrangler secret put VAPID_PRIVATE   # Web Push signing key (Slice 2)
+# Optional, for GET /cal (read-only calendar relay). Each is a private ICS feed URL
+# (https:// or webcal://). Unset = /cal answers 404 "calendar not configured".
+# The feed URL is itself a credential: keep it a secret, never a [vars] entry.
+#   wrangler secret put CAL_KEN_URL
+#   wrangler secret put CAL_JERUSHA_URL
 
 # Encrypted photo/video gallery blobs (Slice: media). Create once:
 #   wrangler r2 bucket create jerusha-media

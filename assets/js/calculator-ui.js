@@ -837,21 +837,24 @@ function fetchArticles() {
 
   if (!container) return;
 
+  // Pages that exist, each under its own title. Until 2026-11-09 this list linked three pages the site never had
+  // (/royal-caribbean-drink-packages.html, /top-20-cruise-questions.html, /save-money-cruising.html), so every
+  // reader who clicked one got a 404; tests/playwright/tool-links.spec.js now fails on a dead link a script renders.
   const articles = [
     {
-      title: 'Royal Caribbean Drink Packages Explained',
-      url: '/royal-caribbean-drink-packages.html',
-      ariaLabel: 'Read article: Royal Caribbean Drink Packages Explained'
+      title: 'Royal Caribbean Drink Packages: Cost & Coverage',
+      url: '/drink-packages.html',
+      ariaLabel: 'Read article: Royal Caribbean Drink Packages, Cost and Coverage'
     },
     {
-      title: 'Top 20 Questions About Cruising',
-      url: '/top-20-cruise-questions.html',
-      ariaLabel: 'Read article: Top 20 Questions About Cruising'
+      title: 'Top 20 Cruise Questions Answered',
+      url: '/travel.html',
+      ariaLabel: 'Read article: Top 20 Cruise Questions Answered'
     },
     {
-      title: 'How to Save Money on Your Cruise',
-      url: '/save-money-cruising.html',
-      ariaLabel: 'Read article: How to Save Money on Your Cruise'
+      title: 'What a Cruise Actually Costs in 2026',
+      url: '/articles/what-cruise-actually-costs-2026.html',
+      ariaLabel: 'Read article: What a Cruise Actually Costs in 2026'
     }
   ];
 

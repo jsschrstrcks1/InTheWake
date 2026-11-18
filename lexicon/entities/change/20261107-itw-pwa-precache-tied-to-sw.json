@@ -1,0 +1,599 @@
+{
+  "format": "lexicon-entity/1",
+  "entity": "change:20261107-itw-pwa-precache-tied-to-sw",
+  "_about": "Written by admin/change-record.mjs new. Append-only once on main; a correction is a new entry naming this one in supersedes. docs/lexicon/CHANGE-RECORD.md",
+  "statements": [
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261107-itw-pwa-precache-tied-to-sw#task",
+      "content": {
+        "summary": "change:20261107-itw-pwa-precache-tied-to-sw task = \"itw-pwa-precache-tied-to-sw-20261107\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "unknown",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-07T22:28:56.567Z",
+        "observed_at": "2026-11-07T22:28:56.567Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261107-itw-pwa-precache-tied-to-sw",
+        "property": "task",
+        "value": "itw-pwa-precache-tied-to-sw-20261107",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-37fb87fb6d849251"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261107-itw-pwa-precache-tied-to-sw#why",
+      "content": {
+        "summary": "change:20261107-itw-pwa-precache-tied-to-sw why = \"Edits to the precache manifest never reached anyone who had already installed the site as an app, because the service worker only reads the manifest when sw.js itself changes, and three pages were added that way in May. The manifest also listed a file that does not exist, and the cruise tipping calculator was not precached, so a reader who opened it at home could not use it at sea.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "unknown",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-07T22:28:56.567Z",
+        "observed_at": "2026-11-07T22:28:56.567Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261107-itw-pwa-precache-tied-to-sw",
+        "property": "why",
+        "value": "Edits to the precache manifest never reached anyone who had already installed the site as an app, because the service worker only reads the manifest when sw.js itself changes, and three pages were added that way in May. The manifest also listed a file that does not exist, and the cruise tipping calculator was not precached, so a reader who opened it at home could not use it at sea.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-c47a0eb755574970"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261107-itw-pwa-precache-tied-to-sw#enables",
+      "content": {
+        "summary": "change:20261107-itw-pwa-precache-tied-to-sw enables = \"A reader who has opened the site once can use the cruise tipping calculator with no signal, and any later change to the precache list reaches installed apps, because the manifest's version and the service worker's are held equal by a test.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "unknown",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-07T22:28:56.567Z",
+        "observed_at": "2026-11-07T22:28:56.567Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261107-itw-pwa-precache-tied-to-sw",
+        "property": "enables",
+        "value": "A reader who has opened the site once can use the cruise tipping calculator with no signal, and any later change to the precache list reaches installed apps, because the manifest's version and the service worker's are held equal by a test.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-c863f8f199a92124"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261107-itw-pwa-precache-tied-to-sw#proved_by",
+      "content": {
+        "summary": "change:20261107-itw-pwa-precache-tied-to-sw proved_by = \"tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "unknown",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-07T22:28:56.567Z",
+        "observed_at": "2026-11-07T22:28:56.567Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261107-itw-pwa-precache-tied-to-sw",
+        "property": "proved_by",
+        "value": "tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-1dfb05252ebc7ae8"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261107-itw-pwa-precache-tied-to-sw#rests_on",
+      "content": {
+        "summary": "change:20261107-itw-pwa-precache-tied-to-sw rests_on = \"InTheWake issues #1728 and #1682; measured 2026-11-07 on main 631e2a8c: manifest version 14.3.3 vs sw.js VERSION 14.3.0, /sitemap.json listed but absent, three manifest additions in May 2026 shipped with no sw.js change so installed apps never saw them, the tipping calculator not precached; sw.js normalizeRequest keeps the ?v= query, so entries must match the page's URLs exactly\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "unknown",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-07T22:28:56.567Z",
+        "observed_at": "2026-11-07T22:28:56.567Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261107-itw-pwa-precache-tied-to-sw",
+        "property": "rests_on",
+        "value": "InTheWake issues #1728 and #1682; measured 2026-11-07 on main 631e2a8c: manifest version 14.3.3 vs sw.js VERSION 14.3.0, /sitemap.json listed but absent, three manifest additions in May 2026 shipped with no sw.js change so installed apps never saw them, the tipping calculator not precached; sw.js normalizeRequest keeps the ?v= query, so entries must match the page's URLs exactly",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-2057e083a256fe2f"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261107-itw-pwa-precache-tied-to-sw#costs",
+      "content": {
+        "summary": "change:20261107-itw-pwa-precache-tied-to-sw costs = \"one test file, manifest entries, one coordinated version bump in sw.js and the manifest\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "unknown",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-07T22:28:56.567Z",
+        "observed_at": "2026-11-07T22:28:56.567Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261107-itw-pwa-precache-tied-to-sw",
+        "property": "costs",
+        "value": "one test file, manifest entries, one coordinated version bump in sw.js and the manifest",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-eddaabb92c85a451"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261107-itw-pwa-precache-tied-to-sw#retires",
+      "content": {
+        "summary": "change:20261107-itw-pwa-precache-tied-to-sw retires = \"manifest edits that never reach installed apps, a listed file that does not exist, and a tipping calculator that does not open offline\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "unknown",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-07T22:28:56.567Z",
+        "observed_at": "2026-11-07T22:28:56.567Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261107-itw-pwa-precache-tied-to-sw",
+        "property": "retires",
+        "value": "manifest edits that never reach installed apps, a listed file that does not exist, and a tipping calculator that does not open offline",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-abfdab34aa380405"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261107-itw-pwa-precache-tied-to-sw#moved",
+      "content": {
+        "summary": "change:20261107-itw-pwa-precache-tied-to-sw moved = {}",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+        "uri": null,
+        "publisher": "measured",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "unknown",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-pwa-precache-tied-to-sw-20261107",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/pwa-offline.spec.js::the tipping calculator fills in offline after the service worker has installed",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-07T22:28:56.567Z",
+        "observed_at": "2026-11-07T22:28:56.567Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261107-itw-pwa-precache-tied-to-sw",
+        "property": "moved",
+        "value": {},
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-ce1ab666ef221051"
+    }
+  ]
+}

@@ -1,10 +1,10 @@
-/* Service Worker v14.2.0 - In the Wake
+/* Service Worker v14.5.1 - In the Wake
  * Site-wide unified caching strategy with offline support
  * Supports: Ships, Ports, Restaurants, Planning Tools, Drink Calculator
  * Soli Deo Gloria ✝️
  */
 
-const VERSION = '14.3.0';
+const VERSION = '14.5.1';
 const CACHE_PREFIX = 'itw-site';
 
 /* Network state (updated by client via NETWORK_INFO message) */
@@ -517,7 +517,10 @@ async function copyPrecacheToRuntime() {
     let targetCache;
     if (url.pathname.endsWith('.html') || url.pathname === '/') {
       targetCache = CACHES.PAGES;
-    } else if (isVersionedAsset(url)) {
+    } else if (isVersionedAsset(url) || /\.(css|js)$/i.test(url.pathname)) {
+      // Unversioned scripts and styles too (ES modules such as the tipping calculator's are imported without ?v=).
+      // The fetch handler already serves every script and style cache-first from ASSETS; without this copy a
+      // precached module sat only in PRECACHE, which no route reads, and the tool failed on its first offline use.
       targetCache = CACHES.ASSETS;
     } else if (isImageURL(url)) {
       targetCache = CACHES.IMAGES;
@@ -559,6 +562,8 @@ const CALC_SHELL_URLS = [
   '/assets/js/calculator-worker-v2.js',
   '/assets/js/package-selection-feature-v2.js',
   '/assets/data/calculator-config.json',
+  '/assets/js/calculator-checked.js',
+  '/assets/data/lexicon/calculator-checked.json',
   '/assets/css/calculator.css'
 ];
 let calcShellWarmed = false;

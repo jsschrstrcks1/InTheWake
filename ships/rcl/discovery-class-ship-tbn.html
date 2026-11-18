@@ -898,7 +898,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
   <!-- ===== Logbook loader ===== -->
   <script>
   (function initShipLogbook(){
-    const mount=document.getElementById('logbook-stories'); if(!mount) return;
+    const mount=document.getElementById('logbook-stories')||document.getElementById('logbook-container'); if(!mount) return;
     function abs(p){return (window._abs?_abs(p):p);}
     const m=location.pathname.match(/\/ships\/([^/]+)\/([^/.]+)/i);
     const line=(m&&m[1])||'rcl'; const slug=(m&&m[2])||'discovery-class-ship-tbn';
@@ -909,7 +909,7 @@ STANDARDS: Every Page v3.010.300 · Production Template · Unified Nav v3.010.30
       if(!data) return;
       const arr=data.personas||data.logbook||data.stories||data.entries||[];
       if(!arr.length) return;
-      mount.innerHTML=arr.map(p=>'<article class="story"><h3>'+String(p.title||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</h3><p>'+String(p.body||p.content||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</p></article>').join('');
+      mount.textContent='';arr.forEach(p=>{const a=document.createElement('article');a.className='story';const h=document.createElement('h3');h.textContent=String(p.title||'');const q=document.createElement('p');q.textContent=String(p.body||p.content||'');a.append(h,q);mount.appendChild(a);});
     });
   })();
   </script>

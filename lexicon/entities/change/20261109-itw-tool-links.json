@@ -1,0 +1,599 @@
+{
+  "format": "lexicon-entity/1",
+  "entity": "change:20261109-itw-tool-links",
+  "_about": "Written by admin/change-record.mjs new. Append-only once on main; a correction is a new entry naming this one in supersedes. docs/lexicon/CHANGE-RECORD.md",
+  "statements": [
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-tool-links#task",
+      "content": {
+        "summary": "change:20261109-itw-tool-links task = \"automate-itw-atlas-rcl-link-fix-ee5a74\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T05:37:14.233Z",
+        "observed_at": "2026-11-09T05:37:14.233Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-tool-links",
+        "property": "task",
+        "value": "automate-itw-atlas-rcl-link-fix-ee5a74",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-807b542abf11a403"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-tool-links#why",
+      "content": {
+        "summary": "change:20261109-itw-tool-links why = \"Both drink calculator pages showed readers three related-article links to pages the site never had, so every click was a 404. Nothing caught it, because Check Links reads HTML as written and these links are written by a script after the page loads.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T05:37:14.233Z",
+        "observed_at": "2026-11-09T05:37:14.233Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-tool-links",
+        "property": "why",
+        "value": "Both drink calculator pages showed readers three related-article links to pages the site never had, so every click was a 404. Nothing caught it, because Check Links reads HTML as written and these links are written by a script after the page loads.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-076631bfcac473b8"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-tool-links#enables",
+      "content": {
+        "summary": "change:20261109-itw-tool-links enables = \"The drink calculator's article links now open real pages, and every tool page's script-rendered links are checked in CI, so a dead link a script writes fails the pull request instead of reaching readers.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T05:37:14.233Z",
+        "observed_at": "2026-11-09T05:37:14.233Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-tool-links",
+        "property": "enables",
+        "value": "The drink calculator's article links now open real pages, and every tool page's script-rendered links are checked in CI, so a dead link a script writes fails the pull request instead of reaching readers.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-1392c565da196cc1"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-tool-links#proved_by",
+      "content": {
+        "summary": "change:20261109-itw-tool-links proved_by = \"tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T05:37:14.233Z",
+        "observed_at": "2026-11-09T05:37:14.233Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-tool-links",
+        "property": "proved_by",
+        "value": "tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-b78d5c5441b3d20a"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-tool-links#rests_on",
+      "content": {
+        "summary": "change:20261109-itw-tool-links rests_on = \"close-out of itw-atlas-rcl-link-fix by syl (docs/TEKTON.md#close-out)\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T05:37:14.233Z",
+        "observed_at": "2026-11-09T05:37:14.233Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-tool-links",
+        "property": "rests_on",
+        "value": "close-out of itw-atlas-rcl-link-fix by syl (docs/TEKTON.md#close-out)",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-40d73361970d0bea"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-tool-links#costs",
+      "content": {
+        "summary": "change:20261109-itw-tool-links costs = \"unknown until scoped; the close-out proposed it, it has not been estimated\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T05:37:14.233Z",
+        "observed_at": "2026-11-09T05:37:14.233Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-tool-links",
+        "property": "costs",
+        "value": "unknown until scoped; the close-out proposed it, it has not been estimated",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-f8fedc328438e4f5"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-tool-links#retires",
+      "content": {
+        "summary": "change:20261109-itw-tool-links retires = \"doing this by hand: [automation] a Playwright check that loads each page under tools/, collects the links scripts render, and fails when one points at a file that does not exist, since lychee only sees links in static HTML\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T05:37:14.233Z",
+        "observed_at": "2026-11-09T05:37:14.233Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-tool-links",
+        "property": "retires",
+        "value": "doing this by hand: [automation] a Playwright check that loads each page under tools/, collects the links scripts render, and fails when one points at a file that does not exist, since lychee only sees links in static HTML",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-7d0d0fee4a35d4f6"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261109-itw-tool-links#moved",
+      "content": {
+        "summary": "change:20261109-itw-tool-links moved = {}",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+        "uri": null,
+        "publisher": "measured",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "syl",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:automate-itw-atlas-rcl-link-fix-ee5a74",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/playwright/tool-links.spec.js::every same-site link on ${url} leads to a page the site serves",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-09T05:37:14.233Z",
+        "observed_at": "2026-11-09T05:37:14.233Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261109-itw-tool-links",
+        "property": "moved",
+        "value": {},
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-ecb45717d322403a"
+    }
+  ]
+}

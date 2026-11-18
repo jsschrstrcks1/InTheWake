@@ -1,0 +1,599 @@
+{
+  "format": "lexicon-entity/1",
+  "entity": "change:20261101-itw-c7b-package-prices",
+  "_about": "Written by admin/change-record.mjs new. Append-only once on main; a correction is a new entry naming this one in supersedes. docs/lexicon/CHANGE-RECORD.md",
+  "statements": [
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261101-itw-c7b-package-prices#task",
+      "content": {
+        "summary": "change:20261101-itw-c7b-package-prices task = \"itw-c7b-package-prices\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c7b-package-prices",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "allrianne",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c7b-package-prices",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-01T01:59:31.138Z",
+        "observed_at": "2026-11-01T01:59:31.138Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261101-itw-c7b-package-prices",
+        "property": "task",
+        "value": "itw-c7b-package-prices",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-7232dfaf05d6bc1e"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261101-itw-c7b-package-prices#why",
+      "content": {
+        "summary": "change:20261101-itw-c7b-package-prices why = \"The operator ruled that a stored drink-package price includes the gratuity, and that the gratuity can go stale and must be marked so. The site held package prices in two files that disagreed (Bottomless Bubbles at 9.50 against 11.99, both before a 20 percent gratuity) with no rule for which figure was what.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c7b-package-prices",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "allrianne",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c7b-package-prices",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-01T01:59:31.138Z",
+        "observed_at": "2026-11-01T01:59:31.138Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261101-itw-c7b-package-prices",
+        "property": "why",
+        "value": "The operator ruled that a stored drink-package price includes the gratuity, and that the gratuity can go stale and must be marked so. The site held package prices in two files that disagreed (Bottomless Bubbles at 9.50 against 11.99, both before a 20 percent gratuity) with no rule for which figure was what.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-c83b089543c5fa6b"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261101-itw-c7b-package-prices#enables",
+      "content": {
+        "summary": "change:20261101-itw-c7b-package-prices enables = \"Every package price is now one gratuity-inclusive statement, with its base and the line's rate beside it. The rate reads stale once its window passes, and so does every price built on it, so a stale price shows itself. The disagreements are listed for a person to settle.\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c7b-package-prices",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "allrianne",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c7b-package-prices",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-01T01:59:31.138Z",
+        "observed_at": "2026-11-01T01:59:31.138Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261101-itw-c7b-package-prices",
+        "property": "enables",
+        "value": "Every package price is now one gratuity-inclusive statement, with its base and the line's rate beside it. The rate reads stale once its window passes, and so does every price built on it, so a stale price shows itself. The disagreements are listed for a person to settle.",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-bde60bb24d2a9c19"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261101-itw-c7b-package-prices#proved_by",
+      "content": {
+        "summary": "change:20261101-itw-c7b-package-prices proved_by = \"tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c7b-package-prices",
+        "uri": null,
+        "publisher": "committer",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "allrianne",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c7b-package-prices",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-01T01:59:31.138Z",
+        "observed_at": "2026-11-01T01:59:31.138Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261101-itw-c7b-package-prices",
+        "property": "proved_by",
+        "value": "tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-247a82150f362b78"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261101-itw-c7b-package-prices#rests_on",
+      "content": {
+        "summary": "change:20261101-itw-c7b-package-prices rests_on = \"operator ruling 2026-10-31 (memory 446c35a2) and the contract's freshness and derivedFrom (Project-Sophos #1509)\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c7b-package-prices",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "allrianne",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c7b-package-prices",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-01T01:59:31.138Z",
+        "observed_at": "2026-11-01T01:59:31.138Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261101-itw-c7b-package-prices",
+        "property": "rests_on",
+        "value": "operator ruling 2026-10-31 (memory 446c35a2) and the contract's freshness and derivedFrom (Project-Sophos #1509)",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-7d6acfe48caee32d"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261101-itw-c7b-package-prices#costs",
+      "content": {
+        "summary": "change:20261101-itw-c7b-package-prices costs = \"one statement per package figure and per line rate\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c7b-package-prices",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "allrianne",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c7b-package-prices",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-01T01:59:31.138Z",
+        "observed_at": "2026-11-01T01:59:31.138Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261101-itw-c7b-package-prices",
+        "property": "costs",
+        "value": "one statement per package figure and per line rate",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-efb01e9b36a4ad58"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261101-itw-c7b-package-prices#retires",
+      "content": {
+        "summary": "change:20261101-itw-c7b-package-prices retires = \"the open Bubbles price convention (LEXICON-PLAN-3.1 section 2.1)\"",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c7b-package-prices",
+        "uri": null,
+        "publisher": "Tekton",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "allrianne",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c7b-package-prices",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-01T01:59:31.138Z",
+        "observed_at": "2026-11-01T01:59:31.138Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261101-itw-c7b-package-prices",
+        "property": "retires",
+        "value": "the open Bubbles price convention (LEXICON-PLAN-3.1 section 2.1)",
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-3b9ec3303e6820fa"
+    },
+    {
+      "schema_version": "envelope/1",
+      "kind": "claim",
+      "subject": "change:20261101-itw-c7b-package-prices#moved",
+      "content": {
+        "summary": "change:20261101-itw-c7b-package-prices moved = {}",
+        "ref": null,
+        "hash": null
+      },
+      "provenance": {
+        "source_kind": "lexicon-statement",
+        "source_ref": "tekton:itw-c7b-package-prices",
+        "uri": null,
+        "publisher": "measured",
+        "trust_tier": "unrated"
+      },
+      "actor": {
+        "kind": "agent",
+        "id": "allrianne",
+        "provider": "household",
+        "model": null
+      },
+      "epistemic": {
+        "status": "known",
+        "tier": null,
+        "evidence": [
+          {
+            "ref": "tekton:itw-c7b-package-prices",
+            "tier": "primary"
+          },
+          {
+            "ref": "test:tests/unit/lexicon-package-statements.test.mjs::a rate past its window reads stale, and every price built on it reads stale too, without any record changing",
+            "tier": "primary"
+          }
+        ]
+      },
+      "uncertainty": {
+        "ignorance": 0.25,
+        "conflict": 0,
+        "basis": "statement with status 'known' and 2 evidence ref(s); not calibrated"
+      },
+      "validators": [],
+      "policies": [],
+      "dependencies": [],
+      "lineage": {
+        "parents": [],
+        "derived_by": null
+      },
+      "cost": {
+        "tokens_in": null,
+        "tokens_out": null,
+        "usd": null,
+        "ms": null
+      },
+      "timestamps": {
+        "valid_from": null,
+        "valid_until": null,
+        "asserted_at": "2026-11-01T01:59:31.138Z",
+        "observed_at": "2026-11-01T01:59:31.138Z"
+      },
+      "decision": null,
+      "ext": {
+        "type": "lexicon-statement/1",
+        "pack": "public.change",
+        "entity": "change:20261101-itw-c7b-package-prices",
+        "property": "moved",
+        "value": {},
+        "unit": null,
+        "rank": "normal",
+        "partition": "public"
+      },
+      "classification": "public",
+      "id": "env-e736032c391504aa"
+    }
+  ]
+}

@@ -15,10 +15,18 @@
 # for repos where the guard is installed but the exemption list drifts).
 #
 # Fail-open contract: ALWAYS exits 0 — a broken push must never block session
-# teardown. Failures are loud: logged to /tmp/reasoning-log-persist.err and
+# teardown. Failures are loud: logged to $ERR_LOG (see below) and
 # echoed so the transcript shows them.
 #
 # Kill-switch: REASONING_LOG_PERSIST=0
+# Log paths (docs/HOOK-TMP-PATHS.md). A fixed /tmp file that another user or job already owns makes
+# the redirect fail, and then the command it belongs to never runs. Keep the familiar path when it is
+# appendable (tried, not tested with -w, which root passes even for a directory); otherwise fall back to
+# a per-user file under $TMPDIR (open-claw-stuff's 2026-10-07 idea, with the check made real).
+ERR_LOG=/tmp/reasoning-log-persist.err
+if ! { : >>"$ERR_LOG"; } 2>/dev/null; then
+  ERR_LOG="${TMPDIR:-/tmp}/reasoning-log-persist.${UID:-$$}.err"
+fi
 set +e
 
 [ "${REASONING_LOG_PERSIST:-1}" = "0" ] && exit 0
@@ -33,18 +41,18 @@ CHANGES=$(git status --porcelain -- REASONING-LOG.md 2>/dev/null)
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
-git add -- REASONING-LOG.md 2>>/tmp/reasoning-log-persist.err
+git add -- REASONING-LOG.md 2>>"$ERR_LOG"
 git commit -m "docs(reasoning): persist reasoning-log entr(ies) at session stop [no-reasoning]
 
 Automated by .claude/hooks/reasoning-log-persist.sh — the reasoning log is
 git-persisted; an entry left uncommitted dies with an ephemeral container.
 Only REASONING-LOG.md is included.
 
-Soli Deo Gloria." >>/tmp/reasoning-log-persist.err 2>&1
+Soli Deo Gloria." >>"$ERR_LOG" 2>&1
 
-if git push origin "$BRANCH" >>/tmp/reasoning-log-persist.err 2>&1; then
+if git push origin "$BRANCH" >>"$ERR_LOG" 2>&1; then
     echo "[reasoning-log-persist] committed+pushed REASONING-LOG.md on ${BRANCH}"
 else
-    echo "[reasoning-log-persist] WARNING: committed REASONING-LOG.md on ${BRANCH} but PUSH FAILED — see /tmp/reasoning-log-persist.err; the entry is safe in the local commit only"
+    echo "[reasoning-log-persist] WARNING: committed REASONING-LOG.md on ${BRANCH} but PUSH FAILED — see $ERR_LOG; the entry is safe in the local commit only"
 fi
 exit 0
