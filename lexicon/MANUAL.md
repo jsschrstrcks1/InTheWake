@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261118-ship-logbook-stories-shown
+
+Task `inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-`.
+
+**Why.** 138 ship pages had composed logbook stories and a DOM-only loader that nothing called, so readers saw only a placeholder; 23 of them also read an entries shape no file has and targeted an element the page lacks.
+
+**Enables.** Readers of 138 ship pages now see up to three of the ship's composed stories, rendered as text through DOM calls, as the operator ruled on 2026-11-18; a guard test keeps any page with a stories file from going dormant again.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::every ship page whose logbook container names a stories file calls its loader, once`.
+
 ### 20261117-visible-comment-fragments
 
 Task `itw-visible-comment-fragments-20261117`.

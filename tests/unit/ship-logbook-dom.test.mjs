@@ -66,8 +66,9 @@ export function findUnsafe(text) {
 // 2026-11-16: the last eight (breeze, conquest, dream, freedom, glory, horizon, magic, vista), whose second
 // logbook loader sat in another script, were rebuilt with DOM calls. The list is empty; keep it that way.
 const INNERHTML_DEBT = new Set([].map((s) => `ships/carnival/${s}.html`));
-// The 23 #logbook-entries pages the entry pattern found on 2026-11-16 were rebuilt with DOM calls the same day
-// (still uncalled, as they were); none is debt.
+// The 23 #logbook-entries pages the entry pattern found on 2026-11-16 were rebuilt with DOM calls the same day;
+// none is debt. On 2026-11-18, by the operator's ruling, they took the #logbook-container template loader and
+// are called on load (see the tests at the end of this file).
 
 test('the patterns catch every form found on 2026-10-26, and pass the DOM-built fix', () => {
   const found = [
@@ -197,3 +198,71 @@ test('the carousel renderer makes only safe elements from a hostile story', () =
   assert.ok(el.textContent.startsWith('<img src=x onerror=alert(1)>Title'), 'a title stays text');
   assert.equal(ctx.renderOne({ title: 't', markdown: '   ' }), null, 'an empty story renders nothing');
 });
+
+// 2026-11-18, operator ruling "show stories" (Tekton inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-):
+// 115 template pages and 23 #logbook-entries pages held a DOM-only loader that nothing called. They now call it.
+// The guard: a page whose #logbook-container names a line and ship with a stories file must call its loader once.
+const containerOf = (html) => html.match(/id="logbook-container"[^>]*data-ship="([^"]+)"[^>]*data-line="([^"]+)"/);
+function storiesFile(ship, line) {
+  try {
+    const d = JSON.parse(readFileSync(path.join(ROOT, 'assets/data/logbook', line, `${ship}.json`), 'utf8'));
+    const items = Array.isArray(d) ? d : (Array.isArray(d && d.stories) ? d.stories : []);
+    return items.length ? d : null;
+  } catch { return null; }
+}
+// A self-invoking loader, `(function initShipLogbook(){ ... })();`, is the carousel form: it runs on load, so it
+// counts as one call. (Whether its #logbook-stories mount exists on the page is a separate matter.)
+const callsOf = (html) => {
+  if (/\(function initShipLogbook\s*\(\)\s*\{/.test(html)) return 1;
+  const def = html.match(/function initShipLogbook\s*\(\)\s*\{/);
+  const rest = def ? html.slice(0, def.index) + html.slice(def.index + def[0].length) : html;
+  return (rest.match(/initShipLogbook\s*\(\s*\)\s*;/g) || []).length;
+};
+
+test('every ship page whose logbook container names a stories file calls its loader, once', () => {
+  const dormant = []; const twice = []; let wired = 0;
+  for (const f of htmlFiles('ships')) {
+    const html = readFileSync(path.join(ROOT, f), 'utf8');
+    const m = containerOf(html);
+    if (!m || !/function initShipLogbook/.test(html) || !storiesFile(m[1], m[2])) continue;
+    const n = callsOf(html);
+    if (n === 0) dormant.push(f); else if (n > 1) twice.push(f); else wired += 1;
+  }
+  assert.deepEqual(dormant, [], 'these pages hold stories but never call initShipLogbook');
+  assert.deepEqual(twice, [], 'these pages call initShipLogbook more than once');
+  // Measured 2026-11-18: 170 = the 138 wired that day (140 changed, less template.html and one ship whose file
+  // has no stories yet) + 32 of the 37 already wired. The other 5 hardcode their fetch path and carry no
+  // data-ship / data-line on the container, so this guard cannot see them. The floor only rises.
+  assert.ok(wired >= 170, `expected at least 170 wired pages (measured 2026-11-18), found ${wired}`);
+});
+
+test('a wired page shows its real stories as text nodes, and markup in a story stays text', async () => {
+  const f = 'ships/celebrity-cruises/celebrity-century.html';
+  const html = readFileSync(path.join(ROOT, f), 'utf8');
+  const [, ship, line] = containerOf(html);
+  const data = storiesFile(ship, line);
+  assert.ok(data, `${f} has a stories file`);
+  const loader = inlineScripts(html).find((s) => /function initShipLogbook/.test(s));
+  const run = async (payload) => {
+    const made = [];
+    const node = (tag) => { const n = { tag, className: '', textContent: '', children: [], append(...k) { this.children.push(...k); }, appendChild(k) { this.children.push(k); } }; made.push(n); return n; };
+    const container = node('div');
+    container.getAttribute = (a) => ({ 'data-ship': ship, 'data-line': line })[a];
+    const document = { getElementById: (id) => (id === 'logbook-container' ? container : null), createElement: node };
+    let fetched = null;
+    const fetch = async (url) => { fetched = url; return { ok: true, json: async () => payload }; };
+    vm.runInNewContext(loader, { document, fetch, encodeURIComponent, String, Array });
+    await new Promise((r) => setTimeout(r, 0)); await new Promise((r) => setTimeout(r, 0));
+    return { container, fetched, made };
+  };
+  const real = await run(data);
+  assert.equal(real.fetched, `/assets/data/logbook/${line}/${ship}.json`);
+  const items = Array.isArray(data) ? data : data.stories;
+  assert.equal(real.container.children.length, Math.min(3, items.length));
+  assert.equal(real.container.children[0].children[0].textContent, String(items[0].title));
+  assert.ok(real.made.every((n) => ['div', 'article', 'h3', 'p'].includes(n.tag)), 'only article, h3 and p are made');
+  const hostile = await run({ stories: [{ title: '<img src=x onerror=alert(1)>', markdown: '<script>alert(2)</script>' }] });
+  assert.equal(hostile.container.children[0].children[0].textContent, '<img src=x onerror=alert(1)>', 'a title is text, never markup');
+  assert.equal(hostile.made.filter((n) => n.tag === 'img' || n.tag === 'script').length, 0);
+});
+
