@@ -18,6 +18,16 @@ Task `inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-`.
 
 **Proved by** `tests/unit/ship-logbook-dom.test.mjs::every ship page whose logbook container names a stories file calls its loader, once`.
 
+### 20261118-ship-logbook-carousel-mount
+
+Task `inthewake-mount-the-20-ship-page-logbook-carousels-on-logboo`.
+
+**Why.** 20 Carnival, Celebrity and Royal Caribbean ship pages hold 211 written stories behind a carousel that only looked for #logbook-stories, which those pages lack, so readers saw a placeholder forever. Ken ruled 'Show stories' on 2026-11-18.
+
+**Enables.** Readers of those 20 ship pages now see the logbook stories with previous and next buttons, and a test fails if any ship page runs the carousel with nowhere to mount.
+
+**Proved by** `tests/unit/ship-logbook-carousel-mount.test.mjs::every ship page that runs the carousel has an element the carousel can mount on`.
+
 ### 20261118-critical-css-header-path
 
 Task `inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-`.
