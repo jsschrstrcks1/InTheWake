@@ -18,6 +18,16 @@ Task `inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-`.
 
 **Proved by** `tests/unit/ship-logbook-dom.test.mjs::every ship page whose logbook container names a stories file calls its loader, once`.
 
+### 20261118-critical-css-header-path
+
+Task `inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-`.
+
+**Why.** The rename in InTheWake #2705 staged the file before its header line was edited, so main's critical.css still names its old path, assets/js/modules/critical.js.
+
+**Enables.** The stylesheet's own header names where it lives, so a reader is not sent to a path that no longer exists.
+
+**Untested:** a one-line comment change in a stylesheet nothing loads; the Argus CSS parse still reads it as ok
+
 ### 20261117-visible-comment-fragments
 
 Task `itw-visible-comment-fragments-20261117`.
