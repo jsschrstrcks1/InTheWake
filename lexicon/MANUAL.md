@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261118-ship-logbook-stories-shown
+
+Task `inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-`.
+
+**Why.** 138 ship pages had composed logbook stories and a DOM-only loader that nothing called, so readers saw only a placeholder; 23 of them also read an entries shape no file has and targeted an element the page lacks.
+
+**Enables.** Readers of 138 ship pages now see up to three of the ship's composed stories, rendered as text through DOM calls, as the operator ruled on 2026-11-18; a guard test keeps any page with a stories file from going dormant again.
+
+**Proved by** `tests/unit/ship-logbook-dom.test.mjs::every ship page whose logbook container names a stories file calls its loader, once`.
+
 ### 20261118-ship-logbook-carousel-mount
 
 Task `inthewake-mount-the-20-ship-page-logbook-carousels-on-logboo`.
@@ -17,6 +27,16 @@ Task `inthewake-mount-the-20-ship-page-logbook-carousels-on-logboo`.
 **Enables.** Readers of those 20 ship pages now see the logbook stories with previous and next buttons, and a test fails if any ship page runs the carousel with nowhere to mount.
 
 **Proved by** `tests/unit/ship-logbook-carousel-mount.test.mjs::every ship page that runs the carousel has an element the carousel can mount on`.
+
+### 20261118-critical-css-header-path
+
+Task `inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-`.
+
+**Why.** The rename in InTheWake #2705 staged the file before its header line was edited, so main's critical.css still names its old path, assets/js/modules/critical.js.
+
+**Enables.** The stylesheet's own header names where it lives, so a reader is not sent to a path that no longer exists.
+
+**Untested:** a one-line comment change in a stylesheet nothing loads; the Argus CSS parse still reads it as ok
 
 ### 20261117-visible-comment-fragments
 
