@@ -8,6 +8,16 @@ The source of cruisinginthewake.com, a static cruise-planning website with ship,
 
 Every change entry, newest first: what it was for, and what it made possible.
 
+### 20261119-state-machines-skill
+
+Task `state-machines-skill-20261119`.
+
+**Why.** Ken asked for the implicit-state-machine question to be part of Sophos and called upon every time we code, in every household repo.
+
+**Enables.** This repo carries the synced state-machines skill and the Sophos front door 1.4.3, which names it: on every coding task, check the code being touched for an implicit state machine and make the change that lifts UX, DX and AX without breaking anything.
+
+**Untested:** skill text only; both files byte-identical to their sources (Project-Sophos skills/state-machines/SKILL.md and open-claw-stuff skills/sophos/SKILL.md), synced by tools/skill-sync; the hook and its tests live in Project-Sophos
+
 ### 20261118-ship-logbook-stories-shown
 
 Task `inthewake-wire-the-dormant-ship-logbook-loaders-so-140-ship-`.
